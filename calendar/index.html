@@ -25,6 +25,7 @@
   --bw: 1.5px;
   --gap: 6px;
   --stk: 1;
+  --alpha: 100%;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -43,13 +44,23 @@ body.bg-lines { background-image: linear-gradient(transparent 31px, var(--line) 
 body.bg-grid { background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 26px 26px; }
 body.bg-stripes { background-image: repeating-linear-gradient(-45deg, var(--line) 0 9px, transparent 9px 26px); }
 body.bg-checks { background-image: conic-gradient(var(--line) 25%, transparent 0 50%, var(--line) 0 75%, transparent 0); background-size: 44px 44px; }
-body.bg-hearts, body.bg-stars, body.bg-confetti, body.bg-flowers { background-image: var(--bg-img); background-size: 90px 90px; }
+body.bg-waves { background-image: radial-gradient(circle at 50% 0, transparent 12px, var(--line) 13px 15px, transparent 16px); background-size: 36px 18px; }
+body.bg-gradient { background-image: linear-gradient(160deg, var(--paper), var(--weekend) 60%, var(--line)); background-attachment: fixed; }
+body.bg-hearts, body.bg-stars, body.bg-confetti, body.bg-flowers, body.bg-rainbows, body.bg-cats { background-image: var(--bg-img); background-size: 90px 90px; }
+body.bg-photo { background-image: var(--photo); background-size: cover; background-position: center; background-attachment: fixed; }
 
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-.wrap { max-width: 1000px; margin: 0 auto; display: grid; gap: 14px; }
+#decor { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+#decor span { position: absolute; top: -12vh; opacity: .5; }
+#decor span svg { width: 100%; height: 100%; display: block; }
+#decor.move span { animation: fall var(--dur) linear var(--delay) infinite; }
+#decor.still span { top: var(--y); }
+@keyframes fall { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(125vh) rotate(var(--spin)); } }
+
+.wrap { position: relative; z-index: 1; max-width: 1040px; margin: 0 auto; display: grid; gap: 14px; }
 
 header.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
 .title-wrap { display: flex; align-items: center; gap: 8px; min-width: 0; }
@@ -63,73 +74,140 @@ body.ts-marker h1 span { color: var(--ink); background: linear-gradient(transpar
 body.ts-wavy h1 { text-decoration: underline wavy var(--accent); text-decoration-thickness: 2px; text-underline-offset: 10px; }
 body.ts-shadow h1 { text-shadow: 3px 3px 0 var(--weekend), 6px 6px 0 var(--line); }
 body.ts-bubble h1 { color: var(--card); -webkit-text-stroke: 1.5px var(--accent); text-shadow: 3px 3px 0 var(--accent); }
+body.ts-rainbow h1 span { background: linear-gradient(90deg, #ff6b6b, #ffb020, #ffd84d, #4fc3a1, #7ec8ff, #b58cff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+body.ts-sticker h1 span { background: var(--accent); color: var(--accent-ink); padding: 0 .35em; border-radius: 14px; box-shadow: 3px 3px 0 var(--ink); display: inline-block; transform: rotate(-2deg); }
 
 .tools { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn {
-  border: 2px var(--border-style) var(--ink); background: var(--card); border-radius: 999px;
+  border: 2px solid var(--ink); background: var(--card); border-radius: 999px;
   padding: 6px 14px; font-size: 1em;
 }
-body.frame-none .btn, body.frame-double .btn { border-style: solid; }
 .btn.main { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .btn:hover { transform: translateY(-1px); }
 
 .place-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--soft); font-size: 1.05em; }
 .place-line strong { color: var(--ink); font-weight: 400; }
+.strip { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; background: color-mix(in srgb, var(--card) 85%, transparent); border: 1.5px solid var(--line); border-radius: 999px; padding: 3px 12px 3px 10px; font-size: .95em; }
+.pill .ic { width: 22px; height: 22px; display: inline-block; flex: none; }
+.pill .ic svg { width: 100%; height: 100%; display: block; }
+.pill b { font-weight: 400; color: var(--accent); }
+button.pill { cursor: pointer; }
+.nums-ltr { font-family: 'Rubik', system-ui, sans-serif; font-variant-numeric: tabular-nums; font-size: .9em; }
 
 .month-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .month-bar h2 { margin: 0; font-family: var(--title-font); font-size: 2em; font-weight: 400; text-align: center; flex: 1; line-height: 1.15; }
 .month-bar h2 small { display: block; font-size: .5em; color: var(--soft); font-family: var(--font); }
-.nav { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 2px var(--border-style) var(--ink); background: var(--card); font-size: 1.3em; line-height: 1; }
+.nav { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 2px solid var(--ink); background: var(--card); font-size: 1.3em; line-height: 1; }
 
 .cal {
-  background: var(--card); border: calc(var(--bw) + .5px) var(--border-style) var(--ink); border-radius: calc(var(--radius) + 6px);
+  position: relative;
+  background: color-mix(in srgb, var(--card) var(--alpha), transparent);
+  border: calc(var(--bw) + .5px) var(--border-style) var(--ink); border-radius: calc(var(--radius) + 6px);
   padding: 10px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--gap);
 }
+/* calendar frames */
+body.cf-spiral .cal { margin-top: 12px; padding-top: 22px; }
+body.cf-spiral .cal::before { content: ""; position: absolute; top: -12px; left: 18px; right: 18px; height: 26px;
+  background: radial-gradient(circle at 50% 70%, var(--paper) 4px, var(--ink) 4.5px 6.5px, transparent 7px) 0 0 / 30px 26px repeat-x,
+    linear-gradient(90deg, transparent 13px, var(--ink) 13px 17px, transparent 17px) 0 0 / 30px 16px repeat-x; }
+body.cf-tape .cal::before, body.cf-tape .cal::after { content: ""; position: absolute; top: -12px; width: 110px; height: 28px;
+  background: color-mix(in srgb, var(--accent) 45%, transparent); border-inline: 2px dashed color-mix(in srgb, var(--card) 70%, transparent); }
+body.cf-tape .cal::before { right: 24px; transform: rotate(4deg); }
+body.cf-tape .cal::after { left: 24px; transform: rotate(-5deg); }
+body.cf-pins .cal::before, body.cf-pins .cal::after { content: ""; position: absolute; top: -9px; width: 22px; height: 22px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff 0 3px, var(--accent) 4px); box-shadow: 1px 3px 3px rgb(0 0 0 / .3); }
+body.cf-pins .cal::before { right: 22px; }
+body.cf-pins .cal::after { left: 22px; }
+body.cf-stitch .cal { outline: 2.5px dashed var(--line); outline-offset: -7px; }
+body.cf-float .cal { box-shadow: 0 16px 34px rgb(0 0 0 / .18); }
+body.cf-polaroid .cal { border: none; border-radius: 6px; padding: 14px 14px 46px; box-shadow: 0 6px 18px rgb(0 0 0 / .18); }
+
 .dow { text-align: center; font-size: 1.1em; color: var(--soft); padding: 2px 0; }
 .dow.we { color: var(--accent); }
 .day {
-  position: relative; min-height: 100px; border-radius: var(--radius);
+  position: relative; min-height: 104px; border-radius: var(--radius);
   border: var(--bw) var(--border-style) var(--line); background: var(--card);
   padding: 6px; text-align: start; display: flex; flex-direction: column; gap: 1px;
-  transition: transform .12s ease; min-width: 0;
+  transition: transform .12s ease; min-width: 0; overflow: hidden;
 }
 .day:hover { transform: scale(1.04) rotate(var(--tilt, 0deg)); z-index: 2; }
 .day.off { background: var(--weekend); }
 .day.empty { visibility: hidden; }
-.day .num { font-size: 1.5em; line-height: 1; align-self: flex-start; }
+.day .top { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+.day .num { font-size: 1.5em; line-height: 1; }
+.day .moon { width: 16px; height: 16px; flex: none; }
+.day .moon svg { width: 100%; height: 100%; display: block; }
 .day .heb { font-size: .68em; color: var(--soft); }
 .day .hol { font-size: .72em; line-height: 1.15; color: var(--accent); overflow-wrap: anywhere; }
 .day .hol.c { color: var(--soft); }
 .day .tag { font-size: .68em; color: var(--soft); }
+.day .tag.first { color: var(--accent); }
+.day .bday { font-size: .72em; line-height: 1.15; color: var(--accent); }
+.day .ev { font-size: .66em; line-height: 1.2; border-radius: 6px; padding: 0 5px; color: #1f2a44; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .day .wx { font-family: 'Rubik', system-ui, sans-serif; font-size: .7em; color: var(--soft); margin-top: auto; direction: ltr; text-align: right; font-variant-numeric: tabular-nums; }
-.day .stk { position: absolute; top: 3px; left: 3px; width: calc(34px * var(--stk)); height: calc(34px * var(--stk)); transform: rotate(var(--srot, -8deg)); pointer-events: none; }
+.day .stks { position: absolute; bottom: 20px; left: 3px; display: flex; pointer-events: none; }
+.day .stk { width: calc(30px * var(--stk)); height: calc(30px * var(--stk)); transform: rotate(var(--srot, -8deg)); margin-inline-end: -8px; }
+.day .stk.txt { font-size: calc(22px * var(--stk)); line-height: 1; }
 .stk svg, .title-stk svg, .pick svg { width: 100%; height: 100%; display: block; overflow: visible;
   filter: drop-shadow(1.6px 0 0 #fff) drop-shadow(-1.6px 0 0 #fff) drop-shadow(0 1.6px 0 #fff) drop-shadow(0 -1.6px 0 #fff) drop-shadow(0 2px 2px rgb(0 0 0 / .18)); }
-body.hide-heb .day .heb, body.hide-hol .day .hol, body.hide-wx .day .wx { display: none; }
+body.hide-heb .day .heb, body.hide-hol .day .hol, body.hide-wx .day .wx, body.hide-moon .day .moon, body.hide-ev .day .ev { display: none; }
+
+/* number styles */
+body.ns-big .day .num { font-size: 2.1em; }
+body.ns-outline .day .num { font-family: 'Rubik', system-ui, sans-serif; font-weight: 600; color: transparent; -webkit-text-stroke: 1.4px var(--ink); font-size: 1.6em; }
+body.ns-circle .day .num { background: var(--line); border-radius: 50%; width: 1.6em; height: 1.6em; display: grid; place-items: center; font-size: 1.15em; }
+body.ns-bubble .day .num { background: var(--accent); color: var(--accent-ink); border-radius: 10px 10px 10px 2px; padding: 2px 7px; font-size: 1.1em; }
 
 /* today marks */
 .day.today.m-frame { border: 3px solid var(--accent); }
-.day.today.m-circle .num { background: var(--accent); color: var(--accent-ink); border-radius: 50%; width: 1.7em; height: 1.7em; display: grid; place-items: center; font-size: 1.2em; }
+.day.today.m-circle .num { background: var(--accent); color: var(--accent-ink); border-radius: 50%; width: 1.7em; height: 1.7em; display: grid; place-items: center; font-size: 1.2em; -webkit-text-stroke: 0; }
 .day.today.m-heart::after, .day.today.m-star::after {
   content: ""; position: absolute; inset-inline-start: 2px; top: 0; width: 2.4em; height: 2.4em;
-  background: var(--today-img) center / contain no-repeat; z-index: -0; opacity: .9; pointer-events: none;
+  background: var(--today-img) center / contain no-repeat; opacity: .9; pointer-events: none;
 }
 .day.today.m-heart .num, .day.today.m-star .num { position: relative; z-index: 1; padding-inline-start: .35em; padding-top: .3em; font-size: 1.2em; }
+.day.today.m-glow { box-shadow: 0 0 0 3px var(--accent), 0 0 18px var(--accent); }
 
 /* shapes */
 body.shape-square { --radius: 4px; }
-body.shape-round .day { border-radius: 50%; aspect-ratio: 1; min-height: 0; align-items: center; justify-content: center; text-align: center; padding: 2px; }
-body.shape-round .day .num { align-self: center; }
-body.shape-round .day .wx, body.shape-round .day .tag, body.shape-round .day .heb, body.shape-round .day .hol { display: none; }
-body.shape-round .day .stk { top: -6px; left: -6px; }
+body.shape-round .day, body.shape-hex .day, body.shape-oct .day, body.shape-pill .day { aspect-ratio: 1; min-height: 0; align-items: center; justify-content: center; text-align: center; padding: 2px; }
+body.shape-round .day { border-radius: 50%; }
+body.shape-pill .day { aspect-ratio: .75; border-radius: 999px; }
+body.shape-hex .day { clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%); border: none; background: var(--line); }
+body.shape-hex .day.off { background: var(--weekend); }
+body.shape-oct .day { clip-path: polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%); border: none; background: color-mix(in srgb, var(--line) 60%, var(--card)); }
+body.shape-oct .day.off { background: var(--weekend); }
+body:is(.shape-round, .shape-hex, .shape-oct, .shape-pill) .day :is(.wx, .tag, .heb, .hol, .bday, .ev, .moon) { display: none; }
+body:is(.shape-round, .shape-hex, .shape-oct, .shape-pill) .day .top { justify-content: center; }
+body:is(.shape-round, .shape-hex, .shape-oct, .shape-pill) .day .stks { bottom: 0; left: 0; }
+body:is(.shape-round, .shape-hex, .shape-oct, .shape-pill) .day .stk { width: calc(20px * var(--stk)); height: calc(20px * var(--stk)); }
 body.shape-blob .day:nth-child(4n) { border-radius: 22px 30px 16px 34px / 30px 16px 34px 22px; }
 body.shape-blob .day:nth-child(4n+1) { border-radius: 34px 18px 28px 20px / 18px 30px 20px 34px; }
 body.shape-blob .day:nth-child(4n+2) { border-radius: 18px 34px 22px 28px / 28px 22px 34px 18px; }
 body.shape-blob .day:nth-child(4n+3) { border-radius: 28px 20px 34px 18px / 22px 34px 18px 30px; }
 body.shape-note .day { border-radius: 3px; border-color: transparent; box-shadow: 2px 3px 0 rgb(0 0 0 / .13); transform: rotate(var(--tilt, 0deg)); background: color-mix(in srgb, var(--weekend) 35%, var(--card)); }
 body.shape-note .day.off { background: var(--weekend); }
+body.shape-leaf .day { border-radius: 4px 30px 4px 30px; }
+body.shape-arch .day { border-radius: 999px 999px 10px 10px / 46px 46px 10px 10px; padding-top: 14px; }
+body.shape-ticket .day { border-radius: 8px; -webkit-mask: radial-gradient(circle 8px at 0 50%, transparent 97%, #000) 0 0 / 51% 100% no-repeat, radial-gradient(circle 8px at 100% 50%, transparent 97%, #000) 100% 0 / 51% 100% no-repeat; mask: radial-gradient(circle 8px at 0 50%, transparent 97%, #000) 0 0 / 51% 100% no-repeat, radial-gradient(circle 8px at 100% 50%, transparent 97%, #000) 100% 0 / 51% 100% no-repeat; padding-inline: 12px; }
+body.shape-stamp .day { border-radius: 0; border: none; -webkit-mask: radial-gradient(circle 4px at 5px 5px, transparent 97%, #000) -5px -5px / 11px 11px, linear-gradient(#000 0 0) center / calc(100% - 16px) calc(100% - 16px) no-repeat; mask: radial-gradient(circle 4px at 5px 5px, transparent 97%, #000) -5px -5px / 11px 11px, linear-gradient(#000 0 0) center / calc(100% - 16px) calc(100% - 16px) no-repeat; box-shadow: inset 0 0 0 5px var(--card), inset 0 0 0 6.5px var(--line); padding: 10px; }
+body.shape-banner .day { border-radius: 4px 4px 0 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 88%, 0 100%); border: none; background: color-mix(in srgb, var(--line) 45%, var(--card)); }
+body.shape-banner .day.off { background: var(--weekend); }
+body.shape-polaroid .day { border-radius: 3px; border: none; padding-bottom: 22px; box-shadow: 0 2px 6px rgb(0 0 0 / .18); transform: rotate(var(--tilt, 0deg)); }
+body.shape-button .day { border-radius: 14px; border: 2px solid var(--ink); box-shadow: 0 5px 0 var(--ink); margin-bottom: 5px; }
+body.shape-button .day:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink); }
+body.shape-bubble .day { border-radius: 18px 18px 18px 4px; overflow: visible; }
+body.shape-bubble .day::before { content: ""; position: absolute; left: -1px; bottom: -9px; width: 14px; height: 10px; background: inherit; border-left: var(--bw) solid var(--line); clip-path: polygon(0 0, 100% 0, 0 100%); }
+body.shape-cloud .day { border-radius: 40px 34px 38px 30px / 30px 40px 32px 38px; box-shadow: 8px -6px 0 -2px var(--card), -8px -6px 0 -3px var(--card); border-color: transparent; margin-top: 8px; }
+body.shape-cloud .day.off { box-shadow: 8px -6px 0 -2px var(--weekend), -8px -6px 0 -3px var(--weekend); }
+body.shape-tilt .day { transform: rotate(var(--tilt, 0deg)); border-width: 2px; }
+body.shape-shadow .day { border-radius: 12px; border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--accent); }
+body.shape-corner .day { border-radius: 24px 4px 24px 4px; }
+body.shape-window .day { border-radius: 6px; background-image: linear-gradient(var(--line), var(--line)), linear-gradient(var(--line), var(--line)); background-size: 100% 2px, 2px 100%; background-position: 0 58%, 50% 0; background-repeat: no-repeat; }
 body.frame-none .day, body.frame-none .cal { border-color: transparent; }
 body.frame-double .day { border-style: double; border-width: calc(var(--bw) + 2.5px); }
+body.frame-glow .day { border-color: var(--accent); box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 45%, transparent); }
 
 .legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--soft); font-size: .95em; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -138,7 +216,7 @@ body.frame-double .day { border-style: double; border-width: calc(var(--bw) + 2.
 /* Sheets */
 dialog {
   border: 2px solid var(--ink); border-radius: 22px; padding: 0;
-  width: min(580px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+  width: min(600px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
   background: var(--card); color: var(--ink);
 }
 dialog::backdrop { background: rgb(20 30 50 / .45); }
@@ -162,12 +240,30 @@ dialog::backdrop { background: rgb(20 30 50 / .45); }
 .holi .name { font-size: 1.35em; line-height: 1.15; }
 .holi .kind { display: inline-block; font-size: .8em; padding: 1px 10px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); margin-inline-start: 6px; vertical-align: middle; }
 .holi .off-note { color: var(--accent); }
+.sky { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; }
+.sky .moon-big { width: 64px; height: 64px; }
+.sky .moon-big svg { width: 100%; height: 100%; display: block; }
+.sky-times { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.sky-times span { display: inline-flex; align-items: center; gap: 6px; }
+.ev-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.ev-list li { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 12px; }
+.ev-list .t { font-family: 'Rubik', system-ui, sans-serif; font-size: .85em; font-variant-numeric: tabular-nums; }
+.ev-list .del { margin-inline-start: auto; border: none; background: transparent; font-size: 1.1em; }
+.ev-form { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ev-form input[type="text"] { flex: 1 1 160px; width: auto; }
+.colorpick { display: flex; gap: 4px; }
+.colorpick button { width: 26px; height: 26px; border-radius: 50%; border: 2px solid transparent; padding: 0; }
+.colorpick button[aria-pressed="true"] { border-color: var(--ink); }
 a { color: var(--accent); }
 .pickers { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 6px; }
-.pick { aspect-ratio: 1; border: 2px solid transparent; background: transparent; border-radius: 12px; padding: 6px; }
+.pickers.scroll { max-height: 240px; overflow-y: auto; padding: 2px; }
+.pick { aspect-ratio: 1; border: 2px solid transparent; background: transparent; border-radius: 12px; padding: 6px; position: relative; }
 .pick:hover { background: var(--paper); }
 .pick[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
 .pick.none { font-size: .85em; border: 2px dashed var(--line); }
+.bd-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 12px; background: var(--paper); flex-wrap: wrap; }
+.bd-row .who { flex: 1 1 140px; }
+.bd-row input[type="text"] { width: 100%; }
 
 /* design panel */
 .row { display: grid; gap: 6px; }
@@ -182,6 +278,7 @@ a { color: var(--accent); }
 .colors label { display: inline-flex; align-items: center; gap: 6px; }
 input[type="color"] { width: 42px; height: 32px; border: none; background: none; padding: 0; }
 input[type="text"], input[type="search"] { border: 2px solid var(--line); border-radius: 12px; padding: 6px 10px; background: var(--card); width: 100%; }
+input[type="date"], input[type="time"] { border: 2px solid var(--line); border-radius: 10px; padding: 4px 8px; background: var(--card); font-family: 'Rubik', system-ui, sans-serif; font-size: .85em; }
 input[type="range"] { width: 100%; accent-color: var(--accent); }
 input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); }
 .search { display: flex; gap: 6px; }
@@ -191,43 +288,62 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
 .tabs { display: flex; flex-wrap: wrap; gap: 6px; position: sticky; top: -18px; background: var(--card); padding-block: 6px; z-index: 1; }
 .tabs button { border: 2px solid var(--line); background: var(--card); border-radius: 999px; padding: 4px 14px; }
 .tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tab-panel { display: grid; gap: 14px; }
 .hol-list { display: grid; gap: 4px; }
 .hol-list label { display: flex; align-items: center; gap: 10px; padding: 4px 8px; border-radius: 10px; }
 .hol-list label:hover { background: var(--paper); }
-.hol-list .when { color: var(--soft); font-size: .85em; margin-inline-start: auto; }
 .sec-title { font-size: 1.25em; color: var(--accent); margin: 6px 0 0; font-weight: 400; }
 .vac { display: grid; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 14px; }
 .vac-dates { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .vac-dates label { display: inline-flex; align-items: center; gap: 6px; }
-input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding: 4px 8px; background: var(--card); font-family: 'Rubik', system-ui, sans-serif; font-size: .85em; }
-.day .tag.first { color: var(--accent); }
+.shape-demo { display: inline-block; width: 18px; height: 18px; background: var(--line); border: 1.5px solid var(--ink); margin-inline-end: 6px; vertical-align: -3px; }
+
+#confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5; }
 
 @media (max-width: 620px) {
   body { font-size: calc(16px * var(--size)); }
   h1 { font-size: 2.1em; }
   .cal { padding: 6px; gap: min(var(--gap), 4px); }
-  .day { min-height: 72px; padding: 3px; }
+  .day { min-height: 76px; padding: 3px; }
   .day .num { font-size: 1.2em; }
-  .day .tag, .day .heb { display: none; }
-  .day .hol { font-size: .62em; }
-  .day .stk { width: calc(24px * var(--stk)); height: calc(24px * var(--stk)); top: auto; bottom: 16px; left: 1px; }
-  .day .wx { font-size: .62em; }
+  .day .tag, .day .heb, .day .ev { display: none; }
+  .day .hol, .day .bday { font-size: .6em; }
+  .day .moon { width: 12px; height: 12px; }
+  .day .stks { bottom: 14px; left: 1px; }
+  .day .stk { width: calc(20px * var(--stk)); height: calc(20px * var(--stk)); }
+  .day .wx { font-size: .6em; }
+  .sky { grid-template-columns: 1fr; }
 }
-@media (prefers-reduced-motion: reduce) { .day, .btn { transition: none; } .day:hover, .btn:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .day, .btn { transition: none; } .day:hover, .btn:hover { transform: none; }
+  #decor.move span { animation: none; top: var(--y); }
+}
+@page { size: landscape; margin: 8mm; }
+@media print {
+  body { padding: 0; font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; min-height: 0; }
+  .tools, .legend, #goToday, .nav, .strip, .place-line, dialog, #decor { display: none !important; }
+  .wrap { max-width: none; gap: 6px; }
+  .day { min-height: 88px; break-inside: avoid; }
+  .day:hover { transform: none; }
+}
 </style>
 </head>
 <body class="bg-dots">
+<div id="decor" aria-hidden="true"></div>
 <div class="wrap">
   <header class="top">
     <div class="title-wrap"><span class="title-stk" id="titleStk" aria-hidden="true"></span><h1><span id="title">הלוח שלי</span></h1></div>
     <div class="tools">
       <button class="btn" id="openPlace" type="button">📍 מקום</button>
       <button class="btn" id="openHol" type="button">🕎 חגים</button>
+      <button class="btn" id="openBday" type="button">🎂 ימי הולדת</button>
+      <button class="btn" id="printBtn" type="button">🖨️ להדפסה</button>
       <button class="btn main" id="openDesign" type="button">🎨 לעצב</button>
     </div>
   </header>
 
   <div class="place-line">📍 המקום שלי: <strong id="placeName">פיטר קופר וילג', ניו יורק</strong> <span id="wxStatus" class="muted"></span></div>
+  <div class="strip" id="strip"></div>
 
   <div class="month-bar">
     <button class="nav" id="prev" type="button" aria-label="לחודש הקודם">→</button>
@@ -241,23 +357,27 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
   <div class="legend">
     <span><i class="sw" style="background:var(--card)"></i> 🎒 יש לימודים</span>
     <span><i class="sw" style="background:var(--weekend)"></i> 🎉 אין לימודים (שבת, ראשון, חגים וחופשות)</span>
-    <span>לוחצים על יום כדי לראות חגים, מעלות ומה ללבוש</span>
+    <span>לוחצים על יום כדי לראות הכל ולהוסיף דברים</span>
   </div>
 </div>
 
 <!-- Day sheet -->
 <dialog id="dayDlg" aria-labelledby="dayTitle">
+  <canvas id="confetti" aria-hidden="true"></canvas>
   <div class="sheet">
     <div class="sheet-head">
       <div><h3 id="dayTitle"></h3><div class="sub" id="dayHeb"></div></div>
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="school" id="daySchool"></div>
+    <section class="box" id="dayBday" hidden></section>
+    <section class="box" id="dayEvents"></section>
     <section class="box" id="dayHol"></section>
+    <section class="box" id="daySky"></section>
     <section class="box" id="dayWeather"></section>
     <section class="box">
-      <h4>מדבקה ליום הזה</h4>
-      <div class="pickers" id="stickerPick"></div>
+      <h4>מדבקות ליום הזה <span class="muted">(אפשר עד 4)</span></h4>
+      <div class="pickers scroll" id="stickerPick"></div>
     </section>
   </div>
 </dialog>
@@ -282,6 +402,19 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     </form>
     <p class="muted" id="searchMsg" hidden></p>
     <ul class="results" id="results"></ul>
+  </div>
+</dialog>
+
+<!-- Birthdays sheet -->
+<dialog id="bdayDlg" aria-labelledby="bdayTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="bdayTitle">🎂 ימי הולדת</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted">ימי ההולדת מופיעים בלוח כל שנה. מסמנים "זו אני" ליד יום ההולדת שלך, ומקבלים ספירה לאחור!</p>
+    <div class="row" id="bdayList"></div>
+    <div><button class="btn main" type="button" id="addBday">+ להוסיף יום הולדת</button></div>
   </div>
 </dialog>
 
@@ -329,7 +462,7 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
       </div>
       <div class="row"><span class="lbl">הכתב של הכותרת</span><div class="chips" id="titleFonts"></div></div>
       <div class="row"><span class="lbl">סגנון הכותרת</span><div class="chips" id="titleStyles"></div></div>
-      <div class="row"><span class="lbl">מדבקה ליד הכותרת</span><div class="pickers" id="titleStkPick"></div></div>
+      <div class="row"><span class="lbl">מדבקה ליד הכותרת</span><div class="pickers scroll" id="titleStkPick"></div></div>
     </div>
 
     <div class="tab-panel" data-tab="colors">
@@ -346,21 +479,34 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
         </div>
       </div>
       <div class="row"><span class="lbl">רקע</span><div class="chips" id="bgs"></div></div>
+      <div class="row">
+        <label for="photoIn">🖼️ תמונה שלי כרקע</label>
+        <input type="file" id="photoIn" accept="image/*">
+        <p class="muted" id="photoMsg" hidden></p>
+      </div>
     </div>
 
     <div class="tab-panel" data-tab="text">
       <div class="row"><span class="lbl">הכתב של כל הלוח</span><div class="chips" id="fonts"></div></div>
       <div class="row"><label for="dSize">גודל הכתב</label><input type="range" id="dSize" min="0.85" max="1.3" step="0.05"></div>
+      <div class="row"><span class="lbl">סגנון המספרים</span><div class="chips" id="numStyles"></div></div>
     </div>
 
     <div class="tab-panel" data-tab="days">
       <div class="row"><span class="lbl">צורת הימים</span><div class="chips" id="shapes"></div></div>
-      <div class="row"><span class="lbl">מסגרות</span><div class="chips" id="borders"></div></div>
+      <div class="row"><span class="lbl">מסגרות לימים</span><div class="chips" id="borders"></div></div>
       <div class="row"><label for="dBw">עובי המסגרת</label><input type="range" id="dBw" min="0.5" max="4" step="0.5"></div>
-      <div class="row"><label for="dGap">רווח בין הימים</label><input type="range" id="dGap" min="2" max="14" step="1"></div>
+      <div class="row"><label for="dGap">רווח בין הימים</label><input type="range" id="dGap" min="2" max="16" step="1"></div>
       <div class="row"><span class="lbl">איך לסמן את היום</span><div class="chips" id="todayMarks"></div></div>
-      <div class="row"><span class="lbl">מה לכתוב בתוך הימים</span><div class="chips" id="shows"></div></div>
       <div class="row"><label for="dStk">גודל המדבקות</label><input type="range" id="dStk" min="0.7" max="1.5" step="0.1"></div>
+    </div>
+
+    <div class="tab-panel" data-tab="board">
+      <div class="row"><span class="lbl">מסגרת ללוח</span><div class="chips" id="calFrames"></div></div>
+      <div class="row"><label for="dAlpha">כמה הלוח שקוף</label><input type="range" id="dAlpha" min="40" max="100" step="5"></div>
+      <div class="row"><span class="lbl">מה לכתוב בתוך הימים</span><div class="chips" id="shows"></div></div>
+      <div class="row"><span class="lbl">קישוטים לפי עונה (עלים, שלג, פרחים, שמש)</span><div class="chips" id="decorOpts"></div></div>
+      <div class="row"><span class="lbl">קונפטי בימי הולדת ובחגים</span><div class="chips" id="confettiOpts"></div></div>
     </div>
 
     <div><button class="btn" type="button" id="resetDesign">להחזיר את העיצוב להתחלה</button></div>
@@ -376,16 +522,16 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
   const isWeekend = d => d === 0 || d === 6; // Sunday + Saturday: no school
 
   const PLACES = [
-    { name: "פיטר קופר וילג', ניו יורק", short: 'פיטר קופר 🏠', lat: 40.7352, lon: -73.9776 },
-    { name: 'סטאי טאון, ניו יורק', short: 'סטאי טאון', lat: 40.7316, lon: -73.9778 },
-    { name: 'שורש, ישראל', short: 'שורש', lat: 31.7980, lon: 35.0660 },
-    { name: 'מעלה החמישה, ישראל', short: 'מעלה החמישה', lat: 31.8170, lon: 35.1130 },
-    { name: 'ירושלים, ישראל', short: 'ירושלים', lat: 31.7683, lon: 35.2137 },
+    { name: "פיטר קופר וילג', ניו יורק", short: 'פיטר קופר 🏠', lat: 40.7352, lon: -73.9776, tz: 'America/New_York' },
+    { name: 'סטאי טאון, ניו יורק', short: 'סטאי טאון', lat: 40.7316, lon: -73.9778, tz: 'America/New_York' },
+    { name: 'שורש, ישראל', short: 'שורש', lat: 31.7980, lon: 35.0660, tz: 'Asia/Jerusalem' },
+    { name: 'מעלה החמישה, ישראל', short: 'מעלה החמישה', lat: 31.8170, lon: 35.1130, tz: 'Asia/Jerusalem' },
+    { name: 'ירושלים, ישראל', short: 'ירושלים', lat: 31.7683, lon: 35.2137, tz: 'Asia/Jerusalem' },
   ];
 
   const store = {
     get(k, fallback) { try { const v = localStorage.getItem('halu4-' + k); return v ? JSON.parse(v) : fallback; } catch { return fallback; } },
-    set(k, v) { try { localStorage.setItem('halu4-' + k, JSON.stringify(v)); } catch {} },
+    set(k, v) { try { localStorage.setItem('halu4-' + k, JSON.stringify(v)); return true; } catch { return false; } },
   };
 
   const $ = s => document.querySelector(s);
@@ -404,10 +550,13 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
   const iso = (y, m, d) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
   const fromIso = s => { const [y, m, d] = s.split('-').map(Number); return { y, m: m - 1, d }; };
   const localToday = () => { const n = new Date(); return iso(n.getFullYear(), n.getMonth(), n.getDate()); };
+  const daysBetween = (a, b) => Math.round((Date.UTC(...(p => [p.y, p.m, p.d])(fromIso(b))) - Date.UTC(...(p => [p.y, p.m, p.d])(fromIso(a)))) / 864e5);
+  const reduceMotion = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ================= drawn stickers =================
   const O = '#3a2b3c';
   const S = `stroke="${O}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"`;
+  const S2 = `stroke="${O}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"`;
   const face = (cx, cy, s = 1) =>
     `<circle cx="${cx - 7 * s}" cy="${cy + 3 * s}" r="${2.2 * s}" fill="#ff8fab" opacity=".6"/><circle cx="${cx + 7 * s}" cy="${cy + 3 * s}" r="${2.2 * s}" fill="#ff8fab" opacity=".6"/>` +
     `<circle cx="${cx - 4 * s}" cy="${cy}" r="${1.8 * s}" fill="${O}"/><circle cx="${cx + 4 * s}" cy="${cy}" r="${1.8 * s}" fill="${O}"/>` +
@@ -417,9 +566,13 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     const a = -Math.PI / 2 + i * Math.PI / n, rr = i % 2 ? r : R;
     return `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`;
   }).join(' ');
-  const rays = (cx, cy, r1, r2, n, w, col) => Array.from({ length: n }, (_, i) => {
-    const a = i * 2 * Math.PI / n;
+  const rays = (cx, cy, r1, r2, n, w, col, a0 = 0) => Array.from({ length: n }, (_, i) => {
+    const a = a0 + i * 2 * Math.PI / n;
     return `<line x1="${(cx + r1 * Math.cos(a)).toFixed(1)}" y1="${(cy + r1 * Math.sin(a)).toFixed(1)}" x2="${(cx + r2 * Math.cos(a)).toFixed(1)}" y2="${(cy + r2 * Math.sin(a)).toFixed(1)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+  }).join('');
+  const ring = (cx, cy, r, n, rr, fill) => Array.from({ length: n }, (_, i) => {
+    const a = -Math.PI / 2 + i * 2 * Math.PI / n;
+    return `<circle cx="${(cx + r * Math.cos(a)).toFixed(1)}" cy="${(cy + r * Math.sin(a)).toFixed(1)}" r="${rr}" fill="${fill}" ${S}/>`;
   }).join('');
   const svg = body => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
 
@@ -430,31 +583,122 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     cloud: ['ענן', svg(`<path d="M12 36 H36 A8 8 0 0 0 37 20 A11 11 0 0 0 16 17 A9.5 9.5 0 0 0 12 36 Z" fill="#e3f3ff" ${S}/>${face(25, 27, .75)}`)],
     moon: ['ירח', svg(`<path d="M29 6 A18 18 0 1 0 42 33 A14 14 0 1 1 29 6 Z" fill="#ffe27a" ${S}/><circle cx="17" cy="24" r="1.7" fill="${O}"/><circle cx="24" cy="26" r="1.7" fill="${O}"/><path d="M18.5 29 Q21 31.5 23.5 29.5" fill="none" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><circle cx="41" cy="11" r="1.6" fill="#ffd84d"/><circle cx="36" cy="5" r="1.1" fill="#ffd84d"/>`)],
     rainbow: ['קשת', svg(`<path d="M5 37 A19 19 0 0 1 43 37" fill="none" stroke="${O}" stroke-width="16" stroke-linecap="round"/><path d="M5 37 A19 19 0 0 1 43 37" fill="none" stroke="#ff7a7a" stroke-width="11"/><path d="M10 37 A14 14 0 0 1 38 37" fill="none" stroke="#ffd84d" stroke-width="5.5"/><path d="M14.5 37 A9.5 9.5 0 0 1 33.5 37" fill="none" stroke="#7ec8ff" stroke-width="4"/><circle cx="8" cy="38" r="5" fill="#fff" ${S}/><circle cx="12.5" cy="39.5" r="3.8" fill="#fff" ${S}/><circle cx="40" cy="38" r="5" fill="#fff" ${S}/><circle cx="35.5" cy="39.5" r="3.8" fill="#fff" ${S}/>`)],
+    sparkles: ['נצנצים', svg(`<path d="M20 6 Q22 18 34 20 Q22 22 20 34 Q18 22 6 20 Q18 18 20 6 Z" fill="#ffd84d" ${S}/><path d="M36 26 Q37 33 44 34 Q37 35 36 42 Q35 35 28 34 Q35 33 36 26 Z" fill="#ff9ad5" ${S2}/><path d="M37 4 Q38 9 43 10 Q38 11 37 16 Q36 11 31 10 Q36 9 37 4 Z" fill="#7ec8ff" ${S2}/>`)],
+    smiley: ['סמיילי', svg(`<circle cx="24" cy="24" r="18" fill="#ffd84d" ${S}/><circle cx="17" cy="20" r="2.4" fill="${O}"/><circle cx="31" cy="20" r="2.4" fill="${O}"/><path d="M15 27 Q24 37 33 27" fill="#fff" ${S}/><circle cx="12" cy="27" r="3" fill="#ff8fab" opacity=".6"/><circle cx="36" cy="27" r="3" fill="#ff8fab" opacity=".6"/>`)],
+    lightning: ['ברק', svg(`<polygon points="28,3 10,27 22,27 18,45 38,19 26,19" fill="#ffd84d" ${S}/>`)],
+    gem: ['יהלום', svg(`<polygon points="12,8 36,8 45,19 24,43 3,19" fill="#9fe6ff" ${S}/><path d="M3 19 H45 M12 8 L18 19 L24 8 L30 19 L36 8 M18 19 L24 43 L30 19" fill="none" ${S2}/>${shine(9, 15)}`)],
+    wand: ['שרביט קסמים', svg(`<line x1="10" y1="42" x2="28" y2="22" stroke="${O}" stroke-width="6" stroke-linecap="round"/><line x1="10" y1="42" x2="28" y2="22" stroke="#b58cff" stroke-width="3" stroke-linecap="round"/><polygon points="${starPts(32, 16, 12, 5.5)}" fill="#ffd84d" ${S}/><circle cx="12" cy="12" r="2" fill="#ff9ad5"/><circle cx="42" cy="34" r="2" fill="#7ec8ff"/><circle cx="20" cy="6" r="1.4" fill="#ffd84d"/>`)],
+    bow: ['פפיון', svg(`<path d="M24 24 C16 12 4 12 5 24 C4 36 16 36 24 24 Z" fill="#ff9ad5" ${S}/><path d="M24 24 C32 12 44 12 43 24 C44 36 32 36 24 24 Z" fill="#ff9ad5" ${S}/><path d="M21 26 L16 42 L20 40 L22 44 Z M27 26 L32 42 L28 40 L26 44 Z" fill="#ff7ab8" ${S2}/><circle cx="24" cy="24" r="5" fill="#ff7ab8" ${S}/>`)],
     cake: ['עוגה', svg(`<rect x="10" y="24" width="28" height="15" rx="3" fill="#ffc2d6" ${S}/><path d="M10 28 Q13 32 16 28 Q19 32 22 28 Q25 32 28 28 Q31 32 34 28 Q37 32 38 28 V27 A3 3 0 0 0 35 24 H13 A3 3 0 0 0 10 27 Z" fill="#fff" ${S}/><rect x="21.5" y="13" width="5" height="11" rx="1.5" fill="#8fd3ff" ${S}/><path d="M24 4 C28 8 28 12 24 12 C20 12 20 8 24 4 Z" fill="#ffb020" ${S}/><circle cx="16" cy="34" r="1.5" fill="#ff7a9a"/><circle cx="24" cy="35" r="1.5" fill="#7ec8ff"/><circle cx="32" cy="34" r="1.5" fill="#ffd84d"/>`)],
     balloon: ['בלון', svg(`<path d="M24 34 Q20 40 24 45" fill="none" ${S}/><ellipse cx="24" cy="18" rx="12" ry="14" fill="#ff8fb1" ${S}/><path d="M21.5 32 H26.5 L24 35.5 Z" fill="#ff8fb1" ${S}/>${shine(15, 15)}`)],
+    gift: ['מתנה', svg(`<rect x="9" y="21" width="30" height="20" rx="2.5" fill="#b58cff" ${S}/><rect x="7" y="14" width="34" height="8" rx="2.5" fill="#cfb2ff" ${S}/><rect x="21" y="14" width="6" height="27" fill="#ffd84d" ${S}/><path d="M24 14 C18 4 9 9 16 14 Z M24 14 C30 4 39 9 32 14 Z" fill="#ffd84d" ${S}/>`)],
+    cupcake: ['קאפקייק', svg(`<path d="M13 27 H35 L32 42 H16 Z" fill="#7ec8ff" ${S}/><path d="M19 28 L20 41 M24 28 V41 M29 28 L28 41" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><path d="M11 28 C8.5 21 14.5 17.5 18 18.5 C18 12.5 25 9.5 29 14 C34 12.5 39.5 17.5 37 22.5 C41 24.5 39 29 35 28 Z" fill="#ffc2d6" ${S}/><circle cx="27" cy="9.5" r="3.6" fill="#ff5a6e" ${S} stroke-width="2"/>${face(24, 22, .6)}`)],
+    icecream: ['גלידה', svg(`<circle cx="24" cy="12" r="7.5" fill="#9be3c9" ${S}/><path d="M15 25 L24 45 L33 25 Z" fill="#f2b56b" ${S}/><path d="M19 29 L27.5 37 M29 29 L20.5 37" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/><circle cx="24" cy="21" r="10" fill="#ffb3cd" ${S}/>${face(24, 21, .65)}`)],
+    donut: ['דונאט', svg(`<circle cx="24" cy="25" r="18" fill="#f2b56b" ${S}/><path d="M9 22 C9 13 17 8 24 8 C33 8 40 14 40 22 C41 27 37 26 36 29 C34 33 30 29 27 32 C24 35 21 31 18 33 C14 35 12 30 10 29 C8 27 9 24 9 22 Z" fill="#ff9ad5" ${S}/><circle cx="24" cy="23" r="5.5" fill="#fff" ${S}/><path d="M15 15 l3 1 M30 13 l2 2.5 M34 20 l3 -1 M17 25 l-1 3 M29 27 l3 1" stroke="#7ec8ff" stroke-width="2.2" stroke-linecap="round"/><path d="M21 12 l2 -2 M13 20 l3 0 M33 25 l0 3" stroke="#ffd84d" stroke-width="2.2" stroke-linecap="round"/>`)],
+    cookie: ['עוגייה', svg(`<circle cx="24" cy="24" r="18" fill="#e8b77a" ${S}/><g fill="#6b4226"><ellipse cx="16" cy="16" rx="2.4" ry="2"/><ellipse cx="30" cy="14" rx="2.2" ry="1.8"/><ellipse cx="33" cy="27" rx="2.4" ry="2"/><ellipse cx="20" cy="31" rx="2.2" ry="1.8"/><ellipse cx="13" cy="25" rx="1.8" ry="1.5"/><ellipse cx="27" cy="35" rx="1.8" ry="1.5"/></g>${face(24, 22, .7)}`)],
+    lollipop: ['סוכרייה על מקל', svg(`<line x1="24" y1="30" x2="24" y2="46" stroke="${O}" stroke-width="5" stroke-linecap="round"/><line x1="24" y1="30" x2="24" y2="46" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><circle cx="24" cy="18" r="14" fill="#ff9ad5" ${S}/><path d="M24 18 m0 -2 a2 2 0 1 1 -2 2 a4.5 4.5 0 1 1 4.5 4.5 a7 7 0 1 1 -7 -7 a9.5 9.5 0 1 1 9.5 9.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>`)],
+    pizza: ['פיצה', svg(`<path d="M24 43 L7 12 Q24 4 41 12 Z" fill="#ffd46b" ${S}/><path d="M7 12 Q24 4 41 12 L38.5 17 Q24 10 9.5 17 Z" fill="#e8a35b" ${S}/><circle cx="19" cy="21" r="3.3" fill="#ff6b6b" ${S2}/><circle cx="29" cy="23" r="3.3" fill="#ff6b6b" ${S2}/><circle cx="24" cy="32" r="2.8" fill="#ff6b6b" ${S2}/>`)],
+    watermelon: ['אבטיח', svg(`<path d="M4 16 A20 20 0 0 0 44 16 Z" fill="#6fcf7f" ${S}/><path d="M8.5 16 A15.5 15.5 0 0 0 39.5 16 Z" fill="#ff6b8b" ${S2}/><g fill="${O}"><ellipse cx="16" cy="21" rx="1.3" ry="2"/><ellipse cx="24" cy="25" rx="1.3" ry="2"/><ellipse cx="32" cy="21" rx="1.3" ry="2"/><ellipse cx="20" cy="28" rx="1.2" ry="1.8"/><ellipse cx="28" cy="28" rx="1.2" ry="1.8"/></g>`)],
+    strawberry: ['תות', svg(`<path d="M24 43 C11 37 7 25 11 18 C15 12.5 33 12.5 37 18 C41 25 37 37 24 43 Z" fill="#ff5a6e" ${S}/><path d="M13 15 L19.5 11.5 L24 6 L28.5 11.5 L35 15 L27 16.5 L24 20 L21 16.5 Z" fill="#6fcf7f" ${S}/><g fill="#ffe79a"><ellipse cx="17" cy="24" rx="1.1" ry="1.6"/><ellipse cx="24" cy="26" rx="1.1" ry="1.6"/><ellipse cx="31" cy="24" rx="1.1" ry="1.6"/><ellipse cx="20" cy="32" rx="1.1" ry="1.6"/><ellipse cx="28" cy="32" rx="1.1" ry="1.6"/><ellipse cx="24" cy="37" rx="1.1" ry="1.6"/></g>`)],
+    apple: ['תפוח', svg(`<path d="M24 14 C18 9 7 12 8 24 C9 36 17 43 24 40 C31 43 39 36 40 24 C41 12 30 9 24 14 Z" fill="#ff5a6e" ${S}/><path d="M24 14 C24 10 25 7 27 5" fill="none" ${S}/><path d="M26 10 C28 4 36 4 37 7 C33 11 29 11 26 10 Z" fill="#6fcf7f" ${S2}/>${shine(12, 22)}`)],
+    avocado: ['אבוקדו', svg(`<path d="M24 4 C31 4 34 12 36 20 C40 30 35 44 24 44 C13 44 8 30 12 20 C14 12 17 4 24 4 Z" fill="#4f9a4a" ${S}/><path d="M24 9 C29 9 31 15 32.5 21 C35.5 30 32 40 24 40 C16 40 12.5 30 15.5 21 C17 15 19 9 24 9 Z" fill="#c9ef8f" ${S2}/><circle cx="24" cy="30" r="6.5" fill="#a0673b" ${S2}/><circle cx="21.5" cy="29" r="1.1" fill="${O}"/><circle cx="26.5" cy="29" r="1.1" fill="${O}"/><path d="M22.5 32 Q24 33.5 25.5 32" fill="none" stroke="${O}" stroke-width="1.3" stroke-linecap="round"/>`)],
+    cocoa: ['שוקו חם', svg(`<path d="M16 12 q-3 -4 0 -7 M24 12 q-3 -4 0 -7 M32 12 q-3 -4 0 -7" fill="none" stroke="${O}" stroke-width="2" stroke-linecap="round" opacity=".7"/><path d="M34 22 H38 A5 5 0 0 1 38 32 H34" fill="none" ${S}/><path d="M9 16 H35 V36 A6 6 0 0 1 29 42 H15 A6 6 0 0 1 9 36 Z" fill="#ff7a9a" ${S}/><ellipse cx="22" cy="16" rx="13" ry="3" fill="#8a5a3c" ${S2}/>${face(22, 28, .75)}`)],
     book: ['ספר', svg(`<path d="M4 15 V40 C11 37.5 18 37.5 24 41 C30 37.5 37 37.5 44 40 V15" fill="#7ec8ff" ${S}/><path d="M24 13 C18 9 11 10 7 12 V36 C11 34 18 34 24 38 Z" fill="#fff" ${S}/><path d="M24 13 C30 9 37 10 41 12 V36 C37 34 30 34 24 38 Z" fill="#fff" ${S}/><path d="M11 18 C14 17 17 17 20 18.5 M11 23 C14 22 17 22 20 23.5 M28 18.5 C31 17 34 17 37 18 M28 23.5 C31 22 34 22 37 23" fill="none" stroke="#b9c7d8" stroke-width="2" stroke-linecap="round"/>`)],
     pencil: ['עיפרון', svg(`<g transform="rotate(-45 24 24)"><rect x="4" y="18.5" width="6" height="11" rx="2.5" fill="#ff9aa8" ${S}/><rect x="9" y="18.5" width="4" height="11" fill="#cfd6e0" ${S}/><rect x="13" y="18.5" width="21" height="11" fill="#ffd84d" ${S}/><polygon points="34,18.5 44,24 34,29.5" fill="#f7d9b0" ${S}/><polygon points="40.5,22 44,24 40.5,26" fill="${O}"/></g>`)],
     backpack: ['תיק', svg(`<path d="M19 13 V9.5 A5 5 0 0 1 29 9.5 V13" fill="none" ${S}/><rect x="11" y="12" width="26" height="30" rx="9" fill="#6fcf7f" ${S}/><rect x="16" y="27" width="16" height="11" rx="3.5" fill="#a7e8b1" ${S}/><path d="M16 31 H32" ${S}/><circle cx="24" cy="20" r="2" fill="${O}"/>`)],
-    ball: ['כדור', svg(`<circle cx="24" cy="24" r="18" fill="#fff" ${S}/><polygon points="${starPts(24, 24, 6.5, 6.5, 5).split(' ').filter((_, i) => i % 2 === 0).join(' ')}" fill="${O}"/>${rays(24, 24, 7, 18, 5, 2.5, O).replace(/line /g, 'line transform="rotate(-90 24 24)" ')}`)],
-    palette: ['צבעים', svg(`<path d="M24 6 C35.5 6 43 13.5 43 23 C43 30.5 36.5 31.5 32 29.5 C28 27.5 25.5 30.5 27.5 34.5 C29.5 39.5 26.5 42.5 21.5 41.5 C11.5 40 5 32 5 23 C5 13.5 13 6 24 6 Z" fill="#f3d9b1" ${S}/><circle cx="14.5" cy="21" r="3.6" fill="#ff6b6b" ${S} stroke-width="1.8"/><circle cx="21.5" cy="13.5" r="3.6" fill="#ffd84d" ${S} stroke-width="1.8"/><circle cx="31" cy="13.5" r="3.6" fill="#4fc3a1" ${S} stroke-width="1.8"/><circle cx="36" cy="21.5" r="3.6" fill="#7ec8ff" ${S} stroke-width="1.8"/><circle cx="14.5" cy="31" r="3.6" fill="#b58cff" ${S} stroke-width="1.8"/>`)],
+    lightbulb: ['רעיון', svg(`${rays(24, 18, 16, 21, 7, 2.4, '#ffb020', -Math.PI)}<path d="M24 5 A12 12 0 0 1 31 27 V31 H17 V27 A12 12 0 0 1 24 5 Z" fill="#ffe27a" ${S}/><rect x="17" y="31" width="14" height="8" rx="2" fill="#cfd6e0" ${S}/><path d="M17 35 H31" ${S2}/><path d="M21 43 H27" ${S}/>${shine(17, 14)}`)],
+    headphones: ['אוזניות', svg(`<path d="M8 30 V24 A16 16 0 0 1 40 24 V30" fill="none" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M8 30 V24 A16 16 0 0 1 40 24 V30" fill="none" stroke="#b58cff" stroke-width="3.5" stroke-linecap="round"/><rect x="4" y="26" width="11" height="16" rx="5" fill="#ff9ad5" ${S}/><rect x="33" y="26" width="11" height="16" rx="5" fill="#ff9ad5" ${S}/>`)],
+    camera: ['מצלמה', svg(`<rect x="5" y="14" width="38" height="26" rx="6" fill="#7ec8ff" ${S}/><path d="M16 14 L19 8 H29 L32 14" fill="#7ec8ff" ${S}/><circle cx="24" cy="27" r="9" fill="#fff" ${S}/><circle cx="24" cy="27" r="4.5" fill="#3d4378" ${S2}/><circle cx="36.5" cy="19.5" r="2" fill="#ffd84d" ${S2}/>${shine(20, 25)}`)],
+    ball: ['כדור', svg(`<circle cx="24" cy="24" r="18" fill="#fff" ${S}/><polygon points="24,17.5 30.2,22 27.8,29.3 20.2,29.3 17.8,22" fill="${O}"/>${rays(24, 24, 7, 18, 5, 2.5, O, -Math.PI / 2)}`)],
+    basketball: ['כדורסל', svg(`<circle cx="24" cy="24" r="18" fill="#ff9a3c" ${S}/><path d="M6 24 H42 M24 6 V42 M11 11 C18 18 18 30 11 37 M37 11 C30 18 30 30 37 37" fill="none" ${S2}/>`)],
+    palette: ['צבעים', svg(`<path d="M24 6 C35.5 6 43 13.5 43 23 C43 30.5 36.5 31.5 32 29.5 C28 27.5 25.5 30.5 27.5 34.5 C29.5 39.5 26.5 42.5 21.5 41.5 C11.5 40 5 32 5 23 C5 13.5 13 6 24 6 Z" fill="#f3d9b1" ${S}/><circle cx="14.5" cy="21" r="3.6" fill="#ff6b6b" ${S2}/><circle cx="21.5" cy="13.5" r="3.6" fill="#ffd84d" ${S2}/><circle cx="31" cy="13.5" r="3.6" fill="#4fc3a1" ${S2}/><circle cx="36" cy="21.5" r="3.6" fill="#7ec8ff" ${S2}/><circle cx="14.5" cy="31" r="3.6" fill="#b58cff" ${S2}/>`)],
     music: ['מוזיקה', svg(`<polygon points="19.5,12 39.5,7 39.5,14 19.5,19" fill="${O}" ${S}/><line x1="19.5" y1="14" x2="19.5" y2="35" ${S}/><line x1="39.5" y1="10" x2="39.5" y2="31" ${S}/><ellipse cx="14" cy="36" rx="6.5" ry="5" fill="#b58cff" ${S}/><ellipse cx="34" cy="32" rx="6.5" ry="5" fill="#b58cff" ${S}/>`)],
-    pizza: ['פיצה', svg(`<path d="M24 43 L7 12 Q24 4 41 12 Z" fill="#ffd46b" ${S}/><path d="M7 12 Q24 4 41 12 L38.5 17 Q24 10 9.5 17 Z" fill="#e8a35b" ${S}/><circle cx="19" cy="21" r="3.3" fill="#ff6b6b" ${S} stroke-width="1.8"/><circle cx="29" cy="23" r="3.3" fill="#ff6b6b" ${S} stroke-width="1.8"/><circle cx="24" cy="32" r="2.8" fill="#ff6b6b" ${S} stroke-width="1.8"/>`)],
+    trophy: ['גביע', svg(`<path d="M14 11 H8.5 C7.5 19 11 22 15.5 22 M34 11 H39.5 C40.5 19 37 22 32.5 22" fill="none" ${S}/><path d="M13 7 H35 V17 C35 25.5 29.5 30 24 30 C18.5 30 13 25.5 13 17 Z" fill="#ffcf3a" ${S}/><rect x="21" y="30" width="6" height="5" fill="#ffcf3a" ${S}/><rect x="14" y="35" width="20" height="7" rx="2" fill="#c98f3a" ${S}/><polygon points="${starPts(24, 17, 5.5, 2.5)}" fill="#fff" opacity=".9"/>`)],
+    crown: ['כתר', svg(`<path d="M8 35 L6 15 L16 23 L24 10 L32 23 L42 15 L40 35 Z" fill="#ffcf3a" ${S}/><rect x="7.5" y="32" width="33" height="7" rx="2" fill="#ffb020" ${S}/><circle cx="6" cy="14" r="2.6" fill="#ff7a9a" ${S2}/><circle cx="24" cy="9" r="2.6" fill="#7ec8ff" ${S2}/><circle cx="42" cy="14" r="2.6" fill="#ff7a9a" ${S2}/><circle cx="16" cy="35.5" r="1.8" fill="#ff5a6e"/><circle cx="24" cy="35.5" r="1.8" fill="#4fc3a1"/><circle cx="32" cy="35.5" r="1.8" fill="#ff5a6e"/>`)],
+    rocket: ['חללית', svg(`<path d="M19 33 Q24 47 29 33 Z" fill="#ffb020" ${S}/><path d="M17 24 L9 32 L10 39 L17 33 Z M31 24 L39 32 L38 39 L31 33 Z" fill="#ff6b6b" ${S}/><path d="M24 3 C32 10 34 21 31 34 H17 C14 21 16 10 24 3 Z" fill="#fff" ${S}/><circle cx="24" cy="18" r="4.5" fill="#7ec8ff" ${S}/>`)],
+    planet: ['כוכב לכת', svg(`<ellipse cx="24" cy="24" rx="21" ry="6.5" transform="rotate(-18 24 24)" fill="none" stroke="${O}" stroke-width="6"/><ellipse cx="24" cy="24" rx="21" ry="6.5" transform="rotate(-18 24 24)" fill="none" stroke="#ffd84d" stroke-width="2.6"/><circle cx="24" cy="24" r="12.5" fill="#b58cff" ${S}/><path d="M3 24 A21 6.5 0 0 0 45 24" transform="rotate(-18 24 24)" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M3 24 A21 6.5 0 0 0 45 24" transform="rotate(-18 24 24)" fill="none" stroke="#ffd84d" stroke-width="2.6" stroke-linecap="round"/>${face(24, 20, .6)}`)],
+    ufo: ['חללית חייזרים', svg(`<path d="M15 22 A9 9 0 0 1 33 22 Z" fill="#b8f0ff" ${S}/><ellipse cx="24" cy="26" rx="20" ry="7" fill="#b58cff" ${S}/><circle cx="14" cy="26" r="1.8" fill="#ffd84d"/><circle cx="24" cy="28" r="1.8" fill="#ffd84d"/><circle cx="34" cy="26" r="1.8" fill="#ffd84d"/><path d="M17 33 L13 43 H35 L31 33 Z" fill="#fff79a" opacity=".6"/>`)],
+    kite: ['עפיפון', svg(`<polygon points="24,3 38,18 24,36 10,18" fill="#ff7a9a" ${S}/><path d="M24 3 V36 M10 18 H38" ${S2}/><polygon points="24,3 38,18 24,18" fill="#ffd84d" ${S2}/><polygon points="10,18 24,18 24,36" fill="#7ec8ff" ${S2}/><path d="M24 36 Q20 40 24 43 Q28 46 24 47" fill="none" ${S2}/><path d="M20 40 l3 1.5 l-3 1.5 Z M27 43 l-3 1.3 l3 1.3 Z" fill="#6fcf7f" ${S2}/>`)],
+    hotair: ['כדור פורח', svg(`<path d="M24 3 C36 3 41 12 39 20 C37 27 30 30 29 33 H19 C18 30 11 27 9 20 C7 12 12 3 24 3 Z" fill="#ff7a9a" ${S}/><path d="M24 3 C19 8 18 25 21 33 M24 3 C29 8 30 25 27 33" fill="none" ${S2}/><path d="M24 3 C20 8 19 25 21 33 H27 C29 25 28 8 24 3 Z" fill="#ffd84d"/><path d="M24 3 C19 8 18 25 21 33 M24 3 C29 8 30 25 27 33" fill="none" ${S2}/><path d="M19 33 L20 38 M29 33 L28 38" ${S2}/><rect x="18" y="38" width="12" height="7" rx="2" fill="#c98f3a" ${S}/>`)],
+    sailboat: ['סירה', svg(`<path d="M24 5 V32" ${S}/><polygon points="24,6 24,29 9,29" fill="#fff" ${S}/><polygon points="26,10 26,29 38,29" fill="#ffd84d" ${S}/><path d="M6 32 H42 L37 40 H11 Z" fill="#ff6b6b" ${S}/><path d="M3 44 q4 -3 8 0 t8 0 t8 0 t8 0 t8 0" fill="none" stroke="#7ec8ff" stroke-width="2.6" stroke-linecap="round"/>`)],
+    umbrella: ['מטרייה', svg(`<path d="M24 22 V39 A4 4 0 0 1 16 39" fill="none" ${S}/><path d="M4 24 A20 18 0 0 1 44 24 Q39 20 34 24 Q29 20 24 24 Q19 20 14 24 Q9 20 4 24 Z" fill="#b58cff" ${S}/><path d="M24 6 Q17 13 14 24 M24 6 Q31 13 34 24" fill="none" ${S2}/>`)],
+    snowflake: ['פתית שלג', svg(`${rays(24, 24, 0, 19, 6, 6, O, -Math.PI / 2)}${rays(24, 24, 0, 19, 6, 3.2, '#bfe6ff', -Math.PI / 2)}<circle cx="24" cy="24" r="4.5" fill="#fff" ${S2}/>`)],
+    snowman: ['איש שלג', svg(`<circle cx="24" cy="34" r="11" fill="#fff" ${S}/><circle cx="24" cy="17" r="8.5" fill="#fff" ${S}/><rect x="17" y="3" width="14" height="6" rx="1" fill="#3d4378" ${S2}/><rect x="14" y="8.5" width="20" height="3" rx="1.5" fill="#3d4378" ${S2}/><path d="M24 18 L31 20 L24 20.5 Z" fill="#ff9a3c" ${S2}/><circle cx="21" cy="15.5" r="1.4" fill="${O}"/><circle cx="27" cy="15.5" r="1.4" fill="${O}"/><path d="M15 24 Q24 28 33 24 L33 27 Q24 31 15 27 Z" fill="#ff5a6e" ${S2}/><circle cx="24" cy="33" r="1.5" fill="${O}"/><circle cx="24" cy="38" r="1.5" fill="${O}"/>`)],
+    leaf: ['עלה', svg(`<path d="M8 40 C8 20 20 8 41 7 C41 28 28 40 8 40 Z" fill="#f28c28" ${S}/><path d="M8 40 L31 17 M18 30 L17 22 M18 30 L26 30 M25 23 L24 16 M25 23 L32 23" fill="none" ${S2}/>`)],
+    pumpkin: ['דלעת', svg(`<path d="M24 12 C25 8 27 6 30 5" fill="none" stroke="#4f9a4a" stroke-width="3.5" stroke-linecap="round"/><ellipse cx="15" cy="28" rx="10" ry="13" fill="#ff9a3c" ${S}/><ellipse cx="33" cy="28" rx="10" ry="13" fill="#ff9a3c" ${S}/><ellipse cx="24" cy="28" rx="9" ry="14" fill="#ffb020" ${S}/>${face(24, 27, .7)}`)],
+    flower: ['פרח', svg(`${ring(24, 23, 10, 5, 8, '#ffa6c9')}<circle cx="24" cy="23" r="7.5" fill="#ffd84d" ${S}/><circle cx="21.5" cy="22" r="1.3" fill="${O}"/><circle cx="26.5" cy="22" r="1.3" fill="${O}"/><path d="M22.3 25 Q24 26.8 25.7 25" fill="none" stroke="${O}" stroke-width="1.5" stroke-linecap="round"/>`)],
+    sunflower: ['חמנייה', svg(`${ring(24, 24, 13, 12, 5.5, '#ffd84d')}<circle cx="24" cy="24" r="10" fill="#8a5a3c" ${S}/>${face(24, 23, .7).replace(/#ff8fab/g, '#ffb3a0')}`)],
+    tulip: ['צבעוני', svg(`<path d="M24 26 V45" ${S}/><path d="M24 40 C16 40 11 34 10 28 C17 29 22 33 24 40 Z M24 38 C31 38 36 32 37 26 C30 27 26 31 24 38 Z" fill="#6fcf7f" ${S2}/><path d="M13 8 L18 14 L24 5 L30 14 L35 8 C37 19 32 27 24 27 C16 27 11 19 13 8 Z" fill="#ff6b8b" ${S}/>`)],
+    cactus: ['קקטוס', svg(`<path d="M19 34 V12 A5 5 0 0 1 29 12 V34" fill="#6fcf7f" ${S}/><path d="M19 26 H14 A4 4 0 0 1 10 22 V17 A2.5 2.5 0 0 1 15 17 V21 H19 M29 22 H33 V15 A2.5 2.5 0 0 1 38 15 V20 A5 5 0 0 1 33 25 H29" fill="#6fcf7f" ${S}/><path d="M13 33 H35 L32 45 H16 Z" fill="#e8a35b" ${S}/><circle cx="24" cy="7" r="3" fill="#ff9ad5" ${S2}/>${face(24, 20, .5)}`)],
+    mushroom: ['פטרייה', svg(`<path d="M17 26 H31 V38 A5 5 0 0 1 26 43 H22 A5 5 0 0 1 17 38 Z" fill="#fff1d6" ${S}/><path d="M4 26 C4 14 13 6 24 6 C35 6 44 14 44 26 Z" fill="#ff5a6e" ${S}/><circle cx="15" cy="17" r="3" fill="#fff"/><circle cx="26" cy="12" r="2.6" fill="#fff"/><circle cx="34" cy="19" r="3.2" fill="#fff"/>${face(24, 32, .55)}`)],
+    shell: ['צדף', svg(`<path d="M24 42 L8 24 C6 14 14 6 24 6 C34 6 42 14 40 24 Z" fill="#ffc2a6" ${S}/><path d="M24 42 L14 12 M24 42 L24 7 M24 42 L34 12 M24 42 L9 21 M24 42 L39 21" fill="none" ${S2}/><path d="M19 42 H29 V46 H19 Z" fill="#ffc2a6" ${S2}/>`)],
     cat: ['חתול', svg(`<path d="M9 21 L11 6 L20 13 Q24 12 28 13 L37 6 L39 21 Q43 38 24 40 Q5 38 9 21 Z" fill="#ffb56b" ${S}/><path d="M13 12 L14.5 17 M35 12 L33.5 17" stroke="#ff8fab" stroke-width="2.5" stroke-linecap="round"/>${face(24, 25, .85)}<path d="M5 27 L12 28 M5 32 L12 30.5 M43 27 L36 28 M43 32 L36 30.5" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>`)],
     dog: ['כלב', svg(`<ellipse cx="11" cy="22" rx="6" ry="11" transform="rotate(20 11 22)" fill="#9b6b43" ${S}/><ellipse cx="37" cy="22" rx="6" ry="11" transform="rotate(-20 37 22)" fill="#9b6b43" ${S}/><circle cx="24" cy="25" r="14" fill="#e9c9a0" ${S}/><circle cx="19" cy="22" r="1.9" fill="${O}"/><circle cx="29" cy="22" r="1.9" fill="${O}"/><ellipse cx="24" cy="28" rx="3.4" ry="2.4" fill="${O}"/><path d="M22 33 Q24 38 26 33 Z" fill="#ff8fab" ${S} stroke-width="1.6"/><circle cx="14.5" cy="28" r="2.2" fill="#ff8fab" opacity=".6"/><circle cx="33.5" cy="28" r="2.2" fill="#ff8fab" opacity=".6"/>`)],
-    snow: ['פתית שלג', svg(`${rays(24, 24, 0, 19, 6, 6, O)}${rays(24, 24, 0, 19, 6, 3.2, '#bfe6ff')}<circle cx="24" cy="24" r="4.5" fill="#fff" ${S} stroke-width="2"/>`)],
-    flower: ['פרח', svg(`${[0, 72, 144, 216, 288].map(a => `<circle cx="${(24 + 10 * Math.cos((a - 90) * Math.PI / 180)).toFixed(1)}" cy="${(23 + 10 * Math.sin((a - 90) * Math.PI / 180)).toFixed(1)}" r="8" fill="#ffa6c9" ${S}/>`).join('')}<circle cx="24" cy="23" r="7.5" fill="#ffd84d" ${S}/><circle cx="21.5" cy="22" r="1.3" fill="${O}"/><circle cx="26.5" cy="22" r="1.3" fill="${O}"/><path d="M22.3 25 Q24 26.8 25.7 25" fill="none" stroke="${O}" stroke-width="1.5" stroke-linecap="round"/>`)],
-    cupcake: ['קאפקייק', svg(`<path d="M13 27 H35 L32 42 H16 Z" fill="#7ec8ff" ${S}/><path d="M19 28 L20 41 M24 28 V41 M29 28 L28 41" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><path d="M11 28 C8.5 21 14.5 17.5 18 18.5 C18 12.5 25 9.5 29 14 C34 12.5 39.5 17.5 37 22.5 C41 24.5 39 29 35 28 Z" fill="#ffc2d6" ${S}/><circle cx="27" cy="9.5" r="3.6" fill="#ff5a6e" ${S} stroke-width="2"/>${face(24, 22, .6)}`)],
-    gift: ['מתנה', svg(`<rect x="9" y="21" width="30" height="20" rx="2.5" fill="#b58cff" ${S}/><rect x="7" y="14" width="34" height="8" rx="2.5" fill="#cfb2ff" ${S}/><rect x="21" y="14" width="6" height="27" fill="#ffd84d" ${S}/><path d="M24 14 C18 4 9 9 16 14 Z M24 14 C30 4 39 9 32 14 Z" fill="#ffd84d" ${S}/>`)],
-    trophy: ['גביע', svg(`<path d="M14 11 H8.5 C7.5 19 11 22 15.5 22 M34 11 H39.5 C40.5 19 37 22 32.5 22" fill="none" ${S}/><path d="M13 7 H35 V17 C35 25.5 29.5 30 24 30 C18.5 30 13 25.5 13 17 Z" fill="#ffcf3a" ${S}/><rect x="21" y="30" width="6" height="5" fill="#ffcf3a" ${S}/><rect x="14" y="35" width="20" height="7" rx="2" fill="#c98f3a" ${S}/><polygon points="${starPts(24, 17, 5.5, 2.5)}" fill="#fff" opacity=".9"/>`)],
-    crown: ['כתר', svg(`<path d="M8 35 L6 15 L16 23 L24 10 L32 23 L42 15 L40 35 Z" fill="#ffcf3a" ${S}/><rect x="7.5" y="32" width="33" height="7" rx="2" fill="#ffb020" ${S}/><circle cx="6" cy="14" r="2.6" fill="#ff7a9a" ${S} stroke-width="1.8"/><circle cx="24" cy="9" r="2.6" fill="#7ec8ff" ${S} stroke-width="1.8"/><circle cx="42" cy="14" r="2.6" fill="#ff7a9a" ${S} stroke-width="1.8"/><circle cx="16" cy="35.5" r="1.8" fill="#ff5a6e"/><circle cx="24" cy="35.5" r="1.8" fill="#4fc3a1"/><circle cx="32" cy="35.5" r="1.8" fill="#ff5a6e"/>`)],
-    icecream: ['גלידה', svg(`<circle cx="24" cy="12" r="7.5" fill="#9be3c9" ${S}/><path d="M15 25 L24 45 L33 25 Z" fill="#f2b56b" ${S}/><path d="M19 29 L27.5 37 M29 29 L20.5 37" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/><circle cx="24" cy="21" r="10" fill="#ffb3cd" ${S}/>${face(24, 21, .65)}`)],
+    bunny: ['ארנב', svg(`<ellipse cx="17" cy="13" rx="4.5" ry="11" fill="#fff" ${S}/><ellipse cx="31" cy="13" rx="4.5" ry="11" fill="#fff" ${S}/><ellipse cx="17" cy="14" rx="1.8" ry="7" fill="#ffc2d6"/><ellipse cx="31" cy="14" rx="1.8" ry="7" fill="#ffc2d6"/><circle cx="24" cy="31" r="13" fill="#fff" ${S}/>${face(24, 30, .8)}`)],
+    bear: ['דובי', svg(`<circle cx="12" cy="14" r="6" fill="#c68b59" ${S}/><circle cx="36" cy="14" r="6" fill="#c68b59" ${S}/><circle cx="24" cy="27" r="15" fill="#c68b59" ${S}/><ellipse cx="24" cy="32" rx="7" ry="5.5" fill="#f1d3b3" ${S2}/><circle cx="18.5" cy="24" r="1.9" fill="${O}"/><circle cx="29.5" cy="24" r="1.9" fill="${O}"/><ellipse cx="24" cy="30" rx="2.6" ry="1.8" fill="${O}"/><path d="M22 33.5 Q24 35.5 26 33.5" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>`)],
+    panda: ['פנדה', svg(`<circle cx="12" cy="13" r="6" fill="#3a3a4a" ${S}/><circle cx="36" cy="13" r="6" fill="#3a3a4a" ${S}/><circle cx="24" cy="27" r="15.5" fill="#fff" ${S}/><ellipse cx="17.5" cy="25" rx="4.5" ry="5.5" transform="rotate(25 17.5 25)" fill="#3a3a4a"/><ellipse cx="30.5" cy="25" rx="4.5" ry="5.5" transform="rotate(-25 30.5 25)" fill="#3a3a4a"/><circle cx="18" cy="24.5" r="1.6" fill="#fff"/><circle cx="30" cy="24.5" r="1.6" fill="#fff"/><ellipse cx="24" cy="31" rx="2.6" ry="1.8" fill="${O}"/><path d="M22 34 Q24 36 26 34" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>`)],
+    owl: ['ינשוף', svg(`<path d="M11 12 L15 4 L20 10 M37 12 L33 4 L28 10" fill="#b58a5e" ${S}/><ellipse cx="24" cy="27" rx="15" ry="17" fill="#b58a5e" ${S}/><ellipse cx="24" cy="33" rx="9" ry="9" fill="#f1d3b3"/><circle cx="17.5" cy="20" r="6" fill="#fff" ${S2}/><circle cx="30.5" cy="20" r="6" fill="#fff" ${S2}/><circle cx="18" cy="20.5" r="2.6" fill="${O}"/><circle cx="30" cy="20.5" r="2.6" fill="${O}"/><path d="M22 25 L24 29 L26 25 Z" fill="#ffb020" ${S2}/><path d="M19 34 q2 2 4 0 M25 34 q2 2 4 0 M22 38 q2 2 4 0" fill="none" stroke="#b58a5e" stroke-width="1.6" stroke-linecap="round"/>`)],
+    fish: ['דג', svg(`<polygon points="34,24 45,14 45,34" fill="#ffb020" ${S}/><ellipse cx="21" cy="24" rx="16" ry="11" fill="#ffd84d" ${S}/><path d="M21 13 Q25 6 30 10 Q27 13 26 14 Z" fill="#ffb020" ${S2}/><circle cx="13" cy="22" r="2.2" fill="${O}"/><path d="M8 27 Q10 29 12 27" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/><path d="M24 18 q4 6 0 12 M29 18 q4 6 0 12" fill="none" stroke="#ffb020" stroke-width="2" stroke-linecap="round"/>`)],
+    whale: ['לוויתן', svg(`<path d="M22 11 q-2 -6 -6 -6 M22 11 q2 -6 6 -6 M22 11 V4" fill="none" stroke="#7ec8ff" stroke-width="2.4" stroke-linecap="round"/><path d="M4 27 C4 17 14 13 24 15 C32 16.5 36 21 38 25 L44 18 L44 34 L38 30 C34 38 24 40 15 38 C8 36.5 4 32 4 27 Z" fill="#7ec8ff" ${S}/><path d="M6 30 C12 36 24 37 33 32" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>${face(15, 25, .7)}`)],
+    turtle: ['צב', svg(`<circle cx="40" cy="30" r="5" fill="#9be37a" ${S}/><path d="M9 36 L7 42 M19 38 L18 44 M29 38 L30 44" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M9 36 L7 42 M19 38 L18 44 M29 38 L30 44" stroke="#9be37a" stroke-width="3" stroke-linecap="round"/><path d="M4 36 C4 20 13 13 21 13 C29 13 37 20 37 36 Z" fill="#4fbf73" ${S}/><path d="M14 36 L17 24 H25 L28 36 M17 24 L21 16 L25 24" fill="none" ${S2}/><circle cx="41.5" cy="29" r="1.3" fill="${O}"/>`)],
     butterfly: ['פרפר', svg(`<path d="M23 13 Q20 6 16 5.5 M25 13 Q28 6 32 5.5" fill="none" ${S}/><circle cx="14.5" cy="18" r="9.5" fill="#ff9ad5" ${S}/><circle cx="33.5" cy="18" r="9.5" fill="#ff9ad5" ${S}/><circle cx="16.5" cy="32" r="7" fill="#b58cff" ${S}/><circle cx="31.5" cy="32" r="7" fill="#b58cff" ${S}/><circle cx="13" cy="17" r="2.6" fill="#fff" opacity=".8"/><circle cx="35" cy="17" r="2.6" fill="#fff" opacity=".8"/><rect x="21.5" y="11" width="5" height="28" rx="2.5" fill="#6b5a70" ${S}/>`)],
-    strawberry: ['תות', svg(`<path d="M24 43 C11 37 7 25 11 18 C15 12.5 33 12.5 37 18 C41 25 37 37 24 43 Z" fill="#ff5a6e" ${S}/><path d="M13 15 L19.5 11.5 L24 6 L28.5 11.5 L35 15 L27 16.5 L24 20 L21 16.5 Z" fill="#6fcf7f" ${S}/><g fill="#ffe79a"><ellipse cx="17" cy="24" rx="1.1" ry="1.6"/><ellipse cx="24" cy="26" rx="1.1" ry="1.6"/><ellipse cx="31" cy="24" rx="1.1" ry="1.6"/><ellipse cx="20" cy="32" rx="1.1" ry="1.6"/><ellipse cx="28" cy="32" rx="1.1" ry="1.6"/><ellipse cx="24" cy="37" rx="1.1" ry="1.6"/></g>`)],
+    ladybug: ['פרת משה רבנו', svg(`<circle cx="24" cy="12" r="6.5" fill="#3a3a4a" ${S}/><path d="M21 7 L18 3 M27 7 L30 3" ${S2}/><circle cx="24" cy="28" r="16" fill="#ff5a6e" ${S}/><path d="M24 12 V44" ${S}/><g fill="#3a3a4a"><circle cx="16" cy="22" r="3"/><circle cx="32" cy="22" r="3"/><circle cx="15" cy="33" r="2.6"/><circle cx="33" cy="33" r="2.6"/><circle cx="24" cy="38" r="1.8" opacity="0"/></g>`)],
+    dino: ['דינוזאור', svg(`<path d="M6 40 C6 30 12 25 20 25 L24 13 C25 7 33 6 35 11 L36 15 C36 18 33 19 31 18 L29 27 C35 28 40 32 44 36 C38 36 33 38 29 40 V44 H25 V40 H15 V44 H11 V40 Z" fill="#6fcf7f" ${S}/><path d="M22 20 l-4 -2 l2 4 M24 16 l-4 -3 l2 5 M20 26 l-4 -2 l2 4" fill="#ffd84d" ${S2}/><circle cx="31" cy="12" r="1.6" fill="${O}"/><path d="M32 15.5 q2 1 3 0" fill="none" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/>`)],
     menorah: ['חנוכייה', svg(`${[6, 10.5, 15, 19.5, 24, 28.5, 33, 37.5, 42].map(x => { const top = x === 24 ? 9 : 14; return `<rect x="${x - 1.5}" y="${top}" width="3" height="${22 - top}" rx="1" fill="#8fd3ff" ${S} stroke-width="1.4"/><path d="M${x} ${top - 6} C${x + 2.2} ${top - 3.5} ${x + 2.2} ${top - 1} ${x} ${top - 1} C${x - 2.2} ${top - 1} ${x - 2.2} ${top - 3.5} ${x} ${top - 6} Z" fill="#ffb020" ${S} stroke-width="1.3"/>`; }).join('')}<path d="M6 22 H42 C42 30 34 33 24 33 C14 33 6 30 6 22 Z" fill="#ffcf3a" ${S}/><rect x="21.5" y="33" width="5" height="7" fill="#ffcf3a" ${S}/><rect x="14" y="40" width="20" height="4.5" rx="2" fill="#ffcf3a" ${S}/>`)],
     tree: ['עץ חג המולד', svg(`<polygon points="24,5 38,22 31,22 41,34 7,34 17,22 10,22" fill="#4fbf73" ${S}/><rect x="20.5" y="34" width="7" height="8" fill="#9b6b43" ${S}/><polygon points="${starPts(24, 6, 5, 2.2)}" fill="#ffd84d" ${S} stroke-width="1.6"/><circle cx="19" cy="20" r="2" fill="#ff5a6e"/><circle cx="28" cy="27" r="2" fill="#7ec8ff"/><circle cx="17" cy="30" r="2" fill="#ffd84d"/><circle cx="31" cy="18" r="1.8" fill="#ff9ad5"/>`)],
   };
   const stickerHTML = id => STICKERS[id] ? STICKERS[id][1] : '';
   const svgUrl = id => `url("data:image/svg+xml,${encodeURIComponent(stickerHTML(id))}")`;
+
+  // ================= moon + sun (computed on the page) =================
+  const SYN = 29.530588853;
+  const NEW_REF = Date.UTC(2000, 0, 6, 18, 14) / 864e5;
+  const moonAge = ms => (((ms / 864e5 - NEW_REF) % SYN) + SYN) % SYN;
+  function moonInfo(y, m, d) {
+    const age = moonAge(Date.UTC(y, m, d, 12));
+    const p = age / SYN;
+    const illum = Math.round((1 - Math.cos(2 * Math.PI * p)) / 2 * 100);
+    const name = age < 1 || age > SYN - 1 ? 'ירח חדש (מולד)' : age < 6.4 ? 'סהר שהולך וגדל' : age < 8.4 ? 'חצי ירח (רבע ראשון)' :
+      age < 13.8 ? 'ירח שהולך ומתמלא' : age < 15.8 ? 'ירח מלא' : age < 21.1 ? 'ירח שהולך וקטן' : age < 23.1 ? 'חצי ירח (רבע אחרון)' : 'סהר שהולך וקטן';
+    // is an exact main phase inside this local day?
+    const a0 = moonAge(Date.UTC(y, m, d)), a1 = moonAge(Date.UTC(y, m, d + 1));
+    let key = null;
+    [[0, 'new'], [SYN / 4, 'first'], [SYN / 2, 'full'], [3 * SYN / 4, 'last']].forEach(([t, k]) => {
+      if (a1 < a0 ? (t === 0) : (a0 <= t && t < a1)) key = k;
+    });
+    return { age, p, illum, name, key, days: Math.round(age) };
+  }
+  function moonSVG(p) {
+    const r = 20, cx = 24, cy = 24, k = Math.cos(2 * Math.PI * p), rx = Math.abs(k) * r;
+    const waxing = p < .5;
+    const crescent = p < .25 || p > .75;
+    const outer = waxing ? `A${r} ${r} 0 0 1 ${cx} ${cy + r}` : `A${r} ${r} 0 0 0 ${cx} ${cy + r}`;
+    const sweep = waxing ? (crescent ? 0 : 1) : (crescent ? 1 : 0);
+    const lit = p < .02 || p > .98 ? '' : `<path d="M${cx} ${cy - r} ${outer} A${rx.toFixed(2)} ${r} 0 0 ${sweep} ${cx} ${cy - r} Z" fill="#ffe27a"/>`;
+    return `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" fill="#3d4378"/>${lit}<circle cx="24" cy="24" r="20" fill="none" stroke="${O}" stroke-width="2.5"/></svg>`;
+  }
+  const RAD = Math.PI / 180;
+  function sunTimes(y, m, d, lat, lon) {
+    const Jdate = Date.UTC(y, m, d, 12) / 864e5 + 2440587.5;
+    const n = Math.ceil(Jdate - 2451545.0 + 0.0008);
+    const Js = n - lon / 360;
+    const M = (357.5291 + 0.98560028 * Js) % 360;
+    const C = 1.9148 * Math.sin(M * RAD) + 0.02 * Math.sin(2 * M * RAD) + 0.0003 * Math.sin(3 * M * RAD);
+    const L = (M + C + 180 + 102.9372) % 360;
+    const Jt = 2451545 + Js + 0.0053 * Math.sin(M * RAD) - 0.0069 * Math.sin(2 * L * RAD);
+    const dec = Math.asin(Math.sin(L * RAD) * Math.sin(23.4397 * RAD));
+    const cosW = (Math.sin(-0.833 * RAD) - Math.sin(lat * RAD) * Math.sin(dec)) / (Math.cos(lat * RAD) * Math.cos(dec));
+    if (cosW > 1 || cosW < -1) return null;
+    const w = Math.acos(cosW) / RAD;
+    const toDate = J => new Date((J - 2440587.5) * 864e5);
+    return { rise: toDate(Jt - w / 360), set: toDate(Jt + w / 360), len: 2 * w / 15 };
+  }
+  const fmtTime = dt => {
+    const opts = { hour: '2-digit', minute: '2-digit', hour12: false };
+    try { return new Intl.DateTimeFormat('he-IL', place.tz ? { ...opts, timeZone: place.tz } : opts).format(dt); }
+    catch { return new Intl.DateTimeFormat('he-IL', opts).format(dt); }
+  };
+  const fmtLen = h => `${Math.floor(h)} שעות ו-${Math.round((h % 1) * 60)} דקות`;
 
   // ================= Hebrew calendar + holidays =================
   const HF = new Intl.DateTimeFormat('en-u-ca-hebrew', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
@@ -622,17 +866,22 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     sky:    { name: 'שמיים', accent: '#ff6b6b', paper: '#eef6ff', ink: '#1f2a44', weekend: '#fff1d6', card: '#ffffff', line: '#c9dcf5', soft: '#5b6b8c' },
     gum:    { name: 'מסטיק', accent: '#e0468f', paper: '#fff0f6', ink: '#3a1d2e', weekend: '#e8f7ff', card: '#ffffff', line: '#f5c6dc', soft: '#8a5a73' },
     candy:  { name: 'סוכרייה', accent: '#ff5fa2', paper: '#f3ecff', ink: '#3a2350', weekend: '#dff8ef', card: '#ffffff', line: '#dccdf5', soft: '#7a6696' },
+    peach:  { name: 'אפרסק', accent: '#ff7f50', paper: '#fff1ea', ink: '#40241a', weekend: '#e9f6ff', card: '#ffffff', line: '#ffd4c2', soft: '#8b6356' },
     grape:  { name: 'ענבים', accent: '#8e44ad', paper: '#f6eefb', ink: '#2e1a38', weekend: '#fff5d6', card: '#ffffff', line: '#e2cdee', soft: '#7a5f88' },
+    lilac:  { name: 'לילך', accent: '#9b6bff', paper: '#f4f1ff', ink: '#2a2346', weekend: '#ffeef6', card: '#ffffff', line: '#ddd3ff', soft: '#6f6799' },
     ocean:  { name: 'ים', accent: '#1f8fbf', paper: '#e6f7fb', ink: '#12323f', weekend: '#fff0d9', card: '#ffffff', line: '#bfe3ee', soft: '#4f7684' },
     mint:   { name: 'מנטה', accent: '#16a085', paper: '#e9fbf4', ink: '#173b33', weekend: '#ffeef3', card: '#ffffff', line: '#bde9da', soft: '#4f7d71' },
     forest: { name: 'יער', accent: '#2f8f5b', paper: '#f0f7ee', ink: '#1d3326', weekend: '#fff4d9', card: '#ffffff', line: '#cfe5cf', soft: '#56705f' },
     lemon:  { name: 'לימון', accent: '#7a5cf5', paper: '#fffbe0', ink: '#2c2640', weekend: '#e9f9e3', card: '#ffffff', line: '#efe4a8', soft: '#6c6588' },
     sunset: { name: 'שקיעה', accent: '#f06a2a', paper: '#fff4ea', ink: '#3b2415', weekend: '#ffe0ec', card: '#ffffff', line: '#f6d2b8', soft: '#86624b' },
+    cherry: { name: 'דובדבן', accent: '#d7263d', paper: '#fff3f3', ink: '#3a1417', weekend: '#f2f7e8', card: '#ffffff', line: '#f5cdd1', soft: '#865a5e' },
     choco:  { name: 'שוקולד', accent: '#b5651d', paper: '#f8efe6', ink: '#3b2616', weekend: '#e8f4ff', card: '#fffaf5', line: '#e6d2bf', soft: '#81634c' },
+    mono:   { name: 'שחור לבן', accent: '#222222', paper: '#f4f4f4', ink: '#111111', weekend: '#e2e2e2', card: '#ffffff', line: '#cccccc', soft: '#666666' },
     night:  { name: 'לילה', accent: '#ffcf5a', paper: '#1b1f3b', ink: '#f3f1ff', weekend: '#2c2f5a', card: '#252a4d', line: '#3d4378', soft: '#b5b3d9' },
     space:  { name: 'חלל', accent: '#ff7ad9', paper: '#10131f', ink: '#eef2ff', weekend: '#231b3d', card: '#1a1f33', line: '#343b5c', soft: '#a9b0d6' },
+    neon:   { name: 'ניאון', accent: '#39ff88', paper: '#0e0e14', ink: '#f2fff7', weekend: '#1c1330', card: '#16161f', line: '#2e2e44', soft: '#a6b3ad' },
   };
-  const DARK = ['night', 'space'];
+  const DARK = ['night', 'space', 'neon'];
   const FONTS = [
     { id: 'ktav', name: 'כתב', css: "'Gveret Levin'" },
     { id: 'round', name: 'כתב עגול', css: "'Playpen Sans Hebrew'" },
@@ -641,25 +890,41 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     { id: 'bold', name: 'שמן', css: "'Suez One'" },
     { id: 'fat', name: 'עבה', css: "'Secular One'" },
   ];
-  const TITLE_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'marker', name: 'מרקר' }, { id: 'wavy', name: 'קו גלי' }, { id: 'shadow', name: 'צל' }, { id: 'bubble', name: 'בועות' }];
+  const TITLE_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'marker', name: 'מרקר' }, { id: 'wavy', name: 'קו גלי' }, { id: 'shadow', name: 'צל' }, { id: 'bubble', name: 'בועות' }, { id: 'rainbow', name: 'קשת בענן' }, { id: 'sticker', name: 'מדבקה' }];
   const BGS = [
     { id: 'plain', name: 'חלק' }, { id: 'dots', name: 'נקודות' }, { id: 'lines', name: 'שורות מחברת' }, { id: 'grid', name: 'משבצות' },
-    { id: 'stripes', name: 'פסים' }, { id: 'checks', name: 'לוח שחמט' }, { id: 'hearts', name: 'לבבות' }, { id: 'stars', name: 'כוכבים' },
-    { id: 'flowers', name: 'פרחים' }, { id: 'confetti', name: 'קונפטי' },
+    { id: 'stripes', name: 'פסים' }, { id: 'checks', name: 'לוח שחמט' }, { id: 'waves', name: 'גלים' }, { id: 'gradient', name: 'צבעים מתחלפים' },
+    { id: 'hearts', name: 'לבבות' }, { id: 'stars', name: 'כוכבים' }, { id: 'flowers', name: 'פרחים' }, { id: 'rainbows', name: 'קשתות' },
+    { id: 'cats', name: 'חתולים' }, { id: 'confetti', name: 'קונפטי' }, { id: 'photo', name: 'התמונה שלי' },
   ];
-  const SHAPES = [{ id: 'soft', name: 'מעוגל' }, { id: 'square', name: 'מרובע' }, { id: 'round', name: 'עיגולים' }, { id: 'blob', name: 'בועות' }, { id: 'note', name: 'פתקים' }];
-  const BORDERS = [{ id: 'solid', name: 'רגילה' }, { id: 'dashed', name: 'מקווקוות' }, { id: 'dotted', name: 'נקודות' }, { id: 'double', name: 'כפולה' }, { id: 'none', name: 'בלי' }];
-  const TODAY_MARKS = [{ id: 'frame', name: 'מסגרת' }, { id: 'circle', name: 'עיגול' }, { id: 'heart', name: 'לב' }, { id: 'star', name: 'כוכב' }];
-  const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'שמות החגים' }, { id: 'showWx', name: 'מזג אוויר' }];
+  const SHAPES = [
+    { id: 'soft', name: 'מעוגל' }, { id: 'square', name: 'מרובע' }, { id: 'round', name: 'עיגולים' }, { id: 'pill', name: 'גלולות' },
+    { id: 'hex', name: 'משושים' }, { id: 'oct', name: 'מתומנים' }, { id: 'blob', name: 'בועות' }, { id: 'cloud', name: 'עננים' },
+    { id: 'note', name: 'פתקים' }, { id: 'polaroid', name: 'פולארויד' }, { id: 'leaf', name: 'עלים' }, { id: 'arch', name: 'קשתות' },
+    { id: 'ticket', name: 'כרטיסים' }, { id: 'stamp', name: 'בולים' }, { id: 'banner', name: 'דגלונים' }, { id: 'bubble', name: 'בועות דיבור' },
+    { id: 'button', name: 'כפתורים' }, { id: 'shadow', name: 'עם צל' }, { id: 'corner', name: 'פינות' }, { id: 'window', name: 'חלונות' },
+    { id: 'tilt', name: 'עקומים' },
+  ];
+  const BORDERS = [{ id: 'solid', name: 'רגילה' }, { id: 'dashed', name: 'מקווקוות' }, { id: 'dotted', name: 'נקודות' }, { id: 'double', name: 'כפולה' }, { id: 'glow', name: 'זוהרת' }, { id: 'none', name: 'בלי' }];
+  const TODAY_MARKS = [{ id: 'frame', name: 'מסגרת' }, { id: 'circle', name: 'עיגול' }, { id: 'heart', name: 'לב' }, { id: 'star', name: 'כוכב' }, { id: 'glow', name: 'זוהר' }];
+  const NUM_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'big', name: 'גדול' }, { id: 'outline', name: 'חלול' }, { id: 'circle', name: 'בעיגול' }, { id: 'bubble', name: 'בבועה' }];
+  const CAL_FRAMES = [{ id: 'plain', name: 'רגילה' }, { id: 'spiral', name: 'ספירלה' }, { id: 'tape', name: 'סלוטייפ' }, { id: 'pins', name: 'נעצים' }, { id: 'stitch', name: 'תפר' }, { id: 'float', name: 'מרחף' }, { id: 'polaroid', name: 'פולארויד' }];
+  const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'חגים' }, { id: 'showEv', name: 'אירועים' }, { id: 'showMoon', name: 'ירח' }, { id: 'showWx', name: 'מזג אוויר' }];
 
   const DEFAULT_DESIGN = {
     title: 'הלוח שלי', theme: 'sky', custom: null, font: 'ktav', titleFont: 'ktav', titleStyle: 'plain', titleSticker: 'star',
-    size: 1, bg: 'dots', shape: 'soft', border: 'solid', bw: 1.5, gap: 6, todayMark: 'frame',
-    showHeb: true, showHol: true, showWx: true, stickerSize: 1,
+    size: 1, bg: 'dots', shape: 'soft', border: 'solid', bw: 1.5, gap: 6, todayMark: 'frame', numStyle: 'plain',
+    calFrame: 'plain', alpha: 100, showHeb: true, showHol: true, showEv: true, showMoon: true, showWx: true,
+    decor: true, decorMove: true, confetti: true, stickerSize: 1,
   };
   let design = Object.assign({}, DEFAULT_DESIGN, store.get('design', {}));
   let place = store.get('place', PLACES[0]);
+  if (!place.tz) { const p = PLACES.find(x => Math.abs(x.lat - place.lat) < 1e-4 && Math.abs(x.lon - place.lon) < 1e-4); if (p) place.tz = p.tz; }
   let stickers = store.get('stickers', {});
+  for (const k in stickers) if (!Array.isArray(stickers[k])) stickers[k] = [stickers[k]];
+  let events = store.get('events', {});
+  let birthdays = store.get('birthdays', []);
+  let photo = store.get('photo', null);
   let unit = store.get('unit', 'C');
   const fmtT = c => c == null ? '–' : unit === 'F' ? `${Math.round(c * 9 / 5 + 32)}°F` : `${Math.round(c)}°`;
 
@@ -668,6 +933,8 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
       hearts: [['heart', 8, 10, 20, -12], ['heart', 55, 52, 16, 14]],
       stars: [['star', 10, 8, 18, 10], ['star', 58, 55, 13, -15]],
       flowers: [['flower', 6, 8, 20, 0], ['flower', 56, 54, 16, 20]],
+      rainbows: [['rainbow', 6, 10, 22, 0], ['cloud', 56, 54, 18, 0]],
+      cats: [['cat', 8, 8, 20, -10], ['heart', 58, 58, 12, 10]],
     }[kind];
     if (!pieces) {
       const cols = ['#ff7a9a', '#ffd84d', '#7ec8ff', '#9be3c9', '#b58cff'];
@@ -685,7 +952,7 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     const r = document.documentElement.style;
     for (const k of ['accent', 'paper', 'ink', 'weekend', 'card', 'line', 'soft']) r.setProperty('--' + k, t[k]);
     const dark = DARK.includes(design.theme);
-    r.setProperty('--accent-ink', dark && !(design.custom && design.custom.accent) ? t.paper : '#ffffff');
+    r.setProperty('--accent-ink', dark && !(design.custom && design.custom.accent) ? t.paper : (design.theme === 'mono' ? '#ffffff' : '#ffffff'));
     const f = FONTS.find(x => x.id === design.font) || FONTS[0];
     const tf = FONTS.find(x => x.id === design.titleFont) || FONTS[0];
     r.setProperty('--font', `${f.css}, 'Rubik', system-ui, sans-serif`);
@@ -694,20 +961,50 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     r.setProperty('--bw', design.bw + 'px');
     r.setProperty('--gap', design.gap + 'px');
     r.setProperty('--stk', design.stickerSize);
-    r.setProperty('--border-style', design.border === 'none' || design.border === 'double' ? 'solid' : design.border);
+    r.setProperty('--alpha', design.alpha + '%');
+    r.setProperty('--border-style', ['none', 'double', 'glow'].includes(design.border) ? 'solid' : design.border);
     r.setProperty('--today-img', svgUrl(design.todayMark === 'heart' ? 'heart' : 'star'));
-    if (['hearts', 'stars', 'flowers', 'confetti'].includes(design.bg)) r.setProperty('--bg-img', bgSvg(design.bg));
+    if (['hearts', 'stars', 'flowers', 'confetti', 'rainbows', 'cats'].includes(design.bg)) r.setProperty('--bg-img', bgSvg(design.bg));
+    r.setProperty('--photo', photo ? `url("${photo}")` : 'none');
     document.body.className = [
-      `bg-${design.bg}`, `shape-${design.shape}`, `ts-${design.titleStyle}`, `frame-${design.border}`,
+      `bg-${design.bg === 'photo' && !photo ? 'plain' : design.bg}`, `shape-${design.shape}`, `ts-${design.titleStyle}`, `frame-${design.border}`,
+      `ns-${design.numStyle}`, `cf-${design.calFrame}`,
       design.showHeb ? '' : 'hide-heb', design.showHol ? '' : 'hide-hol', design.showWx ? '' : 'hide-wx',
+      design.showMoon ? '' : 'hide-moon', design.showEv ? '' : 'hide-ev',
     ].filter(Boolean).join(' ');
     document.body.style.colorScheme = dark ? 'dark' : 'light';
     $('#title').textContent = design.title || 'הלוח שלי';
     $('#titleStk').innerHTML = design.titleSticker ? stickerHTML(design.titleSticker) : '';
     document.title = design.title || 'הלוח שלי';
     store.set('design', design);
+    renderDecor();
   }
   const rerender = () => { applyDesign(); buildDesignPanel(); renderCalendar(); };
+
+  // ---------- seasonal decorations ----------
+  const SEASON_DECOR = {
+    fall: ['leaf', 'leaf', 'pumpkin', 'leaf', 'mushroom'],
+    winter: ['snowflake', 'snowflake', 'snowman', 'snowflake', 'cocoa'],
+    spring: ['flower', 'tulip', 'butterfly', 'flower', 'ladybug'],
+    summer: ['sun', 'icecream', 'watermelon', 'shell', 'sailboat'],
+  };
+  const seasonOf = m => m >= 8 && m <= 10 ? 'fall' : (m === 11 || m <= 1) ? 'winter' : m <= 4 ? 'spring' : 'summer';
+  let decorSeason = '';
+  function renderDecor() {
+    const box = $('#decor');
+    if (!design.decor) { box.replaceChildren(); decorSeason = ''; return; }
+    const season = seasonOf(viewM) + (design.decorMove ? 'm' : 's');
+    box.className = design.decorMove ? 'move' : 'still';
+    if (season === decorSeason && box.children.length) return;
+    decorSeason = season;
+    const list = SEASON_DECOR[seasonOf(viewM)];
+    box.replaceChildren(...Array.from({ length: 16 }, (_, i) => {
+      const s = el('span', { html: stickerHTML(list[i % list.length]) });
+      const size = 24 + (i * 7) % 22;
+      s.style.cssText = `left:${(i * 61) % 100}%;width:${size}px;height:${size}px;--dur:${16 + (i * 5) % 14}s;--delay:-${(i * 3.7) % 20}s;--spin:${(i % 2 ? 1 : -1) * (180 + i * 20)}deg;--y:${(i * 37) % 95}%`;
+      return s;
+    }));
+  }
 
   function chipGroup(container, items, key, label) {
     container.replaceChildren(...items.map(it => el('button', {
@@ -716,26 +1013,32 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
       onclick: () => { design[key] = it.id; if (key === 'theme') design.custom = null; rerender(); },
     }, label ? label(it) : it.name)));
   }
-  function stickerPicker(container, current, onPick, withNone) {
+  function toggleChips(container, items) {
+    container.replaceChildren(...items.map(s => el('button', {
+      type: 'button', class: 'chip', 'aria-pressed': String(!!design[s.id]),
+      onclick: () => { design[s.id] = !design[s.id]; rerender(); },
+    }, (design[s.id] ? '✔️ ' : '') + s.name)));
+  }
+  function stickerPicker(container, isOn, onPick, noneLabel, noneOn) {
     const btns = Object.entries(STICKERS).map(([id, [name, art]]) => el('button', {
-      type: 'button', class: 'pick', title: name, 'aria-label': name, 'aria-pressed': String(current === id), html: art, onclick: () => onPick(id),
+      type: 'button', class: 'pick', title: name, 'aria-label': name, 'aria-pressed': String(isOn(id)), html: art, onclick: () => onPick(id),
     }));
-    if (withNone) btns.unshift(el('button', { type: 'button', class: 'pick none', 'aria-pressed': String(!current), onclick: () => onPick(null) }, 'בלי'));
+    if (noneLabel) btns.unshift(el('button', { type: 'button', class: 'pick none', 'aria-pressed': String(noneOn), onclick: () => onPick(null) }, noneLabel));
     container.replaceChildren(...btns);
   }
 
   let designTab = 'title';
-  const TABS = [['title', 'כותרת'], ['colors', 'צבעים ורקע'], ['text', 'כתב'], ['days', 'ימים ומדבקות']];
+  const TABS = [['title', 'כותרת'], ['colors', 'צבעים ורקע'], ['text', 'כתב ומספרים'], ['days', 'צורות לימים'], ['board', 'הלוח']];
   function buildDesignPanel() {
     $('#designTabs').replaceChildren(...TABS.map(([id, name]) => el('button', {
       type: 'button', role: 'tab', 'aria-selected': String(designTab === id), onclick: () => { designTab = id; buildDesignPanel(); },
     }, name)));
-    document.querySelectorAll('.tab-panel').forEach(p => { p.hidden = p.dataset.tab !== designTab; p.classList.add('row'); p.style.gap = '14px'; });
+    document.querySelectorAll('.tab-panel').forEach(p => { p.hidden = p.dataset.tab !== designTab; });
     $('#dTitle').value = design.title;
     chipGroup($('#titleFonts'), FONTS, 'titleFont');
     [...$('#titleFonts').children].forEach((b, i) => { b.style.fontFamily = FONTS[i].css; });
     chipGroup($('#titleStyles'), TITLE_STYLES, 'titleStyle');
-    stickerPicker($('#titleStkPick'), design.titleSticker, id => { design.titleSticker = id; rerender(); }, true);
+    stickerPicker($('#titleStkPick'), id => design.titleSticker === id, id => { design.titleSticker = id; rerender(); }, 'בלי', !design.titleSticker);
     chipGroup($('#themes'), Object.entries(THEMES).map(([id, t]) => ({ id, ...t })), 'theme', t => {
       const dots = el('span', { class: 'dots' });
       for (const c of [t.accent, t.paper, t.weekend]) { const i = el('i'); i.style.background = c; dots.append(i); }
@@ -748,23 +1051,43 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     chipGroup($('#fonts'), FONTS, 'font');
     [...$('#fonts').children].forEach((b, i) => { b.style.fontFamily = FONTS[i].css; });
     $('#dSize').value = design.size;
+    chipGroup($('#numStyles'), NUM_STYLES, 'numStyle');
     chipGroup($('#shapes'), SHAPES, 'shape');
     chipGroup($('#borders'), BORDERS, 'border');
-    $('#dBw').value = design.bw; $('#dGap').value = design.gap; $('#dStk').value = design.stickerSize;
+    $('#dBw').value = design.bw; $('#dGap').value = design.gap; $('#dStk').value = design.stickerSize; $('#dAlpha').value = design.alpha;
     chipGroup($('#todayMarks'), TODAY_MARKS, 'todayMark');
-    $('#shows').replaceChildren(...SHOWS.map(s => el('button', {
-      type: 'button', class: 'chip', 'aria-pressed': String(!!design[s.id]),
-      onclick: () => { design[s.id] = !design[s.id]; rerender(); },
-    }, (design[s.id] ? '✔️ ' : '') + s.name)));
+    chipGroup($('#calFrames'), CAL_FRAMES, 'calFrame');
+    toggleChips($('#shows'), SHOWS);
+    toggleChips($('#decorOpts'), [{ id: 'decor', name: 'להראות קישוטים' }, { id: 'decorMove', name: 'שיזוזו ויעופו' }]);
+    toggleChips($('#confettiOpts'), [{ id: 'confetti', name: 'כן, קונפטי!' }]);
   }
   $('#dTitle').addEventListener('input', e => { design.title = e.target.value; applyDesign(); });
-  for (const [id, key] of [['#dSize', 'size'], ['#dBw', 'bw'], ['#dGap', 'gap'], ['#dStk', 'stickerSize']]) {
+  for (const [id, key] of [['#dSize', 'size'], ['#dBw', 'bw'], ['#dGap', 'gap'], ['#dStk', 'stickerSize'], ['#dAlpha', 'alpha']]) {
     $(id).addEventListener('input', e => { design[key] = Number(e.target.value); applyDesign(); });
   }
   for (const [id, key] of [['#cAccent', 'accent'], ['#cPaper', 'paper'], ['#cInk', 'ink'], ['#cWeekend', 'weekend'], ['#cLine', 'line'], ['#cCard', 'card']]) {
     $(id).addEventListener('input', e => { design.custom = Object.assign({}, design.custom, { [key]: e.target.value }); applyDesign(); });
   }
   $('#resetDesign').addEventListener('click', () => { design = Object.assign({}, DEFAULT_DESIGN); rerender(); });
+  $('#photoIn').addEventListener('change', e => {
+    const file = e.target.files && e.target.files[0];
+    const msg = $('#photoMsg');
+    if (!file) return;
+    const img = new Image();
+    img.onload = () => {
+      const scale = Math.min(1, 1400 / Math.max(img.width, img.height));
+      const c = el('canvas', { width: Math.round(img.width * scale), height: Math.round(img.height * scale) });
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      photo = c.toDataURL('image/jpeg', 0.8);
+      const saved = store.set('photo', photo);
+      msg.hidden = false;
+      msg.textContent = saved ? 'התמונה נשמרה! 🖼️' : 'התמונה מופיעה עכשיו, אבל היא גדולה מדי לשמירה. בפעם הבאה צריך לבחור אותה שוב.';
+      design.bg = 'photo'; rerender();
+      URL.revokeObjectURL(img.src);
+    };
+    img.onerror = () => { msg.hidden = false; msg.textContent = 'לא הצלחתי לפתוח את התמונה הזו. אפשר לנסות תמונה אחרת.'; };
+    img.src = URL.createObjectURL(file);
+  });
 
   // ================= holidays panel =================
   function buildHolPanel() {
@@ -789,7 +1112,7 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
   }
   function buildVacations() {
     $('#vacList').replaceChildren(...holSet.vacations.map((v, i) => el('div', { class: 'vac' },
-      el('input', { type: 'text', id: 'vac-name-' + i, value: v.name, maxlength: 30, 'aria-label': 'שם החופשה', oninput: e => { v.name = e.target.value; saveHol(false); } }),
+      el('input', { type: 'text', id: 'vac-name-' + i, value: v.name, maxLength: 30, 'aria-label': 'שם החופשה', oninput: e => { v.name = e.target.value; saveHol(false); } }),
       el('div', { class: 'vac-dates' },
         el('label', {}, 'מ-', el('input', { type: 'date', id: 'vac-from-' + i, value: v.from, onchange: e => { v.from = e.target.value; saveHol(false); } })),
         el('label', {}, 'עד', el('input', { type: 'date', id: 'vac-to-' + i, value: v.to, onchange: e => { v.to = e.target.value; saveHol(false); } })),
@@ -807,6 +1130,75 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     renderCalendar();
   }
 
+  // ================= birthdays =================
+  const bdayOn = key => {
+    const { y, m, d } = fromIso(key);
+    const leap = (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
+    return birthdays.filter(b => {
+      if (!b.date) return false;
+      const bd = fromIso(b.date);
+      if (bd.m === 1 && bd.d === 29 && !leap) return m === 1 && d === 28;
+      return bd.m === m && bd.d === d;
+    }).map(b => ({ ...b, age: fromIso(b.date).y > 1900 && y >= fromIso(b.date).y ? y - fromIso(b.date).y : null }));
+  };
+  const nextBday = b => {
+    const t = localToday(), ty = fromIso(t).y, bd = fromIso(b.date);
+    for (const y of [ty, ty + 1]) { const k = iso(y, bd.m, bd.d); if (k >= t) return { key: k, days: daysBetween(t, k), age: bd.y > 1900 ? y - bd.y : null }; }
+    return null;
+  };
+  function buildBdays() {
+    const list = $('#bdayList');
+    if (!birthdays.length) { list.replaceChildren(el('p', { class: 'muted' }, 'עוד אין ימי הולדת. לוחצים על "+ להוסיף יום הולדת".')); return; }
+    list.replaceChildren(...birthdays.map((b, i) => el('div', { class: 'bd-row' },
+      el('span', { class: 'who' }, el('input', { type: 'text', id: 'bd-name-' + i, value: b.name, placeholder: 'שם', maxLength: 30, 'aria-label': 'שם', oninput: e => { b.name = e.target.value; saveBdays(false); } })),
+      el('input', { type: 'date', id: 'bd-date-' + i, value: b.date, 'aria-label': 'תאריך לידה', onchange: e => { b.date = e.target.value; saveBdays(false); } }),
+      el('label', {}, el('input', { type: 'checkbox', id: 'bd-me-' + i, checked: !!b.me, onchange: e => { birthdays.forEach(x => { x.me = false; }); b.me = e.target.checked; saveBdays(); } }), ' זו אני'),
+      el('button', { type: 'button', class: 'chip', onclick: () => { birthdays.splice(i, 1); saveBdays(); } }, '🗑️'),
+    )));
+  }
+  function saveBdays(rebuild = true) {
+    store.set('birthdays', birthdays);
+    if (rebuild) buildBdays();
+    renderCalendar(); renderStrip();
+  }
+  $('#addBday').addEventListener('click', () => { birthdays.push({ name: '', date: '', me: !birthdays.length }); saveBdays(); });
+
+  // ================= top strip: countdowns, sun, moon =================
+  function renderStrip() {
+    const t = localToday(), { y, m, d } = fromIso(t);
+    const pills = [];
+    const me = birthdays.find(b => b.me && b.date);
+    if (me) {
+      const n = nextBday(me);
+      if (n) pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('cake') }),
+        n.days === 0 ? el('b', {}, 'היום יום ההולדת שלי! 🎉') : el('span', {}, 'עוד ', el('b', {}, String(n.days)), n.days === 1 ? ' יום ליום ההולדת שלי!' : ' ימים ליום ההולדת שלי!')));
+    } else {
+      pills.push(el('button', { type: 'button', class: 'pill', onclick: () => { buildBdays(); $('#bdayDlg').showModal(); } }, el('span', { class: 'ic', html: stickerHTML('cake') }), 'להוסיף את יום ההולדת שלי'));
+    }
+    const others = birthdays.filter(b => !b.me && b.date && b.name).map(b => ({ b, n: nextBday(b) })).filter(x => x.n).sort((a, c) => a.n.days - c.n.days);
+    if (others.length) {
+      const { b, n } = others[0];
+      pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('gift') }),
+        n.days === 0 ? `היום יום ההולדת של ${b.name}!` : `יום ההולדת של ${b.name} בעוד ${n.days} ${n.days === 1 ? 'יום' : 'ימים'}`));
+    }
+    // the next day off that is not a weekend (skipped while already inside a vacation)
+    for (let i = 1; i < 150; i++) {
+      const k = new Date(Date.UTC(y, m, d + i)).toISOString().slice(0, 10);
+      const info = dayInfo(k);
+      if (info.weekend || !info.noSchool || (info.vac && info.vac.from <= t)) continue;
+      const hol = info.hols.find(x => isOff(x.id));
+      const what = hol ? holName(hol) : info.vac ? (info.vac.name || 'חופשה') : 'יום חופש';
+      pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('sparkles') }), `${what} בעוד ${i} ${i === 1 ? 'יום' : 'ימים'}`));
+      break;
+    }
+    const sun = sunTimes(y, m, d, place.lat, place.lon);
+    if (sun) pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('sun') }),
+      'זריחה ', el('span', { class: 'nums-ltr' }, fmtTime(sun.rise)), ' · שקיעה ', el('span', { class: 'nums-ltr' }, fmtTime(sun.set))));
+    const mo = moonInfo(y, m, d);
+    pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: moonSVG(mo.p) }), mo.name));
+    $('#strip').replaceChildren(...pills);
+  }
+
   // ================= weather (Open-Meteo, real forecast) =================
   let wx = null, wxKey = '';
   async function loadWeather() {
@@ -821,6 +1213,7 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
       if (!res.ok) throw new Error(res.status);
       const j = await res.json();
       if (wxKey !== key) return;
+      if (j.timezone && !place.tz) { place.tz = j.timezone; store.set('place', place); renderStrip(); }
       const d = j.daily, byDate = {};
       d.time.forEach((t, i) => {
         byDate[t] = {
@@ -873,6 +1266,7 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
   // ================= calendar =================
   const t0 = new Date();
   let viewY = t0.getFullYear(), viewM = t0.getMonth();
+  const EV_COLORS = ['#ffd3dc', '#ffe9a8', '#c9f0d6', '#cfe6ff', '#e5d6ff', '#ffd9b8'];
 
   function renderCalendar() {
     const hFirst = hebParts(viewY, viewM, 1), hLast = hebParts(viewY, viewM, new Date(viewY, viewM + 1, 0).getDate());
@@ -890,27 +1284,39 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
       const info = dayInfo(key);
       const w = wx?.byDate?.[key];
       const heb = hebParts(viewY, viewM, d);
-      const stk = stickers[key];
+      const mo = moonInfo(viewY, viewM, d);
+      const bds = bdayOn(key);
+      const evs = events[key] || [];
+      const stks = stickers[key] || [];
       const cell = el('button', {
         type: 'button',
         class: 'day' + (info.noSchool ? ' off' : '') + (key === today ? ` today m-${design.todayMark}` : ''),
-        'aria-label': `${DAYS[info.dow]}, ${d} ב${MONTHS[viewM]}` + (info.hols.length ? ', ' + info.hols.map(holName).join(', ') : '') + (info.noSchool ? ', אין לימודים' : ''),
+        'aria-label': `${DAYS[info.dow]}, ${d} ב${MONTHS[viewM]}` + (info.hols.length ? ', ' + info.hols.map(holName).join(', ') : '') +
+          (bds.length ? ', יום הולדת' : '') + (evs.length ? `, ${evs.length} אירועים` : '') + (info.noSchool ? ', אין לימודים' : ''),
         onclick: () => openDay(key),
       },
-        el('span', { class: 'num' }, String(d)),
+        el('span', { class: 'top' }, el('span', { class: 'num' }, String(d)),
+          mo.key ? el('span', { class: 'moon', title: mo.name, html: moonSVG(mo.p) }) : null),
         el('span', { class: 'heb' }, hebShort(heb)),
+        ...bds.map(b => el('span', { class: 'bday' }, `🎂 ${b.name || 'יום הולדת'}`)),
         ...info.hols.map(x => el('span', { class: 'hol' + (HOLIDAYS[x.id].t === 'c' ? ' c' : '') }, holName(x))),
         info.vac ? el('span', { class: 'tag' }, info.vac.name || 'חופשה') :
           info.firstBack ? el('span', { class: 'tag first' }, '🎒 חוזרים ללימודים!') :
           info.noSchool && !info.hols.length ? el('span', { class: 'tag' }, 'אין לימודים') : null,
+        ...evs.slice(0, 2).map(ev => { const s = el('span', { class: 'ev' }, (ev.time ? ev.time + ' ' : '') + ev.text); s.style.background = ev.color; return s; }),
+        evs.length > 2 ? el('span', { class: 'ev' }, `+${evs.length - 2} עוד`) : null,
         w ? el('span', { class: 'wx' }, `${wmo(w.code)[0]} ${fmtT(w.max)}`) : null,
-        stk ? el('span', { class: 'stk', 'aria-hidden': 'true', html: STICKERS[stk] ? stickerHTML(stk) : '' }, STICKERS[stk] ? null : stk) : null,
+        stks.length ? el('span', { class: 'stks', 'aria-hidden': 'true' }, ...stks.slice(0, 3).map((id, i) => {
+          const s = STICKERS[id] ? el('span', { class: 'stk', html: stickerHTML(id) }) : el('span', { class: 'stk txt' }, id);
+          s.style.setProperty('--srot', `${((d * 53 + i * 29) % 7 - 3) * 6}deg`);
+          return s;
+        })) : null,
       );
       cell.style.setProperty('--tilt', `${((d * 37) % 5 - 2) * 0.7}deg`);
-      cell.style.setProperty('--srot', `${((d * 53) % 7 - 3) * 5}deg`);
       kids.push(cell);
     }
     $('#cal').replaceChildren(...kids);
+    renderDecor();
   }
 
   // ================= day sheet =================
@@ -926,20 +1332,58 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     sc.textContent = info.vac ? `🏖️ אין לימודים, ${info.vac.name || 'חופשה'}!` :
       info.weekend ? `🎉 אין לימודים, יום ${DAYS[info.dow]}!` : info.holOff ? '🎉 אין לימודים, חג!' :
       info.firstBack ? '🎒 חוזרים ללימודים! היום הראשון אחרי החופש.' : '🎒 יש לימודים היום';
+    const bds = bdayOn(key);
+    renderDayBday(bds);
+    renderDayEvents(key);
     renderDayHol(key, info);
+    renderDaySky(key);
     renderDayWeather(key);
     renderStickerPick(key);
     const dlg = $('#dayDlg');
     if (!dlg.open) dlg.showModal();
+    if (design.confetti && (bds.length || info.hols.length)) confetti();
+  }
+
+  function renderDayBday(bds) {
+    const box = $('#dayBday');
+    box.hidden = !bds.length;
+    if (!bds.length) return;
+    box.replaceChildren(el('h4', {}, '🎂 יום הולדת!'), ...bds.map(b => el('div', { class: 'holi' },
+      el('div', { class: 'name' }, b.me ? 'יום ההולדת שלי! 🥳' : `יום ההולדת של ${b.name || '...'}`),
+      b.age != null ? el('div', {}, `${b.me ? 'אני חוגגת' : 'חוגגים'} ${b.age}! 🎈`) : null)));
+  }
+
+  let evColor = EV_COLORS[0];
+  function renderDayEvents(key) {
+    const box = $('#dayEvents');
+    const evs = events[key] || [];
+    const save = () => { if (evs.length) events[key] = evs; else delete events[key]; store.set('events', events); renderDayEvents(key); renderCalendar(); };
+    const text = el('input', { type: 'text', id: 'evText', placeholder: 'מה יש? למשל: חוג ציור', maxLength: 60 });
+    const time = el('input', { type: 'time', id: 'evTime', 'aria-label': 'שעה' });
+    const colors = el('div', { class: 'colorpick' }, ...EV_COLORS.map(c => {
+      const b = el('button', { type: 'button', 'aria-label': 'צבע', 'aria-pressed': String(c === evColor), onclick: () => { evColor = c; [...colors.children].forEach(x => x.setAttribute('aria-pressed', String(x === b))); } });
+      b.style.background = c; return b;
+    }));
+    const form = el('form', { class: 'ev-form', onsubmit: e => {
+      e.preventDefault();
+      if (!text.value.trim()) { text.focus(); return; }
+      evs.push({ time: time.value, text: text.value.trim(), color: evColor });
+      evs.sort((a, b) => (a.time || '99').localeCompare(b.time || '99'));
+      save();
+    } }, text, time, colors, el('button', { type: 'submit', class: 'btn main' }, '+ להוסיף'));
+    box.replaceChildren(el('h4', {}, '📝 מה יש לי ביום הזה'),
+      evs.length ? el('ul', { class: 'ev-list' }, ...evs.map((ev, i) => {
+        const li = el('li', {}, ev.time ? el('span', { class: 't' }, ev.time) : null, el('span', {}, ev.text),
+          el('button', { type: 'button', class: 'del', 'aria-label': 'למחוק', onclick: () => { evs.splice(i, 1); save(); } }, '🗑️'));
+        li.style.background = ev.color; li.style.color = '#1f2a44'; return li;
+      })) : el('p', { class: 'muted' }, 'עוד אין כלום. אפשר להוסיף חוג, מבחן, מסיבה, טיול...'),
+      form);
   }
 
   function renderDayHol(key, info) {
     const box = $('#dayHol');
     const head = el('h4', {}, '📜 חגים ביום הזה');
-    if (!info.hols.length) {
-      box.replaceChildren(head, el('p', { class: 'muted' }, 'אין חג ביום הזה.'));
-      return;
-    }
+    if (!info.hols.length) { box.replaceChildren(head, el('p', { class: 'muted' }, 'אין חג ביום הזה.')); return; }
     box.replaceChildren(head, ...info.hols.map(x => {
       const h = HOLIDAYS[x.id];
       return el('div', { class: 'holi' },
@@ -947,6 +1391,24 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
         el('div', {}, h.desc),
         isOff(x.id) ? el('div', { class: 'off-note' }, '🎉 בחג הזה אין לימודים') : null);
     }));
+  }
+
+  function renderDaySky(key) {
+    const { y, m, d } = fromIso(key);
+    const mo = moonInfo(y, m, d);
+    const sun = sunTimes(y, m, d, place.lat, place.lon);
+    const where = (place.short || place.name).replace(' 🏠', '');
+    $('#daySky').replaceChildren(el('h4', {}, `🌙 השמיים ב${where}`),
+      el('div', { class: 'sky' },
+        el('div', { class: 'moon-big', html: moonSVG(mo.p) }),
+        el('div', {},
+          el('div', {}, mo.name + (mo.key === 'full' ? ' 🌕' : '')),
+          el('div', { class: 'muted' }, `הירח מואר ב-${mo.illum}%, והוא בן ${mo.days} ימים`),
+          sun ? el('div', { class: 'sky-times' },
+            el('span', {}, el('span', { class: 'ic', style: 'width:22px;height:22px;display:inline-block', html: stickerHTML('sun') }), 'זריחה ', el('span', { class: 'nums-ltr' }, fmtTime(sun.rise))),
+            el('span', {}, '🌇 שקיעה ', el('span', { class: 'nums-ltr' }, fmtTime(sun.set))),
+            el('span', { class: 'muted' }, `☀️ ${fmtLen(sun.len)} של אור`)) :
+            el('div', { class: 'muted' }, 'במקום הזה השמש לא זורחת או לא שוקעת ביום הזה!'))));
   }
 
   function renderDayWeather(key) {
@@ -983,10 +1445,39 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
   }
 
   function renderStickerPick(key) {
-    stickerPicker($('#stickerPick'), stickers[key], id => {
-      if (!id || stickers[key] === id) delete stickers[key]; else stickers[key] = id;
+    const cur = stickers[key] || [];
+    stickerPicker($('#stickerPick'), id => cur.includes(id), id => {
+      let list = stickers[key] || [];
+      if (!id) list = [];
+      else if (list.includes(id)) list = list.filter(x => x !== id);
+      else list = [...list, id].slice(-4);
+      if (list.length) stickers[key] = list; else delete stickers[key];
       store.set('stickers', stickers); renderStickerPick(key); renderCalendar();
-    }, true);
+    }, 'לנקות', !cur.length);
+  }
+
+  // ---------- confetti ----------
+  let confettiRun = 0;
+  function confetti() {
+    if (reduceMotion()) return;
+    const c = $('#confetti'), ctx = c.getContext('2d');
+    const W = c.width = innerWidth, H = c.height = innerHeight;
+    const cols = ['#ff6b6b', '#ffd84d', '#4fc3a1', '#7ec8ff', '#b58cff', '#ff9ad5'];
+    const parts = Array.from({ length: 140 }, (_, i) => ({
+      x: W / 2 + (Math.sin(i * 12.9898) * 43758.5453 % 1) * 120, y: H * .35,
+      vx: Math.cos(i * 2.4) * (3 + (i % 7)), vy: -6 - (i % 9), r: (i * 37) % 360, vr: (i % 2 ? 1 : -1) * (4 + i % 6),
+      w: 6 + i % 5, h: 4 + i % 4, c: cols[i % cols.length],
+    }));
+    const run = ++confettiRun; let t = 0;
+    (function frame() {
+      if (run !== confettiRun) return;
+      ctx.clearRect(0, 0, W, H);
+      for (const p of parts) {
+        p.vy += .25; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r * Math.PI / 180); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+      }
+      if (++t < 150) requestAnimationFrame(frame); else ctx.clearRect(0, 0, W, H);
+    })();
   }
 
   // ================= place sheet =================
@@ -994,6 +1485,7 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     place = p; store.set('place', p);
     $('#placeName').textContent = p.name;
     $('#placeDlg').close();
+    renderStrip();
     loadWeather();
   }
   function buildQuickPlaces() {
@@ -1010,34 +1502,37 @@ input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding
     msg.hidden = false; msg.textContent = 'מחפש…'; list.replaceChildren();
     let found = [];
     try {
-      const r = await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=7&accept-language=he&q=' + encodeURIComponent(q));
-      if (r.ok) found = (await r.json()).map(x => ({ name: x.display_name.split(',').slice(0, 3).join(',').trim(), full: x.display_name, lat: +x.lat, lon: +x.lon }));
+      const r = await fetch('https://geocoding-api.open-meteo.com/v1/search?count=7&language=he&name=' + encodeURIComponent(q));
+      if (r.ok) found = ((await r.json()).results || []).map(x => ({ name: [x.name, x.admin1, x.country].filter(Boolean).join(', '), full: '', lat: x.latitude, lon: x.longitude, tz: x.timezone }));
     } catch {}
     if (!found.length) {
       try {
-        const r = await fetch('https://geocoding-api.open-meteo.com/v1/search?count=7&language=he&name=' + encodeURIComponent(q));
-        if (r.ok) found = ((await r.json()).results || []).map(x => ({ name: [x.name, x.admin1, x.country].filter(Boolean).join(', '), full: '', lat: x.latitude, lon: x.longitude }));
+        const r = await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=7&accept-language=he&q=' + encodeURIComponent(q));
+        if (r.ok) found = (await r.json()).map(x => ({ name: x.display_name.split(',').slice(0, 3).join(',').trim(), full: x.display_name, lat: +x.lat, lon: +x.lon }));
       } catch {}
     }
     if (!found.length) { msg.textContent = 'לא מצאתי את המקום הזה. אפשר לנסות לכתוב אחרת, או באנגלית.'; return; }
     msg.hidden = true;
-    list.replaceChildren(...found.map(p => el('li', {}, el('button', { type: 'button', title: p.full, onclick: () => setPlace({ name: p.name, short: p.name.split(',')[0], lat: p.lat, lon: p.lon }) }, '📍 ' + p.name))));
+    list.replaceChildren(...found.map(p => el('li', {}, el('button', { type: 'button', title: p.full, onclick: () => setPlace({ name: p.name, short: p.name.split(',')[0], lat: p.lat, lon: p.lon, tz: p.tz }) }, '📍 ' + p.name))));
   });
 
   // ================= wiring =================
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
   document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
-  $('#dayDlg').addEventListener('close', () => { openDate = null; });
+  $('#dayDlg').addEventListener('close', () => { openDate = null; confettiRun++; });
   $('#prev').addEventListener('click', () => { viewM--; if (viewM < 0) { viewM = 11; viewY--; } renderCalendar(); });
   $('#next').addEventListener('click', () => { viewM++; if (viewM > 11) { viewM = 0; viewY++; } renderCalendar(); });
   $('#goToday').addEventListener('click', () => { const n = new Date(); viewY = n.getFullYear(); viewM = n.getMonth(); renderCalendar(); });
   $('#openDesign').addEventListener('click', () => { buildDesignPanel(); $('#designDlg').showModal(); });
   $('#openHol').addEventListener('click', () => { buildHolPanel(); $('#holDlg').showModal(); });
+  $('#openBday').addEventListener('click', () => { buildBdays(); $('#bdayDlg').showModal(); });
+  $('#printBtn').addEventListener('click', () => { try { window.print(); } catch {} });
   $('#openPlace').addEventListener('click', () => { buildQuickPlaces(); $('#results').replaceChildren(); $('#searchMsg').hidden = true; $('#placeDlg').showModal(); });
 
   $('#placeName').textContent = place.name;
   applyDesign();
   renderCalendar();
+  renderStrip();
   loadWeather();
 })();
 </script>
