@@ -196,6 +196,11 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
 .hol-list label:hover { background: var(--paper); }
 .hol-list .when { color: var(--soft); font-size: .85em; margin-inline-start: auto; }
 .sec-title { font-size: 1.25em; color: var(--accent); margin: 6px 0 0; font-weight: 400; }
+.vac { display: grid; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 14px; }
+.vac-dates { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.vac-dates label { display: inline-flex; align-items: center; gap: 6px; }
+input[type="date"] { border: 2px solid var(--line); border-radius: 10px; padding: 4px 8px; background: var(--card); font-family: 'Rubik', system-ui, sans-serif; font-size: .85em; }
+.day .tag.first { color: var(--accent); }
 
 @media (max-width: 620px) {
   body { font-size: calc(16px * var(--size)); }
@@ -235,7 +240,7 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
 
   <div class="legend">
     <span><i class="sw" style="background:var(--card)"></i> 🎒 יש לימודים</span>
-    <span><i class="sw" style="background:var(--weekend)"></i> 🎉 אין לימודים (שבת, ראשון וחגים)</span>
+    <span><i class="sw" style="background:var(--weekend)"></i> 🎉 אין לימודים (שבת, ראשון, חגים וחופשות)</span>
     <span>לוחצים על יום כדי לראות חגים, מעלות ומה ללבוש</span>
   </div>
 </div>
@@ -295,6 +300,11 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       <span class="lbl">חגים כמו…</span>
       <div class="chips" id="holPlace"></div>
       <p class="muted">בחוץ לארץ (כמו בניו יורק) חלק מהחגים הם יומיים, ובישראל יום אחד.</p>
+    </div>
+    <div class="row">
+      <span class="lbl">🏖️ חופשות (ימים בלי לימודים)</span>
+      <div class="row" id="vacList"></div>
+      <div><button class="btn" type="button" id="addVac">+ להוסיף חופשה</button></div>
     </div>
     <div class="row">
       <span class="lbl">באילו חגים אין לימודים? מסמנים ✔️</span>
@@ -511,6 +521,7 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
   };
 
   let holSet = Object.assign({ j: true, c: true, israel: false, off: {} }, store.get('holidays', {}));
+  if (!Array.isArray(holSet.vacations)) holSet.vacations = [{ name: 'החופש הגדול', from: '2026-06-27', to: '2026-09-09' }];
   const isOff = id => (id in holSet.off ? holSet.off[id] : HOLIDAYS[id].off);
 
   function easter(y) {
@@ -592,7 +603,18 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     const dow = new Date(y, m, d).getDay();
     const hols = holidaysOn(key);
     const holOff = hols.some(x => isOff(x.id));
-    return { dow, hols, weekend: isWeekend(dow), holOff, noSchool: isWeekend(dow) || holOff };
+    const vacs = holSet.vacations.filter(v => v.from && v.to && v.from <= v.to);
+    const vac = vacs.find(v => v.from <= key && key <= v.to);
+    const weekend = isWeekend(dow);
+    const noSchool = weekend || holOff || !!vac;
+    // the first weekday right after a vacation ends
+    const nextWeekday = to => {
+      const t = new Date(Date.UTC(...to.split('-').map((n, i) => i === 1 ? n - 1 : +n)));
+      do t.setUTCDate(t.getUTCDate() + 1); while (isWeekend(t.getUTCDay()));
+      return t.toISOString().slice(0, 10);
+    };
+    const firstBack = !noSchool && vacs.some(v => nextWeekday(v.to) === key);
+    return { dow, hols, weekend, holOff, vac, firstBack, noSchool };
   };
 
   // ================= design =================
@@ -763,7 +785,22 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       }));
     };
     $('#holOff').replaceChildren(...[group('j', 'חגים יהודיים'), group('c', 'חגים נוצריים')].filter(Boolean));
+    buildVacations();
   }
+  function buildVacations() {
+    $('#vacList').replaceChildren(...holSet.vacations.map((v, i) => el('div', { class: 'vac' },
+      el('input', { type: 'text', id: 'vac-name-' + i, value: v.name, maxlength: 30, 'aria-label': 'שם החופשה', oninput: e => { v.name = e.target.value; saveHol(false); } }),
+      el('div', { class: 'vac-dates' },
+        el('label', {}, 'מ-', el('input', { type: 'date', id: 'vac-from-' + i, value: v.from, onchange: e => { v.from = e.target.value; saveHol(false); } })),
+        el('label', {}, 'עד', el('input', { type: 'date', id: 'vac-to-' + i, value: v.to, onchange: e => { v.to = e.target.value; saveHol(false); } })),
+        el('button', { type: 'button', class: 'chip', onclick: () => { holSet.vacations.splice(i, 1); saveHol(); } }, '🗑️ למחוק')),
+    )));
+  }
+  $('#addVac').addEventListener('click', () => {
+    const t = localToday();
+    holSet.vacations.push({ name: 'חופשה', from: t, to: t });
+    saveHol();
+  });
   function saveHol(rebuild = true) {
     store.set('holidays', holSet);
     if (rebuild) buildHolPanel();
@@ -863,7 +900,9 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
         el('span', { class: 'num' }, String(d)),
         el('span', { class: 'heb' }, hebShort(heb)),
         ...info.hols.map(x => el('span', { class: 'hol' + (HOLIDAYS[x.id].t === 'c' ? ' c' : '') }, holName(x))),
-        info.noSchool && !info.hols.length ? el('span', { class: 'tag' }, 'אין לימודים') : null,
+        info.vac ? el('span', { class: 'tag' }, info.vac.name || 'חופשה') :
+          info.firstBack ? el('span', { class: 'tag first' }, '🎒 חוזרים ללימודים!') :
+          info.noSchool && !info.hols.length ? el('span', { class: 'tag' }, 'אין לימודים') : null,
         w ? el('span', { class: 'wx' }, `${wmo(w.code)[0]} ${fmtT(w.max)}`) : null,
         stk ? el('span', { class: 'stk', 'aria-hidden': 'true', html: STICKERS[stk] ? stickerHTML(stk) : '' }, STICKERS[stk] ? null : stk) : null,
       );
@@ -884,7 +923,9 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     $('#dayHeb').textContent = hebDateText(hebParts(y, m, d));
     const sc = $('#daySchool');
     sc.className = 'school' + (info.noSchool ? ' off' : '');
-    sc.textContent = info.weekend ? `🎉 אין לימודים, יום ${DAYS[info.dow]}!` : info.holOff ? '🎉 אין לימודים, חג!' : '🎒 יש לימודים היום';
+    sc.textContent = info.vac ? `🏖️ אין לימודים, ${info.vac.name || 'חופשה'}!` :
+      info.weekend ? `🎉 אין לימודים, יום ${DAYS[info.dow]}!` : info.holOff ? '🎉 אין לימודים, חג!' :
+      info.firstBack ? '🎒 חוזרים ללימודים! היום הראשון אחרי החופש.' : '🎒 יש לימודים היום';
     renderDayHol(key, info);
     renderDayWeather(key);
     renderStickerPick(key);
