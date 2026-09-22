@@ -6,7 +6,7 @@
 <title>הלוח שלי</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gveret+Levin&family=Playpen+Sans+Hebrew:wght@400;600&family=Amatic+SC:wght@700&family=Rubik:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gveret+Levin&family=Playpen+Sans+Hebrew:wght@400;600&family=Amatic+SC:wght@700&family=Rubik:wght@400;600&family=Suez+One&family=Secular+One&display=swap">
 <style>
 :root {
   --paper: #eef6ff;
@@ -17,12 +17,17 @@
   --accent-ink: #ffffff;
   --weekend: #fff1d6;
   --line: #c9dcf5;
-  --font: 'Gveret Levin', 'Playpen Sans Hebrew', 'Rubik', system-ui, sans-serif;
+  --font: 'Gveret Levin', 'Rubik', system-ui, sans-serif;
+  --title-font: 'Gveret Levin', 'Rubik', system-ui, sans-serif;
   --size: 1;
   --radius: 16px;
   --border-style: solid;
+  --bw: 1.5px;
+  --gap: 6px;
+  --stk: 1;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { margin: 0; }
 body {
   font-family: var(--font);
@@ -36,27 +41,35 @@ body {
 body.bg-dots { background-image: radial-gradient(var(--line) 1.6px, transparent 1.6px); background-size: 22px 22px; }
 body.bg-lines { background-image: linear-gradient(transparent 31px, var(--line) 32px); background-size: 100% 32px; }
 body.bg-grid { background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 26px 26px; }
-body.bg-hearts { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext x='8' y='30' font-size='18' opacity='.25'%3E%E2%9D%A4%3C/text%3E%3Ctext x='38' y='56' font-size='14' opacity='.2'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E"); }
-body.bg-stars { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Ctext x='6' y='24' font-size='16' opacity='.3'%3E%E2%AD%90%3C/text%3E%3Ctext x='40' y='60' font-size='12' opacity='.25'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E"); }
+body.bg-stripes { background-image: repeating-linear-gradient(-45deg, var(--line) 0 9px, transparent 9px 26px); }
+body.bg-checks { background-image: conic-gradient(var(--line) 25%, transparent 0 50%, var(--line) 0 75%, transparent 0); background-size: 44px 44px; }
+body.bg-hearts, body.bg-stars, body.bg-confetti, body.bg-flowers { background-image: var(--bg-img); background-size: 90px 90px; }
 
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
-.wrap { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+.wrap { max-width: 1000px; margin: 0 auto; display: grid; gap: 14px; }
 
-header.top {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
-}
+header.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.title-wrap { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.title-stk { width: calc(52px * var(--size)); height: calc(52px * var(--size)); flex: none; }
+.title-stk:empty { display: none; }
 h1 {
-  margin: 0; font-size: calc(2.6em); font-weight: 400; line-height: 1;
-  color: var(--accent); text-wrap: balance;
+  margin: 0; font-family: var(--title-font); font-size: 2.6em; font-weight: 400; line-height: 1.1;
+  color: var(--accent); text-wrap: balance; overflow-wrap: anywhere;
 }
+body.ts-marker h1 span { color: var(--ink); background: linear-gradient(transparent 50%, color-mix(in srgb, var(--accent) 40%, transparent) 50%, color-mix(in srgb, var(--accent) 40%, transparent) 92%, transparent 92%); padding: 0 .15em; }
+body.ts-wavy h1 { text-decoration: underline wavy var(--accent); text-decoration-thickness: 2px; text-underline-offset: 10px; }
+body.ts-shadow h1 { text-shadow: 3px 3px 0 var(--weekend), 6px 6px 0 var(--line); }
+body.ts-bubble h1 { color: var(--card); -webkit-text-stroke: 1.5px var(--accent); text-shadow: 3px 3px 0 var(--accent); }
+
 .tools { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn {
   border: 2px var(--border-style) var(--ink); background: var(--card); border-radius: 999px;
   padding: 6px 14px; font-size: 1em;
 }
+body.frame-none .btn, body.frame-double .btn { border-style: solid; }
 .btn.main { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 .btn:hover { transform: translateY(-1px); }
 
@@ -64,33 +77,59 @@ h1 {
 .place-line strong { color: var(--ink); font-weight: 400; }
 
 .month-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.month-bar h2 { margin: 0; font-size: 2em; font-weight: 400; text-align: center; flex: 1; }
-.nav { width: 44px; height: 44px; border-radius: 50%; border: 2px var(--border-style) var(--ink); background: var(--card); font-size: 1.3em; line-height: 1; }
+.month-bar h2 { margin: 0; font-family: var(--title-font); font-size: 2em; font-weight: 400; text-align: center; flex: 1; line-height: 1.15; }
+.month-bar h2 small { display: block; font-size: .5em; color: var(--soft); font-family: var(--font); }
+.nav { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 2px var(--border-style) var(--ink); background: var(--card); font-size: 1.3em; line-height: 1; }
 
 .cal {
-  background: var(--card); border: 2px var(--border-style) var(--ink); border-radius: calc(var(--radius) + 6px);
-  padding: 10px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+  background: var(--card); border: calc(var(--bw) + .5px) var(--border-style) var(--ink); border-radius: calc(var(--radius) + 6px);
+  padding: 10px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--gap);
 }
 .dow { text-align: center; font-size: 1.1em; color: var(--soft); padding: 2px 0; }
 .dow.we { color: var(--accent); }
 .day {
-  position: relative; min-height: 86px; border-radius: var(--radius);
-  border: 1.5px var(--border-style) var(--line); background: var(--card);
-  padding: 6px; text-align: start; display: flex; flex-direction: column; gap: 2px;
-  transition: transform .12s ease;
+  position: relative; min-height: 100px; border-radius: var(--radius);
+  border: var(--bw) var(--border-style) var(--line); background: var(--card);
+  padding: 6px; text-align: start; display: flex; flex-direction: column; gap: 1px;
+  transition: transform .12s ease; min-width: 0;
 }
-.day:hover { transform: scale(1.04); z-index: 1; }
-.day.we { background: var(--weekend); }
-.day.today { border: 3px solid var(--accent); }
+.day:hover { transform: scale(1.04) rotate(var(--tilt, 0deg)); z-index: 2; }
+.day.off { background: var(--weekend); }
 .day.empty { visibility: hidden; }
-.day .num { font-size: 1.5em; line-height: 1; }
-.day .tag { font-size: .72em; color: var(--soft); }
-.day .wx { font-family: 'Rubik', system-ui, sans-serif; font-size: .72em; color: var(--soft); margin-top: auto; direction: ltr; text-align: right; font-variant-numeric: tabular-nums; }
-.day .stk { position: absolute; top: 4px; left: 6px; font-size: 1.4em; line-height: 1; }
+.day .num { font-size: 1.5em; line-height: 1; align-self: flex-start; }
+.day .heb { font-size: .68em; color: var(--soft); }
+.day .hol { font-size: .72em; line-height: 1.15; color: var(--accent); overflow-wrap: anywhere; }
+.day .hol.c { color: var(--soft); }
+.day .tag { font-size: .68em; color: var(--soft); }
+.day .wx { font-family: 'Rubik', system-ui, sans-serif; font-size: .7em; color: var(--soft); margin-top: auto; direction: ltr; text-align: right; font-variant-numeric: tabular-nums; }
+.day .stk { position: absolute; top: 3px; left: 3px; width: calc(34px * var(--stk)); height: calc(34px * var(--stk)); transform: rotate(var(--srot, -8deg)); pointer-events: none; }
+.stk svg, .title-stk svg, .pick svg { width: 100%; height: 100%; display: block; overflow: visible;
+  filter: drop-shadow(1.6px 0 0 #fff) drop-shadow(-1.6px 0 0 #fff) drop-shadow(0 1.6px 0 #fff) drop-shadow(0 -1.6px 0 #fff) drop-shadow(0 2px 2px rgb(0 0 0 / .18)); }
+body.hide-heb .day .heb, body.hide-hol .day .hol, body.hide-wx .day .wx { display: none; }
+
+/* today marks */
+.day.today.m-frame { border: 3px solid var(--accent); }
+.day.today.m-circle .num { background: var(--accent); color: var(--accent-ink); border-radius: 50%; width: 1.7em; height: 1.7em; display: grid; place-items: center; font-size: 1.2em; }
+.day.today.m-heart::after, .day.today.m-star::after {
+  content: ""; position: absolute; inset-inline-start: 2px; top: 0; width: 2.4em; height: 2.4em;
+  background: var(--today-img) center / contain no-repeat; z-index: -0; opacity: .9; pointer-events: none;
+}
+.day.today.m-heart .num, .day.today.m-star .num { position: relative; z-index: 1; padding-inline-start: .35em; padding-top: .3em; font-size: 1.2em; }
+
+/* shapes */
 body.shape-square { --radius: 4px; }
 body.shape-round .day { border-radius: 50%; aspect-ratio: 1; min-height: 0; align-items: center; justify-content: center; text-align: center; padding: 2px; }
-body.shape-round .day .wx, body.shape-round .day .tag { display: none; }
-body.shape-round .day .stk { top: 0; left: 0; font-size: 1em; }
+body.shape-round .day .num { align-self: center; }
+body.shape-round .day .wx, body.shape-round .day .tag, body.shape-round .day .heb, body.shape-round .day .hol { display: none; }
+body.shape-round .day .stk { top: -6px; left: -6px; }
+body.shape-blob .day:nth-child(4n) { border-radius: 22px 30px 16px 34px / 30px 16px 34px 22px; }
+body.shape-blob .day:nth-child(4n+1) { border-radius: 34px 18px 28px 20px / 18px 30px 20px 34px; }
+body.shape-blob .day:nth-child(4n+2) { border-radius: 18px 34px 22px 28px / 28px 22px 34px 18px; }
+body.shape-blob .day:nth-child(4n+3) { border-radius: 28px 20px 34px 18px / 22px 34px 18px 30px; }
+body.shape-note .day { border-radius: 3px; border-color: transparent; box-shadow: 2px 3px 0 rgb(0 0 0 / .13); transform: rotate(var(--tilt, 0deg)); background: color-mix(in srgb, var(--weekend) 35%, var(--card)); }
+body.shape-note .day.off { background: var(--weekend); }
+body.frame-none .day, body.frame-none .cal { border-color: transparent; }
+body.frame-double .day { border-style: double; border-width: calc(var(--bw) + 2.5px); }
 
 .legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--soft); font-size: .95em; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -98,16 +137,17 @@ body.shape-round .day .stk { top: 0; left: 0; font-size: 1em; }
 
 /* Sheets */
 dialog {
-  border: 2px var(--border-style) var(--ink); border-radius: 22px; padding: 0;
-  width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+  border: 2px solid var(--ink); border-radius: 22px; padding: 0;
+  width: min(580px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
   background: var(--card); color: var(--ink);
 }
 dialog::backdrop { background: rgb(20 30 50 / .45); }
 .sheet { padding: 18px; display: grid; gap: 14px; overflow-y: auto; max-height: calc(100vh - 40px); }
 .sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.sheet-head h3 { margin: 0; font-size: 1.9em; font-weight: 400; line-height: 1.1; }
+.sheet-head h3 { margin: 0; font-family: var(--title-font); font-size: 1.9em; font-weight: 400; line-height: 1.1; }
+.sheet-head .sub { color: var(--soft); font-size: 1em; margin-top: 4px; }
 .x { border: none; background: transparent; font-size: 1.6em; line-height: 1; padding: 2px 6px; }
-.box { border: 1.5px var(--border-style) var(--line); border-radius: 16px; padding: 12px 14px; display: grid; gap: 8px; }
+.box { border: 1.5px solid var(--line); border-radius: 16px; padding: 12px 14px; display: grid; gap: 8px; }
 .box h4 { margin: 0; font-size: 1.35em; font-weight: 400; color: var(--accent); }
 .school { font-size: 1.2em; padding: 8px 12px; border-radius: 12px; background: var(--paper); }
 .school.off { background: var(--weekend); }
@@ -117,18 +157,17 @@ dialog::backdrop { background: rgb(20 30 50 / .45); }
 .wear { background: var(--paper); border-radius: 12px; padding: 10px 12px; font-size: 1.1em; }
 .nope { display: flex; align-items: center; gap: 12px; font-size: 1.1em; }
 .nope b { font-size: 2.4em; line-height: 1; font-weight: 400; }
-.muted { color: var(--soft); font-size: .95em; }
-.hist-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
-.hist-tabs button { border: 1.5px solid var(--line); background: var(--card); border-radius: 999px; padding: 3px 12px; }
-.hist-tabs button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.hist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.hist li { display: grid; grid-template-columns: 4.2em 1fr; gap: 8px; align-items: baseline; }
-.hist .yr { font-family: 'Rubik', system-ui, sans-serif; font-weight: 600; color: var(--accent); font-size: .85em; font-variant-numeric: tabular-nums; }
-.hist .tx { font-size: 1em; line-height: 1.45; }
+.muted { color: var(--soft); font-size: .95em; margin: 0; }
+.holi { display: grid; gap: 4px; padding: 10px 12px; border-radius: 12px; background: var(--paper); }
+.holi .name { font-size: 1.35em; line-height: 1.15; }
+.holi .kind { display: inline-block; font-size: .8em; padding: 1px 10px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--card); margin-inline-start: 6px; vertical-align: middle; }
+.holi .off-note { color: var(--accent); }
 a { color: var(--accent); }
-.stickers { display: flex; flex-wrap: wrap; gap: 4px; }
-.stickers button { font-size: 1.5em; border: 1.5px solid transparent; background: transparent; border-radius: 10px; padding: 2px 5px; line-height: 1.1; }
-.stickers button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.pickers { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 6px; }
+.pick { aspect-ratio: 1; border: 2px solid transparent; background: transparent; border-radius: 12px; padding: 6px; }
+.pick:hover { background: var(--paper); }
+.pick[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.pick.none { font-size: .85em; border: 2px dashed var(--line); }
 
 /* design panel */
 .row { display: grid; gap: 6px; }
@@ -142,23 +181,32 @@ a { color: var(--accent); }
 .colors { display: flex; flex-wrap: wrap; gap: 14px; }
 .colors label { display: inline-flex; align-items: center; gap: 6px; }
 input[type="color"] { width: 42px; height: 32px; border: none; background: none; padding: 0; }
-input[type="text"], input[type="search"] {
-  border: 2px solid var(--line); border-radius: 12px; padding: 6px 10px; background: var(--card); width: 100%;
-}
+input[type="text"], input[type="search"] { border: 2px solid var(--line); border-radius: 12px; padding: 6px 10px; background: var(--card); width: 100%; }
 input[type="range"] { width: 100%; accent-color: var(--accent); }
+input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); }
 .search { display: flex; gap: 6px; }
 .results { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 .results button { width: 100%; text-align: start; border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 6px 10px; }
 .results button:hover { border-color: var(--accent); }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; position: sticky; top: -18px; background: var(--card); padding-block: 6px; z-index: 1; }
+.tabs button { border: 2px solid var(--line); background: var(--card); border-radius: 999px; padding: 4px 14px; }
+.tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.hol-list { display: grid; gap: 4px; }
+.hol-list label { display: flex; align-items: center; gap: 10px; padding: 4px 8px; border-radius: 10px; }
+.hol-list label:hover { background: var(--paper); }
+.hol-list .when { color: var(--soft); font-size: .85em; margin-inline-start: auto; }
+.sec-title { font-size: 1.25em; color: var(--accent); margin: 6px 0 0; font-weight: 400; }
 
 @media (max-width: 620px) {
   body { font-size: calc(16px * var(--size)); }
   h1 { font-size: 2.1em; }
-  .cal { padding: 6px; gap: 4px; }
-  .day { min-height: 62px; padding: 4px; }
-  .day .num { font-size: 1.25em; }
-  .day .tag { display: none; }
-  .hist li { grid-template-columns: 3.6em 1fr; }
+  .cal { padding: 6px; gap: min(var(--gap), 4px); }
+  .day { min-height: 72px; padding: 3px; }
+  .day .num { font-size: 1.2em; }
+  .day .tag, .day .heb { display: none; }
+  .day .hol { font-size: .62em; }
+  .day .stk { width: calc(24px * var(--stk)); height: calc(24px * var(--stk)); top: auto; bottom: 16px; left: 1px; }
+  .day .wx { font-size: .62em; }
 }
 @media (prefers-reduced-motion: reduce) { .day, .btn { transition: none; } .day:hover, .btn:hover { transform: none; } }
 </style>
@@ -166,9 +214,10 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 <body class="bg-dots">
 <div class="wrap">
   <header class="top">
-    <h1 id="title">הלוח שלי</h1>
+    <div class="title-wrap"><span class="title-stk" id="titleStk" aria-hidden="true"></span><h1><span id="title">הלוח שלי</span></h1></div>
     <div class="tools">
-      <button class="btn" id="openPlace" type="button">📍 לבחור מקום</button>
+      <button class="btn" id="openPlace" type="button">📍 מקום</button>
+      <button class="btn" id="openHol" type="button">🕎 חגים</button>
       <button class="btn main" id="openDesign" type="button">🎨 לעצב</button>
     </div>
   </header>
@@ -185,9 +234,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   <div class="cal" id="cal" role="grid"></div>
 
   <div class="legend">
-    <span><i class="sw" style="background:var(--card)"></i> 🎒 יש לימודים (שני עד שישי)</span>
-    <span><i class="sw" style="background:var(--weekend)"></i> 🎉 אין לימודים (שבת וראשון)</span>
-    <span>לוחצים על יום כדי לראות היסטוריה, מעלות ומה ללבוש</span>
+    <span><i class="sw" style="background:var(--card)"></i> 🎒 יש לימודים</span>
+    <span><i class="sw" style="background:var(--weekend)"></i> 🎉 אין לימודים (שבת, ראשון וחגים)</span>
+    <span>לוחצים על יום כדי לראות חגים, מעלות ומה ללבוש</span>
   </div>
 </div>
 
@@ -195,15 +244,15 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
 <dialog id="dayDlg" aria-labelledby="dayTitle">
   <div class="sheet">
     <div class="sheet-head">
-      <h3 id="dayTitle"></h3>
+      <div><h3 id="dayTitle"></h3><div class="sub" id="dayHeb"></div></div>
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="school" id="daySchool"></div>
+    <section class="box" id="dayHol"></section>
     <section class="box" id="dayWeather"></section>
-    <section class="box" id="dayHistory"></section>
     <section class="box">
       <h4>מדבקה ליום הזה</h4>
-      <div class="stickers" id="stickerPick"></div>
+      <div class="pickers" id="stickerPick"></div>
     </section>
   </div>
 </dialog>
@@ -231,6 +280,29 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   </div>
 </dialog>
 
+<!-- Holidays sheet -->
+<dialog id="holDlg" aria-labelledby="holTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="holTitle">🕎 חגים וחופשות</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row">
+      <span class="lbl">אילו חגים להראות?</span>
+      <div class="chips" id="holKinds"></div>
+    </div>
+    <div class="row">
+      <span class="lbl">חגים כמו…</span>
+      <div class="chips" id="holPlace"></div>
+      <p class="muted">בחוץ לארץ (כמו בניו יורק) חלק מהחגים הם יומיים, ובישראל יום אחד.</p>
+    </div>
+    <div class="row">
+      <span class="lbl">באילו חגים אין לימודים? מסמנים ✔️</span>
+      <div id="holOff"></div>
+    </div>
+  </div>
+</dialog>
+
 <!-- Design sheet -->
 <dialog id="designDlg" aria-labelledby="designTitle">
   <div class="sheet">
@@ -238,103 +310,80 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
       <h3 id="designTitle">🎨 לעצב את הלוח</h3>
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
-    <div class="row">
-      <label for="dTitle">שם הלוח</label>
-      <input type="text" id="dTitle" maxlength="40">
-    </div>
-    <div class="row">
-      <span class="lbl">ערכת צבעים</span>
-      <div class="chips" id="themes"></div>
-    </div>
-    <div class="row">
-      <span class="lbl">או לבחור צבעים בעצמי</span>
-      <div class="colors">
-        <label>ראשי <input type="color" id="cAccent"></label>
-        <label>רקע <input type="color" id="cPaper"></label>
-        <label>כתב <input type="color" id="cInk"></label>
-        <label>סוף שבוע <input type="color" id="cWeekend"></label>
+    <div class="tabs" role="tablist" id="designTabs"></div>
+
+    <div class="tab-panel" data-tab="title">
+      <div class="row">
+        <label for="dTitle">שם הלוח</label>
+        <input type="text" id="dTitle" maxlength="40">
       </div>
+      <div class="row"><span class="lbl">הכתב של הכותרת</span><div class="chips" id="titleFonts"></div></div>
+      <div class="row"><span class="lbl">סגנון הכותרת</span><div class="chips" id="titleStyles"></div></div>
+      <div class="row"><span class="lbl">מדבקה ליד הכותרת</span><div class="pickers" id="titleStkPick"></div></div>
     </div>
-    <div class="row">
-      <span class="lbl">כתב</span>
-      <div class="chips" id="fonts"></div>
+
+    <div class="tab-panel" data-tab="colors">
+      <div class="row"><span class="lbl">ערכת צבעים</span><div class="chips" id="themes"></div></div>
+      <div class="row">
+        <span class="lbl">או לבחור צבעים בעצמי</span>
+        <div class="colors">
+          <label>ראשי <input type="color" id="cAccent"></label>
+          <label>רקע <input type="color" id="cPaper"></label>
+          <label>כתב <input type="color" id="cInk"></label>
+          <label>ימים בלי לימודים <input type="color" id="cWeekend"></label>
+          <label>קווים <input type="color" id="cLine"></label>
+          <label>ימים <input type="color" id="cCard"></label>
+        </div>
+      </div>
+      <div class="row"><span class="lbl">רקע</span><div class="chips" id="bgs"></div></div>
     </div>
-    <div class="row">
-      <label for="dSize">גודל הכתב</label>
-      <input type="range" id="dSize" min="0.85" max="1.3" step="0.05">
+
+    <div class="tab-panel" data-tab="text">
+      <div class="row"><span class="lbl">הכתב של כל הלוח</span><div class="chips" id="fonts"></div></div>
+      <div class="row"><label for="dSize">גודל הכתב</label><input type="range" id="dSize" min="0.85" max="1.3" step="0.05"></div>
     </div>
-    <div class="row">
-      <span class="lbl">רקע</span>
-      <div class="chips" id="bgs"></div>
+
+    <div class="tab-panel" data-tab="days">
+      <div class="row"><span class="lbl">צורת הימים</span><div class="chips" id="shapes"></div></div>
+      <div class="row"><span class="lbl">מסגרות</span><div class="chips" id="borders"></div></div>
+      <div class="row"><label for="dBw">עובי המסגרת</label><input type="range" id="dBw" min="0.5" max="4" step="0.5"></div>
+      <div class="row"><label for="dGap">רווח בין הימים</label><input type="range" id="dGap" min="2" max="14" step="1"></div>
+      <div class="row"><span class="lbl">איך לסמן את היום</span><div class="chips" id="todayMarks"></div></div>
+      <div class="row"><span class="lbl">מה לכתוב בתוך הימים</span><div class="chips" id="shows"></div></div>
+      <div class="row"><label for="dStk">גודל המדבקות</label><input type="range" id="dStk" min="0.7" max="1.5" step="0.1"></div>
     </div>
-    <div class="row">
-      <span class="lbl">צורת הימים</span>
-      <div class="chips" id="shapes"></div>
-    </div>
-    <div class="row">
-      <span class="lbl">מסגרות</span>
-      <div class="chips" id="borders"></div>
-    </div>
-    <div><button class="btn" type="button" id="resetDesign">להחזיר להתחלה</button></div>
+
+    <div><button class="btn" type="button" id="resetDesign">להחזיר את העיצוב להתחלה</button></div>
   </div>
 </dialog>
 
 <script>
 (() => {
-  // ---------- data ----------
+  // ================= basics =================
   const MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
   const DAYS = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
   const DOW = ['א','ב','ג','ד','ה','ו','ש'];
   const isWeekend = d => d === 0 || d === 6; // Sunday + Saturday: no school
 
   const PLACES = [
-    { name: "פיטר קופר וילג', ניו יורק", short: "פיטר קופר 🏠", lat: 40.7352, lon: -73.9776 },
+    { name: "פיטר קופר וילג', ניו יורק", short: 'פיטר קופר 🏠', lat: 40.7352, lon: -73.9776 },
     { name: 'סטאי טאון, ניו יורק', short: 'סטאי טאון', lat: 40.7316, lon: -73.9778 },
     { name: 'שורש, ישראל', short: 'שורש', lat: 31.7980, lon: 35.0660 },
     { name: 'מעלה החמישה, ישראל', short: 'מעלה החמישה', lat: 31.8170, lon: 35.1130 },
     { name: 'ירושלים, ישראל', short: 'ירושלים', lat: 31.7683, lon: 35.2137 },
   ];
 
-  const THEMES = {
-    sky:    { name: 'שמיים', accent: '#ff6b6b', paper: '#eef6ff', ink: '#1f2a44', weekend: '#fff1d6', card: '#ffffff', line: '#c9dcf5', soft: '#5b6b8c' },
-    gum:    { name: 'מסטיק', accent: '#e0468f', paper: '#fff0f6', ink: '#3a1d2e', weekend: '#e8f7ff', card: '#ffffff', line: '#f5c6dc', soft: '#8a5a73' },
-    forest: { name: 'יער', accent: '#2f8f5b', paper: '#f0f7ee', ink: '#1d3326', weekend: '#fff4d9', card: '#ffffff', line: '#cfe5cf', soft: '#56705f' },
-    sunset: { name: 'שקיעה', accent: '#f06a2a', paper: '#fff4ea', ink: '#3b2415', weekend: '#ffe0ec', card: '#ffffff', line: '#f6d2b8', soft: '#86624b' },
-    lemon:  { name: 'לימון', accent: '#7a5cf5', paper: '#fffbe0', ink: '#2c2640', weekend: '#e9f9e3', card: '#ffffff', line: '#efe4a8', soft: '#6c6588' },
-    night:  { name: 'לילה', accent: '#ffcf5a', paper: '#1b1f3b', ink: '#f3f1ff', weekend: '#2c2f5a', card: '#252a4d', line: '#3d4378', soft: '#b5b3d9' },
-  };
-  const FONTS = [
-    { id: 'ktav', name: 'כתב', css: "'Gveret Levin'" },
-    { id: 'round', name: 'כתב עגול', css: "'Playpen Sans Hebrew'" },
-    { id: 'marker', name: 'טוש', css: "'Amatic SC'" },
-    { id: 'print', name: 'דפוס', css: "'Rubik'" },
-  ];
-  const BGS = [
-    { id: 'plain', name: 'חלק' }, { id: 'dots', name: 'נקודות' }, { id: 'lines', name: 'שורות מחברת' },
-    { id: 'grid', name: 'משבצות' }, { id: 'hearts', name: 'לבבות' }, { id: 'stars', name: 'כוכבים' },
-  ];
-  const SHAPES = [{ id: 'soft', name: 'מעוגל' }, { id: 'square', name: 'מרובע' }, { id: 'round', name: 'עיגולים' }];
-  const BORDERS = [{ id: 'solid', name: 'רגילה' }, { id: 'dashed', name: 'מקווקוות' }, { id: 'dotted', name: 'נקודות' }];
-  const STICKERS = ['⭐','❤️','🎂','🎉','📚','✏️','⚽','🎨','🎵','🍕','🐶','🐱','🌈','☀️','❄️','🏖️','✈️','🎁','🏆','🦄','🌸','🧁','📝','😴'];
-
-  const DEFAULT_DESIGN = { title: 'הלוח שלי', theme: 'sky', font: 'ktav', size: 1, bg: 'dots', shape: 'soft', border: 'solid', custom: null };
-
-  // ---------- storage (optional) ----------
   const store = {
     get(k, fallback) { try { const v = localStorage.getItem('halu4-' + k); return v ? JSON.parse(v) : fallback; } catch { return fallback; } },
     set(k, v) { try { localStorage.setItem('halu4-' + k, JSON.stringify(v)); } catch {} },
   };
-  let design = Object.assign({}, DEFAULT_DESIGN, store.get('design', {}));
-  let place = store.get('place', PLACES[0]);
-  let stickers = store.get('stickers', {});
-  let unit = store.get('unit', 'C');
 
-  // ---------- helpers ----------
   const $ = s => document.querySelector(s);
   const el = (tag, props = {}, ...kids) => {
     const n = document.createElement(tag);
     for (const [k, v] of Object.entries(props)) {
       if (k === 'class') n.className = v;
+      else if (k === 'html') n.innerHTML = v;
       else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
       else if (k in n && k !== 'style') n[k] = v;
       else n.setAttribute(k, v);
@@ -345,63 +394,384 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   const iso = (y, m, d) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
   const fromIso = s => { const [y, m, d] = s.split('-').map(Number); return { y, m: m - 1, d }; };
   const localToday = () => { const n = new Date(); return iso(n.getFullYear(), n.getMonth(), n.getDate()); };
+
+  // ================= drawn stickers =================
+  const O = '#3a2b3c';
+  const S = `stroke="${O}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"`;
+  const face = (cx, cy, s = 1) =>
+    `<circle cx="${cx - 7 * s}" cy="${cy + 3 * s}" r="${2.2 * s}" fill="#ff8fab" opacity=".6"/><circle cx="${cx + 7 * s}" cy="${cy + 3 * s}" r="${2.2 * s}" fill="#ff8fab" opacity=".6"/>` +
+    `<circle cx="${cx - 4 * s}" cy="${cy}" r="${1.8 * s}" fill="${O}"/><circle cx="${cx + 4 * s}" cy="${cy}" r="${1.8 * s}" fill="${O}"/>` +
+    `<path d="M${cx - 2.5 * s} ${cy + 3 * s} Q${cx} ${cy + 5.8 * s} ${cx + 2.5 * s} ${cy + 3 * s}" fill="none" stroke="${O}" stroke-width="${1.8 * s}" stroke-linecap="round"/>`;
+  const shine = (x, y) => `<path d="M${x} ${y} q2 -3 5 -3.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>`;
+  const starPts = (cx, cy, R, r, n = 5) => Array.from({ length: n * 2 }, (_, i) => {
+    const a = -Math.PI / 2 + i * Math.PI / n, rr = i % 2 ? r : R;
+    return `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`;
+  }).join(' ');
+  const rays = (cx, cy, r1, r2, n, w, col) => Array.from({ length: n }, (_, i) => {
+    const a = i * 2 * Math.PI / n;
+    return `<line x1="${(cx + r1 * Math.cos(a)).toFixed(1)}" y1="${(cy + r1 * Math.sin(a)).toFixed(1)}" x2="${(cx + r2 * Math.cos(a)).toFixed(1)}" y2="${(cy + r2 * Math.sin(a)).toFixed(1)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`;
+  }).join('');
+  const svg = body => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+
+  const STICKERS = {
+    star: ['כוכב', svg(`<polygon points="${starPts(24, 26, 20, 9)}" fill="#ffd84d" ${S}/>${face(24, 27, .8)}`)],
+    heart: ['לב', svg(`<path d="M24 41 C8 31 3 21 8 13.5 C13 6 21.5 8 24 14.5 C26.5 8 35 6 40 13.5 C45 21 40 31 24 41 Z" fill="#ff7a9a" ${S}/>${shine(12, 17)}${face(24, 23, .8)}`)],
+    sun: ['שמש', svg(`${rays(24, 24, 15, 21, 8, 5.5, O)}${rays(24, 24, 15, 21, 8, 2.8, '#ffb020')}<circle cx="24" cy="24" r="12" fill="#ffd84d" ${S}/>${face(24, 23, .75)}`)],
+    cloud: ['ענן', svg(`<path d="M12 36 H36 A8 8 0 0 0 37 20 A11 11 0 0 0 16 17 A9.5 9.5 0 0 0 12 36 Z" fill="#e3f3ff" ${S}/>${face(25, 27, .75)}`)],
+    moon: ['ירח', svg(`<path d="M29 6 A18 18 0 1 0 42 33 A14 14 0 1 1 29 6 Z" fill="#ffe27a" ${S}/><circle cx="17" cy="24" r="1.7" fill="${O}"/><circle cx="24" cy="26" r="1.7" fill="${O}"/><path d="M18.5 29 Q21 31.5 23.5 29.5" fill="none" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><circle cx="41" cy="11" r="1.6" fill="#ffd84d"/><circle cx="36" cy="5" r="1.1" fill="#ffd84d"/>`)],
+    rainbow: ['קשת', svg(`<path d="M5 37 A19 19 0 0 1 43 37" fill="none" stroke="${O}" stroke-width="16" stroke-linecap="round"/><path d="M5 37 A19 19 0 0 1 43 37" fill="none" stroke="#ff7a7a" stroke-width="11"/><path d="M10 37 A14 14 0 0 1 38 37" fill="none" stroke="#ffd84d" stroke-width="5.5"/><path d="M14.5 37 A9.5 9.5 0 0 1 33.5 37" fill="none" stroke="#7ec8ff" stroke-width="4"/><circle cx="8" cy="38" r="5" fill="#fff" ${S}/><circle cx="12.5" cy="39.5" r="3.8" fill="#fff" ${S}/><circle cx="40" cy="38" r="5" fill="#fff" ${S}/><circle cx="35.5" cy="39.5" r="3.8" fill="#fff" ${S}/>`)],
+    cake: ['עוגה', svg(`<rect x="10" y="24" width="28" height="15" rx="3" fill="#ffc2d6" ${S}/><path d="M10 28 Q13 32 16 28 Q19 32 22 28 Q25 32 28 28 Q31 32 34 28 Q37 32 38 28 V27 A3 3 0 0 0 35 24 H13 A3 3 0 0 0 10 27 Z" fill="#fff" ${S}/><rect x="21.5" y="13" width="5" height="11" rx="1.5" fill="#8fd3ff" ${S}/><path d="M24 4 C28 8 28 12 24 12 C20 12 20 8 24 4 Z" fill="#ffb020" ${S}/><circle cx="16" cy="34" r="1.5" fill="#ff7a9a"/><circle cx="24" cy="35" r="1.5" fill="#7ec8ff"/><circle cx="32" cy="34" r="1.5" fill="#ffd84d"/>`)],
+    balloon: ['בלון', svg(`<path d="M24 34 Q20 40 24 45" fill="none" ${S}/><ellipse cx="24" cy="18" rx="12" ry="14" fill="#ff8fb1" ${S}/><path d="M21.5 32 H26.5 L24 35.5 Z" fill="#ff8fb1" ${S}/>${shine(15, 15)}`)],
+    book: ['ספר', svg(`<path d="M4 15 V40 C11 37.5 18 37.5 24 41 C30 37.5 37 37.5 44 40 V15" fill="#7ec8ff" ${S}/><path d="M24 13 C18 9 11 10 7 12 V36 C11 34 18 34 24 38 Z" fill="#fff" ${S}/><path d="M24 13 C30 9 37 10 41 12 V36 C37 34 30 34 24 38 Z" fill="#fff" ${S}/><path d="M11 18 C14 17 17 17 20 18.5 M11 23 C14 22 17 22 20 23.5 M28 18.5 C31 17 34 17 37 18 M28 23.5 C31 22 34 22 37 23" fill="none" stroke="#b9c7d8" stroke-width="2" stroke-linecap="round"/>`)],
+    pencil: ['עיפרון', svg(`<g transform="rotate(-45 24 24)"><rect x="4" y="18.5" width="6" height="11" rx="2.5" fill="#ff9aa8" ${S}/><rect x="9" y="18.5" width="4" height="11" fill="#cfd6e0" ${S}/><rect x="13" y="18.5" width="21" height="11" fill="#ffd84d" ${S}/><polygon points="34,18.5 44,24 34,29.5" fill="#f7d9b0" ${S}/><polygon points="40.5,22 44,24 40.5,26" fill="${O}"/></g>`)],
+    backpack: ['תיק', svg(`<path d="M19 13 V9.5 A5 5 0 0 1 29 9.5 V13" fill="none" ${S}/><rect x="11" y="12" width="26" height="30" rx="9" fill="#6fcf7f" ${S}/><rect x="16" y="27" width="16" height="11" rx="3.5" fill="#a7e8b1" ${S}/><path d="M16 31 H32" ${S}/><circle cx="24" cy="20" r="2" fill="${O}"/>`)],
+    ball: ['כדור', svg(`<circle cx="24" cy="24" r="18" fill="#fff" ${S}/><polygon points="${starPts(24, 24, 6.5, 6.5, 5).split(' ').filter((_, i) => i % 2 === 0).join(' ')}" fill="${O}"/>${rays(24, 24, 7, 18, 5, 2.5, O).replace(/line /g, 'line transform="rotate(-90 24 24)" ')}`)],
+    palette: ['צבעים', svg(`<path d="M24 6 C35.5 6 43 13.5 43 23 C43 30.5 36.5 31.5 32 29.5 C28 27.5 25.5 30.5 27.5 34.5 C29.5 39.5 26.5 42.5 21.5 41.5 C11.5 40 5 32 5 23 C5 13.5 13 6 24 6 Z" fill="#f3d9b1" ${S}/><circle cx="14.5" cy="21" r="3.6" fill="#ff6b6b" ${S} stroke-width="1.8"/><circle cx="21.5" cy="13.5" r="3.6" fill="#ffd84d" ${S} stroke-width="1.8"/><circle cx="31" cy="13.5" r="3.6" fill="#4fc3a1" ${S} stroke-width="1.8"/><circle cx="36" cy="21.5" r="3.6" fill="#7ec8ff" ${S} stroke-width="1.8"/><circle cx="14.5" cy="31" r="3.6" fill="#b58cff" ${S} stroke-width="1.8"/>`)],
+    music: ['מוזיקה', svg(`<polygon points="19.5,12 39.5,7 39.5,14 19.5,19" fill="${O}" ${S}/><line x1="19.5" y1="14" x2="19.5" y2="35" ${S}/><line x1="39.5" y1="10" x2="39.5" y2="31" ${S}/><ellipse cx="14" cy="36" rx="6.5" ry="5" fill="#b58cff" ${S}/><ellipse cx="34" cy="32" rx="6.5" ry="5" fill="#b58cff" ${S}/>`)],
+    pizza: ['פיצה', svg(`<path d="M24 43 L7 12 Q24 4 41 12 Z" fill="#ffd46b" ${S}/><path d="M7 12 Q24 4 41 12 L38.5 17 Q24 10 9.5 17 Z" fill="#e8a35b" ${S}/><circle cx="19" cy="21" r="3.3" fill="#ff6b6b" ${S} stroke-width="1.8"/><circle cx="29" cy="23" r="3.3" fill="#ff6b6b" ${S} stroke-width="1.8"/><circle cx="24" cy="32" r="2.8" fill="#ff6b6b" ${S} stroke-width="1.8"/>`)],
+    cat: ['חתול', svg(`<path d="M9 21 L11 6 L20 13 Q24 12 28 13 L37 6 L39 21 Q43 38 24 40 Q5 38 9 21 Z" fill="#ffb56b" ${S}/><path d="M13 12 L14.5 17 M35 12 L33.5 17" stroke="#ff8fab" stroke-width="2.5" stroke-linecap="round"/>${face(24, 25, .85)}<path d="M5 27 L12 28 M5 32 L12 30.5 M43 27 L36 28 M43 32 L36 30.5" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>`)],
+    dog: ['כלב', svg(`<ellipse cx="11" cy="22" rx="6" ry="11" transform="rotate(20 11 22)" fill="#9b6b43" ${S}/><ellipse cx="37" cy="22" rx="6" ry="11" transform="rotate(-20 37 22)" fill="#9b6b43" ${S}/><circle cx="24" cy="25" r="14" fill="#e9c9a0" ${S}/><circle cx="19" cy="22" r="1.9" fill="${O}"/><circle cx="29" cy="22" r="1.9" fill="${O}"/><ellipse cx="24" cy="28" rx="3.4" ry="2.4" fill="${O}"/><path d="M22 33 Q24 38 26 33 Z" fill="#ff8fab" ${S} stroke-width="1.6"/><circle cx="14.5" cy="28" r="2.2" fill="#ff8fab" opacity=".6"/><circle cx="33.5" cy="28" r="2.2" fill="#ff8fab" opacity=".6"/>`)],
+    snow: ['פתית שלג', svg(`${rays(24, 24, 0, 19, 6, 6, O)}${rays(24, 24, 0, 19, 6, 3.2, '#bfe6ff')}<circle cx="24" cy="24" r="4.5" fill="#fff" ${S} stroke-width="2"/>`)],
+    flower: ['פרח', svg(`${[0, 72, 144, 216, 288].map(a => `<circle cx="${(24 + 10 * Math.cos((a - 90) * Math.PI / 180)).toFixed(1)}" cy="${(23 + 10 * Math.sin((a - 90) * Math.PI / 180)).toFixed(1)}" r="8" fill="#ffa6c9" ${S}/>`).join('')}<circle cx="24" cy="23" r="7.5" fill="#ffd84d" ${S}/><circle cx="21.5" cy="22" r="1.3" fill="${O}"/><circle cx="26.5" cy="22" r="1.3" fill="${O}"/><path d="M22.3 25 Q24 26.8 25.7 25" fill="none" stroke="${O}" stroke-width="1.5" stroke-linecap="round"/>`)],
+    cupcake: ['קאפקייק', svg(`<path d="M13 27 H35 L32 42 H16 Z" fill="#7ec8ff" ${S}/><path d="M19 28 L20 41 M24 28 V41 M29 28 L28 41" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><path d="M11 28 C8.5 21 14.5 17.5 18 18.5 C18 12.5 25 9.5 29 14 C34 12.5 39.5 17.5 37 22.5 C41 24.5 39 29 35 28 Z" fill="#ffc2d6" ${S}/><circle cx="27" cy="9.5" r="3.6" fill="#ff5a6e" ${S} stroke-width="2"/>${face(24, 22, .6)}`)],
+    gift: ['מתנה', svg(`<rect x="9" y="21" width="30" height="20" rx="2.5" fill="#b58cff" ${S}/><rect x="7" y="14" width="34" height="8" rx="2.5" fill="#cfb2ff" ${S}/><rect x="21" y="14" width="6" height="27" fill="#ffd84d" ${S}/><path d="M24 14 C18 4 9 9 16 14 Z M24 14 C30 4 39 9 32 14 Z" fill="#ffd84d" ${S}/>`)],
+    trophy: ['גביע', svg(`<path d="M14 11 H8.5 C7.5 19 11 22 15.5 22 M34 11 H39.5 C40.5 19 37 22 32.5 22" fill="none" ${S}/><path d="M13 7 H35 V17 C35 25.5 29.5 30 24 30 C18.5 30 13 25.5 13 17 Z" fill="#ffcf3a" ${S}/><rect x="21" y="30" width="6" height="5" fill="#ffcf3a" ${S}/><rect x="14" y="35" width="20" height="7" rx="2" fill="#c98f3a" ${S}/><polygon points="${starPts(24, 17, 5.5, 2.5)}" fill="#fff" opacity=".9"/>`)],
+    crown: ['כתר', svg(`<path d="M8 35 L6 15 L16 23 L24 10 L32 23 L42 15 L40 35 Z" fill="#ffcf3a" ${S}/><rect x="7.5" y="32" width="33" height="7" rx="2" fill="#ffb020" ${S}/><circle cx="6" cy="14" r="2.6" fill="#ff7a9a" ${S} stroke-width="1.8"/><circle cx="24" cy="9" r="2.6" fill="#7ec8ff" ${S} stroke-width="1.8"/><circle cx="42" cy="14" r="2.6" fill="#ff7a9a" ${S} stroke-width="1.8"/><circle cx="16" cy="35.5" r="1.8" fill="#ff5a6e"/><circle cx="24" cy="35.5" r="1.8" fill="#4fc3a1"/><circle cx="32" cy="35.5" r="1.8" fill="#ff5a6e"/>`)],
+    icecream: ['גלידה', svg(`<circle cx="24" cy="12" r="7.5" fill="#9be3c9" ${S}/><path d="M15 25 L24 45 L33 25 Z" fill="#f2b56b" ${S}/><path d="M19 29 L27.5 37 M29 29 L20.5 37" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/><circle cx="24" cy="21" r="10" fill="#ffb3cd" ${S}/>${face(24, 21, .65)}`)],
+    butterfly: ['פרפר', svg(`<path d="M23 13 Q20 6 16 5.5 M25 13 Q28 6 32 5.5" fill="none" ${S}/><circle cx="14.5" cy="18" r="9.5" fill="#ff9ad5" ${S}/><circle cx="33.5" cy="18" r="9.5" fill="#ff9ad5" ${S}/><circle cx="16.5" cy="32" r="7" fill="#b58cff" ${S}/><circle cx="31.5" cy="32" r="7" fill="#b58cff" ${S}/><circle cx="13" cy="17" r="2.6" fill="#fff" opacity=".8"/><circle cx="35" cy="17" r="2.6" fill="#fff" opacity=".8"/><rect x="21.5" y="11" width="5" height="28" rx="2.5" fill="#6b5a70" ${S}/>`)],
+    strawberry: ['תות', svg(`<path d="M24 43 C11 37 7 25 11 18 C15 12.5 33 12.5 37 18 C41 25 37 37 24 43 Z" fill="#ff5a6e" ${S}/><path d="M13 15 L19.5 11.5 L24 6 L28.5 11.5 L35 15 L27 16.5 L24 20 L21 16.5 Z" fill="#6fcf7f" ${S}/><g fill="#ffe79a"><ellipse cx="17" cy="24" rx="1.1" ry="1.6"/><ellipse cx="24" cy="26" rx="1.1" ry="1.6"/><ellipse cx="31" cy="24" rx="1.1" ry="1.6"/><ellipse cx="20" cy="32" rx="1.1" ry="1.6"/><ellipse cx="28" cy="32" rx="1.1" ry="1.6"/><ellipse cx="24" cy="37" rx="1.1" ry="1.6"/></g>`)],
+    menorah: ['חנוכייה', svg(`${[6, 10.5, 15, 19.5, 24, 28.5, 33, 37.5, 42].map(x => { const top = x === 24 ? 9 : 14; return `<rect x="${x - 1.5}" y="${top}" width="3" height="${22 - top}" rx="1" fill="#8fd3ff" ${S} stroke-width="1.4"/><path d="M${x} ${top - 6} C${x + 2.2} ${top - 3.5} ${x + 2.2} ${top - 1} ${x} ${top - 1} C${x - 2.2} ${top - 1} ${x - 2.2} ${top - 3.5} ${x} ${top - 6} Z" fill="#ffb020" ${S} stroke-width="1.3"/>`; }).join('')}<path d="M6 22 H42 C42 30 34 33 24 33 C14 33 6 30 6 22 Z" fill="#ffcf3a" ${S}/><rect x="21.5" y="33" width="5" height="7" fill="#ffcf3a" ${S}/><rect x="14" y="40" width="20" height="4.5" rx="2" fill="#ffcf3a" ${S}/>`)],
+    tree: ['עץ חג המולד', svg(`<polygon points="24,5 38,22 31,22 41,34 7,34 17,22 10,22" fill="#4fbf73" ${S}/><rect x="20.5" y="34" width="7" height="8" fill="#9b6b43" ${S}/><polygon points="${starPts(24, 6, 5, 2.2)}" fill="#ffd84d" ${S} stroke-width="1.6"/><circle cx="19" cy="20" r="2" fill="#ff5a6e"/><circle cx="28" cy="27" r="2" fill="#7ec8ff"/><circle cx="17" cy="30" r="2" fill="#ffd84d"/><circle cx="31" cy="18" r="1.8" fill="#ff9ad5"/>`)],
+  };
+  const stickerHTML = id => STICKERS[id] ? STICKERS[id][1] : '';
+  const svgUrl = id => `url("data:image/svg+xml,${encodeURIComponent(stickerHTML(id))}")`;
+
+  // ================= Hebrew calendar + holidays =================
+  const HF = new Intl.DateTimeFormat('en-u-ca-hebrew', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const hebParts = (y, m, d) => {
+    const p = HF.formatToParts(new Date(Date.UTC(y, m, d, 12)));
+    const get = t => p.find(x => x.type === t).value;
+    return { month: get('month'), day: Number(get('day')), year: Number(get('year')) };
+  };
+  const HEB_MONTH = { Tishri: 'תשרי', Heshvan: 'חשוון', Kislev: 'כסלו', Tevet: 'טבת', Shevat: 'שבט', Adar: 'אדר', 'Adar I': 'אדר א׳', 'Adar II': 'אדר ב׳', Nisan: 'ניסן', Iyar: 'אייר', Sivan: 'סיוון', Tamuz: 'תמוז', Av: 'אב', Elul: 'אלול' };
+  function gematria(n) {
+    const ones = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט'], tens = ['', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ'], hund = ['', 'ק', 'ר', 'ש', 'ת', 'תק', 'תר', 'תש', 'תת', 'תתק'];
+    let s = hund[Math.floor(n / 100)] || '';
+    const r = n % 100;
+    if (r === 15) s += 'טו'; else if (r === 16) s += 'טז'; else s += tens[Math.floor(r / 10)] + ones[r % 10];
+    return s.length === 1 ? s + '׳' : s.slice(0, -1) + '״' + s.slice(-1);
+  }
+  const hebDateText = h => `${gematria(h.day)} ב${HEB_MONTH[h.month] || h.month} ${gematria(h.year % 1000)}`;
+  const hebShort = h => `${gematria(h.day)} ${HEB_MONTH[h.month] || h.month}`;
+
+  // j = Jewish, c = Christian. off = no school by default.
+  const HOLIDAYS = {
+    rh1: { t: 'j', name: 'ראש השנה', off: true, stk: 'star', desc: 'השנה החדשה היהודית! אוכלים תפוח בדבש כדי שתהיה שנה מתוקה, ותוקעים בשופר.' },
+    rh2: { t: 'j', name: 'ראש השנה (יום שני)', off: true, stk: 'star', desc: 'היום השני של ראש השנה. ממשיכים לאכול דברים מתוקים ולשמוע שופר.' },
+    gedalia: { t: 'j', name: 'צום גדליה', off: false, desc: 'יום צום לזכר גדליה בן אחיקם, שהיה מושל יהודה לפני יותר מ-2,500 שנה.' },
+    yk: { t: 'j', name: 'יום כיפור', off: true, desc: 'היום הכי קדוש בשנה. מבקשים סליחה מאחרים, והמבוגרים צמים יום שלם.' },
+    sukkot1: { t: 'j', name: 'סוכות', off: true, desc: 'זוכרים איך בני ישראל גרו בסוכות במדבר. בונים סוכה, מקשטים אותה, ומברכים על ארבעת המינים.' },
+    sukkot2: { t: 'j', name: 'סוכות (יום שני)', off: true, desc: 'בחוץ לארץ, גם היום השני של סוכות הוא חג.' },
+    cholsukkot: { t: 'j', name: 'חול המועד סוכות', off: false, desc: 'הימים שבאמצע סוכות. אוכלים בסוכה ויוצאים לטיולים.' },
+    hoshana: { t: 'j', name: 'הושענא רבה', off: false, desc: 'היום האחרון של סוכות. מקיפים את בית הכנסת עם ארבעת המינים וחובטים ערבות.' },
+    shmini: { t: 'j', name: 'שמיני עצרת', off: true, desc: 'החג שבא מיד אחרי סוכות. מתחילים להתפלל על גשם לחורף.' },
+    simchat: { t: 'j', name: 'שמחת תורה', off: true, desc: 'מסיימים לקרוא את כל התורה ומתחילים אותה מחדש, ורוקדים עם ספרי התורה!' },
+    shminisimchat: { t: 'j', name: 'שמיני עצרת ושמחת תורה', off: true, desc: 'בישראל שני החגים באותו יום: מסיימים את התורה ומתחילים מחדש, ורוקדים עם ספרי התורה!' },
+    hanukkah: { t: 'j', name: 'חנוכה', off: false, stk: 'menorah', desc: 'זוכרים את נס פך השמן ואת ניצחון המכבים. מדליקים נרות בכל ערב, ואוכלים סופגניות ולביבות.' },
+    tevet10: { t: 'j', name: 'עשרה בטבת', off: false, desc: 'יום צום לזכר היום שבו התחיל המצור של בבל על ירושלים.' },
+    tubshvat: { t: 'j', name: 'ט״ו בשבט', off: false, desc: 'ראש השנה לאילנות! נוטעים עצים ואוכלים פירות יבשים.' },
+    esther: { t: 'j', name: 'תענית אסתר', off: false, desc: 'יום צום לפני פורים, לזכר הצום של אסתר המלכה.' },
+    purim: { t: 'j', name: 'פורים', off: false, stk: 'crown', desc: 'זוכרים איך אסתר המלכה ומרדכי הצילו את היהודים מהמן. מתחפשים, שומעים את המגילה ושולחים משלוחי מנות!' },
+    shushan: { t: 'j', name: 'שושן פורים', off: false, desc: 'פורים של ירושלים ושל ערים שהייתה להן חומה בימי יהושע.' },
+    pesach1: { t: 'j', name: 'פסח', off: true, desc: 'חג החירות: זוכרים את יציאת מצרים. בערב שלפני עושים ליל סדר, ובכל החג אוכלים מצות ולא חמץ.' },
+    pesach2: { t: 'j', name: 'פסח (יום שני)', off: true, desc: 'בחוץ לארץ, גם היום השני של פסח הוא חג, ועושים עוד ליל סדר.' },
+    cholpesach: { t: 'j', name: 'חול המועד פסח', off: false, desc: 'הימים שבאמצע פסח. ממשיכים לאכול מצות ויוצאים לטיולים.' },
+    pesach7: { t: 'j', name: 'שביעי של פסח', off: true, desc: 'זוכרים את קריעת ים סוף, כשבני ישראל עברו בתוך הים.' },
+    pesach8: { t: 'j', name: 'אחרון של פסח', off: true, desc: 'בחוץ לארץ זה היום האחרון של פסח. בערב כבר אפשר לאכול חמץ!' },
+    shoah: { t: 'j', name: 'יום השואה', off: false, desc: 'יום לזכור את ששת מיליון היהודים שנרצחו בשואה.' },
+    zikaron: { t: 'j', name: 'יום הזיכרון', off: false, desc: 'יום לזכור את החיילים ואת כל מי שנפל למען מדינת ישראל.' },
+    atzmaut: { t: 'j', name: 'יום העצמאות', off: false, desc: 'יום ההולדת של מדינת ישראל, שקמה ב-1948!' },
+    lagbaomer: { t: 'j', name: 'ל״ג בעומר', off: false, desc: 'מדליקים מדורות ושרים, וזוכרים את רבי שמעון בר יוחאי.' },
+    yerushalayim: { t: 'j', name: 'יום ירושלים', off: false, desc: 'חוגגים את איחוד ירושלים, שקרה ב-1967.' },
+    shavuot1: { t: 'j', name: 'שבועות', off: true, desc: 'זוכרים את מתן תורה בהר סיני. אוכלים מאכלי חלב, כמו עוגת גבינה.' },
+    shavuot2: { t: 'j', name: 'שבועות (יום שני)', off: true, desc: 'בחוץ לארץ, גם היום השני של שבועות הוא חג.' },
+    tamuz17: { t: 'j', name: 'י״ז בתמוז', off: false, desc: 'יום צום לזכר היום שבו הרומאים פרצו את חומות ירושלים.' },
+    av9: { t: 'j', name: 'תשעה באב', off: false, desc: 'יום עצוב: זוכרים את חורבן בית המקדש. המבוגרים צמים.' },
+    tubeav: { t: 'j', name: 'ט״ו באב', off: false, stk: 'heart', desc: 'חג האהבה היהודי!' },
+    epiphany: { t: 'c', name: 'חג ההתגלות', off: false, desc: 'לפי המסורת הנוצרית, זה היום שבו שלושת החכמים באו לבקר את ישו התינוק.' },
+    ash: { t: 'c', name: 'יום רביעי של האפר', off: false, desc: 'היום שבו מתחיל הלנט: 40 ימים של צום ותפילה לפני פסחא.' },
+    palm: { t: 'c', name: 'יום ראשון של הדקלים', off: false, desc: 'זוכרים איך ישו נכנס לירושלים, ואנשים נופפו לו בענפי דקל.' },
+    goodfriday: { t: 'c', name: 'יום שישי הטוב', off: false, desc: 'היום שבו הנוצרים זוכרים את צליבתו של ישו.' },
+    easter: { t: 'c', name: 'פסחא', off: false, desc: 'החג הכי חשוב לנוצרים: חוגגים את קימתו של ישו לתחייה. ילדים מחפשים ביצים צבעוניות!' },
+    ascension: { t: 'c', name: 'חג העלייה', off: false, desc: 'לפי האמונה הנוצרית, ישו עלה לשמיים 40 יום אחרי פסחא.' },
+    pentecost: { t: 'c', name: 'חג השבועות הנוצרי (פנטקוסט)', off: false, desc: 'חג שחל 50 יום אחרי פסחא.' },
+    allsaints: { t: 'c', name: 'יום כל הקדושים', off: false, desc: 'יום שבו הנוצרים זוכרים את כל הקדושים.' },
+    christmasEve: { t: 'c', name: 'ערב חג המולד', off: false, stk: 'tree', desc: 'הערב שלפני חג המולד. מקשטים את העץ ומחכים לחג.' },
+    christmas: { t: 'c', name: 'חג המולד', off: true, stk: 'tree', desc: 'הנוצרים חוגגים את הולדת ישו. מקשטים עץ, שרים שירים ונותנים מתנות.' },
+  };
+
+  let holSet = Object.assign({ j: true, c: true, israel: false, off: {} }, store.get('holidays', {}));
+  const isOff = id => (id in holSet.off ? holSet.off[id] : HOLIDAYS[id].off);
+
+  function easter(y) {
+    const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+      g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+      l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451),
+      month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
+    return new Date(Date.UTC(y, month - 1, day));
+  }
+
+  const holCache = {};
+  function holidaysOfYear(y) {
+    const ck = `${y}-${holSet.israel}`;
+    if (holCache[ck]) return holCache[ck];
+    const map = {}; // iso -> [{id, extra}]
+    const add = (k, id, extra) => (map[k] = map[k] || []).push({ id, extra });
+    const days = Math.round((Date.UTC(y + 1, 0, 1) - Date.UTC(y, 0, 1)) / 864e5);
+    const il = holSet.israel;
+    for (let i = 0; i < days; i++) {
+      const dt = new Date(Date.UTC(y, 0, 1 + i));
+      const k = dt.toISOString().slice(0, 10), dow = dt.getUTCDay();
+      const h = hebParts(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate());
+      const mo = h.month === 'Adar II' ? 'Adar' : h.month, d = h.day;
+      if (mo === 'Tishri') {
+        if (d === 1) add(k, 'rh1'); if (d === 2) add(k, 'rh2');
+        if ((d === 3 && dow !== 6) || (d === 4 && dow === 0)) add(k, 'gedalia');
+        if (d === 10) add(k, 'yk');
+        if (d === 15) add(k, 'sukkot1');
+        if (d === 16) add(k, il ? 'cholsukkot' : 'sukkot2');
+        if (d >= 17 && d <= 20) add(k, 'cholsukkot');
+        if (d === 21) add(k, 'hoshana');
+        if (d === 22) add(k, il ? 'shminisimchat' : 'shmini');
+        if (d === 23 && !il) add(k, 'simchat');
+      }
+      if (h.month === 'Kislev' && d >= 25) add(k, 'hanukkah', d - 24);
+      if (h.month === 'Tevet') {
+        if (d <= 3) {
+          const prev = new Date(dt.getTime() - d * 864e5);
+          const L = hebParts(prev.getUTCFullYear(), prev.getUTCMonth(), prev.getUTCDate()).day; // length of Kislev
+          const n = L - 24 + d;
+          if (n <= 8) add(k, 'hanukkah', n);
+        }
+        if (d === 10) add(k, 'tevet10');
+      }
+      if (mo === 'Shevat' && d === 15) add(k, 'tubshvat');
+      if (mo === 'Adar') {
+        if ((d === 13 && dow !== 6) || (d === 11 && dow === 4)) add(k, 'esther');
+        if (d === 14) add(k, 'purim'); if (d === 15) add(k, 'shushan');
+      }
+      if (mo === 'Nisan') {
+        if (d === 15) add(k, 'pesach1');
+        if (d === 16) add(k, il ? 'cholpesach' : 'pesach2');
+        if (d >= 17 && d <= 20) add(k, 'cholpesach');
+        if (d === 21) add(k, 'pesach7');
+        if (d === 22 && !il) add(k, 'pesach8');
+        if ((d === 27 && dow !== 5 && dow !== 0) || (d === 26 && dow === 4) || (d === 28 && dow === 1)) add(k, 'shoah');
+      }
+      if (mo === 'Iyar') {
+        if ((d === 4 && dow === 2) || (d === 3 && dow === 3) || (d === 2 && dow === 3) || (d === 5 && dow === 1)) add(k, 'zikaron');
+        if ((d === 5 && dow === 3) || (d === 4 && dow === 4) || (d === 3 && dow === 4) || (d === 6 && dow === 2)) add(k, 'atzmaut');
+        if (d === 18) add(k, 'lagbaomer');
+        if (d === 28) add(k, 'yerushalayim');
+      }
+      if (mo === 'Sivan') { if (d === 6) add(k, 'shavuot1'); if (d === 7 && !il) add(k, 'shavuot2'); }
+      if (mo === 'Tamuz' && ((d === 17 && dow !== 6) || (d === 18 && dow === 0))) add(k, 'tamuz17');
+      if (mo === 'Av') { if ((d === 9 && dow !== 6) || (d === 10 && dow === 0)) add(k, 'av9'); if (d === 15) add(k, 'tubeav'); }
+    }
+    const e = easter(y), off = n => new Date(e.getTime() + n * 864e5).toISOString().slice(0, 10);
+    add(`${y}-01-06`, 'epiphany'); add(off(-46), 'ash'); add(off(-7), 'palm'); add(off(-2), 'goodfriday');
+    add(off(0), 'easter'); add(off(39), 'ascension'); add(off(49), 'pentecost');
+    add(`${y}-11-01`, 'allsaints'); add(`${y}-12-24`, 'christmasEve'); add(`${y}-12-25`, 'christmas');
+    holCache[ck] = map;
+    return map;
+  }
+  const holidaysOn = key => (holidaysOfYear(fromIso(key).y)[key] || []).filter(x => holSet[HOLIDAYS[x.id].t]);
+  const holName = x => x.id === 'hanukkah' ? `חנוכה (נר ${gematria(x.extra).replace(/[׳״]/g, '')})` : HOLIDAYS[x.id].name;
+  const dayInfo = key => {
+    const { y, m, d } = fromIso(key);
+    const dow = new Date(y, m, d).getDay();
+    const hols = holidaysOn(key);
+    const holOff = hols.some(x => isOff(x.id));
+    return { dow, hols, weekend: isWeekend(dow), holOff, noSchool: isWeekend(dow) || holOff };
+  };
+
+  // ================= design =================
+  const THEMES = {
+    sky:    { name: 'שמיים', accent: '#ff6b6b', paper: '#eef6ff', ink: '#1f2a44', weekend: '#fff1d6', card: '#ffffff', line: '#c9dcf5', soft: '#5b6b8c' },
+    gum:    { name: 'מסטיק', accent: '#e0468f', paper: '#fff0f6', ink: '#3a1d2e', weekend: '#e8f7ff', card: '#ffffff', line: '#f5c6dc', soft: '#8a5a73' },
+    candy:  { name: 'סוכרייה', accent: '#ff5fa2', paper: '#f3ecff', ink: '#3a2350', weekend: '#dff8ef', card: '#ffffff', line: '#dccdf5', soft: '#7a6696' },
+    grape:  { name: 'ענבים', accent: '#8e44ad', paper: '#f6eefb', ink: '#2e1a38', weekend: '#fff5d6', card: '#ffffff', line: '#e2cdee', soft: '#7a5f88' },
+    ocean:  { name: 'ים', accent: '#1f8fbf', paper: '#e6f7fb', ink: '#12323f', weekend: '#fff0d9', card: '#ffffff', line: '#bfe3ee', soft: '#4f7684' },
+    mint:   { name: 'מנטה', accent: '#16a085', paper: '#e9fbf4', ink: '#173b33', weekend: '#ffeef3', card: '#ffffff', line: '#bde9da', soft: '#4f7d71' },
+    forest: { name: 'יער', accent: '#2f8f5b', paper: '#f0f7ee', ink: '#1d3326', weekend: '#fff4d9', card: '#ffffff', line: '#cfe5cf', soft: '#56705f' },
+    lemon:  { name: 'לימון', accent: '#7a5cf5', paper: '#fffbe0', ink: '#2c2640', weekend: '#e9f9e3', card: '#ffffff', line: '#efe4a8', soft: '#6c6588' },
+    sunset: { name: 'שקיעה', accent: '#f06a2a', paper: '#fff4ea', ink: '#3b2415', weekend: '#ffe0ec', card: '#ffffff', line: '#f6d2b8', soft: '#86624b' },
+    choco:  { name: 'שוקולד', accent: '#b5651d', paper: '#f8efe6', ink: '#3b2616', weekend: '#e8f4ff', card: '#fffaf5', line: '#e6d2bf', soft: '#81634c' },
+    night:  { name: 'לילה', accent: '#ffcf5a', paper: '#1b1f3b', ink: '#f3f1ff', weekend: '#2c2f5a', card: '#252a4d', line: '#3d4378', soft: '#b5b3d9' },
+    space:  { name: 'חלל', accent: '#ff7ad9', paper: '#10131f', ink: '#eef2ff', weekend: '#231b3d', card: '#1a1f33', line: '#343b5c', soft: '#a9b0d6' },
+  };
+  const DARK = ['night', 'space'];
+  const FONTS = [
+    { id: 'ktav', name: 'כתב', css: "'Gveret Levin'" },
+    { id: 'round', name: 'כתב עגול', css: "'Playpen Sans Hebrew'" },
+    { id: 'marker', name: 'טוש', css: "'Amatic SC'" },
+    { id: 'print', name: 'דפוס', css: "'Rubik'" },
+    { id: 'bold', name: 'שמן', css: "'Suez One'" },
+    { id: 'fat', name: 'עבה', css: "'Secular One'" },
+  ];
+  const TITLE_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'marker', name: 'מרקר' }, { id: 'wavy', name: 'קו גלי' }, { id: 'shadow', name: 'צל' }, { id: 'bubble', name: 'בועות' }];
+  const BGS = [
+    { id: 'plain', name: 'חלק' }, { id: 'dots', name: 'נקודות' }, { id: 'lines', name: 'שורות מחברת' }, { id: 'grid', name: 'משבצות' },
+    { id: 'stripes', name: 'פסים' }, { id: 'checks', name: 'לוח שחמט' }, { id: 'hearts', name: 'לבבות' }, { id: 'stars', name: 'כוכבים' },
+    { id: 'flowers', name: 'פרחים' }, { id: 'confetti', name: 'קונפטי' },
+  ];
+  const SHAPES = [{ id: 'soft', name: 'מעוגל' }, { id: 'square', name: 'מרובע' }, { id: 'round', name: 'עיגולים' }, { id: 'blob', name: 'בועות' }, { id: 'note', name: 'פתקים' }];
+  const BORDERS = [{ id: 'solid', name: 'רגילה' }, { id: 'dashed', name: 'מקווקוות' }, { id: 'dotted', name: 'נקודות' }, { id: 'double', name: 'כפולה' }, { id: 'none', name: 'בלי' }];
+  const TODAY_MARKS = [{ id: 'frame', name: 'מסגרת' }, { id: 'circle', name: 'עיגול' }, { id: 'heart', name: 'לב' }, { id: 'star', name: 'כוכב' }];
+  const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'שמות החגים' }, { id: 'showWx', name: 'מזג אוויר' }];
+
+  const DEFAULT_DESIGN = {
+    title: 'הלוח שלי', theme: 'sky', custom: null, font: 'ktav', titleFont: 'ktav', titleStyle: 'plain', titleSticker: 'star',
+    size: 1, bg: 'dots', shape: 'soft', border: 'solid', bw: 1.5, gap: 6, todayMark: 'frame',
+    showHeb: true, showHol: true, showWx: true, stickerSize: 1,
+  };
+  let design = Object.assign({}, DEFAULT_DESIGN, store.get('design', {}));
+  let place = store.get('place', PLACES[0]);
+  let stickers = store.get('stickers', {});
+  let unit = store.get('unit', 'C');
   const fmtT = c => c == null ? '–' : unit === 'F' ? `${Math.round(c * 9 / 5 + 32)}°F` : `${Math.round(c)}°`;
 
-  // ---------- design ----------
+  const bgSvg = kind => {
+    const pieces = {
+      hearts: [['heart', 8, 10, 20, -12], ['heart', 55, 52, 16, 14]],
+      stars: [['star', 10, 8, 18, 10], ['star', 58, 55, 13, -15]],
+      flowers: [['flower', 6, 8, 20, 0], ['flower', 56, 54, 16, 20]],
+    }[kind];
+    if (!pieces) {
+      const cols = ['#ff7a9a', '#ffd84d', '#7ec8ff', '#9be3c9', '#b58cff'];
+      const bits = [[10, 12, 0], [40, 20, 1], [70, 8, 2], [22, 48, 3], [58, 44, 4], [80, 70, 0], [34, 76, 2], [8, 80, 1]]
+        .map(([x, y, c], i) => i % 2 ? `<circle cx="${x}" cy="${y}" r="3" fill="${cols[c]}"/>` : `<rect x="${x}" y="${y}" width="9" height="4" rx="2" fill="${cols[c]}" transform="rotate(${i * 35} ${x} ${y})"/>`).join('');
+      return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'>${bits}</svg>`)}")`;
+    }
+    const inner = pieces.map(([id, x, y, s, r]) =>
+      `<g opacity='.45' transform='translate(${x} ${y}) rotate(${r} ${s / 2} ${s / 2}) scale(${s / 48})'>${stickerHTML(id).replace(/^<svg[^>]*>|<\/svg>$/g, '')}</g>`).join('');
+    return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'>${inner}</svg>`)}")`;
+  };
+
   function applyDesign() {
     const t = Object.assign({}, THEMES[design.theme] || THEMES.sky, design.custom || {});
     const r = document.documentElement.style;
     for (const k of ['accent', 'paper', 'ink', 'weekend', 'card', 'line', 'soft']) r.setProperty('--' + k, t[k]);
-    r.setProperty('--accent-ink', design.theme === 'night' && !(design.custom && design.custom.accent) ? '#1b1f3b' : '#ffffff');
+    const dark = DARK.includes(design.theme);
+    r.setProperty('--accent-ink', dark && !(design.custom && design.custom.accent) ? t.paper : '#ffffff');
     const f = FONTS.find(x => x.id === design.font) || FONTS[0];
+    const tf = FONTS.find(x => x.id === design.titleFont) || FONTS[0];
     r.setProperty('--font', `${f.css}, 'Rubik', system-ui, sans-serif`);
+    r.setProperty('--title-font', `${tf.css}, 'Rubik', system-ui, sans-serif`);
     r.setProperty('--size', design.size);
-    r.setProperty('--border-style', design.border);
-    document.body.className = `bg-${design.bg} shape-${design.shape}`;
-    document.body.style.colorScheme = design.theme === 'night' ? 'dark' : 'light';
+    r.setProperty('--bw', design.bw + 'px');
+    r.setProperty('--gap', design.gap + 'px');
+    r.setProperty('--stk', design.stickerSize);
+    r.setProperty('--border-style', design.border === 'none' || design.border === 'double' ? 'solid' : design.border);
+    r.setProperty('--today-img', svgUrl(design.todayMark === 'heart' ? 'heart' : 'star'));
+    if (['hearts', 'stars', 'flowers', 'confetti'].includes(design.bg)) r.setProperty('--bg-img', bgSvg(design.bg));
+    document.body.className = [
+      `bg-${design.bg}`, `shape-${design.shape}`, `ts-${design.titleStyle}`, `frame-${design.border}`,
+      design.showHeb ? '' : 'hide-heb', design.showHol ? '' : 'hide-hol', design.showWx ? '' : 'hide-wx',
+    ].filter(Boolean).join(' ');
+    document.body.style.colorScheme = dark ? 'dark' : 'light';
     $('#title').textContent = design.title || 'הלוח שלי';
+    $('#titleStk').innerHTML = design.titleSticker ? stickerHTML(design.titleSticker) : '';
     document.title = design.title || 'הלוח שלי';
     store.set('design', design);
   }
+  const rerender = () => { applyDesign(); buildDesignPanel(); renderCalendar(); };
 
-  function chipGroup(container, items, key, render) {
+  function chipGroup(container, items, key, label) {
     container.replaceChildren(...items.map(it => el('button', {
-      type: 'button', class: 'chip' + (render ? ' theme-chip' : ''),
+      type: 'button', class: 'chip',
       'aria-pressed': String(design[key] === it.id),
-      onclick: () => {
-        design[key] = it.id;
-        if (key === 'theme') design.custom = null;
-        applyDesign(); buildDesignPanel(); renderCalendar();
-      },
-    }, render ? render(it) : it.name)));
+      onclick: () => { design[key] = it.id; if (key === 'theme') design.custom = null; rerender(); },
+    }, label ? label(it) : it.name)));
+  }
+  function stickerPicker(container, current, onPick, withNone) {
+    const btns = Object.entries(STICKERS).map(([id, [name, art]]) => el('button', {
+      type: 'button', class: 'pick', title: name, 'aria-label': name, 'aria-pressed': String(current === id), html: art, onclick: () => onPick(id),
+    }));
+    if (withNone) btns.unshift(el('button', { type: 'button', class: 'pick none', 'aria-pressed': String(!current), onclick: () => onPick(null) }, 'בלי'));
+    container.replaceChildren(...btns);
   }
 
+  let designTab = 'title';
+  const TABS = [['title', 'כותרת'], ['colors', 'צבעים ורקע'], ['text', 'כתב'], ['days', 'ימים ומדבקות']];
   function buildDesignPanel() {
+    $('#designTabs').replaceChildren(...TABS.map(([id, name]) => el('button', {
+      type: 'button', role: 'tab', 'aria-selected': String(designTab === id), onclick: () => { designTab = id; buildDesignPanel(); },
+    }, name)));
+    document.querySelectorAll('.tab-panel').forEach(p => { p.hidden = p.dataset.tab !== designTab; p.classList.add('row'); p.style.gap = '14px'; });
     $('#dTitle').value = design.title;
+    chipGroup($('#titleFonts'), FONTS, 'titleFont');
+    [...$('#titleFonts').children].forEach((b, i) => { b.style.fontFamily = FONTS[i].css; });
+    chipGroup($('#titleStyles'), TITLE_STYLES, 'titleStyle');
+    stickerPicker($('#titleStkPick'), design.titleSticker, id => { design.titleSticker = id; rerender(); }, true);
     chipGroup($('#themes'), Object.entries(THEMES).map(([id, t]) => ({ id, ...t })), 'theme', t => {
       const dots = el('span', { class: 'dots' });
       for (const c of [t.accent, t.paper, t.weekend]) { const i = el('i'); i.style.background = c; dots.append(i); }
       return el('span', { class: 'theme-chip' }, dots, t.name);
     });
+    const t = Object.assign({}, THEMES[design.theme], design.custom || {});
+    $('#cAccent').value = t.accent; $('#cPaper').value = t.paper; $('#cInk').value = t.ink;
+    $('#cWeekend').value = t.weekend; $('#cLine').value = t.line; $('#cCard').value = t.card;
+    chipGroup($('#bgs'), BGS, 'bg');
     chipGroup($('#fonts'), FONTS, 'font');
     [...$('#fonts').children].forEach((b, i) => { b.style.fontFamily = FONTS[i].css; });
-    chipGroup($('#bgs'), BGS, 'bg');
+    $('#dSize').value = design.size;
     chipGroup($('#shapes'), SHAPES, 'shape');
     chipGroup($('#borders'), BORDERS, 'border');
-    const t = Object.assign({}, THEMES[design.theme], design.custom || {});
-    $('#cAccent').value = t.accent; $('#cPaper').value = t.paper; $('#cInk').value = t.ink; $('#cWeekend').value = t.weekend;
-    $('#dSize').value = design.size;
+    $('#dBw').value = design.bw; $('#dGap').value = design.gap; $('#dStk').value = design.stickerSize;
+    chipGroup($('#todayMarks'), TODAY_MARKS, 'todayMark');
+    $('#shows').replaceChildren(...SHOWS.map(s => el('button', {
+      type: 'button', class: 'chip', 'aria-pressed': String(!!design[s.id]),
+      onclick: () => { design[s.id] = !design[s.id]; rerender(); },
+    }, (design[s.id] ? '✔️ ' : '') + s.name)));
   }
   $('#dTitle').addEventListener('input', e => { design.title = e.target.value; applyDesign(); });
-  $('#dSize').addEventListener('input', e => { design.size = Number(e.target.value); applyDesign(); });
-  for (const [id, key] of [['#cAccent', 'accent'], ['#cPaper', 'paper'], ['#cInk', 'ink'], ['#cWeekend', 'weekend']]) {
+  for (const [id, key] of [['#dSize', 'size'], ['#dBw', 'bw'], ['#dGap', 'gap'], ['#dStk', 'stickerSize']]) {
+    $(id).addEventListener('input', e => { design[key] = Number(e.target.value); applyDesign(); });
+  }
+  for (const [id, key] of [['#cAccent', 'accent'], ['#cPaper', 'paper'], ['#cInk', 'ink'], ['#cWeekend', 'weekend'], ['#cLine', 'line'], ['#cCard', 'card']]) {
     $(id).addEventListener('input', e => { design.custom = Object.assign({}, design.custom, { [key]: e.target.value }); applyDesign(); });
   }
-  $('#resetDesign').addEventListener('click', () => { design = Object.assign({}, DEFAULT_DESIGN); applyDesign(); buildDesignPanel(); renderCalendar(); });
+  $('#resetDesign').addEventListener('click', () => { design = Object.assign({}, DEFAULT_DESIGN); rerender(); });
 
-  // ---------- weather (Open-Meteo, real forecast) ----------
-  let wx = null; // { byDate: {iso: {...}}, today: iso }
-  let wxKey = '';
+  // ================= holidays panel =================
+  function buildHolPanel() {
+    $('#holKinds').replaceChildren(...[['j', 'חגים יהודיים'], ['c', 'חגים נוצריים']].map(([k, name]) => el('button', {
+      type: 'button', class: 'chip', 'aria-pressed': String(holSet[k]), onclick: () => { holSet[k] = !holSet[k]; saveHol(); },
+    }, (holSet[k] ? '✔️ ' : '') + name)));
+    $('#holPlace').replaceChildren(...[[false, 'בחוץ לארץ (ניו יורק)'], [true, 'בישראל']].map(([v, name]) => el('button', {
+      type: 'button', class: 'chip', 'aria-pressed': String(holSet.israel === v), onclick: () => { holSet.israel = v; saveHol(); },
+    }, name)));
+    const skipIL = ['sukkot2', 'shmini', 'simchat', 'pesach2', 'pesach8', 'shavuot2'];
+    const skipAbroad = ['shminisimchat'];
+    const group = (t, title) => {
+      if (!holSet[t]) return null;
+      const ids = Object.keys(HOLIDAYS).filter(id => HOLIDAYS[id].t === t && !(holSet.israel ? skipIL : skipAbroad).includes(id));
+      return el('div', { class: 'hol-list' }, el('h5', { class: 'sec-title' }, title), ...ids.map(id => {
+        const cb = el('input', { type: 'checkbox', id: 'off-' + id, checked: isOff(id), onchange: e => { holSet.off[id] = e.target.checked; saveHol(false); } });
+        return el('label', { for: 'off-' + id }, cb, HOLIDAYS[id].name);
+      }));
+    };
+    $('#holOff').replaceChildren(...[group('j', 'חגים יהודיים'), group('c', 'חגים נוצריים')].filter(Boolean));
+  }
+  function saveHol(rebuild = true) {
+    store.set('holidays', holSet);
+    if (rebuild) buildHolPanel();
+    renderCalendar();
+  }
+
+  // ================= weather (Open-Meteo, real forecast) =================
+  let wx = null, wxKey = '';
   async function loadWeather() {
     const key = `${place.lat},${place.lon}`;
     wxKey = key; wx = null;
@@ -463,97 +833,85 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     return (schoolDay ? 'לבית הספר: ' : '') + parts.join('. ') + '.';
   }
 
-  // ---------- history (Hebrew Wikipedia, real) ----------
-  const histCache = {};
-  async function loadHistory(m, d) {
-    const key = `${m}-${d}`;
-    if (histCache[key]) return histCache[key];
-    const page = `${d} ב${MONTHS[m]}`;
-    const url = 'https://he.wikipedia.org/w/api.php?action=parse&format=json&formatversion=2&origin=*&redirects=1&prop=text&page=' + encodeURIComponent(page);
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(res.status);
-    const j = await res.json();
-    if (!j.parse) throw new Error('no page');
-    const doc = new DOMParser().parseFromString(j.parse.text, 'text/html');
-    doc.querySelectorAll('.mw-editsection, .navbox, .reflist, .references, .mw-references-wrap, .toc, #toc, table, sup, style, .noprint, .metadata, .hatnote').forEach(n => n.remove());
-    const sections = { events: [], births: [], holidays: [] };
-    let current = null;
-    const sectionOf = t => /אירוע/.test(t) ? 'events' : /נולד|לידות/.test(t) ? 'births' : /חג|מועד|ימים מיוחדים/.test(t) ? 'holidays' : null;
-    const yearRe = /^\s*(\d{1,4}(?:\s*לפנה"ס|\s*לפני הספירה)?)\s*[–—:\-]\s*/;
-    for (const n of doc.body.querySelectorAll('h2, li')) {
-      if (n.tagName === 'H2') { current = sectionOf(n.textContent); continue; }
-      if (!current || n.parentElement.closest('li')) continue; // nested handled with parent
-      const nested = n.querySelector(':scope > ul, :scope > ol');
-      const own = [...n.childNodes].filter(c => !(c.nodeType === 1 && /^(UL|OL)$/.test(c.tagName))).map(c => c.textContent).join('').replace(/\s+/g, ' ').trim();
-      const push = (text, yearHint) => {
-        const m2 = text.match(yearRe);
-        const year = m2 ? m2[1] : yearHint || '';
-        const body = m2 ? text.slice(m2[0].length) : text;
-        if (body.trim().length > 1) sections[current].push({ year: year.replace(/\s+/g, ' '), text: body.trim() });
-      };
-      if (nested) {
-        const hint = (own.match(/^\s*(\d{1,4}(?:\s*לפנה"ס)?)/) || [])[1];
-        for (const li of nested.querySelectorAll(':scope > li')) push(li.textContent.replace(/\s+/g, ' ').trim(), hint);
-      } else push(own);
-    }
-    const out = { page, sections };
-    histCache[key] = out;
-    return out;
-  }
-
-  // ---------- calendar ----------
+  // ================= calendar =================
   const t0 = new Date();
   let viewY = t0.getFullYear(), viewM = t0.getMonth();
 
   function renderCalendar() {
-    $('#monthTitle').textContent = `${MONTHS[viewM]} ${viewY}`;
-    const cal = $('#cal');
+    const hFirst = hebParts(viewY, viewM, 1), hLast = hebParts(viewY, viewM, new Date(viewY, viewM + 1, 0).getDate());
+    const hm = a => HEB_MONTH[a.month] || a.month;
+    const hebRange = hm(hFirst) === hm(hLast) ? `${hm(hFirst)} ${gematria(hFirst.year % 1000)}` :
+      `${hm(hFirst)}${hFirst.year !== hLast.year ? ' ' + gematria(hFirst.year % 1000) : ''} – ${hm(hLast)} ${gematria(hLast.year % 1000)}`;
+    $('#monthTitle').replaceChildren(`${MONTHS[viewM]} ${viewY}`, el('small', {}, hebRange));
     const kids = DOW.map((d, i) => el('div', { class: 'dow' + (isWeekend(i) ? ' we' : ''), role: 'columnheader' }, d));
     const first = new Date(viewY, viewM, 1).getDay();
     const count = new Date(viewY, viewM + 1, 0).getDate();
     for (let i = 0; i < first; i++) kids.push(el('div', { class: 'day empty', 'aria-hidden': 'true' }));
     const today = localToday();
     for (let d = 1; d <= count; d++) {
-      const dow = (first + d - 1) % 7;
       const key = iso(viewY, viewM, d);
+      const info = dayInfo(key);
       const w = wx?.byDate?.[key];
+      const heb = hebParts(viewY, viewM, d);
+      const stk = stickers[key];
       const cell = el('button', {
-        type: 'button', class: 'day' + (isWeekend(dow) ? ' we' : '') + (key === today ? ' today' : ''),
-        'aria-label': `${DAYS[dow]}, ${d} ב${MONTHS[viewM]}` + (isWeekend(dow) ? ', אין לימודים' : ''),
+        type: 'button',
+        class: 'day' + (info.noSchool ? ' off' : '') + (key === today ? ` today m-${design.todayMark}` : ''),
+        'aria-label': `${DAYS[info.dow]}, ${d} ב${MONTHS[viewM]}` + (info.hols.length ? ', ' + info.hols.map(holName).join(', ') : '') + (info.noSchool ? ', אין לימודים' : ''),
         onclick: () => openDay(key),
       },
         el('span', { class: 'num' }, String(d)),
-        el('span', { class: 'tag' }, isWeekend(dow) ? 'אין לימודים' : ''),
+        el('span', { class: 'heb' }, hebShort(heb)),
+        ...info.hols.map(x => el('span', { class: 'hol' + (HOLIDAYS[x.id].t === 'c' ? ' c' : '') }, holName(x))),
+        info.noSchool && !info.hols.length ? el('span', { class: 'tag' }, 'אין לימודים') : null,
         w ? el('span', { class: 'wx' }, `${wmo(w.code)[0]} ${fmtT(w.max)}`) : null,
-        stickers[key] ? el('span', { class: 'stk', 'aria-hidden': 'true' }, stickers[key]) : null,
+        stk ? el('span', { class: 'stk', 'aria-hidden': 'true', html: STICKERS[stk] ? stickerHTML(stk) : '' }, STICKERS[stk] ? null : stk) : null,
       );
+      cell.style.setProperty('--tilt', `${((d * 37) % 5 - 2) * 0.7}deg`);
+      cell.style.setProperty('--srot', `${((d * 53) % 7 - 3) * 5}deg`);
       kids.push(cell);
     }
-    cal.replaceChildren(...kids);
+    $('#cal').replaceChildren(...kids);
   }
 
-  // ---------- day sheet ----------
+  // ================= day sheet =================
   let openDate = null;
   function openDay(key) {
     openDate = key;
     const { y, m, d } = fromIso(key);
-    const dow = new Date(y, m, d).getDay();
-    $('#dayTitle').textContent = `יום ${DAYS[dow]}, ${d} ב${MONTHS[m]} ${y}`;
+    const info = dayInfo(key);
+    $('#dayTitle').textContent = `יום ${DAYS[info.dow]}, ${d} ב${MONTHS[m]} ${y}`;
+    $('#dayHeb').textContent = hebDateText(hebParts(y, m, d));
     const sc = $('#daySchool');
-    sc.className = 'school' + (isWeekend(dow) ? ' off' : '');
-    sc.textContent = isWeekend(dow) ? `🎉 אין לימודים, יום ${DAYS[dow]}!` : '🎒 יש לימודים היום';
+    sc.className = 'school' + (info.noSchool ? ' off' : '');
+    sc.textContent = info.weekend ? `🎉 אין לימודים, יום ${DAYS[info.dow]}!` : info.holOff ? '🎉 אין לימודים, חג!' : '🎒 יש לימודים היום';
+    renderDayHol(key, info);
     renderDayWeather(key);
-    renderDayHistory(key);
     renderStickerPick(key);
     const dlg = $('#dayDlg');
     if (!dlg.open) dlg.showModal();
   }
 
+  function renderDayHol(key, info) {
+    const box = $('#dayHol');
+    const head = el('h4', {}, '📜 חגים ביום הזה');
+    if (!info.hols.length) {
+      box.replaceChildren(head, el('p', { class: 'muted' }, 'אין חג ביום הזה.'));
+      return;
+    }
+    box.replaceChildren(head, ...info.hols.map(x => {
+      const h = HOLIDAYS[x.id];
+      return el('div', { class: 'holi' },
+        el('div', { class: 'name' }, holName(x), el('span', { class: 'kind' }, h.t === 'j' ? 'חג יהודי' : 'חג נוצרי')),
+        el('div', {}, h.desc),
+        isOff(x.id) ? el('div', { class: 'off-note' }, '🎉 בחג הזה אין לימודים') : null);
+    }));
+  }
+
   function renderDayWeather(key) {
     const box = $('#dayWeather');
-    const { y, m, d } = fromIso(key);
-    const dow = new Date(y, m, d).getDay();
-    const head = el('h4', {}, `🌡️ מזג האוויר ב${place.short ? place.short.replace(' 🏠', '') : place.name}`);
+    const info = dayInfo(key);
+    const head = el('h4', {}, `🌡️ מזג האוויר ב${(place.short || place.name).replace(' 🏠', '')}`);
     const unitBtn = el('button', { type: 'button', class: 'chip', onclick: () => { unit = unit === 'C' ? 'F' : 'C'; store.set('unit', unit); renderDayWeather(key); renderCalendar(); } }, unit === 'C' ? 'להחליף ל-°F' : 'להחליף ל-°C');
     if (!wx) { box.replaceChildren(head, el('p', { class: 'muted' }, 'טוען…')); return; }
     if (wx.error) {
@@ -577,60 +935,20 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
           el('div', {}, (past ? 'היה: ' : '') + desc),
           el('div', { class: 'nums' }, `הכי חם ${fmtT(w.max)} · הכי קר ${fmtT(w.min)}` + (w.rainProb != null && !past ? ` · סיכוי לגשם ${w.rainProb}%` : '')))),
     ];
-    if (!past) kids.push(el('div', { class: 'wear' }, '👕 מה ללבוש? ' + whatToWear(w, !isWeekend(dow))));
+    if (!past) kids.push(el('div', { class: 'wear' }, '👕 מה ללבוש? ' + whatToWear(w, !info.noSchool)));
     kids.push(el('div', {}, unitBtn));
     kids.push(el('p', { class: 'muted' }, past ? 'מדידות אמיתיות מהיום הזה.' : 'תחזית אמיתית מ-Open-Meteo.'));
     box.replaceChildren(...kids);
   }
 
-  let histTab = 'events';
-  async function renderDayHistory(key) {
-    const box = $('#dayHistory');
-    const { m, d } = fromIso(key);
-    const head = el('h4', {}, '📜 מה קרה ביום הזה בהיסטוריה');
-    box.replaceChildren(head, el('p', { class: 'muted' }, 'מחפש בוויקיפדיה…'));
-    try {
-      const h = await loadHistory(m, d);
-      if (openDate !== key) return;
-      const tabs = [['events', 'אירועים'], ['births', 'נולדו'], ['holidays', 'חגים וימים מיוחדים']].filter(([k]) => h.sections[k].length);
-      if (!tabs.length) {
-        box.replaceChildren(head, el('p', {}, 'לא מצאתי היסטוריה ליום הזה.'));
-        return;
-      }
-      if (!tabs.some(([k]) => k === histTab)) histTab = tabs[0][0];
-      let showAll = false;
-      const list = el('ul', { class: 'hist' });
-      const more = el('button', { type: 'button', class: 'btn' });
-      const tabRow = el('div', { class: 'hist-tabs' });
-      const draw = () => {
-        tabRow.replaceChildren(...tabs.map(([k, name]) => el('button', { type: 'button', 'aria-pressed': String(k === histTab), onclick: () => { histTab = k; showAll = false; draw(); } }, name)));
-        const items = h.sections[histTab];
-        const shown = showAll ? items : items.slice(-10).reverse();
-        list.replaceChildren(...shown.map(it => el('li', {}, el('span', { class: 'yr' }, it.year), el('span', { class: 'tx' }, it.text))));
-        more.hidden = showAll || items.length <= 10;
-        more.textContent = `להראות את כל ה-${items.length}`;
-      };
-      more.addEventListener('click', () => { showAll = true; draw(); });
-      draw();
-      const link = el('a', { href: 'https://he.wikipedia.org/wiki/' + encodeURIComponent(h.page.replace(/ /g, '_')), target: '_blank', rel: 'noopener' }, 'לקרוא עוד בוויקיפדיה');
-      box.replaceChildren(head, tabRow, list, el('div', {}, more), el('p', { class: 'muted' }, 'מוויקיפדיה העברית · ', link));
-    } catch (e) {
-      if (openDate !== key) return;
-      box.replaceChildren(head, el('p', { class: 'muted' }, 'לא הצלחתי להגיע לוויקיפדיה. בודקים שיש אינטרנט ומנסים שוב.'),
-        el('div', {}, el('button', { type: 'button', class: 'btn', onclick: () => renderDayHistory(key) }, 'לנסות שוב')));
-    }
-  }
-
   function renderStickerPick(key) {
-    const pick = $('#stickerPick');
-    const btns = STICKERS.map(s => el('button', {
-      type: 'button', 'aria-pressed': String(stickers[key] === s), 'aria-label': 'מדבקה ' + s,
-      onclick: () => { if (stickers[key] === s) delete stickers[key]; else stickers[key] = s; store.set('stickers', stickers); renderStickerPick(key); renderCalendar(); },
-    }, s));
-    pick.replaceChildren(...btns);
+    stickerPicker($('#stickerPick'), stickers[key], id => {
+      if (!id || stickers[key] === id) delete stickers[key]; else stickers[key] = id;
+      store.set('stickers', stickers); renderStickerPick(key); renderCalendar();
+    }, true);
   }
 
-  // ---------- place sheet ----------
+  // ================= place sheet =================
   function setPlace(p) {
     place = p; store.set('place', p);
     $('#placeName').textContent = p.name;
@@ -665,7 +983,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
     list.replaceChildren(...found.map(p => el('li', {}, el('button', { type: 'button', title: p.full, onclick: () => setPlace({ name: p.name, short: p.name.split(',')[0], lat: p.lat, lon: p.lon }) }, '📍 ' + p.name))));
   });
 
-  // ---------- wiring ----------
+  // ================= wiring =================
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
   document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
   $('#dayDlg').addEventListener('close', () => { openDate = null; });
@@ -673,6 +991,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent); }
   $('#next').addEventListener('click', () => { viewM++; if (viewM > 11) { viewM = 0; viewY++; } renderCalendar(); });
   $('#goToday').addEventListener('click', () => { const n = new Date(); viewY = n.getFullYear(); viewM = n.getMonth(); renderCalendar(); });
   $('#openDesign').addEventListener('click', () => { buildDesignPanel(); $('#designDlg').showModal(); });
+  $('#openHol').addEventListener('click', () => { buildHolPanel(); $('#holDlg').showModal(); });
   $('#openPlace').addEventListener('click', () => { buildQuickPlaces(); $('#results').replaceChildren(); $('#searchMsg').hidden = true; $('#placeDlg').showModal(); });
 
   $('#placeName').textContent = place.name;
