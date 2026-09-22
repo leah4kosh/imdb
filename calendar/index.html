@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>הלוח שלי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gveret+Levin&family=Playpen+Sans+Hebrew:wght@400;600&family=Amatic+SC:wght@700&family=Rubik:wght@400;600&display=swap">
+<style>
+:root {
+  --paper: #eef6ff;
+  --card: #ffffff;
+  --ink: #1f2a44;
+  --soft: #5b6b8c;
+  --accent: #ff6b6b;
+  --accent-ink: #ffffff;
+  --weekend: #fff1d6;
+  --line: #c9dcf5;
+  --font: 'Gveret Levin', 'Playpen Sans Hebrew', 'Rubik', system-ui, sans-serif;
+  --size: 1;
+  --radius: 16px;
+  --border-style: solid;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--font);
+  font-size: calc(18px * var(--size));
+  color: var(--ink);
+  background-color: var(--paper);
+  min-height: 100vh;
+  padding: 16px;
+  line-height: 1.4;
+}
+body.bg-dots { background-image: radial-gradient(var(--line) 1.6px, transparent 1.6px); background-size: 22px 22px; }
+body.bg-lines { background-image: linear-gradient(transparent 31px, var(--line) 32px); background-size: 100% 32px; }
+body.bg-grid { background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 26px 26px; }
+body.bg-hearts { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ctext x='8' y='30' font-size='18' opacity='.25'%3E%E2%9D%A4%3C/text%3E%3Ctext x='38' y='56' font-size='14' opacity='.2'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E"); }
+body.bg-stars { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70'%3E%3Ctext x='6' y='24' font-size='16' opacity='.3'%3E%E2%AD%90%3C/text%3E%3Ctext x='40' y='60' font-size='12' opacity='.25'%3E%E2%9C%A8%3C/text%3E%3C/svg%3E"); }
+
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.wrap { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; }
+
+header.top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+}
+h1 {
+  margin: 0; font-size: calc(2.6em); font-weight: 400; line-height: 1;
+  color: var(--accent); text-wrap: balance;
+}
+.tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn {
+  border: 2px var(--border-style) var(--ink); background: var(--card); border-radius: 999px;
+  padding: 6px 14px; font-size: 1em;
+}
+.btn.main { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn:hover { transform: translateY(-1px); }
+
+.place-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--soft); font-size: 1.05em; }
+.place-line strong { color: var(--ink); font-weight: 400; }
+
+.month-bar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.month-bar h2 { margin: 0; font-size: 2em; font-weight: 400; text-align: center; flex: 1; }
+.nav { width: 44px; height: 44px; border-radius: 50%; border: 2px var(--border-style) var(--ink); background: var(--card); font-size: 1.3em; line-height: 1; }
+
+.cal {
+  background: var(--card); border: 2px var(--border-style) var(--ink); border-radius: calc(var(--radius) + 6px);
+  padding: 10px; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+}
+.dow { text-align: center; font-size: 1.1em; color: var(--soft); padding: 2px 0; }
+.dow.we { color: var(--accent); }
+.day {
+  position: relative; min-height: 86px; border-radius: var(--radius);
+  border: 1.5px var(--border-style) var(--line); background: var(--card);
+  padding: 6px; text-align: start; display: flex; flex-direction: column; gap: 2px;
+  transition: transform .12s ease;
+}
+.day:hover { transform: scale(1.04); z-index: 1; }
+.day.we { background: var(--weekend); }
+.day.today { border: 3px solid var(--accent); }
+.day.empty { visibility: hidden; }
+.day .num { font-size: 1.5em; line-height: 1; }
+.day .tag { font-size: .72em; color: var(--soft); }
+.day .wx { font-family: 'Rubik', system-ui, sans-serif; font-size: .72em; color: var(--soft); margin-top: auto; direction: ltr; text-align: right; font-variant-numeric: tabular-nums; }
+.day .stk { position: absolute; top: 4px; left: 6px; font-size: 1.4em; line-height: 1; }
+body.shape-square { --radius: 4px; }
+body.shape-round .day { border-radius: 50%; aspect-ratio: 1; min-height: 0; align-items: center; justify-content: center; text-align: center; padding: 2px; }
+body.shape-round .day .wx, body.shape-round .day .tag { display: none; }
+body.shape-round .day .stk { top: 0; left: 0; font-size: 1em; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 14px; color: var(--soft); font-size: .95em; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.sw { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--line); display: inline-block; }
+
+/* Sheets */
+dialog {
+  border: 2px var(--border-style) var(--ink); border-radius: 22px; padding: 0;
+  width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+  background: var(--card); color: var(--ink);
+}
+dialog::backdrop { background: rgb(20 30 50 / .45); }
+.sheet { padding: 18px; display: grid; gap: 14px; overflow-y: auto; max-height: calc(100vh - 40px); }
+.sheet-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.sheet-head h3 { margin: 0; font-size: 1.9em; font-weight: 400; line-height: 1.1; }
+.x { border: none; background: transparent; font-size: 1.6em; line-height: 1; padding: 2px 6px; }
+.box { border: 1.5px var(--border-style) var(--line); border-radius: 16px; padding: 12px 14px; display: grid; gap: 8px; }
+.box h4 { margin: 0; font-size: 1.35em; font-weight: 400; color: var(--accent); }
+.school { font-size: 1.2em; padding: 8px 12px; border-radius: 12px; background: var(--paper); }
+.school.off { background: var(--weekend); }
+.temps { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.temps .big { font-size: 2.6em; line-height: 1; }
+.temps .nums { font-variant-numeric: tabular-nums; font-size: 1.05em; }
+.wear { background: var(--paper); border-radius: 12px; padding: 10px 12px; font-size: 1.1em; }
+.nope { display: flex; align-items: center; gap: 12px; font-size: 1.1em; }
+.nope b { font-size: 2.4em; line-height: 1; font-weight: 400; }
+.muted { color: var(--soft); font-size: .95em; }
+.hist-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.hist-tabs button { border: 1.5px solid var(--line); background: var(--card); border-radius: 999px; padding: 3px 12px; }
+.hist-tabs button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.hist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.hist li { display: grid; grid-template-columns: 4.2em 1fr; gap: 8px; align-items: baseline; }
+.hist .yr { font-family: 'Rubik', system-ui, sans-serif; font-weight: 600; color: var(--accent); font-size: .85em; font-variant-numeric: tabular-nums; }
+.hist .tx { font-size: 1em; line-height: 1.45; }
+a { color: var(--accent); }
+.stickers { display: flex; flex-wrap: wrap; gap: 4px; }
+.stickers button { font-size: 1.5em; border: 1.5px solid transparent; background: transparent; border-radius: 10px; padding: 2px 5px; line-height: 1.1; }
+.stickers button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+
+/* design panel */
+.row { display: grid; gap: 6px; }
+.row > label, .row > .lbl { font-size: 1.1em; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 2px solid var(--line); background: var(--card); border-radius: 999px; padding: 4px 12px; }
+.chip[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.theme-chip { display: inline-flex; align-items: center; gap: 6px; }
+.dots { display: inline-flex; }
+.dots i { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgb(0 0 0 / .15); margin-inline-start: -4px; }
+.colors { display: flex; flex-wrap: wrap; gap: 14px; }
+.colors label { display: inline-flex; align-items: center; gap: 6px; }
+input[type="color"] { width: 42px; height: 32px; border: none; background: none; padding: 0; }
+input[type="text"], input[type="search"] {
+  border: 2px solid var(--line); border-radius: 12px; padding: 6px 10px; background: var(--card); width: 100%;
+}
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+.search { display: flex; gap: 6px; }
+.results { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.results button { width: 100%; text-align: start; border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 6px 10px; }
+.results button:hover { border-color: var(--accent); }
+
+@media (max-width: 620px) {
+  body { font-size: calc(16px * var(--size)); }
+  h1 { font-size: 2.1em; }
+  .cal { padding: 6px; gap: 4px; }
+  .day { min-height: 62px; padding: 4px; }
+  .day .num { font-size: 1.25em; }
+  .day .tag { display: none; }
+  .hist li { grid-template-columns: 3.6em 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { .day, .btn { transition: none; } .day:hover, .btn:hover { transform: none; } }
+</style>
+</head>
+<body class="bg-dots">
+<div class="wrap">
+  <header class="top">
+    <h1 id="title">הלוח שלי</h1>
+    <div class="tools">
+      <button class="btn" id="openPlace" type="button">📍 לבחור מקום</button>
+      <button class="btn main" id="openDesign" type="button">🎨 לעצב</button>
+    </div>
+  </header>
+
+  <div class="place-line">📍 המקום שלי: <strong id="placeName">פיטר קופר וילג', ניו יורק</strong> <span id="wxStatus" class="muted"></span></div>
+
+  <div class="month-bar">
+    <button class="nav" id="prev" type="button" aria-label="לחודש הקודם">→</button>
+    <h2 id="monthTitle"></h2>
+    <button class="nav" id="next" type="button" aria-label="לחודש הבא">←</button>
+  </div>
+  <div style="display:flex;justify-content:center"><button class="btn" id="goToday" type="button">היום</button></div>
+
+  <div class="cal" id="cal" role="grid"></div>
+
+  <div class="legend">
+    <span><i class="sw" style="background:var(--card)"></i> 🎒 יש לימודים (שני עד שישי)</span>
+    <span><i class="sw" style="background:var(--weekend)"></i> 🎉 אין לימודים (שבת וראשון)</span>
+    <span>לוחצים על יום כדי לראות היסטוריה, מעלות ומה ללבוש</span>
+  </div>
+</div>
+
+<!-- Day sheet -->
+<dialog id="dayDlg" aria-labelledby="dayTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="dayTitle"></h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="school" id="daySchool"></div>
+    <section class="box" id="dayWeather"></section>
+    <section class="box" id="dayHistory"></section>
+    <section class="box">
+      <h4>מדבקה ליום הזה</h4>
+      <div class="stickers" id="stickerPick"></div>
+    </section>
+  </div>
+</dialog>
+
+<!-- Place sheet -->
+<dialog id="placeDlg" aria-labelledby="placeTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="placeTitle">📍 איפה בעולם?</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row">
+      <span class="lbl">מקומות שלי</span>
+      <div class="chips" id="quickPlaces"></div>
+    </div>
+    <form class="row" id="searchForm">
+      <label for="placeQ">או לחפש כל מקום בעולם</label>
+      <div class="search">
+        <input type="search" id="placeQ" placeholder="למשל: פריז, אילת, טוקיו" autocomplete="off">
+        <button class="btn main" type="submit">חיפוש</button>
+      </div>
+    </form>
+    <p class="muted" id="searchMsg" hidden></p>
+    <ul class="results" id="results"></ul>
+  </div>
+</dialog>
+
+<!-- Design sheet -->
+<dialog id="designDlg" aria-labelledby="designTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="designTitle">🎨 לעצב את הלוח</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row">
+      <label for="dTitle">שם הלוח</label>
+      <input type="text" id="dTitle" maxlength="40">
+    </div>
+    <div class="row">
+      <span class="lbl">ערכת צבעים</span>
+      <div class="chips" id="themes"></div>
+    </div>
+    <div class="row">
+      <span class="lbl">או לבחור צבעים בעצמי</span>
+      <div class="colors">
+        <label>ראשי <input type="color" id="cAccent"></label>
+        <label>רקע <input type="color" id="cPaper"></label>
+        <label>כתב <input type="color" id="cInk"></label>
+        <label>סוף שבוע <input type="color" id="cWeekend"></label>
+      </div>
+    </div>
+    <div class="row">
+      <span class="lbl">כתב</span>
+      <div class="chips" id="fonts"></div>
+    </div>
+    <div class="row">
+      <label for="dSize">גודל הכתב</label>
+      <input type="range" id="dSize" min="0.85" max="1.3" step="0.05">
+    </div>
+    <div class="row">
+      <span class="lbl">רקע</span>
+      <div class="chips" id="bgs"></div>
+    </div>
+    <div class="row">
+      <span class="lbl">צורת הימים</span>
+      <div class="chips" id="shapes"></div>
+    </div>
+    <div class="row">
+      <span class="lbl">מסגרות</span>
+      <div class="chips" id="borders"></div>
+    </div>
+    <div><button class="btn" type="button" id="resetDesign">להחזיר להתחלה</button></div>
+  </div>
+</dialog>
+
+<script>
+(() => {
+  // ---------- data ----------
+  const MONTHS = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  const DAYS = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+  const DOW = ['א','ב','ג','ד','ה','ו','ש'];
+  const isWeekend = d => d === 0 || d === 6; // Sunday + Saturday: no school
+
+  const PLACES = [
+    { name: "פיטר קופר וילג', ניו יורק", short: "פיטר קופר 🏠", lat: 40.7352, lon: -73.9776 },
+    { name: 'סטאי טאון, ניו יורק', short: 'סטאי טאון', lat: 40.7316, lon: -73.9778 },
+    { name: 'שורש, ישראל', short: 'שורש', lat: 31.7980, lon: 35.0660 },
+    { name: 'מעלה החמישה, ישראל', short: 'מעלה החמישה', lat: 31.8170, lon: 35.1130 },
+    { name: 'ירושלים, ישראל', short: 'ירושלים', lat: 31.7683, lon: 35.2137 },
+  ];
+
+  const THEMES = {
+    sky:    { name: 'שמיים', accent: '#ff6b6b', paper: '#eef6ff', ink: '#1f2a44', weekend: '#fff1d6', card: '#ffffff', line: '#c9dcf5', soft: '#5b6b8c' },
+    gum:    { name: 'מסטיק', accent: '#e0468f', paper: '#fff0f6', ink: '#3a1d2e', weekend: '#e8f7ff', card: '#ffffff', line: '#f5c6dc', soft: '#8a5a73' },
+    forest: { name: 'יער', accent: '#2f8f5b', paper: '#f0f7ee', ink: '#1d3326', weekend: '#fff4d9', card: '#ffffff', line: '#cfe5cf', soft: '#56705f' },
+    sunset: { name: 'שקיעה', accent: '#f06a2a', paper: '#fff4ea', ink: '#3b2415', weekend: '#ffe0ec', card: '#ffffff', line: '#f6d2b8', soft: '#86624b' },
+    lemon:  { name: 'לימון', accent: '#7a5cf5', paper: '#fffbe0', ink: '#2c2640', weekend: '#e9f9e3', card: '#ffffff', line: '#efe4a8', soft: '#6c6588' },
+    night:  { name: 'לילה', accent: '#ffcf5a', paper: '#1b1f3b', ink: '#f3f1ff', weekend: '#2c2f5a', card: '#252a4d', line: '#3d4378', soft: '#b5b3d9' },
+  };
+  const FONTS = [
+    { id: 'ktav', name: 'כתב', css: "'Gveret Levin'" },
+    { id: 'round', name: 'כתב עגול', css: "'Playpen Sans Hebrew'" },
+    { id: 'marker', name: 'טוש', css: "'Amatic SC'" },
+    { id: 'print', name: 'דפוס', css: "'Rubik'" },
+  ];
+  const BGS = [
+    { id: 'plain', name: 'חלק' }, { id: 'dots', name: 'נקודות' }, { id: 'lines', name: 'שורות מחברת' },
+    { id: 'grid', name: 'משבצות' }, { id: 'hearts', name: 'לבבות' }, { id: 'stars', name: 'כוכבים' },
+  ];
+  const SHAPES = [{ id: 'soft', name: 'מעוגל' }, { id: 'square', name: 'מרובע' }, { id: 'round', name: 'עיגולים' }];
+  const BORDERS = [{ id: 'solid', name: 'רגילה' }, { id: 'dashed', name: 'מקווקוות' }, { id: 'dotted', name: 'נקודות' }];
+  const STICKERS = ['⭐','❤️','🎂','🎉','📚','✏️','⚽','🎨','🎵','🍕','🐶','🐱','🌈','☀️','❄️','🏖️','✈️','🎁','🏆','🦄','🌸','🧁','📝','😴'];
+
+  const DEFAULT_DESIGN = { title: 'הלוח שלי', theme: 'sky', font: 'ktav', size: 1, bg: 'dots', shape: 'soft', border: 'solid', custom: null };
+
+  // ---------- storage (optional) ----------
+  const store = {
+    get(k, fallback) { try { const v = localStorage.getItem('halu4-' + k); return v ? JSON.parse(v) : fallback; } catch { return fallback; } },
+    set(k, v) { try { localStorage.setItem('halu4-' + k, JSON.stringify(v)); } catch {} },
+  };
+  let design = Object.assign({}, DEFAULT_DESIGN, store.get('design', {}));
+  let place = store.get('place', PLACES[0]);
+  let stickers = store.get('stickers', {});
+  let unit = store.get('unit', 'C');
+
+  // ---------- helpers ----------
+  const $ = s => document.querySelector(s);
+  const el = (tag, props = {}, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+      if (k === 'class') n.className = v;
+      else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+      else if (k in n && k !== 'style') n[k] = v;
+      else n.setAttribute(k, v);
+    }
+    for (const kid of kids) if (kid != null) n.append(kid);
+    return n;
+  };
+  const iso = (y, m, d) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+  const fromIso = s => { const [y, m, d] = s.split('-').map(Number); return { y, m: m - 1, d }; };
+  const localToday = () => { const n = new Date(); return iso(n.getFullYear(), n.getMonth(), n.getDate()); };
+  const fmtT = c => c == null ? '–' : unit === 'F' ? `${Math.round(c * 9 / 5 + 32)}°F` : `${Math.round(c)}°`;
+
+  // ---------- design ----------
+  function applyDesign() {
+    const t = Object.assign({}, THEMES[design.theme] || THEMES.sky, design.custom || {});
+    const r = document.documentElement.style;
+    for (const k of ['accent', 'paper', 'ink', 'weekend', 'card', 'line', 'soft']) r.setProperty('--' + k, t[k]);
+    r.setProperty('--accent-ink', design.theme === 'night' && !(design.custom && design.custom.accent) ? '#1b1f3b' : '#ffffff');
+    const f = FONTS.find(x => x.id === design.font) || FONTS[0];
+    r.setProperty('--font', `${f.css}, 'Rubik', system-ui, sans-serif`);
+    r.setProperty('--size', design.size);
+    r.setProperty('--border-style', design.border);
+    document.body.className = `bg-${design.bg} shape-${design.shape}`;
+    document.body.style.colorScheme = design.theme === 'night' ? 'dark' : 'light';
+    $('#title').textContent = design.title || 'הלוח שלי';
+    document.title = design.title || 'הלוח שלי';
+    store.set('design', design);
+  }
+
+  function chipGroup(container, items, key, render) {
+    container.replaceChildren(...items.map(it => el('button', {
+      type: 'button', class: 'chip' + (render ? ' theme-chip' : ''),
+      'aria-pressed': String(design[key] === it.id),
+      onclick: () => {
+        design[key] = it.id;
+        if (key === 'theme') design.custom = null;
+        applyDesign(); buildDesignPanel(); renderCalendar();
+      },
+    }, render ? render(it) : it.name)));
+  }
+
+  function buildDesignPanel() {
+    $('#dTitle').value = design.title;
+    chipGroup($('#themes'), Object.entries(THEMES).map(([id, t]) => ({ id, ...t })), 'theme', t => {
+      const dots = el('span', { class: 'dots' });
+      for (const c of [t.accent, t.paper, t.weekend]) { const i = el('i'); i.style.background = c; dots.append(i); }
+      return el('span', { class: 'theme-chip' }, dots, t.name);
+    });
+    chipGroup($('#fonts'), FONTS, 'font');
+    [...$('#fonts').children].forEach((b, i) => { b.style.fontFamily = FONTS[i].css; });
+    chipGroup($('#bgs'), BGS, 'bg');
+    chipGroup($('#shapes'), SHAPES, 'shape');
+    chipGroup($('#borders'), BORDERS, 'border');
+    const t = Object.assign({}, THEMES[design.theme], design.custom || {});
+    $('#cAccent').value = t.accent; $('#cPaper').value = t.paper; $('#cInk').value = t.ink; $('#cWeekend').value = t.weekend;
+    $('#dSize').value = design.size;
+  }
+  $('#dTitle').addEventListener('input', e => { design.title = e.target.value; applyDesign(); });
+  $('#dSize').addEventListener('input', e => { design.size = Number(e.target.value); applyDesign(); });
+  for (const [id, key] of [['#cAccent', 'accent'], ['#cPaper', 'paper'], ['#cInk', 'ink'], ['#cWeekend', 'weekend']]) {
+    $(id).addEventListener('input', e => { design.custom = Object.assign({}, design.custom, { [key]: e.target.value }); applyDesign(); });
+  }
+  $('#resetDesign').addEventListener('click', () => { design = Object.assign({}, DEFAULT_DESIGN); applyDesign(); buildDesignPanel(); renderCalendar(); });
+
+  // ---------- weather (Open-Meteo, real forecast) ----------
+  let wx = null; // { byDate: {iso: {...}}, today: iso }
+  let wxKey = '';
+  async function loadWeather() {
+    const key = `${place.lat},${place.lon}`;
+    wxKey = key; wx = null;
+    $('#wxStatus').textContent = '· טוען מזג אוויר…';
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + place.lat + '&longitude=' + place.lon +
+      '&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_min,precipitation_probability_max,precipitation_sum,wind_speed_10m_max' +
+      '&timezone=auto&past_days=92&forecast_days=16';
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(res.status);
+      const j = await res.json();
+      if (wxKey !== key) return;
+      const d = j.daily, byDate = {};
+      d.time.forEach((t, i) => {
+        byDate[t] = {
+          code: d.weather_code[i], max: d.temperature_2m_max[i], min: d.temperature_2m_min[i],
+          feelMin: d.apparent_temperature_min?.[i], rainProb: d.precipitation_probability_max?.[i],
+          rain: d.precipitation_sum?.[i], wind: d.wind_speed_10m_max?.[i],
+        };
+      });
+      const now = new Date(Date.now() + (j.utc_offset_seconds || 0) * 1000);
+      wx = { byDate, today: now.toISOString().slice(0, 10) };
+      $('#wxStatus').textContent = '';
+    } catch (e) {
+      if (wxKey !== key) return;
+      wx = { error: true, byDate: {} };
+      $('#wxStatus').textContent = '· אין חיבור למזג האוויר כרגע';
+    }
+    renderCalendar();
+    if (openDate) renderDayWeather(openDate);
+  }
+
+  const WMO = {
+    0: ['☀️', 'שמיים בהירים'], 1: ['🌤️', 'כמעט בהיר'], 2: ['⛅', 'מעונן חלקית'], 3: ['☁️', 'מעונן'],
+    45: ['🌫️', 'ערפל'], 48: ['🌫️', 'ערפל קפוא'],
+    51: ['🌦️', 'טפטוף קל'], 53: ['🌦️', 'טפטוף'], 55: ['🌧️', 'טפטוף חזק'], 56: ['🌧️', 'טפטוף קפוא'], 57: ['🌧️', 'טפטוף קפוא'],
+    61: ['🌦️', 'גשם קל'], 63: ['🌧️', 'גשם'], 65: ['🌧️', 'גשם חזק'], 66: ['🌧️', 'גשם קפוא'], 67: ['🌧️', 'גשם קפוא'],
+    71: ['🌨️', 'שלג קל'], 73: ['🌨️', 'שלג'], 75: ['❄️', 'שלג כבד'], 77: ['🌨️', 'פתיתי שלג'],
+    80: ['🌦️', 'ממטרים קלים'], 81: ['🌧️', 'ממטרים'], 82: ['⛈️', 'ממטרים חזקים'], 85: ['🌨️', 'ממטרי שלג'], 86: ['❄️', 'ממטרי שלג חזקים'],
+    95: ['⛈️', 'סופת רעמים'], 96: ['⛈️', 'סופת רעמים עם ברד'], 99: ['⛈️', 'סופת רעמים עם ברד'],
+  };
+  const wmo = c => WMO[c] || ['🌡️', ''];
+
+  function whatToWear(w, schoolDay) {
+    const hi = w.max, lo = w.feelMin ?? w.min;
+    const parts = [];
+    if (hi >= 29) parts.push('חם מאוד! 🥵 חולצה קצרה, מכנסיים קצרים, כובע ובקבוק מים');
+    else if (hi >= 24) parts.push('חם 😎 חולצה קצרה ומכנסיים קצרים');
+    else if (hi >= 19) parts.push('נעים 🙂 חולצה קצרה, ואפשר לקחת סווטשירט דק');
+    else if (hi >= 14) parts.push('קריר 🍂 חולצה ארוכה וסווטשירט, מכנסיים ארוכים');
+    else if (hi >= 7) parts.push('קר 🧥 סוודר חם, מעיל ומכנסיים ארוכים');
+    else parts.push('קר מאוד! 🥶 מעיל חם, כובע צמר, צעיף וכפפות');
+    const snowy = [71, 73, 75, 77, 85, 86].includes(w.code);
+    const rainy = (w.rainProb ?? 0) >= 50 || [61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99].includes(w.code);
+    if (snowy) parts.push('❄️ מגפיים ומעיל שלא נרטב');
+    else if (rainy) parts.push('☔ מטרייה או מעיל גשם, ונעליים סגורות');
+    if (hi - lo >= 10 && hi >= 14) parts.push('🌅 בבוקר ובערב קר יותר, כדאי ללבוש שכבות');
+    if ((w.wind ?? 0) >= 40) parts.push('💨 יהיה רוח חזקה');
+    return (schoolDay ? 'לבית הספר: ' : '') + parts.join('. ') + '.';
+  }
+
+  // ---------- history (Hebrew Wikipedia, real) ----------
+  const histCache = {};
+  async function loadHistory(m, d) {
+    const key = `${m}-${d}`;
+    if (histCache[key]) return histCache[key];
+    const page = `${d} ב${MONTHS[m]}`;
+    const url = 'https://he.wikipedia.org/w/api.php?action=parse&format=json&formatversion=2&origin=*&redirects=1&prop=text&page=' + encodeURIComponent(page);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(res.status);
+    const j = await res.json();
+    if (!j.parse) throw new Error('no page');
+    const doc = new DOMParser().parseFromString(j.parse.text, 'text/html');
+    doc.querySelectorAll('.mw-editsection, .navbox, .reflist, .references, .mw-references-wrap, .toc, #toc, table, sup, style, .noprint, .metadata, .hatnote').forEach(n => n.remove());
+    const sections = { events: [], births: [], holidays: [] };
+    let current = null;
+    const sectionOf = t => /אירוע/.test(t) ? 'events' : /נולד|לידות/.test(t) ? 'births' : /חג|מועד|ימים מיוחדים/.test(t) ? 'holidays' : null;
+    const yearRe = /^\s*(\d{1,4}(?:\s*לפנה"ס|\s*לפני הספירה)?)\s*[–—:\-]\s*/;
+    for (const n of doc.body.querySelectorAll('h2, li')) {
+      if (n.tagName === 'H2') { current = sectionOf(n.textContent); continue; }
+      if (!current || n.parentElement.closest('li')) continue; // nested handled with parent
+      const nested = n.querySelector(':scope > ul, :scope > ol');
+      const own = [...n.childNodes].filter(c => !(c.nodeType === 1 && /^(UL|OL)$/.test(c.tagName))).map(c => c.textContent).join('').replace(/\s+/g, ' ').trim();
+      const push = (text, yearHint) => {
+        const m2 = text.match(yearRe);
+        const year = m2 ? m2[1] : yearHint || '';
+        const body = m2 ? text.slice(m2[0].length) : text;
+        if (body.trim().length > 1) sections[current].push({ year: year.replace(/\s+/g, ' '), text: body.trim() });
+      };
+      if (nested) {
+        const hint = (own.match(/^\s*(\d{1,4}(?:\s*לפנה"ס)?)/) || [])[1];
+        for (const li of nested.querySelectorAll(':scope > li')) push(li.textContent.replace(/\s+/g, ' ').trim(), hint);
+      } else push(own);
+    }
+    const out = { page, sections };
+    histCache[key] = out;
+    return out;
+  }
+
+  // ---------- calendar ----------
+  const t0 = new Date();
+  let viewY = t0.getFullYear(), viewM = t0.getMonth();
+
+  function renderCalendar() {
+    $('#monthTitle').textContent = `${MONTHS[viewM]} ${viewY}`;
+    const cal = $('#cal');
+    const kids = DOW.map((d, i) => el('div', { class: 'dow' + (isWeekend(i) ? ' we' : ''), role: 'columnheader' }, d));
+    const first = new Date(viewY, viewM, 1).getDay();
+    const count = new Date(viewY, viewM + 1, 0).getDate();
+    for (let i = 0; i < first; i++) kids.push(el('div', { class: 'day empty', 'aria-hidden': 'true' }));
+    const today = localToday();
+    for (let d = 1; d <= count; d++) {
+      const dow = (first + d - 1) % 7;
+      const key = iso(viewY, viewM, d);
+      const w = wx?.byDate?.[key];
+      const cell = el('button', {
+        type: 'button', class: 'day' + (isWeekend(dow) ? ' we' : '') + (key === today ? ' today' : ''),
+        'aria-label': `${DAYS[dow]}, ${d} ב${MONTHS[viewM]}` + (isWeekend(dow) ? ', אין לימודים' : ''),
+        onclick: () => openDay(key),
+      },
+        el('span', { class: 'num' }, String(d)),
+        el('span', { class: 'tag' }, isWeekend(dow) ? 'אין לימודים' : ''),
+        w ? el('span', { class: 'wx' }, `${wmo(w.code)[0]} ${fmtT(w.max)}`) : null,
+        stickers[key] ? el('span', { class: 'stk', 'aria-hidden': 'true' }, stickers[key]) : null,
+      );
+      kids.push(cell);
+    }
+    cal.replaceChildren(...kids);
+  }
+
+  // ---------- day sheet ----------
+  let openDate = null;
+  function openDay(key) {
+    openDate = key;
+    const { y, m, d } = fromIso(key);
+    const dow = new Date(y, m, d).getDay();
+    $('#dayTitle').textContent = `יום ${DAYS[dow]}, ${d} ב${MONTHS[m]} ${y}`;
+    const sc = $('#daySchool');
+    sc.className = 'school' + (isWeekend(dow) ? ' off' : '');
+    sc.textContent = isWeekend(dow) ? `🎉 אין לימודים, יום ${DAYS[dow]}!` : '🎒 יש לימודים היום';
+    renderDayWeather(key);
+    renderDayHistory(key);
+    renderStickerPick(key);
+    const dlg = $('#dayDlg');
+    if (!dlg.open) dlg.showModal();
+  }
+
+  function renderDayWeather(key) {
+    const box = $('#dayWeather');
+    const { y, m, d } = fromIso(key);
+    const dow = new Date(y, m, d).getDay();
+    const head = el('h4', {}, `🌡️ מזג האוויר ב${place.short ? place.short.replace(' 🏠', '') : place.name}`);
+    const unitBtn = el('button', { type: 'button', class: 'chip', onclick: () => { unit = unit === 'C' ? 'F' : 'C'; store.set('unit', unit); renderDayWeather(key); renderCalendar(); } }, unit === 'C' ? 'להחליף ל-°F' : 'להחליף ל-°C');
+    if (!wx) { box.replaceChildren(head, el('p', { class: 'muted' }, 'טוען…')); return; }
+    if (wx.error) {
+      box.replaceChildren(head, el('p', { class: 'muted' }, 'לא הצלחתי להביא את מזג האוויר. בודקים שיש אינטרנט ומנסים שוב.'),
+        el('div', {}, el('button', { type: 'button', class: 'btn', onclick: loadWeather }, 'לנסות שוב')));
+      return;
+    }
+    const w = wx.byDate[key];
+    if (!w || w.max == null) {
+      const far = key > wx.today;
+      box.replaceChildren(head, el('div', { class: 'nope' }, el('b', { 'aria-hidden': 'true' }, '❌'),
+        el('span', {}, far ? 'היום הזה רחוק מדי. עדיין אין לו תחזית אמיתית (אפשר לדעת רק עד 16 יום קדימה).' : 'אין מידע על מזג האוויר ביום הזה, הוא היה מזמן.')));
+      return;
+    }
+    const [icon, desc] = wmo(w.code);
+    const past = key < wx.today;
+    const kids = [head,
+      el('div', { class: 'temps' },
+        el('span', { class: 'big', 'aria-hidden': 'true' }, icon),
+        el('div', {},
+          el('div', {}, (past ? 'היה: ' : '') + desc),
+          el('div', { class: 'nums' }, `הכי חם ${fmtT(w.max)} · הכי קר ${fmtT(w.min)}` + (w.rainProb != null && !past ? ` · סיכוי לגשם ${w.rainProb}%` : '')))),
+    ];
+    if (!past) kids.push(el('div', { class: 'wear' }, '👕 מה ללבוש? ' + whatToWear(w, !isWeekend(dow))));
+    kids.push(el('div', {}, unitBtn));
+    kids.push(el('p', { class: 'muted' }, past ? 'מדידות אמיתיות מהיום הזה.' : 'תחזית אמיתית מ-Open-Meteo.'));
+    box.replaceChildren(...kids);
+  }
+
+  let histTab = 'events';
+  async function renderDayHistory(key) {
+    const box = $('#dayHistory');
+    const { m, d } = fromIso(key);
+    const head = el('h4', {}, '📜 מה קרה ביום הזה בהיסטוריה');
+    box.replaceChildren(head, el('p', { class: 'muted' }, 'מחפש בוויקיפדיה…'));
+    try {
+      const h = await loadHistory(m, d);
+      if (openDate !== key) return;
+      const tabs = [['events', 'אירועים'], ['births', 'נולדו'], ['holidays', 'חגים וימים מיוחדים']].filter(([k]) => h.sections[k].length);
+      if (!tabs.length) {
+        box.replaceChildren(head, el('p', {}, 'לא מצאתי היסטוריה ליום הזה.'));
+        return;
+      }
+      if (!tabs.some(([k]) => k === histTab)) histTab = tabs[0][0];
+      let showAll = false;
+      const list = el('ul', { class: 'hist' });
+      const more = el('button', { type: 'button', class: 'btn' });
+      const tabRow = el('div', { class: 'hist-tabs' });
+      const draw = () => {
+        tabRow.replaceChildren(...tabs.map(([k, name]) => el('button', { type: 'button', 'aria-pressed': String(k === histTab), onclick: () => { histTab = k; showAll = false; draw(); } }, name)));
+        const items = h.sections[histTab];
+        const shown = showAll ? items : items.slice(-10).reverse();
+        list.replaceChildren(...shown.map(it => el('li', {}, el('span', { class: 'yr' }, it.year), el('span', { class: 'tx' }, it.text))));
+        more.hidden = showAll || items.length <= 10;
+        more.textContent = `להראות את כל ה-${items.length}`;
+      };
+      more.addEventListener('click', () => { showAll = true; draw(); });
+      draw();
+      const link = el('a', { href: 'https://he.wikipedia.org/wiki/' + encodeURIComponent(h.page.replace(/ /g, '_')), target: '_blank', rel: 'noopener' }, 'לקרוא עוד בוויקיפדיה');
+      box.replaceChildren(head, tabRow, list, el('div', {}, more), el('p', { class: 'muted' }, 'מוויקיפדיה העברית · ', link));
+    } catch (e) {
+      if (openDate !== key) return;
+      box.replaceChildren(head, el('p', { class: 'muted' }, 'לא הצלחתי להגיע לוויקיפדיה. בודקים שיש אינטרנט ומנסים שוב.'),
+        el('div', {}, el('button', { type: 'button', class: 'btn', onclick: () => renderDayHistory(key) }, 'לנסות שוב')));
+    }
+  }
+
+  function renderStickerPick(key) {
+    const pick = $('#stickerPick');
+    const btns = STICKERS.map(s => el('button', {
+      type: 'button', 'aria-pressed': String(stickers[key] === s), 'aria-label': 'מדבקה ' + s,
+      onclick: () => { if (stickers[key] === s) delete stickers[key]; else stickers[key] = s; store.set('stickers', stickers); renderStickerPick(key); renderCalendar(); },
+    }, s));
+    pick.replaceChildren(...btns);
+  }
+
+  // ---------- place sheet ----------
+  function setPlace(p) {
+    place = p; store.set('place', p);
+    $('#placeName').textContent = p.name;
+    $('#placeDlg').close();
+    loadWeather();
+  }
+  function buildQuickPlaces() {
+    $('#quickPlaces').replaceChildren(...PLACES.map(p => el('button', {
+      type: 'button', class: 'chip', 'aria-pressed': String(Math.abs(p.lat - place.lat) < 1e-4 && Math.abs(p.lon - place.lon) < 1e-4),
+      onclick: () => setPlace(p),
+    }, p.short)));
+  }
+  $('#searchForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const q = $('#placeQ').value.trim();
+    const msg = $('#searchMsg'), list = $('#results');
+    if (!q) return;
+    msg.hidden = false; msg.textContent = 'מחפש…'; list.replaceChildren();
+    let found = [];
+    try {
+      const r = await fetch('https://nominatim.openstreetmap.org/search?format=jsonv2&limit=7&accept-language=he&q=' + encodeURIComponent(q));
+      if (r.ok) found = (await r.json()).map(x => ({ name: x.display_name.split(',').slice(0, 3).join(',').trim(), full: x.display_name, lat: +x.lat, lon: +x.lon }));
+    } catch {}
+    if (!found.length) {
+      try {
+        const r = await fetch('https://geocoding-api.open-meteo.com/v1/search?count=7&language=he&name=' + encodeURIComponent(q));
+        if (r.ok) found = ((await r.json()).results || []).map(x => ({ name: [x.name, x.admin1, x.country].filter(Boolean).join(', '), full: '', lat: x.latitude, lon: x.longitude }));
+      } catch {}
+    }
+    if (!found.length) { msg.textContent = 'לא מצאתי את המקום הזה. אפשר לנסות לכתוב אחרת, או באנגלית.'; return; }
+    msg.hidden = true;
+    list.replaceChildren(...found.map(p => el('li', {}, el('button', { type: 'button', title: p.full, onclick: () => setPlace({ name: p.name, short: p.name.split(',')[0], lat: p.lat, lon: p.lon }) }, '📍 ' + p.name))));
+  });
+
+  // ---------- wiring ----------
+  document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
+  document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+  $('#dayDlg').addEventListener('close', () => { openDate = null; });
+  $('#prev').addEventListener('click', () => { viewM--; if (viewM < 0) { viewM = 11; viewY--; } renderCalendar(); });
+  $('#next').addEventListener('click', () => { viewM++; if (viewM > 11) { viewM = 0; viewY++; } renderCalendar(); });
+  $('#goToday').addEventListener('click', () => { const n = new Date(); viewY = n.getFullYear(); viewM = n.getMonth(); renderCalendar(); });
+  $('#openDesign').addEventListener('click', () => { buildDesignPanel(); $('#designDlg').showModal(); });
+  $('#openPlace').addEventListener('click', () => { buildQuickPlaces(); $('#results').replaceChildren(); $('#searchMsg').hidden = true; $('#placeDlg').showModal(); });
+
+  $('#placeName').textContent = place.name;
+  applyDesign();
+  renderCalendar();
+  loadWeather();
+})();
+</script>
+</body>
+</html>
