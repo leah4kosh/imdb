@@ -300,6 +300,166 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
 
 #confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5; }
 
+/* ---------- views ---------- */
+.viewbar { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; }
+.seg { display: inline-flex; border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; background: var(--card); }
+.seg button { border: none; background: transparent; padding: 5px 14px; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--gap); }
+.week .day { min-height: 320px; }
+.week .day .num { font-size: 1.3em; }
+.week .day .ev, .week .day .hol, .week .day .bday, .week .day .tag, .week .day .heb { font-size: .8em; white-space: normal; }
+.week .wk-diary { font-size: .78em; color: var(--soft); overflow-wrap: anywhere; }
+.week .wk-habits { display: flex; flex-wrap: wrap; gap: 2px; }
+.week .wk-habits span { width: 20px; height: 20px; }
+.week .wk-habits span svg { width: 100%; height: 100%; }
+.week .wk-dow { font-size: .9em; color: var(--soft); }
+.year { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; }
+.mini { background: color-mix(in srgb, var(--card) var(--alpha), transparent); border: 1.5px solid var(--line); border-radius: 16px; padding: 8px; text-align: center; }
+.mini h3 { margin: 0 0 4px; font-family: var(--title-font); font-weight: 400; font-size: 1.3em; color: var(--accent); }
+.mini h3 button { border: none; background: none; color: inherit; font: inherit; }
+.mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; font-family: 'Rubik', system-ui, sans-serif; font-size: .72em; }
+.mini-grid b { font-weight: 400; color: var(--soft); }
+.mini-grid button { border: none; background: transparent; border-radius: 6px; padding: 3px 0; position: relative; font: inherit; color: var(--ink); }
+.mini-grid button.off { background: var(--weekend); }
+.mini-grid button.today { outline: 2px solid var(--accent); }
+.mini-grid button.hol::after, .mini-grid button.bd::before { content: ""; position: absolute; bottom: 1px; width: 4px; height: 4px; border-radius: 50%; }
+.mini-grid button.hol::after { left: calc(50% - 2px); background: var(--accent); }
+.mini-grid button.bd::before { left: calc(50% + 3px); background: #b58cff; }
+.mini-grid button.test { color: #d7263d; font-weight: 600; }
+
+/* ---------- extra bits inside days ---------- */
+.day.mood { box-shadow: inset 0 5px 0 var(--mood); }
+.day.test .num { color: #d7263d; }
+.day .ev.test { background: #ffd0d6 !important; font-weight: 600; }
+.day .icons { display: inline-flex; gap: 2px; align-items: center; }
+.day .thumb { width: 22px; height: 22px; border-radius: 6px; object-fit: cover; border: 1.5px solid var(--card); box-shadow: 0 1px 3px rgb(0 0 0 / .25); }
+.day .shab { font-size: .66em; color: var(--soft); }
+.day .par { font-size: .66em; color: var(--accent); }
+body.hide-shab .day .shab, body.hide-par .day .par, body.hide-mood .day.mood { box-shadow: none; }
+body.hide-shab .day .shab, body.hide-par .day .par { display: none; }
+
+/* ---------- fact card ---------- */
+.fact { display: flex; gap: 10px; align-items: flex-start; background: color-mix(in srgb, var(--card) 88%, transparent); border: 1.5px dashed var(--line); border-radius: 16px; padding: 8px 12px; }
+.fact .ic { width: 30px; height: 30px; flex: none; }
+.fact .ic svg { width: 100%; height: 100%; }
+.fact .body { display: grid; gap: 4px; flex: 1; }
+.fact .body b { font-weight: 400; color: var(--accent); }
+.fact .ans { color: var(--soft); }
+
+/* ---------- more menu tiles ---------- */
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+.tile { display: grid; justify-items: center; gap: 6px; padding: 12px 8px; border: 2px solid var(--line); border-radius: 18px; background: var(--card); font-size: 1.05em; }
+.tile:hover { border-color: var(--accent); transform: translateY(-2px); }
+.tile .ic { width: 46px; height: 46px; }
+.tile .ic svg { width: 100%; height: 100%; }
+
+/* ---------- diary / mood / habits / drawing / photo ---------- */
+.moods { display: flex; flex-wrap: wrap; gap: 6px; }
+.moods button { border: 2px solid transparent; border-radius: 14px; padding: 4px 8px; background: var(--paper); display: grid; justify-items: center; font-size: .85em; }
+.moods button span { font-size: 1.8em; line-height: 1.1; }
+.moods button[aria-pressed="true"] { border-color: var(--ink); }
+textarea { font: inherit; color: inherit; width: 100%; min-height: 110px; border: 2px solid var(--line); border-radius: 12px; padding: 8px 10px; background: var(--card); resize: vertical;
+  background-image: linear-gradient(transparent 29px, var(--line) 30px); background-size: 100% 30px; line-height: 30px; }
+.saved { color: var(--soft); font-size: .85em; }
+.habit-row { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 12px; background: var(--paper); }
+.habit-row .ic { width: 30px; height: 30px; flex: none; }
+.habit-row .ic svg { width: 100%; height: 100%; }
+.habit-row .streak { margin-inline-start: auto; color: var(--accent); }
+.habit-dots { display: flex; flex-wrap: wrap; gap: 3px; direction: ltr; }
+.habit-dots i { width: 12px; height: 12px; border-radius: 3px; background: var(--line); }
+.habit-dots i.on { background: var(--accent); }
+.draw-wrap { display: grid; gap: 8px; }
+.draw-wrap canvas { width: 100%; aspect-ratio: 16 / 10; background: #fff; border: 2px solid var(--line); border-radius: 12px; touch-action: none; cursor: crosshair; }
+.draw-tools { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.draw-tools .sw2 { width: 26px; height: 26px; border-radius: 50%; border: 2px solid rgb(0 0 0 / .15); padding: 0; }
+.draw-tools .sw2[aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 1px; }
+.photo-day img { max-width: 100%; border-radius: 12px; display: block; }
+.ly { display: grid; gap: 6px; padding: 10px 12px; border-radius: 12px; background: var(--paper); }
+.ly img { max-width: 140px; border-radius: 10px; }
+.lessons { margin: 0; padding-inline-start: 1.2em; }
+.tt-day { display: grid; gap: 6px; padding: 10px 12px; border: 1.5px solid var(--line); border-radius: 14px; }
+.tt-day textarea { min-height: 90px; }
+.check-row { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 12px; background: var(--paper); font-size: 1.1em; }
+.check-row.done span { text-decoration: line-through; color: var(--soft); }
+.check-row .del { margin-inline-start: auto; border: none; background: transparent; }
+
+/* ---------- medals ---------- */
+.medals { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.medal { display: grid; justify-items: center; text-align: center; gap: 4px; padding: 8px; border-radius: 16px; background: var(--paper); font-size: .9em; }
+.medal .art { width: 70px; height: 84px; }
+.medal .art svg { width: 100%; height: 100%; }
+.medal.locked .art { filter: grayscale(1); opacity: .35; }
+.medal.locked { color: var(--soft); }
+.medal small { color: var(--soft); font-size: .85em; }
+
+/* ---------- pet ---------- */
+#pet { position: fixed; left: 12px; bottom: 12px; z-index: 3; display: grid; justify-items: center; gap: 2px; }
+#pet .art { width: var(--pet-size, 70px); height: var(--pet-size, 70px); border: none; background: none; padding: 0; animation: bob 2.6s ease-in-out infinite; }
+#pet .art svg { width: 100%; height: 100%; filter: drop-shadow(0 3px 3px rgb(0 0 0 / .25)); }
+#pet .art.sleepy { animation-duration: 5s; filter: saturate(.7); }
+#pet .name { font-size: .85em; background: var(--card); border: 1.5px solid var(--line); border-radius: 999px; padding: 0 10px; }
+#pet .bar { width: 80px; height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+#pet .bar i { display: block; height: 100%; background: var(--accent); }
+#pet .say { position: absolute; bottom: calc(100% + 4px); left: 0; background: var(--card); border: 2px solid var(--ink); border-radius: 14px 14px 14px 2px; padding: 4px 10px; font-size: .9em; white-space: nowrap; }
+#pet .heart { position: absolute; top: 0; width: 22px; height: 22px; animation: floatup 1.2s ease-out forwards; pointer-events: none; }
+#pet .heart svg { width: 100%; height: 100%; }
+@keyframes bob { 50% { transform: translateY(-6px); } }
+@keyframes floatup { to { transform: translateY(-70px); opacity: 0; } }
+.pet-pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; }
+.pet-pick button { border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px; display: grid; justify-items: center; font-size: .85em; }
+.pet-pick button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.pet-pick .ic { width: 46px; height: 46px; }
+.pet-pick .ic svg { width: 100%; height: 100%; }
+.xpbar { height: 14px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.xpbar i { display: block; height: 100%; background: var(--accent); }
+
+/* ---------- toast ---------- */
+#toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%) translateY(140%); z-index: 20; background: var(--card); border: 2px solid var(--ink); border-radius: 18px; padding: 8px 16px; display: flex; align-items: center; gap: 10px; transition: transform .35s ease; box-shadow: 0 8px 20px rgb(0 0 0 / .2); }
+#toast.show { transform: translateX(-50%) translateY(0); }
+#toast:not(.show) { visibility: hidden; transition: transform .35s ease, visibility 0s .35s; }
+#toast .ic { width: 40px; height: 48px; }
+#toast .ic svg { width: 100%; height: 100%; }
+
+/* ---------- lock screen ---------- */
+dialog#lock { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; border: none; border-radius: 0; padding: 16px; background: var(--lock-bg); color: var(--lock-ink); font-family: var(--font); }
+dialog#lock[open] { display: grid; place-items: center; }
+dialog#lock::backdrop { background: var(--paper); }
+dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-size: 90px 90px; }
+.lock-box { display: grid; justify-items: center; gap: 14px; text-align: center; width: min(340px, 100%); }
+.lock-box .ic { width: 90px; height: 90px; }
+.lock-box .ic svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 4px rgb(0 0 0 / .25)); }
+.lock-box h2 { margin: 0; font-family: var(--title-font); font-weight: 400; font-size: 2em; }
+.pin-dots { display: flex; gap: 14px; direction: ltr; }
+.pin-dots i { width: 20px; height: 20px; border: 2.5px solid currentColor; border-radius: 50%; display: grid; place-items: center; }
+.pin-dots i.on { background: currentColor; }
+.lock-box.dots-heart .pin-dots i, .lock-box.dots-star .pin-dots i { border: none; width: 24px; height: 24px; background: currentColor; opacity: .3; }
+.lock-box.dots-heart .pin-dots i { clip-path: path("M12 21 C4 15 1 10 3.5 6 C6 2 10.5 3 12 6.5 C13.5 3 18 2 20.5 6 C23 10 20 15 12 21 Z"); }
+.lock-box.dots-star .pin-dots i { clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+.lock-box.dots-heart .pin-dots i.on, .lock-box.dots-star .pin-dots i.on { opacity: 1; }
+.pin-err { min-height: 1.4em; }
+.pin-err.shake { animation: shake .4s; }
+@keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.keypad { display: grid; grid-template-columns: repeat(3, 68px); gap: 12px; direction: ltr; }
+.keypad button { height: 68px; font-family: 'Rubik', system-ui, sans-serif; font-size: 1.6em; border: 2.5px solid var(--lock-ink); background: var(--lock-key); color: var(--lock-key-ink); border-radius: 50%; }
+.lock-box.keys-square .keypad button { border-radius: 14px; }
+.lock-box.keys-blob .keypad button { border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%; }
+.lock-box.keys-flower .keypad button { border-radius: 50% 50% 50% 12%; }
+.lock-box.keys-rainbow .keypad button:nth-child(6n+1) { background: #ffb3c1; } .lock-box.keys-rainbow .keypad button:nth-child(6n+2) { background: #ffd8a8; }
+.lock-box.keys-rainbow .keypad button:nth-child(6n+3) { background: #fff1a8; } .lock-box.keys-rainbow .keypad button:nth-child(6n+4) { background: #c9f0d6; }
+.lock-box.keys-rainbow .keypad button:nth-child(6n+5) { background: #cfe6ff; } .lock-box.keys-rainbow .keypad button:nth-child(6n) { background: #e5d6ff; }
+.lock-box.keys-rainbow .keypad button { color: #1f2a44; }
+.lock-link { background: none; border: none; color: inherit; text-decoration: underline; opacity: .8; }
+.lock-preview { position: relative; height: 420px; border-radius: 18px; overflow: hidden; border: 2px solid var(--line); }
+.lock-preview #lockPrev { position: absolute; inset: 0; display: grid; place-items: center; transform: scale(.78); transform-origin: center; }
+.lock-preview .lp-bg { position: absolute; inset: 0; background: var(--lock-bg); }
+.lock-preview .lp-bg.pattern-stars { background-image: var(--lock-pattern); background-size: 90px 90px; }
+
+@media (max-width: 620px) {
+  .week { grid-template-columns: 1fr; }
+  .week .day { min-height: 0; }
+  #pet { transform: scale(.8); transform-origin: bottom left; }
+}
 @media (max-width: 620px) {
   body { font-size: calc(16px * var(--size)); }
   h1 { font-size: 2.1em; }
@@ -321,7 +481,7 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
 @page { size: landscape; margin: 8mm; }
 @media print {
   body { padding: 0; font-size: 13px; -webkit-print-color-adjust: exact; print-color-adjust: exact; min-height: 0; }
-  .tools, .legend, #goToday, .nav, .strip, .place-line, dialog, #decor { display: none !important; }
+  .tools, .legend, .viewbar, .nav, .strip, .place-line, dialog, #decor, #pet, #toast, #factCard, #lock { display: none !important; }
   .wrap { max-width: none; gap: 6px; }
   .day { min-height: 88px; break-inside: avoid; }
   .day:hover { transform: none; }
@@ -335,24 +495,28 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     <div class="title-wrap"><span class="title-stk" id="titleStk" aria-hidden="true"></span><h1><span id="title">הלוח שלי</span></h1></div>
     <div class="tools">
       <button class="btn" id="openPlace" type="button">📍 מקום</button>
-      <button class="btn" id="openHol" type="button">🕎 חגים</button>
-      <button class="btn" id="openBday" type="button">🎂 ימי הולדת</button>
-      <button class="btn" id="printBtn" type="button">🖨️ להדפסה</button>
+      <button class="btn" id="openMorning" type="button">☀️ בוקר</button>
+      <button class="btn" id="openHabits" type="button">⭐ הרגלים</button>
+      <button class="btn" id="openMore" type="button">🧰 עוד</button>
+      <button class="btn" id="darkBtn" type="button" aria-label="מצב לילה">🌙</button>
       <button class="btn main" id="openDesign" type="button">🎨 לעצב</button>
     </div>
   </header>
 
   <div class="place-line">📍 המקום שלי: <strong id="placeName">פיטר קופר וילג', ניו יורק</strong> <span id="wxStatus" class="muted"></span></div>
   <div class="strip" id="strip"></div>
+  <div id="factCard"></div>
 
   <div class="month-bar">
     <button class="nav" id="prev" type="button" aria-label="לחודש הקודם">→</button>
     <h2 id="monthTitle"></h2>
     <button class="nav" id="next" type="button" aria-label="לחודש הבא">←</button>
   </div>
-  <div style="display:flex;justify-content:center"><button class="btn" id="goToday" type="button">היום</button></div>
+  <div class="viewbar"><span class="seg" id="viewSeg"></span><button class="btn" id="goToday" type="button">היום</button></div>
 
   <div class="cal" id="cal" role="grid"></div>
+  <div class="week" id="weekView" hidden></div>
+  <div class="year" id="yearView" hidden></div>
 
   <div class="legend">
     <span><i class="sw" style="background:var(--card)"></i> 🎒 יש לימודים</span>
@@ -370,11 +534,18 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="school" id="daySchool"></div>
+    <section class="box" id="dayLessons" hidden></section>
     <section class="box" id="dayBday" hidden></section>
+    <section class="box" id="dayDiary"></section>
     <section class="box" id="dayEvents"></section>
+    <section class="box" id="dayHabits"></section>
     <section class="box" id="dayHol"></section>
+    <section class="box" id="dayShab" hidden></section>
     <section class="box" id="daySky"></section>
     <section class="box" id="dayWeather"></section>
+    <section class="box" id="dayDraw"></section>
+    <section class="box" id="dayPhoto"></section>
+    <section class="box" id="dayLastYear" hidden></section>
     <section class="box">
       <h4>מדבקות ליום הזה <span class="muted">(אפשר עד 4)</span></h4>
       <div class="pickers scroll" id="stickerPick"></div>
@@ -501,6 +672,16 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       <div class="row"><label for="dStk">גודל המדבקות</label><input type="range" id="dStk" min="0.7" max="1.5" step="0.1"></div>
     </div>
 
+    <div class="tab-panel" data-tab="lock">
+      <div class="row"><label for="dLockTitle">מה כתוב במסך הקוד</label><input type="text" id="dLockTitle" maxlength="30"></div>
+      <div class="row"><span class="lbl">רקע</span><div class="chips" id="lockBgs"></div></div>
+      <div class="row"><span class="lbl">צורת הכפתורים</span><div class="chips" id="lockKeys"></div></div>
+      <div class="row"><span class="lbl">הנקודות של הקוד</span><div class="chips" id="lockDots"></div></div>
+      <div class="row"><span class="lbl">המדבקה של מסך הקוד</span><div class="pickers scroll" id="lockStkPick"></div></div>
+      <div class="row"><span class="lbl">ככה זה ייראה:</span><div class="lock-preview" style="color:var(--lock-ink)"><div class="lp-bg" id="lockPrevBg"></div><div id="lockPrev"></div></div></div>
+      <div id="lockNoPin"></div>
+    </div>
+
     <div class="tab-panel" data-tab="board">
       <div class="row"><span class="lbl">מסגרת ללוח</span><div class="chips" id="calFrames"></div></div>
       <div class="row"><label for="dAlpha">כמה הלוח שקוף</label><input type="range" id="dAlpha" min="40" max="100" step="5"></div>
@@ -512,6 +693,136 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     <div><button class="btn" type="button" id="resetDesign">להחזיר את העיצוב להתחלה</button></div>
   </div>
 </dialog>
+
+<!-- More menu -->
+<dialog id="moreDlg" aria-labelledby="moreTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="moreTitle">🧰 עוד דברים</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tiles" id="moreTiles"></div>
+  </div>
+</dialog>
+
+<!-- Timetable -->
+<dialog id="ttDlg" aria-labelledby="ttTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="ttTitle">🎒 מערכת שעות</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted">כותבים שיעור בכל שורה. מה שכתוב כאן יופיע בכל יום לימודים כשלוחצים עליו.</p>
+    <div class="row" id="ttList"></div>
+  </div>
+</dialog>
+
+<!-- Morning checklist -->
+<dialog id="mornDlg" aria-labelledby="mornTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="mornTitle">☀️ צ'קליסט בוקר</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted">מסמנים ✔️ כל מה שעשית הבוקר. מחר בבוקר הרשימה מתחילה מחדש.</p>
+    <div class="row" id="mornList"></div>
+    <form class="ev-form" id="mornForm">
+      <input type="text" id="mornNew" placeholder="להוסיף משהו לרשימה" maxlength="40">
+      <button class="btn" type="submit">+ להוסיף</button>
+    </form>
+  </div>
+</dialog>
+
+<!-- Habits -->
+<dialog id="habDlg" aria-labelledby="habTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="habTitle">⭐ ההרגלים שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted">מסמנים הרגל בכל יום שעשית אותו (לוחצים על היום בלוח, או כאן להיום). 🔥 זה הרצף: כמה ימים ברצף הצלחת.</p>
+    <div class="row" id="habList"></div>
+    <div class="row">
+      <span class="lbl">הרגל חדש</span>
+      <form class="ev-form" id="habForm">
+        <input type="text" id="habNew" placeholder="למשל: לקרוא 20 דקות" maxlength="30">
+        <button class="btn main" type="submit">+ להוסיף</button>
+      </form>
+      <span class="muted">המדבקה של ההרגל החדש:</span>
+      <div class="pickers scroll" id="habStk"></div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Medals -->
+<dialog id="medDlg" aria-labelledby="medTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="medTitle">🏅 המדליות שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted" id="medCount"></p>
+    <div class="medals" id="medList"></div>
+  </div>
+</dialog>
+
+<!-- Pet -->
+<dialog id="petDlg" aria-labelledby="petTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="petTitle">🐾 חיית המחמד שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="petInfo"></div>
+    <div class="row">
+      <label for="petName">איך קוראים לה?</label>
+      <input type="text" id="petName" maxlength="20" placeholder="שם לחיה">
+    </div>
+    <div class="row"><span class="lbl">איזו חיה?</span><div class="pet-pick" id="petKinds"></div></div>
+    <div class="box">
+      <h4>איך החיה גדלה?</h4>
+      <div>כל דבר טוב שאת עושה בלוח נותן לה נקודות:</div>
+      <div>📔 כתיבה ביומן: 15 · ⭐ הרגל: 10 · ☀️ צ'קליסט בוקר מלא: 10 · 🖍️ ציור: 5 · 📷 תמונה: 5 · 📝 אירוע: 3 · 🎨 יום עם מדבקה: 2</div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Secret code -->
+<dialog id="pinDlg" aria-labelledby="pinTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="pinTitle">🔒 קוד סודי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted">הקוד שומר שלא יציצו לך בקלות. זו לא נעילה חזקה באמת, אז לא כותבים ביומן סיסמאות או סודות חשובים מאוד.</p>
+    <div class="row" id="pinBody"></div>
+  </div>
+</dialog>
+
+<!-- Backup -->
+<dialog id="bkDlg" aria-labelledby="bkTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="bkTitle">💾 גיבוי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted">כל מה שכתבת בלוח שמור רק בדפדפן הזה. גיבוי שומר הכל בקובץ אחד, ואפשר לפתוח אותו אחר כך, גם במחשב אחר.</p>
+    <div class="box">
+      <h4>לשמור גיבוי</h4>
+      <div><button class="btn main" type="button" id="bkSave">💾 לשמור את כל הלוח בקובץ</button></div>
+      <p class="muted" id="bkSaveMsg" hidden></p>
+    </div>
+    <div class="box">
+      <h4>לפתוח גיבוי</h4>
+      <input type="file" id="bkFile" accept=".json,application/json">
+      <div id="bkLoad"></div>
+    </div>
+  </div>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="pet"></div>
+<dialog id="lock" aria-label="מסך הקוד הסודי"></dialog>
 
 <script>
 (() => {
@@ -535,6 +846,9 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
   };
 
   const $ = s => document.querySelector(s);
+  // skip empty (null/false) children so optional parts can be passed inline
+  const nativeReplace = Element.prototype.replaceChildren;
+  Element.prototype.replaceChildren = function (...kids) { return nativeReplace.apply(this, kids.filter(k => k != null && k !== false)); };
   const el = (tag, props = {}, ...kids) => {
     const n = document.createElement(tag);
     for (const [k, v] of Object.entries(props)) {
@@ -678,7 +992,7 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     return `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" fill="#3d4378"/>${lit}<circle cx="24" cy="24" r="20" fill="none" stroke="${O}" stroke-width="2.5"/></svg>`;
   }
   const RAD = Math.PI / 180;
-  function sunTimes(y, m, d, lat, lon) {
+  function sunTimes(y, m, d, lat, lon, alt = -0.833) {
     const Jdate = Date.UTC(y, m, d, 12) / 864e5 + 2440587.5;
     const n = Math.ceil(Jdate - 2451545.0 + 0.0008);
     const Js = n - lon / 360;
@@ -687,7 +1001,7 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     const L = (M + C + 180 + 102.9372) % 360;
     const Jt = 2451545 + Js + 0.0053 * Math.sin(M * RAD) - 0.0069 * Math.sin(2 * L * RAD);
     const dec = Math.asin(Math.sin(L * RAD) * Math.sin(23.4397 * RAD));
-    const cosW = (Math.sin(-0.833 * RAD) - Math.sin(lat * RAD) * Math.sin(dec)) / (Math.cos(lat * RAD) * Math.cos(dec));
+    const cosW = (Math.sin(alt * RAD) - Math.sin(lat * RAD) * Math.sin(dec)) / (Math.cos(lat * RAD) * Math.cos(dec));
     if (cosW > 1 || cosW < -1) return null;
     const w = Math.acos(cosW) / RAD;
     const toDate = J => new Date((J - 2440587.5) * 864e5);
@@ -909,13 +1223,15 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
   const TODAY_MARKS = [{ id: 'frame', name: 'מסגרת' }, { id: 'circle', name: 'עיגול' }, { id: 'heart', name: 'לב' }, { id: 'star', name: 'כוכב' }, { id: 'glow', name: 'זוהר' }];
   const NUM_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'big', name: 'גדול' }, { id: 'outline', name: 'חלול' }, { id: 'circle', name: 'בעיגול' }, { id: 'bubble', name: 'בבועה' }];
   const CAL_FRAMES = [{ id: 'plain', name: 'רגילה' }, { id: 'spiral', name: 'ספירלה' }, { id: 'tape', name: 'סלוטייפ' }, { id: 'pins', name: 'נעצים' }, { id: 'stitch', name: 'תפר' }, { id: 'float', name: 'מרחף' }, { id: 'polaroid', name: 'פולארויד' }];
-  const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'חגים' }, { id: 'showEv', name: 'אירועים' }, { id: 'showMoon', name: 'ירח' }, { id: 'showWx', name: 'מזג אוויר' }];
+  const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'חגים' }, { id: 'showEv', name: 'אירועים' }, { id: 'showMoon', name: 'ירח' }, { id: 'showWx', name: 'מזג אוויר' }, { id: 'showMood', name: 'צבע של מצב רוח' }, { id: 'showShab', name: 'כניסת שבת' }, { id: 'showPar', name: 'פרשת השבוע' }];
 
   const DEFAULT_DESIGN = {
     title: 'הלוח שלי', theme: 'sky', custom: null, font: 'ktav', titleFont: 'ktav', titleStyle: 'plain', titleSticker: 'star',
     size: 1, bg: 'dots', shape: 'soft', border: 'solid', bw: 1.5, gap: 6, todayMark: 'frame', numStyle: 'plain',
     calFrame: 'plain', alpha: 100, showHeb: true, showHol: true, showEv: true, showMoon: true, showWx: true,
-    decor: true, decorMove: true, confetti: true, stickerSize: 1,
+    decor: true, decorMove: true, confetti: true, stickerSize: 1, darkMode: false,
+    showMood: true, showShab: true, showPar: true,
+    lockTitle: 'היומן הסודי שלי', lockBg: 'candy', lockKeys: 'round', lockDots: 'heart', lockStk: 'crown',
   };
   let design = Object.assign({}, DEFAULT_DESIGN, store.get('design', {}));
   let place = store.get('place', PLACES[0]);
@@ -926,6 +1242,25 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
   let birthdays = store.get('birthdays', []);
   let photo = store.get('photo', null);
   let unit = store.get('unit', 'C');
+  let diary = store.get('diary', {});
+  let habits = Object.assign({ list: [], done: {} }, store.get('habits', {}));
+  let morning = Object.assign({ items: ['להתלבש', 'לצחצח שיניים', 'לאכול ארוחת בוקר', 'לסדר את המיטה', 'לקחת את התיק'], date: '', done: [], history: {} }, store.get('morning', {}));
+  let timetable = store.get('timetable', {});
+  let pet = store.get('pet', null);
+  let pin = store.get('pin', null);
+  let media = Object.assign({ draw: {}, photo: {} }, store.get('media', {}));
+  let viewMode = store.get('view', 'month');
+  let unlocked = false;
+  const addDays = (k, n) => { const { y, m, d } = fromIso(k); return new Date(Date.UTC(y, m, d + n)).toISOString().slice(0, 10); };
+  const dowOf = k => { const { y, m, d } = fromIso(k); return new Date(y, m, d).getDay(); };
+  const getMedia = (kind, k) => store.get(`${kind}-${k}`, null);
+  function setMedia(kind, k, url) {
+    let ok = true;
+    if (url) { ok = store.set(`${kind}-${k}`, url); if (ok) media[kind][k] = 1; }
+    else { try { localStorage.removeItem(`halu4-${kind}-${k}`); } catch {} delete media[kind][k]; }
+    store.set('media', media);
+    return ok;
+  }
   const fmtT = c => c == null ? '–' : unit === 'F' ? `${Math.round(c * 9 / 5 + 32)}°F` : `${Math.round(c)}°`;
 
   const bgSvg = kind => {
@@ -948,10 +1283,11 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
   };
 
   function applyDesign() {
-    const t = Object.assign({}, THEMES[design.theme] || THEMES.sky, design.custom || {});
+    let t = Object.assign({}, THEMES[design.theme] || THEMES.sky, design.custom || {});
+    if (design.darkMode && !DARK.includes(design.theme)) t = Object.assign({}, t, { paper: '#161a30', card: '#20253f', ink: '#f1f0ff', soft: '#aab0d6', line: '#363d66', weekend: '#2b2950' });
     const r = document.documentElement.style;
     for (const k of ['accent', 'paper', 'ink', 'weekend', 'card', 'line', 'soft']) r.setProperty('--' + k, t[k]);
-    const dark = DARK.includes(design.theme);
+    const dark = DARK.includes(design.theme) || design.darkMode;
     r.setProperty('--accent-ink', dark && !(design.custom && design.custom.accent) ? t.paper : (design.theme === 'mono' ? '#ffffff' : '#ffffff'));
     const f = FONTS.find(x => x.id === design.font) || FONTS[0];
     const tf = FONTS.find(x => x.id === design.titleFont) || FONTS[0];
@@ -970,9 +1306,14 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       `bg-${design.bg === 'photo' && !photo ? 'plain' : design.bg}`, `shape-${design.shape}`, `ts-${design.titleStyle}`, `frame-${design.border}`,
       `ns-${design.numStyle}`, `cf-${design.calFrame}`,
       design.showHeb ? '' : 'hide-heb', design.showHol ? '' : 'hide-hol', design.showWx ? '' : 'hide-wx',
-      design.showMoon ? '' : 'hide-moon', design.showEv ? '' : 'hide-ev',
+      design.showMoon ? '' : 'hide-moon', design.showEv ? '' : 'hide-ev', design.showShab ? '' : 'hide-shab', design.showPar ? '' : 'hide-par',
     ].filter(Boolean).join(' ');
     document.body.style.colorScheme = dark ? 'dark' : 'light';
+    const lb = LOCK_BGS[design.lockBg] || LOCK_BGS.candy;
+    r.setProperty('--lock-bg', lb.bg); r.setProperty('--lock-ink', lb.ink); r.setProperty('--lock-key', lb.key); r.setProperty('--lock-key-ink', lb.keyInk);
+    r.setProperty('--lock-pattern', bgSvg('stars'));
+    const db = $('#darkBtn'); if (db) { db.textContent = design.darkMode ? '☀️' : '🌙'; db.setAttribute('aria-label', design.darkMode ? 'מצב יום' : 'מצב לילה'); }
+    renderLockPreview();
     $('#title').textContent = design.title || 'הלוח שלי';
     $('#titleStk').innerHTML = design.titleSticker ? stickerHTML(design.titleSticker) : '';
     document.title = design.title || 'הלוח שלי';
@@ -1028,7 +1369,7 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
   }
 
   let designTab = 'title';
-  const TABS = [['title', 'כותרת'], ['colors', 'צבעים ורקע'], ['text', 'כתב ומספרים'], ['days', 'צורות לימים'], ['board', 'הלוח']];
+  const TABS = [['title', 'כותרת'], ['colors', 'צבעים ורקע'], ['text', 'כתב ומספרים'], ['days', 'צורות לימים'], ['board', 'הלוח'], ['lock', '🔒 מסך הקוד']];
   function buildDesignPanel() {
     $('#designTabs').replaceChildren(...TABS.map(([id, name]) => el('button', {
       type: 'button', role: 'tab', 'aria-selected': String(designTab === id), onclick: () => { designTab = id; buildDesignPanel(); },
@@ -1060,8 +1401,17 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     toggleChips($('#shows'), SHOWS);
     toggleChips($('#decorOpts'), [{ id: 'decor', name: 'להראות קישוטים' }, { id: 'decorMove', name: 'שיזוזו ויעופו' }]);
     toggleChips($('#confettiOpts'), [{ id: 'confetti', name: 'כן, קונפטי!' }]);
+    $('#dLockTitle').value = design.lockTitle;
+    chipGroup($('#lockBgs'), Object.entries(LOCK_BGS).map(([id, v]) => ({ id, name: v.name })), 'lockBg');
+    chipGroup($('#lockKeys'), LOCK_KEYS, 'lockKeys');
+    chipGroup($('#lockDots'), LOCK_DOTS, 'lockDots');
+    stickerPicker($('#lockStkPick'), id => design.lockStk === id, id => { if (id) { design.lockStk = id; rerender(); } });
+    $('#lockNoPin').replaceChildren(pin ? el('p', { class: 'muted' }, '✔️ יש לך קוד סודי.') :
+      el('button', { type: 'button', class: 'btn main', onclick: () => { $('#designDlg').close(); openPinDlg(); } }, '🔒 לבחור קוד סודי'));
+    renderLockPreview();
   }
   $('#dTitle').addEventListener('input', e => { design.title = e.target.value; applyDesign(); });
+  $('#dLockTitle').addEventListener('input', e => { design.lockTitle = e.target.value; applyDesign(); });
   for (const [id, key] of [['#dSize', 'size'], ['#dBw', 'bw'], ['#dGap', 'gap'], ['#dStk', 'stickerSize'], ['#dAlpha', 'alpha']]) {
     $(id).addEventListener('input', e => { design[key] = Number(e.target.value); applyDesign(); });
   }
@@ -1191,6 +1541,23 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('sparkles') }), `${what} בעוד ${i} ${i === 1 ? 'יום' : 'ימים'}`));
       break;
     }
+    // tests in the next two weeks
+    for (let i = 0; i <= 14 && pills.length < 6; i++) {
+      const k = addDays(t, i);
+      for (const ev of (events[k] || []).filter(e => e.test)) {
+        pills.push(el('span', { class: 'pill', style: 'border-color:#ff9aa8' }, el('span', { class: 'ic', html: stickerHTML('pencil') }),
+          i === 0 ? `היום מבחן: ${ev.text}! בהצלחה 🍀` : `מבחן: ${ev.text} בעוד ${i} ${i === 1 ? 'יום' : 'ימים'}`));
+      }
+    }
+    const mo0 = morningToday();
+    if (mo0.items.length) pills.push(el('button', { type: 'button', class: 'pill', onclick: () => { buildMorning(); $('#mornDlg').showModal(); } },
+      el('span', { class: 'ic', html: stickerHTML('sun') }), mo0.history[t] ? 'הבוקר מוכן! ✔️' : `צ'קליסט בוקר ${mo0.done.length}/${mo0.items.length}`));
+    const fri = addDays(t, (5 - dowOf(t) + 7) % 7), sat = addDays(fri, 1);
+    const cand = dowOf(t) === 6 ? shabbatTimes(t) : shabbatTimes(fri);
+    const par = parashaFor(dowOf(t) === 6 ? t : sat);
+    if (cand) pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('star') }),
+      cand.kind === 'havdalah' ? 'צאת שבת ' : (dowOf(t) === 5 ? 'הדלקת נרות היום ' : 'הדלקת נרות ביום שישי '), el('span', { class: 'nums-ltr' }, fmtTime(cand.time)),
+      par ? ` · פרשת ${par}` : ''));
     const sun = sunTimes(y, m, d, place.lat, place.lon);
     if (sun) pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('sun') }),
       'זריחה ', el('span', { class: 'nums-ltr' }, fmtTime(sun.rise)), ' · שקיעה ', el('span', { class: 'nums-ltr' }, fmtTime(sun.set))));
@@ -1263,59 +1630,141 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     return (schoolDay ? 'לבית הספר: ' : '') + parts.join('. ') + '.';
   }
 
-  // ================= calendar =================
+  // ================= calendar (month / week / year) =================
   const t0 = new Date();
   let viewY = t0.getFullYear(), viewM = t0.getMonth();
+  let viewWeek = addDays(localToday(), -t0.getDay());
   const EV_COLORS = ['#ffd3dc', '#ffe9a8', '#c9f0d6', '#cfe6ff', '#e5d6ff', '#ffd9b8'];
+  const MOODS = [['great', '😄', 'מעולה', '#ffd84d'], ['good', '🙂', 'טוב', '#9be3c9'], ['ok', '😐', 'ככה ככה', '#cfe6ff'],
+    ['sad', '😢', 'עצובה', '#b9c7ff'], ['angry', '😠', 'כועסת', '#ffb3a0'], ['tired', '😴', 'עייפה', '#e5d6ff']];
+  const moodOf = id => MOODS.find(x => x[0] === id);
 
-  function renderCalendar() {
-    const hFirst = hebParts(viewY, viewM, 1), hLast = hebParts(viewY, viewM, new Date(viewY, viewM + 1, 0).getDate());
-    const hm = a => HEB_MONTH[a.month] || a.month;
-    const hebRange = hm(hFirst) === hm(hLast) ? `${hm(hFirst)} ${gematria(hFirst.year % 1000)}` :
-      `${hm(hFirst)}${hFirst.year !== hLast.year ? ' ' + gematria(hFirst.year % 1000) : ''} – ${hm(hLast)} ${gematria(hLast.year % 1000)}`;
-    $('#monthTitle').replaceChildren(`${MONTHS[viewM]} ${viewY}`, el('small', {}, hebRange));
+  function dayCell(key, big) {
+    const { y, m, d } = fromIso(key);
+    const info = dayInfo(key);
+    const w = wx?.byDate?.[key];
+    const mo = moonInfo(y, m, d);
+    const bds = bdayOn(key);
+    const evs = events[key] || [];
+    const stks = stickers[key] || [];
+    const dia = diary[key];
+    const mood = dia && moodOf(dia.mood);
+    const hasTest = evs.some(e => e.test);
+    const shab = shabbatTimes(key);
+    const par = info.dow === 6 ? parashaFor(key) : null;
+    const photo = media.photo[key] ? getMedia('photo', key) : null;
+    const today = localToday();
+    const cell = el('button', {
+      type: 'button',
+      class: 'day' + (info.noSchool ? ' off' : '') + (key === today ? ` today m-${design.todayMark}` : '') + (mood && design.showMood ? ' mood' : '') + (hasTest ? ' test' : ''),
+      'aria-label': `${DAYS[info.dow]}, ${d} ב${MONTHS[m]}` + (info.hols.length ? ', ' + info.hols.map(holName).join(', ') : '') +
+        (bds.length ? ', יום הולדת' : '') + (hasTest ? ', מבחן' : '') + (evs.length ? `, ${evs.length} אירועים` : '') + (info.noSchool ? ', אין לימודים' : ''),
+      onclick: () => openDay(key),
+    },
+      el('span', { class: 'top' },
+        el('span', { class: 'num' }, big ? `${d} ב${MONTHS[m]}` : String(d)),
+        el('span', { class: 'icons' },
+          photo ? el('img', { class: 'thumb', src: photo, alt: '' }) : null,
+          media.draw[key] ? el('span', { title: 'יש ציור' }, '🖍️') : null,
+          dia && dia.text ? el('span', { title: 'כתבת ביומן' }, '📔') : null,
+          mo.key ? el('span', { class: 'moon', title: mo.name, html: moonSVG(mo.p) }) : null)),
+      big ? el('span', { class: 'wk-dow' }, 'יום ' + DAYS[info.dow]) : null,
+      el('span', { class: 'heb' }, hebShort(hebParts(y, m, d))),
+      ...bds.map(b => el('span', { class: 'bday' }, `🎂 ${b.name || 'יום הולדת'}`)),
+      ...info.hols.map(x => el('span', { class: 'hol' + (HOLIDAYS[x.id].t === 'c' ? ' c' : '') }, holName(x))),
+      par ? el('span', { class: 'par' }, '📖 ' + par) : null,
+      shab && shab.kind === 'candles' ? el('span', { class: 'shab' }, '🕯️ ', el('span', { class: 'nums-ltr' }, fmtTime(shab.time))) : null,
+      info.vac ? el('span', { class: 'tag' }, info.vac.name || 'חופשה') :
+        info.firstBack ? el('span', { class: 'tag first' }, '🎒 חוזרים ללימודים!') :
+        info.noSchool && !info.hols.length ? el('span', { class: 'tag' }, 'אין לימודים') : null,
+      ...(big ? evs : evs.slice(0, 2)).map(ev => { const s = el('span', { class: 'ev' + (ev.test ? ' test' : '') }, (ev.test ? '📝 ' : '') + (ev.time ? ev.time + ' ' : '') + ev.text); s.style.background = ev.color; return s; }),
+      !big && evs.length > 2 ? el('span', { class: 'ev' }, `+${evs.length - 2} עוד`) : null,
+      big && dia && dia.text ? el('span', { class: 'wk-diary' }, (mood ? mood[1] + ' ' : '') + dia.text.slice(0, 90) + (dia.text.length > 90 ? '…' : '')) : null,
+      big && (habits.done[key] || []).length ? el('span', { class: 'wk-habits' }, ...habits.list.filter(h => habits.done[key].includes(h.id)).map(h => el('span', { title: h.name, html: stickerHTML(h.stk) }))) : null,
+      w ? el('span', { class: 'wx' }, `${wmo(w.code)[0]} ${fmtT(w.max)}`) : null,
+      stks.length ? el('span', { class: 'stks', 'aria-hidden': 'true' }, ...stks.slice(0, 3).map((id, i) => {
+        const s = STICKERS[id] ? el('span', { class: 'stk', html: stickerHTML(id) }) : el('span', { class: 'stk txt' }, id);
+        s.style.setProperty('--srot', `${((d * 53 + i * 29) % 7 - 3) * 6}deg`);
+        return s;
+      })) : null,
+    );
+    if (mood) cell.style.setProperty('--mood', mood[3]);
+    cell.style.setProperty('--tilt', `${((d * 37) % 5 - 2) * 0.7}deg`);
+    return cell;
+  }
+
+  const hebRangeText = (a, b) => {
+    const hm = h => HEB_MONTH[h.month] || h.month;
+    return hm(a) === hm(b) ? `${hm(a)} ${gematria(a.year % 1000)}` :
+      `${hm(a)}${a.year !== b.year ? ' ' + gematria(a.year % 1000) : ''} – ${hm(b)} ${gematria(b.year % 1000)}`;
+  };
+
+  function renderMonth() {
+    const last = new Date(viewY, viewM + 1, 0).getDate();
+    $('#monthTitle').replaceChildren(`${MONTHS[viewM]} ${viewY}`, el('small', {}, hebRangeText(hebParts(viewY, viewM, 1), hebParts(viewY, viewM, last))));
     const kids = DOW.map((d, i) => el('div', { class: 'dow' + (isWeekend(i) ? ' we' : ''), role: 'columnheader' }, d));
     const first = new Date(viewY, viewM, 1).getDay();
-    const count = new Date(viewY, viewM + 1, 0).getDate();
     for (let i = 0; i < first; i++) kids.push(el('div', { class: 'day empty', 'aria-hidden': 'true' }));
-    const today = localToday();
-    for (let d = 1; d <= count; d++) {
-      const key = iso(viewY, viewM, d);
-      const info = dayInfo(key);
-      const w = wx?.byDate?.[key];
-      const heb = hebParts(viewY, viewM, d);
-      const mo = moonInfo(viewY, viewM, d);
-      const bds = bdayOn(key);
-      const evs = events[key] || [];
-      const stks = stickers[key] || [];
-      const cell = el('button', {
-        type: 'button',
-        class: 'day' + (info.noSchool ? ' off' : '') + (key === today ? ` today m-${design.todayMark}` : ''),
-        'aria-label': `${DAYS[info.dow]}, ${d} ב${MONTHS[viewM]}` + (info.hols.length ? ', ' + info.hols.map(holName).join(', ') : '') +
-          (bds.length ? ', יום הולדת' : '') + (evs.length ? `, ${evs.length} אירועים` : '') + (info.noSchool ? ', אין לימודים' : ''),
-        onclick: () => openDay(key),
-      },
-        el('span', { class: 'top' }, el('span', { class: 'num' }, String(d)),
-          mo.key ? el('span', { class: 'moon', title: mo.name, html: moonSVG(mo.p) }) : null),
-        el('span', { class: 'heb' }, hebShort(heb)),
-        ...bds.map(b => el('span', { class: 'bday' }, `🎂 ${b.name || 'יום הולדת'}`)),
-        ...info.hols.map(x => el('span', { class: 'hol' + (HOLIDAYS[x.id].t === 'c' ? ' c' : '') }, holName(x))),
-        info.vac ? el('span', { class: 'tag' }, info.vac.name || 'חופשה') :
-          info.firstBack ? el('span', { class: 'tag first' }, '🎒 חוזרים ללימודים!') :
-          info.noSchool && !info.hols.length ? el('span', { class: 'tag' }, 'אין לימודים') : null,
-        ...evs.slice(0, 2).map(ev => { const s = el('span', { class: 'ev' }, (ev.time ? ev.time + ' ' : '') + ev.text); s.style.background = ev.color; return s; }),
-        evs.length > 2 ? el('span', { class: 'ev' }, `+${evs.length - 2} עוד`) : null,
-        w ? el('span', { class: 'wx' }, `${wmo(w.code)[0]} ${fmtT(w.max)}`) : null,
-        stks.length ? el('span', { class: 'stks', 'aria-hidden': 'true' }, ...stks.slice(0, 3).map((id, i) => {
-          const s = STICKERS[id] ? el('span', { class: 'stk', html: stickerHTML(id) }) : el('span', { class: 'stk txt' }, id);
-          s.style.setProperty('--srot', `${((d * 53 + i * 29) % 7 - 3) * 6}deg`);
-          return s;
-        })) : null,
-      );
-      cell.style.setProperty('--tilt', `${((d * 37) % 5 - 2) * 0.7}deg`);
-      kids.push(cell);
-    }
+    for (let d = 1; d <= last; d++) kids.push(dayCell(iso(viewY, viewM, d), false));
     $('#cal').replaceChildren(...kids);
+  }
+
+  function renderWeek() {
+    const days = Array.from({ length: 7 }, (_, i) => addDays(viewWeek, i));
+    const a = fromIso(days[0]), b = fromIso(days[6]);
+    const title = a.m === b.m ? `${a.d}–${b.d} ב${MONTHS[a.m]} ${a.y}` : `${a.d} ב${MONTHS[a.m]} – ${b.d} ב${MONTHS[b.m]} ${b.y}`;
+    $('#monthTitle').replaceChildren(title, el('small', {}, hebRangeText(hebParts(a.y, a.m, a.d), hebParts(b.y, b.m, b.d))));
+    $('#weekView').replaceChildren(...days.map(k => dayCell(k, true)));
+  }
+
+  function renderYear() {
+    $('#monthTitle').replaceChildren(String(viewY), el('small', {}, `${gematria(hebParts(viewY, 0, 1).year % 1000)} – ${gematria(hebParts(viewY, 11, 31).year % 1000)}`));
+    const today = localToday();
+    $('#yearView').replaceChildren(...MONTHS.map((name, m) => {
+      const grid = el('div', { class: 'mini-grid' }, ...DOW.map(x => el('b', {}, x)));
+      const first = new Date(viewY, m, 1).getDay(), last = new Date(viewY, m + 1, 0).getDate();
+      for (let i = 0; i < first; i++) grid.append(el('span'));
+      for (let d = 1; d <= last; d++) {
+        const k = iso(viewY, m, d), info = dayInfo(k);
+        const cls = [info.noSchool ? 'off' : '', k === today ? 'today' : '', info.hols.length ? 'hol' : '', bdayOn(k).length ? 'bd' : '', (events[k] || []).some(e => e.test) ? 'test' : ''].filter(Boolean).join(' ');
+        grid.append(el('button', { type: 'button', class: cls, title: info.hols.map(holName).join(', '), 'aria-label': `${d} ב${name}`, onclick: () => openDay(k) }, String(d)));
+      }
+      return el('section', { class: 'mini' },
+        el('h3', {}, el('button', { type: 'button', onclick: () => { viewM = m; setView('month'); } }, name)), grid);
+    }));
+  }
+
+  function renderViewbar() {
+    $('#viewSeg').replaceChildren(...[['month', 'חודש'], ['week', 'שבוע'], ['year', 'שנה']].map(([id, name]) => el('button', {
+      type: 'button', 'aria-pressed': String(viewMode === id), onclick: () => setView(id),
+    }, name)));
+  }
+  function setView(v) {
+    viewMode = v; store.set('view', v);
+    if (v === 'week') {
+      const inMonth = viewY === t0.getFullYear() && viewM === t0.getMonth();
+      const base = inMonth ? localToday() : iso(viewY, viewM, 1);
+      viewWeek = addDays(base, -dowOf(base));
+    }
+    renderCalendar();
+  }
+  function moveView(dir) {
+    if (viewMode === 'week') { viewWeek = addDays(viewWeek, 7 * dir); const f = fromIso(viewWeek); viewY = f.y; viewM = f.m; }
+    else if (viewMode === 'year') viewY += dir;
+    else { viewM += dir; if (viewM < 0) { viewM = 11; viewY--; } if (viewM > 11) { viewM = 0; viewY++; } }
+    renderCalendar();
+  }
+  function goToday() {
+    const n = new Date(); viewY = n.getFullYear(); viewM = n.getMonth(); viewWeek = addDays(localToday(), -n.getDay());
+    renderCalendar();
+  }
+
+  function renderCalendar() {
+    $('#cal').hidden = viewMode !== 'month';
+    $('#weekView').hidden = viewMode !== 'week';
+    $('#yearView').hidden = viewMode !== 'year';
+    if (viewMode === 'week') renderWeek(); else if (viewMode === 'year') renderYear(); else renderMonth();
+    renderViewbar();
     renderDecor();
   }
 
@@ -1333,11 +1782,18 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       info.weekend ? `🎉 אין לימודים, יום ${DAYS[info.dow]}!` : info.holOff ? '🎉 אין לימודים, חג!' :
       info.firstBack ? '🎒 חוזרים ללימודים! היום הראשון אחרי החופש.' : '🎒 יש לימודים היום';
     const bds = bdayOn(key);
+    renderDayLessons(key, info);
     renderDayBday(bds);
+    renderDayDiary(key);
     renderDayEvents(key);
+    renderDayHabits(key);
     renderDayHol(key, info);
+    renderDayShabbat(key);
     renderDaySky(key);
     renderDayWeather(key);
+    renderDayDraw(key);
+    renderDayPhoto(key);
+    renderDayLastYear(key);
     renderStickerPick(key);
     const dlg = $('#dayDlg');
     if (!dlg.open) dlg.showModal();
@@ -1357,9 +1813,10 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
   function renderDayEvents(key) {
     const box = $('#dayEvents');
     const evs = events[key] || [];
-    const save = () => { if (evs.length) events[key] = evs; else delete events[key]; store.set('events', events); renderDayEvents(key); renderCalendar(); };
+    const save = () => { if (evs.length) events[key] = evs; else delete events[key]; store.set('events', events); renderDayEvents(key); renderCalendar(); renderStrip(); afterChange(); };
     const text = el('input', { type: 'text', id: 'evText', placeholder: 'מה יש? למשל: חוג ציור', maxLength: 60 });
     const time = el('input', { type: 'time', id: 'evTime', 'aria-label': 'שעה' });
+    const test = el('input', { type: 'checkbox', id: 'evTest' });
     const colors = el('div', { class: 'colorpick' }, ...EV_COLORS.map(c => {
       const b = el('button', { type: 'button', 'aria-label': 'צבע', 'aria-pressed': String(c === evColor), onclick: () => { evColor = c; [...colors.children].forEach(x => x.setAttribute('aria-pressed', String(x === b))); } });
       b.style.background = c; return b;
@@ -1367,13 +1824,13 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     const form = el('form', { class: 'ev-form', onsubmit: e => {
       e.preventDefault();
       if (!text.value.trim()) { text.focus(); return; }
-      evs.push({ time: time.value, text: text.value.trim(), color: evColor });
+      evs.push({ time: time.value, text: text.value.trim(), color: evColor, test: test.checked });
       evs.sort((a, b) => (a.time || '99').localeCompare(b.time || '99'));
       save();
-    } }, text, time, colors, el('button', { type: 'submit', class: 'btn main' }, '+ להוסיף'));
+    } }, text, time, el('label', { for: 'evTest' }, test, ' 📝 מבחן'), colors, el('button', { type: 'submit', class: 'btn main' }, '+ להוסיף'));
     box.replaceChildren(el('h4', {}, '📝 מה יש לי ביום הזה'),
       evs.length ? el('ul', { class: 'ev-list' }, ...evs.map((ev, i) => {
-        const li = el('li', {}, ev.time ? el('span', { class: 't' }, ev.time) : null, el('span', {}, ev.text),
+        const li = el('li', {}, ev.time ? el('span', { class: 't' }, ev.time) : null, el('span', {}, (ev.test ? '📝 מבחן: ' : '') + ev.text),
           el('button', { type: 'button', class: 'del', 'aria-label': 'למחוק', onclick: () => { evs.splice(i, 1); save(); } }, '🗑️'));
         li.style.background = ev.color; li.style.color = '#1f2a44'; return li;
       })) : el('p', { class: 'muted' }, 'עוד אין כלום. אפשר להוסיף חוג, מבחן, מסיבה, טיול...'),
@@ -1452,7 +1909,7 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
       else if (list.includes(id)) list = list.filter(x => x !== id);
       else list = [...list, id].slice(-4);
       if (list.length) stickers[key] = list; else delete stickers[key];
-      store.set('stickers', stickers); renderStickerPick(key); renderCalendar();
+      store.set('stickers', stickers); renderStickerPick(key); renderCalendar(); afterChange();
     }, 'לנקות', !cur.length);
   }
 
@@ -1516,23 +1973,668 @@ input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent);
     list.replaceChildren(...found.map(p => el('li', {}, el('button', { type: 'button', title: p.full, onclick: () => setPlace({ name: p.name, short: p.name.split(',')[0], lat: p.lat, lon: p.lon, tz: p.tz }) }, '📍 ' + p.name))));
   });
 
+  // ---------- day sheet: lessons, diary, habits, drawing, photo, last year ----------
+  function renderDayLessons(key, info) {
+    const box = $('#dayLessons');
+    const tt = timetable[info.dow];
+    const lessons = tt && tt.lessons ? tt.lessons.split('\n').map(s => s.trim()).filter(Boolean) : [];
+    box.hidden = info.noSchool || (!lessons.length && !(tt && tt.bring));
+    if (box.hidden) return;
+    box.replaceChildren(el('h4', {}, '📚 השיעורים ביום הזה'),
+      lessons.length ? el('ol', { class: 'lessons' }, ...lessons.map(l => el('li', {}, l))) : null,
+      tt.bring ? el('div', { class: 'wear' }, '🎒 להביא: ' + tt.bring) : null);
+  }
+
+  let diaryTimer = 0;
+  function renderDayDiary(key) {
+    const box = $('#dayDiary');
+    const head = el('h4', {}, '📔 היומן שלי');
+    if (pin && !unlocked) {
+      box.replaceChildren(head, el('p', { class: 'muted' }, '🔒 היומן נעול בקוד סודי.'),
+        el('div', {}, el('button', { type: 'button', class: 'btn main', onclick: () => showLock(() => renderDayDiary(key), true) }, '🔓 לפתוח')));
+      return;
+    }
+    const cur = Object.assign({ text: '', mood: '' }, diary[key]);
+    const saved = el('span', { class: 'saved' });
+    const save = () => {
+      if (cur.text.trim() || cur.mood) diary[key] = { text: cur.text, mood: cur.mood }; else delete diary[key];
+      store.set('diary', diary); saved.textContent = 'נשמר ✔️';
+      renderCalendar(); afterChange();
+    };
+    const moods = el('div', { class: 'moods' }, ...MOODS.map(([id, emo, name]) => el('button', {
+      type: 'button', 'aria-pressed': String(cur.mood === id), onclick: () => { cur.mood = cur.mood === id ? '' : id; save(); renderDayDiary(key); },
+    }, el('span', { 'aria-hidden': 'true' }, emo), name)));
+    const ta = el('textarea', { id: 'diaryText', 'aria-label': 'מה היה היום?', placeholder: 'מה היה היום? מה היה כיף? מה למדתי?', value: cur.text,
+      oninput: e => { cur.text = e.target.value; saved.textContent = 'כותבת...'; clearTimeout(diaryTimer); diaryTimer = setTimeout(save, 600); } });
+    box.replaceChildren(head, el('div', { class: 'muted' }, 'איך הרגשתי?'), moods, ta, saved);
+  }
+
+  function renderDayHabits(key) {
+    const box = $('#dayHabits');
+    const future = key > localToday();
+    if (!habits.list.length) {
+      box.replaceChildren(el('h4', {}, '⭐ הרגלים'), el('p', { class: 'muted' }, 'עוד אין הרגלים.'),
+        el('div', {}, el('button', { type: 'button', class: 'btn', onclick: () => { buildHabits(); $('#habDlg').showModal(); } }, '+ להוסיף הרגל')));
+      return;
+    }
+    box.replaceChildren(el('h4', {}, '⭐ הרגלים'), ...habits.list.map(h => el('label', { class: 'habit-row', for: `dh-${h.id}` },
+      el('input', { type: 'checkbox', id: `dh-${h.id}`, disabled: future, checked: (habits.done[key] || []).includes(h.id), onchange: e => { toggleHabit(key, h.id, e.target.checked); renderCalendar(); } }),
+      el('span', { class: 'ic', html: stickerHTML(h.stk) }), el('span', {}, h.name),
+      el('span', { class: 'streak' }, `🔥 ${habitStreak(h.id)}`))),
+      future ? el('p', { class: 'muted' }, 'את ההרגלים מסמנים ביום עצמו.') : null);
+  }
+
+  const DRAW_COLORS = ['#1f2a44', '#ff5a6e', '#ffb020', '#ffd84d', '#4fbf73', '#7ec8ff', '#b58cff', '#ff9ad5', '#9b6b43'];
+  let drawColor = DRAW_COLORS[1], drawSize = 6, drawErase = false;
+  function renderDayDraw(key) {
+    const box = $('#dayDraw');
+    const cv = el('canvas', { width: 800, height: 500, 'aria-label': 'לוח ציור' });
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 500);
+    const old = media.draw[key] ? getMedia('draw', key) : null;
+    if (old) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, 800, 500); im.src = old; }
+    let drawing = false, last = null, dirty = false;
+    const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * 800 / r.width, (e.clientY - r.top) * 500 / r.height]; };
+    cv.addEventListener('pointerdown', e => { drawing = true; last = pos(e); cv.setPointerCapture(e.pointerId); dot(last); });
+    cv.addEventListener('pointermove', e => { if (!drawing) return; const p = pos(e); line(last, p); last = p; });
+    const end = () => { if (!drawing) return; drawing = false; if (dirty) { const ok = setMedia('draw', key, cv.toDataURL('image/png')); msg.textContent = ok ? 'נשמר ✔️' : 'אין מספיק מקום לשמור. אפשר למחוק ציורים או תמונות ישנים.'; renderCalendar(); afterChange(); } };
+    cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+    const stroke = () => { ctx.strokeStyle = drawErase ? '#fff' : drawColor; ctx.fillStyle = ctx.strokeStyle; ctx.lineWidth = drawErase ? drawSize * 3 : drawSize; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; };
+    const dot = p => { stroke(); ctx.beginPath(); ctx.arc(p[0], p[1], ctx.lineWidth / 2, 0, Math.PI * 2); ctx.fill(); dirty = true; };
+    const line = (a, b) => { stroke(); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); dirty = true; };
+    const msg = el('span', { class: 'saved' });
+    const tools = el('div', { class: 'draw-tools' },
+      ...DRAW_COLORS.map(c => { const b = el('button', { type: 'button', class: 'sw2', 'aria-label': 'צבע', 'aria-pressed': String(!drawErase && c === drawColor), onclick: () => { drawColor = c; drawErase = false; renderTools(); } }); b.style.background = c; return b; }),
+      ...[[3, 'דק'], [6, 'בינוני'], [14, 'עבה']].map(([s, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(drawSize === s), onclick: () => { drawSize = s; renderTools(); } }, n)),
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(drawErase), onclick: () => { drawErase = !drawErase; renderTools(); } }, '🧽 מחק'),
+      el('button', { type: 'button', class: 'chip', onclick: () => { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, 800, 500); setMedia('draw', key, null); msg.textContent = 'הציור נמחק'; renderCalendar(); } }, '🗑️ לנקות הכל'));
+    const renderTools = () => {
+      [...tools.querySelectorAll('.sw2')].forEach((b, i) => b.setAttribute('aria-pressed', String(!drawErase && DRAW_COLORS[i] === drawColor)));
+      [...tools.querySelectorAll('.chip')].forEach(b => {
+        if (b.textContent === 'דק') b.setAttribute('aria-pressed', String(drawSize === 3));
+        if (b.textContent === 'בינוני') b.setAttribute('aria-pressed', String(drawSize === 6));
+        if (b.textContent === 'עבה') b.setAttribute('aria-pressed', String(drawSize === 14));
+        if (b.textContent === '🧽 מחק') b.setAttribute('aria-pressed', String(drawErase));
+      });
+    };
+    box.replaceChildren(el('h4', {}, '🖍️ ציור ליום הזה'), el('div', { class: 'draw-wrap' }, cv, tools, msg));
+  }
+
+  function renderDayPhoto(key) {
+    const box = $('#dayPhoto');
+    const url = media.photo[key] ? getMedia('photo', key) : null;
+    const msg = el('span', { class: 'saved' });
+    const input = el('input', { type: 'file', id: 'photoDay', accept: 'image/*', onchange: e => {
+      const f = e.target.files && e.target.files[0]; if (!f) return;
+      const img = new Image();
+      img.onload = () => {
+        const sc = Math.min(1, 640 / Math.max(img.width, img.height));
+        const c = el('canvas', { width: Math.round(img.width * sc), height: Math.round(img.height * sc) });
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        URL.revokeObjectURL(img.src);
+        const ok = setMedia('photo', key, c.toDataURL('image/jpeg', 0.78));
+        if (!ok) { msg.textContent = 'אין מספיק מקום לשמור עוד תמונה. אפשר למחוק תמונות ישנות.'; return; }
+        renderDayPhoto(key); renderCalendar(); afterChange();
+      };
+      img.onerror = () => { msg.textContent = 'לא הצלחתי לפתוח את התמונה הזו.'; };
+      img.src = URL.createObjectURL(f);
+    } });
+    box.replaceChildren(el('h4', {}, '📷 תמונה של היום'),
+      url ? el('div', { class: 'photo-day' }, el('img', { src: url, alt: 'התמונה של היום' })) : null,
+      el('label', { for: 'photoDay' }, url ? 'להחליף תמונה:' : 'להוסיף תמונה:'), input,
+      url ? el('div', {}, el('button', { type: 'button', class: 'chip', onclick: () => { setMedia('photo', key, null); renderDayPhoto(key); renderCalendar(); } }, '🗑️ להוריד את התמונה')) : null,
+      msg);
+  }
+
+  function renderDayLastYear(key) {
+    const box = $('#dayLastYear');
+    const { y, m, d } = fromIso(key);
+    const k = iso(y - 1, m, m === 1 && d === 29 ? 28 : d);
+    const dia = diary[k], evs = events[k] || [], ph = media.photo[k] ? getMedia('photo', k) : null, dr = media.draw[k] ? getMedia('draw', k) : null;
+    const locked = pin && !unlocked;
+    box.hidden = !(dia || evs.length || ph || dr);
+    if (box.hidden) return;
+    const mood = dia && moodOf(dia.mood);
+    box.replaceChildren(el('h4', {}, `📅 לפני שנה, ב-${d} ב${MONTHS[m]} ${y - 1}`), el('div', { class: 'ly' },
+      dia && !locked ? el('div', {}, (mood ? mood[1] + ' ' : '') + (dia.text || '')) : dia ? el('div', { class: 'muted' }, '🔒 יש כאן יומן נעול') : null,
+      ...evs.map(e => el('div', {}, '📝 ' + (e.time ? e.time + ' ' : '') + e.text)),
+      ph ? el('img', { src: ph, alt: 'תמונה מלפני שנה' }) : null,
+      dr ? el('img', { src: dr, alt: 'ציור מלפני שנה' }) : null));
+  }
+
+  function renderDayShabbat(key) {
+    const box = $('#dayShab');
+    const s = shabbatTimes(key), par = parashaFor(key);
+    const nextSat = addDays(key, 1);
+    const parNext = dowOf(key) === 5 ? parashaFor(nextSat) : null;
+    box.hidden = !s && !par;
+    if (box.hidden) return;
+    box.replaceChildren(el('h4', {}, '🕯️ שבת'),
+      s && s.kind === 'candles' ? el('div', {}, 'הדלקת נרות: ', el('span', { class: 'nums-ltr' }, fmtTime(s.time))) : null,
+      s && s.kind === 'havdalah' ? el('div', {}, 'צאת השבת: ', el('span', { class: 'nums-ltr' }, fmtTime(s.time))) : null,
+      par || parNext ? el('div', {}, '📖 פרשת השבוע: ' + (par || parNext)) : null,
+      el('p', { class: 'muted' }, isJerusalem() ? 'בירושלים מדליקים נרות 40 דקות לפני השקיעה.' : 'השעות מחושבות לפי המקום שבחרת (הדלקת נרות: 18 דקות לפני השקיעה).'));
+  }
+
+  // ================= Shabbat times + weekly Torah portion =================
+  const isJerusalem = () => Math.abs(place.lat - 31.77) < 0.12 && Math.abs(place.lon - 35.21) < 0.15;
+  function shabbatTimes(key) {
+    const { y, m, d } = fromIso(key), dow = new Date(y, m, d).getDay();
+    if (dow === 5) { const s = sunTimes(y, m, d, place.lat, place.lon); return s ? { kind: 'candles', time: new Date(s.set.getTime() - (isJerusalem() ? 40 : 18) * 60000) } : null; }
+    if (dow === 6) { const s = sunTimes(y, m, d, place.lat, place.lon, -8.5); return s ? { kind: 'havdalah', time: s.set } : null; }
+    return null;
+  }
+  const PARASHOT = ['בראשית', 'נח', 'לך לך', 'וירא', 'חיי שרה', 'תולדות', 'ויצא', 'וישלח', 'וישב', 'מקץ', 'ויגש', 'ויחי',
+    'שמות', 'וארא', 'בא', 'בשלח', 'יתרו', 'משפטים', 'תרומה', 'תצוה', 'כי תשא', 'ויקהל', 'פקודי',
+    'ויקרא', 'צו', 'שמיני', 'תזריע', 'מצורע', 'אחרי מות', 'קדושים', 'אמור', 'בהר', 'בחוקותי',
+    'במדבר', 'נשא', 'בהעלותך', 'שלח לך', 'קרח', 'חוקת', 'בלק', 'פינחס', 'מטות', 'מסעי',
+    'דברים', 'ואתחנן', 'עקב', 'ראה', 'שופטים', 'כי תצא', 'כי תבוא', 'נצבים', 'וילך', 'האזינו'];
+  const hebOf = k => { const { y, m, d } = fromIso(k); return hebParts(y, m, d); };
+  const isYomTovHeb = (h, il) => {
+    const d = h.day;
+    if (h.month === 'Tishri') return d === 1 || d === 2 || d === 10 || (d >= 15 && d <= (il ? 22 : 23));
+    if (h.month === 'Nisan') return d >= 15 && d <= (il ? 21 : 22);
+    if (h.month === 'Sivan') return d === 6 || (!il && d === 7);
+    return false;
+  };
+  const hyCache = {};
+  function hebYearDates(hy) {
+    if (hyCache[hy]) return hyCache[hy];
+    const map = {};
+    let k = iso(hy - 3761, 7, 20);
+    for (let i = 0; i < 430; i++, k = addDays(k, 1)) {
+      const h = hebOf(k);
+      if (h.year !== hy) continue;
+      const mk = (h.month === 'Adar II' ? 'Adar' : h.month) + '-' + h.day;
+      if (!(mk in map)) map[mk] = k;
+    }
+    return (hyCache[hy] = map);
+  }
+  const shabbatOnOrAfter = k => addDays(k, (6 - dowOf(k) + 7) % 7);
+  const joinPairs = (from, to, pairs) => {
+    const out = [];
+    for (let i = from; i <= to; i++) {
+      if (pairs.includes(i)) { out.push(PARASHOT[i - 1] + '-' + PARASHOT[i]); i++; } else out.push(PARASHOT[i - 1]);
+    }
+    return out;
+  };
+  const parCache = {};
+  // One reading cycle: from Bereshit of Hebrew year hy until the day before the next Bereshit.
+  function parashaCycle(hy, il) {
+    const ck = hy + (il ? 'i' : 'd');
+    if (parCache[ck]) return parCache[ck];
+    const res = {}, meta = { ok: false };
+    parCache[ck] = { res, meta };
+    const Y = hebYearDates(hy), Y2 = hebYearDates(hy + 1);
+    const last = il ? 22 : 23;
+    if (!Y['Tishri-' + last] || !Y2['Tishri-' + last] || !Y['Sivan-6'] || !Y['Av-9'] || !Y2['Tishri-1']) return parCache[ck];
+    const bereshit = shabbatOnOrAfter(addDays(Y['Tishri-' + last], 1));
+    const nextBereshit = shabbatOnOrAfter(addDays(Y2['Tishri-' + last], 1));
+    const free = [];
+    for (let k = bereshit; k < nextBereshit; k = addDays(k, 7)) if (!isYomTovHeb(hebOf(k), il)) free.push(k);
+    const lastBefore = lim => free.filter(k => k < lim).pop();
+    const between = (a, b) => free.filter(k => k > a && k < b);
+    const devarim = free.filter(k => k <= Y['Av-9']).pop();
+    const nitz = lastBefore(Y2['Tishri-1']);
+    const leap = ((7 * hy + 1) % 19) < 7;
+    const assign = (list, names) => { if (list.length !== names.length) return false; list.forEach((k, i) => { res[k] = names[i]; }); return true; };
+    let ok;
+    if (!il) {
+      const bam = lastBefore(Y['Sivan-6']);
+      const s1 = free.filter(k => k < bam), k1 = 33 - s1.length;
+      const p1 = leap ? (k1 === 0 ? [] : k1 === 1 ? [22] : null) : (k1 === 3 ? [27, 29, 32] : k1 === 4 ? [22, 27, 29, 32] : null);
+      const s2 = between(bam, devarim), k2 = 9 - s2.length;
+      const p2 = k2 === 0 ? [] : k2 === 1 ? [42] : k2 === 2 ? [39, 42] : null;
+      meta.pairs = p1 && p2 ? [...p1, ...p2] : null;
+      ok = !!meta.pairs && assign(s1, joinPairs(1, 33, p1)) && assign(s2, joinPairs(35, 43, p2));
+      if (ok) res[bam] = PARASHOT[33];
+    } else {
+      const dia = parashaCycle(hy, false).meta;
+      let pairs = dia.pairs ? [...dia.pairs] : null;
+      if (pairs) {
+        const p8 = Y['Nisan-22'], s2 = Y['Sivan-7'];
+        if (p8 && dowOf(p8) === 6) pairs = pairs.filter(p => p !== 42);
+        if (s2 && dowOf(s2) === 6) pairs = pairs.filter(p => p !== 39);
+      }
+      ok = !!pairs && assign(free.filter(k => k < devarim), joinPairs(1, 43, pairs.sort((a, b) => a - b)));
+    }
+    const tail = free.filter(k => k > nitz);
+    ok = ok && assign(between(devarim, nitz), joinPairs(45, 50, []));
+    if (ok) {
+      res[devarim] = PARASHOT[43];
+      res[nitz] = tail.length >= 2 ? PARASHOT[50] : PARASHOT[50] + '-' + PARASHOT[51];
+      if (tail.length >= 2) { res[tail[0]] = PARASHOT[51]; res[tail[1]] = PARASHOT[52]; } else if (tail[0]) res[tail[0]] = PARASHOT[52];
+      meta.ok = true;
+    } else for (const k in res) delete res[k];
+    return parCache[ck];
+  }
+  function parashaFor(key) {
+    if (dowOf(key) !== 6) return null;
+    const hy = hebOf(key).year;
+    for (const y of [hy, hy - 1]) { const c = parashaCycle(y, holSet.israel); if (c.res[key]) return c.res[key]; }
+    return null;
+  }
+
+  // ================= fact / riddle of the day =================
+  const FACTS = [
+    'לתמנון יש שלושה לבבות, והדם שלו כחול.', 'אור השמש מגיע אלינו בערך תוך 8 דקות.', 'בחלל אין קולות, כי אין שם אוויר שיעביר את הצליל.',
+    'לקואלה יש טביעות אצבע שדומות מאוד לשל בני אדם.', 'לפרפרים יש חיישני טעם ברגליים.', 'עכבישים הם לא חרקים: יש להם 8 רגליים, ולחרקים יש 6.',
+    'הלוויתן הכחול הוא בעל החיים הגדול ביותר שחי אי פעם על כדור הארץ.', 'לכל זברה יש דוגמת פסים משלה, כמו טביעת אצבע.', 'לשבתאי יש יותר ממאה ירחים!',
+    'על כוכב נוגה יום אחד ארוך יותר משנה שלמה שם.', 'ים המלח הוא המקום הנמוך ביותר ביבשה בעולם.', 'במים של ים המלח אפשר לצוף בלי לשחות, בגלל כל המלח.',
+    'פסל החירות היה מתנה מצרפת לארצות הברית.', 'סנטרל פארק בניו יורק גדול יותר ממדינת מונקו.', 'הלב שלך פועם בערך 100,000 פעמים ביום.',
+    'לאדם מבוגר יש 206 עצמות, ולתינוקות יש עוד יותר, כי חלק מהעצמות מתחברות כשגדלים.', 'ציפורני הידיים גדלות מהר יותר מציפורני הרגליים.', 'חתולים ישנים בערך 12 עד 16 שעות ביום.',
+    'ביצה של יען היא הביצה הגדולה ביותר של ציפור.', 'דג הליצן (כמו נמו) גר בתוך שושנת ים.', 'תמנון יכול לשנות צבע כדי להסתתר.',
+    'לצרצרים יש אוזניים ברגליים הקדמיות.', 'כדור הארץ מסתובב סביב השמש בערך 365 ימים ורבע, ולכן כל 4 שנים יש 29 בפברואר.', 'קשת בענן נוצרת כשאור השמש עובר דרך טיפות מים.',
+    'כל פתית שלג בנוי מקרח שקוף, אבל ביחד הם נראים לבנים.', 'ברק חם יותר מפני השטח של השמש.', 'לנמלים אין ריאות. הן נושמות דרך חורים קטנים בגוף.',
+    'לכרישים יש שלד מסחוס, כמו החומר שבאף ובאוזניים שלנו.', 'לג\'ירפה יש לשון באורך של בערך חצי מטר.', 'כרישים חיים על כדור הארץ עוד מלפני שהיו עצים.',
+    'הדבש כמעט לא מתקלקל אף פעם.', 'העיניים של יען גדולות יותר מהמוח שלו.', 'פינגווינים חיים כמעט רק בחצי הדרומי של כדור הארץ.',
+    'צבי ים יכולים לחיות עשרות שנים.', 'דבורים רוקדות כדי לספר לחברות שלהן איפה יש פרחים.', 'על הירח אין רוח, ולכן עקבות האסטרונאוטים נשארו שם.',
+    'השמש היא כוכב, והיא הכוכב הכי קרוב אלינו.', 'בניו יורק מדברים מאות שפות שונות.', 'ירושלים היא אחת הערים העתיקות בעולם.',
+    'עברית וערבית נכתבות מימין לשמאל.', 'לינשופים יש עיניים שלא זזות, ולכן הם מסובבים את כל הראש.', 'פיל הוא בעל החיים הכבד ביותר שחי ביבשה.',
+  ];
+  const RIDDLES = [
+    ['מה יש לו ידיים, אבל אין לו אצבעות?', 'שעון'], ['מה נרטב ככל שהוא מייבש?', 'מגבת'], ['מה עולה ואף פעם לא יורד?', 'הגיל'],
+    ['מה יש לו שיניים, אבל הוא לא נושך?', 'מסרק'], ['מה אפשר לשבור בלי לגעת בו?', 'הבטחה'], ['מה נהיה גדול יותר ככל שלוקחים ממנו?', 'בור'],
+    ['למה יש עין אחת, אבל הוא לא רואה כלום?', 'מחט'], ['מה רץ כל הזמן, אבל אין לו רגליים?', 'נהר'], ['מה יש לו צוואר, אבל אין לו ראש?', 'בקבוק'],
+    ['מה מלא חורים, אבל עדיין מחזיק מים?', 'ספוג'], ['באיזה חודש יש 28 ימים?', 'בכל החודשים!'], ['מה שייך לך, אבל אחרים משתמשים בו יותר ממך?', 'השם שלך'],
+    ['למה יש מקשים, אבל אי אפשר לפתוח איתו אף דלת?', 'פסנתר'], ['מה עולה ויורד, אבל לא זז ממקומו?', 'מדרגות'], ['ככל שיש ממנו יותר, רואים פחות. מה זה?', 'חושך'],
+    ['למי יש כובע אבל אין ראש, ויש רגל אבל אין נעל?', 'פטרייה'], ['מה עף, אבל אין לו כנפיים?', 'הזמן'], ['מה תמיד מחכה לך, אבל אף פעם לא מגיע?', 'מחר'],
+    ['מה יש לו הרבה עלים, אבל הוא לא עץ?', 'ספר'], ['מה הולך איתך לכל מקום, אבל אי אפשר לתפוס אותו?', 'הצל שלך'],
+  ];
+  let showAnswer = false;
+  function renderFact() {
+    const t = localToday(), n = Math.round(Date.UTC(...(p => [p.y, p.m, p.d])(fromIso(t))) / 864e5);
+    const fact = FACTS[n % FACTS.length], [q, a] = RIDDLES[n % RIDDLES.length];
+    $('#factCard').replaceChildren(el('div', { class: 'fact' },
+      el('span', { class: 'ic', html: stickerHTML('lightbulb') }),
+      el('div', { class: 'body' },
+        el('div', {}, el('b', {}, 'ידעת ש...? '), fact),
+        el('div', {}, el('b', {}, 'חידה: '), q, ' ',
+          showAnswer ? el('span', { class: 'ans' }, '← ' + a) : el('button', { type: 'button', class: 'chip', onclick: () => { showAnswer = true; renderFact(); } }, 'לגלות תשובה')))));
+  }
+
+  // ================= toast + medals =================
+  let toastTimer = 0;
+  function toast(art, text) {
+    const t = $('#toast');
+    t.replaceChildren(el('span', { class: 'ic', html: art }), el('span', {}, text));
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 4000);
+  }
+  const stickerInner = id => stickerHTML(id).replace(/^<svg[^>]*>|<\/svg>$/g, '');
+  const medalSVG = id => `<svg viewBox="0 0 60 72" xmlns="http://www.w3.org/2000/svg"><path d="M16 2 L30 26 L23 31 L8 5 Z" fill="#7ec8ff" stroke="${O}" stroke-width="2.2" stroke-linejoin="round"/><path d="M44 2 L30 26 L37 31 L52 5 Z" fill="#ff7a9a" stroke="${O}" stroke-width="2.2" stroke-linejoin="round"/><circle cx="30" cy="47" r="22" fill="#ffcf3a" stroke="${O}" stroke-width="2.5"/><circle cx="30" cy="47" r="17" fill="#ffe9a0" stroke="#e0a800" stroke-width="1.5"/><g transform="translate(17 34) scale(.54)">${stickerInner(id)}</g></svg>`;
+  const bestRun = keys => {
+    const s = [...keys].sort(); let best = 0, run = 0, prev = null;
+    for (const k of s) { run = prev && addDays(prev, 1) === k ? run + 1 : 1; best = Math.max(best, run); prev = k; }
+    return best;
+  };
+  function stats() {
+    const diaryKeys = Object.keys(diary).filter(k => diary[k] && (diary[k].text || diary[k].mood));
+    const habitRun = Math.max(0, ...habits.list.map(h => bestRun(Object.keys(habits.done).filter(k => habits.done[k].includes(h.id)))));
+    return {
+      diaryDays: diaryKeys.length, diaryRun: bestRun(diaryKeys), habitRun,
+      mornings: Object.keys(morning.history).length, stickerDays: Object.keys(stickers).length,
+      draws: Object.keys(media.draw).length, photos: Object.keys(media.photo).length,
+      bdays: birthdays.filter(b => b.date).length, events: Object.values(events).reduce((a, l) => a + l.length, 0),
+      tt: Object.values(timetable).some(v => v && v.lessons && v.lessons.trim()),
+      designed: JSON.stringify(Object.assign({}, design, { title: '' })) !== JSON.stringify(Object.assign({}, DEFAULT_DESIGN, { title: '' })),
+      petLevel: pet ? petLevel(xpTotal()) : 0, backup: !!store.get('didBackup', false), pin: !!pin,
+    };
+  }
+  const MEDALS = [
+    ['diary1', 'star', 'יומן ראשון', 'לכתוב ביומן בפעם הראשונה', s => s.diaryDays >= 1],
+    ['diary7', 'heart', 'שבוע של יומן', '7 ימים ברצף ביומן', s => s.diaryRun >= 7],
+    ['diary30', 'crown', 'סופרת', '30 ימים ביומן', s => s.diaryDays >= 30],
+    ['habit7', 'trophy', 'רצף של שבוע', '7 ימים ברצף בהרגל אחד', s => s.habitRun >= 7],
+    ['habit30', 'rocket', 'רצף של חודש', '30 ימים ברצף בהרגל אחד', s => s.habitRun >= 30],
+    ['morning5', 'sun', 'בוקר טוב!', 'צ\'קליסט בוקר מלא 5 פעמים', s => s.mornings >= 5],
+    ['stickers10', 'sparkles', 'אוהבת מדבקות', 'מדבקות ב-10 ימים', s => s.stickerDays >= 10],
+    ['stickers50', 'rainbow', 'אלופת המדבקות', 'מדבקות ב-50 ימים', s => s.stickerDays >= 50],
+    ['artist1', 'palette', 'ציירת', 'לצייר ציור ראשון', s => s.draws >= 1],
+    ['artist10', 'pencil', 'אמנית', '10 ציורים', s => s.draws >= 10],
+    ['photo1', 'camera', 'צלמת', 'להעלות תמונה ראשונה', s => s.photos >= 1],
+    ['party', 'cake', 'מסיבה!', '5 ימי הולדת בלוח', s => s.bdays >= 5],
+    ['planner', 'book', 'מתכננת', '10 אירועים בלוח', s => s.events >= 10],
+    ['student', 'backpack', 'תלמידה', 'למלא מערכת שעות', s => s.tt],
+    ['designer', 'bow', 'מעצבת', 'לשנות את העיצוב של הלוח', s => s.designed],
+    ['pet3', 'dog', 'חברות טובות', 'החיה הגיעה לרמה 3', s => s.petLevel >= 3],
+    ['pet10', 'gem', 'אלופת החיות', 'החיה הגיעה לרמה 10', s => s.petLevel >= 10],
+    ['secret', 'wand', 'שומרת סוד', 'לבחור קוד סודי', s => s.pin],
+    ['backup', 'gift', 'שומרת על הכל', 'לעשות גיבוי', s => s.backup],
+  ];
+  function checkMedals() {
+    const s = stats();
+    const earned = MEDALS.filter(m => m[4](s)).map(m => m[0]);
+    let seen = store.get('medalsSeen', null);
+    if (!seen) { store.set('medalsSeen', earned); return; }
+    const fresh = earned.filter(id => !seen.includes(id));
+    if (fresh.length) {
+      const m = MEDALS.find(x => x[0] === fresh[0]);
+      toast(medalSVG(m[1]), `🏅 מדליה חדשה: ${m[2]}!`);
+      store.set('medalsSeen', [...seen, ...fresh]);
+    }
+  }
+  function buildMedals() {
+    const s = stats();
+    const got = MEDALS.filter(m => m[4](s)).length;
+    $('#medCount').textContent = `יש לך ${got} מדליות מתוך ${MEDALS.length}!`;
+    $('#medList').replaceChildren(...MEDALS.map(m => el('div', { class: 'medal' + (m[4](s) ? '' : ' locked') },
+      el('span', { class: 'art', html: medalSVG(m[1]) }), el('span', {}, m[2]), el('small', {}, m[3]))));
+  }
+
+  // ================= pet =================
+  const PET_KINDS = [['cat', 'חתול'], ['dog', 'כלב'], ['bunny', 'ארנב'], ['bear', 'דובי'], ['panda', 'פנדה'], ['owl', 'ינשוף'], ['dino', 'דינוזאור'], ['turtle', 'צב'], ['fish', 'דג'], ['whale', 'לוויתן']];
+  function xpTotal() {
+    return Object.values(diary).filter(v => v && (v.text || v.mood)).length * 15
+      + Object.values(habits.done).reduce((a, l) => a + l.length, 0) * 10
+      + Object.keys(morning.history).length * 10
+      + (Object.keys(media.draw).length + Object.keys(media.photo).length) * 5
+      + Object.values(events).reduce((a, l) => a + l.length, 0) * 3
+      + Object.keys(stickers).length * 2;
+  }
+  const petLevel = xp => 1 + Math.floor(Math.sqrt(xp / 25));
+  const levelXp = L => 25 * (L - 1) * (L - 1);
+  const activeToday = () => { const t = localToday(); return !!(diary[t] || (habits.done[t] || []).length || morning.history[t] || media.draw[t] || media.photo[t] || events[t] || stickers[t]); };
+  const PET_LINES = ['איזה כיף איתך! 💖', 'את הכי טובה!', 'בואי נכתוב ביומן?', 'אני אוהב מדבקות!', 'היום יהיה יום מעולה!', 'עוד קצת ואני גדל!', 'חיבוק! 🤗'];
+  let petSay = '', petSayTimer = 0, petTap = 0;
+  function renderPet() {
+    const box = $('#pet');
+    if (!pet) { box.replaceChildren(el('button', { type: 'button', class: 'btn', onclick: openPet }, '🥚 לאמץ חיה')); return; }
+    const xp = xpTotal(), L = petLevel(xp), a = levelXp(L), b = levelXp(L + 1);
+    const sleepy = !activeToday();
+    box.style.setProperty('--pet-size', `${56 + Math.min(L, 12) * 6}px`);
+    const bar = el('span', { class: 'bar' }, el('i'));
+    bar.firstChild.style.width = `${Math.round((xp - a) / (b - a) * 100)}%`;
+    box.replaceChildren(
+      petSay ? el('span', { class: 'say' }, petSay) : null,
+      el('button', { type: 'button', class: 'art' + (sleepy ? ' sleepy' : ''), 'aria-label': `${pet.name || 'החיה שלי'}, רמה ${L}`, html: stickerHTML(pet.kind), onclick: () => {
+        petSay = sleepy ? 'משעמם לי... אולי נכתוב ביומן? 😴' : PET_LINES[petTap++ % PET_LINES.length];
+        clearTimeout(petSayTimer); petSayTimer = setTimeout(() => { petSay = ''; renderPet(); }, 3000);
+        renderPet();
+        if (!reduceMotion()) { const h = el('span', { class: 'heart', html: stickerHTML('heart') }); h.style.left = `${20 + (petTap * 17) % 40}px`; $('#pet').append(h); setTimeout(() => h.remove(), 1300); }
+      } }),
+      el('button', { type: 'button', class: 'name', onclick: openPet }, `${pet.name || 'החיה שלי'} · רמה ${L}`), bar);
+  }
+  function openPet() {
+    const cur = pet || { kind: 'cat', name: '' };
+    const draw = () => {
+      const xp = xpTotal(), L = petLevel(xp), a = levelXp(L), b = levelXp(L + 1);
+      const bar = el('div', { class: 'xpbar' }, el('i')); bar.firstChild.style.width = `${Math.round((xp - a) / (b - a) * 100)}%`;
+      $('#petInfo').replaceChildren(pet ? el('div', {}, `רמה ${L} · ${xp} נקודות · עוד ${b - xp} נקודות לרמה הבאה`) : el('div', {}, 'בחרי חיה ושם, והיא תגור בפינה של הלוח!'), pet ? bar : null);
+      $('#petKinds').replaceChildren(...PET_KINDS.map(([id, name]) => el('button', {
+        type: 'button', 'aria-pressed': String(cur.kind === id), onclick: () => { cur.kind = id; save(); },
+      }, el('span', { class: 'ic', html: stickerHTML(id) }), name)));
+    };
+    const save = () => { pet = { kind: cur.kind, name: cur.name }; store.set('pet', pet); draw(); renderPet(); afterChange(); };
+    $('#petName').value = cur.name;
+    $('#petName').oninput = e => { cur.name = e.target.value; save(); };
+    draw();
+    if (!pet) save();
+    $('#petDlg').showModal();
+  }
+
+  // ================= morning checklist =================
+  function morningToday() {
+    const t = localToday();
+    if (morning.date !== t) { morning.date = t; morning.done = []; store.set('morning', morning); }
+    return morning;
+  }
+  function buildMorning() {
+    const mo = morningToday();
+    $('#mornList').replaceChildren(...mo.items.map((txt, i) => {
+      const done = mo.done.includes(i);
+      return el('label', { class: 'check-row' + (done ? ' done' : ''), for: 'morn-' + i },
+        el('input', { type: 'checkbox', id: 'morn-' + i, checked: done, onchange: e => {
+          mo.done = e.target.checked ? [...mo.done, i] : mo.done.filter(x => x !== i);
+          const all = mo.items.length && mo.items.every((_, j) => mo.done.includes(j));
+          if (all && !mo.history[mo.date]) { mo.history[mo.date] = true; toast(stickerHTML('sun'), 'כל הכבוד! סיימת את כל הבוקר ☀️'); }
+          store.set('morning', mo); buildMorning(); renderStrip(); afterChange();
+        } }),
+        el('span', {}, txt),
+        el('button', { type: 'button', class: 'del', 'aria-label': 'למחוק', onclick: e => { e.preventDefault(); mo.items.splice(i, 1); mo.done = []; store.set('morning', mo); buildMorning(); renderStrip(); } }, '🗑️'));
+    }));
+  }
+  $('#mornForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#mornNew').value.trim();
+    if (!v) return;
+    morning.items.push(v); $('#mornNew').value = '';
+    store.set('morning', morning); buildMorning(); renderStrip();
+  });
+
+  // ================= timetable =================
+  function buildTimetable() {
+    $('#ttList').replaceChildren(...[1, 2, 3, 4, 5].map(dw => {
+      const v = timetable[dw] || { lessons: '', bring: '' };
+      return el('div', { class: 'tt-day' },
+        el('b', { style: 'font-weight:400;color:var(--accent);font-size:1.2em' }, 'יום ' + DAYS[dw]),
+        el('textarea', { id: 'tt-l-' + dw, 'aria-label': 'שיעורים ביום ' + DAYS[dw], placeholder: 'חשבון\nאנגלית\nמדעים', value: v.lessons,
+          oninput: e => { timetable[dw] = Object.assign({}, timetable[dw], { lessons: e.target.value }); store.set('timetable', timetable); afterChange(); } }),
+        el('input', { type: 'text', id: 'tt-b-' + dw, 'aria-label': 'מה להביא ביום ' + DAYS[dw], placeholder: '🎒 מה להביא? למשל: בגדי ספורט', value: v.bring || '',
+          oninput: e => { timetable[dw] = Object.assign({}, timetable[dw], { bring: e.target.value }); store.set('timetable', timetable); } }));
+    }));
+  }
+
+  // ================= habits =================
+  let newHabitStk = 'book';
+  const habitStreak = id => {
+    const has = k => (habits.done[k] || []).includes(id);
+    let k = localToday(); if (!has(k)) k = addDays(k, -1);
+    let n = 0; while (has(k)) { n++; k = addDays(k, -1); }
+    return n;
+  };
+  function toggleHabit(key, id, on) {
+    const l = habits.done[key] || [];
+    habits.done[key] = on ? [...new Set([...l, id])] : l.filter(x => x !== id);
+    if (!habits.done[key].length) delete habits.done[key];
+    store.set('habits', habits); afterChange();
+  }
+  function buildHabits() {
+    const t = localToday();
+    $('#habList').replaceChildren(...(habits.list.length ? habits.list.map((h, i) => {
+      const dots = el('span', { class: 'habit-dots', title: '28 הימים האחרונים' },
+        ...Array.from({ length: 28 }, (_, j) => el('i', { class: (habits.done[addDays(t, j - 27)] || []).includes(h.id) ? 'on' : '' })));
+      return el('div', { class: 'habit-row', style: 'flex-wrap:wrap' },
+        el('input', { type: 'checkbox', id: 'hab-' + h.id, checked: (habits.done[t] || []).includes(h.id), 'aria-label': h.name + ' היום',
+          onchange: e => { toggleHabit(t, h.id, e.target.checked); buildHabits(); renderCalendar(); } }),
+        el('span', { class: 'ic', html: stickerHTML(h.stk) }),
+        el('label', { for: 'hab-' + h.id }, h.name),
+        el('span', { class: 'streak' }, `🔥 ${habitStreak(h.id)}`),
+        el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק את ההרגל', onclick: () => { habits.list.splice(i, 1); store.set('habits', habits); buildHabits(); } }, '🗑️'),
+        dots);
+    }) : [el('p', { class: 'muted' }, 'עוד אין הרגלים. אפשר להוסיף למטה!')]));
+    stickerPicker($('#habStk'), id => id === newHabitStk, id => { if (id) { newHabitStk = id; buildHabits(); } });
+  }
+  $('#habForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#habNew').value.trim();
+    if (!v) return;
+    habits.list.push({ id: 'h' + Date.now().toString(36), name: v, stk: newHabitStk });
+    $('#habNew').value = '';
+    store.set('habits', habits); buildHabits();
+  });
+
+  // ================= secret code + lock screen =================
+  const LOCK_BGS = {
+    theme: { name: 'הצבעים שלי', bg: 'linear-gradient(160deg, var(--accent), var(--weekend))', ink: 'var(--ink)', key: 'var(--card)', keyInk: 'var(--ink)' },
+    candy: { name: 'סוכרייה', bg: 'linear-gradient(160deg, #ffc2d6, #e5d6ff)', ink: '#3a2350', key: '#ffffff', keyInk: '#3a2350' },
+    mint: { name: 'מנטה', bg: 'linear-gradient(160deg, #c9f0d6, #cfe6ff)', ink: '#173b33', key: '#ffffff', keyInk: '#173b33' },
+    sunset: { name: 'שקיעה', bg: 'linear-gradient(160deg, #ffb020, #ff6b8b)', ink: '#3b2415', key: '#fff5e6', keyInk: '#3b2415' },
+    night: { name: 'לילה', bg: '#1b1f3b', ink: '#f3f1ff', key: '#2c2f5a', keyInk: '#f3f1ff' },
+    stars: { name: 'לילה עם כוכבים', bg: '#141833', ink: '#fff6d5', key: '#262b55', keyInk: '#fff6d5', pattern: true },
+  };
+  const LOCK_KEYS = [{ id: 'round', name: 'עגולים' }, { id: 'square', name: 'מרובעים' }, { id: 'blob', name: 'בועות' }, { id: 'flower', name: 'טיפות' }, { id: 'rainbow', name: 'קשת בענן' }];
+  const LOCK_DOTS = [{ id: 'circle', name: 'עיגולים' }, { id: 'heart', name: 'לבבות' }, { id: 'star', name: 'כוכבים' }];
+  function lockBox(entered, onKey, extra) {
+    const box = el('div', { class: `lock-box keys-${design.lockKeys} dots-${design.lockDots}` },
+      el('span', { class: 'ic', html: stickerHTML(design.lockStk) }),
+      el('h2', {}, design.lockTitle || 'היומן הסודי שלי'),
+      el('div', { class: 'pin-dots' }, ...[0, 1, 2, 3].map(i => el('i', { class: i < entered ? 'on' : '' }))),
+      el('div', { class: 'pin-err' }),
+      el('div', { class: 'keypad' }, ...['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✓'].map(k => el('button', { type: 'button', 'aria-label': k === '⌫' ? 'למחוק' : k === '✓' ? 'אישור' : k, onclick: () => onKey && onKey(k) }, k))),
+      ...(extra || []));
+    return box;
+  }
+  function showLock(onOk, canCancel) {
+    const lock = $('#lock');
+    let code = '';
+    const draw = (err) => {
+      const extra = [
+        el('button', { type: 'button', class: 'lock-link', onclick: forgot }, 'שכחתי את הקוד'),
+        canCancel ? el('button', { type: 'button', class: 'lock-link', onclick: () => lock.close() }, 'ביטול') : null,
+      ];
+      lock.replaceChildren(lockBox(code.length, key, extra));
+      if (err) { const e = lock.querySelector('.pin-err'); e.textContent = err; e.classList.add('shake'); }
+    };
+    const key = k => {
+      if (k === '⌫') code = code.slice(0, -1);
+      else if (k === '✓') { /* checked automatically */ }
+      else if (code.length < 4) code += k;
+      if (code.length === 4) {
+        if (code === pin.code) { unlocked = true; lock.close(); onOk && onOk(); return; }
+        code = ''; draw('הקוד לא נכון. נסי שוב!'); return;
+      }
+      draw();
+    };
+    const forgot = () => {
+      if (!pin.q) { lock.replaceChildren(el('div', { class: 'lock-box' }, el('h2', {}, 'שכחת את הקוד?'), el('p', {}, 'לא בחרת שאלה סודית, אז צריך עזרה של מבוגר: בכלים של הדפדפן אפשר למחוק את הנתונים של הלוח. (זה מוחק גם את כל מה שכתבת.)'), el('button', { type: 'button', class: 'btn', onclick: () => draw() }, 'חזרה'))); return; }
+      const inp = el('input', { type: 'text', id: 'pinAns', 'aria-label': 'תשובה', autocomplete: 'off' });
+      const msg = el('p', { class: 'pin-err' });
+      lock.replaceChildren(el('form', { class: 'lock-box', onsubmit: e => {
+        e.preventDefault();
+        if (inp.value.trim().toLowerCase() === (pin.a || '').trim().toLowerCase()) { unlocked = true; lock.close(); onOk && onOk(); openPinDlg(); }
+        else { msg.textContent = 'זו לא התשובה. נסי שוב!'; }
+      } }, el('h2', {}, 'השאלה הסודית'), el('p', {}, pin.q), inp, msg, el('button', { type: 'submit', class: 'btn main' }, 'לפתוח'), el('button', { type: 'button', class: 'lock-link', onclick: () => draw() }, 'חזרה')));
+      inp.focus();
+    };
+    lock.className = LOCK_BGS[design.lockBg]?.pattern ? 'pattern-stars' : '';
+    lock.oncancel = e => { if (!canCancel) e.preventDefault(); };
+    draw();
+    if (lock.open) lock.close();
+    lock.showModal();
+  }
+  function openPinDlg() {
+    if (pin && !unlocked) { showLock(openPinDlg, true); return; }
+    const body = $('#pinBody');
+    if (!pin) {
+      const c1 = el('input', { type: 'password', id: 'pin1', inputMode: 'numeric', maxLength: 4, autocomplete: 'off', placeholder: '4 ספרות' });
+      const c2 = el('input', { type: 'password', id: 'pin2', inputMode: 'numeric', maxLength: 4, autocomplete: 'off', placeholder: 'שוב את אותן 4 ספרות' });
+      const q = el('input', { type: 'text', id: 'pinQ', maxLength: 60, placeholder: 'למשל: איך קוראים לחתול של סבתא?' });
+      const a = el('input', { type: 'text', id: 'pinA', maxLength: 40, placeholder: 'התשובה' });
+      let scope = 'diary';
+      const scopeRow = el('div', { class: 'chips' });
+      const drawScope = () => scopeRow.replaceChildren(...[['diary', 'רק היומן'], ['all', 'כל הלוח']].map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(scope === id), onclick: () => { scope = id; drawScope(); } }, name)));
+      drawScope();
+      const msg = el('p', { class: 'muted' });
+      body.replaceChildren(el('form', { class: 'row', onsubmit: e => {
+        e.preventDefault();
+        if (!/^\d{4}$/.test(c1.value)) { msg.textContent = 'הקוד צריך להיות בדיוק 4 מספרים.'; return; }
+        if (c1.value !== c2.value) { msg.textContent = 'שני הקודים לא שווים. נסי שוב.'; return; }
+        pin = { code: c1.value, scope, q: q.value.trim(), a: a.value.trim() };
+        store.set('pin', pin); unlocked = true; openPinDlg(); afterChange();
+      } },
+        el('label', { for: 'pin1' }, 'בחרי קוד של 4 מספרים'), c1, c2,
+        el('span', { class: 'lbl' }, 'מה לנעול?'), scopeRow,
+        el('label', { for: 'pinQ' }, 'שאלה סודית, למקרה ששוכחים את הקוד (לא חובה)'), q, a,
+        msg, el('div', {}, el('button', { type: 'submit', class: 'btn main' }, '🔒 לשמור קוד'))));
+    } else {
+      body.replaceChildren(
+        el('p', {}, '✔️ יש לך קוד סודי.'),
+        el('span', { class: 'lbl' }, 'מה נעול?'),
+        el('div', { class: 'chips' }, ...[['diary', 'רק היומן'], ['all', 'כל הלוח']].map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(pin.scope === id), onclick: () => { pin.scope = id; store.set('pin', pin); openPinDlg(); } }, name))),
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn', onclick: () => { pin = null; store.set('pin', null); openPinDlg(); } }, 'להחליף קוד'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { designTab = 'lock'; $('#pinDlg').close(); buildDesignPanel(); $('#designDlg').showModal(); } }, '🎨 לעצב את מסך הקוד'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { pin = null; try { localStorage.removeItem('halu4-pin'); } catch {} openPinDlg(); } }, 'לבטל את הקוד')));
+    }
+    if (!$('#pinDlg').open) $('#pinDlg').showModal();
+  }
+  function renderLockPreview() {
+    const prev = $('#lockPrev');
+    if (!prev) return;
+    prev.replaceChildren(lockBox(2, null, [el('span', { class: 'lock-link' }, 'שכחתי את הקוד')]));
+    $('#lockPrevBg').className = 'lp-bg' + (LOCK_BGS[design.lockBg]?.pattern ? ' pattern-stars' : '');
+  }
+
+  // ================= backup =================
+  $('#bkSave').addEventListener('click', () => {
+    const data = {};
+    try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith('halu4-')) data[k] = localStorage.getItem(k); } } catch {}
+    const blob = new Blob([JSON.stringify({ app: 'halu4', version: 1, saved: new Date().toISOString(), data })], { type: 'application/json' });
+    const a = el('a', { href: URL.createObjectURL(blob), download: `הלוח-שלי-גיבוי-${localToday()}.json` });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    store.set('didBackup', true);
+    const m = $('#bkSaveMsg'); m.hidden = false; m.textContent = 'הקובץ נשמר! בדרך כלל הוא נמצא בתיקיית ההורדות (Downloads).';
+    afterChange();
+  });
+  $('#bkFile').addEventListener('change', e => {
+    const f = e.target.files && e.target.files[0];
+    const box = $('#bkLoad');
+    if (!f) return;
+    f.text().then(txt => {
+      let j; try { j = JSON.parse(txt); } catch { j = null; }
+      if (!j || j.app !== 'halu4' || typeof j.data !== 'object') { box.replaceChildren(el('p', { class: 'muted' }, 'זה לא קובץ גיבוי של הלוח. צריך לבחור את הקובץ ששמרת בכפתור "לשמור".')); return; }
+      const when = j.saved ? new Date(j.saved) : null;
+      box.replaceChildren(
+        el('p', {}, `מצאתי גיבוי${when ? ` מ-${when.getDate()} ב${MONTHS[when.getMonth()]} ${when.getFullYear()}` : ''}.`),
+        el('p', { class: 'muted' }, 'שימי לב: פתיחת הגיבוי מחליפה את כל מה שיש עכשיו בלוח.'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          try {
+            const old = []; for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith('halu4-')) old.push(k); }
+            old.forEach(k => localStorage.removeItem(k));
+            Object.entries(j.data).forEach(([k, v]) => { if (k.startsWith('halu4-') && typeof v === 'string') localStorage.setItem(k, v); });
+            location.reload();
+          } catch { box.append(el('p', { class: 'muted' }, 'לא הצלחתי לשמור את הגיבוי בדפדפן הזה.')); }
+        } }, 'לפתוח את הגיבוי'));
+    });
+  });
+
+  // ================= more menu =================
+  const MORE = [
+    ['cake', 'ימי הולדת', () => { buildBdays(); $('#bdayDlg').showModal(); }],
+    ['menorah', 'חגים וחופשות', () => { buildHolPanel(); $('#holDlg').showModal(); }],
+    ['backpack', 'מערכת שעות', () => { buildTimetable(); $('#ttDlg').showModal(); }],
+    ['sun', 'צ\'קליסט בוקר', () => { buildMorning(); $('#mornDlg').showModal(); }],
+    ['star', 'הרגלים', () => { buildHabits(); $('#habDlg').showModal(); }],
+    ['trophy', 'מדליות', () => { buildMedals(); $('#medDlg').showModal(); }],
+    ['cat', 'חיית מחמד', () => openPet()],
+    ['wand', 'קוד סודי', () => openPinDlg()],
+    ['gift', 'גיבוי', () => { $('#bkSaveMsg').hidden = true; $('#bkLoad').replaceChildren(); $('#bkDlg').showModal(); }],
+    ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
+  ];
+  function openMore() {
+    $('#moreTiles').replaceChildren(...MORE.map(([ic, name, fn]) => el('button', { type: 'button', class: 'tile', onclick: () => { $('#moreDlg').close(); fn(); } },
+      el('span', { class: 'ic', html: stickerHTML(ic) }), name)));
+    $('#moreDlg').showModal();
+  }
+
+  function afterChange() { checkMedals(); renderPet(); }
+
   // ================= wiring =================
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
-  document.querySelectorAll('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+  document.querySelectorAll('dialog:not(#lock)').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
   $('#dayDlg').addEventListener('close', () => { openDate = null; confettiRun++; });
-  $('#prev').addEventListener('click', () => { viewM--; if (viewM < 0) { viewM = 11; viewY--; } renderCalendar(); });
-  $('#next').addEventListener('click', () => { viewM++; if (viewM > 11) { viewM = 0; viewY++; } renderCalendar(); });
-  $('#goToday').addEventListener('click', () => { const n = new Date(); viewY = n.getFullYear(); viewM = n.getMonth(); renderCalendar(); });
+  $('#prev').addEventListener('click', () => moveView(-1));
+  $('#next').addEventListener('click', () => moveView(1));
+  $('#goToday').addEventListener('click', goToday);
   $('#openDesign').addEventListener('click', () => { buildDesignPanel(); $('#designDlg').showModal(); });
-  $('#openHol').addEventListener('click', () => { buildHolPanel(); $('#holDlg').showModal(); });
-  $('#openBday').addEventListener('click', () => { buildBdays(); $('#bdayDlg').showModal(); });
-  $('#printBtn').addEventListener('click', () => { try { window.print(); } catch {} });
+  $('#openMore').addEventListener('click', openMore);
+  $('#openMorning').addEventListener('click', () => { buildMorning(); $('#mornDlg').showModal(); });
+  $('#openHabits').addEventListener('click', () => { buildHabits(); $('#habDlg').showModal(); });
+  $('#darkBtn').addEventListener('click', () => { design.darkMode = !design.darkMode; rerender(); });
+  $('#habDlg').addEventListener('close', () => renderCalendar());
   $('#openPlace').addEventListener('click', () => { buildQuickPlaces(); $('#results').replaceChildren(); $('#searchMsg').hidden = true; $('#placeDlg').showModal(); });
 
   $('#placeName').textContent = place.name;
   applyDesign();
   renderCalendar();
   renderStrip();
+  renderFact();
+  renderPet();
+  checkMedals();
+  if (pin && pin.scope === 'all') showLock(null, false);
   loadWeather();
 })();
 </script>
