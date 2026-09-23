@@ -1221,6 +1221,16 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     for (const kid of kids) if (kid != null) n.append(kid);
     return n;
   };
+  // some hosts (like the Claude page) block real form submits; run every form's submit handler ourselves
+  const fakeSubmit = (form, e) => { e.preventDefault(); if (form.reportValidity()) form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); };
+  document.addEventListener('click', e => {
+    const b = e.target.closest('button, input[type=submit]');
+    if (b && b.form && b.type === 'submit') fakeSubmit(b.form, e);
+  }, true);
+  document.addEventListener('keydown', e => {
+    const t = e.target;
+    if (e.key === 'Enter' && !e.isComposing && t.form && t.tagName === 'INPUT' && !['button', 'checkbox', 'radio', 'file', 'range', 'color'].includes(t.type)) fakeSubmit(t.form, e);
+  }, true);
   const iso = (y, m, d) => `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
   const fromIso = s => { const [y, m, d] = s.split('-').map(Number); return { y, m: m - 1, d }; };
   const localToday = () => { const n = new Date(); return iso(n.getFullYear(), n.getMonth(), n.getDate()); };
@@ -3377,9 +3387,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
         if (!q.value.trim() || !a.value.trim()) return bad('❓ צריך לכתוב שאלה סודית וגם את התשובה.');
         pin = { code: c1.value, scope, q: q.value.trim(), a: a.value.trim(), keys: st.keys, keyId: st.keyId };
         const saved = store.set('pin', pin); unlocked = true; afterChange(); SFX.yay();
-        if (!saved) { pin = null; return bad('⚠️ לא הצלחתי לשמור. צריך לפתוח את הלוח בכרום.'); }
         // straight to the real lock screen, so she opens it with her own key, code and question
-        unlocked = false; $('#pinDlg').close(); showLock(() => toast(stickerHTML(design.lockStk), '🔓 נכנסת! המנעול שלך עובד'), false);
+        unlocked = false; $('#pinDlg').close(); showLock(() => toast(stickerHTML(design.lockStk), saved ? '🔓 נכנסת! המנעול שלך עובד' : '🔓 נכנסת! (פה המנעול לא נשמר לפעם הבאה)'), false);
       } },
         el('h4', {}, '1. 🗝️ המפתחות שלך'), el('p', { class: 'muted' }, 'עצבי כמה מפתחות, ובחרי אחד שהוא פותח. את השאר אפשר לעצב כמו שבא לך, כדי לבלבל.'), keysBox,
         el('h4', {}, '2. 🔢 הקוד'), el('label', { for: 'pin1' }, 'קוד של 4 מספרים'), c1, c2,
