@@ -277,7 +277,7 @@ a { color: var(--accent); }
 .colors { display: flex; flex-wrap: wrap; gap: 14px; }
 .colors label { display: inline-flex; align-items: center; gap: 6px; }
 input[type="color"] { width: 42px; height: 32px; border: none; background: none; padding: 0; }
-input[type="text"], input[type="search"] { border: 2px solid var(--line); border-radius: 12px; padding: 6px 10px; background: var(--card); width: 100%; }
+input[type="text"], input[type="search"], input[type="number"] { border: 2px solid var(--line); border-radius: 12px; padding: 6px 10px; background: var(--card); width: 100%; }
 input[type="date"], input[type="time"] { border: 2px solid var(--line); border-radius: 10px; padding: 4px 8px; background: var(--card); font-family: 'Rubik', system-ui, sans-serif; font-size: .85em; }
 input[type="range"] { width: 100%; accent-color: var(--accent); }
 input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); }
@@ -499,6 +499,32 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 #pet .guard-mini svg { width: 100%; height: 100%; }
 .confetti-c { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5; }
 
+/* ---------- diary + mermaids ---------- */
+.diary-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.diary-nav .when { text-align: center; flex: 1; font-size: 1.2em; }
+.diary-list { display: grid; gap: 6px; }
+.diary-list button { display: flex; gap: 10px; align-items: baseline; text-align: start; border: 1.5px solid var(--line); background: var(--card); border-radius: 12px; padding: 6px 10px; }
+.diary-list button .d { color: var(--accent); white-space: nowrap; }
+.diary-list button .tx { color: var(--soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mer-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.mer-card { flex: none; width: 92px; display: grid; justify-items: center; gap: 1px; border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px 4px; font-size: .88em; }
+.mer-card[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.mer-card .ic { width: 56px; height: 84px; }
+.mer-card .ic svg { width: 100%; height: 100%; }
+.mer-card.add { border-style: dashed; color: var(--soft); align-content: center; }
+.mer-card .plus { font-size: 2.2em; line-height: 1; }
+.mer-edit { display: grid; grid-template-columns: minmax(170px, 230px) 1fr; gap: 14px; align-items: start; }
+.mer-stage { border-radius: 18px; background: linear-gradient(#c6ecff, #7fcaf0 70%, #f2d8a0 70%); border: 2px solid var(--line); padding: 6px; position: sticky; top: 0; }
+.mer-stage svg { width: 100%; height: auto; display: block; }
+.swatches { display: flex; flex-wrap: wrap; gap: 6px; }
+.sw3 { width: 34px; height: 34px; border-radius: 50%; border: 2px solid rgb(0 0 0 / .18); padding: 0; }
+.sw3[aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 2px; }
+.scene .guard.mer { width: 78px; height: 117px; }
+.scene .mer-extra { position: absolute; bottom: 20px; width: 62px; height: 93px; }
+.scene .mer-extra svg { width: 100%; height: 100%; display: block; }
+#pet .guard-mini.mer { width: 40px; height: 60px; }
+@media (max-width: 620px) { .mer-edit { grid-template-columns: 1fr; } .mer-stage { position: static; max-width: 220px; margin: 0 auto; } }
+
 /* ---------- games ---------- */
 .mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 420px; margin: 0 auto; width: 100%; }
 .mem-grid button { aspect-ratio: 1; border-radius: 14px; border: 2px solid var(--line); background: var(--accent); padding: 8px; transition: transform .25s; }
@@ -622,6 +648,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     <div class="title-wrap"><span class="title-stk" id="titleStk" aria-hidden="true"></span><h1><span id="title">הלוח שלי</span></h1></div>
     <div class="tools">
       <button class="btn" id="openPlace" type="button">📍 מקום</button>
+      <button class="btn main" id="openDiary" type="button">📔 יומן</button>
       <button class="btn" id="openMorning" type="button">☀️ בוקר</button>
       <button class="btn" id="openHabits" type="button">⭐ הרגלים</button>
       <button class="btn" id="openMore" type="button">🧰 עוד</button>
@@ -973,6 +1000,42 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
         <button class="btn main" type="submit">+ להוסיף</button>
       </div>
     </form>
+  </div>
+</dialog>
+
+<!-- Diary -->
+<dialog id="diaryDlg" aria-labelledby="diaryTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="diaryTitle">📔 היומן שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="diary-nav">
+      <button class="nav" id="diaryPrev" type="button" aria-label="יום קודם">→</button>
+      <div class="when" id="diaryWhen"></div>
+      <button class="nav" id="diaryNext" type="button" aria-label="יום הבא">←</button>
+    </div>
+    <div class="chips" style="justify-content:center"><button class="btn" id="diaryToday" type="button">היום</button></div>
+    <section class="box" id="diaryBox"></section>
+    <div class="row"><span class="lbl">📚 מה כתבתי</span><div class="diary-list" id="diaryList"></div></div>
+  </div>
+</dialog>
+
+<!-- Mermaid studio -->
+<dialog id="merDlg" aria-labelledby="merTitle" style="width:min(820px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="merTitle">🧜‍♀️ בנות הים שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="mer-list" id="merList"></div>
+    <div class="mer-edit">
+      <div class="mer-stage" id="merPreview"></div>
+      <div class="row">
+        <div class="tabs" role="tablist" id="merTabs"></div>
+        <div class="row" id="merBody"></div>
+      </div>
+    </div>
   </div>
 </dialog>
 
@@ -2281,12 +2344,11 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   }
 
   let diaryTimer = 0;
-  function renderDayDiary(key) {
-    const box = $('#dayDiary');
+  function renderDayDiary(key, box = $('#dayDiary')) {
     const head = el('h4', {}, '📔 היומן שלי');
     if (pin && !unlocked) {
       box.replaceChildren(head, el('p', { class: 'muted' }, '🔒 היומן נעול בקוד סודי.'),
-        el('div', {}, el('button', { type: 'button', class: 'btn main', onclick: () => showLock(() => renderDayDiary(key), true) }, '🔓 לפתוח')));
+        el('div', {}, el('button', { type: 'button', class: 'btn main', onclick: () => showLock(() => { renderDayDiary(key, box); if ($('#diaryDlg').open) drawDiary(); }, true) }, '🔓 לפתוח')));
       return;
     }
     const cur = Object.assign({ text: '', mood: '' }, diary[key]);
@@ -2294,12 +2356,12 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     const save = () => {
       if (cur.text.trim() || cur.mood) diary[key] = { text: cur.text, mood: cur.mood }; else delete diary[key];
       store.set('diary', diary); saved.textContent = 'נשמר ✔️';
-      renderCalendar(); afterChange();
+      renderCalendar(); afterChange(); if ($('#diaryDlg').open) drawDiaryList();
     };
     const moods = el('div', { class: 'moods' }, ...MOODS.map(([id, emo, name]) => el('button', {
-      type: 'button', 'aria-pressed': String(cur.mood === id), onclick: () => { cur.mood = cur.mood === id ? '' : id; save(); renderDayDiary(key); },
+      type: 'button', 'aria-pressed': String(cur.mood === id), onclick: () => { cur.mood = cur.mood === id ? '' : id; save(); renderDayDiary(key, box); },
     }, el('span', { 'aria-hidden': 'true' }, emo), name)));
-    const ta = el('textarea', { id: 'diaryText', 'aria-label': 'מה היה היום?', placeholder: 'מה היה היום? מה היה כיף? מה למדתי?', value: cur.text,
+    const ta = el('textarea', { id: box.id === 'diaryBox' ? 'diaryText2' : 'diaryText', 'aria-label': 'מה היה היום?', placeholder: 'מה היה היום? מה היה כיף? מה למדתי?', value: cur.text,
       oninput: e => { cur.text = e.target.value; saved.textContent = 'כותבת...'; clearTimeout(diaryTimer); diaryTimer = setTimeout(save, 600); } });
     box.replaceChildren(head, el('div', { class: 'muted' }, 'איך הרגשתי?'), moods, ta, saved);
   }
@@ -2700,6 +2762,12 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     sunglasses: ['face', 'משקפי שמש', side => side ? `<circle cx="0" cy="0" r="4.2" fill="#3a2b3c"/><path d="M-4 0 H-9" stroke="#3a2b3c" stroke-width="1.8"/>` : `<rect x="-11" y="-3.5" width="9" height="7" rx="3" fill="#3a2b3c"/><rect x="2" y="-3.5" width="9" height="7" rx="3" fill="#3a2b3c"/><path d="M-2 -1 H2" stroke="#3a2b3c" stroke-width="2"/><path d="M-9 -1.5 l3 -1" stroke="#fff" stroke-width="1.2"/>`],
     bow: ['neck', 'פפיון', () => `<g transform="translate(-8 -8) scale(.34)">${stickerInner('bow')}</g>`],
   };
+  // eyes of each animal (x, y, radius) in the 48×48 drawing, to make them a bit bigger when the pet is small
+  const PET_EYES = {
+    cat: [[20.6, 25, 1.53], [27.4, 25, 1.53]], dog: [[19, 22, 1.9], [29, 22, 1.9]], bunny: [[20.8, 30, 1.44], [27.2, 30, 1.44]],
+    bear: [[18.5, 24, 1.9], [29.5, 24, 1.9]], panda: [[18, 24.5, 1.6, '#fff'], [30, 24.5, 1.6, '#fff']], lion: [[20.6, 23, 1.53], [27.4, 23, 1.53]],
+    owl: [[18, 20.5, 2.6], [30, 20.5, 2.6]], dino: [[31, 12, 1.6]], turtle: [[41.5, 29, 1.3]], fish: [[13, 22, 2.2]], whale: [[12.2, 25, 1.26], [17.8, 25, 1.26]],
+  };
   function petSVG(p, opts = {}) {
     const a = ANCHOR[p.kind] || ANCHOR.cat, w = p.wear || {};
     const put = (slot, id) => {
@@ -2708,7 +2776,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       return `<g transform="translate(${x} ${y})${a.small ? ' scale(.7)' : ''}">${WEAR[id][2](a.side)}</g>`;
     };
     const tint = p.color ? ` style="filter:hue-rotate(${p.color}deg)"` : '';
-    return `<svg viewBox="-4 -14 56 64" xmlns="http://www.w3.org/2000/svg"><g${tint}>${stickerInner(p.kind)}</g>${put('neck', w.neck)}${put('face', w.face)}${put('head', w.head)}${opts.extra || ''}</svg>`;
+    const sz = Math.max(0.65, Math.min(1.15, p.size || 1)), k = Math.max(0, 1 - sz) * 1.3;
+    const eyes = k > 0 ? (PET_EYES[p.kind] || []).map(([x, y, r, c]) => `<circle cx="${x}" cy="${y}" r="${(r * (1 + k)).toFixed(2)}" fill="${c || O}"/>${c ? '' : `<circle cx="${(x + r * 0.35).toFixed(2)}" cy="${(y - r * 0.4).toFixed(2)}" r="${(r * (1 + k) * 0.38).toFixed(2)}" fill="#fff"/>`}`).join('') : '';
+    return `<svg viewBox="-4 -14 56 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(24 47) scale(${sz}) translate(-24 -47)"><g${tint}>${stickerInner(p.kind)}${eyes}</g>${put('neck', w.neck)}${put('face', w.face)}${put('head', w.head)}</g>${opts.extra || ''}</svg>`;
   }
   const FOODS = ['apple', 'strawberry', 'watermelon', 'cookie', 'donut', 'pizza', 'icecream', 'cupcake'];
   const HOUSE_BGS = [['room', 'חדר'], ['ocean', 'ים'], ['safari', 'ספארי'], ['forest', 'יער'], ['clouds', 'שמיים'], ['space', 'חלל']];
@@ -2730,7 +2800,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 
   const FIRSTS = [
     ['feed', 'להאכיל את החיה', 'item', 'bowl'],
-    ['diary', 'לכתוב ביומן', 'guardian', null],
+    ['diary', 'לכתוב ביומן (בכפתור 📔 יומן למעלה)', 'guardian', null],
     ['sticker', 'לשים מדבקה על יום', 'wear', 'bow'],
     ['event', 'להוסיף אירוע', 'wear', 'partyhat'],
     ['habit', 'לסמן הרגל', 'wear', 'sunglasses'],
@@ -2765,12 +2835,12 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   }
   const isRareLocked = id => RARE.includes(id) && !unlockedSet().has(id);
   function rewardArt(type, id) {
-    if (type === 'guardian') return guardianArt(pet ? pet.kind : 'cat');
+    if (type === 'guardian') return pet ? guardArt() : guardianArt('cat');
     if (type === 'wear') return `<svg viewBox="-14 -22 28 32" xmlns="http://www.w3.org/2000/svg">${WEAR[id][2](false)}</svg>`;
     return stickerHTML(id);
   }
   function rewardName(type, id) {
-    if (type === 'guardian') return pet ? (GUARDIANS[pet.kind] || GUARDIANS.cat)[0] + ' (שומרת על החיה)' : 'מישהו ששומר על החיה';
+    if (type === 'guardian') return pet ? guardName() + ' (שומר/ת על החיה)' : 'מישהו ששומר על החיה';
     if (type === 'wear') return WEAR[id][1] + ' לחיה';
     if (type === 'item') return (STICKERS[id] ? STICKERS[id][0] : id) + ' לבית של החיה';
     return 'מדבקה נדירה: ' + (STICKERS[id] ? STICKERS[id][0] : id);
@@ -2784,7 +2854,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     if (!fresh.length) return;
     store.set('unlockSeen', [...seen, ...fresh]);
     const f = FIRSTS.find(x => x[0] === fresh[0]);
-    const txt = f[2] === 'guardian' && pet ? `🎉 ${(GUARDIANS[pet.kind] || GUARDIANS.cat)[0]} הגיע/ה לשמור על ${pet.name || 'החיה שלך'}!` : `🎁 קיבלת: ${rewardName(f[2], f[3])}!`;
+    const txt = f[2] === 'guardian' && pet ? `🎉 ${guardName()} הגיע/ה לשמור על ${pet.name || 'החיה שלך'}!` : `🎁 קיבלת: ${rewardName(f[2], f[3])}!`;
     setTimeout(() => { toast(rewardArt(f[2], f[3]), txt + (fresh.length > 1 ? ` (ועוד ${fresh.length - 1})` : '')); SFX.yay(); }, 300);
   }
 
@@ -2813,7 +2883,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     const say = petSay || (hungry() ? 'אני רעב/ה! 🍽️' : '');
     box.replaceChildren(
       say ? el('span', { class: 'say' }, say) : null,
-      unlockedSet().has('guardian') ? el('span', { class: 'guard-mini', title: (GUARDIANS[pet.kind] || GUARDIANS.cat)[0], html: guardianArt(pet.kind) }) : null,
+      unlockedSet().has('guardian') ? el('span', { class: 'guard-mini' + (theGuardMer() ? ' mer' : ''), title: guardName(), html: guardArt() }) : null,
       el('button', { type: 'button', class: 'art' + (sleepy ? ' sleepy' : ''), 'aria-label': `${pet.name || 'החיה שלי'}, רמה ${L}. לפתוח את הבית`, html: petSVG(pet), onclick: () => {
         SFX.pet(pet.kind);
         if (hungry()) { openHouse(true); return; }
@@ -2828,12 +2898,12 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   // ================= adopt: design → name → feed =================
   let adopt = null;
   function openAdopt() {
-    adopt = { step: 0, kind: 'cat', color: 0, name: '' };
+    adopt = { step: 0, kind: 'cat', color: 0, name: '', size: 1 };
     drawAdopt();
     $('#adoptDlg').showModal();
   }
   function drawAdopt() {
-    const st = adopt.step, p = { kind: adopt.kind, color: adopt.color, wear: {} };
+    const st = adopt.step, p = { kind: adopt.kind, color: adopt.color, size: adopt.size, wear: {} };
     $('#adoptSteps').replaceChildren(...[0, 1, 2, 3].map(i => el('i', { class: i <= st ? 'on' : '' })));
     const preview = el('div', { class: 'big-pet', html: petSVG(p) });
     const next = (label = 'הבא ←') => el('button', { type: 'button', class: 'btn main', onclick: () => { adopt.step++; drawAdopt(); } }, label);
@@ -2845,9 +2915,11 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
           el('span', { class: 'ic', html: stickerHTML(id) }), name))),
         el('div', { class: 'chips' }, next()));
     } else if (st === 1) {
-      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '2. בחרי צבע'), preview,
+      const size = el('input', { type: 'range', id: 'adoptSize', min: 0.65, max: 1.15, step: 0.05, value: adopt.size, oninput: e => { adopt.size = Number(e.target.value); preview.innerHTML = petSVG({ kind: adopt.kind, color: adopt.color, size: adopt.size, wear: {} }); } });
+      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '2. בחרי צבע וגודל'), preview,
         el('div', { class: 'pet-pick' }, ...PET_COLORS.map(([deg, name]) => el('button', { type: 'button', 'aria-pressed': String(adopt.color === deg), onclick: () => { adopt.color = deg; drawAdopt(); } },
-          el('span', { class: 'ic', html: petSVG({ kind: adopt.kind, color: deg, wear: {} }) }), name))),
+          el('span', { class: 'ic', html: petSVG({ kind: adopt.kind, color: deg, size: adopt.size, wear: {} }) }), name))),
+        el('div', { class: 'row' }, el('label', { for: 'adoptSize' }, 'גודל: קטנטן וחמוד ← → גדול'), size, el('span', { class: 'muted' }, 'ככל שהחיה קטנה יותר, העיניים שלה קצת יותר גדולות 🥹')),
         el('p', { class: 'muted' }, 'בגדים, קישוטים לבית וגם מישהו ששומר על החיה ייפתחו כשתעשי דברים בלוח!'),
         el('div', { class: 'chips' }, back, next()));
     } else if (st === 2) {
@@ -2862,7 +2934,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
         el('div', { class: 'pet-art', html: petSVG(p) }));
       body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '4. בואי נאכיל את ' + adopt.name + '!'), scene,
         el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => {
-          pet = { v: 2, kind: adopt.kind, color: adopt.color, name: adopt.name.trim(), wear: {}, house: { bg: defaultBg(adopt.kind), hidden: [] }, fed: { [localToday()]: 1 }, played: {}, onboarded: true };
+          pet = { v: 2, kind: adopt.kind, color: adopt.color, size: adopt.size, name: adopt.name.trim(), wear: {}, house: { bg: defaultBg(adopt.kind), hidden: [] }, fed: { [localToday()]: 1 }, played: {}, onboarded: true };
           savePet();
           const fly = el('span', { class: 'fly', html: stickerHTML(f) }); scene.append(fly); SFX.munch();
           setTimeout(() => {
@@ -2890,7 +2962,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     const items = FIRSTS.filter(f => f[2] === 'item' && un.has(f[3]) && !(pet.house.hidden || []).includes(f[3])).map(f => f[3]);
     const scene = el('div', { class: 'scene bg-' + (pet.house.bg || defaultBg(pet.kind)), id: 'houseScene' },
       ...items.map((id, i) => { const s = el('span', { class: 'item', html: stickerHTML(id), title: STICKERS[id][0] }); s.style.left = `${4 + (i % 2 ? 78 - (i >> 1) * 11 : (i >> 1) * 11)}%`; return s; }),
-      un.has('guardian') ? el('span', { class: 'guard', html: guardianArt(pet.kind), title: (GUARDIANS[pet.kind] || GUARDIANS.cat)[0] }) : null,
+      un.has('guardian') ? el('span', { class: 'guard' + (theGuardMer() ? ' mer' : ''), html: guardArt(), title: guardName() }) : null,
+      ...(SEA.includes(pet.kind) ? mermaids.filter(m => !theGuardMer() || m.id !== theGuardMer().id).slice(0, 2).map((m, i) => { const s = el('span', { class: 'mer-extra', html: merArt(m), title: m.name }); s.style.left = `${4 + i * 13}%`; return s; }) : []),
       el('button', { type: 'button', class: 'pet-art', 'aria-label': 'ללטף', html: petSVG(pet), onclick: () => pat() }),
       say || (hungry() ? 'אני רעב/ה! 🍽️' : null) ? el('span', { class: 'say' }, say || 'אני רעב/ה! 🍽️') : null);
     $('#houseScene').replaceWith(scene);
@@ -2898,9 +2971,10 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       el('button', { type: 'button', class: 'btn main', onclick: () => drawHouse('feed') }, '🍎 להאכיל'),
       el('button', { type: 'button', class: 'btn', onclick: play }, '⚽ לשחק'),
       el('button', { type: 'button', class: 'btn', onclick: pat }, '🤗 ללטף'),
-      un.has('guardian') ? el('button', { type: 'button', class: 'btn', onclick: () => { drawHouse(null, (GUARDIANS[pet.kind] || GUARDIANS.cat)[2]); SFX.boop(); } }, '💬 לדבר עם ' + (GUARDIANS[pet.kind] || GUARDIANS.cat)[0].split(' ')[0]) : null);
+      un.has('guardian') ? el('button', { type: 'button', class: 'btn', onclick: () => { drawHouse(null, guardLine()); SFX.boop(); } }, '💬 לדבר עם ' + guardName().split(' ')[0]) : null,
+      SEA.includes(pet.kind) ? el('button', { type: 'button', class: 'btn', onclick: () => { $('#houseDlg').close(); openMermaids(); } }, '🧜‍♀️ לעצב בנות ים') : null);
     $('#houseFood').replaceChildren(mode === 'feed' ? el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => feed(f) }))) : null);
-    const TABS2 = [['wear', '👗 להלביש'], ['color', '🎨 צבע'], ['home', '🏠 הבית'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
+    const TABS2 = [['wear', '👗 להלביש'], ['color', '🎨 צבע וגודל'], ['home', '🏠 הבית'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
     $('#houseTabs').replaceChildren(...TABS2.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(houseTab === id), onclick: () => { houseTab = id; drawHouse(); } }, name)));
     const tab = $('#houseTab');
     if (houseTab === 'wear') {
@@ -2914,8 +2988,11 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
               el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { wear: { [slot]: id } })) }), got ? v[1] : '🔒 ' + v[1]);
           })))));
     } else if (houseTab === 'color') {
+      const size = el('input', { type: 'range', id: 'houseSize', min: 0.65, max: 1.15, step: 0.05, value: pet.size || 1, oninput: e => { pet.size = Number(e.target.value); savePet(); $('#houseScene .pet-art').innerHTML = petSVG(pet); renderPet(); } });
+      size.addEventListener('change', () => drawHouse());
       tab.replaceChildren(el('div', { class: 'pet-pick' }, ...PET_COLORS.map(([deg, name]) => el('button', { type: 'button', 'aria-pressed': String((pet.color || 0) === deg), onclick: () => { pet.color = deg; savePet(); drawHouse(); renderPet(); } },
-        el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { color: deg })) }), name))));
+        el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { color: deg })) }), name))),
+        el('div', { class: 'row' }, el('label', { for: 'houseSize' }, 'גודל: קטנטן וחמוד ← → גדול'), size));
     } else if (houseTab === 'home') {
       const all = FIRSTS.filter(f => f[2] === 'item');
       tab.replaceChildren(el('span', { class: 'lbl' }, 'איפה החיה גרה?'),
@@ -3188,6 +3265,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     ['star', 'הרגלים', () => { buildHabits(); $('#habDlg').showModal(); }],
     ['trophy', 'מדליות', () => { buildMedals(); $('#medDlg').showModal(); }],
     ['cat', 'חיית המחמד שלי', () => openHouse()],
+    ['shell', 'בנות הים שלי', () => openMermaids()],
+    ['smiley', 'היומן שלי', () => openDiary()],
     ['ball', 'משחקים', () => openGames()],
     ['gift', 'תיבת הפתעה', () => openSurprise()],
     ['book', 'אלבום מדבקות', () => openAlbum()],
@@ -3571,6 +3650,221 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     return g ? g[1] : null;
   }
 
+  // ================= mermaids: a big, careful drawing =================
+  const MER = {
+    tails: [['classic', 'קלאסי'], ['butterfly', 'פרפר'], ['heart', 'לב'], ['pointy', 'חד'], ['frilly', 'גלים']],
+    tailColors: ['#3cc7b6', '#5ec8f2', '#4f7be0', '#a77bf3', '#ff8fc1', '#ff8a6b', '#f6c445', '#86e3b8', 'rainbow'],
+    hairStyles: [['long', 'ארוך'], ['wavy', 'גלי'], ['curly', 'מתולתל'], ['braid', 'צמה'], ['pony', 'קוקו'], ['pigtails', 'שתי קוקיות'], ['bun', 'פקעת'], ['bob', 'קצר']],
+    hairColors: ['#f7d774', '#ffb070', '#e8573f', '#8a4b2a', '#3a2630', '#ff9ad5', '#a77bf3', '#5ec8f2', '#eef1f6'],
+    skins: ['#ffe3d1', '#f6d0b1', '#e8b48f', '#c98e6b', '#9a6444', '#6b4230'],
+    eyeColors: ['#3a2b3c', '#3b6fd8', '#2f9e74', '#8a5a3c', '#8e6bd6', '#d9487d'],
+    lashes: [['none', 'בלי'], ['short', 'קצרים'], ['long', 'ארוכים'], ['wing', 'עם קו'], ['double', 'למעלה ולמטה']],
+    makeup: [['blush', 'סומק'], ['lipstick', 'שפתון'], ['shadow', 'צללית'], ['glitter', 'נצנצים'], ['freckles', 'נמשי כוכבים']],
+    tops: [['shells', 'צדפים'], ['stars', 'כוכבים'], ['hearts', 'לבבות'], ['flowers', 'פרחים'], ['bandeau', 'רצועה עם פפיון']],
+    topColors: ['#ffffff', '#ffd1e3', '#ff8fc1', '#b9a4ff', '#9fe6ff', '#fff1a8', '#ffb38a', '#c7f2d8'],
+    accs: [['none', 'בלי'], ['flower', 'פרח'], ['starfish', 'כוכב ים'], ['tiara', 'נזר'], ['bow', 'סרט'], ['pearls', 'פנינים']],
+  };
+  const mix = (a, b, t) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); const A = p(a), B = p(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+  const newMermaid = () => ({ id: 'm' + Date.now().toString(36), name: 'מרינה', age: 11, tail: 'classic', tailColor: '#3cc7b6', hairStyle: 'wavy', hairColor: '#e8573f', acc: 'flower',
+    skin: '#f6d0b1', eyeColor: '#3b6fd8', eyeSize: 1, lashes: 'long', makeup: { blush: true }, top: 'shells', topColor: '#b9a4ff' });
+
+  function mermaidSVG(m, uid) {
+    const I = O, SW = `stroke="${I}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"`;
+    const t = Math.max(0, Math.min(1, ((m.age || 11) - 4) / 14));
+    const cx = 100, H = 38 - 5 * t, hy = H + 32, sy = hy + H + 4, th = 30 + 12 * t, wy = sy + th, fy = wy + 72 + 26 * t;
+    const sw = 23 + 5 * t, ww = 13 + 3 * t;
+    const id = uid || m.id;
+    const rainbow = m.tailColor === 'rainbow';
+    const tc = rainbow ? `url(#rb-${id})` : m.tailColor, base = rainbow ? '#a77bf3' : m.tailColor;
+    const finC = rainbow ? `url(#rb-${id})` : mix(base, '#ffffff', 0.35), dark = mix(base, '#1f1030', 0.25);
+    const hc = m.hairColor, hcD = mix(hc, '#1f1030', 0.22), hcL = mix(hc, '#ffffff', 0.35), sk = m.skin, skD = mix(sk, '#8a3a2a', 0.12);
+    const defs = `<defs>${rainbow ? `<linearGradient id="rb-${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8fc1"/><stop offset=".25" stop-color="#ffcf6b"/><stop offset=".5" stop-color="#86e3b8"/><stop offset=".75" stop-color="#5ec8f2"/><stop offset="1" stop-color="#a77bf3"/></linearGradient>` : ''}<clipPath id="tc-${id}"><path d="${tailPath()}"/></clipPath></defs>`;
+    function tailPath() {
+      return `M${cx - ww - 1} ${wy - 3} C${cx - ww - 14} ${wy + 18} ${cx - 17} ${fy - 30} ${cx - 7} ${fy} L${cx + 9} ${fy} C${cx + 19} ${fy - 30} ${cx + ww + 16} ${wy + 18} ${cx + ww + 1} ${wy - 3} Z`;
+    }
+    // ---- hair behind the body
+    const back = {
+      long: `<path d="M${cx - H - 3} ${hy - 4} C${cx - H - 14} ${hy + 44} ${cx - H - 12} ${wy - 12} ${cx - H + 4} ${wy + 6} Q${cx} ${wy + 16} ${cx + H - 4} ${wy + 6} C${cx + H + 12} ${wy - 12} ${cx + H + 14} ${hy + 44} ${cx + H + 3} ${hy - 4} Z" fill="${hc}" ${SW}/>`,
+      wavy: `<path d="M${cx - H - 3} ${hy - 4} C${cx - H - 16} ${hy + 20} ${cx - H - 2} ${hy + 34} ${cx - H - 12} ${hy + 50} C${cx - H - 20} ${hy + 66} ${cx - H - 2} ${wy - 6} ${cx - H - 6} ${wy + 8} Q${cx} ${wy + 18} ${cx + H + 6} ${wy + 8} C${cx + H + 2} ${wy - 6} ${cx + H + 20} ${hy + 66} ${cx + H + 12} ${hy + 50} C${cx + H + 2} ${hy + 34} ${cx + H + 16} ${hy + 20} ${cx + H + 3} ${hy - 4} Z" fill="${hc}" ${SW}/>`,
+      curly: [[-1, -0.2], [-1.15, 0.35], [-1.05, 0.9], [-0.8, 1.35], [1, -0.2], [1.15, 0.35], [1.05, 0.9], [0.8, 1.35], [-0.45, -0.95], [0.45, -0.95], [0, -1.1]]
+        .map(([x, y]) => `<circle cx="${cx + x * H}" cy="${hy + y * H}" r="${H * 0.42}" fill="${hc}" ${SW}/>`).join(''),
+      braid: `<path d="M${cx - H - 2} ${hy} C${cx - H - 6} ${hy + H * 0.9} ${cx - H * 0.4} ${hy + H + 6} ${cx} ${hy + H + 4} C${cx + H * 0.4} ${hy + H + 6} ${cx + H + 6} ${hy + H * 0.9} ${cx + H + 2} ${hy} Z" fill="${hc}" ${SW}/>`,
+      pony: `<path d="M${cx + H * 0.55} ${hy - H * 0.85} C${cx + H * 1.9} ${hy - H * 1.2} ${cx + H * 2} ${hy + H * 0.4} ${cx + H * 1.35} ${hy + H * 1.5} C${cx + H * 1.2} ${hy + H * 1.9} ${cx + H * 1.55} ${sy + th * 0.6} ${cx + H * 1.2} ${wy - 4} C${cx + H * 0.9} ${sy + 10} ${cx + H * 1.05} ${hy + H * 0.2} ${cx + H * 0.4} ${hy - H * 0.55} Z" fill="${hc}" ${SW}/>`,
+      pigtails: [-1, 1].map(s => `<path d="M${cx + s * H * 0.85} ${hy - H * 0.3} C${cx + s * H * 1.9} ${hy - H * 0.2} ${cx + s * H * 1.7} ${hy + H * 1.1} ${cx + s * H * 1.45} ${sy + th * 0.55} C${cx + s * H * 1.3} ${sy + th * 0.2} ${cx + s * H * 1.05} ${hy + H * 0.7} ${cx + s * H * 0.8} ${hy + H * 0.1} Z" fill="${hc}" ${SW}/>`).join(''),
+      bun: `<circle cx="${cx}" cy="${hy - H - 6}" r="${H * 0.48}" fill="${hc}" ${SW}/><path d="M${cx - H * 0.3} ${hy - H - 6} q${H * 0.3} -${H * 0.25} ${H * 0.6} 0" fill="none" stroke="${hcD}" stroke-width="2.4" stroke-linecap="round"/>`,
+      bob: `<path d="M${cx - H - 5} ${hy - 4} C${cx - H - 9} ${hy + H * 0.8} ${cx - H * 0.8} ${hy + H + 6} ${cx - H * 0.35} ${hy + H * 0.92} L${cx + H * 0.35} ${hy + H * 0.92} C${cx + H * 0.8} ${hy + H + 6} ${cx + H + 9} ${hy + H * 0.8} ${cx + H + 5} ${hy - 4} Z" fill="${hc}" ${SW}/>`,
+    }[m.hairStyle] || '';
+    // ---- tail with scales and fin
+    const scales = [];
+    for (let y = wy + 6; y < fy + 4; y += 9) for (let x = cx - 40 + ((y - wy) / 9 % 2) * 6; x < cx + 42; x += 12)
+      scales.push(`<path d="M${x - 6} ${y} q6 7 12 0" fill="none" stroke="${dark}" stroke-width="1.6" opacity=".45"/>`);
+    const L = cx + 1;
+    const fin = {
+      classic: `M${cx - 7} ${fy - 2} C${cx - 22} ${fy + 10} ${cx - 42} ${fy + 20} ${cx - 48} ${fy + 38} C${cx - 30} ${fy + 33} ${cx - 12} ${fy + 36} ${L} ${fy + 26} C${cx + 14} ${fy + 36} ${cx + 32} ${fy + 33} ${cx + 50} ${fy + 38} C${cx + 44} ${fy + 20} ${cx + 24} ${fy + 10} ${cx + 9} ${fy - 2} Z`,
+      butterfly: `M${cx - 7} ${fy - 2} C${cx - 30} ${fy - 6} ${cx - 62} ${fy + 6} ${cx - 58} ${fy + 30} C${cx - 54} ${fy + 46} ${cx - 22} ${fy + 44} ${L} ${fy + 24} C${cx + 24} ${fy + 44} ${cx + 56} ${fy + 46} ${cx + 60} ${fy + 30} C${cx + 64} ${fy + 6} ${cx + 32} ${fy - 6} ${cx + 9} ${fy - 2} Z`,
+      heart: `M${L} ${fy + 2} C${cx - 12} ${fy - 6} ${cx - 46} ${fy + 4} ${cx - 42} ${fy + 28} C${cx - 38} ${fy + 44} ${cx - 12} ${fy + 44} ${L} ${fy + 32} C${cx + 14} ${fy + 44} ${cx + 40} ${fy + 44} ${cx + 44} ${fy + 28} C${cx + 48} ${fy + 4} ${cx + 14} ${fy - 6} ${L} ${fy + 2} Z`,
+      pointy: `M${cx - 7} ${fy - 2} L${cx - 48} ${fy + 30} L${cx - 22} ${fy + 26} L${L} ${fy + 46} L${cx + 24} ${fy + 26} L${cx + 50} ${fy + 30} L${cx + 9} ${fy - 2} Z`,
+      frilly: `M${cx - 7} ${fy - 2} C${cx - 24} ${fy + 8} ${cx - 46} ${fy + 18} ${cx - 52} ${fy + 34}` + Array.from({ length: 9 }, (_, i) => ` q6 ${i % 2 ? -7 : 7} 11.7 ${i < 4 ? 1 : i === 4 ? 0 : -1}`).join('') + ` C${cx + 46} ${fy + 18} ${cx + 24} ${fy + 8} ${cx + 9} ${fy - 2} Z`,
+    }[m.tail] || '';
+    const finLines = [-30, -15, 15, 30].map(dx => `<path d="M${L} ${fy + 4} Q${L + dx * 0.5} ${fy + 16} ${L + dx} ${fy + 30}" fill="none" stroke="${dark}" stroke-width="1.8" opacity=".5" stroke-linecap="round"/>`).join('');
+    const tail = `<path d="${fin}" fill="${finC}" ${SW}/>${finLines}<path d="${tailPath()}" fill="${tc}" ${SW}/><g clip-path="url(#tc-${id})">${scales.join('')}</g>` +
+      `<path d="M${cx - ww - 4} ${wy + 5} q${ww * 0.55} 8 ${ww + 4} 2 q${ww * 0.55} 8 ${ww + 4} -2" fill="none" stroke="${dark}" stroke-width="2.4" stroke-linecap="round"/>`;
+    // ---- body and arms
+    const arm = (x1, y1, x2, y2, x3, y3) => `<path d="M${x1} ${y1} Q${x2} ${y2} ${x3} ${y3}" fill="none" stroke="${I}" stroke-width="13" stroke-linecap="round"/><path d="M${x1} ${y1} Q${x2} ${y2} ${x3} ${y3}" fill="none" stroke="${sk}" stroke-width="7.6" stroke-linecap="round"/>`;
+    const body = arm(cx - sw + 4, sy + 8, cx - sw - 8, sy + th * 0.6, cx - sw - 2, wy + 12) +
+      arm(cx + sw - 4, sy + 8, cx + sw + 22, sy - 2, cx + sw + 16, sy - 26) +
+      `<path d="M${cx - sw} ${sy + 6} Q${cx - sw - 1} ${sy + th * 0.55} ${cx - ww} ${wy + 2} L${cx + ww} ${wy + 2} Q${cx + sw + 1} ${sy + th * 0.55} ${cx + sw} ${sy + 6} Q${cx} ${sy - 6} ${cx - sw} ${sy + 6} Z" fill="${sk}" ${SW}/>` +
+      `<path d="M${cx - 7} ${sy - 4} V${sy + 4} M${cx + 7} ${sy - 4} V${sy + 4}" stroke="${I}" stroke-width="3"/><rect x="${cx - 6.5}" y="${sy - 8}" width="13" height="13" fill="${sk}"/>` +
+      `<circle cx="${cx + sw + 16}" cy="${sy - 28}" r="6.5" fill="${sk}" ${SW}/>`;
+    // ---- bikini top
+    const cy = sy + 13, tcl = m.topColor, tcD = mix(tcl, '#1f1030', 0.3);
+    const cups = [-1, 1].map(s => cx + s * 10);
+    const top = {
+      shells: cups.map(x => `<path d="M${x - 9} ${cy + 5} Q${x - 10} ${cy - 9} ${x} ${cy - 10} Q${x + 10} ${cy - 9} ${x + 9} ${cy + 5} Z" fill="${tcl}" ${SW}/><path d="M${x} ${cy + 5} L${x - 5} ${cy - 7} M${x} ${cy + 5} V${cy - 9} M${x} ${cy + 5} L${x + 5} ${cy - 7}" stroke="${tcD}" stroke-width="1.6" stroke-linecap="round"/>`).join('') + `<path d="M${cx - 1} ${cy} H${cx + 1}" ${SW}/>`,
+      stars: cups.map(x => `<polygon points="${starPts(x, cy - 1, 10.5, 5)}" fill="${tcl}" ${SW}/>`).join(''),
+      hearts: cups.map(x => `<path d="M${x} ${cy + 7} C${x - 12} ${cy} ${x - 10} ${cy - 12} ${x} ${cy - 6} C${x + 10} ${cy - 12} ${x + 12} ${cy} ${x} ${cy + 7} Z" fill="${tcl}" ${SW}/>`).join(''),
+      flowers: cups.map(x => [0, 72, 144, 216, 288].map(a => `<circle cx="${(x + 5.5 * Math.cos((a - 90) * Math.PI / 180)).toFixed(1)}" cy="${(cy - 1 + 5.5 * Math.sin((a - 90) * Math.PI / 180)).toFixed(1)}" r="5" fill="${tcl}" ${SW}/>`).join('') + `<circle cx="${x}" cy="${cy - 1}" r="3.6" fill="#ffd84d" stroke="${I}" stroke-width="2"/>`).join(''),
+      bandeau: `<path d="M${cx - sw + 1} ${cy - 7} Q${cx} ${cy - 11} ${cx + sw - 1} ${cy - 7} L${cx + sw - 2} ${cy + 5} Q${cx} ${cy + 2} ${cx - sw + 2} ${cy + 5} Z" fill="${tcl}" ${SW}/><path d="M${cx} ${cy - 2} l-8 -5 v10 Z M${cx} ${cy - 2} l8 -5 v10 Z" fill="${tcD}" ${SW}/><circle cx="${cx}" cy="${cy - 2}" r="2.8" fill="${tcD}" ${SW}/>`,
+    }[m.top] || '';
+    // ---- head and face
+    const es = Math.max(0.8, Math.min(1.3, m.eyeSize || 1));
+    const ex = H * 0.4, eyY = hy + H * 0.14, erx = H * 0.15 * es, ery = H * 0.2 * es;
+    const mk = m.makeup || {};
+    let face = `<circle cx="${cx}" cy="${hy}" r="${H}" fill="${sk}" ${SW}/>`;
+    face += `<path d="M${cx - H * 0.98} ${hy + 4} q-5 1 -3 7 q3 4 6 0 M${cx + H * 0.98} ${hy + 4} q5 1 3 7 q-3 4 -6 0" fill="${sk}" ${SW}/>`;
+    if (mk.shadow) face += [-1, 1].map(s => `<ellipse cx="${cx + s * ex}" cy="${eyY - ery * 0.55}" rx="${erx * 1.45}" ry="${ery * 0.75}" fill="#c9a7ff" opacity=".7"/>`).join('');
+    if (mk.blush) face += [-1, 1].map(s => `<ellipse cx="${cx + s * H * 0.55}" cy="${hy + H * 0.45}" rx="${H * 0.16}" ry="${H * 0.1}" fill="#ff8fab" opacity=".55"/>`).join('');
+    face += [-1, 1].map(s => {
+      const x = cx + s * ex;
+      let e = `<ellipse cx="${x}" cy="${eyY}" rx="${erx}" ry="${ery}" fill="${I}"/><ellipse cx="${x}" cy="${eyY + ery * 0.2}" rx="${erx * 0.72}" ry="${ery * 0.66}" fill="${m.eyeColor}"/><ellipse cx="${x}" cy="${eyY + ery * 0.25}" rx="${erx * 0.38}" ry="${ery * 0.36}" fill="${I}"/>` +
+        `<circle cx="${x + s * -0.2 * erx + erx * 0.3}" cy="${eyY - ery * 0.38}" r="${erx * 0.34}" fill="#fff"/><circle cx="${x - erx * 0.32}" cy="${eyY + ery * 0.42}" r="${erx * 0.15}" fill="#fff"/>`;
+      const ox = x + s * erx * 0.9, oy = eyY - ery * 0.55;
+      if (m.lashes === 'short' || m.lashes === 'double') e += `<path d="M${ox} ${oy} l${s * 4} -3 M${ox - s * 2.5} ${oy - 3} l${s * 3} -4" stroke="${I}" stroke-width="2" stroke-linecap="round"/>`;
+      if (m.lashes === 'long' || m.lashes === 'wing') e += `<path d="M${ox} ${oy} q${s * 5} -1 ${s * 7} -5 M${ox - s * 2.6} ${oy - 3.5} q${s * 3} -2 ${s * 4} -7 M${ox - s * 6} ${oy - 5.5} q${s * 1} -3 ${s * 1} -7" fill="none" stroke="${I}" stroke-width="2.1" stroke-linecap="round"/>`;
+      if (m.lashes === 'wing') e += `<path d="M${x - s * erx} ${eyY - ery * 0.2} Q${x} ${eyY - ery * 1.25} ${ox + s * 3} ${oy - 2}" fill="none" stroke="${I}" stroke-width="2.6" stroke-linecap="round"/>`;
+      if (m.lashes === 'double') e += `<path d="M${x + s * erx * 0.6} ${eyY + ery * 0.95} l${s * 2.5} 3 M${x + s * erx * 0.05} ${eyY + ery * 1.02} l${s * 1} 3.2" stroke="${I}" stroke-width="1.7" stroke-linecap="round"/>`;
+      e += `<path d="M${x - erx} ${eyY - ery - 5 - H * 0.04} q${erx} -4 ${erx * 2} 0" fill="none" stroke="${hcD}" stroke-width="2.4" stroke-linecap="round"/>`;
+      return e;
+    }).join('');
+    face += `<path d="M${cx - 1.5} ${hy + H * 0.36} q1.5 1.6 3 0" fill="none" stroke="${skD}" stroke-width="2" stroke-linecap="round"/>`;
+    const my = hy + H * 0.55;
+    face += mk.lipstick ? `<path d="M${cx - H * 0.16} ${my - 1} Q${cx} ${my + H * 0.2} ${cx + H * 0.16} ${my - 1} Q${cx} ${my + 2} ${cx - H * 0.16} ${my - 1} Z" fill="#ff5a8a" stroke="${I}" stroke-width="2" stroke-linejoin="round"/>`
+      : `<path d="M${cx - H * 0.14} ${my} Q${cx} ${my + H * 0.16} ${cx + H * 0.14} ${my}" fill="#fff" stroke="${I}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>`;
+    if (mk.freckles) face += [-1, 1].map(s => [[0.5, 0.3], [0.62, 0.36], [0.54, 0.44]].map(([a, b]) => `<polygon points="${starPts(cx + s * H * a, hy + H * b, 2.4, 1.1)}" fill="#e08a5a"/>`).join('')).join('');
+    if (mk.glitter) face += [[-0.72, -0.05], [0.76, -0.1], [-0.66, 0.2], [0.7, 0.24]].map(([a, b], i) => `<path d="M${cx + a * H} ${hy + b * H - 3.5} l1 2.5 l2.5 1 l-2.5 1 l-1 2.5 l-1 -2.5 l-2.5 -1 l2.5 -1 Z" fill="${i % 2 ? '#ffd84d' : '#9fe6ff'}"/>`).join('');
+    // ---- hair in front (bangs)
+    let front = `<path d="M${cx - H - 3} ${hy + 2} C${cx - H - 3} ${hy - H - 10} ${cx + H + 3} ${hy - H - 10} ${cx + H + 3} ${hy + 2} C${cx + H * 0.72} ${hy - H * 0.42} ${cx + H * 0.3} ${hy - H * 0.3} ${cx + H * 0.06} ${hy - H * 0.58} C${cx - H * 0.2} ${hy - H * 0.28} ${cx - H * 0.62} ${hy - H * 0.4} ${cx - H - 3} ${hy + 2} Z" fill="${hc}" ${SW}/>` +
+      `<path d="M${cx - H * 0.45} ${hy - H * 0.78} q${H * 0.25} -${H * 0.12} ${H * 0.5} -${H * 0.08}" fill="none" stroke="${hcL}" stroke-width="3" stroke-linecap="round" opacity=".8"/>`;
+    if (m.hairStyle === 'long' || m.hairStyle === 'wavy') front += [-1, 1].map(s => `<path d="M${cx + s * (H + 2)} ${hy - 2} C${cx + s * (H + 6)} ${hy + H * 0.6} ${cx + s * (H - 2)} ${sy + 4} ${cx + s * (sw - 6)} ${sy + th * 0.55} C${cx + s * (H - 12)} ${sy} ${cx + s * (H - 5)} ${hy + H * 0.5} ${cx + s * (H - 3)} ${hy + 4} Z" fill="${hc}" ${SW}/>`).join('');
+    if (m.hairStyle === 'braid') front += Array.from({ length: 6 }, (_, i) => `<ellipse cx="${cx + H * 0.72 + i * 2.2}" cy="${hy + H * 0.55 + i * 12}" rx="7.5" ry="7" fill="${hc}" ${SW}/>`).join('') +
+      `<circle cx="${cx + H * 0.72 + 13}" cy="${hy + H * 0.55 + 70}" r="3.6" fill="#ff8fc1" ${SW}/><path d="M${cx + H * 0.72 + 13} ${hy + H * 0.55 + 74} q-6 8 -2 14 q4 -4 4 -10 q4 6 6 10 q2 -8 -4 -14" fill="${hc}" ${SW}/>`;
+    if (m.hairStyle === 'pigtails') front += [-1, 1].map(s => `<circle cx="${cx + s * H * 0.95}" cy="${hy - H * 0.25}" r="4" fill="#ff8fc1" ${SW}/>`).join('');
+    if (m.hairStyle === 'pony') front += `<circle cx="${cx + H * 0.55}" cy="${hy - H * 0.82}" r="4" fill="#ff8fc1" ${SW}/>`;
+    // ---- hair accessory
+    const ax = cx - H * 0.62, ay = hy - H * 0.72;
+    const acc = {
+      flower: `${[0, 72, 144, 216, 288].map(a => `<circle cx="${(ax + 6 * Math.cos((a - 90) * Math.PI / 180)).toFixed(1)}" cy="${(ay + 6 * Math.sin((a - 90) * Math.PI / 180)).toFixed(1)}" r="5.2" fill="#ff9ad5" ${SW}/>`).join('')}<circle cx="${ax}" cy="${ay}" r="4" fill="#ffd84d" stroke="${I}" stroke-width="2"/>`,
+      starfish: `<polygon points="${starPts(ax, ay, 11, 5)}" fill="#ff8a6b" ${SW}/><circle cx="${ax}" cy="${ay}" r="1.4" fill="#fff"/>`,
+      tiara: `<path d="M${cx - 18} ${hy - H * 0.86} L${cx - 12} ${hy - H - 8} L${cx - 5} ${hy - H * 0.95} L${cx} ${hy - H - 14} L${cx + 5} ${hy - H * 0.95} L${cx + 12} ${hy - H - 8} L${cx + 18} ${hy - H * 0.86} Z" fill="#ffd84d" ${SW}/><circle cx="${cx}" cy="${hy - H - 6}" r="3" fill="#9fe6ff" stroke="${I}" stroke-width="1.8"/>`,
+      bow: `<path d="M${ax} ${ay} l-11 -7 v14 Z M${ax} ${ay} l11 -7 v14 Z" fill="#ff5a8a" ${SW}/><circle cx="${ax}" cy="${ay}" r="3.4" fill="#ff5a8a" ${SW}/>`,
+      pearls: Array.from({ length: 7 }, (_, i) => { const a = Math.PI * (1.12 + i * 0.13); return `<circle cx="${(cx + (H + 1) * Math.cos(a)).toFixed(1)}" cy="${(hy + (H + 1) * Math.sin(a)).toFixed(1)}" r="3.4" fill="#fffaf0" stroke="${I}" stroke-width="1.6"/>`; }).join(''),
+    }[m.acc] || '';
+    return `<svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">${defs}${back}${tail}${body}${top}${face}${front}${acc}</svg>`;
+  }
+
+  // ================= mermaid studio =================
+  let mermaids = store.get('mermaids', []);
+  let guardMer = store.get('guardMer', null);
+  let merSel = null, merTab = 'tail', merDel = false, merUid = 0;
+  const merArt = m => mermaidSVG(m, 'u' + (merUid++));
+  const saveMer = () => { store.set('mermaids', mermaids); store.set('guardMer', guardMer); };
+  const SEA = ['whale', 'fish', 'turtle'];
+  const theGuardMer = () => (pet && SEA.includes(pet.kind) && mermaids.length) ? (mermaids.find(m => m.id === guardMer) || mermaids[0]) : null;
+  const guardArt = () => { const m = theGuardMer(); return m ? merArt(m) : guardianArt(pet ? pet.kind : 'cat'); };
+  const guardName = () => { const m = theGuardMer(); return m ? `${m.name || 'בת הים'} בת הים` : (GUARDIANS[pet ? pet.kind : 'cat'] || GUARDIANS.cat)[0]; };
+  const guardLine = () => { const m = theGuardMer(); return m ? `אני ${m.name || 'בת הים'}, בת ${m.age}! אני שומרת על ${pet.name || 'החיה שלך'} בים 🌊` : (GUARDIANS[pet.kind] || GUARDIANS.cat)[2]; };
+  function randomMermaid() {
+    const r = a => a[Math.floor(Math.random() * a.length)];
+    const mk = {}; MER.makeup.forEach(([k]) => { if (Math.random() < 0.35) mk[k] = true; });
+    return { tail: r(MER.tails)[0], tailColor: r(MER.tailColors), hairStyle: r(MER.hairStyles)[0], hairColor: r(MER.hairColors), acc: r(MER.accs)[0],
+      skin: r(MER.skins), eyeColor: r(MER.eyeColors), eyeSize: Math.round((0.9 + Math.random() * 0.3) * 20) / 20, lashes: r(MER.lashes)[0], makeup: mk, top: r(MER.tops)[0], topColor: r(MER.topColors) };
+  }
+  function openMermaids() {
+    if (!mermaids.length) { const m = newMermaid(); mermaids.push(m); merSel = m.id; saveMer(); }
+    if (!merSel || !mermaids.find(m => m.id === merSel)) merSel = mermaids[0].id;
+    drawMermaids();
+    if (!$('#merDlg').open) $('#merDlg').showModal();
+  }
+  function drawMermaids() {
+    const m = mermaids.find(x => x.id === merSel);
+    const upd = patch => { Object.assign(m, patch); saveMer(); drawMermaids(); renderPet(); };
+    const swatches = (list, cur, key) => el('div', { class: 'swatches' }, ...list.map(c => {
+      const b = el('button', { type: 'button', class: 'sw3', 'aria-pressed': String(cur === c), 'aria-label': 'צבע', onclick: () => upd({ [key]: c }) });
+      b.style.background = c === 'rainbow' ? 'linear-gradient(#ff8fc1, #ffcf6b, #86e3b8, #5ec8f2, #a77bf3)' : c; return b;
+    }));
+    const chips = (list, cur, key) => el('div', { class: 'chips' }, ...list.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cur === id), onclick: () => upd({ [key]: id }) }, name)));
+    drawMerList();
+    function drawMerList() { $('#merList').replaceChildren(...mermaids.map(x => el('button', { type: 'button', class: 'mer-card', 'aria-pressed': String(x.id === merSel), onclick: () => { merSel = x.id; merDel = false; drawMermaids(); } },
+      el('span', { class: 'ic', html: merArt(x) }), el('span', {}, x.name || 'בלי שם'), el('span', { class: 'muted' }, `בת ${x.age}`))),
+      el('button', { type: 'button', class: 'mer-card add', onclick: () => { const n = Object.assign(newMermaid(), randomMermaid(), { name: '', age: 10 }); mermaids.push(n); merSel = n.id; saveMer(); SFX.pop(); drawMermaids(); } }, el('span', { class: 'plus' }, '+'), 'בת ים חדשה')); }
+    $('#merPreview').innerHTML = merArt(m);
+    const TABS3 = [['tail', '🧜‍♀️ זנב'], ['hair', '💇‍♀️ שיער'], ['face', '👀 פנים'], ['makeup', '💄 איפור'], ['top', '👙 בגד'], ['info', '✏️ שם וגיל']];
+    $('#merTabs').replaceChildren(...TABS3.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(merTab === id), onclick: () => { merTab = id; drawMermaids(); } }, name)));
+    const row = (label, node) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, label), node);
+    let body;
+    if (merTab === 'tail') body = [row('סוג הסנפיר', chips(MER.tails, m.tail, 'tail')), row('צבע הזנב', swatches(MER.tailColors, m.tailColor, 'tailColor'))];
+    else if (merTab === 'hair') body = [row('צורת השיער', chips(MER.hairStyles, m.hairStyle, 'hairStyle')), row('צבע השיער', swatches(MER.hairColors, m.hairColor, 'hairColor')), row('קישוט לשיער', chips(MER.accs, m.acc, 'acc'))];
+    else if (merTab === 'face') {
+      const es = el('input', { type: 'range', id: 'merEyes', min: 0.8, max: 1.3, step: 0.05, value: m.eyeSize || 1, oninput: e => { m.eyeSize = Number(e.target.value); saveMer(); $('#merPreview').innerHTML = merArt(m); } });
+      es.addEventListener('change', () => drawMermaids());
+      body = [row('צבע העור', swatches(MER.skins, m.skin, 'skin')), row('צבע העיניים', swatches(MER.eyeColors, m.eyeColor, 'eyeColor')),
+        el('div', { class: 'row' }, el('label', { for: 'merEyes' }, 'גודל העיניים'), es), row('ריסים', chips(MER.lashes, m.lashes, 'lashes'))];
+    } else if (merTab === 'makeup') body = [row('איפור (אפשר לבחור כמה)', el('div', { class: 'chips' }, ...MER.makeup.map(([id, name]) => {
+      const on = !!(m.makeup || {})[id];
+      return el('button', { type: 'button', class: 'chip', 'aria-pressed': String(on), onclick: () => { m.makeup = Object.assign({}, m.makeup, { [id]: !on }); saveMer(); drawMermaids(); renderPet(); } }, (on ? '✔️ ' : '') + name);
+    })))];
+    else if (merTab === 'top') body = [row('חלק עליון של ביקיני', chips(MER.tops, m.top, 'top')), row('הצבע שלו', swatches(MER.topColors, m.topColor, 'topColor'))];
+    else {
+      const nm = el('input', { type: 'text', id: 'merName', maxLength: 20, value: m.name || '', placeholder: 'למשל: פנינה', oninput: e => { m.name = e.target.value; saveMer(); drawMerList(); renderPet(); } });
+      const age = el('input', { type: 'number', id: 'merAge', min: 1, max: 999, value: m.age, oninput: e => { const v = Math.round(Number(e.target.value)); if (v >= 1 && v <= 999) { m.age = v; saveMer(); $('#merPreview').innerHTML = merArt(m); drawMerList(); } } });
+      body = [el('div', { class: 'row' }, el('label', { for: 'merName' }, 'איך קוראים לה?'), nm),
+        el('div', { class: 'row' }, el('label', { for: 'merAge' }, 'בת כמה היא?'), age, el('span', { class: 'muted' }, 'בנות ים צעירות קטנות יותר, ובנות ים גדולות גבוהות יותר.')),
+        pet && SEA.includes(pet.kind) ? el('div', { class: 'row' }, el('span', { class: 'lbl' }, `🐳 מי שומרת על ${pet.name || 'החיה שלך'}?`),
+          el('button', { type: 'button', class: 'btn' + (theGuardMer() && theGuardMer().id === m.id ? ' main' : ''), onclick: () => { guardMer = m.id; saveMer(); drawMermaids(); renderPet(); SFX.yay(); } },
+            theGuardMer() && theGuardMer().id === m.id ? `✔️ ${m.name || 'היא'} שומרת על ${pet.name || 'החיה'}` : `שתשמור ${m.name || 'היא'} על ${pet.name || 'החיה'}`)) :
+          el('p', { class: 'muted' }, 'בנות הים שומרות על חיות ים: לוויתן, דג או צב.')];
+    }
+    $('#merBody').replaceChildren(...body,
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { upd(randomMermaid()); SFX.pop(); } }, '🎲 עיצוב הפתעה'),
+        merDel ? el('span', { class: 'chips' }, el('span', {}, `למחוק את ${m.name || 'בת הים'}?`),
+          el('button', { type: 'button', class: 'btn', onclick: () => { mermaids = mermaids.filter(x => x !== m); if (guardMer === m.id) guardMer = null; merSel = null; merDel = false; saveMer(); mermaids.length ? drawMermaids() : openMermaids(); renderPet(); } }, 'כן, למחוק'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { merDel = false; drawMermaids(); } }, 'לא')) :
+          el('button', { type: 'button', class: 'btn', onclick: () => { merDel = true; drawMermaids(); } }, '🗑️ למחוק')));
+  }
+
+  // ================= diary window =================
+  let diaryDate = localToday();
+  function openDiary(k) { diaryDate = k || localToday(); drawDiary(); if (!$('#diaryDlg').open) $('#diaryDlg').showModal(); }
+  function drawDiary() {
+    const { y, m, d } = fromIso(diaryDate);
+    $('#diaryWhen').textContent = `${diaryDate === localToday() ? 'היום, ' : ''}יום ${DAYS[dowOf(diaryDate)]}, ${d} ב${MONTHS[m]} ${y}`;
+    renderDayDiary(diaryDate, $('#diaryBox'));
+    drawDiaryList();
+  }
+  function drawDiaryList() {
+    const list = $('#diaryList');
+    if (pin && !unlocked) { list.replaceChildren(el('p', { class: 'muted' }, '🔒 נעול')); return; }
+    const keys = Object.keys(diary).filter(k => diary[k] && (diary[k].text || diary[k].mood)).sort().reverse().slice(0, 40);
+    list.replaceChildren(...(keys.length ? keys.map(k => {
+      const e = diary[k], mo = moodOf(e.mood), f = fromIso(k);
+      return el('button', { type: 'button', onclick: () => openDiary(k) }, el('span', { class: 'd' }, `${mo ? mo[1] + ' ' : ''}${f.d} ב${MONTHS[f.m]}`), el('span', { class: 'tx' }, e.text || ''));
+    }) : [el('p', { class: 'muted' }, 'עוד לא כתבת. כותבים למעלה, והכל נשמר לבד ✍️')]));
+  }
+  $('#diaryPrev').addEventListener('click', () => { diaryDate = addDays(diaryDate, -1); drawDiary(); });
+  $('#diaryNext').addEventListener('click', () => { diaryDate = addDays(diaryDate, 1); drawDiary(); });
+  $('#diaryToday').addEventListener('click', () => { diaryDate = localToday(); drawDiary(); });
+
   // ================= wiring =================
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
   document.querySelectorAll('dialog:not(#lock)').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
@@ -3581,6 +3875,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   $('#sumBtn').addEventListener('click', openSummary);
   $('#openDesign').addEventListener('click', () => { buildDesignPanel(); $('#designDlg').showModal(); });
   $('#openMore').addEventListener('click', openMore);
+  $('#openDiary').addEventListener('click', () => openDiary());
   $('#openMorning').addEventListener('click', () => { buildMorning(); $('#mornDlg').showModal(); });
   $('#openHabits').addEventListener('click', () => { buildHabits(); $('#habDlg').showModal(); });
   $('#darkBtn').addEventListener('click', () => { design.darkMode = !design.darkMode; rerender(); });
