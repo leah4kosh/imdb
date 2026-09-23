@@ -4126,7 +4126,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   renderPet();
   checkMedals();
   // every new version opens on the code screen, the way she designed it
-  if (pin && (pin.scope === 'all' || upgraded)) showLock(upgraded ? showWelcome : null, false, upgraded);
+  // whenever there is a lock, the board opens on it: key, code, question
+  if (pin) showLock(upgraded ? showWelcome : null, false, upgraded);
   else if (!pin && !store.get('lockAsked', false)) {
     // no lock yet: go straight to the page where she makes the key, code and question
     store.set('lockAsked', true);
