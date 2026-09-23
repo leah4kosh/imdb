@@ -3378,7 +3378,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
         pin = { code: c1.value, scope, q: q.value.trim(), a: a.value.trim(), keys: st.keys, keyId: st.keyId };
         const saved = store.set('pin', pin); unlocked = true; afterChange(); SFX.yay();
         if (!saved) { pin = null; return bad('⚠️ לא הצלחתי לשמור. צריך לפתוח את הלוח בכרום.'); }
-        openPinDlg(); toast(stickerHTML(design.lockStk), '🔐 המנעול מוכן! מפתח, קוד ושאלה');
+        // straight to the real lock screen, so she opens it with her own key, code and question
+        unlocked = false; $('#pinDlg').close(); showLock(() => toast(stickerHTML(design.lockStk), '🔓 נכנסת! המנעול שלך עובד'), false);
       } },
         el('h4', {}, '1. 🗝️ המפתחות שלך'), el('p', { class: 'muted' }, 'עצבי כמה מפתחות, ובחרי אחד שהוא פותח. את השאר אפשר לעצב כמו שבא לך, כדי לבלבל.'), keysBox,
         el('h4', {}, '2. 🔢 הקוד'), el('label', { for: 'pin1' }, 'קוד של 4 מספרים'), c1, c2,
