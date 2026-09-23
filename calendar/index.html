@@ -438,6 +438,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 .lock-box.dots-star .pin-dots i { clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
 .lock-box.dots-heart .pin-dots i.on, .lock-box.dots-star .pin-dots i.on { opacity: 1; }
 .pin-err { min-height: 1.4em; }
+.lock-news { margin: 0; font-size: 1.15em; }
+.news-list { margin: 0; padding-inline-start: 1.2em; text-align: start; display: grid; gap: 6px; font-size: 1.05em; }
 .pin-err.shake { animation: shake .4s; }
 @keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
 .keypad { display: grid; grid-template-columns: repeat(3, 68px); gap: 12px; direction: ltr; }
@@ -3141,7 +3143,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       ...(extra || []));
     return box;
   }
-  function showLock(onOk, canCancel) {
+  function showLock(onOk, canCancel, upgradedNote) {
     const lock = $('#lock');
     let code = '';
     const draw = (err) => {
@@ -3149,7 +3151,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
         el('button', { type: 'button', class: 'lock-link', onclick: forgot }, 'שכחתי את הקוד'),
         canCancel ? el('button', { type: 'button', class: 'lock-link', onclick: () => lock.close() }, 'ביטול') : null,
       ];
-      lock.replaceChildren(lockBox(code.length, key, extra));
+      const box = lockBox(code.length, key, extra);
+      if (upgradedNote) box.insertBefore(el('p', { class: 'lock-news' }, '✨ הלוח שודרג! מקלידים את הקוד כדי לראות מה חדש'), box.querySelector('.pin-dots'));
+      lock.replaceChildren(box);
       if (err) { const e = lock.querySelector('.pin-err'); e.textContent = err; e.classList.add('shake'); }
     };
     const key = k => {
@@ -3220,6 +3224,26 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     if (!prev) return;
     prev.replaceChildren(lockBox(2, null, [el('span', { class: 'lock-link' }, 'שכחתי את הקוד')]));
     $('#lockPrevBg').className = 'lp-bg' + (LOCK_BGS[design.lockBg]?.pattern ? ' pattern-stars' : '');
+  }
+
+  // ================= new version: welcome screen in the lock-screen design =================
+  const APP_VERSION = '2026.09.23-mermaids';
+  const WHATS_NEW = ['📔 כפתור יומן למעלה, עם כל מה שכתבת', '🧜‍♀️ סטודיו לבנות ים: סנפיר, שיער, עיניים, ריסים, איפור ובגד', '🥹 אפשר לבחור גודל לחיה: קטנה יותר = חמודה יותר', '🔒 כל שדרוג נפתח במסך הקוד שעיצבת'];
+  const lastVersion = store.get('appVersion', null);
+  const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
+  store.set('appVersion', APP_VERSION);
+  function showWelcome() {
+    const lock = $('#lock');
+    const box = el('div', { class: `lock-box keys-${design.lockKeys} dots-${design.lockDots}` },
+      el('span', { class: 'ic', html: stickerHTML(design.lockStk) }),
+      el('h2', {}, design.lockTitle || 'היומן הסודי שלי'),
+      el('p', { class: 'lock-news' }, '✨ הלוח שודרג! מה חדש:'),
+      el('ul', { class: 'news-list' }, ...WHATS_NEW.map(t => el('li', {}, t))),
+      el('div', { class: 'keypad', style: 'grid-template-columns:1fr' }, el('button', { type: 'button', style: 'border-radius:999px;height:56px;font-family:var(--font);font-size:1.4em;width:220px', onclick: () => { lock.close(); SFX.yay(); } }, 'להיכנס ✨')));
+    lock.className = LOCK_BGS[design.lockBg]?.pattern ? 'pattern-stars' : '';
+    lock.oncancel = e => e.preventDefault();
+    lock.replaceChildren(box);
+    if (!lock.open) lock.showModal();
   }
 
   // ================= backup =================
@@ -3890,7 +3914,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   renderFact();
   renderPet();
   checkMedals();
-  if (pin && pin.scope === 'all') showLock(null, false);
+  // every new version opens on the code screen, the way she designed it
+  if (pin && (pin.scope === 'all' || upgraded)) showLock(upgraded ? showWelcome : null, false, upgraded);
+  else if (upgraded) showWelcome();
   loadWeather();
 })();
 </script>
