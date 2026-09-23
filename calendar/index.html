@@ -455,6 +455,133 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 .lock-preview .lp-bg { position: absolute; inset: 0; background: var(--lock-bg); }
 .lock-preview .lp-bg.pattern-stars { background-image: var(--lock-pattern); background-size: 90px 90px; }
 
+/* ---------- pet house / adopt ---------- */
+.steps { display: flex; gap: 6px; justify-content: center; }
+.steps i { width: 34px; height: 8px; border-radius: 99px; background: var(--line); }
+.steps i.on { background: var(--accent); }
+.big-pet { width: 170px; height: 196px; margin: 0 auto; display: block; }
+.big-pet svg, .scene .pet-art svg, .scene .guard svg, .scene .item svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.scene { position: relative; height: 260px; border-radius: 18px; overflow: hidden; border: 2px solid var(--line); }
+.scene.bg-room { background: linear-gradient(#ffe9f1 0 70%, #e8c9a7 70%); }
+.scene.bg-ocean { background: linear-gradient(#bfe9ff, #5bb4e8 75%, #f2d8a0 75%); }
+.scene.bg-safari { background: linear-gradient(#ffe3a3 0 62%, #b9d86a 62%); }
+.scene.bg-forest { background: linear-gradient(#d5f2ff 0 58%, #7fc97a 58%); }
+.scene.bg-space { background: radial-gradient(circle at 80% 20%, #3d4378 0 12%, transparent 13%), linear-gradient(#141833, #2c2f5a 70%, #8a8fbf 70%); }
+.scene.bg-clouds { background: linear-gradient(#a8dcff 0 72%, #ffffff 72%); }
+.scene .deco { position: absolute; inset: 0; pointer-events: none; }
+.scene .pet-art { position: absolute; left: 50%; bottom: 14px; width: 150px; height: 173px; transform: translateX(-50%); cursor: pointer; border: none; background: none; padding: 0; }
+.scene .pet-art.jump { animation: jump .6s ease; }
+.scene .guard { position: absolute; right: 10%; bottom: 12px; width: 96px; height: 96px; }
+.scene .item { position: absolute; bottom: 10px; width: 54px; height: 54px; }
+.scene .say { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #fff; color: #1f2a44; border: 2px solid #3a2b3c; border-radius: 14px; padding: 4px 12px; white-space: nowrap; font-size: .95em; }
+.scene .fly { position: absolute; width: 44px; height: 44px; left: 12%; bottom: 40%; animation: eat .8s ease-in forwards; }
+.scene .fly svg { width: 100%; height: 100%; }
+.scene .ballfx { position: absolute; width: 40px; height: 40px; left: 20%; bottom: 20px; animation: bounceball 1.4s ease-in-out forwards; }
+.scene .ballfx svg { width: 100%; height: 100%; }
+@keyframes jump { 30% { transform: translateX(-50%) translateY(-40px); } 60% { transform: translateX(-50%) translateY(0); } 75% { transform: translateX(-50%) translateY(-12px); } }
+@keyframes eat { to { left: 46%; bottom: 30%; transform: scale(.2); opacity: 0; } }
+@keyframes bounceball { 25% { left: 35%; bottom: 120px; } 50% { left: 50%; bottom: 20px; } 75% { left: 65%; bottom: 100px; } 100% { left: 80%; bottom: 20px; opacity: 0; } }
+.foods { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.foods button { width: 58px; height: 58px; border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 6px; }
+.foods button svg { width: 100%; height: 100%; }
+.unlock-row { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 12px; background: var(--paper); }
+.unlock-row .ic { width: 38px; height: 38px; flex: none; }
+.unlock-row .ic svg { width: 100%; height: 100%; }
+.unlock-row.locked .ic { filter: grayscale(1) brightness(1.4); opacity: .45; }
+.unlock-row .st { margin-inline-start: auto; }
+.wear-pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.wear-pick button { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 6px; display: grid; justify-items: center; gap: 2px; font-size: .85em; }
+.wear-pick button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.wear-pick button:disabled { opacity: .45; }
+.wear-pick .ic { width: 52px; height: 52px; }
+.wear-pick .ic svg { width: 100%; height: 100%; overflow: visible; }
+#pet .guard-mini { position: absolute; left: calc(100% - 8px); bottom: 26px; width: 46px; height: 46px; }
+#pet .guard-mini svg { width: 100%; height: 100%; }
+.confetti-c { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 5; }
+
+/* ---------- games ---------- */
+.mem-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 420px; margin: 0 auto; width: 100%; }
+.mem-grid button { aspect-ratio: 1; border-radius: 14px; border: 2px solid var(--line); background: var(--accent); padding: 8px; transition: transform .25s; }
+.mem-grid button.open, .mem-grid button.done { background: var(--card); }
+.mem-grid button.done { border-color: #6fcf7f; }
+.mem-grid button svg { width: 100%; height: 100%; }
+.mem-grid .back { width: 100%; height: 100%; display: grid; place-items: center; color: var(--accent-ink); font-size: 1.8em; }
+.game-info { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; font-size: 1.1em; }
+.catch-wrap canvas { width: 100%; aspect-ratio: 3 / 2; border-radius: 16px; border: 2px solid var(--line); background: linear-gradient(#1b1f3b, #3d4378); touch-action: none; display: block; }
+
+/* ---------- sticker album ---------- */
+.album { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; }
+.album .slot { display: grid; justify-items: center; gap: 2px; padding: 6px; border-radius: 14px; background: var(--paper); font-size: .78em; text-align: center; }
+.album .slot .ic { width: 50px; height: 50px; }
+.album .slot .ic svg { width: 100%; height: 100%; overflow: visible; }
+.album .slot.rare { background: linear-gradient(135deg, #fff3c4, #ffd9f0); color: #3a2b3c; }
+.album .slot.locked .ic { filter: brightness(0) opacity(.25); }
+
+/* ---------- surprise ---------- */
+.gift-big { width: 150px; height: 150px; border: none; background: none; padding: 0; animation: wiggle 1.2s ease-in-out infinite; }
+.gift-big svg { width: 100%; height: 100%; }
+.gift-big.opened { animation: none; transform: scale(1.1); }
+@keyframes wiggle { 20% { transform: rotate(-8deg); } 40% { transform: rotate(8deg); } 60% { transform: rotate(-5deg); } 80% { transform: rotate(3deg); } }
+.prize { font-size: 1.3em; max-width: 420px; }
+.prize .ic { width: 110px; height: 110px; margin: 0 auto; display: block; }
+.prize .ic svg { width: 100%; height: 100%; }
+
+/* ---------- letters ---------- */
+.envs { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.env { display: grid; justify-items: center; gap: 4px; padding: 10px; border-radius: 16px; background: var(--paper); border: 2px solid var(--line); text-align: center; font-size: .9em; }
+.env .ic { width: 64px; height: 50px; }
+.env .ic svg { width: 100%; height: 100%; }
+.env.ready { border-color: var(--accent); animation: wiggle 2s ease-in-out infinite; }
+.letter-open { background: #fffdf5; color: #3a2b3c; border-radius: 14px; padding: 14px 16px; border: 2px dashed #e8c9a7; white-space: pre-wrap; line-height: 1.6; }
+
+/* ---------- summary ---------- */
+.tiles-num { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+.tiles-num div { background: var(--paper); border-radius: 14px; padding: 8px 10px; text-align: center; }
+.tiles-num b { display: block; font-family: 'Rubik', system-ui, sans-serif; font-weight: 600; font-size: 1.6em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.mood-bars { display: grid; gap: 6px; }
+.mood-bar { display: grid; grid-template-columns: 7.5em 1fr 2em; gap: 8px; align-items: center; }
+.mood-bar .track { height: 16px; }
+.mood-bar .fill { height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 4px; }
+.mood-bar .n { font-family: 'Rubik', system-ui, sans-serif; font-variant-numeric: tabular-nums; color: var(--soft); }
+.gallery { display: flex; flex-wrap: wrap; gap: 8px; }
+.gallery button { border: none; padding: 0; background: none; border-radius: 10px; overflow: hidden; width: 92px; height: 70px; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; background: #fff; }
+
+/* ---------- countdowns / books ---------- */
+.cd-row { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 10px; align-items: center; padding: 8px 10px; border-radius: 12px; background: var(--paper); }
+.cd-row .ic { width: 36px; height: 36px; grid-row: span 2; }
+.cd-row .ic svg { width: 100%; height: 100%; }
+.cd-row .bar, .pill .mbar { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.cd-row .bar i, .pill .mbar i { display: block; height: 100%; background: var(--accent); }
+.pill .mbar { width: 50px; }
+.book-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 12px; background: var(--paper); }
+.book-row .t { font-size: 1.1em; }
+.book-row .a { color: var(--soft); font-size: .9em; }
+.book-row .acts { margin-inline-start: auto; display: flex; gap: 4px; flex-wrap: wrap; }
+.stars button { border: none; background: none; font-size: 1.3em; padding: 0 1px; filter: grayscale(1); opacity: .5; }
+.stars button.on { filter: none; opacity: 1; }
+
+/* ---------- drawing pad (generic) ---------- */
+.pad canvas { width: 100%; border: 2px solid var(--line); border-radius: 12px; touch-action: none; cursor: crosshair; display: block; }
+.pad.clear canvas { background: conic-gradient(#eee 25%, #fff 0 50%, #eee 0 75%, #fff 0) 0 0 / 20px 20px; max-width: 360px; margin: 0 auto; aspect-ratio: 1; }
+.pad.white canvas { background: #fff; }
+
+/* ---------- cover ---------- */
+#cover:empty { display: none; }
+.cover-img { position: relative; border-radius: 18px; overflow: hidden; border: 2px solid var(--line); height: 170px; }
+.cover-img img { width: 100%; height: 100%; object-fit: cover; display: block; background: #fff; }
+.cover-img .btn { position: absolute; bottom: 8px; left: 8px; }
+.cover-add { width: 100%; border: 2px dashed var(--line); background: transparent; border-radius: 14px; padding: 6px; color: var(--soft); }
+
+/* ---------- live weather on today ---------- */
+.day.rain::before, .day.snow::before, .day.sunny::before { content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit; }
+.day.rain::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='24'%3E%3Cpath d='M5 2 L3 9 M16 12 L14 19' stroke='%235aa7e8' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); animation: wxfall .7s linear infinite; }
+.day.snow::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='6' cy='5' r='2.2' fill='white' stroke='%23a9cdee'/%3E%3Ccircle cx='18' cy='16' r='1.8' fill='white' stroke='%23a9cdee'/%3E%3C/svg%3E"); animation: wxfall 3s linear infinite; }
+.day.sunny::before { background: radial-gradient(circle at 15% 15%, rgb(255 216 77 / .45), transparent 45%); animation: sunpulse 3s ease-in-out infinite; }
+@keyframes wxfall { from { background-position: 0 0; } to { background-position: -6px 24px; } }
+@keyframes sunpulse { 50% { opacity: .5; } }
+@media (prefers-reduced-motion: reduce) { .day.rain::before, .day.snow::before, .day.sunny::before, .gift-big, .env.ready, #pet .art { animation: none; } }
+
 @media (max-width: 620px) {
   .week { grid-template-columns: 1fr; }
   .week .day { min-height: 0; }
@@ -499,6 +626,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       <button class="btn" id="openHabits" type="button">⭐ הרגלים</button>
       <button class="btn" id="openMore" type="button">🧰 עוד</button>
       <button class="btn" id="darkBtn" type="button" aria-label="מצב לילה">🌙</button>
+      <button class="btn" id="soundBtn" type="button" aria-label="צלילים">🔊</button>
       <button class="btn main" id="openDesign" type="button">🎨 לעצב</button>
     </div>
   </header>
@@ -512,8 +640,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     <h2 id="monthTitle"></h2>
     <button class="nav" id="next" type="button" aria-label="לחודש הבא">←</button>
   </div>
-  <div class="viewbar"><span class="seg" id="viewSeg"></span><button class="btn" id="goToday" type="button">היום</button></div>
+  <div class="viewbar"><span class="seg" id="viewSeg"></span><button class="btn" id="goToday" type="button">היום</button><button class="btn" id="sumBtn" type="button">📊 סיכום החודש</button></div>
 
+  <div id="cover"></div>
   <div class="cal" id="cal" role="grid"></div>
   <div class="week" id="weekView" hidden></div>
   <div class="year" id="yearView" hidden></div>
@@ -694,6 +823,159 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   </div>
 </dialog>
 
+<!-- Adopt a pet (first time) -->
+<dialog id="adoptDlg" aria-labelledby="adoptTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="adoptTitle">🥚 חיית המחמד שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="steps" id="adoptSteps"></div>
+    <div id="adoptBody" class="row"></div>
+  </div>
+</dialog>
+
+<!-- Pet house -->
+<dialog id="houseDlg" aria-labelledby="houseTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="houseTitle"></h3><div class="sub" id="houseSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="scene" id="houseScene"></div>
+    <div class="chips" id="houseActions"></div>
+    <div id="houseFood"></div>
+    <div class="tabs" role="tablist" id="houseTabs"></div>
+    <div id="houseTab" class="row"></div>
+  </div>
+</dialog>
+
+<!-- Games -->
+<dialog id="gamesDlg" aria-labelledby="gamesTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="gamesTitle">🎮 משחקים</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="gamesTabs"></div>
+    <div id="gamesBody" class="row"></div>
+  </div>
+</dialog>
+
+<!-- My own sticker -->
+<dialog id="mkStkDlg" aria-labelledby="mkStkTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="mkStkTitle">🖌️ מדבקה משלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted">מציירים מדבקה, והיא מצטרפת לכל המדבקות, כדי שאפשר יהיה לשים אותה על ימים.</p>
+    <div id="mkStkPad"></div>
+    <div class="row"><span class="lbl">המדבקות שציירתי</span><div class="pickers" id="mkStkList"></div></div>
+  </div>
+</dialog>
+
+<!-- Month cover -->
+<dialog id="coverDlg" aria-labelledby="coverTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="coverTitle">🖼️ כריכה לחודש</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="coverBody"></div>
+  </div>
+</dialog>
+
+<!-- Sticker album -->
+<dialog id="albumDlg" aria-labelledby="albumTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="albumTitle">📒 אלבום המדבקות</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <p class="muted" id="albumCount"></p>
+    <div class="row" id="albumBody"></div>
+  </div>
+</dialog>
+
+<!-- Surprise box -->
+<dialog id="surpDlg" aria-labelledby="surpTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="surpTitle">🎁 תיבת ההפתעה</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="surpBody" class="row" style="justify-items:center;text-align:center"></div>
+  </div>
+</dialog>
+
+<!-- Letters to the future -->
+<dialog id="letterDlg" aria-labelledby="letterTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="letterTitle">💌 מכתבים לעתיד</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="letterBody"></div>
+  </div>
+</dialog>
+
+<!-- Month summary -->
+<dialog id="sumDlg" aria-labelledby="sumTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="sumTitle"></h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="sumBody"></div>
+  </div>
+</dialog>
+
+<!-- Countdowns -->
+<dialog id="cdDlg" aria-labelledby="cdTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="cdTitle">⏳ ספירות לאחור</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="cdList"></div>
+    <form class="row" id="cdForm">
+      <span class="lbl">ספירה חדשה</span>
+      <div class="ev-form">
+        <input type="text" id="cdName" placeholder="למה מחכים? למשל: טיול שנתי" maxlength="40">
+        <input type="date" id="cdDate" aria-label="תאריך">
+        <button class="btn main" type="submit">+ להוסיף</button>
+      </div>
+      <span class="muted">המדבקה של הספירה:</span>
+      <div class="pickers scroll" id="cdStk"></div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Books -->
+<dialog id="bookDlg" aria-labelledby="bookTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="bookTitle">📚 הספרים שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="bookTabs"></div>
+    <div class="row" id="bookList"></div>
+    <form class="row" id="bookForm">
+      <span class="lbl">ספר חדש</span>
+      <div class="ev-form">
+        <input type="text" id="bookName" placeholder="שם הספר" maxlength="60">
+        <input type="text" id="bookAuthor" placeholder="מי כתב? (לא חובה)" maxlength="40">
+        <button class="btn main" type="submit">+ להוסיף</button>
+      </div>
+    </form>
+  </div>
+</dialog>
+
 <!-- More menu -->
 <dialog id="moreDlg" aria-labelledby="moreTitle">
   <div class="sheet">
@@ -766,26 +1048,6 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   </div>
 </dialog>
 
-<!-- Pet -->
-<dialog id="petDlg" aria-labelledby="petTitle">
-  <div class="sheet">
-    <div class="sheet-head">
-      <h3 id="petTitle">🐾 חיית המחמד שלי</h3>
-      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
-    </div>
-    <div class="row" id="petInfo"></div>
-    <div class="row">
-      <label for="petName">איך קוראים לה?</label>
-      <input type="text" id="petName" maxlength="20" placeholder="שם לחיה">
-    </div>
-    <div class="row"><span class="lbl">איזו חיה?</span><div class="pet-pick" id="petKinds"></div></div>
-    <div class="box">
-      <h4>איך החיה גדלה?</h4>
-      <div>כל דבר טוב שאת עושה בלוח נותן לה נקודות:</div>
-      <div>📔 כתיבה ביומן: 15 · ⭐ הרגל: 10 · ☀️ צ'קליסט בוקר מלא: 10 · 🖍️ ציור: 5 · 📷 תמונה: 5 · 📝 אירוע: 3 · 🎨 יום עם מדבקה: 2</div>
-    </div>
-  </div>
-</dialog>
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -960,6 +1222,24 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     dino: ['דינוזאור', svg(`<path d="M6 40 C6 30 12 25 20 25 L24 13 C25 7 33 6 35 11 L36 15 C36 18 33 19 31 18 L29 27 C35 28 40 32 44 36 C38 36 33 38 29 40 V44 H25 V40 H15 V44 H11 V40 Z" fill="#6fcf7f" ${S}/><path d="M22 20 l-4 -2 l2 4 M24 16 l-4 -3 l2 5 M20 26 l-4 -2 l2 4" fill="#ffd84d" ${S2}/><circle cx="31" cy="12" r="1.6" fill="${O}"/><path d="M32 15.5 q2 1 3 0" fill="none" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/>`)],
     menorah: ['חנוכייה', svg(`${[6, 10.5, 15, 19.5, 24, 28.5, 33, 37.5, 42].map(x => { const top = x === 24 ? 9 : 14; return `<rect x="${x - 1.5}" y="${top}" width="3" height="${22 - top}" rx="1" fill="#8fd3ff" ${S} stroke-width="1.4"/><path d="M${x} ${top - 6} C${x + 2.2} ${top - 3.5} ${x + 2.2} ${top - 1} ${x} ${top - 1} C${x - 2.2} ${top - 1} ${x - 2.2} ${top - 3.5} ${x} ${top - 6} Z" fill="#ffb020" ${S} stroke-width="1.3"/>`; }).join('')}<path d="M6 22 H42 C42 30 34 33 24 33 C14 33 6 30 6 22 Z" fill="#ffcf3a" ${S}/><rect x="21.5" y="33" width="5" height="7" fill="#ffcf3a" ${S}/><rect x="14" y="40" width="20" height="4.5" rx="2" fill="#ffcf3a" ${S}/>`)],
     tree: ['עץ חג המולד', svg(`<polygon points="24,5 38,22 31,22 41,34 7,34 17,22 10,22" fill="#4fbf73" ${S}/><rect x="20.5" y="34" width="7" height="8" fill="#9b6b43" ${S}/><polygon points="${starPts(24, 6, 5, 2.2)}" fill="#ffd84d" ${S} stroke-width="1.6"/><circle cx="19" cy="20" r="2" fill="#ff5a6e"/><circle cx="28" cy="27" r="2" fill="#7ec8ff"/><circle cx="17" cy="30" r="2" fill="#ffd84d"/><circle cx="31" cy="18" r="1.8" fill="#ff9ad5"/>`)],
+    lion: ['אריה', svg(`${ring(24, 25, 15, 12, 6.5, '#e8892b')}<circle cx="14" cy="14" r="4" fill="#ffcf7a" ${S2}/><circle cx="34" cy="14" r="4" fill="#ffcf7a" ${S2}/><circle cx="24" cy="25" r="13" fill="#ffcf7a" ${S}/>${face(24, 23, .85)}<path d="M22.3 25 H25.7 L24 26.8 Z" fill="#9b6b43"/>`)],
+    dreidel: ['סביבון', svg(`<rect x="21.5" y="3" width="5" height="10" rx="2" fill="#ffcf3a" ${S}/><path d="M11 12 H37 V28 L24 45 L11 28 Z" fill="#7ec8ff" ${S}/><path d="M11 20 H37" ${S2}/><text x="24" y="32" font-size="12" text-anchor="middle" fill="${O}" font-family="Rubik, sans-serif" font-weight="700">נ</text>`)],
+    mask: ['מסכה', svg(`<line x1="40" y1="28" x2="46" y2="45" stroke="${O}" stroke-width="5" stroke-linecap="round"/><line x1="40" y1="28" x2="46" y2="45" stroke="#ffcf3a" stroke-width="2.5" stroke-linecap="round"/><path d="M3 15 C10 11 18 13 24 17 C30 13 38 11 45 15 C46 26 39 32 31 30 C27 29 25 26 24 26 C23 26 21 29 17 30 C9 32 2 26 3 15 Z" fill="#b58cff" ${S}/><ellipse cx="15" cy="21" rx="4.5" ry="3.2" fill="#fff" ${S2}/><ellipse cx="33" cy="21" rx="4.5" ry="3.2" fill="#fff" ${S2}/><circle cx="9" cy="8" r="2" fill="#ffd84d"/><circle cx="39" cy="7" r="1.6" fill="#ff9ad5"/><circle cx="24" cy="9" r="1.4" fill="#7ec8ff"/>`)],
+    matzah: ['מצה', svg(`<rect x="6" y="8" width="36" height="32" rx="3" fill="#f2d19b" ${S}/><path d="M6 17 H42 M6 26 H42 M6 35 H42" stroke="#d9a55c" stroke-width="1.6"/><g fill="#c8894a">${[11, 19, 27, 35].map(x => [13, 22, 31].map(y => `<circle cx="${x}" cy="${y}" r="1.2"/>`).join('')).join('')}</g>`)],
+    honey: ['דבש', svg(`<path d="M31 4 L38 16" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M31 4 L38 16" stroke="#c98f3a" stroke-width="2.5" stroke-linecap="round"/><path d="M11 20 H37 V37 A6 6 0 0 1 31 43 H17 A6 6 0 0 1 11 37 Z" fill="#ffb020" ${S}/><rect x="9" y="15" width="30" height="7" rx="3.5" fill="#e8892b" ${S}/><path d="M15 22 v5 a2 2 0 0 0 4 0 v-5 M26 22 v8 a2 2 0 0 0 4 0 v-8" fill="#e8892b" ${S2}/>${face(24, 33, .6)}`)],
+    egg: ['ביצה צבעונית', svg(`<ellipse cx="24" cy="26" rx="14" ry="18" fill="#ffc2d6" ${S}/><path d="M10.5 22 L15 18 L19.5 22 L24 18 L28.5 22 L33 18 L37.5 22 V27 L33 23 L28.5 27 L24 23 L19.5 27 L15 23 L10.5 27 Z" fill="#7ec8ff" ${S2}/><circle cx="18" cy="34" r="1.8" fill="#b58cff"/><circle cx="24" cy="36" r="1.8" fill="#ffd84d"/><circle cx="30" cy="34" r="1.8" fill="#b58cff"/><circle cx="24" cy="12" r="1.6" fill="#ffd84d"/>`)],
+    pomegranate: ['רימון', svg(`<path d="M19 9 L20 4 L22.5 7 L24 3 L25.5 7 L28 4 L29 9 Z" fill="#c42a42" ${S2}/><circle cx="24" cy="27" r="16" fill="#e0344f" ${S}/>${shine(13, 24)}${face(24, 27, .75)}`)],
+    bed: ['מיטה', svg(`<rect x="4" y="12" width="7" height="30" rx="2" fill="#c98f3a" ${S}/><rect x="37" y="22" width="7" height="20" rx="2" fill="#c98f3a" ${S}/><rect x="7" y="26" width="34" height="10" rx="3" fill="#fff" ${S}/><rect x="11" y="20" width="12" height="8" rx="4" fill="#fff" ${S2}/><path d="M19 26 H41 V34 H19 Z" fill="#b58cff" ${S2}/>`)],
+    bowl: ['קערה', svg(`<path d="M6 26 H42 A18 14 0 0 1 6 26 Z" fill="#ff7a9a" ${S}/><circle cx="16" cy="24" r="3.5" fill="#e8a35b" ${S2}/><circle cx="24" cy="22" r="3.8" fill="#e8a35b" ${S2}/><circle cx="32" cy="24" r="3.5" fill="#e8a35b" ${S2}/><path d="M6 26 H42" ${S}/>${face(24, 32, .55)}`)],
+    // rare stickers (unlocked by doing things or from the surprise box)
+    goldstar: ['כוכב זהב ✨', svg(`<polygon points="${starPts(24, 25, 21, 9.5)}" fill="#ffcf3a" ${S}/><polygon points="${starPts(24, 25, 12, 5.5)}" fill="#fff3a0"/><path d="M40 4 l1.5 4 l4 1.5 l-4 1.5 l-1.5 4 l-1.5 -4 l-4 -1.5 l4 -1.5 Z M7 36 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffcf3a" ${S2}/>${face(24, 26, .7)}`)],
+    rainbowheart: ['לב קשת ✨', svg(`${['#ff7a7a', '#ffb020', '#ffd84d', '#6fcf7f', '#7ec8ff'].map((c, i) => `<path d="M24 41 C8 31 3 21 8 13.5 C13 6 21.5 8 24 14.5 C26.5 8 35 6 40 13.5 C45 21 40 31 24 41 Z" transform="translate(24 24) scale(${1 - i * 0.17}) translate(-24 -24)" fill="${c}"${i === 0 ? ` ${S}` : ''}/>`).join('')}`)],
+    shootingstar: ['כוכב נופל ✨', svg(`<path d="M4 44 L26 22" stroke="#ff9ad5" stroke-width="5" stroke-linecap="round"/><path d="M4 36 L24 18" stroke="#7ec8ff" stroke-width="4" stroke-linecap="round"/><path d="M12 44 L28 26" stroke="#b58cff" stroke-width="4" stroke-linecap="round"/><polygon points="${starPts(32, 16, 14, 6.5)}" fill="#ffd84d" ${S}/>${face(32, 17, .55)}`)],
+    castle: ['ארמון ✨', svg(`<rect x="6" y="18" width="10" height="26" fill="#ffc2d6" ${S}/><rect x="32" y="18" width="10" height="26" fill="#ffc2d6" ${S}/><rect x="14" y="24" width="20" height="20" fill="#ffd9e6" ${S}/><polygon points="5,18 11,6 17,18" fill="#b58cff" ${S}/><polygon points="31,18 37,6 43,18" fill="#b58cff" ${S}/><polygon points="16,24 24,12 32,24" fill="#b58cff" ${S}/><path d="M11 6 V1 L15 3 L11 5 M37 6 V1 L41 3 L37 5" fill="#ff7a9a" ${S2}/><path d="M20 44 V36 A4 4 0 0 1 28 36 V44" fill="#9b6b43" ${S2}/><circle cx="11" cy="26" r="2" fill="#fff" ${S2}/><circle cx="37" cy="26" r="2" fill="#fff" ${S2}/>`)],
+    unicorn: ['חד קרן ✨', svg(`<path d="M24 3 L27.5 16 H20.5 Z" fill="#ffd84d" ${S}/><path d="M22 8 L26 7 M21.5 12 L26.5 11" stroke="${O}" stroke-width="1.4"/><path d="M14 16 L11 6 L19 12 M34 16 L37 6 L29 12" fill="#fff" ${S}/><ellipse cx="24" cy="27" rx="14" ry="15" fill="#fff" ${S}/><circle cx="10" cy="20" r="5" fill="#ff9ad5" ${S2}/><circle cx="8" cy="29" r="5" fill="#b58cff" ${S2}/><circle cx="10" cy="37" r="4.5" fill="#7ec8ff" ${S2}/><ellipse cx="24" cy="36" rx="7" ry="4.5" fill="#ffd9e6"/><circle cx="21.5" cy="36" r="1" fill="${O}"/><circle cx="26.5" cy="36" r="1" fill="${O}"/><path d="M17 25 q2 2 4 0 M27 25 q2 2 4 0" fill="none" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="30" r="2" fill="#ff8fab" opacity=".6"/><circle cx="32" cy="30" r="2" fill="#ff8fab" opacity=".6"/>`)],
+    treasure: ['תיבת אוצר ✨', svg(`<path d="M8 22 A16 10 0 0 1 40 22 Z" fill="#b07642" ${S}/><circle cx="16" cy="20" r="3" fill="#ffd84d" ${S2}/><circle cx="24" cy="18" r="3" fill="#9fe6ff" ${S2}/><circle cx="31" cy="20" r="3" fill="#ffd84d" ${S2}/><rect x="6" y="22" width="36" height="20" rx="3" fill="#c98f3a" ${S}/><path d="M6 29 H42" stroke="#ffcf3a" stroke-width="4"/><rect x="20.5" y="25" width="7" height="9" rx="1.5" fill="#ffcf3a" ${S2}/><circle cx="24" cy="29" r="1.2" fill="${O}"/>`)],
+    bubbletea: ['בועות תה ✨', svg(`<path d="M28 2 L24 20" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M28 2 L24 20" stroke="#ff7a9a" stroke-width="2.5" stroke-linecap="round"/><path d="M11 18 A13 7 0 0 1 37 18 Z" fill="#ffffff" ${S}/><path d="M11 18 H37 L33 44 H15 Z" fill="#f2cfa5" ${S}/><g fill="#3a2b3c"><circle cx="18" cy="39" r="2.2"/><circle cx="23" cy="41" r="2.2"/><circle cx="28" cy="39" r="2.2"/><circle cx="31" cy="36" r="2"/><circle cx="21" cy="36" r="2"/></g>${face(24, 27, .6)}`)],
+    rainbowcloud: ['ענן קשת ✨', svg(`<path d="M6 44 A18 18 0 0 1 42 44" fill="none" stroke="#ff7a7a" stroke-width="4"/><path d="M11 44 A13 13 0 0 1 37 44" fill="none" stroke="#ffd84d" stroke-width="4"/><path d="M16 44 A8 8 0 0 1 32 44" fill="none" stroke="#7ec8ff" stroke-width="4"/><path d="M11 30 H37 A7.5 7.5 0 0 0 38 15 A10.5 10.5 0 0 0 18 12.5 A9 9 0 0 0 11 30 Z" fill="#fff" ${S}/>${face(25, 21, .7)}<path d="M40 4 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffd84d"/>`)],
   };
   const stickerHTML = id => STICKERS[id] ? STICKERS[id][1] : '';
   const svgUrl = id => `url("data:image/svg+xml,${encodeURIComponent(stickerHTML(id))}")`;
@@ -1223,14 +1503,14 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   const TODAY_MARKS = [{ id: 'frame', name: 'מסגרת' }, { id: 'circle', name: 'עיגול' }, { id: 'heart', name: 'לב' }, { id: 'star', name: 'כוכב' }, { id: 'glow', name: 'זוהר' }];
   const NUM_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'big', name: 'גדול' }, { id: 'outline', name: 'חלול' }, { id: 'circle', name: 'בעיגול' }, { id: 'bubble', name: 'בבועה' }];
   const CAL_FRAMES = [{ id: 'plain', name: 'רגילה' }, { id: 'spiral', name: 'ספירלה' }, { id: 'tape', name: 'סלוטייפ' }, { id: 'pins', name: 'נעצים' }, { id: 'stitch', name: 'תפר' }, { id: 'float', name: 'מרחף' }, { id: 'polaroid', name: 'פולארויד' }];
-  const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'חגים' }, { id: 'showEv', name: 'אירועים' }, { id: 'showMoon', name: 'ירח' }, { id: 'showWx', name: 'מזג אוויר' }, { id: 'showMood', name: 'צבע של מצב רוח' }, { id: 'showShab', name: 'כניסת שבת' }, { id: 'showPar', name: 'פרשת השבוע' }];
+  const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'חגים' }, { id: 'showEv', name: 'אירועים' }, { id: 'showMoon', name: 'ירח' }, { id: 'showWx', name: 'מזג אוויר' }, { id: 'showMood', name: 'צבע של מצב רוח' }, { id: 'showShab', name: 'כניסת שבת' }, { id: 'showPar', name: 'פרשת השבוע' }, { id: 'liveWx', name: 'גשם ושלג חיים על היום' }];
 
   const DEFAULT_DESIGN = {
     title: 'הלוח שלי', theme: 'sky', custom: null, font: 'ktav', titleFont: 'ktav', titleStyle: 'plain', titleSticker: 'star',
     size: 1, bg: 'dots', shape: 'soft', border: 'solid', bw: 1.5, gap: 6, todayMark: 'frame', numStyle: 'plain',
     calFrame: 'plain', alpha: 100, showHeb: true, showHol: true, showEv: true, showMoon: true, showWx: true,
     decor: true, decorMove: true, confetti: true, stickerSize: 1, darkMode: false,
-    showMood: true, showShab: true, showPar: true,
+    showMood: true, showShab: true, showPar: true, sound: true, holidayDecor: true, liveWx: true,
     lockTitle: 'היומן הסודי שלי', lockBg: 'candy', lockKeys: 'round', lockDots: 'heart', lockStk: 'crown',
   };
   let design = Object.assign({}, DEFAULT_DESIGN, store.get('design', {}));
@@ -1312,6 +1592,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     const lb = LOCK_BGS[design.lockBg] || LOCK_BGS.candy;
     r.setProperty('--lock-bg', lb.bg); r.setProperty('--lock-ink', lb.ink); r.setProperty('--lock-key', lb.key); r.setProperty('--lock-key-ink', lb.keyInk);
     r.setProperty('--lock-pattern', bgSvg('stars'));
+    const sb = $('#soundBtn'); if (sb) { sb.textContent = design.sound ? '🔊' : '🔇'; sb.setAttribute('aria-label', design.sound ? 'לכבות צלילים' : 'להדליק צלילים'); }
     const db = $('#darkBtn'); if (db) { db.textContent = design.darkMode ? '☀️' : '🌙'; db.setAttribute('aria-label', design.darkMode ? 'מצב יום' : 'מצב לילה'); }
     renderLockPreview();
     $('#title').textContent = design.title || 'הלוח שלי';
@@ -1334,11 +1615,12 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   function renderDecor() {
     const box = $('#decor');
     if (!design.decor) { box.replaceChildren(); decorSeason = ''; return; }
-    const season = seasonOf(viewM) + (design.decorMove ? 'm' : 's');
+    const hol = holidayDecor();
+    const season = (hol ? hol.join() : seasonOf(viewM)) + (design.decorMove ? 'm' : 's');
     box.className = design.decorMove ? 'move' : 'still';
     if (season === decorSeason && box.children.length) return;
     decorSeason = season;
-    const list = SEASON_DECOR[seasonOf(viewM)];
+    const list = hol || SEASON_DECOR[seasonOf(viewM)];
     box.replaceChildren(...Array.from({ length: 16 }, (_, i) => {
       const s = el('span', { html: stickerHTML(list[i % list.length]) });
       const size = 24 + (i * 7) % 22;
@@ -1361,7 +1643,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     }, (design[s.id] ? '✔️ ' : '') + s.name)));
   }
   function stickerPicker(container, isOn, onPick, noneLabel, noneOn) {
-    const btns = Object.entries(STICKERS).map(([id, [name, art]]) => el('button', {
+    const btns = Object.entries(STICKERS).filter(([id]) => !['bed', 'bowl'].includes(id) && !isRareLocked(id)).map(([id, [name, art]]) => el('button', {
       type: 'button', class: 'pick', title: name, 'aria-label': name, 'aria-pressed': String(isOn(id)), html: art, onclick: () => onPick(id),
     }));
     if (noneLabel) btns.unshift(el('button', { type: 'button', class: 'pick none', 'aria-pressed': String(noneOn), onclick: () => onPick(null) }, noneLabel));
@@ -1399,7 +1681,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     chipGroup($('#todayMarks'), TODAY_MARKS, 'todayMark');
     chipGroup($('#calFrames'), CAL_FRAMES, 'calFrame');
     toggleChips($('#shows'), SHOWS);
-    toggleChips($('#decorOpts'), [{ id: 'decor', name: 'להראות קישוטים' }, { id: 'decorMove', name: 'שיזוזו ויעופו' }]);
+    toggleChips($('#decorOpts'), [{ id: 'decor', name: 'להראות קישוטים' }, { id: 'decorMove', name: 'שיזוזו ויעופו' }, { id: 'holidayDecor', name: 'קישוטים של חגים' }, { id: 'sound', name: '🔊 צלילים' }]);
     toggleChips($('#confettiOpts'), [{ id: 'confetti', name: 'כן, קונפטי!' }]);
     $('#dLockTitle').value = design.lockTitle;
     chipGroup($('#lockBgs'), Object.entries(LOCK_BGS).map(([id, v]) => ({ id, name: v.name })), 'lockBg');
@@ -1541,6 +1823,14 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: stickerHTML('sparkles') }), `${what} בעוד ${i} ${i === 1 ? 'יום' : 'ימים'}`));
       break;
     }
+    if (surprise.last !== t) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: openSurprise }, el('span', { class: 'ic', html: stickerHTML('gift') }), 'תיבת הפתעה מחכה לך!'));
+    if (letters.some(l => l.open <= t && !l.read)) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openLetters() }, el('span', { class: 'ic', html: envSVG(false) }), 'יש לך מכתב מהעבר! 💌'));
+    countdowns.filter(c => c.date >= t).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 2).forEach(c => {
+      const n = daysBetween(t, c.date), total = Math.max(1, daysBetween(c.created, c.date));
+      const bar = el('span', { class: 'mbar' }, el('i')); bar.firstChild.style.width = `${Math.min(100, (total - n) / total * 100)}%`;
+      pills.push(el('button', { type: 'button', class: 'pill', onclick: () => { buildCountdowns(); $('#cdDlg').showModal(); } }, el('span', { class: 'ic', html: stickerHTML(c.stk) }),
+        n === 0 ? `${c.name} היום! 🎉` : `${c.name} בעוד ${n} ${n === 1 ? 'יום' : 'ימים'}`, bar));
+    });
     // tests in the next two weeks
     for (let i = 0; i <= 14 && pills.length < 6; i++) {
       const k = addDays(t, i);
@@ -1654,9 +1944,11 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     const par = info.dow === 6 ? parashaFor(key) : null;
     const photo = media.photo[key] ? getMedia('photo', key) : null;
     const today = localToday();
+    const live = key === today && w && design.liveWx ? ([71, 73, 75, 77, 85, 86].includes(w.code) ? ' snow' : [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99].includes(w.code) ? ' rain' : [0, 1].includes(w.code) ? ' sunny' : '') : '';
+    const letterHere = letters.some(l => l.open === key);
     const cell = el('button', {
       type: 'button',
-      class: 'day' + (info.noSchool ? ' off' : '') + (key === today ? ` today m-${design.todayMark}` : '') + (mood && design.showMood ? ' mood' : '') + (hasTest ? ' test' : ''),
+      class: 'day' + live + (info.noSchool ? ' off' : '') + (key === today ? ` today m-${design.todayMark}` : '') + (mood && design.showMood ? ' mood' : '') + (hasTest ? ' test' : ''),
       'aria-label': `${DAYS[info.dow]}, ${d} ב${MONTHS[m]}` + (info.hols.length ? ', ' + info.hols.map(holName).join(', ') : '') +
         (bds.length ? ', יום הולדת' : '') + (hasTest ? ', מבחן' : '') + (evs.length ? `, ${evs.length} אירועים` : '') + (info.noSchool ? ', אין לימודים' : ''),
       onclick: () => openDay(key),
@@ -1667,6 +1959,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
           photo ? el('img', { class: 'thumb', src: photo, alt: '' }) : null,
           media.draw[key] ? el('span', { title: 'יש ציור' }, '🖍️') : null,
           dia && dia.text ? el('span', { title: 'כתבת ביומן' }, '📔') : null,
+          letterHere ? el('span', { title: 'מכתב לעתיד נפתח היום' }, '💌') : null,
           mo.key ? el('span', { class: 'moon', title: mo.name, html: moonSVG(mo.p) }) : null)),
       big ? el('span', { class: 'wk-dow' }, 'יום ' + DAYS[info.dow]) : null,
       el('span', { class: 'heb' }, hebShort(hebParts(y, m, d))),
@@ -1765,6 +2058,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     $('#yearView').hidden = viewMode !== 'year';
     if (viewMode === 'week') renderWeek(); else if (viewMode === 'year') renderYear(); else renderMonth();
     renderViewbar();
+    renderCover();
     renderDecor();
   }
 
@@ -1798,6 +2092,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     const dlg = $('#dayDlg');
     if (!dlg.open) dlg.showModal();
     if (design.confetti && (bds.length || info.hols.length)) confetti();
+    if (bds.length) SFX.birthday(); else if (info.hols.length) SFX.yay();
   }
 
   function renderDayBday(bds) {
@@ -1907,7 +2202,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       let list = stickers[key] || [];
       if (!id) list = [];
       else if (list.includes(id)) list = list.filter(x => x !== id);
-      else list = [...list, id].slice(-4);
+      else { list = [...list, id].slice(-4); SFX.pop(); }
       if (list.length) stickers[key] = list; else delete stickers[key];
       store.set('stickers', stickers); renderStickerPick(key); renderCalendar(); afterChange();
     }, 'לנקות', !cur.length);
@@ -1915,9 +2210,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 
   // ---------- confetti ----------
   let confettiRun = 0;
-  function confetti() {
+  function confetti(target) {
     if (reduceMotion()) return;
-    const c = $('#confetti'), ctx = c.getContext('2d');
+    const c = target || $('#confetti'), ctx = c.getContext('2d');
     const W = c.width = innerWidth, H = c.height = innerHeight;
     const cols = ['#ff6b6b', '#ffd84d', '#4fc3a1', '#7ec8ff', '#b58cff', '#ff9ad5'];
     const parts = Array.from({ length: 140 }, (_, i) => ({
@@ -2280,6 +2575,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       tt: Object.values(timetable).some(v => v && v.lessons && v.lessons.trim()),
       designed: JSON.stringify(Object.assign({}, design, { title: '' })) !== JSON.stringify(Object.assign({}, DEFAULT_DESIGN, { title: '' })),
       petLevel: pet ? petLevel(xpTotal()) : 0, backup: !!store.get('didBackup', false), pin: !!pin,
+      booksRead: books.filter(b => b.status === 'done').length, memoryWins: games.memoryWins,
     };
   }
   const MEDALS = [
@@ -2302,6 +2598,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     ['pet10', 'gem', 'אלופת החיות', 'החיה הגיעה לרמה 10', s => s.petLevel >= 10],
     ['secret', 'wand', 'שומרת סוד', 'לבחור קוד סודי', s => s.pin],
     ['backup', 'gift', 'שומרת על הכל', 'לעשות גיבוי', s => s.backup],
+    ['reader5', 'book', 'תולעת ספרים', 'לקרוא 5 ספרים', s => s.booksRead >= 5],
+    ['gamer', 'ball', 'אלופת המשחקים', 'לנצח 5 פעמים במשחק הזיכרון', s => s.memoryWins >= 5],
   ];
   function checkMedals() {
     const s = stats();
@@ -2323,55 +2621,345 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       el('span', { class: 'art', html: medalSVG(m[1]) }), el('span', {}, m[2]), el('small', {}, m[3]))));
   }
 
-  // ================= pet =================
-  const PET_KINDS = [['cat', 'חתול'], ['dog', 'כלב'], ['bunny', 'ארנב'], ['bear', 'דובי'], ['panda', 'פנדה'], ['owl', 'ינשוף'], ['dino', 'דינוזאור'], ['turtle', 'צב'], ['fish', 'דג'], ['whale', 'לוויתן']];
+  // ================= sounds (made on the page, no files) =================
+  let actx = null;
+  function tone(freq, dur, type = 'sine', when = 0, vol = 0.12) {
+    if (!design.sound) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const t = actx.currentTime + when, o = actx.createOscillator(), g = actx.createGain();
+      o.type = type; o.frequency.setValueAtTime(freq, t);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + dur + 0.05);
+    } catch {}
+  }
+  const PET_VOICE = { whale: 160, lion: 140, bear: 180, dog: 330, cat: 620, bunny: 700, owl: 440, dino: 120, fish: 900, turtle: 260, panda: 300 };
+  const SFX = {
+    pop: () => { tone(520, 0.08, 'triangle'); tone(880, 0.1, 'triangle', 0.05); },
+    ding: () => tone(1320, 0.16, 'sine'),
+    yay: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.25, 'triangle', i * 0.1)),
+    munch: () => [0, 0.13, 0.26].forEach(w => tone(170, 0.07, 'square', w, 0.05)),
+    pet: kind => { const b = PET_VOICE[kind] || 400; tone(b, 0.15); tone(b * 1.5, 0.18, 'sine', 0.12); },
+    boop: () => tone(300, 0.1),
+    birthday: () => {
+      const N = { G4: 392, A4: 440, B4: 494, C5: 523, D5: 587 };
+      let t = 0;
+      [['G4', .3], ['G4', .15], ['A4', .45], ['G4', .45], ['C5', .45], ['B4', .9], ['G4', .3], ['G4', .15], ['A4', .45], ['G4', .45], ['D5', .45], ['C5', .9]]
+        .forEach(([n, d]) => { tone(N[n], d * 0.9, 'triangle', t, 0.1); t += d; });
+    },
+  };
+
+  // ================= guardians: drawn people =================
+  function person({ skin = '#f6d0b1', hair = '#6b4226', hairStyle = 'long', outfit = '#ff9ad5', hat = null, tail = null, extra = '' }) {
+    const back = hairStyle === 'long' ? `<path d="M14 16 C14 5 34 5 34 16 V31 Q24 34 14 31 Z" fill="${hair}" ${S2}/>` : hairStyle === 'bun' ? `<circle cx="24" cy="5.5" r="4.5" fill="${hair}" ${S2}/>` : '';
+    const body = tail
+      ? `<path d="M17 26 H31 C31 33 28 37 26 40 L33 46 H15 L22 40 C20 37 17 33 17 26 Z" fill="${tail}" ${S}/><path d="M19 38 q2 -2 4 0 M25 34 q2 -2 4 0 M19 31 q2 -2 4 0" fill="none" stroke="${O}" stroke-width="1.2" opacity=".5"/><path d="M18 27 Q21 23 24 27 Q27 23 30 27" fill="${outfit}" ${S2}/>`
+      : `<path d="M20 41 V46 M28 41 V46" ${S}/><path d="M16 42 L19 26 H29 L32 42 Z" fill="${outfit}" ${S}/>`;
+    const HATS = {
+      safari: `<ellipse cx="24" cy="10" rx="14" ry="3" fill="#d9b77a" ${S2}/><path d="M16 10 A8 7 0 0 1 32 10 Z" fill="#e9cf98" ${S2}/><path d="M16.5 9 H31.5" stroke="#9b6b43" stroke-width="1.6"/>`,
+      wizard: `<path d="M13 11 H35 L26 0 Z" fill="#8e6bd6" ${S2}/><polygon points="${starPts(25, 6, 2.6, 1.1)}" fill="#ffd84d"/>`,
+      ranger: `<ellipse cx="24" cy="10" rx="14.5" ry="2.8" fill="#6d8f4e" ${S2}/><path d="M17 10 L19 3 H29 L31 10 Z" fill="#7fa65a" ${S2}/>`,
+      cap: `<path d="M15 12 A9 8 0 0 1 33 12 Z" fill="#ff5a6e" ${S2}/><path d="M31 12 H40 Q39 14.5 33 14 Z" fill="#ff5a6e" ${S2}/>`,
+      straw: `<ellipse cx="24" cy="10.5" rx="15" ry="3" fill="#ffd46b" ${S2}/><path d="M17 10.5 A7 6.5 0 0 1 31 10.5 Z" fill="#ffe08a" ${S2}/><path d="M17.5 9.3 H30.5" stroke="#ff7a9a" stroke-width="2"/>`,
+      flowers: `<circle cx="17" cy="9" r="2.6" fill="#ff9ad5" ${S2}/><circle cx="24" cy="7" r="2.6" fill="#ffd84d" ${S2}/><circle cx="31" cy="9" r="2.6" fill="#7ec8ff" ${S2}/>`,
+    };
+    return svg(back + body + `<path d="M19 28 L13 35 M29 28 L35 35" ${S}/>` + `<circle cx="24" cy="16" r="9" fill="${skin}" ${S}/>` +
+      `<path d="M15 15 C15 7 33 7 33 15 C28 11 21 11 15 15 Z" fill="${hair}" ${S2}/>` + face(24, 17.5, .55) + (HATS[hat] || '') + extra);
+  }
+  const GUARDIANS = {
+    whale: ['מרינה בת הים', { hair: '#e8573f', outfit: '#b58cff', tail: '#4fc3a1' }, 'אני מרינה! אני שומרת על הלוויתן שלך בים 🌊'],
+    fish: ['פנינה בת הים', { hair: '#ffcf3a', outfit: '#ff9ad5', tail: '#7ec8ff' }, 'אני פנינה! אני שוחה ליד הדג שלך ושומרת עליו 🐚'],
+    turtle: ['שלי שומרת החוף', { hair: '#6b4226', outfit: '#ff5a6e', hat: 'cap' }, 'אני שלי! אני דואגת שהצב שלך יגיע בשלום לים 🏖️'],
+    lion: ['יונתן שומר הספארי', { skin: '#d9a57a', hair: '#3a2b3c', hairStyle: 'short', outfit: '#c9a86a', hat: 'safari' }, 'אני יונתן! אני שומר על האריה שלך בספארי 🦁'],
+    cat: ['מאיה', { hair: '#3a2b3c', outfit: '#ff9ad5', hat: 'flowers' }, 'אני מאיה! אני מלטפת את החתול שלך כל יום 🐾'],
+    dog: ['נועם מאלף הכלבים', { hair: '#b07642', hairStyle: 'short', outfit: '#7ec8ff', hat: 'cap' }, 'אני נועם! אני מלמד את הכלב שלך טריקים 🦴'],
+    bunny: ['גלי הגננת', { hair: '#e8573f', outfit: '#6fcf7f', hat: 'straw' }, 'אני גלי! אני מגדלת גזרים בשביל הארנב שלך 🥕'],
+    bear: ['רוני סיירת היער', { hair: '#6b4226', hairStyle: 'bun', outfit: '#7fa65a', hat: 'ranger' }, 'אני רוני! אני שומרת על הדובי שלך ביער 🌲'],
+    panda: ['לי שומרת הבמבוק', { hair: '#3a2b3c', hairStyle: 'bun', outfit: '#4fbf73', extra: `<path d="M38 18 V46" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M38 18 V46" stroke="#9be37a" stroke-width="2.6" stroke-linecap="round"/><path d="M38 26 l5 -4" stroke="#4fbf73" stroke-width="2.4" stroke-linecap="round"/>` }, 'אני לי! אני מביאה לפנדה שלך במבוק טרי 🎋'],
+    owl: ['הקוסמת אורה', { hair: '#b58cff', outfit: '#8e6bd6', hat: 'wizard' }, 'אני אורה! אני והינשוף שלך קוראים ספרי קסמים בלילה ✨'],
+    dino: ['דנה החוקרת', { hair: '#e8892b', outfit: '#ffb020', hat: 'safari' }, 'אני דנה! אני חוקרת דינוזאורים ושומרת על שלך 🦕'],
+  };
+  const guardianArt = kind => person((GUARDIANS[kind] || GUARDIANS.cat)[1]);
+
+  // ================= pet: look, clothes, house =================
+  const PET_KINDS = [['cat', 'חתול'], ['dog', 'כלב'], ['bunny', 'ארנב'], ['bear', 'דובי'], ['panda', 'פנדה'], ['lion', 'אריה'], ['owl', 'ינשוף'], ['dino', 'דינוזאור'], ['turtle', 'צב'], ['fish', 'דג'], ['whale', 'לוויתן']];
+  const PET_COLORS = [[0, 'הצבע הרגיל'], [60, 'צבע 1'], [120, 'צבע 2'], [180, 'צבע 3'], [240, 'צבע 4'], [300, 'צבע 5']];
+  // where the head top, the eyes and the neck are, for each animal (in the 48×48 drawing)
+  const ANCHOR = {
+    cat: { head: [24, 9], eyes: [24, 25], neck: [24, 39] }, dog: { head: [24, 12], eyes: [24, 22], neck: [24, 39] },
+    bunny: { head: [24, 17], eyes: [24, 30], neck: [24, 44] }, bear: { head: [24, 11], eyes: [24, 24], neck: [24, 42] },
+    panda: { head: [24, 12], eyes: [24, 24.5], neck: [24, 42] }, lion: { head: [24, 9], eyes: [24, 23], neck: [24, 39] },
+    owl: { head: [24, 9], eyes: [24, 20.5], neck: [24, 41] }, dino: { head: [31, 7], eyes: [31, 12], neck: [30, 25], side: true },
+    turtle: { head: [40, 25], eyes: [41.5, 29], neck: [39, 34], side: true, small: true }, fish: { head: [20, 13], eyes: [13, 22], neck: [30, 32], side: true },
+    whale: { head: [22, 14], eyes: [11, 25], neck: [30, 34], side: true },
+  };
+  const WEAR = {
+    crown: ['head', 'כתר', () => `<g transform="translate(-11 -14) scale(.46)">${stickerInner('crown')}</g>`],
+    partyhat: ['head', 'כובע מסיבה', () => `<path d="M0 -18 L-8 0 H8 Z" fill="#7ec8ff" ${S}/><path d="M-4 -9 H4 M-6 -4 H6" stroke="#ffd84d" stroke-width="2.4"/><circle cx="0" cy="-18" r="3" fill="#ff7a9a" ${S2}/>`],
+    flowercrown: ['head', 'זר פרחים', () => `${[[-9, -1, '#ff9ad5'], [-3, -4, '#ffd84d'], [3, -4, '#7ec8ff'], [9, -1, '#b58cff']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="3" fill="${c}" ${S2}/>`).join('')}`],
+    sunglasses: ['face', 'משקפי שמש', side => side ? `<circle cx="0" cy="0" r="4.2" fill="#3a2b3c"/><path d="M-4 0 H-9" stroke="#3a2b3c" stroke-width="1.8"/>` : `<rect x="-11" y="-3.5" width="9" height="7" rx="3" fill="#3a2b3c"/><rect x="2" y="-3.5" width="9" height="7" rx="3" fill="#3a2b3c"/><path d="M-2 -1 H2" stroke="#3a2b3c" stroke-width="2"/><path d="M-9 -1.5 l3 -1" stroke="#fff" stroke-width="1.2"/>`],
+    bow: ['neck', 'פפיון', () => `<g transform="translate(-8 -8) scale(.34)">${stickerInner('bow')}</g>`],
+  };
+  function petSVG(p, opts = {}) {
+    const a = ANCHOR[p.kind] || ANCHOR.cat, w = p.wear || {};
+    const put = (slot, id) => {
+      if (!id || !WEAR[id] || WEAR[id][0] !== slot) return '';
+      const [x, y] = a[slot === 'face' ? 'eyes' : slot];
+      return `<g transform="translate(${x} ${y})${a.small ? ' scale(.7)' : ''}">${WEAR[id][2](a.side)}</g>`;
+    };
+    const tint = p.color ? ` style="filter:hue-rotate(${p.color}deg)"` : '';
+    return `<svg viewBox="-4 -14 56 64" xmlns="http://www.w3.org/2000/svg"><g${tint}>${stickerInner(p.kind)}</g>${put('neck', w.neck)}${put('face', w.face)}${put('head', w.head)}${opts.extra || ''}</svg>`;
+  }
+  const FOODS = ['apple', 'strawberry', 'watermelon', 'cookie', 'donut', 'pizza', 'icecream', 'cupcake'];
+  const HOUSE_BGS = [['room', 'חדר'], ['ocean', 'ים'], ['safari', 'ספארי'], ['forest', 'יער'], ['clouds', 'שמיים'], ['space', 'חלל']];
+  const defaultBg = k => ['whale', 'fish', 'turtle'].includes(k) ? 'ocean' : k === 'lion' ? 'safari' : ['bear', 'owl', 'bunny', 'dino'].includes(k) ? 'forest' : 'room';
+
+  if (pet && !pet.v) pet = Object.assign({ v: 2, color: 0, wear: {}, house: { bg: null, hidden: [] }, fed: {}, played: {}, onboarded: true }, pet);
+  const savePet = () => store.set('pet', pet);
+
+  // ================= first-time unlocks =================
+  let games = Object.assign({ memoryWins: 0, memoryBest: 0, catchPlays: 0, catchBest: 0 }, store.get('games', {}));
+  let books = store.get('books', []);
+  let letters = store.get('letters', []);
+  let countdowns = store.get('countdowns', []);
+  let surprise = Object.assign({ last: '', count: 0, rare: [] }, store.get('surprise', {}));
+  let customStk = store.get('customStk', []);
+  media.cover = media.cover || {};
+  const registerCustom = c => { STICKERS[c.id] = ['המדבקה שלי', `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><image href="${c.url}" x="0" y="0" width="48" height="48"/></svg>`]; };
+  customStk.forEach(registerCustom);
+
+  const FIRSTS = [
+    ['feed', 'להאכיל את החיה', 'item', 'bowl'],
+    ['diary', 'לכתוב ביומן', 'guardian', null],
+    ['sticker', 'לשים מדבקה על יום', 'wear', 'bow'],
+    ['event', 'להוסיף אירוע', 'wear', 'partyhat'],
+    ['habit', 'לסמן הרגל', 'wear', 'sunglasses'],
+    ['photo', 'להעלות תמונה ליום', 'wear', 'flowercrown'],
+    ['memory', 'לנצח במשחק הזיכרון', 'wear', 'crown'],
+    ['play', 'לשחק עם החיה', 'item', 'ball'],
+    ['drawing', 'לצייר ציור ביום', 'item', 'palette'],
+    ['morning', 'לסיים צ\'קליסט בוקר', 'item', 'bed'],
+    ['birthday', 'להוסיף יום הולדת', 'item', 'balloon'],
+    ['catch', 'לשחק ב"תפוס את הכוכב"', 'item', 'trophy'],
+    ['book', 'להוסיף ספר', 'item', 'book'],
+    ['surprise', 'לפתוח תיבת הפתעה', 'item', 'gift'],
+    ['countdown', 'להוסיף ספירה לאחור', 'item', 'lightbulb'],
+    ['letter', 'לכתוב מכתב לעתיד', 'rare', 'shootingstar'],
+    ['mysticker', 'לצייר מדבקה משלך', 'rare', 'rainbowheart'],
+    ['cover', 'לשים כריכה לחודש', 'rare', 'castle'],
+  ];
+  function firstsDone() {
+    const n = o => Object.keys(o || {}).length > 0;
+    return {
+      feed: !!pet && n(pet.fed), diary: n(diary), sticker: n(stickers), event: n(events), habit: n(habits.done), photo: n(media.photo),
+      memory: games.memoryWins > 0, play: !!pet && n(pet.played), drawing: n(media.draw), morning: n(morning.history),
+      birthday: birthdays.some(b => b.date), catch: games.catchPlays > 0, book: books.length > 0, surprise: surprise.count > 0,
+      countdown: countdowns.length > 0, letter: letters.length > 0, mysticker: customStk.length > 0, cover: n(media.cover),
+    };
+  }
+  const RARE = ['goldstar', 'rainbowheart', 'shootingstar', 'castle', 'unicorn', 'treasure', 'bubbletea', 'rainbowcloud'];
+  function unlockedSet() {
+    const d = firstsDone(), set = new Set(surprise.rare);
+    FIRSTS.forEach(([k, , type, id]) => { if (d[k]) set.add(type === 'guardian' ? 'guardian' : id); });
+    return set;
+  }
+  const isRareLocked = id => RARE.includes(id) && !unlockedSet().has(id);
+  function rewardArt(type, id) {
+    if (type === 'guardian') return guardianArt(pet ? pet.kind : 'cat');
+    if (type === 'wear') return `<svg viewBox="-14 -22 28 32" xmlns="http://www.w3.org/2000/svg">${WEAR[id][2](false)}</svg>`;
+    return stickerHTML(id);
+  }
+  function rewardName(type, id) {
+    if (type === 'guardian') return pet ? (GUARDIANS[pet.kind] || GUARDIANS.cat)[0] + ' (שומרת על החיה)' : 'מישהו ששומר על החיה';
+    if (type === 'wear') return WEAR[id][1] + ' לחיה';
+    if (type === 'item') return (STICKERS[id] ? STICKERS[id][0] : id) + ' לבית של החיה';
+    return 'מדבקה נדירה: ' + (STICKERS[id] ? STICKERS[id][0] : id);
+  }
+  function checkUnlocks() {
+    const d = firstsDone();
+    const done = FIRSTS.filter(f => d[f[0]]).map(f => f[0]);
+    const seen = store.get('unlockSeen', null);
+    if (!seen) { store.set('unlockSeen', done); return; }
+    const fresh = done.filter(k => !seen.includes(k));
+    if (!fresh.length) return;
+    store.set('unlockSeen', [...seen, ...fresh]);
+    const f = FIRSTS.find(x => x[0] === fresh[0]);
+    const txt = f[2] === 'guardian' && pet ? `🎉 ${(GUARDIANS[pet.kind] || GUARDIANS.cat)[0]} הגיע/ה לשמור על ${pet.name || 'החיה שלך'}!` : `🎁 קיבלת: ${rewardName(f[2], f[3])}!`;
+    setTimeout(() => { toast(rewardArt(f[2], f[3]), txt + (fresh.length > 1 ? ` (ועוד ${fresh.length - 1})` : '')); SFX.yay(); }, 300);
+  }
+
+  // ================= pet widget in the corner =================
   function xpTotal() {
-    return Object.values(diary).filter(v => v && (v.text || v.mood)).length * 15
-      + Object.values(habits.done).reduce((a, l) => a + l.length, 0) * 10
-      + Object.keys(morning.history).length * 10
-      + (Object.keys(media.draw).length + Object.keys(media.photo).length) * 5
-      + Object.values(events).reduce((a, l) => a + l.length, 0) * 3
-      + Object.keys(stickers).length * 2;
+    const n = o => Object.keys(o || {}).length;
+    return n(diary) * 15 + Object.values(habits.done).reduce((a, l) => a + l.length, 0) * 10 + n(morning.history) * 10
+      + (n(media.draw) + n(media.photo)) * 5 + Object.values(events).reduce((a, l) => a + l.length, 0) * 3 + n(stickers) * 2
+      + (pet ? n(pet.fed) * 5 + n(pet.played) * 3 : 0) + games.memoryWins * 5 + games.catchPlays * 3 + surprise.count * 3
+      + letters.length * 5 + books.length * 10 + customStk.length * 5;
   }
   const petLevel = xp => 1 + Math.floor(Math.sqrt(xp / 25));
   const levelXp = L => 25 * (L - 1) * (L - 1);
-  const activeToday = () => { const t = localToday(); return !!(diary[t] || (habits.done[t] || []).length || morning.history[t] || media.draw[t] || media.photo[t] || events[t] || stickers[t]); };
-  const PET_LINES = ['איזה כיף איתך! 💖', 'את הכי טובה!', 'בואי נכתוב ביומן?', 'אני אוהב מדבקות!', 'היום יהיה יום מעולה!', 'עוד קצת ואני גדל!', 'חיבוק! 🤗'];
+  const hungry = () => pet && !pet.fed[localToday()];
+  const activeToday = () => { const t = localToday(); return !!(diary[t] || (habits.done[t] || []).length || morning.history[t] || media.draw[t] || media.photo[t] || events[t] || stickers[t] || (pet && pet.played[t])); };
+  const PET_LINES = ['איזה כיף איתך! 💖', 'את הכי טובה!', 'בואי נכתוב ביומן?', 'אני אוהב/ת מדבקות!', 'היום יהיה יום מעולה!', 'עוד קצת ואני גדל/ה!', 'חיבוק! 🤗', 'בואי נשחק!'];
   let petSay = '', petSayTimer = 0, petTap = 0;
   function renderPet() {
     const box = $('#pet');
-    if (!pet) { box.replaceChildren(el('button', { type: 'button', class: 'btn', onclick: openPet }, '🥚 לאמץ חיה')); return; }
+    if (!pet || !pet.onboarded) { box.replaceChildren(el('button', { type: 'button', class: 'btn main', onclick: openAdopt }, '🥚 לאמץ חיה')); return; }
     const xp = xpTotal(), L = petLevel(xp), a = levelXp(L), b = levelXp(L + 1);
-    const sleepy = !activeToday();
+    const sleepy = !activeToday() && !hungry();
     box.style.setProperty('--pet-size', `${56 + Math.min(L, 12) * 6}px`);
     const bar = el('span', { class: 'bar' }, el('i'));
     bar.firstChild.style.width = `${Math.round((xp - a) / (b - a) * 100)}%`;
+    const say = petSay || (hungry() ? 'אני רעב/ה! 🍽️' : '');
     box.replaceChildren(
-      petSay ? el('span', { class: 'say' }, petSay) : null,
-      el('button', { type: 'button', class: 'art' + (sleepy ? ' sleepy' : ''), 'aria-label': `${pet.name || 'החיה שלי'}, רמה ${L}`, html: stickerHTML(pet.kind), onclick: () => {
+      say ? el('span', { class: 'say' }, say) : null,
+      unlockedSet().has('guardian') ? el('span', { class: 'guard-mini', title: (GUARDIANS[pet.kind] || GUARDIANS.cat)[0], html: guardianArt(pet.kind) }) : null,
+      el('button', { type: 'button', class: 'art' + (sleepy ? ' sleepy' : ''), 'aria-label': `${pet.name || 'החיה שלי'}, רמה ${L}. לפתוח את הבית`, html: petSVG(pet), onclick: () => {
+        SFX.pet(pet.kind);
+        if (hungry()) { openHouse(true); return; }
         petSay = sleepy ? 'משעמם לי... אולי נכתוב ביומן? 😴' : PET_LINES[petTap++ % PET_LINES.length];
         clearTimeout(petSayTimer); petSayTimer = setTimeout(() => { petSay = ''; renderPet(); }, 3000);
         renderPet();
         if (!reduceMotion()) { const h = el('span', { class: 'heart', html: stickerHTML('heart') }); h.style.left = `${20 + (petTap * 17) % 40}px`; $('#pet').append(h); setTimeout(() => h.remove(), 1300); }
       } }),
-      el('button', { type: 'button', class: 'name', onclick: openPet }, `${pet.name || 'החיה שלי'} · רמה ${L}`), bar);
+      el('button', { type: 'button', class: 'name', onclick: () => openHouse() }, `🏠 ${pet.name || 'החיה שלי'} · רמה ${L}`), bar);
   }
-  function openPet() {
-    const cur = pet || { kind: 'cat', name: '' };
-    const draw = () => {
-      const xp = xpTotal(), L = petLevel(xp), a = levelXp(L), b = levelXp(L + 1);
-      const bar = el('div', { class: 'xpbar' }, el('i')); bar.firstChild.style.width = `${Math.round((xp - a) / (b - a) * 100)}%`;
-      $('#petInfo').replaceChildren(pet ? el('div', {}, `רמה ${L} · ${xp} נקודות · עוד ${b - xp} נקודות לרמה הבאה`) : el('div', {}, 'בחרי חיה ושם, והיא תגור בפינה של הלוח!'), pet ? bar : null);
-      $('#petKinds').replaceChildren(...PET_KINDS.map(([id, name]) => el('button', {
-        type: 'button', 'aria-pressed': String(cur.kind === id), onclick: () => { cur.kind = id; save(); },
-      }, el('span', { class: 'ic', html: stickerHTML(id) }), name)));
-    };
-    const save = () => { pet = { kind: cur.kind, name: cur.name }; store.set('pet', pet); draw(); renderPet(); afterChange(); };
-    $('#petName').value = cur.name;
-    $('#petName').oninput = e => { cur.name = e.target.value; save(); };
-    draw();
-    if (!pet) save();
-    $('#petDlg').showModal();
+
+  // ================= adopt: design → name → feed =================
+  let adopt = null;
+  function openAdopt() {
+    adopt = { step: 0, kind: 'cat', color: 0, name: '' };
+    drawAdopt();
+    $('#adoptDlg').showModal();
+  }
+  function drawAdopt() {
+    const st = adopt.step, p = { kind: adopt.kind, color: adopt.color, wear: {} };
+    $('#adoptSteps').replaceChildren(...[0, 1, 2, 3].map(i => el('i', { class: i <= st ? 'on' : '' })));
+    const preview = el('div', { class: 'big-pet', html: petSVG(p) });
+    const next = (label = 'הבא ←') => el('button', { type: 'button', class: 'btn main', onclick: () => { adopt.step++; drawAdopt(); } }, label);
+    const back = st > 0 ? el('button', { type: 'button', class: 'btn', onclick: () => { adopt.step--; drawAdopt(); } }, '→ חזרה') : null;
+    const body = $('#adoptBody');
+    if (st === 0) {
+      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '1. איזו חיה בא לך?'), preview,
+        el('div', { class: 'pet-pick' }, ...PET_KINDS.map(([id, name]) => el('button', { type: 'button', 'aria-pressed': String(adopt.kind === id), onclick: () => { adopt.kind = id; SFX.pet(id); drawAdopt(); } },
+          el('span', { class: 'ic', html: stickerHTML(id) }), name))),
+        el('div', { class: 'chips' }, next()));
+    } else if (st === 1) {
+      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '2. בחרי צבע'), preview,
+        el('div', { class: 'pet-pick' }, ...PET_COLORS.map(([deg, name]) => el('button', { type: 'button', 'aria-pressed': String(adopt.color === deg), onclick: () => { adopt.color = deg; drawAdopt(); } },
+          el('span', { class: 'ic', html: petSVG({ kind: adopt.kind, color: deg, wear: {} }) }), name))),
+        el('p', { class: 'muted' }, 'בגדים, קישוטים לבית וגם מישהו ששומר על החיה ייפתחו כשתעשי דברים בלוח!'),
+        el('div', { class: 'chips' }, back, next()));
+    } else if (st === 2) {
+      const inp = el('input', { type: 'text', id: 'adoptName', maxLength: 20, placeholder: 'למשל: פנדי', value: adopt.name, oninput: e => { adopt.name = e.target.value; } });
+      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '3. איך קוראים לה?'), preview,
+        el('label', { for: 'adoptName' }, 'השם של החיה'), inp,
+        el('div', { class: 'chips' }, back, el('button', { type: 'button', class: 'btn main', onclick: () => { if (!adopt.name.trim()) { inp.focus(); return; } adopt.step++; drawAdopt(); } }, 'הבא ←')));
+      setTimeout(() => inp.focus(), 50);
+    } else {
+      const scene = el('div', { class: 'scene bg-' + defaultBg(adopt.kind) },
+        el('span', { class: 'say' }, `${adopt.name} רעב/ה! מה נאכיל?`),
+        el('div', { class: 'pet-art', html: petSVG(p) }));
+      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '4. בואי נאכיל את ' + adopt.name + '!'), scene,
+        el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => {
+          pet = { v: 2, kind: adopt.kind, color: adopt.color, name: adopt.name.trim(), wear: {}, house: { bg: defaultBg(adopt.kind), hidden: [] }, fed: { [localToday()]: 1 }, played: {}, onboarded: true };
+          savePet();
+          const fly = el('span', { class: 'fly', html: stickerHTML(f) }); scene.append(fly); SFX.munch();
+          setTimeout(() => {
+            scene.querySelector('.say').textContent = 'יאמי! תודה! 💖';
+            scene.querySelector('.pet-art').classList.add('jump');
+            confetti($('#adoptDlg .confetti-c')); SFX.pet(pet.kind);
+            body.append(el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { $('#adoptDlg').close(); renderPet(); afterChange(); } }, `סיום! ${pet.name} עוברת לגור בלוח 🎉`)));
+          }, 800);
+        } }))), el('div', { class: 'chips' }, back));
+    }
+  }
+
+  // ================= the pet's house =================
+  let houseTab = 'wear';
+  function openHouse(feedNow) {
+    if (!pet || !pet.onboarded) { openAdopt(); return; }
+    drawHouse(feedNow ? 'feed' : null);
+    if (!$('#houseDlg').open) $('#houseDlg').showModal();
+  }
+  function drawHouse(mode, say) {
+    const un = unlockedSet();
+    const xp = xpTotal(), L = petLevel(xp);
+    $('#houseTitle').textContent = `🏠 הבית של ${pet.name || 'החיה שלי'}`;
+    $('#houseSub').textContent = `רמה ${L} · ${xp} נקודות` + (hungry() ? ' · רעב/ה! 🍽️' : ' · שבע/ה ושמח/ה 😊');
+    const items = FIRSTS.filter(f => f[2] === 'item' && un.has(f[3]) && !(pet.house.hidden || []).includes(f[3])).map(f => f[3]);
+    const scene = el('div', { class: 'scene bg-' + (pet.house.bg || defaultBg(pet.kind)), id: 'houseScene' },
+      ...items.map((id, i) => { const s = el('span', { class: 'item', html: stickerHTML(id), title: STICKERS[id][0] }); s.style.left = `${4 + (i % 2 ? 78 - (i >> 1) * 11 : (i >> 1) * 11)}%`; return s; }),
+      un.has('guardian') ? el('span', { class: 'guard', html: guardianArt(pet.kind), title: (GUARDIANS[pet.kind] || GUARDIANS.cat)[0] }) : null,
+      el('button', { type: 'button', class: 'pet-art', 'aria-label': 'ללטף', html: petSVG(pet), onclick: () => pat() }),
+      say || (hungry() ? 'אני רעב/ה! 🍽️' : null) ? el('span', { class: 'say' }, say || 'אני רעב/ה! 🍽️') : null);
+    $('#houseScene').replaceWith(scene);
+    $('#houseActions').replaceChildren(
+      el('button', { type: 'button', class: 'btn main', onclick: () => drawHouse('feed') }, '🍎 להאכיל'),
+      el('button', { type: 'button', class: 'btn', onclick: play }, '⚽ לשחק'),
+      el('button', { type: 'button', class: 'btn', onclick: pat }, '🤗 ללטף'),
+      un.has('guardian') ? el('button', { type: 'button', class: 'btn', onclick: () => { drawHouse(null, (GUARDIANS[pet.kind] || GUARDIANS.cat)[2]); SFX.boop(); } }, '💬 לדבר עם ' + (GUARDIANS[pet.kind] || GUARDIANS.cat)[0].split(' ')[0]) : null);
+    $('#houseFood').replaceChildren(mode === 'feed' ? el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => feed(f) }))) : null);
+    const TABS2 = [['wear', '👗 להלביש'], ['color', '🎨 צבע'], ['home', '🏠 הבית'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
+    $('#houseTabs').replaceChildren(...TABS2.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(houseTab === id), onclick: () => { houseTab = id; drawHouse(); } }, name)));
+    const tab = $('#houseTab');
+    if (houseTab === 'wear') {
+      tab.replaceChildren(...[['head', 'על הראש'], ['face', 'על הפנים'], ['neck', 'על הצוואר']].map(([slot, name]) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, name),
+        el('div', { class: 'wear-pick' },
+          el('button', { type: 'button', 'aria-pressed': String(!pet.wear[slot]), onclick: () => { delete pet.wear[slot]; savePet(); drawHouse(); renderPet(); } }, el('span', { class: 'ic' }), 'בלי'),
+          ...Object.entries(WEAR).filter(([, v]) => v[0] === slot).map(([id, v]) => {
+            const got = un.has(id);
+            return el('button', { type: 'button', disabled: !got, 'aria-pressed': String(pet.wear[slot] === id), title: got ? v[1] : 'עוד נעול: ' + FIRSTS.find(f => f[3] === id)[1],
+              onclick: () => { pet.wear[slot] = id; savePet(); SFX.pop(); drawHouse(); renderPet(); } },
+              el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { wear: { [slot]: id } })) }), got ? v[1] : '🔒 ' + v[1]);
+          })))));
+    } else if (houseTab === 'color') {
+      tab.replaceChildren(el('div', { class: 'pet-pick' }, ...PET_COLORS.map(([deg, name]) => el('button', { type: 'button', 'aria-pressed': String((pet.color || 0) === deg), onclick: () => { pet.color = deg; savePet(); drawHouse(); renderPet(); } },
+        el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { color: deg })) }), name))));
+    } else if (houseTab === 'home') {
+      const all = FIRSTS.filter(f => f[2] === 'item');
+      tab.replaceChildren(el('span', { class: 'lbl' }, 'איפה החיה גרה?'),
+        el('div', { class: 'chips' }, ...HOUSE_BGS.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((pet.house.bg || defaultBg(pet.kind)) === id), onclick: () => { pet.house.bg = id; savePet(); drawHouse(); } }, name))),
+        el('span', { class: 'lbl' }, 'דברים בבית (מסמנים מה להראות)'),
+        el('div', { class: 'wear-pick' }, ...all.map(f => {
+          const got = un.has(f[3]), shown = got && !(pet.house.hidden || []).includes(f[3]);
+          return el('button', { type: 'button', disabled: !got, 'aria-pressed': String(shown), title: got ? STICKERS[f[3]][0] : 'עוד נעול: ' + f[1],
+            onclick: () => { pet.house.hidden = shown ? [...(pet.house.hidden || []), f[3]] : (pet.house.hidden || []).filter(x => x !== f[3]); savePet(); drawHouse(); } },
+            el('span', { class: 'ic', html: stickerHTML(f[3]) }), (got ? '' : '🔒 ') + STICKERS[f[3]][0]);
+        })));
+    } else if (houseTab === 'unlocks') {
+      const d = firstsDone();
+      tab.replaceChildren(el('p', { class: 'muted' }, 'כל דבר שעושים בפעם הראשונה פותח הפתעה!'),
+        ...FIRSTS.map(([k, what, type, id]) => el('div', { class: 'unlock-row' + (d[k] ? '' : ' locked') },
+          el('span', { class: 'ic', html: rewardArt(type, id) }),
+          el('span', {}, el('b', { style: 'font-weight:400' }, what), el('br'), el('span', { class: 'muted' }, '→ ' + rewardName(type, id))),
+          el('span', { class: 'st' }, d[k] ? '✔️' : '🔒'))));
+    } else {
+      const nm = el('input', { type: 'text', id: 'houseName', maxLength: 20, value: pet.name || '', oninput: e => { pet.name = e.target.value; savePet(); renderPet(); $('#houseTitle').textContent = `🏠 הבית של ${pet.name || 'החיה שלי'}`; } });
+      tab.replaceChildren(el('label', { for: 'houseName' }, 'השם של החיה'), nm,
+        el('span', { class: 'lbl' }, 'להחליף חיה (הבגדים, הבית והנקודות נשארים)'),
+        el('div', { class: 'pet-pick' }, ...PET_KINDS.map(([id, name]) => el('button', { type: 'button', 'aria-pressed': String(pet.kind === id), onclick: () => { pet.kind = id; savePet(); SFX.pet(id); drawHouse(); renderPet(); } },
+          el('span', { class: 'ic', html: stickerHTML(id) }), name))));
+    }
+  }
+  function feed(f) {
+    const scene = $('#houseScene');
+    scene.append(el('span', { class: 'fly', html: stickerHTML(f) })); SFX.munch();
+    pet.fed[localToday()] = 1; savePet();
+    setTimeout(() => { drawHouse(null, 'יאמי! תודה! 💖'); $('#houseScene .pet-art').classList.add('jump'); SFX.pet(pet.kind); renderPet(); afterChange(); }, 800);
+  }
+  function play() {
+    const scene = $('#houseScene');
+    scene.append(el('span', { class: 'ballfx', html: stickerHTML('ball') })); SFX.boop();
+    $('#houseScene .pet-art').classList.add('jump');
+    pet.played[localToday()] = (pet.played[localToday()] || 0) + 1; savePet();
+    setTimeout(() => { drawHouse(null, 'עוד פעם! עוד פעם! ⚽'); renderPet(); afterChange(); }, 1400);
+  }
+  function pat() {
+    SFX.pet(pet.kind);
+    drawHouse(null, PET_LINES[petTap++ % PET_LINES.length]);
+    const h = el('span', { class: 'fly', html: stickerHTML('heart') }); h.style.animation = 'floatup 1.2s ease-out forwards'; h.style.left = '45%'; h.style.bottom = '55%';
+    $('#houseScene').append(h);
   }
 
   // ================= morning checklist =================
@@ -2599,9 +3187,16 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     ['sun', 'צ\'קליסט בוקר', () => { buildMorning(); $('#mornDlg').showModal(); }],
     ['star', 'הרגלים', () => { buildHabits(); $('#habDlg').showModal(); }],
     ['trophy', 'מדליות', () => { buildMedals(); $('#medDlg').showModal(); }],
-    ['cat', 'חיית מחמד', () => openPet()],
+    ['cat', 'חיית המחמד שלי', () => openHouse()],
+    ['ball', 'משחקים', () => openGames()],
+    ['gift', 'תיבת הפתעה', () => openSurprise()],
+    ['book', 'אלבום מדבקות', () => openAlbum()],
+    ['palette', 'מדבקה משלי', () => openMkStk()],
+    ['heart', 'מכתב לעתיד', () => openLetters()],
+    ['rocket', 'ספירות לאחור', () => { buildCountdowns(); $('#cdDlg').showModal(); }],
+    ['owl', 'הספרים שלי', () => { buildBooks(); $('#bookDlg').showModal(); }],
     ['wand', 'קוד סודי', () => openPinDlg()],
-    ['gift', 'גיבוי', () => { $('#bkSaveMsg').hidden = true; $('#bkLoad').replaceChildren(); $('#bkDlg').showModal(); }],
+    ['treasure', 'גיבוי', () => { $('#bkSaveMsg').hidden = true; $('#bkLoad').replaceChildren(); $('#bkDlg').showModal(); }],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   function openMore() {
@@ -2610,7 +3205,371 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     $('#moreDlg').showModal();
   }
 
-  function afterChange() { checkMedals(); renderPet(); }
+  function afterChange() { checkMedals(); checkUnlocks(); renderPet(); }
+
+  // ================= a drawing pad used by "my sticker" and "month cover" =================
+  function makePad(w, h, clear, initialUrl) {
+    const cv = el('canvas', { width: w, height: h, 'aria-label': 'לוח ציור' });
+    const ctx = cv.getContext('2d');
+    if (!clear) { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); }
+    if (initialUrl) { const im = new Image(); im.onload = () => ctx.drawImage(im, 0, 0, w, h); im.src = initialUrl; }
+    let color = '#ff5a6e', size = clear ? 12 : 8, erase = false, down = false, last = null, dirty = false;
+    const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * w / r.width, (e.clientY - r.top) * h / r.height]; };
+    const style = () => {
+      ctx.globalCompositeOperation = erase && clear ? 'destination-out' : 'source-over';
+      ctx.strokeStyle = ctx.fillStyle = erase && !clear ? '#fff' : color; ctx.lineWidth = erase ? size * 2.5 : size; ctx.lineCap = ctx.lineJoin = 'round';
+    };
+    cv.addEventListener('pointerdown', e => { down = true; last = pos(e); cv.setPointerCapture(e.pointerId); style(); ctx.beginPath(); ctx.arc(last[0], last[1], ctx.lineWidth / 2, 0, 7); ctx.fill(); dirty = true; });
+    cv.addEventListener('pointermove', e => { if (!down) return; const p = pos(e); style(); ctx.beginPath(); ctx.moveTo(last[0], last[1]); ctx.lineTo(p[0], p[1]); ctx.stroke(); last = p; dirty = true; });
+    const up = () => { down = false; ctx.globalCompositeOperation = 'source-over'; };
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    const tools = el('div', { class: 'draw-tools' });
+    const drawTools = () => tools.replaceChildren(
+      ...DRAW_COLORS.concat(['#ffffff']).map(c => { const b = el('button', { type: 'button', class: 'sw2', 'aria-label': 'צבע', 'aria-pressed': String(!erase && c === color), onclick: () => { color = c; erase = false; drawTools(); } }); b.style.background = c; return b; }),
+      ...[[4, 'דק'], [10, 'בינוני'], [20, 'עבה']].map(([s, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(size === s), onclick: () => { size = s; drawTools(); } }, n)),
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(erase), onclick: () => { erase = !erase; drawTools(); } }, '🧽 מחק'),
+      el('button', { type: 'button', class: 'chip', onclick: () => { ctx.globalCompositeOperation = 'source-over'; if (clear) ctx.clearRect(0, 0, w, h); else { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); } dirty = false; } }, '🗑️ לנקות'));
+    drawTools();
+    return { node: el('div', { class: 'pad draw-wrap ' + (clear ? 'clear' : 'white') }, cv, tools), canvas: cv, dirty: () => dirty };
+  }
+
+  // ================= my own stickers =================
+  function openMkStk() {
+    const pad = makePad(300, 300, true);
+    const msg = el('span', { class: 'saved' });
+    $('#mkStkPad').replaceChildren(pad.node, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+      if (!pad.dirty()) { msg.textContent = 'קודם מציירים משהו 🙂'; return; }
+      const small = el('canvas', { width: 160, height: 160 }); small.getContext('2d').drawImage(pad.canvas, 0, 0, 160, 160);
+      const c = { id: 'my' + Date.now().toString(36), url: small.toDataURL('image/png') };
+      customStk.push(c);
+      if (!store.set('customStk', customStk)) { customStk.pop(); msg.textContent = 'אין מספיק מקום לשמור עוד מדבקה.'; return; }
+      registerCustom(c); SFX.pop(); msg.textContent = 'המדבקה נשמרה! עכשיו אפשר לשים אותה על ימים ✔️';
+      openMkStk(); afterChange();
+    } }, '✨ לשמור כמדבקה'), msg));
+    $('#mkStkList').replaceChildren(...(customStk.length ? customStk.map((c, i) => el('div', { class: 'pick', style: 'display:grid;gap:2px;aspect-ratio:auto' },
+      el('span', { html: stickerHTML(c.id), style: 'width:48px;height:48px;display:block' }),
+      el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק מדבקה', onclick: () => { customStk.splice(i, 1); delete STICKERS[c.id]; store.set('customStk', customStk); openMkStk(); } }, '🗑️'))) :
+      [el('p', { class: 'muted' }, 'עוד אין. ציירי את הראשונה!')]));
+    if (!$('#mkStkDlg').open) $('#mkStkDlg').showModal();
+  }
+
+  // ================= month cover =================
+  const coverKey = () => `${viewY}-${String(viewM + 1).padStart(2, '0')}`;
+  function renderCover() {
+    const box = $('#cover');
+    if (viewMode !== 'month') { box.replaceChildren(); return; }
+    const url = media.cover[coverKey()] ? getMedia('cover', coverKey()) : null;
+    box.replaceChildren(url ? el('div', { class: 'cover-img' }, el('img', { src: url, alt: 'הכריכה של ' + MONTHS[viewM] }), el('button', { type: 'button', class: 'btn', onclick: openCover }, '🖼️ להחליף')) :
+      el('button', { type: 'button', class: 'cover-add', onclick: openCover }, `🖼️ להוסיף כריכה ל${MONTHS[viewM]} (ציור או תמונה)`));
+  }
+  function openCover() {
+    const k = coverKey(), url = media.cover[k] ? getMedia('cover', k) : null;
+    const pad = makePad(900, 300, false, url);
+    const msg = el('span', { class: 'saved' });
+    const save = u => { if (!setMedia('cover', k, u)) { msg.textContent = 'אין מספיק מקום לשמור. אפשר למחוק תמונות ישנות.'; return; } SFX.pop(); $('#coverDlg').close(); renderCalendar(); afterChange(); };
+    const file = el('input', { type: 'file', id: 'coverFile', accept: 'image/*', onchange: e => {
+      const f = e.target.files && e.target.files[0]; if (!f) return;
+      const img = new Image();
+      img.onload = () => { const sc = Math.min(1, 1200 / img.width); const c = el('canvas', { width: Math.round(img.width * sc), height: Math.round(img.height * sc) }); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(img.src); save(c.toDataURL('image/jpeg', 0.8)); };
+      img.src = URL.createObjectURL(f);
+    } });
+    $('#coverTitle').textContent = `🖼️ כריכה ל${MONTHS[viewM]} ${viewY}`;
+    $('#coverBody').replaceChildren(
+      el('label', { for: 'coverFile' }, '📷 להעלות תמונה:'), file,
+      el('span', { class: 'lbl' }, 'או לצייר כריכה:'), pad.node,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => save(pad.canvas.toDataURL('image/jpeg', 0.85)) }, '✔️ לשמור את הציור'),
+        url ? el('button', { type: 'button', class: 'btn', onclick: () => { setMedia('cover', k, null); $('#coverDlg').close(); renderCalendar(); } }, '🗑️ להוריד כריכה') : null, msg));
+    $('#coverDlg').showModal();
+  }
+
+  // ================= games =================
+  let gamesTab = 'memory', catchStop = null;
+  function openGames(tab) {
+    if (tab) gamesTab = tab;
+    drawGames();
+    if (!$('#gamesDlg').open) $('#gamesDlg').showModal();
+  }
+  function drawGames() {
+    if (catchStop) { catchStop(); catchStop = null; }
+    $('#gamesTabs').replaceChildren(...[['memory', '🧠 משחק זיכרון'], ['catch', '⭐ תפוס את הכוכב']].map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
+    if (gamesTab === 'memory') memoryGame(); else catchGame();
+  }
+  function memoryGame() {
+    const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
+    const pick = [];
+    while (pick.length < 6) { const id = pool[Math.floor(Math.random() * pool.length)]; if (!pick.includes(id)) pick.push(id); }
+    const cards = [...pick, ...pick].map(id => ({ id, open: false, done: false })).sort(() => Math.random() - 0.5);
+    let first = null, busy = false, moves = 0, found = 0;
+    const info = el('div', { class: 'game-info' });
+    const grid = el('div', { class: 'mem-grid' });
+    const draw = () => {
+      info.replaceChildren(el('span', {}, `צעדים: ${moves}`), el('span', {}, `זוגות: ${found}/6`), games.memoryBest ? el('span', {}, `🏆 השיא: ${games.memoryBest} צעדים`) : null);
+      grid.replaceChildren(...cards.map((c, i) => el('button', { type: 'button', class: c.done ? 'done' : c.open ? 'open' : '', 'aria-label': c.open || c.done ? STICKERS[c.id][0] : 'קלף סגור',
+        html: c.open || c.done ? stickerHTML(c.id) : '<span class="back">?</span>', onclick: () => flip(i) })));
+    };
+    const flip = i => {
+      const c = cards[i];
+      if (busy || c.open || c.done) return;
+      c.open = true; SFX.boop();
+      if (first == null) { first = i; draw(); return; }
+      moves++;
+      const a = cards[first];
+      if (a.id === c.id) {
+        a.done = c.done = true; a.open = c.open = false; first = null; found++; SFX.ding();
+        if (found === 6) {
+          games.memoryWins++; if (!games.memoryBest || moves < games.memoryBest) games.memoryBest = moves;
+          store.set('games', games); confetti($('#gamesDlg .confetti-c')); SFX.yay(); afterChange();
+          draw(); info.append(el('b', { style: 'font-weight:400;color:var(--accent)' }, `ניצחת ב-${moves} צעדים! 🎉`), el('button', { type: 'button', class: 'btn main', onclick: memoryGame }, 'לשחק שוב'));
+          return;
+        }
+        draw();
+      } else {
+        draw(); busy = true;
+        setTimeout(() => { a.open = c.open = false; first = null; busy = false; draw(); }, 800);
+      }
+    };
+    draw();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'הופכים שני קלפים. אם הם אותו דבר, הם נשארים פתוחים! מוצאים את כל 6 הזוגות.'), info, grid,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: memoryGame }, '🔀 משחק חדש')));
+  }
+  function catchGame() {
+    const W = 600, H = 400;
+    const cv = el('canvas', { width: W, height: H, 'aria-label': 'משחק תפוס את הכוכב' });
+    const ctx = cv.getContext('2d');
+    const info = el('div', { class: 'game-info' });
+    const img = art => { const i = new Image(); i.src = 'data:image/svg+xml,' + encodeURIComponent(art); return i; };
+    const petImg = img(pet ? petSVG(pet) : stickerHTML('cat')), starImg = img(stickerHTML('star')), goldImg = img(stickerHTML('goldstar')), bugImg = img(stickerHTML('cloud'));
+    let x = W / 2, score = 0, left = 30, running = false, items = [], raf = 0, timer = 0, keys = {};
+    const drawInfo = () => info.replaceChildren(el('span', {}, `⭐ ${score}`), el('span', {}, `⏱️ ${left}`), games.catchBest ? el('span', {}, `🏆 השיא: ${games.catchBest}`) : null);
+    const frame = () => {
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < 40; i++) { ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.fillRect((i * 97) % W, (i * 53) % H, 2, 2); }
+      if (running) {
+        if (keys.ArrowLeft) x -= 9; if (keys.ArrowRight) x += 9; x = Math.max(40, Math.min(W - 40, x));
+        if (Math.random() < 0.05) { const r = Math.random(); items.push({ x: 30 + Math.random() * (W - 60), y: -30, v: 2.5 + Math.random() * 2.5 + (30 - left) * 0.06, t: r < 0.12 ? 'gold' : r < 0.3 ? 'cloud' : 'star' }); }
+        items.forEach(it => { it.y += it.v; });
+        items = items.filter(it => {
+          if (it.y > H - 80 && it.y < H - 20 && Math.abs(it.x - x) < 46) {
+            if (it.t === 'cloud') { score = Math.max(0, score - 1); SFX.boop(); } else { score += it.t === 'gold' ? 3 : 1; SFX.ding(); }
+            drawInfo(); return false;
+          }
+          return it.y < H + 30;
+        });
+      }
+      items.forEach(it => { const im = it.t === 'gold' ? goldImg : it.t === 'cloud' ? bugImg : starImg; ctx.drawImage(im, it.x - 20, it.y - 20, 40, 40); });
+      ctx.drawImage(petImg, x - 42, H - 106, 84, 96);
+      if (!running) { ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#fff'; ctx.font = '28px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(left === 30 ? 'לוחצים על "להתחיל"!' : `תפסת ${score} כוכבים!`, W / 2, H / 2); }
+      raf = requestAnimationFrame(frame);
+    };
+    const start = () => {
+      score = 0; left = 30; items = []; running = true; drawInfo(); clearInterval(timer);
+      timer = setInterval(() => {
+        left--; drawInfo();
+        if (left <= 0) {
+          running = false; clearInterval(timer);
+          games.catchPlays++; const best = score > games.catchBest; if (best) games.catchBest = score;
+          store.set('games', games); afterChange();
+          if (best && score > 0) { confetti($('#gamesDlg .confetti-c')); SFX.yay(); }
+          drawInfo();
+        }
+      }, 1000);
+    };
+    const move = e => { const r = cv.getBoundingClientRect(); x = (e.clientX - r.left) * W / r.width; };
+    cv.addEventListener('pointermove', move); cv.addEventListener('pointerdown', move);
+    const kd = e => { if (['ArrowLeft', 'ArrowRight'].includes(e.key)) { keys[e.key] = true; e.preventDefault(); } }, ku = e => { keys[e.key] = false; };
+    document.addEventListener('keydown', kd); document.addEventListener('keyup', ku);
+    catchStop = () => { cancelAnimationFrame(raf); clearInterval(timer); document.removeEventListener('keydown', kd); document.removeEventListener('keyup', ku); };
+    drawInfo(); frame();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, `מזיזים את ${pet ? pet.name || 'החיה' : 'החתול'} עם העכבר (או עם החצים), ותופסים כוכבים! ⭐ = נקודה, כוכב זהב = 3 נקודות, ענן = מוריד נקודה. יש 30 שניות.`),
+      info, el('div', { class: 'catch-wrap' }, cv), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: start }, '▶️ להתחיל')));
+  }
+  $('#gamesDlg').addEventListener('close', () => { if (catchStop) { catchStop(); catchStop = null; } });
+
+  // ================= sticker album =================
+  function openAlbum() {
+    const un = unlockedSet();
+    const normal = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
+    const got = RARE.filter(id => un.has(id)).length;
+    $('#albumCount').textContent = `יש לך ${normal.length + got + customStk.length} מדבקות, ומתוכן ${got} נדירות מתוך ${RARE.length}!`;
+    const slot = (id, rare) => el('div', { class: 'slot' + (rare ? ' rare' : '') + (rare && !un.has(id) ? ' locked' : '') },
+      el('span', { class: 'ic', html: stickerHTML(id) }), rare && !un.has(id) ? '???' : STICKERS[id][0]);
+    $('#albumBody').replaceChildren(
+      el('h4', { class: 'sec-title' }, '✨ מדבקות נדירות'), el('p', { class: 'muted' }, 'מקבלים אותן מתיבת ההפתעה, או כשעושים דברים בפעם הראשונה.'),
+      el('div', { class: 'album' }, ...RARE.map(id => slot(id, true))),
+      customStk.length ? el('h4', { class: 'sec-title' }, '🖌️ המדבקות שציירתי') : null,
+      customStk.length ? el('div', { class: 'album' }, ...customStk.map(c => slot(c.id, false))) : null,
+      el('h4', { class: 'sec-title' }, '🎨 כל המדבקות'), el('div', { class: 'album' }, ...normal.map(id => slot(id, false))));
+    $('#albumDlg').showModal();
+  }
+
+  // ================= daily surprise box =================
+  const JOKES = ['מה אמר האפס לשמונה? איזו חגורה יפה!', 'למה הפיל לא משתמש במחשב? כי הוא מפחד מהעכבר!', 'איזה בעל חיים הכי טוב בחשבון? התמנון, יש לו שמונה ידיים לספור!',
+    'למה החתול ישב על המחשב? כדי לשמור על העכבר!', 'מה אמר הירח לשמש? את כל כך מבריקה!', 'למה הכוכבים לא הולכים לבית ספר? כי הם כבר מבריקים!',
+    'מה אמרה הנורה לחברה שלה? את מדליקה!', 'מה עושה עוגייה כשהיא עצובה? מתפוררת...', 'מה אמר הים לחוף? כלום, הוא רק נופף.', 'איך קוראים לדוב בלי שיניים? דובון גומי!'];
+  const COMPLIMENTS = ['את יצירתית בטירוף! 🎨', 'את חברה ממש טובה 💖', 'יש לך רעיונות מדהימים 💡', 'את יכולה לעשות דברים קשים! 💪', 'היום הולך להיות יום מעולה ☀️', 'את מצחיקה ממש 😂', 'העולם יותר שמח כשאת בו 🌈'];
+  function openSurprise() {
+    const t = localToday(), opened = surprise.last === t;
+    const body = $('#surpBody');
+    const giftBtn = el('button', { type: 'button', class: 'gift-big' + (opened ? ' opened' : ''), 'aria-label': 'לפתוח את התיבה', html: stickerHTML('gift'), onclick: () => {
+      if (surprise.last === t) return;
+      const locked = RARE.filter(id => !unlockedSet().has(id));
+      const r = Math.random();
+      let prize;
+      if (locked.length && r < 0.3) { const id = locked[Math.floor(Math.random() * locked.length)]; surprise.rare.push(id); prize = { type: 'rare', id }; }
+      else if (r < 0.5) prize = { type: 'joke', text: JOKES[Math.floor(Math.random() * JOKES.length)] };
+      else if (r < 0.7) prize = { type: 'nice', text: COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)] };
+      else if (r < 0.85) prize = { type: 'fact', text: FACTS[Math.floor(Math.random() * FACTS.length)] };
+      else prize = { type: 'treat' };
+      surprise.last = t; surprise.count++; surprise.today = prize;
+      store.set('surprise', surprise);
+      SFX.yay(); confetti($('#surpDlg .confetti-c'));
+      openSurprise(); renderStrip(); afterChange();
+    } });
+    const p = opened ? surprise.today : null;
+    const prize = !p ? null : p.type === 'rare' ? el('div', { class: 'prize' }, el('span', { class: 'ic', html: stickerHTML(p.id) }), `✨ מדבקה נדירה: ${STICKERS[p.id][0]}! היא כבר מחכה לך בין המדבקות.`) :
+      p.type === 'joke' ? el('div', { class: 'prize' }, '😂 בדיחה: ', p.text) : p.type === 'nice' ? el('div', { class: 'prize' }, '💌 ', p.text) :
+      p.type === 'fact' ? el('div', { class: 'prize' }, '💡 ידעת ש... ', p.text) : el('div', { class: 'prize' }, el('span', { class: 'ic', html: stickerHTML('cookie') }), `${pet ? pet.name || 'החיה' : 'החיה'} קיבלה עוגייה! 🍪`);
+    body.replaceChildren(giftBtn, opened ? prize : el('p', {}, 'לוחצים על המתנה כדי לפתוח!'), opened ? el('p', { class: 'muted' }, 'מחר יש תיבה חדשה 🎁') : null);
+    if (!$('#surpDlg').open) $('#surpDlg').showModal();
+  }
+
+  // ================= letters to the future =================
+  const envSVG = open => svg(`<rect x="4" y="12" width="40" height="28" rx="3" fill="${open ? '#fff' : '#ffe9a8'}" ${S}/><path d="M4 14 L24 ${open ? 4 : 28} L44 14" fill="${open ? '#ffe9a8' : 'none'}" ${S}/>${open ? '' : `<path d="M24 23 C20 18 15 21 18 25 L24 30 L30 25 C33 21 28 18 24 23 Z" fill="#ff7a9a" ${S2}/>`}`);
+  function openLetters(showId) {
+    const t = localToday();
+    if (pin && !unlocked) { showLock(() => openLetters(showId), true); return; }
+    const me = birthdays.find(b => b.me && b.date);
+    const defDate = me && nextBday(me) && nextBday(me).days > 0 ? nextBday(me).key : addDays(t, 30);
+    const ta = el('textarea', { id: 'letterText', 'aria-label': 'המכתב', placeholder: 'היי אני מהעתיד! מה שלומך? מה את אוהבת עכשיו? מה את מקווה שיקרה?' });
+    const date = el('input', { type: 'date', id: 'letterDate', value: defDate, min: addDays(t, 1), 'aria-label': 'מתי לפתוח' });
+    const msg = el('span', { class: 'saved' });
+    const shown = showId && letters.find(l => l.id === showId);
+    $('#letterBody').replaceChildren(
+      shown ? el('div', { class: 'row' }, el('h4', { class: 'sec-title' }, `💌 מכתב שכתבת ב-${fromIso(shown.written).d} ב${MONTHS[fromIso(shown.written).m]} ${fromIso(shown.written).y}`), el('div', { class: 'letter-open' }, shown.text)) : null,
+      el('div', { class: 'envs' }, ...letters.slice().sort((a, b) => a.open.localeCompare(b.open)).map(l => {
+        const ready = l.open <= t, n = daysBetween(t, l.open), o = fromIso(l.open);
+        return el('button', { type: 'button', class: 'env' + (ready && !l.read ? ' ready' : ''), onclick: () => {
+          if (!ready) { msg.textContent = `המכתב הזה נפתח רק ב-${o.d} ב${MONTHS[o.m]} ${o.y}. עוד קצת סבלנות! ⏳`; return; }
+          l.read = true; store.set('letters', letters); SFX.yay(); openLetters(l.id); renderStrip(); renderCalendar();
+        } }, el('span', { class: 'ic', html: envSVG(ready && l.read) }), ready ? (l.read ? 'נפתח ✔️' : '💌 אפשר לפתוח!') : `נפתח בעוד ${n} ${n === 1 ? 'יום' : 'ימים'}`, el('span', { class: 'muted' }, `${o.d} ב${MONTHS[o.m]} ${o.y}`));
+      })),
+      msg,
+      el('div', { class: 'box' }, el('h4', {}, '✍️ לכתוב מכתב חדש לעצמי'), ta,
+        el('label', { for: 'letterDate' }, 'מתי לפתוח אותו?'), date,
+        el('div', {}, el('button', { type: 'button', class: 'btn main', onclick: () => {
+          if (!ta.value.trim()) { ta.focus(); return; }
+          if (!date.value || date.value <= t) { msg.textContent = 'צריך לבחור תאריך בעתיד.'; return; }
+          letters.push({ id: 'l' + Date.now().toString(36), text: ta.value.trim(), written: t, open: date.value, read: false });
+          store.set('letters', letters); SFX.pop(); openLetters(); renderCalendar(); afterChange();
+        } }, '💌 לסגור את המכתב במעטפה'))));
+    if (!$('#letterDlg').open) $('#letterDlg').showModal();
+  }
+
+  // ================= month summary =================
+  function openSummary() {
+    const last = new Date(viewY, viewM + 1, 0).getDate();
+    const keys = Array.from({ length: last }, (_, i) => iso(viewY, viewM, i + 1));
+    const dia = keys.filter(k => diary[k] && (diary[k].text || diary[k].mood));
+    const moodCount = MOODS.map(m => [m, dia.filter(k => diary[k].mood === m[0]).length]).filter(([, n]) => n);
+    const max = Math.max(1, ...moodCount.map(([, n]) => n));
+    const habitN = keys.reduce((a, k) => a + (habits.done[k] || []).length, 0);
+    const stk = {}; keys.forEach(k => (stickers[k] || []).forEach(id => { stk[id] = (stk[id] || 0) + 1; }));
+    const topStk = Object.entries(stk).sort((a, b) => b[1] - a[1]).slice(0, 3);
+    const evN = keys.reduce((a, k) => a + (events[k] || []).length, 0);
+    const pics = keys.flatMap(k => [media.photo[k] ? ['photo', k] : null, media.draw[k] ? ['draw', k] : null].filter(Boolean));
+    const great = dia.filter(k => diary[k].mood === 'great' && diary[k].text);
+    const locked = pin && !unlocked;
+    $('#sumTitle').textContent = `📊 הסיכום של ${MONTHS[viewM]} ${viewY}`;
+    $('#sumBody').replaceChildren(
+      el('div', { class: 'tiles-num' },
+        el('div', {}, el('b', {}, String(dia.length)), 'ימים ביומן'), el('div', {}, el('b', {}, String(habitN)), 'הרגלים שסימנתי'),
+        el('div', {}, el('b', {}, String(Object.values(stk).reduce((a, n) => a + n, 0))), 'מדבקות'), el('div', {}, el('b', {}, String(evN)), 'אירועים'),
+        el('div', {}, el('b', {}, String(pics.length)), 'תמונות וציורים')),
+      el('h4', { class: 'sec-title' }, 'איך הרגשתי החודש'),
+      moodCount.length ? el('div', { class: 'mood-bars', role: 'table', 'aria-label': 'כמה ימים בכל מצב רוח' }, ...moodCount.map(([m, n]) => {
+        const fill = el('div', { class: 'fill', title: `${m[2]}: ${n} ימים` }); fill.style.width = `${n / max * 100}%`;
+        return el('div', { class: 'mood-bar', role: 'row' }, el('span', { role: 'cell' }, `${m[1]} ${m[2]}`), el('div', { class: 'track', role: 'cell' }, fill), el('span', { class: 'n', role: 'cell' }, String(n)));
+      })) : el('p', { class: 'muted' }, 'עוד לא בחרת מצב רוח ביומן החודש.'),
+      great.length && !locked ? el('h4', { class: 'sec-title' }, '😄 הימים הכי כיפיים') : null,
+      great.length && !locked ? el('div', { class: 'row' }, ...great.slice(0, 5).map(k => el('div', { class: 'ly' }, el('b', { style: 'font-weight:400;color:var(--accent)' }, `${fromIso(k).d} ב${MONTHS[viewM]}: `), diary[k].text.slice(0, 120)))) : null,
+      topStk.length ? el('h4', { class: 'sec-title' }, '🎨 המדבקות שהכי אהבתי') : null,
+      topStk.length ? el('div', { class: 'pickers' }, ...topStk.map(([id, n]) => el('span', { class: 'pick', title: `${n} פעמים`, html: stickerHTML(id) }))) : null,
+      pics.length ? el('h4', { class: 'sec-title' }, '📷 התמונות והציורים') : null,
+      pics.length ? el('div', { class: 'gallery' }, ...pics.map(([kind, k]) => el('button', { type: 'button', 'aria-label': `${fromIso(k).d} ב${MONTHS[viewM]}`, onclick: () => { $('#sumDlg').close(); openDay(k); } }, el('img', { src: getMedia(kind, k), alt: '' })))) : null);
+    $('#sumDlg').showModal();
+  }
+
+  // ================= countdowns =================
+  let cdStk = 'star';
+  function buildCountdowns() {
+    const t = localToday();
+    $('#cdDate').min = addDays(t, 1);
+    $('#cdList').replaceChildren(...(countdowns.length ? countdowns.slice().sort((a, b) => a.date.localeCompare(b.date)).map(c => {
+      const n = daysBetween(t, c.date), total = Math.max(1, daysBetween(c.created, c.date));
+      const bar = el('div', { class: 'bar' }, el('i')); bar.firstChild.style.width = `${Math.min(100, Math.max(0, (total - n) / total * 100))}%`;
+      return el('div', { class: 'cd-row' }, el('span', { class: 'ic', html: stickerHTML(c.stk) }),
+        el('span', {}, `${c.name} · ${n > 0 ? `עוד ${n} ${n === 1 ? 'יום' : 'ימים'}` : n === 0 ? 'היום! 🎉' : 'היה! ✔️'}`),
+        el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { countdowns = countdowns.filter(x => x !== c); store.set('countdowns', countdowns); buildCountdowns(); renderStrip(); } }, '🗑️'),
+        bar);
+    }) : [el('p', { class: 'muted' }, 'עוד אין ספירות. למה את מחכה?')]));
+    stickerPicker($('#cdStk'), id => id === cdStk, id => { if (id) { cdStk = id; buildCountdowns(); } });
+  }
+  $('#cdForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('#cdName').value.trim(), date = $('#cdDate').value;
+    if (!name) { $('#cdName').focus(); return; }
+    if (!date || date <= localToday()) { $('#cdDate').focus(); return; }
+    countdowns.push({ name, date, stk: cdStk, created: localToday() });
+    $('#cdName').value = ''; store.set('countdowns', countdowns); SFX.pop(); buildCountdowns(); renderStrip(); afterChange();
+  });
+
+  // ================= books =================
+  let bookTab = 'reading';
+  const BOOK_TABS = [['reading', '📖 קוראת עכשיו'], ['done', '✔️ קראתי'], ['want', '💭 רוצה לקרוא']];
+  function buildBooks() {
+    $('#bookTabs').replaceChildren(...BOOK_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(bookTab === id), onclick: () => { bookTab = id; buildBooks(); } },
+      `${n} (${books.filter(b => b.status === id).length})`)));
+    const list = books.filter(b => b.status === bookTab);
+    const save = () => { store.set('books', books); buildBooks(); afterChange(); };
+    $('#bookList').replaceChildren(...(list.length ? list.map(b => el('div', { class: 'book-row' },
+      el('span', {}, el('span', { class: 't' }, '📕 ' + b.title), b.author ? el('span', { class: 'a' }, ' · ' + b.author) : null),
+      b.status === 'done' ? el('span', { class: 'stars', 'aria-label': 'כמה אהבתי' }, ...[1, 2, 3, 4, 5].map(n => el('button', { type: 'button', class: (b.stars || 0) >= n ? 'on' : '', 'aria-label': `${n} כוכבים`, onclick: () => { b.stars = n; SFX.pop(); save(); } }, '⭐'))) : null,
+      el('span', { class: 'acts' },
+        ...BOOK_TABS.filter(([id]) => id !== b.status).map(([id, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { b.status = id; if (id === 'done') { b.done = localToday(); SFX.yay(); } save(); } }, '← ' + n.split(' ').slice(1).join(' '))),
+        el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { books = books.filter(x => x !== b); save(); } }, '🗑️')))) :
+      [el('p', { class: 'muted' }, bookTab === 'done' ? 'עוד אין ספרים שקראת. כשמסיימים ספר, מעבירים אותו לכאן!' : 'עוד אין ספרים כאן.')]));
+  }
+  $('#bookForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const title = $('#bookName').value.trim();
+    if (!title) { $('#bookName').focus(); return; }
+    books.push({ id: 'b' + Date.now().toString(36), title, author: $('#bookAuthor').value.trim(), status: bookTab, stars: 0 });
+    $('#bookName').value = ''; $('#bookAuthor').value = '';
+    store.set('books', books); SFX.pop(); buildBooks(); afterChange();
+  });
+
+  // ================= holiday decorations =================
+  const HOLIDAY_DECOR = [
+    [['hanukkah'], ['menorah', 'dreidel', 'donut', 'star']],
+    [['purim', 'shushan'], ['mask', 'crown', 'gift', 'lollipop']],
+    [['pesach1', 'pesach2', 'cholpesach', 'pesach7', 'pesach8'], ['matzah', 'flower', 'sun', 'butterfly']],
+    [['rh1', 'rh2'], ['apple', 'honey', 'pomegranate', 'star']],
+    [['sukkot1', 'sukkot2', 'cholsukkot', 'hoshana', 'shmini', 'simchat', 'shminisimchat'], ['leaf', 'pomegranate', 'apple', 'star']],
+    [['tubshvat'], ['leaf', 'flower', 'cactus', 'apple']],
+    [['shavuot1', 'shavuot2'], ['flower', 'sunflower', 'tulip', 'apple']],
+    [['atzmaut'], ['star', 'balloon', 'sparkles', 'gift']],
+    [['christmas', 'christmasEve'], ['tree', 'snowman', 'gift', 'star']],
+    [['easter', 'palm'], ['egg', 'bunny', 'flower', 'tulip']],
+  ];
+  function holidayDecor() {
+    if (!design.holidayDecor) return null;
+    const today = localToday(), t = fromIso(today);
+    const keys = viewY === t.y && viewM === t.m ? Array.from({ length: 12 }, (_, i) => addDays(today, i - 1))
+      : Array.from({ length: new Date(viewY, viewM + 1, 0).getDate() }, (_, i) => iso(viewY, viewM, i + 1));
+    const ids = new Set(keys.flatMap(k => holidaysOn(k).map(x => x.id)));
+    const g = HOLIDAY_DECOR.find(([hs]) => hs.some(h => ids.has(h)));
+    return g ? g[1] : null;
+  }
 
   // ================= wiring =================
   document.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
@@ -2619,11 +3578,13 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   $('#prev').addEventListener('click', () => moveView(-1));
   $('#next').addEventListener('click', () => moveView(1));
   $('#goToday').addEventListener('click', goToday);
+  $('#sumBtn').addEventListener('click', openSummary);
   $('#openDesign').addEventListener('click', () => { buildDesignPanel(); $('#designDlg').showModal(); });
   $('#openMore').addEventListener('click', openMore);
   $('#openMorning').addEventListener('click', () => { buildMorning(); $('#mornDlg').showModal(); });
   $('#openHabits').addEventListener('click', () => { buildHabits(); $('#habDlg').showModal(); });
   $('#darkBtn').addEventListener('click', () => { design.darkMode = !design.darkMode; rerender(); });
+  $('#soundBtn').addEventListener('click', () => { design.sound = !design.sound; rerender(); SFX.pop(); });
   $('#habDlg').addEventListener('close', () => renderCalendar());
   $('#openPlace').addEventListener('click', () => { buildQuickPlaces(); $('#results').replaceChildren(); $('#searchMsg').hidden = true; $('#placeDlg').showModal(); });
 
