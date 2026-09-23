@@ -3441,14 +3441,14 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
-  function showWelcome() {
+  function showWelcome(then) {
     const lock = $('#lock');
     const box = el('div', { class: `lock-box keys-${design.lockKeys} dots-${design.lockDots}` },
       el('span', { class: 'ic', html: stickerHTML(design.lockStk) }),
       el('h2', {}, design.lockTitle || 'היומן הסודי שלי'),
       el('p', { class: 'lock-news' }, '✨ הלוח שודרג! מה חדש:'),
       el('ul', { class: 'news-list' }, ...WHATS_NEW.map(t => el('li', {}, t))),
-      el('div', { class: 'keypad', style: 'grid-template-columns:1fr' }, el('button', { type: 'button', style: 'border-radius:999px;height:56px;font-family:var(--font);font-size:1.4em;width:220px', onclick: () => { lock.close(); SFX.yay(); } }, 'להיכנס ✨')));
+      el('div', { class: 'keypad', style: 'grid-template-columns:1fr' }, el('button', { type: 'button', style: 'border-radius:999px;height:56px;font-family:var(--font);font-size:1.4em;width:220px', onclick: () => { lock.close(); SFX.yay(); typeof then === 'function' && then(); } }, 'להיכנס ✨')));
     lock.className = LOCK_BGS[design.lockBg]?.pattern ? 'pattern-stars' : '';
     lock.oncancel = e => e.preventDefault();
     lock.replaceChildren(box);
@@ -4126,7 +4126,12 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   checkMedals();
   // every new version opens on the code screen, the way she designed it
   if (pin && (pin.scope === 'all' || upgraded)) showLock(upgraded ? showWelcome : null, false, upgraded);
-  else if (upgraded) showWelcome();
+  else if (!pin && !store.get('lockAsked', false)) {
+    // no lock yet: go straight to the page where she makes the key, code and question
+    store.set('lockAsked', true);
+    upgraded ? showWelcome(openPinDlg) : openPinDlg();
+  } else if (upgraded) showWelcome();
+  if (location.hash === '#lock' && !$('#lock').open) openPinDlg();
   loadWeather();
 })();
 </script>
