@@ -451,6 +451,37 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 .lock-box.keys-rainbow .keypad button:nth-child(6n+3) { background: #fff1a8; } .lock-box.keys-rainbow .keypad button:nth-child(6n+4) { background: #c9f0d6; }
 .lock-box.keys-rainbow .keypad button:nth-child(6n+5) { background: #cfe6ff; } .lock-box.keys-rainbow .keypad button:nth-child(6n) { background: #e5d6ff; }
 .lock-box.keys-rainbow .keypad button { color: #1f2a44; }
+.lock-steps { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; font-size: .95em; }
+.lock-steps span { border: 2px solid currentColor; border-radius: 999px; padding: 1px 10px; opacity: .5; }
+.lock-steps span.on { opacity: 1; font-weight: 700; box-shadow: 0 0 0 2px currentColor; }
+.lock-steps span.done { opacity: .9; }
+.padlock { width: 76px; height: 86px; }
+.padlock svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 4px 4px rgb(0 0 0 / .25)); }
+.padlock .shackle { transition: transform .45s .35s ease; }
+.padlock.open .shackle { transform: translateY(-12px); }
+.key-ring { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.key-ring button { width: 132px; padding: 8px; border: 2.5px solid var(--lock-ink); background: var(--lock-key); border-radius: 18px; }
+.key-ring button svg { width: 100%; height: auto; display: block; }
+.key-ring button:hover svg { transform: rotate(-6deg); transition: transform .15s; }
+.key-ring button.nope { animation: shake .4s; }
+.key-ring button.turn { border-color: #2ecc71; box-shadow: 0 0 0 4px #2ecc71; }
+.key-ring button.turn svg { animation: keyturn .8s forwards; }
+@keyframes keyturn { 40% { transform: translateX(14px); } 100% { transform: perspective(200px) translateX(14px) rotateX(75deg); } }
+#lock input[type=text] { font-size: 1.2em; padding: 8px 12px; border-radius: 12px; border: 2.5px solid var(--lock-ink); width: min(280px, 100%); font-family: var(--font); text-align: center; }
+.key-cards { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.key-card { flex: none; width: 108px; display: grid; justify-items: center; gap: 2px; border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px 4px; font-size: .88em; color: var(--ink); }
+.key-card[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.key-card .ic { width: 96px; height: 42px; }
+.key-card .ic svg { width: 100%; height: 100%; }
+.key-card.add { border-style: dashed; color: var(--soft); align-content: center; }
+.key-card .plus { font-size: 1.8em; line-height: 1; }
+.key-big { width: min(260px, 100%); justify-self: center; }
+.key-big svg { width: 100%; height: auto; display: block; }
+.sw3 { color: var(--ink); font-size: 1em; }
+.pin-msg { min-height: 1.2em; margin: 0; font-weight: 700; color: var(--accent); }
+.pin-msg.shake { animation: shake .4s; }
+.store-warn { margin: 0; padding: 10px 14px; border-radius: 14px; background: #fff1a8; color: #3b2415; border: 2px dashed #e0a800; font-size: 1.05em; }
+#storeBanner { position: sticky; top: 0; z-index: 50; text-align: center; border-radius: 0; }
 .lock-link { background: none; border: none; color: inherit; text-decoration: underline; opacity: .8; }
 .lock-preview { position: relative; height: 420px; border-radius: 18px; overflow: hidden; border: 2px solid var(--line); }
 .lock-preview #lockPrev { position: absolute; inset: 0; display: grid; place-items: center; transform: scale(.78); transform-origin: center; }
@@ -1118,7 +1149,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 <dialog id="pinDlg" aria-labelledby="pinTitle">
   <div class="sheet">
     <div class="sheet-head">
-      <h3 id="pinTitle">🔒 קוד סודי</h3>
+      <h3 id="pinTitle">🔐 המנעול שלי</h3>
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <p class="muted">הקוד שומר שלא יציצו לך בקלות. זו לא נעילה חזקה באמת, אז לא כותבים ביומן סיסמאות או סודות חשובים מאוד.</p>
@@ -1171,6 +1202,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     get(k, fallback) { try { const v = localStorage.getItem('halu4-' + k); return v ? JSON.parse(v) : fallback; } catch { return fallback; } },
     set(k, v) { try { localStorage.setItem('halu4-' + k, JSON.stringify(v)); return true; } catch { return false; } },
   };
+  // some previews (like a side panel) can't keep anything; then the lock and diary won't be saved
+  const storageOk = (() => { try { localStorage.setItem('halu4-test', '1'); const ok = localStorage.getItem('halu4-test') === '1'; localStorage.removeItem('halu4-test'); return ok; } catch { return false; } })();
 
   const $ = s => document.querySelector(s);
   // skip empty (null/false) children so optional parts can be passed inline
@@ -1753,8 +1786,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     chipGroup($('#lockKeys'), LOCK_KEYS, 'lockKeys');
     chipGroup($('#lockDots'), LOCK_DOTS, 'lockDots');
     stickerPicker($('#lockStkPick'), id => design.lockStk === id, id => { if (id) { design.lockStk = id; rerender(); } });
-    $('#lockNoPin').replaceChildren(pin ? el('p', { class: 'muted' }, '✔️ יש לך קוד סודי.') :
-      el('button', { type: 'button', class: 'btn main', onclick: () => { $('#designDlg').close(); openPinDlg(); } }, '🔒 לבחור קוד סודי'));
+    $('#lockNoPin').replaceChildren(pin ? el('p', { class: 'muted' }, '✔️ יש לך מנעול.') :
+      el('button', { type: 'button', class: 'btn main', onclick: () => { $('#designDlg').close(); openPinDlg(); } }, '🔐 לעשות מנעול'));
     renderLockPreview();
   }
   $('#dTitle').addEventListener('input', e => { design.title = e.target.value; applyDesign(); });
@@ -3122,7 +3155,78 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     store.set('habits', habits); buildHabits();
   });
 
-  // ================= secret code + lock screen =================
+  // ================= keys: she designs a few, one of them opens =================
+  const KEY_BOWS = [['circle', 'עיגול'], ['heart', 'לב'], ['star', 'כוכב'], ['flower', 'פרח'], ['crown', 'כתר'], ['clover', 'תלתן']];
+  const KEY_COLORS = ['#f5c542', '#c9d1dc', '#ff9ab8', '#7fe0b5', '#7cc6f5', '#b594f5', '#ff9f5a'];
+  const KEY_TEETH = [['a', 'שיניים 1'], ['b', 'שיניים 2'], ['c', 'שיניים 3'], ['d', 'גלים']];
+  const KEY_GEMS = ['none', '#ff4f9a', '#3aa0ff', '#2ecc71', '#ffffff', '#a64dff'];
+  function keySVG(k) {
+    const f = k.color || KEY_COLORS[0];
+    const star = [...Array(10)].map((_, i) => { const r = i % 2 ? 10.5 : 24, a = Math.PI / 5 * i - Math.PI / 2; return `${(28 + r * Math.cos(a)).toFixed(1)},${(31 + r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+    const bow = {
+      circle: '<circle cx="28" cy="30" r="21"/>',
+      heart: '<path d="M28 51 C10 39 3 28 7.5 17.5 C12 8 24 8 28 17 C32 8 44 8 48.5 17.5 C53 28 46 39 28 51 Z"/>',
+      star: `<polygon points="${star}"/>`,
+      flower: [0, 1, 2, 3, 4].map(i => { const a = Math.PI * 2 / 5 * i - Math.PI / 2; return `<circle cx="${(28 + 13 * Math.cos(a)).toFixed(1)}" cy="${(30 + 13 * Math.sin(a)).toFixed(1)}" r="10"/>`; }).join('') + '<circle cx="28" cy="30" r="12"/>',
+      crown: '<path d="M7 46 V13 L17.5 25 L28 8 L38.5 25 L49 13 V46 Z"/>',
+      clover: '<circle cx="28" cy="19" r="11"/><circle cx="17" cy="30" r="11"/><circle cx="39" cy="30" r="11"/><circle cx="28" cy="41" r="11"/>',
+    }[k.bow] || '';
+    const teeth = {
+      a: '<rect x="98" y="33" width="8" height="12" rx="1.5"/><rect x="110" y="33" width="8" height="18" rx="1.5"/><rect x="122" y="33" width="8" height="10" rx="1.5"/>',
+      b: '<rect x="96" y="33" width="9" height="17" rx="1.5"/><rect x="109" y="33" width="7" height="9" rx="1.5"/><rect x="120" y="33" width="10" height="17" rx="1.5"/>',
+      c: '<rect x="102" y="33" width="12" height="18" rx="2"/><rect x="118" y="33" width="12" height="12" rx="2"/>',
+      d: '<path d="M96 33 V44 Q101 50 106 44 Q111 38 116 46 Q121 52 126 44 L130 40 V33 Z"/>',
+    }[k.teeth] || '';
+    const shape = `${bow}<rect x="44" y="25" width="88" height="10" rx="3"/>${teeth}`;
+    const gem = k.gem && k.gem !== 'none'
+      ? `<circle cx="28" cy="30" r="7.5" fill="${k.gem}" ${S2}/><circle cx="25.5" cy="27.5" r="2.2" fill="#fff" opacity=".85"/>`
+      : `<circle cx="28" cy="30" r="6.5" fill="#fff" fill-opacity=".75" ${S2}/>`;
+    // outline first, then the same shapes filled on top, so overlapping parts melt into one key
+    return `<svg viewBox="0 0 140 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="${f}" stroke="${O}" stroke-width="5" stroke-linejoin="round">${shape}</g><g fill="${f}">${shape}</g>`
+      + `<path d="M50 28 H126" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/>${gem}</svg>`;
+  }
+  const PADLOCK = `<svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path class="shackle" d="M20 42 V26 a20 20 0 0 1 40 0 V42" fill="none" stroke="${O}" stroke-width="11" stroke-linecap="round"/><path class="shackle" d="M20 42 V26 a20 20 0 0 1 40 0 V42" fill="none" stroke="#c9d1dc" stroke-width="6" stroke-linecap="round"/>`
+    + `<rect x="8" y="40" width="64" height="46" rx="12" fill="#f5c542" ${S}/><circle cx="40" cy="58" r="6" fill="${O}"/><path d="M37 60 H43 L42 73 H38 Z" fill="${O}"/><path d="M16 47 Q15 62 17 78" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/></svg>`;
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  const randomKey = () => ({ id: 'k' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), bow: pick(KEY_BOWS)[0], color: pick(KEY_COLORS), teeth: pick(KEY_TEETH)[0], gem: pick(KEY_GEMS) });
+  const starterKeys = () => { const ks = []; while (ks.length < 3) { const k = randomKey(); if (!ks.some(x => x.bow === k.bow)) ks.push(k); } return ks; };
+  const hasKeys = () => !!(pin && pin.keys && pin.keys.length > 1 && pin.keys.some(k => k.id === pin.keyId));
+
+  // key designer; st = { keys, keyId }, save() is called after every change
+  function keyEditor(box, st, save) {
+    let sel = st.keys[0] && st.keys[0].id, confirmDel = false;
+    const draw = () => {
+      const k = st.keys.find(x => x.id === sel) || st.keys[0];
+      sel = k.id;
+      const upd = patch => { Object.assign(k, patch); save(); draw(); };
+      const chips = (list, cur, key) => el('div', { class: 'chips' }, ...list.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cur === id), onclick: () => upd({ [key]: id }) }, name)));
+      const swatches = (list, cur, key, label) => el('div', { class: 'swatches' }, ...list.map(c => {
+        const b = el('button', { type: 'button', class: 'sw3', 'aria-pressed': String(cur === c), 'aria-label': c === 'none' ? 'בלי' : label, onclick: () => upd({ [key]: c }) }, c === 'none' ? '✕' : '');
+        if (c !== 'none') b.style.background = c; return b;
+      }));
+      const isOpener = st.keyId === k.id;
+      box.replaceChildren(
+        el('div', { class: 'key-cards' }, ...st.keys.map((x, i) => el('button', { type: 'button', class: 'key-card', 'aria-pressed': String(x.id === sel), onclick: () => { sel = x.id; confirmDel = false; draw(); } },
+          el('span', { class: 'ic', html: keySVG(x) }), el('span', {}, st.keyId === x.id ? '⭐ הוא פותח!' : `מפתח ${i + 1}`))),
+          st.keys.length < 6 ? el('button', { type: 'button', class: 'key-card add', onclick: () => { const n = randomKey(); st.keys.push(n); sel = n.id; save(); SFX.pop(); draw(); } }, el('span', { class: 'plus' }, '+'), 'מפתח חדש') : null),
+        el('div', { class: 'key-big', html: keySVG(k) }),
+        el('span', { class: 'lbl' }, 'הצורה של הראש'), chips(KEY_BOWS, k.bow, 'bow'),
+        el('span', { class: 'lbl' }, 'צבע'), swatches(KEY_COLORS, k.color, 'color', 'צבע'),
+        el('span', { class: 'lbl' }, 'שיניים'), chips(KEY_TEETH, k.teeth, 'teeth'),
+        el('span', { class: 'lbl' }, 'אבן חן'), swatches(KEY_GEMS, k.gem, 'gem', 'אבן חן'),
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn' + (isOpener ? ' main' : ''), onclick: () => { st.keyId = k.id; save(); SFX.ding(); draw(); } }, isOpener ? '⭐ זה המפתח שפותח' : '⭐ שזה יהיה המפתח שפותח'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { const r = randomKey(); delete r.id; upd(r); SFX.pop(); } }, '🎲 עיצוב הפתעה'),
+          st.keys.length > 2 ? (confirmDel
+            ? el('span', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { st.keys = st.keys.filter(x => x !== k); if (st.keyId === k.id) st.keyId = null; confirmDel = false; save(); draw(); } }, 'כן, למחוק'),
+              el('button', { type: 'button', class: 'btn', onclick: () => { confirmDel = false; draw(); } }, 'לא'))
+            : el('button', { type: 'button', class: 'btn', onclick: () => { confirmDel = true; draw(); } }, '🗑️ למחוק מפתח')) : null),
+        el('p', { class: 'muted' }, st.keyId ? 'במסך הנעילה כל המפתחות יופיעו מעורבבים, ורק המפתח עם ⭐ יפתח.' : '👆 צריך לבחור איזה מפתח פותח!'));
+    };
+    draw();
+  }
+
+  // ================= secret lock: key + code + question =================
   const LOCK_BGS = {
     theme: { name: 'הצבעים שלי', bg: 'linear-gradient(160deg, var(--accent), var(--weekend))', ink: 'var(--ink)', key: 'var(--card)', keyInk: 'var(--ink)' },
     candy: { name: 'סוכרייה', bg: 'linear-gradient(160deg, #ffc2d6, #e5d6ff)', ink: '#3a2350', key: '#ffffff', keyInk: '#3a2350' },
@@ -3133,48 +3237,109 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   };
   const LOCK_KEYS = [{ id: 'round', name: 'עגולים' }, { id: 'square', name: 'מרובעים' }, { id: 'blob', name: 'בועות' }, { id: 'flower', name: 'טיפות' }, { id: 'rainbow', name: 'קשת בענן' }];
   const LOCK_DOTS = [{ id: 'circle', name: 'עיגולים' }, { id: 'heart', name: 'לבבות' }, { id: 'star', name: 'כוכבים' }];
-  function lockBox(entered, onKey, extra) {
+  const lockSteps = () => [hasKeys() ? 'key' : null, 'code', pin && pin.q ? 'q' : null].filter(Boolean);
+  const STEP_NAMES = { key: '🗝️ מפתח', code: '🔢 קוד', q: '❓ שאלה' };
+  function stepsBar(cur) {
+    const steps = lockSteps();
+    if (steps.length < 2) return null;
+    const at = steps.indexOf(cur);
+    return el('div', { class: 'lock-steps' }, ...steps.map((s, i) => el('span', { class: i < at ? 'done' : i === at ? 'on' : '' }, (i < at ? '✔️ ' : '') + STEP_NAMES[s])));
+  }
+  function lockBox(entered, onKey, extra, step = 'code') {
     const box = el('div', { class: `lock-box keys-${design.lockKeys} dots-${design.lockDots}` },
       el('span', { class: 'ic', html: stickerHTML(design.lockStk) }),
       el('h2', {}, design.lockTitle || 'היומן הסודי שלי'),
+      stepsBar(step),
       el('div', { class: 'pin-dots' }, ...[0, 1, 2, 3].map(i => el('i', { class: i < entered ? 'on' : '' }))),
       el('div', { class: 'pin-err' }),
       el('div', { class: 'keypad' }, ...['1', '2', '3', '4', '5', '6', '7', '8', '9', '⌫', '0', '✓'].map(k => el('button', { type: 'button', 'aria-label': k === '⌫' ? 'למחוק' : k === '✓' ? 'אישור' : k, onclick: () => onKey && onKey(k) }, k))),
       ...(extra || []));
     return box;
   }
+  const sameAnswer = (a, b) => a.trim().replace(/\s+/g, ' ').toLowerCase() === (b || '').trim().replace(/\s+/g, ' ').toLowerCase();
   function showLock(onOk, canCancel, upgradedNote) {
     const lock = $('#lock');
-    let code = '';
-    const draw = (err) => {
-      const extra = [
-        el('button', { type: 'button', class: 'lock-link', onclick: forgot }, 'שכחתי את הקוד'),
-        canCancel ? el('button', { type: 'button', class: 'lock-link', onclick: () => lock.close() }, 'ביטול') : null,
-      ];
-      const box = lockBox(code.length, key, extra);
-      if (upgradedNote) box.insertBefore(el('p', { class: 'lock-news' }, '✨ הלוח שודרג! מקלידים את הקוד כדי לראות מה חדש'), box.querySelector('.pin-dots'));
-      lock.replaceChildren(box);
-      if (err) { const e = lock.querySelector('.pin-err'); e.textContent = err; e.classList.add('shake'); }
+    const steps = lockSteps();
+    let code = '', stepAt = 0;
+    const cancelLink = () => canCancel ? el('button', { type: 'button', class: 'lock-link', onclick: () => lock.close() }, 'ביטול') : null;
+    const news = () => upgradedNote && stepAt === 0 ? el('p', { class: 'lock-news' }, '✨ הלוח שודרג! פותחים את המנעול כדי לראות מה חדש') : null;
+    const next = () => {
+      stepAt++;
+      if (stepAt >= steps.length) { unlocked = true; lock.close(); SFX.yay(); onOk && onOk(); return; }
+      draw();
+    };
+    const shakeErr = (box, text) => { const e = box.querySelector('.pin-err'); e.textContent = text; e.classList.remove('shake'); void e.offsetWidth; e.classList.add('shake'); };
+    const drawKey = () => {
+      const keys = [...pin.keys].sort(() => Math.random() - 0.5);
+      const pad = el('span', { class: 'padlock', html: PADLOCK });
+      let busy = false;
+      const box = el('div', { class: 'lock-box' },
+        pad,
+        el('h2', {}, design.lockTitle || 'היומן הסודי שלי'),
+        news(), stepsBar('key'),
+        el('p', { class: 'lock-news' }, 'איזה מפתח פותח את המנעול?'),
+        el('div', { class: 'key-ring' }, ...keys.map((k, i) => el('button', { type: 'button', 'aria-label': `מפתח ${i + 1}`, html: keySVG(k), onclick: e => {
+          if (busy) return;
+          const b = e.currentTarget;
+          if (k.id === pin.keyId) {
+            busy = true; b.classList.add('turn'); pad.classList.add('open'); SFX.ding(); const e = box.querySelector('.pin-err'); e.classList.remove('shake'); e.textContent = '🎉 נפתח!';
+            setTimeout(next, reduceMotion() ? 50 : 850);
+          } else {
+            b.classList.remove('nope'); void b.offsetWidth; b.classList.add('nope'); SFX.boop();
+            shakeErr(box, 'המפתח הזה לא פותח! נסי מפתח אחר');
+          }
+        } }))),
+        el('div', { class: 'pin-err' }),
+        el('button', { type: 'button', class: 'lock-link', onclick: forgot }, 'שכחתי איזה מפתח'),
+        cancelLink());
+      return box;
+    };
+    const drawCode = err => {
+      const box = lockBox(code.length, key, [el('button', { type: 'button', class: 'lock-link', onclick: forgot }, 'שכחתי את הקוד'), cancelLink()], 'code');
+      const n = news();
+      if (n) box.insertBefore(n, box.querySelector('.pin-dots'));
+      if (err) setTimeout(() => shakeErr(box, err));
+      return box;
+    };
+    const drawQ = () => {
+      const inp = el('input', { type: 'text', id: 'pinAns', 'aria-label': 'התשובה', autocomplete: 'off' });
+      const box = el('form', { class: 'lock-box', onsubmit: e => {
+        e.preventDefault();
+        if (sameAnswer(inp.value, pin.a)) next();
+        else { shakeErr(box, 'זו לא התשובה. נסי שוב!'); SFX.boop(); inp.select(); }
+      } },
+        el('span', { class: 'ic', html: stickerHTML(design.lockStk) }),
+        el('h2', {}, 'השאלה הסודית'), stepsBar('q'),
+        el('p', { class: 'lock-news' }, pin.q), inp, el('div', { class: 'pin-err' }),
+        el('button', { type: 'submit', class: 'btn main' }, 'לפתוח 🔓'), cancelLink());
+      setTimeout(() => inp.focus());
+      return box;
+    };
+    const draw = err => {
+      const s = steps[stepAt];
+      lock.replaceChildren(s === 'key' ? drawKey() : s === 'q' ? drawQ() : drawCode(err));
     };
     const key = k => {
       if (k === '⌫') code = code.slice(0, -1);
       else if (k === '✓') { /* checked automatically */ }
       else if (code.length < 4) code += k;
       if (code.length === 4) {
-        if (code === pin.code) { unlocked = true; lock.close(); onOk && onOk(); return; }
+        if (code === pin.code) { code = ''; SFX.ding(); next(); return; }
         code = ''; draw('הקוד לא נכון. נסי שוב!'); return;
       }
       draw();
     };
+    // forgot the key or the code: the secret question opens, then she picks a new key/code
     const forgot = () => {
-      if (!pin.q) { lock.replaceChildren(el('div', { class: 'lock-box' }, el('h2', {}, 'שכחת את הקוד?'), el('p', {}, 'לא בחרת שאלה סודית, אז צריך עזרה של מבוגר: בכלים של הדפדפן אפשר למחוק את הנתונים של הלוח. (זה מוחק גם את כל מה שכתבת.)'), el('button', { type: 'button', class: 'btn', onclick: () => draw() }, 'חזרה'))); return; }
-      const inp = el('input', { type: 'text', id: 'pinAns', 'aria-label': 'תשובה', autocomplete: 'off' });
-      const msg = el('p', { class: 'pin-err' });
-      lock.replaceChildren(el('form', { class: 'lock-box', onsubmit: e => {
+      if (!pin.q) { lock.replaceChildren(el('div', { class: 'lock-box' }, el('h2', {}, 'שכחת?'), el('p', {}, 'לא בחרת שאלה סודית, אז צריך עזרה של מבוגר: בכלים של הדפדפן אפשר למחוק את הנתונים של הלוח. (זה מוחק גם את כל מה שכתבת.)'), el('button', { type: 'button', class: 'btn', onclick: () => draw() }, 'חזרה'))); return; }
+      const inp = el('input', { type: 'text', id: 'pinAns', 'aria-label': 'התשובה', autocomplete: 'off' });
+      const box = el('form', { class: 'lock-box', onsubmit: e => {
         e.preventDefault();
-        if (inp.value.trim().toLowerCase() === (pin.a || '').trim().toLowerCase()) { unlocked = true; lock.close(); onOk && onOk(); openPinDlg(); }
-        else { msg.textContent = 'זו לא התשובה. נסי שוב!'; }
-      } }, el('h2', {}, 'השאלה הסודית'), el('p', {}, pin.q), inp, msg, el('button', { type: 'submit', class: 'btn main' }, 'לפתוח'), el('button', { type: 'button', class: 'lock-link', onclick: () => draw() }, 'חזרה')));
+        if (sameAnswer(inp.value, pin.a)) { unlocked = true; lock.close(); onOk && onOk(); openPinDlg(); }
+        else shakeErr(box, 'זו לא התשובה. נסי שוב!');
+      } }, el('h2', {}, 'השאלה הסודית'), el('p', {}, 'עונים נכון, ואז אפשר לבחור מפתח וקוד חדשים.'), el('p', { class: 'lock-news' }, pin.q), inp, el('div', { class: 'pin-err' }),
+        el('button', { type: 'submit', class: 'btn main' }, 'לפתוח'), el('button', { type: 'button', class: 'lock-link', onclick: () => draw() }, 'חזרה'));
+      lock.replaceChildren(box);
       inp.focus();
     };
     lock.className = LOCK_BGS[design.lockBg]?.pattern ? 'pattern-stars' : '';
@@ -3183,39 +3348,83 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     if (lock.open) lock.close();
     lock.showModal();
   }
+
+  // ================= "my lock" settings: keys, code, question =================
+  const scopeChips = (cur, set) => el('div', { class: 'chips' }, ...[['diary', 'רק היומן'], ['all', 'כל הלוח']].map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cur === id), onclick: () => set(id) }, name)));
   function openPinDlg() {
     if (pin && !unlocked) { showLock(openPinDlg, true); return; }
     const body = $('#pinBody');
+    const warn = storageOk ? null : el('p', { class: 'store-warn' }, '⚠️ פה הלוח לא יכול לשמור את המנעול. צריך להוריד את הקובץ ולפתוח אותו בכרום.');
     if (!pin) {
+      const st = { keys: starterKeys(), keyId: null };
+      const keysBox = el('div', { class: 'row' });
+      keyEditor(keysBox, st, () => {});
       const c1 = el('input', { type: 'password', id: 'pin1', inputMode: 'numeric', maxLength: 4, autocomplete: 'off', placeholder: '4 ספרות' });
       const c2 = el('input', { type: 'password', id: 'pin2', inputMode: 'numeric', maxLength: 4, autocomplete: 'off', placeholder: 'שוב את אותן 4 ספרות' });
       const q = el('input', { type: 'text', id: 'pinQ', maxLength: 60, placeholder: 'למשל: איך קוראים לחתול של סבתא?' });
-      const a = el('input', { type: 'text', id: 'pinA', maxLength: 40, placeholder: 'התשובה' });
-      let scope = 'diary';
-      const scopeRow = el('div', { class: 'chips' });
-      const drawScope = () => scopeRow.replaceChildren(...[['diary', 'רק היומן'], ['all', 'כל הלוח']].map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(scope === id), onclick: () => { scope = id; drawScope(); } }, name)));
+      const a = el('input', { type: 'text', id: 'pinA', maxLength: 40, placeholder: 'התשובה', autocomplete: 'off' });
+      let scope = 'all';
+      const scopeRow = el('div');
+      const drawScope = () => scopeRow.replaceChildren(scopeChips(scope, id => { scope = id; drawScope(); }));
       drawScope();
-      const msg = el('p', { class: 'muted' });
-      body.replaceChildren(el('form', { class: 'row', onsubmit: e => {
+      const msg = el('p', { class: 'pin-msg' });
+      body.replaceChildren(warn, el('form', { class: 'row', onsubmit: e => {
         e.preventDefault();
-        if (!/^\d{4}$/.test(c1.value)) { msg.textContent = 'הקוד צריך להיות בדיוק 4 מספרים.'; return; }
-        if (c1.value !== c2.value) { msg.textContent = 'שני הקודים לא שווים. נסי שוב.'; return; }
-        pin = { code: c1.value, scope, q: q.value.trim(), a: a.value.trim() };
-        store.set('pin', pin); unlocked = true; openPinDlg(); afterChange();
+        const bad = t => { msg.textContent = t; msg.classList.remove('shake'); void msg.offsetWidth; msg.classList.add('shake'); };
+        if (!st.keyId) return bad('🗝️ צריך לבחור איזה מפתח פותח (הכפתור עם ⭐).');
+        if (!/^\d{4}$/.test(c1.value)) return bad('🔢 הקוד צריך להיות בדיוק 4 מספרים.');
+        if (c1.value !== c2.value) return bad('🔢 שני הקודים לא שווים. נסי שוב.');
+        if (!q.value.trim() || !a.value.trim()) return bad('❓ צריך לכתוב שאלה סודית וגם את התשובה.');
+        pin = { code: c1.value, scope, q: q.value.trim(), a: a.value.trim(), keys: st.keys, keyId: st.keyId };
+        const saved = store.set('pin', pin); unlocked = true; afterChange(); SFX.yay();
+        if (!saved) { pin = null; return bad('⚠️ לא הצלחתי לשמור. צריך לפתוח את הלוח בכרום.'); }
+        openPinDlg(); toast(stickerHTML(design.lockStk), '🔐 המנעול מוכן! מפתח, קוד ושאלה');
       } },
-        el('label', { for: 'pin1' }, 'בחרי קוד של 4 מספרים'), c1, c2,
+        el('h4', {}, '1. 🗝️ המפתחות שלך'), el('p', { class: 'muted' }, 'עצבי כמה מפתחות, ובחרי אחד שהוא פותח. את השאר אפשר לעצב כמו שבא לך, כדי לבלבל.'), keysBox,
+        el('h4', {}, '2. 🔢 הקוד'), el('label', { for: 'pin1' }, 'קוד של 4 מספרים'), c1, c2,
+        el('h4', {}, '3. ❓ השאלה הסודית'), el('label', { for: 'pinQ' }, 'שאלה שרק את יודעת את התשובה'), q, el('label', { for: 'pinA' }, 'התשובה'), a,
         el('span', { class: 'lbl' }, 'מה לנעול?'), scopeRow,
-        el('label', { for: 'pinQ' }, 'שאלה סודית, למקרה ששוכחים את הקוד (לא חובה)'), q, a,
-        msg, el('div', {}, el('button', { type: 'submit', class: 'btn main' }, '🔒 לשמור קוד'))));
+        msg, el('div', {}, el('button', { type: 'submit', class: 'btn main' }, '🔐 לשמור את המנעול'))));
     } else {
-      body.replaceChildren(
-        el('p', {}, '✔️ יש לך קוד סודי.'),
-        el('span', { class: 'lbl' }, 'מה נעול?'),
-        el('div', { class: 'chips' }, ...[['diary', 'רק היומן'], ['all', 'כל הלוח']].map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(pin.scope === id), onclick: () => { pin.scope = id; store.set('pin', pin); openPinDlg(); } }, name))),
+      if (!pin.keys || pin.keys.length < 2) { pin.keys = starterKeys(); pin.keyId = null; }
+      const saveKeys = () => store.set('pin', pin);
+      const keysBox = el('div', { class: 'row' });
+      keyEditor(keysBox, pin, saveKeys);
+      const q = el('input', { type: 'text', id: 'pinQ', maxLength: 60, value: pin.q || '', placeholder: 'למשל: איך קוראים לחתול של סבתא?' });
+      const a = el('input', { type: 'text', id: 'pinA', maxLength: 40, value: pin.a || '', placeholder: 'התשובה', autocomplete: 'off' });
+      const qMsg = el('p', { class: 'pin-msg' });
+      const c1 = el('input', { type: 'password', id: 'pin1', inputMode: 'numeric', maxLength: 4, autocomplete: 'off', placeholder: 'קוד חדש, 4 ספרות' });
+      const c2 = el('input', { type: 'password', id: 'pin2', inputMode: 'numeric', maxLength: 4, autocomplete: 'off', placeholder: 'שוב את הקוד החדש' });
+      const cMsg = el('p', { class: 'pin-msg' });
+      let confirmOff = false;
+      const offRow = el('div', { class: 'chips' });
+      const drawOff = () => offRow.replaceChildren(confirmOff
+        ? el('span', { class: 'chips' }, el('span', {}, 'לבטל את כל המנעול?'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { pin = null; try { localStorage.removeItem('halu4-pin'); } catch {} openPinDlg(); } }, 'כן, לבטל'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { confirmOff = false; drawOff(); } }, 'לא'))
+        : el('button', { type: 'button', class: 'btn', onclick: () => { confirmOff = true; drawOff(); } }, '🔓 לבטל את המנעול'));
+      drawOff();
+      body.replaceChildren(warn,
+        el('p', {}, hasKeys() && pin.q ? '✔️ יש לך מנעול משולש: מפתח, קוד ושאלה!' : '👇 כדי שהמנעול יהיה משולש, צריך מפתח עם ⭐ ושאלה סודית.'),
+        el('h4', {}, '1. 🗝️ המפתחות שלך'), keysBox,
+        el('h4', {}, '2. 🔢 הקוד'),
+        el('form', { class: 'row', onsubmit: e => {
+          e.preventDefault();
+          if (!/^\d{4}$/.test(c1.value)) { cMsg.textContent = 'הקוד צריך להיות בדיוק 4 מספרים.'; return; }
+          if (c1.value !== c2.value) { cMsg.textContent = 'שני הקודים לא שווים. נסי שוב.'; return; }
+          pin.code = c1.value; store.set('pin', pin); c1.value = c2.value = ''; cMsg.textContent = '✔️ הקוד החדש נשמר!'; SFX.ding();
+        } }, el('label', { for: 'pin1' }, 'להחליף קוד'), c1, c2, cMsg, el('div', {}, el('button', { type: 'submit', class: 'btn' }, '🔢 לשמור קוד חדש'))),
+        el('h4', {}, '3. ❓ השאלה הסודית'),
+        el('form', { class: 'row', onsubmit: e => {
+          e.preventDefault();
+          if (!q.value.trim() || !a.value.trim()) { qMsg.textContent = 'צריך לכתוב שאלה וגם תשובה.'; return; }
+          pin.q = q.value.trim(); pin.a = a.value.trim(); store.set('pin', pin); qMsg.textContent = '✔️ השאלה נשמרה!'; SFX.ding();
+        } }, el('label', { for: 'pinQ' }, 'השאלה'), q, el('label', { for: 'pinA' }, 'התשובה'), a, qMsg, el('div', {}, el('button', { type: 'submit', class: 'btn' }, '❓ לשמור שאלה'))),
+        el('span', { class: 'lbl' }, 'מה נעול?'), scopeChips(pin.scope, id => { pin.scope = id; store.set('pin', pin); openPinDlg(); }),
         el('div', { class: 'chips' },
-          el('button', { type: 'button', class: 'btn', onclick: () => { pin = null; store.set('pin', null); openPinDlg(); } }, 'להחליף קוד'),
-          el('button', { type: 'button', class: 'btn', onclick: () => { designTab = 'lock'; $('#pinDlg').close(); buildDesignPanel(); $('#designDlg').showModal(); } }, '🎨 לעצב את מסך הקוד'),
-          el('button', { type: 'button', class: 'btn', onclick: () => { pin = null; try { localStorage.removeItem('halu4-pin'); } catch {} openPinDlg(); } }, 'לבטל את הקוד')));
+          el('button', { type: 'button', class: 'btn main', onclick: () => { $('#pinDlg').close(); showLock(null, true); } }, '👀 לנסות את המנעול'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { designTab = 'lock'; $('#pinDlg').close(); buildDesignPanel(); $('#designDlg').showModal(); } }, '🎨 לעצב את מסך הקוד')),
+        offRow);
     }
     if (!$('#pinDlg').open) $('#pinDlg').showModal();
   }
@@ -3227,8 +3436,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.09.23-mermaids';
-  const WHATS_NEW = ['📔 כפתור יומן למעלה, עם כל מה שכתבת', '🧜‍♀️ סטודיו לבנות ים: סנפיר, שיער, עיניים, ריסים, איפור ובגד', '🥹 אפשר לבחור גודל לחיה: קטנה יותר = חמודה יותר', '🔒 כל שדרוג נפתח במסך הקוד שעיצבת'];
+  const APP_VERSION = '2026.09.23-keys';
+  const WHATS_NEW = ['🗝️ מנעול משולש: מפתח, קוד ושאלה סודית!', '🎨 אפשר לעצב כמה מפתחות (צורה, צבע, שיניים ואבן חן) ולבחור איזה מהם פותח', '👀 כפתור לנסות את המנעול', '⚠️ אזהרה כשפותחים את הלוח במקום שלא שומר'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -3298,7 +3507,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     ['heart', 'מכתב לעתיד', () => openLetters()],
     ['rocket', 'ספירות לאחור', () => { buildCountdowns(); $('#cdDlg').showModal(); }],
     ['owl', 'הספרים שלי', () => { buildBooks(); $('#bookDlg').showModal(); }],
-    ['wand', 'קוד סודי', () => openPinDlg()],
+    ['wand', 'המנעול שלי', () => openPinDlg()],
     ['treasure', 'גיבוי', () => { $('#bkSaveMsg').hidden = true; $('#bkLoad').replaceChildren(); $('#bkDlg').showModal(); }],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
@@ -3908,6 +4117,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   $('#openPlace').addEventListener('click', () => { buildQuickPlaces(); $('#results').replaceChildren(); $('#searchMsg').hidden = true; $('#placeDlg').showModal(); });
 
   $('#placeName').textContent = place.name;
+  if (!storageOk) document.body.prepend(el('p', { class: 'store-warn', id: 'storeBanner', role: 'alert' }, '⚠️ פה הלוח לא יכול לשמור כלום: לא את הקוד, לא את המפתח ולא את היומן. צריך להוריד את הקובץ ולפתוח אותו בכרום.'));
   applyDesign();
   renderCalendar();
   renderStrip();
