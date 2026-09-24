@@ -1671,6 +1671,12 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
 @keyframes twspray { to { transform: scaleY(.85) scaleX(1.1); } }
 .wd-who .ic img { width: 100%; height: 100%; object-fit: contain; }
 .wd-pal .ic svg.clip { overflow: hidden; }
+.tile-wrap { position: relative; display: grid; }
+.fav-b { position: absolute; top: 4px; inset-inline-end: 4px; border: none; background: none; font-size: 1.1em; padding: 2px; line-height: 1; }
+.more-rooms { position: static; }
+.more-rooms small { opacity: .6; font-size: .8em; }
+.more-top input { width: 100%; }
+.ic.emo-ic { font-size: 2.2em; line-height: 46px; text-align: center; }
 </style>
 </head>
 <body class="bg-dots">
@@ -2174,7 +2180,7 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
       <h3 id="moreTitle">🧰 עוד דברים</h3>
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
-    <div class="tiles" id="moreTiles"></div>
+    <div class="row" id="moreTiles"></div>
   </div>
 </dialog>
 
@@ -5081,10 +5087,38 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
     ['treasure', 'גיבוי', () => { $('#bkSaveMsg').hidden = true; $('#bkLoad').replaceChildren(); $('#bkDlg').showModal(); }],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
+  // the "more" menu, sorted into rooms, with search and favorites
+  const MORE_ROOMS = [
+    ['fav', '⭐ המועדפים', []],
+    ['fashion', '👗 אופנה ויופי', ['אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
+    ['pets', '🐾 החיות', ['חיה', 'חיית', 'בנות הים', 'וטרינר', 'אמבטיה']],
+    ['games', '🎮 משחקים', ['משחקים']],
+    ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח']],
+    ['create', '✏️ ליצור', ['מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
+    ['magic', '✨ הפתעות וקסם', ['הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי']],
+    ['board', '📅 הלוח שלי', ['ימי הולדת', 'חגים', 'מערכת', 'בוקר', 'הרגלים', 'מדליות', 'היומן שלי', 'ספירות', 'הספרים', 'המנעול', 'גיבוי', 'להדפסה']],
+  ];
+  const roomOf = name => (MORE_ROOMS.slice(1).find(([, , keys]) => keys.some(k => name.includes(k))) || ['other'])[0];
+  let moreRoom = store.get('moreRoom', 'fashion'), moreQ = '';
   function openMore() {
-    $('#moreTiles').replaceChildren(...MORE.map(([ic, name, fn]) => el('button', { type: 'button', class: 'tile', onclick: () => { $('#moreDlg').close(); fn(); } },
-      el('span', { class: 'ic', html: stickerHTML(ic) }), name)));
-    $('#moreDlg').showModal();
+    const favs = store.get('moreFav', []);
+    const rooms = [...MORE_ROOMS, ...(MORE.some(([, n]) => roomOf(n) === 'other') ? [['other', '🧰 עוד', []]] : [])];
+    const q = moreQ.trim();
+    const gameTiles = GAME_TABS.map(([id, label]) => { const [em, ...rest] = label.split(' '); return [em, rest.join(' '), () => openGames(id), true]; });
+    const all = [...MORE, ...gameTiles];
+    const list = q ? all.filter(([, n]) => n.includes(q)) : moreRoom === 'fav' ? all.filter(([, n]) => favs.includes(n)) : moreRoom === 'games' ? gameTiles : MORE.filter(([, n]) => roomOf(n) === moreRoom);
+    const tile = ([ic, name, fn, emo]) => el('div', { class: 'tile-wrap' },
+      el('button', { type: 'button', class: 'tile', onclick: () => { $('#moreDlg').close(); fn(); } }, emo ? el('span', { class: 'ic emo-ic' }, ic) : el('span', { class: 'ic', html: stickerHTML(ic) }), name),
+      el('button', { type: 'button', class: 'fav-b', 'aria-label': favs.includes(name) ? `להוריד את ${name} מהמועדפים` : `להוסיף את ${name} למועדפים`, 'aria-pressed': String(favs.includes(name)),
+        onclick: () => { store.set('moreFav', favs.includes(name) ? favs.filter(x => x !== name) : [...favs, name]); SFX.pop(); openMore(); } }, favs.includes(name) ? '⭐' : '☆'));
+    const search = el('input', { type: 'search', id: 'moreSearch', value: moreQ, placeholder: '🔍 לחפש...', 'aria-label': 'לחפש' });
+    search.addEventListener('input', e => { moreQ = e.target.value; const pos = e.target.selectionStart; openMore(); const n = $('#moreSearch'); n.focus(); n.setSelectionRange(pos, pos); });
+    $('#moreTiles').replaceChildren(
+      el('div', { class: 'more-top' }, search),
+      q ? null : el('div', { class: 'tabs more-rooms' }, ...rooms.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(moreRoom === id),
+        onclick: () => { moreRoom = id; store.set('moreRoom', id); openMore(); } }, name, el('small', {}, ` ${id === 'fav' ? favs.length : id === 'games' ? GAME_TABS.length : MORE.filter(([, n]) => roomOf(n) === id).length}`)))),
+      list.length ? el('div', { class: 'tiles' }, ...list.map(tile)) : el('p', { class: 'muted' }, q ? 'לא מצאתי 🙈' : 'עוד אין פה מועדפים. לוחצים על ☆ ליד משהו שאוהבים!'));
+    if (!$('#moreDlg').open) $('#moreDlg').showModal();
   }
 
   function afterChange() { checkMedals(); checkUnlocks(); renderPet(); }
