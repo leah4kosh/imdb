@@ -1970,6 +1970,33 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   #ybPrint .yb-page:last-child { break-after: auto; page-break-after: auto; }
   #ybPrint .yb-box, #ybPrint .yb-pol, #ybPrint .yb-capbox { break-inside: avoid; }
 }
+
+/* ---------- more worlds: space, candy land, ice palace ---------- */
+.wd-scene .w2-it { cursor: grab; }
+.wd-scene .w2-it:active { cursor: grabbing; }
+.wd-scene .w2-it.sel { filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 5px #ff6b9a); }
+.spc-scene { background: #0b1030; }
+.spc-scene.fly > svg { cursor: crosshair; }
+.spc-scene .spc-flame { transition: opacity .15s; }
+.spc-hud { align-items: center; min-height: 40px; }
+.spc-book { display: grid; grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 8px; }
+.spc-card { display: grid; justify-items: center; gap: 2px; border: 2px solid var(--line); border-radius: 16px; padding: 6px; background: linear-gradient(170deg, #1d1850, #3a2468); color: #f1ecff; text-align: center; line-height: 1.15; }
+.spc-card .ic { width: 96px; height: 96px; } .spc-card .ic svg { width: 100%; height: 100%; }
+.spc-card b { font-weight: 400; color: #fff6c2; }
+.spc-card small { color: #c9c3f0; }
+.spc-card.locked .ic { filter: brightness(0) invert(1) opacity(.18); }
+.spc-card.locked b { color: #9aa0cc; }
+.frz-scene { background: #dff4ff; }
+.frz-scene .frz-flake { animation: frzfall 8s linear infinite; }
+.frz-scene .frz-aur { animation: frzaur 7s ease-in-out infinite alternate; }
+.frz-scene .frz-bs { animation: gdburst 1s ease-out forwards; }
+.frz-scene.rink > svg { cursor: pointer; }
+.frz-scene .frz-sk .frz-ring { opacity: 0; }
+.frz-scene .frz-sk .picked .frz-ring { opacity: .9; }
+@keyframes frzfall { from { transform: translate(0, 0); } 50% { transform: translate(14px, 210px); } to { transform: translate(-6px, 420px); } }
+@keyframes frzaur { from { opacity: .15; transform: translateY(0); } to { opacity: .5; transform: translateY(12px); } }
+@media (prefers-reduced-motion: reduce) { .frz-scene *, .spc-scene *, .cnd-scene * { animation: none !important; } }
+.spc-card .chip { color: var(--ink); }
 </style>
 </head>
 <body class="bg-dots">
@@ -2789,6 +2816,41 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     <div id="ybNav" class="yb-nav"></div>
     <div id="ybStage" class="yb-stage"></div>
     <div id="ybTools"></div>
+  </div>
+</dialog>
+
+
+<!-- Space -->
+<dialog id="spaceDlg" aria-labelledby="spaceTitle" style="width:min(900px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="spaceTitle">🌌 מסע בחלל</h3><div class="sub">טסים בחללית, מגלים כוכבים חדשים, נוחתים ומקשטים אותם!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="spaceBody"></div>
+  </div>
+</dialog>
+
+<!-- Candy land -->
+<dialog id="candyDlg" aria-labelledby="candyTitle" style="width:min(900px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="candyTitle">🍭 ארץ הממתקים</h3><div class="sub">בוחרים ממתק ולוחצים כדי לשים אותו. אפשר להזיז, להגדיל ולצבוע!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="candyBody"></div>
+  </div>
+</dialog>
+
+<!-- Ice palace -->
+<dialog id="iceDlg" aria-labelledby="iceTitle" style="width:min(900px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="iceTitle">❄️ ארמון הקרח</h3><div class="sub">מעצבים ארמון קפוא, ואז יוצאים להחליק על הקרח!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="iceBody"></div>
   </div>
 </dialog>
 
@@ -5423,6 +5485,9 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     ['butterfly', 'אוסף פרפרים', () => openButterflies()],
     ['bed', 'מעצבת חדרים', () => openRoom()],
     ['hotair', 'עיר קטנה', () => openTown()],
+    ['rocket', 'מסע בחלל', () => openSpace()],
+    ['lollipop', 'ארץ הממתקים', () => openCandy()],
+    ['snowflake', 'ארמון הקרח', () => openIce()],
     ['magicmoon', 'יומן חלומות', () => openDreams()],
     ['music', 'פסנתר קטן', () => openPiano()],
     ['dog', 'הטריקים של החיה', () => { houseTab = 'tricks'; openHouse(); }],
@@ -14257,6 +14322,545 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     if (e.key === 'ArrowLeft') { e.preventDefault(); const b = $('#ybNav').lastChild; b && !b.disabled && b.click(); }
     if (e.key === 'ArrowRight') { e.preventDefault(); const b = $('#ybNav').firstChild; b && !b.disabled && b.click(); }
   });
+
+  // ================= more worlds: space, candy land, ice palace (uses the wd* helpers above) =================
+  const w2Coins = (n, why) => { try { if (typeof addCoins === 'function') addCoins(n, why); } catch {} };
+  // her pets (all of them when the pets feature exists) and up to 3 girls
+  const w2Pets = () => { try { if (typeof allPets === 'function') return allPets().filter(Boolean).slice(0, 3); } catch {} return pet ? [pet] : []; };
+  const w2Girls = () => girls.slice(0, 3);
+  const w2Key = (defs, it) => ((defs[it.t] ? defs[it.t][4] : 2) ?? 2) * 100000 + (it.z || 0) * 1000 + it.y;
+  const w2Tf = it => `translate(${wdFx(it.x)} ${wdFx(it.y)}) scale(${(it.f ? -1 : 1) * it.s} ${it.s})`;
+  // one placed thing. defs: id -> [name, scale, color index or null, draw(color), layer 0 back .. 2 normal .. 3 up in the sky]
+  function w2ItemSVG(o, it, photo) {
+    const d = o.defs[it.t], art = d ? d[3](it.c || o.cols[d[2] || 0]) : o.extra ? o.extra(it, photo) : '';
+    if (!art) return '';
+    return `<g class="w2-it${it.id === o.st.sel && !photo ? ' sel' : ''}" data-id="${it.id}" data-k="${w2Key(o.defs, it)}" transform="${w2Tf(it)}">${art}</g>`;
+  }
+  const w2Items = (o, photo) => o.items().slice().sort((a, b) => w2Key(o.defs, a) - w2Key(o.defs, b)).map(it => w2ItemSVG(o, it, photo)).join('');
+  // a decoratable scene. o: { st: {tool, sel}, items(), defs, cols, save, bounds, max, extra(it, photo), name(it), where }
+  // returns the tools row, the color row and the palette, all wired to the svg
+  function w2Editor(svgEl, o) {
+    const st = o.st, cur = () => o.items().find(i => i.id === st.sel);
+    const tools = el('div', { class: 'chips wd-tools' }), colors = el('div', { class: 'chips wd-swatches' });
+    const select = id => { st.sel = id; svgEl.querySelectorAll('.w2-it').forEach(n => n.classList.toggle('sel', n.dataset.id === id)); draw(); };
+    const redrawIt = it => { const n = ed.nodeOf(it.id); if (n) { n.insertAdjacentHTML('afterend', w2ItemSVG(o, it)); n.remove(); } };
+    const ed = wdEditor(svgEl, {
+      cls: 'w2-it', layer: 'w2-items', list: o.items, bounds: o.bounds, save: o.save, select, tf: w2Tf, key: it => w2Key(o.defs, it),
+      tap: p => {
+        if (!st.tool) { select(null); return; }
+        if (o.items().length >= (o.max || 60)) { toast(stickerHTML('sparkles'), 'כבר יש פה המון דברים! אפשר להוריד משהו כדי לשים עוד'); return; }
+        const d = o.defs[st.tool], [x0, y0, x1, y1] = o.bounds, sky = d[4] === 3;
+        const it = { id: 'w' + Date.now().toString(36) + (wdUid++), t: st.tool, x: Math.max(x0, Math.min(x1, p.x)), y: Math.max(sky ? 20 : y0, Math.min(y1, p.y)), s: d[1], f: false, c: d[2] === null ? null : o.cols[d[2]], z: 0 };
+        o.items().push(it); o.save(); SFX.pop();
+        svgEl.querySelector('.w2-items').insertAdjacentHTML('beforeend', w2ItemSVG(o, it)); ed.restack(); select(it.id);
+      },
+    });
+    function draw() {
+      const it = cur(), d = it && o.defs[it.t];
+      const move = dz => () => { it.z = Math.max(-9, Math.min(9, (it.z || 0) + dz)); ed.setTf(it); ed.restack(); o.save(); SFX.pop(); };
+      tools.replaceChildren(...wdItemTools(it, ed, {
+        save: o.save, extra: [['⬆️ קדימה', move(1), 'להביא קדימה'], ['⬇️ אחורה', move(-1), 'לשלוח אחורה']],
+        remove: x => { const a = o.items(), i = a.indexOf(x); if (i >= 0) a.splice(i, 1); const n = ed.nodeOf(x.id); if (n) n.remove(); o.save(); SFX.boop(); select(null); },
+        hint: it ? `✋ ${d ? d[0] : o.name ? o.name(it) : ''}: גוררים כדי להזיז` : st.tool ? `👆 לוחצים ${o.where || 'בתמונה'} כדי לשים ${o.defs[st.tool][0]}` : '👆 לוחצים על משהו כדי לבחור אותו',
+      }));
+      colors.hidden = !(d && d[2] !== null);
+      if (!colors.hidden) colors.replaceChildren(el('span', { class: 'lbl' }, '🎨 צבע:'), ...o.cols.map(c => el('button', { type: 'button', class: 'wd-sw', style: `background:${c}`, 'aria-label': 'צבע', 'aria-pressed': String(it.c === c),
+        onclick: () => { it.c = c; redrawIt(it); o.save(); SFX.pop(); draw(); } })));
+    }
+    draw();
+    const pal = el('div', { class: 'wd-pal', role: 'group', 'aria-label': 'מה לשים' },
+      el('button', { type: 'button', 'aria-pressed': String(!st.tool), onclick: () => { st.tool = null; o.redraw(); } }, el('span', { class: 'ic hand' }, '✋'), el('span', {}, 'רק להזיז')),
+      ...Object.entries(o.defs).map(([id, d]) => wdPalBtn(st.tool === id, wdIcon(o.prefix + id, d[3](o.cols[d[2] === null ? 0 : d[2]]), '-60 -110 120 120'), d[0], () => { st.tool = id; st.sel = null; SFX.pop(); o.redraw(); })));
+    return { tools, colors, pal, ed, select };
+  }
+  // "who's here" buttons: add/remove a pet or a girl as a placed thing
+  function w2Who(o, place) {
+    const has = (t, ref) => o.items().some(i => i.t === t && i.ref === ref);
+    const list = [...w2Pets().map(p => ['pet', p.id || p.kind, petSVG(p), p.name || 'החיה שלי']), ...girls.slice(0, 8).map(g => ['girl', g.id, `<img src="${girlImgURL(g, { view: 'head', bg: false })}" alt="">`, g.name || 'בובה'])];
+    if (!list.length) return null;
+    return el('div', { class: 'row' }, el('span', { class: 'lbl' }, o.whoLabel || '💕 מי בא? (לוחצים כדי להכניס או להוציא)'),
+      el('div', { class: 'chips' }, ...list.map(([t, ref, art, name]) => el('button', { type: 'button', class: 'chip wd-who', 'aria-pressed': String(has(t, ref)), onclick: () => {
+        const a = o.items();
+        if (has(t, ref)) { a.splice(a.findIndex(i => i.t === t && i.ref === ref), 1); o.save(); SFX.boop(); o.redraw(); return; }
+        const [x, y] = place();
+        a.push({ id: 'w' + Date.now().toString(36) + (wdUid++), t, ref, x, y, s: 1, f: false, z: 0 }); o.save(); SFX.pop(); o.st.sel = a[a.length - 1].id; o.redraw();
+      } }, el('span', { class: 'ic', html: art }), name))));
+  }
+  const w2PetOf = ref => { const l = w2Pets(); return l.find(p => (p.id || p.kind) === ref) || null; };
+  // pets and girls wandering around an area (in a <g class="w2-walk">), until the dialog closes
+  function w2Wander(svgEl, dlg, area, scale = 1) {
+    const layer = svgEl.querySelector('.w2-walk'); if (!layer) return [];
+    const who = [...w2Pets().map(p => ({ art: placeSvg(petSVG(p), -22 * scale, -50 * scale, 44 * scale, 50 * scale) })), ...w2Girls().map(g => ({ g, art: wdGirl(g, -20 * scale, -80 * scale, 40 * scale, 80 * scale) }))];
+    const [x0, y0, x1, y1] = area, rnd = (a, b) => a + Math.random() * (b - a);
+    const ws = who.map(w => Object.assign(w, { x: rnd(x0, x1), y: rnd(y0, y1), tx: 0, ty: 0, wait: Math.random() * 2, dir: 1, t: 0 }));
+    ws.forEach(w => { w.tx = w.x; w.ty = w.y; });
+    layer.innerHTML = ws.map(w => `<g>${w.art}</g>`).join('');
+    const nodes = [...layer.children];
+    const place = (w, n) => n.setAttribute('transform', `translate(${wdFx(w.x)} ${wdFx(w.y - Math.abs(Math.sin(w.t * 9)) * (w.moving ? 4 : 0))}) scale(${w.dir} 1)`);
+    ws.forEach((w, k) => place(w, nodes[k]));
+    if (reduceMotion()) return ws;
+    let last = performance.now();
+    const step = now => {
+      if (!dlg.open || !svgEl.isConnected) return;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      ws.forEach((w, k) => {
+        w.t += dt;
+        if (w.wait > 0) { w.wait -= dt; w.moving = false; }
+        else {
+          const dx = w.tx - w.x, dy = w.ty - w.y, d = Math.hypot(dx, dy);
+          if (d < 3) { w.wait = rnd(0.6, 3); w.tx = rnd(x0, x1); w.ty = rnd(y0, y1); }
+          else { const v = 38 * dt; w.x += dx / d * Math.min(v, d); w.y += dy / d * Math.min(v, d); if (Math.abs(dx) > 1) w.dir = dx < 0 ? -1 : 1; w.moving = true; }
+        }
+        place(w, nodes[k]);
+      });
+      // lower ones in front
+      const order = ws.map((w, k) => [w.y, nodes[k]]).sort((a, b) => a[0] - b[0]);
+      order.forEach(([, n], k) => { if (layer.children[k] !== n) layer.append(n); });
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+    return ws;
+  }
+  const w2WalkPhoto = ws => ws.slice().sort((a, b) => a.y - b.y).map(w => `<g transform="translate(${wdFx(w.x)} ${wdFx(w.y)}) scale(${w.dir} 1)">${w.g ? wdGirl(w.g, -20, -80, 40, 80, true) : w.art}</g>`).join('');
+  const w2Cloud = (x, y, s, c = '#fff', cls = 'wd-drift') => `<g class="${cls}" style="animation-delay:-${(x % 17).toFixed(0)}s"><path transform="translate(${x} ${y}) scale(${s})" d="M-30 10 H30 A12 12 0 0 0 28 -12 A18 18 0 0 0 -4 -18 A15 15 0 0 0 -30 10 Z" fill="${c}" ${S}/></g>`;
+  // "🧹 clear all" with a yes/no step. st.ask holds the question state
+  const w2ClearBtn = (st, label, has, wipe, redraw) => st.ask
+    ? el('span', { class: 'chips' }, el('span', {}, label), el('button', { type: 'button', class: 'btn', onclick: () => { st.ask = false; wipe(); redraw(); } }, 'כן'), el('button', { type: 'button', class: 'btn', onclick: () => { st.ask = false; redraw(); } }, 'לא'))
+    : el('button', { type: 'button', class: 'btn', disabled: !has, onclick: () => { st.ask = true; redraw(); } }, '🧹 לנקות הכל');
+
+  // ---------- 🌌 space: fly the rocket between planets, discover them, land and decorate ----------
+  const SPC_W = 2400, SPC_H = 1600;
+  const SPC_NAMES = ['לולו', 'זוהרית', 'בלובי', 'פיצקי', 'מנטה', 'קוקו', 'שמשית', 'ענבלי', 'טוטי', 'פרחונית', 'קרחונית', 'ג׳לי', 'סטארי', 'דובדבן'];
+  const SPC_COLS = [['#ff9ad5', '#ffd6ec'], ['#7ec8ff', '#d6f0ff'], ['#b58cff', '#e6dbff'], ['#ffd84d', '#fff3b8'], ['#7fe0b8', '#d9fff0'], ['#ffa24d', '#ffe0b8'], ['#ff6b8b', '#ffc2d0'],
+    ['#9fe6ff', '#ffffff'], ['#e0b0ff', '#ffd6f5'], ['#8fd694', '#fff6a8'], ['#c9d8ff', '#ffffff'], ['#ff7ab8', '#b58cff'], ['#5b7fe0', '#ffd84d'], ['#ff5a6e', '#ffe0e6']];
+  const SPC_PATS = ['bands', 'spots', 'swirl', 'stripes', 'hearts', 'stars', 'dots'];
+  const SPC_PLANETS = SPC_NAMES.map((n, i) => {
+    const h = wdHash('planet' + i), cell = i < 7 ? i : i + 1, cx = (cell % 5) * 480 + 240, cy = Math.floor(cell / 5) * 533 + 266;
+    return { id: 'p' + i, n: 'כוכב ' + n, c1: SPC_COLS[i][0], c2: SPC_COLS[i][1], pat: SPC_PATS[(i * 3 + (h % 3)) % SPC_PATS.length], r: 46 + h % 26,
+      ring: h % 3 === 0 || i === 2, moons: (h >>> 5) % 3, x: cx + ((h >>> 8) % 200) - 100, y: cy + ((h >>> 16) % 220) - 110 };
+  });
+  const spcById = id => SPC_PLANETS.find(p => p.id === id);
+  function spcArt(p, u, photo) {
+    const r = p.r, c1 = p.c1, c2 = p.c2, ring = fmx(c1, '#ffffff', 0.35), still = photo || reduceMotion();
+    const pats = {
+      bands: [-0.55, -0.05, 0.45].map(k => { const y = k * r, b = r * 0.2; return `<path d="M${-r} ${wdFx(y)} Q${wdFx(-r / 2)} ${wdFx(y - 7)} 0 ${wdFx(y)} T${r} ${wdFx(y)} V${wdFx(y + b)} Q${wdFx(r / 2)} ${wdFx(y + b + 7)} 0 ${wdFx(y + b)} T${-r} ${wdFx(y + b)} Z" fill="${c2}"/>`; }).join(''),
+      spots: [[-0.45, -0.4, 0.2], [0.4, -0.2, 0.14], [0.1, 0.5, 0.18], [-0.5, 0.35, 0.1], [0.55, 0.45, 0.08]].map(([x, y, s]) => `<circle cx="${wdFx(x * r)}" cy="${wdFx(y * r)}" r="${wdFx(s * r)}" fill="${c2}" stroke="${fmx(c1, O, 0.3)}" stroke-width="1.5"/>`).join(''),
+      swirl: `<path d="M0 0 m-4 0 a4 4 0 1 1 4 4 a10 10 0 1 1 -10 -10 a18 18 0 1 1 18 18 a28 28 0 1 1 -28 -28 a40 40 0 1 1 40 40" transform="scale(${wdFx(r / 60)})" fill="none" stroke="${c2}" stroke-width="7" stroke-linecap="round"/>`,
+      stripes: [-2, -1, 0, 1, 2].map(k => `<path d="M${wdFx(k * r * 0.45 - r)} ${r} L${wdFx(k * r * 0.45 + r * 0.2)} ${-r}" stroke="${c2}" stroke-width="${wdFx(r * 0.16)}"/>`).join(''),
+      hearts: [[-0.45, -0.45, 1.6], [0.5, -0.3, 1.2], [-0.35, 0.5, 1.2], [0.45, 0.5, 1.5]].map(([x, y, s]) => bfHeart(wdFx(x * r), wdFx(y * r), s * r / 50, c2)).join(''),
+      stars: [[-0.45, -0.45, 0.2], [0.45, -0.35, 0.14], [-0.4, 0.5, 0.14], [0.5, 0.45, 0.18]].map(([x, y, s]) => `<polygon points="${starPts(x * r, y * r, s * r, s * r * 0.45)}" fill="${c2}"/>`).join(''),
+      dots: Array.from({ length: 14 }, (_, k) => `<circle cx="${wdFx(Math.cos(k * 2.4) * r * (0.3 + (k % 4) * 0.18))}" cy="${wdFx(Math.sin(k * 2.4) * r * (0.3 + (k % 4) * 0.18))}" r="${wdFx(r * 0.07)}" fill="${c2}"/>`).join(''),
+    };
+    const ringBack = p.ring ? `<g transform="rotate(-16)"><ellipse rx="${wdFx(r * 1.75)}" ry="${wdFx(r * 0.42)}" fill="none" stroke="${O}" stroke-width="${wdFx(r * 0.2 + 5)}"/><ellipse rx="${wdFx(r * 1.75)}" ry="${wdFx(r * 0.42)}" fill="none" stroke="${ring}" stroke-width="${wdFx(r * 0.2)}"/></g>` : '';
+    const ringFront = p.ring ? `<g transform="rotate(-16)"><path d="M${wdFx(-r * 1.75)} 0 A${wdFx(r * 1.75)} ${wdFx(r * 0.42)} 0 0 0 ${wdFx(r * 1.75)} 0" fill="none" stroke="${O}" stroke-width="${wdFx(r * 0.2 + 5)}"/><path d="M${wdFx(-r * 1.75)} 0 A${wdFx(r * 1.75)} ${wdFx(r * 0.42)} 0 0 0 ${wdFx(r * 1.75)} 0" fill="none" stroke="${ring}" stroke-width="${wdFx(r * 0.2)}"/></g>` : '';
+    const moons = Array.from({ length: p.moons }, (_, k) => `<g transform="rotate(${k * 150 + 30})">${still ? '' : `<animateTransform attributeName="transform" type="rotate" from="${k * 150 + 30}" to="${k * 150 + 390}" dur="${14 + k * 6}s" repeatCount="indefinite"/>`}` +
+      `<circle cx="${wdFx(r * 1.5 + k * 12)}" cy="0" r="${wdFx(r * 0.2)}" fill="#ebe8f5" ${S2}/><circle cx="${wdFx(r * 1.5 + k * 12 - 2)}" cy="-2" r="1.6" fill="${O}"/><circle cx="${wdFx(r * 1.5 + k * 12 + 3)}" cy="-2" r="1.6" fill="${O}"/></g>`).join('');
+    return `<defs><clipPath id="${u}c"><circle r="${r}"/></clipPath><radialGradient id="${u}g" cx=".35" cy=".3" r=".85"><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#2a1f4a" stop-opacity=".4"/></radialGradient></defs>` +
+      ringBack + `<circle r="${r}" fill="${c1}"/><g clip-path="url(#${u}c)">${pats[p.pat]}</g><circle r="${r}" fill="url(#${u}g)"/><circle r="${r}" fill="none" ${S}/>` +
+      `<path d="M${wdFx(-r * 0.62)} ${wdFx(-r * 0.3)} q${wdFx(r * 0.12)} ${wdFx(-r * 0.28)} ${wdFx(r * 0.4)} ${wdFx(-r * 0.36)}" fill="none" stroke="#fff" stroke-width="${wdFx(Math.max(3, r * 0.08))}" stroke-linecap="round" opacity=".7"/>` +
+      face(0, Math.round(r * 0.08), r / 22) + ringFront + moons;
+  }
+  const spcIcon = (p, u) => { const m = p.ring ? p.r * 1.9 : p.r * 1.25 + (p.moons ? p.r * 0.5 : 0); return `<svg viewBox="${wdFx(-m)} ${wdFx(-m)} ${wdFx(2 * m)} ${wdFx(2 * m)}" xmlns="http://www.w3.org/2000/svg">${spcArt(p, u || 'spi' + (wdUid++), true)}</svg>`; };
+  const spcRocket = () => `<g class="spc-flame"><path d="M-10 30 Q0 62 10 30 Z" fill="#ffb020" ${S2}/><path d="M-5 30 Q0 48 5 30 Z" fill="#fff6a8"/></g>` +
+    `<path d="M-13 14 L-30 34 L-12 30 Z M13 14 L30 34 L12 30 Z" fill="#ff6b8b" ${S}/><path d="M0 -46 C18 -32 20 0 14 32 H-14 C-20 0 -18 -32 0 -46 Z" fill="#fffdf5" ${S}/>` +
+    `<path d="M0 -46 C9 -40 13 -32 14 -25 H-14 C-13 -32 -9 -40 0 -46 Z" fill="#ff6b8b" ${S2}/><circle cy="-4" r="11.5" fill="#bfe9ff" ${S}/>` +
+    (pet ? `<g clip-path="url(#spcWin)">${placeSvg(petSVG(pet), -10, -15, 20, 23)}</g>` : '') + `<circle cy="-4" r="11.5" fill="none" ${S}/>${shine(-7, -8)}<rect x="-14" y="24" width="28" height="8" rx="3" fill="#b58cff" ${S2}/><path d="M0 32 V-46" stroke="#ff6b8b" stroke-width="0" />`;
+  // things for the planets
+  const SPC_COLS2 = ['#8fe07a', '#ff9ad5', '#b58cff', '#7ec8ff', '#ffd84d', '#ffa24d', '#7fe0b8', '#ff6b8b', '#ffffff', '#c9d8ff'];
+  const SPC_ITEMS = {
+    alien: ['חייזר ירוק', 1, 0, c => `<path d="M-8 -52 Q-14 -66 -20 -68 M8 -52 Q14 -66 20 -68" fill="none" ${S}/><circle cx="-20" cy="-68" r="4" fill="#ffd84d" ${S2}/><circle cx="20" cy="-68" r="4" fill="#ffd84d" ${S2}/>` +
+      `<path d="M-12 -4 V2 M12 -4 V2" ${S}/><path d="M-20 -8 C-24 -30 -22 -54 0 -56 C22 -54 24 -30 20 -8 Q0 0 -20 -8 Z" fill="${c}" ${S}/><ellipse cx="-8" cy="-36" rx="6" ry="8" fill="#fff" ${S2}/><ellipse cx="8" cy="-36" rx="6" ry="8" fill="#fff" ${S2}/><circle cx="-7" cy="-34" r="3" fill="${O}"/><circle cx="9" cy="-34" r="3" fill="${O}"/>` +
+      `<path d="M-5 -20 Q0 -15 5 -20" fill="none" stroke="${O}" stroke-width="2" stroke-linecap="round"/><circle cx="-14" cy="-22" r="3" fill="#ff8fab" opacity=".6"/><circle cx="14" cy="-22" r="3" fill="#ff8fab" opacity=".6"/>`],
+    alien2: ['חייזר עין אחת', 1, 1, c => `<path d="M-12 -6 L-16 4 M12 -6 L16 4 M0 -4 V4" ${S} fill="none"/><circle cx="0" cy="-26" r="22" fill="${c}" ${S}/><circle cx="0" cy="-30" r="11" fill="#fff" ${S2}/><circle cx="1" cy="-29" r="5.5" fill="${O}"/><circle cx="3" cy="-31" r="1.8" fill="#fff"/>` +
+      `<path d="M-6 -12 Q0 -7 6 -12" fill="none" stroke="${O}" stroke-width="2" stroke-linecap="round"/><path d="M0 -48 V-58" ${S}/><polygon points="${starPts(0, -61, 6, 2.6)}" fill="#ffd84d" ${S2}/>`],
+    alien3: ['חייזר ג׳לי', 1, 2, c => [-14, -5, 5, 14].map((x, i) => tube(`M${x} -14 q${i % 2 ? 5 : -5} 7 0 12 q${i % 2 ? -4 : 4} 5 0 8`, fmx(c, '#ffffff', 0.3), 4)).join('') +
+      `<path d="M-22 -12 C-24 -50 24 -50 22 -12 Q11 -6 0 -12 Q-11 -6 -22 -12 Z" fill="${c}" ${S}/>${face(0, -28, 0.9)}${shine(-14, -34)}`],
+    crystal: ['קריסטלים', 1, 3, c => [[-14, -40, 9, -12], [0, -58, 11, 0], [15, -36, 9, 14]].map(([x, y, w, a]) => `<g transform="rotate(${a} ${x} 0)"><path d="M${x - w} 0 V${y + 12} L${x} ${y} L${x + w} ${y + 12} V0 Z" fill="${c}" ${S}/><path d="M${x} ${y} V0" stroke="#fff" stroke-width="2" opacity=".7"/></g>`).join('') + wdSpark(20, -58, 0.6, '#fff', 'wd-tw', 0)],
+    flag: ['דגל', 1, 7, c => `<path d="M0 0 V-80" ${S} fill="none"/><path d="M0 -80 H40 L32 -68 L40 -56 H0 Z" fill="${c}" ${S}/><polygon points="${starPts(17, -68, 7, 3)}" fill="#fff6c2" stroke="${O}" stroke-width="1.3"/><ellipse cx="0" cy="0" rx="10" ry="3.5" fill="#9aa7b8" ${S2}/>`],
+    dome: ['בית כיפה', 1.2, 3, c => `<path d="M-50 0 V-8 H50 V0 Z" fill="${c}" ${S}/><path d="M-44 -8 A44 44 0 0 1 44 -8 Z" fill="#dff4ff" fill-opacity=".7" ${S}/><path d="M-26 -30 A30 30 0 0 1 4 -44" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>` +
+      gdFlower5(-14, -14, 0.6, '#ff9ad5') + gdFlower5(18, -12, 0.55, '#ffd84d') + `<rect x="-8" y="-26" width="16" height="18" rx="7" fill="${fmx(c, O, 0.2)}" ${S2}/>`],
+    sflower: ['פרח חלל', 1, 1, c => tube('M0 0 C-10 -14 10 -24 0 -40', '#5fc9c9', 3.5) + gdLeaf(0, -14, -150, 0.8, '#8ee6d8') + `<polygon points="${starPts(0, -52, 17, 7, 6)}" fill="${c}" ${S}/><circle cy="-52" r="6" fill="#fff6c2" ${S2}/>` + wdSpark(-20, -66, 0.5, '#fff6a8', 'wd-tw', 0.3)],
+    rover: ['רכב חלל', 1, 5, c => `<path d="M10 -34 V-48" ${S}/><path d="M2 -50 A10 6 0 0 0 20 -54" fill="#d8dde6" ${S2}/><rect x="-30" y="-34" width="60" height="22" rx="6" fill="${c}" ${S}/><rect x="-22" y="-30" width="18" height="10" rx="3" fill="#bfe9ff" ${S2}/>` +
+      [-20, 0, 20].map(x => `<circle cx="${x}" cy="-8" r="8" fill="#6b5a7a" ${S2}/><circle cx="${x}" cy="-8" r="2.6" fill="#d8dde6"/>`).join('')],
+    dish: ['צלחת לוויין', 1, 8, c => `<path d="M-14 0 L0 -26 L14 0" fill="none" ${S}/><g transform="rotate(-30 0 -34)"><path d="M-24 -34 A24 14 0 0 0 24 -34 Z" fill="${c}" ${S}/><path d="M0 -34 V-52" ${S}/><circle cy="-54" r="4" fill="#ff6b8b" ${S2}/></g>`],
+    rock: ['סלעי ירח', 1, 9, c => `<path d="M-34 0 C-38 -18 -24 -30 -10 -26 C-2 -34 14 -30 16 -18 C28 -20 36 -10 32 0 Z" fill="${c}" ${S}/><circle cx="-16" cy="-14" r="4" fill="${fmx(c, O, 0.2)}"/><circle cx="8" cy="-10" r="3" fill="${fmx(c, O, 0.2)}"/><circle cx="20" cy="-20" r="2.4" fill="${fmx(c, O, 0.2)}"/>`],
+    beacon: ['מנורת כוכב', 1, 4, c => `<rect x="-3" y="-50" width="6" height="50" fill="#6b5a7a" ${S2}/><circle cy="-60" r="16" fill="${c}" opacity=".35"/><polygon points="${starPts(0, -60, 13, 6)}" fill="${c}" ${S}/>`],
+    tele: ['טלסקופ', 1, 2, c => `<path d="M-16 0 L0 -30 L16 0 M0 -30 V0" fill="none" ${S}/><g transform="rotate(-30 0 -34)"><rect x="-28" y="-42" width="52" height="16" rx="5" fill="${c}" ${S}/><rect x="20" y="-45" width="10" height="22" rx="3" fill="${fmx(c, O, 0.2)}" ${S2}/></g>`],
+    ufo: ['צלחת מעופפת', 1, 6, c => `<path d="M-14 -22 A14 14 0 0 1 14 -22 Z" fill="#bfe9ff" fill-opacity=".8" ${S}/><ellipse cy="-16" rx="36" ry="11" fill="${c}" ${S}/>` +
+      [-22, -8, 8, 22].map((x, i) => `<circle class="wd-tw" style="animation-delay:-${i * 0.4}s" cx="${x}" cy="-15" r="3" fill="${['#ffd84d', '#ff9ad5', '#fff', '#7ec8ff'][i]}" ${S2}/>`).join('') + `<path d="M-12 -6 L-22 20 H22 L12 -6 Z" fill="#fff6a8" opacity=".3"/>`, 3],
+    rocket2: ['טיל קטן', 0.9, 7, c => `<g transform="translate(0 -32)"><path d="M-13 14 L-30 34 L-12 30 Z M13 14 L30 34 L12 30 Z" fill="${c}" ${S}/><path d="M0 -46 C18 -32 20 0 14 32 H-14 C-20 0 -18 -32 0 -46 Z" fill="#fffdf5" ${S}/><path d="M0 -46 C9 -40 13 -32 14 -25 H-14 C-13 -32 -9 -40 0 -46 Z" fill="${c}" ${S2}/><circle cy="-4" r="10" fill="#bfe9ff" ${S}/></g>`],
+  };
+  let spcData = Object.assign({ found: {}, decor: {}, x: 1200, y: 800 }, store.get('space', {}));
+  let spcMode = 'fly', spcPlanet = null, spcRaf = 0, spcKeys = {}, spcBound = false, spcWalk = [];
+  const spcSt = { tool: null, sel: null, ask: false };
+  const saveSpace = () => store.set('space', spcData);
+  const spcFound = () => SPC_PLANETS.filter(p => spcData.found[p.id]).length;
+  // pets wear a bubble helmet, girls get an astronaut helmet
+  function spcExtra(it, photo) {
+    if (it.t === 'pet') { const p = w2PetOf(it.ref); if (!p) return ''; return `<ellipse cx="0" cy="0" rx="26" ry="5" fill="${O}" opacity=".15"/>${placeSvg(petSVG(p), -26, -62, 52, 60)}<circle cx="0" cy="-36" r="36" fill="#dff4ff" fill-opacity=".3" ${S}/><path d="M-22 -54 A28 28 0 0 1 -2 -66" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/><rect x="-24" y="-6" width="48" height="8" rx="4" fill="#d8dde6" ${S2}/>`; }
+    if (it.t === 'girl') { const g = girls.find(x => x.id === it.ref); if (!g) return ''; return `${wdGirl(g, -35, -140, 70, 140, photo)}<rect x="-6" y="-104" width="12" height="4" rx="2" fill="#d8dde6" ${S2}/><circle cx="0" cy="-124" r="21" fill="#dff4ff" fill-opacity=".3" ${S}/><path d="M-13 -134 A16 16 0 0 1 -2 -141" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="16" cy="-138" r="2.6" fill="#ff6b8b" ${S2}/>`; }
+    return '';
+  }
+  const spcEd = () => ({ st: spcSt, items: () => (spcData.decor[spcPlanet] = spcData.decor[spcPlanet] || []), defs: SPC_ITEMS, cols: SPC_COLS2, save: saveSpace, bounds: [20, 250, 580, 396], max: 50, prefix: 'spc-',
+    extra: spcExtra, name: it => it.t === 'pet' ? 'החיה באסטרונאוטית' : 'אסטרונאוטית', where: 'על הכוכב', redraw: () => drawSpace(), whoLabel: '👩‍🚀 מי נוחתת איתך? (לוחצים כדי להוסיף או להוריד)' });
+  function spcSurface(photo) {
+    const p = spcById(spcPlanet), o = spcEd(), other = SPC_PLANETS[(SPC_PLANETS.indexOf(p) + 5) % SPC_PLANETS.length];
+    const stars = Array.from({ length: 40 }, (_, i) => `<circle class="wd-tw" style="animation-delay:-${(i % 7) * 0.3}s" cx="${(i * 137) % 600}" cy="${(i * 61) % 230}" r="${1 + i % 3 * 0.5}" fill="#fff8d0"/>`).join('');
+    const g1 = fmx(p.c1, '#ffffff', 0.15), g2 = fmx(p.c1, '#3a2b3c', 0.12);
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="על הכוכב"'}><defs><linearGradient id="spcSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#11173d"/><stop offset="1" stop-color="${fmx(p.c1, '#1b2358', 0.6)}"/></linearGradient><clipPath id="spcWin"><circle cy="-4" r="11"/></clipPath></defs>` +
+      `<rect width="600" height="400" fill="url(#spcSky)"/>${stars}<g transform="translate(500 80) scale(.7)">${spcArt(other, 'spo', photo)}</g>` +
+      `<path d="M0 250 Q150 222 300 232 T600 246 V400 H0 Z" fill="${g1}" ${S}/><path d="M0 300 Q200 280 360 296 T600 292 V400 H0 Z" fill="${g2}" opacity=".35"/>` +
+      [[80, 300, 26], [250, 360, 18], [470, 330, 30], [560, 380, 14], [360, 268, 12]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * 0.35}" fill="${fmx(p.c1, O, 0.18)}" opacity=".5"/><path d="M${x - r} ${y} A${r} ${r * 0.35} 0 0 1 ${x + r} ${y}" fill="none" stroke="#fff" stroke-width="1.6" opacity=".5"/>`).join('') +
+      `<g transform="translate(60 246) scale(.9)">${spcRocket()}</g><g class="w2-items">${w2Items(o, photo)}</g></svg>`;
+  }
+  function spcFlyMarkup() {
+    const layer = (f, n, seed) => Array.from({ length: n }, (_, i) => { const h = wdHash(seed + i); return `<circle cx="${h % Math.round(600 + SPC_W * f)}" cy="${(h >>> 12) % Math.round(400 + SPC_H * f)}" r="${(0.6 + f * 1.8 + (h % 3) * 0.3).toFixed(1)}" fill="${['#fff8d0', '#ffffff', '#cfe0ff', '#ffd6f5'][h % 4]}"/>`; }).join('');
+    const neb = Array.from({ length: 8 }, (_, i) => { const h = wdHash('neb' + i); return `<circle cx="${h % 1100}" cy="${(h >>> 11) % 800}" r="${130 + h % 90}" fill="url(#spcNeb${i % 3})"/>`; }).join('');
+    const planets = SPC_PLANETS.map(p => `<g class="spc-pl" data-id="${p.id}" transform="translate(${p.x} ${p.y})">${spcArt(p, 'sp' + p.id)}` +
+      `<text y="${p.r + (p.ring ? 30 : 24)}" text-anchor="middle" direction="rtl" font-size="17" fill="${spcData.found[p.id] ? '#fff6c2' : '#9aa0cc'}" font-family="inherit">${spcData.found[p.id] ? wdEsc(p.n) : '???'}</text></g>`).join('');
+    const map = `<g class="spc-map" transform="translate(10 312)" pointer-events="none"><rect width="120" height="80" rx="10" fill="#0b1030" fill-opacity=".75" stroke="#8e7cff" stroke-width="2"/>` +
+      SPC_PLANETS.map(p => `<circle cx="${wdFx(p.x / 20)}" cy="${wdFx(p.y / 20)}" r="${spcData.found[p.id] ? 4 : 3}" fill="${spcData.found[p.id] ? p.c1 : '#5a5f8a'}"/>`).join('') + `<circle class="spc-me" r="3.4" fill="#fff" stroke="#ff6b8b" stroke-width="2"/></g>`;
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="החלל"><defs><linearGradient id="spcBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1030"/><stop offset=".6" stop-color="#1d1850"/><stop offset="1" stop-color="#361f5c"/></linearGradient><clipPath id="spcWin"><circle cy="-4" r="11"/></clipPath>${['#b58cff', '#ff9ad5', '#7ec8ff'].map((c, i) => `<radialGradient id="spcNeb${i}"><stop offset="0" stop-color="${c}" stop-opacity=".32"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}</defs>` +
+      `<rect width="600" height="400" fill="url(#spcBg)"/><g class="spc-l0">${neb}</g><g class="spc-l1">${layer(0.15, 70, 'a')}</g><g class="spc-l2">${layer(0.4, 60, 'b')}</g><g class="spc-l3">${layer(0.7, 40, 'c')}</g>` +
+      `<g class="spc-world">${planets}<g class="spc-rocket">${spcRocket()}</g></g>${map}</svg>`;
+  }
+  function openSpace() {
+    spcSt.sel = null; spcSt.ask = false;
+    if (spcMode === 'land' && !spcPlanet) spcMode = 'fly';
+    const dlg = $('#spaceDlg');
+    if (!spcBound) {
+      spcBound = true;
+      const k = (e, on) => { if (spcMode !== 'fly') return; const m = { ArrowUp: 'u', ArrowDown: 'd', ArrowLeft: 'l', ArrowRight: 'r', w: 'u', s: 'd', a: 'l', d: 'r' }[e.key]; if (m && !(e.target.matches && e.target.matches('input, textarea'))) { spcKeys[m] = on; e.preventDefault(); } };
+      dlg.addEventListener('keydown', e => k(e, true)); dlg.addEventListener('keyup', e => k(e, false));
+      dlg.addEventListener('close', () => { cancelAnimationFrame(spcRaf); spcKeys = {}; });
+    }
+    drawSpace();
+    if (!dlg.open) dlg.showModal();
+  }
+  function drawSpace() {
+    cancelAnimationFrame(spcRaf);
+    const body = $('#spaceBody'), n = spcFound(), total = SPC_PLANETS.length;
+    const tabs = wdTabs([['fly', '🚀 לטוס'], ...(spcPlanet ? [['land', `🪐 על ${spcById(spcPlanet).n}`]] : []), ['book', `📖 ספר הכוכבים (${n}/${total})`]], spcMode, id => { spcMode = id; spcSt.sel = null; drawSpace(); });
+    if (spcMode === 'book') {
+      body.replaceChildren(tabs, el('div', { class: 'spc-book' }, ...SPC_PLANETS.map(p => {
+        const f = spcData.found[p.id], d = (spcData.decor[p.id] || []).length;
+        return el('div', { class: 'spc-card' + (f ? '' : ' locked') }, el('span', { class: 'ic', html: spcIcon(p) }), el('b', {}, f ? p.n : '???'),
+          el('small', {}, f ? (d ? `${d} קישוטים` : 'עוד לא קישטת') : 'עוד לא גילית'),
+          f ? el('button', { type: 'button', class: 'chip', onclick: () => { spcPlanet = p.id; spcMode = 'land'; SFX.pop(); drawSpace(); } }, '🛬 לנחות') : null);
+      })), el('p', { class: 'muted' }, n < total ? `🔭 גילית ${n} מתוך ${total} כוכבים. טסים בחלל כדי למצוא עוד!` : '🏆 גילית את כל הכוכבים בחלל!'));
+      return;
+    }
+    if (spcMode === 'land') {
+      const p = spcById(spcPlanet), o = spcEd();
+      const scene = el('div', { class: 'wd-scene spc-scene', html: spcSurface() });
+      const E = w2Editor(scene.firstChild, o);
+      body.replaceChildren(tabs, scene, E.tools, E.colors, E.pal, w2Who(o, () => [180 + Math.random() * 260, 330 + Math.random() * 50]),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { const was = spcSt.sel; spcSt.sel = null; const s = spcSurface(true); spcSt.sel = was; wdPhoto(s, 'rocket', scene, p.n); } }, '📸 לצלם למדבקה'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { spcMode = 'fly'; tone(300, 0.3, 'sawtooth', 0, 0.04); drawSpace(); } }, '🚀 להמריא'),
+          w2ClearBtn(spcSt, 'להוריד את כל הקישוטים מהכוכב?', o.items().length, () => { spcData.decor[spcPlanet] = []; saveSpace(); }, drawSpace)));
+      return;
+    }
+    // flying
+    const scene = el('div', { class: 'wd-scene spc-scene fly', html: spcFlyMarkup() }), svgEl = scene.firstChild;
+    const hud = el('div', { class: 'chips spc-hud' });
+    const R = { x: spcData.x, y: spcData.y, vx: 0, vy: 0, a: 0, target: null, near: undefined, thrust: false };
+    const q = s => svgEl.querySelector(s), world = q('.spc-world'), rocket = q('.spc-rocket'), me = q('.spc-me'), flame = q('.spc-flame'), Ls = [[q('.spc-l0'), 0.08], [q('.spc-l1'), 0.15], [q('.spc-l2'), 0.4], [q('.spc-l3'), 0.7]];
+    const toSvg = e => { const p = svgEl.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+    let cam = { x: 0, y: 0 }, down = false;
+    const aim = e => { const p = toSvg(e); R.target = { x: p.x + cam.x, y: p.y + cam.y }; };
+    svgEl.addEventListener('pointerdown', e => { down = true; try { svgEl.setPointerCapture(e.pointerId); } catch {} aim(e); e.preventDefault(); });
+    svgEl.addEventListener('pointermove', e => { if (down) aim(e); });
+    const up = () => { down = false; R.target = null; };
+    svgEl.addEventListener('pointerup', up); svgEl.addEventListener('pointercancel', up);
+    function drawHud() {
+      const p = R.near;
+      hud.replaceChildren(el('span', { class: 'lbl' }, `🪐 ${spcFound()}/${total}`),
+        p ? el('button', { type: 'button', class: 'btn main', onclick: () => { spcPlanet = p.id; spcMode = 'land'; spcData.x = R.x; spcData.y = R.y; saveSpace(); tone(500, 0.2, 'triangle'); tone(350, 0.3, 'triangle', 0.15); drawSpace(); } }, `🛬 לנחות על ${p.n}`)
+          : el('span', { class: 'wd-hint' }, '👆 לוחצים ומחזיקים בחלל כדי לטוס לשם (או חיצים במקלדת). מתקרבים לכוכב כדי לגלות אותו!'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { const s = svgEl.outerHTML.replace(/<g class="spc-map"[\s\S]*?<\/g>(?=<\/svg>)/, ''); wdPhoto(s, 'planet', scene); } }, '📸'));
+    }
+    const place = () => {
+      cam = { x: Math.max(0, Math.min(SPC_W - 600, R.x - 300)), y: Math.max(0, Math.min(SPC_H - 400, R.y - 200)) };
+      world.setAttribute('transform', `translate(${wdFx(-cam.x)} ${wdFx(-cam.y)})`);
+      Ls.forEach(([g, f]) => g.setAttribute('transform', `translate(${wdFx(-cam.x * f)} ${wdFx(-cam.y * f)})`));
+      rocket.setAttribute('transform', `translate(${wdFx(R.x)} ${wdFx(R.y)}) rotate(${wdFx(R.a)}) scale(.8)`);
+      me.setAttribute('cx', wdFx(R.x / 20)); me.setAttribute('cy', wdFx(R.y / 20));
+      flame.style.opacity = R.thrust ? 1 : 0;
+    };
+    const check = () => {
+      let near = null;
+      for (const p of SPC_PLANETS) if (Math.hypot(p.x - R.x, p.y - R.y) < p.r + 60) near = p;
+      if (near && !spcData.found[near.id]) {
+        spcData.found[near.id] = wdToday(); saveSpace(); SFX.yay(); w2Coins(3, 'גילית כוכב חדש');
+        toast(spcIcon(near), `🔭 גילית כוכב חדש: ${near.n}!`);
+        const t = world.querySelector(`.spc-pl[data-id="${near.id}"] text`); if (t) { t.textContent = near.n; t.setAttribute('fill', '#fff6c2'); }
+        const dot = svgEl.querySelectorAll('.spc-map circle')[SPC_PLANETS.indexOf(near)]; if (dot) { dot.setAttribute('fill', near.c1); dot.setAttribute('r', 4); }
+        if (spcFound() === total) setTimeout(() => { confetti($('#spaceDlg .confetti-c')); toast(stickerHTML('trophy'), '🏆 גילית את כל הכוכבים!'); w2Coins(15, 'כל הכוכבים'); }, 1200);
+        tabsNow.replaceWith(tabsNew());
+      }
+      if (near !== R.near) { R.near = near; drawHud(); }
+    };
+    let tabsNow = tabs;
+    const tabsNew = () => { const t = wdTabs([['fly', '🚀 לטוס'], ...(spcPlanet ? [['land', `🪐 על ${spcById(spcPlanet).n}`]] : []), ['book', `📖 ספר הכוכבים (${spcFound()}/${total})`]], spcMode, id => { spcMode = id; spcSt.sel = null; drawSpace(); }); tabsNow = t; return t; };
+    let last = performance.now(), saveT = 0;
+    const step = now => {
+      if (spcMode !== 'fly' || !svgEl.isConnected || !$('#spaceDlg').open) return;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      let ax = (spcKeys.r ? 1 : 0) - (spcKeys.l ? 1 : 0), ay = (spcKeys.d ? 1 : 0) - (spcKeys.u ? 1 : 0);
+      if (R.target) { const dx = R.target.x - R.x, dy = R.target.y - R.y, d = Math.hypot(dx, dy); if (d > 18) { ax = dx / d; ay = dy / d; } }
+      const m = Math.hypot(ax, ay); R.thrust = m > 0;
+      if (m) { R.vx += ax / m * 520 * dt; R.vy += ay / m * 520 * dt; }
+      const fr = Math.pow(m ? 0.5 : 0.25, dt); R.vx *= fr; R.vy *= fr;
+      const sp = Math.hypot(R.vx, R.vy); if (sp > 300) { R.vx *= 300 / sp; R.vy *= 300 / sp; }
+      R.x = Math.max(30, Math.min(SPC_W - 30, R.x + R.vx * dt)); R.y = Math.max(30, Math.min(SPC_H - 30, R.y + R.vy * dt));
+      if (sp > 12) { const want = Math.atan2(R.vy, R.vx) * 180 / Math.PI + 90; let d = ((want - R.a + 540) % 360) - 180; R.a += d * Math.min(1, dt * 8); }
+      place(); check();
+      if ((saveT += dt) > 2) { saveT = 0; spcData.x = Math.round(R.x); spcData.y = Math.round(R.y); saveSpace(); }
+      spcRaf = requestAnimationFrame(step);
+    };
+    place(); check(); if (R.near === undefined || R.near === null) drawHud();
+    body.replaceChildren(tabs, scene, hud,
+      el('p', { class: 'muted' }, `🚀 ${pet ? `${pet.name || 'החיה שלך'} טס/ה איתך בחללית!` : 'החללית מוכנה!'} כל כוכב חדש שמגלים נכנס לספר הכוכבים, ואפשר לנחות עליו ולקשט אותו.`));
+    spcRaf = requestAnimationFrame(step);
+    setTimeout(() => { try { $('#spaceDlg').focus(); } catch {} }, 0);
+  }
+
+  // ---------- 🍭 candy land: build a sweet world, her pets and girls wander around ----------
+  const CND_COLS = ['#ff9ad5', '#ff6b8b', '#ffb04d', '#ffd84d', '#7fe0b8', '#7ec8ff', '#b58cff', '#ffffff', '#a0673e', '#6b3a2a', '#c9f0a0'];
+  const cndCane = (x, h, c) => { const d = `M${x} 0 V${-h} A9 9 0 0 0 ${x - 18} ${-h}`; return `<path d="${d}" fill="none" stroke="${O}" stroke-width="11" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="6.5" stroke-dasharray="5 5"/>`; };
+  const cndSprinkles = (pts) => pts.map(([x, y, a], i) => `<rect x="${x - 3}" y="${y - 1.2}" width="6" height="2.4" rx="1.2" transform="rotate(${a} ${x} ${y})" fill="${['#ff6b8b', '#7ec8ff', '#ffd84d', '#7fe0b8', '#b58cff', '#fff'][i % 6]}"/>`).join('');
+  const CND_ITEMS = {
+    ginger: ['בית ג׳ינג׳ר', 1, 7, c => `<rect x="-36" y="-52" width="72" height="52" fill="#c98a4b" ${S}/><path d="M-36 -8 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0 q6 6 12 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>` +
+      `<path d="M-46 -48 L0 -90 L46 -48 Z" fill="${c}" ${S}/><path d="M-40 -48 q5 9 10 0 q5 9 10 0 q5 9 10 0 q5 9 10 0 q5 9 10 0 q5 9 10 0 q5 9 10 0 q5 9 10 0" fill="${c}" ${S2}/>` +
+      [[-24, -60, '#ff6b8b'], [-10, -72, '#7fe0b8'], [8, -74, '#ffd84d'], [24, -60, '#7ec8ff'], [0, -84, '#b58cff']].map(([x, y, col]) => `<path d="M${x - 5} ${y + 3} A5 5 0 0 1 ${x + 5} ${y + 3} Z" fill="${col}" ${S2}/>`).join('') +
+      `<path d="M-10 0 V-24 A10 10 0 0 1 10 -24 V0 Z" fill="#8a5a36" ${S2}/><circle cx="5" cy="-12" r="2.4" fill="#ff6b8b"/>` +
+      [-26, 16].map(x => `<rect x="${x}" y="-42" width="12" height="12" rx="2" fill="#fff6a8" ${S2}/><path d="M${x + 6} -42 V-30 M${x} -36 H${x + 12}" stroke="#fff" stroke-width="2"/>`).join('') + cndCane(34, 30, '#ff5a6e')],
+    lolly: ['עץ סוכרייה', 1, 0, c => `<path d="M0 0 V-62" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M0 0 V-62" stroke="#fff" stroke-width="5" stroke-linecap="round"/>` +
+      `<circle cy="-86" r="28" fill="${c}" ${S}/><path d="M0 -86 m-3 0 a3 3 0 1 1 3 3 a8 8 0 1 1 -8 -8 a14 14 0 1 1 14 14 a21 21 0 1 1 -21 -21" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>${shine(-18, -94)}` +
+      `<path d="M-8 -60 L0 -54 L8 -60 L0 -66 Z" fill="#7fe0b8" ${S2}/>`],
+    cottontree: ['עץ צמר גפן', 1, 6, c => `<path d="M0 0 V-50" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M0 0 V-50" stroke="#fffdf5" stroke-width="3.5"/>` +
+      `<path d="M-30 -50 C-44 -60 -36 -86 -18 -84 C-14 -104 14 -104 18 -84 C36 -86 44 -60 30 -50 C22 -40 -22 -40 -30 -50 Z" fill="${c}" ${S}/><path d="M-18 -70 q6 -6 12 0 M4 -80 q6 -6 12 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>`],
+    choco: ['נהר שוקולד', 1.2, 8, c => `<path d="M-100 0 C-66 -22 -34 16 0 0 C34 -16 66 20 100 0 L100 22 C66 42 34 6 0 22 C-34 38 -66 0 -100 22 Z" fill="${c}" ${S}/>` +
+      `<path d="M-70 8 q12 -6 24 0 M10 10 q12 -6 24 0 M52 16 q10 -5 20 0" fill="none" stroke="${fmx(c, '#ffffff', 0.45)}" stroke-width="2.6" stroke-linecap="round"/>`, 0],
+    cane: ['גדר מקלות', 1, 1, c => `<rect x="-52" y="-30" width="104" height="7" rx="3.5" fill="#fff" ${S2}/><rect x="-52" y="-14" width="104" height="7" rx="3.5" fill="#fff" ${S2}/>` + [-36, -12, 12, 36].map(x => cndCane(x + 9, 40, c)).join('')],
+    gumdrop: ['גבעת גומי', 1, 4, c => `<path d="M-44 0 C-44 -62 44 -62 44 0 Z" fill="${c}" ${S}/>` + Array.from({ length: 14 }, (_, i) => `<circle cx="${wdFx(Math.cos(i * 2.2) * (10 + (i % 4) * 7))}" cy="${wdFx(-22 + Math.sin(i * 2.2) * 12)}" r="1.8" fill="#fff" opacity=".85"/>`).join('') + shine(-28, -26) + face(0, -18, 0.9)],
+    mount: ['הר גלידה', 1.2, 0, c => `<path d="M-74 0 L-18 -84 Q0 -100 18 -84 L74 0 Z" fill="#f2b56b" ${S}/><path d="M-50 -26 L-20 0 M-30 -54 L20 0 M-6 -84 L54 0 M44 -26 L14 0 M26 -54 L-24 0" stroke="#d99a5b" stroke-width="2"/>` +
+      `<path d="M-34 -52 C-40 -80 -14 -104 0 -100 C14 -104 40 -80 34 -52 Q28 -40 22 -52 Q16 -36 8 -50 Q0 -34 -8 -50 Q-16 -38 -22 -52 Q-28 -42 -34 -52 Z" fill="${c}" ${S}/>` +
+      cndSprinkles([[-14, -84, 20], [8, -88, -30], [-4, -72, 60], [18, -70, 10], [-22, -66, -40]]) + `<path d="M4 -98 Q8 -110 14 -112" fill="none" ${S2}/><circle cx="2" cy="-102" r="7" fill="#ff3b5c" ${S2}/>${shine(-24, -76)}`],
+    ferris: ['גלגל דונאט', 1.2, 0, c => `<path d="M-38 0 L0 -64 L38 0" fill="none" stroke="${O}" stroke-width="8" stroke-linecap="round"/><path d="M-38 0 L0 -64 L38 0" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>` +
+      `<g transform="translate(0 -64)"><g>${reduceMotion() ? '' : '<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="18s" repeatCount="indefinite"/>'}` +
+      Array.from({ length: 6 }, (_, i) => { const a = i * Math.PI / 3, x = Math.cos(a) * 50, y = Math.sin(a) * 50; return `<path d="M0 0 L${wdFx(x)} ${wdFx(y)}" stroke="${O}" stroke-width="2"/><rect x="${wdFx(x - 8)}" y="${wdFx(y - 6)}" width="16" height="12" rx="4" fill="${['#7ec8ff', '#ffd84d', '#7fe0b8', '#b58cff', '#ffb04d', '#ff6b8b'][i]}" ${S2}/>`; }).join('') +
+      `<circle r="34" fill="none" stroke="${O}" stroke-width="30"/><circle r="34" fill="none" stroke="#f2b56b" stroke-width="25"/><path d="M-30 -14 A33 33 0 0 1 30 -14 A33 33 0 0 1 30 14 A33 33 0 0 1 -30 14 A33 33 0 0 1 -30 -14" fill="none" stroke="${c}" stroke-width="18" stroke-linejoin="round"/>` +
+      cndSprinkles(Array.from({ length: 12 }, (_, i) => [wdFx(Math.cos(i * 0.52) * 34), wdFx(Math.sin(i * 0.52) * 34), i * 40])) + `</g><circle r="7" fill="#fff" ${S2}/></g>`],
+    castle: ['ארמון ממתקים', 1.3, 0, c => { const t = x => `<rect x="${x - 12}" y="-78" width="24" height="78" fill="${fmx(c, '#ffffff', 0.35)}" ${S}/><path d="M${x - 14} -78 L${x} -104 L${x + 14} -78 Z" fill="#f2b56b" ${S}/><path d="M${x - 8} -90 L${x + 4} -80 M${x - 2} -100 L${x + 9} -86" stroke="#d99a5b" stroke-width="1.6"/><circle cx="${x}" cy="-108" r="9" fill="${c}" ${S2}/><circle cx="${x + 2}" cy="-118" r="3" fill="#ff3b5c" ${S2}/>`;
+      return t(-40) + t(40) + `<rect x="-30" y="-60" width="60" height="60" fill="${c}" ${S}/><path d="M-30 -60 q5 7 10 0 q5 7 10 0 q5 7 10 0 q5 7 10 0 q5 7 10 0 q5 7 10 0" fill="#fff" ${S2}/>` +
+        `<path d="M-12 0 V-22 A12 12 0 0 1 12 -22 V0 Z" fill="#6b3a2a" ${S2}/><circle cx="0" cy="-40" r="7" fill="#fff6a8" ${S2}/>${bfHeart(0, -40, 0.8, '#ff6b8b')}` + [-40, 40].map(x => `<rect x="${x - 4}" y="-58" width="8" height="12" rx="4" fill="#fff6a8" ${S2}/>`).join(''); }],
+    cupcake: ['בית קאפקייק', 1, 0, c => `<path d="M-34 -40 H34 L28 0 H-28 Z" fill="#7ec8ff" ${S}/><path d="M-22 -38 L-19 -2 M-8 -38 L-7 -2 M8 -38 L7 -2 M22 -38 L19 -2" stroke="${O}" stroke-width="1.6" opacity=".5"/>` +
+      `<path d="M-40 -40 C-48 -60 -28 -72 -16 -66 C-12 -88 14 -88 18 -68 C32 -74 50 -60 40 -40 Z" fill="${c}" ${S}/><circle cx="4" cy="-84" r="7" fill="#ff3b5c" ${S2}/>` + cndSprinkles([[-20, -54, 20], [0, -62, -30], [18, -52, 50], [-4, -48, 0]]) +
+      `<path d="M-8 0 V-16 A8 8 0 0 1 8 -16 V0 Z" fill="#ffd6ec" ${S2}/><circle cx="-20" cy="-26" r="5" fill="#fff6a8" ${S2}/>`],
+    gummy: ['דובון גומי', 0.9, 1, c => `<g fill="${c}" fill-opacity=".85" stroke="${O}" stroke-width="2.5"><circle cx="-12" cy="-58" r="7"/><circle cx="12" cy="-58" r="7"/><ellipse cx="-12" cy="-4" rx="9" ry="6"/><ellipse cx="12" cy="-4" rx="9" ry="6"/><ellipse cx="0" cy="-22" rx="18" ry="20"/><ellipse cx="-18" cy="-28" rx="6" ry="9"/><ellipse cx="18" cy="-28" rx="6" ry="9"/><circle cx="0" cy="-46" r="15"/></g>` +
+      `${face(0, -46, 0.8)}<path d="M-10 -32 q3 -3 6 0" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>`],
+    mush: ['פטריית מרנג', 1, 1, c => `<g transform="scale(1.3)">${gdMush(0, 1, c, true)}</g>`],
+    marsh: ['מרשמלו', 0.9, 7, c => [0, 1, 2].map(i => { const y = -i * 22, col = i % 2 ? '#ffc2d6' : c; return `<path d="M-18 ${y} V${y - 18} A18 5 0 0 1 18 ${y - 18} V${y} A18 5 0 0 1 -18 ${y} Z" fill="${col}" ${S}/><ellipse cx="0" cy="${y - 18}" rx="18" ry="5" fill="${fmx(col, '#ffffff', 0.4)}" ${S2}/>`; }).join('') + face(0, -54, 0.6)],
+    bridge: ['גשר קשת', 1.2, 1, c => ['#ff6b8b', '#ffb04d', '#ffd84d', '#7fe0b8', '#7ec8ff', '#b58cff'].map((col, i) => `<path d="M${-70 + i * 4} 0 A${70 - i * 4} ${60 - i * 4} 0 0 1 ${70 - i * 4} 0" fill="none" stroke="${i ? col : c}" stroke-width="5"/>`).join('') +
+      `<path d="M-70 0 A70 60 0 0 1 70 0 M-50 0 A50 40 0 0 1 50 0" fill="none" stroke="${O}" stroke-width="2.4"/>`, 1],
+    cotton: ['ענן צמר גפן', 1, 0, c => `<path d="M-44 10 H44 A16 16 0 0 0 40 -18 A24 24 0 0 0 -2 -28 A20 20 0 0 0 -40 -12 A14 14 0 0 0 -44 10 Z" fill="${c}" ${S}/>${face(0, -6, 0.9)}<path d="M-26 -12 q6 -6 12 -4" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`, 3],
+  };
+  const CND_SKIES = [['day', '☀️ יום'], ['sunset', '🌅 שקיעה'], ['night', '🌙 לילה']];
+  let cndData = Object.assign({ sky: 'day', items: null }, store.get('candy', {}));
+  if (!cndData.items) cndData.items = [['choco', 300, 330, 1.2, '#a0673e'], ['ginger', 150, 300, 1, '#ffffff'], ['lolly', 470, 290, 1, '#ff9ad5'], ['lolly', 60, 280, 0.8, '#7ec8ff'], ['gumdrop', 380, 270, 0.9, '#7fe0b8'], ['cotton', 460, 80, 1, '#ff9ad5']]
+    .map(([t, x, y, s, c], i) => ({ id: 'c' + i, t, x, y, s, f: false, c, z: 0 }));
+  const cndSt = { tool: null, sel: null, ask: false };
+  let cndWalk = [];
+  const saveCandy = () => store.set('candy', cndData);
+  const cndEd = () => ({ st: cndSt, items: () => cndData.items, defs: CND_ITEMS, cols: CND_COLS, save: saveCandy, bounds: [20, 200, 580, 396], max: 60, prefix: 'cnd-', where: 'בארץ הממתקים', redraw: () => drawCandy() });
+  function cndMarkup(photo) {
+    const sky = cndData.sky, SK = { day: ['#ffc2e0', '#fff0d6'], sunset: ['#b58cff', '#ffb38a'], night: ['#1d1850', '#5a3a8a'] }[sky] || ['#ffc2e0', '#fff0d6'], night = sky === 'night';
+    const orb = night ? `<path d="M520 30 A26 26 0 1 0 546 72 A20 20 0 1 1 520 30 Z" fill="#ffe27a" ${S}/>` + Array.from({ length: 24 }, (_, i) => `<circle class="wd-tw" style="animation-delay:-${(i % 6) * 0.3}s" cx="${(i * 131) % 590}" cy="${(i * 47) % 150 + 6}" r="${1 + i % 3 * 0.5}" fill="#fff8d0"/>`).join('')
+      : `<g transform="translate(90 70)"><g class="wd-spin">${rays(0, 0, 30, 42, 12, 5, O)}${rays(0, 0, 30, 42, 12, 2.6, sky === 'sunset' ? '#ff9a3c' : '#ffd84d')}</g><circle r="27" fill="#ff9ad5" ${S}/><path d="M0 0 m-3 0 a3 3 0 1 1 3 3 a8 8 0 1 1 -8 -8 a14 14 0 1 1 14 14 a20 20 0 1 1 -20 -20" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></g>`;
+    const hills = [[40, '#ff9ad5'], [140, '#7fe0b8'], [250, '#ffd84d'], [360, '#b58cff'], [470, '#7ec8ff'], [570, '#ff6b8b']].map(([x, c], i) => `<path d="M${x - 60} 214 C${x - 60} ${150 - i % 2 * 20} ${x + 60} ${150 - i % 2 * 20} ${x + 60} 214 Z" fill="${night ? fmx(c, '#1d1850', 0.45) : fmx(c, '#ffffff', 0.35)}" ${S2}/>`).join('');
+    const ground = night ? '#8fcfb0' : '#b8f0d4';
+    const walk = photo ? w2WalkPhoto(cndWalk) : '';
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="ארץ הממתקים"'}><defs><linearGradient id="cndSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${SK[0]}"/><stop offset="1" stop-color="${SK[1]}"/></linearGradient></defs>` +
+      `<rect width="600" height="400" fill="url(#cndSky)"/>${orb}${w2Cloud(250, 50, 1.1, '#ffd6ec')}${w2Cloud(420, 36, 0.8, '#e6dcff')}${hills}` +
+      `<path d="M0 210 H600 V400 H0 Z" fill="${ground}"/><path d="M0 206 q15 14 30 0 q15 18 30 0 q15 12 30 0 q15 16 30 0 q15 12 30 0 q15 18 30 0 q15 12 30 0 q15 16 30 0 q15 12 30 0 q15 18 30 0 q15 12 30 0 q15 16 30 0 q15 12 30 0 q15 18 30 0 q15 12 30 0 q15 16 30 0 q15 12 30 0 q15 18 30 0 q15 12 30 0 q15 16 30 0 V190 H0 Z" fill="#fff" ${S}/>` +
+      cndSprinkles(Array.from({ length: 40 }, (_, i) => [(i * 97) % 590 + 5, 230 + (i * 53) % 165, i * 47])) +
+      `<g class="w2-items">${w2Items(cndEd(), photo)}</g><g class="w2-walk" pointer-events="none">${walk}</g></svg>`;
+  }
+  function openCandy() { cndSt.sel = null; cndSt.ask = false; drawCandy(); if (!$('#candyDlg').open) $('#candyDlg').showModal(); }
+  function drawCandy() {
+    const o = cndEd(), scene = el('div', { class: 'wd-scene cnd-scene', html: cndMarkup() }), svgEl = scene.firstChild;
+    const E = w2Editor(svgEl, o);
+    cndWalk = w2Wander(svgEl, $('#candyDlg'), [40, 250, 560, 392]);
+    $('#candyBody').replaceChildren(scene, E.tools, E.colors, E.pal,
+      el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'השמיים:'), ...CND_SKIES.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cndData.sky === id), onclick: () => { cndData.sky = id; saveCandy(); SFX.pop(); drawCandy(); } }, name))),
+      cndWalk.length ? el('p', { class: 'muted' }, '🍬 מי שגר איתך (החיות והבנות) מטייל/ת בארץ הממתקים!') : el('p', { class: 'muted' }, '🐾 כשיש לך חיה או בנות מהסטודיו, הן יבואו לטייל פה!'),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { const was = cndSt.sel; cndSt.sel = null; const s = cndMarkup(true); cndSt.sel = was; wdPhoto(s, 'lollipop', scene); } }, '📸 לצלם למדבקה'),
+        w2ClearBtn(cndSt, 'להוריד את כל הממתקים?', cndData.items.length, () => { cndData.items = []; saveCandy(); }, drawCandy)));
+  }
+
+  // ---------- ❄️ ice palace: design a frosty palace, then skate on the ice rink ----------
+  const FRZ_COLS = ['#dff4ff', '#bfe6ff', '#9fd8ff', '#c9b8ff', '#e6dcff', '#c8f5ec', '#ffd6ec', '#ffffff', '#ffe9a8', '#7a9cff'];
+  const frzL = c => fmx(c, '#ffffff', 0.55), frzD = c => fmx(c, '#5a7ab8', 0.3);
+  const frzIcicles = (x0, x1, y, n) => Array.from({ length: n }, (_, i) => { const x = x0 + (x1 - x0) * (i + 0.5) / n, h = 8 + (i * 7) % 11; return `<path d="M${wdFx(x - 3.5)} ${y} L${wdFx(x)} ${y + h} L${wdFx(x + 3.5)} ${y} Z" fill="#eaf8ff" stroke="${O}" stroke-width="1.4" stroke-linejoin="round"/>`; }).join('');
+  const frzSnowCap = (x0, x1, y) => { const n = Math.max(2, Math.round((x1 - x0) / 14)), w = (x1 - x0) / n; return `<path d="M${x0 - 2} ${y + 3} ${Array.from({ length: n }, (_, i) => `a${wdFx(w / 2)} ${wdFx(w / 2.4)} 0 0 1 ${wdFx(w)} 0`).join(' ')} L${x1 + 2} ${y + 3} Z" fill="#fff" ${S2}/>`; };
+  const frzFlake = (x, y, r, c = '#fff') => `<g transform="translate(${x} ${y})">${rays(0, 0, 0, r, 6, 2.2, c)}${rays(0, 0, r * 0.45, r * 0.75, 6, 1.6, c, Math.PI / 6)}</g>`;
+  const FRZ_ITEMS = {
+    wall: ['חומת קרח', 1, 1, c => `<rect x="-60" y="-56" width="120" height="56" fill="${c}" ${S}/>` + [-42, -28, -14].map((y, i) => `<path d="M-60 ${y} H60" stroke="${frzL(c)}" stroke-width="2"/>` + [-40, -10, 20, 50].map(x => `<path d="M${x + (i % 2) * 15} ${y} V${y + 14}" stroke="${frzL(c)}" stroke-width="2"/>`).join('')).join('') +
+      `<path d="M-50 -48 l14 -4" stroke="#fff" stroke-width="3" stroke-linecap="round"/>${frzSnowCap(-60, 60, -58)}`, 1],
+    tower: ['מגדל', 1, 3, c => `<rect x="-22" y="-120" width="44" height="120" fill="${c}" ${S}/><path d="M-26 -118 L0 -168 L26 -118 Z" fill="${frzL(c)}" ${S}/><path d="M0 -168 V-184 L14 -178 L0 -172" fill="#ff9ad5" ${S2}/>` +
+      `<path d="M-9 -70 V-88 A9 9 0 0 1 9 -88 V-70 Z" fill="#fff6c2" ${S2}/><path d="M-9 -30 V-44 A9 9 0 0 1 9 -44 V-30 Z" fill="#fff6c2" ${S2}/>${frzIcicles(-26, 26, -118, 5)}<path d="M-14 -110 V-20" stroke="#fff" stroke-width="3" opacity=".6" stroke-linecap="round"/>`],
+    arch: ['קשת קרח', 1.1, 0, c => `<path d="M-56 0 V-70 A56 56 0 0 1 56 -70 V0 H36 V-70 A36 36 0 0 0 -36 -70 V0 Z" fill="${c}" ${S}/><path d="M-46 -76 A46 46 0 0 1 46 -76" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3 8" stroke-linecap="round"/>` +
+      frzIcicles(-32, 32, -82, 6) + frzFlake(0, -114, 9, '#fff') + `<polygon points="${starPts(0, -114, 4, 2)}" fill="#fff"/>`],
+    gate: ['שער גדול', 1, 2, c => `<path d="M-40 0 V-80 A40 40 0 0 1 40 -80 V0 Z" fill="${frzD(c)}" ${S}/><path d="M-32 0 V-78 A32 32 0 0 1 32 -78 V0 Z" fill="${c}" ${S2}/><path d="M0 -110 V0" stroke="${O}" stroke-width="2"/>` +
+      frzFlake(-14, -60, 10) + frzFlake(14, -60, 10) + `<circle cx="-5" cy="-34" r="3" fill="#ffe9a8" ${S2}/><circle cx="5" cy="-34" r="3" fill="#ffe9a8" ${S2}/>`],
+    throne: ['כס מלכות', 1, 4, c => `<path d="M-30 0 V-40 H30 V0" fill="none" ${S}/><path d="M-28 -110 L-18 -126 L-6 -112 L0 -130 L6 -112 L18 -126 L28 -110 V-40 H-28 Z" fill="${c}" ${S}/><rect x="-36" y="-44" width="72" height="16" rx="6" fill="${frzL(c)}" ${S}/>` +
+      `<rect x="-38" y="-70" width="10" height="30" rx="4" fill="${c}" ${S2}/><rect x="28" y="-70" width="10" height="30" rx="4" fill="${c}" ${S2}/>${bfHeart(0, -84, 1.8, '#ff9ad5')}<circle cx="0" cy="-128" r="4" fill="#ffe9a8" ${S2}/>`],
+    chandelier: ['נברשת', 1, 8, c => `<path d="M0 -150 V-66" stroke="${O}" stroke-width="2"/><path d="M-44 -60 Q0 -40 44 -60" fill="none" stroke="${O}" stroke-width="5"/><path d="M-44 -60 Q0 -40 44 -60" fill="none" stroke="${c}" stroke-width="2.6"/>` +
+      [-44, -22, 0, 22, 44].map((x, i) => `<rect x="${x - 3}" y="${-72 + (i % 2) * 8 - (i === 2 ? 14 : 0)}" width="6" height="12" fill="#fffdf5" ${S2}/><circle class="wd-tw" style="animation-delay:-${i * 0.3}s" cx="${x}" cy="${-78 + (i % 2) * 8 - (i === 2 ? 14 : 0)}" r="4" fill="#ffe27a"/>` +
+        `<path d="M${x} ${-52 + Math.abs(x) * -0.1} l-4 8 l4 8 l4 -8 Z" fill="#dff4ff" stroke="${O}" stroke-width="1.2"/>`).join('') + `<circle cy="-66" r="7" fill="${c}" ${S2}/>`, 3],
+    window: ['חלון פתית שלג', 1, 2, c => `<circle cy="-40" r="34" fill="${c}" ${S}/><circle cy="-40" r="26" fill="#eaf8ff" ${S2}/>${frzFlake(0, -40, 20, frzD(c))}<circle cy="-40" r="4" fill="${frzD(c)}"/>`, 1],
+    swan: ['פסל ברבור', 1, 0, c => `<rect x="-26" y="-14" width="52" height="14" rx="3" fill="${frzL(c)}" ${S}/><path d="M-30 -30 C-30 -14 20 -12 32 -26 C22 -22 12 -36 -2 -34 C-14 -34 -22 -40 -30 -30 Z" fill="${c}" fill-opacity=".9" ${S}/>` +
+      `<path d="M16 -30 C4 -52 22 -74 30 -62 C34 -56 28 -50 24 -54" fill="none" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M16 -30 C4 -52 22 -74 30 -62 C34 -56 28 -50 24 -54" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round"/><path d="M28 -64 l7 2 l-6 3" fill="#ffe9a8" stroke="${O}" stroke-width="1.2"/><circle cx="25" cy="-64" r="1.4" fill="${O}"/>` +
+      `<path d="M-20 -30 q10 -8 20 -2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>`],
+    heart: ['פסל לב', 1, 6, c => `<rect x="-20" y="-16" width="40" height="16" rx="3" fill="#eaf8ff" ${S}/><path d="M0 -20 C-30 -40 -34 -64 -18 -72 C-8 -76 -2 -70 0 -64 C2 -70 8 -76 18 -72 C34 -64 30 -40 0 -20 Z" fill="${c}" fill-opacity=".9" ${S}/>${shine(-18, -58)}` + wdSpark(24, -70, 0.6, '#fff', 'wd-tw', 0)],
+    star: ['פסל כוכב', 1, 8, c => `<rect x="-6" y="-40" width="12" height="40" fill="#eaf8ff" ${S2}/><rect x="-20" y="-8" width="40" height="8" rx="3" fill="#eaf8ff" ${S2}/><polygon points="${starPts(0, -64, 30, 13)}" fill="${c}" fill-opacity=".92" ${S}/>${face(0, -62, 0.8)}`],
+    globe: ['כדור שלג', 0.9, 3, c => `<path d="M-30 0 L-24 -18 H24 L30 0 Z" fill="${c}" ${S}/><circle cy="-50" r="34" fill="#eaf8ff" fill-opacity=".75" ${S}/>` +
+      `<path d="M-14 -24 V-44 L-8 -52 L-2 -44 V-24 Z M2 -24 V-50 L9 -60 L16 -50 V-24 Z" fill="#c9b8ff" ${S2}/><path d="M-30 -30 Q0 -20 30 -30 L28 -24 Q0 -18 -28 -24 Z" fill="#fff"/>` +
+      Array.from({ length: 9 }, (_, i) => `<circle class="wd-tw" style="animation-delay:-${i * 0.25}s" cx="${-22 + (i * 17) % 44}" cy="${-74 + (i * 13) % 40}" r="1.8" fill="#fff" stroke="#9fd8ff" stroke-width=".6"/>`).join('') + `<path d="M-22 -66 A28 28 0 0 1 -6 -80" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`],
+    pillar: ['עמוד', 1, 1, c => `<rect x="-14" y="-110" width="28" height="100" fill="${c}" ${S}/><path d="M-6 -104 V-16 M6 -104 V-16" stroke="${frzL(c)}" stroke-width="2.4"/><rect x="-20" y="-12" width="40" height="12" rx="3" fill="${frzL(c)}" ${S2}/><rect x="-20" y="-120" width="40" height="12" rx="3" fill="${frzL(c)}" ${S2}/>${frzIcicles(-20, 20, -108, 3)}`],
+    fountain: ['מזרקה קפואה', 1.1, 2, c => `<ellipse cy="-8" rx="48" ry="12" fill="${frzL(c)}" ${S}/><ellipse cy="-12" rx="38" ry="7" fill="${c}" ${S2}/><rect x="-6" y="-50" width="12" height="38" fill="${frzL(c)}" ${S2}/><ellipse cy="-50" rx="24" ry="6" fill="${frzL(c)}" ${S2}/>${frzIcicles(-22, 22, -48, 5)}` +
+      `<path d="M0 -54 Q-16 -84 -26 -58 M0 -54 Q16 -84 26 -58 M0 -54 V-78" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>${wdSpark(0, -84, 0.7, '#fff', 'wd-tw', 0)}`],
+    snowman: ['איש שלג', 1, 1, c => `<circle cy="-22" r="22" fill="#fff" ${S}/><circle cy="-58" r="17" fill="#fff" ${S}/><circle cy="-86" r="13" fill="#fff" ${S}/><path d="M-12 -74 Q0 -66 12 -74 L12 -68 Q0 -60 -12 -68 Z" fill="${c}" ${S2}/><path d="M8 -72 l6 16 l-8 -2 Z" fill="${c}" ${S2}/>` +
+      `${face(0, -88, 0.7)}<path d="M1 -85 L10 -83 L1 -81 Z" fill="#ffa24d" stroke="${O}" stroke-width="1"/><circle cy="-56" r="2.4" fill="${O}"/><circle cy="-44" r="2.4" fill="${O}"/><path d="M-16 -62 L-34 -74 M16 -62 L34 -72" stroke="#a0673e" stroke-width="3" stroke-linecap="round"/><path d="M-10 -98 H10 V-112 H-10 Z M-14 -98 H14" fill="${frzD(c)}" ${S2}/>`],
+    penguin: ['פינגווין', 0.9, 6, c => `<ellipse cy="-30" rx="22" ry="30" fill="#3b3f5a" ${S}/><ellipse cy="-24" rx="15" ry="22" fill="#fff"/><path d="M-22 -30 L-30 -14 M22 -30 L30 -14" ${S}/><path d="M-12 0 h10 M2 0 h10" stroke="#ffa24d" stroke-width="5" stroke-linecap="round"/>` +
+      `${face(0, -40, 0.75)}<path d="M-3 -35 L3 -35 L0 -31 Z" fill="#ffa24d"/><path d="M-16 -18 Q0 -12 16 -18 L16 -12 Q0 -6 -16 -12 Z" fill="${c}" ${S2}/><path d="M10 -14 v12 h6 v-12" fill="${c}" ${S2}/>`],
+    icicles: ['קישוט נטיפים', 1, 7, c => `<path d="M-80 0 Q0 12 80 0" fill="none" stroke="${O}" stroke-width="4"/><path d="M-80 0 Q0 12 80 0" fill="none" stroke="${c}" stroke-width="2"/>` +
+      Array.from({ length: 11 }, (_, i) => { const x = -75 + i * 15, y = 6 * (1 - Math.pow(x / 80, 2)) + 1, h = 14 + (i * 7) % 16; return `<path d="M${x - 4} ${wdFx(y)} L${x} ${wdFx(y + h)} L${x + 4} ${wdFx(y)} Z" fill="#eaf8ff" stroke="${O}" stroke-width="1.3" stroke-linejoin="round"/>` + (i % 3 ? '' : `<circle class="wd-tw" cx="${x}" cy="${wdFx(y + h + 4)}" r="2" fill="#fff" style="animation-delay:-${i * 0.2}s"/>`); }).join(''), 3],
+    tree: ['עץ קריסטל', 1, 5, c => `<rect x="-4" y="-18" width="8" height="18" fill="#c9d8ff" ${S2}/>` + [[-36, -18, -52], [-28, -44, -76], [-18, -68, -98]].map(([w, y, t]) => `<path d="M${w} ${y} L0 ${t} L${-w} ${y} Z" fill="${c}" fill-opacity=".9" ${S}/>`).join('') +
+      wdSpark(-14, -40, 0.5, '#fff', 'wd-tw', 0) + wdSpark(12, -62, 0.5, '#fff', 'wd-tw', 0.5) + `<polygon points="${starPts(0, -100, 8, 3.5)}" fill="#ffe9a8" ${S2}/>`],
+  };
+  let frzData = Object.assign({ bg: 'day', snow: true, mode: 'palace', items: null }, store.get('ice', {}));
+  if (!frzData.items) frzData.items = [['wall', 300, 250, 1.6, FRZ_COLS[1]], ['tower', 170, 262, 1, FRZ_COLS[3]], ['tower', 430, 262, 1, FRZ_COLS[3]], ['gate', 300, 268, 1, FRZ_COLS[2]], ['tree', 70, 330, 1, FRZ_COLS[5]], ['snowman', 520, 360, 0.9, FRZ_COLS[1]], ['icicles', 300, 196, 1.3, FRZ_COLS[7]]]
+    .map(([t, x, y, s, c], i) => ({ id: 'f' + i, t, x, y, s, f: false, c, z: 0 }));
+  const frzSt = { tool: null, sel: null, ask: false };
+  let frzRaf = 0, frzSkaters = [], frzPick = 0;
+  const saveIce = () => store.set('ice', frzData);
+  const frzEd = () => ({ st: frzSt, items: () => frzData.items, defs: FRZ_ITEMS, cols: FRZ_COLS, save: saveIce, bounds: [20, 200, 580, 396], max: 60, prefix: 'frz-', where: 'בארמון', redraw: () => drawIce() });
+  function frzSky(photo) {
+    const night = frzData.bg === 'night', SK = night ? ['#141a45', '#3a3f8a'] : ['#bfe6ff', '#f2faff'];
+    const aurora = night ? [['#7fe0b8', 60], ['#ff9ad5', 90], ['#9fd8ff', 120]].map(([c, y], i) => `<path class="frz-aur" style="animation-delay:-${i * 2}s" d="M-20 ${y} C120 ${y - 40} 220 ${y + 30} 330 ${y - 10} S520 ${y - 30} 620 ${y}" fill="none" stroke="${c}" stroke-width="18" stroke-linecap="round" opacity=".35"/>`).join('') +
+      Array.from({ length: 26 }, (_, i) => `<circle class="wd-tw" style="animation-delay:-${(i % 6) * 0.3}s" cx="${(i * 131) % 590}" cy="${(i * 47) % 160 + 6}" r="${1 + i % 3 * 0.5}" fill="#fff8d0"/>`).join('') : w2Cloud(120, 50, 1, '#fff') + w2Cloud(460, 70, 0.8, '#fff');
+    const mts = `<path d="M0 214 L70 130 L130 190 L210 110 L300 200 L390 120 L470 190 L540 140 L600 200 V230 H0 Z" fill="${night ? '#5a6ab0' : '#d6ecff'}" ${S2}/><path d="M56 147 L70 130 L84 147 L76 144 L70 150 Z M196 127 L210 110 L224 127 L216 124 L210 131 Z M376 137 L390 120 L404 137 L396 134 L390 141 Z" fill="#fff"/>`;
+    return `<defs><linearGradient id="frzSkyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${SK[0]}"/><stop offset="1" stop-color="${SK[1]}"/></linearGradient></defs><rect width="600" height="400" fill="url(#frzSkyG)"/>${aurora}${mts}`;
+  }
+  const frzSnow = photo => !frzData.snow ? '' : `<g pointer-events="none">${Array.from({ length: 44 }, (_, i) => { const x = (i * 83) % 600, y = (i * 37) % 400, r = 1.6 + (i % 3) * 0.9;
+    return photo || reduceMotion() ? `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" opacity=".9"/>` : `<circle class="frz-flake" style="animation-duration:${6 + i % 5}s;animation-delay:-${(i * 0.7 % 9).toFixed(1)}s" cx="${x}" cy="-10" r="${r}" fill="#fff" opacity=".9"/>`; }).join('')}</g>`;
+  function frzMarkup(photo) {
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="ארמון הקרח"'}>${frzSky(photo)}` +
+      `<path d="M0 214 H600 V400 H0 Z" fill="${frzData.bg === 'night' ? '#cfe0ff' : '#f4fbff'}"/><path d="M0 214 H600" ${S}/><path d="M40 300 l60 -8 M380 350 l90 -10 M200 380 l50 -6" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".9"/>` +
+      `<g class="w2-items">${w2Items(frzEd(), photo)}</g>${frzSnow(photo)}</svg>`;
+  }
+  // the ice rink
+  const FRZ_RINK = { cx: 300, cy: 262, rx: 270, ry: 118 };
+  function frzRinkMarkup(photo) {
+    const { cx, cy, rx, ry } = FRZ_RINK;
+    const bulbs = Array.from({ length: 13 }, (_, i) => { const t = i / 12, x = 20 + 560 * t, y = 40 + Math.sin(t * Math.PI) * 34; return `<circle class="wd-tw" style="animation-delay:-${i * 0.3}s" cx="${wdFx(x)}" cy="${wdFx(y + 6)}" r="5" fill="${['#ffd84d', '#ff9ad5', '#7ee0ff', '#b8ff9a'][i % 4]}" stroke="${O}" stroke-width="1.3"/>`; }).join('');
+    const people = photo ? frzSkaters.slice().sort((a, b) => a.y - b.y).map(s => `<g transform="translate(${wdFx(s.x)} ${wdFx(s.y)}) scale(${s.dir} 1)">${s.g ? wdGirl(s.g, -28, -112, 56, 112, true) : s.art}</g>`).join('') : '';
+    const trails = photo ? frzSkaters.map(s => `<path d="${frzTrail(s)}" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".75"/>`).join('') : '';
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="משטח החלקה"'}>${frzSky(photo)}` +
+      `<path d="M0 214 H600 V400 H0 Z" fill="#f4fbff"/><path d="M0 214 H600" ${S}/>` +
+      `<path d="M20 40 Q300 108 580 40" fill="none" stroke="${O}" stroke-width="1.6"/>${bulbs}` +
+      `<defs><radialGradient id="frzIce" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bfe6ff"/></radialGradient></defs>` +
+      `<ellipse cx="${cx}" cy="${cy + 8}" rx="${rx + 6}" ry="${ry + 8}" fill="#ff9ad5" ${S}/><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#frzIce)" ${S}/>` +
+      `<path d="M${cx - 180} ${cy - 40} q60 -20 120 -8 M${cx + 40} ${cy + 50} q80 -10 150 -40" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9"/>` +
+      `<g class="frz-trails" pointer-events="none">${trails}</g><g class="frz-sk">${people}</g><g class="frz-fx" pointer-events="none"></g>${frzSnow(photo)}</svg>`;
+  }
+  const frzTrail = s => s.trail.length > 1 ? 'M' + s.trail.map(([x, y]) => `${wdFx(x)} ${wdFx(y)}`).join(' L') : '';
+  function openIce() { frzSt.sel = null; frzSt.ask = false; drawIce(); if (!$('#iceDlg').open) $('#iceDlg').showModal(); }
+  function drawIce() {
+    cancelAnimationFrame(frzRaf);
+    const body = $('#iceBody');
+    const tabs = wdTabs([['palace', '🏰 הארמון'], ['rink', '⛸️ משטח החלקה']], frzData.mode, id => { frzData.mode = id; saveIce(); frzSt.sel = null; drawIce(); });
+    const opts = el('div', { class: 'chips' },
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(frzData.bg === 'day'), onclick: () => { frzData.bg = 'day'; saveIce(); SFX.pop(); drawIce(); } }, '☀️ יום'),
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(frzData.bg === 'night'), onclick: () => { frzData.bg = 'night'; saveIce(); SFX.pop(); drawIce(); } }, '🌌 לילה וזוהר צפוני'),
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!frzData.snow), onclick: () => { frzData.snow = !frzData.snow; saveIce(); SFX.pop(); drawIce(); } }, frzData.snow ? '❄️ שלג יורד' : '❄️ בלי שלג'));
+    if (frzData.mode !== 'rink') {
+      const o = frzEd(), scene = el('div', { class: 'wd-scene frz-scene', html: frzMarkup() }), E = w2Editor(scene.firstChild, o);
+      body.replaceChildren(tabs, scene, E.tools, E.colors, E.pal, opts,
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { const was = frzSt.sel; frzSt.sel = null; const s = frzMarkup(true); frzSt.sel = was; wdPhoto(s, 'snowflake', scene); } }, '📸 לצלם למדבקה'),
+          w2ClearBtn(frzSt, 'להוריד את כל הארמון?', frzData.items.length, () => { frzData.items = []; saveIce(); }, drawIce)));
+      return;
+    }
+    // ⛸️ rink
+    const who = [...w2Pets().map(p => ({ name: p.name || 'החיה', art: placeSvg(petSVG(p), -32, -72, 64, 73) + `<path d="M-18 1 h14 M4 1 h14" stroke="#9aa7b8" stroke-width="3" stroke-linecap="round"/>` })),
+      ...w2Girls().map(g => ({ name: g.name || 'בובה', g, art: wdGirl(g, -28, -112, 56, 112) + `<path d="M-14 1 h12 M3 1 h12" stroke="#9aa7b8" stroke-width="3" stroke-linecap="round"/>` }))].slice(0, 5);
+    const { cx, cy, rx, ry } = FRZ_RINK;
+    frzSkaters = who.map((w, k) => { const a = k * 1.3, kk = 0.45 + (k % 3) * 0.15; return Object.assign(w, { a, k: kk, sp: 0.35 + k * 0.05, x: cx + Math.cos(a) * rx * kk, y: cy + Math.sin(a) * ry * kk, vx: 0, vy: 0, dir: 1, spin: 0, trail: [], tt: 0 }); });
+    frzPick = Math.min(frzPick, Math.max(0, frzSkaters.length - 1));
+    const scene = el('div', { class: 'wd-scene frz-scene rink', html: frzRinkMarkup() }), svgEl = scene.firstChild;
+    const layer = svgEl.querySelector('.frz-sk'), trailsG = svgEl.querySelector('.frz-trails'), fx = svgEl.querySelector('.frz-fx');
+    layer.innerHTML = frzSkaters.map((s, i) => `<g data-i="${i}"><ellipse class="frz-ring" cx="0" cy="2" rx="28" ry="7" fill="none" stroke="#ff6b9a" stroke-width="3"/><g class="frz-body">${s.art}</g></g>`).join('');
+    trailsG.innerHTML = frzSkaters.map(() => `<path fill="none" stroke="#9fd8ff" stroke-width="5" stroke-linecap="round" opacity=".45"/><path fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".9"/>`).join('');
+    const nodes = [...layer.children], tpaths = [...trailsG.children];
+    const toSvg = e => { const p = svgEl.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+    let steer = null;
+    const inside = (x, y) => Math.pow((x - cx) / (rx - 24), 2) + Math.pow((y - cy) / (ry - 16), 2);
+    const spin = s => { if (!s || s.spin > 0) return; s.spin = 1.2; tone(880, 0.1, 'triangle'); tone(1320, 0.14, 'triangle', 0.1); tone(1760, 0.16, 'triangle', 0.22);
+      if (!reduceMotion()) { fx.insertAdjacentHTML('beforeend', `<g transform="translate(${wdFx(s.x)} ${wdFx(s.y - 40)})">${[0, 1, 2, 3, 4, 5].map(k => `<g style="--a:${k * 60}deg" class="frz-bs">${wdSpark(0, 0, 0.8, ['#fff6a8', '#ffd6f5', '#bfe9ff'][k % 3], '')}</g>`).join('')}</g>`); const b = fx.lastChild; setTimeout(() => b.remove(), 1100); } };
+    const mark = () => nodes.forEach((n, i) => n.classList.toggle('picked', i === frzPick));
+    svgEl.addEventListener('pointerdown', e => {
+      const hit = e.target.closest('.frz-sk > g');
+      if (hit) { const i = +hit.dataset.i; if (i === frzPick) spin(frzSkaters[i]); frzPick = i; mark(); drawBtns(); }
+      steer = toSvg(e); try { svgEl.setPointerCapture(e.pointerId); } catch {} e.preventDefault();
+    });
+    svgEl.addEventListener('pointermove', e => { if (steer) steer = toSvg(e); });
+    const release = () => { const s = frzSkaters[frzPick]; if (s && steer) s.a = Math.atan2((s.y - cy) / ry, (s.x - cx) / rx); steer = null; };
+    svgEl.addEventListener('pointerup', release); svgEl.addEventListener('pointercancel', release);
+    const btns = el('div', { class: 'chips' });
+    function drawBtns() {
+      btns.replaceChildren(
+        ...frzSkaters.map((s, i) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(i === frzPick), onclick: () => { frzPick = i; mark(); drawBtns(); SFX.pop(); } }, `⛸️ ${s.name}`)),
+        frzSkaters.length ? el('button', { type: 'button', class: 'btn main', onclick: () => spin(frzSkaters[frzPick]) }, '🌀 סיבוב!') : null,
+        frzSkaters.length > 1 ? el('button', { type: 'button', class: 'btn', onclick: () => frzSkaters.forEach((s, i) => setTimeout(() => spin(s), i * 150)) }, '✨ כולם מסתובבים') : null);
+    }
+    mark(); drawBtns();
+    const render = () => {
+      frzSkaters.forEach((s, i) => {
+        const sx = s.spin > 0 ? Math.cos((1.2 - s.spin) * Math.PI * 4) : 1;
+        nodes[i].setAttribute('transform', `translate(${wdFx(s.x)} ${wdFx(s.y)})`);
+        nodes[i].lastChild.setAttribute('transform', `scale(${wdFx(s.dir * (Math.abs(sx) < 0.08 ? 0.08 * Math.sign(sx || 1) : sx))} 1)`);
+        const d = frzTrail(s); tpaths[i * 2].setAttribute('d', d); tpaths[i * 2 + 1].setAttribute('d', d);
+      });
+      [...nodes].sort((a, b) => frzSkaters[a.dataset.i].y - frzSkaters[b.dataset.i].y).forEach((n, k) => { if (layer.children[k] !== n) layer.append(n); });
+    };
+    render();
+    let last = performance.now();
+    const step = now => {
+      if (frzData.mode !== 'rink' || !svgEl.isConnected || !$('#iceDlg').open) return;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      frzSkaters.forEach((s, i) => {
+        let tx, ty;
+        if (steer && i === frzPick) { tx = steer.x; ty = steer.y; }
+        else { if (!reduceMotion()) s.a += s.sp * dt; tx = cx + Math.cos(s.a) * rx * s.k; ty = cy + Math.sin(s.a) * ry * s.k; }
+        s.vx += (tx - s.x) * 3.2 * dt; s.vy += (ty - s.y) * 3.2 * dt;
+        const f = Math.pow(0.12, dt); s.vx *= f; s.vy *= f;
+        const v = Math.hypot(s.vx, s.vy); if (v > 240) { s.vx *= 240 / v; s.vy *= 240 / v; }
+        s.x += s.vx * dt; s.y += s.vy * dt;
+        const q = inside(s.x, s.y); if (q > 1) { const m = 1 / Math.sqrt(q); s.x = cx + (s.x - cx) * m; s.y = cy + (s.y - cy) * m; s.vx *= 0.6; s.vy *= 0.6; }
+        if (Math.abs(s.vx) > 8) s.dir = s.vx < 0 ? -1 : 1;
+        if (s.spin > 0) s.spin = Math.max(0, s.spin - dt);
+        if ((s.tt += dt) > 0.05) { s.tt = 0; s.trail.push([s.x, s.y + 2]); if (s.trail.length > 46) s.trail.shift(); }
+      });
+      render();
+      frzRaf = requestAnimationFrame(step);
+    };
+    frzRaf = requestAnimationFrame(step);
+    body.replaceChildren(tabs, scene, frzSkaters.length ? btns : el('p', { class: 'muted' }, '⛸️ כשיש לך חיה או בנות מהסטודיו, הן יבואו להחליק פה!'),
+      el('p', { class: 'wd-hint' }, '👆 גוררים על הקרח כדי להוביל את המחליקה, ולוחצים עליה שוב כדי שתסתובב!'), opts,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => wdPhoto(frzRinkMarkup(true), 'snowflake', scene) }, '📸 לצלם למדבקה')));
+  }
 
   // ================= sticker album =================
   function openAlbum() {
