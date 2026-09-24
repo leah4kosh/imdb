@@ -6,7 +6,7 @@
 <title>הלוח שלי</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gveret+Levin&family=Playpen+Sans+Hebrew:wght@400;600&family=Amatic+SC:wght@700&family=Rubik:wght@400;600&family=Suez+One&family=Secular+One&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gveret+Levin&family=Playpen+Sans+Hebrew:wght@400;600&family=Amatic+SC:wght@700&family=Rubik:wght@400;600&family=Suez+One&family=Secular+One&family=Rubik+Bubbles&family=Rubik+Wet+Paint&family=Rubik+Doodle+Shadow&family=Rubik+Puddles&family=Rubik+Spray+Paint&family=Rubik+Vinyl&family=Rubik+Gemstones&family=Rubik+Scribble&family=Rubik+Glitch&family=Rubik+Moonrocks&family=Karantina:wght@700&family=Varela+Round&display=swap">
 <style>
 :root {
   --paper: #eef6ff;
@@ -52,6 +52,73 @@ body.bg-photo { background-image: var(--photo); background-size: cover; backgrou
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* emoji layers */
+#emojiBg, #emojiRain { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+#emojiBg span { position: absolute; line-height: 1; }
+#emojiBg.placing { z-index: 60; opacity: 1 !important; }
+#emojiRain { z-index: 2; }
+#emojiRain span { position: absolute; top: -12vh; line-height: 1; opacity: .85; }
+#emojiRain.dir-down span { animation: fall var(--dur) linear var(--delay) infinite; }
+#emojiRain.dir-up span { top: 105vh; animation: rise var(--dur) linear var(--delay) infinite; }
+#emojiRain.dir-float span { top: var(--y); animation: drift calc(var(--dur) * .6) ease-in-out var(--delay) infinite alternate; }
+#emojiRain.still span { animation: none; top: var(--y); }
+@keyframes rise { from { transform: translate(0, 0); } 50% { transform: translate(var(--sway), -60vh); } to { transform: translate(0, -125vh); } }
+@keyframes drift { from { transform: translate(0, 0) rotate(-10deg); } to { transform: translate(calc(var(--sway) * 2 + 20px), -40px) rotate(12deg); } }
+.trail-bit { position: fixed; z-index: 70; pointer-events: none; font-size: 18px; line-height: 1; transform: translate(-50%, -50%); animation: trail .8s ease-out forwards; }
+.trail-bit.dot { width: 10px; height: 10px; border-radius: 50%; }
+@keyframes trail { to { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + 24px)) scale(.4) rotate(40deg); } }
+#placeCatch { position: fixed; inset: 0; z-index: 59; cursor: copy; }
+#placeBar { position: fixed; top: 0; left: 0; right: 0; z-index: 61; background: var(--card); border-bottom: 3px solid var(--accent); padding: 10px 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; box-shadow: 0 4px 14px rgb(0 0 0 / .15); }
+.chip.emo { font-size: 1.3em; padding: 2px 10px; }
+.emo-tabs { position: static; }
+.emo-tabs button { font-size: .85em; padding: 2px 10px; }
+.emo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); gap: 4px; }
+.emo-b { font-size: 1.6em; height: 46px; border: 2px solid transparent; border-radius: 12px; background: var(--paper); padding: 0; }
+.emo-b[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, var(--card)); }
+.chosen-emo .chip { font-size: 1.3em; }
+.chosen-emo small { font-size: .55em; opacity: .7; }
+.slide { display: grid; grid-template-columns: 7em 1fr; align-items: center; gap: 10px; }
+.ic.mini { display: inline-block; width: 20px; height: 20px; vertical-align: middle; margin-inline-end: 4px; }
+.ic.mini svg { width: 100%; height: 100%; }
+.preset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.preset { display: grid; justify-items: center; gap: 4px; padding: 10px 6px; border: 2px solid var(--line); border-radius: 16px; background: var(--card); }
+.preset:hover { border-color: var(--accent); }
+.preset .pe { font-size: 1.4em; letter-spacing: 2px; }
+.preset b { font-weight: 400; }
+.preset .dots i { width: 16px; height: 16px; }
+.big-dice { font-size: 1.3em; padding: 10px 22px; justify-self: start; }
+/* gradient backgrounds */
+body[class*="bg-g-"] { background-attachment: fixed; }
+body.bg-g-sunset { background-image: linear-gradient(170deg, #ffd6a5, #ffadad 50%, #cdb4db); }
+body.bg-g-rainbow { background-image: linear-gradient(160deg, #ffc8dd, #ffe5a3 25%, #caffbf 50%, #a0e7ff 75%, #d8c6ff); }
+body.bg-g-sea { background-image: linear-gradient(180deg, #caf0f8, #90e0ef 60%, #48cae4); }
+body.bg-g-candy { background-image: linear-gradient(135deg, #ffd1e8, #e0c3fc 50%, #c2f0ff); }
+body.bg-g-peach { background-image: linear-gradient(160deg, #fff1e6, #ffd7ba 50%, #fec5bb); }
+body.bg-g-mint { background-image: linear-gradient(160deg, #e9fff4, #b8f2d7 60%, #a7e3f5); }
+body.bg-g-lilac { background-image: linear-gradient(160deg, #f6eaff, #dcc6ff 55%, #ffd6f0); }
+body.bg-g-aurora { background-image: radial-gradient(ellipse at 20% 10%, #b9fbc0 0, transparent 45%), radial-gradient(ellipse at 80% 20%, #a3c4f3 0, transparent 45%), radial-gradient(ellipse at 50% 90%, #ffcfd2 0, transparent 55%), linear-gradient(#f1f0ff, #f1f0ff); }
+/* day colors per weekday */
+.day.dc { background: color-mix(in srgb, var(--dowc) 70%, var(--card)); }
+.day.dc.off { background-image: repeating-linear-gradient(-45deg, rgb(255 255 255 / .45) 0 6px, transparent 6px 13px); }
+/* new day shapes */
+body.shape-scallop .day { border: none; border-radius: 0; padding: 10px; -webkit-mask: radial-gradient(circle 7px, #000 97%, transparent) 0 0 / 14px 14px round, linear-gradient(#000 0 0) center / calc(100% - 12px) calc(100% - 12px) no-repeat; mask: radial-gradient(circle 7px, #000 97%, transparent) 0 0 / 14px 14px round, linear-gradient(#000 0 0) center / calc(100% - 12px) calc(100% - 12px) no-repeat; }
+body.shape-glass .day { background: color-mix(in srgb, var(--card) 45%, transparent); backdrop-filter: blur(6px); border: 1.5px solid rgb(255 255 255 / .8); border-radius: 18px; box-shadow: 0 4px 14px rgb(0 0 0 / .08), inset 0 1px 0 rgb(255 255 255 / .9); }
+body.shape-glass .day.off { background: color-mix(in srgb, var(--weekend) 55%, transparent); }
+body.shape-neon .day { border: 2px solid var(--accent); border-radius: 14px; box-shadow: 0 0 6px var(--accent), inset 0 0 6px color-mix(in srgb, var(--accent) 50%, transparent); }
+body.shape-sticker .day { border: 4px solid #fff; border-radius: 16px; box-shadow: 0 3px 8px rgb(0 0 0 / .22); transform: rotate(var(--tilt, 0deg)); }
+body.shape-jelly .day { border-radius: 22px; border-width: 2px; }
+body.shape-jelly .day:hover { animation: jelly .5s; }
+@keyframes jelly { 30% { transform: scale(1.12, .88); } 50% { transform: scale(.92, 1.08); } 70% { transform: scale(1.05, .95); } }
+body.shape-ribbon .day { border: none; border-radius: 0; clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%, 8% 50%); padding-inline: 14px; background: color-mix(in srgb, var(--line) 50%, var(--card)); }
+body.shape-ribbon .day.off { background: var(--weekend); }
+/* new calendar frames */
+body.cf-lace .cal { outline: 8px dotted color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: 5px; margin: 14px 4px; }
+body.cf-flowers .cal::before, body.cf-flowers .cal::after, body.cf-stars .cal::before, body.cf-stars .cal::after, body.cf-hearts .cal::before, body.cf-hearts .cal::after { content: ""; position: absolute; width: 64px; height: 64px; background: var(--fr1) center / contain no-repeat; z-index: 3; pointer-events: none; }
+body:is(.cf-flowers, .cf-stars, .cf-hearts) .cal::before { top: -26px; right: -16px; transform: rotate(12deg); }
+body:is(.cf-flowers, .cf-stars, .cf-hearts) .cal::after { bottom: -24px; left: -16px; background-image: var(--fr2); transform: rotate(-14deg); }
+body.cf-rainbow .cal { border: 6px solid transparent; background: linear-gradient(color-mix(in srgb, var(--card) var(--alpha), transparent), color-mix(in srgb, var(--card) var(--alpha), transparent)) padding-box, linear-gradient(90deg, #ff7a7a, #ffb020, #ffd84d, #6fcf7f, #7ec8ff, #b58cff) border-box; }
+body.cf-gold .cal { border: 5px double #d4a017; box-shadow: 0 0 0 3px #fff3c4, 0 0 22px rgb(212 160 23 / .45); }
 
 #decor { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
 #decor span { position: absolute; top: -12vh; opacity: .5; }
@@ -727,7 +794,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 </style>
 </head>
 <body class="bg-dots">
+<div id="emojiBg" aria-hidden="true"></div>
 <div id="decor" aria-hidden="true"></div>
+<div id="emojiRain" aria-hidden="true"></div>
 <div class="wrap">
   <header class="top">
     <div class="title-wrap"><span class="title-stk" id="titleStk" aria-hidden="true"></span><h1><span id="title">הלוח שלי</span></h1></div>
@@ -899,6 +968,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
         <p class="muted" id="photoMsg" hidden></p>
       </div>
     </div>
+
+    <div class="tab-panel" data-tab="magic"><div class="row" id="magicBody"></div></div>
+    <div class="tab-panel" data-tab="presets"><div class="row" id="presetBody"></div></div>
 
     <div class="tab-panel" data-tab="text">
       <div class="row"><span class="lbl">הכתב של כל הלוח</span><div class="chips" id="fonts"></div></div>
@@ -1664,6 +1736,14 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     mono:   { name: 'שחור לבן', accent: '#222222', paper: '#f4f4f4', ink: '#111111', weekend: '#e2e2e2', card: '#ffffff', line: '#cccccc', soft: '#666666' },
     night:  { name: 'לילה', accent: '#ffcf5a', paper: '#1b1f3b', ink: '#f3f1ff', weekend: '#2c2f5a', card: '#252a4d', line: '#3d4378', soft: '#b5b3d9' },
     space:  { name: 'חלל', accent: '#ff7ad9', paper: '#10131f', ink: '#eef2ff', weekend: '#231b3d', card: '#1a1f33', line: '#343b5c', soft: '#a9b0d6' },
+    unicorn:   { name: 'חד קרן', accent: '#c25fd8', paper: '#fdf0ff', ink: '#3b2146', weekend: '#e6f7ff', card: '#ffffff', line: '#f0cdf6', soft: '#86649a' },
+    mermaid:   { name: 'בת ים', accent: '#17a2a8', paper: '#e8fbfb', ink: '#10363f', weekend: '#f3e8ff', card: '#ffffff', line: '#b7ebeb', soft: '#4f7f86' },
+    bubblegum: { name: 'בועות מסטיק', accent: '#ff4fa3', paper: '#fff0fa', ink: '#40163a', weekend: '#fff7c2', card: '#ffffff', line: '#ffc9e8', soft: '#9a5a86' },
+    matcha:    { name: 'מאצ\'ה', accent: '#5d9c3f', paper: '#f4faee', ink: '#253318', weekend: '#ffeef2', card: '#ffffff', line: '#d6ebc7', soft: '#63795a' },
+    coral:     { name: 'אלמוג', accent: '#ff6f61', paper: '#fff5f1', ink: '#3d201b', weekend: '#e5f8f6', card: '#ffffff', line: '#ffd3c9', soft: '#8f6259' },
+    butter:    { name: 'חמאה', accent: '#e6a100', paper: '#fffaeb', ink: '#3a2c0c', weekend: '#e9f2ff', card: '#ffffff', line: '#f5e4b0', soft: '#86744d' },
+    berry:     { name: 'פירות יער', accent: '#a0226d', paper: '#fbeef5', ink: '#35122a', weekend: '#eaf4ff', card: '#ffffff', line: '#f1c7dd', soft: '#865a74' },
+    cotton:    { name: 'צמר גפן מתוק', accent: '#7aa7ff', paper: '#fff0f7', ink: '#2b2a4a', weekend: '#e8f4ff', card: '#ffffff', line: '#f6d3e6', soft: '#6f7199' },
     neon:   { name: 'ניאון', accent: '#39ff88', paper: '#0e0e14', ink: '#f2fff7', weekend: '#1c1330', card: '#16161f', line: '#2e2e44', soft: '#a6b3ad' },
   };
   const DARK = ['night', 'space', 'neon'];
@@ -1674,13 +1754,28 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     { id: 'print', name: 'דפוס', css: "'Rubik'" },
     { id: 'bold', name: 'שמן', css: "'Suez One'" },
     { id: 'fat', name: 'עבה', css: "'Secular One'" },
+    { id: 'varela', name: 'עגלגל', css: "'Varela Round'" },
+    { id: 'karantina', name: 'צר וגבוה', css: "'Karantina'" },
+    { id: 'bubbles', name: 'בועות', css: "'Rubik Bubbles'" },
+    { id: 'wetpaint', name: 'צבע נוזל', css: "'Rubik Wet Paint'" },
+    { id: 'doodle', name: 'שרבוט עם צל', css: "'Rubik Doodle Shadow'" },
+    { id: 'puddles', name: 'שלוליות', css: "'Rubik Puddles'" },
+    { id: 'spray', name: 'ספריי', css: "'Rubik Spray Paint'" },
+    { id: 'vinyl', name: 'תקליט', css: "'Rubik Vinyl'" },
+    { id: 'gems', name: 'יהלומים', css: "'Rubik Gemstones'" },
+    { id: 'scribble', name: 'קשקוש', css: "'Rubik Scribble'" },
+    { id: 'glitch', name: 'גליץ\'', css: "'Rubik Glitch'" },
+    { id: 'moon', name: 'ירח', css: "'Rubik Moonrocks'" },
   ];
   const TITLE_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'marker', name: 'מרקר' }, { id: 'wavy', name: 'קו גלי' }, { id: 'shadow', name: 'צל' }, { id: 'bubble', name: 'בועות' }, { id: 'rainbow', name: 'קשת בענן' }, { id: 'sticker', name: 'מדבקה' }];
   const BGS = [
     { id: 'plain', name: 'חלק' }, { id: 'dots', name: 'נקודות' }, { id: 'lines', name: 'שורות מחברת' }, { id: 'grid', name: 'משבצות' },
     { id: 'stripes', name: 'פסים' }, { id: 'checks', name: 'לוח שחמט' }, { id: 'waves', name: 'גלים' }, { id: 'gradient', name: 'צבעים מתחלפים' },
     { id: 'hearts', name: 'לבבות' }, { id: 'stars', name: 'כוכבים' }, { id: 'flowers', name: 'פרחים' }, { id: 'rainbows', name: 'קשתות' },
-    { id: 'cats', name: 'חתולים' }, { id: 'confetti', name: 'קונפטי' }, { id: 'photo', name: 'התמונה שלי' },
+    { id: 'cats', name: 'חתולים' }, { id: 'confetti', name: 'קונפטי' },
+    { id: 'g-sunset', name: '🌅 שקיעה' }, { id: 'g-rainbow', name: '🌈 קשת' }, { id: 'g-sea', name: '🌊 ים' }, { id: 'g-candy', name: '🍬 סוכרייה' },
+    { id: 'g-peach', name: '🍑 אפרסק' }, { id: 'g-mint', name: '🍃 מנטה' }, { id: 'g-lilac', name: '💜 לילך' }, { id: 'g-aurora', name: '✨ זוהר צפוני' },
+    { id: 'photo', name: 'התמונה שלי' },
   ];
   const SHAPES = [
     { id: 'soft', name: 'מעוגל' }, { id: 'square', name: 'מרובע' }, { id: 'round', name: 'עיגולים' }, { id: 'pill', name: 'גלולות' },
@@ -1688,12 +1783,14 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     { id: 'note', name: 'פתקים' }, { id: 'polaroid', name: 'פולארויד' }, { id: 'leaf', name: 'עלים' }, { id: 'arch', name: 'קשתות' },
     { id: 'ticket', name: 'כרטיסים' }, { id: 'stamp', name: 'בולים' }, { id: 'banner', name: 'דגלונים' }, { id: 'bubble', name: 'בועות דיבור' },
     { id: 'button', name: 'כפתורים' }, { id: 'shadow', name: 'עם צל' }, { id: 'corner', name: 'פינות' }, { id: 'window', name: 'חלונות' },
-    { id: 'tilt', name: 'עקומים' },
+    { id: 'tilt', name: 'עקומים' }, { id: 'scallop', name: 'גלים מסביב' }, { id: 'glass', name: 'זכוכית' }, { id: 'neon', name: 'ניאון זוהר' },
+    { id: 'sticker', name: 'מדבקות' }, { id: 'jelly', name: 'ג\'לי קופץ' }, { id: 'ribbon', name: 'סרטים' },
   ];
   const BORDERS = [{ id: 'solid', name: 'רגילה' }, { id: 'dashed', name: 'מקווקוות' }, { id: 'dotted', name: 'נקודות' }, { id: 'double', name: 'כפולה' }, { id: 'glow', name: 'זוהרת' }, { id: 'none', name: 'בלי' }];
   const TODAY_MARKS = [{ id: 'frame', name: 'מסגרת' }, { id: 'circle', name: 'עיגול' }, { id: 'heart', name: 'לב' }, { id: 'star', name: 'כוכב' }, { id: 'glow', name: 'זוהר' }];
   const NUM_STYLES = [{ id: 'plain', name: 'רגיל' }, { id: 'big', name: 'גדול' }, { id: 'outline', name: 'חלול' }, { id: 'circle', name: 'בעיגול' }, { id: 'bubble', name: 'בבועה' }];
-  const CAL_FRAMES = [{ id: 'plain', name: 'רגילה' }, { id: 'spiral', name: 'ספירלה' }, { id: 'tape', name: 'סלוטייפ' }, { id: 'pins', name: 'נעצים' }, { id: 'stitch', name: 'תפר' }, { id: 'float', name: 'מרחף' }, { id: 'polaroid', name: 'פולארויד' }];
+  const CAL_FRAMES = [{ id: 'plain', name: 'רגילה' }, { id: 'spiral', name: 'ספירלה' }, { id: 'tape', name: 'סלוטייפ' }, { id: 'pins', name: 'נעצים' }, { id: 'stitch', name: 'תפר' }, { id: 'float', name: 'מרחף' }, { id: 'polaroid', name: 'פולארויד' },
+    { id: 'lace', name: 'תחרה' }, { id: 'flowers', name: 'פרחים בפינות' }, { id: 'stars', name: 'כוכבים בפינות' }, { id: 'hearts', name: 'לבבות בפינות' }, { id: 'rainbow', name: 'קשת בענן' }, { id: 'gold', name: 'זהב' }];
   const SHOWS = [{ id: 'showHeb', name: 'תאריך עברי' }, { id: 'showHol', name: 'חגים' }, { id: 'showEv', name: 'אירועים' }, { id: 'showMoon', name: 'ירח' }, { id: 'showWx', name: 'מזג אוויר' }, { id: 'showMood', name: 'צבע של מצב רוח' }, { id: 'showShab', name: 'כניסת שבת' }, { id: 'showPar', name: 'פרשת השבוע' }, { id: 'liveWx', name: 'גשם ושלג חיים על היום' }];
 
   const DEFAULT_DESIGN = {
@@ -1703,6 +1800,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     decor: true, decorMove: true, confetti: true, stickerSize: 1, darkMode: false,
     showMood: true, showShab: true, showPar: true, sound: true, holidayDecor: true, liveWx: true,
     lockTitle: 'היומן הסודי שלי', lockBg: 'candy', lockKeys: 'round', lockDots: 'heart', lockStk: 'crown',
+    rainOn: false, rainEmojis: ['💖', '⭐', '🌸'], rainCount: 24, rainSpeed: 2, rainDir: 'down', rainSize: 28,
+    bgEmojiOn: false, bgEmojis: ['💖', '✨'], bgEmojiCount: 30, bgEmojiSize: 34, bgEmojiAlpha: 35, bgEmojiSeed: 1, bgEmojiTilt: true, bgPlaced: [],
+    trail: 'none', cursor: 'default', dowColors: null,
   };
   let design = Object.assign({}, DEFAULT_DESIGN, store.get('design', {}));
   let place = store.get('place', PLACES[0]);
@@ -1790,7 +1890,10 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     $('#titleStk').innerHTML = design.titleSticker ? stickerHTML(design.titleSticker) : '';
     document.title = design.title || 'הלוח שלי';
     store.set('design', design);
+    const fr = { flowers: ['flower', 'tulip'], stars: ['star', 'sparkles'], hearts: ['heart', 'bow'] }[design.calFrame];
+    if (fr) { r.setProperty('--fr1', svgUrl(fr[0])); r.setProperty('--fr2', svgUrl(fr[1])); }
     renderDecor();
+    renderEmojiLayers();
   }
   const rerender = () => { applyDesign(); buildDesignPanel(); renderCalendar(); };
 
@@ -1841,8 +1944,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     container.replaceChildren(...btns);
   }
 
-  let designTab = 'title';
-  const TABS = [['title', 'כותרת'], ['colors', 'צבעים ורקע'], ['text', 'כתב ומספרים'], ['days', 'צורות לימים'], ['board', 'הלוח'], ['lock', '🔒 מסך הקוד']];
+  let designTab = 'presets';
+  const TABS = [['presets', '🎁 ערכות והפתעה'], ['title', 'כותרת'], ['colors', 'צבעים ורקע'], ['magic', '✨ אימוג\'ים וקסמים'], ['text', 'כתב ומספרים'], ['days', 'צורות לימים'], ['board', 'הלוח'], ['lock', '🔒 מסך הקוד']];
   function buildDesignPanel() {
     $('#designTabs').replaceChildren(...TABS.map(([id, name]) => el('button', {
       type: 'button', role: 'tab', 'aria-selected': String(designTab === id), onclick: () => { designTab = id; buildDesignPanel(); },
@@ -1882,7 +1985,210 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     $('#lockNoPin').replaceChildren(pin ? el('p', { class: 'muted' }, '✔️ יש לך מנעול.') :
       el('button', { type: 'button', class: 'btn main', onclick: () => { $('#designDlg').close(); openPinDlg(); } }, '🔐 לעשות מנעול'));
     renderLockPreview();
+    if (designTab === 'magic') buildMagic();
+    if (designTab === 'presets') buildPresets();
   }
+  const graphemes = s => window.Intl && Intl.Segmenter ? [...new Intl.Segmenter('he', { granularity: 'grapheme' }).segment(s)].map(x => x.segment) : Array.from(s);
+  // ================= magic design: falling emojis, emoji background, cursor trail, presets, my designs =================
+  const EMOJI_PICK = [
+    ['💖 לבבות', '💖💕💗💘💝❤️🧡💛💚💙💜🤍🩷🩵'],
+    ['✨ שמיים', '✨⭐🌟💫🌙☀️🌈☁️❄️⚡🔥🌊🫧🪐'],
+    ['🌸 פרחים', '🌸🌷🌹🌺🌻🌼💐🍀🍃🍂🍄🌵🌿'],
+    ['🦄 חיות', '🦄🐱🐶🐰🐻🐼🐨🦊🐸🐥🦋🐞🐝🐢🐬🐳🐠🐙🦩🐧'],
+    ['🍓 אוכל', '🍓🍒🍉🍑🍋🍩🍪🧁🎂🍰🍦🍭🍬🍫🥐🍕🧋☕'],
+    ['🎀 כיף', '🎀👑💎💍🎈🎉🎁🪩🎵🎨🖍️📚✏️🎒⚽🏀🚀🗼🏰🧸🪄🔮'],
+    ['🧜‍♀️ דמויות', '🧜‍♀️👸🧚‍♀️🧙‍♀️🦸‍♀️👩‍🎨👩‍🚀💃'],
+    ['😊 פרצופים', '😊😍🥰😎🤩😂🥳😇😜🤗'],
+  ].map(([name, s]) => [name, graphemes(s)]);
+  const splitEmoji = s => graphemes(s).filter(x => x.trim() && !/^[\w\s.,!?'"-]$/.test(x));
+  const TRAILS = [['none', 'בלי'], ['sparkles', '✨ נצנצים'], ['hearts', '💖 לבבות'], ['stars', '⭐ כוכבים'], ['rainbow', '🌈 קשת'], ['mine', '🎀 האימוג\'ים שלי']];
+  const CURSORS = [['default', 'רגיל'], ['wand', 'שרביט'], ['heart', 'לב'], ['star', 'כוכב'], ['crown', 'כתר'], ['cat', 'חתול'], ['rainbow', 'קשת'], ['butterfly', 'פרפר']];
+  const DOW_SETS = {
+    rainbow: ['#ffb3b3', '#ffd8a8', '#fff1a8', '#c9f0d6', '#cfe6ff', '#dccbff', '#ffc9e8'],
+    pastel: ['#ffe0ec', '#e0f4ff', '#e8ffe0', '#fff6d6', '#efe0ff', '#ffe8d6', '#e0fff7'],
+    sea: ['#cfeeff', '#bfe7f5', '#c8f3e8', '#dff7f0', '#d6ecff', '#c4e4ff', '#e2f6ff'],
+    sunset: ['#ffd6c9', '#ffc9d9', '#ffe1b3', '#ffd0e8', '#ffe8c2', '#f7d2ff', '#ffc2b3'],
+  };
+  const DOW_SET_NAMES = [['rainbow', '🌈 קשת'], ['pastel', '🍬 פסטל'], ['sea', '🌊 ים'], ['sunset', '🌅 שקיעה']];
+  const PRESETS = [
+    ['paris', '🗼 פריז', { theme: 'gum', custom: null, bg: 'stripes', font: 'round', titleFont: 'bold', titleStyle: 'shadow', shape: 'polaroid', calFrame: 'tape', titleSticker: 'bow', rainOn: true, rainEmojis: ['🥐', '🗼', '💖', '🎀'], rainDir: 'down', bgEmojiOn: false, dowColors: null }],
+    ['icecream', '🍦 גלידה', { theme: 'candy', custom: null, bg: 'g-candy', font: 'round', titleFont: 'round', titleStyle: 'bubble', shape: 'blob', calFrame: 'hearts', titleSticker: 'icecream', rainOn: true, rainEmojis: ['🍦', '🍨', '🍓', '🍒'], rainDir: 'down', bgEmojiOn: false, dowColors: DOW_SETS.pastel }],
+    ['space', '🚀 חלל', { theme: 'space', custom: null, bg: 'stars', font: 'print', titleFont: 'fat', titleStyle: 'rainbow', shape: 'glass', calFrame: 'stars', titleSticker: 'rocket', rainOn: true, rainEmojis: ['⭐', '🌙', '🪐', '🚀'], rainDir: 'float', bgEmojiOn: false, dowColors: null }],
+    ['mermaid', '🧜‍♀️ בנות ים', { theme: 'mermaid', custom: null, bg: 'waves', font: 'round', titleFont: 'ktav', titleStyle: 'wavy', shape: 'bubble', calFrame: 'lace', titleSticker: 'shell', rainOn: true, rainEmojis: ['🫧', '🐚', '🐠', '🧜‍♀️'], rainDir: 'up', bgEmojiOn: false, dowColors: DOW_SETS.sea }],
+    ['unicorn', '🦄 חד קרן', { theme: 'unicorn', custom: null, bg: 'g-rainbow', font: 'round', titleFont: 'bold', titleStyle: 'rainbow', shape: 'cloud', calFrame: 'rainbow', titleSticker: 'rainbow', rainOn: true, rainEmojis: ['🦄', '🌈', '✨', '💖'], rainDir: 'down', bgEmojiOn: false, dowColors: DOW_SETS.rainbow }],
+    ['forest', '🍄 יער', { theme: 'forest', custom: null, bg: 'flowers', font: 'ktav', titleFont: 'marker', titleStyle: 'marker', shape: 'leaf', calFrame: 'flowers', titleSticker: 'mushroom', rainOn: true, rainEmojis: ['🍃', '🍄', '🌼', '🐞'], rainDir: 'down', bgEmojiOn: false, dowColors: null }],
+    ['winter', '❄️ חורף', { theme: 'ocean', custom: null, bg: 'g-sea', font: 'round', titleFont: 'round', titleStyle: 'bubble', shape: 'scallop', calFrame: 'stars', titleSticker: 'snowman', rainOn: true, rainEmojis: ['❄️', '⛄', '🤍'], rainDir: 'down', bgEmojiOn: false, dowColors: null }],
+    ['candy', '🍭 סוכריות', { theme: 'bubblegum', custom: null, bg: 'confetti', font: 'round', titleFont: 'fat', titleStyle: 'sticker', shape: 'sticker', calFrame: 'hearts', titleSticker: 'lollipop', rainOn: true, rainEmojis: ['🍬', '🍭', '🧁', '🍩'], rainDir: 'down', bgEmojiOn: false, dowColors: DOW_SETS.rainbow }],
+    ['party', '🪩 מסיבה', { theme: 'neon', custom: null, bg: 'plain', font: 'print', titleFont: 'fat', titleStyle: 'rainbow', shape: 'neon', calFrame: 'gold', titleSticker: 'music', rainOn: true, rainEmojis: ['🎉', '🎈', '✨', '🪩'], rainDir: 'float', bgEmojiOn: false, dowColors: null }],
+    ['cozy', '☕ נעים', { theme: 'choco', custom: null, bg: 'lines', font: 'ktav', titleFont: 'ktav', titleStyle: 'marker', shape: 'note', calFrame: 'pins', titleSticker: 'cocoa', rainOn: false, bgEmojiOn: true, bgEmojis: ['☕', '🍪', '📚', '🧸'], dowColors: null }],
+    ['garden', '🌷 גינה', { theme: 'matcha', custom: null, bg: 'g-peach', font: 'round', titleFont: 'marker', titleStyle: 'wavy', shape: 'sticker', calFrame: 'flowers', titleSticker: 'tulip', rainOn: true, rainEmojis: ['🌸', '🌷', '🦋'], rainDir: 'down', bgEmojiOn: false, dowColors: DOW_SETS.pastel }],
+    ['beach', '🏖️ חוף', { theme: 'coral', custom: null, bg: 'g-sunset', font: 'round', titleFont: 'bold', titleStyle: 'shadow', shape: 'arch', calFrame: 'float', titleSticker: 'sun', rainOn: false, bgEmojiOn: true, bgEmojis: ['🐚', '🌊', '☀️', '🐠'], dowColors: DOW_SETS.sunset }],
+  ];
+  let myDesigns = store.get('myDesigns', []);
+  let emojiTab = 0, placing = null;
+  const rnd = seed => () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+  let rainSig = '', bgSig = '';
+  function renderEmojiLayers() {
+    const rain = $('#emojiRain'), bg = $('#emojiBg');
+    const rs = JSON.stringify([design.rainOn, design.rainEmojis, design.rainCount, design.rainSpeed, design.rainDir, design.rainSize, reduceMotion()]);
+    if (rs !== rainSig) {
+      rainSig = rs;
+      const list = design.rainEmojis || [];
+      rain.className = 'dir-' + (design.rainDir || 'down') + (reduceMotion() ? ' still' : '');
+      rain.replaceChildren(...(design.rainOn && list.length ? Array.from({ length: design.rainCount }, (_, i) => {
+        const s = el('span', {}, list[i % list.length]);
+        const size = design.rainSize * (0.7 + ((i * 37) % 10) / 16);
+        s.style.cssText = `left:${(i * 61 + 7) % 100}%;font-size:${size}px;--dur:${(22 - design.rainSpeed * 5) + (i * 5) % 9}s;--delay:-${(i * 3.3) % 20}s;--spin:${(i % 2 ? 1 : -1) * (90 + i * 13)}deg;--sway:${(i % 3 - 1) * 30}px;--y:${(i * 37) % 95}%`;
+        return s;
+      }) : []));
+    }
+    const bs = JSON.stringify([design.bgEmojiOn, design.bgEmojis, design.bgEmojiCount, design.bgEmojiSize, design.bgEmojiAlpha, design.bgEmojiSeed, design.bgEmojiTilt, design.bgPlaced, !!placing]);
+    if (bs !== bgSig) {
+      bgSig = bs;
+      const r = rnd(design.bgEmojiSeed || 1), list = design.bgEmojis || [];
+      const scatter = design.bgEmojiOn && list.length ? Array.from({ length: design.bgEmojiCount }, (_, i) => {
+        const s = el('span', {}, list[i % list.length]);
+        const cols = Math.ceil(Math.sqrt(design.bgEmojiCount * 1.6)), row = Math.floor(i / cols), col = i % cols;
+        const x = (col + 0.2 + r() * 0.6) / cols * 100, y = (row + 0.2 + r() * 0.6) / Math.ceil(design.bgEmojiCount / cols) * 100;
+        s.style.cssText = `left:${x}%;top:${y}%;font-size:${design.bgEmojiSize * (0.75 + r() * 0.5)}px;transform:translate(-50%,-50%) rotate(${design.bgEmojiTilt ? Math.round(r() * 60 - 30) : 0}deg)`;
+        return s;
+      }) : [];
+      const placed = (design.bgPlaced || []).map((p, i) => {
+        const s = el('span', { class: 'placed', 'data-i': i }, p.e);
+        s.style.cssText = `left:${p.x}%;top:${p.y}%;font-size:${p.s}px;transform:translate(-50%,-50%) rotate(${p.r || 0}deg)`;
+        return s;
+      });
+      bg.style.opacity = String((design.bgEmojiAlpha || 35) / 100);
+      bg.classList.toggle('placing', !!placing);
+      bg.replaceChildren(...scatter, ...placed);
+    }
+    const c = CURSORS.find(x => x[0] === design.cursor);
+    document.documentElement.style.cursor = c && c[0] !== 'default' && STICKERS[c[0]]
+      ? `url("data:image/svg+xml,${encodeURIComponent(stickerHTML(c[0]).replace('<svg ', '<svg width="32" height="32" '))}") 4 4, auto` : '';
+  }
+
+  // sparkles that follow the mouse
+  let trailT = 0, trailHue = 0;
+  document.addEventListener('pointermove', e => {
+    if (!design.trail || design.trail === 'none' || reduceMotion() || placing) return;
+    const now = performance.now();
+    if (now - trailT < 45) return;
+    trailT = now;
+    const set = { sparkles: ['✨', '⭐', '💫'], hearts: ['💖', '💕', '💗'], stars: ['⭐', '🌟', '✨'], mine: design.rainEmojis && design.rainEmojis.length ? design.rainEmojis : ['✨'] }[design.trail];
+    const s = el('span', { class: 'trail-bit' }, set ? set[Math.floor(Math.random() * set.length)] : '');
+    if (!set) { trailHue = (trailHue + 25) % 360; s.style.background = `hsl(${trailHue} 90% 65%)`; s.classList.add('dot'); }
+    s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+    s.style.setProperty('--dx', `${Math.random() * 30 - 15}px`);
+    s.addEventListener('animationend', () => s.remove());
+    document.body.append(s);
+  }, { passive: true });
+
+  // place emojis on the background by clicking
+  function startPlacing() {
+    const list = (design.bgEmojis && design.bgEmojis.length ? design.bgEmojis : ['💖', '⭐', '🌸']);
+    placing = { e: list[0], s: 40 };
+    $('#designDlg').close();
+    const bar = el('div', { id: 'placeBar', role: 'toolbar', 'aria-label': 'לשים אימוג\'ים על הרקע' });
+    const draw = () => bar.replaceChildren(
+      el('b', {}, '📍 לוחצים איפה שרוצים לשים. לוחצים על אימוג\'י כדי להוריד אותו.'),
+      el('div', { class: 'chips' }, ...[...new Set([...list, ...EMOJI_PICK[0][1].slice(0, 4), ...EMOJI_PICK[1][1].slice(0, 4)])].map(em => el('button', { type: 'button', class: 'chip emo', 'aria-pressed': String(placing.e === em), onclick: () => { placing.e = em; draw(); } }, em))),
+      el('label', {}, 'גודל ', el('input', { type: 'range', min: 18, max: 110, value: placing.s, oninput: e => { placing.s = Number(e.target.value); } })),
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { design.bgPlaced = []; applyDesign(); } }, '🗑️ לנקות'),
+        el('button', { type: 'button', class: 'btn main', onclick: stopPlacing }, '✔️ סיימתי')));
+    draw();
+    const catcher = el('div', { id: 'placeCatch', onclick: e => {
+      const hit = document.elementsFromPoint(e.clientX, e.clientY).find(n => n.classList && n.classList.contains('placed'));
+      if (hit) design.bgPlaced.splice(Number(hit.dataset.i), 1);
+      else design.bgPlaced = [...(design.bgPlaced || []), { e: placing.e, s: placing.s, x: +(e.clientX / innerWidth * 100).toFixed(2), y: +(e.clientY / innerHeight * 100).toFixed(2), r: Math.round(Math.random() * 30 - 15) }].slice(-150);
+      SFX.pop(); applyDesign();
+    } });
+    document.body.append(catcher, bar);
+    applyDesign();
+  }
+  function stopPlacing() {
+    placing = null; $('#placeBar')?.remove(); $('#placeCatch')?.remove();
+    applyDesign(); designTab = 'magic'; buildDesignPanel(); $('#designDlg').showModal();
+  }
+
+  function emojiChooser(key, max) {
+    const chosen = design[key] || [];
+    const inp = el('input', { type: 'text', 'aria-label': 'להקליד או להדביק אימוג\'י', placeholder: 'אפשר גם להקליד או להדביק אימוג\'י', maxLength: 40 });
+    const add = () => { const add = splitEmoji(inp.value); if (add.length) { design[key] = [...new Set([...chosen, ...add])].slice(0, max); rerender(); } };
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); add(); } });
+    return el('div', { class: 'row' },
+      el('div', { class: 'chips chosen-emo' }, ...(chosen.length ? chosen.map(em => el('button', { type: 'button', class: 'chip emo on', 'aria-label': `להוריד ${em}`, onclick: () => { design[key] = chosen.filter(x => x !== em); rerender(); } }, em, el('small', {}, ' ✕')))
+        : [el('span', { class: 'muted' }, 'עוד לא בחרת. לוחצים על אימוג\'ים למטה 👇')])),
+      el('div', { class: 'tabs emo-tabs' }, ...EMOJI_PICK.map(([name], i) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(emojiTab === i), onclick: () => { emojiTab = i; buildDesignPanel(); } }, name))),
+      el('div', { class: 'emo-grid' }, ...EMOJI_PICK[emojiTab][1].map(em => el('button', { type: 'button', class: 'emo-b', 'aria-pressed': String(chosen.includes(em)),
+        onclick: () => { design[key] = chosen.includes(em) ? chosen.filter(x => x !== em) : [...chosen, em].slice(-max); rerender(); } }, em))),
+      el('div', { class: 'chips' }, inp, el('button', { type: 'button', class: 'btn', onclick: add }, '➕ להוסיף')));
+  }
+  const slider = (label, key, min, max, step = 1) => el('label', { class: 'slide' }, label,
+    el('input', { type: 'range', min, max, step, value: design[key], oninput: e => { design[key] = Number(e.target.value); applyDesign(); } }));
+  const toggle = (key, name) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!design[key]), onclick: () => { design[key] = !design[key]; rerender(); } }, (design[key] ? '✔️ ' : '') + name);
+  const chipsOf = (list, key, after) => el('div', { class: 'chips' }, ...list.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(design[key] === id), onclick: () => { design[key] = id; after && after(); rerender(); } }, name)));
+
+  function buildMagic() {
+    $('#magicBody').replaceChildren(
+      el('div', { class: 'box row' }, el('h4', {}, '🌧️ אימוג\'ים שנופלים'), el('div', { class: 'chips' }, toggle('rainOn', 'להפעיל')),
+        emojiChooser('rainEmojis', 12),
+        el('span', { class: 'lbl' }, 'לאן הם זזים?'), chipsOf([['down', '⬇️ נופלים'], ['up', '⬆️ עולים כמו בועות'], ['float', '〰️ מרחפים']], 'rainDir', () => { design.rainOn = true; }),
+        slider('כמה', 'rainCount', 5, 70), slider('מהירות', 'rainSpeed', 1, 3.6, 0.2), slider('גודל', 'rainSize', 16, 70)),
+      el('div', { class: 'box row' }, el('h4', {}, '🖼️ אימוג\'ים על הרקע'), el('div', { class: 'chips' }, toggle('bgEmojiOn', 'לפזר על כל הרקע'), toggle('bgEmojiTilt', 'עקומים')),
+        emojiChooser('bgEmojis', 12),
+        slider('כמה', 'bgEmojiCount', 6, 90), slider('גודל', 'bgEmojiSize', 16, 90), slider('כמה רואים אותם', 'bgEmojiAlpha', 10, 100, 5),
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn', onclick: () => { design.bgEmojiSeed = 1 + Math.floor(Math.random() * 1e6); design.bgEmojiOn = true; rerender(); } }, '🔀 לפזר מחדש'),
+          el('button', { type: 'button', class: 'btn main', onclick: startPlacing }, '📍 לשים אימוג\'ים בעצמי'),
+          (design.bgPlaced || []).length ? el('button', { type: 'button', class: 'btn', onclick: () => { design.bgPlaced = []; rerender(); } }, `🗑️ להוריד את ה-${design.bgPlaced.length} ששמתי`) : null),
+        el('p', { class: 'muted' }, 'טיפ: אם הלוח מסתיר את האימוג\'ים, אפשר להפוך אותו לשקוף יותר בלשונית "הלוח".')),
+      el('div', { class: 'box row' }, el('h4', {}, '🪄 העכבר'), el('span', { class: 'lbl' }, 'שובל שנשאר אחרי העכבר'), chipsOf(TRAILS, 'trail'),
+        el('span', { class: 'lbl' }, 'צורת העכבר'), el('div', { class: 'chips' }, ...CURSORS.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(design.cursor === id), onclick: () => { design.cursor = id; rerender(); } },
+          id !== 'default' && STICKERS[id] ? el('span', { class: 'ic mini', html: stickerHTML(id) }) : null, name)))),
+      el('div', { class: 'box row' }, el('h4', {}, '🌈 צבע לכל יום בשבוע'),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!design.dowColors), onclick: () => { design.dowColors = null; rerender(); } }, 'בלי'),
+          ...DOW_SET_NAMES.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(JSON.stringify(design.dowColors) === JSON.stringify(DOW_SETS[id])), onclick: () => { design.dowColors = DOW_SETS[id].slice(); rerender(); } }, name))),
+        design.dowColors ? el('div', { class: 'colors' }, ...DAYS.map((dn, i) => el('label', {}, dn, el('input', { type: 'color', value: design.dowColors[i], oninput: e => { design.dowColors[i] = e.target.value; applyDesign(); renderCalendar(); } })))) : null));
+  }
+
+  function randomDesign() {
+    const pick = a => a[Math.floor(Math.random() * a.length)];
+    const h = Math.floor(Math.random() * 360), h2 = (h + 150 + Math.floor(Math.random() * 60)) % 360;
+    const hsl = (hh, s, l) => { const f = n => { const k = (n + hh / 30) % 12, a = s / 100 * Math.min(l / 100, 1 - l / 100); return Math.round(255 * (l / 100 - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, '0'); }; return `#${f(0)}${f(8)}${f(4)}`; };
+    const allE = EMOJI_PICK.flatMap(x => x[1]);
+    Object.assign(design, {
+      theme: 'sky', custom: { accent: hsl(h, 75, 55), paper: hsl(h, 70, 96), ink: hsl(h, 35, 18), weekend: hsl(h2, 80, 92), card: '#ffffff', line: hsl(h, 55, 84), soft: hsl(h, 20, 45) },
+      bg: pick(BGS.filter(b => b.id !== 'photo')).id, shape: pick(SHAPES).id, font: pick(FONTS.slice(0, 4)).id, titleFont: pick(FONTS).id, titleStyle: pick(TITLE_STYLES).id,
+      todayMark: pick(TODAY_MARKS).id, numStyle: pick(NUM_STYLES).id, calFrame: pick(CAL_FRAMES).id, border: pick(BORDERS.filter(b => b.id !== 'none')).id,
+      rainOn: Math.random() < 0.6, rainEmojis: [pick(allE), pick(allE), pick(allE)], rainDir: pick(['down', 'up', 'float']),
+      dowColors: Math.random() < 0.3 ? DOW_SETS[pick(Object.keys(DOW_SETS))].slice() : null,
+    });
+    SFX.pop(); rerender();
+  }
+  const DESIGN_KEEP_OUT = ['lockTitle', 'lockBg', 'lockKeys', 'lockDots', 'lockStk', 'sound', 'darkMode'];
+  function buildPresets() {
+    const nameIn = el('input', { type: 'text', id: 'myDesignName', maxLength: 24, placeholder: 'למשל: הלוח הוורוד שלי', 'aria-label': 'שם לעיצוב' });
+    const colorsOf = d => { const t = Object.assign({}, THEMES[d.theme] || THEMES.sky, d.custom || {}); return el('span', { class: 'dots' }, ...[t.accent, t.paper, t.weekend].map(c => { const i = el('i'); i.style.background = c; return i; })); };
+    $('#presetBody').replaceChildren(
+      el('div', { class: 'row' }, el('button', { type: 'button', class: 'btn main big-dice', onclick: randomDesign }, '🎲 עיצוב הפתעה!'), el('p', { class: 'muted' }, 'כל לחיצה = עיצוב חדש לגמרי. אם אהבת, אפשר לשמור אותו למטה 👇')),
+      el('h4', { class: 'sec-title' }, '🎁 ערכות מוכנות'),
+      el('div', { class: 'preset-grid' }, ...PRESETS.map(([id, name, set]) => el('button', { type: 'button', class: 'preset', onclick: () => { Object.assign(design, JSON.parse(JSON.stringify(set))); SFX.yay(); rerender(); } },
+        colorsOf(set), el('span', { class: 'pe' }, (set.rainEmojis || set.bgEmojis || []).slice(0, 3).join('')), el('b', {}, name)))),
+      el('h4', { class: 'sec-title' }, '💾 העיצובים שלי'),
+      el('div', { class: 'chips' }, nameIn, el('button', { type: 'button', class: 'btn', onclick: () => {
+        const d = JSON.parse(JSON.stringify(design)); DESIGN_KEEP_OUT.forEach(k => delete d[k]);
+        myDesigns.push({ id: 'd' + Date.now().toString(36), name: nameIn.value.trim() || `עיצוב ${myDesigns.length + 1}`, d });
+        store.set('myDesigns', myDesigns); SFX.ding(); buildPresets();
+      } }, '💾 לשמור את העיצוב של עכשיו')),
+      myDesigns.length ? el('div', { class: 'preset-grid' }, ...myDesigns.map(x => el('div', { class: 'preset mine' },
+        colorsOf(x.d), el('b', {}, x.name),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => { Object.assign(design, JSON.parse(JSON.stringify(x.d))); SFX.pop(); rerender(); } }, '✨ להחליף לזה'),
+          el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { myDesigns = myDesigns.filter(y => y !== x); store.set('myDesigns', myDesigns); buildPresets(); } }, '🗑️')))))
+        : el('p', { class: 'muted' }, 'עוד לא שמרת עיצובים. אפשר לשמור כמה ולהחליף ביניהם מתי שבא לך!'));
+  }
+
   $('#dTitle').addEventListener('input', e => { design.title = e.target.value; applyDesign(); });
   $('#dLockTitle').addEventListener('input', e => { design.lockTitle = e.target.value; applyDesign(); });
   for (const [id, key] of [['#dSize', 'size'], ['#dBw', 'bw'], ['#dGap', 'gap'], ['#dStk', 'stickerSize'], ['#dAlpha', 'alpha']]) {
@@ -2177,6 +2483,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     );
     if (mood) cell.style.setProperty('--mood', mood[3]);
     cell.style.setProperty('--tilt', `${((d * 37) % 5 - 2) * 0.7}deg`);
+    if (design.dowColors) { cell.style.setProperty('--dowc', design.dowColors[info.dow]); cell.classList.add('dc'); }
     return cell;
   }
 
