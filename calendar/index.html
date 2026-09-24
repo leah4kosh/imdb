@@ -1093,6 +1093,104 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
 .fs-cap:empty { display: none; }
 @media (max-width: 620px) { .fash-edit { grid-template-columns: 1fr; } .fash-side { position: static; } .fash-stage { max-width: 220px; margin: 0 auto; } }
 @media (prefers-reduced-motion: reduce) { .fs-flash circle { animation: none; } }
+/* ---------- games c: word search, snakes & ladders, jump, pizza ---------- */
+.gcw-themes .chip { font-size: .95em; }
+.gcw-play { display: grid; grid-template-columns: minmax(0, 480px) minmax(120px, 190px); gap: 12px; justify-content: center; align-items: start; }
+.gcw-board { --n: 10; position: relative; display: grid; grid-template-columns: repeat(var(--n), 1fr); direction: rtl; width: 100%; aspect-ratio: 1; background: var(--card); border: 2.5px solid var(--ink); border-radius: 16px; padding: 0; touch-action: none; user-select: none; -webkit-user-select: none; cursor: pointer; overflow: hidden;
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--accent) 7%, transparent), transparent 60%); }
+.gcw-over { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.gcw-over .gcw-bad { animation: blink .15s 3 alternate; }
+.gcw-c { position: relative; display: grid; place-items: center; font-family: 'Rubik', system-ui, sans-serif; font-weight: 600; color: var(--ink); line-height: 1;
+  font-size: min(calc(440px / var(--n) * .56), calc((100vw - 90px) / var(--n) * .56)); }
+.gcw-c.hint::after { content: ''; position: absolute; inset: 8%; border-radius: 50%; border: 3px solid #ffb020; box-shadow: 0 0 10px #ffb020; animation: blink .45s infinite alternate; }
+.gcw-list { display: flex; flex-wrap: wrap; gap: 6px; align-content: start; }
+.gcw-w { padding: 3px 12px; border-radius: 999px; border: 2px solid var(--line); background: var(--card); font-size: 1.05em; transition: .3s; }
+.gcw-w.found { background: color-mix(in srgb, var(--hl) 45%, var(--card)); border-color: var(--hl); text-decoration: line-through 2px; opacity: .8; }
+@media (max-width: 620px) { .gcw-play { grid-template-columns: 1fr; } .gcw-list { justify-content: center; } }
+
+.gcl-pick { align-items: center; }
+.gcl-opt { width: 46px; height: 46px; padding: 3px; border-radius: 50%; border: 2px solid var(--line); background: var(--card); }
+.gcl-opt svg { width: 100%; height: 100%; display: block; }
+.gcl-opt[aria-pressed="true"] { border-color: var(--accent); outline: 2px solid var(--accent); }
+.gcl-wrap { display: grid; grid-template-columns: minmax(0, 500px) 180px; gap: 12px; justify-content: center; align-items: start; }
+.gcl-board { position: relative; width: 100%; aspect-ratio: 1; }
+.gcl-board > svg { width: 100%; height: 100%; display: block; border-radius: 12px; }
+.gcl-tok { position: absolute; width: 10.5%; aspect-ratio: 1; transform: translate(calc(-50% + var(--off, 0%)), -58%); transition: left .19s ease-in-out, top .19s ease-in-out, transform .3s; pointer-events: none; z-index: 2; }
+.gcl-tok.me { z-index: 3; }
+.gcl-tok::before { content: ''; position: absolute; left: 12%; right: 12%; bottom: -4%; height: 18%; border-radius: 50%; background: rgb(0 0 0 / .22); }
+.gcl-tok .in { position: relative; width: 100%; height: 100%; filter: drop-shadow(0 2px 1px rgb(0 0 0 / .3)); }
+.gcl-tok.me .in { background: radial-gradient(circle at 50% 55%, #fff 0 56%, transparent 58%); border-radius: 50%; }
+.gcl-tok .in svg { width: 100%; height: 100%; display: block; }
+.gcl-tok .in.hop { animation: gclHop .25s ease-out; }
+@keyframes gclHop { 45% { transform: translateY(-38%) scale(1.08); } }
+.gcl-side { display: grid; gap: 10px; justify-items: center; align-content: start; }
+.gcl-card { display: flex; align-items: center; gap: 8px; width: 100%; padding: 6px 10px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); transition: .25s; }
+.gcl-card.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); transform: scale(1.03); }
+.gcl-card .av { width: 44px; height: 44px; flex: none; }
+.gcl-card .av svg { width: 100%; height: 100%; display: block; }
+.gcl-card b { font-weight: 400; display: block; }
+.gcl-card small { color: var(--soft); }
+.gcl-die { width: 96px; height: 96px; padding: 16px; border: none; background: none; perspective: 420px; cursor: pointer; border-radius: 20px; }
+.gcl-die:disabled { cursor: default; opacity: .6; }
+.gcl-die.ready { animation: gclWiggle 1.6s ease-in-out infinite; }
+@keyframes gclWiggle { 0%, 70%, 100% { transform: none; } 78% { transform: rotate(-8deg) scale(1.06); } 86% { transform: rotate(8deg) scale(1.06); } 94% { transform: rotate(-4deg); } }
+.gcl-cube { position: relative; width: 64px; height: 64px; transform-style: preserve-3d; transform: rotateX(-16deg) rotateY(20deg); transition: transform .85s cubic-bezier(.15, .75, .3, 1); }
+.gcl-f { position: absolute; inset: 0; display: grid; grid-template: repeat(3, 1fr) / repeat(3, 1fr); padding: 8px; direction: ltr; background: linear-gradient(145deg, #ffffff, #f1e9ff); border: 2.5px solid #3a2b3c; border-radius: 13px; box-shadow: inset -4px -5px 0 rgb(0 0 0 / .07); }
+.gcl-f i { place-self: center; width: 11px; height: 11px; border-radius: 50%; }
+.gcl-f i.p { background: #3a2b3c; box-shadow: inset 1px 2px 0 rgb(255 255 255 / .25); }
+.gcl-f.f1 i.p { background: #ff5a6e; width: 16px; height: 16px; }
+.gcl-f.f1 { transform: translateZ(32px); }
+.gcl-f.f6 { transform: rotateY(180deg) translateZ(32px); }
+.gcl-f.f2 { transform: rotateY(90deg) translateZ(32px); }
+.gcl-f.f5 { transform: rotateY(-90deg) translateZ(32px); }
+.gcl-f.f3 { transform: rotateX(90deg) translateZ(32px); }
+.gcl-f.f4 { transform: rotateX(-90deg) translateZ(32px); }
+.gcl-status { text-align: center; min-height: 2.4em; }
+.gcl-say { position: relative; width: 100%; padding: 6px 10px; border-radius: 14px; background: #fff7d6; color: #3a2b3c; border: 2px solid #3a2b3c; text-align: center; font-size: .95em; animation: iceIn .3s ease-out; }
+.gcl-say::before { content: ''; position: absolute; top: -8px; inset-inline-start: 26px; width: 12px; height: 12px; background: #fff7d6; border: solid #3a2b3c; border-width: 2px 0 0 2px; transform: rotate(45deg); }
+@media (max-width: 620px) {
+  .gcl-wrap { grid-template-columns: 1fr; }
+  .gcl-side { grid-template-columns: 1fr 1fr; }
+  .gcl-die { grid-row: span 2; }
+  .gcl-status, .gcl-say { grid-column: 1 / -1; }
+}
+
+.gcj-wrap { display: flex; justify-content: center; }
+.gcj-wrap canvas { width: min(100%, 400px, 52vh); aspect-ratio: 2 / 3; border-radius: 18px; border: 2.5px solid var(--ink); background: #7fd3ff; touch-action: none; display: block; cursor: pointer; }
+
+.gcp-shop { position: relative; display: grid; grid-template-columns: 1fr 1.25fr; gap: 10px; padding: 22px 12px 14px; border-radius: 18px; border: 2px solid var(--line); color: #3a2b3c; overflow: hidden;
+  background: linear-gradient(#fff8ee 0 70%, #e9c79a 70% 73%, #d9a86c 73%); }
+.gcp-shop::before { content: ''; position: absolute; inset: 0 0 auto; height: 18px; background: repeating-linear-gradient(90deg, #e84a3c 0 20px, #fff 20px 40px); border-bottom: 2px solid #3a2b3c22; }
+.gcp-side { position: relative; display: grid; justify-items: center; align-content: end; gap: 6px; min-height: 230px; }
+.gcp-bubble { position: relative; display: grid; grid-template-columns: 76px 1fr; align-items: center; gap: 6px; background: #fff; border: 2px solid #3a2b3c; border-radius: 16px; padding: 4px 8px; width: 100%; max-width: 250px; }
+.gcp-bubble::after { content: ''; position: absolute; bottom: -9px; inset-inline-start: 40%; width: 14px; height: 14px; background: #fff; border: solid #3a2b3c; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.gcp-bubble .art svg { width: 76px; height: 76px; display: block; }
+.gcp-bubble small { font-size: .85em; line-height: 1.3; }
+.gcp-pbox { position: relative; width: min(100%, 250px); aspect-ratio: 1; }
+.gcp-pizza { width: 100%; height: 100%; touch-action: none; filter: drop-shadow(0 5px 3px rgb(0 0 0 / .18)); }
+.gcp-pizza.can { cursor: copy; }
+.gcp-pizza svg { width: 100%; height: 100%; display: block; }
+.gcp-pizza.out { animation: gcpOut .5s ease-out; }
+@keyframes gcpOut { from { transform: translateY(-30px) scale(.7); opacity: .3; } }
+.gcp-steam path { animation: gcpSteam 1.6s ease-in-out infinite; }
+.gcp-steam path:nth-child(2) { animation-delay: .4s; } .gcp-steam path:nth-child(3) { animation-delay: .8s; }
+@keyframes gcpSteam { 0% { opacity: 0; transform: translateY(8px); } 50% { opacity: 1; } 100% { opacity: 0; transform: translateY(-10px); } }
+.gcp-oven { position: absolute; inset: 0; display: grid; place-items: center; background: rgb(255 248 238 / .85); border-radius: 18px; animation: iceIn .3s ease-out; }
+.gcp-oven svg { width: 92%; height: auto; }
+.gcp-fire { transform-origin: 100px 150px; animation: gcpFire .25s ease-in-out infinite alternate; }
+@keyframes gcpFire { from { transform: scale(1, .85); } to { transform: scale(1.06, 1.1); } }
+.gcp-tip { margin-top: 6px; min-height: 1.4em; font-size: .9em; text-align: center; background: #fff; border-radius: 999px; padding: 0 10px; border: 1.5px solid #f2a65a; }
+.gcp-tip:empty { visibility: hidden; }
+.gcp-over { background: rgb(255 248 238 / .92); }
+.gcp-over b { color: #d9480f; }
+.gcp-sauce { display: inline-flex; align-items: center; gap: 6px; border: 2px solid var(--line); background: var(--card); border-radius: 999px; padding: 3px 12px 3px 6px; }
+.gcp-sauce i { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #3a2b3c; }
+.gcp-sauce[aria-pressed="true"] { border-color: var(--accent); outline: 2px solid var(--accent); }
+.gcp-top { display: grid; justify-items: center; gap: 1px; width: 64px; padding: 4px 2px; border-radius: 14px; border: 2px solid var(--line); background: #fff; color: #3a2b3c; font-size: .75em; line-height: 1.1; }
+.gcp-top svg { width: 30px; height: 30px; }
+.gcp-top[aria-pressed="true"] { border-color: var(--accent); outline: 2px solid var(--accent); background: #fff4f4; }
+.gcp-ctl button:disabled { opacity: .4; cursor: default; }
+@media (max-width: 520px) { .gcp-shop { grid-template-columns: 1fr; } .gcp-side { min-height: 0; } .gcp-bubble { grid-template-columns: 56px 1fr; } .gcp-bubble .art svg { width: 54px; height: 54px; } .ice-h { min-width: 100%; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -4414,7 +4512,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   function drawGames() {
     if (catchStop) { catchStop(); catchStop = null; }
     $('#gamesTabs').replaceChildren(...GAME_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
-    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame }[gamesTab] || memoryGame)();
+    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame }[gamesTab] || memoryGame)();
   }
   function memoryGame() {
     const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
@@ -4508,7 +4606,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   $('#gamesDlg').addEventListener('close', () => { if (catchStop) { catchStop(); catchStop = null; } });
 
   // ================= more games: maze, puzzle, coloring, spot the difference, pearls, sound memory =================
-  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים']];
+  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים'], ['words', '🔤 חיפוש מילים'], ['ladders', '🐍 סולמות ונחשים'], ['jump', '🐸 קפיצות'], ['pizza', '🍕 מסעדת פיצה']];
   const petArt = () => pet ? petSVG(pet) : stickerHTML('cat');
   const petNm = () => pet ? pet.name || 'החיה' : 'החתול';
   const svgData = s => 'data:image/svg+xml,' + encodeURIComponent(s);
@@ -7588,6 +7686,837 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   }
   $('#fashShowDlg').addEventListener('close', () => { showRun++; confettiRun++; });
   $('#fashShowAgain').addEventListener('click', fashionShow);
+  // ================= games c: word search, snakes & ladders, jump, pizza shop =================
+  const gcRnd = a => a[Math.floor(Math.random() * a.length)];
+  const gcInt = n => Math.floor(Math.random() * n);
+  const gcShuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = gcInt(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const gcTime = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+
+  // ---------- 35. word search ----------
+  const GC_WORDS = {
+    animals: ['🐾 חיות', 'ארנב חתול כלב פיל זברה אריה נמר קוף דוב סוס פרה כבשה תרנגול ינשוף דולפין פינגווין קנגורו תוכי סנאי צפרדע שועל זאב ברווז גמל'],
+    food: ['🍕 אוכל', 'פיצה פסטה לחם גבינה עוגה עוגייה שוקולד גלידה ביצה תפוח בננה אבטיח תות מלפפון עגבנייה פלאפל שניצל חומוס אורז מרק סלט פנקייק ופל'],
+    sea: ['🌊 ים', 'דולפין לוויתן כריש תמנון מדוזה צדף אלמוג סרטן חול גלים סירה מגדלור פנינה אצות צוללת חוף מגבת דלי סוסון גלשן ספינה עוגן'],
+    holidays: ['🕎 חגים', 'חנוכה פורים פסח סוכות שבועות סביבון חנוכייה סופגנייה מצה מגילה רעשן תחפושת שופר רימון דבש לולב אתרוג סוכה הגדה אפיקומן לביבה נרות'],
+    colors: ['🎨 צבעים', 'אדום כחול צהוב ירוק כתום סגול ורוד לבן שחור חום אפור תכלת זהב כסף טורקיז בורדו לילך קרם פוקסיה מנטה אפרסק'],
+    clothes: ['👗 בגדים', 'חולצה מכנסיים שמלה חצאית כובע צעיף כפפות גרביים נעליים מעיל סוודר סנדלים מגפיים טייץ עניבה חגורה משקפיים פפיון סינר גופייה כפכפים'],
+    nature: ['🌳 טבע', 'פרח עלה שמש ירח כוכב ענן גשם קשת נהר יער אבן דשא שלג רוח מפל מדבר אגם שקיעה זריחה פרפר דבורה חמנייה צבעוני ברק'],
+    magic: ['🪄 קסם', 'קוסם שרביט פיה נסיכה נסיך טירה דרקון חדקרן מכשפה שיקוי כתר כנפיים נצנצים לחש מטאטא ענק גמד יהלום אוצר קסמים'],
+    school: ['🎒 בית ספר', 'מחברת עיפרון מחק סרגל תיק מורה כיתה לוח ספר הפסקה חברים מבחן שיעור מספריים דבק מחדד טוש קלמר צלצול חצר'],
+  };
+  const GC_WLV = { easy: [8, 6, [[0, 1], [1, 0]], 'קל'], mid: [10, 8, [[0, 1], [1, 0], [1, 1]], 'בינוני'],
+    hard: [12, 11, [[0, 1], [1, 0], [1, 1], [1, -1], [0, -1], [-1, 0], [-1, -1], [-1, 1]], 'קשה'] };
+  const GC_HL = ['#ff8fc7', '#6fc3ff', '#ffd23f', '#7fdc8a', '#b99bff', '#ffa35c', '#5fd9cc', '#ff7a7a', '#c2e85a', '#f59bff', '#8fb3ff'];
+  function wordGame() {
+    gbStop();
+    let level = store.get('wordLevel', 'mid'), theme = store.get('wordTheme', 'animals');
+    if (!GC_WLV[level]) level = 'mid';
+    if (!GC_WORDS[theme]) theme = 'animals';
+    let N, grid, words, sec, timer = 0, hints, won, anchor = null, cur = null, drag = false, hintIdx = -1, hintT = 0, badT = 0, bad = null;
+    const info = el('div', { class: 'game-info' }), end = el('div'), list = el('div', { class: 'gcw-list' });
+    const board = el('div', { class: 'gcw-board' }), over = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    over.setAttribute('class', 'gcw-over'); over.setAttribute('aria-hidden', 'true');
+    const gen = () => {
+      const [n, cnt, dirs] = GC_WLV[level]; N = n;
+      const all = GC_WORDS[theme][1].split(' ').filter(w => w.length >= 3 && w.length <= n);
+      let best = null;
+      for (let tries = 0; tries < 8 && !(best && best.placed.length >= cnt); tries++) {
+        const g = Array(n * n).fill(''), placed = [];
+        for (const w of gcShuffle([...all])) {
+          if (placed.length >= cnt) break;
+          if (placed.some(p => p.w.includes(w) || w.includes(p.w))) continue;
+          const opts = [];
+          for (let k = 0; k < 200 && opts.length < 14; k++) {
+            const [dr, dc] = gcRnd(dirs), r = gcInt(n), c = gcInt(n), er = r + dr * (w.length - 1), ec = c + dc * (w.length - 1);
+            if (er < 0 || er >= n || ec < 0 || ec >= n) continue;
+            let ov = 0, ok = true; const cells = [];
+            for (let i = 0; i < w.length; i++) { const j = (r + dr * i) * n + c + dc * i; if (g[j] && g[j] !== w[i]) { ok = false; break; } if (g[j]) ov++; cells.push(j); }
+            if (ok && ov < w.length) opts.push([ov, cells]);
+          }
+          if (!opts.length) continue;
+          opts.sort((a, b) => b[0] - a[0]);
+          const [, cells] = Math.random() < 0.5 ? opts[0] : gcRnd(opts);
+          cells.forEach((j, i) => { g[j] = w[i]; });
+          placed.push({ w, cells });
+        }
+        if (!best || placed.length > best.placed.length) best = { g, placed };
+      }
+      const toBase = ch => ({ 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' }[ch] || ch);
+      const mine = best.placed.map(p => p.w).join('').split('').map(toBase);
+      grid = best.g.map(ch => ch || (Math.random() < 0.45 ? gcRnd(mine) : gcRnd('אבגדהוזחטיכלמנסעפצקרשת'.split(''))));
+      words = best.placed.map(p => ({ w: p.w, cells: p.cells, found: false, color: null }));
+      sec = 0; hints = 0; won = false; anchor = cur = null; drag = false; hintIdx = -1; bad = null;
+      end.replaceChildren();
+      clearInterval(timer);
+      timer = setInterval(() => { if (!won && $('#gamesDlg').open) { sec++; drawInfo(); } }, 1000);
+    };
+    const best = () => (games.wordBest || {})[level];
+    const drawInfo = () => info.replaceChildren(el('span', {}, `⏱️ ${gcTime(sec)}`), el('span', {}, `✅ ${words.filter(w => w.found).length}/${words.length}`),
+      hints ? el('span', {}, `💡 ${hints}`) : null, best() ? el('span', {}, `🏆 השיא (${GC_WLV[level][3]}): ${gcTime(best())}`) : null);
+    const drawList = () => list.replaceChildren(...words.map(w => el('span', { class: 'gcw-w' + (w.found ? ' found' : ''), style: w.found ? `--hl:${w.color}` : '' }, w.w)));
+    const pt = j => [N - 1 - (j % N) + 0.5, Math.floor(j / N) + 0.5];
+    const line = (a, b, col, extra = '') => {
+      const [x1, y1] = pt(a), [x2, y2] = pt(b);
+      return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width=".8" stroke-linecap="round" ${extra}/>`
+        + `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff" stroke-opacity=".35" stroke-width=".22" stroke-linecap="round" transform="translate(0 -.14)"/>`;
+    };
+    const selCells = (a, b) => {
+      const dr = Math.sign(b[0] - a[0]), dc = Math.sign(b[1] - a[1]), len = Math.max(Math.abs(b[0] - a[0]), Math.abs(b[1] - a[1]));
+      return Array.from({ length: len + 1 }, (_, i) => (a[0] + dr * i) * N + a[1] + dc * i);
+    };
+    const drawOver = () => {
+      let s = words.filter(w => w.found).map(w => line(w.cells[0], w.cells[w.cells.length - 1], w.color, 'opacity=".62"')).join('');
+      if (bad) s += line(bad[0], bad[bad.length - 1], '#ff5a6e', 'opacity=".45" class="gcw-bad"');
+      if (anchor) { const c = selCells(anchor, cur || anchor); s += line(c[0], c[c.length - 1], 'var(--accent)', 'opacity=".45"'); }
+      over.innerHTML = s;
+      board.querySelectorAll('.gcw-c').forEach((d, j) => { d.classList.toggle('hint', j === hintIdx); });
+    };
+    const drawBoard = () => {
+      board.style.setProperty('--n', N);
+      over.setAttribute('viewBox', `0 0 ${N} ${N}`); over.setAttribute('preserveAspectRatio', 'none');
+      board.replaceChildren(over, ...grid.map(ch => el('div', { class: 'gcw-c' }, ch)));
+      drawOver();
+    };
+    const cellAt = e => {
+      const r = board.getBoundingClientRect();
+      const vx = gbClamp(Math.floor((e.clientX - r.left) / r.width * N), 0, N - 1), y = gbClamp(Math.floor((e.clientY - r.top) / r.height * N), 0, N - 1);
+      return [y, N - 1 - vx];
+    };
+    // straighten the pointer into one of 8 directions
+    const snap = (a, p) => {
+      const dr = p[0] - a[0], dc = p[1] - a[1];
+      if (!dr && !dc) return a;
+      const ang = Math.round(Math.atan2(dr, dc) / (Math.PI / 4)) * (Math.PI / 4), sr = Math.round(Math.sin(ang)), sc = Math.round(Math.cos(ang));
+      let len = Math.max(Math.abs(dr), Math.abs(dc));
+      while (len > 0 && (a[0] + sr * len < 0 || a[0] + sr * len >= N || a[1] + sc * len < 0 || a[1] + sc * len >= N)) len--;
+      return [a[0] + sr * len, a[1] + sc * len];
+    };
+    const finish = () => {
+      const cells = selCells(anchor, cur), s = cells.map(j => grid[j]).join(''), rev = [...s].reverse().join('');
+      anchor = cur = null;
+      const w = words.find(x => !x.found && (x.w === s || x.w === rev));
+      if (w) {
+        w.found = true; w.cells = cells; w.color = GC_HL[words.filter(x => x.found).length % GC_HL.length];
+        if (hintIdx >= 0 && cells.includes(hintIdx)) hintIdx = -1;
+        SFX.ding(); tone(880 + words.filter(x => x.found).length * 60, 0.12, 'triangle', 0.08);
+        drawList(); drawInfo();
+        if (words.every(x => x.found)) {
+          won = true; clearInterval(timer);
+          const wb = Object.assign({}, games.wordBest), rec = !wb[level] || sec < wb[level];
+          if (rec) { wb[level] = sec; games.wordBest = wb; }
+          winGame('wordWins'); drawInfo();
+          end.replaceChildren(winLine(`מצאת את כל ${words.length} המילים ב-${gcTime(sec)}!${rec ? ' שיא חדש! 🏆' : ''} 🎉`, () => { gen(); drawAll(); }));
+        }
+      } else if (cells.length > 1) {
+        SFX.boop(); bad = cells; clearTimeout(badT); badT = setTimeout(() => { bad = null; drawOver(); }, 450);
+      }
+      drawOver();
+    };
+    board.addEventListener('pointerdown', e => {
+      if (won) return;
+      e.preventDefault();
+      const p = cellAt(e);
+      if (anchor && !drag) {
+        if (p[0] === anchor[0] && p[1] === anchor[1]) { anchor = cur = null; drawOver(); return; }
+        cur = snap(anchor, p); finish(); return;
+      }
+      anchor = cur = p; drag = true;
+      try { board.setPointerCapture(e.pointerId); } catch {}
+      tone(660, 0.05, 'triangle', 0, 0.05); drawOver();
+    });
+    board.addEventListener('pointermove', e => {
+      if (!drag || !anchor) return;
+      const s = snap(anchor, cellAt(e));
+      if (s[0] !== cur[0] || s[1] !== cur[1]) { cur = s; tone(520 + selCells(anchor, cur).length * 40, 0.03, 'sine', 0, 0.03); drawOver(); }
+    });
+    board.addEventListener('pointerup', () => {
+      if (!drag) return;
+      drag = false;
+      if (cur && (cur[0] !== anchor[0] || cur[1] !== anchor[1])) finish();
+    });
+    board.addEventListener('pointercancel', () => { drag = false; anchor = cur = null; drawOver(); });
+    const hint = () => {
+      if (won) return;
+      const w = words.find(x => !x.found);
+      if (!w) return;
+      hints++; hintIdx = w.cells[0]; SFX.pop(); drawInfo(); drawOver();
+      clearTimeout(hintT); hintT = setTimeout(() => { hintIdx = -1; drawOver(); }, 3000);
+    };
+    catchStop = () => { clearInterval(timer); clearTimeout(hintT); clearTimeout(badT); };
+    const themes = el('div', { class: 'chips gcw-themes' }), levels = el('div', { class: 'chips' });
+    const drawChips = () => {
+      themes.replaceChildren(...Object.entries(GC_WORDS).map(([id, [name]]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(theme === id),
+        onclick: () => { theme = id; store.set('wordTheme', id); drawChips(); gen(); drawAll(); } }, name)));
+      levels.replaceChildren(...Object.entries(GC_WLV).map(([id, v]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(level === id),
+        onclick: () => { level = id; store.set('wordLevel', id); drawChips(); gen(); drawAll(); } }, `${v[3]} ${v[0]}×${v[0]}`)));
+    };
+    const desc = el('p', { class: 'muted' });
+    const drawAll = () => {
+      desc.textContent = 'מוצאים את המילים שמסתתרות בלוח! גוררים מהאות הראשונה עד האחרונה (או לוחצים על האות הראשונה ואז על האחרונה). המילים כתובות מימין לשמאל ומלמעלה למטה' + (level === 'mid' ? ', וגם באלכסון.' : level === 'hard' ? ', באלכסון, וגם הפוך!' : '.');
+      drawInfo(); drawList(); drawBoard();
+    };
+    drawChips(); gen(); drawAll();
+    $('#gamesBody').replaceChildren(desc,
+      themes, levels, info, el('div', { class: 'gcw-play' }, board, list), end,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: hint }, '💡 רמז'), el('button', { type: 'button', class: 'btn', onclick: () => { gen(); drawAll(); } }, '🔀 לוח חדש')));
+  }
+
+  // ---------- 36. snakes & ladders against the pet ----------
+  const GC_PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] };
+  const GC_DIE_ROT = { 1: [0, 0], 2: [0, -90], 3: [-90, 0], 4: [90, 0], 5: [0, 90], 6: [0, 180] };
+  function laddersGame() {
+    gbStop();
+    let alive = true, jumps, me, mine, turn, busy, over, rolls = 0;
+    const tms = [];
+    const wait = ms => new Promise(r => tms.push(setTimeout(r, ms)));
+    catchStop = () => { alive = false; tms.forEach(clearTimeout); };
+    const pos = n => { const r = Math.floor((n - 1) / 10), i = (n - 1) % 10, col = r % 2 ? i : 9 - i; return [col * 50 + 25, (9 - r) * 50 + 25]; };
+    const rowOf = n => Math.floor((n - 1) / 10);
+    const cellN = (r, col) => r * 10 + (r % 2 ? col : 9 - col) + 1;
+    // distance between two segments (sampled), so snakes and ladders don't pile up on each other
+    const segDist = (a, b, c, d) => {
+      let m = 1e9;
+      for (let i = 0; i <= 12; i++) for (let k = 0; k <= 12; k++) {
+        const p = [a[0] + (b[0] - a[0]) * i / 12, a[1] + (b[1] - a[1]) * i / 12], q = [c[0] + (d[0] - c[0]) * k / 12, c[1] + (d[1] - c[1]) * k / 12];
+        m = Math.min(m, Math.hypot(p[0] - q[0], p[1] - q[1]));
+      }
+      return m;
+    };
+    const gen = () => {
+      jumps = {};
+      const used = new Set([1, 100]);
+      const tryAdd = (rLo, rHi, up) => {
+        for (let g = 0; g < 300; g++) {
+          const r = rLo + gcInt(rHi - rLo + 1), col = gcInt(10), dr = 1 + gcInt(3), r2 = up ? r + dr : r - dr, col2 = col + gcInt(5) - 2;
+          if (r2 < 0 || r2 > 9 || col2 < 0 || col2 > 9) continue;
+          const a = cellN(r, col), b = cellN(r2, col2);
+          if (used.has(a) || used.has(b) || a === 100 || b === 100) continue;
+          if (Object.entries(jumps).some(([s, t]) => segDist(pos(+s), pos(t), pos(a), pos(b)) < 38)) continue;
+          used.add(a); used.add(b); jumps[a] = b; return;
+        }
+      };
+      for (let i = 0; i < 6; i++) tryAdd(0, 7, true);
+      tryAdd(8, 9, false); tryAdd(5, 8, false);
+      for (let i = 0; i < 4; i++) tryAdd(2, 9, false);
+      me = { n: 1, tok: null }; mine = { n: 1, tok: null }; turn = 'me'; busy = false; over = false;
+    };
+    // ----- art -----
+    const ROWC = ['#ffd6e5', '#fff0bf', '#d8f5dc', '#d6ecff', '#e9ddff'];
+    const RAIN = ['#ff6b6b', '#ffa94d', '#ffd43b', '#69db7c', '#4dabf7', '#b197fc'];
+    const SNAKEC = [['#7ed957', '#b8f09c'], ['#ff8fc7', '#ffd0e6'], ['#b58cff', '#dcc9ff'], ['#ffb020', '#ffe08a'], ['#4fc3f7', '#b5e8ff'], ['#ff7a7a', '#ffc4c4']];
+    const ladderSVG = (a, b, k) => {
+      const [x1, y1] = pos(a), [x2, y2] = pos(b), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ux = dx / L, uy = dy / L, px = -uy * 9, py = ux * 9;
+      const sx = x1 - ux * 6, sy = y1 - uy * 6, ex = x2 + ux * 4, ey = y2 + uy * 4;
+      let rungs = '';
+      for (let t = 12, i = 0; t < L; t += 15, i++) {
+        const cx = x1 + ux * t, cy = y1 + uy * t;
+        rungs += `<line x1="${(cx + px).toFixed(1)}" y1="${(cy + py).toFixed(1)}" x2="${(cx - px).toFixed(1)}" y2="${(cy - py).toFixed(1)}" stroke="${O}" stroke-width="6" stroke-linecap="round"/>`
+          + `<line x1="${(cx + px).toFixed(1)}" y1="${(cy + py).toFixed(1)}" x2="${(cx - px).toFixed(1)}" y2="${(cy - py).toFixed(1)}" stroke="${RAIN[(i + k) % 6]}" stroke-width="3.2" stroke-linecap="round"/>`;
+      }
+      const rail = s => `<line x1="${(sx + px * s).toFixed(1)}" y1="${(sy + py * s).toFixed(1)}" x2="${(ex + px * s).toFixed(1)}" y2="${(ey + py * s).toFixed(1)}" stroke="${O}" stroke-width="7" stroke-linecap="round"/>`
+        + `<line x1="${(sx + px * s).toFixed(1)}" y1="${(sy + py * s).toFixed(1)}" x2="${(ex + px * s).toFixed(1)}" y2="${(ey + py * s).toFixed(1)}" stroke="#e7a95f" stroke-width="3.8" stroke-linecap="round"/>`;
+      return `<g opacity=".97">${rungs}${rail(1)}${rail(-1)}</g>`;
+    };
+    const snakeSVG = (h, t, k) => {
+      const [x1, y1] = pos(h), [x2, y2] = pos(t), dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), nx = -dy / L, ny = dx / L;
+      const amp = Math.min(15, L / 7), waves = Math.max(1, Math.round(L / 80)) + 0.5, M = 48, [col, light] = SNAKEC[k % SNAKEC.length];
+      const c = Array.from({ length: M + 1 }, (_, i) => { const s = i / M, off = Math.sin(s * Math.PI * 2 * waves) * amp * Math.min(1, s * 5); return [x1 + dx * s + nx * off, y1 + dy * s + ny * off, 8.5 * (1 - s) + 1.8 * s]; });
+      const left = [], right = [];
+      c.forEach(([x, y, w], i) => {
+        const [ax, ay] = c[Math.max(0, i - 1)], [bx, by] = c[Math.min(M, i + 1)], l = Math.hypot(bx - ax, by - ay) || 1, qx = -(by - ay) / l * w, qy = (bx - ax) / l * w;
+        left.push(`${(x + qx).toFixed(1)} ${(y + qy).toFixed(1)}`); right.unshift(`${(x - qx).toFixed(1)} ${(y - qy).toFixed(1)}`);
+      });
+      const spots = c.filter((_, i) => i > 4 && i < M - 3 && i % 5 === 0).map(([x, y, w]) => `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(w * 0.42).toFixed(1)}" fill="${light}"/>`).join('');
+      return `<g><path d="M${left.join(' L')} L${right.join(' L')} Z" fill="${col}" stroke="${O}" stroke-width="2.2" stroke-linejoin="round"/>${spots}`
+        + `<path d="M${x1} ${y1 + 9} l0 6 l-3 3 M${x1} ${y1 + 15} l3 3" stroke="#ff4d6d" stroke-width="1.8" fill="none" stroke-linecap="round"/>`
+        + `<ellipse cx="${x1}" cy="${y1}" rx="13" ry="11.5" fill="${col}" stroke="${O}" stroke-width="2.2"/>`
+        + `<circle cx="${x1 - 5}" cy="${y1 - 3}" r="3.8" fill="#fff" stroke="${O}" stroke-width="1.2"/><circle cx="${x1 + 5}" cy="${y1 - 3}" r="3.8" fill="#fff" stroke="${O}" stroke-width="1.2"/>`
+        + `<circle cx="${x1 - 4.4}" cy="${y1 - 2.4}" r="1.9" fill="${O}"/><circle cx="${x1 + 5.6}" cy="${y1 - 2.4}" r="1.9" fill="${O}"/><circle cx="${x1 - 4}" cy="${y1 - 3.4}" r=".7" fill="#fff"/><circle cx="${x1 + 6}" cy="${y1 - 3.4}" r=".7" fill="#fff"/>`
+        + `<circle cx="${x1 - 8.5}" cy="${y1 + 3}" r="2.2" fill="#ff8fab" opacity=".7"/><circle cx="${x1 + 8.5}" cy="${y1 + 3}" r="2.2" fill="#ff8fab" opacity=".7"/>`
+        + `<path d="M${x1 - 4} ${y1 + 3} Q${x1} ${y1 + 7.5} ${x1 + 4} ${y1 + 3}" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/></g>`;
+    };
+    const boardSVG = () => {
+      let cells = '';
+      for (let n = 1; n <= 100; n++) {
+        const [cx, cy] = pos(n), r = rowOf(n), x = cx - 25, y = cy - 25;
+        cells += `<rect x="${x}" y="${y}" width="50" height="50" fill="${ROWC[r % 5]}"/>${(r + (x / 50)) % 2 ? `<rect x="${x}" y="${y}" width="50" height="50" fill="#fff" opacity=".45"/>` : ''}`
+          + `<text x="${x + 4}" y="${y + 13}" font-size="11" fill="${O}" opacity=".55" direction="ltr" font-family="Rubik, sans-serif">${n}</text>`;
+      }
+      const [fx, fy] = pos(100), [sx, sy] = pos(1);
+      const ent = Object.entries(jumps).map(([a, b]) => [+a, b]);
+      return `<svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="לוח סולמות ונחשים">${cells}`
+        + placeSvg(stickerHTML('trophy'), fx - 20, fy - 18, 40, 40)
+        + `<text x="${sx}" y="${sy + 18}" font-size="10" text-anchor="middle" fill="${O}" font-family="Rubik, sans-serif">התחלה</text>`
+        + ent.filter(([a, b]) => b > a).map(([a, b], i) => ladderSVG(a, b, i)).join('')
+        + ent.filter(([a, b]) => b < a).map(([a, b], i) => snakeSVG(a, b, i)).join('')
+        + `<rect x="1" y="1" width="498" height="498" rx="10" fill="none" stroke="${O}" stroke-width="3"/></svg>`;
+    };
+    // ----- my token -----
+    const opts = [];
+    try { (typeof girls !== 'undefined' ? girls : []).slice(0, 3).forEach(g => opts.push(['g' + g.id, g.name || 'הבובה שלי', () => girlSVG(g, 'lad' + g.id, { view: 'head', bg: false })])); } catch {}
+    ['heart', 'star', 'butterfly', 'crown', 'flower', 'bunny', 'unicorn', 'rainbowheart'].filter(id => STICKERS[id] && !isRareLocked(id)).forEach(id => opts.push(['s' + id, STICKERS[id][0], () => stickerHTML(id)]));
+    let myTok = store.get('ladToken', opts[0][0]);
+    if (!opts.some(o => o[0] === myTok)) myTok = opts[0][0];
+    const artCache = {};
+    const artFor = id => { const o = opts.find(x => x[0] === id) || opts[0]; if (!artCache[o[0]]) { try { artCache[o[0]] = o[2](); } catch { artCache[o[0]] = stickerHTML('heart'); } } return artCache[o[0]]; };
+    const myArt = () => artFor(myTok);
+    // ----- dom -----
+    const boardBox = el('div', { class: 'gcl-board' });
+    const tokMe = el('div', { class: 'gcl-tok me' }, el('div', { class: 'in' })), tokPet = el('div', { class: 'gcl-tok pet' }, el('div', { class: 'in', html: petArt() }));
+    const cube = el('div', { class: 'gcl-cube' }, ...[1, 2, 3, 4, 5, 6].map(v => el('div', { class: 'gcl-f f' + v }, ...Array.from({ length: 9 }, (_, i) => el('i', { class: GC_PIPS[v].includes(i) ? 'p' : '' })))));
+    const die = el('button', { type: 'button', class: 'gcl-die', 'aria-label': 'להטיל קובייה', onclick: () => { if (turn === 'me' && !busy && !over) play('me'); } }, cube);
+    const status = el('div', { class: 'gcl-status' }), say = el('div', { class: 'gcl-say' }), end = el('div');
+    const cardMe = el('div', { class: 'gcl-card' }), cardPet = el('div', { class: 'gcl-card' });
+    const info = el('div', { class: 'game-info' });
+    const drawInfo = () => info.replaceChildren(el('span', {}, `🏆 ניצחת ${games.laddersWins || 0}`), el('span', {}, `${petNm()} ניצח/ה ${games.laddersLosses || 0}`));
+    const place = (who, slow) => {
+      const t = who === 'me' ? tokMe : tokPet, n = who === 'me' ? me.n : mine.n, [x, y] = pos(n);
+      t.style.transitionDuration = slow ? '.85s' : '';
+      t.style.left = (x / 5) + '%'; t.style.top = (y / 5) + '%';
+      const both = me.n === mine.n;
+      tokMe.style.setProperty('--off', both ? '-22%' : '0%'); tokPet.style.setProperty('--off', both ? '22%' : '0%');
+    };
+    const hop = who => { const i = (who === 'me' ? tokMe : tokPet).firstChild; i.classList.remove('hop'); void i.offsetWidth; i.classList.add('hop'); };
+    const drawCards = () => {
+      cardMe.className = 'gcl-card' + (turn === 'me' && !over ? ' on' : '');
+      cardPet.className = 'gcl-card' + (turn === 'pet' && !over ? ' on' : '');
+      cardMe.replaceChildren(el('span', { class: 'av', html: myArt() }), el('span', {}, el('b', {}, 'את'), el('small', {}, `משבצת ${me.n}`)));
+      cardPet.replaceChildren(el('span', { class: 'av', html: petArt() }), el('span', {}, el('b', {}, petNm()), el('small', {}, `משבצת ${mine.n}`)));
+      die.disabled = turn !== 'me' || busy || over;
+      die.classList.toggle('ready', turn === 'me' && !busy && !over);
+    };
+    const talk = (text, who = 'pet') => { say.hidden = false; say.className = 'gcl-say ' + who; say.textContent = (who === 'pet' ? petNm() + ': ' : '') + text; };
+    const rollDie = async v => {
+      rolls++;
+      const [bx, by] = GC_DIE_ROT[v];
+      cube.style.transform = `rotateX(-16deg) rotateY(20deg) rotateX(${bx + 720 * rolls}deg) rotateY(${by + 360 * rolls}deg)`;
+      for (let i = 0; i < 9; i++) tone(260 + Math.random() * 260, 0.035, 'square', i * 0.09, 0.035);
+      await wait(850);
+      tone(700, 0.1, 'triangle');
+    };
+    const walk = async (who, v) => {
+      const p = who === 'me' ? me : mine;
+      let dir = 1;
+      for (let i = 0; i < v; i++) {
+        if (p.n === 100) dir = -1;
+        p.n += dir; place(who); hop(who); drawCards();
+        tone(420 + p.n * 6, 0.07, 'triangle', 0, 0.07);
+        await wait(210); if (!alive) return;
+      }
+    };
+    const play = async who => {
+      if (!alive || over) return;
+      busy = true; drawCards();
+      const p = who === 'me' ? me : mine;
+      if (who === 'me') status.textContent = '🎲 ...';
+      const v = 1 + gcInt(6);
+      await rollDie(v); if (!alive) return;
+      status.textContent = `${who === 'me' ? 'יצא לך' : `ל${petNm()} יצא`} ${v}!`;
+      await walk(who, v); if (!alive) return;
+      const j = jumps[p.n];
+      if (j) {
+        await wait(200); if (!alive) return;
+        const up = j > p.n;
+        p.n = j; place(who, true); drawCards();
+        if (up) { [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, 0.12, 'triangle', i * 0.12, 0.08)); }
+        else { for (let i = 0; i < 8; i++) tone(700 - i * 60, 0.09, 'sine', i * 0.09, 0.07); }
+        if (who === 'me') talk(up ? gcRnd(['וואו, איזה סולם! 👏', 'את עפה למעלה! 🪜✨', 'לא הוגן, גם אני רוצה סולם! 😹']) : gcRnd(['אוי, נחש! אבל הוא מחייך 🐍', 'החלקה! ווווש 🐍', 'לא נורא, עוד נתפוס אותי!']));
+        else talk(up ? gcRnd(['יש! סולם! 🪜✨', 'אני מטפס/ת! 🐾', 'תראי אותי למעלה!']) : gcRnd(['אוי לא! נחש! 🐍', 'ווווש... החלקתי למטה 😿', 'הנחש הזה דגדג אותי!']));
+        await wait(950); if (!alive) return;
+      }
+      if (p.n === 100) {
+        over = true; busy = false; drawCards();
+        if (who === 'me') {
+          talk('כל הכבוד! ניצחת אותי! 🏆'); winGame('laddersWins');
+          end.replaceChildren(winLine(`הגעת ראשונה ל-100! ניצחת את ${petNm()}! 🎉`, newGame));
+        } else {
+          games.laddersLosses = (games.laddersLosses || 0) + 1; store.set('games', games); afterChange();
+          talk('ניצחתי! עוד משחק? 😸'); SFX.pop();
+          end.replaceChildren(winLine(`${petNm()} הגיע/ה ראשון/ה הפעם. עוד סיבוב?`, newGame));
+        }
+        drawInfo(); return;
+      }
+      if (v === 6) { status.textContent += ' שש = עוד תור! ⭐'; if (who === 'pet') talk('שש! עוד פעם אני!'); }
+      else turn = who === 'me' ? 'pet' : 'me';
+      busy = false; drawCards();
+      if (turn === 'pet') {
+        if (who === 'me') talk(gcRnd(['עכשיו תורי! 🎲', 'קדימה קובייה!', 'הנה אני מטיל/ה...', 'תחזיקי אצבעות בשבילי!']));
+        busy = true; drawCards();
+        await wait(700); if (!alive) return;
+        busy = false; play('pet');
+      } else if (who === 'pet') status.textContent += ' עכשיו תורך!';
+    };
+    const tokChips = el('div', { class: 'chips gcl-pick' });
+    const drawTokChips = () => tokChips.replaceChildren(el('span', { class: 'muted' }, 'האסימון שלי:'), ...opts.map(([id, name]) => {
+      const b = el('button', { type: 'button', class: 'gcl-opt', 'aria-pressed': String(myTok === id), 'aria-label': name, title: name, onclick: () => { myTok = id; store.set('ladToken', id); drawTokChips(); tokMe.firstChild.innerHTML = myArt(); drawCards(); } });
+      b.innerHTML = artFor(id);
+      return b;
+    }));
+    function newGame() {
+      tms.forEach(clearTimeout); tms.length = 0;
+      gen(); end.replaceChildren(); say.hidden = true;
+      boardBox.innerHTML = boardSVG(); boardBox.append(tokPet, tokMe);
+      tokMe.firstChild.innerHTML = myArt();
+      place('me'); place('pet'); drawCards(); drawInfo();
+      status.textContent = 'את מתחילה! לוחצים על הקובייה 🎲';
+    }
+    drawTokChips(); newGame();
+    $('#gamesBody').replaceChildren(
+      el('p', { class: 'muted' }, `משחק נגד ${petNm()}! מטילים קובייה ומתקדמים. סולם 🪜 מעלה אותך למעלה, ונחש 🐍 מחליק אותך למטה. מי שמגיעה ראשונה ל-100 מנצחת. 6 = עוד תור!`),
+      tokChips, info,
+      el('div', { class: 'gcl-wrap' }, boardBox, el('div', { class: 'gcl-side' }, cardMe, cardPet, die, status, say)), end,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: newGame }, '🔀 לוח חדש')));
+  }
+
+  // ---------- 37. jump up (doodle jump style) ----------
+  const GC_SKY = [[0, '#7fd3ff', '#e4f7ff'], [2500, '#76b4ff', '#ffd3ea'], [5500, '#7b62cf', '#ff9fc2'], [9000, '#28297a', '#6a4aa8'], [14000, '#0b0e33', '#23195a'], [22000, '#02030d', '#0c0925']];
+  const gcMix = (a, b, t) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)), A = p(a), B = p(b); return `rgb(${A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',')})`; };
+  function jumpGame() {
+    gbStop();
+    const W = 400, H = 600, G = 0.36, JUMP = -11.6, SPRING = -19.5;
+    const cv = el('canvas', { width: W, height: H, 'aria-label': 'משחק קפיצות' }), ctx = cv.getContext('2d');
+    const info = el('div', { class: 'game-info' }), end = el('div');
+    const petImg = gbImg(petArt()), starImg = gbImg(stickerHTML('star')), heartImg = gbImg(stickerHTML('heart'));
+    const stars = Array.from({ length: 80 }, (_, i) => ({ x: (i * 157.3) % W, y: (i * 89.7) % H, r: 0.6 + (i % 4) * 0.45, ph: i }));
+    const puffs = Array.from({ length: 7 }, (_, i) => ({ x: (i * 131) % W, y: -i * 380 - 100, s: 0.7 + (i % 3) * 0.3 }));
+    let x, y, vy, vx, camY, plats, items, parts, texts, topY, maxH, bonus, lives, running, over, overAt, raf = 0, last = 0, tick = 0, keys = {}, ptrX = null, pressed = false, squash = 0, lastInfo = '', flash = 0;
+    const score = () => Math.floor(maxH / 10) + bonus;
+    const drawInfo = () => {
+      const k = [score(), lives, games.jumpBest].join();
+      if (k === lastInfo) return; lastInfo = k;
+      info.replaceChildren(el('span', {}, `📏 ${score()}`), el('span', {}, '💖'.repeat(lives) || '🤍'), games.jumpBest ? el('span', {}, `🏆 השיא: ${games.jumpBest}`) : null);
+    };
+    const addPlat = (py, h) => {
+      const w = Math.max(54, 80 - h / 450), r = Math.random(), movP = h < 700 ? 0 : Math.min(0.42, 0.1 + h / 14000);
+      const p = { x: w / 2 + Math.random() * (W - w), y: py, w, t: r < movP ? 'm' : 'n', vx: 0, spring: null, sprung: 0 };
+      if (p.t === 'm') p.vx = (Math.random() < 0.5 ? -1 : 1) * (0.8 + Math.min(2.4, h / 5000));
+      if (p.t === 'n' && h > 300 && Math.random() < 0.09) p.spring = (Math.random() - 0.5) * (w - 24);
+      plats.push(p);
+      if (!p.spring && Math.random() < 0.22) items.push({ t: 'star', x: p.x, y: py - 42, got: false });
+      else if (!p.spring && lives < 3 && h > 1500 && Math.random() < 0.035) items.push({ t: 'heart', x: p.x, y: py - 44, got: false });
+    };
+    const gen = () => {
+      while (topY > camY - 160) {
+        const h = -topY, gap = 48 + Math.random() * (26 + Math.min(72, h / 220));
+        topY -= gap; addPlat(topY, -topY);
+        // extra breaking cloud as a trap between the good ones
+        if (-topY > 900 && Math.random() < Math.min(0.35, 0.1 + -topY / 20000)) {
+          const w = 62; plats.push({ x: w / 2 + Math.random() * (W - w), y: topY + gap * 0.5, w, t: 'b', vx: 0, broken: false, fall: 0 });
+        }
+      }
+    };
+    const reset = () => {
+      x = W / 2; y = 0; vy = 0; vx = 0; camY = -H + 70; maxH = 0; bonus = 0; lives = 0; running = false; over = false; squash = 0;
+      plats = [{ x: W / 2, y: 0, w: W * 3, t: 'g' }]; items = []; parts = []; texts = []; topY = 0; lastInfo = '';
+      gen(); end.replaceChildren(); drawInfo();
+    };
+    const pop = (px, py, col, n = 10) => { for (let i = 0; i < n; i++) { const a = Math.random() * 6.3, s = 1 + Math.random() * 3; parts.push({ x: px, y: py, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 1, life: 30 + Math.random() * 20, col }); } };
+    const float = (px, py, text) => texts.push({ x: px, y: py, text, life: 50 });
+    const gameOver = () => {
+      running = false; over = true; overAt = performance.now();
+      const s = score(), best = s > (games.jumpBest || 0);
+      if (best) games.jumpBest = s;
+      games.jumpPlays = (games.jumpPlays || 0) + 1;
+      store.set('games', games); afterChange(); lastInfo = ''; drawInfo();
+      if (best && s) { confetti($('#gamesDlg .confetti-c')); SFX.yay(); } else { for (let i = 0; i < 5; i++) tone(500 - i * 70, 0.12, 'triangle', i * 0.1, 0.07); }
+      end.replaceChildren(winLine(`${petNm()} קפץ/ה לגובה ${s}!${best && s ? ' שיא חדש! 🏆' : ''}`, () => { reset(); start(); }));
+    };
+    const start = () => { if (!running) { running = true; if (!over) vy = JUMP; } };
+    const tap = () => {
+      if (over) { if (performance.now() - overAt > 800) { reset(); start(); } return; }
+      start();
+    };
+    // ----- drawing -----
+    const cloud = (cx, cy, w, fill, face) => {
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(cx - w / 2, cy + 1, w, 15, 8); else ctx.rect(cx - w / 2, cy + 1, w, 15);
+      ctx.moveTo(cx - w * 0.2 + 11, cy + 3); ctx.arc(cx - w * 0.2, cy + 3, 11, 0, 7);
+      ctx.moveTo(cx + w * 0.1 + 13, cy); ctx.arc(cx + w * 0.1, cy, 13, 0, 7);
+      ctx.moveTo(cx + w * 0.33 + 8, cy + 5); ctx.arc(cx + w * 0.33, cy + 5, 8, 0, 7);
+      ctx.strokeStyle = O; ctx.lineWidth = 5; ctx.stroke(); ctx.fillStyle = fill; ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.beginPath(); ctx.ellipse(cx + w * 0.05, cy - 6, 5, 2.5, -0.3, 0, 7); ctx.fill();
+      if (face) {
+        ctx.fillStyle = O; ctx.beginPath(); ctx.arc(cx - 6, cy + 7, 1.8, 0, 7); ctx.arc(cx + 6, cy + 7, 1.8, 0, 7); ctx.fill();
+        ctx.strokeStyle = O; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(cx, cy + 9, 3, 0.3, Math.PI - 0.3); ctx.stroke();
+        ctx.fillStyle = 'rgba(255,140,170,.55)'; ctx.beginPath(); ctx.arc(cx - 11, cy + 10, 2.4, 0, 7); ctx.arc(cx + 11, cy + 10, 2.4, 0, 7); ctx.fill();
+      }
+    };
+    const spring = (sx, sy, up) => {
+      const hh = up ? 26 : 13;
+      ctx.strokeStyle = O; ctx.lineWidth = 5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      const zig = () => { ctx.beginPath(); ctx.moveTo(sx, sy); for (let i = 1; i <= 5; i++) ctx.lineTo(sx + (i % 2 ? -7 : 7), sy - hh * i / 5.5); ctx.lineTo(sx, sy - hh); };
+      zig(); ctx.stroke(); ctx.strokeStyle = '#c0c8d8'; ctx.lineWidth = 2.6; zig(); ctx.stroke();
+      ctx.fillStyle = '#ff5a6e'; ctx.strokeStyle = O; ctx.lineWidth = 2.2; ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(sx - 11, sy - hh - 6, 22, 7, 3); else ctx.rect(sx - 11, sy - hh - 6, 22, 7);
+      ctx.fill(); ctx.stroke();
+    };
+    const drawSky = () => {
+      const h = Math.max(0, -camY - H);
+      let i = 0; while (i < GC_SKY.length - 2 && h > GC_SKY[i + 1][0]) i++;
+      const [h0, t0, b0] = GC_SKY[i], [h1, t1, b1] = GC_SKY[i + 1], t = gbClamp((h - h0) / (h1 - h0), 0, 1);
+      const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, gcMix(t0, t1, t)); g.addColorStop(1, gcMix(b0, b1, t));
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+      const sa = gbClamp((h - 5000) / 5000, 0, 1);
+      if (sa > 0) {
+        for (const s of stars) {
+          const sy = ((s.y - camY * 0.05) % H + H) % H, tw = 0.6 + 0.4 * Math.sin(tick / 20 + s.ph);
+          ctx.fillStyle = `rgba(255,255,240,${(sa * tw).toFixed(2)})`; ctx.beginPath(); ctx.arc(s.x, sy, s.r, 0, 7); ctx.fill();
+        }
+        // a ringed planet and a moon drifting by
+        const py = ((-camY * 0.03) % (H + 300)) - 150;
+        ctx.globalAlpha = sa;
+        ctx.fillStyle = '#ffcf7a'; ctx.beginPath(); ctx.arc(320, py, 26, 0, 7); ctx.fill();
+        ctx.strokeStyle = '#ff9fc2'; ctx.lineWidth = 4; ctx.beginPath(); ctx.ellipse(320, py, 44, 10, -0.35, 0, 7); ctx.stroke();
+        ctx.fillStyle = '#fff6d6'; ctx.beginPath(); ctx.arc(70, ((-camY * 0.02 + 300) % (H + 200)) - 100, 16, 0, 7); ctx.fill();
+        ctx.globalAlpha = 1;
+      }
+      // soft background clouds while still in the daytime sky
+      const ca = gbClamp(1 - h / 6000, 0, 1) * 0.5;
+      if (ca > 0) {
+        ctx.fillStyle = `rgba(255,255,255,${ca.toFixed(2)})`;
+        for (const p of puffs) {
+          const py = ((p.y - camY * 0.4) % (H + 200) + H + 200) % (H + 200) - 100;
+          ctx.beginPath(); ctx.ellipse(p.x, py, 50 * p.s, 16 * p.s, 0, 0, 7); ctx.ellipse(p.x + 22 * p.s, py - 10 * p.s, 26 * p.s, 16 * p.s, 0, 0, 7); ctx.fill();
+        }
+      }
+    };
+    const drawGround = sy => {
+      if (sy - camY > H + 40) return;
+      ctx.fillStyle = '#7ed957'; ctx.strokeStyle = O; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(-5, sy + 6);
+      for (let gx = 0; gx <= W + 10; gx += 20) ctx.quadraticCurveTo(gx - 10, sy - 4, gx, sy + 4);
+      ctx.lineTo(W + 5, sy + H); ctx.lineTo(-5, sy + H); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = '#5fbf45'; ctx.fillRect(0, sy + 26, W, H);
+      [[40, '#ff9ad5'], [120, '#ffd84d'], [280, '#b58cff'], [355, '#ff7a7a']].forEach(([fx, c]) => {
+        ctx.strokeStyle = '#3f9c4e'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(fx, sy + 4); ctx.lineTo(fx, sy - 10); ctx.stroke();
+        ctx.fillStyle = c; for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.arc(fx + Math.cos(k * 1.26) * 4.5, sy - 12 + Math.sin(k * 1.26) * 4.5, 3.2, 0, 7); ctx.fill(); }
+        ctx.fillStyle = '#fff3a0'; ctx.beginPath(); ctx.arc(fx, sy - 12, 2.4, 0, 7); ctx.fill();
+      });
+    };
+    const frame = now => {
+      raf = requestAnimationFrame(frame);
+      const dt = last ? gbClamp((now - last) / 16.67, 0.2, 2.5) : 1; last = now; tick += dt;
+      // ----- physics -----
+      if (keys.ArrowLeft) { vx -= 1.1 * dt; ptrX = null; }
+      if (keys.ArrowRight) { vx += 1.1 * dt; ptrX = null; }
+      if (ptrX != null && running) { let d = ptrX - x; if (d > W / 2) d -= W; if (d < -W / 2) d += W; vx = gbClamp(d * 0.13, -8.5, 8.5); }
+      else if (!keys.ArrowLeft && !keys.ArrowRight) vx *= Math.pow(0.86, dt);
+      vx = gbClamp(vx, -8.5, 8.5);
+      if (running) { x += vx * dt; if (x < -20) x += W + 40; if (x > W + 20) x -= W + 40; }
+      const py = y;
+      vy = Math.min(vy + G * dt, 14); y += vy * dt;
+      if (vy > 0) for (const p of plats) {
+        if (p.broken || py > p.y + 1 || y < p.y || (!running && p.t !== 'g')) continue;
+        if (Math.abs(x - p.x) > p.w / 2 + 12) continue;
+        if (p.t === 'b') { p.broken = true; tone(180, 0.12, 'sawtooth', 0, 0.05); tone(120, 0.15, 'triangle', 0.05, 0.06); pop(p.x, p.y + 8, '#c9d3e6', 8); continue; }
+        y = p.y; squash = 1;
+        if (p.spring != null && Math.abs(x - (p.x + p.spring)) < 18) { vy = SPRING; p.sprung = 20; [400, 600, 900, 1300].forEach((f, i) => tone(f, 0.08, 'square', i * 0.04, 0.05)); pop(x, y, '#ffd84d', 12); }
+        else { vy = running ? JUMP : -8; if (running) tone(500 + Math.min(500, maxH / 40), 0.07, 'sine', 0, 0.06); }
+        break;
+      }
+      for (const p of plats) {
+        if (p.t === 'm') { p.x += p.vx * dt; if (p.x < p.w / 2 || p.x > W - p.w / 2) { p.vx *= -1; p.x = gbClamp(p.x, p.w / 2, W - p.w / 2); } }
+        if (p.broken) { p.fall += 0.5 * dt; p.y += p.fall * dt; }
+        if (p.sprung > 0) p.sprung -= dt;
+      }
+      if (running) {
+        if (y - H * 0.42 < camY) camY = y - H * 0.42;
+        maxH = Math.max(maxH, -y);
+        gen();
+        plats = plats.filter(p => p.y < camY + H + 80 && !(p.broken && p.fall > 30));
+        items = items.filter(it => it.y < camY + H + 60 && !it.got);
+        for (const it of items) {
+          if (Math.hypot(it.x - x, it.y - (y - 34)) < 34) {
+            it.got = true;
+            if (it.t === 'star') { bonus += 5; tone(1320, 0.08, 'sine', 0, 0.08); tone(1760, 0.1, 'sine', 0.06, 0.06); pop(it.x, it.y, '#ffd84d'); float(it.x, it.y, '+5'); }
+            else { lives = Math.min(3, lives + 1); SFX.ding(); pop(it.x, it.y, '#ff7a9a', 14); float(it.x, it.y, '💖 +1'); }
+          }
+        }
+        if (y > camY + H + 50) {
+          if (lives > 0) { lives--; y = camY + H + 20; vy = SPRING * 1.05; flash = 20; tone(300, 0.1, 'sine'); tone(600, 0.15, 'sine', 0.08); tone(900, 0.2, 'sine', 0.16); float(x, y - 80, 'הלב הציל אותך! 💖'); }
+          else gameOver();
+        }
+        drawInfo();
+      }
+      for (const q of parts) { q.x += q.vx * dt; q.y += q.vy * dt; q.vy += 0.12 * dt; q.life -= dt; }
+      parts = parts.filter(q => q.life > 0);
+      for (const t of texts) { t.y -= 0.8 * dt; t.life -= dt; }
+      texts = texts.filter(t => t.life > 0);
+      if (squash > 0) squash = Math.max(0, squash - 0.08 * dt);
+      // ----- draw -----
+      drawSky();
+      ctx.save(); ctx.translate(0, -camY);
+      drawGround(0);
+      for (const p of plats) {
+        if (p.t === 'g') continue;
+        if (p.broken) {
+          ctx.globalAlpha = Math.max(0, 1 - p.fall / 30);
+          ctx.save(); ctx.translate(-p.fall * 0.8, 0); ctx.rotate(-0.02 * p.fall); cloud(p.x - p.w / 4, p.y, p.w / 2, '#c9d3e6', false); ctx.restore();
+          ctx.save(); ctx.translate(p.fall * 0.8, 0); cloud(p.x + p.w / 4, p.y, p.w / 2, '#c9d3e6', false); ctx.restore();
+          ctx.globalAlpha = 1; continue;
+        }
+        cloud(p.x, p.y, p.w, p.t === 'm' ? '#ffe0f0' : p.t === 'b' ? '#c9d3e6' : '#ffffff', p.t !== 'b');
+        if (p.t === 'b') { ctx.strokeStyle = '#6b7a99'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(p.x - 3, p.y - 6); ctx.lineTo(p.x + 3, p.y + 2); ctx.lineTo(p.x - 2, p.y + 8); ctx.lineTo(p.x + 4, p.y + 14); ctx.stroke(); }
+        if (p.spring != null) spring(p.x + p.spring, p.y + 1, p.sprung > 0);
+      }
+      for (const it of items) {
+        const bob = Math.sin(tick / 12 + it.x) * 4, im = it.t === 'star' ? starImg : heartImg;
+        if (im.complete && im.naturalWidth) { ctx.save(); ctx.translate(it.x, it.y + bob); ctx.rotate(Math.sin(tick / 18 + it.x) * 0.2); ctx.drawImage(im, -15, -15, 30, 30); ctx.restore(); }
+      }
+      for (const q of parts) { ctx.globalAlpha = Math.min(1, q.life / 20); ctx.fillStyle = q.col; ctx.beginPath(); ctx.arc(q.x, q.y, 3.2, 0, 7); ctx.fill(); }
+      ctx.globalAlpha = 1;
+      // the pet
+      const drawPet = px => {
+        ctx.save(); ctx.translate(px, y);
+        ctx.rotate(gbClamp(vx * 0.035, -0.3, 0.3));
+        const sq = Math.sin(squash * Math.PI) * 0.22 * (squash > 0.5 ? 1 : 0.6), stretch = vy < -14 ? 0.08 : 0;
+        ctx.scale(1 + sq, 1 - sq + stretch);
+        if (petImg.complete && petImg.naturalWidth) ctx.drawImage(petImg, -33, -74, 66, 75);
+        else { ctx.fillStyle = '#ffb020'; ctx.beginPath(); ctx.arc(0, -30, 26, 0, 7); ctx.fill(); }
+        ctx.restore();
+      };
+      if (!(flash > 0 && Math.floor(flash / 3) % 2)) { drawPet(x); if (x < 30) drawPet(x + W + 40); if (x > W - 30) drawPet(x - W - 40); }
+      if (flash > 0) flash -= dt;
+      if (vy < -14) { ctx.fillStyle = 'rgba(255,230,120,.8)'; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.arc(x + (Math.random() - 0.5) * 30, y + 6 + Math.random() * 18, 2.5, 0, 7); ctx.fill(); } }
+      ctx.font = 'bold 20px Rubik, sans-serif'; ctx.textAlign = 'center';
+      for (const t of texts) { ctx.globalAlpha = Math.min(1, t.life / 20); ctx.lineWidth = 4; ctx.strokeStyle = O; ctx.strokeText(t.text, t.x, t.y); ctx.fillStyle = '#fff'; ctx.fillText(t.text, t.x, t.y); }
+      ctx.globalAlpha = 1;
+      ctx.restore();
+      // score on the canvas
+      if (running) {
+        ctx.font = 'bold 24px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 5; ctx.strokeStyle = 'rgba(58,43,60,.6)'; ctx.strokeText(score(), W / 2, 38); ctx.fillStyle = '#fff'; ctx.fillText(score(), W / 2, 38);
+      } else {
+        ctx.fillStyle = 'rgba(20,30,70,.28)'; ctx.fillRect(0, 0, W, H);
+        ctx.fillStyle = 'rgba(255,255,255,.94)'; ctx.strokeStyle = O; ctx.lineWidth = 3; ctx.beginPath();
+        if (ctx.roundRect) ctx.roundRect(30, H / 2 - 150, W - 60, 110, 22); else ctx.rect(30, H / 2 - 150, W - 60, 110);
+        ctx.fill(); ctx.stroke();
+        ctx.textAlign = 'center'; ctx.fillStyle = O; ctx.font = 'bold 26px Rubik, sans-serif';
+        ctx.fillText(over ? `אוי! נפלת 🙀 ${score()}` : 'לוחצים כדי לקפוץ! 🐸', W / 2, H / 2 - 108);
+        ctx.fillStyle = '#6b4fbf'; ctx.font = '17px Rubik, sans-serif';
+        ctx.fillText(over ? 'לוחצים כדי לשחק שוב' : 'מזיזים עם העכבר, האצבע או החצים', W / 2, H / 2 - 72);
+      }
+    };
+    const toX = e => { const r = cv.getBoundingClientRect(); return (e.clientX - r.left) * W / r.width; };
+    cv.addEventListener('pointerdown', e => { e.preventDefault(); pressed = true; ptrX = toX(e); try { cv.setPointerCapture(e.pointerId); } catch {} tap(); });
+    cv.addEventListener('pointermove', e => { if (e.pointerType === 'mouse' || pressed) ptrX = toX(e); });
+    cv.addEventListener('pointerup', e => { pressed = false; if (e.pointerType !== 'mouse') ptrX = null; });
+    cv.addEventListener('pointerleave', () => { if (!pressed) ptrX = null; });
+    const unkeys = addKeys(e => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { keys[e.key] = true; e.preventDefault(); if (!running && !over) start(); }
+      else if (e.key === ' ' || e.key === 'ArrowUp') { e.preventDefault(); tap(); }
+    });
+    const ku = e => { keys[e.key] = false; };
+    document.addEventListener('keyup', ku);
+    catchStop = () => { cancelAnimationFrame(raf); unkeys(); document.removeEventListener('keyup', ku); };
+    reset(); raf = requestAnimationFrame(frame);
+    $('#gamesBody').replaceChildren(
+      el('p', { class: 'muted' }, `${petNm()} קופצ/ת על עננים עד לחלל! 🚀 מזיזים ימינה ושמאלה (עכבר, אצבע או חצים). אפשר לצאת מצד אחד ולהופיע בצד השני. ענן אפור מתפרק ☁️💥, קפיץ 🌀 = קפיצת-על, ⭐ = 5 נקודות, 💖 = הצלה אחת כשנופלים.`),
+      info, el('div', { class: 'gcj-wrap' }, cv), end);
+  }
+
+  // ---------- 38. pizza restaurant ----------
+  const GC_SAUCES = [['tomato', 'עגבניות', '#e5432b', '#b8301c'], ['pesto', 'פסטו', '#5aa83a', '#3c7d23'], ['white', 'לבן', '#fff4de', '#e0cfa8']];
+  const GC_TOPS = [['olive', 'זיתים'], ['mushroom', 'פטריות'], ['corn', 'תירס'], ['pepper', 'פלפל'], ['pineapple', 'אננס'], ['tomato', 'עגבניות'], ['onion', 'בצל'], ['basil', 'בזיליקום']];
+  const gcPiece = (t, x, y, a = 0, s = 1) => {
+    const g = {
+      olive: '<circle r="5.4" fill="none" stroke="#2b2630" stroke-width="3.6"/><path d="M-3 -4.5 q2 -1 4 -.6" stroke="#8a7d96" stroke-width="1.2" fill="none" stroke-linecap="round"/>',
+      mushroom: '<path d="M-8 1.5 Q-8 -8 0 -8 Q8 -8 8 1.5 Z" fill="#e8cfae" stroke="#8a6a4a" stroke-width="1.4" stroke-linejoin="round"/><path d="M-3 1.5 L-3.4 7 Q0 8.6 3.4 7 L3 1.5 Z" fill="#f7ebd8" stroke="#8a6a4a" stroke-width="1.4" stroke-linejoin="round"/><path d="M-5 -2 Q0 -6 5 -2" stroke="#fff" stroke-opacity=".6" stroke-width="1.2" fill="none"/>',
+      corn: '<ellipse cx="-3.4" cy="-1" rx="2.9" ry="3.5" fill="#ffd43b" stroke="#d99a00" stroke-width="1"/><ellipse cx="3.2" cy="-2" rx="2.9" ry="3.5" fill="#ffd43b" stroke="#d99a00" stroke-width="1"/><ellipse cx="0" cy="3.6" rx="2.9" ry="3.5" fill="#ffe066" stroke="#d99a00" stroke-width="1"/>',
+      pepper: '<path d="M0 -6.5 C4 -8 8 -4 7 0.5 C7 5 3 8 0 5.8 C-3 8 -7 5 -7 0.5 C-8 -4 -4 -8 0 -6.5 Z" fill="none" stroke="#2f9e44" stroke-width="2.8" stroke-linejoin="round"/>',
+      pineapple: '<path d="M-6 -4.5 L6 -4.5 L7 4.5 L-7 4.5 Z" fill="#ffe066" stroke="#e0a300" stroke-width="1.4" stroke-linejoin="round"/><path d="M-3 -1 H3 M-4 2 H4" stroke="#f2c230" stroke-width="1"/>',
+      tomato: '<circle r="7.5" fill="#ff4f45" stroke="#b8261d" stroke-width="1.4"/><circle r="4.6" fill="#ff8a7a"/><circle cx="-2" cy="-1.2" r="1" fill="#ffe3a3"/><circle cx="2" cy="1.2" r="1" fill="#ffe3a3"/><circle cx="1.6" cy="-2.2" r="1" fill="#ffe3a3"/><circle cx="-1.4" cy="2.2" r="1" fill="#ffe3a3"/>',
+      onion: '<circle r="7" fill="none" stroke="#a66bd1" stroke-width="2.2"/><circle r="4" fill="none" stroke="#d2acf0" stroke-width="1.6"/>',
+      basil: '<path d="M-8 0 Q0 -7.5 8 0 Q0 7.5 -8 0 Z" fill="#3f9c4e" stroke="#256b31" stroke-width="1.1"/><path d="M-7 0 H6.5 M-2 0 L1 -3 M2 0 L5 -2.4 M-2 0 L1 3" stroke="#8fd19b" stroke-width=".9" fill="none"/>',
+    }[t] || '';
+    return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${Math.round(a)}) scale(${s})">${g}</g>`;
+  };
+  const gcBlob = (r, n, amp, seed, cx = 100, cy = 100) => {
+    const pts = Array.from({ length: n }, (_, i) => { const a = i / n * Math.PI * 2, rr = r + Math.sin(i * 2.3 + seed) * amp + Math.cos(i * 1.7 + seed * 2) * amp * 0.6; return [cx + Math.cos(a) * rr, cy + Math.sin(a) * rr]; });
+    const mid = (a, b) => `${((a[0] + b[0]) / 2).toFixed(1)} ${((a[1] + b[1]) / 2).toFixed(1)}`;
+    return `M${mid(pts[n - 1], pts[0])}` + pts.map((p, i) => ` Q${p[0].toFixed(1)} ${p[1].toFixed(1)} ${mid(p, pts[(i + 1) % n])}`).join('') + ' Z';
+  };
+  // arrange a few pieces of each kind nicely (for orders)
+  const gcAutoTops = (kinds, per = 4, s = 1) => {
+    const out = [], n = kinds.length * per;
+    for (let i = 0; i < n; i++) { const a = i * 2.39996 + 0.4, r = (n < 5 ? 34 : 18) + (n < 5 ? 20 : 46) * Math.sqrt((i + 0.5) / n); out.push({ t: kinds[i % kinds.length], x: 100 + Math.cos(a) * r, y: 100 + Math.sin(a) * r, a: (i * 67) % 360, s }); }
+    return out;
+  };
+  function gcPizzaSVG(p, o = {}) {
+    const b = p.baked, sc = GC_SAUCES.find(s => s[0] === p.sauce);
+    let s = `<svg viewBox="${o.vb || '0 0 200 200'}" xmlns="http://www.w3.org/2000/svg">`;
+    if (o.board !== false) s += `<circle cx="100" cy="104" r="99" fill="#b8733d" stroke="${O}" stroke-width="2.5"/><circle cx="100" cy="100" r="97" fill="#d9965a"/><path d="M20 70 Q100 60 180 72 M12 110 Q100 100 188 112 M24 148 Q100 140 176 150" stroke="#c4834a" stroke-width="2" fill="none"/>`;
+    s += `<circle cx="100" cy="100" r="88" fill="${b ? '#dd9a4e' : '#f6dfb2'}" stroke="${O}" stroke-width="2.5"/>`;
+    s += `<circle cx="100" cy="100" r="77" fill="${b ? '#f0c27a' : '#fbe9c6'}"/>`;
+    if (b) s += `<path d="M40 50 Q55 36 72 30 M150 34 Q166 46 174 62 M168 140 Q156 160 140 168" stroke="#fff" stroke-opacity=".35" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="30" cy="110" r="3" fill="#b8733d" opacity=".6"/><circle cx="160" cy="176" r="2.5" fill="#b8733d" opacity=".6"/>`;
+    if (sc) s += `<path d="${gcBlob(73, 16, 2.4, 1)}" fill="${sc[2]}" stroke="${sc[3]}" stroke-width="1.5"/>` + (p.sauce === 'pesto' ? '<circle cx="80" cy="70" r="2" fill="#2f6e1a" opacity=".5"/><circle cx="130" cy="120" r="2" fill="#2f6e1a" opacity=".5"/><circle cx="70" cy="130" r="1.6" fill="#2f6e1a" opacity=".5"/>' : '');
+    if (p.cheese) {
+      if (b) s += `<path d="${gcBlob(66, 14, 4.5, 3)}" fill="#ffd966" opacity=".96"/><circle cx="76" cy="84" r="4" fill="#e9a23b" opacity=".55"/><circle cx="126" cy="72" r="3" fill="#e9a23b" opacity=".5"/><circle cx="118" cy="128" r="4.5" fill="#e9a23b" opacity=".5"/><circle cx="70" cy="124" r="2.6" fill="#e9a23b" opacity=".5"/><path d="M60 70 Q70 62 84 62" stroke="#fff6c8" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      else s += Array.from({ length: 64 }, (_, i) => { const a = i * 2.39996, r = 64 * Math.sqrt((i + 0.5) / 64), x = 100 + Math.cos(a) * r, y = 100 + Math.sin(a) * r, t = i * 1.3; return `<line x1="${(x - Math.cos(t) * 4.5).toFixed(1)}" y1="${(y - Math.sin(t) * 4.5).toFixed(1)}" x2="${(x + Math.cos(t) * 4.5).toFixed(1)}" y2="${(y + Math.sin(t) * 4.5).toFixed(1)}" stroke="#fff3b0" stroke-width="3.6" stroke-linecap="round"/>`; }).join('');
+    }
+    s += p.tops.map(t => gcPiece(t.t, t.x, t.y, t.a, (t.s || 1) * (b ? 0.95 : 1))).join('');
+    if (b && o.steam !== false) s += `<g class="gcp-steam" stroke="#fff" stroke-opacity=".75" stroke-width="3" fill="none" stroke-linecap="round"><path d="M80 40 q-6 -8 0 -16 q6 -8 0 -16"/><path d="M104 36 q-6 -8 0 -16 q6 -8 0 -16"/><path d="M128 40 q-6 -8 0 -16 q6 -8 0 -16"/></g>`;
+    return s + '</svg>';
+  }
+  const GC_OVEN = `<svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg"><path d="M20 70 Q20 12 100 10 Q180 12 180 70 V160 H20 Z" fill="#e0764f" stroke="${O}" stroke-width="3"/>`
+    + `<path d="M34 72 Q36 28 100 26 Q164 28 166 72 V148 H34 Z" fill="#b8543a" stroke="${O}" stroke-width="2"/><path d="M50 150 V92 Q52 60 100 58 Q148 60 150 92 V150 Z" fill="#2a1418" stroke="${O}" stroke-width="3"/>`
+    + `<g class="gcp-fire"><path d="M62 150 q4 -26 14 -34 q-2 14 8 20 q2 -18 16 -28 q-4 18 8 26 q6 -12 14 -16 q-4 16 4 32 Z" fill="#ffb020"/><path d="M78 150 q4 -14 10 -18 q0 10 8 12 q4 -12 12 -16 q-2 12 6 22 Z" fill="#ffe066"/></g>`
+    + `<ellipse cx="100" cy="150" rx="46" ry="6" fill="#ff8a3d" opacity=".5"/>${[40, 66, 92, 118, 144].map(x => `<rect x="${x}" y="160" width="20" height="8" fill="#c96344" stroke="${O}" stroke-width="1.5"/>`).join('')}</svg>`;
+  function pizzaGame() {
+    gbStop();
+    const ROUND = 90;
+    const HAIRS = ['#6b4226', '#3a2b3c', '#e8573f', '#ffcf3a', '#b07642', '#b58cff'], SKINS = ['#ffe3d1', '#f6d0b1', '#e8b48f', '#c98e6b', '#8d5a3b'];
+    const OUTFITS = ['#ff9ad5', '#7ec8ff', '#6fcf7f', '#ffb020', '#b58cff', '#ff5a6e'], HATS = [null, null, 'cap', 'straw', 'flowers', 'wizard'];
+    const ANIMALS = ['cat', 'dog', 'bunny', 'bear', 'panda', 'owl', 'lion', 'dino'];
+    let running = false, coins = 0, served = 0, left = ROUND, cust = null, pz = null, busy = false, baking = false, timer = 0, leaveT = 0, bakeT = 0, tool = 'olive', down = false, lastP = null;
+    const info = el('div', { class: 'game-info' });
+    const custBox = el('div', { class: 'ice-cust' }), bubble = el('div', { class: 'gcp-bubble' }), bar = el('div', { class: 'ice-bar' }, el('i'));
+    const pzBox = el('div', { class: 'gcp-pizza' }), oven = el('div', { class: 'gcp-oven', html: GC_OVEN }), tip = el('div', { class: 'gcp-tip' });
+    const overlay = el('div', { class: 'ice-over gcp-over' });
+    const shop = el('div', { class: 'gcp-shop' },
+      el('div', { class: 'gcp-side' }, bubble, custBox, bar),
+      el('div', { class: 'gcp-side gcp-work' }, el('div', { class: 'gcp-pbox' }, pzBox, oven), tip), overlay);
+    oven.hidden = true;
+    const ctl = el('div', { class: 'ice-ctl gcp-ctl' });
+    const drawInfo = () => info.replaceChildren(el('span', {}, `🪙 ${coins}`), el('span', {}, `🍕 ${served}`), el('span', {}, `⏱️ ${Math.ceil(left)}`), games.pizzaBest ? el('span', {}, `🏆 השיא: ${games.pizzaBest}`) : null);
+    const topName = t => GC_TOPS.find(x => x[0] === t)[1];
+    const orderText = o => `רוטב ${GC_SAUCES.find(s => s[0] === o.sauce)[1]}, ${o.cheese ? 'עם גבינה' : 'בלי גבינה'}${o.tops.length ? ', ' + o.tops.map(topName).join(' + ') : ''}`;
+    const randOrder = () => {
+      const k = 1 + gcInt(Math.min(3, 1 + Math.floor(served / 2)));
+      return { sauce: served < 1 ? 'tomato' : gcRnd(GC_SAUCES)[0], cheese: served < 2 || Math.random() < 0.8, tops: gcShuffle(GC_TOPS.map(t => t[0])).slice(0, k) };
+    };
+    const drawCust = () => {
+      if (!cust) { custBox.replaceChildren(); bubble.hidden = true; return; }
+      custBox.className = 'ice-cust ' + cust.mood;
+      custBox.replaceChildren(el('span', { class: 'art', html: cust.art }), el('span', { class: 'mood' }, { wait: '😊', happy: '🤩', sad: '😢' }[cust.mood]));
+      bubble.hidden = false;
+      bubble.replaceChildren(el('span', { class: 'art', html: gcPizzaSVG({ sauce: cust.order.sauce, cheese: cust.order.cheese, tops: gcAutoTops(cust.order.tops, 3, 1.9), baked: true }, { board: false, steam: false, vb: '8 8 184 184' }) }),
+        el('small', {}, orderText(cust.order)));
+    };
+    const drawBar = () => {
+      const p = cust ? Math.max(0, cust.patience / cust.max) : 0, i = bar.firstChild;
+      i.style.width = (p * 100).toFixed(1) + '%'; i.style.background = p > 0.5 ? '#6fcf7f' : p > 0.25 ? '#ffb020' : '#ff5a6e';
+    };
+    const drawPizza = () => { pzBox.innerHTML = gcPizzaSVG(pz); pzBox.classList.toggle('can', running && !busy && !baking && !pz.baked && !!tool); };
+    const drawTip = () => {
+      tip.textContent = !running ? '' : baking ? '🔥 אופה...' : pz.baked ? 'הפיצה מוכנה! לוחצים "להגיש" 🛎️' : !pz.sauce ? 'מתחילים ברוטב 👇'
+        : tool ? `לוחצים על הפיצה כדי לשים ${topName(tool)} (לפחות 3 מכל תוספת)` : 'בוחרים תוספת 👇';
+    };
+    const drawCtl = () => {
+      const off = !running || busy || baking, raw = !pz.baked;
+      const b = (label, on, press, cls = 'chip', extra = {}) => el('button', Object.assign({ type: 'button', class: cls, disabled: off || !on, onclick: press }, extra), label);
+      ctl.replaceChildren(
+        el('div', { class: 'ice-row' }, el('span', { class: 'ice-h' }, '1. רוטב'), ...GC_SAUCES.map(([id, name, c]) => {
+          const x = b('', raw, () => { pz.sauce = id; SFX.pop(); drawAll(); }, 'gcp-sauce', { 'aria-pressed': String(pz.sauce === id) });
+          x.append(el('i', { style: `background:${c}` }), el('span', {}, name)); return x;
+        })),
+        el('div', { class: 'ice-row' }, el('span', { class: 'ice-h' }, '2. גבינה'),
+          b('🧀 עם גבינה', raw, () => { pz.cheese = true; tone(700, 0.08, 'triangle'); drawAll(); }, 'chip', { 'aria-pressed': String(pz.cheese) }),
+          b('🚫 בלי גבינה', raw, () => { pz.cheese = false; SFX.boop(); drawAll(); }, 'chip', { 'aria-pressed': String(!pz.cheese) })),
+        el('div', { class: 'ice-row' }, el('span', { class: 'ice-h' }, '3. תוספות'), ...GC_TOPS.map(([id, name]) => {
+          const x = b('', raw, () => { tool = id; tone(820, 0.05, 'triangle'); drawAll(); }, 'gcp-top', { 'aria-pressed': String(tool === id), 'aria-label': name, title: name });
+          x.innerHTML = `<svg viewBox="-12 -12 24 24">${gcPiece(id, 0, 0, 0, 1.1)}</svg><span>${name}</span>`; return x;
+        })),
+        el('div', { class: 'chips ice-act' },
+          b('↩️ לבטל', raw && (pz.tops.length || pz.cheese || pz.sauce), () => { if (pz.tops.length) pz.tops.pop(); else if (pz.cheese) pz.cheese = false; else pz.sauce = null; SFX.boop(); drawAll(); }, 'btn'),
+          b('🗑️ לזרוק', pz.sauce || pz.tops.length || pz.baked, () => { pz = { sauce: null, cheese: false, tops: [], baked: false }; SFX.boop(); drawAll(); }, 'btn'),
+          b('🔥 לתנור', raw && pz.sauce, bake, 'btn'),
+          b('🛎️ להגיש!', pz.baked, serve, 'btn main')));
+    };
+    const drawAll = () => { drawInfo(); drawCust(); drawBar(); drawPizza(); drawTip(); drawCtl(); };
+    const newCust = () => {
+      busy = false;
+      const order = randOrder();
+      const art = Math.random() < 0.55
+        ? person({ skin: gcRnd(SKINS), hair: gcRnd(HAIRS), hairStyle: gcRnd(['long', 'short', 'bun']), outfit: gcRnd(OUTFITS), hat: gcRnd(HATS) })
+        : stickerHTML(gcRnd(ANIMALS));
+      const max = Math.max(16, 30 - served) + order.tops.length * 4;
+      cust = { order, art, max, patience: max, mood: 'wait' };
+      pz = { sauce: null, cheese: false, tops: [], baked: false };
+      drawAll();
+    };
+    const floater = text => { const f = el('span', { class: 'ice-float' }, text); shop.append(f); setTimeout(() => f.remove(), 1400); };
+    const leave = (mood, msg) => {
+      busy = true; cust.mood = mood; drawAll(); floater(msg);
+      leaveT = setTimeout(() => { if (running) newCust(); }, 1400);
+    };
+    function bake() {
+      if (!running || busy || baking || !pz.sauce || pz.baked) return;
+      baking = true; oven.hidden = false; oven.classList.remove('done'); drawAll();
+      for (let i = 0; i < 10; i++) tone(90 + Math.random() * 60, 0.08, 'sawtooth', i * 0.13, 0.025);
+      bakeT = setTimeout(() => {
+        pz.baked = true; baking = false; oven.hidden = true; SFX.ding(); tone(1568, 0.25, 'sine', 0.15, 0.08);
+        pzBox.classList.remove('out'); void pzBox.offsetWidth; pzBox.classList.add('out');
+        drawAll();
+      }, 1500);
+    }
+    const why = (p, o) => {
+      if (p.sauce !== o.sauce) return 'ביקשתי רוטב אחר... 😢';
+      if (p.cheese !== o.cheese) return o.cheese ? 'שכחת את הגבינה! 😢' : 'ביקשתי בלי גבינה... 😢';
+      const extra = [...new Set(p.tops.map(t => t.t))].find(t => !o.tops.includes(t));
+      if (extra) return `לא ביקשתי ${topName(extra)}... 😢`;
+      const miss = o.tops.find(t => p.tops.filter(x => x.t === t).length < 3);
+      if (miss) return `חסר לי ${topName(miss)}! 😢`;
+      return '';
+    };
+    function serve() {
+      if (!running || busy || baking || !cust || !pz.baked) return;
+      const w = why(pz, cust.order);
+      if (!w) {
+        const got = 2 + cust.order.tops.length * 2 + (cust.order.cheese ? 1 : 0) + Math.round(cust.patience / cust.max * 4);
+        coins += got; served++; SFX.yay(); leave('happy', `יאמי! ${got} 🪙`);
+      } else { SFX.boop(); tone(220, 0.3, 'sawtooth', 0.12, 0.05); leave('sad', w); }
+    }
+    // put toppings on the pizza by clicking or dragging on it
+    const placeAt = e => {
+      if (!running || busy || baking || pz.baked || !tool) return;
+      const r = pzBox.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * 200, py = (e.clientY - r.top) / r.height * 200;
+      const d = Math.hypot(px - 100, py - 100);
+      if (d > 84) return;
+      if (lastP && Math.hypot(px - lastP[0], py - lastP[1]) < 17) return;
+      const k = d > 70 ? 70 / d : 1;
+      if (pz.tops.length >= 80) return;
+      pz.tops.push({ t: tool, x: 100 + (px - 100) * k, y: 100 + (py - 100) * k, a: Math.random() * 360 });
+      lastP = [px, py];
+      tone(500 + Math.random() * 300, 0.05, 'triangle', 0, 0.06);
+      drawPizza(); drawCtl();
+    };
+    pzBox.addEventListener('pointerdown', e => { e.preventDefault(); down = true; lastP = null; try { pzBox.setPointerCapture(e.pointerId); } catch {} placeAt(e); });
+    pzBox.addEventListener('pointermove', e => { if (down) placeAt(e); });
+    pzBox.addEventListener('pointerup', () => { down = false; });
+    pzBox.addEventListener('pointercancel', () => { down = false; });
+    const end = () => {
+      running = false; clearInterval(timer); clearTimeout(leaveT); clearTimeout(bakeT); baking = false; oven.hidden = true; cust = null;
+      games.pizzaPlays = (games.pizzaPlays || 0) + 1;
+      const best = coins > (games.pizzaBest || 0); if (best) games.pizzaBest = coins;
+      store.set('games', games); afterChange();
+      if (best && coins > 0) { confetti($('#gamesDlg .confetti-c')); SFX.yay(); }
+      drawAll();
+      overlay.hidden = false;
+      overlay.replaceChildren(el('b', {}, 'המסעדה נסגרה! 🍕'), el('span', {}, `הגשת ${served} פיצות והרווחת ${coins} מטבעות${best && coins ? ' - שיא חדש! 🏆' : ''}`),
+        el('button', { type: 'button', class: 'btn main', onclick: start }, 'לשחק שוב'));
+    };
+    const start = () => {
+      clearInterval(timer); clearTimeout(leaveT); clearTimeout(bakeT);
+      running = true; coins = 0; served = 0; left = ROUND; baking = false; oven.hidden = true; overlay.hidden = true;
+      newCust();
+      timer = setInterval(() => {
+        const sec = Math.ceil(left);
+        left -= 0.1;
+        if (left <= 0) { end(); return; }
+        if (Math.ceil(left) !== sec) drawInfo();
+        if (cust && !busy) {
+          cust.patience -= 0.1; drawBar();
+          if (cust.patience <= 0) { tone(260, 0.25, 'triangle'); leave('sad', 'נמאס לי לחכות... 😢'); }
+        }
+      }, 100);
+    };
+    catchStop = () => { clearInterval(timer); clearTimeout(leaveT); clearTimeout(bakeT); };
+    pz = { sauce: 'tomato', cheese: true, tops: gcAutoTops(['olive', 'mushroom', 'basil']), baked: true };
+    overlay.replaceChildren(el('b', {}, 'מסעדת הפיצה של ' + (pet ? petNm() : 'הלוח') + ' 🍕'), el('span', {}, `יש לך ${ROUND} שניות!`), el('button', { type: 'button', class: 'btn main', onclick: start }, '▶️ לפתוח את המסעדה'));
+    drawAll();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'לקוחות מזמינים פיצה בבועה. בוחרים רוטב, גבינה (או בלי), ואז בוחרים תוספת ולוחצים על הפיצה כדי לפזר אותה (לפחות 3 חתיכות מכל תוספת). מכניסים לתנור 🔥 ומגישים! 🛎️'),
+      info, shop, ctl);
+  }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
