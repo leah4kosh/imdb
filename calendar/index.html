@@ -1997,6 +1997,213 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
 @keyframes frzaur { from { opacity: .15; transform: translateY(0); } to { opacity: .5; transform: translateY(12px); } }
 @media (prefers-reduced-motion: reduce) { .frz-scene *, .spc-scene *, .cnd-scene * { animation: none !important; } }
 .spc-card .chip { color: var(--ink); }
+/* ---------- 🧁 bakery / 🎨 paint by numbers / 🔮 potions / 🏰 escape (bake) ---------- */
+.bkr-ghost { position: fixed; z-index: 100; width: 76px; height: 76px; transform: translate(-50%, -60%) rotate(-6deg); pointer-events: none; filter: drop-shadow(0 6px 8px rgb(0 0 0 / .25)); display: grid; place-items: center; }
+.bkr-ghost > svg, .bkr-ghost > span { width: 100%; height: 100%; }
+.bkr-over { outline: 4px dashed var(--accent); outline-offset: 4px; }
+.bkr-say { margin: 0; font-size: 1.2em; text-align: center; }
+.bkr-steps { display: flex; justify-content: center; gap: 6px; }
+.bkr-steps span { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; border: 2px solid var(--line); background: var(--card); opacity: .55; font-size: 1.1em; }
+.bkr-steps span.done { opacity: .9; background: var(--paper); }
+.bkr-steps span.now { opacity: 1; border-color: var(--accent); background: var(--accent); transform: scale(1.12); }
+.bkr-recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.bkr-card { display: grid; justify-items: center; gap: 2px; padding: 8px; border: 2px solid var(--line); border-radius: 18px; background: var(--card); font-size: 1.05em; transition: transform .15s; }
+.bkr-card:hover { transform: translateY(-3px) rotate(-1deg); border-color: var(--accent); }
+.bkr-card .art { width: 84px; height: 84px; }
+.bkr-card .art > svg, .bkr-item .art > svg, .bkr-treatbtn .art > svg, .bkr-bowl > svg, .bkr-tray > svg, .bkr-oven > svg, .bkr-deco > svg, .bkr-ing .art > svg, .bkr-guest > svg, .bkr-gbtn .art > svg, .pn-thumb .art > svg, .pn-wrap > svg, .ptn-cauldron > svg, .esc-scene > svg, .esc-it > svg { width: 100%; height: 100%; display: block; }
+.bkr-mixrow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 12px; align-items: center; }
+.bkr-shelf { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px; border-radius: 16px; background: linear-gradient(#fff4e3, #ffe6c7); border: 2px solid #e2b98a; }
+.bkr-ing { display: grid; justify-items: center; gap: 2px; border: 2px solid transparent; background: #fffaf2; border-radius: 14px; padding: 6px 2px; font-size: .9em; color: #3a2b3c; cursor: grab; user-select: none; }
+.bkr-ing .art { width: 48px; height: 48px; }
+.bkr-ing:hover { border-color: #e2b98a; }
+.bkr-ing.used { opacity: .45; cursor: default; }
+.bkr-bowl { max-width: 360px; width: 100%; margin: 0 auto; border-radius: 20px; user-select: none; }
+.bkr-bowl.big { max-width: 420px; cursor: grab; }
+.bkr-bowl.plop { animation: bkrplop .35s ease-out; }
+@keyframes bkrplop { 40% { transform: scale(1.06, .94); } }
+.bkr-need { display: flex; flex-wrap: wrap; gap: 6px 12px; justify-content: center; align-items: center; }
+.bkr-need .ok { color: #2f9e44; }
+.bkr-bar { height: 14px; border-radius: 999px; background: var(--paper); border: 2px solid var(--line); overflow: hidden; max-width: 420px; width: 100%; margin: 0 auto; }
+.bkr-bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #ff9ad5, #ffd84d, #7ee08a); transition: width .15s; }
+.bkr-tray { max-width: 440px; width: 100%; margin: 0 auto; }
+.bkr-pop { animation: bkrpop .35s ease-out; transform-box: fill-box; transform-origin: center; }
+@keyframes bkrpop { from { transform: scale(.3); opacity: 0; } 70% { transform: scale(1.1); } }
+.bkr-cut .ic { width: 22px; height: 22px; display: inline-block; vertical-align: middle; }
+.bkr-sw { width: 34px; height: 34px; border-radius: 50%; border: 2.5px solid #3a2b3c33; padding: 0; box-shadow: inset 0 -3px 0 rgb(0 0 0 / .12); }
+.bkr-sw[aria-pressed="true"] { border-color: var(--ink); transform: scale(1.15); box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--accent); }
+.bkr-oven { max-width: 320px; width: 100%; margin: 0 auto; }
+.bkr-oven .bkr-glow { opacity: 0; transition: opacity .6s; }
+.bkr-oven.on .bkr-glow { animation: bkrglow 1s ease-in-out infinite alternate; }
+.bkr-oven.done .bkr-glow { opacity: .25; }
+@keyframes bkrglow { from { opacity: .35; } to { opacity: .8; } }
+.bkr-oven .bkr-rise { transform-box: fill-box; transform-origin: bottom; transform: scale(.8); transition: transform 6s ease-out; }
+.bkr-oven.on .bkr-rise, .bkr-oven.done .bkr-rise { transform: scale(1); }
+.bkr-oven.on .bkr-dial { transform-origin: 42px 34px; animation: bkrdial 6s linear forwards; }
+@keyframes bkrdial { to { transform: rotate(-300deg); } }
+.bkr-flame { transform-box: fill-box; transform-origin: bottom; animation: bkrflick .6s ease-in-out infinite alternate; }
+@keyframes bkrflick { to { transform: scale(.85, 1.12) rotate(4deg); } }
+.bkr-decorow { display: grid; grid-template-columns: minmax(200px, 300px) minmax(0, 1fr); gap: 14px; align-items: start; }
+.bkr-deco { aspect-ratio: 1; width: 100%; border-radius: 24px; background: radial-gradient(circle at 50% 60%, #fff 0 45%, #ffe6f1 46% 100%); border: 3px dashed #ffb3cf; cursor: crosshair; touch-action: none; user-select: none; }
+.bkr-tools { gap: 10px; align-content: start; }
+.bkr-tops { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 6px; }
+.bkr-tops .pick > svg { width: 100%; height: 100%; }
+.bkr-case { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; padding: 14px; border-radius: 20px; border: 4px solid #c98b5a;
+  background: linear-gradient(180deg, rgb(255 255 255 / .75), rgb(220 240 255 / .55)), #fff7ee; box-shadow: inset 0 0 0 3px #fff; }
+.bkr-item { position: relative; display: grid; justify-items: center; gap: 2px; padding: 6px 6px 8px; border-bottom: 8px solid #e2b98a; border-radius: 0 0 4px 4px; }
+.bkr-item .art { width: 92px; height: 92px; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .12)); }
+.bkr-item.fresh .art { animation: bkrpop .6s ease-out; }
+.bkr-item .nm { font-size: .95em; text-align: center; color: #3a2b3c; }
+.bkr-item .cnt, .bkr-treatbtn .cnt { position: absolute; top: 4px; inset-inline-start: 4px; background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 0 8px; font-size: .85em; }
+.bkr-item .acts { display: flex; gap: 4px; }
+.bkr-item .acts .chip { padding: 2px 8px; }
+.bkr-empty { width: 110px; height: 110px; margin: 10px auto; opacity: .4; grid-column: 1 / -1; }
+.bkr-guests { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 8px; }
+.bkr-gbtn { flex: 0 0 auto; display: grid; justify-items: center; gap: 2px; width: 84px; border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px 4px; font-size: .9em; overflow: hidden; }
+.bkr-gbtn .art { width: 56px; height: 56px; border-radius: 50%; background: var(--paper); overflow: hidden; }
+.bkr-gbtn[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.bkr-table { position: relative; height: 330px; border-radius: 22px; overflow: hidden; border: 3px solid var(--ink); background: #ffe9f3; }
+.bkr-wall { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, #ffe3ef 0 26px, #fff0f6 26px 52px); }
+.bkr-wall::after { content: "🖼️"; position: absolute; top: 20px; inset-inline-end: 30px; font-size: 40px; opacity: .8; }
+.bkr-cloth { position: absolute; left: 0; right: 0; bottom: 0; height: 96px; background: repeating-conic-gradient(#ff8fb8 0 25%, #fff 0 50%) 0 0 / 36px 36px; border-top: 4px solid #3a2b3c; }
+.bkr-guest { position: absolute; left: 50%; bottom: 70px; width: 200px; height: 230px; transform: translateX(-50%); transform-origin: bottom center; }
+.bkr-guest.pet { width: 190px; height: 210px; bottom: 76px; }
+.bkr-guest.chomp { animation: bkrchomp .3s ease-in-out; }
+.bkr-guest.happy { animation: bkrhappy .5s ease-in-out 2; }
+@keyframes bkrchomp { 50% { transform: translateX(-50%) scale(1.04, .95); } }
+@keyframes bkrhappy { 50% { transform: translateX(-50%) translateY(-16px) rotate(-3deg); } }
+.bkr-plate { position: absolute; left: 50%; bottom: 14px; width: 120px; height: 120px; transform: translateX(-50%); background: radial-gradient(ellipse 50% 22% at 50% 82%, #fff 0 88%, #3a2b3c 90% 100%, transparent 101%); }
+.bkr-plate > svg { width: 100%; height: 100%; }
+.bkr-plate.on > svg { animation: bkrpop .3s ease-out; }
+.bkr-bubble { position: absolute; top: 12px; inset-inline-start: 12px; background: #fff; color: #3a2b3c; border: 2.5px solid #3a2b3c; border-radius: 18px; padding: 6px 14px; font-size: 1.15em; max-width: min(42%, 300px); text-align: center; animation: bkrpop .35s ease-out; z-index: 2; }
+.bkr-hearts { position: absolute; inset: 0; pointer-events: none; }
+.bkr-hearts span { position: absolute; bottom: 120px; font-size: 26px; opacity: 0; animation: bkrheart 1.6s ease-out forwards; }
+@keyframes bkrheart { 0% { opacity: 0; transform: translateY(0) scale(.5); } 20% { opacity: 1; } 100% { opacity: 0; transform: translateY(-170px) scale(1.2); } }
+.bkr-shelf2 { display: flex; gap: 8px; overflow-x: auto; padding: 8px; border-radius: 16px; background: linear-gradient(#fff4e3, #ffe6c7); border: 2px solid #e2b98a; min-height: 80px; }
+.bkr-treatbtn { position: relative; flex: 0 0 auto; width: 80px; height: 80px; border: 2px solid transparent; background: #fffaf2; border-radius: 16px; padding: 4px; cursor: grab; }
+.bkr-treatbtn:hover { border-color: #e2b98a; }
+.ptn-sparkles { position: absolute; inset: 0; pointer-events: none; font-size: 26px; }
+.ptn-sparkles > * , .ptn-sparkles { font-style: normal; font-weight: 400; text-decoration: none; }
+.ptn-sparkles::before, .ptn-sparkles::after { content: "✨"; position: absolute; animation: ptntw 1.2s ease-in-out infinite alternate; }
+.ptn-sparkles::before { top: 8%; left: 18%; } .ptn-sparkles::after { top: 22%; right: 14%; animation-delay: .5s; }
+.ptn-sparkles { color: transparent; }
+.ptn-sparkles i, .ptn-sparkles b, .ptn-sparkles u { position: absolute; color: initial; animation: ptntw 1s ease-in-out infinite alternate; }
+.ptn-sparkles i { top: 2%; left: 45%; animation-delay: .3s; } .ptn-sparkles b { top: 36%; left: 10%; animation-delay: .7s; } .ptn-sparkles u { top: 30%; right: 30%; animation-delay: .15s; }
+@keyframes ptntw { from { opacity: .2; transform: scale(.6) rotate(-20deg); } to { opacity: 1; transform: scale(1.15) rotate(15deg); } }
+/* paint by numbers */
+.pn-pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.pn-thumb { display: grid; gap: 4px; justify-items: center; border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 8px; }
+.pn-thumb .art { width: 100%; aspect-ratio: 1; border-radius: 10px; overflow: hidden; }
+.pn-thumb.done { border-color: var(--accent); }
+.pn-thumb:hover { transform: translateY(-2px); }
+.pn-wrap { position: relative; width: min(100%, 460px, 62vh); margin: 0 auto; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); background: #fff; }
+.pn-wrap .pn-r { cursor: pointer; transition: fill .25s; }
+.pn-wrap .pn-r:hover { filter: brightness(.96); }
+.pn-wrap text { font-family: 'Rubik', system-ui, sans-serif; font-weight: 700; fill: #3a2b3c; paint-order: stroke; stroke: #fff; stroke-width: 2.4px; user-select: none; }
+.pn-no { animation: pnshake .4s ease-in-out; transform-box: fill-box; transform-origin: center; }
+@keyframes pnshake { 20%, 60% { transform: translateX(-3px); } 40%, 80% { transform: translateX(3px); } }
+.pn-yes { animation: pnyes .35s ease-out; transform-box: fill-box; transform-origin: center; }
+@keyframes pnyes { 50% { filter: brightness(1.25); } }
+.pn-hint { animation: pnhint .5s ease-in-out 3; }
+@keyframes pnhint { 50% { fill: #ffe066; } }
+.pn-wrap.fin::after { content: "✨ 🌟 ✨"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 60px; animation: pnfin 1.6s ease-out forwards; pointer-events: none; }
+@keyframes pnfin { from { opacity: 0; transform: scale(.4) rotate(-20deg); } 50% { opacity: 1; transform: scale(1.2); } to { opacity: 0; transform: scale(1.6); } }
+.pn-pal { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.pn-sw { width: 46px; height: 46px; border-radius: 50%; border: 3px solid #3a2b3c44; background: var(--c); font-size: 1.2em; font-weight: 700; color: #3a2b3c; text-shadow: 0 0 3px #fff, 0 0 3px #fff; box-shadow: inset 0 -4px 0 rgb(0 0 0 / .12); }
+.pn-sw[aria-pressed="true"] { border-color: var(--ink); transform: scale(1.18); box-shadow: 0 0 0 3px var(--card), 0 0 0 6px var(--accent); }
+.pn-sw.empty { opacity: .55; font-size: .9em; }
+.pn-msg { text-align: center; min-height: 1.4em; }
+/* potions */
+.ptn-lab { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px; align-items: center; border-radius: 22px; padding: 10px; background: radial-gradient(circle at 30% 30%, #4b3f7a, #261d45); border: 3px solid var(--ink); }
+.ptn-cauldron { max-width: 340px; width: 100%; margin: 0 auto; cursor: grab; user-select: none; }
+.ptn-cauldron.plop { animation: bkrplop .35s ease-out; }
+.ptn-cauldron.poof { animation: ptnpoof .6s ease-out; }
+@keyframes ptnpoof { 40% { transform: scale(1.12); filter: brightness(1.8) drop-shadow(0 0 20px #fff); } }
+.ptn-fire { animation: bkrflick .5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: bottom; }
+.ptn-bubs circle { transform-box: fill-box; transform-origin: center; animation: ptnbub 2.4s ease-in-out infinite; }
+.ptn-bubs circle:nth-child(2) { animation-delay: .6s; } .ptn-bubs circle:nth-child(3) { animation-delay: 1.2s; } .ptn-bubs circle:nth-child(4) { animation-delay: 1.8s; }
+.ptn-bubs:not(.on) { display: none; }
+.stirring .ptn-bubs circle { animation-duration: .9s; }
+@keyframes ptnbub { 0% { transform: translateY(0) scale(.4); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(-40px) scale(1.2); opacity: 0; } }
+.ptn-steam path { animation: ptnsteam 3s ease-in-out infinite; }
+@keyframes ptnsteam { 0%, 100% { opacity: .2; transform: translateY(0); } 50% { opacity: .7; transform: translateY(-6px); } }
+.ptn-jars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ptn-jar { display: grid; justify-items: center; gap: 2px; padding: 6px 2px; border-radius: 16px 16px 20px 20px; border: 2.5px solid #fff8; background: linear-gradient(180deg, #ffffff22, var(--c)); color: #fff; font-size: .8em; cursor: grab; user-select: none; text-shadow: 0 1px 2px #0008; }
+.ptn-jar .em { font-size: 1.9em; filter: drop-shadow(0 2px 2px #0005); }
+.ptn-jar.want { border-color: #ffd84d; box-shadow: 0 0 0 3px #ffd84d, 0 0 16px #ffd84d; animation: ptnwant 1s ease-in-out infinite alternate; }
+@keyframes ptnwant { to { transform: translateY(-3px); } }
+.ptn-status { display: grid; gap: 6px; justify-items: center; font-size: 1.1em; }
+.ptn-book { border: 2px solid var(--line); border-radius: 16px; padding: 8px 12px; background: var(--paper); }
+.ptn-book summary { cursor: pointer; font-size: 1.15em; }
+.ptn-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-top: 8px; }
+.ptn-card { display: grid; gap: 3px; padding: 8px 10px; border-radius: 14px; background: var(--card); border: 2px dashed var(--line); }
+.ptn-card.known { border-style: solid; border-color: #b58cff; }
+.ptn-card.on { box-shadow: 0 0 0 3px #ffd84d; }
+.ptn-card .ings { font-size: 1.25em; }
+.ptn-card small { color: var(--soft); }
+.ptn-card .chip { justify-self: start; }
+.ptn-mine { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
+.ptn-mini { display: inline-flex; align-items: center; gap: 2px; }
+.ptn-mini .ic { width: 26px; height: 30px; display: inline-block; }
+.ptn-result { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: center; padding: 16px; border-radius: 22px; background: radial-gradient(circle at 20% 40%, #fff6c9, var(--paper) 70%); border: 3px solid var(--ink); }
+.ptn-result h4 { margin: 0; font-size: 1.6em; font-weight: 400; color: var(--accent); }
+.ptn-result p { margin: 0; }
+.ptn-bottle { width: 150px; height: 175px; animation: ptnbottle 1s ease-out; }
+.ptn-bottle > svg { width: 100%; height: 100%; }
+@keyframes ptnbottle { from { transform: scale(.2) rotate(-40deg); opacity: 0; } 70% { transform: scale(1.1) rotate(8deg); } }
+.ptn-act { gap: 8px; }
+.ptn-petnew { width: 110px; height: 120px; display: block; animation: bkrhappy2 .6s ease-in-out 3; }
+.ptn-petnew > svg { width: 100%; height: 100%; }
+@keyframes bkrhappy2 { 50% { transform: translateY(-12px); } }
+.ptn-girl { position: relative; width: 170px; height: 190px; }
+.ptn-girl > svg { width: 100%; height: 100%; }
+.ptn-fx { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 40; transition: opacity 1s; }
+.ptn-fx.bye { opacity: 0; }
+.ptn-fx span { position: absolute; top: -10vh; line-height: 1; animation: ptnfall linear infinite; }
+.ptn-fx.dir-up span { top: auto; bottom: -10vh; animation-name: ptnrise; }
+.ptn-fx.dir-float span { top: auto; animation-name: ptnfloat; animation-timing-function: ease-in-out; animation-direction: alternate; }
+.ptn-fx.dir-float span:nth-child(3n) { top: 20%; } .ptn-fx.dir-float span:nth-child(3n+1) { top: 50%; } .ptn-fx.dir-float span:nth-child(3n+2) { top: 78%; }
+@keyframes ptnfall { to { transform: translateY(120vh) rotate(200deg); } }
+@keyframes ptnrise { to { transform: translateY(-120vh) translateX(30px); } }
+@keyframes ptnfloat { from { transform: translate(-30px, -20px) scale(.8); } to { transform: translate(30px, 20px) scale(1.2); } }
+.ptn-fx.rainbow { background: linear-gradient(120deg, #ff3b5c, #ff9f1c, #ffe14d, #3ddc84, #3a9bff, #9b5cff, #ff3b5c); background-size: 300% 300%; mix-blend-mode: multiply; opacity: .32; animation: ptnrb 6s linear infinite; }
+.ptn-fx.rainbow.bye { opacity: 0; }
+@keyframes ptnrb { to { background-position: 300% 0; } }
+@media (prefers-reduced-motion: reduce) { .ptn-fx span { animation-duration: 40s !important; } .ptn-fx.rainbow { animation: none; } }
+/* castle escape */
+.esc-scene { width: 100%; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); user-select: none; }
+.esc-scene.enter { animation: escin .6s ease-out; }
+@keyframes escin { from { opacity: 0; transform: scale(.96); } }
+.esc-scene .esc-h { cursor: pointer; }
+.esc-scene .esc-h:hover { filter: brightness(1.08) drop-shadow(0 0 4px #fff); }
+.esc-scene.using { cursor: copy; }
+.esc-scene.using .esc-h:hover { filter: drop-shadow(0 0 6px #ffd84d) brightness(1.1); }
+.esc-tw { transform-box: fill-box; transform-origin: center; animation: esctw 1.4s ease-in-out infinite alternate; }
+@keyframes esctw { from { opacity: .45; transform: scale(.8); } to { opacity: 1; transform: scale(1.15); } }
+.esc-lit { stroke: #fff; stroke-width: 4; filter: drop-shadow(0 0 5px #fff); }
+.esc-shake { animation: escshake .5s ease-in-out; transform-box: fill-box; transform-origin: bottom; }
+@keyframes escshake { 25% { transform: rotate(-3deg); } 75% { transform: rotate(3deg); } }
+.esc-msg { text-align: center; font-size: 1.1em; min-height: 1.5em; padding: 6px 10px; border-radius: 14px; background: var(--paper); }
+.esc-inv { display: flex; gap: 8px; align-items: center; padding: 6px 10px; border-radius: 16px; border: 2px dashed var(--line); min-height: 60px; }
+.esc-inv .lbl { font-size: 1.6em; }
+.esc-it { width: 54px; height: 54px; border-radius: 14px; border: 2.5px solid var(--line); background: var(--card); padding: 4px; }
+.esc-it[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); transform: translateY(-4px); box-shadow: 0 4px 0 var(--accent); }
+.esc-note, .esc-pad { display: grid; gap: 6px; justify-items: center; padding: 12px; border-radius: 16px; background: #fffbe8; color: #3a2b3c; border: 2.5px solid #3a2b3c; font-size: 1.15em; }
+.esc-disp { font-family: monospace; font-size: 1.8em; letter-spacing: .1em; background: #3a2b3c; color: #7dffb0; padding: 2px 16px; border-radius: 10px; direction: ltr; }
+.esc-keys { display: grid; grid-template-columns: repeat(3, 52px); gap: 6px; direction: ltr; }
+.esc-keys .btn { padding: 8px 0; font-size: 1.2em; }
+.esc-win { display: grid; justify-items: center; gap: 6px; text-align: center; padding: 10px; position: relative; }
+.esc-win h4 { margin: 0; font-size: 1.8em; font-weight: 400; color: var(--accent); }
+.esc-win p { margin: 0; }
+.esc-crown { width: 110px; height: 110px; animation: esccrown 1.2s ease-out; position: relative; z-index: 1; margin-bottom: -62px; }
+.esc-hero { width: 150px; height: 160px; }
+.esc-crown > svg, .esc-hero > svg { width: 100%; height: 100%; }
+@keyframes esccrown { from { transform: translateY(-120px) rotate(-30deg) scale(.5); opacity: 0; } 70% { transform: translateY(8px) rotate(6deg); } }
+@media (max-width: 620px) {
+  .bkr-mixrow, .bkr-decorow, .ptn-lab { grid-template-columns: 1fr; }
+  .bkr-deco { max-width: 280px; margin: 0 auto; }
+  .ptn-result { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .bkr-table { height: 300px; }
+}
 </style>
 </head>
 <body class="bg-dots">
@@ -2851,6 +3058,29 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="iceBody"></div>
+  </div>
+</dialog>
+
+
+<dialog id="bkrDlg" aria-labelledby="bkrTitle" style="width:min(900px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="bkrTitle">🧁 המאפייה שלי</h3><div class="sub">אופים, מקשטים, ומאכילים את החיות ואת הבנות שעיצבת!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="bkrBody"></div>
+  </div>
+</dialog>
+
+<dialog id="ptnDlg" aria-labelledby="ptnTitle" style="width:min(860px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="ptnTitle">🔮 מעבדת השיקויים</h3><div class="sub">בית ספר לקוסמות: מערבבים, מגלים שיקויים ועושים קסמים על הלוח!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="ptnBody"></div>
   </div>
 </dialog>
 
@@ -5640,7 +5870,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   function drawGames() {
     if (catchStop) { catchStop(); catchStop = null; }
     $('#gamesTabs').replaceChildren(...GAME_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
-    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame }[gamesTab] || memoryGame)();
+    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame, pnum: paintNumGame, potion: potionGame, escape: escapeGame }[gamesTab] || memoryGame)();
   }
   function memoryGame() {
     const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
@@ -14861,6 +15091,981 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       el('p', { class: 'wd-hint' }, '👆 גוררים על הקרח כדי להוביל את המחליקה, ולוחצים עליה שוב כדי שתסתובב!'), opts,
       el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => wdPhoto(frzRinkMarkup(true), 'snowflake', scene) }, '📸 לצלם למדבקה')));
   }
+
+  // ================= 🧁 bakery, 🎨 paint by numbers, 🔮 potions, 🏰 castle escape (bake) =================
+  const bkrTry = f => { try { return f(); } catch { return undefined; } };
+  const bkrCoins = (n, why) => bkrTry(() => { if (typeof addCoins === 'function') addCoins(n, why); });
+  const bkrPets = () => { const l = bkrTry(() => typeof allPets === 'function' ? allPets() : null); return Array.isArray(l) && l.length ? l.filter(Boolean) : pet ? [pet] : []; };
+  const bkrPick = a => a[Math.floor(Math.random() * a.length)];
+  let bkrUid = 0;
+  // a whole drawing as a floating copy that follows the finger; dropped on one of the targets (a tap drops on the first)
+  function bkrDrag(node, art, targets, drop) {
+    node.style.touchAction = 'none';
+    node.addEventListener('pointerdown', e => {
+      if (e.button > 0 || node.disabled) return;
+      e.preventDefault();
+      const sx = e.clientX, sy = e.clientY, host = node.closest('dialog') || document.body;
+      let ghost = null, moved = false;
+      const hit = ev => targets().find(t => { const r = t.getBoundingClientRect(); return ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom; });
+      const mv = ev => {
+        if (!moved && Math.hypot(ev.clientX - sx, ev.clientY - sy) < 8) return;
+        if (!moved) { moved = true; ghost = el('div', { class: 'bkr-ghost', html: typeof art === 'function' ? art() : art }); host.append(ghost); }
+        ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px';
+        const t = hit(ev); targets().forEach(x => x.classList.toggle('bkr-over', x === t));
+      };
+      const up = ev => {
+        window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
+        if (ghost) ghost.remove();
+        targets().forEach(x => x.classList.remove('bkr-over'));
+        if (ev.type === 'pointercancel') return;
+        if (!moved) { const t = targets()[0]; if (t) drop(t, ev); return; }
+        const t = hit(ev); if (t) drop(t, ev);
+      };
+      window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+    });
+  }
+  // stirring: counts how far the finger went around a center point
+  // (listens on the wrapper, so the drawing inside can be redrawn while stirring)
+  function bkrStirrer(svgEl, vb, center, onTurn) {
+    let last = null;
+    const ang = e => { const r = svgEl.getBoundingClientRect(); const x = (e.clientX - r.left) * vb[0] / r.width, y = (e.clientY - r.top) * vb[1] / r.height; return Math.atan2((y - center[1]) * 3, x - center[0]); };
+    svgEl.style.touchAction = 'none';
+    svgEl.addEventListener('pointerdown', e => { last = ang(e); svgEl.setPointerCapture(e.pointerId); e.preventDefault(); });
+    svgEl.addEventListener('pointermove', e => {
+      if (last == null) return;
+      const a = ang(e); let d = a - last; if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI;
+      last = a; onTurn(Math.abs(d), a);
+    });
+    const end = () => { last = null; };
+    svgEl.addEventListener('pointerup', end); svgEl.addEventListener('pointercancel', end);
+  }
+
+  // ---------- girls eat too ----------
+  let bkrGirlFed = store.get('girlFed', {});
+  const bkrGirlArt = (g, crop = '62 -8 176 250') => girlSVG(g, 'bk' + (bkrUid++), { bg: false }).replace('viewBox="0 0 300 600"', `viewBox="${crop}"`);
+  function feedGirl(g, food = {}) {
+    if (!g) return '';
+    const nm = g.name || 'הבובה', f = food.name || 'את זה', t = localToday();
+    const rec = bkrGirlFed[g.id] = bkrGirlFed[g.id] || {};
+    rec[t] = (rec[t] || 0) + 1;
+    Object.keys(rec).sort().slice(0, -14).forEach(k => delete rec[k]);
+    store.set('girlFed', bkrGirlFed);
+    SFX.munch(); setTimeout(() => [784, 988, 1175].forEach((fq, i) => tone(fq, 0.18, 'triangle', i * 0.09, 0.08)), 420);
+    const line = Math.random() < 0.6 ? `יאמי! ${nm} אוהבת ${f}! 💖` : bkrPick([`מממ... ${f} זה הכי טעים בעולם! 😋`, `תודה! ${nm} מרגישה כמו נסיכה! 👑`, `וואו! אפשר עוד ${f}? 🥰`, `${nm}: זה הכי טעים שאכלתי היום! ✨`]);
+    if (!$('#bkrDlg') || !$('#bkrDlg').open) bkrTry(() => toast(bkrGirlArt(g, '100 20 100 100'), line));
+    return line;
+  }
+  // feeding a pet: the pets agent's feedPet when it's there, otherwise the same thing the house feeding does
+  function bkrFeedPet(p, food) {
+    const nm = p.name || 'החיה', mine = `יאמי! ${nm} אוהב/ת ${food.name}! 💖`;
+    if (typeof feedPet === 'function') { const r = bkrTry(() => feedPet(p, food)); return typeof r === 'string' && r ? r : mine; }
+    p.fed = p.fed || {}; p.fed[localToday()] = 1;
+    if (p === pet) savePet();
+    SFX.munch(); setTimeout(() => SFX.pet(p.kind), 450);
+    bkrTry(() => { renderPet(); afterChange(); });
+    return mine;
+  }
+
+  // ---------- treats ----------
+  const BKR_RECIPES = {
+    cookies: ['עוגיות', 'עוגייה', '#e9b872'], cupcakes: ['קאפקייקס', 'קאפקייק', '#f7d08a'], cakepops: ['קייק פופס', 'קייק פופ', '#d9a066'], donuts: ['דונאטס', 'דונאט', '#e8a45c'],
+    macarons: ['מקרונים', 'מקרון', '#f6c1d6'], croissant: ['קרואסונים', 'קרואסון', '#eaa94b'], pancakes: ['פנקייקים', 'פנקייק', '#f0c07a'], pizza: ['פיצה ביסים', 'פיצה ביס', '#f0c27a'],
+  };
+  const BKR_INGS = {
+    flour: ['קמח', `<path d="M12 15 L10 42 H38 L36 15 Z" fill="#fff8ec" ${S}/><path d="M12 15 Q16 8 20 13 Q24 7 28 13 Q32 8 36 15" fill="#fff8ec" ${S}/><path d="M24 22 V37 M24 26 l-4 -3 M24 26 l4 -3 M24 31 l-4 -3 M24 31 l4 -3" stroke="#e0a800" stroke-width="2" stroke-linecap="round" fill="none"/>`],
+    sugar: ['סוכר', `<rect x="11" y="16" width="26" height="26" rx="6" fill="#e3f3ff" ${S}/><rect x="13" y="10" width="22" height="7" rx="2" fill="#ff9ad5" ${S}/><rect x="16" y="28" width="7" height="7" rx="1.5" fill="#fff" ${S2}/><rect x="25" y="31" width="7" height="7" rx="1.5" fill="#fff" ${S2}/><rect x="21" y="20" width="7" height="7" rx="1.5" fill="#fff" ${S2}/>`],
+    eggs: ['ביצים', `<ellipse cx="18" cy="28" rx="9" ry="12" fill="#fff6e6" ${S}/><ellipse cx="31" cy="30" rx="9" ry="12" fill="#f3d9b8" ${S}/>${shine(13, 22)}${shine(26, 24)}`],
+    butter: ['חמאה', `<path d="M6 34 L16 40 L42 30 L32 24 Z" fill="#fff" ${S}/><path d="M11 30 L11 22 L32 14 L38 20 L38 27 L17 35 Z" fill="#ffe27a" ${S}/><path d="M11 22 L17 27 L38 20 M17 27 V35" fill="none" ${S2}/>`],
+    choco: ['שוקולד', `<rect x="10" y="8" width="28" height="34" rx="3" fill="#7a4a2e" ${S}/><path d="M10 19 H38 M24 8 V24" stroke="#5a3520" stroke-width="2"/><path d="M10 25 L38 21 V42 H10 Z" fill="#ff9ad5" ${S}/><path d="M16 33 h16" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`],
+    berry: ['תותים', null],
+  };
+  const bkrIngArt = id => BKR_INGS[id][1] ? `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${BKR_INGS[id][1]}</svg>` : stickerHTML('strawberry');
+  const bkrNeeds = r => r === 'pizza' ? ['flour', 'eggs', 'butter'] : ['flour', 'sugar', 'eggs', 'butter'];
+  const bkrFlavor = ings => ings.includes('choco') && ings.includes('berry') ? 'both' : ings.includes('choco') ? 'choco' : ings.includes('berry') ? 'berry' : 'plain';
+  const bkrDough = (r, fl) => ({ choco: r === 'macarons' ? '#a47458' : '#8b5a3c', berry: '#f59bb5', both: '#c47b8b' }[fl] || BKR_RECIPES[r][2]);
+  const bkrFlavorName = fl => ({ choco: 'שוקולד', berry: 'תות', both: 'שוקו-תות' }[fl] || '');
+  const bkrTreatName = t => BKR_RECIPES[t.r][0] + (bkrFlavorName(t.fl) ? ' ' + bkrFlavorName(t.fl) : '');
+  const BKR_SHAPES = [['circle', 'עיגול'], ['heart', 'לב'], ['star', 'כוכב'], ['bunny', 'ארנב'], ['cat', 'חתול'], ['flower', 'פרח']];
+  const bkrShapeEls = sh => ({
+    circle: '<circle cx="50" cy="54" r="34"/>',
+    heart: '<path d="M50 88 C20 68 10 48 19 33 C28 19 45 22 50 35 C55 22 72 19 81 33 C90 48 80 68 50 88 Z"/>',
+    star: `<polygon points="${starPts(50, 56, 42, 20)}"/>`,
+    bunny: '<ellipse cx="37" cy="30" rx="9" ry="22" transform="rotate(-12 37 30)"/><ellipse cx="63" cy="30" rx="9" ry="22" transform="rotate(12 63 30)"/><circle cx="50" cy="63" r="28"/>',
+    cat: '<path d="M22 50 L20 18 L44 34 Z"/><path d="M78 50 L80 18 L56 34 Z"/><ellipse cx="50" cy="60" rx="33" ry="28"/>',
+    flower: [0, 1, 2, 3, 4].map(i => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; return `<circle cx="${(50 + 22 * Math.cos(a)).toFixed(1)}" cy="${(54 + 22 * Math.sin(a)).toFixed(1)}" r="16"/>`; }).join('') + '<circle cx="50" cy="54" r="22"/>',
+  }[sh] || '<circle cx="50" cy="54" r="34"/>');
+  const bkrFaceAt = { circle: [50, 56], heart: [50, 52], star: [50, 58], bunny: [50, 66], cat: [50, 62], flower: [50, 55] };
+  const bkrMix = (a, b, p) => { const h = s => [1, 3, 5].map(i => parseInt(s.slice(i, i + 2), 16)); const x = h(a), y = h(b); return '#' + x.map((v, i) => Math.round(v + (y[i] - v) * p).toString(16).padStart(2, '0')).join(''); };
+  const bkrLine = (col, w = 5) => `fill="${O}" stroke="${O}" stroke-width="${w}" stroke-linejoin="round"`;
+  const bkrWavyRing = (cx, cy, R, r, n, amp) => {
+    const pts = Array.from({ length: n * 4 + 1 }, (_, i) => { const a = i / (n * 4) * 2 * Math.PI, rr = R + amp * Math.sin(a * n); return `${(cx + rr * Math.cos(a)).toFixed(1)} ${(cy + rr * Math.sin(a)).toFixed(1)}`; });
+    return `M${pts.join(' L')} Z M${cx - r} ${cy} a${r} ${r} 0 1 0 ${2 * r} 0 a${r} ${r} 0 1 0 ${-2 * r} 0 Z`;
+  };
+  // the parts of every kind of treat: what is drawn under the icing, where the icing goes, and where the face sits
+  function bkrParts(t) {
+    const d = t.dough || BKR_RECIPES[t.r][2], dk = bkrMix(d, '#5a3520', 0.25), ic = t.icing;
+    switch (t.r) {
+      case 'cupcakes': {
+        const cloud = '<path d="M18 62 C11 50 21 38 31 41 C31 28 46 21 55 30 C63 21 80 30 75 43 C86 45 86 60 80 62 Z"/>';
+        const lc = t.liner || '#7ec8ff';
+        return {
+          under: `<path d="M22 60 H78 L70 92 H30 Z" fill="${lc}" stroke="${O}" stroke-width="2.5" stroke-linejoin="round"/><path d="M33 61 L37 91 M44 61 L46 91 M56 61 L54 91 M67 61 L63 91" stroke="${bkrMix(lc, '#ffffff', 0.45)}" stroke-width="3"/>` +
+            (ic ? '' : `<path d="M20 62 C20 40 80 40 80 62 Z" fill="${d}" stroke="${O}" stroke-width="2.5"/>`),
+          icing: ic ? `<g fill="${ic}" stroke="${O}" stroke-width="2.5" stroke-linejoin="round">${cloud}</g>` : '', clip: ic ? cloud : '<path d="M20 62 C20 40 80 40 80 62 Z"/>', face: [50, 76, 1.1],
+        };
+      }
+      case 'cakepops': {
+        const coat = '<path d="M24 44 A26 26 0 0 1 76 44 C76 52 72 50 70 54 C68 58 64 52 60 56 C56 60 52 54 48 58 C44 62 40 54 36 57 C32 60 28 52 26 52 C24 50 24 47 24 44 Z"/>';
+        return {
+          under: `<rect x="46.5" y="60" width="7" height="36" rx="3.5" fill="#fff" stroke="${O}" stroke-width="2.5"/><circle cx="50" cy="44" r="26" fill="${d}" stroke="${O}" stroke-width="2.5"/>`,
+          icing: ic ? `<g fill="${ic}" stroke="${O}" stroke-width="2.2" stroke-linejoin="round">${coat}</g>` : '', clip: ic ? coat : '<circle cx="50" cy="44" r="26"/>', face: [50, 48, 1],
+        };
+      }
+      case 'donuts': {
+        const ring = 'M14 54 a36 36 0 1 0 72 0 a36 36 0 1 0 -72 0 Z M39 54 a11 11 0 1 0 22 0 a11 11 0 1 0 -22 0 Z', icp = bkrWavyRing(50, 54, 31, 15, 9, 2.6);
+        return {
+          under: `<path d="${ring}" fill="${d}" fill-rule="evenodd" stroke="${O}" stroke-width="2.5"/>`,
+          icing: ic ? `<path d="${icp}" fill="${ic}" fill-rule="evenodd" stroke="${O}" stroke-width="2"/>` : '', clip: `<path d="${ic ? icp : ring}" clip-rule="evenodd"/>`, face: [50, 78, 0.8],
+        };
+      }
+      case 'macarons': {
+        const top = '<path d="M16 50 C16 25 84 25 84 50 C84 55 16 55 16 50 Z"/>', sh = ic || d;
+        const fill = { choco: '#6b4226', berry: '#ff7a9a', both: '#ff7a9a' }[t.fl] || '#fff6e0';
+        return {
+          under: `<path d="M16 66 C16 80 84 80 84 66 C84 60 16 60 16 66 Z" fill="${sh}" stroke="${O}" stroke-width="2.5"/><path d="M18 62 Q22 66 26 62 Q30 66 34 62 Q38 66 42 62 Q46 66 50 62 Q54 66 58 62 Q62 66 66 62 Q70 66 74 62 Q78 66 82 62" fill="none" stroke="${bkrMix(sh, O, 0.3)}" stroke-width="1.6"/>` +
+            `<rect x="18" y="51" width="64" height="12" rx="6" fill="${fill}" stroke="${O}" stroke-width="2.5"/>`,
+          icing: `<g fill="${sh}" stroke="${O}" stroke-width="2.5">${top}</g><path d="M18 51 Q22 55 26 51 Q30 55 34 51 Q38 55 42 51 Q46 55 50 51 Q54 55 58 51 Q62 55 66 51 Q70 55 74 51 Q78 55 82 51" fill="none" stroke="${bkrMix(sh, O, 0.3)}" stroke-width="1.6"/>`, clip: top, face: [50, 40, 1],
+        };
+      }
+      case 'croissant': {
+        const segs = ['<ellipse cx="17" cy="66" rx="9" ry="13" transform="rotate(-62 17 66)"/>', '<ellipse cx="83" cy="66" rx="9" ry="13" transform="rotate(62 83 66)"/>', '<ellipse cx="31" cy="55" rx="12" ry="19" transform="rotate(-38 31 55)"/>', '<ellipse cx="69" cy="55" rx="12" ry="19" transform="rotate(38 69 55)"/>', '<ellipse cx="50" cy="50" rx="15" ry="24"/>'];
+        const dr = 'M14 60 L24 44 L32 64 L42 38 L50 66 L58 38 L68 64 L76 44 L86 60';
+        return {
+          under: `<g ${bkrLine(O, 5)}>${segs.join('')}</g>` + segs.map(s => s.replace('/>', ` fill="${d}" stroke="${dk}" stroke-width="1.6"/>`)).join(''),
+          icing: ic ? `<path d="${dr}" fill="none" stroke="${O}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="${dr}" fill="none" stroke="${ic}" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>` : '', clip: segs.join(''), face: [50, 52, 0.9],
+        };
+      }
+      case 'pancakes': {
+        const lay = y => `<path d="M14 ${y} V${y + 7} C14 ${y + 20} 86 ${y + 20} 86 ${y + 7} V${y} Z" fill="${dk}" stroke="${O}" stroke-width="2.5"/><ellipse cx="50" cy="${y}" rx="36" ry="11" fill="${d}" stroke="${O}" stroke-width="2.5"/>`;
+        const syrup = '<path d="M20 44 C20 34 80 34 80 44 C80 49 76 49 75 55 C74 61 69 60 69 53 C62 55 54 56 45 55 C44 62 38 64 37 57 C36 52 30 52 26 50 C22 49 20 47 20 44 Z"/>';
+        return {
+          under: `<ellipse cx="50" cy="86" rx="46" ry="10" fill="#fff" stroke="${O}" stroke-width="2.5"/>${lay(70)}${lay(57)}${lay(44)}`,
+          icing: ic ? `<g fill="${ic}" stroke="${O}" stroke-width="2.2">${syrup}</g>` : '', clip: ic ? syrup : '<ellipse cx="50" cy="44" rx="36" ry="11"/>', face: [50, 66, 0.9],
+        };
+      }
+      case 'pizza': {
+        const sauce = `<path d="${bkrWavyRing(50, 54, 27, 0, 8, 2).split(' Z')[0]} Z"/>`;
+        return {
+          under: `<circle cx="50" cy="54" r="35" fill="${d}" stroke="${O}" stroke-width="2.5"/><circle cx="50" cy="54" r="31" fill="none" stroke="${dk}" stroke-width="1.5" stroke-dasharray="3 5"/>`,
+          icing: ic ? `<g fill="${ic}" stroke="${O}" stroke-width="2">${sauce}</g>` : '', clip: ic ? sauce : '<circle cx="50" cy="54" r="31"/>', face: [50, 58, 1],
+        };
+      }
+      default: {
+        const els = bkrShapeEls(t.shape), fa = bkrFaceAt[t.shape] || [50, 56];
+        const tf = `translate(${fa[0]} ${fa[1]}) scale(.8) translate(${-fa[0]} ${-fa[1]})`;
+        return {
+          under: `<g ${bkrLine(O, 5)}>${els}</g><g fill="${d}">${els}</g>`,
+          icing: ic ? `<g transform="${tf}"><g ${bkrLine(O, 3)}>${els}</g><g fill="${ic}">${els}</g></g>` : '',
+          clip: ic ? `<g transform="${tf}">${els}</g>` : els, face: [fa[0], fa[1], 1],
+        };
+      }
+    }
+  }
+  const BKR_PIPES = [['none', 'בלי'], ['zigzag', 'זיגזג'], ['dots', 'נקודות'], ['swirl', 'סלסול'], ['stripes', 'פסים'], ['hearts', 'לבבות'], ['drizzle', 'גלים']];
+  const bkrHeartD = (x, y, s) => `M${x} ${y + 3 * s} C${x - 5 * s} ${y} ${x - 4 * s} ${y - 4 * s} ${x} ${y - 1.5 * s} C${x + 4 * s} ${y - 4 * s} ${x + 5 * s} ${y} ${x} ${y + 3 * s} Z`;
+  function bkrPipe(kind, c) {
+    const st = `fill="none" stroke="${c}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"`;
+    if (kind === 'zigzag') return [30, 44, 58, 72].map(y => `<polyline points="${Array.from({ length: 12 }, (_, i) => `${8 + i * 8},${y + (i % 2 ? 4 : -4)}`).join(' ')}" ${st}/>`).join('');
+    if (kind === 'dots') { let s = ''; for (let y = 20; y < 96; y += 9) for (let x = 10 + (y % 18 ? 4.5 : 0); x < 96; x += 9) s += `<circle cx="${x}" cy="${y}" r="2" fill="${c}"/>`; return s; }
+    if (kind === 'swirl') return `<path d="${Array.from({ length: 90 }, (_, i) => { const a = i * 0.28, r = 1.5 + i * 0.42; return `${i ? 'L' : 'M'}${(50 + r * Math.cos(a)).toFixed(1)} ${(52 + r * Math.sin(a)).toFixed(1)}`; }).join(' ')}" ${st}/>`;
+    if (kind === 'stripes') return Array.from({ length: 12 }, (_, i) => `<line x1="${i * 12 - 30}" y1="100" x2="${i * 12 + 30}" y2="0" stroke="${c}" stroke-width="3.2"/>`).join('');
+    if (kind === 'hearts') { let s = ''; for (let y = 22; y < 96; y += 15) for (let x = 12 + (y % 30 ? 0 : 7); x < 96; x += 15) s += `<path d="${bkrHeartD(x, y, 1.1)}" fill="${c}"/>`; return s; }
+    if (kind === 'drizzle') return [28, 40, 52, 64, 76].map(y => `<path d="M4 ${y} Q16 ${y - 6} 28 ${y} T52 ${y} T76 ${y} T100 ${y}" ${st}/>`).join('');
+    return '';
+  }
+  const BKR_TOPS = {
+    sprinkles: ['סוכריות', 8], chips: ['שוקולד צ\'יפס', 3], cherry: ['דובדבן', 1], pearls: ['פניני סוכר', 4], heart: ['לב', 1], star: ['כוכב', 1], candle: ['נר', 1], berry: ['תות', 1], olive: ['זית', 1], pepperoni: ['פפרוני', 1],
+  };
+  const BKR_SPRINK = ['#ff5a8a', '#ffd84d', '#7ec8ff', '#7ee08a', '#b58cff', '#ff9f43', '#ffffff'];
+  function bkrTop(k, x, y, rot, c) {
+    const T = `transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot | 0})"`;
+    switch (k) {
+      case 'sprinkles': return `<rect ${T} x="-3.2" y="-1.1" width="6.4" height="2.2" rx="1.1" fill="${c}" stroke="${O}" stroke-width=".5"/>`;
+      case 'chips': return `<path ${T} d="M0 -3.4 C2.4 -.6 3.4 2.6 0 2.8 C-3.4 2.6 -2.4 -.6 0 -3.4 Z" fill="#5a3520" stroke="${O}" stroke-width=".6"/>`;
+      case 'cherry': return `<g ${T}><path d="M0 -4 Q2 -11 7 -12" fill="none" stroke="#3f8f3a" stroke-width="1.6" stroke-linecap="round"/><circle cx="0" cy="0" r="5" fill="#ff3d5a" stroke="${O}" stroke-width="1.5"/><circle cx="-1.8" cy="-1.8" r="1.4" fill="#fff" opacity=".8"/></g>`;
+      case 'pearls': return `<g ${T}><circle r="2.5" fill="${c}" stroke="${O}" stroke-width=".6"/><circle cx="-.8" cy="-.8" r=".8" fill="#fff"/></g>`;
+      case 'heart': return `<path ${T} d="${bkrHeartD(0, 0, 1.6)}" fill="#ff5a8a" stroke="${O}" stroke-width="1"/>`;
+      case 'star': return `<polygon ${T} points="${starPts(0, 0, 5.5, 2.5)}" fill="#ffd84d" stroke="${O}" stroke-width="1"/>`;
+      case 'candle': return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><rect x="-2.2" y="-16" width="4.4" height="16" rx="1.2" fill="${c}" stroke="${O}" stroke-width="1"/><path d="M-2.2 -12 L2.2 -14 M-2.2 -7 L2.2 -9 M-2.2 -2 L2.2 -4" stroke="#fff" stroke-width="1.2"/><path class="bkr-flame" d="M0 -26 C3 -22 3 -18 0 -17 C-3 -18 -3 -22 0 -26 Z" fill="#ffb020" stroke="${O}" stroke-width=".8"/></g>`;
+      case 'berry': return `<g ${T}><path d="M0 6 C-6 3 -7 -3 -5 -5 C-3 -7 3 -7 5 -5 C7 -3 6 3 0 6 Z" fill="#ff5a6e" stroke="${O}" stroke-width="1"/><path d="M-4 -5 L0 -8 L4 -5" fill="#6fcf7f" stroke="${O}" stroke-width=".8"/><circle cx="-2" cy="0" r=".6" fill="#ffe79a"/><circle cx="2" cy="1" r=".6" fill="#ffe79a"/><circle cx="0" cy="-3" r=".6" fill="#ffe79a"/></g>`;
+      case 'olive': return `<g ${T}><circle r="3.6" fill="#3a2b3c" stroke="${O}" stroke-width=".8"/><circle r="1.3" fill="#ff6b6b"/></g>`;
+      case 'pepperoni': return `<g ${T}><circle r="6" fill="#d9483b" stroke="${O}" stroke-width="1"/><circle cx="-2" cy="-1.5" r="1" fill="#ff8a7a"/><circle cx="2" cy="1.8" r="1" fill="#ff8a7a"/></g>`;
+    }
+    return '';
+  }
+  const BKR_FACES = [['none', 'בלי'], ['smile', '😊'], ['kawaii', '^^'], ['cat', '🐱'], ['love', '😍'], ['wink', '😉']];
+  function bkrFace(kind, [x, y, s]) {
+    if (!kind || kind === 'none') return '';
+    const k = 1.35 * s, blush = `<circle cx="${x - 11 * k}" cy="${y + 3 * k}" r="${3.2 * k}" fill="#ff8fab" opacity=".7"/><circle cx="${x + 11 * k}" cy="${y + 3 * k}" r="${3.2 * k}" fill="#ff8fab" opacity=".7"/>`;
+    const eye = (ex, ey) => `<circle cx="${ex}" cy="${ey}" r="${2.4 * k}" fill="${O}"/><circle cx="${ex + 0.8 * k}" cy="${ey - 0.9 * k}" r="${0.8 * k}" fill="#fff"/>`;
+    const mouth = `<path d="M${x - 3 * k} ${y + 3 * k} Q${x} ${y + 6.5 * k} ${x + 3 * k} ${y + 3 * k}" fill="none" stroke="${O}" stroke-width="${1.8 * k}" stroke-linecap="round"/>`;
+    const L = x - 6 * k, R = x + 6 * k;
+    if (kind === 'smile') return blush + eye(L, y) + eye(R, y) + mouth;
+    if (kind === 'kawaii') return blush + `<path d="M${L - 2.6 * k} ${y + 1 * k} Q${L} ${y - 3 * k} ${L + 2.6 * k} ${y + 1 * k} M${R - 2.6 * k} ${y + 1 * k} Q${R} ${y - 3 * k} ${R + 2.6 * k} ${y + 1 * k}" fill="none" stroke="${O}" stroke-width="${1.8 * k}" stroke-linecap="round"/><path d="M${x - 2.6 * k} ${y + 3 * k} Q${x} ${y + 7 * k} ${x + 2.6 * k} ${y + 3 * k} Z" fill="#ff6b8a" stroke="${O}" stroke-width="${1.2 * k}"/>`;
+    if (kind === 'cat') return blush + eye(L, y) + eye(R, y) + `<path d="M${x - 4 * k} ${y + 3 * k} Q${x - 2 * k} ${y + 5.5 * k} ${x} ${y + 3 * k} Q${x + 2 * k} ${y + 5.5 * k} ${x + 4 * k} ${y + 3 * k}" fill="none" stroke="${O}" stroke-width="${1.5 * k}" stroke-linecap="round"/><path d="M${x - 10 * k} ${y + 1 * k} H${x - 18 * k} M${x - 10 * k} ${y + 4 * k} L${x - 17 * k} ${y + 6 * k} M${x + 10 * k} ${y + 1 * k} H${x + 18 * k} M${x + 10 * k} ${y + 4 * k} L${x + 17 * k} ${y + 6 * k}" stroke="${O}" stroke-width="${1.1 * k}" stroke-linecap="round"/>`;
+    if (kind === 'love') return blush + `<path d="${bkrHeartD(L, y, 1.1 * k)}" fill="#ff3d6e"/><path d="${bkrHeartD(R, y, 1.1 * k)}" fill="#ff3d6e"/>` + mouth;
+    if (kind === 'wink') return blush + eye(L, y) + `<path d="M${R - 2.6 * k} ${y} H${R + 2.6 * k}" stroke="${O}" stroke-width="${1.8 * k}" stroke-linecap="round"/>` + mouth;
+    return '';
+  }
+  function bkrTreatSVG(t, opt = {}) {
+    const u = 'bkc' + (bkrUid++), p = bkrParts(t);
+    const pipe = t.icing && t.pipe && t.pipe !== 'none' ? `<clipPath id="${u}">${p.clip}</clipPath><g clip-path="url(#${u})">${bkrPipe(t.pipe, t.pipeC || '#ffffff')}</g>` : '';
+    const tops = (t.tops || []).map(o => bkrTop(o.k, o.x, o.y, o.r, o.c)).join('');
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${opt.shadow === false ? '' : '<ellipse cx="50" cy="95" rx="30" ry="4" fill="#000" opacity=".12"/>'}${p.under}${p.icing}${pipe}${bkrFace(t.face, p.face)}${tops}</svg>`;
+  }
+
+  // ---------- 🧁 the bakery ----------
+  let bkr = Object.assign({ treats: [], baked: 0 }, store.get('bakery', {}));
+  const bkrSave = () => { if (!store.set('bakery', bkr)) toast(stickerHTML('cupcake'), 'אין מספיק מקום לשמור את הוויטרינה 😕'); };
+  let bkrS = { step: 'tray' };
+  const BKR_STEPS = [['recipe', '📖'], ['mix', '🥣'], ['stir', '🥄'], ['shape', '⭐'], ['bake', '🔥'], ['deco', '🎨']];
+  const BKR_ICING = ['#ffb3cf', '#fff8f0', '#6b4226', '#ffe27a', '#a8dcff', '#b8f0d0', '#d4b8ff', '#ff6b7f', '#ff9f43', '#3a2b3c'];
+  const BKR_LINERS = ['#7ec8ff', '#ff9ad5', '#ffd84d', '#7ee08a', '#b58cff', '#ff7a7a', '#ffffff'];
+  let bkrTimers = [];
+  const bkrLater = (fn, ms) => { bkrTimers.push(setTimeout(fn, ms)); };
+  const bkrStop = () => { bkrTimers.forEach(clearTimeout); bkrTimers = []; };
+  function openBakery() {
+    bkrStop();
+    bkrS = { step: bkr.treats.length ? 'tray' : 'recipe' };
+    bkrDraw();
+    if (!$('#bkrDlg').open) $('#bkrDlg').showModal();
+  }
+  const bkrGo = step => { bkrStop(); bkrS.step = step; bkrDraw(); const s = $('#bkrDlg .sheet'); if (s) s.scrollTop = 0; };
+  function bkrDraw() {
+    const body = $('#bkrBody'), st = bkrS.step, idx = BKR_STEPS.findIndex(s => s[0] === st);
+    const steps = idx >= 0 ? el('div', { class: 'bkr-steps', 'aria-label': 'שלבים' }, ...BKR_STEPS.map(([id, ic], i) => el('span', { class: i < idx ? 'done' : i === idx ? 'now' : '' }, ic))) : null;
+    const fn = { recipe: bkrRecipe, mix: bkrMixStep, stir: bkrStirStep, shape: bkrShapeStep, bake: bkrBakeStep, deco: bkrDecoStep, tray: bkrTray, feed: bkrFeed }[st] || bkrTray;
+    body.replaceChildren(...[steps, ...[].concat(fn())].filter(Boolean));
+  }
+  function bkrRecipe() {
+    return [el('p', { class: 'bkr-say' }, '👩‍🍳 מה נאפה היום?'),
+      el('div', { class: 'bkr-recipes' }, ...Object.entries(BKR_RECIPES).map(([id, [nm]]) => el('button', { type: 'button', class: 'bkr-card', onclick: () => {
+        bkrS = { step: 'mix', r: id, ings: [], stir: 0, shape: id === 'cookies' ? 'heart' : null, liner: BKR_LINERS[0], spots: [] };
+        SFX.pop(); bkrGo('mix');
+      } }, el('span', { class: 'art', html: bkrTreatSVG({ r: id, shape: 'heart', icing: id === 'cookies' ? null : { cupcakes: '#ffb3cf', cakepops: '#d4b8ff', donuts: '#ff9ad5', macarons: '#a8dcff', pancakes: '#c9853f', pizza: '#e4513a' }[id] || null, fl: 'plain', tops: [] }) }), nm))),
+      bkr.treats.length ? el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => bkrGo('tray') }, '🍰 לוויטרינה שלי')) : null];
+  }
+  const bkrBowlSVG = (ings, p, a) => {
+    const d = bkrDough(bkrS.r, bkrFlavor(ings)), bat = bkrMix('#f5ecdc', d, p), op = 1 - p;
+    const blobs = {
+      flour: `<path d="M54 76 Q70 52 92 74 Z" fill="#fffdf6" stroke="#e6dccb" stroke-width="1.5"/>`,
+      sugar: [[108, 70], [116, 74], [112, 66], [122, 69]].map(([x, y]) => `<rect x="${x}" y="${y}" width="6" height="6" rx="1.3" fill="#fff" stroke="#b9d9f0"/>`).join(''),
+      eggs: `<circle cx="132" cy="76" r="8" fill="#fff" stroke="#eee"/><circle cx="132" cy="76" r="4.5" fill="#ffc933"/><circle cx="76" cy="84" r="7" fill="#fff" stroke="#eee"/><circle cx="76" cy="84" r="4" fill="#ffc933"/>`,
+      butter: `<rect x="96" y="80" width="14" height="10" rx="2" fill="#ffe27a" stroke="#e0b93c"/>`,
+      choco: `<rect x="58" y="70" width="8" height="8" rx="1" fill="#6b4226"/><rect x="142" y="68" width="8" height="8" rx="1" fill="#6b4226"/><rect x="118" y="84" width="8" height="8" rx="1" fill="#6b4226"/>`,
+      berry: `<circle cx="148" cy="80" r="5" fill="#ff5a6e"/><circle cx="64" cy="80" r="5" fill="#ff5a6e"/><circle cx="104" cy="66" r="4.5" fill="#ff5a6e"/>`,
+    };
+    const sp = Array.from({ length: 70 }, (_, i) => { const ang = i * 0.36, r = 2 + i * 0.85; return `${i ? 'L' : 'M'}${(100 + r * Math.cos(ang)).toFixed(1)} ${(76 + r * Math.sin(ang)).toFixed(1)}`; }).join(' ');
+    const sx = 100 + 46 * Math.cos(a), sy = 76 + 9 * Math.sin(a);
+    return `<svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg"><ellipse cx="100" cy="158" rx="80" ry="8" fill="#000" opacity=".1"/>` +
+      `<ellipse cx="100" cy="72" rx="82" ry="20" fill="#dff3ff" stroke="${O}" stroke-width="3"/>` +
+      (ings.length ? `<ellipse cx="100" cy="77" rx="70" ry="14" fill="${bat}"/>` : '') +
+      (p > 0 ? `<g transform="translate(100 76) scale(1 .2) rotate(${(a * 180 / Math.PI).toFixed(0)}) translate(-100 -76)" opacity="${Math.min(0.6, p)}"><path d="${sp}" fill="none" stroke="${bkrMix(d, '#ffffff', 0.5)}" stroke-width="5" stroke-linecap="round"/></g>` : '') +
+      `<g opacity="${op.toFixed(2)}">${ings.map(i => blobs[i]).join('')}</g>` +
+      (p > 0 || bkrS.step === 'stir' ? `<g class="bkr-spoon"><path d="M${sx.toFixed(1)} ${sy.toFixed(1)} L${(sx + 30).toFixed(1)} ${(sy - 72).toFixed(1)}" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M${sx.toFixed(1)} ${sy.toFixed(1)} L${(sx + 30).toFixed(1)} ${(sy - 72).toFixed(1)}" stroke="#d9a066" stroke-width="5.5" stroke-linecap="round"/><ellipse cx="${sx.toFixed(1)}" cy="${(sy + 2).toFixed(1)}" rx="8" ry="5" fill="#d9a066" stroke="${O}" stroke-width="2.5"/></g>` : '') +
+      `<path d="M18 72 Q22 150 100 152 Q178 150 182 72 Q178 94 100 94 Q22 94 18 72 Z" fill="#8fd3ff" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>` +
+      `<path d="M36 104 Q44 128 70 138" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/><path d="M92 122 l4 -4 l4 4 l-4 4 Z M114 118 l3 -3 l3 3 l-3 3 Z" fill="#fff"/></svg>`;
+  };
+  function bkrMixStep() {
+    const need = bkrNeeds(bkrS.r), ings = bkrS.ings, ok = need.every(i => ings.includes(i));
+    const bowl = el('div', { class: 'bkr-bowl', html: bkrBowlSVG(ings, 0, 0), 'aria-label': 'קערה' });
+    const shelf = el('div', { class: 'bkr-shelf' }, ...Object.keys(BKR_INGS).map(id => {
+      const used = ings.includes(id), b = el('button', { type: 'button', class: 'bkr-ing' + (used ? ' used' : ''), disabled: used, 'aria-label': BKR_INGS[id][0] }, el('span', { class: 'art', html: bkrIngArt(id) }), el('span', {}, BKR_INGS[id][0] + (used ? ' ✔️' : '')));
+      bkrDrag(b, bkrIngArt(id), () => [bowl], () => {
+        if (ings.includes(id)) return;
+        ings.push(id); SFX.pop(); tone(260, 0.12, 'sine', 0.1, 0.08);
+        bkrDraw(); const bw = $('#bkrBody .bkr-bowl'); if (bw) { bw.classList.add('plop'); }
+      });
+      return b;
+    }));
+    const fl = bkrFlavorName(bkrFlavor(ings));
+    return [el('p', { class: 'bkr-say' }, `🥣 ${BKR_RECIPES[bkrS.r][0]}! גוררים את החומרים לתוך הקערה (או לוחצים עליהם)`),
+      el('div', { class: 'bkr-mixrow' }, shelf, bowl),
+      el('div', { class: 'bkr-need' }, 'צריך: ', ...need.map(i => el('span', { class: ings.includes(i) ? 'ok' : '' }, (ings.includes(i) ? '✔️ ' : '⬜ ') + BKR_INGS[i][0])),
+        el('span', { class: 'muted' }, ' • בונוס לטעם: שוקולד ו/או תותים' + (fl ? ` (עכשיו: טעם ${fl}!)` : ''))),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => bkrGo('recipe') }, '↩️ מתכון אחר'),
+        el('button', { type: 'button', class: 'btn main', disabled: !ok, onclick: () => { SFX.pop(); bkrGo('stir'); } }, '🥄 לערבב!'))];
+  }
+  function bkrStirStep() {
+    const TOTAL = Math.PI * 6;
+    let a = 0;
+    const wrap = el('div', { class: 'bkr-bowl big', html: bkrBowlSVG(bkrS.ings, 0, 0) });
+    const bar = el('div', { class: 'bkr-bar' }, el('i'));
+    const done = () => { if (bkrS.stirDone) return; bkrS.stirDone = true; SFX.yay(); bkrLater(() => bkrGo('shape'), 700); };
+    const upd = () => {
+      const p = Math.min(1, bkrS.stir / TOTAL);
+      wrap.innerHTML = bkrBowlSVG(bkrS.ings, p, a); bar.firstChild.style.width = (p * 100) + '%';
+      hook();
+      if (p >= 1) done();
+    };
+    let lastTick = 0;
+    const turn = (d, ang) => {
+      if (bkrS.stirDone) return;
+      bkrS.stir += d; a = ang;
+      if (bkrS.stir - lastTick > Math.PI / 2) { lastTick = bkrS.stir; tone(200 + Math.random() * 60, 0.06, 'triangle', 0, 0.05); }
+      upd();
+    };
+    const hook = () => {};
+    bkrStirrer(wrap, [200, 170], [100, 76], turn);
+    bkrS.stir = 0; bkrS.stirDone = false; upd();
+    return [el('p', { class: 'bkr-say' }, '🥄 מערבבים! מסובבים את האצבע (או העכבר) בעיגולים בתוך הקערה'), wrap, bar,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => turn(Math.PI / 2, a + Math.PI / 2) }, '🌀 לערבב בלחיצה'))];
+  }
+  const BKR_SPOTS = [[60, 55], [150, 55], [240, 55], [60, 135], [150, 135], [240, 135]];
+  const bkrPlain = () => ({ r: bkrS.r, shape: bkrS.shape, liner: bkrS.liner, fl: bkrFlavor(bkrS.ings), dough: bkrDough(bkrS.r, bkrFlavor(bkrS.ings)), tops: [] });
+  function bkrShapeStep() {
+    const r = bkrS.r, cookie = r === 'cookies', mini = bkrTreatSVG(bkrPlain(), { shadow: false });
+    const tray = `<svg viewBox="0 0 300 190" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="6" width="292" height="178" rx="18" fill="#c9ced6" stroke="${O}" stroke-width="3"/><rect x="14" y="16" width="272" height="158" rx="12" fill="${cookie ? '#f3d9a8' : '#dfe3ea'}" stroke="#a9b0bb" stroke-width="2"/>` +
+      (cookie ? '<path d="M30 40 Q60 30 90 42 M180 150 Q220 140 260 152 M40 150 q30 8 60 0" stroke="#e2c08a" stroke-width="3" fill="none" stroke-linecap="round"/>' : '') +
+      BKR_SPOTS.map(([x, y], i) => bkrS.spots.includes(i) ? `<g class="bkr-pop">${placeSvg(mini, x - 38, y - 38, 76, 76)}</g>` :
+        `<g data-spot="${i}" style="cursor:pointer"><circle cx="${x}" cy="${y}" r="33" fill="${cookie ? '#f7e3bd' : '#eef1f5'}" stroke="#a9b0bb" stroke-width="2.5" stroke-dasharray="${cookie ? '5 5' : '0'}"/><text x="${x}" y="${y + 7}" text-anchor="middle" font-size="20" fill="#a9b0bb">+</text></g>`).join('') + '</svg>';
+    const box = el('div', { class: 'bkr-tray', html: tray, onclick: e => {
+      const g = e.target.closest('[data-spot]'); if (!g) return;
+      bkrS.spots.push(+g.dataset.spot); SFX.pop(); tone(cookie ? 180 : 420, 0.1, cookie ? 'square' : 'sine', 0.02, 0.06); bkrDraw();
+    } });
+    const opts = cookie ? el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'חותכן:'), ...BKR_SHAPES.map(([id, nm]) => el('button', { type: 'button', class: 'chip bkr-cut', 'aria-pressed': String(bkrS.shape === id), onclick: () => { bkrS.shape = id; SFX.pop(); bkrDraw(); } },
+      el('span', { class: 'ic', html: `<svg viewBox="0 0 100 100"><g fill="none" stroke="#8a93a3" stroke-width="7" stroke-linejoin="round">${bkrShapeEls(id)}</g></svg>` }), nm)))
+      : r === 'cupcakes' ? el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'צבע העטיפה:'), ...BKR_LINERS.map(c => el('button', { type: 'button', class: 'bkr-sw', style: `background:${c}`, 'aria-label': 'עטיפה', 'aria-pressed': String(bkrS.liner === c), onclick: () => { bkrS.liner = c; SFX.pop(); bkrDraw(); } }))) : null;
+    const say = cookie ? '⭐ בוחרים חותכן ולוחצים על הבצק כדי לחתוך עוגיות' : { cupcakes: '🧁 לוחצים על התבניות כדי למלא אותן בבלילה', cakepops: '🍭 לוחצים כדי לגלגל כדורים ולשים מקל', donuts: '🍩 לוחצים על התבניות כדי ליצוק דונאטס', macarons: '💜 לוחצים כדי לזלף מקרונים', croissant: '🥐 לוחצים כדי לגלגל קרואסונים', pancakes: '🥞 לוחצים כדי ליצוק פנקייקים', pizza: '🍕 לוחצים כדי לשים פיצות קטנות' }[r];
+    return [el('p', { class: 'bkr-say' }, say), opts, box,
+      el('div', { class: 'chips' }, el('span', { class: 'muted' }, `${bkrS.spots.length}/6`),
+        el('button', { type: 'button', class: 'btn', disabled: bkrS.spots.length >= 6, onclick: () => { for (let i = 0; i < 6; i++) if (!bkrS.spots.includes(i)) bkrS.spots.push(i); SFX.pop(); bkrDraw(); } }, '✨ למלא הכל'),
+        el('button', { type: 'button', class: 'btn main', disabled: !bkrS.spots.length, onclick: () => bkrGo('bake') }, '🔥 לתנור!'))];
+  }
+  function bkrBakeStep() {
+    const mini = bkrTreatSVG(bkrPlain(), { shadow: false }), n = bkrS.spots.length;
+    const k = Math.min(n, 3), inside = Array.from({ length: k }, (_, i) => placeSvg(mini, 101 - k * 20 + i * 40, 110, 38, 38)).join('');
+    const oven = el('div', { class: 'bkr-oven' + (bkrS.baked ? ' done' : bkrS.baking ? ' on' : ''), html:
+      `<svg viewBox="0 0 240 230" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="220" height="210" rx="22" fill="#ffc2d6" stroke="${O}" stroke-width="3.5"/><rect x="10" y="10" width="220" height="48" rx="22" fill="#ff9ad5" stroke="${O}" stroke-width="3.5"/>` +
+      `<circle cx="42" cy="34" r="11" fill="#fff" stroke="${O}" stroke-width="2.5"/><path d="M42 34 L42 26" stroke="${O}" stroke-width="3" stroke-linecap="round" class="bkr-dial"/><circle cx="198" cy="34" r="11" fill="#fff" stroke="${O}" stroke-width="2.5"/><path d="M198 34 L204 28" stroke="${O}" stroke-width="3" stroke-linecap="round"/>` +
+      `<rect x="82" y="21" width="76" height="26" rx="8" fill="#3a2b3c"/><text class="bkr-clock" x="120" y="40" text-anchor="middle" font-size="17" fill="#7dffb0" font-family="monospace">${bkrS.baked ? '0:00' : '0:06'}</text>` +
+      `<rect x="30" y="72" width="180" height="120" rx="16" fill="#fff0f6" stroke="${O}" stroke-width="3.5"/><rect x="44" y="86" width="152" height="84" rx="10" fill="#3a2b3c"/>` +
+      `<rect class="bkr-glow" x="44" y="86" width="152" height="84" rx="10" fill="#ff9d2e"/><path d="M52 164 H188" stroke="#8a8f99" stroke-width="3"/><g class="bkr-rise">${inside}</g>` +
+      `<path d="M50 94 L70 94" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".4"/><rect x="70" y="200" width="100" height="10" rx="5" fill="#fff" stroke="${O}" stroke-width="2.5"/></svg>` });
+    const go = () => {
+      bkrS.baking = true; bkrDraw(); let left = 6;
+      const clock = () => { const c = $('#bkrBody .bkr-clock'); if (c) c.textContent = '0:0' + left; };
+      const tick = () => {
+        left--; clock(); tone(900, 0.03, 'square', 0, 0.03);
+        if (left > 0) bkrLater(tick, 1000);
+        else { bkrS.baking = false; bkrS.baked = true; SFX.ding(); tone(1568, 0.3, 'sine', 0.2, 0.08); bkrDraw(); }
+      };
+      bkrLater(tick, 1000);
+    };
+    return [el('p', { class: 'bkr-say' }, bkrS.baked ? '🔔 דינג! זה מוכן! איזה ריח!' : bkrS.baking ? '🔥 אופים... מחכים שהטיימר יגמר' : `🔥 שמים ${n} ${BKR_RECIPES[bkrS.r][0]} בתנור. מדליקים!`), oven,
+      el('div', { class: 'chips' }, bkrS.baked ? el('button', { type: 'button', class: 'btn main', onclick: () => {
+        bkr.baked++; bkrSave(); bkrCoins(8, 'אפית ' + BKR_RECIPES[bkrS.r][0]);
+        bkrS.t = Object.assign(bkrPlain(), { id: 'b' + Date.now().toString(36), n, icing: null, pipe: 'none', pipeC: '#ffffff', face: 'none', tops: [] });
+        bkrS.tool = 'icing'; bkrS.top = bkrS.r === 'pizza' ? 'pepperoni' : 'sprinkles'; SFX.pop(); bkrGo('deco');
+      } }, '🧤 להוציא ולקשט!') : el('button', { type: 'button', class: 'btn main', disabled: !!bkrS.baking, onclick: go }, '🔥 להדליק את התנור'))];
+  }
+  function bkrDecoStep() {
+    const t = bkrS.t, tool = bkrS.tool;
+    const prev = el('div', { class: 'bkr-deco', html: bkrTreatSVG(t), title: 'לוחצים כדי לשים קישוט' });
+    const redraw = () => { prev.innerHTML = bkrTreatSVG(t); };
+    prev.addEventListener('pointerdown', e => {
+      if (bkrS.tool !== 'tops') { bkrS.tool = 'tops'; bkrDraw(); return; }
+      const r = prev.getBoundingClientRect(), x = (e.clientX - r.left) * 100 / r.width, y = (e.clientY - r.top) * 100 / r.height;
+      if (t.tops.length > 90) { toast(stickerHTML('cupcake'), 'יש כבר המון קישוטים! 😄'); return; }
+      const k = bkrS.top, n = BKR_TOPS[k][1], batch = [];
+      for (let i = 0; i < n; i++) {
+        const a = Math.random() * Math.PI * 2, d = n > 1 ? 3 + Math.random() * 9 : 0;
+        batch.push({ k, x: Math.max(4, Math.min(96, x + d * Math.cos(a))), y: Math.max(4, Math.min(96, y + d * Math.sin(a))), r: Math.random() * 360, c: k === 'pearls' ? bkrPick(['#ffffff', '#ffe3f0', '#fff3b0', '#e3f3ff']) : k === 'candle' ? bkrPick(['#7ec8ff', '#ff9ad5', '#b58cff', '#7ee08a']) : bkrPick(BKR_SPRINK) });
+      }
+      t.tops.push(...batch); bkrS.undo = (bkrS.undo || []).concat(batch.length); SFX.pop(); redraw();
+    });
+    const tabs = el('div', { class: 'tabs', role: 'tablist' }, ...[['icing', '🍥 ציפוי'], ['pipe', '〰️ זילוף'], ['tops', '🍒 קישוטים'], ['face', '😊 פרצוף']].map(([id, nm]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(tool === id), onclick: () => { bkrS.tool = id; bkrDraw(); } }, nm)));
+    const sw = (c, on, fn, lbl) => el('button', { type: 'button', class: 'bkr-sw', style: `background:${c}`, 'aria-label': lbl || 'צבע', 'aria-pressed': String(on), onclick: fn });
+    let panel;
+    const ICING = t.r === 'pizza' ? ['#e4513a', '#ffd36b', ...BKR_ICING] : t.r === 'pancakes' ? ['#c9853f', ...BKR_ICING] : BKR_ICING;
+    if (tool === 'icing') panel = el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!t.icing), onclick: () => { t.icing = null; SFX.pop(); bkrDraw(); } }, 'בלי'),
+      ...ICING.map(c => sw(c, t.icing === c, () => { t.icing = c; SFX.pop(); bkrDraw(); }, 'ציפוי')));
+    else if (tool === 'pipe') panel = el('div', { class: 'row', style: 'gap:8px' }, t.icing ? null : el('p', { class: 'muted' }, 'זילוף הולך על הציפוי — קודם בוחרים ציפוי 🍥'),
+      el('div', { class: 'chips' }, ...BKR_PIPES.map(([id, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(t.pipe === id), onclick: () => { t.pipe = id; if (!t.icing && id !== 'none') t.icing = BKR_ICING[0]; SFX.pop(); bkrDraw(); } }, nm))),
+      el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'צבע הזילוף:'), ...['#ffffff', '#ff5a8a', '#6b4226', '#ffd84d', '#7ec8ff', '#b58cff', '#7ee08a'].map(c => sw(c, t.pipeC === c, () => { t.pipeC = c; SFX.pop(); bkrDraw(); }))));
+    else if (tool === 'tops') panel = el('div', { class: 'row', style: 'gap:6px' }, el('p', { class: 'muted' }, '👆 בוחרים קישוט ולוחצים על הממתק כדי לשים אותו'),
+      el('div', { class: 'bkr-tops' }, ...Object.entries(BKR_TOPS).filter(([k]) => !['olive', 'pepperoni'].includes(k) || t.r === 'pizza').map(([k, [nm]]) => el('button', { type: 'button', class: 'pick', 'aria-pressed': String(bkrS.top === k), 'aria-label': nm, title: nm, onclick: () => { bkrS.top = k; SFX.pop(); bkrDraw(); },
+        html: `<svg viewBox="-12 -16 24 24">${k === 'sprinkles' ? [[-5, -4, 30, '#ff5a8a'], [3, -6, -40, '#ffd84d'], [-2, 3, 80, '#7ec8ff'], [5, 2, 10, '#7ee08a']].map(([x, y, r, c]) => bkrTop('sprinkles', x, y, r, c)).join('') : k === 'pearls' ? bkrTop(k, -4, -3, 0, '#fff') + bkrTop(k, 3, -1, 0, '#ffe3f0') + bkrTop(k, -1, 4, 0, '#fff3b0') : k === 'chips' ? bkrTop(k, -4, -2, 0) + bkrTop(k, 4, 1, 0) : k === 'candle' ? bkrTop(k, 0, 8, 0, '#7ec8ff') : bkrTop(k, 0, 0, 0, '#fff')}</svg>` }, ))));
+    else panel = el('div', { class: 'chips' }, ...BKR_FACES.map(([id, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((t.face || 'none') === id), onclick: () => { t.face = id; SFX.pop(); bkrDraw(); } }, nm)));
+    const n = t.n;
+    return [el('p', { class: 'bkr-say' }, `🎨 מקשטים! (${n} ${BKR_RECIPES[t.r][0]}${bkrFlavorName(t.fl) ? ' בטעם ' + bkrFlavorName(t.fl) : ''})`),
+      el('div', { class: 'bkr-decorow' }, prev, el('div', { class: 'row bkr-tools' }, tabs, panel,
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn', disabled: !(bkrS.undo || []).length, onclick: () => { const k = bkrS.undo.pop(); t.tops.splice(-k, k); SFX.boop(); bkrDraw(); } }, '↩️ לבטל'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { t.tops = []; t.icing = null; t.pipe = 'none'; t.face = 'none'; bkrS.undo = []; SFX.boop(); bkrDraw(); } }, '🧹 להתחיל מחדש'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { t.icing = bkrPick(ICING); t.pipe = bkrPick(BKR_PIPES.slice(1))[0]; t.pipeC = bkrPick(['#ffffff', '#ff5a8a', '#ffd84d', '#7ec8ff']); t.face = bkrPick(BKR_FACES.slice(1))[0]; SFX.pop(); bkrDraw(); } }, '🎲 הפתעה')),
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          const saved = Object.assign({}, t, { tops: t.tops.map(o => ({ k: o.k, x: +o.x.toFixed(1), y: +o.y.toFixed(1), r: o.r | 0, c: o.c })) });
+          bkr.treats.unshift(saved); if (bkr.treats.length > 24) bkr.treats.length = 24;
+          bkrSave(); SFX.yay(); confetti($('#bkrDlg .confetti-c')); bkrS = { step: 'tray', fresh: saved.id }; bkrDraw();
+        } }, '🍰 לשים בוויטרינה!')))];
+  }
+  function bkrTreatSticker(t) {
+    const c = { id: 'my' + Date.now().toString(36), url: svgData(bkrTreatSVG(t, { shadow: false })) };
+    customStk.push(c);
+    if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('cupcake'), 'אין מספיק מקום לשמור עוד מדבקה 😕'); return; }
+    registerCustom(c); SFX.ding(); toast(stickerHTML(c.id), 'הממתק נהיה מדבקה! ⭐'); bkrTry(afterChange);
+  }
+  function bkrTray() {
+    const list = bkr.treats;
+    return [el('p', { class: 'bkr-say' }, list.length ? '🍰 הוויטרינה שלי! אפשר להאכיל את החיות ואת הבנות שעיצבת' : 'הוויטרינה ריקה... בואי נאפה משהו! 🧁'),
+      el('div', { class: 'bkr-case' }, ...(list.length ? list.map((t, i) => el('div', { class: 'bkr-item' + (bkrS.fresh === t.id ? ' fresh' : '') },
+        el('span', { class: 'art', html: bkrTreatSVG(t) }), el('span', { class: 'nm' }, bkrTreatName(t)), el('span', { class: 'cnt' }, '×' + t.n),
+        el('span', { class: 'acts' },
+          el('button', { type: 'button', class: 'chip', title: 'לעשות מדבקה', 'aria-label': 'לעשות מדבקה', onclick: () => bkrTreatSticker(t) }, '⭐'),
+          el('button', { type: 'button', class: 'chip', title: 'להוריד', 'aria-label': 'להוריד מהוויטרינה', onclick: () => { list.splice(i, 1); bkrSave(); SFX.boop(); bkrDraw(); } }, '🗑️')))) :
+        [el('div', { class: 'bkr-empty', html: stickerHTML('cupcake') })])),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => bkrGo('recipe') }, '🥣 לאפות משהו חדש'),
+        el('button', { type: 'button', class: 'btn main', disabled: !list.length, onclick: () => { bkrS = { step: 'feed' }; bkrDraw(); } }, '🍽️ להאכיל'),
+        bkr.baked ? el('span', { class: 'muted' }, `אפית כבר ${bkr.baked} פעמים 👩‍🍳`) : null)];
+  }
+  // ---------- 🍽️ feeding at the little table ----------
+  function bkrGuests() {
+    return [...bkrPets().map(p => ({ type: 'pet', id: 'p:' + (p.id || p.kind + (p.name || '')), p, name: p.name || 'החיה', art: () => petSVG(p) })),
+      ...girls.map(g => ({ type: 'girl', id: 'g:' + g.id, g, name: g.name || 'בובה', art: () => bkrGirlArt(g) }))];
+  }
+  function bkrFeed() {
+    const guests = bkrGuests();
+    if (!guests.length) return [el('p', { class: 'bkr-say' }, 'אין עדיין מי להאכיל! אפשר לאמץ חיה או לעצב בנות בסטודיו האופנה 💖'), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => bkrGo('tray') }, '↩️ לוויטרינה'))];
+    let gu = guests.find(x => x.id === bkrS.guest) || guests[0]; bkrS.guest = gu.id;
+    const sparkle = bkrTry(() => ptnSparkleToday(gu)) ? '<div class="ptn-sparkles">✨<i>✨</i><b>✨</b></div>' : '';
+    const guestEl = el('div', { class: 'bkr-guest ' + gu.type, html: gu.art() + sparkle });
+    const plate = el('div', { class: 'bkr-plate' });
+    const bubble = el('div', { class: 'bkr-bubble', hidden: !bkrS.said }, bkrS.said || '');
+    const table = el('div', { class: 'bkr-table' }, el('div', { class: 'bkr-wall' }), guestEl, el('div', { class: 'bkr-cloth' }), plate, bubble, el('div', { class: 'bkr-hearts' }));
+    let busy = false;
+    const eat = t => {
+      if (busy || !t || t.n <= 0) return;
+      busy = true; bkrS.said = '';
+      bubble.hidden = true;
+      const art = bkrTreatSVG(t, { shadow: false }), u = 'bkm' + (bkrUid++);
+      plate.innerHTML = `<svg viewBox="0 0 100 100"><defs><mask id="${u}"><rect width="100" height="100" fill="#fff"/><circle class="b1" cx="80" cy="30" r="0" fill="#000"/><circle class="b2" cx="20" cy="46" r="0" fill="#000"/><circle class="b3" cx="58" cy="82" r="0" fill="#000"/></mask></defs><g mask="url(#${u})">${placeSvg(art, 0, 0, 100, 100)}</g></svg>`;
+      plate.classList.add('on'); SFX.pop();
+      const bite = (cls, r, ms) => bkrLater(() => { const c = plate.querySelector('.' + cls); if (c) c.setAttribute('r', r); SFX.munch(); guestEl.classList.remove('chomp'); void guestEl.offsetWidth; guestEl.classList.add('chomp'); }, ms);
+      bite('b1', 22, 450); bite('b2', 24, 900); bite('b3', 28, 1350);
+      bkrLater(() => {
+        plate.classList.remove('on'); plate.innerHTML = '';
+        t.n--; if (t.n <= 0) bkr.treats = bkr.treats.filter(x => x !== t); bkrSave();
+        const food = { id: 'bkr-' + t.id, name: bkrTreatName(t), art, yum: 3 };
+        const line = gu.type === 'pet' ? bkrFeedPet(gu.p, food) : feedGirl(gu.g, food);
+        if (gu.type === 'pet' && typeof feedPet === 'function') bkrTry(() => SFX.pet(gu.p.kind));
+        bkrS.said = line; bubble.textContent = line; bubble.hidden = false;
+        guestEl.classList.remove('chomp'); guestEl.classList.add('happy');
+        const hz = table.querySelector('.bkr-hearts');
+        hz.replaceChildren(...Array.from({ length: 7 }, (_, i) => { const h = el('span', {}, bkrPick(['💖', '💕', '💗', '✨', '😋'])); h.style.cssText = `left:${30 + Math.random() * 40}%;animation-delay:${i * 0.12}s`; return h; }));
+        busy = false; drawShelf();
+        bkrLater(() => guestEl.classList.remove('happy'), 1200);
+      }, 1750);
+    };
+    const shelf = el('div', { class: 'bkr-shelf2' });
+    const drawShelf = () => shelf.replaceChildren(...(bkr.treats.length ? bkr.treats.map(t => {
+      const b = el('button', { type: 'button', class: 'bkr-treatbtn', 'aria-label': 'להאכיל ב' + bkrTreatName(t) }, el('span', { class: 'art', html: bkrTreatSVG(t) }), el('span', { class: 'cnt' }, '×' + t.n));
+      bkrDrag(b, () => bkrTreatSVG(t, { shadow: false }), () => [table], () => eat(t));
+      return b;
+    }) : [el('p', { class: 'muted' }, 'נגמרו הממתקים! 😋 אפשר לאפות עוד')]));
+    drawShelf();
+    return [el('p', { class: 'bkr-say' }, '🍽️ בוחרים מי בא לשולחן, וגוררים אליו/אליה ממתק (או לוחצים על הממתק)'),
+      el('div', { class: 'bkr-guests' }, ...guests.map(x => el('button', { type: 'button', class: 'bkr-gbtn', 'aria-pressed': String(x.id === gu.id), onclick: () => { bkrStop(); bkrS.guest = x.id; bkrS.said = ''; x.type === 'pet' ? SFX.pet(x.p.kind) : SFX.pop(); bkrDraw(); } },
+        el('span', { class: 'art', html: x.type === 'pet' ? x.art() : bkrGirlArt(x.g, '95 10 110 110') }), x.name))),
+      table, shelf,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => bkrGo('tray') }, '↩️ לוויטרינה'), el('button', { type: 'button', class: 'btn', onclick: () => bkrGo('recipe') }, '🥣 לאפות עוד'))];
+  }
+  // ---------- 🎨 paint by numbers ----------
+  const pnC = (cx, cy, r) => `<circle cx="${cx}" cy="${cy}" r="${r}"/>`;
+  const pnE = (cx, cy, rx, ry, rot) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"${rot ? ` transform="rotate(${rot} ${cx} ${cy})"` : ''}/>`;
+  const pnR = (x, y, w, h, rx = 0) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}"/>`;
+  const pnP = d => `<path d="${d}"/>`;
+  const pnG = pts => `<polygon points="${pts}"/>`;
+  const pnBand = (R, r) => pnP(`M${100 - R} 150 A${R} ${R} 0 0 1 ${100 + R} 150 L${100 + r} 150 A${r} ${r} 0 0 0 ${100 - r} 150 Z`);
+  const pnPetals = (cx, cy, d, r) => [0, 1, 2, 3, 4].map(i => { const a = (-90 + i * 72) * Math.PI / 180; return pnC(+(cx + d * Math.cos(a)).toFixed(1), +(cy + d * Math.sin(a)).toFixed(1), r); }).join('');
+  const pnEye = (x, y) => `<circle cx="${x}" cy="${y}" r="3" fill="${O}"/><circle cx="${x + 1}" cy="${y - 1}" r="1" fill="#fff"/>`;
+  const pnSmile = (x, y, w = 5) => `<path d="M${x - w} ${y} Q${x} ${y + w} ${x + w} ${y}" fill="none" stroke="${O}" stroke-width="2" stroke-linecap="round"/>`;
+  // [id, name, palette, regions [shapes, number, labelX, labelY, fontSize?], decoration on top]
+  const PN_PICS = [
+    ['rainbow', '🌈 קשת בענן', ['#bfe6ff', '#ff6b6b', '#ffa94d', '#ffe066', '#69db7c', '#4dabf7', '#b197fc', '#ffffff', '#2f9e44'], [
+      [pnR(0, 0, 200, 200), 1, 172, 20], [pnC(30, 30, 16), 4, 30, 21, 8], [pnBand(90, 78), 2, 100, 66], [pnBand(78, 66), 3, 100, 78], [pnBand(66, 54), 4, 100, 90], [pnBand(54, 42), 5, 100, 102], [pnBand(42, 30), 6, 100, 114], [pnBand(30, 18), 7, 100, 126],
+      [pnP('M0 150 Q50 128 100 146 Q150 130 200 146 V200 H0 Z'), 5, 100, 162], [pnP('M0 176 Q60 150 120 172 Q170 160 200 170 V200 H0 Z'), 9, 100, 190],
+      [pnC(18, 150, 14) + pnC(34, 144, 16) + pnC(50, 153, 12) + pnC(32, 160, 12), 8, 32, 150], [pnC(150, 153, 12) + pnC(166, 144, 16) + pnC(182, 150, 14) + pnC(168, 160, 12), 8, 168, 150]],
+      `${pnEye(24, 29)}${pnEye(36, 29)}${pnSmile(30, 34, 3)}<path d="M8 12 l4 4 M30 6 v5 M52 12 l-4 4" stroke="#ffb020" stroke-width="2.5" stroke-linecap="round"/>`],
+    ['cupcake', '🧁 קאפקייק', ['#ffe3ef', '#99e9f2', '#4dabf7', '#ff8fb8', '#d0bfff', '#fa5252', '#ffd43b'], [
+      [pnR(0, 0, 200, 200), 1, 22, 110], [pnG(starPts(30, 40, 15, 6.5)) + pnG(starPts(170, 44, 13, 5.5)) + pnG(starPts(170, 150, 11, 5)), 7, 30, 41, 8], [pnE(100, 178, 80, 13), 2, 40, 180],
+      [pnP('M50 110 H150 L136 176 H64 Z'), 3, 72, 124], [pnP('M40 112 C30 92 50 78 66 84 C70 66 92 62 104 72 C118 62 142 70 138 88 C160 88 168 108 160 114 Z'), 4, 58, 102],
+      [pnP('M70 86 C64 64 86 50 100 56 C112 46 136 58 130 78 C124 92 80 94 70 86 Z'), 5, 102, 74], [pnC(104, 44, 11), 6, 104, 45, 8]],
+      `<path d="M104 34 Q108 22 120 20" fill="none" stroke="#3f8f3a" stroke-width="3" stroke-linecap="round"/><path d="M80 112 L86 174 M100 112 V176 M120 112 L114 174" stroke="${O}" stroke-width="1" opacity=".25"/>${pnEye(90, 146)}${pnEye(110, 146)}${pnSmile(100, 152, 4)}<circle cx="82" cy="152" r="3" fill="#ff8fab" opacity=".7"/><circle cx="118" cy="152" r="3" fill="#ff8fab" opacity=".7"/>`],
+    ['unicorn', '🦄 חד קרן', ['#d0ebff', '#b2f2bb', '#ffffff', '#ffd43b', '#f783ac', '#9775fa', '#74c0fc', '#e599f7'], [
+      [pnR(0, 0, 200, 200), 1, 30, 30], [pnR(0, 160, 200, 40), 2, 20, 188], [pnC(36, 116, 12) + pnC(28, 134, 11) + pnC(36, 150, 9), 7, 30, 124],
+      [pnE(92, 122, 48, 28) + pnR(56, 134, 12, 40, 5) + pnR(76, 138, 12, 38, 5) + pnR(104, 138, 12, 38, 5) + pnR(124, 134, 12, 40, 5) + pnP('M116 112 L132 70 L156 78 L142 126 Z') + pnE(156, 78, 25, 17, 20), 3, 90, 124],
+      [pnR(55, 166, 14, 10, 3) + pnR(75, 166, 14, 10, 3) + pnR(103, 166, 14, 10, 3) + pnR(123, 166, 14, 10, 3), 8, 62, 173, 7],
+      [pnC(128, 70, 11) + pnC(121, 90, 10), 5, 126, 70], [pnC(114, 106, 10) + pnC(140, 57, 9), 6, 114, 108], [pnG('144,62 168,20 164,66'), 4, 160, 54, 8]],
+      `<path d="M158 76 q4 3 8 0" fill="none" stroke="${O}" stroke-width="2" stroke-linecap="round"/><circle cx="170" cy="84" r="3" fill="#ff8fab" opacity=".7"/><circle cx="176" cy="86" r="1.3" fill="${O}"/><path d="M152 40 l6 3 M149 48 l7 3" stroke="#e0a800" stroke-width="1.5"/><polygon points="${starPts(60, 36, 6, 2.5)}" fill="#ffe066"/><polygon points="${starPts(180, 130, 5, 2)}" fill="#ffe066"/>`],
+    ['butterfly', '🦋 פרפר', ['#fff9db', '#ff922b', '#f06595', '#ffd43b', '#5c3d2e', '#845ef7', '#51cf66'], [
+      [pnR(0, 0, 200, 200), 1, 20, 20], [pnP('M0 178 Q50 166 100 176 T200 172 V200 H0 Z'), 7, 100, 192],
+      [pnP('M98 96 C70 40 20 40 26 80 C30 104 70 110 98 104 Z') + pnP('M102 96 C130 40 180 40 174 80 C170 104 130 110 102 104 Z'), 2, 44, 88],
+      [pnP('M98 108 C60 110 40 140 60 156 C78 168 96 140 98 116 Z') + pnP('M102 108 C140 110 160 140 140 156 C122 168 104 140 102 116 Z'), 3, 72, 124],
+      [pnC(56, 70, 10) + pnC(144, 70, 10) + pnC(66, 142, 7) + pnC(134, 142, 7), 4, 56, 71], [pnE(100, 112, 6, 38) + pnC(100, 70, 9), 5, 100, 114, 7],
+      [pnPetals(28, 168, 8, 7) + pnPetals(172, 166, 8, 7), 6, 21, 170, 7]],
+      `<path d="M97 62 Q88 44 80 40 M103 62 Q112 44 120 40" fill="none" stroke="${O}" stroke-width="2" stroke-linecap="round"/><circle cx="80" cy="40" r="3.5" fill="#845ef7"/><circle cx="120" cy="40" r="3.5" fill="#845ef7"/><circle cx="96.5" cy="68" r="1.4" fill="#fff"/><circle cx="103.5" cy="68" r="1.4" fill="#fff"/><circle cx="28" cy="168" r="4" fill="#ffd43b"/><circle cx="172" cy="166" r="4" fill="#ffd43b"/>`],
+    ['castle', '🏰 טירה', ['#d0ebff', '#8ce99a', '#ffdeeb', '#fcc2d7', '#9775fa', '#a9713f', '#fff3bf', '#ff6b6b', '#ffffff'], [
+      [pnR(0, 0, 200, 200), 1, 100, 14], [pnC(30, 40, 10) + pnC(42, 34, 12) + pnC(55, 40, 9) + pnC(160, 26, 9) + pnC(172, 22, 11) + pnC(184, 28, 8), 9, 42, 36], [pnP('M0 170 Q100 140 200 170 V200 H0 Z'), 2, 30, 188],
+      [pnR(34, 80, 32, 90) + pnR(134, 80, 32, 90), 4, 50, 150], [pnR(64, 100, 72, 70) + pnR(82, 64, 36, 40), 3, 100, 116], [pnG('30,82 50,40 70,82') + pnG('130,82 150,40 170,82') + pnG('78,66 100,30 122,66'), 5, 50, 72],
+      [pnG('51,24 66,30 51,36') + pnG('151,24 166,30 151,36') + pnG('101,14 116,20 101,26'), 8, 56, 31, 6], [pnP('M88 170 V146 A12 12 0 0 1 112 146 V170 Z'), 6, 100, 162],
+      [pnR(44, 100, 12, 16, 6) + pnR(144, 100, 12, 16, 6) + pnC(100, 84, 7) + pnR(72, 128, 12, 14, 6) + pnR(116, 128, 12, 14, 6), 7, 100, 85, 7]],
+      `<path d="M50 40 V20 M150 40 V20 M100 30 V10" stroke="${O}" stroke-width="2"/><path d="M34 96 h32 M34 124 h32 M134 96 h32 M134 124 h32 M64 150 h24 M112 150 h24" stroke="${O}" stroke-width="1" opacity=".2"/><circle cx="107" cy="160" r="1.8" fill="${O}"/>`],
+    ['cat', '🐱 חתולה', ['#e6fcf5', '#ffd8a8', '#ffa94d', '#ffc9c9', '#fff4e6', '#51cf66', '#748ffc', '#ff8787'], [
+      [pnR(0, 0, 200, 200), 1, 20, 20], [pnR(0, 150, 200, 50), 2, 20, 190],
+      [pnP('M130 150 C170 150 176 110 160 96 C154 92 150 100 156 106 C166 118 158 140 128 138 Z') + pnE(100, 140, 40, 32) + pnG('68,66 70,28 96,52') + pnG('132,66 130,28 104,52') + pnC(100, 82, 34), 3, 70, 140],
+      [pnG('76,56 77,38 90,51') + pnG('124,56 123,38 110,51') + pnG('95,92 105,92 100,98'), 4, 80, 50, 6], [pnE(100, 148, 20, 20) + pnE(100, 100, 15, 9), 5, 100, 154], [pnE(86, 80, 6, 8) + pnE(114, 80, 6, 8), 6, 86, 82, 7],
+      [pnP('M72 110 Q100 126 128 110 L127 118 Q100 134 73 118 Z'), 8, 100, 125, 6], [pnC(162, 168, 18), 7, 162, 170]],
+      `<ellipse cx="86" cy="81" rx="2" ry="5" fill="${O}"/><ellipse cx="114" cy="81" rx="2" ry="5" fill="${O}"/><path d="M100 98 V102 M94 104 Q100 108 100 102 Q100 108 106 104" fill="none" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><path d="M84 98 H64 M84 102 L66 108 M116 98 H136 M116 102 L134 108" stroke="${O}" stroke-width="1.2" stroke-linecap="round"/><path d="M148 158 Q162 170 176 160 M150 172 Q164 180 178 170 M156 152 Q150 166 160 184" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"/><circle cx="100" cy="126" r="4" fill="#ffd43b" stroke="${O}" stroke-width="1"/>`],
+    ['mermaid', '🧜‍♀️ בת ים', ['#74c0fc', '#ffec99', '#20c997', '#63e6be', '#ffd8b1', '#ff6b6b', '#f783ac', '#e7f5ff', '#40c057'], [
+      [pnR(0, 0, 200, 200), 1, 20, 20], [pnP('M0 176 Q100 160 200 176 V200 H0 Z'), 2, 160, 190], [pnP('M20 180 C10 150 30 130 18 100 C34 120 30 150 30 180 Z') + pnP('M176 180 C190 150 170 130 184 104 C166 124 170 150 166 180 Z'), 9, 25, 160, 7],
+      [pnP('M80 60 C70 30 130 30 120 60 L128 112 C116 118 84 118 72 112 Z') + pnP('M83 52 C84 32 116 32 117 52 C110 42 90 42 83 52 Z'), 6, 78, 104, 8], [pnP('M100 164 C88 170 78 178 72 190 C88 186 96 180 100 174 C104 180 112 186 128 190 C122 178 112 170 100 164 Z'), 4, 84, 184, 6],
+      [pnP('M86 116 C84 140 92 156 100 168 C108 156 116 140 114 116 Z'), 3, 100, 140], [pnC(100, 56, 17) + pnP('M88 78 H112 L114 118 H86 Z') + pnP('M89 84 L74 104 L79 109 L93 92 Z') + pnP('M111 84 L126 104 L121 109 L107 92 Z'), 5, 100, 110, 7],
+      [pnC(94, 90, 6) + pnC(106, 90, 6), 7, 94, 92, 6], [pnC(150, 60, 9) + pnC(162, 40, 6) + pnC(148, 24, 5) + pnC(40, 50, 8), 8, 150, 62, 7]],
+      `${pnEye(94, 55)}${pnEye(106, 55)}${pnSmile(100, 62, 4)}<circle cx="89" cy="61" r="2.5" fill="#ff8fab" opacity=".7"/><circle cx="111" cy="61" r="2.5" fill="#ff8fab" opacity=".7"/><path d="M92 128 q4 4 8 0 q4 4 8 0 M94 142 q3 3 6 0 q3 3 6 0" fill="none" stroke="${O}" stroke-width="1" opacity=".4"/><polygon points="${starPts(140, 180, 7, 3)}" fill="#ff922b" stroke="${O}" stroke-width="1"/>`],
+    ['flowers', '🌷 פרחים', ['#fff0f6', '#e8590c', '#40c057', '#ff6b6b', '#fcc419', '#845ef7', '#ff922b'], [
+      [pnR(0, 0, 200, 200), 1, 20, 20], [pnR(58, 70, 5, 90) + pnR(98, 50, 5, 110) + pnR(138, 76, 5, 84) + pnE(78, 128, 17, 8, -30) + pnE(122, 120, 17, 8, 30), 3, 78, 130, 7],
+      [pnP('M50 150 H150 L140 196 H60 Z') + pnR(44, 142, 112, 14, 4), 2, 100, 178], [pnPetals(60, 70, 14, 12), 4, 47, 67, 8], [pnPetals(100, 50, 14, 12), 5, 100, 38, 8], [pnPetals(140, 76, 14, 12), 6, 153, 73, 8],
+      [pnC(60, 70, 8) + pnC(100, 50, 8) + pnC(140, 76, 8), 7, 60, 72, 7]],
+      `<path d="${bkrHeartD(28, 110, 2)}" fill="#ff8fb8"/><path d="${bkrHeartD(176, 120, 1.7)}" fill="#ff8fb8"/><path d="${bkrHeartD(170, 30, 1.5)}" fill="#ffa8a8"/><path d="M80 170 q4 4 8 0 M112 170 q4 4 8 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".6"/>`],
+    ['icecream', '🍦 גלידה', ['#e3fafc', '#f0b35a', '#ff8fb8', '#8ce99a', '#8d5b3c', '#fa5252', '#fff3bf'], [
+      [pnR(0, 0, 200, 200), 1, 20, 20], [pnC(30, 50, 9) + pnC(170, 40, 11) + pnC(162, 150, 9) + pnC(36, 140, 11), 7, 170, 42, 8], [pnG('70,110 130,110 100,190'), 2, 100, 140],
+      [pnP('M66 112 C56 96 70 80 100 82 C130 80 144 96 134 112 Q124 104 116 114 Q108 104 100 114 Q92 104 84 114 Q76 104 66 112 Z'), 5, 100, 100], [pnC(82, 74, 22), 4, 74, 78], [pnC(118, 70, 22), 3, 126, 76], [pnC(100, 46, 10), 6, 100, 48, 8]],
+      `<path d="M100 36 Q104 24 114 22" fill="none" stroke="#3f8f3a" stroke-width="3" stroke-linecap="round"/><path d="M78 122 L112 156 M90 114 L122 138 M122 122 L88 156 M110 114 L78 138" stroke="${O}" stroke-width="1" opacity=".25"/><rect x="80" y="62" width="6" height="2" rx="1" fill="#ff6b6b" transform="rotate(30 83 63)"/><rect x="118" y="56" width="6" height="2" rx="1" fill="#4dabf7" transform="rotate(-30 121 57)"/><rect x="106" y="86" width="6" height="2" rx="1" fill="#ffd43b"/>`],
+    ['balloon', '🎈 כדור פורח', ['#a5d8ff', '#ff6b6b', '#ffd43b', '#4dabf7', '#b07d48', '#ffffff', '#ffa94d'], [
+      [pnR(0, 0, 200, 200), 1, 180, 190], [pnC(28, 28, 16), 7, 28, 30], [pnC(30, 140, 12) + pnC(46, 134, 15) + pnC(62, 142, 11) + pnC(150, 34, 10) + pnC(164, 28, 13) + pnC(178, 36, 10), 6, 46, 136],
+      [pnP('M52 84 A48 48 0 1 1 148 84 Q142 112 114 134 H86 Q58 112 52 84 Z'), 2, 62, 80], [pnE(100, 82, 30, 51), 3, 80, 82], [pnE(100, 82, 11, 51), 4, 100, 82, 7], [pnR(86, 150, 28, 22, 4), 5, 100, 163]],
+      `<path d="M88 134 L90 150 M112 134 L110 150 M100 134 V150" stroke="${O}" stroke-width="1.5"/><path d="M88 158 h24 M88 164 h24" stroke="${O}" stroke-width="1" opacity=".3"/><path d="M140 110 q4 -4 8 0 q4 -4 8 0 M160 90 q3 -3 6 0 q3 -3 6 0" fill="none" stroke="${O}" stroke-width="1.5" stroke-linecap="round"/>`],
+    ['fish', '🐠 דג', ['#4dabf7', '#ff922b', '#ffffff', '#ffd43b', '#e7f5ff', '#40c057', '#ffec99', '#f783ac'], [
+      [pnR(0, 0, 200, 200), 1, 20, 20], [pnP('M0 180 Q100 166 200 182 V200 H0 Z'), 7, 150, 192], [pnP('M30 184 C20 150 44 136 30 110 C50 132 40 160 42 184 Z') + pnP('M168 184 C180 156 160 140 172 116 C150 136 160 160 156 184 Z'), 6, 34, 162, 7],
+      [pnP('M88 186 C86 170 100 160 110 170 C118 164 128 174 122 186 Z'), 8, 104, 178, 7], [pnG('48,96 18,68 20,126') + pnP('M78 70 Q104 38 130 70 Z') + pnP('M92 124 Q104 142 116 124 Z'), 4, 28, 98],
+      [pnE(100, 96, 56, 32), 2, 124, 110], [pnE(84, 96, 6, 29) + pnE(108, 96, 6, 31), 3, 84, 98, 7], [pnC(160, 56, 7) + pnC(170, 36, 5) + pnC(158, 20, 4), 5, 160, 58, 7]],
+      `<circle cx="136" cy="88" r="6" fill="#fff" stroke="${O}" stroke-width="1.5"/><circle cx="137" cy="88" r="3" fill="${O}"/><path d="M148 104 q4 3 8 0" fill="none" stroke="${O}" stroke-width="2" stroke-linecap="round"/><circle cx="140" cy="100" r="3" fill="#ff8fab" opacity=".7"/>`],
+    ['rocket', '🚀 חללית', ['#364fc7', '#f1f3f5', '#74c0fc', '#fa5252', '#ffd43b', '#ff922b', '#b197fc', '#ffa8a8'], [
+      [pnR(0, 0, 200, 200), 1, 20, 190], [pnG(starPts(30, 30, 9, 4)) + pnG(starPts(172, 160, 8, 3.5)) + pnG(starPts(40, 150, 7, 3)) + pnG(starPts(176, 30, 7, 3)), 5, 30, 31, 6],
+      [pnC(158, 70, 20), 7, 158, 62, 8], [pnE(158, 74, 32, 6, -15), 8, 132, 82, 6], [pnP('M84 150 Q100 206 116 150 Z'), 5, 100, 172, 7], [pnP('M91 150 Q100 180 109 150 Z'), 6, 100, 157, 6],
+      [pnP('M100 30 C124 50 124 110 116 150 H84 C76 110 76 50 100 30 Z'), 2, 100, 124], [pnP('M80 112 L58 152 L82 146 Z') + pnP('M120 112 L142 152 L118 146 Z') + pnP('M100 30 C110 38 115 47 117 56 H83 C85 47 90 38 100 30 Z'), 4, 70, 140, 7], [pnC(100, 86, 13), 3, 100, 88]],
+      `<circle cx="100" cy="86" r="13" fill="none" stroke="#adb5bd" stroke-width="3"/><circle cx="92" cy="104" r="1.5" fill="#adb5bd"/><circle cx="108" cy="104" r="1.5" fill="#adb5bd"/><path d="M95 82 q3 -4 7 -3" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="90" r="1.5" fill="#fff"/><circle cx="60" cy="10" r="1.2" fill="#fff"/><circle cx="140" cy="130" r="1.5" fill="#fff"/><circle cx="190" cy="100" r="1.2" fill="#fff"/>`],
+  ];
+  let pnm = Object.assign({ done: {} }, store.get('pnum', {}));
+  let pnCur = null;
+  const pnSVG = (pic, st, opt = {}) => {
+    const [, , pal, regs, deco] = pic;
+    return `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">${regs.map(([sh, n], i) => `<g class="pn-r" data-i="${i}" fill="${st && st[i] ? pal[n - 1] : opt.full ? pal[n - 1] : '#fbfaff'}" stroke="${O}" stroke-width="${opt.thin ? 0.8 : 1.3}" stroke-linejoin="round">${sh}</g>`).join('')}` +
+      `<g pointer-events="none">${deco || ''}</g>` +
+      (opt.labels === false ? '' : `<g class="pn-labels" pointer-events="none">${regs.map(([, n, x, y, fs], i) => st && st[i] ? '' : `<text data-l="${i}" x="${x}" y="${y}" font-size="${fs || 9}" text-anchor="middle" dominant-baseline="central">${n}</text>`).join('')}</g>`) + '</svg>';
+  };
+  function paintNumGame() {
+    if (!pnCur) {
+      $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'בוחרים תמונה, בוחרים צבע עם מספר, וצובעים כל חלק עם אותו מספר! 🎨'),
+        el('div', { class: 'pn-pick' }, ...PN_PICS.map(pic => el('button', { type: 'button', class: 'pn-thumb' + (pnm.done[pic[0]] ? ' done' : ''), onclick: () => { pnCur = { id: pic[0], st: {}, sel: 1 }; SFX.pop(); paintNumGame(); } },
+          el('span', { class: 'art', html: pnSVG(pic, null, { full: !!pnm.done[pic[0]], labels: false, thin: true }) }), el('span', {}, pic[1] + (pnm.done[pic[0]] ? ' ✔️' : ''))))));
+      return;
+    }
+    const pic = PN_PICS.find(p => p[0] === pnCur.id), [, name, pal, regs] = pic, st = pnCur.st;
+    const total = regs.length, got = Object.keys(st).length, fin = got === total;
+    const left = n => regs.filter(([, m], i) => m === n && !st[i]).length;
+    const wrap = el('div', { class: 'pn-wrap' + (fin ? ' fin' : ''), html: pnSVG(pic, st) });
+    const msg = el('div', { class: 'pn-msg' }, fin ? '' : `👆 צובעים את כל החלקים עם המספר ${pnCur.sel}`);
+    wrap.addEventListener('click', e => {
+      const g = e.target.closest('.pn-r'); if (!g || fin) return;
+      const i = +g.dataset.i, n = regs[i][1];
+      if (st[i]) return;
+      if (n !== pnCur.sel) {
+        const l = wrap.querySelector(`[data-l="${i}"]`);
+        [g, l].forEach(x => { if (!x) return; x.classList.remove('pn-no'); void x.getBBox(); x.classList.add('pn-no'); });
+        SFX.boop(); msg.textContent = `אופס! החלק הזה הוא מספר ${n} 🙂`; return;
+      }
+      st[i] = 1; g.setAttribute('fill', pal[n - 1]); g.classList.add('pn-yes'); const l = wrap.querySelector(`[data-l="${i}"]`); if (l) l.remove();
+      tone(520 + n * 60, 0.12, 'triangle', 0, 0.08);
+      if (Object.keys(st).length === total) {
+        pnm.done[pic[0]] = 1; store.set('pnum', pnm); winGame('pnumWins'); bkrCoins(10, 'צביעה לפי מספרים');
+        paintNumGame(); return;
+      }
+      if (!left(n)) { SFX.ding(); const nx = pal.findIndex((_, k) => left(k + 1)); if (nx >= 0) pnCur.sel = nx + 1; }
+      paintNumGame();
+    });
+    const palBox = el('div', { class: 'pn-pal' }, ...pal.map((c, k) => { const n = k + 1, l = left(n); return el('button', { type: 'button', class: 'pn-sw' + (l ? '' : ' empty'), 'aria-pressed': String(pnCur.sel === n), 'aria-label': 'צבע ' + n, style: `--c:${c}`, onclick: () => { pnCur.sel = n; SFX.pop(); paintNumGame(); } }, l ? String(n) : '✔️'); }));
+    const bar = el('div', { class: 'bkr-bar' }, el('i', { style: `width:${got / total * 100}%` }));
+    $('#gamesBody').replaceChildren(el('div', { class: 'game-info' }, el('span', {}, name), el('span', {}, `${got}/${total} חלקים`)), bar, fin ? null : palBox, fin ? null : msg, wrap,
+      fin ? el('div', { class: 'game-win' }, el('b', {}, 'איזה יופי! סיימת את התמונה! ✨'),
+        el('button', { type: 'button', class: 'btn', onclick: e => {
+          const c = { id: 'my' + Date.now().toString(36), url: svgData(pnSVG(pic, st, { labels: false })) };
+          customStk.push(c);
+          if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('palette'), 'אין מספיק מקום לשמור עוד מדבקה 😕'); return; }
+          registerCustom(c); SFX.ding(); toast(stickerHTML(c.id), 'התמונה נהייתה מדבקה! ⭐'); e.target.disabled = true; afterChange();
+        } }, '⭐ לשמור כמדבקה'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { pnCur = null; paintNumGame(); } }, '🖼️ תמונה אחרת')) : null,
+      fin ? null : el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { pnCur = null; paintNumGame(); } }, '↩️ תמונות'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { wrap.querySelectorAll('.pn-r').forEach(g => { if (!st[g.dataset.i] && regs[g.dataset.i][1] === pnCur.sel) { g.classList.remove('pn-hint'); void g.getBBox(); g.classList.add('pn-hint'); } }); SFX.ding(); } }, '💡 איפה המספר?')));
+  }
+  // ---------- 🔮 magic potions ----------
+  const PTN_INGS = {
+    moon: ['אבקת ירח', '🌙', '#c9d4ff'], dragon: ['קשקש דרקון', '🐉', '#3fbf7f'], uni: ['שערת חד קרן', '🦄', '#ff9ad5'], rain: ['טיפת קשת', '🌈', '#ff8fd0'], star: ['פרי כוכב', '⭐', '#ffd84d'],
+    frog: ['צפרדע מצחקקת', '🐸', '#9be35a'], pearl: ['פנינת בת ים', '🫧', '#8fe3ff'], petal: ['עלה של פיה', '🌸', '#c9a0ff'], snow: ['פתית שלג', '❄️', '#eaf6ff'],
+  };
+  // [id, name, ingredients, what it does, clue, shown on a school card?]
+  const PTN_RECIPES = [
+    ['snow', '❄️ שיקוי שלג', ['moon', 'pearl', 'snow'], 'יורד שלג על הלוח לדקה!', 'משהו קר, משהו מהירח ומשהו מהים', true],
+    ['rainbow', '🌈 שיקוי קשת', ['rain', 'star', 'uni'], 'כל הלוח נהיה קשת לדקה!', 'טיפה צבעונית, משהו מחד קרן ומשהו שנוצץ בשמיים', true],
+    ['petcolor', '🎨 שיקוי צבע לחיה', ['dragon', 'petal', 'rain'], 'החיה שלך מחליפה צבע עד מחר!', 'משהו של דרקון, משהו של פיה וטיפה צבעונית', true],
+    ['sparkle', '✨ שיקוי שיער נוצץ', ['pearl', 'star', 'uni'], 'השיער של אחת הבנות נוצץ היום!', 'משהו מחד קרן, משהו מהים ומשהו שנוצץ', true],
+    ['hearts', '💖 שיקוי אהבה', ['frog', 'petal', 'uni'], 'לבבות עפים על כל הלוח!', 'צפרדע, פיה וחד קרן נפגשים...'],
+    ['bubbles', '🫧 שיקוי בועות', ['frog', 'moon', 'pearl'], 'בועות עולות על הלוח!', 'מישהו שקופץ, משהו מהירח ומשהו מהים'],
+    ['stars', '🌟 שיקוי כוכבים', ['moon', 'petal', 'star'], 'כוכבים מרחפים על הלוח!', 'הירח, הכוכב והפיה יוצאים לטייל'],
+    ['giggle', '🐸 שיקוי צחוקים', ['frog', 'frog', 'frog'], 'כולם צוחקים! חי חי חי!', 'שלוש פעמים אותו דבר ירוק...'],
+    ['dragon', '🐲 שיקוי דרקונים קטנים', ['dragon', 'snow', 'star'], 'דרקונים קטנים ומתוקים עפים!', 'דרקון, קור וכוכב'],
+  ];
+  let ptnData = Object.assign({ found: [], mine: [], brews: 0, petFx: null, sparkle: null }, store.get('potions', {}));
+  const ptnSave = () => store.set('potions', ptnData);
+  // the pet color potion lasts only until tomorrow
+  function ptnRevert() {
+    const f = ptnData.petFx;
+    if (!f || f.day === localToday()) return;
+    if (pet && pet.color === f.now) { pet.color = f.old; savePet(); }
+    ptnData.petFx = null; ptnSave();
+  }
+  bkrTry(ptnRevert);
+  const ptnSparkleToday = gu => !!(gu && gu.type === 'girl' && ptnData.sparkle && ptnData.sparkle.id === gu.g.id && ptnData.sparkle.day === localToday());
+  const ptnBlend = cols => {
+    if (!cols.length) return '#5b4a8a';
+    const lin = cols.map(c => [1, 3, 5].map(i => Math.pow(parseInt(c.slice(i, i + 2), 16) / 255, 2.2)));
+    const avg = [0, 1, 2].map(k => lin.reduce((a, v) => a + v[k], 0) / lin.length);
+    // magic potions glow: push the mix away from gray so it never turns muddy
+    const g = avg.map(v => Math.pow(v, 1 / 2.2)), m = (g[0] + g[1] + g[2]) / 3;
+    const out = '#' + g.map(v => Math.round(Math.max(0, Math.min(1, m + (v - m) * 1.8)) * 255).toString(16).padStart(2, '0')).join('');
+    return Math.max(...g) - Math.min(...g) < 0.12 && cols.length > 1 ? bkrMix(out, cols[cols.length - 1], 0.55) : out;
+  };
+  const ptnHueName = hex => {
+    const [r, g, b] = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255), mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+    if (mx - mn < 0.08) return mx > 0.7 ? 'לבן-כסוף' : 'אפור-ערפילי';
+    let h = mx === r ? (g - b) / (mx - mn) : mx === g ? 2 + (b - r) / (mx - mn) : 4 + (r - g) / (mx - mn); h = (h * 60 + 360) % 360;
+    return h < 20 ? 'אדום-לוהט' : h < 45 ? 'כתום-שקיעה' : h < 70 ? 'צהוב-שמש' : h < 160 ? 'ירוק-יער' : h < 200 ? 'טורקיז-ים' : h < 255 ? 'כחול-חלומות' : h < 300 ? 'סגול-קסום' : 'ורוד-מסתורי';
+  };
+  const ptnBottle = (c, rb) => {
+    const u = 'pb' + (bkrUid++);
+    return `<svg viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="${u}" x1="0" x2="1"><stop offset="0" stop-color="#ff7a9a"/><stop offset=".3" stop-color="#ffd84d"/><stop offset=".55" stop-color="#7ee08a"/><stop offset=".8" stop-color="#7ec8ff"/><stop offset="1" stop-color="#b58cff"/></linearGradient></defs>` +
+      `<rect x="23" y="4" width="14" height="9" rx="3" fill="#c98b5a" stroke="${O}" stroke-width="2"/><path d="M24 13 H36 V24 C48 28 54 38 52 50 C50 62 40 67 30 67 C20 67 10 62 8 50 C6 38 12 28 24 24 Z" fill="#eaf6ff" stroke="${O}" stroke-width="2.5"/>` +
+      `<path d="M9.5 44 C18 40 42 48 50.5 44 C51 56 42 64 30 64 C18 64 9 56 9.5 44 Z" fill="${rb ? `url(#${u})` : c}"/><path d="M15 38 Q14 30 22 27" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>` +
+      `<circle cx="22" cy="54" r="2.4" fill="#fff" opacity=".7"/><circle cx="36" cy="50" r="1.6" fill="#fff" opacity=".7"/><polygon points="${starPts(46, 14, 5, 2)}" fill="#ffd84d"/></svg>`;
+  };
+  function ptnCauldron(color, rb, stirA, bubbly) {
+    const u = 'pc' + (bkrUid++), sa = stirA || 0, sx = 150 + 60 * Math.cos(sa), sy = 92 + 12 * Math.sin(sa);
+    return `<svg viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="${u}" x1="0" x2="1"><stop offset="0" stop-color="#ff7a9a"/><stop offset=".25" stop-color="#ffd84d"/><stop offset=".5" stop-color="#7ee08a"/><stop offset=".75" stop-color="#7ec8ff"/><stop offset="1" stop-color="#b58cff"/></linearGradient></defs>` +
+      `<g class="ptn-fire"><path d="M110 236 C100 214 118 204 116 190 C128 204 136 214 128 236 Z" fill="#ff9d2e"/><path d="M140 238 C128 206 150 198 150 178 C166 200 170 214 160 238 Z" fill="#ffcc3d"/><path d="M172 236 C166 214 180 206 182 192 C194 208 196 222 188 236 Z" fill="#ff9d2e"/></g>` +
+      `<path d="M92 214 L80 240 M208 214 L220 240" stroke="${O}" stroke-width="8" stroke-linecap="round"/>` +
+      `<path d="M62 94 C56 170 96 218 150 218 C204 218 244 170 238 94 Z" fill="#4a3d6b" stroke="${O}" stroke-width="4"/><path d="M84 120 Q88 170 118 196" fill="none" stroke="#8d7fc0" stroke-width="7" stroke-linecap="round" opacity=".6"/>` +
+      `<ellipse cx="150" cy="94" rx="92" ry="20" fill="#3a2b3c"/><ellipse cx="150" cy="96" rx="82" ry="15" fill="${rb ? `url(#${u})` : color}" class="ptn-liq"/>` +
+      `<g class="ptn-bubs${bubbly ? ' on' : ''}"><circle cx="118" cy="94" r="7" fill="${color}" stroke="#fff" stroke-width="1.5" opacity=".9"/><circle cx="170" cy="98" r="5" fill="${color}" stroke="#fff" stroke-width="1.5" opacity=".9"/><circle cx="196" cy="92" r="6" fill="${color}" stroke="#fff" stroke-width="1.5" opacity=".9"/><circle cx="142" cy="100" r="4" fill="${color}" stroke="#fff" stroke-width="1.5" opacity=".9"/></g>` +
+      `<g class="ptn-spoon"><path d="M${sx.toFixed(1)} ${sy.toFixed(1)} L${(sx + 40).toFixed(1)} ${(sy - 84).toFixed(1)}" stroke="${O}" stroke-width="11" stroke-linecap="round"/><path d="M${sx.toFixed(1)} ${sy.toFixed(1)} L${(sx + 40).toFixed(1)} ${(sy - 84).toFixed(1)}" stroke="#b58cff" stroke-width="6.5" stroke-linecap="round"/><polygon points="${starPts(sx + 40, sy - 88, 11, 5)}" fill="#ffd84d" stroke="${O}" stroke-width="2"/></g>` +
+      `<path d="M58 94 A92 20 0 0 0 242 94" fill="none" stroke="${O}" stroke-width="4"/><path d="M56 88 Q150 70 244 88" fill="none" stroke="#6f5fa0" stroke-width="9" stroke-linecap="round"/>` +
+      `<g class="ptn-steam" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".6"><path d="M120 66 q-10 -14 0 -26 q10 -12 0 -24"/><path d="M180 60 q10 -14 0 -26 q-10 -12 0 -22"/></g></svg>`;
+  }
+  let ptnS = { ings: [], stir: 0, res: null, follow: null }, ptnMode = 'dlg', ptnTimers = [];
+  const ptnLater = (fn, ms) => ptnTimers.push(setTimeout(fn, ms));
+  const ptnStop = () => { ptnTimers.forEach(clearTimeout); ptnTimers = []; };
+  const ptnBox = () => ptnMode === 'game' ? $('#gamesBody') : $('#ptnBody');
+  function openPotions() {
+    bkrTry(ptnRevert); ptnStop(); ptnMode = 'dlg'; ptnS = { ings: [], stir: 0, res: null, follow: null };
+    ptnDraw();
+    if (!$('#ptnDlg').open) $('#ptnDlg').showModal();
+  }
+  function potionGame() { bkrTry(ptnRevert); ptnMode = 'game'; ptnS = { ings: [], stir: 0, res: null, follow: null }; catchStop = ptnStop; ptnDraw(); }
+  let ptnFxT = 0;
+  function ptnFx(kind, emojis, dir = 'down', secs = 60) {
+    clearTimeout(ptnFxT);
+    const old = document.getElementById('ptnFx'); if (old) old.remove();
+    const layer = el('div', { id: 'ptnFx', class: `ptn-fx ${kind} dir-${dir}`, 'aria-hidden': 'true' });
+    if (emojis) layer.append(...Array.from({ length: 26 }, (_, i) => { const s = el('span', {}, emojis[i % emojis.length]); s.style.cssText = `left:${(i * 37 + 5) % 100}%;font-size:${22 + (i * 7) % 18}px;animation-duration:${6 + (i * 5) % 6}s;animation-delay:-${((i * 1.7) % 8).toFixed(1)}s`; return s; }));
+    document.body.append(layer);
+    ptnFxT = setTimeout(() => { layer.classList.add('bye'); setTimeout(() => layer.remove(), 1200); }, secs * 1000);
+  }
+  const ptnCloseToSee = () => el('button', { type: 'button', class: 'btn main', onclick: () => { const d = ptnMode === 'game' ? $('#gamesDlg') : $('#ptnDlg'); if (d.open) d.close(); } }, '👀 לסגור ולראות את הלוח!');
+  function ptnApply(r, box) {
+    const id = r[0];
+    const fxs = { snow: ['snow', ['❄️', '🤍', '⛄', '❄️'], 'down'], hearts: ['hearts', ['💖', '💕', '💗', '💞'], 'down'], bubbles: ['bubbles', ['🫧', '🫧', '🫧', '✨'], 'up'], stars: ['stars', ['⭐', '✨', '🌟', '💫'], 'float'], giggle: ['giggle', ['🐸', '😂', '🤭', '😆'], 'up'], dragon: ['dragon', ['🐲', '🌟', '🐉', '💚'], 'float'] };
+    if (fxs[id]) { const [k, em, dir] = fxs[id]; ptnFx(k, em, dir); SFX.yay(); if (id === 'giggle' && pet) toast(petSVG(pet), `${pet.name || 'החיה'}: חי חי חי! 🤭`); box.replaceChildren(el('p', {}, '✨ ' + r[3] + ' (לדקה אחת)'), ptnCloseToSee()); return; }
+    if (id === 'rainbow') { ptnFx('rainbow', ['🌈', '✨', '🦄'], 'float'); SFX.yay(); box.replaceChildren(el('p', {}, '🌈 ' + r[3]), ptnCloseToSee()); return; }
+    if (id === 'petcolor') {
+      if (!pet) { box.replaceChildren(el('p', {}, 'עוד אין לך חיה! אפשר לאמץ אחת 🥚')); return; }
+      const t = localToday(), prev = ptnData.petFx && ptnData.petFx.day === t ? ptnData.petFx.old : (pet.color || 0);
+      const hue = bkrPick([40, 90, 150, 200, 260, 310].filter(h => h !== pet.color));
+      ptnData.petFx = { old: prev, now: hue, day: t }; pet.color = hue; savePet(); ptnSave(); bkrTry(renderPet);
+      SFX.pet(pet.kind); SFX.yay();
+      box.replaceChildren(el('span', { class: 'ptn-petnew', html: petSVG(pet) }), el('p', {}, `🎨 ${pet.name || 'החיה'} בצבע חדש עד מחר!`)); return;
+    }
+    if (id === 'sparkle') {
+      if (!girls.length) { box.replaceChildren(el('p', {}, 'עוד אין בנות! מעצבים אותן בסטודיו האופנה 👗')); return; }
+      box.replaceChildren(el('p', {}, 'למי לעשות שיער נוצץ?'), el('div', { class: 'bkr-guests' }, ...girls.map(g => el('button', { type: 'button', class: 'bkr-gbtn', onclick: () => {
+        ptnData.sparkle = { id: g.id, day: localToday() }; ptnSave(); SFX.yay();
+        box.replaceChildren(el('div', { class: 'ptn-girl', html: bkrGirlArt(g, '75 -10 150 170') + '<div class="ptn-sparkles">✨<i>✨</i><b>✨</b><u>💫</u></div>' }), el('p', {}, `✨ לשיער של ${g.name || 'הבובה'} יש נצנצים כל היום! (אפשר לראות אותה במאפייה)`));
+      } }, el('span', { class: 'art', html: bkrGirlArt(g, '95 10 110 110') }), g.name || 'בובה'))));
+    }
+  }
+  function ptnBrew() {
+    const ings = ptnS.ings, key = [...ings].sort().join(','), r = PTN_RECIPES.find(x => [...x[2]].sort().join(',') === key);
+    const color = ptnBlend(ings.map(i => PTN_INGS[i][2])), rb = ings.includes('rain');
+    ptnData.brews++;
+    if (r) {
+      const fresh = !ptnData.found.includes(r[0]);
+      if (fresh) { ptnData.found.push(r[0]); bkrCoins(10, 'גילית שיקוי חדש'); }
+      ptnS.res = { r, color, rb, fresh };
+    } else {
+      const name = 'שיקוי ' + ptnHueName(color) + ' מסתורי';
+      if (!ptnData.mine.some(m => m.k === key)) { ptnData.mine.unshift({ k: key, name, color, rb, e: ings.map(i => PTN_INGS[i][1]).join('') }); ptnData.mine.length = Math.min(ptnData.mine.length, 12); }
+      ptnS.res = { r: null, color, rb, name, emojis: ings.map(i => PTN_INGS[i][1]) };
+    }
+    ptnSave(); SFX.yay(); tone(1760, 0.3, 'sine', 0.25, 0.06);
+    const box = ptnBox(); const c = box && box.querySelector('.ptn-cauldron'); if (c) c.classList.add('poof');
+    ptnLater(ptnDraw, 650);
+  }
+  function ptnDraw() {
+    ptnStop();
+    const box = ptnBox(); if (!box) return;
+    const ings = ptnS.ings, color = ptnBlend(ings.map(i => PTN_INGS[i][2])), rb = ings.includes('rain');
+    if (ptnS.res) {
+      const s = ptnS.res, act = el('div', { class: 'row ptn-act' });
+      if (s.r) act.append(el('button', { type: 'button', class: 'btn main', onclick: () => ptnApply(s.r, act) }, '🪄 להפעיל את השיקוי!'));
+      else act.append(el('button', { type: 'button', class: 'btn main', onclick: () => { ptnFx('mystery', s.emojis, bkrPick(['down', 'up', 'float']), 30); SFX.yay(); act.replaceChildren(el('p', {}, '✨ משהו קסום קורה על הלוח... (חצי דקה)'), ptnCloseToSee()); } }, '🪄 לשתות... מה יקרה?'));
+      box.replaceChildren(el('div', { class: 'ptn-result' }, el('span', { class: 'ptn-bottle', html: ptnBottle(s.color, s.rb) }),
+        el('div', { class: 'row' }, el('h4', {}, s.r ? s.r[1] : s.name), el('p', {}, s.r ? (s.fresh ? '🎉 גילית שיקוי חדש! הוא נכנס לספר המתכונים. ' : '') + s.r[3] : 'לא ידוע מה הוא עושה... אולי כדאי לנסות? 🤔'), act)),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { ptnS = { ings: [], stir: 0, res: null, follow: null }; SFX.pop(); ptnDraw(); } }, '🧪 שיקוי חדש')));
+      return;
+    }
+    const need = ptnS.follow ? PTN_RECIPES.find(r => r[0] === ptnS.follow) : null;
+    const cz = el('div', { class: 'ptn-cauldron', html: ptnCauldron(color, rb, 0, ings.length > 0) });
+    const TOTAL = Math.PI * 4;
+    const stirTurn = (d, a) => {
+      if (ings.length < 2 || ptnS.brewing) return;
+      ptnS.stir += d; cz.innerHTML = ptnCauldron(color, rb, a, true); hook(); cz.classList.add('stirring');
+      const p = Math.min(1, ptnS.stir / TOTAL); bar.firstChild.style.width = p * 100 + '%';
+      if (Math.random() < 0.15) tone(300 + Math.random() * 500, 0.08, 'sine', 0, 0.05);
+      if (p >= 1) { ptnS.brewing = true; ptnBrew(); }
+    };
+    const hook = () => {};
+    bkrStirrer(cz, [300, 250], [150, 96], stirTurn);
+    const bar = el('div', { class: 'bkr-bar ptn-bar' }, el('i', { style: `width:${Math.min(1, ptnS.stir / TOTAL) * 100}%` }));
+    const jars = el('div', { class: 'ptn-jars' }, ...Object.entries(PTN_INGS).map(([id, [nm, em, c]]) => {
+      const b = el('button', { type: 'button', class: 'ptn-jar' + (need && need[2].includes(id) ? ' want' : ''), style: `--c:${c}`, 'aria-label': nm }, el('span', { class: 'em' }, em), el('span', { class: 'nm' }, nm));
+      bkrDrag(b, `<span style="font-size:44px">${em}</span>`, () => [cz], () => {
+        if (ings.length >= 3) { toast(stickerHTML('wand'), 'הקדרה מלאה! עכשיו מערבבים 🥄'); SFX.boop(); return; }
+        ings.push(id); ptnS.stir = 0; SFX.pop(); tone(200, 0.2, 'sine', 0.05, 0.08); tone(420, 0.15, 'sine', 0.15, 0.06); ptnDraw();
+        const c2 = ptnBox().querySelector('.ptn-cauldron'); if (c2) c2.classList.add('plop');
+      });
+      return b;
+    }));
+    const found = ptnData.found;
+    const book = el('details', { class: 'ptn-book', open: ptnS.bookOpen !== false, ontoggle: e => { ptnS.bookOpen = e.target.open; } }, el('summary', {}, `📖 ספר השיקויים (${found.length}/${PTN_RECIPES.length})`),
+      el('div', { class: 'ptn-cards' }, ...PTN_RECIPES.map(r => {
+        const known = found.includes(r[0]), show = known || r[5];
+        return el('div', { class: 'ptn-card' + (known ? ' known' : '') + (ptnS.follow === r[0] ? ' on' : '') },
+          el('b', {}, known || r[5] ? r[1] : '❓ שיקוי סודי'), el('span', { class: 'ings' }, show ? r[2].map(i => PTN_INGS[i][1]).join(' + ') : '? + ? + ?'),
+          el('small', {}, show ? r[3] : '🔎 רמז: ' + r[4]),
+          show ? el('button', { type: 'button', class: 'chip', onclick: () => { ptnS.follow = ptnS.follow === r[0] ? null : r[0]; SFX.pop(); ptnDraw(); } }, ptnS.follow === r[0] ? '✖️ לא עכשיו' : '🧪 להכין') : null);
+      })),
+      ptnData.mine.length ? el('div', { class: 'ptn-mine' }, el('span', { class: 'lbl' }, 'שיקויי מסתורין שהמצאתי:'), ...ptnData.mine.map(m => el('span', { class: 'ptn-mini', title: m.name }, el('span', { class: 'ic', html: ptnBottle(m.color, m.rb) }), m.e))) : null);
+    box.replaceChildren(
+      el('p', { class: 'bkr-say' }, need ? `🧪 מכינים ${need[1]}: ${need[2].map(i => PTN_INGS[i][1] + ' ' + PTN_INGS[i][0]).join(', ')}` : '🧙‍♀️ ברוכה הבאה למעבדת הקסמים! גוררים 3 דברים לקדרה (או לוחצים), ואז מערבבים בעיגולים'),
+      el('div', { class: 'ptn-lab' }, cz, jars),
+      el('div', { class: 'ptn-status' }, el('span', {}, 'בקדרה: ' + (ings.length ? ings.map(i => PTN_INGS[i][1]).join(' ') : '— ריקה —') + ` (${ings.length}/3)`), bar),
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', disabled: !ings.length, onclick: () => { ptnS.ings = []; ptnS.stir = 0; SFX.boop(); ptnDraw(); } }, '🫗 לשפוך'),
+        el('button', { type: 'button', class: 'btn main', disabled: ings.length < 2, onclick: () => stirTurn(Math.PI / 2, ptnS.stir + Math.PI / 2) }, '🥄 לערבב')),
+      book);
+  }
+  // ---------- 🏰 castle escape ----------
+  const ESC_ITEMS = {
+    yarn: ['כדור צמר', `<circle cx="24" cy="26" r="15" fill="#8fb3ff" ${S}/><path d="M12 20 Q24 30 36 18 M10 28 Q24 38 38 26 M16 38 Q22 22 34 12" fill="none" stroke="#fff" stroke-width="1.8" opacity=".8"/><path d="M36 34 Q44 40 40 46" fill="none" stroke="#8fb3ff" stroke-width="2.5" stroke-linecap="round"/>`],
+    key: ['מפתח זהב', `<circle cx="15" cy="24" r="9" fill="#ffd84d" ${S}/><circle cx="15" cy="24" r="3.5" fill="#fff" ${S2}/><path d="M24 24 H42 M36 24 V31 M41 24 V30" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M24 24 H42 M36 24 V31 M41 24 V30" stroke="#ffd84d" stroke-width="3" stroke-linecap="round"/>`],
+    mag: ['זכוכית מגדלת', `<path d="M30 30 L42 42" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M30 30 L42 42" stroke="#c98b5a" stroke-width="4" stroke-linecap="round"/><circle cx="21" cy="21" r="13" fill="#dff3ff" ${S}/><path d="M14 16 q3 -5 8 -5" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>`],
+    can: ['משפך', `<path d="M10 20 H32 L30 42 H12 Z" fill="#7ee08a" ${S}/><path d="M32 26 L44 16" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M32 26 L44 16" stroke="#7ee08a" stroke-width="2.5" stroke-linecap="round"/><path d="M14 20 Q21 8 28 20" fill="none" ${S}/><circle cx="45" cy="13" r="2" fill="#7ec8ff"/>`],
+  };
+  const escItem = (id, x, y, s = 40) => `<svg x="${x}" y="${y}" width="${s}" height="${s}" viewBox="0 0 48 48">${ESC_ITEMS[id][1]}</svg>`;
+  const ESC_PAT = [1, 0, 1, 1, 1, 1, 0, 1, 0], ESC_CODE = '425', ESC_ORDER = [2, 0, 3, 1];
+  const ESC_GEMS = [['#ff6fa8', 'ורוד'], ['#ffd43b', 'צהוב'], ['#4dabf7', 'כחול'], ['#9775fa', 'סגול']];
+  const ESC_ROOMS = ['🛏️ חדר השינה במגדל', '📚 הספרייה', '🌷 שער הגן'];
+  let esc = null;
+  const escNew = () => ({ room: 0, inv: [], sel: null, f: {}, tiles: [0, 0, 0, 0, 0, 0, 0, 0, 0], code: '', seq: [], stars: {}, msg: '', panel: null, won: false });
+  const escH = (id, inner, extra = '') => `<g class="esc-h" data-h="${id}"${extra}>${inner}</g>`;
+  const escStar = (id, x, y) => esc.stars[esc.room + id] ? '' : escH('star:' + id, `<circle cx="${x}" cy="${y}" r="14" fill="transparent"/><polygon class="esc-tw" points="${starPts(x, y, 9, 4)}" fill="#ffd84d" stroke="${O}" stroke-width="1.2"/>`);
+  function escRoom0() {
+    const f = esc.f;
+    return `<rect width="600" height="270" fill="#eadcff"/>` + [[20, 30], [180, 20], [400, 40], [520, 110], [200, 190], [380, 150]].map(([x, y]) => `<rect x="${x}" y="${y}" width="46" height="20" rx="5" fill="none" stroke="#cdb8f0" stroke-width="2"/>`).join('') +
+      `<rect y="270" width="600" height="90" fill="#e8c39e"/><path d="M0 300 H600 M0 330 H600 M120 270 V300 M300 300 V330 M460 270 V300 M200 330 V360 M520 330 V360" stroke="#d0a57c" stroke-width="2"/>` +
+      // window with the night sky
+      `<path d="M60 160 V100 A45 45 0 0 1 150 100 V160 Z" fill="#3b4a8f" stroke="${O}" stroke-width="4"/><circle cx="125" cy="92" r="11" fill="#fff3b0"/><circle cx="129" cy="89" r="9" fill="#3b4a8f"/><polygon points="${starPts(82, 100, 5, 2)}" fill="#fff"/><polygon points="${starPts(100, 130, 4, 1.7)}" fill="#fff"/><path d="M105 55 V160 M60 115 H150" stroke="${O}" stroke-width="4"/>` +
+      `<path d="M50 50 Q70 110 56 170 L44 170 Q36 110 40 50 Z" fill="#ff9ad5" stroke="${O}" stroke-width="3"/><path d="M160 50 Q140 110 154 170 L166 170 Q174 110 170 50 Z" fill="#ff9ad5" stroke="${O}" stroke-width="3"/><path d="M36 50 H174" stroke="${O}" stroke-width="5" stroke-linecap="round"/>` +
+      escStar('a', 176, 150) +
+      // dresser
+      `<rect x="40" y="186" width="130" height="86" rx="8" fill="#c98b5a" stroke="${O}" stroke-width="3.5"/><path d="M70 186 V174 H80 V186 M76 174 C64 160 90 160 78 174" fill="#fff3b0" stroke="${O}" stroke-width="2.5"/><path d="M62 172 L94 172 L86 150 L70 150 Z" fill="#ffd84d" stroke="${O}" stroke-width="2.5"/><path d="M78 172 V186" stroke="${O}" stroke-width="3"/>` +
+      `<g transform="translate(118 146)">${stickerInner('bear').replace(/<svg[^>]*>|<\/svg>/g, '')}</g>` +
+      escH('drawer2', `<rect x="52" y="236" width="106" height="28" rx="5" fill="#e0a877" stroke="${O}" stroke-width="2.5"/><circle cx="105" cy="250" r="4" fill="#ffd84d" stroke="${O}" stroke-width="1.5"/>`) +
+      (f.drawer ? `<rect x="46" y="196" width="118" height="34" rx="5" fill="#8a5a3b" stroke="${O}" stroke-width="2.5"/><rect x="40" y="218" width="130" height="22" rx="4" fill="#e0a877" stroke="${O}" stroke-width="2.5"/><circle cx="105" cy="229" r="4" fill="#ffd84d" stroke="${O}" stroke-width="1.5"/>` + (f.yarn ? '' : escH('yarn', escItem('yarn', 84, 182, 38)))
+        : escH('drawer', `<rect x="52" y="198" width="106" height="30" rx="5" fill="#e0a877" stroke="${O}" stroke-width="2.5"/><circle cx="105" cy="213" r="4" fill="#ffd84d" stroke="${O}" stroke-width="1.5"/>`)) +
+      // door
+      escH('door', `<path d="M255 272 V155 A45 45 0 0 1 345 155 V272 Z" fill="${f.open ? '#fff6c9' : '#a0673c'}" stroke="${O}" stroke-width="4"/>` + (f.open ? `<path d="M255 272 V155 A45 45 0 0 1 285 116 V272 Z" fill="#a0673c" stroke="${O}" stroke-width="3"/><path d="M280 272 L330 150" stroke="#fff" stroke-width="10" opacity=".5"/>` :
+        `<path d="M285 118 V272 M315 118 V272" stroke="#7a4a2e" stroke-width="3"/><circle cx="330" cy="210" r="6" fill="#ffd84d" stroke="${O}" stroke-width="2"/><path d="M300 196 a5 5 0 1 1 0.1 0 M300 200 v10" stroke="${O}" stroke-width="3" fill="${O}"/>`)) +
+      // bed
+      `<rect x="552" y="150" width="22" height="122" rx="6" fill="#b58cff" stroke="${O}" stroke-width="3"/><rect x="398" y="208" width="170" height="44" rx="10" fill="#fff" stroke="${O}" stroke-width="3"/><rect x="398" y="224" width="170" height="40" rx="10" fill="#ff9ad5" stroke="${O}" stroke-width="3"/><path d="M420 244 h20 M460 250 h30 M510 242 h24" stroke="#fff" stroke-width="3" stroke-linecap="round"/><rect x="404" y="262" width="12" height="12" fill="#b58cff" stroke="${O}" stroke-width="2.5"/>` +
+      escH('pillow', `<ellipse cx="528" cy="206" rx="26" ry="13" fill="#fff" stroke="${O}" stroke-width="3"/>`) +
+      (f.kitty ? `<g>${placeSvg(stickerHTML('cat'), 450, 170, 54, 54)}${escItem('yarn', 494, 196, 22)}</g>` : '') +
+      escStar('b', 470, 290) +
+      // rug (and what is under it)
+      (f.rug ? `<ellipse cx="300" cy="316" rx="60" ry="18" fill="#d9b48a"/>` + (f.key ? '' : escH('key', escItem('key', 278, 294, 44))) + `<path d="M360 300 Q420 290 420 330 Q380 350 330 334 Z" fill="#ff8fb8" stroke="${O}" stroke-width="3"/>`
+        : escH('rug', `<ellipse cx="300" cy="316" rx="115" ry="32" fill="#ff8fb8" stroke="${O}" stroke-width="3"/><ellipse cx="300" cy="316" rx="92" ry="22" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="8 6"/>`)) +
+      (f.kitty ? '' : escH('kitty', `${placeSvg(stickerHTML('cat'), 270, 262, 62, 62)}<text x="330" y="270" font-size="18">💤</text>`));
+  }
+  function escRoom1() {
+    const f = esc.f, B = { R: '#ff6b6b', B: '#4dabf7', G: '#51cf66', Y: '#ffd43b', P: '#b197fc' };
+    const rows = [['R', 'Y', 'G', 'B', 'G', 'P'], ['G', 'R', 'Y', 'R', 'P', 'G'], ['B', 'G', 'R', 'Y', 'G']];
+    const books = rows.map((row, ri) => { let x = 44; const base = 112 + ri * 58; return row.map((c, i) => { const w = 16 + ((i * 7 + ri * 3) % 3) * 4, h = 38 + ((i * 5 + ri) % 3) * 6, s = `<rect x="${x}" y="${base - h}" width="${w}" height="${h}" rx="2" fill="${B[c]}" stroke="${O}" stroke-width="2"/><path d="M${x + 3} ${base - h + 8} h${w - 6}" stroke="#fff" stroke-width="2" opacity=".6"/>`; x += w + 4; return s; }).join(''); }).join('');
+    const tiles = esc.tiles.map((v, i) => { const x = 396 + (i % 3) * 30, y = 66 + Math.floor(i / 3) * 30; return escH('tile:' + i, `<rect x="${x}" y="${y}" width="26" height="26" rx="5" fill="${v ? '#ff8fb8' : '#cfc6dc'}" stroke="${O}" stroke-width="2.5"/>`); }).join('');
+    return `<rect width="600" height="270" fill="#fde8c8"/><path d="M0 40 H600" stroke="#f3cf9e" stroke-width="6"/><rect y="270" width="600" height="90" fill="#b98a5e"/><path d="M0 300 H600 M0 330 H600 M100 270 V300 M260 300 V330 M420 270 V300 M540 300 V330" stroke="#9c6f47" stroke-width="2"/>` +
+      `<rect x="30" y="50" width="200" height="224" rx="6" fill="#8a5a3b" stroke="${O}" stroke-width="4"/><path d="M36 112 H224 M36 170 H224 M36 228 H224" stroke="${O}" stroke-width="4"/>${books}` +
+      `<rect x="40" y="234" width="84" height="34" rx="4" fill="#a0673c" stroke="${O}" stroke-width="2.5"/><rect x="136" y="234" width="84" height="34" rx="4" fill="#a0673c" stroke="${O}" stroke-width="2.5"/>` + escStar('a', 212, 38) +
+      // painting that shows the tile picture
+      `<rect x="258" y="56" width="104" height="96" rx="6" fill="#ffd84d" stroke="${O}" stroke-width="3.5"/><rect x="268" y="66" width="84" height="76" fill="#fff8e1" stroke="${O}" stroke-width="2"/>` +
+      ESC_PAT.map((v, i) => `<rect x="${280 + (i % 3) * 21}" y="${72 + Math.floor(i / 3) * 21}" width="17" height="17" rx="3" fill="${v ? '#ff8fb8' : '#eee6f3'}" stroke="${O}" stroke-width="1.2"/>`).join('') +
+      `<rect x="388" y="58" width="102" height="102" rx="8" fill="#a99bbf" stroke="${O}" stroke-width="3"/>${tiles}` +
+      (f.tiles ? `<rect x="388" y="164" width="102" height="30" rx="4" fill="#6d4c7d" stroke="${O}" stroke-width="3"/>` + (f.mag ? '' : escH('mag', escItem('mag', 420, 158, 38))) : `<rect x="388" y="164" width="102" height="12" rx="4" fill="#8a7aa6" stroke="${O}" stroke-width="2"/>`) +
+      // desk with the tiny note
+      `<rect x="300" y="218" width="170" height="14" rx="4" fill="#8a5a3b" stroke="${O}" stroke-width="3"/><path d="M314 232 V272 M456 232 V272" stroke="${O}" stroke-width="6"/><path d="M314 232 V272 M456 232 V272" stroke="#8a5a3b" stroke-width="3"/>` +
+      `<rect x="438" y="196" width="10" height="22" rx="2" fill="#fff" stroke="${O}" stroke-width="2"/><path class="bkr-flame" d="M443 182 C447 188 447 193 443 194 C439 193 439 188 443 182 Z" fill="#ffb020" stroke="${O}" stroke-width="1.2"/>` +
+      escH('note', `<rect x="340" y="200" width="44" height="20" rx="2" fill="#fff" stroke="${O}" stroke-width="2" transform="rotate(-6 362 210)"/><path d="M346 207 h30 M346 212 h24" stroke="#b9b3c9" stroke-width="1.2" transform="rotate(-6 362 210)"/>`) + escStar('b', 386, 262) +
+      // door with a number lock
+      escH('door', `<path d="M505 272 V150 A40 40 0 0 1 585 150 V272 Z" fill="${f.open ? '#fff6c9' : '#7a4a2e'}" stroke="${O}" stroke-width="4"/>` + (f.open ? `<path d="M505 272 V150 A40 40 0 0 1 530 114 V272 Z" fill="#7a4a2e" stroke="${O}" stroke-width="3"/>` :
+        `<rect x="552" y="176" width="24" height="34" rx="4" fill="#3a2b3c" stroke="#ffd84d" stroke-width="2"/><g fill="#ffd84d">${[0, 1, 2].map(r => [0, 1].map(c => `<circle cx="${559 + c * 10}" cy="${184 + r * 9}" r="2.2"/>`).join('')).join('')}</g><circle cx="515" cy="216" r="5" fill="#ffd84d" stroke="${O}" stroke-width="2"/>`));
+  }
+  function escRoom2() {
+    const f = esc.f;
+    const gems = ESC_GEMS.map(([c], i) => escH('gem:' + i, `<circle cx="${262 + i * 25}" cy="206" r="10" fill="${c}" stroke="${O}" stroke-width="2.5"${esc.seq.includes(i) ? ' class="esc-lit"' : ''}/><path d="M${258 + i * 25} 202 l3 -2" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`)).join('');
+    const petals = [[0, -30], [30, 0], [0, 30], [-30, 0]];
+    return `<rect width="600" height="360" fill="#bde0fe"/><circle cx="520" cy="50" r="26" fill="#ffe066" stroke="${O}" stroke-width="3"/>` +
+      `<g fill="#fff"><circle cx="120" cy="50" r="16"/><circle cx="142" cy="42" r="20"/><circle cx="164" cy="52" r="14"/></g>` + escStar('a', 186, 40) +
+      `<rect y="120" width="600" height="160" fill="#52b788"/>` + Array.from({ length: 16 }, (_, i) => `<circle cx="${i * 40 + 10}" cy="122" r="24" fill="#52b788"/>`).join('') +
+      Array.from({ length: 22 }, (_, i) => `<circle cx="${(i * 53) % 590 + 5}" cy="${150 + (i * 37) % 110}" r="4" fill="${['#ff8fb8', '#ffd43b', '#fff'][i % 3]}"/>`).join('') + escStar('b', 566, 136) +
+      `<rect y="270" width="600" height="90" fill="#9ad17a"/><path d="M250 360 L270 272 H330 L350 360 Z" fill="#e9d8b4"/>` +
+      // gate
+      `<rect x="200" y="90" width="42" height="190" fill="#c5b8d8" stroke="${O}" stroke-width="3.5"/><rect x="358" y="90" width="42" height="190" fill="#c5b8d8" stroke="${O}" stroke-width="3.5"/><circle cx="221" cy="84" r="12" fill="#ffd84d" stroke="${O}" stroke-width="3"/><circle cx="379" cy="84" r="12" fill="#ffd84d" stroke="${O}" stroke-width="3"/>` +
+      (f.open ? `<rect x="242" y="110" width="116" height="164" fill="#fff6c9"/><path d="M242 110 L262 120 V274 L242 274 Z M358 110 L338 120 V274 L358 274 Z" fill="#6d5a8a" stroke="${O}" stroke-width="2"/><text x="300" y="200" font-size="40" text-anchor="middle">👑</text>`
+        : `<path d="M242 274 V130 Q300 96 358 130 V274" fill="rgba(255,255,255,.25)" stroke="${O}" stroke-width="3.5"/>` + [256, 272, 288, 312, 328, 344].map(x => `<path d="M${x} 274 V${118 + Math.abs(300 - x) / 4}" stroke="#6d5a8a" stroke-width="4"/>`).join('') +
+          `<rect x="248" y="192" width="104" height="28" rx="10" fill="#fff" stroke="${O}" stroke-width="3"/>${gems}`) +
+      // bush
+      escH('bush', `<g class="${esc.shake === 'bush' ? 'esc-shake' : ''}"><circle cx="70" cy="270" r="34" fill="#2d9b6a" stroke="${O}" stroke-width="3"/><circle cx="112" cy="262" r="38" fill="#35ad76" stroke="${O}" stroke-width="3"/><circle cx="150" cy="280" r="28" fill="#2d9b6a" stroke="${O}" stroke-width="3"/><circle cx="96" cy="250" r="5" fill="#ff8fb8"/><circle cx="130" cy="272" r="5" fill="#ffd43b"/></g>`) +
+      (f.bush && !f.can ? escH('can', escItem('can', 40, 292, 50)) : '') +
+      // flower pot
+      escH('pot', `<path d="M470 300 H530 L522 340 H478 Z" fill="#e8590c" stroke="${O}" stroke-width="3"/><rect x="464" y="292" width="72" height="12" rx="4" fill="#ff922b" stroke="${O}" stroke-width="3"/>` +
+        (f.bloom ? `<path d="M500 292 V240" stroke="#2f9e44" stroke-width="5"/><ellipse cx="486" cy="270" rx="12" ry="6" fill="#51cf66" stroke="${O}" stroke-width="2" transform="rotate(-30 486 270)"/>` +
+          petals.map(([dx, dy], k) => `<circle cx="${500 + dx}" cy="${210 + dy}" r="17" fill="${ESC_GEMS[ESC_ORDER[k]][0]}" stroke="${O}" stroke-width="2.5"/><text x="${500 + dx}" y="${216 + dy}" font-size="17" text-anchor="middle" fill="${O}" font-weight="bold">${k + 1}</text>`).join('') + `<circle cx="500" cy="210" r="13" fill="#fff3b0" stroke="${O}" stroke-width="2.5"/>${face(500, 208, 0.8)}`
+          : `<path d="M500 292 V270" stroke="#2f9e44" stroke-width="4"/><ellipse cx="492" cy="272" rx="8" ry="4" fill="#51cf66" stroke="${O}" stroke-width="1.5" transform="rotate(-25 492 272)"/><ellipse cx="508" cy="270" rx="8" ry="4" fill="#51cf66" stroke="${O}" stroke-width="1.5" transform="rotate(25 508 270)"/>`)) +
+      `<text x="420" y="110" font-size="22">🦋</text><text x="60" y="190" font-size="18">🦋</text>`;
+  }
+  const escSay = (m, snd) => { esc.msg = m; if (snd) SFX[snd](); };
+  const escTake = id => { esc.inv.push(id); esc.f[id] = true; escSay(`מצאת ${ESC_ITEMS[id][0]}! זה נכנס לתיק 🎒`, 'ding'); };
+  const escUse = id => { esc.inv = esc.inv.filter(x => x !== id); if (esc.sel === id) esc.sel = null; };
+  function escAct(h) {
+    const f = esc.f, sel = esc.sel;
+    if (h.startsWith('star:')) { esc.stars[esc.room + h.slice(5)] = 1; escSay('⭐ מצאת כוכב נסתר!', 'yay'); return; }
+    if (esc.room === 0) {
+      if (h === 'drawer') { f.drawer = true; escSay('המגירה נפתחה! יש בה משהו רך...', 'pop'); }
+      else if (h === 'drawer2') escSay('רק גרביים עם לבבות 🧦💖', 'boop');
+      else if (h === 'yarn' || h === 'key') escTake(h);
+      else if (h === 'pillow') escSay('כרית רכה ונעימה... אבל אין כאן כלום 😴', 'boop');
+      else if (h === 'kitty') { if (sel === 'yarn') { f.kitty = true; escUse('yarn'); escSay('😺 מיאו! החתלתולה קפצה לשחק על המיטה!', 'pet'); SFX.pet('cat'); } else escSay('😺 מיאו... החתלתולה ישנה על השטיח. אולי היא רוצה לשחק במשהו?', 'boop'); }
+      else if (h === 'rug') { f.rug = true; escSay('הרמת את השטיח... מה זה נוצץ שם?', 'pop'); }
+      else if (h === 'door') { if (f.open) escNext(); else if (sel === 'key') { f.open = true; escUse('key'); escSay('🔓 קליק! הדלת נפתחה! לוחצים עליה כדי לעבור', 'yay'); } else escSay('הדלת נעולה 🔒 צריך מפתח', 'boop'); }
+    } else if (esc.room === 1) {
+      if (h.startsWith('tile:')) {
+        if (f.tiles) return;
+        const i = +h.slice(5); esc.tiles[i] = esc.tiles[i] ? 0 : 1; SFX.pop();
+        if (esc.tiles.every((v, k) => v === ESC_PAT[k])) { f.tiles = true; escSay('✨ האריחים זוהרים! מגירה סודית נפתחה!', 'yay'); } else esc.msg = 'האריחים משנים צבע...';
+      } else if (h === 'mag') escTake('mag');
+      else if (h === 'note') {
+        if (f.read || sel === 'mag') { if (!f.read) { f.read = true; escUse('mag'); } esc.panel = 'note'; escSay('📝 הפתק אומר:', 'ding'); }
+        else escSay('הכתב קטן מדי! צריך משהו שמגדיל 🔎', 'boop');
+      } else if (h === 'door') { if (f.open) escNext(); else { esc.panel = 'pad'; esc.code = ''; escSay('🔢 מנעול עם 3 מספרים', 'pop'); } }
+    } else {
+      if (h === 'bush') { if (!f.bush) { f.bush = true; esc.shake = 'bush'; escSay('רששש... משהו נפל מהשיח!', 'pop'); } else escSay('שיח ירוק ונעים 🌿', 'boop'); }
+      else if (h === 'can') escTake('can');
+      else if (h === 'pot') { if (f.bloom) escSay('הפרח הקסום מראה מספרים על העלים! 🌸', 'ding'); else if (sel === 'can') { f.bloom = true; escUse('can'); escSay('💧✨ וואו! צמח פרח קסום עם מספרים!', 'yay'); } else escSay('נבט קטן וצמא... 🌱', 'boop'); }
+      else if (h.startsWith('gem:')) {
+        if (f.open) return;
+        const i = +h.slice(4); if (esc.seq.includes(i)) return;
+        esc.seq.push(i); tone(520 + i * 130, 0.18, 'triangle', 0, 0.1);
+        const k = esc.seq.length - 1;
+        if (esc.seq[k] !== ESC_ORDER[k]) { esc.seq = []; escSay('אופס! הסדר לא נכון. מנסים שוב 💎', 'boop'); }
+        else if (esc.seq.length === 4) { f.open = true; escSay('🎉 השער נפתח!', 'yay'); setTimeout(escWin, 900); }
+        else esc.msg = `💎 ${esc.seq.length}/4`;
+      } else if (h === 'door') {}
+    }
+  }
+  function escNext() { esc.room++; esc.f = {}; esc.sel = null; esc.panel = null; esc.msg = `עברת ל${ESC_ROOMS[esc.room]}!`; SFX.yay(); escanim = true; }
+  let escanim = false;
+  function escWin() {
+    if (!esc || esc.won) return;
+    esc.won = true; const n = Object.keys(esc.stars).length;
+    winGame('escapeWins'); bkrCoins(15 + n * 2, 'ברחת מהטירה');
+    if (gamesTab === 'escape' && $('#gamesDlg').open) escapeGame();
+  }
+  function escHints() {
+    const f = esc.f, has = id => esc.inv.includes(id);
+    if (esc.room === 0) return !f.drawer && !f.yarn ? 'אולי כדאי לבדוק את השידה 🗄️' : !f.yarn ? 'במגירה יש משהו! לוחצים עליו כדי לקחת' : !f.kitty ? 'החתלתולה ישנה על השטיח... חתולים אוהבים כדור צמר! בוחרים אותו בתיק ולוחצים על החתלתולה 🧶' : !f.rug ? 'מה מסתתר מתחת לשטיח?' : !f.key ? 'משהו נוצץ על הרצפה!' : !f.open ? 'בוחרים את המפתח בתיק ולוחצים על הדלת 🗝️' : 'לוחצים על הדלת הפתוחה כדי לעבור!';
+    if (esc.room === 1) return !f.tiles ? 'הציור על הקיר מראה איך לסדר את האריחים האפורים לידו 🖼️' : !f.mag && !has('mag') && !f.read ? 'משהו נפתח מתחת לאריחים! 🔍' : !f.read ? 'עם זכוכית מגדלת אפשר לקרוא את הפתק הקטן על השולחן 📝' : !f.open ? 'סופרים את הספרים בכל צבע לפי הפתק, ומקישים את הקוד בדלת 🔢' : 'לוחצים על הדלת הפתוחה!';
+    return !f.bush ? 'משהו מסתתר בשיח... 🌿' : !f.can && !has('can') && !f.bloom ? 'לוקחים את המשפך!' : !f.bloom ? 'העציץ צמא! בוחרים את המשפך ולוחצים על העציץ 💧' : 'הפרח הקסום מראה את הסדר! לוחצים על אבני החן בשער לפי המספרים 💎';
+  }
+  function escapeGame() {
+    if (!esc) esc = escNew();
+    const body = $('#gamesBody');
+    if (esc.won) {
+      const n = Object.keys(esc.stars).length;
+      body.replaceChildren(el('div', { class: 'esc-win' }, el('div', { class: 'esc-crown', html: stickerHTML('crown') }), el('div', { class: 'esc-hero', html: petArt() }),
+        el('h4', {}, '👑 ברחת מהטירה! את מלכה!'), el('p', {}, `מצאת ${n} מתוך 6 כוכבים נסתרים ⭐`), el('p', { class: 'muted' }, `ניצחונות: ${games.escapeWins || 0}`),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { esc = escNew(); SFX.pop(); escapeGame(); } }, '🏰 לשחק שוב')));
+      return;
+    }
+    const svgs = [escRoom0, escRoom1, escRoom2][esc.room]();
+    const scene = el('div', { class: 'esc-scene' + (esc.sel ? ' using' : '') + (escanim ? ' enter' : ''), html: `<svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">${svgs}</svg>` });
+    escanim = false; esc.shake = null;
+    scene.addEventListener('click', e => { const g = e.target.closest('[data-h]'); if (!g) { if (esc.sel) { esc.sel = null; escapeGame(); } return; } escAct(g.dataset.h); escapeGame(); });
+    const inv = el('div', { class: 'esc-inv' }, el('span', { class: 'lbl' }, '🎒'), ...(esc.inv.length ? esc.inv.map(id => el('button', { type: 'button', class: 'esc-it', 'aria-pressed': String(esc.sel === id), title: ESC_ITEMS[id][0], 'aria-label': ESC_ITEMS[id][0], onclick: () => { esc.sel = esc.sel === id ? null : id; SFX.pop(); if (esc.sel) esc.msg = `בחרת ${ESC_ITEMS[id][0]} — עכשיו לוחצים על משהו בחדר כדי להשתמש בו`; escapeGame(); },
+      html: `<svg viewBox="0 0 48 48">${ESC_ITEMS[id][1]}</svg>` })) : [el('span', { class: 'muted' }, 'התיק ריק')]));
+    let panel = null;
+    if (esc.panel === 'note') panel = el('div', { class: 'esc-note' }, el('b', {}, 'הקוד של הדלת:'), el('span', {}, '📕 אדום ← 📘 כחול ← 📗 ירוק'), el('span', {}, 'כמה ספרים יש מכל צבע בספרייה? ✨'), el('button', { type: 'button', class: 'chip', onclick: () => { esc.panel = null; escapeGame(); } }, 'הבנתי'));
+    if (esc.panel === 'pad') {
+      const press = d => {
+        if (d === 'x') { esc.code = esc.code.slice(0, -1); SFX.boop(); }
+        else if (esc.code.length < 3) { esc.code += d; tone(700 + +d * 40, 0.08, 'square', 0, 0.04); }
+        if (esc.code.length === 3) {
+          if (esc.code === ESC_CODE) { esc.f.open = true; esc.panel = null; escSay('🔓 הקוד נכון! הדלת נפתחה! לוחצים עליה כדי לעבור', 'yay'); }
+          else { escSay('❌ לא נכון... מנסים שוב (רמז: הפתק על השולחן)', 'boop'); esc.code = ''; }
+        }
+        escapeGame();
+      };
+      panel = el('div', { class: 'esc-pad' }, el('div', { class: 'esc-disp' }, (esc.code + '___').slice(0, 3).split('').join(' ')),
+        el('div', { class: 'esc-keys' }, ...['1', '2', '3', '4', '5', '6', '7', '8', '9', 'x', '0'].map(d => el('button', { type: 'button', class: 'btn', onclick: () => press(d) }, d === 'x' ? '⌫' : d))),
+        el('button', { type: 'button', class: 'chip', onclick: () => { esc.panel = null; escapeGame(); } }, 'לסגור'));
+    }
+    body.replaceChildren(el('div', { class: 'game-info' }, el('span', {}, `${ESC_ROOMS[esc.room]} (${esc.room + 1}/3)`), el('span', {}, `⭐ ${Object.keys(esc.stars).length}/6`)),
+      scene, el('div', { class: 'esc-msg' }, esc.msg || '👆 לוחצים על דברים בחדר כדי לחפש איך לצאת! (יש גם כוכבים נסתרים ⭐)'), panel, inv,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { esc.msg = '💡 ' + escHints(); SFX.ding(); escapeGame(); } }, '💡 רמז'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { esc = escNew(); SFX.boop(); escapeGame(); } }, '🔄 מההתחלה')));
+  }
+  // ---------- wiring (bake) ----------
+  $('#bkrDlg').addEventListener('close', bkrStop);
+  $('#ptnDlg').addEventListener('close', ptnStop);
+  GAME_TABS.push(['pnum', '🎨 צביעה לפי מספרים'], ['potion', '🔮 שיקויים'], ['escape', '🏰 בורחים מהטירה']);
+  MORE.splice(Math.max(0, MORE.findIndex(m => m[1] === 'להדפסה')) || MORE.length, 0, ['cupcake', 'המאפייה שלי', () => openBakery()], ['wand', 'מעבדת שיקויים', () => openPotions()]);
 
   // ================= sticker album =================
   function openAlbum() {
