@@ -1059,7 +1059,10 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
 }
 /* ---------- fashion studio ---------- */
 .fash-edit { grid-template-columns: minmax(190px, 260px) 1fr; }
-.fash-stage { border-radius: 18px; border: 2px solid var(--line); overflow: hidden; position: sticky; top: 0; background: var(--paper); }
+.fash-side { position: sticky; top: 0; display: grid; gap: 8px; justify-items: center; }
+.fash-stage { width: 100%; border-radius: 18px; border: 2px solid var(--line); overflow: hidden; background: var(--paper); }
+.fash-stage.close { border-color: var(--accent); }
+.fash-zoom { font-size: .95em; }
 .fash-stage svg { width: 100%; height: auto; display: block; }
 .fash-card .ic { width: 64px; height: 96px; border-radius: 12px; overflow: hidden; }
 .fash-card { width: 96px; }
@@ -1088,7 +1091,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
 @keyframes fsBob { from { transform: translateY(0) rotate(-1deg); } to { transform: translateY(-1.2%) rotate(1deg); } }
 .fs-cap { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); background: rgb(255 255 255 / .92); color: #3a2b3c; border-radius: 999px; padding: 4px 16px; font-size: 1.25em; white-space: nowrap; }
 .fs-cap:empty { display: none; }
-@media (max-width: 620px) { .fash-edit { grid-template-columns: 1fr; } .fash-stage { position: static; max-width: 200px; margin: 0 auto; } }
+@media (max-width: 620px) { .fash-edit { grid-template-columns: 1fr; } .fash-side { position: static; } .fash-stage { max-width: 220px; margin: 0 auto; } }
 @media (prefers-reduced-motion: reduce) { .fs-flash circle { animation: none; } }
 </style>
 </head>
@@ -1508,7 +1511,10 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     </div>
     <div class="mer-list" id="fashList"></div>
     <div class="mer-edit fash-edit">
-      <div class="fash-stage" id="fashPreview"></div>
+      <div class="fash-side">
+        <div class="fash-stage" id="fashPreview"></div>
+        <button class="btn fash-zoom" id="fashZoom" type="button">🔍 כל הגוף</button>
+      </div>
       <div class="row">
         <div class="tabs" role="tablist" id="fashTabs"></div>
         <div class="row" id="fashBody"></div>
@@ -4233,8 +4239,8 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.09.24-fashion';
-  const WHATS_NEW = ['👗 סטודיו אופנה: מעצבים בנות עם מלא אפשרויות, ותצוגת אופנה!', '🎨 עיצוב: אימוג\'ים שנופלים, אימוג\'ים על הרקע, 12 ערכות מוכנות, 🎲 עיצוב הפתעה ושמירת עיצובים', '🎮 7 משחקים חדשים: גלידות, עוגה, איקס עיגול, 2048, שלוש בשורה, בועות ומרוץ בת ים', '🐠 עולם מתחת למים, 🌙 יומן חלומות, 🎵 פסנתר, 🎪 החיה גדלה ועושה טריקים'];
+  const APP_VERSION = '2026.09.24-fashion2';
+  const WHATS_NEW = ['👗 כפתור חדש למעלה: עיצוב בנות!', '💄 10 סוגים מכל סוג איפור: צלליות, אייליינר, ריסים, שפתון, סומק, הייליטר, קישוטי פנים ולק', '💇‍♀️ 47 תסרוקות ו-18 קישוטי שיער', '🔍 זום על הפנים כדי לראות את האיפור מקרוב'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -6649,16 +6655,31 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     faces: [['oval', 'אובלי'], ['round', 'עגול'], ['heart', 'לב']],
     eyeShapes: [['almond', 'שקד'], ['round', 'עגולות'], ['cat', 'חתוליות']],
     eyeColors: ['#6b4226', '#3a2418', '#8d6a32', '#4f84c8', '#8cc0e8', '#4f9a73', '#7d8a45', '#8a929c', '#8e6bd6', '#b9782e'],
-    brows: [['soft', 'רכות'], ['arched', 'מקושתות'], ['straight', 'ישרות'], ['thick', 'עבות']],
-    lashes: [['natural', 'טבעיים'], ['long', 'ארוכים'], ['dramatic', 'דרמטיים']],
+    brows: [['soft', 'רכות'], ['arched', 'מקושתות'], ['straight', 'ישרות'], ['thick', 'עבות'], ['thin', 'דקות'], ['rounded', 'מעוגלות'], ['feathered', 'מוברשות'], ['higharch', 'קשת גבוהה'], ['angled', 'עם זווית'], ['bold', 'טבעיות ומלאות']],
+    lashes: [['none', 'בלי'], ['natural', 'טבעיים'], ['long', 'ארוכים'], ['dramatic', 'דרמטיים'], ['doll', 'בובה'], ['spiky', 'קוצניים'], ['tips', 'קצוות צבעוניים'], ['bottom', 'גם למטה'], ['wispy', 'אווריריים'], ['butterfly', 'פרפר']],
     noses: [['small', 'קטן'], ['button', 'כפתור'], ['straight', 'ישר']],
     lips: [['soft', 'עדינות'], ['full', 'מלאות'], ['heart', 'לב']],
-    lipColors: ['natural', '#ec8f9c', '#f47f78', '#d8465a', '#a3375c', '#f6a9c0', '#c98474', 'gloss'],
-    shadows: ['none', '#c3a2ff', '#f7a3c4', '#8ec8f2', '#e9c27a', '#9fdab4', '#c98e7a'],
-    hairs: [['straight', 'חלק ארוך'], ['wavy', 'גלי ארוך'], ['curly', 'מתולתל'], ['afro', 'תלתלים גדולים'], ['bob', 'קארה'], ['bangsbob', 'קארה עם פוני'],
-      ['bangs', 'פוני ושיער ארוך'], ['curtain', 'פוני וילון'], ['sideswept', 'הכל לצד אחד'], ['lob', 'גלים עד הכתפיים'], ['crimped', 'זיגזג'],
-      ['braids', 'שתי צמות'], ['french', 'צמה צרפתית'], ['sidebraid', 'צמה בצד'], ['fishtail', 'צמת דג'], ['ponyhigh', 'קוקו גבוה'], ['ponylow', 'קוקו נמוך בצד'],
-      ['pigtails', 'שתי קוקיות'], ['spacebuns', 'שני קוקונים'], ['topbun', 'קוקון למעלה'], ['messybun', 'קוקון מבולגן'], ['halfup', 'חצי אסוף'], ['pixie', 'פיקסי קצר']],
+    lipColors: ['natural', '#ec8f9c', '#f6a9c0', '#ff5fa2', '#f47f78', '#ffa07a', '#d8465a', '#c0203a', '#a3375c', '#7a2e4a', '#c98474', '#b86a7a', '#ff7a45', '#c3a2ff', '#e8a0a8'],
+    lipStyles: [['satin', 'רגיל'], ['matte', 'מט'], ['gloss', 'גלוס'], ['shimmer', 'מנצנץ עדין'], ['ombre', 'אומברה'], ['twotone', 'שני גוונים'], ['heart', 'לב באמצע'], ['glitter', 'גליטר'], ['tint', 'שקוף'], ['liner', 'עם קו מתאר'], ['sparkle', 'גלוס נוצץ']],
+    shadowStyles: [['none', 'בלי'], ['wash', 'עדין'], ['smoky', 'סמוקי'], ['crease', 'קו בקפל'], ['ombre', 'אומברה'], ['rainbow', 'קשת'], ['halo', 'הילה'], ['winged', 'כנף'], ['sparkle', 'נצנצים'], ['sunset', 'שקיעה'], ['lower', 'צבע למטה']],
+    shadowColors: ['#c3a2ff', '#f7a3c4', '#8ec8f2', '#e9c27a', '#9fdab4', '#c98e7a', '#ff9b6e', '#7a4fbf', '#3fb6c0', '#e0607e', '#6b4a3a', '*#f2d27a', '*#f4b6c8', '*#c8d4ff', '*#d6a0ff', 'holo'],
+    liners: [['none', 'בלי'], ['thin', 'דק'], ['wing', 'כנף'], ['cat', 'חתול'], ['double', 'כנף כפולה'], ['colored', 'צבעוני למטה'], ['dotted', 'נקודות'], ['puppy', 'גור כלבים'], ['graphic', 'גרפי'], ['glitter', 'נוצץ'], ['smudge', 'מרוח רך']],
+    linerColors: ['#1f1316', '#5a3522', '#1f3a7a', '#7a4fbf', '#138a8a', '#e0508a', '#d8a93a', '#ffffff', '#3fd6a0', '#3fb6ff'],
+    blushes: [['none', 'בלי'], ['rosy', 'ורוד'], ['peach', 'אפרסק'], ['coral', 'אלמוג'], ['berry', 'פטל'], ['sunkissed', 'נשיקת שמש'], ['heart', 'לבבות'], ['glow', 'זוהר'], ['strawberry', 'תות'], ['draped', 'עד הרקה']],
+    glows: [['none', 'בלי'], ['pearl', 'פנינה'], ['gold', 'זהב'], ['rose', 'ורוד'], ['holo', 'הולוגרמה'], ['dewy', 'טל'], ['champagne', 'שמפניה'], ['icy', 'קרח'], ['bronze', 'ברונזה'], ['starry', 'כוכבים']],
+    paints: [['none', 'בלי'], ['star', 'כוכב'], ['hearts', 'לבבות'], ['sparkfreckles', 'נמשי זהב'], ['gems', 'אבני חן'], ['rainbow', 'קשת'], ['butterfly', 'פרפר'], ['moon', 'ירח וכוכבים'], ['flower', 'פרח'], ['whiskers', 'שפם חתול'], ['glitterline', 'פס נצנצים']],
+    nails: [['none', 'טבעי'], ['#ff9ec4', 'ורוד'], ['#e0314b', 'אדום'], ['#ff7a61', 'אלמוג'], ['#bda4ff', 'לילך'], ['#8fe0c0', 'מנטה'], ['#7ec8ff', 'תכלת'], ['#2b2b30', 'שחור'], ['goldglitter', 'זהב נוצץ'], ['rainbow', 'קשת'], ['french', 'פרנץ\''], ['hearts', 'לבבות'], ['galaxy', 'גלקסיה']],
+    hairCats: [['long', 'ארוך', ['straight', 'wavy', 'beachwaves', 'mermaid', 'bangs', 'curtain', 'layered', 'sideswept', 'crimped', 'halfup', 'halfbuns', 'hime']],
+      ['short', 'קצר', ['bob', 'bangsbob', 'lob', 'pixie', 'wolf', 'shag', 'fingerwaves']],
+      ['up', 'קוקו ופקעות', ['ponyhigh', 'sleekpony', 'bubblepony', 'ponylow', 'pigtails', 'spacebuns', 'topbun', 'messybun', 'lowbun', 'ballerina', 'heartbun']],
+      ['braids', 'צמות', ['braids', 'french', 'sidebraid', 'fishtail', 'dutchpig', 'crownbraid', 'milkmaid', 'ribbonbraids', 'boxbraids', 'cornrowpuff']],
+      ['curls', 'תלתלים', ['curly', 'sidecurls', 'afro', 'twistout', 'afropuffs', 'highpuff', 'bantu']]],
+    hairs: [['straight', 'חלק ארוך'], ['wavy', 'גלי ארוך'], ['beachwaves', 'גלי חוף'], ['mermaid', 'גלי בת ים ארוכים'], ['bangs', 'פוני ושיער ארוך'], ['curtain', 'פוני וילון'], ['layered', 'שכבות עם פוני וילון'], ['sideswept', 'הכל לצד אחד'],
+      ['crimped', 'זיגזג'], ['halfup', 'חצי אסוף'], ['halfbuns', 'חצי אסוף עם קוקונים'], ['hime', 'הימה (פוני ישר)'], ['bob', 'קארה'], ['bangsbob', 'קארה עם פוני'], ['lob', 'גלים עד הכתפיים'], ['pixie', 'פיקסי קצר'],
+      ['wolf', 'וולף קאט'], ['shag', 'שאג'], ['fingerwaves', 'גלי אצבע'], ['ponyhigh', 'קוקו גבוה'], ['sleekpony', 'קוקו חלק ומבריק'], ['bubblepony', 'קוקו בועות'], ['ponylow', 'קוקו נמוך בצד'], ['pigtails', 'שתי קוקיות'],
+      ['spacebuns', 'שני קוקונים'], ['topbun', 'קוקון למעלה'], ['messybun', 'קוקון מבולגן'], ['lowbun', 'קוקון נמוך בצד'], ['ballerina', 'קוקון בלרינה'], ['heartbun', 'קוקון לב'], ['braids', 'שתי צמות'], ['french', 'צמה צרפתית'],
+      ['sidebraid', 'צמה בצד'], ['fishtail', 'צמת דג'], ['dutchpig', 'צמות הולנדיות'], ['crownbraid', 'צמת כתר'], ['milkmaid', 'צמות על הראש'], ['ribbonbraids', 'צמות עם סרט'], ['boxbraids', 'צמות קטנות (בוקס)'], ['cornrowpuff', 'קורנרואו ופוף'],
+      ['curly', 'מתולתל'], ['sidecurls', 'תלתלים עם שביל בצד'], ['afro', 'אפרו'], ['twistout', 'טוויסט אאוט'], ['afropuffs', 'שני פופים'], ['highpuff', 'פוף גבוה'], ['bantu', 'קשרי באנטו']],
     hairColors: ['#2b1e1a', '#4b2f22', '#6e4228', '#9a6436', '#c8914f', '#e6c27a', '#f3e0ae', '#a4442a', '#d4682c', '#ff9fc8', '#b996ff', '#69b8f0', '#5fd0ae', '#dcdce6'],
     streaks: ['none', '#ff5fa2', '#a86bff', '#3fb6ff', '#3fd6a0', '#ffd23f', '#ff7a45', '#ffffff'],
     colors: ['#ffffff', '#f4ece0', '#2b2b30', '#1f2a4a', '#9aa3ad', '#ffb3cf', '#ff5f8f', '#e0314b', '#ff9b6e', '#ffd45c', '#a8dc8f', '#3f9c6e', '#9dd8f5', '#3f6fd8', '#bda4ff', '#7a4fbf', '#c9a27e', '#6d8fbd'],
@@ -6671,7 +6692,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     shoes: [['sneakers', 'סניקרס'], ['hightops', 'סניקרס גבוהות'], ['boots', 'מגפיים'], ['rainboots', 'מגפי גשם'], ['flats', 'בלרינות'], ['maryjanes', 'נעלי סטרפ'], ['sandals', 'סנדלים']],
     hats: [['none', 'בלי'], ['beret', 'ברט'], ['sunhat', 'כובע קש'], ['beanie', 'כובע גרב'], ['cap', 'כובע מצחייה']],
     glasses: [['none', 'בלי'], ['round', 'משקפיים'], ['sun', 'משקפי שמש'], ['hearts', 'משקפי לבבות']],
-    accs: [['headband', 'קשת'], ['bow', 'פפיון'], ['clips', 'סיכות'], ['tiara', 'נזר'], ['flowers', 'זר פרחים'], ['necklace', 'שרשרת'], ['pearls', 'פנינים'], ['bracelets', 'צמידים'], ['earrings', 'עגילים'], ['bag', 'תיק'], ['scarf', 'צעיף'], ['watch', 'שעון']],
+    accs: [['headband', 'קשת'], ['bow', 'פפיון'], ['clips', 'סיכות'], ['tiara', 'נזר'], ['flowers', 'זר פרחים'], ['necklace', 'שרשרת'], ['pearls', 'פנינים'], ['bracelets', 'צמידים'], ['earrings', 'עגילים'], ['bag', 'תיק'], ['scarf', 'צעיף'], ['watch', 'שעון'], ['scrunchie', 'גומייה מבד'], ['ribbon', 'סרט ארוך'], ['pins', 'סיכות ראש'], ['hairflower', 'פרח בשיער'], ['butterflies', 'סיכות פרפר'], ['hairpearls', 'פנינים בשיער']],
     accColors: ['#ff5f8f', '#ffb3cf', '#e0314b', '#ffd45c', '#f2c14e', '#3fb6ff', '#bda4ff', '#3f9c6e', '#ffffff', '#2b2b30'],
     scenes: [['runway', 'מסלול'], ['paris', 'פריז'], ['nyc', 'ניו יורק'], ['beach', 'חוף'], ['bedroom', 'חדר שינה'], ['park', 'פארק'], ['snow', 'שלג'], ['plain', 'צבע']],
     sceneColors: ['#ffd9e8', '#e6dcff', '#d6ecff', '#d9f5e6', '#fff1c9', '#ffe0cc', '#f2f2f2', '#2a2540'],
@@ -6746,6 +6767,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   let fashPi = 0;
   const fashPatIcon = (c, p) => { const id = `fpi${++fashPi}`; return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs>${fashPatDef(id, c, p)}</defs><circle cx="16" cy="16" r="16" fill="${p === 'plain' ? c : `url(#${id})`}"/></svg>`; };
 
+  const fashNail = (n, i) => ({ goldglitter: '#e9c46a', rainbow: ['#ff6f7a', '#ffd45c', '#7ed48a', '#6fb8ff', '#b37bff'][i % 5], french: '#fff8f4', hearts: '#ff9ec4', galaxy: '#2e2a6e' }[n] || n);
   function girlSVG(g, uid, opt = {}) {
     const u = 'g' + String(uid || g.id).replace(/[^a-zA-Z0-9]/g, '');
     const sk = g.skin || FASH.skins[1], skD = fmx(sk, '#7a3b2a', 0.2), skL = fmx(sk, '#ffffff', 0.25), skLine = fmx(sk, '#5a2a20', 0.42);
@@ -6754,6 +6776,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     const defs = [], seen = {};
     const def = (k, s) => { if (!seen[k]) { seen[k] = 1; defs.push(s); } return `url(#${u}-${k})`; };
     const blur = def('bl', `<filter id="${u}-bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6"/></filter>`);
+    def('bl3', `<filter id="${u}-bl3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation=".7"/></filter>`);
     const blur2 = def('bl2', `<filter id="${u}-bl2" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>`);
     const shadeH = def('sh', `<linearGradient id="${u}-sh" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#2a1020" stop-opacity=".26"/><stop offset=".22" stop-color="#2a1020" stop-opacity=".05"/><stop offset=".48" stop-color="#fff" stop-opacity=".1"/><stop offset=".72" stop-color="#2a1020" stop-opacity="0"/><stop offset="1" stop-color="#2a1020" stop-opacity=".28"/></linearGradient>`);
     const shadeV = def('sv', `<linearGradient id="${u}-sv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2a1020" stop-opacity=".12"/><stop offset=".25" stop-color="#2a1020" stop-opacity="0"/><stop offset=".85" stop-color="#2a1020" stop-opacity=".04"/><stop offset="1" stop-color="#2a1020" stop-opacity=".16"/></linearGradient>`);
@@ -6818,8 +6841,9 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
       if (o.end === false) return s;
       return s + `<path d="${spath(tuft)}" fill="${hairFill}" ${hStroke}/><path d="M${fx(e[0])} ${fx(e[1])} l${fx(dx / m * 12)} ${fx(dy / m * 14)}" stroke="${hD}" stroke-width=".7" opacity=".6"/>` + tie(e[0], e[1] - 1, w * 0.3);
     }
-    const tieC = g.accColor || '#ff5f8f';
-    const tie = (x, y, r) => `<ellipse cx="${fx(x)}" cy="${fx(y)}" rx="${fx(r * 1.2)}" ry="${fx(r * 0.75)}" fill="${tieC}" stroke="${fmx(tieC, '#000', 0.35)}" stroke-width=".8"/><path d="M${fx(x - r)} ${fx(y - r * 0.2)} q${fx(r)} ${fx(-r * 0.4)} ${fx(r * 2)} 0" fill="none" stroke="#fff" stroke-width=".8" opacity=".6"/>`;
+    const tieC = g.accColor || '#ff5f8f', AH = g.acc || {}, tiePts = [];
+    const tie = (x, y, r) => { tiePts.push([x, y, r]); return AH.scrunchie ? Array.from({ length: 10 }, (_, i) => { const a = i / 10 * Math.PI * 2; return `<circle cx="${fx(x + Math.cos(a) * r * 1.25)}" cy="${fx(y + Math.sin(a) * r * 0.8)}" r="${fx(r * 0.62)}" fill="${tieC}" stroke="${fmx(tieC, '#000000', 0.3)}" stroke-width=".5"/>`; }).join('') + `<ellipse cx="${fx(x)}" cy="${fx(y - r * 0.3)}" rx="${fx(r * 1.1)}" ry="${fx(r * 0.35)}" fill="#fff" opacity=".35"/>` : tie0(x, y, r); };
+    const tie0 = (x, y, r) => `<ellipse cx="${fx(x)}" cy="${fx(y)}" rx="${fx(r * 1.2)}" ry="${fx(r * 0.75)}" fill="${tieC}" stroke="${fmx(tieC, '#000', 0.35)}" stroke-width=".8"/><path d="M${fx(x - r)} ${fx(y - r * 0.2)} q${fx(r)} ${fx(-r * 0.4)} ${fx(r * 2)} 0" fill="none" stroke="#fff" stroke-width=".8" opacity=".6"/>`;
     const bun = (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${hairFill}" ${hStroke}/><circle cx="${x}" cy="${y}" r="${r}" fill="${def('bn', `<radialGradient id="${u}-bn" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="${hL}" stop-opacity=".45"/><stop offset=".5" stop-color="${hL}" stop-opacity="0"/><stop offset="1" stop-color="#1a0c08" stop-opacity=".35"/></radialGradient>`)}"/>` +
       [0.75, 0.5, 0.28].map((f, i) => `<path d="M${fx(x - r * f)} ${fx(y + r * 0.1)} A${fx(r * f)} ${fx(r * f * 0.9)} 0 1 1 ${fx(x + r * f * 0.7)} ${fx(y + r * f * 0.6)}" fill="none" stroke="${i % 2 ? hD : hL}" stroke-width="${i % 2 ? 0.8 : 1.3}" opacity=".6"/>`).join('') +
       (streak ? `<path d="M${fx(x - r * 0.6)} ${fx(y - r * 0.2)} A${fx(r * 0.62)} ${fx(r * 0.6)} 0 0 1 ${fx(x + r * 0.5)} ${fx(y - r * 0.4)}" fill="none" stroke="${streak}" stroke-width="2.4" opacity=".85"/>` : '');
@@ -6830,10 +6854,10 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     const capSide = () => sheet([[[137, 26], [136, 20]], [[152, 34], [158, 19]], [[170, 44], [178, 27]], [[180, 58], [188, 44]], [[182, 72], [189, 66]], [[181, 80], [188, 78]]], { n: 12, tip: false, strands: 4 }) +
       sheet([[[137, 26], [136, 20]], [[127, 30], [124, 25]], [[121, 44], [114, 40]], [[119, 62], [111, 60]], [[119, 78], [112, 76]]], { n: 10, tip: false, strands: 2 });
     const sweep = () => sheet([[[137, 25], [131, 24]], [[146, 34], [134, 36]], [[160, 46], [143, 49]], [[173, 57], [158, 57]], [[182, 70], [175, 66]]], { n: 12, tip: true, tipLen: 0.3, strands: 3, sw: 2.4 });
-    const bangs = (bot = 52) => {
+    const bangs = (bot = 52, blunt) => {
       const T = crs([[119, 62], [125, 38], [137, 27], [150, 25], [163, 27], [175, 38], [181, 62]], 9), M = crs([[118, 64], [124, 46], [137, 36], [150, 35], [163, 36], [176, 46], [182, 64]], 9);
       const Bt = crs([[118, 70], [124, bot + 2], [137, bot + 1], [150, bot], [163, bot + 1], [176, bot + 2], [182, 70]], 9);
-      return `<path d="${spath([[117, 72, 1], [115.5, 48], [123, 31], [136, 22], [150, 19], [164, 22], [177, 31], [184.5, 48], [183, 72, 1], [150, 46]])}" fill="${hairFill}" ${hStroke}/>` + sheet([T, M, Bt], { n: 10, locks: 8, tipLen: 0.22, strands: 2, len: j => 1 - (j % 2) * 0.06, sw: 2 });
+      return `<path d="${spath([[117, 72, 1], [115.5, 48], [123, 31], [136, 22], [150, 19], [164, 22], [177, 31], [184.5, 48], [183, 72, 1], [150, 46]])}" fill="${hairFill}" ${hStroke}/>` + sheet([T, M, Bt], { n: 10, locks: 8, tipLen: 0.22, strands: 2, len: j => blunt ? 1 : 1 - (j % 2) * 0.06, sw: 2, tip: blunt ? false : undefined });
     };
     const curtain = () => both(s => sheet([mp([[150, 22], [152, 32]], s), mp([[160, 34], [164, 30]], s), mp([[170, 48], [175, 38]], s), mp([[172, 62], [182, 52]], s), mp([[175, 78], [184, 72]], s), mp([[177, 92], [185, 90]], s)], { n: 12, tipLen: 0.25, strands: 2 }));
     // long locks falling in front of the shoulders
@@ -6843,6 +6867,11 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     const cloud = (x, y, rx, ry, bumps) => { const pts = Array.from({ length: bumps }, (_, i) => { const a = i / bumps * Math.PI * 2; return [x + Math.cos(a) * rx, y + Math.sin(a) * ry]; }); let d = `M${fx(pts[0][0])} ${fx(pts[0][1])}`; pts.forEach((p, i) => { const q = pts[(i + 1) % bumps], m = flp(p, q, 0.5), a = Math.atan2(m[1] - y, m[0] - x); d += `Q${fx(m[0] + Math.cos(a) * 7)} ${fx(m[1] + Math.sin(a) * 7)} ${fx(q[0])} ${fx(q[1])}`; }); return d + 'Z'; };
     const curlsIn = (x, y, rx, ry, cnt, r = 3.2) => Array.from({ length: cnt }, (_, i) => { const a = i * 2.39996, d = Math.sqrt((i + 0.5) / cnt); const px = x + Math.cos(a) * rx * d, py = y + Math.sin(a) * ry * d; return `<path d="M${fx(px - r)} ${fx(py)} a${r} ${r} 0 1 1 ${fx(r)} ${fx(r)}" fill="none" stroke="${i % 3 ? hD : hL}" stroke-width="${i % 3 ? 0.9 : 1.2}" opacity="${i % 3 ? 0.45 : 0.6}"/>`; }).join('');
 
+    const heartP0 = (x, y, r) => `M${fx(x)} ${fx(y + r * 0.9)} C${fx(x - r * 1.6)} ${fx(y - r * 0.1)} ${fx(x - r * 0.9)} ${fx(y - r * 1.4)} ${fx(x)} ${fx(y - r * 0.5)} C${fx(x + r * 0.9)} ${fx(y - r * 1.4)} ${fx(x + r * 1.6)} ${fx(y - r * 0.1)} ${fx(x)} ${fx(y + r * 0.9)}Z`;
+    const afG = () => def('af', `<radialGradient id="${u}-af" cx=".45" cy=".35" r=".65"><stop offset="0" stop-color="${hL}" stop-opacity=".35"/><stop offset=".6" stop-color="${hL}" stop-opacity="0"/><stop offset="1" stop-color="#1a0c08" stop-opacity=".35"/></radialGradient>`);
+    const puff = (x, y, rx, ry, b, cnt) => `<path d="${cloud(x, y, rx, ry, b)}" fill="${hairFill}" ${hStroke}/><path d="${cloud(x, y, rx, ry, b)}" fill="${afG()}"/>` + curlsIn(x, y, rx - 4, ry - 4, cnt, 2.6);
+    const coilCap = () => `<path d="M114 74 C110 40 130 22 150 22 C170 22 190 40 186 74 ${Array.from({ length: 12 }, (_, i) => { const t = (i + 1) / 12, a = Math.PI * (1 - t), x = 150 + Math.cos(a) * 34, y = 72 - Math.sin(a) * 30; return `Q${fx(150 + Math.cos(a + 0.13) * 30)} ${fx(72 - Math.sin(a + 0.13) * 25)} ${fx(x)} ${fx(y)}`; }).reverse().join(' ')}Z" fill="${hairFill}" ${hStroke}/>` + curlsIn(150, 38, 30, 12, 26, 2.2);
+    const rope = (pts, w) => { const d = spath(crs(pts, 14), false); return `<path d="${d}" fill="none" stroke="${hLine}" stroke-width="${fx(w + 1.2)}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${hairFill}" stroke-width="${w}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${hD}" stroke-width="${w}" stroke-dasharray="1 ${fx(w * 0.55)}" opacity=".5"/><path d="${d}" fill="none" stroke="${hL}" stroke-width="${fx(w * 0.35)}" stroke-dasharray="${fx(w * 0.45)} ${fx(w * 0.45)}" opacity=".6"/>`; };
     const nape = `<path d="${spath([[150, 18], [172, 22], [185, 40], [186, 62], [179, 80], [150, 86], [121, 80], [114, 62], [115, 40], [128, 22]])}" fill="${hairFill}" ${hStroke}/>`;
     let hairBack = '', hairFront = '', showEars = false;
     const hs = g.hair || 'straight', hatOn = !!g.hat && g.hat !== 'none';
@@ -6859,8 +6888,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
       case 'curly': hairBack = backLong(236, { wave: [4.5, 15, 40], n: 44, curls: 2.4, strands: 1, locks: 5 }) + both(s => sheet([mp([[150, 26], [192, 52]], s), mp([[150, 60], [206, 92]], s), mp([[150, 130], [212, 140]], s), mp([[150, 190], [208, 190]], s), mp([[150, 226], [198, 222]], s)], { n: 40, locks: 3, wave: [4.5, 15, 40], curls: 2.4, strands: 1, tipLen: 0.2, len: j => [0.96, 1, 0.9][j] }));
         hairFront = both(s => sheet([mp([[150, 33], [150, 17]], s), mp([[166, 37], [170, 18]], s), mp([[177, 50], [188, 32]], s), mp([[181, 66], [194, 52]], s), mp([[181, 78], [195, 74]], s)], { n: 14, tip: false, strands: 2, wave: [2.4, 10, 20], curls: 2.2 })) +
           both(s => frontLock(s, 190, { wave: [4.5, 15, 80], n: 40, curls: 2.2, strands: 1 })); break;
-      case 'afro': hairBack = `<path d="${cloud(150, 64, 68, 60, 28)}" fill="${hairFill}" ${hStroke}/><path d="${cloud(150, 64, 68, 60, 28)}" fill="${def('af', `<radialGradient id="${u}-af" cx=".45" cy=".35" r=".65"><stop offset="0" stop-color="${hL}" stop-opacity=".35"/><stop offset=".6" stop-color="${hL}" stop-opacity="0"/><stop offset="1" stop-color="#1a0c08" stop-opacity=".35"/></radialGradient>`)}"/>` + curlsIn(150, 64, 64, 56, 110, 2.8);
-        hairFront = `<path d="M114 74 C110 40 130 22 150 22 C170 22 190 40 186 74 ${Array.from({ length: 12 }, (_, i) => { const t = (i + 1) / 12, a = Math.PI * (1 - t), x = 150 + Math.cos(a) * 34, y = 72 - Math.sin(a) * 30; return `Q${fx(150 + Math.cos(a + 0.13) * 30)} ${fx(72 - Math.sin(a + 0.13) * 25)} ${fx(x)} ${fx(y)}`; }).reverse().join(' ')}Z" fill="${hairFill}"/>` + curlsIn(150, 38, 30, 12, 26, 2.6); break;
+      case 'afro': hairBack = puff(150, 64, 68, 60, 28, 110); hairFront = coilCap(); break;
       case 'braids': hairBack = both(s => sheet([mp([[150, 18], [186, 50]], s), mp([[152, 60], [190, 84]], s), mp([[160, 100], [186, 104]], s)], { n: 10, locks: 2, tip: false, strands: 2 }));
         hairFront = both(capMid) + both(s => braid(mp([[183, 90], [188, 118], [187, 150], [184, 185], [182, 225]], s), 17, { n: 10 })) + both(s => sheet([mp([[181, 70], [189, 68]], s), mp([[182, 86], [190, 86]], s), mp([[184, 96], [188, 96]], s)], { n: 8, strands: 2 })); break;
       case 'french': showEars = true; hairBack = nape;
@@ -6879,10 +6907,45 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
       case 'messybun': showEars = true; hairBack = nape; hairFront = both(capBack) + (hatOn ? '' : bun(150, 11, 17)) + (hatOn ? [] : [[143, 2, -10], [158, 1, 12], [162, 8, 16]]).map(([x, y, dx]) => `<path d="M${x} ${y} q${dx / 2} -6 ${dx} -4" fill="none" stroke="${hc}" stroke-width="1.8" stroke-linecap="round"/>`).join('') +
         both(s => sheet([mp([[179, 64], [182, 62]], s), mp([[181, 80], [185, 80]], s), mp([[180, 104], [183, 104]], s)], { n: 10, strands: 1, wave: [1.5, 18, 70] })); break;
       case 'halfup': hairBack = backLong(248, { wave: [2, 50, 120] }); hairFront = both(capBack) + both(s => frontLock(s, 208)) + tie(150, 18, 5); break;
+      case 'beachwaves': hairBack = backLong(252, { wave: [5.5, 58, 70] }); hairFront = capSide() + sweep() + frontLock(1, 228, { wave: [5.5, 58, 96], locks: 3 }) + frontLock(-1, 218, { wave: [5.5, 58, 96] }); break;
+      case 'mermaid': hairBack = both(s => sheet([mp([[150, 26], [186, 50]], s), mp([[150, 60], [197, 92]], s), mp([[150, 130], [206, 140]], s), mp([[150, 220], [214, 220]], s), mp([[150, 340], [216, 332]], s)], { n: 28, locks: 5, wave: [4.5, 46, 70], tipLen: 0.2, strands: 2, len: j => [1, 0.95, 0.99, 0.93, 0.97][j] })); hairFront = both(capMid) + both(s => frontLock(s, 305, { wave: [4.5, 46, 96], n: 26, locks: 3 })); break;
+      case 'layered': hairBack = backLong(240, { wave: [2.5, 50, 100] }); hairFront = both(capMid) + both(s => frontLock(s, 225, { locks: 3, len: j => [0.55, 0.78, 1][j], wave: [2.5, 50, 110] })) + curtain(); break;
+      case 'hime': hairBack = backLong(250, { tip: false, locks: 3 }); hairFront = both(s => sheet([mp([[181, 60], [189, 58]], s), mp([[178, 88], [190, 88]], s), mp([[176, 108], [188, 108]], s)], { n: 10, locks: 2, tip: false, strands: 2 })) + bangs(53, true); break;
+      case 'halfbuns': hairBack = backLong(245, { wave: [2.5, 48, 110] }); hairFront = both(capBack) + both(s => frontLock(s, 210, { wave: [2.5, 48, 120] })) + (hatOn ? '' : both(s => bun(mx(166, s), 20, 9.5))); break;
+      case 'wolf': hairBack = backLong(185, { locks: 6, len: j => [1, 0.8, 0.95, 0.75, 0.9, 0.85][j], tipLen: 0.35 }); hairFront = both(s => frontLock(s, 150, { locks: 3, len: j => [0.62, 0.85, 1][j], tipLen: 0.35 })) + bangs(54); break;
+      case 'shag': hairBack = backLong(165, { wave: [3.5, 30, 70], locks: 5, len: j => [1, 0.85, 0.95, 0.8, 0.9][j], tipLen: 0.3 }); hairFront = both(capMid) + both(s => frontLock(s, 150, { wave: [3.5, 30, 90], locks: 3, len: j => [0.6, 0.85, 1][j] })) + curtain(); break;
+      case 'fingerwaves': showEars = false; hairBack = bob(108); hairFront = capSide() + sweep() + both(s => sheet([mp([[181, 70], [189, 68]], s), mp([[179, 90], [191, 92]], s), mp([[177, 106], [189, 108]], s)], { n: 10, locks: 2, tipLen: 0.3, strands: 2 })) +
+        [44, 58, 72].map(y => `<path d="M${118} ${y} q8 -5 16 0 t16 0 t16 0 t16 0" fill="none" stroke="${hD}" stroke-width="1" opacity=".45"/><path d="M${118} ${y - 2} q8 -5 16 0 t16 0 t16 0 t16 0" fill="none" stroke="${hL}" stroke-width="1.2" opacity=".35"/>`).join('').replace(/^/, `<g clip-path="url(#${u}-hc)">`) + '</g>'; break;
+      case 'boxbraids': hairBack = Array.from({ length: 12 }, (_, i) => { const x0 = 120 + i * 5.5, x1 = 104 + i * 8.4; return rope([[x0, 40], [x0 + (x0 - 150) * 0.5, 110], [x1, 190], [x1 + (i % 2 ? 2 : -2), 262 - (i % 3) * 8]], 4.2); }).join('');
+        hairFront = both(capMid) + [0, 1, 2].map(j => [-1, 1].map(s => [30, 40, 52, 64].map(y => `<path d="M${mx(150 + 8 + j * 9, s)} ${y - j * 4} l${s * 5} 0" stroke="${hD}" stroke-width=".6" opacity=".5"/>`).join('')).join('')).join('') +
+          both(s => [0, 1, 2].map(j => rope(mp([[180 + j * 3, 68 + j * 4], [183 + j * 4, 110], [186 + j * 4, 160], [184 + j * 3, 214 - j * 10]], s), 4.2) + `<rect x="${mx(182.4 + j * 3.6, s) - 2.6}" y="${150 + j * 12}" width="5.2" height="3.2" rx="1" fill="#e9c46a" stroke="#a57f22" stroke-width=".4"/>`).join('')); break;
+      case 'cornrowpuff': showEars = true; hairBack = nape + puff(150, 4, 26, 20, 16, 30);
+        hairFront = both(capBack) + [-2, -1, 0, 1, 2].map(i => rope([[150 + i * 11.5, 46 - Math.abs(i) * 3], [150 + i * 9, 32], [150 + i * 5, 20]], 4.6)).join('') + tie(150, 16, 5); break;
+      case 'bubblepony': showEars = true; hairBack = nape; hairFront = both(capBack) + tie(176, 22, 5) + [[183, 44, 8, 11], [190, 70, 9, 12], [194, 100, 9.5, 13], [196, 132, 9, 13], [195, 162, 8, 12], [193, 190, 6.5, 10]].map(([x, y, rx, ry], i, a) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${hairFill}" ${hStroke}/><ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="${shadeH}"/><path d="M${x - rx * 0.4} ${y - ry * 0.7} Q${x - rx * 0.5} ${y} ${x - rx * 0.3} ${y + ry * 0.7} M${x + rx * 0.2} ${y - ry * 0.8} Q${x + rx * 0.3} ${y} ${x + rx * 0.1} ${y + ry * 0.8}" fill="none" stroke="${hL}" stroke-width="1.1" opacity=".55"/>` + (i < a.length - 1 ? tie(x + (a[i + 1][0] - x) / 2, y + ry - 0.5, 3.6) : `<path d="M${x - 4} ${y + ry - 2} L${x + 2} ${y + ry + 14} L${x + 5} ${y + ry - 2}Z" fill="${hairFill}" ${hStroke}/>`)).join(''); break;
+      case 'sleekpony': showEars = true; hairBack = nape + sheet([[[134, 18], [144, 14]], [[112, 40], [122, 30]], [[103, 92], [117, 84]], [[102, 150], [116, 152]], [[108, 238], [120, 244]]], { n: 22, locks: 2, tipLen: 0.3, strands: 3, len: j => [0.95, 1][j] });
+        hairFront = both(capBack) + `<ellipse cx="138" cy="17" rx="6" ry="4.2" transform="rotate(-30 138 17)" fill="${hairFill}" ${hStroke}/><path d="M133 17 q5 -3 10 0 M133.5 19 q5 -3 9.5 0" fill="none" stroke="${hL}" stroke-width=".8" opacity=".7"/>` + (AH.scrunchie ? tie(138, 17, 5) : ''); break;
+      case 'crownbraid': showEars = true; hairBack = nape; hairFront = both(capBack) + braid([[117, 70], [120, 42], [135, 26], [150, 21], [165, 26], [180, 42], [183, 70]], 15, { n: 13, end: false }); break;
+      case 'milkmaid': showEars = true; hairBack = nape; hairFront = both(capBack) + braid([[122, 50], [133, 24], [150, 13], [167, 24], [178, 50]], 13, { n: 10, end: false }) + braid([[117, 72], [120, 48], [150, 32], [180, 48], [183, 72]], 13, { n: 12, end: false }); break;
+      case 'dutchpig': hairBack = nape; hairFront = both(capMid) + both(s => braid(mp([[157, 23], [172, 30], [183, 48], [188, 78], [189, 110], [187, 150], [184, 200]], s), 15, { n: 15 })); break;
+      case 'ribbonbraids': hairBack = nape; hairFront = both(capMid) + both(s => { const C = mp([[183, 88], [188, 118], [187, 150], [184, 185], [182, 225]], s), P = crs(C, 22); return braid(C, 17, { n: 10 }) + `<path d="${spath(P.map((p, i) => [p[0] + (i % 2 ? 4 : -4), p[1]]), false, 0.1)}" fill="none" stroke="${tieC}" stroke-width="1.8" stroke-linecap="round" opacity=".9"/>`; }) + both(s => sheet([mp([[181, 70], [189, 68]], s), mp([[182, 86], [190, 86]], s), mp([[184, 96], [188, 96]], s)], { n: 8, strands: 2 })); break;
+      case 'lowbun': showEars = true; hairBack = nape + bun(184, 100, 14) + (AH.scrunchie ? '' : tie(176, 96, 5)); hairFront = both(capBack) + both(s => sheet([mp([[180, 62], [183, 60]], s), mp([[182, 80], [186, 80]], s), mp([[181, 102], [184, 102]], s)], { n: 10, strands: 1, wave: [1.5, 18, 70] })) + (AH.scrunchie ? tie(176, 96, 5) : ''); break;
+      case 'ballerina': showEars = true; hairBack = nape; hairFront = both(capBack) + (hatOn ? '' : bun(150, 13, 12.5) + `<ellipse cx="150" cy="24.5" rx="9" ry="2" fill="${fmx(hc, '#000000', 0.25)}" opacity=".7"/>` + (AH.scrunchie ? tie(150, 24, 5) : '')); break;
+      case 'heartbun': showEars = true; hairBack = nape; hairFront = both(capBack) + (hatOn ? '' : `<path d="${heartP0(150, 11, 14)}" fill="${hairFill}" ${hStroke}/><path d="${heartP0(150, 11, 14)}" fill="${shadeH}"/><path d="M142 6 q4 -6 8 1 q4 -7 8 -1" fill="none" stroke="${hL}" stroke-width="1.3" opacity=".6"/><path d="M144 14 q6 6 12 0" fill="none" stroke="${hD}" stroke-width=".8" opacity=".5"/>` + tie(150, 23, 5)); break;
+      case 'afropuffs': showEars = true; hairBack = nape + puff(120, 20, 20, 18, 14, 34) + puff(180, 20, 20, 18, 14, 34); hairFront = coilCap() + tie(128, 32, 5) + tie(172, 32, 5); break;
+      case 'highpuff': showEars = true; hairBack = nape + puff(150, 0, 34, 24, 18, 46); hairFront = coilCap() + tie(150, 22, 6); break;
+      case 'bantu': showEars = true; hairBack = nape; hairFront = coilCap() + [[126, 38], [150, 26], [174, 38], [136, 16], [164, 16]].map(([x, y]) => bun(x, y, 8.5)).join(''); break;
+      case 'twistout': hairBack = puff(150, 92, 66, 78, 30, 150); hairFront = coilCap() + both(s => puff(mx(184, s), 98, 12, 40, 12, 20)); break;
+      case 'sidecurls': hairBack = backLong(236, { wave: [4.5, 15, 40], n: 44, curls: 2.4, strands: 1, locks: 5 }); hairFront = capSide() + sweep() + both(s => frontLock(s, 200, { wave: [4.5, 15, 80], n: 40, curls: 2.2, strands: 1 })); break;
       case 'pixie': showEars = true; hairBack = nape;
         hairFront = sheet([[[132, 30], [128, 24]], [[146, 36], [140, 20]], [[160, 42], [162, 19]], [[172, 50], [180, 30]], [[180, 62], [188, 50]], [[182, 74], [186, 72]]], { n: 12, locks: 3, tipLen: 0.25, strands: 2 }) +
           sheet([[[140, 22], [128, 24]], [[132, 34], [118, 36]], [[122, 48], [114, 52]], [[119, 64], [114, 66]], [[119, 74], [116, 74]]], { n: 10, locks: 2, tipLen: 0.25, strands: 2 }) +
           sheet([[[138, 24], [150, 22]], [[132, 40], [150, 34]], [[132, 50], [150, 46]], [[140, 54], [158, 52]]], { n: 8, locks: 3, tipLen: 0.35, strands: 1 }); break;
+    }
+    // soft shine across the crown, clipped to the hair on the head
+    const frontDs = [...hairFront.matchAll(/<path d="([^"]+)" fill="url\(#[^)]*-hf\)"/g)].map(m => m[1]);
+    if (frontDs.length) {
+      defs.push(`<clipPath id="${u}-hc">${frontDs.map(d => `<path d="${d}"/>`).join('')}</clipPath>`);
+      if (!['afro', 'curly', 'twistout', 'highpuff', 'afropuffs', 'bantu', 'sidecurls', 'boxbraids', 'cornrowpuff'].includes(hs)) hairFront += `<g clip-path="url(#${u}-hc)" style="mix-blend-mode:screen"><path d="M113 54 C120 30 180 30 187 54" fill="none" stroke="${hL}" stroke-width="8" opacity=".5" filter="${blur}"/><path d="M121 46 C132 31 168 31 179 46" fill="none" stroke="#fff" stroke-width="1.8" opacity=".4" filter="${def('bl3', '')}"/></g>`;
     }
     // ---------- clothes ----------
     const pats = {};
@@ -7058,78 +7121,175 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     }
 
     // ---------- face ----------
-    const FACE = { oval: [[150, 28], [170, 32.5], [179.5, 48], [179.8, 66], [176.5, 83], [168.5, 97], [158.5, 105.8], [150, 108.8]], round: [[150, 29], [172, 34], [182, 50], [183, 68], [180.5, 86], [172, 99], [161, 106.5], [150, 108.5]],
+    const FACE = { oval: [[150, 28], [170, 32.5], [179.5, 48], [179.8, 66], [176.5, 83], [168.5, 97], [158.5, 105.6], [150, 108.6]], round: [[150, 29], [172, 34], [182, 50], [183, 68], [180.5, 86], [172, 99], [161, 106.5], [150, 108.5]],
       heart: [[150, 28], [172, 32], [182.5, 48], [182, 65], [177, 82], [167, 97], [157, 106.5], [150, 110.5]] }[g.face || 'oval'];
     const faceD = spath([...FACE, ...fmir(FACE).reverse().slice(1, -1)]);
-    const faceFill = def('fc', `<radialGradient id="${u}-fc" cx=".46" cy=".42" r=".62"><stop offset="0" stop-color="${skL}"/><stop offset=".55" stop-color="${sk}"/><stop offset=".92" stop-color="${fmx(sk, '#7a3b2a', 0.12)}"/><stop offset="1" stop-color="${skD}"/></radialGradient>`);
-    const ear = s => `<path d="${spath(mp([[178, 66, 1], [185, 63], [188.5, 70], [186.5, 80], [182, 87], [177, 86, 1]], s))}" fill="${sk}" stroke="${skLine}" stroke-width="1"/><path d="M${mx(181.5, s)} 70 q${s * 4} 1 ${s * 3} 7 q${s * -1} 4 ${s * -3} 5" fill="none" stroke="${skD}" stroke-width="1" opacity=".7"/>`;
-    let face = (showEars ? both(ear) : '') + `<path d="${faceD}" fill="${faceFill}" stroke="${skLine}" stroke-width="1.1"/>`;
-    face += both(s => `<path d="M${mx(178, s)} 64 Q${mx(176, s)} 92 ${mx(160, s)} 106" fill="none" stroke="${skD}" stroke-width="5" opacity=".18" filter="${blur}"/>`);
+    const faceFill = def('fc', `<radialGradient id="${u}-fc" cx=".47" cy=".45" r=".6"><stop offset="0" stop-color="${skL}"/><stop offset=".45" stop-color="${fmx(sk, skL, 0.4)}"/><stop offset=".8" stop-color="${sk}"/><stop offset="1" stop-color="${fmx(sk, '#7a3b2a', 0.14)}"/></radialGradient>`);
+    const ear = s => `<path d="${spath(mp([[178, 66, 1], [185, 63], [188.5, 70], [186.5, 80], [182, 87], [177, 86, 1]], s))}" fill="${sk}" stroke="${skLine}" stroke-width=".9"/><path d="M${mx(181.5, s)} 70 q${s * 4} 1 ${s * 3} 7 q${s * -1} 4 ${s * -3} 5" fill="none" stroke="${skD}" stroke-width="1" opacity=".6"/>`;
+    const dark = flum(sk) < 0.42, star4 = (x, y, r, c, o = 1) => `<path d="M${fx(x)} ${fx(y - r)} Q${fx(x + r * 0.18)} ${fx(y - r * 0.18)} ${fx(x + r)} ${fx(y)} Q${fx(x + r * 0.18)} ${fx(y + r * 0.18)} ${fx(x)} ${fx(y + r)} Q${fx(x - r * 0.18)} ${fx(y + r * 0.18)} ${fx(x - r)} ${fx(y)} Q${fx(x - r * 0.18)} ${fx(y - r * 0.18)} ${fx(x)} ${fx(y - r)}Z" fill="${c}" opacity="${o}"/>`;
+    const heartP = (x, y, r) => `M${fx(x)} ${fx(y + r * 0.9)} C${fx(x - r * 1.6)} ${fx(y - r * 0.1)} ${fx(x - r * 0.9)} ${fx(y - r * 1.4)} ${fx(x)} ${fx(y - r * 0.5)} C${fx(x + r * 0.9)} ${fx(y - r * 1.4)} ${fx(x + r * 1.6)} ${fx(y - r * 0.1)} ${fx(x)} ${fx(y + r * 0.9)}Z`;
+    const dots = (list, c, r = 0.5, o = 0.9) => list.map(([x, y], i) => `<circle cx="${fx(x)}" cy="${fx(y)}" r="${fx(r * (0.7 + (i % 3) * 0.25))}" fill="${Array.isArray(c) ? c[i % c.length] : c}" opacity="${o}"/>`).join('');
+    const blur3 = def('bl3', `<filter id="${u}-bl3" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation=".7"/></filter>`);
+    let face = (showEars ? both(ear) : '') + `<path d="${faceD}" fill="${faceFill}" stroke="${skLine}" stroke-width=".9"/>`;
+    face += both(s => `<path d="M${mx(178, s)} 64 Q${mx(176, s)} 92 ${mx(160, s)} 106" fill="none" stroke="${skD}" stroke-width="5" opacity=".16" filter="${blur}"/>`);
+    // blush
+    const bl = g.blushStyle || (g.blush === false ? 'none' : 'rosy'), BLC = { rosy: '#ff7f9a', peach: '#ffa27f', coral: '#ff6f61', berry: '#c8406a', sunkissed: '#ff9068', heart: '#ff6f9a', glow: '#ff8fa8', strawberry: '#ff5a7a', draped: '#d86ab0' }[bl];
+    if (BLC) {
+      const L0 = flum(sk), c = L0 < 0.3 ? fmx(BLC, '#ff7a70', 0.55) : L0 < 0.55 ? fmx(BLC, '#ff5a6e', 0.35) : BLC, o = L0 < 0.3 ? 0.17 : L0 < 0.55 ? 0.22 : 0.3;
+      if (bl === 'heart') face += both(s => `<path d="${heartP(mx(167, s), 85, 4.4)}" fill="${c}" opacity=".42" filter="${blur3}"/>`);
+      else if (bl === 'draped') face += both(s => `<ellipse cx="${mx(172, s)}" cy="76" rx="12" ry="4.2" transform="rotate(${s * -48} ${mx(172, s)} 76)" fill="${c}" opacity="${o}" filter="${blur}"/>`);
+      else face += both(s => `<ellipse cx="${mx(167, s)}" cy="85" rx="8.5" ry="5" fill="${c}" opacity="${o}" filter="${blur2}"/>`);
+      if (bl === 'sunkissed') face += `<ellipse cx="150" cy="80" rx="10" ry="2.6" fill="${c}" opacity=".28" filter="${blur}"/>` + dots([[143, 81], [157, 81.5], [139, 84], [161, 84.5], [150, 79.5]], fmx(sk, '#7a3a1a', 0.35), 0.45, 0.6);
+      if (bl === 'glow') face += both(s => `<ellipse cx="${mx(169, s)}" cy="80" rx="5" ry="2" fill="#fff" opacity=".45" filter="${blur}"/>`);
+      if (bl === 'strawberry') face += both(s => dots([[167, 83], [164, 86], [170, 86.5], [167, 88.6], [171.5, 83.4]].map(([x, y]) => [mx(x, s), y]), '#fff6c4', 0.35, 0.9));
+    }
+    // highlighter
+    const gw = g.glow || 'none', GC = { pearl: '#ffffff', gold: '#ffe08a', rose: '#ffc4d6', holo: 'holo', dewy: '#ffffff', champagne: '#fff0c8', icy: '#d6f0ff', bronze: '#f0b070', starry: '#ffffff' }[gw];
+    if (GC) {
+      const c = GC === 'holo' ? def('holo', `<linearGradient id="${u}-holo" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffb3e6"/><stop offset=".35" stop-color="#c8b3ff"/><stop offset=".65" stop-color="#9fe6ff"/><stop offset="1" stop-color="#b3ffd9"/></linearGradient>`) : GC, o = (gw === 'dewy' ? 0.5 : gw === 'bronze' ? 0.35 : gw === 'icy' ? 0.5 : 0.65) * (flum(sk) < 0.4 && ['pearl', 'icy', 'dewy', 'starry'].includes(gw) ? 0.55 : 1);
+      face += `<g opacity="${o}" filter="${gw === 'dewy' ? blur3 : blur}">` + both(s => `<ellipse cx="${mx(170.5, s)}" cy="78.5" rx="${gw === 'dewy' ? 5 : 6}" ry="2.2" transform="rotate(${s * -20} ${mx(170.5, s)} 78.5)" fill="${c}"/><ellipse cx="${mx(172, s)}" cy="62" rx="3" ry="1.1" fill="${c}"/>`) +
+        `<ellipse cx="150.4" cy="79" rx="1" ry="4.5" fill="${c}"/><ellipse cx="150.5" cy="85.3" rx="1.6" ry="1.1" fill="${c}"/><ellipse cx="150" cy="93.4" rx="1.8" ry=".7" fill="${c}"/><ellipse cx="150" cy="104" rx="2.4" ry="1.1" fill="${c}"/></g>` +
+        (gw === 'starry' || gw === 'holo' ? both(s => star4(mx(172, s), 77.5, 1.6, '#fff') + star4(mx(166, s), 80.5, 1, '#fff', 0.8)) : '') + (gw === 'dewy' ? both(s => `<ellipse cx="${mx(170, s)}" cy="78" rx="2.4" ry=".9" fill="#fff" opacity=".7"/>`) : '');
+    }
     const es = Math.max(0.85, Math.min(1.22, g.eyeSize || 1)), ey = 71, eShape = g.eyeShape || 'almond';
-    const ec = g.eyeColor || FASH.eyeColors[0], lashC = '#24161a';
-    if (g.blush !== false) face += both(s => `<ellipse cx="${mx(167, s)}" cy="85" rx="8" ry="4.6" fill="${flum(sk) > 0.45 ? '#ff7f8f' : '#d8506a'}" opacity="${flum(sk) > 0.45 ? 0.26 : 0.18}" filter="${blur2}"/>`);
-    const sh = g.shadow && g.shadow !== 'none' ? g.shadow : null;
+    const ec = g.eyeColor || FASH.eyeColors[0], lashC = '#22151a';
+    const shStyle = g.shadowStyle || (g.shadow && g.shadow !== 'none' ? 'wash' : 'none'), shRaw = g.shadow && g.shadow !== 'none' ? g.shadow : '#c3a2ff';
+    const shHolo = shRaw === 'holo', shShim = shHolo || shRaw[0] === '*', shC = shHolo ? '#d6c4ff' : shRaw.replace('*', '');
+    const lnr = g.liner || 'none', lnC = g.linerColor || '#1f1316', lsh = g.lashes || 'natural';
+    const tipC = !['#1f1316', '#5a3522'].includes(lnC) ? lnC : shStyle !== 'none' ? fmx(shC, '#000000', 0.15) : '#ff5fa2';
     const eye = s => {
-      const ex = mx(164, s), k = es * 1.12, w = 8.4 * es;
-      const [ui, uo, lo, li, cy0, cy1] = { almond: [0.7, -0.9, 3.7, 3.9, -5.4, -5.9], round: [0.4, 0, 4.9, 4.9, -6.5, -6.5], cat: [1, -2.7, 3.3, 3.9, -4.6, -5.9] }[eShape];
+      const ex = mx(163.4, s), k = es * 1.18, w = 9 * es;
+      const [ui, uo, lo, li, cy0, cy1] = { almond: [0.7, -0.9, 3.8, 4, -5.6, -6.1], round: [0.4, 0, 5, 5, -6.8, -6.8], cat: [1, -2.7, 3.4, 4, -4.8, -6.1] }[eShape];
       const I = [ex - s * w, ey + ui * k], Oc = [ex + s * w, ey + uo * k];
-      const U = t => { const a = I, b = [ex - s * w * 0.5, ey + cy0 * k], c = [ex + s * w * 0.45, ey + cy1 * k], d = Oc, m = 1 - t; return [0, 1].map(q => m * m * m * a[q] + 3 * m * m * t * b[q] + 3 * m * t * t * c[q] + t * t * t * d[q]); };
+      const bz = (a, b, c, d, t) => { const m = 1 - t; return [0, 1].map(q => m * m * m * a[q] + 3 * m * m * t * b[q] + 3 * m * t * t * c[q] + t * t * t * d[q]); };
+      const U = t => bz(I, [ex - s * w * 0.5, ey + cy0 * k], [ex + s * w * 0.45, ey + cy1 * k], Oc, t);
+      const Lw = t => bz(Oc, [ex + s * w * 0.5, ey + lo * k], [ex - s * w * 0.45, ey + li * k], I, t);
       const upper = `M${fx(I[0])} ${fx(I[1])} C${fx(ex - s * w * 0.5)} ${fx(ey + cy0 * k)} ${fx(ex + s * w * 0.45)} ${fx(ey + cy1 * k)} ${fx(Oc[0])} ${fx(Oc[1])}`;
       const lower = `C${fx(ex + s * w * 0.5)} ${fx(ey + lo * k)} ${fx(ex - s * w * 0.45)} ${fx(ey + li * k)} ${fx(I[0])} ${fx(I[1])}`;
-      const eyeD = upper + lower + 'Z', cid = `${u}-e${s > 0 ? 'r' : 'l'}`;
+      const eyeD = upper + lower + 'Z', cid = `${u}-e${s > 0 ? 'r' : 'l'}`, sd = s > 0 ? 'r' : 'l';
       defs.push(`<clipPath id="${cid}"><path d="${eyeD}"/></clipPath>`);
-      const ir = 4.7 * k, ix = ex + s * 0.1, iy = ey + 0.2 * k;
-      const irisG = def('ir', `<radialGradient id="${u}-ir"><stop offset="0" stop-color="${fmx(ec, '#000000', 0.3)}"/><stop offset=".3" stop-color="${fmx(ec, '#fff4d0', 0.35)}"/><stop offset=".62" stop-color="${ec}"/><stop offset=".9" stop-color="${fmx(ec, '#000000', 0.35)}"/><stop offset="1" stop-color="${fmx(ec, '#000000', 0.65)}"/></radialGradient>`);
-      let e = sh ? `<path d="M${fx(I[0] - s * 1)} ${fx(I[1] - 1)} C${fx(ex - s * w * 0.6)} ${fx(ey - 11 * k)} ${fx(ex + s * w * 0.6)} ${fx(ey - 12 * k)} ${fx(Oc[0] + s * 4)} ${fx(Oc[1] - 2.5)} C${fx(ex + s * w * 0.4)} ${fx(ey - 4)} ${fx(ex - s * w * 0.3)} ${fx(ey - 5)} ${fx(I[0])} ${fx(I[1])}Z" fill="${sh}" opacity=".75" filter="${blur}"/>` : '';
-      e += `<path d="M${fx(ex - s * w * 0.8)} ${fx(ey - 4.6 * k)} Q${fx(ex)} ${fx(ey - 10.4 * k)} ${fx(ex + s * w * 0.98)} ${fx(ey - 5.4 * k + (eShape === 'cat' ? -2.2 : 0))}" fill="none" stroke="${skD}" stroke-width=".9" opacity=".6"/>`;
-      e += `<path d="${eyeD}" fill="#fbf7f4"/><g clip-path="url(#${cid})"><circle cx="${fx(ix)}" cy="${fx(iy)}" r="${fx(ir)}" fill="${irisG}"/>` +
-        Array.from({ length: 10 }, (_, i) => { const a = i / 10 * Math.PI * 2; return `<path d="M${fx(ix + Math.cos(a) * ir * 0.42)} ${fx(iy + Math.sin(a) * ir * 0.42)} L${fx(ix + Math.cos(a) * ir * 0.88)} ${fx(iy + Math.sin(a) * ir * 0.88)}" stroke="${fmx(ec, '#ffffff', 0.35)}" stroke-width=".35" opacity=".6"/>`; }).join('') +
-        `<circle cx="${fx(ix)}" cy="${fx(iy)}" r="${fx(1.8 * k)}" fill="#120809"/><path d="${eyeD}" fill="${def('lid', `<linearGradient id="${u}-lid" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a1a20" stop-opacity=".55"/><stop offset=".5" stop-color="#3a1a20" stop-opacity="0"/></linearGradient>`)}"/></g>` +
-        `<ellipse cx="${fx(ix + s * 0.4 + 1.7 * k)}" cy="${fx(iy - 1.9 * k)}" rx="${fx(1.1 * k)}" ry="${fx(1 * k)}" fill="#fff"/><circle cx="${fx(ix - 1.6 * k)}" cy="${fx(iy + 1.8 * k)}" r="${fx(0.6 * k)}" fill="#fff" opacity=".75"/>`;
-      e += `<path d="M${fx(Oc[0] - s * 0.5)} ${fx(Oc[1] + 0.6)} ${lower.replace(/^C/, 'C')}" fill="none" stroke="${fmx(sk, '#5a2a20', 0.5)}" stroke-width=".7" opacity=".7"/>`;
-      e += `<path d="M${fx(I[0] + s * 0.3)} ${fx(I[1] + 0.2)} q${fx(-s * 1.2)} .6 ${fx(-s * 1.8)} -.2" fill="none" stroke="#e8a0a0" stroke-width="1" opacity=".6"/>`;
-      // lash line: thin at the inner corner, thicker to the outside
-      const lt = { natural: 1.2, long: 1.6, dramatic: 2.1 }[g.lashes || 'natural'];
-      const top = Array.from({ length: 9 }, (_, i) => U(i / 8)), wing = g.lashes === 'dramatic' ? [Oc[0] + s * 4.2, Oc[1] - 2.8] : [Oc[0] + s * 1.2, Oc[1] - 0.8];
-      const lashPts = [...top.map((p, i) => [p[0], p[1] - lt * (i / 8) * 0.9]), wing, ...top.slice().reverse().map((p, i) => [p[0], p[1] + 0.35])];
-      e += `<path d="${spath(lashPts.map((p, i) => i === 0 || i === 9 ? [p[0], p[1], 1] : p))}" fill="#1f1316"/>`;
-      const nl = { natural: 4, long: 6, dramatic: 8 }[g.lashes || 'natural'], ll = { natural: 1.9, long: 3.1, dramatic: 4 }[g.lashes || 'natural'];
-      for (let i = 0; i < nl; i++) {
-        const t = 0.3 + 0.7 * (i / (nl - 1)), [bx, by] = U(t), a = (-90 + s * (8 + 58 * t)) * Math.PI / 180, L2 = ll * (0.65 + 0.45 * t);
-        const tx = bx + Math.cos(a) * L2, ty = by - lt * t * 0.8 + Math.sin(a) * L2, cxp = bx + Math.cos(a - s * 0.15) * L2 * 0.5, cyp = by - lt * t * 0.8 + Math.sin(a - s * 0.15) * L2 * 0.5;
-        e += `<path d="M${fx(bx)} ${fx(by - lt * t * 0.6)} Q${fx(cxp)} ${fx(cyp)} ${fx(tx)} ${fx(ty)}" fill="none" stroke="#1f1316" stroke-width="${fx(0.5 + 0.25 * t)}" stroke-linecap="round"/>`;
+      const shD = (h, ox, oy) => `${upper} L${fx(Oc[0] + s * ox)} ${fx(Oc[1] - oy)} C${fx(ex + s * w * 0.55)} ${fx(ey - h * k)} ${fx(ex - s * w * 0.55)} ${fx(ey - h * k * 0.95)} ${fx(I[0] - s * 1.6)} ${fx(I[1] - 2.2)}Z`;
+      const hGrad = (key, stops) => def(key + sd, `<linearGradient id="${u}-${key}${sd}" x1="${s > 0 ? 0 : 1}" x2="${s > 0 ? 1 : 0}" y1="0" y2="0">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient>`);
+      const lowerLine = `M${fx(Oc[0])} ${fx(Oc[1])} ${lower}`;
+      let e = '';
+      // ---- eyeshadow
+      if (shStyle !== 'none') {
+        const c = shC, cd = fmx(c, '#2a1030', 0.35), cl = fmx(c, '#ffffff', 0.5);
+        const fill = shHolo ? hGrad('ho', [[0, '#ffc4ec'], [0.35, '#d6c4ff'], [0.7, '#b3ecff'], [1, '#c4ffe0']]) : c;
+        const lid = (h, ox, oy, f, o = 0.8, fl = blur) => `<path d="${shD(h * 1.15, ox, oy)}" fill="${f}" opacity="${o * 0.55}" filter="${blur}"/><path d="${shD(h, ox, oy)}" fill="${f}" opacity="${Math.min(1, o * 1.1)}" filter="${fl === blur ? blur3 : fl}"/>`;
+        if (shStyle === 'wash' || shStyle === 'sparkle') e += lid(10, 3, 2.5, fill, 0.72);
+        if (shStyle === 'smoky') e += lid(11.5, 5, 3.5, cd, 0.8) + lid(7, 1, 1, c, 0.7) + `<path d="${lowerLine}" fill="none" stroke="${cd}" stroke-width="2.6" opacity=".55" filter="${blur}"/>`;
+        if (shStyle === 'crease') e += lid(6.5, 1.5, 1, fmx(c, '#fff4dc', 0.75), 0.9, blur3) + `<path d="M${fx(I[0] - s * 1)} ${fx(I[1] - 3)} Q${fx(ex)} ${fx(ey - 10.5 * k)} ${fx(Oc[0] + s * 4)} ${fx(Oc[1] - 3)}" fill="none" stroke="${cd}" stroke-width="2.2" opacity=".8" filter="${blur3}"/>`;
+        if (shStyle === 'ombre') e += lid(10.5, 4.5, 3, hGrad('om', [[0, cl], [0.5, c], [1, fmx(c, '#2a1030', 0.3)]]), 0.85);
+        if (shStyle === 'rainbow') e += lid(11, 4, 3, hGrad('rb', [[0, '#ffe066'], [0.25, '#ffa24a'], [0.45, '#ff6f9a'], [0.65, '#b77bff'], [0.85, '#5fb8ff'], [1, '#5fe0b0']]), 0.8);
+        if (shStyle === 'sunset') e += lid(10.5, 4.5, 3, hGrad('su', [[0, '#ffe38a'], [0.35, '#ffb070'], [0.7, '#ff7aa0'], [1, '#a37bff']]), 0.82);
+        if (shStyle === 'halo') e += lid(10.5, 4, 3, hGrad('ha', [[0, cd], [0.3, c], [0.5, '#fff8ec'], [0.7, c], [1, cd]]), 0.85);
+        if (shStyle === 'winged') e += lid(8.5, 7.5, 5.2, fill, 0.85, blur3);
+        if (shStyle === 'lower') e += lid(8, 2, 1.5, cl, 0.6) + `<path d="${lowerLine}" fill="none" stroke="${c}" stroke-width="2.4" opacity=".85" filter="${blur3}"/>`;
+        if (shStyle === 'wash' && shHolo) e += '';
+        if (shShim || shStyle === 'sparkle') e += `<path d="${shD(8, 2, 1.5)}" fill="#fff" opacity=".22" filter="${blur}"/>` + [0.2, 0.35, 0.5, 0.65, 0.8, 0.45, 0.6].map((t, i) => { const [x, y] = U(t); return i % 3 === 2 ? star4(x + s * 0.4, y - 3.6 - (i % 2) * 1.4, 0.9, '#fff') : `<circle cx="${fx(x)}" cy="${fx(y - 2.4 - (i % 2) * 2)}" r="${i % 2 ? 0.35 : 0.45}" fill="${i % 2 ? '#fff' : '#fff2b0'}"/>`; }).join('');
       }
-      for (let i = 0; i < (g.lashes === 'natural' ? 3 : 5); i++) { const t = 0.5 + i * 0.1, bx = ex + s * w * (t * 2 - 1) * 0.92, by = ey + (lo * 0.74 - (t - 0.5) * 1.6) * k; e += `<path d="M${fx(bx)} ${fx(by)} l${fx(s * (0.4 + t * 0.6))} ${fx(1.3 + t * 0.5)}" stroke="#2a1a1e" stroke-width=".45" opacity=".45" stroke-linecap="round"/>`; }
-      // brow
-      const bt = g.brows || 'soft', bc = fmx(hc, '#3b2a22', flum(hc) > 0.6 || /ff|b9|69|5f/.test(hc.slice(1, 3)) ? 0.5 : 0.2), by = 57.5, pk = { soft: 2.4, arched: 4.2, straight: 0.8, thick: 2.4 }[bt] * 1, th = bt === 'thick' ? 1.5 : 1;
-      const B = [[ex - s * 9, by + 1.6 - 1.5 * th, 1], [ex + s * 2.6, by - pk - 1 * th], [ex + s * 11, by + 1.8, 1], [ex + s * 2.6, by - pk + 0.85 * th], [ex - s * 9, by + 1.6 + 1.2 * th, 1]];
-      e += `<path d="${spath(B, true, 0.2)}" fill="${bc}" opacity=".85"/>` + Array.from({ length: 6 }, (_, i) => `<path d="M${fx(ex - s * (8.5 - i * 1.3))} ${fx(by + 2 - i * 0.25)} l${fx(s * 1.4)} ${fx(-2.2 + i * 0.1)}" stroke="${bc}" stroke-width=".5" opacity=".7"/>`).join('');
+      e += `<path d="M${fx(ex - s * w * 0.8)} ${fx(ey - 4.9 * k)} Q${fx(ex)} ${fx(ey - 10.6 * k)} ${fx(ex + s * w * 0.98)} ${fx(ey - 5.6 * k + (eShape === 'cat' ? -2.2 : 0))}" fill="none" stroke="${skD}" stroke-width=".8" opacity=".5"/>`;
+      // ---- the eye itself
+      const ir = 5.1 * k, ix = ex + s * 0.1, iy = ey + 0.3 * k;
+      const irisG = def('ir', `<radialGradient id="${u}-ir"><stop offset="0" stop-color="${fmx(ec, '#000000', 0.35)}"/><stop offset=".28" stop-color="${fmx(ec, '#fff4d0', 0.4)}"/><stop offset=".6" stop-color="${ec}"/><stop offset=".88" stop-color="${fmx(ec, '#000000', 0.3)}"/><stop offset="1" stop-color="${fmx(ec, '#000000', 0.65)}"/></radialGradient>`);
+      e += `<path d="${eyeD}" fill="#fcf8f6"/><g clip-path="url(#${cid})"><circle cx="${fx(ix)}" cy="${fx(iy)}" r="${fx(ir)}" fill="${irisG}"/>` +
+        Array.from({ length: 12 }, (_, i) => { const a = i / 12 * Math.PI * 2; return `<path d="M${fx(ix + Math.cos(a) * ir * 0.4)} ${fx(iy + Math.sin(a) * ir * 0.4)} L${fx(ix + Math.cos(a) * ir * 0.86)} ${fx(iy + Math.sin(a) * ir * 0.86)}" stroke="${fmx(ec, '#ffffff', 0.4)}" stroke-width=".3" opacity=".55"/>`; }).join('') +
+        `<path d="M${fx(ix - ir * 0.7)} ${fx(iy + ir * 0.45)} Q${fx(ix)} ${fx(iy + ir * 0.95)} ${fx(ix + ir * 0.7)} ${fx(iy + ir * 0.45)}" fill="none" stroke="${fmx(ec, '#ffffff', 0.55)}" stroke-width="${fx(ir * 0.22)}" opacity=".45" stroke-linecap="round"/>` +
+        `<circle cx="${fx(ix)}" cy="${fx(iy)}" r="${fx(1.65 * k)}" fill="#120809"/><path d="${eyeD}" fill="${def('lid', `<linearGradient id="${u}-lid" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a1a20" stop-opacity=".5"/><stop offset=".45" stop-color="#3a1a20" stop-opacity="0"/></linearGradient>`)}"/></g>` +
+        `<ellipse cx="${fx(ix + 1.9 * k)}" cy="${fx(iy - 2 * k)}" rx="${fx(1.35 * k)}" ry="${fx(1.15 * k)}" fill="#fff"/><circle cx="${fx(ix - 1.8 * k)}" cy="${fx(iy + 1.9 * k)}" r="${fx(0.6 * k)}" fill="#fff" opacity=".85"/>` + star4(ix + 0.2 * k, iy - 2.6 * k, 0.75 * k, '#fff', 0.85);
+      e += `<path d="${lowerLine}" fill="none" stroke="${fmx(sk, '#5a2a20', 0.45)}" stroke-width=".6" opacity=".55"/>`;
+      e += `<path d="M${fx(I[0] + s * 0.3)} ${fx(I[1] + 0.2)} q${fx(-s * 1.2)} .6 ${fx(-s * 1.8)} -.2" fill="none" stroke="#e8a0a0" stroke-width="1" opacity=".6"/>`;
+      // ---- liner (under the lashes)
+      const LC = lnC, wingD = (len, up) => { const tip = [Oc[0] + s * len, Oc[1] - up, 1]; return spath([[...U(0.45)], [U(0.75)[0], U(0.75)[1] - 1], [Oc[0] - s * 0.6, Oc[1] - 1.4], tip, [Oc[0] + s * 0.4, Oc[1] + 0.3], [...U(0.85)], [...U(0.55)]]); };
+      if (lnr === 'thin' || lnr === 'colored' || lnr === 'glitter' || lnr === 'graphic' || lnr === 'dotted') e += `<path d="${upper}" fill="none" stroke="${lnr === 'glitter' ? '#e9c46a' : LC}" stroke-width="${lnr === 'glitter' ? 1.6 : 1.3}" stroke-linecap="round" transform="translate(0 -.5)"/>`;
+      if (lnr === 'wing' || lnr === 'graphic' || lnr === 'double') e += `<path d="${wingD(4.6, 3)}" fill="${LC}"/>`;
+      if (lnr === 'cat') e += `<path d="${wingD(7.5, 5)}" fill="${LC}"/><path d="M${fx(I[0])} ${fx(I[1] - 0.6)} L${fx(I[0] - s * 2.4)} ${fx(I[1] + 1.2)} L${fx(I[0] + s * 1.5)} ${fx(I[1] + 0.3)}Z" fill="${LC}"/>`;
+      if (lnr === 'double') { const [x, y] = Lw(0.18); e += `<path d="M${fx(x)} ${fx(y + 0.2)} Q${fx(Oc[0] + s * 1.5)} ${fx(Oc[1] + 1.2)} ${fx(Oc[0] + s * 5.6)} ${fx(Oc[1] - 0.4)}" fill="none" stroke="${LC}" stroke-width="1.1" stroke-linecap="round"/>`; }
+      if (lnr === 'puppy') { const [x, y] = Lw(0.3); e += `<path d="${spath([[...U(0.5)], [Oc[0], Oc[1] - 1.2], [Oc[0] + s * 4.2, Oc[1] + 2.4, 1], [x, y + 0.2], [Oc[0] - s * 0.5, Oc[1] + 0.6]])}" fill="${LC}"/>`; }
+      if (lnr === 'colored') e += `<path d="${lowerLine}" fill="none" stroke="${LC === '#1f1316' ? '#7a4fbf' : LC}" stroke-width="1.4" stroke-linecap="round" opacity=".9"/>`;
+      if (lnr === 'dotted') e += [0.3, 0.45, 0.6, 0.75, 0.9].map(t => { const [x, y] = U(t); return `<circle cx="${fx(x)}" cy="${fx(y - 2.6)}" r=".55" fill="${LC}"/>`; }).join('') + `<circle cx="${fx(Oc[0] + s * 2.2)}" cy="${fx(Oc[1] - 2.2)}" r=".6" fill="${LC}"/><circle cx="${fx(Oc[0] + s * 4)}" cy="${fx(Oc[1] - 3.8)}" r=".5" fill="${LC}"/>`;
+      if (lnr === 'graphic') e += `<path d="M${fx(ex - s * w * 0.35)} ${fx(ey - 7 * k)} Q${fx(ex + s * w * 0.4)} ${fx(ey - 9.2 * k)} ${fx(Oc[0] + s * 5)} ${fx(Oc[1] - 3.6)}" fill="none" stroke="${LC}" stroke-width="1" stroke-linecap="round"/>`;
+      if (lnr === 'glitter') e += [0.15, 0.3, 0.45, 0.6, 0.75, 0.9].map((t, i) => { const [x, y] = U(t); return `<circle cx="${fx(x)}" cy="${fx(y - 0.9)}" r=".45" fill="${i % 2 ? '#fff' : '#fff2b0'}"/>`; }).join('') + star4(Oc[0] + s * 2.2, Oc[1] - 2.6, 1.3, '#ffe08a');
+      if (lnr === 'smudge') e += `<path d="${upper}" fill="none" stroke="${LC}" stroke-width="2.6" opacity=".55" filter="${blur3}"/><path d="${lowerLine}" fill="none" stroke="${LC}" stroke-width="1.8" opacity=".45" filter="${blur3}"/>`;
+      // ---- lash line and lashes
+      const lt = { none: 0.55, natural: 1, long: 1.3, dramatic: 1.8, doll: 1.4, spiky: 1.3, tips: 1.3, bottom: 1, wispy: 1.2, butterfly: 1.5 }[lsh] || 1;
+      const top = Array.from({ length: 9 }, (_, i) => U(i / 8)), wing = lsh === 'dramatic' ? [Oc[0] + s * 3, Oc[1] - 2] : [Oc[0] + s * 0.9, Oc[1] - 0.6];
+      e += `<path d="${spath([...top.map((p, i) => [p[0], p[1] - lt * (0.25 + 0.75 * i / 8) * 0.9, i === 0 ? 1 : 0]), wing, ...top.slice().reverse().map((p, i) => [p[0], p[1] + 0.3, i === 8 ? 1 : 0])])}" fill="${lashC}"/>`;
+      const lash = (t, len, ang, wd = 0.7, c = lashC, curl = 0.06) => {
+        const [bx, by0] = U(t), by = by0 - lt * t * 0.6, a = (-90 + s * ang) * Math.PI / 180, tx = bx + Math.cos(a) * len, ty = by + Math.sin(a) * len;
+        const cx2 = bx + Math.cos(a - s * curl * 2) * len * 0.55, cy2 = by + Math.sin(a - s * curl * 2) * len * 0.55;
+        return `<path d="M${fx(bx)} ${fx(by)} Q${fx(cx2)} ${fx(cy2)} ${fx(tx)} ${fx(ty)}" fill="none" stroke="${c}" stroke-width="${fx(wd * 0.85)}" stroke-linecap="round"/>`;
+      };
+      const fan = (n, t0, len, spread, wd, grow = 0.45) => Array.from({ length: n }, (_, i) => { const t = t0 + (1 - t0) * (i / Math.max(1, n - 1)); return { t, len: len * (1 - grow + grow * t), ang: 6 + spread * t, wd: wd * (0.8 + 0.3 * t) }; });
+      let L = [];
+      if (lsh === 'natural') L = fan(7, 0.25, 1.8, 55, 0.5);
+      if (lsh === 'long' || lsh === 'tips') L = fan(10, 0.18, 2.9, 58, 0.55);
+      if (lsh === 'dramatic') L = fan(12, 0.15, 3.8, 62, 0.7);
+      if (lsh === 'doll') L = fan(12, 0.06, 2.9, 40, 0.5, 0.1).map(o => Object.assign(o, { ang: -25 + 85 * o.t }));
+      if (lsh === 'bottom') L = fan(7, 0.25, 2, 55, 0.5);
+      if (lsh === 'wispy') L = fan(12, 0.15, 3.6, 60, 0.45).map((o, i) => Object.assign(o, { len: o.len * (i % 3 === 0 ? 1.15 : i % 3 === 1 ? 0.6 : 0.85) }));
+      if (lsh === 'butterfly') L = fan(11, 0.12, 5, 72, 0.6, 0.78);
+      e += L.map(o => lash(o.t, o.len, o.ang, o.wd)).join('');
+      if (lsh === 'tips') e += L.map(o => { const [bx, by0] = U(o.t), a = (-90 + s * o.ang) * Math.PI / 180, by = by0 - lt * o.t * 0.6; return `<path d="M${fx(bx + Math.cos(a) * o.len * 0.55)} ${fx(by + Math.sin(a) * o.len * 0.55)} L${fx(bx + Math.cos(a) * o.len)} ${fx(by + Math.sin(a) * o.len)}" stroke="${tipC}" stroke-width="${fx(o.wd + 0.25)}" stroke-linecap="round"/>`; }).join('');
+      if (lsh === 'spiky') e += [0.3, 0.5, 0.68, 0.84, 0.98].map((t, j) => { const len = 2.4 + t * 2.4, a = (-90 + s * (10 + 60 * t)) * Math.PI / 180, [bx, by0] = U(t), by = by0 - lt * t * 0.6, tx = bx + Math.cos(a) * len, ty = by + Math.sin(a) * len; return [-1.1, 0, 1.1].map(d => `<path d="M${fx(bx + d)} ${fx(by + Math.abs(d) * 0.2)} L${fx(tx)} ${fx(ty)}" stroke="${lashC}" stroke-width=".55" stroke-linecap="round"/>`).join(''); }).join('');
+      const nb = { none: 0, natural: 3, long: 4, dramatic: 5, doll: 7, spiky: 4, tips: 4, bottom: 7, wispy: 5, butterfly: 5 }[lsh] || 3, lb = lsh === 'doll' || lsh === 'bottom' ? 2.3 : 1.4;
+      for (let i = 0; i < nb; i++) { const t = (lsh === 'doll' || lsh === 'bottom' ? 0.08 : 0.08) + i * (0.62 / Math.max(1, nb - 1)), [bx, by] = Lw(t); e += `<path d="M${fx(bx)} ${fx(by + 0.2)} l${fx(s * (0.2 + 0.6 * (1 - t)))} ${fx(lb * (0.7 + 0.3 * (1 - t)))}" stroke="${lashC}" stroke-width="${lsh === 'doll' || lsh === 'bottom' ? 0.55 : 0.4}" opacity="${lsh === 'doll' || lsh === 'bottom' ? 0.85 : 0.5}" stroke-linecap="round"/>`; }
+      // ---- brow
+      const bt = g.brows || 'soft', bc0 = fmx(hc, '#3b2a22', flum(hc) > 0.6 || /ff|b9|69|5f/.test(hc.slice(1, 3)) ? 0.5 : 0.2), bc = flum(bc0) > flum(sk) - 0.12 ? fmx(sk, '#140a06', 0.62) : bc0, by = 56.5;
+      const [pk, th, ap, tl, kk] = { soft: [2.4, 1, 2.6, 11, 0.2], arched: [4.2, 1, 3, 11, 0.2], straight: [0.8, 1.05, 2, 11.5, 0.2], thick: [2.6, 1.55, 2.6, 11, 0.2], thin: [3, 0.6, 3, 10.5, 0.2], rounded: [3.6, 1, 0, 10.5, 0.24],
+        feathered: [2.4, 1.25, 2.6, 11, 0.2], higharch: [5.6, 0.95, 4.2, 10.5, 0.18], angled: [4, 1, 4.2, 11, 0.06], bold: [2.2, 1.8, 2.4, 11.5, 0.2] }[bt] || [2.4, 1, 2.6, 11, 0.2];
+      const B = [[ex - s * 9.5, by + 1.6 - 1.5 * th, 1], [ex + s * ap, by - pk - 1 * th], [ex + s * tl, by + 1.8, 1], [ex + s * ap, by - pk + 0.85 * th], [ex - s * 9.5, by + 1.6 + 1.2 * th, 1]];
+      e += `<path d="${spath(B, true, kk)}" fill="${bc}" opacity=".85"/>` + Array.from({ length: bt === 'feathered' || bt === 'bold' ? 11 : 6 }, (_, i) => `<path d="M${fx(ex - s * (9 - i * (bt === 'feathered' || bt === 'bold' ? 1.2 : 1.3)))} ${fx(by + 2.2 - i * 0.3 - (i > 6 ? (i - 6) * 0.2 : 0))} l${fx(s * (bt === 'feathered' ? 0.8 : 1.4))} ${fx(-2.4 + i * 0.1)}" stroke="${bc}" stroke-width=".5" opacity=".7"/>`).join('');
       return e;
     };
     face += both(eye);
     // nose
     const nz = g.nose || 'small';
     const nw = { small: 3.4, button: 4.4, straight: 3.8 }[nz];
-    face += `<path d="M147 74 C145.6 79 145.5 83 ${fx(150 - nw)} 86.5" fill="none" stroke="${skD}" stroke-width="${nz === 'straight' ? 1.6 : 1.1}" opacity="${nz === 'straight' ? 0.4 : 0.22}" filter="${blur}"/>` +
-      `<ellipse cx="150" cy="89.2" rx="${nw + 0.6}" ry="1.6" fill="${skD}" opacity=".45" filter="${blur}"/>` +
-      `<path d="M${fx(150 - nw)} 87.2 q-0.3 1.5 1.5 1.9 M${fx(150 + nw)} 87.2 q0.3 1.5 -1.5 1.9" fill="none" stroke="${skLine}" stroke-width=".7" stroke-linecap="round" opacity=".45"/>` +
+    face += `<path d="M147 74 C145.6 79 145.5 83 ${fx(150 - nw)} 86.5" fill="none" stroke="${skD}" stroke-width="${nz === 'straight' ? 1.6 : 1.1}" opacity="${nz === 'straight' ? 0.38 : 0.2}" filter="${blur}"/>` +
+      `<ellipse cx="150" cy="89.2" rx="${nw + 0.6}" ry="1.5" fill="${skD}" opacity=".42" filter="${blur}"/>` +
+      `<path d="M${fx(150 - nw)} 87.2 q-0.3 1.5 1.5 1.9 M${fx(150 + nw)} 87.2 q0.3 1.5 -1.5 1.9" fill="none" stroke="${skLine}" stroke-width=".7" stroke-linecap="round" opacity=".42"/>` +
       `<ellipse cx="150.6" cy="${nz === 'button' ? 85.6 : 85}" rx="${nz === 'button' ? 2.2 : 1.6}" ry="1.3" fill="#fff" opacity=".5" filter="${blur}"/>` + (nz === 'straight' ? `<path d="M151.5 70 v12" stroke="#fff" stroke-width="1.2" opacity=".3" filter="${blur}"/>` : '');
     // lips
-    const lcSel = g.lipColor || 'natural', gloss = lcSel === 'gloss';
-    const lc = lcSel === 'natural' || gloss ? fmx(sk, '#d86a7a', flum(sk) > 0.55 ? 0.42 : 0.3) : lcSel, lcD = fmx(lc, '#3a0c1a', 0.35), lcU = fmx(lc, '#3a0c1a', 0.12);
-    const lw = { soft: 7.6, full: 8.4, heart: 6.6 }[g.lips || 'soft'], lu = { soft: 1.9, full: 2.6, heart: 2.6 }[g.lips || 'soft'], ld = { soft: 3.6, full: 4.8, heart: 4 }[g.lips || 'soft'], bow = g.lips === 'heart' ? 1.4 : 0.8, my = 97.5;
-    face += `<path d="M${fx(150 - lw)} ${my} C${fx(150 - lw * 0.6)} ${fx(my - lu * 0.8)} ${fx(150 - lw * 0.3)} ${fx(my - lu - 0.3)} 150 ${fx(my - lu + bow)} C${fx(150 + lw * 0.3)} ${fx(my - lu - 0.3)} ${fx(150 + lw * 0.6)} ${fx(my - lu * 0.8)} ${fx(150 + lw)} ${my} C${fx(150 + lw * 0.4)} ${fx(my + 0.9)} ${fx(150 - lw * 0.4)} ${fx(my + 0.9)} ${fx(150 - lw)} ${my}Z" fill="${lcU}"/>` +
-      `<path d="M${fx(150 - lw + 0.6)} ${fx(my + 0.3)} C${fx(150 - lw * 0.55)} ${fx(my + ld)} ${fx(150 + lw * 0.55)} ${fx(my + ld)} ${fx(150 + lw - 0.6)} ${fx(my + 0.3)} C${fx(150 + lw * 0.4)} ${fx(my + 1.1)} ${fx(150 - lw * 0.4)} ${fx(my + 1.1)} ${fx(150 - lw + 0.6)} ${fx(my + 0.3)}Z" fill="${lc}"/>` +
-      `<path d="M${fx(150 - lw)} ${my} C${fx(150 - lw * 0.4)} ${fx(my + 1.1)} ${fx(150 + lw * 0.4)} ${fx(my + 1.1)} ${fx(150 + lw)} ${my}" fill="none" stroke="${lcD}" stroke-width=".9" stroke-linecap="round"/>` +
-      `<ellipse cx="150.8" cy="${fx(my + ld * 0.55)}" rx="${gloss ? 3.4 : 2.4}" ry="${gloss ? 1.1 : 0.75}" fill="#fff" opacity="${gloss ? 0.8 : 0.4}"/>` + (gloss ? `<circle cx="147" cy="${fx(my - lu * 0.4)}" r=".7" fill="#fff" opacity=".8"/>` : '') +
-      `<path d="M146 ${fx(my + ld + 2.6)} q4 1.2 8 0" fill="none" stroke="${skD}" stroke-width="1.4" opacity=".3" filter="${blur}"/>`;
+    const lcSel = g.lipColor === 'gloss' ? 'natural' : g.lipColor || 'natural', lst = g.lipStyle || (g.lipColor === 'gloss' ? 'gloss' : 'satin');
+    const nat = fmx(sk, '#d8607a', flum(sk) > 0.55 ? 0.5 : 0.36), lc0 = lcSel === 'natural' ? nat : lcSel, lc = lst === 'tint' ? fmx(nat, lc0, 0.55) : lc0;
+    const lcD = fmx(lc, '#3a0c1a', 0.35), lcU = fmx(lc, '#3a0c1a', lst === 'twotone' ? 0.4 : 0.12), lcL = fmx(lc, '#ffffff', 0.3);
+    const lw = { soft: 8, full: 8.8, heart: 7 }[g.lips || 'soft'], lu = { soft: 2.2, full: 2.9, heart: 2.9 }[g.lips || 'soft'], ld = { soft: 4.1, full: 5.3, heart: 4.4 }[g.lips || 'soft'], bow = g.lips === 'heart' ? 1.4 : 0.8, my = 97.5;
+    const upD = `M${fx(150 - lw)} ${my} C${fx(150 - lw * 0.6)} ${fx(my - lu * 0.8)} ${fx(150 - lw * 0.3)} ${fx(my - lu - 0.3)} 150 ${fx(my - lu + bow)} C${fx(150 + lw * 0.3)} ${fx(my - lu - 0.3)} ${fx(150 + lw * 0.6)} ${fx(my - lu * 0.8)} ${fx(150 + lw)} ${my} C${fx(150 + lw * 0.4)} ${fx(my + 0.9)} ${fx(150 - lw * 0.4)} ${fx(my + 0.9)} ${fx(150 - lw)} ${my}Z`;
+    const loD = `M${fx(150 - lw + 0.6)} ${fx(my + 0.3)} C${fx(150 - lw * 0.55)} ${fx(my + ld)} ${fx(150 + lw * 0.55)} ${fx(my + ld)} ${fx(150 + lw - 0.6)} ${fx(my + 0.3)} C${fx(150 + lw * 0.4)} ${fx(my + 1.1)} ${fx(150 - lw * 0.4)} ${fx(my + 1.1)} ${fx(150 - lw + 0.6)} ${fx(my + 0.3)}Z`;
+    const lipG = def('lg', `<radialGradient id="${u}-lg" cx=".5" cy=".45" r=".6"><stop offset="0" stop-color="${lst === 'ombre' ? fmx(lc, '#ffffff', 0.45) : lcL}"/><stop offset=".6" stop-color="${lc}"/><stop offset="1" stop-color="${lst === 'ombre' ? fmx(lc, '#3a0c1a', 0.45) : fmx(lc, '#3a0c1a', 0.15)}"/></radialGradient>`);
+    const inHeart = lst === 'heart';
+    face += `<path d="M146 ${fx(my - lu - 1.6)} q4 -1.2 8 0" fill="none" stroke="#fff" stroke-width="1.2" opacity=".25" filter="${blur3}"/>`;
+    face += `<path d="${upD}" fill="${inHeart ? nat : lst === 'ombre' ? lipG : lcU}"/><path d="${loD}" fill="${inHeart ? fmx(nat, '#ffffff', 0.12) : lipG}"/>` + (lst === 'tint' ? `<path d="${upD}" fill="${nat}" opacity=".3"/><path d="${loD}" fill="${nat}" opacity=".3"/>` : '');
+    if (inHeart) face += `<path d="${heartP(150, my + 0.6, 3.2)}" fill="${lc0}"/>`;
+    if (lst === 'liner') face += `<path d="${upD}" fill="none" stroke="${lcD}" stroke-width=".8"/><path d="${loD}" fill="none" stroke="${lcD}" stroke-width=".8"/>`;
+    face += `<path d="M${fx(150 - lw)} ${my} C${fx(150 - lw * 0.4)} ${fx(my + 1.1)} ${fx(150 + lw * 0.4)} ${fx(my + 1.1)} ${fx(150 + lw)} ${my}" fill="none" stroke="${lcD}" stroke-width=".85" stroke-linecap="round"/>`;
+    const glossy = ['gloss', 'sparkle'].includes(lst), matte = lst === 'matte';
+    if (!matte) face += `<path d="M${fx(148 - ld * 0.3)} ${fx(my + ld * 0.5)} Q150.8 ${fx(my + ld * (glossy ? 0.2 : 0.3))} ${fx(153.5 + ld * 0.2)} ${fx(my + ld * 0.5)} Q150.8 ${fx(my + ld * 0.72)} ${fx(148 - ld * 0.3)} ${fx(my + ld * 0.5)}Z" fill="#fff" opacity="${(glossy ? 0.85 : lst === 'shimmer' ? 0.5 : 0.38) * (dark && !glossy ? 0.6 : 1)}"/>`;
+    if (glossy) face += `<ellipse cx="146.6" cy="${fx(my - lu * 0.45)}" rx="1.1" ry=".5" fill="#fff" opacity=".8"/><ellipse cx="153.4" cy="${fx(my - lu * 0.45)}" rx=".8" ry=".4" fill="#fff" opacity=".6"/>`;
+    if (lst === 'shimmer' || lst === 'glitter' || lst === 'sparkle') face += dots([[145, my + 1.6], [147.5, my + 2.8], [151, my + 3.1], [154.5, my + 2.2], [148.5, my - 1.2], [152.3, my - 0.9], [156, my + 1.2], [143.8, my + 0.8]], lst === 'glitter' ? ['#ffe08a', '#fff', '#ffc4e0'] : '#fff', lst === 'glitter' ? 0.5 : 0.35, 0.9) + (lst === 'sparkle' ? star4(155.5, my + 2.6, 1.3, '#fff') : '');
+    face += `<path d="M146 ${fx(my + ld + 2.6)} q4 1.2 8 0" fill="none" stroke="${skD}" stroke-width="1.4" opacity=".28" filter="${blur}"/>`;
     if (g.dimples) face += both(s => `<path d="M${mx(160.5, s)} 96 q${s * 1} 2.2 ${s * -0.2} 4" fill="none" stroke="${skD}" stroke-width=".9" opacity=".55" stroke-linecap="round"/>`);
     if (g.freckles) face += [[139, 83], [143, 86], [136, 88], [141, 90], [146, 82], [134, 84]].flatMap(([x, y]) => [[x, y], [300 - x, y + 0.5]]).map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${0.6 + (i % 3) * 0.15}" fill="${fmx(sk, '#5a2a10', 0.45)}" opacity=".55"/>`).join('');
-    if (g.glitter) face += [[133, 62], [168, 61], [127, 79], [173, 80], [150, 66], [131, 70]].map(([x, y], i) => `<path d="M${x} ${y - 2.4} l.6 1.8 l1.8 .6 l-1.8 .6 l-.6 1.8 l-.6 -1.8 l-1.8 -.6 l1.8 -.6Z" fill="${i % 2 ? '#fff6c4' : '#ffffff'}" opacity=".95"/>`).join('');
+    if (g.glitter) face += [[133, 62], [168, 61], [127, 79], [173, 80], [150, 66], [131, 70]].map(([x, y], i) => star4(x, y, 1.7, i % 2 ? '#fff6c4' : '#ffffff', 0.95)).join('');
+    // face gems and paint
+    const pt = g.paint || 'none';
+    const gp = (x, y, sc, body) => `<g transform="translate(${x} ${y}) scale(${sc})">${body}</g>`;
+    if (pt === 'star') face += gp(173, 84, 1.5, `<path d="M0 -4 l1.3 2.7 l3 .4 l-2.2 2.1 l.5 3 l-2.6 -1.4 l-2.6 1.4 l.5 -3 l-2.2 -2.1 l3 -.4Z" fill="#ffd45c" stroke="#e0a800" stroke-width=".35"/><circle cx="-1" cy="-1" r=".6" fill="#fff"/>`) + star4(179.5, 78.5, 1.3, '#fff') + star4(167.5, 90, 0.9, '#ffe9a0');
+    if (pt === 'hearts') face += [[170, 85, 2.2], [176, 80.5, 1.5], [175.5, 89.5, 1.2], [128.5, 86, 1.6]].map(([x, y, r], i) => `<path d="${heartP(x, y, r)}" fill="${['#ff5f8f', '#ff9ec4', '#c3a2ff', '#ff9ec4'][i]}" stroke="#fff" stroke-width=".3"/>`).join('');
+    if (pt === 'sparkfreckles') face += dots([[139, 83], [143, 86], [136, 88], [141, 90], [146, 82], [134, 84], [148, 80], [152, 80.4]].flatMap(([x, y]) => [[x, y], [300 - x, y + 0.5]]), ['#ffd45c', '#fff', '#ffe9a0'], 0.65, 0.95) + both(s => star4(mx(165, s), 88.5, 1.4, '#fff'));
+    if (pt === 'gems') face += both(s => [[177.5, 67, 1.5], [179.5, 72, 1.2], [178.5, 77, 1], [175.5, 81, 0.8], [174, 64, 0.8]].map(([x, y, r]) => `<circle cx="${mx(x, s)}" cy="${y}" r="${r}" fill="${def('gem', `<radialGradient id="${u}-gem" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#ffd6f0"/><stop offset="1" stop-color="#b98cff"/></radialGradient>`)}" stroke="#fff" stroke-width=".35"/>`).join(''));
+    if (pt === 'rainbow') face += gp(171, 90, 1.25, ['#ff6f7a', '#ffb050', '#ffe066', '#7ed48a', '#6fb8ff', '#b37bff'].map((c, i) => `<path d="M${fx(-6 + i * 0.9)} 0 a${fx(6 - i * 0.9)} ${fx(6 - i * 0.9)} 0 0 1 ${fx(12 - i * 1.8)} 0" fill="none" stroke="${c}" stroke-width=".95"/>`).join('') + `<ellipse cx="-5.5" cy=".3" rx="2" ry="1.1" fill="#fff"/><ellipse cx="5.5" cy=".3" rx="2" ry="1.1" fill="#fff"/>`);
+    if (pt === 'butterfly') face += gp(128, 83, 1.35, `<g transform="rotate(-15)"><path d="M0 0 C-5 -7 -9 -3 -6 1 C-8 5 -3 7 0 1 C3 7 8 5 6 1 C9 -3 5 -7 0 0Z" fill="#9f8cff" stroke="#6a52d8" stroke-width=".4"/><circle cx="-4" cy="-2" r=".9" fill="#fff" opacity=".8"/><circle cx="4" cy="-2" r=".9" fill="#fff" opacity=".8"/><path d="M0 -2 V4" stroke="#3a2b3c" stroke-width=".8"/></g>`);
+    if (pt === 'moon') face += gp(174, 83, 1.3, `<path d="M0 -5 a5 5 0 1 0 3 7.5 a4 4 0 1 1 -3 -7.5Z" fill="#ffe08a" stroke="#e0a800" stroke-width=".35"/>`) + star4(181, 77, 1.5, '#fff') + star4(180.5, 90, 1.1, '#ffe9a0') + star4(168.5, 90.5, 0.9, '#fff');
+    if (pt === 'flower') face += gp(128.5, 87, 1.5, `${[0, 72, 144, 216, 288].map(a => `<ellipse cx="${fx(2.2 * Math.cos(a * Math.PI / 180))}" cy="${fx(2.2 * Math.sin(a * Math.PI / 180))}" rx="1.9" ry="1.3" transform="rotate(${a} ${fx(2.2 * Math.cos(a * Math.PI / 180))} ${fx(2.2 * Math.sin(a * Math.PI / 180))})" fill="#ff9ec4"/>`).join('')}<circle r="1.1" fill="#ffd45c"/><path d="M3 4 q2 1 3 -1" fill="none" stroke="#6fbf73" stroke-width=".8"/>`);
+    if (pt === 'whiskers') face += both(s => [[-1.4, -3], [0, 0], [1.4, 3]].map(([dy, ddy]) => `<path d="M${mx(160, s)} ${90 + dy} q${s * 7} ${ddy * 0.3 - 1} ${s * 14} ${ddy}" fill="none" stroke="#3a2b3c" stroke-width=".6" stroke-linecap="round"/>`).join('')) + `<path d="M148 85 h4 l-2 2.4Z" fill="#e0607e"/>`;
+    if (pt === 'glitterline') face += both(s => dots(Array.from({ length: 14 }, (_, i) => [mx(158 + i * 1.5, s), 84 - i * 0.75 + (i % 2) * 1.2]), ['#ffd45c', '#fff', '#ffb3e6'], 0.55, 0.95));
 
     // ---------- accessories ----------
     const A = g.acc || {}, AC = g.accColor || '#ff5f8f', ACd = fmx(AC, '#241018', 0.4), BagC = g.bagColor || AC;
-    let accBody = '', accHead = '', accFace = '', accEar = '', accBag = '';
+    let accBody = '', accBack = '', accHead = '', accFace = '', accEar = '', accBag = '';
     if (A.necklace) accBody += `<path d="M139 128 Q150 152 161 128" fill="none" stroke="#e7c35a" stroke-width=".9"/><path d="M150 146 l3.2 3.6 l-3.2 4.4 l-3.2 -4.4Z" fill="${AC}" stroke="#b08a2a" stroke-width=".7"/><circle cx="149.2" cy="149" r=".7" fill="#fff"/>`;
     if (A.pearls) accBody += Array.from({ length: 13 }, (_, i) => { const t = i / 12, x = 138 + 24 * t, y = 128 + Math.sin(t * Math.PI) * 13; return `<circle cx="${fx(x)}" cy="${fx(y)}" r="1.6" fill="#fffaf0" stroke="#c9b9a0" stroke-width=".5"/><circle cx="${fx(x - 0.5)}" cy="${fx(y - 0.5)}" r=".5" fill="#fff"/>`; }).join('');
     if (A.scarf) accBody += `<path d="M134 124 C130 140 170 140 166 124 C170 134 172 142 162 146 C150 150 138 148 134 142 C130 136 131 130 134 124Z" fill="${fab('a', AC, 'stripes')}" stroke="${ACd}" stroke-width=".9"/><path d="M157 142 L163 190 L154 192 L149 146Z" fill="${fab('a', AC, 'stripes')}" stroke="${ACd}" stroke-width=".9"/><path d="M154 192 l0 5 M157 191.5 l0 5 M160 191 l0 5 M163 190.5 l0 5" stroke="${AC}" stroke-width="1.2"/>`;
@@ -7142,6 +7302,13 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     if (A.flowers) accHead += [[-26, 40], [-17, 30], [-6, 25], [6, 25], [17, 30], [26, 40]].map(([dx, y], i) => { const x = 150 + dx * (bigHair ? 1.25 : 1), c = ['#ff9ec4', '#fff2a8', '#c3a2ff', '#ffffff', '#ff9ec4', '#9dd8f5'][i]; return `<path d="M${x - 4} ${y + 3} q-3 -3 0 -5" fill="#6fbf73"/>` + [0, 72, 144, 216, 288].map(a => `<circle cx="${fx(x + 2.8 * Math.cos(a * Math.PI / 180))}" cy="${fx(y - 2 + 2.8 * Math.sin(a * Math.PI / 180))}" r="2.3" fill="${c}" stroke="${fmx(c, '#241018', 0.3)}" stroke-width=".5"/>`).join('') + `<circle cx="${x}" cy="${y - 2}" r="1.4" fill="#ffc83d"/>`; }).join('');
     if (A.tiara) accHead += `<path d="M130 ${bigHair ? 16 : 30} Q150 ${bigHair ? 8 : 22} 170 ${bigHair ? 16 : 30} L166 ${bigHair ? 6 : 20} L160 ${bigHair ? 12 : 26} L155 ${bigHair ? 2 : 16} L150 ${bigHair ? -2 : 12} L145 ${bigHair ? 2 : 16} L140 ${bigHair ? 12 : 26} L134 ${bigHair ? 6 : 20}Z" fill="#f2d27a" stroke="#a57f22" stroke-width=".9" stroke-linejoin="round"/><circle cx="150" cy="${bigHair ? 8 : 22}" r="2.6" fill="#8ec8f2" stroke="#a57f22" stroke-width=".6"/><circle cx="140.5" cy="${bigHair ? 13 : 27}" r="1.4" fill="${AC}"/><circle cx="159.5" cy="${bigHair ? 13 : 27}" r="1.4" fill="${AC}"/><path d="M133 ${bigHair ? 14 : 28} Q150 ${bigHair ? 7 : 21} 167 ${bigHair ? 14 : 28}" fill="none" stroke="#fff" stroke-width=".8" opacity=".7"/>`;
     if (A.bow) { const [x, y] = upd ? [168, 28] : hs === 'braids' || hs === 'pigtails' ? [150, 22] : [170, 34]; accHead += `<path d="M${x} ${y} C${x - 6} ${y - 9} ${x - 16} ${y - 6} ${x - 14} ${y + 1} C${x - 13} ${y + 7} ${x - 5} ${y + 5} ${x} ${y}Z M${x} ${y} C${x + 6} ${y - 9} ${x + 16} ${y - 6} ${x + 14} ${y + 1} C${x + 13} ${y + 7} ${x + 5} ${y + 5} ${x} ${y}Z" fill="${AC}" stroke="${ACd}" stroke-width=".9"/><path d="M${x - 2} ${y + 2} l-4 10 M${x + 2} ${y + 2} l4 10" stroke="${AC}" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="${x}" cy="${y}" rx="3" ry="3.4" fill="${fmx(AC, '#000', 0.12)}" stroke="${ACd}" stroke-width=".8"/><path d="M${x - 11} ${y - 2} q3 -4 7 -1 M${x + 11} ${y - 2} q-3 -4 -7 -1" fill="none" stroke="#fff" stroke-width=".8" opacity=".6"/>`; }
+    const tp = tiePts[0], big = ['afro', 'curly', 'twistout', 'highpuff', 'afropuffs'].includes(hs);
+    if (A.ribbon) { const lowTie = tp && tp[1] > 80, [x, y] = lowTie ? [tp[0], tp[1]] : big ? [190, 40] : [183, 44]; const rb = `<path d="M${x} ${y} q-3 14 -7 30 l3 -1 l2 3 q2 -16 2 -32 q2 14 8 28 l2 -3 l3 2 q-7 -14 -13 -27Z" fill="${fmx(AC, '#000000', 0.08)}" stroke="${ACd}" stroke-width=".6"/><path d="M${x} ${y} C${x - 5} ${y - 8} ${x - 13} ${y - 5} ${x - 11} ${y + 1} C${x - 10} ${y + 5} ${x - 4} ${y + 4} ${x} ${y}Z M${x} ${y} C${x + 5} ${y - 8} ${x + 13} ${y - 5} ${x + 11} ${y + 1} C${x + 10} ${y + 5} ${x + 4} ${y + 4} ${x} ${y}Z" fill="${AC}" stroke="${ACd}" stroke-width=".8"/><circle cx="${x}" cy="${y}" r="2.4" fill="${fmx(AC, '#000000', 0.12)}" stroke="${ACd}" stroke-width=".6"/>`; if (lowTie) accHead += rb; else accBack += rb; }
+    if (A.scrunchie && !tp) accBody += `<g transform="translate(${mx(206, -1)} 289)">${Array.from({ length: 9 }, (_, i) => { const a = i / 9 * Math.PI * 2; return `<circle cx="${fx(Math.cos(a) * 6)}" cy="${fx(Math.sin(a) * 2)}" r="2.2" fill="${AC}" stroke="${ACd}" stroke-width=".4"/>`; }).join('')}</g>`;
+    if (A.pins) accHead += [[124, 46, -60], [127, 50, -60], [175, 42, 60]].map(([x, y, r], i) => `<g transform="translate(${x} ${y}) rotate(${r})"><path d="M-6 0 H6 M-6 1.4 Q0 1.8 6 1.4" fill="none" stroke="${i === 2 ? '#e9c46a' : '#d8d8e0'}" stroke-width=".9" stroke-linecap="round"/>${i === 2 ? `<circle cx="-6" cy=".6" r="1.6" fill="#fffaf0" stroke="#c9b9a0" stroke-width=".4"/>` : ''}</g>`).join('');
+    if (A.hairflower) { const [x, y] = big ? [112, 40] : [123, 42]; accHead += `<g transform="translate(${x} ${y})">${[0, 72, 144, 216, 288].map(a => `<ellipse cx="${fx(4.6 * Math.cos(a * Math.PI / 180))}" cy="${fx(4.6 * Math.sin(a * Math.PI / 180))}" rx="5" ry="3.6" transform="rotate(${a} ${fx(4.6 * Math.cos(a * Math.PI / 180))} ${fx(4.6 * Math.sin(a * Math.PI / 180))})" fill="${AC}" stroke="${ACd}" stroke-width=".6"/>`).join('')}<circle r="2.6" fill="#ffd45c" stroke="#e0a800" stroke-width=".5"/>${dots([[-0.8, -0.8], [0.9, 0.2], [-0.2, 1]], '#fff6c4', 0.45)}<path d="M5 6 q5 1 7 -3 q-5 -1 -7 3Z" fill="#6fbf73"/></g>`; }
+    if (A.butterflies) accHead += [[127, 38, -20, '#9f8cff'], [173, 34, 20, '#7ec8ff'], [178, 52, 35, '#ff9ec4']].map(([x, y, r, c]) => `<g transform="translate(${big ? x + (x - 150) * 0.4 : x} ${big ? y - 8 : y}) rotate(${r}) scale(.8)"><path d="M0 0 C-5 -7 -9 -3 -6 1 C-8 5 -3 7 0 1 C3 7 8 5 6 1 C9 -3 5 -7 0 0Z" fill="${c}" stroke="${fmx(c, '#000000', 0.35)}" stroke-width=".5"/><circle cx="-4" cy="-2" r="1" fill="#fff" opacity=".8"/><circle cx="4" cy="-2" r="1" fill="#fff" opacity=".8"/><path d="M0 -3 V4" stroke="#3a2b3c" stroke-width="1"/></g>`).join('');
+    if (A.hairpearls) accHead += [[132, 30], [141, 24], [159, 24], [168, 30], [127, 42], [173, 42], [150, 21]].map(([x, y]) => { const X = big ? x + (x - 150) * 0.3 : x, Y = big ? y - 6 : y; return `<circle cx="${X}" cy="${Y}" r="1.7" fill="#fffaf0" stroke="#c9b9a0" stroke-width=".4"/><circle cx="${X - 0.5}" cy="${Y - 0.5}" r=".55" fill="#fff"/>`; }).join('');
     if (A.clips) accHead += [[128, 50, -30], [132, 42, -40], [172, 50, 30]].map(([x, y, r], i) => `<g transform="translate(${x} ${y}) rotate(${r})"><rect x="-6" y="-1.6" width="12" height="3.2" rx="1.6" fill="${i === 1 ? '#ffd45c' : AC}" stroke="${ACd}" stroke-width=".6"/><circle cx="-3" cy="0" r=".7" fill="#fff"/></g>`).join('');
     const hat = g.hat || 'none', HC = g.hatColor || '#e0314b', HCd = fmx(HC, '#241018', 0.45), hw = bigHair ? 1.3 : 1;
     if (hat === 'beret') accHead += `<g transform="translate(0 ${bigHair ? 0 : 7}) rotate(-6 150 30)"><path d="M${150 - 40 * hw} 36 C${150 - 44 * hw} 12 ${150 + 30 * hw} ${4 - 6 * (hw - 1)} ${150 + 44 * hw} 26 C${150 + 46 * hw} 38 ${150 + 30 * hw} 38 150 36 C130 36 ${150 - 30 * hw} 42 ${150 - 40 * hw} 36Z" fill="${fab('h', HC, g.hatPat || 'plain')}" stroke="${HCd}" stroke-width="1"/><path d="M${150 - 40 * hw} 36 C${150 - 44 * hw} 12 ${150 + 30 * hw} ${4 - 6 * (hw - 1)} ${150 + 44 * hw} 26 C${150 + 46 * hw} 38 ${150 + 30 * hw} 38 150 36 C130 36 ${150 - 30 * hw} 42 ${150 - 40 * hw} 36Z" fill="${shadeV}"/><path d="M${150 + 6} ${6 - 4 * (hw - 1)} l2 -5" stroke="${HCd}" stroke-width="2.2" stroke-linecap="round"/><path d="M126 22 q14 -9 32 -8" fill="none" stroke="#fff" stroke-width="1.2" opacity=".35"/></g>`;
@@ -7164,14 +7331,28 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     const armsAgain = `<g fill="${sk}" stroke="${skLine}" stroke-width="2.2" stroke-linejoin="round">${P2(armD)}${P2(handD)}</g><g fill="${sk}">${P2(armD)}${P2(handD)}</g>` + both(s => `<path d="${armD(s)}" fill="${skinGrad}" opacity=".5"/>`) +
       `<path d="${spath([[150, 118], [164, 126], [181, 139], [192, 143], [197.5, 152], [196, 162], [186, 170], [150, 172], [114, 170], [104, 162], [102.5, 152], [108, 143], [119, 139], [136, 126]])}" fill="${sk}"/>` + `<path d="M186 170 q-2 -6 -1 -12 M114 170 q2 -6 1 -12" fill="none" stroke="${skD}" stroke-width=".8" opacity=".4"/>` +
       both(s => `<path d="M${mx(205.5, s)} 314 q${s * -2} 5 ${s * 0} 9 M${mx(209, s)} 318 v7" fill="none" stroke="${skD}" stroke-width=".8" opacity=".6"/>`);
-    out.push(bgSVG, `<ellipse cx="150" cy="576" rx="${dress === 'ballgown' ? 150 : 46}" ry="${dress === 'ballgown' ? 14 : 7}" fill="#1a1020" opacity=".22" filter="${blur2}"/>`, hairBack, skinG, legwearSVG);
+    out.push(bgSVG, `<ellipse cx="150" cy="576" rx="${dress === 'ballgown' ? 150 : 46}" ry="${dress === 'ballgown' ? 14 : 7}" fill="#1a1020" opacity=".22" filter="${blur2}"/>`, hairBack, accBack, skinG, legwearSVG);
     out.push(bootsOver ? '' : shoeSVG, bottomSVG, bootsOver ? shoeSVG : '');
     if (dress === 'pinafore') out.push(armsAgain, topSVG, dressSkirt, dressSVG); else out.push(dressSkirt, armsAgain, topSVG, dressSVG);
     out.push(jacketSVG, accBody, accBag);
     out.push(`<path d="M140.5 98 V128 Q150 132 159.5 128 V98Z" fill="${sk}"/><path d="M140.5 98 V128 Q150 132 159.5 128 V98Z" fill="${skinGrad}" opacity=".6"/><path d="M140.5 104 V128 M159.5 104 V128" stroke="${skLine}" stroke-width="1.1"/><ellipse cx="150" cy="113" rx="11" ry="7" fill="${skD}" opacity=".5" filter="${blur}"/>`);
     if (topId === 'turtle' && (!dress || dress === 'pinafore')) out.push(topSVG.slice(topSVG.indexOf('<path d="M139.5 110')));
     out.push(face, hairFront, accEar, accFace, accHead);
-    return `<svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg"><defs>${defs.join('')}</defs>${out.join('')}</svg>`;
+    // nails: tiny on her hands, and a round close-up of one hand
+    const nl = g.nails && g.nails !== 'none' ? g.nails : null;
+    if (nl) out.splice(out.indexOf(armsAgain) + 1, 0, both(s => [[205.6, 322.4], [208.9, 325.4], [212.3, 323.6]].map(([x, y], i) => `<ellipse cx="${mx(x, s)}" cy="${y}" rx="1.15" ry="1.5" fill="${fashNail(nl, i + (s > 0 ? 0 : 2))}" stroke="${fmx(fashNail(nl, i), '#000000', 0.3)}" stroke-width=".25"/>`).join('')));
+    const VB = { face: '102 28 96 96', head: '90 -6 120 136', hair: '62 -12 176 272' }[opt.view] || '0 0 300 600';
+    if (opt.view === 'face' && opt.nails && nl) {
+      const cx = 184, cy = 110, r = 12, q = r / 15, F = [[-5.4, -8, 3], [-1.8, -11, 3.2], [1.8, -10.2, 3.1], [5.2, -6.8, 2.7]];
+      defs.push(`<clipPath id="${u}-ni"><circle cx="${cx}" cy="${cy}" r="${r}"/></clipPath>`);
+      out.push(`<circle cx="${cx}" cy="${cy + 0.8}" r="${r + 1}" fill="#2a1020" opacity=".2" filter="${blur}"/><circle cx="${cx}" cy="${cy}" r="${r + 0.8}" fill="#fff"/><g clip-path="url(#${u}-ni)"><rect x="${cx - r}" y="${cy - r}" width="${2 * r}" height="${2 * r}" fill="#fdf1f6"/>` +
+        `<g fill="${sk}" stroke="${skLine}" stroke-width=".45">${F.map(([dx, top, wd]) => `<rect x="${fx(cx + (dx - wd / 2) * q)}" y="${fx(cy + top * q)}" width="${fx(wd * q)}" height="${fx((16 - top) * q)}" rx="${fx(wd * q / 2)}"/>`).join('')}<path d="M${fx(cx - 7.5 * q)} ${fx(cy + 16 * q)} Q${fx(cx - 8 * q)} ${fx(cy + 4 * q)} ${fx(cx - 6.6 * q)} ${fx(cy + 2 * q)} L${fx(cx + 6.6 * q)} ${fx(cy + 2 * q)} Q${fx(cx + 7.6 * q)} ${fx(cy + 7 * q)} ${fx(cx + 7 * q)} ${fx(cy + 16 * q)}Z"/><rect x="${fx(cx - 11 * q)}" y="${fx(cy + 1 * q)}" width="${fx(3.2 * q)}" height="${fx(10 * q)}" rx="${fx(1.6 * q)}" transform="rotate(-35 ${fx(cx - 9.4 * q)} ${fx(cy + 8 * q)})"/></g>` +
+        F.map(([dx, top, wd], i) => { const x = cx + (dx - wd * 0.36) * q, y = cy + (top + 0.4) * q, w2 = wd * 0.72 * q, h2 = 3.8 * q, c = fashNail(nl, i); return `<rect x="${fx(x)}" y="${fx(y)}" width="${fx(w2)}" height="${fx(h2)}" rx="${fx(w2 / 2)}" fill="${c}" stroke="${fmx(c, '#000000', 0.3)}" stroke-width=".3"/>` +
+          (nl === 'french' ? `<rect x="${fx(x)}" y="${fx(y + h2 * 0.35)}" width="${fx(w2)}" height="${fx(h2 * 0.65)}" rx="${fx(w2 / 2)}" fill="#ffd9e2" opacity=".85"/>` : '') + (nl === 'hearts' ? `<path d="${heartP(x + w2 / 2, y + h2 * 0.5, 0.55 * q)}" fill="#fff"/>` : '') +
+          (nl === 'goldglitter' || nl === 'galaxy' ? `<circle cx="${fx(x + w2 * 0.3)}" cy="${fx(y + h2 * 0.35)}" r=".3" fill="#fff"/><circle cx="${fx(x + w2 * 0.7)}" cy="${fx(y + h2 * 0.6)}" r=".25" fill="#fff"/><circle cx="${fx(x + w2 * 0.45)}" cy="${fx(y + h2 * 0.8)}" r=".2" fill="${nl === 'galaxy' ? '#c3a2ff' : '#fff6c4'}"/>` : '') +
+          `<rect x="${fx(x + w2 * 0.2)}" y="${fx(y + h2 * 0.12)}" width="${fx(w2 * 0.22)}" height="${fx(h2 * 0.45)}" rx="${fx(w2 * 0.11)}" fill="#fff" opacity=".6"/>`; }).join('') + `</g><circle cx="${cx}" cy="${cy}" r="${r + 0.4}" fill="none" stroke="${fmx(tieC, '#ffffff', 0.3)}" stroke-width="1"/>`);
+    }
+    return `<svg viewBox="${VB}" xmlns="http://www.w3.org/2000/svg"><defs>${defs.join('')}</defs>${out.join('')}</svg>`;
   }
 
   // ---------- scenes behind her ----------
@@ -7221,7 +7402,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
 
   // ================= fashion studio =================
   let girls = store.get('girls', []);
-  let fashSel = null, fashTab = 'hair', fashCloth = 'top', fashDel = false, fashUid = 0, fashMsg = '';
+  let fashSel = null, fashTab = 'hair', fashCloth = 'top', fashMk = 'shadow', fashHairCat = null, fashZoom = true, fashDel = false, fashUid = 0, fashMsg = '';
   const saveGirls = () => store.set('girls', girls);
   const GIRL_NAMES = ['נועה', 'מאיה', 'תמר', 'שירה', 'יעל', 'אביגיל', 'ליה', 'רוני', 'אלה', 'מיכל', 'הילה', 'עדי', 'נגה', 'אגם', 'טליה', 'רותם', 'לאה', 'שקד', 'ליבי', 'גאיה', 'אריאל', 'מעיין', 'אורי', 'הדס'];
   const GIRL_LOOKS = [['#ffffff', '#6d8fbd', '#ff5f8f'], ['#ffb3cf', '#ffffff', '#bda4ff'], ['#9dd8f5', '#1f2a4a', '#ffd45c'], ['#f4ece0', '#c9a27e', '#3f9c6e'], ['#bda4ff', '#2b2b30', '#ffb3cf'],
@@ -7231,20 +7412,24 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     const r = a => a[Math.floor(Math.random() * a.length)], p = x => Math.random() < x, ids = a => a.map(x => x[0]);
     const F = FASH, look = r(GIRL_LOOKS), fun = p(0.25), hc = fun ? r(F.hairColors.slice(9)) : r(F.hairColors.slice(0, 9));
     const dress = p(0.38) ? r(ids(F.dresses).slice(1)) : 'none', bottom = r(ids(F.bottoms)), skirty = dress !== 'none' || ['skirt', 'pleated', 'tulle'].includes(bottom);
-    const topPat = p(0.35) ? r(ids(F.pats).slice(1)) : 'plain', acc = {};
+    const topPat = p(0.35) ? r(ids(F.pats).slice(1)) : 'plain', acc = {}, glam = p(0.35);
     [...ids(F.accs)].sort(() => Math.random() - 0.5).slice(0, 1 + Math.floor(Math.random() * 3)).forEach(a => { acc[a] = true; });
     if (acc.tiara && acc.headband) delete acc.headband;
+    const shade = r(F.shadowColors);
     return {
-      skin: r(F.skins), face: r(ids(F.faces)), eyeShape: r(ids(F.eyeShapes)), eyeColor: r(F.eyeColors), eyeSize: Math.round((1 + Math.random() * 0.14) * 100) / 100, brows: r(ids(F.brows)),
-      lashes: p(0.8) ? r(['natural', 'long']) : 'dramatic', nose: r(ids(F.noses)), lips: r(ids(F.lips)), lipColor: p(0.7) ? r(['natural', '#ec8f9c', '#f47f78', 'gloss', '#f6a9c0']) : r(F.lipColors),
-      blush: p(0.75), freckles: p(0.2), dimples: p(0.25), shadow: p(0.3) ? r(F.shadows.slice(1)) : 'none', glitter: p(0.15),
+      skin: r(F.skins), face: r(ids(F.faces)), eyeShape: r(ids(F.eyeShapes)), eyeColor: r(F.eyeColors), eyeSize: Math.round((1.02 + Math.random() * 0.14) * 100) / 100, brows: r(['soft', 'arched', 'soft', 'feathered', 'rounded', 'bold', 'thick']),
+      lashes: glam ? r(['long', 'doll', 'wispy', 'butterfly', 'tips']) : r(['natural', 'natural', 'long', 'bottom']), nose: r(ids(F.noses)), lips: r(ids(F.lips)),
+      lipColor: glam ? r(F.lipColors) : r(['natural', 'natural', '#ec8f9c', '#f6a9c0', '#f47f78', '#e8a0a8']), lipStyle: glam ? r(ids(F.lipStyles)) : r(['satin', 'gloss', 'tint', 'shimmer']),
+      blushStyle: p(0.8) ? r(ids(F.blushes).slice(1)) : 'none', glow: p(glam ? 0.6 : 0.2) ? r(ids(F.glows).slice(1)) : 'none', freckles: p(0.18), dimples: p(0.25),
+      shadow: shade, shadowStyle: p(glam ? 0.9 : 0.3) ? r(ids(F.shadowStyles).slice(1)) : 'none', liner: p(glam ? 0.6 : 0.15) ? r(ids(F.liners).slice(1)) : 'none', linerColor: p(0.6) ? '#1f1316' : r(F.linerColors),
+      paint: p(0.15) ? r(ids(F.paints).slice(1)) : 'none', nails: p(0.6) ? r(ids(F.nails).slice(1)) : 'none', glitter: p(0.1),
       hair: r(ids(F.hairs)), hairColor: hc, hairColor2: p(0.15) ? r(F.hairColors.slice(fun ? 9 : 4)) : 'none', streak: p(0.12) ? r(F.streaks.slice(1)) : 'none',
       top: r(ids(F.tops)), topColor: look[0], topPat, bottom, bottomColor: look[1], bottomPat: topPat === 'plain' && p(0.3) ? r(['dots', 'checks', 'plaid', 'stripes', 'flowers']) : 'plain',
       dress, dressColor: r([look[0], look[2], r(F.colors)]), dressPat: p(0.35) ? r(['dots', 'flowers', 'hearts', 'stars', 'stripes', 'checks']) : 'plain',
       jacket: p(0.28) ? r(ids(F.jackets).slice(1)) : 'none', jacketColor: r(['#6d8fbd', '#2b2b30', '#f4ece0', look[2], '#c9a27e']), jacketPat: 'plain',
       legwear: skirty && p(0.4) ? r(['tights', 'knee', 'ankle']) : 'bare', legColor: r(['#ffffff', '#ffffff', '#2b2b30', look[2]]),
       shoes: r(ids(F.shoes)), shoeColor: r(['#ffffff', '#2b2b30', look[2], look[1], '#c9a27e']),
-      hat: p(0.15) ? r(ids(F.hats).slice(1)) : 'none', hatColor: r([look[2], '#2b2b30', '#e0314b', '#f4ece0']), glasses: p(0.12) ? r(ids(F.glasses).slice(1)) : 'none',
+      hat: p(0.12) ? r(ids(F.hats).slice(1)) : 'none', hatColor: r([look[2], '#2b2b30', '#e0314b', '#f4ece0']), glasses: p(0.1) ? r(ids(F.glasses).slice(1)) : 'none',
       acc, accColor: r([look[2], ...F.accColors]), bagColor: r([look[2], '#c9a27e', '#2b2b30', '#ffffff']),
       scene: p(0.85) ? r(ids(F.scenes).slice(0, 7)) : 'plain', sceneColor: r(F.sceneColors),
     };
@@ -7273,20 +7458,25 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   }
   function drawFashion() {
     const g = girls.find(x => x.id === fashSel);
-    const showPreview = () => { $('#fashPreview').innerHTML = girlSVG(g, 'pv' + (fashUid++)); };
+    const view = !fashZoom ? 'full' : ['eyes', 'makeup'].includes(fashTab) ? 'face' : ['face', 'hair'].includes(fashTab) ? 'head' : 'full';
+    const showPreview = () => { $('#fashPreview').innerHTML = girlSVG(g, 'pv' + (fashUid++), { view, nails: fashTab === 'makeup' }); $('#fashPreview').classList.toggle('close', view !== 'full'); };
+    const zb = $('#fashZoom');
+    zb.hidden = !['face', 'eyes', 'makeup', 'hair'].includes(fashTab);
+    zb.textContent = fashZoom ? '🔍 כל הגוף' : '🔍 תקריב';
+    zb.onclick = () => { fashZoom = !fashZoom; SFX.pop(); drawFashion(); };
     const upd = patch => { Object.assign(g, patch); fashMsg = ''; if (!saveGirls()) fashMsg = 'אין מספיק מקום לשמור 😕'; drawFashion(); };
     const swatches = (list, cur, key, none) => el('div', { class: 'swatches' }, ...list.map(c => {
       const b = el('button', { type: 'button', class: 'sw3', 'aria-pressed': String((cur || 'none') === c), 'aria-label': c === 'none' ? 'בלי' : 'צבע', title: c === 'none' ? (none || 'בלי') : '', onclick: () => upd({ [key]: c }) }, c === 'none' ? '✕' : '');
-      b.style.background = c === 'none' ? 'var(--card)' : c === 'natural' ? `linear-gradient(135deg, ${fmx(g.skin || FASH.skins[1], '#d86a7a', 0.42)}, ${g.skin || FASH.skins[1]})` : c === 'gloss' ? 'radial-gradient(circle at 35% 30%, #fff 0 18%, #f4a6b8 45%, #e07a90)' : c;
+      b.style.background = c === 'none' ? 'var(--card)' : c === 'holo' ? 'linear-gradient(135deg, #ffc4ec, #d6c4ff, #b3ecff, #c4ffe0)' : c[0] === '*' ? `radial-gradient(circle at 35% 30%, #fff 0 14%, ${c.slice(1)} 55%, ${fmx(c.slice(1), '#000000', 0.2)})` : c === 'natural' ? `linear-gradient(135deg, ${fmx(g.skin || FASH.skins[1], '#d86a7a', 0.42)}, ${g.skin || FASH.skins[1]})` : c === 'gloss' ? 'radial-gradient(circle at 35% 30%, #fff 0 18%, #f4a6b8 45%, #e07a90)' : c;
       return b;
     }));
-    const chips = (list, cur, key) => el('div', { class: 'chips' }, ...list.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((cur || list[0][0]) === id), onclick: () => upd({ [key]: id }) }, name)));
+    const chips = (list, cur, key) => el('div', { class: 'chips' }, ...list.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((cur == null ? list[0][0] : cur) === id), onclick: () => upd({ [key]: id }) }, name)));
     const toggle = (key, name) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!g[key]), onclick: () => upd({ [key]: !g[key] }) }, (g[key] ? '✔️ ' : '') + name);
     const patsRow = (c, cur, key) => el('div', { class: 'swatches fash-pats' }, ...FASH.pats.map(([id, name]) => el('button', { type: 'button', class: 'sw3', title: name, 'aria-label': name, 'aria-pressed': String((cur || 'plain') === id), html: fashPatIcon(c, id), onclick: () => upd({ [key]: id }) })));
     const row = (label, node) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, label), node);
     drawList();
     function drawList() {
-      $('#fashList').replaceChildren(...girls.map(x => el('button', { type: 'button', class: 'mer-card fash-card', 'aria-pressed': String(x.id === fashSel), onclick: () => { fashSel = x.id; fashDel = false; fashMsg = ''; drawFashion(); } },
+      $('#fashList').replaceChildren(...girls.map(x => el('button', { type: 'button', class: 'mer-card fash-card', 'aria-pressed': String(x.id === fashSel), onclick: () => { fashSel = x.id; fashDel = false; fashMsg = ''; fashHairCat = null; drawFashion(); } },
         fashThumb(x), el('span', {}, x.name || 'בלי שם'), el('span', { class: 'muted' }, `בת ${x.age}`))),
         el('button', { type: 'button', class: 'mer-card add', onclick: () => { const n = Object.assign(newGirl(), randomGirl(), { name: GIRL_NAMES.filter(x => !girls.some(y => y.name === x))[0] || '' }); girls.push(n); fashSel = n.id; fashTab = 'name'; saveGirls(); SFX.pop(); drawFashion(); } }, el('span', { class: 'plus' }, '+'), 'בחורה חדשה'));
     }
@@ -7295,17 +7485,36 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     $('#fashTabs').replaceChildren(...TABS.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(fashTab === id), onclick: () => { fashTab = id; drawFashion(); } }, name)));
     const F = FASH;
     let body = [];
-    if (fashTab === 'face') body = [row('צבע העור', swatches(F.skins, g.skin || F.skins[1], 'skin')), row('צורת הפנים', chips(F.faces, g.face, 'face')), row('האף', chips(F.noses, g.nose, 'nose')),
-      row('השפתיים', chips(F.lips, g.lips, 'lips')), row('עוד', el('div', { class: 'chips' }, toggle('freckles', 'נמשים'), toggle('dimples', 'גומות חן')))];
+    if (fashTab === 'face') body = [row('צבע העור', swatches(F.skins, g.skin || F.skins[1], 'skin')), row('צורת הפנים', chips(F.faces, g.face || 'oval', 'face')), row('האף', chips(F.noses, g.nose || 'small', 'nose')),
+      row('צורת השפתיים', chips(F.lips, g.lips || 'soft', 'lips')), row('עוד', el('div', { class: 'chips' }, toggle('freckles', 'נמשים'), toggle('dimples', 'גומות חן')))];
     else if (fashTab === 'eyes') {
       const es = el('input', { type: 'range', id: 'fashEyes', min: 0.85, max: 1.22, step: 0.01, value: g.eyeSize || 1, oninput: e => { g.eyeSize = Number(e.target.value); saveGirls(); showPreview(); } });
       es.addEventListener('change', () => drawList());
       body = [row('צורת העיניים', chips(F.eyeShapes, g.eyeShape, 'eyeShape')), row('צבע העיניים', swatches(F.eyeColors, g.eyeColor || F.eyeColors[0], 'eyeColor')),
-        el('div', { class: 'row' }, el('label', { for: 'fashEyes' }, 'גודל העיניים'), es), row('גבות (בצבע של השיער)', chips(F.brows, g.brows, 'brows')), row('ריסים', chips(F.lashes, g.lashes, 'lashes'))];
-    } else if (fashTab === 'makeup') body = [row('צבע השפתיים', swatches(F.lipColors, g.lipColor || 'natural', 'lipColor')), row('צללית לעיניים', swatches(F.shadows, g.shadow || 'none', 'shadow')),
-      row('עוד', el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(g.blush !== false), onclick: () => upd({ blush: g.blush === false }) }, (g.blush !== false ? '✔️ ' : '') + 'סומק'), toggle('glitter', 'נצנצים ✨')))];
-    else if (fashTab === 'hair') body = [row('התסרוקת', chips(F.hairs, g.hair, 'hair')), row('צבע השיער', swatches(F.hairColors, g.hairColor || F.hairColors[2], 'hairColor')),
-      row('אומברה: צבע בקצוות', swatches(['none', ...F.hairColors], g.hairColor2 || 'none', 'hairColor2', 'בלי אומברה')), row('פסים צבעוניים', swatches(F.streaks, g.streak || 'none', 'streak', 'בלי פסים'))];
+        el('div', { class: 'row' }, el('label', { for: 'fashEyes' }, 'גודל העיניים'), es), row('גבות (בצבע של השיער)', chips(F.brows, g.brows, 'brows'))];
+    } else if (fashTab === 'makeup') {
+      const MK = [['shadow', '🎨 צללית'], ['liner', '✒️ אייליינר'], ['lashes', '👁️ ריסים'], ['lips', '💋 שפתון'], ['blush', '🌸 סומק'], ['glow', '✨ היילייטר'], ['paint', '⭐ קישוטי פנים'], ['nails', '💅 לק']];
+      body = [el('div', { class: 'chips fash-sub' }, ...MK.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(fashMk === id), onclick: () => { fashMk = id; drawFashion(); } }, name)))];
+      const shSt = g.shadowStyle || (g.shadow && g.shadow !== 'none' ? 'wash' : 'none');
+      if (fashMk === 'shadow') body.push(row('סגנון', chips(F.shadowStyles, shSt, 'shadowStyle')), row('צבע (עם נקודה לבנה = מנצנץ)', swatches(F.shadowColors, g.shadow && g.shadow !== 'none' ? g.shadow : F.shadowColors[0], 'shadow')));
+      if (fashMk === 'liner') body.push(row('סגנון', chips(F.liners, g.liner || 'none', 'liner')), row('צבע', swatches(F.linerColors, g.linerColor || F.linerColors[0], 'linerColor')));
+      if (fashMk === 'lashes') body.push(row('ריסים', chips(F.lashes, g.lashes || 'natural', 'lashes')), el('p', { class: 'muted' }, 'לריסים עם קצוות צבעוניים: הצבע בא מהאייליינר או מהצללית.'));
+      if (fashMk === 'lips') body.push(row('סגנון', chips(F.lipStyles, g.lipStyle || (g.lipColor === 'gloss' ? 'gloss' : 'satin'), 'lipStyle')), row('צבע', swatches(F.lipColors, g.lipColor === 'gloss' ? 'natural' : g.lipColor || 'natural', 'lipColor')));
+      if (fashMk === 'blush') body.push(row('סומק', chips(F.blushes, g.blushStyle || (g.blush === false ? 'none' : 'rosy'), 'blushStyle')));
+      if (fashMk === 'glow') body.push(row('היילייטר (הארה)', chips(F.glows, g.glow || 'none', 'glow')));
+      if (fashMk === 'paint') body.push(row('קישוטים על הפנים', chips(F.paints, g.paint || 'none', 'paint')), row('עוד', el('div', { class: 'chips' }, toggle('glitter', 'נצנצים על הלחיים ✨'))));
+      if (fashMk === 'nails') body.push(row('לק', el('div', { class: 'swatches' }, ...F.nails.map(([id, name]) => { const b = el('button', { type: 'button', class: 'sw3', title: name, 'aria-label': name, 'aria-pressed': String((g.nails || 'none') === id), onclick: () => upd({ nails: id }) }, id === 'none' ? '✕' : id === 'hearts' ? '♥' : '');
+        b.style.background = { none: 'var(--card)', goldglitter: 'radial-gradient(circle at 35% 30%, #fff 0 12%, #f2d27a 50%, #c9a02a)', rainbow: 'conic-gradient(#ff6f7a, #ffd45c, #7ed48a, #6fb8ff, #b37bff, #ff6f7a)', french: 'linear-gradient(#ffd9e2 60%, #fff 60%)', hearts: '#ff9ec4', galaxy: 'radial-gradient(circle at 30% 30%, #b3a4ff 0 8%, #2e2a6e 40%, #120f3a)' }[id] || id; if (id === 'hearts') b.style.color = '#fff'; return b; }))),
+        el('p', { class: 'muted' }, 'רואים את הלק בעיגול הקטן, ובקטן על הידיים.'));
+      body.push(el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { const r = randomGirl(); upd(['lashes', 'lipColor', 'lipStyle', 'blushStyle', 'glow', 'shadow', 'shadowStyle', 'liner', 'linerColor', 'paint', 'nails'].reduce((o, k) => Object.assign(o, { [k]: r[k] }), {})); SFX.pop(); } }, '💄 איפור הפתעה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { upd({ lashes: 'natural', lipColor: 'natural', lipStyle: 'satin', blushStyle: 'rosy', glow: 'none', shadowStyle: 'none', liner: 'none', paint: 'none', glitter: false }); SFX.pop(); } }, '🧼 בלי איפור')));
+    } else if (fashTab === 'hair') {
+      const cat = fashHairCat || (F.hairCats.find(c => c[2].includes(g.hair || 'straight')) || F.hairCats[0])[0], names = Object.fromEntries(F.hairs), list = F.hairCats.find(c => c[0] === cat)[2].map(id => [id, names[id]]);
+      body = [el('div', { class: 'chips fash-sub' }, ...F.hairCats.map(([id, name, l]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cat === id), onclick: () => { fashHairCat = id; drawFashion(); } }, `${name} (${l.length})`))),
+        row('התסרוקת', chips(list, list.some(x => x[0] === g.hair) ? g.hair : '', 'hair')), row('צבע השיער', swatches(F.hairColors, g.hairColor || F.hairColors[2], 'hairColor')),
+        row('אומברה: צבע בקצוות', swatches(['none', ...F.hairColors], g.hairColor2 || 'none', 'hairColor2', 'בלי אומברה')), row('פסים צבעוניים', swatches(F.streaks, g.streak || 'none', 'streak', 'בלי פסים')),
+        el('p', { class: 'muted' }, 'גומייה, סרט, פרפרים, פנינים ועוד קישוטים לשיער יש בלשונית 💍 אקססוריז.')];
+    }
     else if (fashTab === 'clothes') {
       const dress = g.dress && g.dress !== 'none' ? g.dress : null;
       const SUB = [['dress', '👗 שמלה'], ...(!dress || dress === 'pinafore' ? [['top', '👚 חולצה']] : []), ...(!dress ? [['bottom', '👖 למטה']] : []), ['jacket', '🧥 מעיל'], ['legs', '🧦 גרביים']];
@@ -7330,7 +7539,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     }
     $('#fashBody').replaceChildren(...body,
       el('div', { class: 'chips fash-actions' },
-        el('button', { type: 'button', class: 'btn', onclick: () => { upd(randomGirl()); SFX.pop(); } }, '🎲 הפתעה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { fashHairCat = null; upd(randomGirl()); SFX.pop(); } }, '🎲 הפתעה'),
         el('button', { type: 'button', class: 'btn', onclick: () => { const c = Object.assign(JSON.parse(JSON.stringify(g)), { id: newGirl().id, name: g.name ? g.name + ' 2' : '' }); girls.splice(girls.indexOf(g) + 1, 0, c); fashSel = c.id; saveGirls(); SFX.pop(); drawFashion(); } }, '👯 לשכפל'),
         el('button', { type: 'button', class: 'btn', onclick: () => girlSticker(g) }, '📸 להפוך למדבקה'),
         el('button', { type: 'button', class: 'btn main', onclick: fashionShow }, '✨ תצוגת אופנה'),
