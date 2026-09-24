@@ -488,6 +488,58 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 .lock-preview .lp-bg { position: absolute; inset: 0; background: var(--lock-bg); }
 .lock-preview .lp-bg.pattern-stars { background-image: var(--lock-pattern); background-size: 90px 90px; }
 
+/* ---------- new games ---------- */
+.game-win { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
+.game-win b { font-weight: 400; color: var(--accent); font-size: 1.2em; }
+.maze-wrap { width: min(440px, 100%); margin: 0 auto; touch-action: none; }
+.maze-wrap > svg { width: 100%; height: auto; display: block; }
+.dpad { display: grid; grid-template-columns: repeat(3, 56px); gap: 6px; justify-content: center; direction: ltr; }
+.dpad button { height: 52px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); font-size: 1.4em; }
+.pz-thumbs, .cl-thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.cl-thumbs { max-height: 50vh; overflow-y: auto; }
+.pz-thumb, .cl-thumb { display: grid; gap: 4px; justify-items: center; border: 2px solid var(--line); border-radius: 14px; background: var(--card); padding: 6px; font-size: .85em; }
+.pz-thumb img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 10px; }
+.cl-thumb .ic { width: 64px; height: 64px; } .cl-thumb .ic svg { width: 100%; height: 100%; }
+.pz-board { position: relative; display: grid; width: min(440px, 100%); margin: 0 auto; direction: ltr; gap: 2px; background: var(--line); border: 3px solid var(--ink); border-radius: 10px; overflow: hidden; }
+.pz-tile { border: none; padding: 0; background-repeat: no-repeat; background-color: var(--card); }
+.pz-tile.sel { outline: 4px solid var(--accent); outline-offset: -4px; filter: brightness(1.1); }
+.pz-board:has(.won) { gap: 0; }
+.pz-peek { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+.color-page { width: min(380px, 100%); margin: 0 auto; background: #fff; border-radius: 16px; border: 2px solid var(--line); padding: 10px; }
+.color-page > svg { width: 100%; height: auto; max-height: 55vh; display: block; }
+.color-page .cz { cursor: pointer; }
+.cl-sw { justify-content: center; }
+.diff-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+.diff-pic > svg { width: 100%; height: auto; display: block; border-radius: 12px; border: 2px solid var(--line); cursor: crosshair; }
+.hint-ring { animation: blink .5s infinite alternate; }
+@keyframes blink { to { opacity: .2; } }
+.catch-wrap.sea canvas { background: linear-gradient(#5ec8f2, #1d6fa3); }
+.simon { display: grid; grid-template-columns: repeat(2, minmax(0, 130px)); gap: 12px; justify-content: center; direction: ltr; }
+.simon-pad { aspect-ratio: 1; border-radius: 30px; border: 3px solid var(--ink); padding: 22px; opacity: .55; transition: opacity .1s, transform .1s; }
+.simon-pad svg { width: 100%; height: 100%; }
+.simon-pad.lit { opacity: 1; transform: scale(1.06); box-shadow: 0 0 24px #fff, 0 0 0 4px #fff inset; }
+.simon-msg { text-align: center; font-size: 1.3em; margin: 0; min-height: 1.4em; }
+/* ---------- surprises ---------- */
+.shooting-star { position: fixed; left: 105vw; z-index: 80; width: 64px; height: 64px; padding: 0; border: none; background: none; animation: shoot 7s linear forwards; filter: drop-shadow(0 0 10px #fff6a8); }
+.shooting-star svg { width: 100%; height: 100%; }
+@keyframes shoot { to { left: -15vw; transform: translateY(38vh) rotate(-20deg); } }
+@media (prefers-reduced-motion: reduce) { .shooting-star { animation-duration: 14s; } }
+#dayDlg .sheet { position: relative; }
+#daySecret { position: absolute; top: 78px; inset-inline-start: -6px; width: 46px; height: 46px; padding: 0; border: none; background: none; z-index: 2; animation: peek 1.6s ease-in-out infinite; }
+#daySecret svg { width: 100%; height: 100%; }
+@keyframes peek { 0%, 100% { transform: translateX(-10px) rotate(-10deg); } 50% { transform: translateX(4px) rotate(8deg); } }
+.hunt-box { background: #fff6dc; color: #4a3421; border-color: #e5c07b; display: grid; gap: 8px; }
+.hunt-found { display: flex; gap: 10px; align-items: center; }
+.hunt-found .ic { width: 48px; height: 48px; flex: none; } .hunt-found .ic svg { width: 100%; height: 100%; }
+.hunt-found.gold b { font-size: 1.3em; }
+.hunt-map > svg { width: 100%; height: auto; display: block; }
+.hunt-clue { display: grid; gap: 4px; background: #fff6dc; color: #4a3421; border: 2px dashed #b07642; border-radius: 14px; padding: 12px 14px; font-size: 1.15em; margin: 0; }
+.wish-card { display: grid; justify-items: center; gap: 6px; border: 2px solid var(--line); border-radius: 16px; padding: 10px; background: var(--card); min-width: 150px; }
+.wish-card.ready { border-color: var(--accent); }
+.wish-card .ic { width: 56px; height: 56px; } .wish-card .ic svg { width: 100%; height: 100%; }
+.wish-star { display: flex; gap: 10px; align-items: center; border-bottom: 1px dashed var(--line); padding-bottom: 6px; }
+.wish-star .ic { width: 36px; height: 36px; flex: none; } .wish-star .ic svg { width: 100%; height: 100%; }
+
 /* ---------- pet house / adopt ---------- */
 .steps { display: flex; gap: 6px; justify-content: center; }
 .steps i { width: 34px; height: 8px; border-radius: 99px; background: var(--line); }
@@ -723,6 +775,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="school" id="daySchool"></div>
+    <button type="button" id="daySecret" hidden aria-label="משהו מסתתר פה! לוחצים כדי לגלות"></button>
+    <section class="box hunt-box" id="dayHunt" hidden></section>
     <section class="box" id="dayLessons" hidden></section>
     <section class="box" id="dayBday" hidden></section>
     <section class="box" id="dayDiary"></section>
@@ -1145,6 +1199,29 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 </dialog>
 
 
+<!-- Treasure hunt -->
+<dialog id="huntDlg" aria-labelledby="huntTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="huntTitle">🗺️ ציד אוצרות</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="huntBody"></div>
+  </div>
+</dialog>
+
+<!-- Wish box -->
+<dialog id="wishDlg" aria-labelledby="wishTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="wishTitle">🎁 תיבת המשאלות</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="wishBody"></div>
+  </div>
+</dialog>
+
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
   <div class="sheet">
@@ -1348,6 +1425,12 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     treasure: ['תיבת אוצר ✨', svg(`<path d="M8 22 A16 10 0 0 1 40 22 Z" fill="#b07642" ${S}/><circle cx="16" cy="20" r="3" fill="#ffd84d" ${S2}/><circle cx="24" cy="18" r="3" fill="#9fe6ff" ${S2}/><circle cx="31" cy="20" r="3" fill="#ffd84d" ${S2}/><rect x="6" y="22" width="36" height="20" rx="3" fill="#c98f3a" ${S}/><path d="M6 29 H42" stroke="#ffcf3a" stroke-width="4"/><rect x="20.5" y="25" width="7" height="9" rx="1.5" fill="#ffcf3a" ${S2}/><circle cx="24" cy="29" r="1.2" fill="${O}"/>`)],
     bubbletea: ['בועות תה ✨', svg(`<path d="M28 2 L24 20" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M28 2 L24 20" stroke="#ff7a9a" stroke-width="2.5" stroke-linecap="round"/><path d="M11 18 A13 7 0 0 1 37 18 Z" fill="#ffffff" ${S}/><path d="M11 18 H37 L33 44 H15 Z" fill="#f2cfa5" ${S}/><g fill="#3a2b3c"><circle cx="18" cy="39" r="2.2"/><circle cx="23" cy="41" r="2.2"/><circle cx="28" cy="39" r="2.2"/><circle cx="31" cy="36" r="2"/><circle cx="21" cy="36" r="2"/></g>${face(24, 27, .6)}`)],
     rainbowcloud: ['ענן קשת ✨', svg(`<path d="M6 44 A18 18 0 0 1 42 44" fill="none" stroke="#ff7a7a" stroke-width="4"/><path d="M11 44 A13 13 0 0 1 37 44" fill="none" stroke="#ffd84d" stroke-width="4"/><path d="M16 44 A8 8 0 0 1 32 44" fill="none" stroke="#7ec8ff" stroke-width="4"/><path d="M11 30 H37 A7.5 7.5 0 0 0 38 15 A10.5 10.5 0 0 0 18 12.5 A9 9 0 0 0 11 30 Z" fill="#fff" ${S}/>${face(25, 21, .7)}<path d="M40 4 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffd84d"/>`)],
+    pearl: ['פנינה ✨', svg(`<path d="M5 24 Q24 -2 43 24 Z" fill="#ffd9e6" ${S}/><path d="M13 22 L16 12 M24 22 V7 M35 22 L32 12" fill="none" ${S2}/><circle cx="24" cy="29" r="9" fill="#fffaf2" ${S}/><path d="M19 26 q2 -3 5 -3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="21" cy="27" r="1.6" fill="#ffd9f0"/><path d="M4 28 Q24 50 44 28 Q34 36 24 36 Q14 36 4 28 Z" fill="#ffc2d6" ${S}/><path d="M40 3 l1 3 l3 1 l-3 1 l-1 3 l-1 -3 l-3 -1 l3 -1 Z" fill="#ffd84d"/>`)],
+    starfish: ['כוכב ים ✨', svg(`<polygon points="${starPts(24, 25, 22, 10)}" fill="#ff9f5a" ${S}/><g fill="#ffd0a6"><circle cx="24" cy="10" r="1.6"/><circle cx="11" cy="21" r="1.6"/><circle cx="37" cy="21" r="1.6"/><circle cx="15" cy="37" r="1.6"/><circle cx="33" cy="37" r="1.6"/></g>${face(24, 26, .75)}`)],
+    crystal: ['כדור בדולח ✨', svg(`<path d="M12 38 H36 L40 46 H8 Z" fill="#b58cff" ${S}/><circle cx="24" cy="21" r="16" fill="#cfeeff" ${S}/><path d="M14 16 q3 -6 9 -7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><polygon points="${starPts(26, 24, 6, 2.6)}" fill="#ffd84d"/><circle cx="18" cy="27" r="1.6" fill="#ff9ad5"/><circle cx="31" cy="15" r="1.3" fill="#b58cff"/>`)],
+    clover4: ['תלתן מזל ✨', svg(`<path d="M24 26 Q27 38 34 45" fill="none" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M24 26 Q27 38 34 45" fill="none" stroke="#4caf6a" stroke-width="2.5" stroke-linecap="round"/>${[0, 90, 180, 270].map(a => `<path d="M24 24 C18 20 13 15 15.5 10.5 C18 6 22 7.5 24 11 C26 7.5 30 6 32.5 10.5 C35 15 30 20 24 24 Z" transform="rotate(${a} 24 24)" fill="#6fcf7f" ${S}/>`).join('')}<circle cx="24" cy="24" r="2.5" fill="#ffd84d" ${S2}/>`)],
+    magicmoon: ['ירח קסום ✨', svg(`<path d="M30 5 A19 19 0 1 0 44 34 A15 15 0 1 1 30 5 Z" fill="#ffd84d" ${S}/>${face(19, 27, .7)}<path d="M40 8 l1.2 3.5 l3.5 1.2 l-3.5 1.2 l-1.2 3.5 l-1.2 -3.5 l-3.5 -1.2 l3.5 -1.2 Z" fill="#b58cff"/><circle cx="36" cy="22" r="1.5" fill="#ff9ad5"/>`)],
+    mermaidtail: ['זנב בת ים ✨', svg(`<path d="M18 3 C12 15 15 27 21 33 L8 44 C15 44 20 43 24 39 C28 43 33 44 40 44 L27 33 C33 27 36 15 30 3 Z" fill="#7fe0b5" ${S}/><path d="M18 11 q3 3 6 0 q3 3 6 0 M17 18 q3.5 3 7 0 q3.5 3 7 0 M19 25 q2.5 3 5 0 q2.5 3 5 0" fill="none" stroke="#3aa58a" stroke-width="1.6" stroke-linecap="round"/><path d="M8 44 C15 44 20 43 24 39 C28 43 33 44 40 44" fill="#b58cff" ${S2}/><circle cx="41" cy="8" r="2" fill="#fff" ${S2}/><circle cx="7" cy="16" r="1.5" fill="#fff" ${S2}/>`)],
   };
   const stickerHTML = id => STICKERS[id] ? STICKERS[id][1] : '';
   const svgUrl = id => `url("data:image/svg+xml,${encodeURIComponent(stickerHTML(id))}")`;
@@ -1932,6 +2015,9 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       break;
     }
     if (surprise.last !== t) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: openSurprise }, el('span', { class: 'ic', html: stickerHTML('gift') }), 'תיבת הפתעה מחכה לך!'));
+    if (wishes.some(w => w.kind === 'box' && w.open <= t && !w.opened)) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openWishes() }, el('span', { class: 'ic', html: giftSVG(false) }), 'משאלה מלפני שנה מחכה לך! 🎁'));
+    { const h = huntNow(); if (!h || !h.done) pills.push(el('button', { type: 'button', class: 'pill', onclick: openHunt }, el('span', { class: 'ic', html: stickerHTML('treasure') }), h ? `ציד אוצרות: רמז ${h.step + 1}/5` : 'ציד אוצרות חדש! 🗺️')); }
+    if (!secret.found[t.slice(0, 7)]) pills.push(el('button', { type: 'button', class: 'pill', onclick: () => openDay(t) }, el('span', { class: 'ic', html: stickerHTML('sparkles') }), `מדבקה סודית מסתתרת באחד מימי ${MONTHS[m]} 🔍`));
     if (letters.some(l => l.open <= t && !l.read)) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openLetters() }, el('span', { class: 'ic', html: envSVG(false) }), 'יש לך מכתב מהעבר! 💌'));
     countdowns.filter(c => c.date >= t).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 2).forEach(c => {
       const n = daysBetween(t, c.date), total = Math.max(1, daysBetween(c.created, c.date));
@@ -2197,6 +2283,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     renderDayPhoto(key);
     renderDayLastYear(key);
     renderStickerPick(key);
+    renderDayExtras(key);
     const dlg = $('#dayDlg');
     if (!dlg.open) dlg.showModal();
     if (design.confetti && (bds.length || info.hols.length)) confetti();
@@ -2833,12 +2920,16 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   const savePet = () => store.set('pet', pet);
 
   // ================= first-time unlocks =================
-  let games = Object.assign({ memoryWins: 0, memoryBest: 0, catchPlays: 0, catchBest: 0 }, store.get('games', {}));
+  let games = Object.assign({ memoryWins: 0, memoryBest: 0, catchPlays: 0, catchBest: 0, mazeWins: 0, puzzleWins: 0, diffWins: 0, colored: 0, pearlPlays: 0, pearlBest: 0, simonBest: 0 }, store.get('games', {}));
   let books = store.get('books', []);
   let letters = store.get('letters', []);
   let countdowns = store.get('countdowns', []);
   let surprise = Object.assign({ last: '', count: 0, rare: [] }, store.get('surprise', {}));
   let customStk = store.get('customStk', []);
+  let secret = Object.assign({ seed: Math.floor(Math.random() * 1e9), found: {} }, store.get('secret', {}));
+  if (!store.get('secret', null)) store.set('secret', secret);
+  let hunt = store.get('hunt', null);
+  let wishes = store.get('wishes', []);
   media.cover = media.cover || {};
   const registerCustom = c => { STICKERS[c.id] = ['המדבקה שלי', `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><image href="${c.url}" x="0" y="0" width="48" height="48"/></svg>`]; };
   customStk.forEach(registerCustom);
@@ -2872,7 +2963,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       countdown: countdowns.length > 0, letter: letters.length > 0, mysticker: customStk.length > 0, cover: n(media.cover),
     };
   }
-  const RARE = ['goldstar', 'rainbowheart', 'shootingstar', 'castle', 'unicorn', 'treasure', 'bubbletea', 'rainbowcloud'];
+  const RARE = ['goldstar', 'rainbowheart', 'shootingstar', 'castle', 'unicorn', 'treasure', 'bubbletea', 'rainbowcloud', 'pearl', 'starfish', 'crystal', 'clover4', 'magicmoon', 'mermaidtail'];
   function unlockedSet() {
     const d = firstsDone(), set = new Set(surprise.rare);
     FIRSTS.forEach(([k, , type, id]) => { if (d[k]) set.add(type === 'guardian' ? 'guardian' : id); });
@@ -3446,8 +3537,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.09.23-keys';
-  const WHATS_NEW = ['🗝️ מנעול משולש: מפתח, קוד ושאלה סודית!', '🎨 אפשר לעצב כמה מפתחות (צורה, צבע, שיניים ואבן חן) ולבחור איזה מהם פותח', '👀 כפתור לנסות את המנעול', '⚠️ אזהרה כשפותחים את הלוח במקום שלא שומר'];
+  const APP_VERSION = '2026.09.24-games';
+  const WHATS_NEW = ['🎮 6 משחקים חדשים: מבוך, פאזל, צביעה, איפה ההבדל, פנינים וזיכרון צלילים', '🌠 כוכב נופל עובר פה פעם בכמה ימים. תופסים אותו ומבקשים משאלה!', '🔍 מדבקה סודית מסתתרת באחד מימי החודש', '🗺️ ציד אוצרות: 5 רמזים שמובילים מיום ליום', '🎁 תיבת משאלות שנפתחת בעוד שנה'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -3515,6 +3606,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     ['book', 'אלבום מדבקות', () => openAlbum()],
     ['palette', 'מדבקה משלי', () => openMkStk()],
     ['heart', 'מכתב לעתיד', () => openLetters()],
+    ['treasure', 'ציד אוצרות', () => openHunt()],
+    ['gift', 'תיבת המשאלות', () => openWishes()],
     ['rocket', 'ספירות לאחור', () => { buildCountdowns(); $('#cdDlg').showModal(); }],
     ['owl', 'הספרים שלי', () => { buildBooks(); $('#bookDlg').showModal(); }],
     ['wand', 'המנעול שלי', () => openPinDlg()],
@@ -3613,8 +3706,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
   }
   function drawGames() {
     if (catchStop) { catchStop(); catchStop = null; }
-    $('#gamesTabs').replaceChildren(...[['memory', '🧠 משחק זיכרון'], ['catch', '⭐ תפוס את הכוכב']].map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
-    if (gamesTab === 'memory') memoryGame(); else catchGame();
+    $('#gamesTabs').replaceChildren(...GAME_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
+    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame }[gamesTab] || memoryGame)();
   }
   function memoryGame() {
     const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
@@ -3706,6 +3799,555 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       info, el('div', { class: 'catch-wrap' }, cv), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: start }, '▶️ להתחיל')));
   }
   $('#gamesDlg').addEventListener('close', () => { if (catchStop) { catchStop(); catchStop = null; } });
+
+  // ================= more games: maze, puzzle, coloring, spot the difference, pearls, sound memory =================
+  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים']];
+  const petArt = () => pet ? petSVG(pet) : stickerHTML('cat');
+  const petNm = () => pet ? pet.name || 'החיה' : 'החתול';
+  const svgData = s => 'data:image/svg+xml,' + encodeURIComponent(s);
+  // put a whole <svg> inside a bigger svg at x/y with a size
+  const placeSvg = (s, x, y, w, h) => s.replace('<svg ', `<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" `);
+  const myMermaid = () => mermaids.find(x => x.id === guardMer) || mermaids[0] || newMermaid();
+  const winGame = field => { games[field] = (games[field] || 0) + 1; store.set('games', games); confetti($('#gamesDlg .confetti-c')); SFX.yay(); afterChange(); };
+  const winLine = (text, again) => el('div', { class: 'game-win' }, el('b', {}, text), el('button', { type: 'button', class: 'btn main', onclick: again }, 'לשחק שוב'));
+  const addKeys = fn => { const kd = e => { if ($('#gamesDlg').open) fn(e); }; document.addEventListener('keydown', kd); return () => document.removeEventListener('keydown', kd); };
+
+  // ---------- 22. maze ----------
+  function mazeGame() {
+    let size = store.get('mazeSize', 7), cells, n, px, py, moves, won, trail;
+    const C = 40;
+    const info = el('div', { class: 'game-info' }), wrap = el('div', { class: 'maze-wrap' }), end = el('div');
+    const gen = () => {
+      n = size; cells = Array.from({ length: n * n }, () => ({ t: 1, r: 1, b: 1, l: 1, v: 0 }));
+      const st = [0]; cells[0].v = 1;
+      while (st.length) {
+        const i = st[st.length - 1], x = i % n, y = (i / n) | 0;
+        const nb = [[0, -1, 't', 'b'], [1, 0, 'r', 'l'], [0, 1, 'b', 't'], [-1, 0, 'l', 'r']]
+          .map(([dx, dy, a, b]) => [x + dx, y + dy, a, b]).filter(([X, Y]) => X >= 0 && Y >= 0 && X < n && Y < n && !cells[Y * n + X].v);
+        if (!nb.length) { st.pop(); continue; }
+        const [X, Y, a, b] = nb[Math.floor(Math.random() * nb.length)];
+        cells[i][a] = 0; cells[Y * n + X][b] = 0; cells[Y * n + X].v = 1; st.push(Y * n + X);
+      }
+      px = 0; py = 0; moves = 0; won = false; trail = [[0, 0]]; end.replaceChildren();
+    };
+    const draw = () => {
+      const W = n * C;
+      let walls = '';
+      cells.forEach((c, i) => {
+        const x = (i % n) * C, y = ((i / n) | 0) * C;
+        if (c.t && y === 0) walls += `M${x} ${y}h${C}`;
+        if (c.l && x === 0) walls += `M${x} ${y}v${C}`;
+        if (c.r) walls += `M${x + C} ${y}v${C}`;
+        if (c.b) walls += `M${x} ${y + C}h${C}`;
+      });
+      const dots = trail.map(([x, y]) => `<circle cx="${x * C + C / 2}" cy="${y * C + C / 2}" r="3.5" fill="var(--accent)" opacity=".4"/>`).join('');
+      wrap.innerHTML = `<svg viewBox="-4 -4 ${W + 8} ${W + 8}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="מבוך">`
+        + `<rect x="0" y="0" width="${W}" height="${W}" rx="6" fill="var(--paper)"/>${dots}`
+        + placeSvg(stickerHTML('cookie'), (n - 1) * C + 5, (n - 1) * C + 5, C - 10, C - 10)
+        + `<path d="${walls}" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" fill="none"/>`
+        + placeSvg(petArt(), px * C + 2, py * C + 1, C - 4, C - 2) + '</svg>';
+      info.replaceChildren(el('span', {}, `צעדים: ${moves}`), games.mazeWins ? el('span', {}, `🏆 ניצחת ${games.mazeWins} פעמים`) : null);
+    };
+    const go = (dx, dy) => {
+      if (won) return;
+      const c = cells[py * n + px], wall = dx === 1 ? c.r : dx === -1 ? c.l : dy === 1 ? c.b : c.t;
+      if (wall) { SFX.boop(); return; }
+      px += dx; py += dy; moves++; trail.push([px, py]); tone(520 + ((px + py) % 5) * 70, 0.05, 'triangle', 0, 0.05);
+      draw();
+      if (px === n - 1 && py === n - 1) {
+        won = true; winGame('mazeWins'); draw();
+        end.replaceChildren(winLine(`${petNm()} הגיע/ה לעוגייה ב-${moves} צעדים! 🍪🎉`, () => { gen(); draw(); }));
+      }
+    };
+    // tap or drag toward the next square
+    const toward = e => {
+      const s = wrap.querySelector('svg'), r = s.getBoundingClientRect(), W = n * C + 8;
+      const cx = Math.floor(((e.clientX - r.left) / r.width * W - 4) / C), cy = Math.floor(((e.clientY - r.top) / r.height * W - 4) / C);
+      const dx = cx - px, dy = cy - py;
+      if (!dx && !dy) return;
+      if (Math.abs(dx) >= Math.abs(dy)) go(Math.sign(dx), 0); else go(0, Math.sign(dy));
+    };
+    let down = false;
+    wrap.addEventListener('pointerdown', e => { down = true; toward(e); });
+    wrap.addEventListener('pointermove', e => { if (down) toward(e); });
+    wrap.addEventListener('pointerup', () => { down = false; });
+    wrap.addEventListener('pointerleave', () => { down = false; });
+    catchStop = addKeys(e => {
+      const d = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] }[e.key];
+      if (d) { e.preventDefault(); go(...d); }
+    });
+    const pad = el('div', { class: 'dpad' }, el('span'), el('button', { type: 'button', 'aria-label': 'למעלה', onclick: () => go(0, -1) }, '⬆️'), el('span'),
+      el('button', { type: 'button', 'aria-label': 'שמאלה', onclick: () => go(-1, 0) }, '⬅️'), el('span'), el('button', { type: 'button', 'aria-label': 'ימינה', onclick: () => go(1, 0) }, '➡️'),
+      el('span'), el('button', { type: 'button', 'aria-label': 'למטה', onclick: () => go(0, 1) }, '⬇️'), el('span'));
+    const sizes = el('div', { class: 'chips' });
+    const drawSizes = () => sizes.replaceChildren(...[[6, 'קל'], [9, 'בינוני'], [12, 'קשה']].map(([v, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(size === v),
+      onclick: () => { size = v; store.set('mazeSize', v); drawSizes(); gen(); draw(); } }, name)));
+    drawSizes(); gen(); draw();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, `מובילים את ${petNm()} אל העוגייה 🍪! עם החצים, עם הכפתורים, או לוחצים וגוררים במבוך.`),
+      sizes, info, wrap, end, pad, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { gen(); draw(); } }, '🔀 מבוך חדש')));
+  }
+
+  // ---------- 23. puzzle from her own pictures ----------
+  const scene = (art, bg) => `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="300" fill="${bg}"/><circle cx="250" cy="50" r="26" fill="#fff" opacity=".6"/><circle cx="40" cy="240" r="40" fill="#fff" opacity=".45"/>${placeSvg(art, 45, 25, 210, 250)}</svg>`;
+  function puzzleSources() {
+    const out = [], dm = k => { const o = fromIso(k); return `${o.d}.${o.m + 1}`; };
+    Object.keys(media.draw || {}).sort().reverse().forEach(k => { const u = getMedia('draw', k); if (u) out.push({ name: `ציור מ-${dm(k)}`, url: u }); });
+    Object.keys(media.cover || {}).sort().reverse().forEach(k => { const u = getMedia('cover', k); if (u) out.push({ name: 'כריכה', url: u }); });
+    customStk.forEach(c => out.push({ name: 'מדבקה שלי', url: c.url }));
+    Object.keys(media.photo || {}).sort().reverse().forEach(k => { const u = getMedia('photo', k); if (u) out.push({ name: `תמונה מ-${dm(k)}`, url: u }); });
+    if (pet) out.push({ name: petNm(), url: svgData(scene(petSVG(pet), '#cfe6ff')) });
+    mermaids.forEach(m => out.push({ name: m.name || 'בת ים', url: svgData(scene(mermaidSVG(m, 'pz' + m.id), '#9fe0f5')) }));
+    [['unicorn', '#ffd9e6'], ['castle', '#e5d6ff'], ['rainbow', '#fff1a8'], ['whale', '#cfeeff'], ['butterfly', '#c9f0d6']]
+      .filter(([id]) => !isRareLocked(id)).forEach(([id, bg]) => out.push({ name: STICKERS[id][0], url: svgData(scene(stickerHTML(id), bg)) }));
+    return out;
+  }
+  function puzzleGame() {
+    let n = store.get('puzzleSize', 3);
+    const body = $('#gamesBody');
+    const sizes = () => el('div', { class: 'chips' }, ...[[3, 'קל (9)'], [4, 'בינוני (16)'], [5, 'קשה (25)']].map(([v, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(n === v),
+      onclick: () => { n = v; store.set('puzzleSize', v); pickView(); } }, name)));
+    const pickView = () => {
+      const src = puzzleSources();
+      body.replaceChildren(el('p', { class: 'muted' }, 'בוחרים תמונה, והיא מתפרקת לחתיכות! לוחצים על שתי חתיכות כדי להחליף ביניהן, עד שהתמונה שלמה. (ציורים ותמונות שתשימי בימים יופיעו פה.)'),
+        sizes(), el('div', { class: 'pz-thumbs' }, ...src.map(s => el('button', { type: 'button', class: 'pz-thumb', onclick: () => start(s) }, el('img', { src: s.url, alt: '' }), el('span', {}, s.name)))));
+    };
+    const start = s => { const im = new Image(); im.onload = () => play(s, im.naturalWidth / im.naturalHeight || 1); im.onerror = () => play(s, 1); im.src = s.url; };
+    const play = (s, ratio) => {
+      ratio = Math.max(0.6, Math.min(1.7, ratio));
+      const N = n * n, done = o => o.every((p, i) => p === i);
+      let order = [...Array(N).keys()];
+      do order.sort(() => Math.random() - 0.5); while (done(order));
+      let sel = null, moves = 0, won = false;
+      const info = el('div', { class: 'game-info' }), end = el('div');
+      const board = el('div', { class: 'pz-board' });
+      board.style.aspectRatio = String(ratio); board.style.gridTemplateColumns = `repeat(${n}, 1fr)`;
+      const peek = el('img', { class: 'pz-peek', src: s.url, alt: '', hidden: true });
+      const draw = () => {
+        info.replaceChildren(el('span', {}, `החלפות: ${moves}`), el('span', {}, `במקום: ${order.filter((p, i) => p === i).length}/${N}`), games.puzzleWins ? el('span', {}, `🏆 פאזלים: ${games.puzzleWins}`) : null);
+        board.replaceChildren(...order.map((piece, pos) => {
+          const b = el('button', { type: 'button', class: 'pz-tile' + (pos === sel ? ' sel' : '') + (won ? ' won' : ''), 'aria-label': `חתיכה ${pos + 1}`, onclick: () => tap(pos) });
+          b.style.backgroundImage = `url("${s.url}")`;
+          b.style.backgroundSize = `${n * 100}% ${n * 100}%`;
+          b.style.backgroundPosition = `${(piece % n) / (n - 1) * 100}% ${((piece / n) | 0) / (n - 1) * 100}%`;
+          return b;
+        }), peek);
+      };
+      const tap = pos => {
+        if (won) return;
+        if (sel == null) { sel = pos; SFX.boop(); }
+        else if (sel === pos) sel = null;
+        else {
+          [order[sel], order[pos]] = [order[pos], order[sel]]; sel = null; moves++; SFX.pop();
+          if (done(order)) { won = true; winGame('puzzleWins'); end.replaceChildren(winLine(`התמונה שלמה! ${moves} החלפות 🧩🎉`, () => play(s, ratio))); }
+        }
+        draw();
+      };
+      draw();
+      body.replaceChildren(info, board, end, el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { peek.hidden = false; setTimeout(() => { peek.hidden = true; }, 1800); } }, '👀 הצצה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => play(s, ratio) }, '🔀 לערבב שוב'),
+        el('button', { type: 'button', class: 'btn', onclick: pickView }, '🖼️ תמונה אחרת')));
+    };
+    pickView();
+  }
+
+  // ---------- 24. coloring pages ----------
+  const CL_COLORS = ['#ff6b6b', '#ff9ad5', '#ffc2d6', '#ffb020', '#ffd84d', '#fff1a8', '#6fcf7f', '#b5f0c8', '#3cc7b6', '#7ec8ff', '#3a7bd5', '#b58cff', '#e5d6ff', '#9b6b43', '#f6d0b1', '#8a8a8a'];
+  let clColor = CL_COLORS[0];
+  function colorGame() {
+    const body = $('#gamesBody');
+    const pages = [];
+    (mermaids.length ? mermaids : [newMermaid()]).forEach(m => pages.push({ name: m.name || 'בת ים', art: () => mermaidSVG(m, 'cl' + m.id) }));
+    if (pet) pages.push({ name: petNm(), art: () => petSVG(pet) });
+    Object.keys(STICKERS).filter(id => !id.startsWith('my') && !isRareLocked(id) && !['bed', 'bowl'].includes(id))
+      .forEach(id => pages.push({ name: STICKERS[id][0], art: () => stickerHTML(id) }));
+    const pickView = () => body.replaceChildren(el('p', { class: 'muted' }, 'בוחרים דף צביעה: בנות הים שלך, החיה שלך, או כל מדבקה!'),
+      el('div', { class: 'cl-thumbs' }, ...pages.map(pg => el('button', { type: 'button', class: 'cl-thumb', 'aria-label': pg.name, onclick: () => open(pg) }, el('span', { class: 'ic', html: pg.art() }), el('span', {}, pg.name)))));
+    const open = pg => {
+      const holder = el('div', { class: 'color-page' });
+      holder.innerHTML = pg.art();
+      const s = holder.querySelector('svg');
+      s.removeAttribute('width'); s.removeAttribute('height');
+      // every filled shape turns white and can be painted; the dark outlines and eyes stay
+      s.querySelectorAll('path, circle, ellipse, rect, polygon').forEach(sh => {
+        if (sh.closest('defs, clipPath, mask')) return;
+        let f = null;
+        for (let x = sh; x && x !== s.parentNode; x = x.parentNode) { const a = x.getAttribute && x.getAttribute('fill'); if (a) { f = a.toLowerCase(); break; } }
+        if (!f || f === 'none' || f === O || f === '#000' || f === 'black' || f === 'transparent') return;
+        sh.setAttribute('fill', '#ffffff'); sh.removeAttribute('fill-opacity'); sh.classList.add('cz');
+        sh.addEventListener('click', () => { sh.setAttribute('fill', clColor); tone(700 + Math.random() * 300, 0.06, 'sine', 0, 0.05); });
+      });
+      const sw = el('div', { class: 'swatches cl-sw' });
+      const drawSw = () => sw.replaceChildren(...CL_COLORS.map(c => { const b = el('button', { type: 'button', class: 'sw3', 'aria-label': 'צבע', 'aria-pressed': String(clColor === c), onclick: () => { clColor = c; drawSw(); } }); b.style.background = c; return b; }),
+        el('button', { type: 'button', class: 'sw3', 'aria-label': 'מחק', title: 'מחק', 'aria-pressed': String(clColor === '#ffffff'), onclick: () => { clColor = '#ffffff'; drawSw(); } }, '🧽'));
+      drawSw();
+      const msg = el('span', { class: 'saved' });
+      body.replaceChildren(el('p', { class: 'muted' }, 'בוחרים צבע ולוחצים על חלק בציור כדי לצבוע אותו 🖍️'), sw, holder,
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn main', onclick: () => {
+            const c = { id: 'my' + Date.now().toString(36), url: svgData(new XMLSerializer().serializeToString(s)) };
+            customStk.push(c);
+            if (!store.set('customStk', customStk)) { customStk.pop(); msg.textContent = 'אין מספיק מקום לשמור.'; return; }
+            registerCustom(c); winGame('colored'); msg.textContent = '✔️ הציור הצבוע נהיה מדבקה! אפשר לשים אותו על ימים.';
+          } }, '✨ להפוך למדבקה שלי'),
+          el('button', { type: 'button', class: 'btn', onclick: () => open(pg) }, '🔄 להתחיל מחדש'),
+          el('button', { type: 'button', class: 'btn', onclick: pickView }, '📄 דף אחר'), msg));
+    };
+    pickView();
+  }
+
+  // ---------- 25. spot the difference ----------
+  const DIFF_THEMES = [
+    { name: 'בים', bg: '<rect width="300" height="200" fill="#8fd3ff"/><path d="M0 60 Q40 52 80 60 T160 60 T240 60 T320 60" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/><path d="M0 172 Q75 160 150 172 T300 168 V200 H0 Z" fill="#ffe3a8"/>', ids: ['fish', 'whale', 'turtle', 'shell', 'sailboat', 'sun', 'cloud', 'umbrella', 'butterfly'] },
+    { name: 'בגינה', bg: '<rect width="300" height="200" fill="#cfefff"/><path d="M0 125 Q150 95 300 125 V200 H0 Z" fill="#9be08a"/>', ids: ['flower', 'sunflower', 'tulip', 'butterfly', 'ladybug', 'bunny', 'mushroom', 'sun', 'cloud', 'apple', 'leaf', 'kite'] },
+    { name: 'בחלל', bg: '<rect width="300" height="200" fill="#1b1f3b"/>' + Array.from({ length: 30 }, (_, i) => `<circle cx="${(i * 97) % 300}" cy="${(i * 53) % 200}" r="1.2" fill="#fff" opacity=".7"/>`).join(''), ids: ['rocket', 'planet', 'ufo', 'moon', 'star', 'sparkles', 'hotair', 'gem', 'lightning'] },
+    { name: 'במסיבה', bg: '<rect width="300" height="200" fill="#ffe9f2"/><path d="M0 0 L20 18 L40 0 L60 18 L80 0 L100 18 L120 0 L140 18 L160 0 L180 18 L200 0 L220 18 L240 0 L260 18 L280 0 L300 18" fill="none" stroke="#ff9ad5" stroke-width="3"/>', ids: ['cake', 'balloon', 'gift', 'cupcake', 'icecream', 'donut', 'lollipop', 'cookie', 'music', 'crown', 'bow'] },
+  ];
+  function diffGame() {
+    const th = DIFF_THEMES[Math.floor(Math.random() * DIFF_THEMES.length)];
+    const ids = th.ids.filter(id => STICKERS[id]).sort(() => Math.random() - 0.5);
+    const items = [];
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+      const sz = 40 + Math.random() * 12;
+      items.push({ id: ids[(r * 3 + c) % ids.length], x: c * 100 + 8 + Math.random() * (92 - sz - 8), y: r * 66 + 4 + Math.random() * (62 - sz - 4), s: sz });
+    }
+    const spare = ids.slice(9).concat(th.ids.filter(id => STICKERS[id] && !items.some(it => it.id === id)));
+    const kinds = ['gone', 'color', 'big', 'small', 'swap'];
+    const diffs = [...items.keys()].sort(() => Math.random() - 0.5).slice(0, 5).map(i => {
+      let k = kinds[Math.floor(Math.random() * kinds.length)];
+      if (k === 'swap' && !spare.length) k = 'color';
+      return { i, k, to: k === 'swap' ? spare[Math.floor(Math.random() * spare.length)] : null, found: false };
+    });
+    let misses = 0, hint = null, won = false;
+    const uid = 'd' + Date.now().toString(36);
+    const itemSvg = (it, d, side) => {
+      if (d && side === 1) {
+        if (d.k === 'gone') return '';
+        if (d.k === 'big' || d.k === 'small') { const f = d.k === 'big' ? 1.4 : 0.6, s2 = it.s * f; return placeSvg(stickerHTML(it.id), it.x + (it.s - s2) / 2, it.y + (it.s - s2) / 2, s2, s2); }
+        if (d.k === 'swap') return placeSvg(stickerHTML(d.to), it.x, it.y, it.s, it.s);
+        if (d.k === 'color') return `<g filter="url(#hr-${uid})">${placeSvg(stickerHTML(it.id), it.x, it.y, it.s, it.s)}</g>`;
+      }
+      return placeSvg(stickerHTML(it.id), it.x, it.y, it.s, it.s);
+    };
+    const info = el('div', { class: 'game-info' }), end = el('div');
+    const pair = el('div', { class: 'diff-pair' });
+    const draw = () => {
+      pair.replaceChildren(...[0, 1].map(side => {
+        const marks = diffs.filter(d => d.found || d === hint).map(d => { const it = items[d.i]; return `<circle cx="${it.x + it.s / 2}" cy="${it.y + it.s / 2}" r="${it.s * 0.75}" fill="none" stroke="${d.found ? '#ff3b6b' : '#ffd84d'}" stroke-width="4" class="${d.found ? '' : 'hint-ring'}"/>`; }).join('');
+        const box = el('div', { class: 'diff-pic', html: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${side ? 'התמונה השנייה' : 'התמונה הראשונה'}"><defs><filter id="hr-${uid}"><feColorMatrix type="hueRotate" values="150"/></filter></defs>${th.bg}${items.map((it, i) => itemSvg(it, diffs.find(d => d.i === i), side)).join('')}${marks}</svg>` });
+        box.addEventListener('click', e => tapAt(box.querySelector('svg'), e));
+        return box;
+      }));
+      info.replaceChildren(el('span', {}, `מצאת: ${diffs.filter(d => d.found).length}/5`), el('span', {}, `פספוסים: ${misses}`), games.diffWins ? el('span', {}, `🏆 ${games.diffWins} ניצחונות`) : null);
+    };
+    const tapAt = (s, e) => {
+      if (won) return;
+      const pt = s.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+      const p = pt.matrixTransform(s.getScreenCTM().inverse());
+      const d = diffs.find(d => { const it = items[d.i], pad = d.k === 'big' ? it.s * 0.3 + 6 : 8; return !d.found && p.x > it.x - pad && p.x < it.x + it.s + pad && p.y > it.y - pad && p.y < it.y + it.s + pad; });
+      if (d) {
+        d.found = true; if (hint === d) hint = null; SFX.ding();
+        if (diffs.every(x => x.found)) { won = true; winGame('diffWins'); end.replaceChildren(winLine('מצאת את כל 5 ההבדלים! 🔍🎉', diffGame)); }
+      } else { misses++; SFX.boop(); }
+      draw();
+    };
+    draw();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, `שתי תמונות ${th.name}, כמעט אותו דבר... יש 5 הבדלים! לוחצים על כל הבדל שמוצאים.`), info, pair, end,
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { hint = diffs.find(d => !d.found) || null; draw(); setTimeout(() => { hint = null; draw(); }, 1500); } }, '💡 רמז'),
+        el('button', { type: 'button', class: 'btn', onclick: diffGame }, '🔀 תמונות חדשות')));
+  }
+
+  // ---------- 26. the mermaid collects pearls (and fish follow her) ----------
+  function pearlGame() {
+    const W = 600, H = 400;
+    const cv = el('canvas', { width: W, height: H, 'aria-label': 'משחק בת הים אוספת פנינים' });
+    const ctx = cv.getContext('2d');
+    const info = el('div', { class: 'game-info' });
+    const img = art => { const i = new Image(); i.src = svgData(art); return i; };
+    const m = myMermaid();
+    const merImg = img(mermaidSVG(m, 'pg')), fishImg = img(stickerHTML('fish'));
+    let x = 120, y = H / 2, tx = x, ty = y, score = 0, left = 40, running = false, items = [], trail = [], hist = [], raf = 0, timer = 0, hurt = 0, keys = {};
+    const drawInfo = () => info.replaceChildren(el('span', {}, `⚪ ${score}`), el('span', {}, `🐟 ${trail.length}`), el('span', {}, `⏱️ ${left}`), games.pearlBest ? el('span', {}, `🏆 השיא: ${games.pearlBest}`) : null);
+    const pearl = (px, py, gold) => {
+      const g = ctx.createRadialGradient(px - 4, py - 4, 1, px, py, 12);
+      g.addColorStop(0, '#ffffff'); g.addColorStop(1, gold ? '#ffcf3a' : '#e8dcf5');
+      ctx.fillStyle = g; ctx.strokeStyle = O; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(px, py, gold ? 13 : 11, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    };
+    const jelly = (px, py, t) => {
+      ctx.fillStyle = '#ff9ad5'; ctx.strokeStyle = O; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(px, py, 16, Math.PI, 0); ctx.lineTo(px - 16, py); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); for (let i = -2; i <= 2; i++) { ctx.moveTo(px + i * 6, py); ctx.quadraticCurveTo(px + i * 6 + Math.sin(t / 6 + i) * 5, py + 12, px + i * 6, py + 24); } ctx.stroke();
+      ctx.fillStyle = O; ctx.beginPath(); ctx.arc(px - 5, py - 6, 2, 0, 7); ctx.arc(px + 5, py - 6, 2, 0, 7); ctx.fill();
+    };
+    let tick = 0;
+    const frame = () => {
+      tick++;
+      ctx.clearRect(0, 0, W, H);
+      for (let i = 0; i < 18; i++) { const bx = (i * 131) % W, by = H - ((tick * (0.6 + i % 3 * 0.3) + i * 77) % (H + 20)); ctx.strokeStyle = 'rgba(255,255,255,.45)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(bx, by, 3 + i % 4, 0, 7); ctx.stroke(); }
+      ctx.fillStyle = '#ffe3a8'; ctx.beginPath(); ctx.moveTo(0, H); for (let i = 0; i <= W; i += 20) ctx.lineTo(i, H - 18 - Math.sin(i / 50) * 6); ctx.lineTo(W, H); ctx.fill();
+      if (running) {
+        if (keys.ArrowUp) ty -= 8; if (keys.ArrowDown) ty += 8; if (keys.ArrowLeft) tx -= 8; if (keys.ArrowRight) tx += 8;
+        tx = Math.max(40, Math.min(W - 40, tx)); ty = Math.max(50, Math.min(H - 60, ty));
+        x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+        hist.unshift([x, y]); hist.length = Math.min(hist.length, 400);
+        if (Math.random() < 0.045) { const r = Math.random(); items.push({ x: W + 30, y: 50 + Math.random() * (H - 110), v: 2.4 + Math.random() * 2 + (40 - left) * 0.05, t: r < 0.1 ? 'gold' : r < 0.25 ? 'fish' : r < 0.45 ? 'jelly' : 'pearl' }); }
+        items.forEach(it => { it.x -= it.v; });
+        items = items.filter(it => {
+          if (Math.abs(it.x - x) < 36 && Math.abs(it.y - y) < 44) {
+            if (it.t === 'jelly') { if (!hurt) { score = Math.max(0, score - 1); trail.pop(); hurt = 40; SFX.boop(); } else return true; }
+            else if (it.t === 'fish') { trail.push(1); score += 2; SFX.pop(); }
+            else { score += it.t === 'gold' ? 3 : 1; SFX.ding(); }
+            drawInfo(); return false;
+          }
+          return it.x > -40;
+        });
+        if (hurt) hurt--;
+      }
+      items.forEach(it => { if (it.t === 'jelly') jelly(it.x, it.y, tick); else if (it.t === 'fish') ctx.drawImage(fishImg, it.x - 20, it.y - 20, 40, 40); else pearl(it.x, it.y, it.t === 'gold'); });
+      trail.forEach((_, i) => { const p = hist[Math.min(hist.length - 1, (i + 1) * 14)] || [x, y]; ctx.drawImage(fishImg, p[0] - 16 - 20, p[1] - 14 + Math.sin((tick + i * 9) / 8) * 4, 30, 30); });
+      if (!(hurt && hurt % 8 < 4)) ctx.drawImage(merImg, x - 34, y - 52 + Math.sin(tick / 10) * 3, 68, 102);
+      if (!running) { ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#fff'; ctx.font = '26px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(left === 40 ? 'לוחצים על "להתחיל"!' : `אספת ${score} נקודות!`, W / 2, H / 2); }
+      raf = requestAnimationFrame(frame);
+    };
+    const start = () => {
+      score = 0; left = 40; items = []; trail = []; running = true; drawInfo(); clearInterval(timer);
+      timer = setInterval(() => {
+        left--; drawInfo();
+        if (left <= 0) {
+          running = false; clearInterval(timer);
+          games.pearlPlays = (games.pearlPlays || 0) + 1; const best = score > (games.pearlBest || 0); if (best) games.pearlBest = score;
+          store.set('games', games); afterChange();
+          if (best && score > 0) { confetti($('#gamesDlg .confetti-c')); SFX.yay(); }
+          drawInfo();
+        }
+      }, 1000);
+    };
+    const move = e => { const r = cv.getBoundingClientRect(); tx = (e.clientX - r.left) * W / r.width; ty = (e.clientY - r.top) * H / r.height; };
+    cv.addEventListener('pointermove', move); cv.addEventListener('pointerdown', move);
+    const kd = e => { if (e.key.startsWith('Arrow') && $('#gamesDlg').open) { keys[e.key] = true; e.preventDefault(); } }, ku = e => { keys[e.key] = false; };
+    document.addEventListener('keydown', kd); document.addEventListener('keyup', ku);
+    catchStop = () => { cancelAnimationFrame(raf); clearInterval(timer); document.removeEventListener('keydown', kd); document.removeEventListener('keyup', ku); };
+    drawInfo(); frame();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, `${m.name || 'בת הים'} שוחה בים! מזיזים אותה עם העכבר (או עם החצים) ואוספים פנינים ⚪ (נקודה), פנינת זהב (3), ודגים 🐟 שמצטרפים ושוחים אחריה (2). זהירות ממדוזות! יש 40 שניות.`),
+      info, el('div', { class: 'catch-wrap sea' }, cv), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: start }, '▶️ להתחיל')));
+  }
+
+  // ---------- 27. sound memory ----------
+  function simonGame() {
+    const PADS = [['#ff9ab8', 523, 'shell'], ['#ffd84d', 659, 'star'], ['#7fe0b5', 784, 'fish'], ['#7cc6f5', 1047, 'whale']];
+    let seq = [], idx = 0, busy = true, over = false;
+    const info = el('div', { class: 'game-info' }), msg = el('p', { class: 'simon-msg' });
+    const btns = PADS.map(([c, f, ic], i) => { const b = el('button', { type: 'button', class: 'simon-pad', 'aria-label': `כפתור ${i + 1}`, html: stickerHTML(ic), onclick: () => press(i) }); b.style.background = c; return b; });
+    const light = (i, ms) => { btns[i].classList.add('lit'); tone(PADS[i][1], ms / 1000, 'sine', 0, 0.18); setTimeout(() => btns[i].classList.remove('lit'), ms); };
+    const drawInfo = () => info.replaceChildren(el('span', {}, `שלב: ${seq.length}`), games.simonBest ? el('span', {}, `🏆 השיא: ${games.simonBest}`) : null);
+    const playSeq = () => {
+      busy = true; idx = 0; msg.textContent = '👂 מקשיבים...'; drawInfo();
+      const gap = Math.max(300, 650 - seq.length * 25);
+      seq.forEach((p, i) => setTimeout(() => light(p, gap * 0.65), 500 + i * gap));
+      setTimeout(() => { busy = false; msg.textContent = '👆 עכשיו את!'; }, 500 + seq.length * gap);
+    };
+    const next = () => { seq.push(Math.floor(Math.random() * 4)); playSeq(); };
+    const press = i => {
+      if (busy || over) return;
+      light(i, 250);
+      if (i !== seq[idx]) {
+        over = true; busy = true;
+        const got = seq.length - 1, best = got > (games.simonBest || 0);
+        if (best) games.simonBest = got;
+        store.set('games', games); afterChange(); SFX.boop();
+        msg.textContent = best && got ? `🏆 שיא חדש: ${got} שלבים!` : `אופס! הגעת לשלב ${got}.`;
+        if (best && got) { confetti($('#gamesDlg .confetti-c')); SFX.yay(); }
+        return;
+      }
+      idx++;
+      if (idx === seq.length) { busy = true; msg.textContent = '✔️ יפה!'; setTimeout(next, 800); }
+    };
+    const start = () => { seq = []; over = false; next(); };
+    drawInfo(); msg.textContent = 'לוחצים על "להתחיל"';
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'הלוח מנגן מנגינה ומדליק כפתורים. חוזרים על אותו הסדר! כל פעם מתווסף עוד צליל.'),
+      design.sound ? null : el('p', { class: 'store-warn' }, '🔇 הצלילים כבויים. אפשר לשחק רק עם האורות, או להדליק צלילים בכפתור 🔊 למעלה.'),
+      info, msg, el('div', { class: 'simon' }, ...btns), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: start }, '▶️ להתחיל')));
+  }
+
+  // ================= 28. shooting star =================
+  function maybeShootingStar() {
+    const t = localToday();
+    if (store.get('starShown', '') === t) return;
+    const last = store.get('starLast', null), gap = last ? daysBetween(last, t) : 99;
+    store.set('starShown', t);
+    if (gap < 2 || (gap < 4 && Math.random() < 0.5)) return;
+    let tries = 0;
+    const fly = () => {
+      if (document.querySelector('dialog[open]') && tries++ < 30) { setTimeout(fly, 8000); return; }
+      const st = el('button', { type: 'button', class: 'shooting-star', 'aria-label': 'כוכב נופל! לוחצים כדי לבקש משאלה', html: stickerHTML('shootingstar'), onclick: () => {
+        st.remove(); store.set('starLast', localToday()); SFX.yay(); openWishes('star');
+      } });
+      st.style.top = `${6 + Math.random() * 20}vh`;
+      st.addEventListener('animationend', () => st.remove());
+      document.body.append(st);
+      tone(1568, 0.3, 'sine', 0, 0.05); tone(2093, 0.4, 'sine', 0.15, 0.04);
+    };
+    setTimeout(fly, (last ? 10 + Math.random() * 25 : 6) * 1000);
+  }
+
+  // ================= 29. secret sticker of the month =================
+  const SECRET_STK = ['pearl', 'starfish', 'crystal', 'clover4', 'magicmoon', 'mermaidtail'];
+  const ymOf = k => k.slice(0, 7);
+  function secretDay(ym) {
+    const [y, m] = ym.split('-').map(Number), days = new Date(y, m, 0).getDate();
+    let h = (secret.seed ^ Math.imul(y * 12 + m, 2654435761)) >>> 0;
+    h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0; h = (h ^ (h >>> 13)) >>> 0;
+    return iso(y, m - 1, 1 + (h % days));
+  }
+  const nextRare = () => SECRET_STK.find(id => !unlockedSet().has(id)) || RARE.find(id => !unlockedSet().has(id)) || null;
+  function renderDaySecret(key) {
+    const btn = $('#daySecret'), ym = ymOf(localToday());
+    const hunting = ymOf(key) === ym && !secret.found[ym];
+    const here = hunting && key === secretDay(ym);
+    btn.hidden = !here;
+    if (here) {
+      const prize = nextRare();
+      btn.innerHTML = stickerHTML(prize || 'sparkles');
+      btn.onclick = () => {
+        secret.found[ym] = prize || 'none'; store.set('secret', secret);
+        if (prize) surprise.rare.push(prize), store.set('surprise', surprise);
+        btn.hidden = true; SFX.yay(); confetti();
+        toast(stickerHTML(prize || 'sparkles'), prize ? `🔍 מצאת את המדבקה הסודית: ${STICKERS[prize][0]}!` : '🔍 מצאת את המקום הסודי! כבר יש לך את כל המדבקות הנדירות 🌟');
+        renderDayExtras(key); renderStrip(); afterChange();
+      };
+    }
+    if (!hunting || here) return null;
+    const dist = Math.abs(fromIso(key).d - fromIso(secretDay(ym)).d);
+    return el('div', {}, '🔍 המדבקה הסודית של החודש: ', el('b', {}, dist <= 1 ? '🔥 חם מאוד!' : dist <= 3 ? '☀️ חם!' : dist <= 7 ? '🌤️ פושר' : '❄️ קר'));
+  }
+
+  // ================= 30. treasure hunt =================
+  const ORD = ['הראשון', 'השני', 'השלישי', 'הרביעי', 'החמישי'];
+  function makeHunt(ym) {
+    const [y, m1] = ym.split('-').map(Number), m = m1 - 1, days = new Date(y, m1, 0).getDate();
+    const used = new Set(), targets = [], clues = [];
+    // only holidays that fall on one single day this month, so the clue can't point at two days
+    const allDays = [...Array(days).keys()].map(i => iso(y, m, i + 1)), holId = k => (dayInfo(k).hols[0] || {}).id;
+    const hol = allDays.filter(k => holId(k) && allDays.filter(x => holId(x) === holId(k)).length === 1);
+    const any = () => { for (let i = 0; i < 80; i++) { const k = iso(y, m, 1 + Math.floor(Math.random() * days)); if (!used.has(k)) return k; } return null; };
+    for (let step = 0; step < 5; step++) {
+      let k = null, clue = '';
+      const r = Math.random(), prev = targets[step - 1];
+      if (prev && r < 0.3 && !/אחרי/.test(clues[step - 1])) {
+        const n = 2 + Math.floor(Math.random() * 5), c = addDays(prev, n);
+        if (ymOf(c) === ym && !used.has(c)) { k = c; clue = `${n} ימים אחרי היום של הרמז הקודם`; }
+      }
+      if (!k && r >= 0.3 && r < 0.5) {
+        const h = hol.find(x => !used.has(x));
+        if (h) { k = h; clue = `ביום של ${holName(dayInfo(h).hols[0])}`; }
+      }
+      if (!k) {
+        k = any(); const d = fromIso(k).d, kind = Math.floor(Math.random() * 3);
+        if (kind === 0 || d < 3) clue = `ביום ${DAYS[dowOf(k)]} ${ORD[Math.floor((d - 1) / 7)]} של ${MONTHS[m]}`;
+        else if (kind === 1) { const a = 1 + Math.floor(Math.random() * (d - 1)); clue = `ביום שהמספר שלו הוא ${a} + ${d - a}`; }
+        else clue = `ביום שהתאריך העברי שלו הוא ${hebDateText(hebParts(y, m, d))}`;
+      }
+      used.add(k); targets.push(k); clues.push(clue);
+    }
+    return { ym, targets, clues, step: 0, done: false, prize: null };
+  }
+  const huntNow = () => hunt && hunt.ym === ymOf(localToday()) ? hunt : null;
+  function renderDayHunt(key) {
+    const h = huntNow();
+    if (!h || h.done && key !== h.targets[4]) return null;
+    const at = h.targets.indexOf(key);
+    if (at === h.step && !h.done) {
+      h.step++;
+      if (h.step === 5) {
+        h.done = true; h.prize = nextRare();
+        if (h.prize) { surprise.rare.push(h.prize); store.set('surprise', surprise); }
+        store.set('hunt', hunt); SFX.yay(); setTimeout(() => confetti(), 200); renderStrip(); afterChange();
+        return el('div', { class: 'hunt-found gold' }, el('span', { class: 'ic', html: stickerHTML('treasure') }),
+          el('div', {}, el('b', {}, '💰 מצאת את האוצר!!!'), el('div', {}, h.prize ? `בתוכו: ${STICKERS[h.prize][0]}! היא כבר במדבקות שלך.` : 'כל הכבוד! את בלשית אמיתית 🕵️‍♀️')));
+      }
+      store.set('hunt', hunt); SFX.ding(); renderStrip();
+      return el('div', { class: 'hunt-found' }, el('span', { class: 'ic', html: stickerHTML('pencil') }),
+        el('div', {}, el('b', {}, `📜 מצאת רמז! (${h.step}/5)`), el('div', {}, 'הרמז הבא: ', el('b', {}, `"${h.clues[h.step]}"`))));
+    }
+    if (h.done) return el('div', {}, '💰 פה מצאת את האוצר של החודש!');
+    if (at >= 0 && at < h.step) return el('div', {}, `✔️ פה מצאת את רמז ${at + 1}. הרמז הנוכחי: `, el('b', {}, `"${h.clues[h.step]}"`));
+    return el('div', {}, '🗺️ הרמז לציד האוצרות: ', el('b', {}, `"${h.clues[h.step]}"`));
+  }
+  function renderDayExtras(key) {
+    const box = $('#dayHunt');
+    const parts = [renderDayHunt(key), renderDaySecret(key)].filter(Boolean);
+    box.hidden = !parts.length;
+    box.replaceChildren(...parts);
+  }
+  function openHunt() {
+    const t = localToday(), ym = ymOf(t), { m } = fromIso(t);
+    const h = huntNow();
+    const map = h ? `<svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="110" rx="14" fill="#f6e2b3"/><path d="M20 80 C60 20 90 100 130 50 S200 20 230 70 S280 90 300 40" fill="none" stroke="#b07642" stroke-width="3" stroke-dasharray="7 7"/>`
+      + [[20, 80], [90, 62], [150, 42], [230, 70], [300, 40]].map(([x, y], i) => i === 4 ? placeSvg(stickerHTML('treasure'), x - 20, y - 26, 40, 40) + (h.done ? '' : `<text x="${x}" y="${y + 28}" font-size="12" text-anchor="middle" fill="#6b4226">?</text>`)
+        : i < h.step ? `<circle cx="${x}" cy="${y}" r="11" fill="#6fcf7f" stroke="${O}" stroke-width="2"/><path d="M${x - 5} ${y} l4 4 l7 -8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`
+        : `<path d="M${x - 8} ${y - 8} L${x + 8} ${y + 8} M${x + 8} ${y - 8} L${x - 8} ${y + 8}" stroke="#e8573f" stroke-width="4" stroke-linecap="round"/>`).join('') + '</svg>' : '';
+    $('#huntBody').replaceChildren(
+      !h ? el('div', { class: 'row' }, el('p', {}, `יש 5 רמזים שמסתתרים בימים של ${MONTHS[m]}. כל רמז אומר באיזה יום מחכה הרמז הבא. פותחים את היום הנכון בלוח, ומוצאים! ובסוף... אוצר! 💰`),
+        el('div', {}, el('button', { type: 'button', class: 'btn main', onclick: () => { hunt = makeHunt(ym); store.set('hunt', hunt); SFX.yay(); openHunt(); renderStrip(); } }, '🗺️ להתחיל את הציד!')))
+      : el('div', { class: 'row' }, el('div', { class: 'hunt-map', html: map }),
+        h.done ? el('p', { class: 'hunt-clue' }, `💰 מצאת את האוצר של ${MONTHS[m]}! ציד חדש יחכה לך בחודש הבא.`)
+          : el('div', { class: 'hunt-clue' }, el('span', { class: 'muted' }, `רמז ${h.step + 1} מתוך 5:`), el('b', {}, `"${h.clues[h.step]}"`)),
+        h.done ? null : el('p', { class: 'muted' }, 'סוגרים את החלון, פותחים בלוח את היום שהרמז מדבר עליו, ובודקים!'),
+        h.step ? el('div', { class: 'row' }, el('span', { class: 'lbl' }, 'רמזים שכבר פתרת:'),
+          ...h.targets.slice(0, h.step).map((k, i) => el('div', { class: 'muted' }, `✔️ "${h.clues[i]}" = ${fromIso(k).d} ב${MONTHS[fromIso(k).m]}`))) : null));
+    if (!$('#huntDlg').open) $('#huntDlg').showModal();
+  }
+
+  // ================= 31. wish box (and wishes from shooting stars) =================
+  const giftSVG = open => svg(open
+    ? `<path d="M6 22 H42 V44 H6 Z" fill="#b58cff" ${S}/><path d="M24 22 V44" stroke="#ffd84d" stroke-width="5"/><path d="M4 8 L40 2 L42 10 L6 16 Z" fill="#d7c2ff" ${S}/><path d="M20 12 L14 2 M24 12 L30 1" stroke="#ffd84d" stroke-width="3" stroke-linecap="round"/><path d="M24 18 l2 -6 l2 6 l6 1 l-6 2 l-2 6 l-2 -6 l-6 -2 Z" fill="#ffd84d"/>`
+    : `<path d="M6 20 H42 V44 H6 Z" fill="#b58cff" ${S}/><path d="M4 13 H44 V21 H4 Z" fill="#d7c2ff" ${S}/><path d="M24 13 V44" stroke="#ffd84d" stroke-width="5"/><path d="M24 13 C18 3 10 6 14 12 Z M24 13 C30 3 38 6 34 12 Z" fill="#ffd84d" ${S2}/><rect x="19" y="27" width="10" height="9" rx="2" fill="#ffcf3a" ${S2}/><path d="M21 27 V24 A3 3 0 0 1 27 24 V27" fill="none" ${S2}/>`);
+  function openWishes(mode) {
+    if (mode !== 'star' && pin && !unlocked) { showLock(() => openWishes(mode), true); return; }
+    const t = localToday();
+    const body = $('#wishBody');
+    const ta = el('textarea', { id: 'wishText', 'aria-label': 'המשאלה', maxLength: 300, placeholder: mode === 'star' ? 'אני מבקשת ש...' : 'המשאלה שלי לשנה הבאה...' });
+    const msg = el('span', { class: 'saved' });
+    const saveWish = kind => {
+      if (!ta.value.trim()) { ta.focus(); return; }
+      const { y, m, d } = fromIso(t);
+      wishes.push({ id: 'w' + Date.now().toString(36), text: ta.value.trim(), made: t, open: kind === 'box' ? new Date(Date.UTC(y + 1, m, d)).toISOString().slice(0, 10) : t, kind, opened: kind === 'star', came: null });
+      if (!store.set('wishes', wishes)) { wishes.pop(); msg.textContent = 'לא הצלחתי לשמור 😕'; return; }
+      SFX.yay(); confetti($('#wishDlg .confetti-c')); openWishes(); renderStrip();
+    };
+    let starGift = null;
+    if (mode === 'star') {
+      const prize = Math.random() < 0.35 ? nextRare() : null;
+      if (prize) { surprise.rare.push(prize); store.set('surprise', surprise); afterChange(); }
+      starGift = el('div', { class: 'prize' }, el('span', { class: 'ic', html: stickerHTML(prize || 'shootingstar') }),
+        prize ? `🌠 הכוכב השאיר לך מתנה: ${STICKERS[prize][0]}!` : `🌠 ${COMPLIMENTS[Math.floor(Math.random() * COMPLIMENTS.length)]}`);
+      setTimeout(() => confetti($('#wishDlg .confetti-c')), 100);
+    }
+    const box = wishes.filter(w => w.kind === 'box').sort((a, b) => a.open.localeCompare(b.open));
+    const stars = wishes.filter(w => w.kind === 'star').slice().reverse();
+    const date = k => { const o = fromIso(k); return `${o.d} ב${MONTHS[o.m]} ${o.y}`; };
+    body.replaceChildren(
+      mode === 'star' ? el('div', { class: 'row' }, el('h4', { class: 'sec-title' }, '🌠 תפסת כוכב נופל!'), starGift,
+        el('label', { for: 'wishText' }, 'עכשיו מבקשים משאלה:'), ta, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => saveWish('star') }, '✨ לשלוח את המשאלה לכוכבים'), msg))
+      : el('div', { class: 'box' }, el('h4', {}, '🎁 משאלה חדשה לתיבה'), el('p', { class: 'muted' }, 'כותבים משאלה, והיא ננעלת בתיבה לשנה שלמה. בעוד שנה פותחים ובודקים אם היא התגשמה!'),
+        ta, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => saveWish('box') }, '🔒 לנעול בתיבה לשנה'), msg)),
+      box.length ? el('h4', { class: 'sec-title' }, '🎁 תיבת המשאלות') : null,
+      box.length ? el('div', { class: 'envs' }, ...box.map(w => {
+        const ready = w.open <= t, n = daysBetween(t, w.open);
+        return el('div', { class: 'wish-card' + (ready && !w.opened ? ' ready' : '') },
+          el('span', { class: 'ic', html: giftSVG(ready && w.opened) }),
+          !ready ? el('span', {}, `🔒 נפתחת בעוד ${n} ימים`) : !w.opened
+            ? el('button', { type: 'button', class: 'btn main', onclick: () => { w.opened = true; store.set('wishes', wishes); SFX.yay(); confetti($('#wishDlg .confetti-c')); openWishes(); renderStrip(); } }, '🎁 לפתוח!')
+            : el('div', { class: 'row' }, el('div', { class: 'letter-open' }, w.text),
+              el('span', { class: 'muted' }, 'התגשמה?'), el('div', { class: 'chips' }, ...[[true, '✨ כן!'], [false, 'עוד לא']].map(([v, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(w.came === v), onclick: () => { w.came = v; store.set('wishes', wishes); if (v) SFX.yay(); openWishes(); } }, name)))),
+          el('span', { class: 'muted' }, `נכתבה ב-${date(w.made)}`));
+      })) : null,
+      stars.length ? el('h4', { class: 'sec-title' }, '🌠 משאלות מכוכבים נופלים') : null,
+      ...stars.map(w => el('div', { class: 'wish-star' }, el('span', { class: 'ic', html: stickerHTML('shootingstar') }), el('div', {}, el('div', {}, w.text), el('span', { class: 'muted' }, date(w.made))))),
+      !box.length && !stars.length && mode !== 'star' ? el('p', { class: 'muted' }, 'גם כשעובר על המסך כוכב נופל 🌠 (פעם בכמה ימים), אם תלחצי עליו מהר, תוכלי לבקש משאלה!') : null);
+    if (!$('#wishDlg').open) $('#wishDlg').showModal();
+  }
 
   // ================= sticker album =================
   function openAlbum() {
@@ -4143,6 +4785,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     upgraded ? showWelcome(openPinDlg) : openPinDlg();
   } else if (upgraded) showWelcome();
   if (location.hash === '#lock' && !$('#lock').open) openPinDlg();
+  maybeShootingStar();
   loadWeather();
 })();
 </script>
