@@ -1739,6 +1739,237 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
 @keyframes ballTw { to { opacity: .8; } }
 @media (max-width: 700px) { .hs-wrap, .jw-wrap { grid-template-columns: 1fr; } .hs-stage, .spa-stage { max-width: 290px; margin: 0 auto; } .ball-stage { aspect-ratio: 1; } .ball-cap { white-space: normal; width: 90%; text-align: center; font-size: .95em; } }
 @media (prefers-reduced-motion: reduce) { .ball-ch, .ball-ch.dance, .ball-ch.pet.dance, .hs-drop, .spa-bub, .spa-steam, .ball-chand, .ball-crown { animation: none; transition: none; } }
+/* ---------- 🎁 surprise calendar ---------- */
+.adv-board { position: relative; overflow: hidden; border-radius: 22px; padding: 14px 14px 30px; border: 3px solid var(--arim); color: var(--aink);
+  background: radial-gradient(circle at 20% 10%, rgb(255 255 255 / .7), transparent 40%), linear-gradient(165deg, var(--a1), var(--a2)); box-shadow: inset 0 0 0 6px rgb(255 255 255 / .35); }
+.adv-board.dark { color: #fff; background: radial-gradient(circle at 80% 8%, rgb(255 246 190 / .35), transparent 30%), linear-gradient(170deg, var(--a1), var(--a2)); }
+.adv-deco { position: absolute; opacity: .28; pointer-events: none; line-height: 1; }
+.adv-board.dark .adv-deco { opacity: .45; }
+.adv-banner { position: relative; display: grid; justify-items: center; gap: 0; margin: 0 auto 12px; width: fit-content; max-width: 100%; text-align: center;
+  background: #fff; color: var(--aink); border: 2.5px solid var(--arim); border-radius: 16px; padding: 6px 26px 8px; box-shadow: 0 4px 0 color-mix(in srgb, var(--arim) 45%, transparent); }
+.adv-banner::before, .adv-banner::after { content: ''; position: absolute; top: 50%; width: 18px; height: 26px; background: var(--arim); transform: translateY(-50%); z-index: -1; }
+.adv-banner::before { right: -12px; clip-path: polygon(0 0, 100% 0, 60% 50%, 100% 100%, 0 100%); }
+.adv-banner::after { left: -12px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 40% 50%); }
+.adv-banner b { font-family: var(--title-font); font-weight: 400; font-size: 1.7em; line-height: 1.1; }
+.adv-banner span { font-size: .95em; }
+.adv-banner small { color: var(--arim); font-size: .9em; }
+.adv-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); grid-auto-rows: 82px; grid-auto-flow: dense; gap: 10px; }
+.adv-door { position: relative; border: none; background: transparent; padding: 0; perspective: 700px; border-radius: 14px; font: inherit; color: var(--aink); cursor: pointer; }
+.adv-door.wide { grid-column: span 2; }
+.adv-door.tall { grid-row: span 2; }
+.adv-door.big { grid-column: span 2; grid-row: span 2; }
+.adv-door.arch, .adv-door.arch .adv-in, .adv-door.arch .adv-leaf { border-radius: 40px 40px 12px 12px; }
+.adv-door.round, .adv-door.round .adv-in, .adv-door.round .adv-leaf { border-radius: 50%; }
+.adv-door.round.wide, .adv-door.round.wide .adv-in, .adv-door.round.wide .adv-leaf, .adv-door.round.tall, .adv-door.round.tall .adv-in, .adv-door.round.tall .adv-leaf { border-radius: 40px; }
+.adv-in { position: absolute; inset: 0; border-radius: 14px; display: grid; place-items: center; font-size: 2em;
+  background: radial-gradient(circle, #fffbe8 30%, #ffe4b8); box-shadow: inset 0 4px 10px rgb(0 0 0 / .28); border: 2.5px solid color-mix(in srgb, var(--arim) 70%, #000); }
+.adv-door.big .adv-in { font-size: 3em; }
+.adv-leaf { position: absolute; inset: 0; border-radius: 14px; display: grid; place-items: center; align-content: center; gap: 0;
+  background: linear-gradient(160deg, rgb(255 255 255 / .55), transparent 55%), var(--dc); border: 2.5px solid var(--arim);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--arim) 55%, transparent), inset 0 0 0 4px rgb(255 255 255 / .5);
+  transform-origin: right center; transition: transform .85s cubic-bezier(.35, 1.35, .5, 1), box-shadow .3s; backface-visibility: visible; }
+.adv-leaf::before { content: ''; position: absolute; inset: 7px; border-radius: inherit; border: 2px dashed color-mix(in srgb, var(--arim) 50%, transparent); pointer-events: none; }
+.adv-leaf b { font-family: var(--title-font); font-weight: 400; font-size: 1.7em; line-height: 1; color: var(--aink); text-shadow: 2px 2px 0 #fff; }
+.adv-door.big .adv-leaf b { font-size: 3em; }
+.adv-mot { font-style: normal; font-size: 1.25em; line-height: 1.1; }
+.adv-door.big .adv-mot { font-size: 2.4em; }
+.adv-knob { position: absolute; left: 8px; top: 50%; width: 8px; height: 8px; border-radius: 50%; background: #ffd84d; border: 1.5px solid var(--aink); }
+.adv-bow { position: absolute; top: -12px; right: 50%; transform: translateX(50%); font-size: 1.4em; filter: drop-shadow(0 2px 0 rgb(0 0 0 / .15)); }
+.adv-dot { position: absolute; top: -6px; left: -6px; width: 17px; height: 17px; font-size: .7em !important; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: .85em; font-weight: 700; border: 2px solid #fff; }
+.adv-lock { position: absolute; bottom: 4px; left: 6px; font-size: .7em; opacity: .55; }
+.adv-door.future .adv-leaf { filter: saturate(.75); }
+.adv-door.future:hover .adv-leaf { transform: rotateY(-8deg); }
+.adv-door.today .adv-leaf, .adv-door.missed .adv-leaf { animation: advGlow 1.8s ease-in-out infinite; }
+.adv-door.missed .adv-leaf { animation-duration: 2.8s; }
+.adv-door.today:hover .adv-leaf, .adv-door.missed:hover .adv-leaf { transform: rotateY(-22deg); }
+.adv-door.open .adv-leaf { transform: rotateY(-112deg); box-shadow: -6px 4px 10px rgb(0 0 0 / .18); animation: none; }
+.adv-door.open .adv-in span { animation: advPeek .6s .35s both; display: inline-block; }
+.adv-door:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.adv-shake .adv-leaf { animation: advShake .45s; }
+.adv-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 22px; background: radial-gradient(ellipse at 50% 0, color-mix(in srgb, var(--arim) 55%, #fff) 60%, transparent 62%) 0 0 / 60px 30px repeat-x, color-mix(in srgb, var(--arim) 35%, #fff); opacity: .7; }
+@keyframes advGlow { 0%, 100% { box-shadow: 0 4px 0 color-mix(in srgb, var(--arim) 55%, transparent), 0 0 0 0 rgb(255 216 77 / 0); } 50% { box-shadow: 0 4px 0 color-mix(in srgb, var(--arim) 55%, transparent), 0 0 0 7px rgb(255 216 77 / .75); } }
+@keyframes advShake { 0%, 100% { transform: none; } 25% { transform: rotate(-4deg); } 75% { transform: rotate(4deg); } }
+@keyframes advPeek { from { transform: scale(.2) rotate(-30deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.adv-pop { position: fixed; inset: 0; z-index: 6; display: grid; place-items: center; padding: 16px; background: rgb(20 30 50 / .35); }
+.adv-card { position: relative; width: min(380px, 100%); max-height: calc(100vh - 60px); overflow-y: auto; display: grid; justify-items: center; gap: 8px; text-align: center;
+  background: var(--card); color: var(--ink); border: 3px solid var(--accent); border-radius: 24px; padding: 22px 18px 18px; box-shadow: 0 16px 40px rgb(0 0 0 / .3); }
+.adv-card.fresh { animation: advPop .55s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes advPop { from { transform: scale(.3) rotate(-8deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.adv-card h4 { margin: 0; font-family: var(--title-font); font-weight: 400; font-size: 1.5em; color: var(--accent); line-height: 1.15; }
+.adv-card p { margin: 0; }
+.adv-x { position: absolute; top: 6px; left: 8px; }
+.adv-tag { font-size: .85em; background: var(--paper); border: 1.5px solid var(--line); border-radius: 999px; padding: 1px 12px; }
+.adv-big { font-size: 4em; line-height: 1.1; }
+.adv-drop { animation: advDrop 1.6s ease-in-out infinite; }
+@keyframes advDrop { 0%, 100% { transform: translateY(-6px); } 50% { transform: translateY(6px); } }
+.adv-q { font-size: 1.2em; line-height: 1.4; }
+.adv-ans { font-size: 1.2em; color: var(--accent); background: var(--paper); border-radius: 14px; padding: 6px 12px; animation: advPop .4s; }
+.adv-art { width: 170px; }
+.adv-art svg { width: 100%; height: auto; display: block; }
+.adv-tr { width: 140px; height: 200px; overflow: hidden; border-radius: 16px; background: #fff1c9; }
+.adv-tr svg { height: 100%; width: auto; margin: 0 auto; }
+.adv-nice { display: grid; gap: 8px; justify-items: center; width: 100%; padding: 18px 14px; border-radius: 18px; background: repeating-linear-gradient(45deg, #fff0f6 0 12px, #ffe3ef 12px 24px); border: 2.5px dashed #ff7ab8; }
+.adv-nice b { font-family: var(--title-font); font-weight: 400; font-size: 1.3em; color: #d6337f; }
+.adv-nice p { font-size: 1.35em; line-height: 1.35; color: #5a1f3c; }
+.adv-hearts { letter-spacing: 4px; }
+.adv-treat { position: relative; width: 170px; height: 150px; }
+.adv-pet { position: absolute; inset: 0 20px 0 0; }
+.adv-pet svg { width: 100%; height: 100%; display: block; }
+.adv-food { position: absolute; left: 0; bottom: 6px; width: 56px; height: 56px; animation: advDrop 1.4s ease-in-out infinite; }
+.adv-food svg { width: 100%; height: 100%; }
+.adv-color { display: grid; gap: 8px; justify-items: center; width: 100%; }
+.adv-cpic { width: min(260px, 100%); border-radius: 16px; overflow: hidden; box-shadow: 0 3px 10px rgb(0 0 0 / .12); }
+.adv-cpic svg { width: 100%; height: auto; display: block; }
+.adv-cpic [data-r] { cursor: pointer; transition: fill .2s; }
+.adv-pal { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
+.adv-pal .sw2 { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); padding: 0; }
+.adv-pal .sw2[aria-pressed="true"] { border-color: var(--ink); transform: scale(1.18); }
+@media (max-width: 520px) { .adv-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 72px; gap: 8px; } .adv-leaf b { font-size: 1.4em; } }
+@media (prefers-reduced-motion: reduce) { .adv-leaf, .adv-door.today .adv-leaf, .adv-door.missed .adv-leaf { transition: none; animation: none; } }
+
+/* ---------- 🏅 daily challenge ---------- */
+.dc-card { display: grid; justify-items: center; text-align: center; gap: 6px; padding: 18px 16px; border-radius: 22px; border: 3px dashed var(--accent);
+  background: radial-gradient(circle at 50% 0, color-mix(in srgb, var(--accent) 16%, var(--card)), var(--card) 70%); }
+.dc-card.done { border-style: solid; border-color: #4fc3a1; background: radial-gradient(circle at 50% 0, #dcf7ec, var(--card) 70%); }
+.dc-emo { font-size: 3.6em; line-height: 1.1; animation: dcBob 2.4s ease-in-out infinite; }
+.dc-card small { color: var(--soft); font-size: 1em; }
+.dc-text { font-family: var(--title-font); font-weight: 400; font-size: 1.8em; line-height: 1.2; }
+.dc-ok { margin: 0; color: #2f9a78; font-size: 1.1em; }
+@keyframes dcBob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-6px) rotate(4deg); } }
+.dc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.dc-flame { display: grid; justify-items: center; gap: 0; padding: 8px 4px; border-radius: 16px; background: var(--paper); border: 1.5px solid var(--line); }
+.dc-flame span { font-size: 1.6em; line-height: 1.1; }
+.dc-flame b { font-family: 'Rubik', system-ui, sans-serif; font-size: 1.5em; line-height: 1.1; }
+.dc-flame small { color: var(--soft); font-size: .85em; }
+.dc-fire { animation: dcFlick 1.2s ease-in-out infinite; }
+.dc-fire.off { filter: grayscale(1); opacity: .5; animation: none; }
+@keyframes dcFlick { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.12) rotate(3deg); } }
+.dc-week { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+.dc-wd { display: grid; justify-items: center; gap: 2px; font-size: .85em; color: var(--soft); }
+.dc-wd i { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-style: normal; border: 2px dashed var(--line); color: #fff; font-weight: 700; }
+.dc-wd.on i { background: #4fc3a1; border: 2px solid #2f9a78; }
+.dc-wd.now { color: var(--accent); font-weight: 700; }
+.dc-wd.now i { border-color: var(--accent); }
+.dc-shelf { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; padding: 10px 10px 18px; border-radius: 14px;
+  background: linear-gradient(transparent calc(100% - 16px), #c98b52 calc(100% - 16px), #a8693a calc(100% - 4px), #7d4b27 calc(100% - 4px)), linear-gradient(#fff8ee, #f5e6d3); border: 2px solid #a8693a; }
+.dc-cup { display: grid; justify-items: center; gap: 2px; }
+.dc-cup span { width: 58px; height: 68px; display: block; }
+.dc-cup span svg { width: 100%; height: 100%; display: block; }
+.dc-cup small { font-size: .78em; color: #7d4b27; margin-bottom: 4px; }
+.dc-cup.on span { animation: dcShine 3s ease-in-out infinite; filter: drop-shadow(0 0 6px rgb(255 216 77 / .7)); }
+@keyframes dcShine { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-5deg) scale(1.05); } }
+.dc-past { display: grid; gap: 6px; }
+.dc-pm { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 12px; border-radius: 12px; background: var(--paper); }
+.dc-mini { display: flex; gap: 2px; }
+.dc-mini span { width: 28px; height: 32px; display: block; }
+.dc-mini svg { width: 100%; height: 100%; }
+
+/* ---------- 📸 my year album ---------- */
+.yb-nav { display: flex; align-items: center; gap: 6px; min-width: 0; }
+#ybDlg .sheet > * { min-width: 0; }
+.yb-arrow { flex: none; width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--ink); background: var(--card); font-size: 1.3em; line-height: 1; }
+.yb-arrow:disabled { opacity: .3; }
+.yb-tabs { flex: 1; min-width: 0; display: flex; gap: 4px; overflow-x: auto; padding: 4px 2px; scrollbar-width: thin; }
+.yb-tabs button { flex: none; border: 1.5px solid var(--line); background: var(--card); border-radius: 10px 10px 4px 4px; padding: 3px 9px; font-size: .9em; }
+.yb-tabs button.fut { opacity: .5; }
+.yb-tabs button[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.yb-stage { perspective: 1400px; }
+.yb-page { position: relative; min-height: 460px; padding: 26px 26px 30px; border-radius: 6px 18px 18px 6px; color: #3a2b3c; overflow: hidden;
+  background: radial-gradient(#e9dcc7 1px, transparent 1.4px) 0 0 / 18px 18px, linear-gradient(90deg, #f6ecdc, #fffaf1 8%, #fffaf1); border: 1.5px solid #e2d3bb;
+  box-shadow: -8px 0 0 -2px #efe3cf, -14px 2px 0 -4px #e6d7c0, 0 10px 24px rgb(0 0 0 / .14); transform-origin: right center; font-family: var(--font); }
+.yb-page::before { content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 18px; background: linear-gradient(90deg, transparent, rgb(120 90 60 / .12)); pointer-events: none; }
+.yb-page.future { filter: saturate(.6); opacity: .85; }
+.yb-out-next { animation: ybOutN .26s ease-in forwards; }
+.yb-out-prev { animation: ybOutP .26s ease-in forwards; }
+.yb-in-next { animation: ybInN .32s ease-out; }
+.yb-in-prev { animation: ybInP .32s ease-out; }
+@keyframes ybOutN { to { transform: rotateY(-90deg); opacity: .6; } }
+@keyframes ybOutP { to { transform: rotateY(90deg); opacity: .6; } }
+@keyframes ybInN { from { transform: rotateY(90deg); opacity: .6; } }
+@keyframes ybInP { from { transform: rotateY(-90deg); opacity: .6; } }
+.yb-head { position: relative; display: grid; justify-items: center; margin-bottom: 14px; text-align: center; }
+.yb-head h4 { margin: 0; font-family: var(--title-font); font-weight: 400; font-size: 2.6em; line-height: 1.05; color: #d6337f; text-shadow: 2px 2px 0 #ffe27a; }
+.yb-head small { font-size: 1em; color: #7a6a5c; }
+.yb-grid { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: start; }
+.yb-nums { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.yb-nums > span { display: inline-flex; align-items: center; gap: 4px; background: #fff; border: 1.5px dashed #e2c9a8; border-radius: 999px; padding: 2px 10px 2px 8px; font-size: .9em; }
+.yb-nums i { font-style: normal; }
+.yb-nums b { font-family: 'Rubik', system-ui, sans-serif; color: #d6337f; }
+.yb-box { position: relative; background: #fff; border-radius: 6px; padding: 16px 12px 12px; box-shadow: 0 3px 8px rgb(0 0 0 / .1); }
+.yb-box h5 { margin: 0 0 8px; font-family: var(--title-font); font-weight: 400; font-size: 1.25em; color: #3a78d8; }
+.yb-tape { position: absolute; top: -9px; right: 50%; width: 76px; height: 20px; transform: translateX(50%) rotate(-3deg); opacity: .85; z-index: 1; box-shadow: 0 1px 2px rgb(0 0 0 / .08); }
+.yb-tape.top { top: -14px; width: 120px; transform: translateX(50%) rotate(2deg); }
+.yb-tape.side { top: -8px; right: 14px; transform: rotate(-8deg); }
+.yb-tape.t1 { background: repeating-linear-gradient(45deg, #ff9ad5 0 6px, #ffc2e3 6px 12px); }
+.yb-tape.t2 { background: radial-gradient(#fff 2px, transparent 2.5px) 0 0 / 10px 10px, #7ec8ff; }
+.yb-tape.t3 { background: repeating-linear-gradient(90deg, #ffd84d 0 8px, #ffe99a 8px 16px); }
+.yb-tape.t4 { background: radial-gradient(#ff7a9a 2px, transparent 2.5px) 0 0 / 9px 9px, #fff3f6; }
+.yb-tape.t5 { background: repeating-linear-gradient(-45deg, #9be3c9 0 5px, #d6f5ea 5px 10px); }
+.yb-moods { display: grid; gap: 5px; }
+.yb-moods > span { display: grid; grid-template-columns: 28px 1fr 26px; align-items: center; gap: 6px; }
+.yb-moods i { font-style: normal; font-size: 1.3em; }
+.yb-bar { height: 14px; border-radius: 999px; border: 1.5px solid #3a2b3c; }
+.yb-moods b { font-family: 'Rubik', system-ui, sans-serif; font-size: .9em; }
+.yb-pics { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; padding: 6px 0; }
+.yb-pol { position: relative; margin: 0; background: #fff; padding: 8px 8px 4px; box-shadow: 0 4px 10px rgb(0 0 0 / .16); width: 140px; }
+.yb-pol img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #f3f3f3; }
+.yb-pol.draw img { object-fit: contain; background: #fff; }
+.yb-pol figcaption { text-align: center; font-size: .85em; padding-top: 4px; color: #7a6a5c; }
+.yb-girls, .yb-arts, .yb-bfs, .yb-stks { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.yb-girls > span { display: grid; justify-items: center; width: 64px; }
+.yb-girls img { width: 60px; height: 60px; border-radius: 50%; background: #ffe9f2; border: 2px solid #ff9ad5; object-fit: cover; }
+.yb-girls small { font-size: .75em; }
+.yb-arts > span { display: grid; justify-items: center; gap: 2px; width: 110px; }
+.yb-art { width: 110px; border: 2px solid #3a2b3c; border-radius: 6px; overflow: hidden; display: block; background: #fff; }
+.yb-art svg { width: 100%; height: auto; display: block; }
+.yb-arts small { font-size: .8em; }
+.yb-bfs span { width: 46px; height: 42px; display: block; }
+.yb-bfs svg, .yb-stks svg { width: 100%; height: 100%; display: block; }
+.yb-stks .ic { width: 40px; height: 40px; display: block; }
+.yb-days { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.yb-days li { display: flex; align-items: center; gap: 6px; font-size: .95em; }
+.yb-days .ic { width: 24px; height: 24px; flex: none; }
+.yb-days .ic svg { width: 100%; height: 100%; display: block; }
+.yb-days b { font-family: 'Rubik', system-ui, sans-serif; font-size: .8em; color: #7a6a5c; min-width: 34px; }
+.yb-capbox { position: relative; grid-column: 1 / -1; background: #fffbe0; padding: 14px 14px 10px; border-radius: 4px; box-shadow: 0 3px 8px rgb(0 0 0 / .1); transform: rotate(-.6deg);
+  background-image: linear-gradient(transparent 27px, #f1dfa6 28px); background-size: 100% 28px; }
+.yb-cap { width: 100%; border: none; background: transparent; font: inherit; font-size: 1.15em; line-height: 28px; resize: vertical; color: #3a2b3c; margin: 0; white-space: pre-wrap; }
+textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
+.yb-empty { grid-column: 1 / -1; text-align: center; font-size: 1.2em; color: #7a6a5c; padding: 40px 0; margin: 0; }
+.yb-doodle { position: absolute; width: 42px; height: 46px; opacity: .8; pointer-events: none; }
+.yb-doodle svg { width: 100%; height: 100%; }
+.yb-doodle.d1 { top: 10px; left: 12px; transform: rotate(-12deg); }
+.yb-doodle.d2 { bottom: 8px; right: 22px; transform: rotate(10deg); }
+.yb-doodle.d3 { bottom: 10px; left: 16px; transform: rotate(4deg); }
+.yb-stklayer { position: absolute; inset: 0; pointer-events: none; }
+.yb-st { position: absolute; width: 56px; height: 56px; pointer-events: auto; cursor: grab; touch-action: none; filter: drop-shadow(0 2px 2px rgb(0 0 0 / .2)); }
+.yb-st svg { width: 100%; height: 100%; display: block; }
+.yb-st.sel { outline: 2.5px dashed #ff5a8f; outline-offset: 3px; border-radius: 10px; }
+#ybPrint .yb-st { pointer-events: none; }
+.yb-pick { margin-top: 8px; }
+.yb-coverpage { display: grid; place-items: center; background: radial-gradient(circle at 30% 20%, #ffe3f1, transparent 40%), radial-gradient(circle at 80% 80%, #dff1ff, transparent 45%), linear-gradient(90deg, #f6ecdc, #fffaf1 8%); }
+.yb-cover { position: relative; display: grid; justify-items: center; gap: 4px; text-align: center; background: #fff; padding: 26px 30px 20px; border-radius: 8px; box-shadow: 0 6px 16px rgb(0 0 0 / .14); transform: rotate(-1.5deg); max-width: 100%; }
+.yb-cover small { color: #7a6a5c; font-size: 1.05em; }
+.yb-cover h4 { margin: 0; font-family: var(--title-font); font-weight: 400; font-size: 3em; line-height: 1.05; color: #d6337f; text-shadow: 3px 3px 0 #ffe27a; }
+.yb-year { font-family: var(--title-font); font-weight: 400; font-size: 1.8em; color: #3a78d8; }
+.yb-covart { display: flex; align-items: flex-end; justify-content: center; gap: 4px; height: 170px; margin: 6px 0; }
+.yb-covpet { width: 120px; height: 120px; display: block; }
+.yb-covpet svg { width: 100%; height: 100%; }
+.yb-covgirl { height: 170px; width: auto; }
+.yb-covstk { width: 60px; height: 60px; display: block; transform: rotate(12deg); }
+.yb-covstk svg { width: 100%; height: 100%; }
+.yb-covsum { margin: 0; color: #7a6a5c; }
+@media (max-width: 520px) { .yb-page { padding: 22px 14px 26px; } .yb-head h4 { font-size: 2em; } .yb-pol { width: 118px; } .yb-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .dc-emo, .dc-fire, .dc-cup.on span, .adv-drop, .adv-food { animation: none; } }
+@media screen { #ybPrint { display: none; } }
+@media print {
+  body.yb-printing { padding: 0 !important; background: #fff !important; }
+  body.yb-printing > *:not(#ybPrint) { display: none !important; }
+  body.yb-printing #ybPrint { display: block !important; }
+  #ybPrint .yb-page { break-after: page; page-break-after: always; box-shadow: none; min-height: 0; border: 1px solid #e2d3bb; margin: 0 0 8px; transform: none; }
+  #ybPrint .yb-page:last-child { break-after: auto; page-break-after: auto; }
+  #ybPrint .yb-box, #ybPrint .yb-pol, #ybPrint .yb-capbox { break-inside: avoid; }
+}
 </style>
 </head>
 <body class="bg-dots">
@@ -2522,6 +2753,45 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
     <div class="row" id="ballBody"></div>
   </div>
 </dialog>
+
+<!-- Surprise calendar (advent) -->
+<dialog id="advDlg" aria-labelledby="advTitle" style="width:min(820px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="advTitle">🎁 לוח ההפתעות</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="advBody" class="row"></div>
+  </div>
+</dialog>
+
+<!-- Daily challenge -->
+<dialog id="dcDlg" aria-labelledby="dcTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="dcTitle">🏅 האתגר היומי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="dcBody" class="row"></div>
+  </div>
+</dialog>
+
+<!-- My year album -->
+<dialog id="ybDlg" aria-labelledby="ybTitle" style="width:min(860px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="ybTitle">📸 אלבום השנה שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="ybMode" class="chips"></div>
+    <div id="ybNav" class="yb-nav"></div>
+    <div id="ybStage" class="yb-stage"></div>
+    <div id="ybTools"></div>
+  </div>
+</dialog>
+
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -3585,6 +3855,7 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
     const mo = moonInfo(y, m, d);
     pills.push(el('span', { class: 'pill' }, el('span', { class: 'ic', html: moonSVG(mo.p) }), mo.name));
     pills.unshift(...[petLetterPill(), fortunePill()].filter(Boolean));
+    try { [challengePill(), adventPill()].forEach(p => p && pills.unshift(p)); } catch {}
     $('#strip').replaceChildren(...pills);
   }
 
@@ -5161,6 +5432,9 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
     ['cookie', 'עוגיית מזל', () => fortuneCookie()],
     ['heart', 'תיבת הדואר של החיה', () => openPetMail()],
     ['gift', 'תיבת הפתעה', () => openSurprise()],
+    ['gift', 'לוח הפתעות', () => openAdvent()],
+    ['trophy', 'האתגר היומי', () => openChallenge()],
+    ['camera', 'אלבום השנה שלי', () => openYearbook()],
     ['book', 'אלבום מדבקות', () => openAlbum()],
     ['palette', 'מדבקה משלי', () => openMkStk()],
     ['palette', 'יוצרים קומיקס', () => openComic()],
@@ -13373,6 +13647,617 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
   }
   $('#ballDlg').addEventListener('close', () => { ballStop(); try { confettiRun++; } catch {} });
   $('#spaDlg').addEventListener('close', () => clearTimeout(spaTimer));
+  // ================= daily: 🎁 surprise calendar, 🏅 daily challenge, 📸 my year album =================
+  const dlHash = s => { let h = 2166136261; for (const c of String(s)) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const dlPick = (a, seed) => a[(seed == null ? Math.floor(Math.random() * 1e9) : seed) % a.length];
+  const dlCoins = (n, why) => { try { if (typeof addCoins === 'function') { addCoins(n, why); return true; } } catch {} return false; };
+  const dlFn = f => { try { return f() === 'function'; } catch { return false; } };
+  const dlHeb = (y, m, d) => { try { return hebParts(y, m, d); } catch { return null; } };
+  const dlHebYear = h => h ? gematria(h.year % 1000) : '';
+  const dlHebMonth = h => h ? (HEB_MONTH[h.month] || h.month) : '';
+  const dlMonthKey = k => k.slice(0, 7);
+  const dlDaysIn = (y, m) => new Date(y, m + 1, 0).getDate();
+  const dlCloseAll = keep => document.querySelectorAll('dialog[open]').forEach(d => { if (d.id !== keep && d.id !== 'lock') d.close(); });
+  const dlGo = fn => { dlCloseAll(); try { fn(); } catch {} };
+
+  // ---------- 🎁 the surprise calendar (a new advent calendar every month) ----------
+  // one look per month: name, door motifs, board colors, door colors, rim, and emoji for the rain gift
+  const ADV_THEMES = [
+    { n: '⛄ שלג וכפפות', e: ['❄️', '⛄', '🧤', '☃️', '🧣', '🌨️'], bg: ['#e8f5ff', '#b7dbff'], doors: ['#ffffff', '#dcefff', '#c7e2ff', '#efe6ff'], rim: '#6fa6df', ink: '#1f3f6e', rain: ['❄️', '⛄', '🧤', '☃️', '🧣', '🎿', '⛸️'] },
+    { n: '💗 לבבות וקקאו', e: ['💗', '🧸', '🍫', '💌', '🌷', '☕'], bg: ['#fff0f6', '#ffc3dc'], doors: ['#ffffff', '#ffe0ee', '#ffd0e4', '#ffe9d6'], rim: '#e0659c', ink: '#5a1f3c', rain: ['💗', '🧸', '🍫', '💌', '💝', '🍓', '☕'] },
+    { n: '🌸 פריחה ומסכות', e: ['🌸', '🎭', '🌷', '🐣', '🌿', '👑'], bg: ['#fff4fb', '#e8d6ff'], doors: ['#ffffff', '#ffe3f2', '#e9dcff', '#e3f7df'], rim: '#b47be0', ink: '#43245e', rain: ['🌸', '🎭', '🌷', '🐣', '👑', '🎉', '🍬'] },
+    { n: '🌈 גשם וקשת', e: ['🌈', '☔', '🌼', '🐸', '🍃', '💧'], bg: ['#effaff', '#d3f3e4'], doors: ['#ffffff', '#fff4c7', '#d7f1ff', '#e0f7df'], rim: '#4ab39a', ink: '#17463d', rain: ['🌈', '☔', '🌼', '🐸', '💧', '🌤️', '🐞'] },
+    { n: '🐝 פרחים ודבורים', e: ['🌻', '🐝', '🌼', '🍓', '🦋', '🌺'], bg: ['#fffbe6', '#ffe2a8'], doors: ['#ffffff', '#fff1bf', '#ffe0c7', '#e5f6d4'], rim: '#e6a21a', ink: '#4a3408', rain: ['🌻', '🐝', '🌼', '🍓', '🦋', '🌺', '🍯'] },
+    { n: '🌊 ים וצדפים', e: ['🌊', '🐚', '🐠', '⛵', '🐬', '🦀'], bg: ['#e6fbff', '#9fe0f0'], doors: ['#ffffff', '#d9f6ff', '#fff2d9', '#e0f0ff'], rim: '#2f9fc2', ink: '#0f3a4a', rain: ['🌊', '🐚', '🐠', '⛵', '🐬', '🦀', '🐙'] },
+    { n: '🍦 קיץ וגלידות', e: ['🍦', '🍉', '☀️', '🏖️', '🍹', '🕶️'], bg: ['#fff8e0', '#ffcfb0'], doors: ['#ffffff', '#ffe5ec', '#fff3c2', '#dff7f3'], rim: '#ff8a4c', ink: '#5a2a10', rain: ['🍦', '🍉', '☀️', '🏖️', '🍹', '🕶️', '🍧'] },
+    { n: '⭐ לילות של כוכבים', e: ['⭐', '🌙', '🔭', '🏕️', '✨', '🪐'], bg: ['#2b2f6e', '#5b4a9e'], doors: ['#fff6d8', '#e6e0ff', '#d9ecff', '#ffe3f1'], rim: '#ffd84d', ink: '#23205a', rain: ['⭐', '🌙', '🔭', '🏕️', '✨', '🪐', '🌠'], dark: true },
+    { n: '🍎 תפוחים ודבש', e: ['🍎', '🍯', '🐝', '🍏', '🌿', '🍋'], bg: ['#fff6ec', '#ffd9c2'], doors: ['#ffffff', '#ffe0d6', '#fff2c4', '#e6f5d9'], rim: '#d23a3a', ink: '#4a1a14', rain: ['🍎', '🍯', '🐝', '🍏', '🍋', '🌿', '🍂'] },
+    { n: '🍂 עלי שלכת', e: ['🍂', '🍁', '🎃', '🍄', '🌰', '🦊'], bg: ['#fff3e4', '#ffc98f'], doors: ['#fffaf3', '#ffe2c2', '#ffd6a8', '#f6e7cf'], rim: '#c8641f', ink: '#4a2410', rain: ['🍂', '🍁', '🎃', '🍄', '🌰', '🦊', '🍎'] },
+    { n: '☔ סתיו נעים', e: ['☔', '🍵', '🧣', '🦔', '🌰', '🍄'], bg: ['#f3efe9', '#d7cbe6'], doors: ['#ffffff', '#efe6f7', '#f7e6d8', '#e2eef2'], rim: '#8a6fb0', ink: '#3a2a4e', rain: ['☔', '🍵', '🧣', '🦔', '🌰', '🍄', '🧦'] },
+    { n: '🕎 אורות של חורף', e: ['❄️', '🕎', '🍩', '✨', '⭐', '🎁'], bg: ['#eaf1ff', '#c9d6ff'], doors: ['#ffffff', '#fff4c9', '#dfe8ff', '#e8f7ff'], rim: '#2f5fd0', ink: '#172550', rain: ['❄️', '🕎', '🍩', '✨', '⭐', '🎁', '🫖'] },
+  ];
+  const ADV_ICON = { coins: '🪙', joke: '😂', fact: '💡', nice: '💌', game: '🎮', treat: '🍪', emoji: '🌧️', color: '🖍️', butterfly: '🦋', flower: '🌷', treasure: '👑' };
+  const ADV_JOKES = ['מה אמרה המדבקה ללוח? אני דבוקה אלייך!', 'למה הספר הלך לרופא? כי היו לו בעיות בעמוד!', 'מה אמר המטריה לגשם? אל תדאג, אני מכסה אותך!', 'איך קוראים לדג בלי עיניים? דג!',
+    'למה העגבנייה האדימה? כי היא ראתה את הסלט מתלבש!', 'מה אומרת פרה בחורף? מוווו... קר לי!', 'למה הדבורה שרה? כי היא לא זוכרת את המילים, אז היא מזמזמת!', 'מה אמר הגרב לגרב השני? נתראה בכביסה!'];
+  const ADV_NICE = ['יש לך את הצחוק הכי מדבק בעולם 😄', 'כשאת מחייכת, כל החדר מואר ☀️', 'את חברה שכולן רוצות 💖', 'את אמיצה יותר ממה שאת חושבת 🦁', 'הרעיונות שלך מיוחדים במינם 💡',
+    'את מעצבת מוכשרת בטירוף 🎨', 'יש לך לב ענק 💗', 'את לומדת כל כך מהר! 🚀', 'העולם יותר יפה כי את בו 🌈', 'את מצליחה גם בדברים קשים 💪', 'הסגנון שלך פשוט מושלם 👑', 'את טובה לבעלי חיים, והם מרגישים את זה 🐾'];
+  const ADV_GAMES = [['memory', 'לנצח במשחק הזיכרון בפחות מ-20 צעדים'], ['catch', 'לתפוס 15 כוכבים בסיבוב אחד'], ['maze', 'לפתור מבוך בלי להיתקע'], ['simon', 'לזכור רצף של 6 צלילים'],
+    ['pizza', 'להגיש 5 פיצות מושלמות'], ['bubble', 'לפוצץ 30 בועות'], ['words', 'למצוא את כל המילים'], ['jump', 'לקפוץ 20 קפיצות בלי ליפול'], ['g2048', 'להגיע ל-128'], ['match3', 'לקבל 3 כוכבים בשלב'],
+    ['hide', 'למצוא את החיה 5 פעמים'], ['ice', 'להכין 5 גלידות בלי טעות'], ['puzzle', 'להרכיב פאזל עד הסוף'], ['diff', 'למצוא את כל ההבדלים'], ['sudoku', 'לפתור סודוקו מדבקות'], ['runner', 'לשחות רחוק במרוץ בת הים']];
+  const ADV_TREATS = [['advcookie', 'עוגיית שוקולד צ׳יפס', 'cookie'], ['advcupcake', 'קאפקייק ורוד', 'cupcake'], ['advdonut', 'דונאט עם סוכריות', 'donut'], ['advice', 'גלידת תות', 'icecream'], ['advberry', 'תות ענקי', 'strawberry']];
+  // tiny coloring pages: regions are painted by tapping
+  const ADV_COLOR = [
+    ['פרפר', () => { const w = (d, i) => `<path data-r="${i}" d="${d}"/>`; return `<rect data-r="0" x="0" y="0" width="200" height="200" rx="16"/>` +
+      w('M100 96 C70 40 20 40 26 84 C30 110 70 108 100 100 Z', 1) + w('M100 96 C130 40 180 40 174 84 C170 110 130 108 100 100 Z', 2) + w('M100 104 C72 110 40 128 52 156 C66 176 92 146 100 112 Z', 3) + w('M100 104 C128 110 160 128 148 156 C134 176 108 146 100 112 Z', 4) +
+      w('M56 70 a10 10 0 1 0 0.1 0 Z', 5) + w('M144 70 a10 10 0 1 0 0.1 0 Z', 6) + w('M70 140 a7 7 0 1 0 0.1 0 Z', 7) + w('M130 140 a7 7 0 1 0 0.1 0 Z', 8) + w('M100 70 C108 70 108 150 100 150 C92 150 92 70 100 70 Z', 9) +
+      `<path d="M98 72 C92 50 84 42 76 40 M102 72 C108 50 116 42 124 40" fill="none"/><circle cx="76" cy="40" r="4"/><circle cx="124" cy="40" r="4"/>`; }],
+    ['פרח בעציץ', () => { let s = `<rect data-r="0" x="0" y="0" width="200" height="200" rx="16"/>`; for (let i = 0; i < 6; i++) s += `<ellipse data-r="${1 + i}" cx="100" cy="52" rx="15" ry="26" transform="rotate(${i * 60} 100 80)"/>`;
+      return s + `<circle data-r="7" cx="100" cy="80" r="16"/><path data-r="8" d="M97 96 H103 V150 H97 Z"/><path data-r="9" d="M100 128 C80 108 62 116 60 124 C76 134 92 132 100 128 Z"/><path data-r="10" d="M100 118 C120 98 138 106 140 114 C124 124 108 122 100 118 Z"/>` +
+        `<path data-r="11" d="M64 150 H136 L126 190 H74 Z"/><path data-r="12" d="M60 144 H140 V156 H60 Z"/>`; }],
+    ['קאפקייק', () => `<rect data-r="0" x="0" y="0" width="200" height="200" rx="16"/><path data-r="1" d="M52 112 H148 L134 184 H66 Z"/><path d="M76 112 L80 184 M100 112 V184 M124 112 L120 184" fill="none"/>` +
+      `<path data-r="2" d="M44 114 C40 96 58 88 66 92 C68 76 86 72 96 80 C104 68 126 72 128 88 C142 84 160 96 154 114 Z"/><path data-r="3" d="M64 90 C66 70 82 58 100 60 C118 58 134 70 136 90 C120 82 80 82 64 90 Z"/>` +
+      `<path data-r="4" d="M82 64 C84 48 116 48 118 64 C106 58 94 58 82 64 Z"/><circle data-r="5" cx="100" cy="40" r="11"/><path d="M100 29 C102 20 108 16 114 16" fill="none"/>` +
+      `<circle data-r="6" cx="70" cy="104" r="4"/><circle data-r="7" cx="96" cy="100" r="4"/><circle data-r="8" cx="126" cy="104" r="4"/>`],
+    ['בית קטן', () => `<rect data-r="0" x="0" y="0" width="200" height="200" rx="16"/><circle data-r="1" cx="164" cy="36" r="18"/><path data-r="2" d="M22 50 H66 A12 12 0 0 0 64 30 A16 16 0 0 0 36 28 A13 13 0 0 0 22 50 Z"/>` +
+      `<path data-r="3" d="M0 172 C60 160 140 160 200 172 V200 H0 Z"/><path data-r="4" d="M50 104 H150 V176 H50 Z"/><path data-r="5" d="M38 106 L100 56 L162 106 Z"/><path data-r="6" d="M88 132 H112 V176 H88 Z"/>` +
+      `<path data-r="7" d="M60 118 H80 V138 H60 Z"/><path data-r="8" d="M120 118 H140 V138 H120 Z"/><path data-r="9" d="M126 70 H140 V90 L126 80 Z"/>`],
+  ];
+  const ADV_PAL = ['#ff6b8b', '#ff9ad5', '#ffb020', '#ffd84d', '#8fdc6f', '#4fc3a1', '#7ec8ff', '#3a78d8', '#b58cff', '#c8914f', '#ffffff', '#3a2b3c'];
+
+  const advLoad = () => {
+    const t = localToday(), mk = dlMonthKey(t);
+    let a = Object.assign({ m: mk, open: {}, hist: {}, seen: [] }, store.get('advent', {}));
+    if (a.m !== mk) { a = { m: mk, open: {}, hist: a.hist || {}, seen: a.seen || [] }; store.set('advent', a); }
+    return a;
+  };
+  const advTheme = m => ADV_THEMES[m];
+  // what kinds of gifts are possible right now
+  function advKinds() {
+    const k = ['joke', 'fact', 'nice', 'emoji', 'color'];
+    if (dlFn(() => typeof addCoins)) k.push('coins', 'coins');
+    try { if (GAME_TABS.length) k.push('game'); } catch {}
+    try { if (pet) k.push('treat'); } catch {}
+    try { if (typeof BF_LIST !== 'undefined' && BF_LIST.some(b => !b.rare && !bfData.caught[b.id])) k.push('butterfly'); } catch {}
+    try { if (typeof GD_PLANTS !== 'undefined' && gdData) k.push('flower'); } catch {}
+    return k;
+  }
+  // every day of the month gets a different kind than the day before
+  function advKindFor(mk, day) {
+    const kinds = advKinds(), seed = dlHash('adv' + mk);
+    const order = [...kinds].sort((x, y) => dlHash(seed + x) - dlHash(seed + y));
+    let k = order[(day - 1) % order.length];
+    if (day > 1 && k === order[(day - 2) % order.length] && order.length > 1) k = order[day % order.length];
+    return k;
+  }
+  function advMakeGift(day, last) {
+    const t = localToday(), { m } = fromIso(t), th = advTheme(m), mk = dlMonthKey(t);
+    let kind = last ? 'treasure' : advKindFor(mk, day);
+    const g = { k: kind, day };
+    const any = a => a[Math.floor(Math.random() * a.length)];
+    try {
+      if (kind === 'treasure') {
+        const tr = typeof unlockTreasure === 'function' ? unlockTreasure() : null;
+        if (tr) { g.id = tr.id; g.name = tr.name; } else { g.k = kind = 'coins'; g.n = 40; }
+      }
+      if (kind === 'coins') { g.n = g.n || dlPick([5, 8, 10, 12, 15], dlHash(t)); dlCoins(g.n, 'לוח ההפתעות'); }
+      if (kind === 'joke') g.text = any([...ADV_JOKES, ...(typeof JOKES !== 'undefined' ? JOKES : [])]);
+      if (kind === 'fact') g.text = any(FACTS);
+      if (kind === 'nice') g.text = any(ADV_NICE);
+      if (kind === 'game') { const ok = ADV_GAMES.filter(x => GAME_TABS.some(y => y[0] === x[0])); const p = any(ok.length ? ok : ADV_GAMES); g.tab = p[0]; g.text = p[1]; g.gname = (GAME_TABS.find(y => y[0] === p[0]) || [0, ''])[1]; }
+      if (kind === 'treat') {
+        const [id, name, stk] = any(ADV_TREATS), food = { id, name, art: stickerHTML(stk), yum: 3 };
+        g.stk = stk; g.name = name;
+        if (typeof feedPet === 'function') g.line = feedPet(pet, food) || '';
+        else { pet.fed[t] = 1; savePet(); try { renderPet(); } catch {} }
+        g.line = g.line || `${petNm()}: יאמי! ${name}! תודה! 💖`;
+      }
+      if (kind === 'emoji') {
+        const have = design.rainEmojis || [];
+        const pool = th.rain.filter(e => !have.includes(e));
+        g.e = pool.length ? any(pool) : any(['🦄', '🌟', '🍭', '🎀', '🪩', '🫧', '🌺', '🐬'].filter(e => !have.includes(e)).concat(['💫']));
+        design.rainEmojis = [...have.filter(e => e !== g.e), g.e].slice(-12);
+        store.set('design', design); try { renderEmojiLayers(); } catch {}
+      }
+      if (kind === 'color') { g.page = dlHash(mk + day) % ADV_COLOR.length; g.fills = {}; }
+      if (kind === 'butterfly') {
+        const left = BF_LIST.filter(b => !b.rare && !bfData.caught[b.id]), b = any(left);
+        g.id = b.id; g.name = b.n; bfData.caught[b.id] = (bfData.caught[b.id] || 0) + 1; saveBf();
+      }
+      if (kind === 'flower') {
+        const ids = Object.keys(GD_PLANTS).filter(id => !GD_PLANTS[id][3]);
+        g.t = any(ids.length ? ids : Object.keys(GD_PLANTS)); g.name = GD_PLANTS[g.t][0];
+        gdData.vase = [...(gdData.vase || []), g.t].slice(-12); saveGarden();
+      }
+    } catch { Object.assign(g, { k: 'nice', text: any(ADV_NICE) }); }
+    return g;
+  }
+  function advOpenDoor(day, doorEl) {
+    const a = advLoad(), t = localToday(), { y, m, d } = fromIso(t);
+    if (a.open[day]) { advShowGift(a.open[day]); return; }
+    if (day > d) { SFX.boop(); toast(stickerHTML('gift'), `הדלת הזאת תיפתח בעוד ${day - d} ${day - d === 1 ? 'יום' : 'ימים'} 🤫`); doorEl && doorEl.classList.remove('adv-shake'); void (doorEl && doorEl.offsetWidth); doorEl && doorEl.classList.add('adv-shake'); return; }
+    const g = advMakeGift(day, day === dlDaysIn(y, m));
+    g.at = t; a.open[day] = g; a.hist[a.m] = Object.keys(a.open).length; store.set('advent', a);
+    if (doorEl) doorEl.classList.add('open');
+    tone(660, 0.12, 'triangle'); tone(990, 0.2, 'triangle', 0.12);
+    setTimeout(() => { SFX.yay(); confetti($('#advDlg .confetti-c')); advShowGift(g, true); advDraw(); try { renderStrip(); afterChange(); } catch {} }, reduceMotion() ? 50 : 850);
+  }
+  const coinArt = n => `<svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">${[0, 1, 2].map(i => `<g transform="translate(${30 + i * 26} ${58 - i * 14})"><ellipse cx="0" cy="6" rx="24" ry="9" fill="#d99a1e" ${S}/><ellipse cx="0" cy="0" rx="24" ry="9" fill="#ffd84d" ${S}/><ellipse cx="0" cy="0" rx="14" ry="5" fill="none" stroke="#e6a21a" stroke-width="2"/></g>`).join('')}<text x="60" y="88" text-anchor="middle" font-size="16" font-family="Rubik, sans-serif" fill="${O}">+${n}</text></svg>`;
+  function advColorPage(g, save) {
+    const [name, art] = ADV_COLOR[g.page] || ADV_COLOR[0];
+    let color = ADV_PAL[0];
+    const box = el('div', { class: 'adv-color' });
+    const pic = el('div', { class: 'adv-cpic', html: `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="#fff" stroke="${O}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">${art()}</svg>` });
+    const paint = () => pic.querySelectorAll('[data-r]').forEach(p => { const f = (g.fills || {})[p.dataset.r]; p.setAttribute('fill', f || (p.dataset.r === '0' ? '#fffdf7' : '#ffffff')); });
+    paint();
+    pic.addEventListener('click', e => { const p = e.target.closest('[data-r]'); if (!p) return; g.fills = g.fills || {}; g.fills[p.dataset.r] = color; paint(); tone(500 + Math.random() * 400, 0.08, 'triangle'); save(); });
+    const pal = el('div', { class: 'adv-pal' });
+    const drawPal = () => pal.replaceChildren(...ADV_PAL.map(c => { const b = el('button', { type: 'button', class: 'sw2', 'aria-label': 'צבע', 'aria-pressed': String(c === color), onclick: () => { color = c; drawPal(); } }); b.style.background = c; return b; }));
+    drawPal();
+    box.append(el('b', {}, `🖍️ דף צביעה: ${name}`), pic, pal, el('p', { class: 'muted' }, 'בוחרים צבע ולוחצים על חלק בציור. הצבעים נשמרים!'));
+    return box;
+  }
+  function advGiftBody(g) {
+    const t = localToday(), close = () => { const p = $('#advDlg .adv-pop'); if (p) p.remove(); };
+    const save = () => { const a = advLoad(); if (a.open[g.day]) { a.open[g.day] = g; store.set('advent', a); } };
+    switch (g.k) {
+      case 'coins': return [el('div', { class: 'adv-art', html: coinArt(g.n) }), el('h4', {}, `${g.n} מטבעות זהב!`), el('p', {}, 'הם כבר בארנק שלך. מה תקני בהם? 🛍️')];
+      case 'joke': { const i = g.text.indexOf('?'), q = i > 0 ? g.text.slice(0, i + 1) : g.text, ans = i > 0 ? g.text.slice(i + 1).trim() : '';
+        const a = el('p', { class: 'adv-ans', hidden: true }, ans);
+        return [el('div', { class: 'adv-big' }, '😂'), el('h4', {}, 'בדיחה של היום'), el('p', { class: 'adv-q' }, q), ans ? a : null,
+          ans ? el('button', { type: 'button', class: 'btn main', onclick: e => { a.hidden = false; e.currentTarget.remove(); tone(880, 0.1, 'triangle'); tone(660, 0.14, 'triangle', 0.1); } }, '🥁 לגלות תשובה') : null]; }
+      case 'fact': return [el('div', { class: 'adv-big' }, '💡'), el('h4', {}, 'ידעת ש...?'), el('p', { class: 'adv-q' }, g.text)];
+      case 'nice': return [el('div', { class: 'adv-nice' }, el('span', { class: 'adv-hearts' }, '💗 💖 💗'), el('b', {}, 'כרטיס מחמאה בשבילך'), el('p', {}, g.text), el('span', { class: 'adv-hearts' }, '✨ ✨ ✨'))];
+      case 'game': return [el('div', { class: 'adv-big' }, '🎮'), el('h4', {}, `אתגר משחק: ${g.gname}`), el('p', { class: 'adv-q' }, g.text), el('button', { type: 'button', class: 'btn main', onclick: () => dlGo(() => openGames(g.tab)) }, '🚀 לשחק עכשיו')];
+      case 'treat': return [el('div', { class: 'adv-treat' }, el('span', { class: 'adv-pet', html: (() => { try { return petSVG(pet); } catch { return ''; } })() }), el('span', { class: 'adv-food', html: stickerHTML(g.stk) })),
+        el('h4', {}, `פינוק ל${petNm()}: ${g.name}!`), el('p', {}, g.line), el('button', { type: 'button', class: 'btn', onclick: () => dlGo(() => openHouse()) }, '🏠 לבקר את החיה')];
+      case 'emoji': return [el('div', { class: 'adv-big adv-drop' }, g.e), el('h4', {}, 'אימוג\'י חדש לגשם!'), el('p', {}, `${g.e} נוסף לגשם האימוג'י שלך בלוח.`),
+        !design.rainOn ? el('button', { type: 'button', class: 'btn main', onclick: e => { design.rainOn = true; store.set('design', design); try { renderEmojiLayers(); } catch {} e.currentTarget.replaceWith(el('p', { class: 'muted' }, '☔ הגשם הופעל!')); } }, '☔ להפעיל את הגשם') : null];
+      case 'color': return [advColorPage(g, save)];
+      case 'butterfly': { const b = typeof bfById === 'function' ? bfById(g.id) : null;
+        return [el('div', { class: 'adv-art', html: b ? bfSVG(b) : stickerHTML('butterfly') }), el('h4', {}, `פרפר מתנה: ${g.name}!`), el('p', {}, 'הוא עף ישר לאוסף הפרפרים שלך 🦋'), el('button', { type: 'button', class: 'btn', onclick: () => dlGo(() => openButterflies()) }, '🦋 לאוסף')]; }
+      case 'flower': return [el('div', { class: 'adv-art', html: (() => { try { return gdIcon(g.t); } catch { return stickerHTML('tulip'); } })() }), el('h4', {}, `פרח מתנה: ${g.name}!`), el('p', {}, 'שמתי אותו באגרטל בגינה הקסומה 🌷'), el('button', { type: 'button', class: 'btn', onclick: () => dlGo(() => openGarden()) }, '🌷 לגינה')];
+      case 'treasure': { const tr = (typeof TREASURES !== 'undefined' ? TREASURES : []).find(x => x.id === g.id);
+        return [el('div', { class: 'adv-art adv-tr', html: tr ? treasureArt(tr) : stickerHTML('crown') }), el('h4', {}, `👑 אוצר אופנה: ${g.name}!`), el('p', {}, 'הדלת האחרונה של החודש שומרת את המתנה הכי מיוחדת.'),
+          tr ? el('button', { type: 'button', class: 'btn main', onclick: () => { close(); tryTreasure(g.id); } }, '✨ למדוד עכשיו') : null]; }
+    }
+    return [el('p', {}, '🎁')];
+  }
+  function advShowGift(g, fresh) {
+    const dlg = $('#advDlg'); if (!dlg) return;
+    const old = dlg.querySelector('.adv-pop'); if (old) old.remove();
+    const pop = el('div', { class: 'adv-pop', onclick: e => { if (e.target === pop) pop.remove(); } },
+      el('div', { class: 'adv-card' + (fresh ? ' fresh' : ''), role: 'dialog', 'aria-label': 'המתנה' },
+        el('button', { type: 'button', class: 'x adv-x', 'aria-label': 'לסגור', onclick: () => pop.remove() }, '✕'),
+        el('span', { class: 'adv-tag' }, `🎁 דלת ${g.day}`), ...advGiftBody(g).filter(Boolean)));
+    dlg.append(pop);
+  }
+  function advDraw() {
+    const a = advLoad(), t = localToday(), { y, m, d } = fromIso(t), th = advTheme(m), n = dlDaysIn(y, m);
+    const h1 = dlHeb(y, m, 1), h2 = dlHeb(y, m, n);
+    const hebTxt = h1 && h2 ? (h1.month === h2.month ? `${dlHebMonth(h1)} ${dlHebYear(h1)}` : `${dlHebMonth(h1)}${h1.year !== h2.year ? ' ' + dlHebYear(h1) : ''} – ${dlHebMonth(h2)} ${dlHebYear(h2)}`) : '';
+    const opened = Object.keys(a.open).length, missed = Array.from({ length: d - 1 }, (_, i) => i + 1).filter(i => !a.open[i]).length;
+    const deco = Array.from({ length: 16 }, (_, i) => { const hh = dlHash(a.m + 'deco' + i); return el('span', { class: 'adv-deco', 'aria-hidden': 'true', style: `right:${hh % 96}%;top:${(hh >>> 8) % 94}%;font-size:${18 + (hh >>> 4) % 22}px;transform:rotate(${(hh >>> 3) % 60 - 30}deg)` }, th.e[i % th.e.length]); });
+    const doors = Array.from({ length: n }, (_, i) => {
+      const day = i + 1, hh = dlHash(a.m + ':' + day), g = a.open[day], last = day === n;
+      const state = g ? 'open' : day === d ? 'today' : day < d ? 'missed' : 'future';
+      const size = last ? ' big' : hh % 9 === 0 ? ' wide' : hh % 11 === 1 ? ' tall' : '';
+      const shape = ['', ' arch', ' round', '', ' arch'][(hh >>> 5) % 5];
+      const inner = g ? (g.k === 'emoji' ? g.e : ADV_ICON[g.k] || '🎁') : '';
+      return el('button', { type: 'button', class: `adv-door ${state}${size}${last ? '' : shape}`, style: `--dc:${th.doors[hh % th.doors.length]}`, 'aria-label': `דלת ${day}${g ? ' (פתוחה)' : state === 'future' ? ' (עוד לא)' : ''}`,
+        onclick: e => advOpenDoor(day, e.currentTarget) },
+        el('span', { class: 'adv-in' }, el('span', {}, inner)),
+        el('span', { class: 'adv-leaf' }, el('i', { class: 'adv-mot' }, last ? '👑' : th.e[(day * 7 + (hh % 3)) % th.e.length]), el('b', {}, String(day)), el('i', { class: 'adv-knob' }),
+          state === 'today' ? el('span', { class: 'adv-bow' }, '🎀') : null, state === 'missed' ? el('span', { class: 'adv-dot' }, '!') : null, state === 'future' ? el('span', { class: 'adv-lock' }, '🔒') : null));
+    });
+    const board = el('div', { class: 'adv-board' + (th.dark ? ' dark' : ''), style: `--a1:${th.bg[0]};--a2:${th.bg[1]};--arim:${th.rim};--aink:${th.ink}` },
+      ...deco,
+      el('div', { class: 'adv-banner' }, el('b', {}, `${MONTHS[m]} ${y}`), el('span', {}, hebTxt), el('small', {}, th.n)),
+      el('div', { class: 'adv-grid' }, ...doors),
+      el('div', { class: 'adv-ground', 'aria-hidden': 'true' }));
+    $('#advBody').replaceChildren(
+      el('p', { class: 'muted' }, a.open[d] ? `פתחת היום! ${opened} דלתות נפתחו החודש. מחר מחכה עוד הפתעה 🌙` : 'כל יום נפתחת דלת אחת. לוחצים על הדלת של היום עם הפפיון 🎀' + (missed ? ` · יש גם ${missed} דלתות שפספסת, אפשר לפתוח אותן!` : '')),
+      board);
+  }
+  function openAdvent() {
+    advDraw();
+    const dlg = $('#advDlg'), p = dlg.querySelector('.adv-pop'); if (p) p.remove();
+    if (!dlg.open) dlg.showModal();
+  }
+  function adventPill() {
+    const a = advLoad(), { d } = fromIso(localToday());
+    if (a.open[d]) return null;
+    return el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: openAdvent }, el('span', { class: 'ic', html: stickerHTML('gift') }), `דלת ${d} בלוח ההפתעות מחכה לך! 🚪`);
+  }
+
+  // ---------- 🏅 the daily challenge ----------
+  const dcGet = k => store.get(k, null);
+  const dcLen = k => (dcGet(k) || []).length;
+  const dcSig = k => String(dlHash(JSON.stringify(dcGet(k))));
+  const dcG = f => Number((dcGet('games') || {})[f] || 0);
+  const dcToday = () => localToday();
+  const dcWd = () => { try { return wdToday(); } catch { return localToday(); } };
+  const dcPink = c => { const m = /^#([0-9a-f]{6})$/i.exec(c || ''); if (!m) return false; const n = parseInt(m[1], 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; return r > 200 && g < r - 35 && b > 120 && b > g - 10; };
+  const dcPinkIds = () => (dcGet('girls') || []).filter(g => dcPink(g.hairColor) || dcPink(g.hairColor2)).map(g => g.id + ':' + g.hairColor + g.hairColor2).join(',');
+  // [id, text, emoji, open-it, check]. check: {cnt: probe} = number went up · {sig: probe} = something changed · {day: () => bool} = done today · null = honest button
+  const DC_LIST = [
+    ['pinkhair', 'לעצב בת עם שיער ורוד', '💗', () => openFashion(), { fn: () => typeof openFashion, newIn: dcPinkIds }],
+    ['newgirl', 'לעצב בחורה חדשה בסטודיו האופנה', '👗', () => openFashion(), { fn: () => typeof openFashion, cnt: () => dcLen('girls') }],
+    ['memory', 'לנצח במשחק הזיכרון', '🧠', () => openGames('memory'), { cnt: () => dcG('memoryWins') }],
+    ['catch', 'לשחק ב"תפוס את הכוכב"', '⭐', () => openGames('catch'), { cnt: () => dcG('catchPlays') }],
+    ['maze', 'לפתור מבוך', '🌀', () => openGames('maze'), { cnt: () => dcG('mazeWins') }],
+    ['puzzle', 'להרכיב פאזל', '🧩', () => openGames('puzzle'), { cnt: () => dcG('puzzleWins') }],
+    ['diff', 'למצוא את כל ההבדלים', '🔍', () => openGames('diff'), { cnt: () => dcG('diffWins') }],
+    ['ttt', 'לנצח את החיה באיקס עיגול', '❌', () => openGames('ttt'), { cnt: () => dcG('tttWins') }],
+    ['sudoku', 'לפתור סודוקו מדבקות', '🔢', () => openGames('sudoku'), { cnt: () => dcG('sudokuWins') }],
+    ['pizza', 'להגיש פיצות במסעדת הפיצה', '🍕', () => openGames('pizza'), { cnt: () => dcG('pizzaPlays') }],
+    ['ice', 'להכין גלידות לקונים', '🍦', () => openGames('ice'), { cnt: () => dcG('icePlays') }],
+    ['runner', 'לשחות במרוץ בת הים', '🧜‍♀️', () => openGames('runner'), { cnt: () => dcG('runPlays') }],
+    ['jump', 'לקפוץ עם הצפרדע', '🐸', () => openGames('jump'), { cnt: () => dcG('jumpPlays') }],
+    ['pearls', 'לאסוף פנינים', '🫧', () => openGames('pearls'), { cnt: () => dcG('pearlPlays') }],
+    ['fcontest', 'להשתתף בתחרות אופנה', '🏆', () => openGames('fcontest'), { cnt: () => dcG('fashionPlays') }],
+    ['colorgame', 'לצבוע ציור ולהפוך אותו למדבקה', '🖍️', () => openGames('color'), { cnt: () => dcG('colored') }],
+    ['water', 'להשקות את הגינה', '💧', () => openGarden(), { fn: () => typeof openGarden, day: () => ((dcGet('garden') || {}).plots || []).some(p => p && p.w === dcWd()) }],
+    ['butterfly', 'לתפוס את הפרפר של היום', '🦋', () => openButterflies(), { fn: () => typeof openButterflies, day: () => !!((dcGet('butterflies') || {}).days || {})[dcWd()] }],
+    ['diary', 'לכתוב שורה ביומן', '📔', () => openDiary(), { day: () => { const x = (dcGet('diary') || {})[dcToday()]; return !!(x && x.text && x.text.trim()); } }],
+    ['mood', 'לבחור מצב רוח ביומן', '😊', () => openDiary(), { day: () => { const x = (dcGet('diary') || {})[dcToday()]; return !!(x && x.mood); } }],
+    ['mksticker', 'לצייר מדבקה משלך', '🎨', () => openMkStk(), { cnt: () => dcLen('customStk') }],
+    ['wish', 'לבקש משאלה', '🌠', () => openWishes(), { fn: () => typeof openWishes, cnt: () => dcLen('wishes') }],
+    ['dresspet', 'להלביש את החיה', '🎀', () => { houseTab = 'wear'; openHouse(); }, { pet: 1, sig: () => String(dlHash(JSON.stringify((dcGet('pet') || {}).wear || {}))) }],
+    ['feedpet', 'להאכיל את החיה', '🍪', () => openHouse(), { pet: 1, day: () => !!(((dcGet('pet') || {}).fed || {})[dcToday()]) }],
+    ['playpet', 'לשחק עם החיה', '⚽', () => openHouse(), { pet: 1, day: () => !!(((dcGet('pet') || {}).played || {})[dcToday()]) }],
+    ['cake', 'לאפות ולקשט עוגה', '🎂', () => openGames('cake'), { sig: () => dcSig('cake') }],
+    ['drawday', 'לצייר ציור ביום של היום בלוח', '🖌️', () => openDay(dcToday()), { day: () => !!((dcGet('media') || {}).draw || {})[dcToday()] }],
+    ['stickday', 'לשים מדבקה על היום של היום', '⭐', () => openDay(dcToday()), { day: () => !!(dcGet('stickers') || {})[dcToday()] }],
+    ['comic', 'ליצור קומיקס', '💥', () => openComic(), { fn: () => typeof openComic, sig: () => dcSig('comics') }],
+    ['poster', 'לעצב פוסטר', '🖼️', () => openPoster(), { fn: () => typeof openPoster, sig: () => dcSig('posters') }],
+    ['story', 'לכתוב סיפור קצר', '📖', () => openStory(), { fn: () => typeof openStory, sig: () => dcSig('stories') }],
+    ['dream', 'לכתוב חלום ביומן החלומות', '🌙', () => openDreams(), { fn: () => typeof openDreams, cnt: () => dcLen('dreams') }],
+    ['melody', 'להלחין מנגינה בפסנתר', '🎹', () => openPiano(), { fn: () => typeof openPiano, cnt: () => dcLen('melodies') }],
+    ['booth', 'להצטלם בתא הצילום', '📸', () => openBooth(), { fn: () => typeof openBooth, cnt: () => dcLen('photos') }],
+    ['nails', 'לעצב סט ציפורניים', '💅', () => openNails(), { fn: () => typeof openNails, sig: () => dcSig('nailSets') }],
+    ['room', 'לסדר מחדש את החדר', '🛏️', () => openRoom(), { fn: () => typeof openRoom, sig: () => dcSig('room') }],
+    ['town', 'לבנות משהו חדש בעיר הקטנה', '🏘️', () => openTown(), { fn: () => typeof openTown, sig: () => dcSig('town') }],
+    ['sea', 'לקשט את העולם שמתחת למים', '🐠', () => openSea(), { fn: () => typeof openSea, sig: () => dcSig('sea') }],
+    ['dollhouse', 'לסדר את בית הבובות', '🏠', () => openDollHouse(), { fn: () => typeof openDollHouse, sig: () => dcSig('dollhouse') }],
+    ['mermaid', 'לעצב בת ים', '🧜‍♀️', () => openMermaids(), { fn: () => typeof openMermaids, sig: () => dcSig('mermaids') }],
+    ['outfit', 'לשמור תלבושת חדשה בארון', '👚', () => openFashion(), { fn: () => typeof openFashion, cnt: () => dcLen('outfits') }],
+    ['fortune', 'לשבור עוגיית מזל', '🥠', () => fortuneCookie(), { fn: () => typeof fortuneCookie, day: () => (dcGet('fortune') || {}).last === dcToday() }],
+    ['morning', 'להשלים את הצ\'קליסט של הבוקר', '☀️', () => { buildMorning(); $('#mornDlg').showModal(); }, { day: () => !!((dcGet('morning') || {}).history || {})[dcToday()] }],
+    ['event', 'להוסיף אירוע ללוח', '📅', () => openDay(dcToday()), { cnt: () => Object.values(dcGet('events') || {}).reduce((s, l) => s + l.length, 0) }],
+    ['countdown', 'ליצור ספירה לאחור למשהו מרגש', '🚀', () => { buildCountdowns(); $('#cdDlg').showModal(); }, { cnt: () => dcLen('countdowns') }],
+    ['letter', 'לכתוב מכתב לעצמך בעתיד', '💌', () => openLetters(), { cnt: () => dcLen('letters') }],
+    ['book', 'להוסיף ספר לרשימת הספרים', '📚', () => { buildBooks(); $('#bookDlg').showModal(); }, { cnt: () => dcLen('books') }],
+    ['surprise', 'לפתוח את תיבת ההפתעה', '🎁', () => openSurprise(), { day: () => (dcGet('surprise') || {}).last === dcToday() }],
+    ['advent', 'לפתוח את הדלת של היום בלוח ההפתעות', '🚪', () => openAdvent(), { day: () => !!advLoad().open[fromIso(dcToday()).d] }],
+    ['hunt', 'לפתור רמז בציד האוצרות', '🗺️', () => openHunt(), { sig: () => dcSig('hunt') }],
+    ['petchat', 'לדבר עם החיה', '💬', () => openPetChat(), { fn: () => typeof openPetChat, pet: 1, sig: () => dcSig('petChat') }],
+    ['dance', 'לרקוד לשיר שאת הכי אוהבת', '💃', null, null],
+    ['water4', 'לשתות 4 כוסות מים היום', '🥤', null, null],
+    ['compliment', 'להגיד מחמאה למישהו', '💖', null, null],
+    ['read10', 'לקרוא 10 דקות בספר', '📖', null, null],
+    ['help', 'לעזור בבית בלי שמישהו ביקש', '🧹', null, null],
+    ['paper', 'לצייר ציור על דף אמיתי', '✏️', null, null],
+    ['joke', 'לספר בדיחה למישהו במשפחה', '😂', null, null],
+    ['walk', 'לצאת להליכה קצרה בחוץ', '🌳', null, null],
+    ['bag', 'לסדר את התיק לבית הספר', '🎒', null, null],
+    ['hug', 'לחבק מישהו שאת אוהבת', '🤗', null, null],
+  ];
+  const DC_CUPS = [[5, 'ארד', '#d08a4a', '#f2b77c'], [10, 'כסף', '#9aa7b8', '#e3e9f2'], [20, 'זהב', '#e6a21a', '#ffe27a'], [30, 'יהלום', '#6fb7e6', '#d6f3ff']];
+  const cupSVG = (c, on) => `<svg viewBox="0 0 48 56" xmlns="http://www.w3.org/2000/svg"><path d="M13 8 H6 C5 18 9 22 15 23 M35 8 H42 C43 18 39 22 33 23" fill="none" stroke="${on ? O : '#b9b2c4'}" stroke-width="3" stroke-linecap="round"/>` +
+    `<path d="M12 5 H36 C36 20 32 28 24 30 C16 28 12 20 12 5 Z" fill="${on ? c[3] : '#e4e0ea'}" stroke="${on ? O : '#b9b2c4'}" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 9 C16 16 18 21 21 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity="${on ? .8 : .4}"/>` +
+    `<rect x="21" y="30" width="6" height="9" fill="${on ? c[2] : '#d6d0de'}" stroke="${on ? O : '#b9b2c4'}" stroke-width="2"/><rect x="13" y="39" width="22" height="9" rx="2.5" fill="${on ? c[2] : '#d6d0de'}" stroke="${on ? O : '#b9b2c4'}" stroke-width="2.5"/>` +
+    (on ? `<text x="24" y="20" text-anchor="middle" font-size="10" font-family="Rubik, sans-serif" font-weight="700" fill="${O}">${c[0]}</text>` : `<text x="24" y="20" text-anchor="middle" font-size="11" fill="#b9b2c4">?</text>`) + `</svg>`;
+  const dcLoad = () => Object.assign({ today: null, done: {}, streak: 0, best: 0, last: '', cups: {} }, store.get('challenge', {}));
+  const dcById = id => DC_LIST.find(c => c[0] === id);
+  function dcAvail(c) {
+    const ck = c[4];
+    if (c[3] === null) return true;
+    if (ck && ck.fn && !dlFn(ck.fn)) return false;
+    try { if (ck && ck.pet && !pet) return false; } catch { return false; }
+    return true;
+  }
+  const dcProbe = c => { const ck = c[4]; try { return ck.cnt ? ck.cnt() : ck.sig ? ck.sig() : ck.newIn ? ck.newIn() : null; } catch { return null; } };
+  function dcIsDone(c, snap) {
+    const ck = c[4]; if (!ck) return false;
+    try {
+      if (ck.day) return ck.day();
+      const v = dcProbe(c); if (v === null || snap === null || snap === undefined) return false;
+      if (ck.cnt) return v > snap;
+      if (ck.sig) return v !== snap;
+      if (ck.newIn) { const old = new Set(String(snap).split(',')); return String(v).split(',').some(x => x && !old.has(x)); }
+    } catch {}
+    return false;
+  }
+  // today's challenge: picked once per day (never the same as yesterday) and a snapshot of what it watches
+  function dcNow() {
+    const ch = dcLoad(), t = localToday();
+    if (ch.today && ch.today.d === t && dcById(ch.today.id)) return ch;
+    const pool = DC_LIST.filter(dcAvail), yest = (ch.done[addDays(t, -1)] || (ch.today && ch.today.id)) || '';
+    const auto = pool.filter(c => c[4]), manual = pool.filter(c => !c[4]), h = dlHash('dc' + t);
+    const from = (h % 5 === 0 && manual.length) || !auto.length ? manual : auto;
+    let c = from[(h >>> 4) % from.length]; if (c[0] === yest && from.length > 1) c = from[((h >>> 4) + 1) % from.length];
+    ch.today = { d: t, id: c[0], v: dcProbe(c), swap: 0 };
+    store.set('challenge', ch);
+    return ch;
+  }
+  const dcMonthCount = (ch, mk) => Object.keys(ch.done).filter(k => k.startsWith(mk)).length;
+  function dcComplete(how) {
+    const ch = dcNow(), t = localToday();
+    if (ch.done[t]) return;
+    ch.done[t] = ch.today.id;
+    ch.streak = ch.last === addDays(t, -1) ? ch.streak + 1 : 1; ch.last = t; ch.best = Math.max(ch.best || 0, ch.streak);
+    const mk = dlMonthKey(t), n = dcMonthCount(ch, mk), cup = DC_CUPS.find(c => c[0] === n);
+    if (cup) { ch.cups[mk] = n; }
+    store.set('challenge', ch);
+    const bonus = ch.streak % 7 === 0 ? 10 : 0;
+    dlCoins(10 + bonus + (cup ? 20 : 0), cup ? `גביע ${cup[1]}!` : 'האתגר היומי');
+    const c = dcById(ch.today.id);
+    setTimeout(() => {
+      toast(cup ? cupSVG(cup, true) : stickerHTML('trophy'), cup ? `🏆 גביע ${cup[1]}! ${n} אתגרים החודש!` : `🏅 ${how === 'auto' ? 'האתגר הושלם' : 'כל הכבוד'}: ${c[1]}! 🔥 רצף ${ch.streak}`);
+      SFX.yay();
+      const dlg = $('#dcDlg'); if (dlg && dlg.open) { confetti($('#dcDlg .confetti-c')); dcDraw(); } else confetti();
+    }, how === 'auto' ? 400 : 0);
+    try { renderStrip(); afterChange(); } catch {}
+  }
+  function dcCheck() {
+    try {
+      const ch = dcNow(), t = localToday(); if (ch.done[t]) return;
+      const c = dcById(ch.today.id); if (c && c[4] && dcIsDone(c, ch.today.v)) dcComplete('auto');
+    } catch {}
+  }
+  function dcDraw() {
+    const ch = dcNow(), t = localToday(), c = dcById(ch.today.id), done = !!ch.done[t], mk = dlMonthKey(t), n = dcMonthCount(ch, mk);
+    const alive = ch.last === t || ch.last === addDays(t, -1) ? ch.streak : 0;
+    const week = Array.from({ length: 7 }, (_, i) => addDays(t, i - 6)).map(k => el('span', { class: 'dc-wd' + (ch.done[k] ? ' on' : '') + (k === t ? ' now' : '') }, el('i', {}, ch.done[k] ? '✔' : ''), DOW[dowOf(k)]));
+    const card = el('div', { class: 'dc-card' + (done ? ' done' : '') },
+      el('span', { class: 'dc-emo' }, c[2]),
+      el('small', {}, done ? 'האתגר של היום הושלם! 🎉' : 'האתגר של היום'),
+      el('b', { class: 'dc-text' }, c[1]),
+      done ? el('p', { class: 'dc-ok' }, '✔️ עשית את זה! מחר מחכה אתגר חדש') :
+        c[4] ? el('p', { class: 'muted' }, '✨ זה יסומן לבד ברגע שתעשי את זה') : el('p', { class: 'muted' }, 'את זה עושים בעולם האמיתי. כשסיימת, לוחצים "עשיתי!" (בכנות 😉)'),
+      done ? null : el('div', { class: 'chips', style: 'justify-content:center' },
+        c[3] ? el('button', { type: 'button', class: 'btn main', onclick: () => dlGo(c[3]) }, '🚀 לעשות את זה עכשיו') : el('button', { type: 'button', class: 'btn main', onclick: () => dcComplete('manual') }, 'עשיתי! ✔️'),
+        !ch.today.swap ? el('button', { type: 'button', class: 'btn', onclick: () => {
+          const pool = DC_LIST.filter(x => dcAvail(x) && x[0] !== c[0]), nc = pool[Math.floor(Math.random() * pool.length)];
+          ch.today = { d: t, id: nc[0], v: dcProbe(nc), swap: 1 }; store.set('challenge', ch); SFX.pop(); dcDraw(); try { renderStrip(); } catch {}
+        } }, '🔄 אתגר אחר') : null));
+    const shelf = el('div', { class: 'dc-shelf' }, ...DC_CUPS.map(cp => el('div', { class: 'dc-cup' + (n >= cp[0] ? ' on' : '') }, el('span', { html: cupSVG(cp, n >= cp[0]) }), el('small', {}, `${cp[0]} אתגרים`))));
+    const past = Object.keys(ch.cups).filter(k => k !== mk).sort().reverse().slice(0, 12);
+    $('#dcBody').replaceChildren(card,
+      el('div', { class: 'dc-stats' },
+        el('div', { class: 'dc-flame' }, el('span', { class: 'dc-fire' + (alive ? '' : ' off') }, '🔥'), el('b', {}, String(alive)), el('small', {}, alive === 1 ? 'יום ברצף' : 'ימים ברצף')),
+        el('div', { class: 'dc-flame' }, el('span', {}, '⭐'), el('b', {}, String(ch.best || 0)), el('small', {}, 'השיא שלי')),
+        el('div', { class: 'dc-flame' }, el('span', {}, '🏅'), el('b', {}, String(Object.keys(ch.done).length)), el('small', {}, 'אתגרים בסך הכל'))),
+      el('div', { class: 'dc-week' }, ...week),
+      el('h4', { class: 'sec-title' }, `🏆 מדף הגביעים של ${MONTHS[fromIso(t).m]} · ${n} אתגרים`), shelf,
+      el('p', { class: 'muted' }, n >= 30 ? 'את אלופת האתגרים של החודש! 💎' : (r => r === 1 ? 'עוד אתגר אחד לגביע הבא! 💪' : `עוד ${r} אתגרים לגביע הבא`)(DC_CUPS.find(cp => n < cp[0])[0] - n)),
+      past.length ? el('h4', { class: 'sec-title' }, '📜 גביעים מחודשים קודמים') : null,
+      past.length ? el('div', { class: 'dc-past' }, ...past.map(k => { const [yy, mm] = k.split('-').map(Number), cnt = dcMonthCount(ch, k);
+        return el('div', { class: 'dc-pm' }, el('b', {}, `${MONTHS[mm - 1]} ${yy}`), el('span', { class: 'dc-mini' }, ...DC_CUPS.filter(cp => cnt >= cp[0]).map(cp => el('span', { html: cupSVG(cp, true) })))); })) : null);
+  }
+  function openChallenge() { dcCheck(); dcDraw(); if (!$('#dcDlg').open) $('#dcDlg').showModal(); }
+  function challengePill() {
+    const ch = dcNow(), t = localToday();
+    if (ch.done[t]) return null;
+    const c = dcById(ch.today.id);
+    return el('button', { type: 'button', class: 'pill', onclick: openChallenge }, el('span', { class: 'ic', html: stickerHTML('trophy') }), `האתגר של היום: ${c[1]} ${c[2]}`);
+  }
+  // notice finished challenges by themselves: whenever a window closes, and every little while
+  document.addEventListener('close', e => { if (e.target && e.target.tagName === 'DIALOG') { setTimeout(dcCheck, 80); setTimeout(dcCheck, 1500); } }, true);
+  setInterval(dcCheck, 15000);
+
+  // ---------- 📸 my year album ----------
+  const ybLoad = () => Object.assign({ mode: 'civil', cap: {}, stk: {}, gm: {} }, store.get('yearbook', {}));
+  const ybSave = yb => store.set('yearbook', yb);
+  // remember the game counters when each month starts, so every page can tell how many games she won that month
+  const ybGameTotals = () => { const g = store.get('games', {}) || {}; let w = 0, p = 0; for (const [k, v] of Object.entries(g)) { if (typeof v !== 'number') continue; if (/Wins$|^colored$/.test(k)) w += v; if (/Plays$|Wins$|Losses$|Draws$/.test(k)) p += v; } return { w, p }; };
+  function ybTrack() { try { const yb = ybLoad(), mk = dlMonthKey(localToday()); if (!yb.gm[mk]) { yb.gm[mk] = ybGameTotals(); ybSave(yb); } } catch {} }
+  ybTrack();
+  let ybPage = -1, ybBusy = false, ybSel = null, ybPickOpen = false;
+  const ybGirlTime = g => { const m = /^f([0-9a-z]{8})/.exec(g.id || ''); return m ? parseInt(m[1], 36) : 0; };
+  const ybMsToIso = ms => { const d = new Date(ms); return iso(d.getFullYear(), d.getMonth(), d.getDate()); };
+  // the pages of the year: 12 civil months, or the Hebrew months from Rosh Hashana
+  function ybPages(mode) {
+    const t = localToday(), { y } = fromIso(t);
+    if (mode === 'heb') {
+      let k = t, guard = 0;
+      while (guard++ < 400) { const p = fromIso(k), h = dlHeb(p.y, p.m, p.d); if (h && h.month === 'Tishri' && h.day === 1) break; k = addDays(k, -1); }
+      const pages = []; let cur = null;
+      for (let i = 0; i < 390; i++) {
+        const d = addDays(k, i), p = fromIso(d), h = dlHeb(p.y, p.m, p.d); if (!h) break;
+        if (i > 0 && h.month === 'Tishri' && h.day === 1) break;
+        if (!cur || cur.hm !== h.month) { cur = { key: `h${h.year}-${h.month}`, hm: h.month, title: dlHebMonth(h), sub: '', from: d, to: d, yl: dlHebYear(h) }; pages.push(cur); }
+        cur.to = d;
+      }
+      pages.forEach(p => { const a = fromIso(p.from), b = fromIso(p.to); p.sub = a.m === b.m ? `${MONTHS[a.m]} ${a.y}` : `${MONTHS[a.m]} – ${MONTHS[b.m]} ${b.y}`; });
+      const h0 = dlHeb(...(p => [p.y, p.m, p.d])(fromIso(pages[0].from)));
+      return { title: `שנת ${dlHebYear(h0)}`, pages };
+    }
+    return { title: `${y}`, pages: MONTHS.map((n, m) => {
+      const from = iso(y, m, 1), to = iso(y, m, dlDaysIn(y, m)), h1 = dlHeb(y, m, 1), h2 = dlHeb(y, m, dlDaysIn(y, m));
+      return { key: `c${y}-${String(m + 1).padStart(2, '0')}`, title: n, sub: h1 && h2 ? `${dlHebMonth(h1)} – ${dlHebMonth(h2)} ${dlHebYear(h2)}` : '', from, to, ym: from.slice(0, 7) };
+    }) };
+  }
+  function ybCollect(p) {
+    const t = localToday(), to = p.to < t ? p.to : t, R = { future: p.from > t, days: 0 };
+    if (R.future) return R;
+    const inR = k => k >= p.from && k <= to;
+    const days = []; for (let k = p.from; k <= to; k = addDays(k, 1)) days.push(k);
+    R.days = days.length;
+    R.moods = {}; R.diary = 0;
+    for (const k of days) { const x = diary[k]; if (x && (x.text || x.mood)) { R.diary++; if (x.mood) R.moods[x.mood] = (R.moods[x.mood] || 0) + 1; } }
+    R.draws = days.filter(k => media.draw[k]).map(k => [k, getMedia('draw', k)]).filter(x => x[1]);
+    R.photos = days.filter(k => media.photo[k]).map(k => [k, getMedia('photo', k)]).filter(x => x[1]);
+    const sc = {}; let sdays = 0; for (const k of days) { const l = stickers[k]; if (l && l.length) { sdays++; l.forEach(id => { if (STICKERS[id]) sc[id] = (sc[id] || 0) + 1; }); } }
+    R.stickerDays = sdays; R.topStk = Object.keys(sc).sort((a, b) => sc[b] - sc[a]).slice(0, 10);
+    try { R.girls = girls.filter(g => { const ms = ybGirlTime(g); return ms && inR(ybMsToIso(ms)); }); } catch { R.girls = []; }
+    try { R.comics = (store.get('comics', []) || []).filter(c => c.at && inR(ybMsToIso(c.at))); } catch { R.comics = []; }
+    try { R.posters = (store.get('posters', []) || []).filter(c => c.at && inR(ybMsToIso(c.at))); } catch { R.posters = []; }
+    try { R.bf = Object.keys(bfData.days).filter(inR).sort().map(k => bfData.days[k]); } catch { R.bf = []; }
+    R.bdays = [];
+    for (const b of birthdays) { if (!b.date || !b.name) continue; const bd = fromIso(b.date); for (const yy of new Set([fromIso(p.from).y, fromIso(p.to).y])) { const k = iso(yy, bd.m, bd.d); if (k >= p.from && k <= p.to) R.bdays.push([k, b.name, b.me]); } }
+    const hs = new Map(); for (let k = p.from; k <= p.to; k = addDays(k, 1)) { try { dayInfo(k).hols.forEach(x => { const nm = holName(x).replace(/ \(.*\)$/, ''); if (!hs.has(nm)) hs.set(nm, [k, (HOLIDAYS[x.id] || {}).stk]); }); } catch {} }
+    R.hols = [...hs.entries()];
+    const ch = dcLoad(); R.challenges = Object.keys(ch.done).filter(inR).length;
+    try { const a = store.get('advent', {}) || {}; R.doors = Object.keys((a.hist || {})).filter(mk => mk >= p.from.slice(0, 7) && mk <= p.to.slice(0, 7)).reduce((s, mk) => s + (a.hist[mk] || 0), 0); } catch { R.doors = 0; }
+    try { R.dreams = (store.get('dreams', []) || []).filter(d => d.date && inR(d.date)).length; } catch { R.dreams = 0; }
+    try { R.wishes = (wishes || []).filter(w => w.made && inR(w.made)).length; } catch { R.wishes = 0; }
+    R.books = 0;
+    const yb = ybLoad(), mk = (p.ym || addDays(p.from, 14).slice(0, 7)), [yy, mm] = mk.split('-').map(Number), nk = mm === 12 ? `${yy + 1}-01` : `${yy}-${String(mm + 1).padStart(2, '0')}`;
+    if (yb.gm[mk]) { const end = yb.gm[nk] || ybGameTotals(); R.wins = Math.max(0, end.w - yb.gm[mk].w); R.plays = Math.max(0, end.p - yb.gm[mk].p); }
+    return R;
+  }
+  // little hand-drawn doodles for the margins
+  const YB_DOODLES = [
+    `<path d="M10 30 C4 22 6 12 14 12 C18 12 20 16 20 16 C20 16 22 12 26 12 C34 12 36 22 30 30 L20 38 Z" fill="none" stroke="#ff7a9a" stroke-width="2.4" stroke-linejoin="round"/>`,
+    `<polygon points="${starPts(20, 22, 15, 7)}" fill="none" stroke="#e6a21a" stroke-width="2.4" stroke-linejoin="round"/>`,
+    `<path d="M4 24 C10 10 16 38 22 24 C28 10 34 38 40 24" fill="none" stroke="#7ec8ff" stroke-width="2.6" stroke-linecap="round"/>`,
+    `<circle cx="20" cy="22" r="6" fill="none" stroke="#b58cff" stroke-width="2.4"/><path d="M20 8 V2 M20 36 V42 M6 22 H0 M34 22 H40 M10 12 L6 8 M30 12 L34 8 M10 32 L6 36 M30 32 L34 36" stroke="#b58cff" stroke-width="2.4" stroke-linecap="round"/>`,
+    `<path d="M8 32 C8 18 32 18 32 32 M14 32 C14 24 26 24 26 32" fill="none" stroke="#4fc3a1" stroke-width="2.6" stroke-linecap="round"/><path d="M4 34 H36" stroke="#4fc3a1" stroke-width="2" stroke-dasharray="3 4"/>`,
+    `<path d="M20 4 Q22 18 36 20 Q22 22 20 36 Q18 22 4 20 Q18 18 20 4 Z" fill="none" stroke="#ff9ad5" stroke-width="2.4" stroke-linejoin="round"/>`,
+    `<path d="M6 34 C12 22 18 30 20 20 C22 10 30 14 34 6" fill="none" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 5"/>`,
+  ];
+  const ybDoodle = (i, cls) => el('span', { class: 'yb-doodle ' + cls, 'aria-hidden': 'true', html: `<svg viewBox="0 0 40 44" xmlns="http://www.w3.org/2000/svg">${YB_DOODLES[i % YB_DOODLES.length]}</svg>` });
+  const YB_TAPES = ['t1', 't2', 't3', 't4', 't5'];
+  const ybTape = (seed, pos) => el('i', { class: `yb-tape ${YB_TAPES[seed % YB_TAPES.length]} ${pos || ''}`, 'aria-hidden': 'true' });
+  const ybTilt = s => `transform:rotate(${(dlHash(s) % 9) - 4}deg)`;
+  const ybBox = (seed, title, ...kids) => el('section', { class: 'yb-box', style: ybTilt(seed) }, ybTape(dlHash(seed)), el('h5', {}, title), ...kids);
+  const ybDiaryOpen = () => { try { return !pin || unlocked; } catch { return true; } };
+  function ybPageEl(p, edit) {
+    const R = ybCollect(p), yb = ybLoad(), s = dlHash(p.key);
+    const page = el('article', { class: 'yb-page' + (R.future ? ' future' : ''), 'data-key': p.key });
+    page.append(ybDoodle(s, 'd1'), ybDoodle(s >>> 3, 'd2'), ybDoodle(s >>> 6, 'd3'));
+    page.append(el('header', { class: 'yb-head' }, ybTape(s, 'top'), el('h4', {}, p.title), el('small', {}, p.sub)));
+    const grid = el('div', { class: 'yb-grid' });
+    if (R.future) grid.append(el('p', { class: 'yb-empty' }, '✨ עוד לא הגענו לחודש הזה... הדף מחכה לזכרונות חדשים!'));
+    else {
+      // numbers
+      const nums = [[R.diary, '📔', 'ימים ביומן'], [R.stickerDays, '⭐', 'ימים עם מדבקות'], [R.draws.length, '🖍️', 'ציורים'], [R.photos.length, '📷', 'תמונות'], [R.girls.length, '👗', 'בנות שעיצבתי'],
+        [R.bf.length, '🦋', 'פרפרים'], [R.wins, '🏆', 'ניצחונות במשחקים'], [R.challenges, '🏅', 'אתגרים'], [R.doors, '🚪', 'דלתות הפתעה'], [R.dreams, '🌙', 'חלומות'], [R.wishes, '🌠', 'משאלות']].filter(x => x[0]);
+      if (nums.length) grid.append(el('div', { class: 'yb-nums' }, ...nums.map(([n, e, l]) => el('span', {}, el('i', {}, e), el('b', {}, String(n)), l))));
+      const pics = [...R.photos.slice(0, 3).map(x => [...x, 'photo']), ...R.draws.slice(0, 4).map(x => [...x, 'draw'])].slice(0, 5);
+      if (pics.length) grid.append(el('div', { class: 'yb-pics' }, ...pics.map(([k, url, kind]) => el('figure', { class: 'yb-pol ' + kind, style: ybTilt(k + kind) }, ybTape(dlHash(k)), el('img', { src: url, alt: kind === 'draw' ? 'ציור' : 'תמונה' }), el('figcaption', {}, `${fromIso(k).d} ב${MONTHS[fromIso(k).m]}`)))));
+      if (R.diary) {
+        if (!ybDiaryOpen()) grid.append(ybBox(p.key + 'm', '😊 מצב הרוח שלי', el('p', { class: 'muted' }, '🔒 היומן נעול'), edit ? el('button', { type: 'button', class: 'chip', onclick: () => showLock(() => ybDraw(), true) }, '🔓 לפתוח') : null));
+        else { const tot = Object.values(R.moods).reduce((a, b) => a + b, 0) || 1;
+          grid.append(ybBox(p.key + 'm', '😊 מצב הרוח שלי', el('div', { class: 'yb-moods' }, ...MOODS.filter(m => R.moods[m[0]]).map(m => el('span', { title: m[2] }, el('i', {}, m[1]), el('span', { class: 'yb-bar', style: `width:${Math.max(12, R.moods[m[0]] / tot * 100)}%;background:${m[3]}` }), el('b', {}, String(R.moods[m[0]]))))),
+            Object.keys(R.moods).length ? null : el('p', { class: 'muted' }, `כתבתי ביומן ${R.diary} ימים ✍️`))); }
+      }
+      if (R.girls.length) grid.append(ybBox(p.key + 'g', '👗 הבנות שעיצבתי', el('div', { class: 'yb-girls' }, ...R.girls.slice(0, 8).map(g => el('span', {}, el('img', { src: (() => { try { return girlImgURL(g, { view: 'head', bg: false }); } catch { return ''; } })(), alt: '' }), el('small', {}, g.name || 'בלי שם'))))));
+      const arts = [...R.comics.slice(0, 2).map(c => { try { return [c.title || 'קומיקס', cmStageSVG(cmPageCfg(c.pages[0]), false)]; } catch { return null; } }), ...R.posters.slice(0, 2).map(c => { try { return [c.title || 'פוסטר', psSvg(c)]; } catch { return null; } })].filter(Boolean);
+      if (arts.length) grid.append(ybBox(p.key + 'a', '💥 היצירות שלי', el('div', { class: 'yb-arts' }, ...arts.map(([n, svg]) => el('span', {}, el('span', { class: 'yb-art', html: svg }), el('small', {}, n))))));
+      if (R.bf.length) grid.append(ybBox(p.key + 'b', '🦋 פרפרים שתפסתי', el('div', { class: 'yb-bfs' }, ...R.bf.slice(0, 12).map(id => { try { const b = bfById(id); return b ? el('span', { title: b.n, html: bfSVG(b) }) : null; } catch { return null; } }).filter(Boolean))));
+      if (R.topStk.length) grid.append(ybBox(p.key + 's', '⭐ המדבקות של החודש', el('div', { class: 'yb-stks' }, ...R.topStk.map(id => el('span', { class: 'ic', html: stickerHTML(id) })))));
+      if (R.bdays.length || R.hols.length) grid.append(ybBox(p.key + 'h', '🎉 ימים מיוחדים', el('ul', { class: 'yb-days' },
+        ...R.bdays.map(([k, n, me]) => el('li', {}, el('span', { class: 'ic', html: stickerHTML('cake') }), el('b', {}, `${fromIso(k).d}/${fromIso(k).m + 1}`), me ? 'יום ההולדת שלי! 🎂' : `יום ההולדת של ${n}`)),
+        ...R.hols.slice(0, 8).map(([n, [k, stk]]) => el('li', {}, el('span', { class: 'ic', html: stickerHTML(stk || 'star') }), el('b', {}, `${fromIso(k).d}/${fromIso(k).m + 1}`), n)))));
+      if (grid.childElementCount <= 1 && !nums.length) grid.append(el('p', { class: 'yb-empty' }, 'חודש שקט 🌿 אפשר להוסיף מדבקות וכיתוב משלך!'));
+    }
+    // her caption
+    const cap = yb.cap[p.key] || '';
+    if (edit) {
+      const ta = el('textarea', { class: 'yb-cap', rows: 2, maxLength: 240, placeholder: 'מה אני רוצה לזכור מהחודש הזה... ✍️', 'aria-label': 'כיתוב לדף' });
+      ta.value = cap;
+      ta.addEventListener('input', () => { const y2 = ybLoad(); if (ta.value.trim()) y2.cap[p.key] = ta.value; else delete y2.cap[p.key]; ybSave(y2); });
+      grid.append(el('div', { class: 'yb-capbox' }, ybTape(s >>> 2, 'side'), ta));
+    } else if (cap) grid.append(el('div', { class: 'yb-capbox' }, ybTape(s >>> 2, 'side'), el('p', { class: 'yb-cap' }, cap)));
+    page.append(grid);
+    // her extra stickers, placed anywhere on the page
+    const layer = el('div', { class: 'yb-stklayer' });
+    (yb.stk[p.key] || []).forEach((st, i) => {
+      const it = el('span', { class: 'yb-st' + (edit && ybSel === i ? ' sel' : ''), style: `left:${st.x}%;top:${st.y}%;transform:translate(-50%,-50%) rotate(${st.r || 0}deg)`, html: stickerHTML(st.id) });
+      if (edit) {
+        it.addEventListener('pointerdown', e => {
+          e.preventDefault(); ybSel = i; layer.querySelectorAll('.yb-st').forEach(x => x.classList.toggle('sel', x === it));
+          const box = page.getBoundingClientRect(); it.setPointerCapture(e.pointerId);
+          const mv = ev => { st.x = Math.max(3, Math.min(97, (ev.clientX - box.left) / box.width * 100)); st.y = Math.max(2, Math.min(98, (ev.clientY - box.top) / box.height * 100)); it.style.left = st.x + '%'; it.style.top = st.y + '%'; };
+          const up = () => { it.removeEventListener('pointermove', mv); it.removeEventListener('pointerup', up); const y2 = ybLoad(); (y2.stk[p.key] || [])[i] && Object.assign(y2.stk[p.key][i], { x: st.x, y: st.y }); ybSave(y2); ybDrawTools(p); };
+          it.addEventListener('pointermove', mv); it.addEventListener('pointerup', up);
+        });
+      }
+      layer.append(it);
+    });
+    page.append(layer);
+    return page;
+  }
+  function ybCover(book, edit) {
+    const me = birthdays.find(b => b.me && b.name), g0 = (() => { try { return girls[girls.length - 1]; } catch { return null; } })();
+    const t = localToday(), all = { diary: Object.keys(diary).filter(k => diary[k] && (diary[k].text || diary[k].mood)).length, draw: Object.keys(media.draw).length, photo: Object.keys(media.photo).length };
+    const page = el('article', { class: 'yb-page yb-coverpage', 'data-key': 'cover' },
+      ybDoodle(1, 'd1'), ybDoodle(5, 'd2'), ybDoodle(0, 'd3'),
+      el('div', { class: 'yb-cover' },
+        ybTape(3, 'top'),
+        el('small', {}, '📸 האלבום של'),
+        el('h4', {}, me ? me.name : 'השנה שלי'),
+        el('b', { class: 'yb-year' }, book.title),
+        el('div', { class: 'yb-covart' },
+          (() => { try { return pet ? el('span', { class: 'yb-covpet', html: petSVG(pet) }) : null; } catch { return null; } })(),
+          (() => { try { return g0 ? el('img', { class: 'yb-covgirl', src: girlImgURL(g0, { view: 'full', bg: false }), alt: '' }) : null; } catch { return null; } })(),
+          el('span', { class: 'yb-covstk', html: stickerHTML('camera') })),
+        el('p', { class: 'yb-covsum' }, [[all.diary, 'ימים ביומן'], [all.draw, 'ציורים'], [all.photo, 'תמונות']].filter(x => x[0]).map(x => x.join(' ')).join(' · ')),
+        edit ? el('p', { class: 'muted' }, 'מדפדפים בחצים ← → כדי לראות כל חודש') : null));
+    return page;
+  }
+  function ybDrawTools(p) {
+    const tools = $('#ybTools'); if (!tools) return;
+    const yb = ybLoad(), list = p ? yb.stk[p.key] || [] : [];
+    if (!p) { tools.replaceChildren(); return; }
+    const pick = el('div', { class: 'yb-pick', hidden: !ybPickOpen });
+    if (ybPickOpen) stickerPicker(pick, () => false, id => {
+      if (!id) return; const y2 = ybLoad(); (y2.stk[p.key] = y2.stk[p.key] || []).push({ id, x: 12 + Math.random() * 76, y: 14 + Math.random() * 72, r: Math.round(Math.random() * 30 - 15) });
+      ybSel = y2.stk[p.key].length - 1; ybPickOpen = false; ybSave(y2); SFX.pop(); ybDraw();
+    }, 'סגור', false);
+    tools.replaceChildren(el('div', { class: 'chips' },
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(ybPickOpen), onclick: () => { ybPickOpen = !ybPickOpen; ybDrawTools(p); } }, '➕ להוסיף מדבקה לדף'),
+      ybSel !== null && list[ybSel] ? el('button', { type: 'button', class: 'chip', onclick: () => { const y2 = ybLoad(); y2.stk[p.key].splice(ybSel, 1); ybSel = null; ybSave(y2); SFX.boop(); ybDraw(); } }, '🗑️ להוריד את המדבקה') : null,
+      ybSel !== null && list[ybSel] ? el('button', { type: 'button', class: 'chip', onclick: () => { const y2 = ybLoad(), st = y2.stk[p.key][ybSel]; st.r = ((st.r || 0) + 30) % 360; ybSave(y2); ybDraw(); } }, '↻ לסובב') : null,
+      list.length ? el('span', { class: 'muted' }, 'גוררים מדבקה כדי להזיז אותה') : null), pick);
+  }
+  function ybDraw(dir) {
+    const yb = ybLoad(), book = ybPages(yb.mode), t = localToday();
+    if (ybPage >= book.pages.length) ybPage = book.pages.length - 1;
+    const p = ybPage >= 0 ? book.pages[ybPage] : null;
+    const pageEl = p ? ybPageEl(p, true) : ybCover(book, true);
+    const holder = $('#ybStage');
+    if (dir && !reduceMotion() && holder.firstChild) {
+      ybBusy = true;
+      const old = holder.firstChild; old.classList.add(dir > 0 ? 'yb-out-next' : 'yb-out-prev');
+      setTimeout(() => { pageEl.classList.add(dir > 0 ? 'yb-in-next' : 'yb-in-prev'); holder.replaceChildren(pageEl); ybBusy = false; }, 260);
+      tone(dir > 0 ? 700 : 560, 0.06, 'triangle'); tone(dir > 0 ? 900 : 440, 0.07, 'triangle', 0.05);
+    } else holder.replaceChildren(pageEl);
+    const go = d => { if (ybBusy) return; const n = ybPage + d; if (n < -1 || n >= book.pages.length) return; ybPage = n; ybSel = null; ybPickOpen = false; ybDraw(d); };
+    $('#ybNav').replaceChildren(
+      el('button', { type: 'button', class: 'yb-arrow', 'aria-label': 'לדף הקודם', disabled: ybPage < 0, onclick: () => go(-1) }, '→'),
+      el('div', { class: 'yb-tabs', role: 'tablist' },
+        el('button', { type: 'button', role: 'tab', 'aria-selected': String(ybPage < 0), onclick: () => { if (ybPage !== -1) { const d = -1 - ybPage; ybPage = -1; ybSel = null; ybDraw(Math.sign(d)); } } }, '📸'),
+        ...book.pages.map((pp, i) => el('button', { type: 'button', role: 'tab', class: pp.from > t ? 'fut' : '', 'aria-selected': String(ybPage === i), onclick: () => { if (ybPage !== i) { const d = i - ybPage; ybPage = i; ybSel = null; ybPickOpen = false; ybDraw(Math.sign(d)); } } }, pp.title))),
+      el('button', { type: 'button', class: 'yb-arrow', 'aria-label': 'לדף הבא', disabled: ybPage >= book.pages.length - 1, onclick: () => go(1) }, '←'));
+    $('#ybMode').replaceChildren(
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(yb.mode === 'civil'), onclick: () => { const y2 = ybLoad(); y2.mode = 'civil'; ybSave(y2); ybPage = ybCurIndex(); ybDraw(); } }, `📅 ${fromIso(t).y}`),
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(yb.mode === 'heb'), onclick: () => { const y2 = ybLoad(); y2.mode = 'heb'; ybSave(y2); ybPage = ybCurIndex(); ybDraw(); } }, `✡️ השנה העברית`),
+      el('button', { type: 'button', class: 'chip', onclick: ybPrint }, '🖨️ להדפיס את האלבום'));
+    ybDrawTools(p);
+  }
+  const ybCurIndex = () => { const t = localToday(), b = ybPages(ybLoad().mode); return Math.max(0, b.pages.findIndex(p => p.from <= t && t <= p.to)); };
+  function ybPrint() {
+    const yb = ybLoad(), book = ybPages(yb.mode);
+    const old = $('#ybPrint'); if (old) old.remove();
+    const out = el('div', { id: 'ybPrint' }, ybCover(book, false), ...book.pages.filter(p => p.from <= localToday()).map(p => ybPageEl(p, false)));
+    document.body.append(out); document.body.classList.add('yb-printing');
+    const done = () => { document.body.classList.remove('yb-printing'); out.remove(); window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done);
+    setTimeout(() => { try { window.print(); } catch {} setTimeout(() => { if (!matchMedia('print').matches) done(); }, 1500); }, 300);
+  }
+  function openYearbook() {
+    ybTrack(); ybPage = ybCurIndex(); ybSel = null; ybPickOpen = false; ybDraw();
+    if (!$('#ybDlg').open) $('#ybDlg').showModal();
+  }
+  $('#ybDlg') && $('#ybDlg').addEventListener('keydown', e => {
+    if (e.target.closest('textarea, input')) return;
+    if (e.key === 'ArrowLeft') { e.preventDefault(); const b = $('#ybNav').lastChild; b && !b.disabled && b.click(); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); const b = $('#ybNav').firstChild; b && !b.disabled && b.click(); }
+  });
+
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
