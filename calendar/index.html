@@ -1396,6 +1396,135 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
 .gd2-look.now { color: var(--ink); }
 .gd2-look.now i { box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--accent); }
 @media (prefers-reduced-motion: reduce) { .gd2-peek, .pl-pill, .fc-btn, .pc-big, .gd2-hide-pet { animation: none !important; } }
+/* ===== creative corner: comics, stories, flipbooks, posters ===== */
+dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
+.cm-dlg .sheet { gap: 12px; }
+.cm-hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; padding: 14px 16px; border-radius: 18px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 16%, var(--card)), color-mix(in srgb, #7ec8ff 18%, var(--card))); border: 2px dashed color-mix(in srgb, var(--accent) 45%, transparent); }
+.cm-hero b { font-size: 1.35em; font-weight: 400; }
+.cm-hero .btn.main { font-size: 1.15em; padding: 8px 20px; }
+.cm-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+.cm-card { border: 2px solid var(--line); border-radius: 18px; padding: 10px; display: grid; gap: 4px; align-content: start; background: var(--card); }
+.cm-card b { font-weight: 400; font-size: 1.1em; }
+.cm-thumb { border: none; padding: 0; background: none; border-radius: 12px; overflow: hidden; display: block; box-shadow: 0 3px 10px rgb(40 20 60 / .16); transition: transform .15s; }
+.cm-thumb:hover { transform: translateY(-2px) rotate(-1deg); }
+.cm-thumb > svg { width: 100%; height: auto; display: block; }
+.cm-bar { display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+.cm-title-in { flex: 1 1 160px; width: auto !important; font-size: 1.1em; }
+.cm-readtitle { flex: 1 1 160px; font-weight: 400; font-size: 1.3em; text-align: center; }
+.cm-pages { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.cm-lays { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.cm-lays button { width: 34px; height: 44px; padding: 3px; border: 2px solid var(--line); border-radius: 8px; background: var(--card); }
+.cm-lays button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.cm-lays button > svg { width: 100%; height: 100%; display: block; }
+.cm-ed { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(270px, 1fr); gap: 14px; align-items: start; }
+.cm-left { position: sticky; top: -18px; z-index: 2; background: var(--card); display: grid; gap: 8px; padding-block: 4px; }
+.cm-stage { display: grid; justify-items: center; outline: none; border-radius: 16px; }
+.cm-stage:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
+.cm-svg { width: var(--cm-w, 100%); height: auto; display: block; touch-action: none; user-select: none; -webkit-user-select: none; border-radius: 14px; filter: drop-shadow(0 4px 10px rgb(40 20 60 / .18)); }
+.cm-svg .cm-it { cursor: grab; }
+.cm-svg .cm-it:active { cursor: grabbing; }
+.cm-svg .cm-pc, .cm-svg .cm-draw { pointer-events: none; }
+.cm-svg.bgmode .cm-it { pointer-events: none; opacity: .5; }
+.cm-svg.bgmode .cm-pc { pointer-events: auto; cursor: grab; }
+.cm-svg.bgmode { cursor: crosshair; }
+.cm-svg .cm-h { cursor: pointer; }
+.cm-svg .cm-h:hover circle:nth-child(2) { filter: brightness(1.12); }
+.cm-side { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.cm-tabs { position: static; }
+.cm-tabs button { padding: 4px 11px; }
+.cm-tabbody { display: grid; gap: 8px; }
+.cm-sel { border: 2px solid var(--accent); border-radius: 16px; padding: 10px 12px; display: grid; gap: 8px; background: color-mix(in srgb, var(--accent) 7%, var(--card)); }
+.cm-sel-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.cm-sel-h b { font-weight: 400; font-size: 1.15em; }
+.cm-sel .btn { padding: 3px 10px; min-width: 38px; }
+.cm-sel textarea { min-height: 64px; }
+.cm-sel .chip:disabled { opacity: .45; }
+.cm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 6px; max-height: 300px; overflow-y: auto; padding: 2px; }
+.cm-grid.big { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); max-height: 360px; }
+.cm-grid.wide { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+.cm-grid.bgs { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); max-height: 250px; }
+.cm-grid button { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 4px; display: grid; justify-items: center; gap: 2px; font-size: .8em; line-height: 1.15; color: var(--ink); }
+.cm-grid button:hover { border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
+.cm-grid button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; background: var(--paper); }
+.cm-grid .ic { width: 50px; height: 50px; display: grid; place-items: center; }
+.cm-grid.big .ic { width: 72px; height: 96px; }
+.cm-grid.wide .ic { width: 86px; height: 62px; }
+.cm-grid.bgs .ic { width: 100%; height: auto; aspect-ratio: 16 / 11; border-radius: 9px; overflow: hidden; }
+.cm-grid .ic > svg { width: 100%; height: 100%; display: block; }
+.cm-grid .ic .hand { font-size: 30px; }
+.cm-skies { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.cm-skies button { width: 34px; height: 34px; border-radius: 10px; border: 2px solid rgb(0 0 0 / .15); padding: 0; }
+.cm-skies button[aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 1px; }
+.cm-sw { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.cm-sw .sw3 { width: 28px; height: 28px; }
+.cm-sw .sw3[aria-pressed="true"] { outline: 3px solid var(--ink); outline-offset: 1px; }
+.cm-sw input[type="color"] { width: 34px; height: 30px; }
+.cm-fonts { display: flex; flex-wrap: wrap; gap: 5px; max-height: 150px; overflow-y: auto; }
+.cm-fonts button { border: 2px solid var(--line); background: var(--card); color: var(--ink); border-radius: 10px; padding: 2px 10px; font-size: 1.15em; line-height: 1.4; }
+.cm-fonts button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.cm-fonts.big { max-height: 300px; }
+.cm-fonts.big button { font-size: 1.5em; padding: 4px 12px; }
+.cm-sfxchip { font-family: 'Rubik Bubbles', 'Rubik', sans-serif; }
+.cm-design { background: color-mix(in srgb, #7ec8ff 7%, var(--card)); }
+.cm-padwrap { display: grid; gap: 8px; width: 100%; }
+.cm-padwrap .pad canvas, .cm-stage .pad.clear canvas { max-width: none; aspect-ratio: auto; border-color: var(--accent); }
+.cm-reader { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; justify-items: center; }
+.cm-readpage { width: min(100%, calc(74vh * .75)); perspective: 1600px; }
+.cm-readpage > svg { width: 100%; height: auto; display: block; border-radius: 10px; box-shadow: 0 8px 26px rgb(40 20 60 / .22); }
+.cm-nav { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--ink); background: var(--card); font-size: 2em; line-height: 1; padding: 0 0 6px; color: var(--ink); }
+.cm-nav:disabled { opacity: .25; }
+.cm-pgnum { text-align: center; color: var(--soft); margin: 0; }
+.cm-turn-next { transform-origin: 100% 50%; animation: cmTurnNext .55s cubic-bezier(.2, .7, .3, 1); }
+.cm-turn-prev { transform-origin: 0% 50%; animation: cmTurnPrev .55s cubic-bezier(.2, .7, .3, 1); }
+@keyframes cmTurnNext { from { transform: perspective(1600px) rotateY(-88deg); opacity: .2; } 60% { opacity: 1; } to { transform: perspective(1600px) rotateY(0); } }
+@keyframes cmTurnPrev { from { transform: perspective(1600px) rotateY(88deg); opacity: .2; } 60% { opacity: 1; } to { transform: perspective(1600px) rotateY(0); } }
+/* story book */
+.st-card .cm-thumb { border-radius: 8px 14px 14px 8px; }
+.st-below { display: grid; gap: 6px; }
+.st-text { min-height: 120px; font-size: 1.15em; line-height: 1.5; }
+.st-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.st-reader { perspective: 1800px; }
+.st-book { width: min(100%, 640px); }
+.st-page { position: relative; background: #fffdf6; color: #3a2b3c; border-radius: 6px 18px 18px 6px; padding: 18px 20px 30px; box-shadow: inset 12px 0 18px -12px rgb(60 40 20 / .35), 0 10px 28px rgb(40 20 60 / .22); display: grid; gap: 12px; min-height: 420px; align-content: start; }
+.st-page.st-cover { padding: 0; background: none; box-shadow: 0 10px 28px rgb(40 20 60 / .28); border-radius: 8px 22px 22px 8px; overflow: hidden; max-width: 460px; margin: 0 auto; }
+.st-page.st-cover > svg { width: 100%; height: auto; display: block; }
+.st-pic > svg { width: 100%; height: auto; display: block; border-radius: 12px; border: 3px solid #3a2b3c; }
+.st-words { font-size: 1.45em; line-height: 1.55; }
+.st-words p { margin: 0 0 4px; }
+.st-num { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); color: #9a8a92; font-size: .95em; }
+.st-end { place-items: center; text-align: center; min-height: 360px; align-content: center; }
+.st-end b { font-size: 3em; font-weight: 400; color: var(--accent); }
+.st-endart { width: 90px; height: 90px; }
+.st-endart > svg { width: 100%; height: 100%; }
+/* flipbook */
+.fl-main { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(220px, 1fr); gap: 16px; align-items: start; }
+.fl-left, .fl-right { display: grid; gap: 8px; align-content: start; }
+.fl-head { display: grid; gap: 2px; }
+.fl-head b { font-weight: 400; font-size: 1.15em; }
+.fl-left .pad.clear canvas { max-width: 420px; border-color: var(--accent); }
+.fl-preview { width: 180px; height: 180px; margin: 0 auto; border-radius: 18px; border: 3px solid var(--ink); background: conic-gradient(#f1eef8 25%, #fff 0 50%, #f1eef8 0 75%, #fff 0) 0 0 / 16px 16px; display: grid; place-items: center; overflow: hidden; }
+.fl-preview img { width: 100%; height: 100%; display: block; }
+.fl-preview img:not([src]) { visibility: hidden; }
+.fl-strip { display: flex; gap: 6px; overflow-x: auto; padding: 4px 2px 8px; }
+.fl-frame { flex: none; width: 76px; height: 90px; border: 2px solid var(--line); border-radius: 12px; background: #fff; padding: 3px; display: grid; grid-template-rows: 1fr auto; place-items: center; color: #3a2b3c; font-size: 1.3em; }
+.fl-frame img { width: 64px; height: 64px; display: block; }
+.fl-frame small { font-size: .55em; color: var(--soft); }
+.fl-frame[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.fl-frame.fl-add { border-style: dashed; background: var(--card); color: var(--ink); }
+.fl-empty { opacity: .45; }
+.fl-cards { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+.fl-anim { width: 96px; height: 96px; display: block; margin: 0 auto; }
+.fl-anim > svg { width: 100%; height: 100%; display: block; }
+@media (max-width: 820px) {
+  .cm-ed, .fl-main { grid-template-columns: 1fr; }
+  .cm-left { position: static; }
+  .st-2 { grid-template-columns: 1fr; }
+  .cm-reader { gap: 4px; }
+  .cm-nav { width: 38px; height: 38px; font-size: 1.5em; }
+}
+@media (prefers-reduced-motion: reduce) { .cm-turn-next, .cm-turn-prev { animation: none; } }
+.cm-card .chips { gap: 4px; }
+.cm-card .chip { padding: 2px 9px; font-size: .92em; }
 </style>
 </head>
 <body class="bg-dots">
@@ -2043,6 +2172,55 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div id="petMailBody" class="row"></div>
+  </div>
+</dialog>
+
+
+<!-- Comics -->
+<dialog id="comicDlg" class="cm-dlg" aria-labelledby="comicTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="comicTitle">💬 יוצרים קומיקס</h3><div class="sub">משבצות, רקעים, דמויות שזזות ובועות דיבור</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="comicBody"></div>
+  </div>
+</dialog>
+
+<!-- Story book -->
+<dialog id="storyDlg" class="cm-dlg" aria-labelledby="storyTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="storyTitle">📖 כותבים סיפור</h3><div class="sub">ספר עם כריכה, ציורים ומילים. רק שלך 🔒</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="storyBody"></div>
+  </div>
+</dialog>
+
+<!-- Flipbook -->
+<dialog id="flipDlg" class="cm-dlg" aria-labelledby="flipTitle" style="width:min(900px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="flipTitle">🎞️ מדבקות זזות</h3><div class="sub">מציירים כמה תמונות, כל אחת קצת אחרת, והן זזות כמו סרט!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="flipBody"></div>
+  </div>
+</dialog>
+
+<!-- Poster -->
+<dialog id="posterDlg" class="cm-dlg" aria-labelledby="posterTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="posterTitle">🖼️ מעצבים פוסטר</h3><div class="sub">דף גדול לתלות על הקיר</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="posterBody"></div>
   </div>
 </dialog>
 
@@ -4681,6 +4859,10 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
     ['gift', 'תיבת הפתעה', () => openSurprise()],
     ['book', 'אלבום מדבקות', () => openAlbum()],
     ['palette', 'מדבקה משלי', () => openMkStk()],
+    ['palette', 'יוצרים קומיקס', () => openComic()],
+    ['book', 'כותבים סיפור', () => openStory()],
+    ['sparkles', 'מדבקות זזות', () => openFlip()],
+    ['rainbow', 'מעצבים פוסטר', () => openPoster()],
     ['heart', 'מכתב לעתיד', () => openLetters()],
     ['treasure', 'ציד אוצרות', () => openHunt()],
     ['gift', 'תיבת המשאלות', () => openWishes()],
@@ -9936,6 +10118,1171 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
         return s;
       })));
   }
+  // ================= creative corner: comics, story books, flipbooks, posters =================
+  let cmN = 0;
+  const cmNew = p => p + Date.now().toString(36) + (cmN++).toString(36);
+  const cmEsc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const cmCopy = o => JSON.parse(JSON.stringify(o));
+  const cmClamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const cmF = n => Math.round(n * 10) / 10;
+  const cmFontCss = id => (FONTS.find(f => f.id === id) || FONTS[0]).css + ", 'Rubik', sans-serif";
+  const cmRnd = seed => { let s = (seed % 2147483646) + 1; return () => (s = (s * 16807) % 2147483647) / 2147483647; };
+  const cmNorm = a => ((a % 360) + 540) % 360 - 180;
+  const cmFn = name => { try { const f = { girlPoseFK: typeof girlPoseFK === 'function' && girlPoseFK, girlPoseDrag: typeof girlPoseDrag === 'function' && girlPoseDrag,
+    merPoseFK: typeof merPoseFK === 'function' && merPoseFK, merPoseDrag: typeof merPoseDrag === 'function' && merPoseDrag }[name]; return f || null; } catch { return null; } };
+  const CM_COLORS = ['#ffffff', '#2b2233', '#ff5a6e', '#ff9ad5', '#ffb020', '#ffd84d', '#4fbf73', '#4fc3a1', '#7ec8ff', '#3f6fd8', '#b58cff', '#9b6b43'];
+  const cmSwatches = (cur, pick, list = CM_COLORS) => el('div', { class: 'cm-sw' }, ...list.map(c => {
+    const b = el('button', { type: 'button', class: 'sw3', 'aria-label': 'צבע', 'aria-pressed': String(cur === c), onclick: () => pick(c) }); b.style.background = c; return b;
+  }), (() => { const i = el('input', { type: 'color', value: /^#[0-9a-f]{6}$/i.test(cur || '') ? cur : '#ff5a6e', 'aria-label': 'צבע אחר', onchange: e => pick(e.target.value) }); return i; })());
+
+  // ---------- scenery pieces (drawn around 0,0; about 100 units tall) ----------
+  const CM_PIECES = {
+    tree: ['עץ', () => `<rect x="-7" y="4" width="14" height="46" rx="4" fill="#9b6b43" ${S}/><circle cx="-19" cy="-6" r="20" fill="#5cc26c" ${S}/><circle cx="19" cy="-6" r="20" fill="#5cc26c" ${S}/><circle cx="0" cy="-26" r="25" fill="#72d77f" ${S}/><circle cx="-9" cy="-16" r="3.2" fill="#ff7a9a"/><circle cx="11" cy="-33" r="3.2" fill="#ff7a9a"/><circle cx="17" cy="-4" r="3.2" fill="#ff7a9a"/>`],
+    pine: ['אורן', () => `<rect x="-6" y="32" width="12" height="18" fill="#9b6b43" ${S}/><path d="M0 -50 L-22 -14 H-11 L-30 12 H-15 L-36 34 H36 L15 12 H30 L11 -14 H22 Z" fill="#3f9c6e" ${S}/>`],
+    palm: ['דקל', () => `<path d="M-4 50 Q-8 10 4 -24 L12 -22 Q2 12 8 50 Z" fill="#c9965e" ${S}/><path d="M8 -26 Q-20 -46 -44 -26 Q-18 -34 8 -22 Z M8 -26 Q36 -50 52 -26 Q30 -34 8 -22 Z M8 -26 Q-6 -58 -26 -56 Q-8 -46 6 -24 Z M8 -26 Q24 -58 42 -52 Q22 -46 10 -24 Z" fill="#4fbf73" ${S}/><circle cx="2" cy="-22" r="5" fill="#8a5a2b" ${S2}/><circle cx="12" cy="-20" r="5" fill="#8a5a2b" ${S2}/>`],
+    bush: ['שיח', () => `<path d="M-42 40 A15 15 0 0 1 -32 14 A20 20 0 0 1 2 2 A19 19 0 0 1 34 14 A14 14 0 0 1 42 40 Z" fill="#5cc26c" ${S}/><circle cx="-18" cy="18" r="3.4" fill="#ff9ad5"/><circle cx="8" cy="10" r="3.4" fill="#ffd84d"/><circle cx="24" cy="26" r="3.4" fill="#ff9ad5"/>`],
+    flower: ['פרח', () => `<path d="M0 50 V-2" stroke="#3f9c6e" stroke-width="5" stroke-linecap="round"/><path d="M0 28 Q16 16 22 24 Q12 34 0 30 Z" fill="#5cc26c" ${S2}/>${[0, 72, 144, 216, 288].map(a => `<circle cx="${cmF(11 * Math.cos(a * Math.PI / 180))}" cy="${cmF(-14 + 11 * Math.sin(a * Math.PI / 180))}" r="9" fill="#ff9ad5" ${S2}/>`).join('')}<circle cx="0" cy="-14" r="7" fill="#ffd84d" ${S2}/>`],
+    tulips: ['זר פרחים', () => [[-18, 8, '#ff5a6e'], [0, -6, '#ffd84d'], [18, 10, '#b58cff']].map(([x, y, c]) => `<path d="M${x} 50 V${y + 8}" stroke="#3f9c6e" stroke-width="4" stroke-linecap="round"/><path d="M${x - 9} ${y - 8} L${x - 5} ${y - 1} L${x} ${y - 9} L${x + 5} ${y - 1} L${x + 9} ${y - 8} Q${x + 10} ${y + 10} ${x} ${y + 10} Q${x - 10} ${y + 10} ${x - 9} ${y - 8} Z" fill="${c}" ${S2}/>`).join('')],
+    cloud: ['ענן', () => `<path d="M-44 18 H44 A17 17 0 0 0 38 -12 A25 25 0 0 0 -4 -22 A21 21 0 0 0 -44 18 Z" fill="#ffffff" ${S}/><path d="M-26 6 q4 -8 12 -8" fill="none" stroke="#dbeeff" stroke-width="4" stroke-linecap="round"/>`],
+    sun: ['שמש', () => `${rays(0, 0, 30, 45, 12, 8, O)}${rays(0, 0, 30, 45, 12, 4.4, '#ffb020')}<circle cx="0" cy="0" r="28" fill="#ffd84d" ${S}/>${face(0, -2, 1.5)}`],
+    moon: ['ירח', () => `<path d="M8 -38 A38 38 0 1 0 38 20 A30 30 0 1 1 8 -38 Z" fill="#ffe27a" ${S}/><circle cx="-12" cy="4" r="3" fill="${O}"/><circle cx="2" cy="8" r="3" fill="${O}"/><path d="M-10 14 q6 5 11 1" fill="none" stroke="${O}" stroke-width="2.4" stroke-linecap="round"/>`],
+    star: ['כוכב', () => `<polygon points="${starPts(0, 0, 30, 13)}" fill="#ffd84d" ${S}/><path d="M-10 -8 q3 -5 8 -6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`],
+    rainbow: ['קשת', () => `${[['#ff6b6b', 50], ['#ffb020', 42], ['#ffd84d', 34], ['#4fbf73', 26], ['#7ec8ff', 18]].map(([c, r]) => `<path d="M${-r} 30 A${r} ${r} 0 0 1 ${r} 30" fill="none" stroke="${c}" stroke-width="8.5"/>`).join('')}<path d="M-50 30 A50 50 0 0 1 50 30 M-14 30 A14 14 0 0 1 14 30" fill="none" stroke="${O}" stroke-width="2.5"/><circle cx="-44" cy="32" r="11" fill="#fff" ${S}/><circle cx="-32" cy="36" r="9" fill="#fff" ${S}/><circle cx="44" cy="32" r="11" fill="#fff" ${S}/><circle cx="32" cy="36" r="9" fill="#fff" ${S}/>`],
+    house: ['בית', () => `<rect x="-36" y="-6" width="72" height="56" fill="#ffe6a8" ${S}/><path d="M-46 -4 L0 -44 L46 -4 Z" fill="#ff7a7a" ${S}/><rect x="-10" y="18" width="20" height="32" rx="3" fill="#9b6b43" ${S}/><circle cx="5" cy="35" r="2" fill="${O}"/><rect x="-30" y="6" width="16" height="16" fill="#9fe6ff" ${S2}/><rect x="14" y="6" width="16" height="16" fill="#9fe6ff" ${S2}/><path d="M22 6 V22 M14 14 H30 M-22 6 V22 M-30 14 H-14" stroke="${O}" stroke-width="1.6"/>`],
+    tower: ['מגדל', () => `<rect x="-24" y="-24" width="48" height="74" fill="#e9dcff" ${S}/><path d="M-28 -24 L0 -64 L28 -24 Z" fill="#ff9ad5" ${S}/><path d="M0 -64 V-80" stroke="${O}" stroke-width="2.5"/><path d="M0 -80 L16 -75 L0 -70 Z" fill="#ffd84d" ${S2}/><path d="M-9 50 V26 A9 9 0 0 1 9 26 V50 Z" fill="#9b6b43" ${S2}/><path d="M-6 -8 V-16 A6 6 0 0 1 6 -16 V-8 Z" fill="#9fe6ff" ${S2}/>`],
+    mountain: ['הר', () => `<path d="M-60 50 L-10 -40 L20 6 L32 -12 L64 50 Z" fill="#9aa7c9" ${S}/><path d="M-10 -40 L-24 -15 L-16 -19 L-10 -12 L-3 -20 L3 -28 Z" fill="#fff" ${S2}/>`],
+    rock: ['סלע', () => `<path d="M-34 36 Q-40 10 -16 2 Q0 -12 20 0 Q40 8 36 36 Z" fill="#b8b3c7" ${S}/><path d="M-14 12 q8 -6 16 -2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>`],
+    fence: ['גדר', () => `<path d="M-50 10 H50 M-50 32 H50" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M-50 10 H50 M-50 32 H50" stroke="#fff4e0" stroke-width="5" stroke-linecap="round"/>${[-40, -16, 8, 32].map(x => `<path d="M${x - 7} 50 V-6 L${x} -16 L${x + 7} -6 V50 Z" fill="#fff4e0" ${S}/>`).join('')}`],
+    balloon: ['בלון', () => `<path d="M0 22 Q-8 34 4 42 Q12 50 2 56" fill="none" stroke="${O}" stroke-width="2"/><ellipse cx="0" cy="-8" rx="24" ry="30" fill="#ff5a8a" ${S}/><path d="M-4 22 L4 22 L0 16 Z" fill="#ff5a8a" ${S2}/><path d="M-12 -24 q4 -8 12 -9" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".8"/>`],
+    heart: ['לב', () => `<path d="M0 34 C-34 12 -40 -12 -24 -24 C-12 -32 -2 -24 0 -14 C2 -24 12 -32 24 -24 C40 -12 34 12 0 34 Z" fill="#ff7a9a" ${S}/>${shine(-20, -12)}`],
+    mushroom: ['פטרייה', () => `<path d="M-12 50 Q-14 20 -10 8 H10 Q14 20 12 50 Z" fill="#fff4e0" ${S}/><path d="M-40 10 Q-40 -34 0 -34 Q40 -34 40 10 Z" fill="#ff5a6e" ${S}/><circle cx="-18" cy="-8" r="6" fill="#fff"/><circle cx="10" cy="-20" r="5" fill="#fff"/><circle cx="22" cy="0" r="5" fill="#fff"/>`],
+    bird: ['ציפורים', () => `<path d="M-40 -6 Q-30 -18 -20 -6 Q-10 -18 0 -6 M14 10 Q22 0 30 10 Q38 0 46 10" fill="none" stroke="${O}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`],
+    butterfly: ['פרפר', () => `<path d="M0 0 C-10 -30 -40 -30 -36 -6 C-34 8 -12 6 0 0 Z M0 0 C10 -30 40 -30 36 -6 C34 8 12 6 0 0 Z" fill="#b58cff" ${S}/><path d="M0 0 C-8 18 -30 26 -26 8 C-24 0 -10 0 0 0 Z M0 0 C8 18 30 26 26 8 C24 0 10 0 0 0 Z" fill="#ff9ad5" ${S}/><ellipse cx="0" cy="2" rx="4" ry="16" fill="${O}"/><path d="M-2 -13 q-6 -10 -12 -10 M2 -13 q6 -10 12 -10" fill="none" stroke="${O}" stroke-width="2"/>`],
+    snowman: ['איש שלג', () => `<circle cx="0" cy="28" r="24" fill="#fff" ${S}/><circle cx="0" cy="-14" r="18" fill="#fff" ${S}/><path d="M-3 -12 L-18 -8 L-3 -8 Z" transform="scale(-1 1)" fill="#ff9b3d" ${S2}/><circle cx="-6" cy="-20" r="2.4" fill="${O}"/><circle cx="6" cy="-20" r="2.4" fill="${O}"/><path d="M-16 0 Q0 8 16 0 L18 8 Q0 16 -18 8 Z" fill="#ff5a6e" ${S2}/><circle cx="0" cy="22" r="3" fill="${O}"/><circle cx="0" cy="34" r="3" fill="${O}"/><path d="M-14 -30 H14 V-34 H9 V-52 H-9 V-34 H-14 Z" fill="#2b2233"/>`],
+    lollipop: ['סוכרייה', () => `<path d="M0 50 V10" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M0 50 V10" stroke="${O}" stroke-width="2" stroke-dasharray="1 7"/><circle cx="0" cy="-12" r="26" fill="#ff9ad5" ${S}/><path d="M0 -12 m-18 0 a18 18 0 1 1 18 18 a12 12 0 1 1 -12 -12 a7 7 0 1 1 7 7" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>`],
+    seaweed: ['אצה', () => `<path d="M-10 50 Q-24 26 -10 6 Q4 -14 -8 -40 Q8 -20 4 2 Q0 26 10 50 Z" fill="#3fbf8a" ${S}/><path d="M12 50 Q4 30 16 14 Q26 0 20 -16 Q34 2 26 18 Q20 34 26 50 Z" fill="#6fdc9e" ${S}/>`],
+    coral: ['אלמוג', () => `<path d="M-4 50 V14 M-4 26 Q-24 20 -26 -6 M-4 14 Q-4 -10 -12 -26 M-4 20 Q16 10 20 -14 M18 -2 Q30 -6 30 -20" fill="none" stroke="${O}" stroke-width="13" stroke-linecap="round"/><path d="M-4 50 V14 M-4 26 Q-24 20 -26 -6 M-4 14 Q-4 -10 -12 -26 M-4 20 Q16 10 20 -14 M18 -2 Q30 -6 30 -20" fill="none" stroke="#ff8a8a" stroke-width="8" stroke-linecap="round"/>`],
+    bubbles: ['בועות', () => [[0, 30, 12], [14, 4, 8], [-6, -16, 10], [10, -36, 6]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#dff6ff" fill-opacity=".45" stroke="#fff" stroke-width="2.5"/><path d="M${x - r * .5} ${y - r * .2} q1 -${r * .4} ${r * .45} -${r * .5}" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`).join('')],
+    planet: ['כוכב לכת', () => `<circle cx="0" cy="0" r="28" fill="#ffb86b" ${S}/><path d="M-26 -8 Q0 -2 26 -10 M-24 10 Q0 16 25 8" fill="none" stroke="#e88a3a" stroke-width="4" opacity=".6"/><ellipse cx="0" cy="2" rx="50" ry="12" fill="none" stroke="${O}" stroke-width="8" transform="rotate(-14)"/><ellipse cx="0" cy="2" rx="50" ry="12" fill="none" stroke="#b58cff" stroke-width="4" transform="rotate(-14)"/><path d="M-28 4 A28 28 0 0 0 28 -4" fill="#ffb86b" transform="rotate(-14)"/>`],
+    rocket: ['טיל', () => `<path d="M0 -50 Q20 -30 18 14 H-18 Q-20 -30 0 -50 Z" fill="#fff" ${S}/><path d="M-18 0 L-32 24 L-16 18 Z M18 0 L32 24 L16 18 Z" fill="#ff5a6e" ${S}/><circle cx="0" cy="-16" r="8" fill="#7ec8ff" ${S2}/><path d="M-10 16 Q0 44 10 16 Z" fill="#ffb020" ${S2}/>`],
+  };
+  const cmPiece = (id, x, y, s, f) => CM_PIECES[id] ? `<g transform="translate(${cmF(x)} ${cmF(y)}) scale(${f ? -s : s} ${s})">${CM_PIECES[id][1]()}</g>` : '';
+
+  // ---------- ready-made backgrounds, drawn for any width/height ----------
+  const CM_BGS = [['plain', 'דף לבן'], ['room', 'חדר'], ['park', 'פארק'], ['beach', 'חוף'], ['sea', 'מתחת למים'], ['space', 'חלל'], ['city', 'עיר'], ['forest', 'יער'],
+    ['castle', 'טירה'], ['candy', 'ארץ הממתקים'], ['snow', 'שלג'], ['party', 'מסיבה'], ['night', 'שמי לילה'], ['sunset', 'שקיעה']];
+  const cmGrad = (id, stops, x2 = 0, y2 = 1) => `<linearGradient id="${id}" x1="0" y1="0" x2="${x2}" y2="${y2}">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient>`;
+  function cmBgPreset(id, w, h, u) {
+    const defs = [], k = Math.min(h, w * 0.9) / 300, gy = h * 0.7, rnd = cmRnd(id.length * 977 + Math.round(w));
+    const lg = (n, stops) => { defs.push(cmGrad(u + n, stops)); return `url(#${u + n})`; };
+    const R = (x, y, ww, hh, f, ex = '') => `<rect x="${cmF(x)}" y="${cmF(y)}" width="${cmF(ww)}" height="${cmF(hh)}" fill="${f}" ${ex}/>`;
+    const at = (x, y, s, p, f) => cmPiece(p, x, y, s * k, f);
+    const hill = (y, c, amp = 18) => `<path d="M0 ${cmF(y)} Q${cmF(w * .25)} ${cmF(y - amp * k)} ${cmF(w * .5)} ${cmF(y)} T${cmF(w)} ${cmF(y)} V${h} H0 Z" fill="${c}"/>`;
+    const dots = (n, f) => Array.from({ length: n }, () => f(rnd() * w, rnd() * h, rnd())).join('');
+    let b = '';
+    if (id === 'plain') b = R(0, 0, w, h, '#ffffff');
+    else if (id === 'room') {
+      b = R(0, 0, w, h, lg('w', [[0, '#ffe3ef'], [1, '#ffd0e4']])) + Array.from({ length: Math.ceil(w / 36) }, (_, i) => R(i * 36 + 10, 0, 14, gy, '#fff', 'opacity=".35"')).join('') +
+        R(w * .6, h * .12, w * .26, h * .32, '#9fe6ff', `${S}`) + at(w * .73, h * .2, .35, 'cloud') + `<path d="M${cmF(w * .73)} ${cmF(h * .12)} V${cmF(h * .44)} M${cmF(w * .6)} ${cmF(h * .28)} H${cmF(w * .86)}" stroke="${O}" stroke-width="3"/>` +
+        `<path d="M${cmF(w * .57)} ${cmF(h * .1)} Q${cmF(w * .62)} ${cmF(h * .3)} ${cmF(w * .58)} ${cmF(h * .48)} H${cmF(w * .54)} V${cmF(h * .1)} Z M${cmF(w * .89)} ${cmF(h * .1)} Q${cmF(w * .84)} ${cmF(h * .3)} ${cmF(w * .88)} ${cmF(h * .48)} H${cmF(w * .92)} V${cmF(h * .1)} Z" fill="#b58cff" ${S2}/>` +
+        R(w * .12, h * .16, w * .18, h * .2, '#fff', `${S}`) + at(w * .21, h * .26, .38, 'heart') +
+        R(0, gy, w, h - gy, '#e3ae7a') + Array.from({ length: 4 }, (_, i) => `<path d="M0 ${cmF(gy + (h - gy) * (i + 1) / 5)} H${w}" stroke="#c98f5c" stroke-width="2"/>`).join('') + R(0, gy - 6, w, 10, '#fff', `${S2}`) +
+        `<ellipse cx="${cmF(w * .45)}" cy="${cmF(gy + (h - gy) * .55)}" rx="${cmF(w * .26)}" ry="${cmF((h - gy) * .28)}" fill="#7ec8ff" ${S2}/><ellipse cx="${cmF(w * .45)}" cy="${cmF(gy + (h - gy) * .55)}" rx="${cmF(w * .18)}" ry="${cmF((h - gy) * .17)}" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="6 6"/>`;
+    } else if (id === 'park') {
+      b = R(0, 0, w, h, lg('s', [[0, '#8fd3ff'], [1, '#e6f7ff']])) + at(w * .86, h * .16, .55, 'sun') + at(w * .2, h * .14, .6, 'cloud') + at(w * .55, h * .24, .45, 'cloud') +
+        hill(gy - 20 * k, '#a8e39a', 26) + hill(gy, '#7dcf6f') + `<path d="M${cmF(w * .42)} ${h} L${cmF(w * .48)} ${cmF(gy + 4)} H${cmF(w * .54)} L${cmF(w * .66)} ${h} Z" fill="#f6dfa8"/>` +
+        at(w * .12, gy - 10 * k, .9, 'tree') + at(w * .88, gy - 4 * k, .75, 'tree') + at(w * .3, gy + 30 * k, .4, 'flower') + at(w * .76, gy + 50 * k, .45, 'tulips') + at(w * .6, gy - 30 * k, .35, 'bush');
+    } else if (id === 'beach') {
+      const sy = h * .5;
+      b = R(0, 0, w, h, lg('s', [[0, '#7ecbff'], [1, '#fff1c9']])) + at(w * .8, h * .18, .55, 'sun') + at(w * .25, h * .16, .5, 'cloud') + at(w * .62, h * .12, .3, 'bird') +
+        R(0, sy, w, h - sy, lg('o', [[0, '#3aa6dc'], [1, '#7fd6e8']])) + Array.from({ length: 5 }, (_, i) => `<path d="M${cmF(w * (.1 + i * .2))} ${cmF(sy + 14 * k + (i % 2) * 10 * k)} q10 -6 20 0 q10 6 20 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>`).join('') +
+        `<path d="M0 ${cmF(gy - 8 * k)} Q${cmF(w * .3)} ${cmF(gy - 24 * k)} ${cmF(w * .6)} ${cmF(gy - 6 * k)} T${w} ${cmF(gy - 14 * k)} V${h} H0 Z" fill="#ffe0a3"/><path d="M0 ${cmF(gy - 8 * k)} Q${cmF(w * .3)} ${cmF(gy - 24 * k)} ${cmF(w * .6)} ${cmF(gy - 6 * k)} T${w} ${cmF(gy - 14 * k)}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>` +
+        at(w * .14, gy - 30 * k, 1, 'palm') + `<g transform="translate(${cmF(w * .82)} ${cmF(gy + 20 * k)}) scale(${cmF(k)})"><path d="M0 40 V-30" stroke="${O}" stroke-width="4"/><path d="M-50 -20 Q0 -70 50 -20 Z" fill="#ff7a9a" ${S}/><path d="M-17 -20 Q0 -66 17 -20" fill="#fff" ${S2}/></g>` +
+        dots(6, (x, y) => `<circle cx="${cmF(x)}" cy="${cmF(gy + (h - gy) * .3 + (y % ((h - gy) * .6)))}" r="${cmF(3 * k)}" fill="#ffb3a0"/>`);
+    } else if (id === 'sea') {
+      b = R(0, 0, w, h, lg('s', [[0, '#62d0f3'], [1, '#1f6fb8']])) + Array.from({ length: 4 }, (_, i) => `<path d="M${cmF(w * (.1 + i * .25))} 0 L${cmF(w * (.2 + i * .25))} 0 L${cmF(w * (.05 + i * .25))} ${h} L${cmF(w * (-.08 + i * .25))} ${h} Z" fill="#fff" opacity=".1"/>`).join('') +
+        `<path d="M0 ${cmF(gy + 20 * k)} Q${cmF(w * .3)} ${cmF(gy)} ${cmF(w * .6)} ${cmF(gy + 16 * k)} T${w} ${cmF(gy + 6 * k)} V${h} H0 Z" fill="#f3d9a0"/>` +
+        at(w * .1, gy, .9, 'seaweed') + at(w * .9, gy + 10 * k, .8, 'coral') + at(w * .72, gy + 4 * k, .7, 'seaweed', true) + at(w * .3, h * .3, .6, 'bubbles') + at(w * .8, h * .25, .4, 'bubbles') +
+        `<g transform="translate(${cmF(w * .5)} ${cmF(gy + 30 * k)}) scale(${cmF(k * .6)})">${stickerInner('shell').replace(/<svg[^>]*>|<\/svg>/g, '')}</g>`;
+    } else if (id === 'space') {
+      b = R(0, 0, w, h, lg('s', [[0, '#141a44'], [1, '#3b2a6e']])) + dots(Math.round(w * h / 2200), (x, y, r) => `<circle cx="${cmF(x)}" cy="${cmF(y)}" r="${cmF(.8 + r * 1.8)}" fill="#fff" opacity="${cmF(.5 + r * .5)}"/>`) +
+        at(w * .78, h * .26, .9, 'planet') + at(w * .18, h * .2, .6, 'moon') + at(w * .3, h * .72, .45, 'star') + at(w * .62, h * .78, .9, 'rocket') +
+        `<circle cx="${cmF(w * .92)}" cy="${cmF(h * .7)}" r="${cmF(18 * k)}" fill="#7ec8ff" ${S2}/><circle cx="${cmF(w * .5)}" cy="${cmF(h * .15)}" r="${cmF(10 * k)}" fill="#ff9ad5" ${S2}/>`;
+    } else if (id === 'city') {
+      b = R(0, 0, w, h, lg('s', [[0, '#ffb38a'], [.6, '#ffd9a8'], [1, '#ffeccc']])) + `<circle cx="${cmF(w * .7)}" cy="${cmF(gy - 40 * k)}" r="${cmF(46 * k)}" fill="#ffe27a"/>`;
+      const cols = ['#8e7bd6', '#ff8fab', '#6fb8e8', '#ffb86b', '#7fcf9a'];
+      let x = -10 * k, i = 0;
+      while (x < w) {
+        const bw = (40 + (i * 37) % 36) * k, bh = (80 + (i * 53) % 120) * k, c = cols[i % cols.length];
+        b += R(x, gy - bh, bw, bh + 4, c, S2) + Array.from({ length: Math.floor(bh / (22 * k)) }, (_, r) => Array.from({ length: Math.max(1, Math.floor(bw / (16 * k))) }, (_, cI) => R(x + 6 * k + cI * 16 * k, gy - bh + 10 * k + r * 22 * k, 8 * k, 11 * k, (r + cI + i) % 3 ? '#fff7c9' : '#fff', 'opacity=".85"')).join('')).join('');
+        x += bw + 6 * k; i++;
+      }
+      b += R(0, gy, w, h - gy, '#5b5f73') + R(0, gy, w, 8 * k, '#c9c9d6') + Array.from({ length: Math.ceil(w / (60 * k)) }, (_, j) => R(j * 60 * k + 10, gy + (h - gy) * .5, 30 * k, 5 * k, '#fff')).join('');
+    } else if (id === 'forest') {
+      b = R(0, 0, w, h, lg('s', [[0, '#bff0c8'], [1, '#f0fbe6']])) + at(w * .8, h * .14, .4, 'sun') +
+        Array.from({ length: 7 }, (_, i) => at(w * (i / 6), gy - 40 * k, .8 + (i % 3) * .15, 'pine')).join('').replace(/#3f9c6e/g, '#8fcf9a') + hill(gy, '#6cbf5a', 12) +
+        at(w * .1, gy + 10 * k, 1.05, 'pine') + at(w * .9, gy + 16 * k, 1.1, 'tree') + at(w * .32, gy + 30 * k, .4, 'mushroom') + at(w * .64, gy + 44 * k, .35, 'mushroom') + at(w * .5, h * .2, .35, 'butterfly');
+    } else if (id === 'castle') {
+      const cx = w * .55, cs = k * 1.1;
+      b = R(0, 0, w, h, lg('s', [[0, '#ffc6e6'], [1, '#fff0d8']])) + at(w * .15, h * .16, .5, 'cloud') + at(w * .86, h * .1, .4, 'cloud') + at(w * .3, h * .3, .3, 'rainbow') +
+        `<path d="M0 ${cmF(gy)} Q${cmF(cx)} ${cmF(gy - 70 * k)} ${w} ${cmF(gy)} V${h} H0 Z" fill="#9be08a"/>` +
+        `<g transform="translate(${cmF(cx)} ${cmF(gy - 40 * k)}) scale(${cmF(cs)})"><rect x="-60" y="-50" width="120" height="70" fill="#f3e9ff" ${S}/>${[-60, -36, -12, 12, 36].map(x => `<rect x="${x}" y="-60" width="12" height="12" fill="#f3e9ff" ${S2}/>`).join('')}<path d="M-14 20 V-6 A14 14 0 0 1 14 -6 V20 Z" fill="#9b6b43" ${S2}/></g>` +
+        at(cx - 70 * cs, gy - 70 * k, 1.1, 'tower') + at(cx + 70 * cs, gy - 70 * k, 1.1, 'tower') + at(cx, gy - 120 * k, .9, 'tower') + hill(gy + 30 * k, '#7dcf6f', 10) + at(w * .1, gy + 30 * k, .5, 'tulips') + at(w * .9, gy + 36 * k, .5, 'flower');
+    } else if (id === 'candy') {
+      b = R(0, 0, w, h, lg('s', [[0, '#ffd1ec'], [1, '#fff6fb']])) + at(w * .2, h * .14, .55, 'cloud').replace(/#ffffff/, '#ffe4f3') + at(w * .75, h * .2, .45, 'cloud').replace(/#ffffff/, '#e6dcff') +
+        [['#ff9ad5', .2], ['#b58cff', .55], ['#7ee0c0', .9]].map(([c, x]) => `<ellipse cx="${cmF(w * x)}" cy="${cmF(gy + 10 * k)}" rx="${cmF(110 * k)}" ry="${cmF(70 * k)}" fill="${c}" ${S}/>`).join('') +
+        R(0, gy + 30 * k, w, h, '#ffe8a8') + `<path d="M0 ${cmF(gy + 30 * k)} H${w}" stroke="${O}" stroke-width="2.5"/>` + dots(14, (x, y, r) => `<circle cx="${cmF(x)}" cy="${cmF(gy + 40 * k + (y % Math.max(10, h - gy - 50 * k)))}" r="${cmF(3 * k)}" fill="${['#ff5a6e', '#7ec8ff', '#4fbf73', '#b58cff'][Math.floor(r * 4)]}"/>`) +
+        at(w * .1, gy - 10 * k, 1, 'lollipop') + at(w * .85, gy + 4 * k, .9, 'lollipop').replace(/#ff9ad5/, '#7ec8ff') +
+        `<g transform="translate(${cmF(w * .4)} ${cmF(gy + 20 * k)}) scale(${cmF(k)})"><path d="M0 40 V-20 Q0 -40 18 -40 Q34 -40 34 -24" fill="none" stroke="${O}" stroke-width="14" stroke-linecap="round"/><path d="M0 40 V-20 Q0 -40 18 -40 Q34 -40 34 -24" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/><path d="M0 40 V-20 Q0 -40 18 -40 Q34 -40 34 -24" fill="none" stroke="#ff5a6e" stroke-width="9" stroke-dasharray="7 7"/></g>`;
+    } else if (id === 'snow') {
+      b = R(0, 0, w, h, lg('s', [[0, '#9fc3ff'], [1, '#e8f1ff']])) + hill(gy - 30 * k, '#f2f6ff', 30) + at(w * .15, gy - 40 * k, .8, 'pine') + at(w * .28, gy - 30 * k, .6, 'pine') + at(w * .86, gy - 36 * k, .85, 'pine') +
+        hill(gy, '#ffffff', 16) + `<path d="M0 ${cmF(gy)} Q${cmF(w * .25)} ${cmF(gy - 16 * k)} ${cmF(w * .5)} ${cmF(gy)} T${w} ${cmF(gy)}" fill="none" stroke="#c9d8f5" stroke-width="3"/>` + at(w * .68, gy + 10 * k, .9, 'snowman') +
+        dots(Math.round(w * h / 3000), (x, y, r) => `<circle cx="${cmF(x)}" cy="${cmF(y)}" r="${cmF(1.5 + r * 2.5)}" fill="#fff" opacity=".9"/>`);
+    } else if (id === 'party') {
+      const cs = ['#ff5a6e', '#ffd84d', '#4fc3a1', '#7ec8ff', '#b58cff', '#ff9ad5'], n = Math.max(6, Math.round(w / (40 * k)));
+      b = R(0, 0, w, h, lg('s', [[0, '#cdb9ff'], [1, '#ecdfff']])) + dots(Math.round(w * h / 1800), (x, y, r) => `<rect x="${cmF(x)}" y="${cmF(y * .7)}" width="${cmF(6 * k)}" height="${cmF(3 * k)}" fill="${cs[Math.floor(r * 6)]}" transform="rotate(${Math.round(r * 180)} ${cmF(x)} ${cmF(y * .7)})"/>`) +
+        `<path d="M0 ${cmF(14 * k)} Q${cmF(w / 2)} ${cmF(60 * k)} ${w} ${cmF(14 * k)}" fill="none" stroke="${O}" stroke-width="2.5"/>` +
+        Array.from({ length: n }, (_, i) => { const t = (i + .5) / n, x = w * t, y = 14 * k + 4 * (46 * k) * t * (1 - t); return `<path d="M${cmF(x - 14 * k)} ${cmF(y - 2)} L${cmF(x + 14 * k)} ${cmF(y - 2)} L${cmF(x)} ${cmF(y + 30 * k)} Z" fill="${cs[i % 6]}" ${S2}/>`; }).join('') +
+        at(w * .12, h * .38, .9, 'balloon') + at(w * .2, h * .44, .8, 'balloon').replace(/#ff5a8a/g, '#7ec8ff') + at(w * .88, h * .4, .9, 'balloon').replace(/#ff5a8a/g, '#ffd84d') +
+        R(0, gy + 20 * k, w, h, '#ffd6a5') + `<path d="M0 ${cmF(gy + 20 * k)} H${w}" stroke="${O}" stroke-width="2.5"/>` +
+        `<g transform="translate(${cmF(w * .55)} ${cmF(gy + 10 * k)}) scale(${cmF(1.6 * k)})">${stickerInner('cake').replace(/<svg[^>]*>|<\/svg>/g, '')}</g>`;
+    } else if (id === 'night') {
+      b = R(0, 0, w, h, lg('s', [[0, '#101540'], [1, '#3a3585']])) + dots(Math.round(w * h / 2600), (x, y, r) => r > .85 ? `<polygon points="${starPts(x, y * .75, 5 * k, 2 * k)}" fill="#fff6c2"/>` : `<circle cx="${cmF(x)}" cy="${cmF(y * .75)}" r="${cmF(.8 + r * 1.4)}" fill="#fff" opacity=".85"/>`) +
+        at(w * .8, h * .18, .7, 'moon') + hill(gy - 10 * k, '#27306a', 30) +
+        [[.14, 1], [.34, .8], [.66, .9]].map(([x, s]) => `<g transform="translate(${cmF(w * x)} ${cmF(gy - 10 * k)}) scale(${cmF(s * k)})"><rect x="-26" y="-4" width="52" height="40" fill="#2c2552"/><path d="M-32 -2 L0 -30 L32 -2 Z" fill="#40357a"/><rect x="-16" y="6" width="12" height="12" fill="#ffd84d"/><rect x="4" y="6" width="12" height="12" fill="#ffd84d" opacity=".7"/></g>`).join('') + hill(gy + 20 * k, '#1c2350', 14);
+    } else if (id === 'sunset') {
+      b = R(0, 0, w, h, lg('s', [[0, '#6f5bd6'], [.45, '#ff8fab'], [.75, '#ffc38a'], [1, '#ffe6b0']])) + `<circle cx="${cmF(w * .5)}" cy="${cmF(gy - 6 * k)}" r="${cmF(60 * k)}" fill="#ffe27a" opacity=".95"/>` +
+        at(w * .2, h * .2, .5, 'cloud').replace(/#ffffff/, '#ffd1e4') + at(w * .8, h * .3, .4, 'bird') +
+        R(0, gy, w, h - gy, lg('o', [[0, '#7a5cc9'], [1, '#3b3a8c']])) + Array.from({ length: 6 }, (_, i) => R(w * .5 - (60 - i * 8) * k, gy + (8 + i * 12) * k, (120 - i * 16) * k, 3 * k, '#ffe27a', 'opacity=".6"')).join('') +
+        at(w * .1, gy + 6 * k, 1.1, 'palm');
+    }
+    return (defs.length ? `<defs>${defs.join('')}</defs>` : '') + b;
+  }
+  // background designer: sky + ground (+ pieces and a drawing, for any background)
+  const CM_SKIES = [['#8fd3ff', '#e6f7ff'], ['#ffb3cf', '#fff0f6'], ['#ffcf8a', '#fff1dc'], ['#b58cff', '#ffd6f5'], ['#141a44', '#4b3a8e'], ['#62d0f3', '#1f6fb8'],
+    ['#c9f2d0', '#fdfbe0'], ['#ff9a8b', '#ffe4b5'], ['#ffffff', '#f3f3f8'], ['#ffe27a', '#fff8d6'], ['#7ee0c0', '#e0fff4'], ['#2b2b30', '#57576a']];
+  const CM_GROUNDS = [['none', 'בלי'], ['grass', 'דשא', '#7dcf6f'], ['hills', 'גבעות', '#8ad67a'], ['sand', 'חול', '#ffe0a3'], ['snow', 'שלג', '#ffffff'], ['water', 'מים', '#4fb3e6'],
+    ['floor', 'רצפה', '#e3ae7a'], ['road', 'כביש', '#5b5f73'], ['clouds', 'עננים', '#ffffff'], ['candy', 'ממתקים', '#ff9ad5']];
+  function cmBgCustom(bg, w, h, u) {
+    const sky = bg.sky || CM_SKIES[0], gy = h * 0.7, k = Math.min(h, w * 0.9) / 300, gd = CM_GROUNDS.find(g => g[0] === bg.ground) || CM_GROUNDS[0], gc = bg.gc || gd[2];
+    let s = `<defs>${cmGrad(u + 's', [[0, sky[0]], [1, sky[1]]])}</defs><rect width="${w}" height="${h}" fill="url(#${u}s)"/>`;
+    const wave = (y, a, c, ex = '') => `<path d="M0 ${cmF(y)} Q${cmF(w * .25)} ${cmF(y - a * k)} ${cmF(w * .5)} ${cmF(y)} T${w} ${cmF(y)} V${h} H0 Z" fill="${c}" ${ex}/>`;
+    const g = gd[0];
+    if (g === 'grass') s += wave(gy, 14, gc) + Array.from({ length: Math.ceil(w / (26 * k)) }, (_, i) => `<path d="M${cmF(i * 26 * k + 6)} ${cmF(gy + (18 + (i % 3) * 22) * k)} l3 -8 l3 8 l3 -6 l2 6" fill="none" stroke="${fmx(gc, '#1f5a2a', .35)}" stroke-width="2" stroke-linecap="round"/>`).join('');
+    else if (g === 'hills') s += wave(gy - 26 * k, 34, fmx(gc, '#ffffff', .3)) + wave(gy, 20, gc);
+    else if (g === 'sand') s += wave(gy, 10, gc) + `<path d="M0 ${cmF(gy)} Q${cmF(w * .25)} ${cmF(gy - 10 * k)} ${cmF(w * .5)} ${cmF(gy)} T${w} ${cmF(gy)}" fill="none" stroke="#fff" stroke-width="4" opacity=".7"/>`;
+    else if (g === 'snow') s += wave(gy, 22, gc, `stroke="#c9d8f5" stroke-width="3"`);
+    else if (g === 'water') s += `<rect y="${cmF(gy)}" width="${w}" height="${cmF(h - gy)}" fill="${gc}"/>` + Array.from({ length: 8 }, (_, i) => `<path d="M${cmF((i % 4) * w / 4 + (i > 3 ? w / 8 : 10))} ${cmF(gy + (i > 3 ? 40 : 16) * k)} q8 -5 16 0 q8 5 16 0" fill="none" stroke="#fff" stroke-width="2.5" opacity=".7" stroke-linecap="round"/>`).join('');
+    else if (g === 'floor') s += `<rect y="${cmF(gy)}" width="${w}" height="${cmF(h - gy)}" fill="${gc}"/>` + [1, 2, 3].map(i => `<path d="M0 ${cmF(gy + (h - gy) * i / 4)} H${w}" stroke="${fmx(gc, '#000', .18)}" stroke-width="2"/>`).join('') + `<rect y="${cmF(gy - 5)}" width="${w}" height="8" fill="#fff" ${S2}/>`;
+    else if (g === 'road') s += `<rect y="${cmF(gy)}" width="${w}" height="${cmF(h - gy)}" fill="${gc}"/><rect y="${cmF(gy)}" width="${w}" height="${cmF(7 * k)}" fill="#c9c9d6"/>` + Array.from({ length: Math.ceil(w / (60 * k)) }, (_, j) => `<rect x="${cmF(j * 60 * k + 10)}" y="${cmF(gy + (h - gy) * .5)}" width="${cmF(30 * k)}" height="${cmF(5 * k)}" fill="#fff"/>`).join('');
+    else if (g === 'clouds') s += `<path d="M0 ${h} V${cmF(gy + 10 * k)}` + Array.from({ length: Math.ceil(w / (50 * k)) }, () => ` a${cmF(25 * k)} ${cmF(22 * k)} 0 0 1 ${cmF(50 * k)} 0`).join('') + ` V${h} Z" fill="${gc}" ${S2}/>`;
+    else if (g === 'candy') s += wave(gy, 14, gc) + Array.from({ length: Math.ceil(w / (30 * k)) }, (_, i) => `<circle cx="${cmF(i * 30 * k + 12)}" cy="${cmF(gy + (20 + (i % 3) * 20) * k)}" r="${cmF(4 * k)}" fill="${['#fff', '#ffd84d', '#7ec8ff'][i % 3]}"/>`).join('');
+    return s;
+  }
+  const cmBgDef = id => ({ id: id || 'park', pieces: [], draw: null });
+  function cmSceneBg(bg, w, h, u) {
+    bg = bg || cmBgDef('plain');
+    const base = bg.id === 'custom' ? cmBgCustom(bg, w, h, u) : cmBgPreset(bg.id, w, h, u);
+    const pcs = (bg.pieces || []).map(p => `<g class="cm-pc" data-id="${p.id}" transform="translate(${cmF(p.x)} ${cmF(p.y)}) scale(${cmF((p.f ? -1 : 1) * p.s)} ${cmF(p.s)})">${CM_PIECES[p.t] ? CM_PIECES[p.t][1]() : ''}</g>`).join('');
+    return base + `<g class="cm-pcs">${pcs}</g>` + (bg.draw ? `<image class="cm-draw" href="${bg.draw}" x="0" y="0" width="${cmF(w)}" height="${cmF(h)}" preserveAspectRatio="none"/>` : '');
+  }
+
+  // ---------- text helpers ----------
+  let cmCtx = null;
+  const cmMeasure = (s, font) => { try { cmCtx = cmCtx || document.createElement('canvas').getContext('2d'); cmCtx.font = font; return cmCtx.measureText(s).width; } catch { return s.length * 10; } };
+  function cmWrap(text, css, fs, maxW) {
+    const font = `${fs}px ${css}`, out = [];
+    String(text || '').split('\n').forEach(par => {
+      let line = '';
+      par.split(/\s+/).filter(Boolean).forEach(word => {
+        const t = line ? line + ' ' + word : word;
+        if (!line || cmMeasure(t, font) <= maxW) line = t; else { out.push(line); line = word; }
+      });
+      out.push(line);
+    });
+    return out;
+  }
+  const cmTextEl = (lines, css, fs, attrs, lh = 1.18) => {
+    const y0 = -((lines.length - 1) * fs * lh) / 2 + fs * 0.36;
+    return `<text font-family="${cmEsc(css)}" font-size="${cmF(fs)}" text-anchor="middle" direction="rtl" ${attrs}>${lines.map((l, i) => `<tspan x="0" y="${cmF(y0 + i * fs * lh)}">${cmEsc(l) || ' '}</tspan>`).join('')}</text>`;
+  };
+
+  // ---------- speech bubbles, captions, sound words, titles, shapes ----------
+  const CM_BUBS = [['say', '💬 דיבור'], ['think', '💭 מחשבה'], ['shout', '💥 צעקה'], ['whisper', '🤫 לחישה'], ['box', '🔲 מרובעת']];
+  const CM_SFX = ['בום!', 'וואו!', 'הופ!', 'פוף!', 'בינג!', 'זזזז...', 'אוי!', 'יש!!', 'קראש!', 'ווש!', 'חחח', 'שששש', 'טה-דה!', 'דינג דונג', '?!', 'אאאא!'];
+  const CM_INK = '#2b2233';
+  function cmBubbleSVG(it) {
+    const w = it.w, h = it.h, rx = w / 2, ry = h / 2, k = it.k || 'say', fill = it.c || (k === 'shout' ? '#fff27a' : '#ffffff');
+    const tx = it.tx || 0, ty = it.ty || 0, ang = Math.atan2(ty / ry, tx / rx), out = Math.hypot(tx / rx, ty / ry) > 1.05;
+    const ep = (a, f = 1) => [cmF(rx * f * Math.cos(a)), cmF(ry * f * Math.sin(a))];
+    let shapes, tail = '', extra = '';
+    if (k === 'think') {
+      const n = Math.max(8, Math.round((w + h) / 32)), r = Math.min(rx, ry) * 0.4;
+      shapes = `<ellipse rx="${cmF(rx * .86)}" ry="${cmF(ry * .82)}"/>` + Array.from({ length: n }, (_, i) => { const [x, y] = ep(i / n * Math.PI * 2, .8); return `<circle cx="${x}" cy="${y}" r="${cmF(r)}"/>`; }).join('');
+      if (out) { const [bx, by] = ep(ang, 1.05); extra = [0.3, 0.62, 0.92].map((t, i) => `<circle cx="${cmF(+bx + (tx - bx) * t)}" cy="${cmF(+by + (ty - by) * t)}" r="${cmF(Math.max(3, r * (0.5 - i * 0.14)))}" fill="${fill}" stroke="${CM_INK}" stroke-width="3"/>`).join(''); }
+    } else if (k === 'shout') {
+      const n = 13;
+      shapes = `<polygon points="${Array.from({ length: n * 2 }, (_, i) => ep(i / (n * 2) * Math.PI * 2 + .1, i % 2 ? .84 : 1.14 + (i % 4 ? 0 : .06)).join(',')).join(' ')}"/>`;
+      if (out) tail = `<polygon points="${ep(ang - .16, .8).join(',')} ${cmF(tx)},${cmF(ty)} ${ep(ang + .05, .8).join(',')} ${cmF(tx * .7)},${cmF(ty * .75)}"/>`;
+    } else {
+      shapes = k === 'box' ? `<rect x="${cmF(-rx)}" y="${cmF(-ry)}" width="${cmF(w)}" height="${cmF(h)}" rx="${cmF(Math.min(16, ry * .5))}"/>` : `<ellipse rx="${cmF(rx)}" ry="${cmF(ry)}"/>`;
+      if (out) { const [ax, ay] = ep(ang - .2, .82), [bx, by] = ep(ang + .2, .82), mx = (tx + (+ax + +bx) / 2) / 2, my = (ty + (+ay + +by) / 2) / 2; tail = `<path d="M${ax} ${ay} Q${cmF(mx)} ${cmF(my)} ${cmF(tx)} ${cmF(ty)} Q${cmF(mx + (ty - my) * .08)} ${cmF(my)} ${bx} ${by} Z"/>`; }
+    }
+    const dash = k === 'whisper' ? ' stroke-dasharray="9 7"' : '';
+    const body = k === 'whisper'
+      ? `<g fill="${fill}" stroke="${CM_INK}" stroke-width="3"${dash}>${shapes}${tail}</g><g fill="${fill}">${shapes.replace(/rx="([\d.]+)" ry="([\d.]+)"/, (m, a, b) => `rx="${cmF(a - 1.6)}" ry="${cmF(b - 1.6)}"`)}${tail}</g>`
+      : `<g fill="${CM_INK}" stroke="${CM_INK}" stroke-width="7" stroke-linejoin="round">${shapes}${tail}</g><g fill="${fill}">${shapes}${tail}</g>`;
+    const css = cmFontCss(it.font || 'round'), iw = k === 'box' ? w * .86 : w * .7, ih = k === 'box' ? h * .8 : h * .64;
+    let fs = it.fs || 24, lines;
+    for (; fs > 10; fs -= 1) { lines = cmWrap(it.text, css, fs, iw); if (lines.length * fs * 1.18 <= ih && lines.every(l => cmMeasure(l, `${fs}px ${css}`) <= iw * 1.02)) break; }
+    return `${extra}${body}${cmTextEl(lines, css, fs, `fill="${it.tc || CM_INK}"${k === 'shout' ? ' font-weight="700"' : ''}`)}`;
+  }
+  function cmCapSVG(it) {
+    const w = it.w, h = it.h, css = cmFontCss(it.font || 'round');
+    let fs = it.fs || 20, lines;
+    for (; fs > 10; fs -= 1) { lines = cmWrap(it.text, css, fs, w - 18); if (lines.length * fs * 1.18 <= h - 8) break; }
+    return `<rect x="${cmF(-w / 2 + 4)}" y="${cmF(-h / 2 + 4)}" width="${cmF(w)}" height="${cmF(h)}" rx="4" fill="${CM_INK}" opacity=".25"/><rect x="${cmF(-w / 2)}" y="${cmF(-h / 2)}" width="${cmF(w)}" height="${cmF(h)}" rx="4" fill="${it.c || '#fff4b8'}" stroke="${CM_INK}" stroke-width="3"/>` + cmTextEl(lines, css, fs, `fill="${it.tc || CM_INK}"`);
+  }
+  const cmLinesOf = it => String(it.text || ' ').split('\n');
+  function cmTextBox(it) {
+    const fs = it.fs || (it.t === 'sfx' ? 50 : 60), css = cmFontCss(it.font || (it.t === 'sfx' ? 'bubbles' : 'bold')), lines = cmLinesOf(it);
+    return [Math.max(40, ...lines.map(l => cmMeasure(l, `${fs}px ${css}`))) + fs * .5, lines.length * fs * 1.15 + fs * .3];
+  }
+  function cmSfxSVG(it) {
+    const fs = it.fs || 50, css = cmFontCss(it.font || 'bubbles'), lines = cmLinesOf(it), c = it.c || '#ffd84d', [bw, bh] = cmTextBox(it);
+    const burst = it.burst ? `<polygon points="${Array.from({ length: 28 }, (_, i) => { const a = i / 28 * Math.PI * 2, f = i % 2 ? .78 : 1.08; return `${cmF(Math.cos(a) * bw * .62 * f)},${cmF(Math.sin(a) * bh * .8 * f)}`; }).join(' ')}" fill="${it.bc || '#ffffff'}" stroke="${CM_INK}" stroke-width="4" stroke-linejoin="round"/>` : '';
+    return burst + cmTextEl(lines, css, fs, `fill="${CM_INK}" transform="translate(${cmF(fs * .07)} ${cmF(fs * .07)})" stroke="${CM_INK}" stroke-width="${cmF(fs * .16)}" stroke-linejoin="round"`, 1.12) +
+      cmTextEl(lines, css, fs, `fill="${c}" stroke="${CM_INK}" stroke-width="${cmF(fs * .12)}" stroke-linejoin="round" paint-order="stroke"`, 1.12);
+  }
+  const CM_FX = [['plain', 'רגיל'], ['outline', 'קו מסביב'], ['shadow', 'צל'], ['rainbow', 'קשת בענן'], ['glow', 'זוהר'], ['3d', 'תלת-ממד'], ['sticker', 'מדבקה']];
+  function cmTitleSVG(it, u) {
+    const fs = it.fs || 60, css = cmFontCss(it.font || 'bold'), lines = cmLinesOf(it), c = it.c || '#ff5a8a', e = it.e || 'outline', dark = fmx(c, '#1a0d20', .55);
+    const T = attrs => cmTextEl(lines, css, fs, attrs, 1.12);
+    if (e === 'outline') return T(`fill="${c}" stroke="${CM_INK}" stroke-width="${cmF(fs * .2)}" stroke-linejoin="round"`) + T(`fill="${c}" stroke="#fff" stroke-width="${cmF(fs * .09)}" stroke-linejoin="round" paint-order="stroke"`);
+    if (e === 'shadow') return T(`fill="${dark}" opacity=".45" transform="translate(${cmF(fs * .07)} ${cmF(fs * .08)})"`) + T(`fill="${c}"`);
+    if (e === 'rainbow') return `<defs>${cmGrad(u + 'rb', [[0, '#ff5a6e'], [.2, '#ffb020'], [.4, '#ffd84d'], [.6, '#4fbf73'], [.8, '#3f9cf0'], [1, '#b058e8']], 1, 0)}</defs>` + T(`fill="url(#${u}rb)" stroke="${CM_INK}" stroke-width="${cmF(fs * .07)}" stroke-linejoin="round" paint-order="stroke"`);
+    if (e === 'glow') return `<defs><filter id="${u}gl" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="${cmF(fs * .12)}"/></filter></defs>` + T(`fill="${c}" stroke="${c}" stroke-width="${cmF(fs * .1)}" filter="url(#${u}gl)"`) + T(`fill="#fff" stroke="${c}" stroke-width="${cmF(fs * .025)}"`);
+    if (e === '3d') return Array.from({ length: 6 }, (_, i) => T(`fill="${dark}" transform="translate(${cmF((6 - i) * fs * .014)} ${cmF((6 - i) * fs * .016)})"`)).join('') + T(`fill="${c}"`);
+    if (e === 'sticker') return T(`fill="#fff" stroke="#fff" stroke-width="${cmF(fs * .3)}" stroke-linejoin="round" filter="drop-shadow(2px 3px 0 rgba(0,0,0,.25))"`) + T(`fill="${c}"`);
+    return T(`fill="${c}"`);
+  }
+  const CM_SHAPES = {
+    heart: ['לב', `<path d="M0 34 C-40 10 -44 -16 -26 -28 C-12 -36 -2 -26 0 -16 C2 -26 12 -36 26 -28 C44 -16 40 10 0 34 Z"/>`],
+    star: ['כוכב', `<polygon points="${starPts(0, 2, 40, 17)}"/>`],
+    circle: ['עיגול', `<circle r="36"/>`],
+    square: ['ריבוע', `<rect x="-34" y="-34" width="68" height="68" rx="12"/>`],
+    tri: ['משולש', `<path d="M0 -36 L38 30 H-38 Z"/>`],
+    blob: ['כתם', `<path d="M-30 -20 Q-10 -46 18 -30 Q44 -18 34 10 Q28 38 0 34 Q-34 36 -38 10 Q-44 -6 -30 -20 Z"/>`],
+    cloud: ['ענן', `<path d="M-40 20 H40 A16 16 0 0 0 36 -10 A24 24 0 0 0 -4 -18 A20 20 0 0 0 -40 20 Z"/>`],
+    burst: ['פיצוץ', `<polygon points="${Array.from({ length: 24 }, (_, i) => { const a = i / 24 * Math.PI * 2, r = i % 2 ? 26 : 40; return `${cmF(Math.cos(a) * r)},${cmF(Math.sin(a) * r)}`; }).join(' ')}"/>`],
+    sparkle: ['נצנוץ', `<path d="M0 -40 Q4 -4 40 0 Q4 4 0 40 Q-4 4 -40 0 Q-4 -4 0 -40 Z"/>`],
+    moon: ['ירח', `<path d="M8 -36 A36 36 0 1 0 36 18 A28 28 0 1 1 8 -36 Z"/>`],
+    ribbon: ['סרט', `<path d="M-48 -14 H48 L40 2 L48 18 H-48 L-40 2 Z"/>`],
+    arrow: ['חץ', `<path d="M-40 -10 H6 V-26 L40 0 L6 26 V10 H-40 Z"/>`],
+    flower: ['פרח', [0, 60, 120, 180, 240, 300].map(a => `<circle cx="${cmF(20 * Math.cos(a * Math.PI / 180))}" cy="${cmF(20 * Math.sin(a * Math.PI / 180))}" r="16"/>`).join('') + '<circle r="14" fill="#ffd84d"/>'],
+    drop: ['טיפה', `<path d="M0 -40 Q30 0 26 16 A26 26 0 0 1 -26 16 Q-30 0 0 -40 Z"/>`],
+  };
+  const cmShapeSVG = it => `<g fill="${it.c || '#ff9ad5'}"${it.o === false ? '' : ` stroke="${CM_INK}" stroke-width="3.5" stroke-linejoin="round"`}>${(CM_SHAPES[it.k] || CM_SHAPES.heart)[1]}</g>`;
+
+  // ---------- characters and stickers ----------
+  const CM_BASE = { girl: [100, 200], mer: [110, 165], pet: [84, 96], stk: [70, 70], emo: [70, 70], shape: [84, 84] };
+  const CM_VB = { girl: [0, 0, 300, 600], mer: [0, 0, 200, 300], pet: [-4, -14, 56, 64] };
+  const cmBox = it => it.t === 'bub' || it.t === 'cap' ? [it.w, it.h] : it.t === 'sfx' || it.t === 'txt' ? cmTextBox(it) : CM_BASE[it.t] || [70, 70];
+  const cmNoFlip = it => ['bub', 'cap', 'sfx', 'txt'].includes(it.t);
+  const cmCharCache = new Map();
+  const cmNest = (s, x, y, w, h) => s.replace('<svg ', `<svg x="${cmF(x)}" y="${cmF(y)}" width="${cmF(w)}" height="${cmF(h)}" overflow="visible" `);
+  function cmCharSrc(it) {
+    const pose = it.pose && Object.keys(it.pose).length ? it.pose : null;
+    if (it.t === 'girl') {
+      const g = girls.find(x => x.id === it.ref); if (!g) return null;
+      const key = 'g' + JSON.stringify(g) + JSON.stringify(pose);
+      let v = cmCharCache.get(key);
+      if (!v) { try { v = girlSVG(g, 'cmg' + (cmN++), pose ? { bg: false, pose } : { bg: false }); } catch { return null; } if (cmCharCache.size > 60) cmCharCache.clear(); cmCharCache.set(key, v); }
+      return v;
+    }
+    if (it.t === 'mer') {
+      const m = mermaids.find(x => x.id === it.ref); if (!m) return null;
+      const p = pose || (cmFn('merPoseFK') ? { la: 20, ra: 20 } : null);
+      const key = 'm' + JSON.stringify(m) + JSON.stringify(p);
+      let v = cmCharCache.get(key);
+      if (!v) { try { v = p ? mermaidSVG(m, 'cmm' + (cmN++), { pose: p }) : mermaidSVG(m, 'cmm' + (cmN++)); } catch { return null; } if (cmCharCache.size > 60) cmCharCache.clear(); cmCharCache.set(key, v); }
+      return v;
+    }
+    if (it.t === 'pet') return pet ? petSVG(pet) : stickerHTML('cat');
+    return null;
+  }
+  function cmInner(it, u) {
+    const [bw, bh] = cmBox(it);
+    if (it.t === 'bub') return cmBubbleSVG(it);
+    if (it.t === 'cap') return cmCapSVG(it);
+    if (it.t === 'sfx') return cmSfxSVG(it);
+    if (it.t === 'txt') return cmTitleSVG(it, u);
+    if (it.t === 'shape') return cmShapeSVG(it);
+    if (it.t === 'emo') return `<text x="0" y="0" font-size="60" text-anchor="middle" dominant-baseline="central">${cmEsc(it.e)}</text>`;
+    if (it.t === 'stk') return cmNest(stickerHTML(it.ref) || stickerHTML('star'), -bw / 2, -bh / 2, bw, bh);
+    const src = cmCharSrc(it);
+    if (!src) return `<circle r="30" fill="#eee" stroke="${CM_INK}" stroke-width="3" stroke-dasharray="6 5"/><text y="8" font-size="26" text-anchor="middle">?</text>`;
+    let s = cmNest(src, -bw / 2, -bh / 2, bw, bh);
+    if (it.t === 'pet' && it.sq) s = `<g transform="translate(0 ${cmF(bh / 2)}) scale(${cmF(1 + it.sq / 100)} ${cmF(1 - it.sq / 100)}) translate(0 ${cmF(-bh / 2)})">${s}</g>`;
+    return s;
+  }
+  const cmTf = it => `translate(${cmF(it.x)} ${cmF(it.y)}) rotate(${cmF(it.r || 0)}) scale(${cmF((it.f && !cmNoFlip(it) ? -1 : 1) * (it.s || 1) * 100) / 100} ${cmF((it.s || 1) * 100) / 100})`;
+  const cmItemSVG = it => `<g class="cm-it" data-id="${it.id}" transform="${cmTf(it)}">${cmInner(it, 'ci' + it.id)}</g>`;
+  const cmMat = (it, a) => new DOMMatrix().translate(a.x + it.x, a.y + it.y).rotate(it.r || 0).scale((it.f && !cmNoFlip(it) ? -1 : 1) * (it.s || 1), it.s || 1);
+
+  // ---------- posing: handles for hands, elbows, knees, feet and head ----------
+  const CM_POSES = {
+    girl: [['stand', '🧍‍♀️ עומדת', {}], ['wave', '👋 נפנוף', { la: 70, lf: -100 }], ['up', '🙌 ידיים למעלה', { la: 160, ra: 160 }], ['hips', '💁‍♀️ ידיים על המותניים', { la: 35, lf: 80, ra: 35, rf: 80 }],
+      ['run', '🏃‍♀️ ריצה', { la: 40, lf: -70, ra: -25, rf: 60, ll: 28, lk: 70, rl: -8, rk: 10, head: -5 }], ['sit', '🧘‍♀️ ישיבה', { la: 25, lf: 60, ra: 25, rf: 60, ll: 48, lk: -105, rl: 48, rk: -105 }],
+      ['dance', '💃 ריקוד', { la: 120, lf: -40, ra: -30, rf: 60, ll: 15, lk: 40, head: 8 }], ['wow', '😲 הפתעה', { la: 55, lf: -120, ra: 55, rf: -120, ll: 8, rl: 8, head: -6 }],
+      ['jump', '🤸‍♀️ קפיצה', { la: 140, ra: 140, ll: 12, rl: 12, lk: 35, rk: 35 }], ['cross', '🙅‍♀️ ידיים משולבות', { la: -40, lf: 40, ra: -40, rf: 40 }], ['point', '👉 מצביעה', { la: 85, lf: -5, head: 10 }], ['shy', '🙈 מתביישת', { la: 10, lf: 130, ra: 10, rf: 130, head: -14 }]],
+    mer: [['stand', '🧜‍♀️ רגיל', { la: 20, ra: 20 }], ['wave', '👋 נפנוף', { la: 70, lf: -100, ra: 20 }], ['up', '🙌 ידיים למעלה', { la: 160, ra: 160 }], ['swim', '🏊‍♀️ שוחה', { la: 150, ra: 150, tail: 25 }],
+      ['dance', '💃 ריקוד', { la: 120, lf: -40, ra: -30, rf: 60, tail: -25, head: 8 }], ['wow', '😲 הפתעה', { la: 55, lf: -120, ra: 55, rf: -120, head: -6 }], ['hips', '💁‍♀️ ידיים על המותניים', { la: 35, lf: 80, ra: 35, rf: 80, tail: 15 }], ['shy', '🙈 מתביישת', { la: 10, lf: 130, ra: 10, rf: 130, head: -14, tail: -15 }]],
+  };
+  const CM_LIMITS = { la: [-80, 180], ra: [-80, 180], lf: [-160, 160], rf: [-160, 160], ll: [-35, 70], rl: [-35, 70], lk: [-150, 130], rk: [-150, 130], head: [-35, 35], tail: [-45, 45] };
+  function cmJoints(it) {
+    try {
+      if (it.t === 'girl' && cmFn('girlPoseFK')) {
+        const P = cmFn('girlPoseFK')(it.pose || {});
+        return { pts: ['elbowL', 'handL', 'elbowR', 'handR', 'kneeL', 'footL', 'kneeR', 'footR', 'headTop'].map(k => [k, P[k]]).filter(x => x[1]),
+          bones: [['shoulderL', 'elbowL', 'handL'], ['shoulderR', 'elbowR', 'handR'], ['hipL', 'kneeL', 'footL'], ['hipR', 'kneeR', 'footR'], ['neck', 'headTop']].map(b => b.map(k => P[k]).filter(Boolean)) };
+      }
+      if (it.t === 'mer' && cmFn('merPoseFK')) {
+        const m = mermaids.find(x => x.id === it.ref); if (!m) return null;
+        const P = cmFn('merPoseFK')(m, it.pose || { la: 20, ra: 20 });
+        return { pts: ['elbowL', 'handL', 'elbowR', 'handR', 'headTop', 'tailTip'].map(k => [k, P[k]]).filter(x => x[1]),
+          bones: [['shoulderL', 'elbowL', 'handL'], ['shoulderR', 'elbowR', 'handR'], ['neck', 'headTop'], ['waist', 'tailTip']].map(b => b.map(k => P[k]).filter(Boolean)) };
+      }
+    } catch {}
+    return null;
+  }
+  function cmPoseDrag(it, h, pt) {
+    try {
+      const cur = Object.assign(it.t === 'mer' && !it.pose ? { la: 20, ra: 20 } : {}, it.pose || {});
+      const np = it.t === 'girl' ? cmFn('girlPoseDrag')(cur, h, pt) : cmFn('merPoseDrag')(mermaids.find(x => x.id === it.ref), cur, h, pt);
+      const out = {};
+      Object.entries(np || {}).forEach(([k, v]) => { if (CM_LIMITS[k] && Number.isFinite(+v)) { let a = cmNorm(+v); if (k === 'la' || k === 'ra') a = a < -100 ? a + 360 : a; out[k] = Math.round(cmClamp(a, ...CM_LIMITS[k])); } });
+      it.pose = out;
+    } catch {}
+  }
+  const cmToChar = (it, q) => { const [bw, bh] = cmBox(it), vb = CM_VB[it.t]; return [vb[0] + (q.x + bw / 2) * vb[2] / bw, vb[1] + (q.y + bh / 2) * vb[3] / bh]; };
+  const cmFromChar = (it, p) => { const [bw, bh] = cmBox(it), vb = CM_VB[it.t]; return [(p[0] - vb[0]) * bw / vb[2] - bw / 2, (p[1] - vb[1]) * bh / vb[3] - bh / 2]; };
+
+  // ---------- the scene editor (used by comics, stories and posters) ----------
+  const CM_TABS = [['bg', '🏞️ רקע'], ['chars', '👧 דמויות'], ['stk', '⭐ מדבקות'], ['talk', '💬 בועות'], ['emo', '😀 אימוג\'י']];
+  function cmStageSVG(cfg, ui) {
+    const u = 'cs' + (cmN++), as = cfg.areas();
+    let defs = '', body = cfg.under ? cfg.under(u) : '';
+    as.forEach((a, i) => {
+      defs += `<clipPath id="${u}c${i}"><rect width="${cmF(a.w)}" height="${cmF(a.h)}" rx="${a.rx || 0}"/></clipPath>`;
+      body += `<g class="cm-area" data-a="${i}" transform="translate(${cmF(a.x)} ${cmF(a.y)})"><g clip-path="url(#${u}c${i})"><rect width="${cmF(a.w)}" height="${cmF(a.h)}" fill="#fff"/>` +
+        `${(cfg.bgFn || cmSceneBg)(a.scene.bg, a.w, a.h, u + 'b' + i)}<g class="cm-items">${a.scene.items.map(cmItemSVG).join('')}</g></g></g>`;
+    });
+    body += cfg.over ? cfg.over(u) : '';
+    return `<svg${ui ? ' class="cm-svg"' : ''} viewBox="0 0 ${cfg.W} ${cfg.H}" xmlns="http://www.w3.org/2000/svg"${ui ? '' : ` width="${cfg.W}" height="${cfg.H}"`}><defs>${defs}</defs>${body}${ui ? '<g class="cm-ui"></g>' : ''}</svg>`;
+  }
+  const cmParse = s => { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.innerHTML = s; return t.firstElementChild; };
+
+  function cmEditor(cfg) {
+    const ed = { area: 0, sel: null, tab: cfg.tab || cfg.tabs[0][0], piece: null, pcSel: null, drawing: false, emoCat: 0 };
+    const stage = el('div', { class: 'cm-stage', tabindex: '0', 'aria-label': 'אזור העבודה' });
+    const side = el('div', { class: 'cm-side' });
+    const node = el('div', { class: 'cm-ed' }, el('div', { class: 'cm-left' }, stage, cfg.below || null), side);
+    let svgEl = null, drag = null, raf = 0;
+    const areas = () => cfg.areas();
+    const A = () => { const as = areas(); ed.area = cmClamp(ed.area, 0, as.length - 1); return as[ed.area]; };
+    const findIt = id => { const as = areas(); for (let i = 0; i < as.length; i++) { const it = as[i].scene.items.find(x => x.id === id); if (it) return [it, i]; } return [null, -1]; };
+    const cur = () => (ed.sel && findIt(ed.sel)[0]) || null;
+    const changed = () => cfg.change && cfg.change();
+    const pt = e => { const p = svgEl.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+    const areaAt = p => areas().findIndex(a => p.x >= a.x && p.x <= a.x + a.w && p.y >= a.y && p.y <= a.y + a.h);
+    const nodeOf = id => svgEl && svgEl.querySelector(`.cm-it[data-id="${id}"]`);
+    const setTf = it => { const n = nodeOf(it.id); if (n) n.setAttribute('transform', cmTf(it)); };
+    const reItem = it => { const n = nodeOf(it.id); if (n) n.replaceWith(cmParse(cmItemSVG(it))); };
+    function draw() {
+      if (ed.drawing) { drawPad(); drawSide(); return; }
+      stage.innerHTML = cmStageSVG(cfg, true);
+      svgEl = stage.firstElementChild;
+      svgEl.style.aspectRatio = `${cfg.W} / ${cfg.H}`;
+      svgEl.style.setProperty('--cm-w', `min(100%, calc(${cfg.maxVh || 74}vh * ${cfg.W} / ${cfg.H}))`);
+      svgEl.classList.toggle('bgmode', ed.tab === 'bg');
+      wire(); drawUI(); drawSide();
+    }
+    // selection outline and handles
+    function drawUI() {
+      if (!svgEl) return;
+      const g = svgEl.querySelector('.cm-ui'), as = areas(), hr = cfg.W / 46;
+      let s = '';
+      if (as.length > 1 && cfg.showArea !== false) { const a = A(); s += `<rect x="${cmF(a.x - 4)}" y="${cmF(a.y - 4)}" width="${cmF(a.w + 8)}" height="${cmF(a.h + 8)}" rx="8" fill="none" stroke="#ff4f9a" stroke-width="4" stroke-dasharray="10 7" pointer-events="none"/>`; }
+      const hd = (id, x, y, fill, label, r = hr) => `<g class="cm-h" data-h="${id}" transform="translate(${cmF(x)} ${cmF(y)})"><circle r="${cmF(r * 1.5)}" fill="transparent"/><circle r="${cmF(r)}" fill="${fill}" stroke="#fff" stroke-width="${cmF(r * .28)}"/>${label ? `<text y="${cmF(r * .36)}" font-size="${cmF(r * 1.05)}" text-anchor="middle" fill="#fff" font-family="Rubik, sans-serif" font-weight="700" pointer-events="none">${label}</text>` : ''}</g>`;
+      if (ed.tab === 'bg') {
+        const a = A(), p = ed.pcSel && (a.scene.bg.pieces || []).find(x => x.id === ed.pcSel);
+        if (p) s += `<circle cx="${cmF(a.x + p.x)}" cy="${cmF(a.y + p.y)}" r="${cmF(56 * p.s)}" fill="none" stroke="#ff4f9a" stroke-width="3" stroke-dasharray="8 6" pointer-events="none"/>`;
+      } else {
+        const [it, ai] = ed.sel ? findIt(ed.sel) : [null];
+        if (it) {
+          const a = as[ai], m = cmMat(it, a), [bw, bh] = cmBox(it), P = (x, y) => { const q = m.transformPoint(new DOMPoint(x, y)); return [q.x, q.y]; };
+          const pad = 6 / (it.s || 1), corners = [[-bw / 2 - pad, -bh / 2 - pad], [bw / 2 + pad, -bh / 2 - pad], [bw / 2 + pad, bh / 2 + pad], [-bw / 2 - pad, bh / 2 + pad]].map(c => P(...c));
+          s += `<polygon points="${corners.map(c => c.map(cmF).join(',')).join(' ')}" fill="none" stroke="#ff4f9a" stroke-width="2.5" stroke-dasharray="8 6" pointer-events="none"/>`;
+          const top = P(0, -bh / 2 - pad), c0 = P(0, 0), dx = top[0] - c0[0], dy = top[1] - c0[1], dl = Math.hypot(dx, dy) || 1;
+          s += `<path d="M${cmF(top[0])} ${cmF(top[1])} L${cmF(top[0] + dx / dl * hr * 2.2)} ${cmF(top[1] + dy / dl * hr * 2.2)}" stroke="#ff4f9a" stroke-width="2.5" pointer-events="none"/>`;
+          s += hd('rot', top[0] + dx / dl * hr * 2.2, top[1] + dy / dl * hr * 2.2, '#ffb020', '↻');
+          s += hd('sc', ...corners[2], '#3f9cf0', '⤡');
+          if (it.t === 'bub') s += hd('tail', ...P(it.tx || 0, it.ty || 0), '#ff4f9a', '', hr * .8);
+          const J = (it.t === 'girl' || it.t === 'mer') && cmJoints(it);
+          if (J) {
+            const C = p => P(...cmFromChar(it, p));
+            s += J.bones.filter(b => b.length > 1).map(b => `<polyline points="${b.map(p => C(p).map(cmF).join(',')).join(' ')}" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".85" pointer-events="none"/><polyline points="${b.map(p => C(p).map(cmF).join(',')).join(' ')}" fill="none" stroke="#b58cff" stroke-width="1.6" stroke-dasharray="4 4" pointer-events="none"/>`).join('');
+            s += J.pts.map(([k, p]) => hd('j:' + k, ...C(p), k.startsWith('elbow') || k.startsWith('knee') ? '#b58cff' : k === 'headTop' ? '#4fc3a1' : k === 'tailTip' ? '#17a2a8' : '#ff4f9a', '', hr * (k.startsWith('elbow') || k.startsWith('knee') ? .7 : .85))).join('');
+          }
+        }
+      }
+      g.innerHTML = s;
+    }
+    function wire() {
+      svgEl.addEventListener('pointerdown', e => {
+        const p = pt(e), h = e.target.closest('.cm-h');
+        if (h) {
+          const [it, ai] = findIt(ed.sel);
+          if (it) { drag = { h: h.dataset.h, it, a: areas()[ai] }; svgEl.setPointerCapture(e.pointerId); e.preventDefault(); }
+          return;
+        }
+        const ai = areaAt(p);
+        if (ed.tab === 'bg') {
+          if (ai < 0) return;
+          if (ai !== ed.area) { ed.area = ai; ed.pcSel = null; drawUI(); drawSide(); }
+          const a = A(), bg = a.scene.bg, lx = p.x - a.x, ly = p.y - a.y, pc = e.target.closest('.cm-pc');
+          bg.pieces = bg.pieces || [];
+          if (pc) {
+            const q = bg.pieces.find(x => x.id === pc.dataset.id); if (!q) return;
+            ed.pcSel = q.id; drag = { pc: q, a, dx: q.x - lx, dy: q.y - ly, node: pc }; svgEl.setPointerCapture(e.pointerId); e.preventDefault(); drawUI(); drawSide(); return;
+          }
+          if (ed.piece) {
+            if (bg.pieces.length >= 40) { toast(stickerHTML('tree'), 'יש כבר המון קישוטים ברקע הזה!'); return; }
+            const q = { id: cmNew('p'), t: ed.piece, x: cmF(lx), y: cmF(ly), s: cmF(Math.min(a.w, a.h) / 300), f: false };
+            bg.pieces.push(q); ed.pcSel = q.id; SFX.pop(); changed(); draw(); return;
+          }
+          if (ed.pcSel) { ed.pcSel = null; drawUI(); drawSide(); }
+          return;
+        }
+        const hit = e.target.closest('.cm-it');
+        if (hit) {
+          const [it, i] = findIt(hit.dataset.id); if (!it) return;
+          const a = areas()[i], was = ed.sel;
+          ed.sel = it.id; ed.area = i;
+          drag = { it, a, dx: it.x - (p.x - a.x), dy: it.y - (p.y - a.y) };
+          svgEl.setPointerCapture(e.pointerId); e.preventDefault(); drawUI();
+          if (was !== it.id) drawSide();
+          return;
+        }
+        if (ai >= 0 && (ai !== ed.area || ed.sel)) { ed.area = ai; ed.sel = null; drawUI(); drawSide(); }
+      });
+      svgEl.addEventListener('pointermove', e => {
+        if (!drag) return;
+        const p = pt(e);
+        drag.moved = true;
+        if (drag.pc) { const q = drag.pc, a = drag.a; q.x = cmF(cmClamp(p.x - a.x + drag.dx, 0, a.w)); q.y = cmF(cmClamp(p.y - a.y + drag.dy, 0, a.h)); drag.node.setAttribute('transform', `translate(${q.x} ${q.y}) scale(${cmF((q.f ? -1 : 1) * q.s)} ${cmF(q.s)})`); drawUI(); return; }
+        const { it, a } = drag, lx = p.x - a.x, ly = p.y - a.y;
+        if (!drag.h) { it.x = cmF(cmClamp(lx + drag.dx, -20, a.w + 20)); it.y = cmF(cmClamp(ly + drag.dy, -20, a.h + 20)); setTf(it); drawUI(); return; }
+        const q = cmMat(it, a).inverse().transformPoint(new DOMPoint(p.x, p.y));
+        if (drag.h === 'sc') {
+          if (it.t === 'bub' || it.t === 'cap') { it.w = Math.round(cmClamp(Math.abs(q.x) * 2, 60, Math.max(80, a.w))); it.h = Math.round(cmClamp(Math.abs(q.y) * 2, 36, Math.max(60, a.h))); later(() => reItem(it)); }
+          else { const [bw, bh] = cmBox(it); it.s = cmF(cmClamp(Math.hypot(lx - it.x, ly - it.y) / Math.hypot(bw / 2 + 6, bh / 2 + 6), 0.15, 8) * 100) / 100 || 0.15; setTf(it); }
+        } else if (drag.h === 'rot') {
+          let r = Math.atan2(ly - it.y, lx - it.x) * 180 / Math.PI + 90; r = cmNorm(r); if (Math.abs(r) < 7) r = 0; it.r = Math.round(r); setTf(it);
+        } else if (drag.h === 'tail') { it.tx = Math.round(q.x); it.ty = Math.round(q.y); later(() => reItem(it)); }
+        else if (drag.h.startsWith('j:')) { cmPoseDrag(it, drag.h.slice(2), cmToChar(it, q)); later(() => reItem(it)); }
+        drawUI();
+      });
+      const end = () => { if (!drag) return; const d = drag; drag = null; if (d.moved) { changed(); if (d.h && d.h.startsWith('j:')) drawSide(); } };
+      svgEl.addEventListener('pointerup', end);
+      svgEl.addEventListener('pointercancel', end);
+    }
+    const later = fn => { if (raf) return; raf = requestAnimationFrame(() => { raf = 0; fn(); drawUI(); }); };
+    stage.addEventListener('keydown', e => {
+      const it = cur(); if (!it || ed.tab === 'bg') return;
+      const mv = { ArrowLeft: [-4, 0], ArrowRight: [4, 0], ArrowUp: [0, -4], ArrowDown: [0, 4] }[e.key];
+      if (mv) { it.x += mv[0]; it.y += mv[1]; setTf(it); drawUI(); changed(); e.preventDefault(); }
+      else if (e.key === 'Delete' || e.key === 'Backspace') { removeIt(it); e.preventDefault(); }
+    });
+    // ---------- adding things ----------
+    function addItem(t, extra = {}) {
+      const a = A(), n = a.scene.items.length;
+      if (n >= 40) { toast(stickerHTML('star'), 'יש פה כבר המון דברים! אפשר להוריד משהו'); return; }
+      const it = Object.assign({ id: cmNew('i'), t, x: cmF(a.w / 2 + ((n * 37) % 60) - 30), y: cmF(a.h / 2 + ((n * 23) % 40) - 20), s: 1, r: 0, f: false }, extra);
+      if (!['bub', 'cap', 'sfx', 'txt'].includes(t)) {
+        const [bw, bh] = cmBox(it), max = { girl: 3, mer: 3, pet: 2.4, stk: 1.6, emo: 1.4, shape: 1.6 }[t] || 1;
+        it.s = cmF(Math.min(max, a.h * (t === 'girl' || t === 'mer' ? 0.82 : 0.4) / bh, a.w * 0.8 / bw) * 100) / 100;
+        if (t === 'girl' || t === 'mer') it.y = cmF(a.h - bh * it.s / 2 - a.h * 0.04);
+      } else if (t === 'sfx' || t === 'txt') it.s = cmF(Math.min(1, a.w * 0.8 / cmBox(it)[0]) * 100) / 100;
+      a.scene.items.push(it); ed.sel = it.id; SFX.pop(); changed(); draw();
+      if (t === 'bub' || t === 'cap' || t === 'sfx' || t === 'txt') setTimeout(() => { const ta = side.querySelector('.cm-txt'); if (ta) { ta.focus(); ta.select(); } }, 30);
+      return it;
+    }
+    const removeIt = it => { const [, i] = findIt(it.id); const a = areas()[i]; a.scene.items = a.scene.items.filter(x => x !== it); ed.sel = null; SFX.boop(); changed(); draw(); };
+    const addBub = k => { const a = A(), w = Math.round(Math.min(180, a.w * 0.62)), h = Math.round(Math.min(104, a.h * 0.36)); return addItem('bub', { k, w, h, tx: Math.round(-w * .25), ty: Math.round(h * .95), text: k === 'think' ? 'הממ... מה אני אעשה?' : k === 'shout' ? 'הצילו!!' : k === 'whisper' ? 'ששש... סוד!' : 'היי! מה נשמע?', x: a.w / 2, y: Math.max(h / 2 + 8, a.h * 0.28) }); };
+    // ---------- the side panel ----------
+    const B = (label, fn, extra = {}) => el('button', Object.assign({ type: 'button', class: 'btn', onclick: fn }, extra), label);
+    function selBox(it) {
+      const [, ai] = findIt(it.id), a = areas()[ai];
+      const upd = (patch, full) => { Object.assign(it, patch); changed(); if (full) draw(); else { reItem(it); drawUI(); } };
+      const names = { girl: '👧 ' + ((girls.find(g => g.id === it.ref) || {}).name || 'דמות'), mer: '🧜‍♀️ ' + ((mermaids.find(g => g.id === it.ref) || {}).name || 'בת ים'), pet: '🐾 ' + (pet ? pet.name || 'החיה' : 'חיה'), stk: '⭐ מדבקה', emo: it.e + ' אימוג\'י', bub: '💬 בועה', cap: '📜 כיתוב', sfx: '💥 מילת קול', txt: '🔤 טקסט', shape: '🔷 צורה' };
+      const move = d => { const L = a.scene.items, i = L.indexOf(it), j = cmClamp(i + d, 0, L.length - 1); if (i === j) return; L.splice(i, 1); L.splice(j, 0, it); SFX.pop(); changed(); draw(); };
+      const size = d => { if (it.t === 'bub' || it.t === 'cap') upd({ w: Math.round(cmClamp(it.w * (1 + d), 60, a.w)), h: Math.round(cmClamp(it.h * (1 + d), 36, a.h)) }); else { it.s = cmF(cmClamp((it.s || 1) * (1 + d), 0.15, 8) * 100) / 100; setTf(it); drawUI(); changed(); } d > 0 ? SFX.pop() : SFX.boop(); };
+      const rows = [el('div', { class: 'cm-sel-h' }, el('b', {}, names[it.t] || ''), el('span', { class: 'muted' }, 'גוררים כדי להזיז'))];
+      rows.push(el('div', { class: 'chips' },
+        B('➖', () => size(-0.12), { 'aria-label': 'להקטין' }), B('➕', () => size(0.12), { 'aria-label': 'להגדיל' }),
+        B('↺', () => { it.r = cmNorm((it.r || 0) - 15); setTf(it); drawUI(); changed(); }, { 'aria-label': 'לסובב שמאלה' }), B('↻', () => { it.r = cmNorm((it.r || 0) + 15); setTf(it); drawUI(); changed(); }, { 'aria-label': 'לסובב ימינה' }),
+        cmNoFlip(it) ? null : B('↔️', () => { it.f = !it.f; setTf(it); drawUI(); changed(); SFX.pop(); }, { 'aria-label': 'להפוך', title: 'להפוך' }),
+        B('⬆️', () => move(1), { title: 'קדימה', 'aria-label': 'להביא קדימה' }), B('⬇️', () => move(-1), { title: 'אחורה', 'aria-label': 'לשלוח אחורה' }),
+        B('📄', () => { const c = Object.assign(cmCopy(it), { id: cmNew('i'), x: it.x + 18, y: it.y + 14 }); a.scene.items.push(c); ed.sel = c.id; SFX.pop(); changed(); draw(); }, { title: 'לשכפל', 'aria-label': 'לשכפל' }),
+        B('🗑️', () => removeIt(it), { title: 'למחוק', 'aria-label': 'למחוק' })));
+      if (it.t === 'girl' || it.t === 'mer') {
+        const can = !!cmJoints(it);
+        rows.push(el('span', { class: 'lbl' }, '🤸‍♀️ תנוחה'), el('div', { class: 'chips' }, ...CM_POSES[it.t].map(([id, name, p]) => el('button', { type: 'button', class: 'chip', disabled: !can, onclick: () => {
+          it.pose = cmCopy(p);
+          SFX.pop(); changed(); reItem(it); drawUI();
+        } }, name))),
+        el('p', { class: 'muted' }, can ? '💡 גוררים את העיגולים הוורודים (ידיים ורגליים), הסגולים (מרפקים וברכיים) והירוק (ראש)' : 'אפשר להזיז, להגדיל ולהפוך. (תנוחות יגיעו בגרסה הבאה)'));
+      }
+      if (it.t === 'pet') rows.push(el('label', { class: 'lbl' }, '🫠 למעוך או למתוח', el('input', { type: 'range', min: -35, max: 35, value: it.sq || 0, oninput: e => { it.sq = +e.target.value; reItem(it); drawUI(); }, onchange: changed })));
+      if (['bub', 'cap', 'sfx', 'txt'].includes(it.t)) {
+        const multi = it.t !== 'sfx';
+        const ta = el(multi ? 'textarea' : 'input', { class: 'cm-txt', dir: 'rtl', value: it.text || '', 'aria-label': 'הטקסט', placeholder: 'כותבים פה...', maxLength: 240, oninput: e => { it.text = e.target.value; reItem(it); drawUI(); }, onchange: changed });
+        if (multi) ta.rows = 3;
+        rows.push(ta);
+        if (it.t === 'bub') rows.push(el('div', { class: 'chips' }, ...CM_BUBS.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((it.k || 'say') === k), onclick: () => upd({ k, c: k === 'shout' ? '#fff27a' : it.c === '#fff27a' ? '#ffffff' : it.c }, true) }, n))));
+        if (it.t === 'sfx') rows.push(el('div', { class: 'chips' }, ...CM_SFX.map(w => el('button', { type: 'button', class: 'chip', onclick: () => { upd({ text: w }, true); } }, w)), el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!it.burst), onclick: () => upd({ burst: !it.burst }, true) }, '✴️ פיצוץ מאחור')));
+        if (it.t === 'txt') rows.push(el('span', { class: 'lbl' }, '✨ אפקט'), el('div', { class: 'chips' }, ...CM_FX.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((it.e || 'outline') === k), onclick: () => upd({ e: k }, true) }, n))));
+        const fonts = it.t === 'sfx' ? FONTS.filter(f => ['bubbles', 'bold', 'fat', 'doodle', 'spray', 'moon', 'puddles', 'wetpaint', 'gems', 'vinyl'].includes(f.id)) : FONTS;
+        rows.push(el('span', { class: 'lbl' }, '🔤 גופן'), el('div', { class: 'cm-fonts' }, ...fonts.map(f => el('button', { type: 'button', 'aria-pressed': String((it.font || (it.t === 'sfx' ? 'bubbles' : it.t === 'txt' ? 'bold' : 'round')) === f.id), style: `font-family:${f.css}, 'Rubik', sans-serif`, onclick: () => upd({ font: f.id }, true) }, f.name))));
+        const colKey = it.t === 'sfx' || it.t === 'txt' ? 'c' : 'tc';
+        rows.push(el('span', { class: 'lbl' }, it.t === 'bub' || it.t === 'cap' ? '🎨 צבע האותיות' : '🎨 צבע'), cmSwatches(it[colKey], c => upd({ [colKey]: c })));
+        if (it.t === 'bub' || it.t === 'cap') rows.push(el('span', { class: 'lbl' }, '🪣 צבע הבועה'), cmSwatches(it.c, c => upd({ c }), ['#ffffff', '#fff4b8', '#fff27a', '#ffe0ef', '#dff3ff', '#e2ffe8', '#efe4ff', '#ffd9c2']));
+        if (it.t === 'sfx' && it.burst) rows.push(el('span', { class: 'lbl' }, '✴️ צבע הפיצוץ'), cmSwatches(it.bc, c => upd({ bc: c })));
+      }
+      if (it.t === 'shape') rows.push(el('span', { class: 'lbl' }, '🎨 צבע'), cmSwatches(it.c, c => upd({ c })), el('button', { type: 'button', class: 'chip', 'aria-pressed': String(it.o !== false), onclick: () => upd({ o: it.o === false }) }, '✏️ קו מסביב'));
+      return el('div', { class: 'cm-sel' }, ...rows);
+    }
+    const safe = f => { try { return f(); } catch { return stickerHTML('star'); } };
+    const tile = (art, name, fn, pressed) => el('button', { type: 'button', onclick: fn, 'aria-pressed': pressed == null ? null : String(pressed) }, el('span', { class: 'ic', html: art }), name);
+    function tabBody() {
+      const a = A();
+      if (ed.tab === 'bg') return cmBgPanel();
+      if (ed.tab === 'pbg' && cfg.bgPanel) return cfg.bgPanel(() => { changed(); draw(); });
+      if (ed.tab === 'chars') {
+        const list = [
+          ...girls.map(g => tile(safe(() => girlArt(g, '75 0 150 225')), g.name || 'בת', () => addItem('girl', { ref: g.id }))),
+          ...(mermaids || []).map(m => tile(safe(() => merArt(m)), m.name || 'בת ים', () => addItem('mer', { ref: m.id }))),
+          pet ? tile(petSVG(pet), pet.name || 'החיה שלי', () => addItem('pet')) : null];
+        return el('div', { class: 'cm-tabbody' },
+          list.filter(Boolean).length ? el('div', { class: 'cm-grid big' }, ...list.filter(Boolean)) : el('p', { class: 'muted' }, 'עוד אין דמויות. אפשר לעצב בנות בסטודיו האופנה ובנות ים ב"בנות הים שלי"!'),
+          el('p', { class: 'muted' }, '👗 הבנות מסטודיו האופנה, 🧜‍♀️ בנות הים וחיית המחמד. לוחצים כדי להוסיף.'));
+      }
+      if (ed.tab === 'stk') {
+        const mine = customStk.map(c => c.id), all = Object.keys(STICKERS).filter(id => !id.startsWith('my') && !['bed', 'bowl'].includes(id) && !isRareLocked(id));
+        return el('div', { class: 'cm-tabbody' },
+          mine.length ? el('span', { class: 'lbl' }, '🖌️ המדבקות שלי') : null,
+          mine.length ? el('div', { class: 'cm-grid mine' }, ...mine.map(id => tile(stickerHTML(id), '', () => addItem('stk', { ref: id })))) : null,
+          el('span', { class: 'lbl' }, '⭐ כל המדבקות'),
+          el('div', { class: 'cm-grid' }, ...all.map(id => tile(stickerHTML(id), '', () => addItem('stk', { ref: id })))));
+      }
+      if (ed.tab === 'talk') return el('div', { class: 'cm-tabbody' },
+        el('span', { class: 'lbl' }, '💬 בועות'), el('div', { class: 'cm-grid wide' }, ...CM_BUBS.map(([k, n]) => tile(`<svg viewBox="-70 -50 140 110" xmlns="http://www.w3.org/2000/svg">${cmBubbleSVG({ w: 110, h: 70, k, tx: -30, ty: 52, text: '' })}</svg>`, n, () => addBub(k)))),
+        el('span', { class: 'lbl' }, '📜 כיתוב וטקסט'), el('div', { class: 'chips' },
+          B('📜 תיבת כיתוב', () => { const w = Math.round(A().w * 0.66); addItem('cap', { w, h: 44, text: 'באותו זמן...', x: A().w / 2, y: 30 }); }),
+          B('🔤 כותרת', () => addItem('txt', { text: 'כותרת', font: 'bold', fs: 48, c: '#ff5a8a', e: 'outline', y: 40 }))),
+        el('span', { class: 'lbl' }, '💥 מילים של קולות'), el('div', { class: 'chips' }, ...CM_SFX.map((w, i) => el('button', { type: 'button', class: 'chip cm-sfxchip', onclick: () => addItem('sfx', { text: w, c: ['#ffd84d', '#ff5a6e', '#7ec8ff', '#4fbf73', '#ff9ad5', '#b58cff'][i % 6], r: i % 2 ? 8 : -8, burst: i % 3 === 0, fs: 46 }) }, w))));
+      if (ed.tab === 'emo') return el('div', { class: 'cm-tabbody' },
+        el('div', { class: 'chips' }, ...EMOJI_PICK.map(([name], i) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(ed.emoCat === i), onclick: () => { ed.emoCat = i; drawSide(); } }, name))),
+        el('div', { class: 'emo-grid' }, ...EMOJI_PICK[ed.emoCat][1].map(e => el('button', { type: 'button', class: 'emo-b', onclick: () => addItem('emo', { e }) }, e))));
+      if (ed.tab === 'shape') return el('div', { class: 'cm-tabbody' }, el('div', { class: 'cm-grid' }, ...Object.entries(CM_SHAPES).map(([k, [n]], i) => {
+        const c = ['#ff9ad5', '#ffd84d', '#7ec8ff', '#b58cff', '#4fbf73', '#ffb020', '#ff5a6e'][i % 7];
+        return tile(`<svg viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">${cmShapeSVG({ k, c })}</svg>`, n, () => addItem('shape', { k, c }));
+      })));
+      if (ed.tab === 'title') return el('div', { class: 'cm-tabbody' },
+        el('div', { class: 'chips' },
+          B('🔤 כותרת גדולה', () => addItem('txt', { text: 'הכותרת שלי', font: 'bold', fs: 72, c: '#ff5a8a', e: 'outline', y: 90 })),
+          B('✏️ כותרת משנה', () => addItem('txt', { text: 'עוד משהו', font: 'round', fs: 40, c: '#3f6fd8', e: 'shadow' })),
+          B('📝 טקסט קטן', () => addItem('txt', { text: 'כותבים פה', font: 'ktav', fs: 30, c: '#2b2233', e: 'plain' }))),
+        el('span', { class: 'lbl' }, '🌈 או בוחרים גופן ולוחצים:'),
+        el('div', { class: 'cm-fonts big' }, ...FONTS.map((f, i) => el('button', { type: 'button', style: `font-family:${f.css}, 'Rubik', sans-serif`, onclick: () => addItem('txt', { text: f.name, font: f.id, fs: 60, c: ['#ff5a8a', '#3f6fd8', '#ffb020', '#4fbf73', '#b58cff'][i % 5], e: CM_FX[1 + i % 6][0] }) }, f.name))));
+      return el('div');
+    }
+    function cmBgPanel() {
+      const a = A(), bg = a.scene.bg, set = patch => { Object.assign(bg, patch); changed(); draw(); };
+      const pc = ed.pcSel && (bg.pieces || []).find(x => x.id === ed.pcSel);
+      const pcTools = pc ? el('div', { class: 'cm-sel' }, el('b', {}, `🌳 ${CM_PIECES[pc.t][0]}`),
+        el('div', { class: 'chips' },
+          B('➖', () => { pc.s = cmF(Math.max(0.15, pc.s * 0.85) * 100) / 100; changed(); draw(); }, { 'aria-label': 'להקטין' }), B('➕', () => { pc.s = cmF(Math.min(6, pc.s * 1.18) * 100) / 100; changed(); draw(); }, { 'aria-label': 'להגדיל' }),
+          B('↔️', () => { pc.f = !pc.f; changed(); draw(); }, { 'aria-label': 'להפוך' }),
+          B('⬇️', () => { bg.pieces = [pc, ...bg.pieces.filter(x => x !== pc)]; changed(); draw(); }, { title: 'לשלוח אחורה', 'aria-label': 'לשלוח אחורה' }),
+          B('🗑️', () => { bg.pieces = bg.pieces.filter(x => x !== pc); ed.pcSel = null; SFX.boop(); changed(); draw(); }, { 'aria-label': 'למחוק' }))) : null;
+      const tiny = id => { const t = cmSceneBg(id === 'custom' ? Object.assign({}, bg, { id: 'custom', pieces: [], draw: null }) : cmBgDef(id), 160, 110, 'bt' + id + (cmN++)); return `<svg viewBox="0 0 160 110" xmlns="http://www.w3.org/2000/svg">${t}</svg>`; };
+      const custom = bg.id === 'custom';
+      return el('div', { class: 'cm-tabbody' },
+        pcTools,
+        el('span', { class: 'lbl' }, '🖼️ רקעים מוכנים'),
+        el('div', { class: 'cm-grid bgs' }, ...CM_BGS.map(([id, n]) => tile(tiny(id), n, () => { set({ id }); SFX.pop(); }, bg.id === id))),
+        el('div', { class: 'box cm-design' }, el('h4', {}, '🎨 מעצבת רקע משלי'),
+          el('span', { class: 'lbl' }, 'השמיים'),
+          el('div', { class: 'cm-skies' }, ...CM_SKIES.map(s => { const b = el('button', { type: 'button', 'aria-label': 'שמיים', 'aria-pressed': String(custom && bg.sky && bg.sky[0] === s[0] && bg.sky[1] === s[1]), onclick: () => set({ id: 'custom', sky: s.slice() }) }); b.style.background = `linear-gradient(${s[0]}, ${s[1]})`; return b; }),
+            el('input', { type: 'color', 'aria-label': 'צבע למעלה', value: (bg.sky || CM_SKIES[0])[0], onchange: e => set({ id: 'custom', sky: [e.target.value, (bg.sky || CM_SKIES[0])[1]] }) }),
+            el('input', { type: 'color', 'aria-label': 'צבע למטה', value: (bg.sky || CM_SKIES[0])[1], onchange: e => set({ id: 'custom', sky: [(bg.sky || CM_SKIES[0])[0], e.target.value] }) })),
+          el('span', { class: 'lbl' }, 'האדמה'),
+          el('div', { class: 'chips' }, ...CM_GROUNDS.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(custom && (bg.ground || 'none') === id), onclick: () => set({ id: 'custom', ground: id, gc: null, sky: bg.sky || CM_SKIES[0].slice() }) }, n))),
+          custom && bg.ground && bg.ground !== 'none' ? cmSwatches(bg.gc, c => set({ gc: c }), ['#7dcf6f', '#a8e39a', '#3f9c6e', '#ffe0a3', '#ffffff', '#4fb3e6', '#e3ae7a', '#5b5f73', '#ff9ad5', '#b58cff']) : null),
+        el('div', { class: 'box' }, el('h4', {}, '🌳 קישוטים לרקע'),
+          el('p', { class: 'muted' }, ed.piece ? `👆 לוחצים על התמונה כדי לשים ${CM_PIECES[ed.piece][0]}. גוררים קישוט כדי להזיז.` : 'בוחרים קישוט ולוחצים על התמונה. גוררים קישוט כדי להזיז אותו.'),
+          el('div', { class: 'cm-grid' },
+            tile('<span class="hand">✋</span>', 'רק להזיז', () => { ed.piece = null; drawSide(); }, !ed.piece),
+            ...Object.entries(CM_PIECES).map(([id, [n, f]]) => tile(`<svg viewBox="-60 -60 120 120" xmlns="http://www.w3.org/2000/svg">${f()}</svg>`, n, () => { ed.piece = id; ed.pcSel = null; SFX.pop(); drawSide(); drawUI(); }, ed.piece === id))),
+          (bg.pieces || []).length ? B('🧹 להוריד את כל הקישוטים', () => { bg.pieces = []; ed.pcSel = null; changed(); draw(); }) : null),
+        el('div', { class: 'box' }, el('h4', {}, '✏️ לצייר על הרקע'),
+          el('div', { class: 'chips' }, B(bg.draw ? '✏️ להמשיך לצייר' : '✏️ לצייר', () => { ed.drawing = true; draw(); }, { class: 'btn main' }),
+            bg.draw ? B('🧽 למחוק את הציור', () => set({ draw: null })) : null)));
+    }
+    function drawPad() {
+      const a = A(), bg = a.scene.bg, sc = Math.min(1, 600 / Math.max(a.w, a.h));
+      const pad = makePad(Math.round(a.w * sc), Math.round(a.h * sc), true, bg.draw || null);
+      const under = cmSceneBg(Object.assign({}, bg, { draw: null }), a.w, a.h, 'pd' + (cmN++));
+      pad.canvas.style.background = `url("${svgData(`<svg viewBox="0 0 ${a.w} ${a.h}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">${under}</svg>`)}") center / 100% 100% no-repeat`;
+      pad.canvas.style.aspectRatio = `${a.w} / ${a.h}`;
+      stage.replaceChildren(el('div', { class: 'cm-padwrap' }, pad.node,
+        el('div', { class: 'chips' },
+          B('✔️ סיימתי לצייר', () => { bg.draw = pad.canvas.toDataURL('image/png'); ed.drawing = false; SFX.ding(); changed(); draw(); }, { class: 'btn main' }),
+          B('ביטול', () => { ed.drawing = false; draw(); }))));
+      svgEl = null;
+    }
+    function drawSide() {
+      const it = ed.tab !== 'bg' && ed.tab !== 'pbg' ? cur() : null;
+      side.replaceChildren(
+        it ? selBox(it) : null,
+        el('div', { class: 'tabs cm-tabs', role: 'tablist' }, ...cfg.tabs.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(ed.tab === id), onclick: () => {
+          const wasBg = ed.tab === 'bg'; ed.tab = id; ed.piece = null; ed.pcSel = null;
+          if (ed.drawing) { ed.drawing = false; draw(); return; }
+          if (svgEl) svgEl.classList.toggle('bgmode', id === 'bg');
+          if (wasBg !== (id === 'bg')) drawUI();
+          drawSide();
+        } }, name))),
+        ed.drawing ? el('p', { class: 'muted' }, '✏️ מציירים על הרקע. בסוף לוחצים "סיימתי לצייר".') : tabBody(),
+        cfg.sideExtra ? cfg.sideExtra() : null);
+    }
+    return { node, ed, draw, addItem, select: id => { ed.sel = id; drawUI(); drawSide(); } };
+  }
+
+  // ---------- export: PNG download, save as sticker ----------
+  const cmFontData = {};
+  const cmTimeout = (p, ms) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms))]);
+  const cmBlobUrl = blob => new Promise(res => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = () => res(''); r.readAsDataURL(blob); });
+  async function cmFontCSS(svgStr) {
+    const link = document.querySelector('link[href*="fonts.googleapis.com/css2"]');
+    if (!link || !window.fetch) return '';
+    const specs = new URL(link.href).searchParams.getAll('family');
+    const used = specs.filter(sp => svgStr.includes(sp.split(':')[0]));
+    const parts = await Promise.all(used.map(async sp => {
+      if (cmFontData[sp] != null) return cmFontData[sp];
+      try {
+        const css = await cmTimeout(fetch('https://fonts.googleapis.com/css2?family=' + encodeURIComponent(sp).replace(/%20/g, '+') + '&display=swap').then(r => r.text()), 5000);
+        const blocks = css.split('/*').filter(b => /^\s*(hebrew|latin)\s*\*\//.test(b)).map(b => b.slice(b.indexOf('@font-face')));
+        const faces = await Promise.all((blocks.length ? blocks : css.split('@font-face').slice(1).map(b => '@font-face' + b)).map(async b => {
+          const m = b.match(/url\((https:[^)]+)\)/); if (!m) return '';
+          const data = await cmTimeout(fetch(m[1]).then(r => r.blob()).then(cmBlobUrl), 5000);
+          return data ? b.replace(m[1], data) : '';
+        }));
+        cmFontData[sp] = faces.join('\n');
+      } catch { cmFontData[sp] = ''; }
+      return cmFontData[sp];
+    }));
+    return parts.join('\n');
+  }
+  async function cmRender(svgStr, W, H, maxSide) {
+    let css = '';
+    try { css = await cmFontCSS(svgStr); } catch {}
+    const s = css ? svgStr.replace(/<defs>/, `<defs><style>${css}</style>`) : svgStr;
+    return new Promise((res, rej) => {
+      const img = new Image();
+      img.onload = () => setTimeout(() => {
+        const k = maxSide / Math.max(W, H), c = document.createElement('canvas');
+        c.width = Math.round(W * k); c.height = Math.round(H * k);
+        const x = c.getContext('2d'); x.drawImage(img, 0, 0, c.width, c.height); res(c);
+      }, 60);
+      img.onerror = () => rej(new Error('image'));
+      img.src = svgData(s);
+    });
+  }
+  async function cmDownload(svgStr, W, H, name) {
+    try {
+      const c = await cmRender(svgStr, W, H, 1600);
+      const a = el('a', { href: c.toDataURL('image/png'), download: (name || 'היצירה שלי').replace(/[\\/:*?"<>|]/g, '') + '.png' });
+      document.body.append(a); a.click(); a.remove();
+      SFX.ding(); toast(stickerHTML('camera'), '🖼️ התמונה ירדה למחשב!');
+    } catch { toast(stickerHTML('camera'), 'לא הצלחתי לשמור תמונה 😕'); }
+  }
+  async function cmToSticker(svgStr, W, H) {
+    try {
+      const c = await cmRender(svgStr, W, H, 320);
+      const s = { id: 'my' + Date.now().toString(36), url: c.toDataURL('image/png') };
+      customStk.push(s);
+      if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('camera'), 'אין מספיק מקום לשמור עוד מדבקה 😕'); return; }
+      registerCustom(s); SFX.yay(); toast(stickerHTML(s.id), '✨ נשמר כמדבקה! היא מחכה לך באלבום ובמדבקות של הימים'); afterChange();
+    } catch { toast(stickerHTML('camera'), 'לא הצלחתי ליצור מדבקה 😕'); }
+  }
+  const cmSaver = (key, list, onFail) => { let t = 0; return (now) => { clearTimeout(t); const go = () => { if (!store.set(key, list())) onFail && onFail(); }; if (now) go(); else t = setTimeout(go, 500); }; };
+  const cmUpsert = (list, rec) => { const i = list.findIndex(x => x.id === rec.id); if (i >= 0) list[i] = rec; else list.unshift(rec); };
+  const cmFlip = (node, dir) => { if (reduceMotion() || !node) return; node.classList.remove('cm-turn-next', 'cm-turn-prev'); void node.offsetWidth; node.classList.add(dir > 0 ? 'cm-turn-next' : 'cm-turn-prev'); };
+
+  // ================= comics =================
+  let cmComics = store.get('comics', []);
+  let cmCur = null, cmPg = 0, cmView = 'list', cmDelId = null, cmDelPage = false, cmEd = null;
+  const CM_LAYOUTS = [['1', [[1]]], ['2', [[1], [1]]], ['2v', [[1, 1]]], ['3', [[1], [1, 1]]], ['3b', [[1, 1], [1]]], ['3r', [[1], [1], [1]]], ['4', [[1, 1], [1, 1]]], ['5', [[1, 1], [1], [1, 1]]], ['6', [[1, 1], [1, 1], [1, 1]]]];
+  const CM_PW = 600, CM_PH = 800;
+  function cmRects(lay) {
+    const rows = (CM_LAYOUTS.find(l => l[0] === lay) || CM_LAYOUTS[3])[1], m = 16, g = 12, rh = (CM_PH - 2 * m - g * (rows.length - 1)) / rows.length, out = [];
+    rows.forEach((cols, r) => { const cw = (CM_PW - 2 * m - g * (cols.length - 1)) / cols.length; cols.forEach((_, c) => out.push({ x: CM_PW - m - (c + 1) * cw - c * g, y: m + r * (rh + g), w: cw, h: rh, rx: 6 })); });
+    return out;
+  }
+  const cmLayIcon = lay => `<svg viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="40" rx="3" fill="#fff"/>${cmRects(lay).map(r => `<rect x="${cmF(r.x / 20)}" y="${cmF(r.y / 20)}" width="${cmF(r.w / 20)}" height="${cmF(r.h / 20)}" rx="1" fill="#ffe0ef" stroke="${CM_INK}" stroke-width="1.2"/>`).join('')}</svg>`;
+  const CM_PANEL_BGS = ['park', 'room', 'beach', 'city', 'forest', 'castle', 'sea', 'night'];
+  const cmPanel = i => ({ bg: cmBgDef(CM_PANEL_BGS[i % CM_PANEL_BGS.length]), items: [] });
+  const cmPageNew = (lay = '3') => ({ layout: lay, panels: cmRects(lay).map((_, i) => cmPanel(i)) });
+  const cmPageCfg = page => {
+    const rects = cmRects(page.layout);
+    while (page.panels.length < rects.length) page.panels.push(cmPanel(page.panels.length));
+    return {
+      W: CM_PW, H: CM_PH, areas: () => cmRects(page.layout).map((r, i) => Object.assign({ scene: page.panels[i] }, r)),
+      under: () => `<rect width="${CM_PW}" height="${CM_PH}" fill="#fffdf8"/>`,
+      over: () => cmRects(page.layout).map(r => `<rect x="${cmF(r.x)}" y="${cmF(r.y)}" width="${cmF(r.w)}" height="${cmF(r.h)}" rx="6" fill="none" stroke="${CM_INK}" stroke-width="5" pointer-events="none"/>`).join(''),
+    };
+  };
+  const cmSaveList = cmSaver('comics', () => cmComics, () => toast(stickerHTML('book'), 'אין מספיק מקום לשמור את הקומיקס 😕'));
+  const cmStore = now => { if (!cmCur) return; cmCur.at = Date.now(); cmUpsert(cmComics, cmCur); cmSaveList(now); };
+  function openComic() {
+    if (cmView === 'edit' && !cmCur) cmView = 'list';
+    drawComic();
+    if (!$('#comicDlg').open) $('#comicDlg').showModal();
+  }
+  function drawComic() {
+    const body = $('#comicBody');
+    if (cmView === 'read' && cmCur) return drawComicRead(body);
+    if (cmView === 'edit' && cmCur) return drawComicEdit(body);
+    cmView = 'list';
+    const card = c => el('article', { class: 'cm-card' },
+      el('button', { type: 'button', class: 'cm-thumb', 'aria-label': 'לקרוא', onclick: () => { cmCur = c; cmPg = 0; cmView = 'read'; drawComic(); }, html: cmStageSVG(cmPageCfg(c.pages[0]), false) }),
+      el('b', {}, c.title || 'קומיקס בלי שם'), el('span', { class: 'muted' }, `${c.pages.length} ${c.pages.length === 1 ? 'עמוד' : 'עמודים'}`),
+      cmDelId === c.id
+        ? el('div', { class: 'chips' }, el('span', {}, 'למחוק?'), el('button', { type: 'button', class: 'chip', onclick: () => { cmComics = cmComics.filter(x => x !== c); store.set('comics', cmComics); cmDelId = null; SFX.boop(); drawComic(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { cmDelId = null; drawComic(); } }, 'לא'))
+        : el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'chip', onclick: () => { cmCur = c; cmPg = 0; cmView = 'edit'; cmEd = null; drawComic(); } }, '✏️ לערוך'),
+          el('button', { type: 'button', class: 'chip', onclick: () => { cmCur = c; cmPg = 0; cmView = 'read'; drawComic(); } }, '📖 לקרוא'),
+          el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { cmDelId = c.id; drawComic(); } }, '🗑️')));
+    body.replaceChildren(
+      el('div', { class: 'cm-hero' }, el('div', {}, el('b', {}, 'ממציאים סיפור בציורים!'), el('p', { class: 'muted' }, 'בוחרים סידור של משבצות, רקע, דמויות ובועות דיבור. אפשר להזיז לבנות את הידיים והרגליים!')),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { cmCur = { id: cmNew('c'), title: '', pages: [cmPageNew('3')], at: Date.now() }; cmPg = 0; cmView = 'edit'; cmEd = null; SFX.pop(); drawComic(); } }, '➕ קומיקס חדש')),
+      cmComics.length ? el('h4', { class: 'sec-title' }, `📚 הקומיקסים שלי (${cmComics.length})`) : null,
+      cmComics.length ? el('div', { class: 'cm-cards' }, ...cmComics.map(card)) : el('p', { class: 'muted' }, 'עוד אין קומיקסים. בואי נעשה את הראשון! 💥'));
+  }
+  function drawComicEdit(body) {
+    const c = cmCur;
+    cmPg = cmClamp(cmPg, 0, c.pages.length - 1);
+    const page = c.pages[cmPg];
+    const cfg = Object.assign(cmPageCfg(page), { tabs: CM_TABS, tab: 'chars', change: () => cmStore(), maxVh: 68 });
+    const prev = cmEd && cmEd.ed;
+    cmEd = cmEditor(cfg);
+    if (prev) { cmEd.ed.tab = prev.tab; cmEd.ed.area = prev.area; cmEd.ed.emoCat = prev.emoCat; }
+    const title = el('input', { type: 'text', class: 'cm-title-in', value: c.title, maxLength: 60, placeholder: 'שם הקומיקס', 'aria-label': 'שם הקומיקס', oninput: e => { c.title = e.target.value; cmStore(); } });
+    const pages = el('div', { class: 'cm-pages' }, el('span', { class: 'lbl' }, 'עמודים:'),
+      ...c.pages.map((_, i) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(i === cmPg), onclick: () => { cmPg = i; cmDelPage = false; drawComic(); } }, String(i + 1))),
+      c.pages.length < 20 ? el('button', { type: 'button', class: 'chip', onclick: () => { c.pages.splice(cmPg + 1, 0, cmPageNew(page.layout)); cmPg++; cmStore(true); SFX.pop(); drawComic(); } }, '➕ עמוד') : null,
+      c.pages.length > 1 ? (cmDelPage
+        ? el('span', { class: 'chips' }, el('span', {}, 'למחוק את העמוד?'), el('button', { type: 'button', class: 'chip', onclick: () => { c.pages.splice(cmPg, 1); cmDelPage = false; cmStore(true); SFX.boop(); drawComic(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { cmDelPage = false; drawComic(); } }, 'לא'))
+        : el('button', { type: 'button', class: 'chip', onclick: () => { cmDelPage = true; drawComic(); } }, '🗑️ עמוד')) : null);
+    const lays = el('div', { class: 'cm-lays', role: 'group', 'aria-label': 'סידור המשבצות' }, el('span', { class: 'lbl' }, 'משבצות:'),
+      ...CM_LAYOUTS.map(([id]) => el('button', { type: 'button', 'aria-pressed': String(page.layout === id), 'aria-label': `${cmRects(id).length} משבצות`, html: cmLayIcon(id), onclick: () => { page.layout = id; cmEd.ed.area = 0; cmEd.ed.sel = null; cmStore(); SFX.pop(); drawComic(); } })));
+    const exportSvg = () => cmStageSVG(cmPageCfg(page), false);
+    body.replaceChildren(
+      el('div', { class: 'cm-bar' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { cmStore(true); cmView = 'list'; drawComic(); } }, '📚 כל הקומיקסים'),
+        title,
+        el('button', { type: 'button', class: 'btn main', onclick: () => { cmStore(true); SFX.yay(); toast(stickerHTML('book'), 'הקומיקס נשמר! 💾'); afterChange(); } }, '💾 לשמור'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { cmStore(true); cmView = 'read'; drawComic(); } }, '📖 לקרוא'),
+        el('button', { type: 'button', class: 'btn', onclick: () => cmDownload(exportSvg(), CM_PW, CM_PH, `${c.title || 'קומיקס'} ${cmPg + 1}`) }, '🖼️ תמונה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => cmToSticker(exportSvg(), CM_PW, CM_PH) }, '✨ למדבקה')),
+      el('div', { class: 'cm-bar' }, pages, lays),
+      cmEd.node);
+    cmEd.draw();
+  }
+  function drawComicRead(body) {
+    const c = cmCur, n = c.pages.length;
+    cmPg = cmClamp(cmPg, 0, n - 1);
+    const pg = el('div', { class: 'cm-readpage', html: cmStageSVG(cmPageCfg(c.pages[cmPg]), false) });
+    const go = d => { const np = cmClamp(cmPg + d, 0, n - 1); if (np === cmPg) return; cmPg = np; tone(d > 0 ? 700 : 560, 0.08, 'triangle'); drawComic(); cmFlip($('#comicBody .cm-readpage'), d); };
+    body.replaceChildren(
+      el('div', { class: 'cm-bar' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { cmView = 'list'; drawComic(); } }, '📚 כל הקומיקסים'),
+        el('b', { class: 'cm-readtitle' }, c.title || 'קומיקס בלי שם'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { cmView = 'edit'; cmEd = null; drawComic(); } }, '✏️ לערוך')),
+      el('div', { class: 'cm-reader' },
+        el('button', { type: 'button', class: 'cm-nav', 'aria-label': 'העמוד הקודם', disabled: cmPg === 0, onclick: () => go(-1) }, '›'),
+        pg,
+        el('button', { type: 'button', class: 'cm-nav', 'aria-label': 'העמוד הבא', disabled: cmPg === n - 1, onclick: () => go(1) }, '‹')),
+      el('p', { class: 'cm-pgnum' }, `עמוד ${cmPg + 1} מתוך ${n}`));
+    $('#comicDlg').onkeydown = e => { if (cmView !== 'read' || e.target.closest('input, textarea')) return; if (e.key === 'ArrowLeft') go(1); if (e.key === 'ArrowRight') go(-1); };
+  }
+
+  // ================= story book =================
+  let stBooks = store.get('stories', []);
+  let stCur = null, stAt = -1, stView = 'list', stDelId = null, stDelPage = false, stEd = null, stSpeaking = false;
+  const ST_W = 600, ST_H = 400;
+  const ST_COLORS = ['#ff9ad5', '#b58cff', '#7ec8ff', '#4fc3a1', '#ffd84d', '#ff7a7a', '#ffb020', '#2b2b5a', '#f4ece0'];
+  const stPageNew = i => ({ bg: cmBgDef(CM_PANEL_BGS[(i + 1) % CM_PANEL_BGS.length]), items: [], text: '' });
+  const stSaveList = cmSaver('stories', () => stBooks, () => toast(stickerHTML('book'), 'אין מספיק מקום לשמור את הסיפור 😕'));
+  const stStore = now => { if (!stCur) return; stCur.at = Date.now(); cmUpsert(stBooks, stCur); stSaveList(now); };
+  const stSceneCfg = scene => ({ W: ST_W, H: ST_H, areas: () => [{ x: 0, y: 0, w: ST_W, h: ST_H, rx: 14, scene }], showArea: false });
+  const stMe = () => { try { const me = birthdays.find(b => b.me); return me && me.name ? me.name : ''; } catch { return ''; } };
+  function stopSpeak() { try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch {} stSpeaking = false; }
+  function stSay(text, done) {
+    try {
+      const ss = window.speechSynthesis;
+      if (!ss || !window.SpeechSynthesisUtterance) { toast(stickerHTML('book'), 'בדפדפן הזה אין הקראה 😕'); return false; }
+      ss.cancel();
+      const u = new SpeechSynthesisUtterance(text), v = ss.getVoices().find(x => /^(he|iw)/i.test(x.lang));
+      u.lang = 'he-IL'; if (v) u.voice = v; u.rate = 0.92; u.pitch = 1.1;
+      u.onend = u.onerror = () => { stSpeaking = false; done && done(); };
+      if (!v && ss.getVoices().length) toast(stickerHTML('book'), 'אין פה קול בעברית, אז ההקראה אולי תישמע מצחיק 😅');
+      ss.speak(u); stSpeaking = true; return true;
+    } catch { return false; }
+  }
+  function openStory() {
+    if (pin && !unlocked) { showLock(() => openStory(), true); return; }
+    if (stView !== 'list' && !stCur) stView = 'list';
+    drawStory();
+    if (!$('#storyDlg').open) $('#storyDlg').showModal();
+  }
+  function stCoverSVG(b, W = 600, H = 820) {
+    const pic = cmStageSVG(stSceneCfg(b.cover), false).replace(/ width="600" height="400"/, '');
+    const css = cmFontCss(b.font || 'ktav'), c = b.color || ST_COLORS[0], dark = flum(c) < 0.45;
+    const tl = cmWrap(b.title || 'הסיפור שלי', css, 64, W - 90).slice(0, 3);
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs>${cmGrad('stcv' + b.id, [[0, fmx(c, '#ffffff', .25)], [1, c]])}</defs>` +
+      `<rect width="${W}" height="${H}" rx="22" fill="url(#stcv${b.id})"/><rect x="0" width="26" height="${H}" rx="10" fill="${fmx(c, '#000000', .22)}"/>` +
+      `<rect x="44" y="44" width="${W - 88}" height="${H - 88}" rx="16" fill="none" stroke="${dark ? '#ffffff' : '#ffffff'}" stroke-width="4" stroke-dasharray="2 10" stroke-linecap="round" opacity=".8"/>` +
+      `<g transform="translate(0 ${cmF(-(tl.length - 1) * 30)})"><g transform="translate(${W / 2} 160)">${cmTextEl(tl, css, 64, `fill="${dark ? '#fff' : CM_INK}" stroke="${dark ? CM_INK : '#fff'}" stroke-width="10" stroke-linejoin="round" paint-order="stroke"`, 1.1)}</g></g>` +
+      `<g transform="translate(70 ${cmF(250 + (tl.length - 1) * 14)}) rotate(-1.5 230 160)"><rect x="-10" y="-10" width="480" height="340" rx="10" fill="#fff" stroke="${CM_INK}" stroke-width="3"/>${pic.replace('<svg ', '<svg x="0" y="0" width="460" height="306.7" ')}</g>` +
+      `<g transform="translate(${W / 2} ${H - 90})">${cmTextEl([b.author ? 'מאת: ' + b.author : ''], css, 34, `fill="${dark ? '#fff' : CM_INK}"`)}</g></svg>`;
+  }
+  function drawStory() {
+    const body = $('#storyBody');
+    if (stView === 'read' && stCur) return drawStoryRead(body);
+    if (stView === 'edit' && stCur) return drawStoryEdit(body);
+    stView = 'list';
+    const card = b => el('article', { class: 'cm-card st-card' },
+      el('button', { type: 'button', class: 'cm-thumb', 'aria-label': 'לקרוא', onclick: () => { stCur = b; stAt = -1; stView = 'read'; drawStory(); }, html: stCoverSVG(b) }),
+      el('b', {}, b.title || 'סיפור בלי שם'), el('span', { class: 'muted' }, `${b.pages.length} ${b.pages.length === 1 ? 'עמוד' : 'עמודים'}`),
+      stDelId === b.id
+        ? el('div', { class: 'chips' }, el('span', {}, 'למחוק?'), el('button', { type: 'button', class: 'chip', onclick: () => { stBooks = stBooks.filter(x => x !== b); store.set('stories', stBooks); stDelId = null; SFX.boop(); drawStory(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { stDelId = null; drawStory(); } }, 'לא'))
+        : el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'chip', onclick: () => { stCur = b; stAt = -1; stView = 'edit'; stEd = null; drawStory(); } }, '✏️ לערוך'),
+          el('button', { type: 'button', class: 'chip', onclick: () => { stCur = b; stAt = -1; stView = 'read'; drawStory(); } }, '📖 לקרוא'),
+          el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { stDelId = b.id; drawStory(); } }, '🗑️')));
+    body.replaceChildren(
+      el('div', { class: 'cm-hero' }, el('div', {}, el('b', {}, 'כותבים ספר משלך!'), el('p', { class: 'muted' }, 'כריכה, עמודים עם ציורים וטקסט, ואז קוראים אותו כמו ספר אמיתי. אפשר גם שיקריאו לך!')),
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          stCur = { id: cmNew('b'), title: '', author: stMe(), color: ST_COLORS[Math.floor(Math.random() * ST_COLORS.length)], font: 'ktav', cover: { bg: cmBgDef('castle'), items: [] }, pages: [stPageNew(0)], at: Date.now() };
+          stAt = -1; stView = 'edit'; stEd = null; SFX.pop(); drawStory();
+        } }, '➕ ספר חדש')),
+      stBooks.length ? el('h4', { class: 'sec-title' }, `📚 הספרים שלי (${stBooks.length})`) : null,
+      stBooks.length ? el('div', { class: 'cm-cards' }, ...stBooks.map(card)) : el('p', { class: 'muted' }, 'עוד אין ספרים. מה יהיה הסיפור הראשון? ✨'));
+  }
+  function drawStoryEdit(body) {
+    const b = stCur;
+    stAt = cmClamp(stAt, -1, b.pages.length - 1);
+    const scene = stAt < 0 ? b.cover : b.pages[stAt];
+    let below = null;
+    if (stAt >= 0) {
+      const ta = el('textarea', { class: 'st-text', dir: 'rtl', value: scene.text || '', maxLength: 1200, placeholder: 'מה קורה בעמוד הזה? כותבים את הסיפור פה...', 'aria-label': 'הטקסט של העמוד', oninput: e => { scene.text = e.target.value; stStore(); } });
+      ta.value = scene.text || '';
+      below = el('div', { class: 'st-below' }, el('label', { class: 'lbl' }, `✍️ הטקסט של עמוד ${stAt + 1}`), ta);
+    } else {
+      below = el('div', { class: 'st-below box' },
+        el('div', { class: 'st-2' },
+          el('label', { class: 'row' }, el('span', { class: 'lbl' }, 'שם הספר'), el('input', { type: 'text', value: b.title, maxLength: 60, placeholder: 'למשל: בת הים והכתר האבוד', oninput: e => { b.title = e.target.value; stStore(); } })),
+          el('label', { class: 'row' }, el('span', { class: 'lbl' }, 'מי כתבה?'), el('input', { type: 'text', value: b.author, maxLength: 40, placeholder: 'השם שלי', oninput: e => { b.author = e.target.value; stStore(); } }))),
+        el('span', { class: 'lbl' }, '🎨 צבע הכריכה'), cmSwatches(b.color, c => { b.color = c; stStore(); drawStory(); }, ST_COLORS),
+        el('span', { class: 'lbl' }, '🔤 הגופן של הספר'),
+        el('div', { class: 'cm-fonts' }, ...FONTS.slice(0, 10).map(f => el('button', { type: 'button', 'aria-pressed': String((b.font || 'ktav') === f.id), style: `font-family:${f.css}, 'Rubik', sans-serif`, onclick: () => { b.font = f.id; stStore(); drawStory(); } }, f.name))),
+        el('p', { class: 'muted' }, '🖼️ למעלה מעצבים את התמונה של הכריכה: רקע, דמויות, מדבקות וגם ציורים שלך (במדבקות שלי).'));
+    }
+    const cfg = Object.assign(stSceneCfg(scene), { tabs: CM_TABS, tab: 'chars', change: () => stStore(), below, maxVh: 50 });
+    const prev = stEd && stEd.ed;
+    stEd = cmEditor(cfg);
+    if (prev) { stEd.ed.tab = prev.tab; stEd.ed.emoCat = prev.emoCat; }
+    const tabs = el('div', { class: 'cm-pages' },
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(stAt === -1), onclick: () => { stAt = -1; stDelPage = false; drawStory(); } }, '📕 כריכה'),
+      ...b.pages.map((_, i) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(i === stAt), onclick: () => { stAt = i; stDelPage = false; drawStory(); } }, `עמוד ${i + 1}`)),
+      b.pages.length < 30 ? el('button', { type: 'button', class: 'chip', onclick: () => { b.pages.splice(stAt + 1, 0, stPageNew(b.pages.length)); stAt++; stStore(true); SFX.pop(); drawStory(); } }, '➕ עמוד') : null,
+      stAt >= 0 && b.pages.length > 1 ? (stDelPage
+        ? el('span', { class: 'chips' }, el('span', {}, 'למחוק את העמוד?'), el('button', { type: 'button', class: 'chip', onclick: () => { b.pages.splice(stAt, 1); stAt = Math.min(stAt, b.pages.length - 1); stDelPage = false; stStore(true); SFX.boop(); drawStory(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { stDelPage = false; drawStory(); } }, 'לא'))
+        : el('button', { type: 'button', class: 'chip', onclick: () => { stDelPage = true; drawStory(); } }, '🗑️ עמוד')) : null);
+    body.replaceChildren(
+      el('div', { class: 'cm-bar' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { stStore(true); stView = 'list'; drawStory(); } }, '📚 כל הספרים'),
+        el('b', { class: 'cm-readtitle' }, b.title || 'ספר חדש'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { stStore(true); SFX.yay(); toast(stickerHTML('book'), 'הספר נשמר! 💾'); afterChange(); } }, '💾 לשמור'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { stStore(true); stView = 'read'; stAt = -1; drawStory(); } }, '📖 לקרוא')),
+      tabs, stEd.node);
+    stEd.draw();
+  }
+  function drawStoryRead(body) {
+    const b = stCur, n = b.pages.length, css = cmFontCss(b.font || 'ktav');
+    stAt = cmClamp(stAt, -1, n);
+    let page;
+    if (stAt === -1) page = el('div', { class: 'st-page st-cover', html: stCoverSVG(b) });
+    else if (stAt === n) page = el('div', { class: 'st-page st-end' }, el('div', { class: 'st-endart', html: stickerHTML('sparkles') }), el('b', { style: `font-family:${css}` }, 'הסוף'), el('span', { class: 'muted' }, b.author ? `סיפור מאת ${b.author}` : ''));
+    else {
+      const p = b.pages[stAt];
+      page = el('div', { class: 'st-page' }, el('div', { class: 'st-pic', html: cmStageSVG(stSceneCfg(p), false).replace(/ width="600" height="400"/, '') }),
+        el('div', { class: 'st-words', style: `font-family:${css}`, dir: 'rtl' }, ...(p.text || '').split('\n').map(l => el('p', {}, l || ' '))),
+        el('span', { class: 'st-num' }, String(stAt + 1)));
+    }
+    const say = () => {
+      if (stSpeaking) { stopSpeak(); drawStory(); return; }
+      const text = stAt === -1 ? `${b.title || 'הסיפור שלי'}. ${b.author ? 'מאת ' + b.author : ''}` : stAt === n ? 'הסוף!' : b.pages[stAt].text || '';
+      if (!text.trim()) { toast(stickerHTML('book'), 'בעמוד הזה עוד אין מילים'); return; }
+      if (stSay(text, () => { const btn = $('#storyBody .st-say'); if (btn) btn.textContent = '🔊 להקריא'; })) { const btn = $('#storyBody .st-say'); if (btn) btn.textContent = '⏹️ לעצור'; }
+    };
+    const go = d => { const na = cmClamp(stAt + d, -1, n); if (na === stAt) return; stopSpeak(); stAt = na; tone(d > 0 ? 660 : 520, 0.09, 'triangle'); drawStory(); cmFlip($('#storyBody .st-page'), d); if (stAt === n) { SFX.yay(); confetti($('#storyDlg .confetti-c')); } };
+    body.replaceChildren(
+      el('div', { class: 'cm-bar' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { stopSpeak(); stView = 'list'; drawStory(); } }, '📚 כל הספרים'),
+        el('b', { class: 'cm-readtitle' }, b.title || 'הסיפור שלי'),
+        el('button', { type: 'button', class: 'btn st-say', onclick: say }, stSpeaking ? '⏹️ לעצור' : '🔊 להקריא'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { stopSpeak(); stView = 'edit'; stAt = Math.min(Math.max(stAt, -1), n - 1); stEd = null; drawStory(); } }, '✏️ לערוך')),
+      el('div', { class: 'cm-reader st-reader' },
+        el('button', { type: 'button', class: 'cm-nav', 'aria-label': 'העמוד הקודם', disabled: stAt === -1, onclick: () => go(-1) }, '›'),
+        el('div', { class: 'st-book' }, page),
+        el('button', { type: 'button', class: 'cm-nav', 'aria-label': 'העמוד הבא', disabled: stAt === n, onclick: () => go(1) }, '‹')),
+      el('p', { class: 'cm-pgnum' }, stAt === -1 ? 'כריכה' : stAt === n ? 'הסוף' : `עמוד ${stAt + 1} מתוך ${n}`));
+    $('#storyDlg').onkeydown = e => { if (stView !== 'read' || e.target.closest('input, textarea')) return; if (e.key === 'ArrowLeft') go(1); if (e.key === 'ArrowRight') go(-1); };
+  }
+
+  // ================= flipbook: moving stickers =================
+  let flAnims = store.get('flips', []);
+  let flCur = null, flAt = 0, flPad = null, flTimer = 0, flDelId = null, flLoaded = true;
+  const FL_SIZE = 300, FL_SMALL = 160;
+  const flSmall = url => new Promise(res => { if (!url) return res(null); const im = new Image(); im.onload = () => { const c = el('canvas', { width: FL_SMALL, height: FL_SMALL }); c.getContext('2d').drawImage(im, 0, 0, FL_SMALL, FL_SMALL); res(c.toDataURL('image/png')); }; im.onerror = () => res(null); im.src = url; });
+  function flAnimSVG(frames, fps) {
+    const n = frames.length, dur = (n / fps).toFixed(3);
+    return `<svg viewBox="0 0 ${FL_SMALL} ${FL_SMALL}" xmlns="http://www.w3.org/2000/svg">${frames.map((f, i) => {
+      const kt = [0], vals = [i === 0 ? 'visible' : 'hidden'];
+      if (i > 0) { kt.push(+(i / n).toFixed(4)); vals.push('visible'); }
+      if (i < n - 1) { kt.push(+((i + 1) / n).toFixed(4)); vals.push('hidden'); }
+      return `<image href="${f}" width="${FL_SMALL}" height="${FL_SMALL}" visibility="${i === 0 ? 'visible' : 'hidden'}"><animate attributeName="visibility" values="${vals.join(';')}" keyTimes="${kt.join(';')}" dur="${dur}s" calcMode="discrete" repeatCount="indefinite"/></image>`;
+    }).join('')}</svg>`;
+  }
+  function flCommit() {
+    if (!flPad || !flCur) return;
+    if (flLoaded || flPad.dirty()) flCur.frames[flAt] = flPad.canvas.toDataURL('image/png');
+  }
+  const flStop = () => { clearInterval(flTimer); flTimer = 0; };
+  function openFlip() {
+    if (!flCur) flCur = { id: null, name: '', fps: 6, frames: [null, null] };
+    flAt = cmClamp(flAt, 0, flCur.frames.length - 1); flDelId = null;
+    drawFlip();
+    if (!$('#flipDlg').open) $('#flipDlg').showModal();
+  }
+  function flOnion(url, cb) {
+    if (!url) return cb(null);
+    const im = new Image();
+    im.onload = () => { const c = el('canvas', { width: FL_SIZE, height: FL_SIZE }), x = c.getContext('2d'); x.globalAlpha = 0.28; x.drawImage(im, 0, 0, FL_SIZE, FL_SIZE); cb(c.toDataURL('image/png')); };
+    im.onerror = () => cb(null); im.src = url;
+  }
+  function drawFlip() {
+    flStop();
+    const c = flCur, body = $('#flipBody');
+    flAt = cmClamp(flAt, 0, c.frames.length - 1);
+    const cur = c.frames[flAt];
+    flPad = makePad(FL_SIZE, FL_SIZE, true, null);
+    flLoaded = !cur;
+    if (cur) { const im = new Image(); im.onload = () => { flPad.canvas.getContext('2d').drawImage(im, 0, 0, FL_SIZE, FL_SIZE); flLoaded = true; }; im.src = cur; }
+    const checker = 'conic-gradient(#f1eef8 25%, #fff 0 50%, #f1eef8 0 75%, #fff 0) 0 0 / 20px 20px';
+    flPad.canvas.style.background = checker;
+    flOnion(flAt > 0 ? c.frames[flAt - 1] : null, u => { if (u) flPad.canvas.style.background = `url("${u}") center / 100% 100% no-repeat, ${checker}`; });
+    const pick = i => { flCommit(); flAt = i; SFX.pop(); drawFlip(); };
+    const strip = el('div', { class: 'fl-strip', role: 'group', 'aria-label': 'התמונות' },
+      ...c.frames.map((f, i) => el('button', { type: 'button', class: 'fl-frame', 'aria-pressed': String(i === flAt), 'aria-label': `תמונה ${i + 1}`, onclick: () => pick(i) },
+        f ? el('img', { src: f, alt: '' }) : el('span', { class: 'fl-empty' }, '✏️'), el('small', {}, String(i + 1)))),
+      c.frames.length < 12 ? el('button', { type: 'button', class: 'fl-frame fl-add', onclick: () => { flCommit(); c.frames.splice(flAt + 1, 0, null); flAt++; SFX.pop(); drawFlip(); } }, '➕', el('small', {}, 'ריקה')) : null,
+      c.frames.length < 12 ? el('button', { type: 'button', class: 'fl-frame fl-add', onclick: () => { flCommit(); c.frames.splice(flAt + 1, 0, c.frames[flAt]); flAt++; SFX.pop(); drawFlip(); } }, '📄', el('small', {}, 'להעתיק')) : null);
+    const preview = el('div', { class: 'fl-preview' }, el('img', { alt: 'תצוגה' }));
+    const speedTxt = el('span', { class: 'muted' }, `${c.fps} תמונות בשנייה`);
+    const play = () => {
+      flCommit();
+      const fr = c.frames.filter(Boolean), img = preview.firstChild;
+      flStop();
+      if (!fr.length) { img.removeAttribute('src'); return; }
+      let i = 0; img.src = fr[0];
+      flTimer = setInterval(() => { if (!$('#flipDlg').open) { flStop(); return; } i = (i + 1) % fr.length; img.src = fr[i]; }, 1000 / c.fps);
+    };
+    const msg = el('span', { class: 'saved' });
+    const save = async () => {
+      flCommit();
+      const fr = c.frames.filter(Boolean);
+      if (fr.length < 2) { msg.textContent = 'צריך לפחות 2 תמונות מצוירות 🙂'; return; }
+      const small = (await Promise.all(fr.map(flSmall))).filter(Boolean);
+      const svgS = flAnimSVG(small, c.fps), url = svgData(svgS);
+      const rec = { id: c.id || cmNew('a'), name: c.name.trim(), fps: c.fps, frames: small, stk: c.stk || null };
+      let sk = rec.stk && customStk.find(s => s.id === rec.stk);
+      const prevUrl = sk && sk.url;
+      if (sk) sk.url = url; else { sk = { id: 'my' + Date.now().toString(36), url }; customStk.push(sk); rec.stk = sk.id; }
+      if (!store.set('customStk', customStk)) { if (prevUrl) sk.url = prevUrl; else customStk.pop(); msg.textContent = 'אין מספיק מקום לשמור את האנימציה 😕'; return; }
+      registerCustom(sk);
+      cmUpsert(flAnims, rec);
+      if (!store.set('flips', flAnims)) { flAnims = flAnims.filter(x => x !== rec); }
+      c.id = rec.id; c.stk = rec.stk;
+      SFX.yay(); confetti($('#flipDlg .confetti-c')); toast(stickerHTML(sk.id), '🎞️ המדבקה הזזה נשמרה! היא באלבום ובמדבקות של הימים'); afterChange();
+      drawFlip();
+    };
+    const list = flAnims.map(a => el('article', { class: 'cm-card fl-card' },
+      el('span', { class: 'fl-anim', html: a.stk && STICKERS[a.stk] ? stickerHTML(a.stk) : flAnimSVG(a.frames, a.fps) }),
+      el('b', {}, a.name || 'אנימציה'), el('span', { class: 'muted' }, `${a.frames.length} תמונות`),
+      flDelId === a.id
+        ? el('div', { class: 'chips' }, el('span', {}, 'למחוק?'), el('button', { type: 'button', class: 'chip', onclick: () => { flAnims = flAnims.filter(x => x !== a); store.set('flips', flAnims); if (flCur && flCur.id === a.id) flCur.id = null; flDelId = null; SFX.boop(); drawFlip(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { flDelId = null; drawFlip(); } }, 'לא'))
+        : el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'chip', onclick: () => { flCur = { id: a.id, stk: a.stk, name: a.name, fps: a.fps, frames: a.frames.slice() }; flAt = 0; drawFlip(); $('#flipDlg .sheet').scrollTop = 0; } }, '✏️ לערוך'),
+          el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { flDelId = a.id; drawFlip(); } }, '🗑️'))));
+    body.replaceChildren(
+      el('div', { class: 'fl-main' },
+        el('div', { class: 'fl-left' },
+          el('div', { class: 'fl-head' }, el('b', {}, `✏️ תמונה ${flAt + 1} מתוך ${c.frames.length}`), el('span', { class: 'muted' }, flAt > 0 ? 'התמונה הקודמת מופיעה חלש מאחור, כדי שיהיה קל לזוז קצת' : 'מציירים את התמונה הראשונה')),
+          flPad.node,
+          el('div', { class: 'chips' },
+            el('button', { type: 'button', class: 'btn', disabled: flAt === 0, onclick: () => pick(flAt - 1) }, '→ הקודמת'),
+            el('button', { type: 'button', class: 'btn', disabled: flAt === c.frames.length - 1, onclick: () => pick(flAt + 1) }, 'הבאה ←'),
+            c.frames.length > 2 ? el('button', { type: 'button', class: 'btn', onclick: () => { c.frames.splice(flAt, 1); flAt = Math.max(0, flAt - 1); SFX.boop(); drawFlip(); } }, '🗑️ למחוק תמונה') : null)),
+        el('div', { class: 'fl-right' },
+          el('span', { class: 'lbl' }, '🎬 איך זה זז'),
+          preview,
+          el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: play }, '▶️ לנגן'), el('button', { type: 'button', class: 'btn', onclick: () => { flStop(); } }, '⏸️ עצירה')),
+          el('label', { class: 'lbl' }, '🐢 מהירות 🐇', el('input', { type: 'range', min: 2, max: 12, value: c.fps, oninput: e => { c.fps = +e.target.value; speedTxt.textContent = `${c.fps} תמונות בשנייה`; if (flTimer) play(); } })), speedTxt,
+          el('input', { type: 'text', value: c.name, maxLength: 30, placeholder: 'שם לאנימציה', 'aria-label': 'שם לאנימציה', oninput: e => { c.name = e.target.value; } }),
+          el('button', { type: 'button', class: 'btn main', onclick: save }, c.id ? '💾 לשמור שינויים' : '✨ לשמור כמדבקה זזה'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { flCur = { id: null, name: '', fps: 6, frames: [null, null] }; flAt = 0; drawFlip(); } }, '➕ אנימציה חדשה'),
+          msg)),
+      el('span', { class: 'lbl' }, '🎞️ התמונות (לוחצים כדי לצייר)'), strip,
+      el('h4', { class: 'sec-title' }, `🌟 המדבקות הזזות שלי (${flAnims.length})`),
+      flAnims.length ? el('div', { class: 'cm-cards fl-cards' }, ...list) : el('p', { class: 'muted' }, 'עוד אין. רעיון: כוכב שמנצנץ, לב שפועם, חתול שמנפנף בזנב! 💡'));
+    setTimeout(play, 50);
+  }
+
+  // ================= poster designer =================
+  let psPosters = store.get('posters', []);
+  let psCur = null, psView = 'list', psDelId = null, psEd = null;
+  const PS_W = 600, PS_H = 848;
+  const PS_KINDS = [['solid', 'צבע אחד'], ['grad', 'מעבר צבעים'], ['diag', 'אלכסון'], ['radial', 'עיגול זוהר'], ['sunburst', 'קרני שמש'], ['rainbow', 'קשת']];
+  const PS_PATS = [['none', 'בלי'], ['dots', 'נקודות'], ['stripes', 'פסים'], ['hearts', 'לבבות'], ['stars', 'כוכבים'], ['checks', 'משבצות'], ['confetti', 'קונפטי'], ['zigzag', 'זיגזג'], ['grid', 'רשת'], ['sparkle', 'נצנצים']];
+  const PS_FRAMES = [['none', 'בלי'], ['line', 'קו'], ['double', 'כפול'], ['dashed', 'מקווקו'], ['hearts', 'לבבות'], ['stars', 'כוכבים'], ['flowers', 'פרחים'], ['scallop', 'גלים'], ['lights', 'נורות'], ['polaroid', 'פולארויד'], ['tape', 'סלוטייפ']];
+  const PS_PAIRS = [['#ffd1ec', '#c9e7ff'], ['#fff1a8', '#ffb3cf'], ['#b58cff', '#7ec8ff'], ['#c9f2d0', '#7ee0c0'], ['#ff9a8b', '#ffe4b5'], ['#141a44', '#6f5bd6'], ['#ffffff', '#ffe0ef'], ['#ff5a8a', '#ffb020'], ['#e0fff4', '#b58cff'], ['#2b2233', '#ff4f9a']];
+  function psBgSVG(bg, w, h, u) {
+    const c1 = bg.c1 || '#ffd1ec', c2 = bg.c2 || '#c9e7ff', pc = bg.pc || '#ffffff', fc = bg.fc || '#ff5a8a';
+    let d = '', s = '';
+    if (bg.kind === 'grad') { d += cmGrad(u + 'g', [[0, c1], [1, c2]]); s += `<rect width="${w}" height="${h}" fill="url(#${u}g)"/>`; }
+    else if (bg.kind === 'diag') { d += cmGrad(u + 'g', [[0, c1], [1, c2]], 1, 1); s += `<rect width="${w}" height="${h}" fill="url(#${u}g)"/>`; }
+    else if (bg.kind === 'radial') { d += `<radialGradient id="${u}g" cx=".5" cy=".42" r=".75"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></radialGradient>`; s += `<rect width="${w}" height="${h}" fill="url(#${u}g)"/>`; }
+    else if (bg.kind === 'sunburst') { s += `<rect width="${w}" height="${h}" fill="${c1}"/>` + Array.from({ length: 16 }, (_, i) => { const a = i / 16 * Math.PI * 2, b = a + Math.PI / 16, R = h * 1.2; return `<path d="M${w / 2} ${h * .42} L${cmF(w / 2 + R * Math.cos(a))} ${cmF(h * .42 + R * Math.sin(a))} L${cmF(w / 2 + R * Math.cos(b))} ${cmF(h * .42 + R * Math.sin(b))} Z" fill="${c2}"/>`; }).join(''); }
+    else if (bg.kind === 'rainbow') { d += cmGrad(u + 'g', [[0, '#ffc2d4'], [.2, '#ffd8b0'], [.4, '#fff3b0'], [.6, '#c8f0c8'], [.8, '#bfe2ff'], [1, '#dcc8ff']]); s += `<rect width="${w}" height="${h}" fill="url(#${u}g)"/>`; }
+    else s += `<rect width="${w}" height="${h}" fill="${c1}"/>`;
+    const P = {
+      dots: `<circle cx="10" cy="10" r="5"/><circle cx="30" cy="30" r="5"/>`, stripes: `<rect x="0" y="0" width="14" height="40"/>`,
+      hearts: `<path d="M20 30 C4 20 4 8 12 6 C16 5 19 8 20 11 C21 8 24 5 28 6 C36 8 36 20 20 30 Z"/>`, stars: `<polygon points="${starPts(20, 20, 11, 4.5)}"/>`,
+      checks: `<rect width="20" height="20"/><rect x="20" y="20" width="20" height="20"/>`, confetti: `<rect x="4" y="6" width="9" height="4" rx="2" transform="rotate(30 8 8)"/><rect x="24" y="22" width="9" height="4" rx="2" transform="rotate(-40 28 24)"/><circle cx="30" cy="8" r="2.5"/><circle cx="10" cy="30" r="2.5"/>`,
+      zigzag: `<path d="M0 26 L10 16 L20 26 L30 16 L40 26" fill="none" stroke="${pc}" stroke-width="4"/>`, grid: `<path d="M0 0.5 H40 M0.5 0 V40" stroke="${pc}" stroke-width="2"/>`,
+      sparkle: `<path d="M20 8 Q21 19 32 20 Q21 21 20 32 Q19 21 8 20 Q19 19 20 8 Z"/>`,
+    }[bg.pat];
+    if (P) { d += `<pattern id="${u}p" width="40" height="40" patternUnits="userSpaceOnUse"${bg.pat === 'stripes' ? ' patternTransform="rotate(35)"' : ''}><g fill="${pc}">${P}</g></pattern>`; s += `<rect width="${w}" height="${h}" fill="url(#${u}p)" opacity=".42"/>`; }
+    const m = 22, fr = bg.frame;
+    const around = (n, f) => { let o = ''; const per = 2 * (w + h - 4 * m), step = per / n; for (let i = 0; i < n; i++) { let t = i * step, x, y; const W2 = w - 2 * m, H2 = h - 2 * m; if (t < W2) { x = m + t; y = m; } else if ((t -= W2) < H2) { x = w - m; y = m + t; } else if ((t -= H2) < W2) { x = w - m - t; y = h - m; } else { t -= W2; x = m; y = h - m - t; } o += f(x, y, i); } return o; };
+    if (fr === 'line') s += `<rect x="${m}" y="${m}" width="${w - 2 * m}" height="${h - 2 * m}" rx="20" fill="none" stroke="${fc}" stroke-width="8"/>`;
+    else if (fr === 'double') s += `<rect x="${m - 6}" y="${m - 6}" width="${w - 2 * m + 12}" height="${h - 2 * m + 12}" rx="22" fill="none" stroke="${fc}" stroke-width="6"/><rect x="${m + 8}" y="${m + 8}" width="${w - 2 * m - 16}" height="${h - 2 * m - 16}" rx="14" fill="none" stroke="${fc}" stroke-width="3"/>`;
+    else if (fr === 'dashed') s += `<rect x="${m}" y="${m}" width="${w - 2 * m}" height="${h - 2 * m}" rx="20" fill="none" stroke="${fc}" stroke-width="6" stroke-dasharray="18 12" stroke-linecap="round"/>`;
+    else if (fr === 'hearts') s += around(44, (x, y) => `<path transform="translate(${cmF(x)} ${cmF(y)}) scale(.6)" d="M0 14 C-18 2 -18 -10 -9 -12 C-4 -13 -1 -9 0 -6 C1 -9 4 -13 9 -12 C18 -10 18 2 0 14 Z" fill="${fc}" stroke="${CM_INK}" stroke-width="2"/>`);
+    else if (fr === 'stars') s += around(44, (x, y, i) => `<polygon points="${starPts(x, y, 11, 5)}" fill="${i % 2 ? fc : '#ffd84d'}" stroke="${CM_INK}" stroke-width="1.6"/>`);
+    else if (fr === 'flowers') s += around(36, (x, y, i) => [0, 72, 144, 216, 288].map(a => `<circle cx="${cmF(x + 7 * Math.cos(a * Math.PI / 180))}" cy="${cmF(y + 7 * Math.sin(a * Math.PI / 180))}" r="6" fill="${i % 2 ? fc : '#ffffff'}" stroke="${CM_INK}" stroke-width="1.4"/>`).join('') + `<circle cx="${cmF(x)}" cy="${cmF(y)}" r="4.5" fill="#ffd84d"/>`);
+    else if (fr === 'scallop') s += around(70, (x, y) => `<circle cx="${cmF(x)}" cy="${cmF(y)}" r="14" fill="${fc}"/>`) + `<rect x="${m + 10}" y="${m + 10}" width="${w - 2 * m - 20}" height="${h - 2 * m - 20}" rx="10" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3 7" stroke-linecap="round"/>`;
+    else if (fr === 'lights') s += `<rect x="${m}" y="${m}" width="${w - 2 * m}" height="${h - 2 * m}" rx="20" fill="none" stroke="${CM_INK}" stroke-width="2"/>` + around(40, (x, y, i) => `<ellipse cx="${cmF(x)}" cy="${cmF(y)}" rx="6" ry="9" fill="${['#ff5a6e', '#ffd84d', '#4fbf73', '#7ec8ff', '#b58cff'][i % 5]}" stroke="${CM_INK}" stroke-width="1.6"/>`);
+    else if (fr === 'polaroid') s += `<path d="M0 0 H${w} V${h} H0 Z M28 28 V${h - 120} H${w - 28} V28 Z" fill="#fffdf6" fill-rule="evenodd"/><rect x="28" y="28" width="${w - 56}" height="${h - 148}" fill="none" stroke="#e8e0cf" stroke-width="2"/>`;
+    else if (fr === 'tape') s += [[60, 30, -30], [w - 60, 30, 30], [60, h - 30, 30], [w - 60, h - 30, -30]].map(([x, y, r]) => `<rect x="${x - 50}" y="${y - 14}" width="100" height="28" fill="${fc}" opacity=".75" transform="rotate(${r} ${x} ${y})"/>`).join('');
+    return `<defs>${d}</defs>${s}`;
+  }
+  function psBgPanel(redraw) {
+    const bg = psCur.bg, set = p => { Object.assign(bg, p); redraw(); };
+    const kindTile = ([k, n]) => el('button', { type: 'button', 'aria-pressed': String(bg.kind === k), onclick: () => set({ kind: k }) }, el('span', { class: 'ic', html: `<svg viewBox="0 0 60 84" xmlns="http://www.w3.org/2000/svg">${psBgSVG(Object.assign({}, bg, { kind: k, pat: 'none', frame: 'none' }), 60, 84, 'pk' + k + (cmN++))}</svg>` }), n);
+    return el('div', { class: 'cm-tabbody' },
+      el('span', { class: 'lbl' }, '🎨 סוג הרקע'), el('div', { class: 'cm-grid' }, ...PS_KINDS.map(kindTile)),
+      el('span', { class: 'lbl' }, '🌈 צבעים מוכנים'),
+      el('div', { class: 'cm-skies' }, ...PS_PAIRS.map(p => { const b = el('button', { type: 'button', 'aria-label': 'צבעים', 'aria-pressed': String(bg.c1 === p[0] && bg.c2 === p[1]), onclick: () => set({ c1: p[0], c2: p[1], kind: bg.kind === 'solid' || bg.kind === 'rainbow' ? 'grad' : bg.kind }) }); b.style.background = `linear-gradient(135deg, ${p[0]}, ${p[1]})`; return b; })),
+      el('div', { class: 'chips' }, el('label', { class: 'lbl' }, 'צבע 1 ', el('input', { type: 'color', value: bg.c1, onchange: e => set({ c1: e.target.value }) })), el('label', { class: 'lbl' }, 'צבע 2 ', el('input', { type: 'color', value: bg.c2, onchange: e => set({ c2: e.target.value }) }))),
+      el('span', { class: 'lbl' }, '✨ דוגמה'), el('div', { class: 'chips' }, ...PS_PATS.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((bg.pat || 'none') === k), onclick: () => set({ pat: k }) }, n))),
+      bg.pat && bg.pat !== 'none' ? cmSwatches(bg.pc, c => set({ pc: c })) : null,
+      el('span', { class: 'lbl' }, '🖼️ מסגרת'), el('div', { class: 'chips' }, ...PS_FRAMES.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((bg.frame || 'none') === k), onclick: () => set({ frame: k }) }, n))),
+      bg.frame && !['none', 'polaroid'].includes(bg.frame) ? cmSwatches(bg.fc, c => set({ fc: c })) : null);
+  }
+  const PS_TABS = [['pbg', '🎨 רקע'], ['title', '🔤 כותרות'], ['chars', '👧 דמויות'], ['stk', '⭐ מדבקות'], ['emo', '😀 אימוג\'י'], ['shape', '🔷 צורות']];
+  const psSaveList = cmSaver('posters', () => psPosters, () => toast(stickerHTML('palette'), 'אין מספיק מקום לשמור את הפוסטר 😕'));
+  const psStore = now => { if (!psCur) return; psCur.at = Date.now(); cmUpsert(psPosters, psCur); psSaveList(now); };
+  const psCfg = p => ({ W: PS_W, H: PS_H, areas: () => [{ x: 0, y: 0, w: PS_W, h: PS_H, scene: { bg: p.bg, items: p.items } }], bgFn: psBgSVG, showArea: false });
+  const psSvg = p => cmStageSVG(psCfg(p), false);
+  function openPoster() {
+    if (psView === 'edit' && !psCur) psView = 'list';
+    drawPoster();
+    if (!$('#posterDlg').open) $('#posterDlg').showModal();
+  }
+  function drawPoster() {
+    const body = $('#posterBody');
+    if (psView === 'edit' && psCur) {
+      const p = psCur, cfg = Object.assign(psCfg(p), { tabs: PS_TABS, tab: 'title', change: () => psStore(), bgPanel: psBgPanel, maxVh: 76 });
+      const prev = psEd && psEd.ed;
+      // the areas() scene object must be the real one, so edits land in the poster
+      const scene = { get bg() { return p.bg; }, get items() { return p.items; }, set items(v) { p.items = v; } };
+      cfg.areas = () => [{ x: 0, y: 0, w: PS_W, h: PS_H, scene }];
+      psEd = cmEditor(cfg);
+      if (prev) { psEd.ed.tab = prev.tab; psEd.ed.emoCat = prev.emoCat; }
+      body.replaceChildren(
+        el('div', { class: 'cm-bar' },
+          el('button', { type: 'button', class: 'btn', onclick: () => { psStore(true); psView = 'list'; drawPoster(); } }, '🖼️ כל הפוסטרים'),
+          el('input', { type: 'text', class: 'cm-title-in', value: p.title, maxLength: 60, placeholder: 'שם הפוסטר', 'aria-label': 'שם הפוסטר', oninput: e => { p.title = e.target.value; psStore(); } }),
+          el('button', { type: 'button', class: 'btn main', onclick: () => { psStore(true); SFX.yay(); toast(stickerHTML('palette'), 'הפוסטר נשמר! 💾'); afterChange(); } }, '💾 לשמור'),
+          el('button', { type: 'button', class: 'btn', onclick: () => cmDownload(psSvg(p), PS_W, PS_H, p.title || 'הפוסטר שלי') }, '🖼️ להוריד תמונה'),
+          el('button', { type: 'button', class: 'btn', onclick: () => cmToSticker(psSvg(p), PS_W, PS_H) }, '✨ למדבקה')),
+        psEd.node);
+      psEd.draw();
+      return;
+    }
+    psView = 'list';
+    const card = p => el('article', { class: 'cm-card' },
+      el('button', { type: 'button', class: 'cm-thumb', 'aria-label': 'לערוך', onclick: () => { psCur = p; psView = 'edit'; psEd = null; drawPoster(); }, html: psSvg(p) }),
+      el('b', {}, p.title || 'פוסטר בלי שם'),
+      psDelId === p.id
+        ? el('div', { class: 'chips' }, el('span', {}, 'למחוק?'), el('button', { type: 'button', class: 'chip', onclick: () => { psPosters = psPosters.filter(x => x !== p); store.set('posters', psPosters); psDelId = null; SFX.boop(); drawPoster(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { psDelId = null; drawPoster(); } }, 'לא'))
+        : el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'chip', onclick: () => { psCur = p; psView = 'edit'; psEd = null; drawPoster(); } }, '✏️ לערוך'),
+          el('button', { type: 'button', class: 'chip', onclick: () => cmDownload(psSvg(p), PS_W, PS_H, p.title || 'הפוסטר שלי') }, '🖼️ תמונה'),
+          el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { psDelId = p.id; drawPoster(); } }, '🗑️')));
+    body.replaceChildren(
+      el('div', { class: 'cm-hero' }, el('div', {}, el('b', {}, 'מעצבים פוסטר!'), el('p', { class: 'muted' }, 'כותרת ענקית, רקע, מסגרת, מדבקות והדמויות שלך. בסוף מורידים תמונה ומדפיסים.')),
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          const pair = PS_PAIRS[Math.floor(Math.random() * 6)];
+          psCur = { id: cmNew('ps'), title: '', bg: { kind: 'grad', c1: pair[0], c2: pair[1], pat: 'dots', pc: '#ffffff', frame: 'line', fc: '#ff5a8a' },
+            items: [{ id: cmNew('i'), t: 'txt', text: 'הפוסטר שלי', font: 'bold', fs: 72, c: '#ff5a8a', e: 'outline', x: PS_W / 2, y: 110, s: 1, r: -3 }], at: Date.now() };
+          psView = 'edit'; psEd = null; SFX.pop(); drawPoster();
+        } }, '➕ פוסטר חדש')),
+      psPosters.length ? el('h4', { class: 'sec-title' }, `🖼️ הפוסטרים שלי (${psPosters.length})`) : null,
+      psPosters.length ? el('div', { class: 'cm-cards' }, ...psPosters.map(card)) : el('p', { class: 'muted' }, 'עוד אין פוסטרים. אולי פוסטר ליום הולדת? 🎂'));
+  }
+  $('#flipDlg').addEventListener('close', () => { flCommit(); flStop(); });
+  $('#storyDlg').addEventListener('close', () => { stopSpeak(); stStore(true); });
+  $('#comicDlg').addEventListener('close', () => cmStore(true));
+  $('#posterDlg').addEventListener('close', () => psStore(true));
+
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
