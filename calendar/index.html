@@ -1677,6 +1677,68 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
 .more-rooms small { opacity: .6; font-size: .8em; }
 .more-top input { width: 100%; }
 .ic.emo-ic { font-size: 2.2em; line-height: 46px; text-align: center; }
+/* ---------- beauty: hair salon, spa, jewelry, ball ---------- */
+.hs-steps { display: flex; flex-wrap: wrap; gap: 6px; }
+.hs-steps .chip.done { border-color: #6fcf7f; }
+.hs-steps span.chip.on { border-color: var(--accent); background: var(--paper); }
+.hs-wrap { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: 14px; align-items: start; }
+.hs-stage, .spa-stage { position: relative; border-radius: 22px; overflow: hidden; border: 3px solid #f2d27a; box-shadow: 0 4px 14px rgb(0 0 0 / .15); touch-action: none; cursor: none; user-select: none; }
+.hs-stage > svg, .spa-stage > svg { width: 100%; height: auto; display: block; }
+.hs-tool { position: absolute; left: -100px; top: -100px; font-size: 2.4em; transform: translate(-30%, -70%); pointer-events: none; filter: drop-shadow(0 2px 3px rgb(0 0 0 / .3)); }
+.hs-bar { height: 12px; border-radius: 999px; background: var(--paper); border: 1.5px solid var(--line); overflow: hidden; }
+.hs-bar span { display: block; height: 100%; background: linear-gradient(90deg, #ff9ec4, #bda4ff); transition: width .2s; }
+.hs-hint { margin: 0; font-size: 1.1em; }
+.hs-msg { margin: 0; font-size: 1.2em; color: var(--accent); }
+.hs-cmp { display: flex; gap: 10px; }
+.hs-cmp figure { margin: 0; flex: 1; text-align: center; }
+.hs-cmp img { width: 100%; border-radius: 14px; border: 2px solid var(--line); background: #fff; }
+.hs-drop { animation: hsDrop .9s linear infinite; }
+.hs-fall { animation: hsFall 1s ease-in forwards; }
+@keyframes hsDrop { to { transform: translateY(260px); } }
+@keyframes hsFall { to { transform: translateY(60px); opacity: 0; } }
+.spa-bub { animation: spaBub 3s ease-in infinite; }
+.spa-steam { animation: spaSteam 3s ease-in-out infinite; }
+@keyframes spaBub { from { transform: translateY(0); opacity: .9; } to { transform: translateY(-140px); opacity: 0; } }
+@keyframes spaSteam { 0% { opacity: 0; transform: translateY(10px); } 50% { opacity: .7; } 100% { opacity: 0; transform: translateY(-30px); } }
+.jw-wrap { display: grid; grid-template-columns: minmax(260px, 1fr) minmax(140px, 220px); gap: 14px; align-items: start; }
+.jw-table { border-radius: 20px; overflow: hidden; box-shadow: inset 0 0 0 3px #e9c46a; }
+.jw-table > svg { width: 100%; height: auto; display: block; }
+.jw-girl { border-radius: 16px; overflow: hidden; border: 2px solid var(--line); background: #fff; }
+.jw-girl > svg { width: 100%; height: auto; display: block; }
+.jw-pal { display: flex; flex-wrap: wrap; gap: 6px; }
+.jw-pal button { display: grid; justify-items: center; gap: 1px; width: 62px; border: 2px solid var(--line); background: var(--card); border-radius: 12px; padding: 4px; font-size: .8em; }
+.jw-pal button[aria-pressed="true"] { border-color: var(--accent); }
+.jw-pal .ic { width: 30px; height: 30px; }
+.jw-pal .ic svg, .jw-letters svg { width: 100%; height: 100%; display: block; }
+.jw-letters { display: flex; flex-wrap: wrap; gap: 4px; direction: rtl; }
+.jw-letters button { width: 36px; height: 36px; border: none; background: none; padding: 1px; }
+.jw-save { border-top: 1.5px dashed var(--line); padding-top: 10px; }
+.jw-box { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.jw-card { display: grid; gap: 3px; justify-items: center; padding: 6px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); text-align: center; font-size: .9em; }
+.jw-card.on { border-color: var(--accent); }
+.jw-card .ic { width: 130px; }
+.jw-card .ic svg { width: 100%; height: auto; display: block; border-radius: 10px; }
+.jw-card .btn { padding: 3px 9px; }
+.ball-stage { position: relative; aspect-ratio: 16 / 10; border-radius: 20px; overflow: hidden; background: #3a1f5c; }
+.ball-stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ball-ch { position: absolute; left: 50%; bottom: 44%; height: 66%; aspect-ratio: 1 / 2; transform: translateX(-50%) scale(.3); opacity: 0; transition: left 1.4s ease-in-out, bottom 1.4s ease-in-out, transform 1.4s ease-in-out, opacity .6s; display: grid; justify-items: center; }
+.ball-ch.pet { height: 20%; aspect-ratio: 1; }
+.ball-ch img { width: 100%; height: 100%; object-fit: contain; }
+.ball-ch.in { left: var(--x); bottom: 4%; transform: translateX(-50%) scale(1); opacity: 1; }
+.ball-ch.dance { animation: ballSway 1.08s ease-in-out infinite alternate; }
+.ball-ch.pet.dance { animation: ballHop .54s ease-in-out infinite alternate; }
+.ball-ch .bn { position: absolute; bottom: -2px; background: rgb(255 255 255 / .9); color: #3a2b3c; border-radius: 999px; padding: 0 8px; font-size: .8em; white-space: nowrap; }
+.ball-ch.queen { filter: drop-shadow(0 0 10px #ffe38a); z-index: 2; }
+.ball-crown { position: absolute; top: -8%; font-size: 2.2em; animation: ballCrown 1.2s cubic-bezier(.3, 1.4, .5, 1) both; }
+.ball-cap { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); background: rgb(255 255 255 / .92); color: #3a2b3c; border-radius: 999px; padding: 4px 16px; font-size: 1.15em; white-space: nowrap; z-index: 3; }
+.ball-chand { animation: ballTw 2s ease-in-out infinite alternate; }
+.ball-conf { position: absolute; }
+@keyframes ballSway { from { transform: translateX(-50%) rotate(-4deg) translateY(0); } to { transform: translateX(-38%) rotate(4deg) translateY(-2%); } }
+@keyframes ballHop { from { transform: translateX(-50%) translateY(0); } to { transform: translateX(-50%) translateY(-18%); } }
+@keyframes ballCrown { from { transform: translateY(-300%) rotate(-30deg); opacity: 0; } }
+@keyframes ballTw { to { opacity: .8; } }
+@media (max-width: 700px) { .hs-wrap, .jw-wrap { grid-template-columns: 1fr; } .hs-stage, .spa-stage { max-width: 290px; margin: 0 auto; } .ball-stage { aspect-ratio: 1; } .ball-cap { white-space: normal; width: 90%; text-align: center; font-size: .95em; } }
+@media (prefers-reduced-motion: reduce) { .ball-ch, .ball-ch.dance, .ball-ch.pet.dance, .hs-drop, .spa-bub, .spa-steam, .ball-chand, .ball-crown { animation: none; transition: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -2433,6 +2495,33 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
   </div>
 </dialog>
 
+
+<!-- Beauty: hair salon, spa, jewelry, ball -->
+<dialog id="hairDlg" aria-labelledby="hairTitle" style="width:min(980px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head"><h3 id="hairTitle">💇‍♀️ סלון השיער</h3><button class="x" type="button" data-close aria-label="לסגור">✕</button></div>
+    <div class="row" id="hairBody"></div>
+  </div>
+</dialog>
+<dialog id="spaDlg" aria-labelledby="spaTitle" style="width:min(900px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head"><h3 id="spaTitle">🧖‍♀️ הספא</h3><button class="x" type="button" data-close aria-label="לסגור">✕</button></div>
+    <div class="row" id="spaBody"></div>
+  </div>
+</dialog>
+<dialog id="jewelDlg" aria-labelledby="jewelTitle" style="width:min(960px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head"><h3 id="jewelTitle">💍 מעצבת התכשיטים</h3><button class="x" type="button" data-close aria-label="לסגור">✕</button></div>
+    <div class="row" id="jewelBody"></div>
+  </div>
+</dialog>
+<dialog id="ballDlg" aria-labelledby="ballTitle" style="width:min(1000px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head"><h3 id="ballTitle">👑 הנשף המלכותי</h3><button class="x" type="button" data-close aria-label="לסגור">✕</button></div>
+    <div class="row" id="ballBody"></div>
+  </div>
+</dialog>
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -5085,6 +5174,10 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
     ['owl', 'הספרים שלי', () => { buildBooks(); $('#bookDlg').showModal(); }],
     ['wand', 'המנעול שלי', () => openPinDlg()],
     ['treasure', 'גיבוי', () => { $('#bkSaveMsg').hidden = true; $('#bkLoad').replaceChildren(); $('#bkDlg').showModal(); }],
+    ["bow", "סלון שיער", () => openHairSalon()],
+    ["sparkles", "ספא", () => openSpa()],
+    ["gem", "מעצבת תכשיטים", () => openJewelry()],
+    ["crown", "הנשף המלכותי", () => openBall()],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   // the "more" menu, sorted into rooms, with search and favorites
@@ -7792,6 +7885,8 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
       case 'bantu': showEars = true; hairBack = nape; hairFront = coilCap() + [[126, 38], [150, 26], [174, 38], [136, 16], [164, 16]].map(([x, y]) => bun(x, y, 8.5)).join(''); break;
       case 'twistout': hairBack = puff(150, 92, 66, 78, 30, 150); hairFront = coilCap() + both(s => puff(mx(184, s), 98, 12, 40, 12, 20)); break;
       case 'sidecurls': hairBack = backLong(236, { wave: [4.5, 15, 40], n: 44, curls: 2.4, strands: 1, locks: 5 }); hairFront = capSide() + sweep() + both(s => frontLock(s, 200, { wave: [4.5, 15, 80], n: 40, curls: 2.2, strands: 1 })); break;
+      case 'royalupdo': showEars = true; hairBack = nape; hairFront = both(capBack) + (hatOn ? '' : bun(150, 9, 19) + bun(150, 9, 11)) + both(s => sheet([mp([[179, 62], [182, 60]], s), mp([[181, 80], [185, 80]], s), mp([[180, 108], [183, 108]], s)], { n: 30, strands: 1, wave: [2.2, 9, 66] })); break;
+      case 'princesscurls': hairBack = backLong(252, { wave: [4.5, 15, 40], n: 44, curls: 2.4, strands: 1, locks: 5 }); hairFront = both(capBack) + both(s => frontLock(s, 205, { wave: [4.5, 15, 80], n: 40, curls: 2.2, strands: 1 })) + tie(150, 18, 5); break;
       case 'pixie': showEars = true; hairBack = nape;
         hairFront = sheet([[[132, 30], [128, 24]], [[146, 36], [140, 20]], [[160, 42], [162, 19]], [[172, 50], [180, 30]], [[180, 62], [188, 50]], [[182, 74], [186, 72]]], { n: 12, locks: 3, tipLen: 0.25, strands: 2 }) +
           sheet([[[140, 22], [128, 24]], [[132, 34], [118, 36]], [[122, 48], [114, 52]], [[119, 64], [114, 66]], [[119, 74], [116, 74]]], { n: 10, locks: 2, tipLen: 0.25, strands: 2 }) +
@@ -7880,7 +7975,7 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
       party: { neck: 'scoop', e: 1.2, sl: 166, se: 3.5, sf: 3, top: 222, hem: 382, w: 76, wavy: 11 }, sundress: { neck: 'strap', e: 1.5, top: 204, hem: 420, w: 70 },
       ballgown: { neck: 'boat', e: 1, sl: 172, se: 6.5, sf: 3.5, top: 222, hem: 566, w: 132, wavy: 15 }, maxi: { neck: 'v', e: 2.2, sl: 292, se: 3, sf: 7, top: 216, hem: 548, w: 74 },
       skater: { neck: 'crew', e: 1.4, sl: 292, se: 2, sf: 0.6, top: 222, hem: 372, w: 66 }, pinafore: { neck: 'square', e: 3.2, top: 226, hem: 384, w: 60 },
-      goldgown: { neck: 'boat', e: 1, sl: 172, se: 6.5, sf: 3.5, top: 222, hem: 566, w: 136, wavy: 17 }, rainbowdress: { neck: 'scoop', e: 1.2, sl: 166, se: 3.5, sf: 3, top: 222, hem: 392, w: 86, wavy: 17 },
+      ...beautyDresses(), goldgown: { neck: 'boat', e: 1, sl: 172, se: 6.5, sf: 3.5, top: 222, hem: 566, w: 136, wavy: 17 }, rainbowdress: { neck: 'scoop', e: 1.2, sl: 166, se: 3.5, sf: 3, top: 222, hem: 392, w: 86, wavy: 17 },
     };
     // legs and shoes
     const legwear = g.legwear || 'bare', LC = g.legColor || '#ffffff';
@@ -7980,12 +8075,14 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
         dressSkirt += [0, 1, 2].map(i => `<path d="${skirtD(D.top + 2, D.hem - 20 + i * 10, D.w - 10 + i * 6, { wavy: 17 })}" fill="${rbw}" opacity="${0.5 + i * 0.15}" stroke="#fff" stroke-width=".8"/>`).join('') + Array.from({ length: 18 }, (_, i) => `<circle cx="${fx(80 + (i * 47) % 140)}" cy="${fx(250 + (i * 31) % 130)}" r="1" fill="#fff"/>`).join('');
         dressSVG += `<path d="M${150 - gbw(222) - 2} 219 H${150 + gbw(222) + 2} V227 H${150 - gbw(222) - 2}Z" fill="${rbw}"/>` + Array.from({ length: 8 }, (_, i) => `<circle cx="${fx(134 + (i * 13) % 34)}" cy="${fx(160 + (i * 17) % 50)}" r=".9" fill="#fff"/>`).join(''); }
       if (['ballgown', 'goldgown'].includes(dress)) dressSkirt += `<path d="M${150 - gbw(222) - 1} 219 H${150 + gbw(222) + 1} V226 H${150 - gbw(222) - 1}Z" fill="${fmx(c, '#fff', 0.5)}" opacity=".8"/>` + Array.from({ length: 26 }, (_, i) => { const a = i * 2.4, r = Math.sqrt(i / 26); return `<path d="M${fx(150 + Math.cos(a) * 110 * r * (0.4 + r * 0.6))} ${fx(250 + Math.abs(Math.sin(a)) * 300 * r)} l1 2.2 l2.2 1 l-2.2 1 l-1 2.2 l-1 -2.2 l-2.2 -1 l2.2 -1Z" fill="#fff" opacity=".8"/>`; }).join('');
+      { const BD = beautyDressDeco(dress, { c, D, u, def, sk, skirtD, fold, gbw, fx }); if (BD) { dressSkirt += BD.skirt; dressSVG += BD.bodice; } }
       if (dress === 'maxi') dressSkirt += fold('M100 380 Q150 392 200 380 M86 460 Q150 474 214 460', c, 0.45);
       if (dress === 'pinafore') dressSVG += both(s => `<circle cx="${mx(170.5, s)}" cy="143" r="2" fill="#f2d27a" stroke="#8a7440" stroke-width=".5"/>`) + `<path d="M140 238 h20 v18 q-10 5 -20 0Z" fill="none" stroke="${fmx(c, '#241018', 0.4)}" stroke-width=".9"/>`;
     }
     // ---- jacket (open at the front)
     let jacketSVG = '', capeBack = '';
-    if (jk === 'starcape') {
+    const RCP = beautyCape(jk, u, def);
+    if (RCP) { capeBack = RCP.back; jacketSVG = RCP.front; } else if (jk === 'starcape') {
       const nv = def('capeS', fashPatDef(`${u}-capeS`, '#2a2f78', 'stars'));
       capeBack = `<path d="M118 134 C130 128 170 128 182 134 C214 220 238 330 252 476 Q150 500 48 476 C62 330 86 220 118 134Z" fill="${nv}" stroke="#1a1d50" stroke-width="1.2"/><path d="M118 134 C130 128 170 128 182 134 C214 220 238 330 252 476 Q150 500 48 476 C62 330 86 220 118 134Z" fill="${shadeH}"/><path d="M48 476 Q150 500 252 476 L250 466 Q150 490 50 466Z" fill="#b89cff"/>`;
       jacketSVG = both(s => `<path d="${spath(mp([[150, 122, 1], [168, 118], [184, 130], [178, 146], [160, 140, 1]], s))}" fill="#3a3f98" stroke="#1a1d50" stroke-width="1"/><path d="M${mx(156, s)} 124 Q${mx(172, s)} 122 ${mx(180, s)} 132" fill="none" stroke="#b89cff" stroke-width="1.2"/>`) +
@@ -8201,6 +8298,7 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
       `<path d="M${mx(162, s)} 192 C${mx(200, s)} 196 ${mx(236, s)} 214 ${mx(228, s)} 244 C${mx(218, s)} 266 ${mx(186, s)} 236 ${mx(162, s)} 202Z" fill="${def('wg', '')}" stroke="#fff" stroke-width="1.6"/><path d="M${mx(166, s)} 180 Q${mx(214, s)} 130 ${mx(252, s)} 108 M${mx(166, s)} 196 Q${mx(200, s)} 210 ${mx(222, s)} 238" fill="none" stroke="#fff" stroke-width=".9" opacity=".8"/>` +
       [[238, 110], [220, 140], [250, 130], [212, 226], [196, 212]].map(([x, y]) => `<circle cx="${mx(x, s)}" cy="${y}" r="1.2" fill="#fff"/>`).join(''));
     const tp = tiePts[0], big = ['afro', 'curly', 'twistout', 'highpuff', 'afropuffs'].includes(hs);
+    { const BX = beautyLayers(g, u, def, { bigHair, big, sk, hs }); if (BX) { accBody += BX.neck; accEar += BX.ears; accHead += BX.head; accFace += BX.face; [1, -1].forEach(s => { const w = BX.wrist(s); if (w) wristAcc(s, w); }); } }
     if (A.ribbon) { const lowTie = tp && tp[1] > 80, [x, y] = lowTie ? [tp[0], tp[1]] : big ? [190, 40] : [183, 44]; const rb = `<path d="M${x} ${y} q-3 14 -7 30 l3 -1 l2 3 q2 -16 2 -32 q2 14 8 28 l2 -3 l3 2 q-7 -14 -13 -27Z" fill="${fmx(AC, '#000000', 0.08)}" stroke="${ACd}" stroke-width=".6"/><path d="M${x} ${y} C${x - 5} ${y - 8} ${x - 13} ${y - 5} ${x - 11} ${y + 1} C${x - 10} ${y + 5} ${x - 4} ${y + 4} ${x} ${y}Z M${x} ${y} C${x + 5} ${y - 8} ${x + 13} ${y - 5} ${x + 11} ${y + 1} C${x + 10} ${y + 5} ${x + 4} ${y + 4} ${x} ${y}Z" fill="${AC}" stroke="${ACd}" stroke-width=".8"/><circle cx="${x}" cy="${y}" r="2.4" fill="${fmx(AC, '#000000', 0.12)}" stroke="${ACd}" stroke-width=".6"/>`; if (lowTie) accHead += rb; else accBack += rb; }
     if (A.scrunchie && !tp) wristAcc(-1, `<g transform="translate(${mx(206, -1)} 289)">${Array.from({ length: 9 }, (_, i) => { const a = i / 9 * Math.PI * 2; return `<circle cx="${fx(Math.cos(a) * 6)}" cy="${fx(Math.sin(a) * 2)}" r="2.2" fill="${AC}" stroke="${ACd}" stroke-width=".4"/>`; }).join('')}</g>`);
     if (A.pins) accHead += [[124, 46, -60], [127, 50, -60], [175, 42, 60]].map(([x, y, r], i) => `<g transform="translate(${x} ${y}) rotate(${r})"><path d="M-6 0 H6 M-6 1.4 Q0 1.8 6 1.4" fill="none" stroke="${i === 2 ? '#e9c46a' : '#d8d8e0'}" stroke-width=".9" stroke-linecap="round"/>${i === 2 ? `<circle cx="-6" cy=".6" r="1.6" fill="#fffaf0" stroke="#c9b9a0" stroke-width=".4"/>` : ''}</g>`).join('');
@@ -8483,6 +8581,10 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
         el('button', { type: 'button', class: 'btn main', onclick: fashionShow }, '✨ תצוגת אופנה'),
         el('button', { type: 'button', class: 'btn', onclick: () => openBooth([g.id]) }, '📷 תא צילום'),
         el('button', { type: 'button', class: 'btn', onclick: () => openDollHouse() }, '🏡 בית בובות'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#fashionDlg').close(); openHairSalon(g.id); } }, '💇‍♀️ סלון שיער'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#fashionDlg').close(); openSpa(g.id); } }, '🧖‍♀️ ספא'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#fashionDlg').close(); openJewelry(); } }, '💍 תכשיטים'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#fashionDlg').close(); openBall(); } }, '👑 נשף'),
         fashDel ? el('span', { class: 'chips' }, el('span', {}, `למחוק את ${g.name || 'הבחורה'}?`),
           el('button', { type: 'button', class: 'btn', onclick: () => { girls = girls.filter(x => x !== g); fashSel = null; fashDel = false; saveGirls(); girls.length ? (fashSel = girls[0].id, drawFashion()) : openFashion(); } }, 'כן, למחוק'),
           el('button', { type: 'button', class: 'btn', onclick: () => { fashDel = false; drawFashion(); } }, 'לא')) :
@@ -12821,6 +12923,456 @@ dialog.cm-dlg { width: min(1180px, calc(100vw - 24px)); }
       el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => wdPhoto(twMarkup(true), 'castle', scene, twData.name) }, '📸 לצלם למדבקה'), clear));
   }
 
+  // ================= beauty: hair salon, spa, jewelry designer, royal ball =================
+  // (the drawing hooks below are function declarations: girlSVG may call them while the page is still starting up)
+  var beautyJewelCache;
+  function bFx(n) { return Math.round(n * 10) / 10; }
+  function beautyJewels() { if (!beautyJewelCache) { try { beautyJewelCache = store.get('jewels', []); } catch { beautyJewelCache = []; } } return beautyJewelCache; }
+  function beautyDresses() {
+    return { princess: { neck: 'boat', e: 1, sl: 170, se: 7.5, sf: 4, top: 220, hem: 566, w: 128, wavy: 19 }, queen: { neck: 'v', e: 1.4, sl: 292, se: 3.4, sf: 9, top: 224, hem: 568, w: 144, wavy: 0 } };
+  }
+  // extra decoration for the royal gowns
+  function beautyDressDeco(dress, x) {
+    const { c, D, u, def, sk, skirtD, fold, gbw, fx } = x;
+    if (dress === 'princess') {
+      const lt = fmx(c, '#ffffff', 0.55);
+      return {
+        skirt: [0, 1].map(i => `<path d="${skirtD(D.top + 8, D.hem - 150 + i * 70, D.w - 30 + i * 10, { wavy: 13 })}" fill="${lt}" opacity="${0.55 - i * 0.15}" stroke="#fff" stroke-width="1"/>`).join('') +
+          Array.from({ length: 7 }, (_, i) => { const x0 = 150 - 90 + i * 30, y0 = 440 + (i % 2) * 20; return `<path d="M${x0} ${y0} q-6 -8 0 -12 q6 4 0 12 M${x0} ${y0} q6 -8 0 -12" fill="#fff" opacity=".9"/><circle cx="${x0}" cy="${y0 - 6}" r="1.6" fill="#ffd45c"/>`; }).join('') +
+          Array.from({ length: 30 }, (_, i) => { const a = i * 2.4, r = Math.sqrt(i / 30); return `<path d="M${fx(150 + Math.cos(a) * 110 * r * (0.4 + r * 0.6))} ${fx(250 + Math.abs(Math.sin(a)) * 300 * r)} l1 2.2 l2.2 1 l-2.2 1 l-1 2.2 l-1 -2.2 l-2.2 -1 l2.2 -1Z" fill="#fff" opacity=".85"/>`; }).join(''),
+        bodice: `<path d="M${150 - gbw(220) - 2} 216 H${150 + gbw(220) + 2} V224 H${150 - gbw(220) - 2}Z" fill="${lt}" stroke="#fff" stroke-width=".6"/><path d="M150 220 l-9 -6 v12Z M150 220 l9 -6 v12Z" fill="${lt}" stroke="#fff" stroke-width=".6"/><circle cx="150" cy="220" r="2.4" fill="#ffd45c"/>` +
+          [[144, 150], [156, 150], [150, 162], [142, 176], [158, 176], [150, 190]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="#fff"/>`).join(''),
+      };
+    }
+    if (dress === 'queen') {
+      const gold = def('qgold', `<linearGradient id="${u}-qgold" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff2c0"/><stop offset=".4" stop-color="#e9c46a"/><stop offset=".7" stop-color="#fff0b0"/><stop offset="1" stop-color="#c9982e"/></linearGradient>`);
+      return {
+        skirt: `<path d="M150 228 L136 566 L164 566Z" fill="${fmx(c, '#ffffff', 0.35)}" opacity=".6"/>` + [300, 380, 460, 540].map(y => `<path d="M${fx(150 - 22 - (y - 228) * 0.36)} ${y} Q150 ${y + 10} ${fx(150 + 22 + (y - 228) * 0.36)} ${y}" fill="none" stroke="${gold}" stroke-width="2.6"/>`).join('') +
+          Array.from({ length: 12 }, (_, i) => `<path d="M${150 - 128 + i * 23} 560 l3 -6 l3 6Z" fill="${gold}"/>`).join('') + `<path d="${skirtD(D.top + 2, D.hem, D.w, {})}" fill="none" stroke="${gold}" stroke-width="3"/>` +
+          Array.from({ length: 14 }, (_, i) => `<circle cx="${fx(110 + (i * 37) % 80)}" cy="${fx(260 + (i * 53) % 280)}" r="1.1" fill="#fff" opacity=".8"/>`).join(''),
+        bodice: `<path d="M${150 - gbw(224) - 2} 220 H${150 + gbw(224) + 2} V229 H${150 - gbw(224) - 2}Z" fill="${gold}" stroke="#a57f22" stroke-width=".6"/><path d="M150 224 l3 3 l-3 3 l-3 -3Z" fill="#e0314b" stroke="#fff" stroke-width=".5"/>` +
+          `<path d="M139 134 L150 162 L161 134" fill="none" stroke="${gold}" stroke-width="2.2"/>`,
+      };
+    }
+    return null;
+  }
+  // royal velvet cape with fur trim
+  function beautyCape(jk, u, def) {
+    if (jk !== 'royalcape') return null;
+    const vel = def('rcv', `<linearGradient id="${u}-rcv" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#6a1030"/><stop offset=".5" stop-color="#b0204e"/><stop offset="1" stop-color="#6a1030"/></linearGradient>`);
+    const fur = (d, w) => `<path d="${d}" fill="none" stroke="#fffaf2" stroke-width="${w}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#2b2b30" stroke-width="${w * 0.5}" stroke-dasharray="0.1 ${w * 2.2}" stroke-linecap="round"/>`;
+    return {
+      back: `<path d="M114 134 C128 126 172 126 186 134 C222 230 246 350 262 560 Q150 590 38 560 C54 350 78 230 114 134Z" fill="${vel}" stroke="#4a0a20" stroke-width="1.2"/>` + fur('M42 560 Q150 588 258 560', 9),
+      front: fur('M126 132 C136 146 164 146 174 132', 8) + fur('M126 132 C120 160 118 190 118 214', 6) + fur('M174 132 C180 160 182 190 182 214', 6) + `<circle cx="150" cy="142" r="3.4" fill="#e9c46a" stroke="#a57f22" stroke-width=".6"/><circle cx="150" cy="142" r="1.4" fill="#e0314b"/>`,
+    };
+  }
+  // one bead / charm of a jewel. r = size
+  function beautyBead(b, x, y, r) {
+    const c = b.c || '#ffffff', hl = `<circle cx="${bFx(x - r * 0.35)}" cy="${bFx(y - r * 0.35)}" r="${bFx(r * 0.3)}" fill="#fff" opacity=".8"/>`, st = `stroke="${fmx(c, '#000000', 0.35)}" stroke-width="${bFx(r * 0.12)}"`;
+    const star = (q, f) => `<path d="${Array.from({ length: 10 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? q * 0.45 : q; return `${i ? 'L' : 'M'}${bFx(x + Math.cos(a) * rr)} ${bFx(y + Math.sin(a) * rr)}`; }).join('')}Z" fill="${f}" ${st}/>`;
+    const heart = (q, f) => `<path d="M${bFx(x)} ${bFx(y + q * 0.9)} C${bFx(x - q * 1.6)} ${bFx(y - q * 0.1)} ${bFx(x - q * 0.9)} ${bFx(y - q * 1.3)} ${bFx(x)} ${bFx(y - q * 0.45)} C${bFx(x + q * 0.9)} ${bFx(y - q * 1.3)} ${bFx(x + q * 1.6)} ${bFx(y - q * 0.1)} ${bFx(x)} ${bFx(y + q * 0.9)}Z" fill="${f}" ${st}/>`;
+    switch (b.t) {
+      case 'pearl': return `<circle cx="${bFx(x)}" cy="${bFx(y)}" r="${bFx(r)}" fill="${b.c || '#fffaf0'}" stroke="#d8c8b8" stroke-width="${bFx(r * 0.1)}"/>` + hl;
+      case 'crystal': return `<path d="M${bFx(x)} ${bFx(y - r * 1.15)} L${bFx(x + r)} ${bFx(y)} L${bFx(x)} ${bFx(y + r * 1.15)} L${bFx(x - r)} ${bFx(y)}Z" fill="${c}" ${st} opacity=".92"/><path d="M${bFx(x - r)} ${bFx(y)} H${bFx(x + r)} M${bFx(x)} ${bFx(y - r * 1.15)} V${bFx(y + r * 1.15)}" stroke="#fff" stroke-width="${bFx(r * 0.12)}" opacity=".6"/>` + hl;
+      case 'gem': return `<path d="${Array.from({ length: 8 }, (_, i) => { const a = i * Math.PI / 4 + Math.PI / 8; return `${i ? 'L' : 'M'}${bFx(x + Math.cos(a) * r * 1.1)} ${bFx(y + Math.sin(a) * r * 1.1)}`; }).join('')}Z" fill="${c}" ${st}/><rect x="${bFx(x - r * 0.45)}" y="${bFx(y - r * 0.45)}" width="${bFx(r * 0.9)}" height="${bFx(r * 0.9)}" fill="${fmx(c, '#ffffff', 0.45)}" opacity=".7"/>` + hl;
+      case 'heart': return heart(r * 1.15, c) + hl;
+      case 'star': return star(r * 1.3, c);
+      case 'flower': return [0, 72, 144, 216, 288].map(a => `<circle cx="${bFx(x + r * 0.6 * Math.cos(a * Math.PI / 180))}" cy="${bFx(y + r * 0.6 * Math.sin(a * Math.PI / 180))}" r="${bFx(r * 0.55)}" fill="${c}"/>`).join('') + `<circle cx="${bFx(x)}" cy="${bFx(y)}" r="${bFx(r * 0.38)}" fill="#ffd45c"/>`;
+      case 'gold': case 'silver': return `<ellipse cx="${bFx(x)}" cy="${bFx(y)}" rx="${bFx(r * 0.55)}" ry="${bFx(r * 0.8)}" fill="${b.t === 'gold' ? '#e9c46a' : '#d0d4e0'}" stroke="${b.t === 'gold' ? '#a57f22' : '#8a8f99'}" stroke-width="${bFx(r * 0.12)}"/>` + `<ellipse cx="${bFx(x - r * 0.15)}" cy="${bFx(y - r * 0.3)}" rx="${bFx(r * 0.15)}" ry="${bFx(r * 0.3)}" fill="#fff" opacity=".7"/>`;
+      case 'letter': return `<rect x="${bFx(x - r)}" y="${bFx(y - r)}" width="${bFx(r * 2)}" height="${bFx(r * 2)}" rx="${bFx(r * 0.45)}" fill="${c}" ${st}/><text x="${bFx(x)}" y="${bFx(y + r * 0.55)}" text-anchor="middle" font-size="${bFx(r * 1.5)}" font-family="Rubik, Arial, sans-serif" font-weight="700" fill="${flum(c) > 0.6 ? '#3a2b3c' : '#ffffff'}">${b.ch || 'א'}</text>`;
+      case 'moon': return `<path d="M${bFx(x + r * 0.3)} ${bFx(y - r * 1.1)} A${bFx(r * 1.1)} ${bFx(r * 1.1)} 0 1 0 ${bFx(x + r * 0.9)} ${bFx(y + r * 0.7)} A${bFx(r * 0.85)} ${bFx(r * 0.85)} 0 1 1 ${bFx(x + r * 0.3)} ${bFx(y - r * 1.1)}Z" fill="${c}" ${st}/>`;
+      case 'drop': return `<path d="M${bFx(x)} ${bFx(y - r * 1.3)} C${bFx(x + r * 1.1)} ${bFx(y)} ${bFx(x + r)} ${bFx(y + r)} ${bFx(x)} ${bFx(y + r)} C${bFx(x - r)} ${bFx(y + r)} ${bFx(x - r * 1.1)} ${bFx(y)} ${bFx(x)} ${bFx(y - r * 1.3)}Z" fill="${c}" ${st} opacity=".92"/>` + hl;
+      case 'butterfly': return `<path d="M${bFx(x)} ${bFx(y)} c${bFx(-r)} ${bFx(-r * 1.2)} ${bFx(-r * 1.8)} ${bFx(-r * 0.4)} ${bFx(-r * 1.2)} ${bFx(r * 0.2)} c${bFx(-r * 0.4)} ${bFx(r * 0.8)} ${bFx(r * 0.6)} ${bFx(r)} ${bFx(r * 1.2)} ${bFx(-r * 0.2)} c${bFx(r * 0.6)} ${bFx(r * 1.2)} ${bFx(r * 1.6)} ${bFx(r)} ${bFx(r * 1.2)} ${bFx(r * 0.2)} c${bFx(r * 0.6)} ${bFx(-r * 0.6)} ${bFx(-r * 0.2)} ${bFx(-r * 1.4)} ${bFx(-r * 1.2)} ${bFx(-r * 0.2)}Z" fill="${c}" ${st}/>`;
+      default: return `<circle cx="${bFx(x)}" cy="${bFx(y)}" r="${bFx(r)}" fill="${c}" ${st}/>` + hl;
+    }
+  }
+  function bChainC(ch) { return ({ gold: '#e9c46a', silver: '#c8ccd8', rose: '#e8a79a', pearl: '#e0d4c4', ribbon: '#ff9ec4', cord: '#5a3a2a' })[ch] || '#e9c46a'; }
+  // a chain line through points (with a little pearl strand or chain texture)
+  function beautyChain(chain, d, k = 1) {
+    const [c, w] = { gold: ['#e9c46a', 0.7], silver: ['#c8ccd8', 0.7], rose: ['#e8a79a', 0.7], pearl: ['#fffaf0', 0.6], ribbon: ['#ff9ec4', 1.6], cord: ['#5a3a2a', 1.1] }[chain] || ['#e9c46a', 0.7];
+    if (chain === 'pearl') return `<path d="${d}" fill="none" stroke="#d8c8b8" stroke-width="${bFx(1.4 * k)}" stroke-dasharray="0.01 ${bFx(1.9 * k)}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="${bFx(1.1 * k)}" stroke-dasharray="0.01 ${bFx(1.9 * k)}" stroke-linecap="round"/>`;
+    return `<path d="${d}" fill="none" stroke="${fmx(c, '#000000', 0.25)}" stroke-width="${bFx((w + 0.3) * k)}" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="${bFx(w * k)}" stroke-linecap="round"${['gold', 'silver', 'rose'].includes(chain) ? ` stroke-dasharray="${bFx(1.2 * k)} ${bFx(0.5 * k)}"` : ''}/>`;
+  }
+  // a jewel drawn on her body (coordinates of the 300x600 girl)
+  function beautyJewelOn(j, where, s = 1, bigHair = false) {
+    const B = j.beads || [], P = j.pend;
+    const mxs = x => s > 0 ? x : 300 - x;
+    if (where === 'neck') {
+      const pts = t => [139 + 22 * t, 128 + Math.sin(Math.PI * t) * 17];
+      const n = B.length, sp = 0.085;
+      let out = beautyChain(j.chain, 'M139 128 Q150 162 161 128');
+      out += B.map((b, i) => { const t = 0.5 + ((n - 1) / 2 - i) * sp; if (t < 0.04 || t > 0.96) return ''; const [x, y] = pts(t); return beautyBead(b, x, y, b.t === 'letter' ? 1.5 : 1.25); }).join('');
+      if (P) out += `<path d="M150 145 v2.5" stroke="#e9c46a" stroke-width=".6"/>` + beautyBead(P, 150, 150.5, 3);
+      return out;
+    }
+    if (where === 'wrist') {
+      const cx = mxs(208), cy = 289;
+      return beautyChain(j.chain, `M${cx - 5.5} ${cy} A5.5 2 0 0 0 ${cx + 5.5} ${cy}`, 0.8) + B.slice(0, 9).map((b, i, a) => { const ang = Math.PI * (0.1 + 0.8 * (a.length > 1 ? i / (a.length - 1) : 0.5)); return beautyBead(b, cx + Math.cos(ang) * 5.5, cy + Math.sin(ang) * 2, b.t === 'letter' ? 1.3 : 1.1); }).join('') + (P ? beautyBead(P, cx, cy + 4, 1.8) : '');
+    }
+    if (where === 'ears') return [1, -1].map(q => { const x = q > 0 ? 183 : 117, dd = B.slice(0, 5); return `<path d="M${x} 86 v${bFx(2 + dd.length * 2.3)}" stroke="${bChainC(j.chain)}" stroke-width=".6"/>` + dd.map((b, i) => beautyBead(b, x, 89 + i * 2.4, 1.05)).join('') + (P ? beautyBead(P, x, 90.5 + dd.length * 2.4, 1.7) : ''); }).join('');
+    if (where === 'head') {
+      const b0 = bigHair ? 16 : 30, n = B.length;
+      const arc = t => [128 + 44 * t, b0 - Math.sin(Math.PI * t) * 9];
+      return beautyChain(j.chain, `M128 ${b0} Q150 ${b0 - 18} 172 ${b0}`, 1.4) + B.map((b, i) => { const t = n > 1 ? 0.92 - 0.84 * i / (n - 1) : 0.5, [x, y] = arc(t), up = 1 - Math.abs(t - 0.5) * 2; return beautyBead(b, x, y - up * 4, 1.3 + up * 0.6); }).join('') + (P ? beautyBead(P, 150, b0 - 16, 3) : '');
+    }
+    if (where === 'ring') { const x = mxs(210.5), y = 317; return `<ellipse cx="${x}" cy="${y}" rx="2.2" ry=".8" fill="none" stroke="${bChainC(j.chain)}" stroke-width=".8"/>` + beautyBead(P || B[0] || { t: 'gem', c: '#bfe8ff' }, x, y - 0.6, 1); }
+    return '';
+  }
+  // everything beauty adds on a girl: jewels, royal crowns, scepter, spa glow, hair glitter
+  function beautyLayers(g, u, def, x) {
+    try {
+      const J = g.jewels || {}, A = g.acc || {}, all = beautyJewels(), jw = id => id === '__prev' ? (typeof jwCur !== 'undefined' ? jwCur : null) : id && all.find(q => q.id === id);
+      let neck = '', ears = '', head = '', face = '';
+      const wr = { 1: '', '-1': '' };
+      if (jw(J.neck)) neck += beautyJewelOn(jw(J.neck), 'neck');
+      if (jw(J.ears)) ears += beautyJewelOn(jw(J.ears), 'ears');
+      if (jw(J.head)) head += beautyJewelOn(jw(J.head), 'head', 1, x.bigHair);
+      if (jw(J.wrist)) { wr[1] += beautyJewelOn(jw(J.wrist), 'wrist', 1); wr[-1] += beautyJewelOn(jw(J.wrist), 'wrist', -1); }
+      if (jw(J.ring)) wr[1] += beautyJewelOn(jw(J.ring), 'ring', 1);
+      const b = x.bigHair ? 14 : 30;
+      if (A.queencrown) head += `<path d="M124 ${b + 2} L118 ${b - 26} L132 ${b - 12} L141 ${b - 32} L150 ${b - 16} L159 ${b - 32} L168 ${b - 12} L182 ${b - 26} L176 ${b + 2}Q150 ${b - 6} 124 ${b + 2}Z" fill="#b0204e" stroke="#6a1030" stroke-width=".8"/>` +
+        `<path d="M122 ${b - 2} L118 ${b - 26} L132 ${b - 12} L141 ${b - 32} L150 ${b - 16} L159 ${b - 32} L168 ${b - 12} L182 ${b - 26} L178 ${b - 2}" fill="none" stroke="#e9c46a" stroke-width="3" stroke-linejoin="round"/><path d="M122 ${b} Q150 ${b - 8} 178 ${b}" fill="none" stroke="#e9c46a" stroke-width="4.5"/>` +
+        [[118, b - 26], [141, b - 32], [159, b - 32], [182, b - 26]].map(([px, py]) => `<circle cx="${px}" cy="${py}" r="2.8" fill="#fffaf0" stroke="#c9b9a0" stroke-width=".5"/>`).join('') + `<path d="M150 ${b - 12} l3.4 4 l-3.4 4.6 l-3.4 -4.6Z" fill="#3f6fd8" stroke="#fff" stroke-width=".6"/><circle cx="136" cy="${b - 3}" r="1.8" fill="#e0314b"/><circle cx="164" cy="${b - 3}" r="1.8" fill="#3f9c6e"/><path d="M126 ${b - 3} Q150 ${b - 10} 174 ${b - 3}" fill="none" stroke="#fff" stroke-width=".8" opacity=".7"/>`;
+      if (A.princesstiara) head += `<path d="M130 ${b} Q150 ${b - 7} 170 ${b} L167 ${b - 7} Q158 ${b - 6} 155 ${b - 14} L150 ${b - 22} L145 ${b - 14} Q142 ${b - 6} 133 ${b - 7}Z" fill="#f2f4fa" stroke="#a8b0c8" stroke-width=".8" stroke-linejoin="round"/>` +
+        `<path d="M150 ${b - 18} l2.4 3.4 l-2.4 3.6 l-2.4 -3.6Z" fill="#ff9ec4" stroke="#fff" stroke-width=".5"/>` + [[137, b - 5], [143, b - 8], [157, b - 8], [163, b - 5]].map(([px, py]) => `<circle cx="${px}" cy="${py}" r="1.3" fill="#bfe8ff" stroke="#fff" stroke-width=".4"/>`).join('') + `<path d="M150 ${b - 26} l.8 2 l2 .8 l-2 .8 l-.8 2 l-.8 -2 l-2 -.8 l2 -.8Z" fill="#fff"/>`;
+      if (A.scepter) wr[-1] += `<path d="M91.5 262 L93.5 352" stroke="#c9982e" stroke-width="3.2" stroke-linecap="round"/><path d="M91.5 262 L93.5 352" stroke="#f6dc8a" stroke-width="1.4" stroke-linecap="round"/><path d="M89 300 h6 M89.4 330 h6" stroke="#a57f22" stroke-width="1.6"/>` +
+        `<circle cx="91.3" cy="256" r="6" fill="#e0314b" stroke="#a57f22" stroke-width="1.2"/><circle cx="89.4" cy="254" r="1.8" fill="#fff" opacity=".7"/><path d="M91.3 250 v-5 M88.8 247.5 h5" stroke="#e9c46a" stroke-width="1.6" stroke-linecap="round"/>`;
+      if (g.hairGlitter) head += Array.from({ length: 26 }, (_, i) => { const px = 112 + (i * 47) % 78, py = 22 + (i * 31) % 90; return i % 3 ? `<circle cx="${px}" cy="${py}" r="${i % 2 ? 0.6 : 0.9}" fill="${['#fff', '#fff2a8', '#ffc4ec'][i % 3]}"/>` : `<path d="M${px} ${py - 2} l.6 1.4 l1.4 .6 l-1.4 .6 l-.6 1.4 l-.6 -1.4 l-1.4 -.6 l1.4 -.6Z" fill="#fff"/>`; }).join('');
+      if (g.spaUntil && g.spaUntil > Date.now()) face += `<g opacity=".7">${[[137, 80], [163, 80]].map(([px, py]) => `<ellipse cx="${px}" cy="${py}" rx="7" ry="3" fill="#fff" opacity=".35" filter="url(#${u}-bl)"/>`).join('')}</g>` + [[132, 78], [168, 77], [150, 64], [141, 90]].map(([px, py], i) => `<path d="M${px} ${py - 1.8} l.5 1.3 l1.3 .5 l-1.3 .5 l-.5 1.3 l-.5 -1.3 l-1.3 -.5 l1.3 -.5Z" fill="#fff" opacity="${0.6 + (i % 2) * 0.3}"/>`).join('');
+      return { neck, ears, head, face, wrist: s => wr[s] };
+    } catch { return null; }
+  }
+  // royal options in the studio lists
+  FASH.dresses.push(['princess', 'שמלת נסיכה'], ['queen', 'שמלת מלכה']);
+  FASH.jackets.push(['royalcape', 'גלימת מלכות']);
+  FASH.accs.push(['queencrown', '👑 כתר מלכה'], ['princesstiara', 'נזר נסיכה'], ['scepter', 'שרביט מלכותי']);
+  FASH.hairs.push(['royalupdo', 'תסרוקת מלכה'], ['princesscurls', 'תלתלי נסיכה']);
+  (FASH.hairCats.find(c => c[0] === 'up') || [0, 0, []])[2].push('royalupdo');
+  (FASH.hairCats.find(c => c[0] === 'curls') || [0, 0, []])[2].push('princesscurls');
+
+  // ---------- shared bits ----------
+  const bGirl = id => girls.find(x => x.id === id) || girls.find(x => x.id === fashSel) || girls[0];
+  const bEnsureGirl = () => { if (!girls.length) { const n = Object.assign(newGirl(), randomGirl(), { name: GIRL_NAMES[Math.floor(Math.random() * GIRL_NAMES.length)] }); girls.push(n); saveGirls(); } };
+  const bCoins = (n, why) => { try { if (typeof addCoins === 'function') addCoins(n, why); } catch {} };
+  const bRow = (l, n) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, l), n);
+  const bChips = (list, cur, f) => el('div', { class: 'chips' }, ...list.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cur === id), onclick: () => f(id) }, n)));
+  const bSw = (list, cur, f) => el('div', { class: 'swatches' }, ...list.map(c => { const b = el('button', { type: 'button', class: 'sw3', 'aria-label': 'צבע', 'aria-pressed': String(cur === c), onclick: () => f(c) }); b.style.background = c === 'galaxy' ? 'radial-gradient(circle at 30% 30%, #fff 0 6%, #b04ad0 30%, #3a2a8e 70%, #1c1a4e)' : c; return b; }));
+  const bGirlPick = (cur, f) => el('div', { class: 'girl-pick' }, ...girls.map(g => el('button', { type: 'button', 'aria-pressed': String(typeof cur === 'function' ? !!cur(g) : cur === g.id), onclick: () => f(g) }, el('img', { src: girlImgURL(g, { view: 'head', bg: false }), alt: '' }), el('span', {}, g.name || 'בלי שם'))));
+  const bPt = (svgEl, e) => { const p = svgEl.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+
+  // ---------- 💍 jewelry designer ----------
+  const JW = {
+    types: [['necklace', '📿 שרשרת'], ['bracelet', '🔗 צמיד'], ['earrings', '✨ עגילים'], ['tiara', '👑 נזר'], ['ring', '💍 טבעת']],
+    slot: { necklace: 'neck', bracelet: 'wrist', earrings: 'ears', tiara: 'head', ring: 'ring' },
+    max: { necklace: 13, bracelet: 9, earrings: 5, tiara: 11, ring: 3 },
+    chains: [['gold', 'זהב'], ['silver', 'כסף'], ['rose', 'זהב ורוד'], ['pearl', 'חוט פנינים'], ['ribbon', 'סרט'], ['cord', 'חוט עור']],
+    beads: [['pearl', 'פנינה'], ['crystal', 'קריסטל'], ['gem', 'אבן חן'], ['heart', 'לב'], ['star', 'כוכב'], ['flower', 'פרח'], ['butterfly', 'פרפר'], ['moon', 'ירח'], ['drop', 'טיפה'], ['gold', 'חרוז זהב'], ['silver', 'חרוז כסף']],
+    colors: ['#ffffff', '#ffd1e3', '#ff5f8f', '#e0314b', '#ff9b6e', '#ffd45c', '#a8dc8f', '#3f9c6e', '#9dd8f5', '#3f6fd8', '#bda4ff', '#7a4fbf', '#2b2b30', '#e9c46a'],
+    letters: 'אבגדהוזחטיכלמנסעפצקרשת'.split(''),
+  };
+  let jewels = beautyJewels(), jwCur = null, jwMsg = '', jwBead = 'pearl', jwCol = '#ffd1e3', jwPend = false;
+  const jwSave = () => { beautyJewelCache = jewels; return store.set('jewels', jewels); };
+  const jwNew = type => ({ id: null, name: '', type: type || 'necklace', chain: 'gold', beads: [], pend: null });
+  function openJewelry() { bEnsureGirl(); jwCur = jwNew(); jwMsg = ''; drawJewelry(); if (!$('#jewelDlg').open) $('#jewelDlg').showModal(); }
+  // the piece laid out big on the work table
+  function jwBigSVG(j) {
+    const B = j.beads, n = B.length;
+    let s = '';
+    if (j.type === 'necklace') { s = beautyChain(j.chain, 'M40 40 Q200 300 360 40', 5); const pt = t => { const q = 1 - t; return [q * q * 40 + 2 * q * t * 200 + t * t * 360, q * q * 40 + 2 * q * t * 300 + t * t * 40]; }; s += B.map((b, i) => { const [x, y] = pt(0.5 + ((n - 1) / 2 - i) * 0.072); return beautyBead(b, x, y, b.t === 'letter' ? 11 : 10); }).join('') + (j.pend ? `<path d="M200 170 v14" stroke="${bChainC(j.chain)}" stroke-width="3"/>` + beautyBead(j.pend, 200, 200, 20) : ''); }
+    if (j.type === 'bracelet') { s = beautyChain(j.chain, 'M110 120 A90 60 0 1 0 290 120 A90 60 0 1 0 110 120', 5); s += B.map((b, i) => { const a = Math.PI * (0.15 + 0.7 * (n > 1 ? i / (n - 1) : 0.5)); return beautyBead(b, 200 + Math.cos(a) * 90, 120 + Math.sin(a) * 60, 11); }).join('') + (j.pend ? beautyBead(j.pend, 200, 206, 16) : ''); }
+    if (j.type === 'earrings') s = [130, 270].map(x => `<circle cx="${x}" cy="30" r="8" fill="none" stroke="${bChainC(j.chain)}" stroke-width="4"/><path d="M${x} 38 v${22 + B.length * 26}" stroke="${bChainC(j.chain)}" stroke-width="3"/>` + B.map((b, i) => beautyBead(b, x, 58 + i * 26, 11)).join('') + (j.pend ? beautyBead(j.pend, x, 70 + B.length * 26, 17) : '')).join('');
+    if (j.type === 'tiara') { s = beautyChain(j.chain, 'M50 210 Q200 60 350 210', 8); s += B.map((b, i) => { const t = n > 1 ? 0.92 - 0.84 * i / (n - 1) : 0.5, q = 1 - t, x = q * q * 50 + 2 * q * t * 200 + t * t * 350, y = q * q * 210 + 2 * q * t * 60 + t * t * 210, up = 1 - Math.abs(t - 0.5) * 2; return beautyBead(b, x, y - up * 30, 10 + up * 6); }).join('') + (j.pend ? beautyBead(j.pend, 200, 70, 22) : ''); }
+    if (j.type === 'ring') s = `<ellipse cx="200" cy="170" rx="70" ry="26" fill="none" stroke="${bChainC(j.chain)}" stroke-width="12"/><ellipse cx="200" cy="170" rx="70" ry="26" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>` + B.map((b, i) => beautyBead(b, 200 + ((n - 1) / 2 - i) * 30, 140, 13)).join('') + (j.pend ? beautyBead(j.pend, 200, 120, 22) : '');
+    return `<svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="250" rx="20" fill="url(#jwVel)"/><defs><radialGradient id="jwVel" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#5a2a60"/><stop offset="1" stop-color="#2a1030"/></radialGradient></defs><g class="jw-beads">${s}</g></svg>`;
+  }
+  function drawJewelry() {
+    const j = jwCur, upd = () => { jwMsg = ''; drawJewelry(); };
+    const addBead = b => { if (jwPend) { j.pend = b; jwPend = false; } else if (j.beads.length < JW.max[j.type]) j.beads.push(b); else { jwMsg = 'אין יותר מקום על החוט 🙂'; } tone(900 + Math.random() * 500, 0.06, 'triangle', 0, 0.05); drawJewelry(); };
+    const table = el('div', { class: 'jw-table', html: jwBigSVG(j) });
+    const pal = el('div', { class: 'jw-pal' }, ...JW.beads.map(([t, n]) => el('button', { type: 'button', title: n, 'aria-pressed': String(jwBead === t), onclick: () => { jwBead = t; addBead({ t, c: jwCol }); } }, el('span', { class: 'ic', html: `<svg viewBox="-12 -12 24 24">${beautyBead({ t, c: jwCol }, 0, 0, 8)}</svg>` }), el('span', {}, n))));
+    const letters = el('div', { class: 'jw-letters' }, ...JW.letters.map(ch => el('button', { type: 'button', html: `<svg viewBox="-11 -11 22 22">${beautyBead({ t: 'letter', ch, c: jwCol }, 0, 0, 9)}</svg>`, 'aria-label': ch, onclick: () => addBead({ t: 'letter', ch, c: jwCol }) })));
+    const girlPrev = girls.length ? el('div', { class: 'jw-girl', html: girlSVG(Object.assign({}, bGirl(), { jewels: Object.assign({}, bGirl().jewels, { [JW.slot[j.type]]: '__prev' }) }), 'jwp' + (fashUid++), { view: 'hair', bg: false }).replace(/viewBox="[^"]+"/, `viewBox="${{ neck: '104 40 92 130', ears: '104 40 92 92', head: '100 -20 100 120', wrist: '170 250 60 90', ring: '180 280 50 60' }[JW.slot[j.type]]}"`) }) : null;
+    const nm = el('input', { type: 'text', id: 'jwName', maxLength: 24, value: j.name, placeholder: 'שם לתכשיט, למשל: השרשרת של נועה', oninput: e => { j.name = e.target.value; } });
+    const save = () => {
+      j.name = j.name.trim() || JW.types.find(t => t[0] === j.type)[1].slice(3) + ' שלי';
+      if (!j.id) { j.id = 'jw' + Date.now().toString(36); jewels.unshift(JSON.parse(JSON.stringify(j))); } else { const i = jewels.findIndex(x => x.id === j.id); if (i >= 0) jewels[i] = JSON.parse(JSON.stringify(j)); else jewels.unshift(JSON.parse(JSON.stringify(j))); }
+      jwMsg = jwSave() ? `✔️ "${j.name}" נשמר בקופסת התכשיטים!` : 'אין מספיק מקום לשמור 😕'; SFX.ding(); drawJewelry();
+    };
+    const box = el('div', { class: 'jw-box' }, ...jewels.map(x => el('div', { class: 'jw-card' + (x.id === j.id ? ' on' : '') }, el('span', { class: 'ic', html: jwBigSVG(x) }), el('span', {}, x.name),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', title: 'לערוך', onclick: () => { jwCur = JSON.parse(JSON.stringify(x)); upd(); } }, '✏️'),
+        el('button', { type: 'button', class: 'btn', title: 'למחוק', onclick: () => { jewels = jewels.filter(y => y !== x); jwSave(); girls.forEach(g => { if (g.jewels) Object.keys(g.jewels).forEach(k => { if (g.jewels[k] === x.id) delete g.jewels[k]; }); }); saveGirls(); if (j.id === x.id) jwCur = jwNew(j.type); upd(); } }, '🗑️')))));
+    const onGirls = j.id ? bRow(`💖 מי עונדת את ${j.name || 'התכשיט'}?`, bGirlPick(g => g.jewels && g.jewels[JW.slot[j.type]] === j.id, g => { g.jewels = Object.assign({}, g.jewels); const k = JW.slot[j.type]; g.jewels[k] = g.jewels[k] === j.id ? null : j.id; saveGirls(); SFX.pop(); jwMsg = g.jewels[k] ? `✔️ ${g.name || 'היא'} עונדת את ${j.name}!` : ''; drawJewelry(); })) : el('p', { class: 'muted' }, 'שומרים את התכשיט, ואז אפשר לענוד אותו לבנות.');
+    const worn = j.id ? girls.filter(g => g.jewels && g.jewels[JW.slot[j.type]] === j.id).map(g => g.name).join(', ') : '';
+    $('#jewelBody').replaceChildren(
+      bRow('מה מכינים?', bChips(JW.types, j.type, t => { j.type = t; j.beads = j.beads.slice(0, JW.max[t]); upd(); })),
+      el('div', { class: 'jw-wrap' }, el('div', { class: 'row' }, table, el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { j.beads.pop(); upd(); } }, '↩️ להוריד חרוז'), el('button', { type: 'button', class: 'btn', onclick: () => { j.beads = []; j.pend = null; upd(); } }, '🧹 לפרק הכל'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { j.beads = j.beads.slice().reverse(); upd(); } }, '🔄 להפוך סדר'), el('button', { type: 'button', class: 'btn', onclick: () => { const r = a => a[Math.floor(Math.random() * a.length)], c1 = r(JW.colors), c2 = r(JW.colors); j.beads = Array.from({ length: JW.max[j.type] }, (_, i) => i % 2 ? { t: r(['gold', 'silver', 'pearl']), c: c2 } : { t: r(['crystal', 'pearl', 'heart', 'gem', 'star']), c: c1 }); j.pend = r([null, { t: 'heart', c: c1 }, { t: 'drop', c: c2 }, { t: 'moon', c: '#e9c46a' }]); j.chain = r(JW.chains)[0]; SFX.pop(); upd(); } }, '🎲 הפתעה'))),
+        girlPrev ? el('div', { class: 'row' }, el('span', { class: 'lbl' }, `ככה זה נראה על ${bGirl().name || 'הבחורה'}`), girlPrev, worn ? el('span', { class: 'muted' }, `עונדות: ${worn}`) : null) : null),
+      bRow('🎨 הצבע של החרוז הבא', bSw(JW.colors, jwCol, c => { jwCol = c; upd(); })),
+      bRow(jwPend ? '👇 לוחצים על תליון גדול לאמצע' : '📿 לוחצים על חרוז כדי להשחיל אותו', pal),
+      bRow('🔤 חרוזי אותיות (לכתוב שם!)', letters),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn' + (jwPend ? ' main' : ''), onclick: () => { jwPend = !jwPend; drawJewelry(); } }, jwPend ? '✔️ בוחרים תליון...' : '💎 להוסיף תליון גדול'), j.pend ? el('button', { type: 'button', class: 'btn', onclick: () => { j.pend = null; upd(); } }, '✕ בלי תליון') : null),
+      bRow('⛓️ החוט', bChips(JW.chains, j.chain, c => { j.chain = c; upd(); })),
+      el('div', { class: 'row jw-save' }, el('label', { for: 'jwName' }, '💾 שם לתכשיט'), el('div', { class: 'chips' }, nm, el('button', { type: 'button', class: 'btn main', onclick: save }, 'לשמור'), el('button', { type: 'button', class: 'btn', onclick: () => { jwCur = jwNew(j.type); upd(); } }, '🆕 חדש')), el('p', { class: 'muted', role: 'status' }, jwMsg)),
+      onGirls, bRow(`🎁 קופסת התכשיטים שלי (${jewels.length})`, jewels.length ? box : el('p', { class: 'muted' }, 'עוד ריקה...')));
+  }
+
+  // ---------- 💇‍♀️ hair salon ----------
+  // hairstyle table: length x texture x shape
+  const HS_TABLE = {
+    xlong: { straight: ['straight', 'straight', 'bangs'], wavy: ['mermaid', 'mermaid', 'curtain'], curly: ['curly', 'princesscurls', 'curly'] },
+    long: { straight: ['straight', 'layered', 'bangs'], wavy: ['wavy', 'beachwaves', 'curtain'], curly: ['curly', 'sidecurls', 'princesscurls'] },
+    shoulder: { straight: ['lob', 'shag', 'wolf'], wavy: ['lob', 'shag', 'wolf'], curly: ['twistout', 'twistout', 'twistout'] },
+    short: { straight: ['bob', 'bob', 'bangsbob'], wavy: ['fingerwaves', 'bob', 'bangsbob'], curly: ['afro', 'afro', 'afro'] },
+    pixie: { straight: ['pixie', 'pixie', 'pixie'], wavy: ['pixie', 'pixie', 'pixie'], curly: ['afro', 'afro', 'afro'] },
+  };
+  const HS_LENS = [['xlong', 'ארוך מאוד'], ['long', 'ארוך'], ['shoulder', 'עד הכתפיים'], ['short', 'קצר'], ['pixie', 'קצרצר']];
+  const HS_SHAPES = [['plain', 'ישר ופשוט'], ['layers', 'שכבות'], ['bangs', 'עם פוני']];
+  const hsInfo = style => { for (const [len, T] of Object.entries(HS_TABLE)) for (const [tex, arr] of Object.entries(T)) { const i = arr.indexOf(style); if (i >= 0) return { len, tex, shape: HS_SHAPES[i][0] }; } return { len: 'long', tex: ['curly', 'afro', 'twistout', 'sidecurls', 'afropuffs', 'highpuff', 'bantu', 'princesscurls'].includes(style) ? 'curly' : 'straight', shape: 'plain' }; };
+  const hsStyle = (len, tex, shape) => HS_TABLE[len][tex][HS_SHAPES.findIndex(s => s[0] === shape)];
+  const HS_STEPS = [['wash', '🚿 חפיפה'], ['rinse', '💧 שטיפה'], ['comb', '🪮 סירוק'], ['dry', '💨 ייבוש'], ['cut', '✂️ תספורת'], ['iron', '〰️ תלתלים או החלקה'], ['dye', '🎨 צבע'], ['style', '🎀 עיצוב']];
+  const HS_TOOL = { wash: '🧴', rinse: '🚿', comb: '🪮', dry: '💨', cut: '✂️', iron: '〰️', dye: '🖌️', style: '✨' };
+  let hs = null;
+  function openHairSalon(girlId) {
+    bEnsureGirl();
+    const g = bGirl(girlId);
+    hs = { id: g.id, orig: JSON.parse(JSON.stringify(g)), w: JSON.parse(JSON.stringify(g)), step: 'wash', done: {}, fx: [], cells: new Set(), cmp: false, msg: '', cut: Object.assign({}, hsInfo(g.hair)), iron: null, dye: { mode: 'all', c: '#ff9fc8' } };
+    hs.cut.len = hsInfo(g.hair).len; hs.tangles = hsTangles();
+    drawHairSalon();
+    if (!$('#hairDlg').open) $('#hairDlg').showModal();
+  }
+  const hsTangles = () => Array.from({ length: 12 }, (_, i) => ({ x: i % 2 ? 106 + (i * 7) % 16 : 178 + (i * 7) % 16, y: 30 + i * 17, on: true }));
+  function hsStage() {
+    const H = hs, w = H.w, VB = '62 -12 176 272';
+    const key = JSON.stringify(w); if (H.artKey !== key) { H.artKey = key; H.art = girlSVG(Object.assign({}, w, { scene: 'plain', sceneColor: '#fff' }), 'hs' + (fashUid++), { view: 'hair', bg: false }); }
+    const art = H.art;
+    const cape = `<path d="M96 154 Q150 136 204 154 L240 262 H60Z" fill="#9dd8f5" stroke="#6aa8c8" stroke-width="1"/><path d="M130 142 Q150 152 170 142" fill="none" stroke="#fff" stroke-width="3"/>` + Array.from({ length: 9 }, (_, i) => `<circle cx="${80 + i * 18}" cy="${200 + (i % 2) * 22}" r="3" fill="#fff" opacity=".6"/>`).join('');
+    const fx = H.fx.map(f => f.k === 'foam' ? `<circle cx="${bFx(f.x)}" cy="${bFx(f.y)}" r="${f.r}" fill="#fff" opacity=".92" stroke="#d6eef8" stroke-width=".6"/><circle cx="${bFx(f.x - f.r * 0.3)}" cy="${bFx(f.y - f.r * 0.3)}" r="${bFx(f.r * 0.25)}" fill="#bfe8ff" opacity=".7"/>`
+      : f.k === 'dye' ? `<circle cx="${bFx(f.x)}" cy="${bFx(f.y)}" r="${f.r}" fill="${f.c === 'galaxy' ? '#6a4ad0' : f.c === 'glitter' ? '#fff6c4' : f.c}" opacity="${f.c === 'glitter' ? 0.9 : 0.45}"/>`
+        : f.k === 'snip' ? `<path d="M${bFx(f.x)} ${bFx(f.y)} q3 6 1 12" stroke="${w.hairColor === 'galaxy' ? '#5b4bc4' : w.hairColor}" stroke-width="1.4" fill="none" class="hs-fall"/>` : '').join('');
+    const tangles = H.step === 'comb' ? H.tangles.filter(t => t.on).map(t => `<path d="M${t.x - 8} ${t.y} c3 -6 6 6 9 0 c3 -6 6 6 9 -1 M${t.x - 6} ${t.y + 3} c3 -5 5 5 8 0 c3 -5 5 5 7 0" fill="none" stroke="${fmx(w.hairColor === 'galaxy' ? '#5b4bc4' : w.hairColor || '#6e4228', '#000000', 0.35)}" stroke-width="1.2" stroke-linecap="round"/>`).join('') : '';
+    const cutLine = H.step === 'cut' ? (() => { const y = { xlong: 250, long: 215, shoulder: 150, short: 116, pixie: 90 }[H.cut.len]; return `<path d="M64 ${y} H236" stroke="#ff5f8f" stroke-width="1.6" stroke-dasharray="5 4"/><text x="150" y="${y - 5}" text-anchor="middle" font-size="9" fill="#ff5f8f" stroke="#fff" stroke-width="2.4" paint-order="stroke">✂️ גוזרים כאן ✂️</text>`; })() : '';
+    const drops = H.step === 'rinse' ? Array.from({ length: 14 }, (_, i) => `<path class="hs-drop" style="animation-delay:${(i % 7) * 0.15}s" d="M${80 + i * 11} ${-8 + (i % 3) * 10} q2 5 0 7 q-2 -2 0 -7" fill="#7ec8ff" opacity=".8"/>`).join('') : '';
+    const dryFx = H.step === 'dry' && H.done.dry ? Array.from({ length: 10 }, (_, i) => `<path d="M${100 + i * 10} ${30 + (i % 3) * 30} l.8 2 l2 .8 l-2 .8 l-.8 2 l-.8 -2 l-2 -.8 l2 -.8Z" fill="#fff"/>`).join('') : '';
+    return `<svg viewBox="${VB}" xmlns="http://www.w3.org/2000/svg"><rect x="62" y="-12" width="176" height="272" fill="url(#hsBg)"/><defs><linearGradient id="hsBg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fde6f1"/><stop offset="1" stop-color="#f6d0e4"/></linearGradient></defs>` +
+      `<ellipse cx="150" cy="118" rx="96" ry="128" fill="#fff" stroke="#e9c46a" stroke-width="5" opacity=".75"/>${placeSvg(art, 62, -12, 176, 272)}${H.step === 'wash' || H.step === 'rinse' || H.step === 'comb' || H.step === 'cut' || H.step === 'dry' ? cape : ''}${tangles}${fx}${cutLine}${drops}${dryFx}</svg>`;
+  }
+  function hsProgressDone() {
+    const H = hs, st = H.step;
+    if (st === 'rinse') return H.fx.filter(f => f.k === 'foam').length < 4;
+    if (st === 'comb') return H.tangles.every(t => !t.on);
+    return H.cells.size >= { wash: 22, dry: 20, cut: 8, iron: 20, dye: 20 }[st];
+  }
+  function hsFinishStep() {
+    const H = hs, st = H.step, w = H.w;
+    if (H.done[st]) return;
+    H.done[st] = true; SFX.ding();
+    if (st === 'cut') { w.hair = hsStyle(H.cut.len, hsInfo(w.hair).tex, H.cut.shape); H.fx = H.fx.filter(f => f.k !== 'snip'); H.msg = '✂️ איזו תספורת!'; }
+    if (st === 'iron' && H.iron) { const inf = hsInfo(w.hair); w.hair = hsStyle(inf.len, H.iron, inf.shape); H.msg = H.iron === 'straight' ? '✨ חלק ומבריק!' : '💫 איזה תלתלים!'; }
+    if (st === 'dye') { const d = H.dye; if (d.mode === 'all') { w.hairColor = d.c; w.hairColor2 = 'none'; } if (d.mode === 'ombre') w.hairColor2 = d.c === 'galaxy' ? '#b996ff' : d.c; if (d.mode === 'streaks') w.streak = d.c === 'galaxy' ? '#a86bff' : d.c; if (d.mode === 'glitter') w.hairGlitter = true; H.fx = H.fx.filter(f => f.k !== 'dye'); H.msg = '🎨 צבע מושלם!'; }
+    if (st === 'wash') H.msg = '🫧 כמה קצף!';
+    if (st === 'dry') H.msg = '💨 השיער רך ואוורירי!';
+    if (st === 'comb') H.msg = '🪮 אין יותר קשרים!';
+    if (st === 'rinse') { H.fx = []; H.msg = '💧 נקי ומבריק!'; }
+    const i = HS_STEPS.findIndex(s => s[0] === st);
+    setTimeout(() => { if (hs === H && H.step === st && i < HS_STEPS.length - 1 && ['wash', 'rinse', 'comb', 'dry'].includes(st)) { H.step = HS_STEPS[i + 1][0]; H.cells = new Set(); if (H.step === 'rinse') H.foam0 = H.fx.filter(f => f.k === 'foam').length; } drawHairSalon(); }, 700);
+    drawHairSalon();
+  }
+  function drawHairSalon() {
+    const H = hs, w = H.w;
+    const stage = el('div', { class: 'hs-stage', html: hsStage() });
+    const tool = el('div', { class: 'hs-tool' }, HS_TOOL[H.step]);
+    stage.append(tool);
+    const svgEl = stage.querySelector('svg');
+    let down = false, last = 0;
+    const act = e => {
+      const r = stage.getBoundingClientRect(); tool.style.left = (e.clientX - r.left) + 'px'; tool.style.top = (e.clientY - r.top) + 'px';
+      if (!down || H.done[H.step] && !['style'].includes(H.step)) return;
+      if (H.step === 'cut' && false) return;
+      const p = bPt(svgEl, e), st = H.step, cell = `${Math.floor((p.x - 62) / 18)},${Math.floor((p.y + 12) / 22)}`;
+      if (p.x < 70 || p.x > 232 || p.y < -8 || p.y > 258) return;
+      const onFace = ((p.x - 150) / 30) ** 2 + ((p.y - 72) / 40) ** 2 < 1;
+      if (onFace && ['wash', 'dry', 'iron', 'dye'].includes(st)) return;
+      if (st === 'wash') { H.fx.push({ k: 'foam', x: p.x + (Math.random() - 0.5) * 10, y: p.y + (Math.random() - 0.5) * 10, r: 3 + Math.random() * 5 }); H.cells.add(cell); if (Math.random() < 0.3) tone(1200 + Math.random() * 600, 0.04, 'sine', 0, 0.03); }
+      if (st === 'rinse') { H.fx = H.fx.filter(f => Math.hypot(f.x - p.x, f.y - p.y) > 18); if (Math.random() < 0.2) tone(500 + Math.random() * 300, 0.05, 'sine', 0, 0.03); }
+      if (st === 'comb') H.tangles.forEach(t => { if (t.on && Math.hypot(t.x - p.x, t.y - p.y) < 16) { t.on = false; tone(880, 0.05, 'triangle', 0, 0.05); } });
+      if (st === 'dry') { H.cells.add(cell); if (Math.random() < 0.3) tone(200 + Math.random() * 60, 0.08, 'sawtooth', 0, 0.015); }
+      if (st === 'cut') { const y = { xlong: 250, long: 215, shoulder: 150, short: 116, pixie: 90 }[H.cut.len]; if (Math.abs(p.y - y) < 14) { H.cells.add(Math.floor(p.x / 12)); H.fx.push({ k: 'snip', x: p.x, y: y }); if (Math.random() < 0.5) tone(2200, 0.03, 'square', 0, 0.03); } }
+      if (st === 'iron') { if (!H.iron) return; H.cells.add(cell); if (Math.random() < 0.2) tone(700, 0.04, 'sine', 0, 0.03); }
+      if (st === 'dye') { H.fx.push({ k: 'dye', x: p.x, y: p.y, r: H.dye.mode === 'glitter' ? 1.5 : 7, c: H.dye.mode === 'glitter' ? 'glitter' : H.dye.c }); H.cells.add(cell); }
+      const now = Date.now(); if (now - last > 60) { last = now; const s2 = stage.querySelector('svg'); const fresh = new DOMParser().parseFromString(hsStage(), 'image/svg+xml').documentElement; s2.replaceChildren(...[...fresh.childNodes].map(n => document.importNode(n, true))); }
+      if (hsProgressDone()) { down = false; hsFinishStep(); }
+    };
+    stage.addEventListener('pointerdown', e => { down = true; stage.setPointerCapture(e.pointerId); act(e); });
+    stage.addEventListener('pointermove', act);
+    stage.addEventListener('pointerup', () => { down = false; });
+    stage.addEventListener('pointerleave', () => { down = false; });
+    const need = { wash: 22, dry: 20, cut: 8, iron: 20, dye: 20 }[H.step];
+    const pct = H.step === 'style' ? 100 : H.done[H.step] ? 100 : H.step === 'rinse' ? Math.round(100 * (1 - H.fx.filter(f => f.k === 'foam').length / Math.max(1, H.foam0 || 1))) : H.step === 'comb' ? Math.round(100 * H.tangles.filter(t => !t.on).length / H.tangles.length) : Math.min(100, Math.round(100 * H.cells.size / (need || 1)));
+    const steps = el('div', { class: 'hs-steps' }, ...HS_STEPS.map(([id, n], i) => el('button', { type: 'button', class: 'chip' + (H.done[id] ? ' done' : ''), 'aria-pressed': String(H.step === id), onclick: () => { H.step = id; H.cells = new Set(); if (id === 'rinse') H.foam0 = H.fx.filter(f => f.k === 'foam').length; if (id === 'comb' && H.tangles.every(t => !t.on) && !H.done.comb) H.tangles = hsTangles(); drawHairSalon(); } }, (H.done[id] ? '✔️ ' : '') + n)));
+    const hint = { wash: 'מורחים שמפו: מזיזים את הבקבוק על השיער עד שיש המון קצף 🫧', rinse: 'שוטפים: מעבירים את המקלחת על הקצף עד שהוא נעלם 💧', comb: 'מסרקים: מעבירים את המסרק על כל הקשרים 🪮', dry: 'מייבשים עם הפן: מזיזים אותו על כל השיער 💨',
+      cut: 'בוחרים אורך וצורה, ואז מעבירים את המספריים לאורך הקו המקווקו ✂️', iron: 'בוחרים מסלסל או מחליק, ומעבירים על השיער', dye: 'בוחרים צבע ואיפה לצבוע, ומורחים עם המברשת 🖌️', style: 'שמים קישוטים ובוחרים תסרוקת סופית 🎀' }[H.step];
+    let ctl = [];
+    if (H.step === 'cut') ctl = [bRow('📏 אורך', bChips(HS_LENS, H.cut.len, v => { H.cut.len = v; H.cells = new Set(); H.done.cut = false; drawHairSalon(); })), bRow('✂️ צורה', bChips(HS_SHAPES, H.cut.shape, v => { H.cut.shape = v; H.cells = new Set(); H.done.cut = false; drawHairSalon(); }))];
+    if (H.step === 'iron') ctl = [bRow('הכלי', bChips([['wavy', '🌊 גלים'], ['curly', '🌀 מסלסל: תלתלים'], ['straight', '📏 מחליק: חלק']], H.iron, v => { H.iron = v; H.cells = new Set(); H.done.iron = false; drawHairSalon(); }))];
+    if (H.step === 'dye') { const cols = [...FASH.hairColors, ...(typeof treasureLocked === 'function' && !treasureLocked('galaxyhair') ? ['galaxy'] : [])]; ctl = [bRow('איפה צובעים?', bChips([['all', 'כל השיער'], ['ombre', 'אומברה בקצוות'], ['streaks', 'פסים'], ['glitter', '✨ ספריי נצנצים']], H.dye.mode, v => { H.dye.mode = v; H.cells = new Set(); H.done.dye = false; drawHairSalon(); })),
+      H.dye.mode === 'glitter' ? null : bRow('🎨 צבע', bSw(H.dye.mode === 'streaks' ? FASH.streaks.slice(1) : cols, H.dye.c, v => { H.dye.c = v; H.cells = new Set(); H.done.dye = false; drawHairSalon(); }))]; }
+    if (H.step === 'style') { const hair = hsInfo(w.hair); const acc = [['headband', 'קשת'], ['bow', 'פפיון'], ['clips', 'סיכות'], ['hairflower', 'פרח'], ['butterflies', 'פרפרים'], ['hairpearls', 'פנינים'], ['scrunchie', 'גומייה'], ['ribbon', 'סרט'], ['princesstiara', 'נזר נסיכה'], ['queencrown', 'כתר מלכה']];
+      const names = Object.fromEntries(FASH.hairs), ups = ['ponyhigh', 'sleekpony', 'pigtails', 'spacebuns', 'topbun', 'messybun', 'halfup', 'braids', 'french', 'crownbraid', 'royalupdo', 'ballerina', 'heartbun'];
+      ctl = [bRow('💇‍♀️ לאסוף? (אפשר גם להשאיר)', bChips([[hsStyle(hair.len, hair.tex, hair.shape), 'פזור'], ...(['long', 'xlong', 'shoulder'].includes(hair.len) ? ups.map(id => [id, names[id]]) : [])], w.hair, v => { w.hair = v; SFX.pop(); drawHairSalon(); })),
+        bRow('🎀 קישוטים לשיער', el('div', { class: 'chips' }, ...acc.map(([id, n]) => { const on = !!(w.acc || {})[id]; return el('button', { type: 'button', class: 'chip', 'aria-pressed': String(on), onclick: () => { w.acc = Object.assign({}, w.acc, { [id]: !on }); SFX.pop(); drawHairSalon(); } }, (on ? '✔️ ' : '') + n); }))),
+        bRow('🎨 צבע הקישוטים', bSw(FASH.accColors, w.accColor, c => { w.accColor = c; drawHairSalon(); }))]; }
+    const cmp = H.cmp ? el('div', { class: 'hs-cmp' }, el('figure', {}, el('img', { src: girlImgURL(Object.assign({}, H.orig, { scene: 'plain', sceneColor: '#fff' }), { view: 'hair' }), alt: '' }), el('figcaption', {}, 'לפני')), el('figure', {}, el('img', { src: girlImgURL(Object.assign({}, w, { scene: 'plain', sceneColor: '#fff' }), { view: 'hair' }), alt: '' }), el('figcaption', {}, 'אחרי ✨'))) : null;
+    const g = girls.find(x => x.id === H.id);
+    $('#hairBody').replaceChildren(
+      girls.length > 1 ? bRow('💺 מי יושבת בכיסא?', bGirlPick(H.id, x => openHairSalon(x.id))) : null,
+      steps,
+      el('div', { class: 'hs-wrap' }, el('div', { class: 'row' }, stage, el('div', { class: 'hs-bar' }, el('span', { style: `width:${pct}%` }))),
+        el('div', { class: 'row' }, el('p', { class: 'hs-hint' }, hint), ...ctl.filter(Boolean), H.msg ? el('p', { class: 'hs-msg', role: 'status' }, H.msg) : null,
+          el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { H.cmp = !H.cmp; drawHairSalon(); } }, H.cmp ? '✕ לסגור השוואה' : '🪞 לפני ואחרי'),
+            el('button', { type: 'button', class: 'btn', onclick: () => { H.w = JSON.parse(JSON.stringify(H.orig)); H.done = {}; H.fx = []; H.cells = new Set(); H.tangles = hsTangles(); H.step = 'wash'; H.msg = ''; drawHairSalon(); } }, '↩️ להתחיל מחדש'),
+            el('button', { type: 'button', class: 'btn main', onclick: () => { ['hair', 'hairColor', 'hairColor2', 'streak', 'hairGlitter', 'acc', 'accColor'].forEach(k => { if (w[k] !== undefined) g[k] = JSON.parse(JSON.stringify(w[k])); }); saveGirls(); SFX.yay(); bCoins(10, 'תסרוקת בסלון'); H.orig = JSON.parse(JSON.stringify(g)); H.msg = `✔️ ${g.name || 'היא'} יוצאת מהסלון יפהפייה!`; try { confetti($('#hairDlg .confetti-c')); } catch {} drawHairSalon(); } }, '💖 לשמור את התסרוקת')), cmp)));
+  }
+
+  // ---------- 🧖‍♀️ spa ----------
+  const SPA_MASKS = [['clay', '🟤 חימר', '#c9a27e'], ['cucumber', '🥒 מלפפון', '#a8dc8f'], ['strawberry', '🍓 תות', '#ff9ec4'], ['glitter', '✨ נצנצים', '#e3d4ff'], ['gold', '🌟 זהב', '#f2d27a'], ['blueberry', '🫐 אוכמניות', '#b3b8f0']];
+  const SPA_STEPS = [['mask', '🖌️ מסכה'], ['cucumber', '🥒 מלפפונים'], ['relax', '♨️ אדים ובועות'], ['remove', '🧽 להוריד'], ['cream', '💧 קרם'], ['done', '💖 סיום']];
+  let spa = null, spaTimer = 0;
+  function openSpa(girlId) {
+    bEnsureGirl();
+    const g = bGirl(girlId);
+    spa = { id: g.id, step: 'mask', mask: 'cucumber', dots: [], cukes: [], cream: [], msg: '', cells: new Set() };
+    drawSpa();
+    if (!$('#spaDlg').open) $('#spaDlg').showModal();
+  }
+  function spaStage() {
+    const S = spa, g = girls.find(x => x.id === S.id), m = SPA_MASKS.find(x => x[0] === S.mask);
+    if (S.artKey !== JSON.stringify(g)) { S.artKey = JSON.stringify(g); S.art = girlSVG(Object.assign({}, g, { scene: 'plain', sceneColor: '#fff', hat: 'none', glasses: 'none' }), 'sp' + (fashUid++), { view: 'head', bg: false }); }
+    const col = m[2], glit = S.mask === 'glitter' || S.mask === 'gold';
+    const maskD = S.dots.map(d => `<circle cx="${bFx(d.x)}" cy="${bFx(d.y)}" r="${d.r}" fill="${col}"/>`).join('');
+    const towel = `<path d="M110 50 C104 10 196 10 190 50 C192 38 180 22 150 20 C120 22 108 38 110 50Z" fill="#fff" stroke="#f0c6da" stroke-width="1.2"/><path d="M112 44 C120 24 180 24 188 44" fill="none" stroke="#ffd1e3" stroke-width="3"/><circle cx="150" cy="16" r="10" fill="#fff" stroke="#f0c6da" stroke-width="1.2"/><path d="M143 14 q7 -5 14 0" fill="none" stroke="#ffd1e3" stroke-width="2"/>`;
+    const cukes = S.cukes.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="8.5" fill="#6fbf5e" stroke="#3f8f3e" stroke-width="1"/><circle cx="${x}" cy="${y}" r="6.6" fill="#d8f5b8"/>` + [0, 60, 120, 180, 240, 300].map(a => `<ellipse cx="${bFx(x + Math.cos(a * Math.PI / 180) * 3.4)}" cy="${bFx(y + Math.sin(a * Math.PI / 180) * 3.4)}" rx="1.2" ry=".6" fill="#b8e098" transform="rotate(${a} ${bFx(x + Math.cos(a * Math.PI / 180) * 3.4)} ${bFx(y + Math.sin(a * Math.PI / 180) * 3.4)})"/>`).join('')).join('');
+    const bubbles = S.step === 'relax' ? Array.from({ length: 16 }, (_, i) => `<circle class="spa-bub" style="animation-delay:${(i * 0.37) % 3}s" cx="${96 + (i * 29) % 110}" cy="136" r="${2 + i % 4}" fill="#fff" fill-opacity=".35" stroke="#bfe8ff"/>`).join('') + Array.from({ length: 5 }, (_, i) => `<path class="spa-steam" style="animation-delay:${i * 0.6}s" d="M${110 + i * 20} 130 q-6 -12 0 -24 q6 -12 0 -24" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/>`).join('') : '';
+    const cream = S.cream.map(([x, y]) => `<path d="M${x} ${y - 4} l1.2 3 l3 1.2 l-3 1.2 l-1.2 3 l-1.2 -3 l-3 -1.2 l3 -1.2Z" fill="#fff"/><circle cx="${x}" cy="${y}" r="5" fill="#fff" opacity=".3"/>`).join('');
+    return `<svg viewBox="90 -6 120 136" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="spaBg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d9f5ec"/><stop offset="1" stop-color="#bfe8dc"/></linearGradient>` +
+      `<clipPath id="spaFace"><ellipse cx="150" cy="74" rx="29" ry="37"/></clipPath><mask id="spaEyes"><rect x="90" y="-6" width="120" height="136" fill="#fff"/><ellipse cx="136" cy="71" rx="9" ry="5.5" fill="#000"/><ellipse cx="164" cy="71" rx="9" ry="5.5" fill="#000"/><ellipse cx="150" cy="98" rx="8" ry="4" fill="#000"/></mask></defs>` +
+      `<rect x="90" y="-6" width="120" height="136" fill="url(#spaBg)"/><circle cx="102" cy="8" r="16" fill="#fff" opacity=".35"/><circle cx="200" cy="112" r="22" fill="#fff" opacity=".3"/>${placeSvg(S.art, 90, -6, 120, 136)}` +
+      `<g clip-path="url(#spaFace)" mask="url(#spaEyes)" opacity="${S.mask === 'glitter' ? 0.8 : 0.93}">${maskD}${glit ? S.dots.filter((_, i) => i % 3 === 0).map(d => `<circle cx="${bFx(d.x)}" cy="${bFx(d.y)}" r=".8" fill="#fff"/>`).join('') : ''}</g>${towel}${cukes}${bubbles}${cream}</svg>`;
+  }
+  function drawSpa() {
+    const S = spa, g = girls.find(x => x.id === S.id);
+    const stage = el('div', { class: 'spa-stage', html: spaStage() });
+    const tool = el('div', { class: 'hs-tool' }, { mask: '🖌️', remove: '🧽', cream: '🧴', cucumber: '🥒' }[S.step] || '');
+    stage.append(tool);
+    const svgEl = stage.querySelector('svg');
+    let down = false, last = 0;
+    const redraw = () => { const now = Date.now(); if (now - last < 50) return; last = now; const fresh = new DOMParser().parseFromString(spaStage(), 'image/svg+xml').documentElement; stage.querySelector('svg').replaceChildren(...[...fresh.childNodes].map(n => document.importNode(n, true))); };
+    const next = (step, msg) => { S.step = step; S.msg = msg; SFX.ding(); drawSpa(); };
+    const act = e => {
+      const r = stage.getBoundingClientRect(); tool.style.left = (e.clientX - r.left) + 'px'; tool.style.top = (e.clientY - r.top) + 'px';
+      if (!down) return;
+      const p = bPt(svgEl, e), cell = `${Math.floor(p.x / 8)},${Math.floor(p.y / 8)}`, inFace = ((p.x - 150) / 29) ** 2 + ((p.y - 74) / 37) ** 2 < 1;
+      if (S.step === 'mask' && inFace) { S.dots.push({ x: p.x, y: p.y, r: 6 + Math.random() * 2 }); S.cells.add(cell); if (Math.random() < 0.2) tone(400 + Math.random() * 200, 0.05, 'sine', 0, 0.03); redraw(); if (S.cells.size >= 26) { down = false; next('cucumber', '🖌️ איזו מסכה! עכשיו מלפפונים על העיניים'); } }
+      if (S.step === 'remove') { const n0 = S.dots.length; S.dots = S.dots.filter(d => Math.hypot(d.x - p.x, d.y - p.y) > 10); if (S.dots.length < n0) { if (Math.random() < 0.3) tone(700, 0.04, 'sine', 0, 0.03); redraw(); } if (S.dots.length < 4) { down = false; S.dots = []; next('cream', '🧽 העור נקי ורך! עכשיו קצת קרם'); } }
+    };
+    stage.addEventListener('pointerdown', e => {
+      down = true; stage.setPointerCapture(e.pointerId);
+      const p = bPt(svgEl, e);
+      if (S.step === 'cucumber') { const eye = [[136, 71], [164, 71]].find(([x, y]) => Math.hypot(x - p.x, y - p.y) < 14 && !S.cukes.some(c => c[0] === x)); if (eye) { S.cukes.push(eye); tone(600, 0.08, 'triangle'); redraw(); last = 0; if (S.cukes.length === 2) { next('relax', '♨️ עכשיו נרגעים... שומעים את המוזיקה?'); spaRelax(); } } }
+      if (S.step === 'cream') { const ok = ((p.x - 150) / 29) ** 2 + ((p.y - 74) / 37) ** 2 < 1; if (ok) { S.cream.push([bFx(p.x), bFx(p.y)]); tone(1300 + S.cream.length * 120, 0.12, 'sine', 0, 0.05); last = 0; redraw(); if (S.cream.length >= 4) { g.spaUntil = Date.now() + 3 * 864e5; saveGirls(); bCoins(10, 'יום ספא'); SFX.yay(); next('done', `💖 ${g.name || 'היא'} זוהרת ורעננה!`); } } }
+      act(e);
+    });
+    stage.addEventListener('pointermove', act);
+    stage.addEventListener('pointerup', () => { down = false; });
+    const hint = { mask: 'בוחרים מסכה ומורחים עם המכחול על הפנים 🖌️', cucumber: 'לוחצים על שתי העיניים כדי לשים פרוסות מלפפון 🥒', relax: 'שוכבים, נושמים, ונהנים... ♨️', remove: 'מורידים את המסכה עם המטלית: מזיזים אותה על הפנים 🧽', cream: 'לוחצים 4 פעמים על הפנים כדי למרוח קרם לחות 💧', done: 'היא זוהרת! עכשיו אפשר ללכת לאיפור או לציפורניים ✨' }[S.step];
+    $('#spaBody').replaceChildren(
+      girls.length > 1 ? bRow('🧖‍♀️ מי באה לספא?', bGirlPick(S.id, x => openSpa(x.id))) : null,
+      el('div', { class: 'hs-steps' }, ...SPA_STEPS.map(([id, n]) => el('span', { class: 'chip' + (S.step === id ? ' on' : '') }, n))),
+      el('div', { class: 'hs-wrap' }, stage, el('div', { class: 'row' }, el('p', { class: 'hs-hint' }, hint), S.msg ? el('p', { class: 'hs-msg', role: 'status' }, S.msg) : null,
+        S.step === 'mask' ? bRow('איזו מסכה?', el('div', { class: 'chips' }, ...SPA_MASKS.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(S.mask === id), onclick: () => { S.mask = id; drawSpa(); } }, n)))) : null,
+        S.step === 'done' ? el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn main', onclick: () => { $('#spaDlg').close(); fashSel = g.id; fashTab = 'makeup'; fashMk = 'shadow'; fashZoom = true; openFashion(); } }, '💄 לאיפור'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { $('#spaDlg').close(); fashSel = g.id; if (typeof openNails === 'function') openNails(g.nailSet); } }, '💅 לציפורניים'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { $('#spaDlg').close(); openHairSalon(g.id); } }, '💇‍♀️ לסלון השיער'),
+          el('button', { type: 'button', class: 'btn', onclick: () => openSpa(g.id) }, '🔁 עוד פעם')) : null)));
+  }
+  function spaRelax() {
+    clearTimeout(spaTimer);
+    const notes = [523, 659, 784, 659, 587, 698, 880, 698, 523, 659, 784, 1047];
+    notes.forEach((f, i) => tone(f, 0.9, 'sine', i * 0.45, 0.035));
+    spaTimer = setTimeout(() => { if (spa && spa.step === 'relax' && $('#spaDlg').open) { spa.cukes = []; spa.step = 'remove'; spa.msg = '😌 איזה כיף! עכשיו מורידים את המסכה'; SFX.ding(); drawSpa(); } }, 5600);
+  }
+
+  // ---------- 👑 the royal ball ----------
+  const BALL_POSES = [{ la: 60, lf: -30, ra: 20, rf: 60, ll: 8, head: 6 }, { la: 140, lf: -20, ra: 140, rf: -20, head: -6 }, { la: 30, lf: 90, ra: 110, rf: -60, rl: 12, rk: 20, head: 4 }, { la: 100, lf: 40, ra: 100, rf: 40, ll: 6, rl: 6 }];
+  let ball = null;
+  const ballStop = () => { if (!ball) return; clearInterval(ball.poseT); clearInterval(ball.musicT); ball.timers.forEach(clearTimeout); ball.timers = []; };
+  const ballBg = () => `<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bw" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3a1f5c"/><stop offset="1" stop-color="#7a3f8e"/></linearGradient><linearGradient id="bf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f6e6d0"/><stop offset="1" stop-color="#e0bfa0"/></linearGradient><radialGradient id="bl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6c4" stop-opacity=".9"/><stop offset="1" stop-color="#fff6c4" stop-opacity="0"/></radialGradient></defs>` +
+    `<rect width="800" height="500" fill="url(#bw)"/>` + [80, 240, 560, 720].map(x => `<rect x="${x - 40}" y="60" width="80" height="200" rx="40" fill="#1c1240" stroke="#e9c46a" stroke-width="4"/><path d="M${x} 60 V260 M${x - 40} 150 H${x + 40}" stroke="#e9c46a" stroke-width="2" opacity=".6"/>` + Array.from({ length: 5 }, (_, i) => `<circle cx="${x - 25 + (i * 13) % 50}" cy="${90 + (i * 37) % 150}" r="1.4" fill="#fff"/>`).join('')).join('') +
+    `<path d="M340 300 V120 A60 60 0 0 1 460 120 V300Z" fill="#fff4d8" stroke="#e9c46a" stroke-width="6"/><path d="M400 60 V300" stroke="#e9c46a" stroke-width="3"/><path d="M0 0 H800 V36 Q600 80 400 36 Q200 80 0 36Z" fill="#b0204e"/><path d="M0 0 V260 Q40 160 30 0Z M800 0 V260 Q760 160 770 0Z" fill="#8a1840"/>` +
+    [220, 400, 580].map(x => `<g class="ball-chand"><path d="M${x} 0 V40" stroke="#e9c46a" stroke-width="2"/><ellipse cx="${x}" cy="60" rx="70" ry="50" fill="url(#bl)"/><path d="M${x - 40} 52 Q${x} 78 ${x + 40} 52" fill="none" stroke="#e9c46a" stroke-width="4"/>` + [-36, -18, 0, 18, 36].map((d, i) => `<path d="M${x + d} ${56 + Math.abs(d) * -0.2} l-3 10 h6Z" fill="#fff"/><circle cx="${x + d}" cy="${50 + (i % 2) * 4}" r="3.6" fill="#fff6c4"/><path d="M${x + d} ${68 + (i % 2) * 3} l2 6 l-2 5 l-2 -5Z" fill="#dff4ff"/>`).join('') + `</g>`).join('') +
+    `<path d="M0 300 H800 V500 H0Z" fill="url(#bf)"/>` + Array.from({ length: 9 }, (_, i) => `<path d="M${i * 100 - 60} 500 L${400 + (i - 4) * 40} 300" stroke="#d8b890" stroke-width="2"/>`).join('') + [340, 380, 430, 490].map(y => `<path d="M0 ${y} H800" stroke="#d8b890" stroke-width="1.5"/>`).join('') +
+    `<ellipse cx="400" cy="420" rx="300" ry="60" fill="#fff" opacity=".18"/><path d="M300 500 L350 300 H450 L500 500Z" fill="#b0204e" opacity=".85"/></svg>`;
+  function openBall() {
+    bEnsureGirl();
+    ballStop();
+    const pets = (typeof allPets === 'function' ? allPets() : pet ? [pet] : []).slice(0, 3);
+    ball = { chars: [...girls.slice(0, 6).map(g => ({ k: 'g', g })), ...pets.map(p => ({ k: 'p', p }))], phase: 'arrive', timers: [], queen: null };
+    const n = ball.chars.length;
+    ball.chars.forEach((c, i) => { c.x = 8 + (i + 0.5) * 84 / n; c.el = null; });
+    drawBall();
+    if (!$('#ballDlg').open) $('#ballDlg').showModal();
+    // everyone arrives, one by one
+    ball.chars.forEach((c, i) => ball.timers.push(setTimeout(() => { if (!ball || !c.el) return; c.el.classList.add('in'); $('#ballCap').textContent = `🎺 הגיעה לנשף: ${c.k === 'g' ? c.g.name || 'נסיכה' : (c.p.name || 'חיית המחמד')}!`; [523, 659, 784].forEach((f, j) => tone(f, 0.18, 'triangle', j * 0.09, 0.05)); }, 600 + i * 900)));
+    ball.timers.push(setTimeout(() => { if (ball && ball.phase === 'arrive') { $('#ballCap').textContent = 'כולן הגיעו! לוחצים "💃 לרקוד!"'; drawBallCtl(); } }, 900 + n * 900));
+  }
+  function drawBall() {
+    const stage = el('div', { class: 'ball-stage', html: ballBg() });
+    ball.chars.forEach((c, i) => {
+      const src = c.k === 'g' ? girlImgURL(c.g, { bg: false }) : svgData(typeof petSVG === 'function' ? petSVG(c.p) : stickerHTML('cat'));
+      c.img = el('img', { src, alt: '' });
+      c.el = el('div', { class: 'ball-ch ' + (c.k === 'g' ? 'girl' : 'pet') }, c.img, el('span', { class: 'bn' }, c.k === 'g' ? c.g.name || '' : c.p.name || ''));
+      c.el.style.setProperty('--x', c.x + '%'); c.el.style.setProperty('--d', (i % 2 ? -1 : 1));
+      stage.append(c.el);
+    });
+    stage.append(el('div', { class: 'ball-cap', id: 'ballCap' }, '✨ הנשף המלכותי מתחיל... ✨'), el('canvas', { class: 'confetti-c ball-conf' }));
+    $('#ballBody').replaceChildren(stage, el('div', { class: 'chips ball-ctl', id: 'ballCtl' }));
+    drawBallCtl();
+  }
+  function drawBallCtl() {
+    const ctl = $('#ballCtl'); if (!ctl) return;
+    if (ball.phase === 'arrive') ctl.replaceChildren(el('button', { type: 'button', class: 'btn main', onclick: ballDance }, '💃 לרקוד!'));
+    if (ball.phase === 'dance') ctl.replaceChildren(el('button', { type: 'button', class: 'btn main', onclick: ballVote }, '👑 מי מלכת הנשף?'));
+    if (ball.phase === 'vote') ctl.replaceChildren(el('span', { class: 'lbl' }, '👑 לוחצים על מי שתהיה מלכת הנשף:'), ...ball.chars.filter(c => c.k === 'g').map(c => el('button', { type: 'button', class: 'btn', onclick: () => ballCrown(c) }, c.g.name || 'בלי שם')));
+    if (ball.phase === 'end') ctl.replaceChildren(el('button', { type: 'button', class: 'btn main', onclick: openBall }, '🔁 עוד נשף'), el('button', { type: 'button', class: 'btn', onclick: () => { ball.phase = 'dance'; ballDance(); } }, '💃 להמשיך לרקוד'));
+  }
+  function ballDance() {
+    ballStop();
+    ball.phase = 'dance'; drawBallCtl();
+    $('#ballCap').textContent = '🎶 כולן רוקדות ואלס! 🎶';
+    ball.chars.forEach(c => { c.el.classList.add('in', 'dance'); if (c.k === 'g') c.frames = BALL_POSES.map(p => girlImgURL(c.g, { bg: false, pose: p })); });
+    let f = 0;
+    ball.poseT = setInterval(() => { f++; ball.chars.forEach((c, i) => { if (c.frames) c.img.src = c.frames[(f + i) % c.frames.length]; }); }, 520);
+    // a little waltz: oom-pah-pah with a tune on top
+    const tune = [659, 784, 880, 784, 659, 587, 523, 587, 659, 523, 440, 523, 587, 659, 587, 523];
+    let bar = 0;
+    const playBar = () => { const t = tune[bar % tune.length], base = [262, 294, 330, 294][Math.floor(bar / 4) % 4]; tone(base / 2, 0.3, 'triangle', 0, 0.05); tone(base, 0.18, 'sine', 0.36, 0.035); tone(base * 1.25, 0.18, 'sine', 0.72, 0.035); tone(t, 0.9, 'triangle', 0, 0.045); bar++; };
+    playBar(); ball.musicT = setInterval(playBar, 1080);
+    ball.timers.push(setTimeout(() => { try { confetti($('#ballDlg .ball-conf')); } catch {} }, 1500));
+  }
+  function ballVote() { ballStop(); ball.phase = 'vote'; ball.chars.forEach(c => c.el.classList.remove('dance')); $('#ballCap').textContent = '🤫 ההצבעה מתחילה... מי תהיה מלכת הנשף?'; drawBallCtl(); }
+  function ballCrown(c) {
+    ball.phase = 'end'; ball.queen = c;
+    c.g.ballQueen = (c.g.ballQueen || 0) + 1; saveGirls();
+    ball.chars.forEach(x => x.el.classList.toggle('queen', x === c));
+    c.el.append(el('span', { class: 'ball-crown' }, '👑'));
+    $('#ballCap').textContent = `👑 ${c.g.name || 'היא'} מלכת הנשף!${c.g.ballQueen > 1 ? ` (כבר ${c.g.ballQueen} פעמים)` : ''} 👑`;
+    SFX.yay(); try { confetti($('#ballDlg .ball-conf')); } catch {} bCoins(15, 'נשף מלכותי');
+    drawBallCtl();
+  }
+  $('#ballDlg').addEventListener('close', () => { ballStop(); try { confettiRun++; } catch {} });
+  $('#spaDlg').addEventListener('close', () => clearTimeout(spaTimer));
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
