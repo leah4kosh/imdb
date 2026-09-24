@@ -607,6 +607,139 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
 .wish-star { display: flex; gap: 10px; align-items: center; border-bottom: 1px dashed var(--line); padding-bottom: 6px; }
 .wish-star .ic { width: 36px; height: 36px; flex: none; } .wish-star .ic svg { width: 100%; height: 100%; }
 
+/* ---------- under the sea ---------- */
+.sea-scene { position: relative; border-radius: 18px; overflow: hidden; border: 2.5px solid var(--ink); background: #3aa6dc; }
+.sea-scene > svg { width: 100%; height: auto; display: block; touch-action: none; cursor: crosshair; user-select: none; }
+.sea-scene .sea-it { cursor: grab; }
+.sea-scene .sea-it:active { cursor: grabbing; }
+.sea-scene .sea-it.sel { filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 5px #ff6b9a); }
+.sea-scene.flash::after { content: ""; position: absolute; inset: 0; background: #fff; animation: seaflash .5s ease-out forwards; pointer-events: none; }
+@keyframes seaflash { from { opacity: .95; } to { opacity: 0; } }
+.sea-scene .sea-swim, .sea-scene .sea-float, .sea-scene .sea-sway, .sea-scene .sea-bub, .sea-scene .sea-mer, .sea-scene .sea-bob, .sea-scene .sea-ray, .sea-scene .sea-twinkle { transform-box: fill-box; transform-origin: center; }
+.sea-scene .sea-swim { animation: seaswim 10s ease-in-out infinite; }
+.sea-scene .sea-float { animation: seafloat 4s ease-in-out infinite; }
+.sea-scene .sea-sway { transform-origin: 50% 100%; animation: seasway 4s ease-in-out infinite alternate; }
+.sea-scene .sea-bub { animation: seabub 3.6s ease-in infinite; }
+.sea-scene .sea-mer { animation: seamer 18s ease-in-out infinite alternate; }
+.sea-scene .sea-bob { animation: seafloat 3.2s ease-in-out infinite; }
+.sea-scene .sea-ray { animation: searay 6s ease-in-out infinite alternate; }
+.sea-scene .sea-twinkle { animation: blink 1.8s ease-in-out infinite alternate; }
+@keyframes seaswim { 0% { transform: translate(30px, 0); } 25% { transform: translate(0, -6px); } 48% { transform: translate(-30px, 0) scaleX(1); } 52% { transform: translate(-30px, 0) scaleX(-1); } 75% { transform: translate(0, 6px) scaleX(-1); } 96% { transform: translate(30px, 0) scaleX(-1); } 100% { transform: translate(30px, 0) scaleX(1); } }
+@keyframes seafloat { 50% { transform: translateY(-10px); } }
+@keyframes seasway { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+@keyframes seabub { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-160px) translateX(8px); opacity: 0; } }
+@keyframes seamer { from { transform: translateX(-50px); } to { transform: translateX(50px); } }
+@keyframes searay { from { opacity: .5; } to { opacity: 1.3; } }
+.sea-tools { align-items: center; }
+.sea-tools .btn:disabled { opacity: .4; }
+.sea-hint { color: var(--soft); font-size: .95em; }
+.sea-pal { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 6px; max-height: 190px; overflow-y: auto; padding: 2px; }
+.sea-pal button { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 4px; display: grid; justify-items: center; gap: 1px; font-size: .78em; line-height: 1.15; }
+.sea-pal button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); box-shadow: 0 0 0 2px var(--accent) inset; }
+.sea-pal .ic { width: 44px; height: 44px; }
+.sea-pal .ic svg { width: 100%; height: 100%; overflow: visible; }
+.sea-pal .ic.hand { font-size: 1.9em; display: grid; place-items: center; }
+@media (prefers-reduced-motion: reduce) { .sea-scene * { animation: none !important; } }
+
+/* ---------- dream journal (night sheet) ---------- */
+dialog#dreamDlg {
+  --ink: #f1ecff; --soft: #b9b3e6; --line: #4b4686; --card: #221f4a; --paper: #2e2a5e; --accent: #ffd86b; --accent-ink: #2a1f4a;
+  border-color: #8e7cff; color: var(--ink);
+  background: radial-gradient(circle at 12% 8%, #fff 0 1px, transparent 1.6px) 0 0 / 97px 83px, radial-gradient(circle at 60% 40%, #fff8c8 0 1.2px, transparent 2px) 0 0 / 131px 109px,
+    radial-gradient(circle at 30% 70%, #cfd6ff 0 .8px, transparent 1.4px) 0 0 / 61px 71px, linear-gradient(170deg, #1a1b44, #2c2160 60%, #3b2468);
+  box-shadow: 0 0 40px rgb(142 124 255 / .45);
+}
+#dreamDlg .sheet-head h3 { color: #ffe9a8; text-shadow: 0 0 12px rgb(255 216 107 / .6); }
+#dreamDlg .dream-moon { width: 54px; height: 54px; flex: none; animation: bob 3s ease-in-out infinite; filter: drop-shadow(0 0 10px #fff3a8); }
+#dreamDlg .dream-moon svg { width: 100%; height: 100%; }
+#dreamDlg .box { background: rgb(20 18 50 / .55); border-color: var(--line); }
+#dreamDlg input[type="text"], #dreamDlg input[type="date"], #dreamDlg textarea { background-color: #16143a; color: var(--ink); border-color: var(--line); color-scheme: dark; }
+#dreamDlg textarea { min-height: 130px; }
+#dreamDlg ::placeholder { color: #8a84bf; }
+#dreamDlg .chip, #dreamDlg .btn { background: #2a2660; border-color: var(--line); color: var(--ink); }
+#dreamDlg .chip[aria-pressed="true"] { background: #4a3f96; border-color: var(--accent); }
+#dreamDlg .btn.main { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+#dreamDlg .x { color: var(--ink); }
+.dream-2 { display: grid; grid-template-columns: minmax(0, 170px) 1fr; gap: 10px; }
+@media (max-width: 520px) { .dream-2 { grid-template-columns: 1fr; } }
+.moons { display: inline-flex; gap: 2px; }
+.moons button { border: none; background: none; width: 38px; height: 38px; padding: 2px; filter: grayscale(1) brightness(.6); opacity: .55; transition: transform .15s; }
+.moons button svg { width: 100%; height: 100%; display: block; }
+.moons button.on { filter: drop-shadow(0 0 6px #fff3a8); opacity: 1; }
+.moons button:hover { transform: scale(1.15); }
+.dream-list { display: grid; gap: 10px; }
+.dream-card { display: grid; gap: 6px; padding: 12px 14px; border-radius: 16px; background: rgb(255 255 255 / .06); border: 1.5px solid var(--line); }
+.dream-top { display: flex; gap: 10px; align-items: center; }
+.dream-em { font-size: 1.5em; line-height: 1; max-width: 5.2em; overflow: hidden; white-space: nowrap; }
+.dream-t { display: grid; flex: 1; min-width: 0; }
+.dream-t b { font-weight: 400; font-size: 1.2em; color: #ffe9a8; overflow-wrap: anywhere; }
+.dream-moons { display: inline-flex; flex: none; }
+.dream-moons i { width: 20px; height: 20px; filter: grayscale(1) brightness(.6); opacity: .4; }
+.dream-moons i.on { filter: drop-shadow(0 0 3px #fff3a8); opacity: 1; }
+.dream-moons svg { width: 100%; height: 100%; display: block; }
+.dream-text { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; }
+.dream-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.dream-tags span { font-size: .8em; padding: 1px 10px; border-radius: 999px; background: rgb(142 124 255 / .25); }
+
+/* ---------- pet grows + tricks ---------- */
+.grow-path { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.grow-step { display: grid; justify-items: center; gap: 0; padding: 6px 4px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); font-size: .88em; text-align: center; }
+.grow-step.on { border-color: var(--accent); background: var(--paper); }
+.grow-step.locked .ic { filter: grayscale(1) brightness(1.3); opacity: .45; }
+.grow-step .ic { width: 58px; height: 64px; display: flex; align-items: flex-end; }
+.grow-step .ic svg { width: 100%; height: 100%; }
+.grow-step small { color: var(--soft); font-size: .8em; }
+.trick-stage { position: relative; height: 200px; border-radius: 18px; border: 2px solid var(--line); overflow: hidden;
+  background: radial-gradient(ellipse at 50% 100%, #fff3c4 0 30%, transparent 31%), linear-gradient(#ffd6e8, #ffe9c9 70%, #e8c9a7 70%); }
+.trick-stage::before { content: ""; position: absolute; inset: 0 0 auto; height: 22px; background: repeating-linear-gradient(90deg, #ff6b8a 0 26px, #ffd84d 26px 52px); border-bottom: 2px solid #3a2b3c; border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+.trick-pet { position: absolute; left: 50%; bottom: 12px; width: 130px; height: 150px; transform: translateX(-50%); }
+.trick-pet svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.trick-say { position: absolute; top: 30px; left: 50%; transform: translateX(-50%); background: #fff; color: #1f2a44; border: 2px solid #3a2b3c; border-radius: 14px; padding: 2px 12px; white-space: nowrap; font-size: .95em; z-index: 1; }
+.trick-fx span { position: absolute; left: calc(50% - 16px); bottom: 70px; width: 32px; height: 32px; animation: trickburst 1.3s ease-out forwards; }
+.trick-fx span svg { width: 100%; height: 100%; }
+@keyframes trickburst { from { transform: rotate(var(--a)) translateY(0) scale(.3); opacity: 1; } to { transform: rotate(var(--a)) translateY(-90px) scale(1); opacity: 0; } }
+.trick-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+.trick-btns .chip:disabled { opacity: .55; }
+svg.trick-jump, svg.trick-spin, svg.trick-dance, svg.trick-double, svg.trick-wave, svg.trick-roll, svg.trick-star { transform-origin: 50% 90%; }
+svg.trick-jump { animation: tjump .7s ease; }
+svg.trick-spin { animation: tspin .9s ease-in-out; transform-origin: 50% 55%; }
+svg.trick-dance { animation: tdance 1.4s ease-in-out; }
+svg.trick-double { animation: tdouble 1.2s ease; }
+svg.trick-wave { animation: twave 1.2s ease-in-out; }
+svg.trick-roll { animation: troll 1.6s ease-in-out; transform-origin: 50% 55%; }
+svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
+@keyframes tjump { 40% { transform: translateY(-50px) scale(.95, 1.08); } 70% { transform: translateY(0) scale(1.1, .9); } 85% { transform: translateY(-8px); } }
+@keyframes tspin { to { transform: rotateY(360deg); } }
+@keyframes tdance { 15% { transform: rotate(-12deg) translateX(-10px); } 30% { transform: rotate(12deg) translateX(10px) translateY(-10px); } 45% { transform: rotate(-12deg) translateX(-10px); } 60% { transform: rotate(12deg) translateX(10px) translateY(-10px); } 80% { transform: scale(1.1); } }
+@keyframes tdouble { 22% { transform: translateY(-45px); } 42% { transform: translateY(0) scale(1.08, .92); } 70% { transform: translateY(-80px) rotate(360deg); } 88% { transform: translateY(0) rotate(360deg) scale(1.08, .92); } 100% { transform: rotate(360deg); } }
+@keyframes twave { 15%, 45%, 75% { transform: rotate(-14deg); } 30%, 60%, 90% { transform: rotate(14deg); } }
+@keyframes troll { 25% { transform: translateX(-45px) rotate(-360deg); } 50% { transform: translateX(0) rotate(-720deg); } 75% { transform: translateX(45px) rotate(-360deg); } 100% { transform: translateX(0) rotate(0); } }
+@keyframes tstar { 30% { transform: translateY(-40px) scale(1.25) rotate(180deg); filter: drop-shadow(0 0 14px #ffd84d); } 60% { transform: translateY(-40px) scale(1.25) rotate(360deg); filter: drop-shadow(0 0 20px #ffd84d); } 100% { transform: none; } }
+@media (prefers-reduced-motion: reduce) { svg[class*="trick-"] { animation-duration: .01s !important; } .trick-fx span { display: none; } }
+
+/* ---------- little piano ---------- */
+.piano-wrap { overflow-x: auto; padding-bottom: 4px; direction: ltr; }
+.piano { position: relative; display: flex; direction: ltr; height: 210px; min-width: 520px; user-select: none; touch-action: none; background: #3a2b3c; border: 3px solid #3a2b3c; border-radius: 14px; padding: 14px 4px 4px; gap: 3px; }
+.pkey { font-family: 'Rubik', system-ui, sans-serif; padding: 0; border: 2px solid #3a2b3c; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 2px; transition: transform .05s, background .08s; -webkit-tap-highlight-color: transparent; }
+.pkey.white { flex: 1; background: linear-gradient(#fff 0 80%, var(--kc, #ffd6e4) 80%); border-radius: 0 0 10px 10px; color: #3a2b3c; padding-bottom: 6px; }
+.pkey.black { position: absolute; top: 14px; height: 58%; z-index: 1; background: linear-gradient(#5a4a5e, #2a1f2c); border-radius: 0 0 8px 8px; color: #fff; padding-bottom: 5px; }
+.pkey .nm { font-family: var(--font); font-size: .82em; }
+.pkey .kb { font-size: .62em; opacity: .55; }
+.pkey.white.on { background: linear-gradient(var(--kc, #ffd6e4), #fff); transform: translateY(2px); }
+.pkey.black.on { background: linear-gradient(#b58cff, #7a52c9); transform: translateY(2px); }
+.pkey.white.next { background: linear-gradient(#fff6c2, #ffd84d); }
+.pkey.black.next { background: linear-gradient(#ffe27a, #e0a800); color: #3a2b3c; }
+.pkey.next { animation: pnext .7s ease-in-out infinite alternate; }
+.pkey.next::before { content: "👇"; font-size: 1.2em; line-height: 1; margin-bottom: auto; margin-top: 8px; }
+@keyframes pnext { from { box-shadow: 0 0 0 3px #ffd84d inset, 0 0 6px #ffd84d; } to { box-shadow: 0 0 0 4px #ffb020 inset, 0 0 22px #ffd84d; } }
+.pkey.nope { animation: shake .3s; }
+.pkey.c0 { --kc: #ff8fab; } .pkey.c2 { --kc: #ffb86b; } .pkey.c4 { --kc: #ffe27a; } .pkey.c5 { --kc: #8fe0a0; } .pkey.c7 { --kc: #7ec8ff; } .pkey.c9 { --kc: #a7a0ff; } .pkey.c11 { --kc: #e4a0ff; }
+.piano-tip { font-size: .85em; }
+.learn-box { display: grid; gap: 6px; padding: 10px 12px; border-radius: 14px; background: var(--paper); border: 2px dashed var(--accent); }
+.learn-box .next-note { color: var(--accent); font-weight: 400; font-size: 1.3em; }
+.rec-note { margin: 0; color: #d7263d; animation: blink .8s infinite alternate; }
+.btn.rec-on { background: #d7263d; border-color: #d7263d; color: #fff; }
+@media (prefers-reduced-motion: reduce) { .pkey.next, .rec-note { animation: none; } }
 /* ---------- pet house / adopt ---------- */
 .steps { display: flex; gap: 6px; justify-content: center; }
 .steps i { width: 34px; height: 8px; border-radius: 99px; background: var(--line); }
@@ -1291,6 +1424,40 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="wishBody"></div>
+  </div>
+</dialog>
+
+<!-- Under the sea -->
+<dialog id="seaDlg" aria-labelledby="seaTitle" style="width:min(900px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="seaTitle">🐠 העולם מתחת למים</h3><div class="sub">בוחרים קישוט ולוחצים על המים כדי לשים אותו. בנות הים שלך שוחות פה!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="seaBody"></div>
+  </div>
+</dialog>
+
+<!-- Dream journal -->
+<dialog id="dreamDlg" aria-labelledby="dreamTitle">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div style="display:flex;gap:10px;align-items:center"><span class="dream-moon" id="dreamMoon" aria-hidden="true"></span><div><h3 id="dreamTitle">יומן החלומות שלי</h3><div class="sub">כותבים בבוקר, לפני שהחלום בורח!</div></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="dreamBody"></div>
+  </div>
+</dialog>
+
+<!-- Little piano -->
+<dialog id="pianoDlg" aria-labelledby="pianoTitle" style="width:min(860px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="pianoTitle">🎵 הפסנתר הקטן שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="pianoBody"></div>
   </div>
 </dialog>
 
@@ -3327,7 +3494,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     box.replaceChildren(
       say ? el('span', { class: 'say' }, say) : null,
       unlockedSet().has('guardian') ? el('span', { class: 'guard-mini' + (theGuardMer() ? ' mer' : ''), title: guardName(), html: guardArt() }) : null,
-      el('button', { type: 'button', class: 'art' + (sleepy ? ' sleepy' : ''), 'aria-label': `${pet.name || 'החיה שלי'}, רמה ${L}. לפתוח את הבית`, html: petSVG(pet), onclick: () => {
+      el('button', { type: 'button', class: 'art' + (sleepy ? ' sleepy' : ''), 'aria-label': `${pet.name || 'החיה שלי'}, רמה ${L}. לפתוח את הבית`, html: petSVG(grownPet(pet)), onclick: () => {
         SFX.pet(pet.kind);
         if (hungry()) { openHouse(true); return; }
         petSay = sleepy ? 'משעמם לי... אולי נכתוב ביומן? 😴' : PET_LINES[petTap++ % PET_LINES.length];
@@ -3407,7 +3574,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       ...items.map((id, i) => { const s = el('span', { class: 'item', html: stickerHTML(id), title: STICKERS[id][0] }); s.style.left = `${4 + (i % 2 ? 78 - (i >> 1) * 11 : (i >> 1) * 11)}%`; return s; }),
       un.has('guardian') ? el('span', { class: 'guard' + (theGuardMer() ? ' mer' : ''), html: guardArt(), title: guardName() }) : null,
       ...(SEA.includes(pet.kind) ? mermaids.filter(m => !theGuardMer() || m.id !== theGuardMer().id).slice(0, 2).map((m, i) => { const s = el('span', { class: 'mer-extra', html: merArt(m), title: m.name }); s.style.left = `${4 + i * 13}%`; return s; }) : []),
-      el('button', { type: 'button', class: 'pet-art', 'aria-label': 'ללטף', html: petSVG(pet), onclick: () => pat() }),
+      el('button', { type: 'button', class: 'pet-art', 'aria-label': 'ללטף', html: petSVG(grownPet(pet)), onclick: () => pat() }),
       say || (hungry() ? 'אני רעב/ה! 🍽️' : null) ? el('span', { class: 'say' }, say || 'אני רעב/ה! 🍽️') : null);
     $('#houseScene').replaceWith(scene);
     $('#houseActions').replaceChildren(
@@ -3417,7 +3584,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       un.has('guardian') ? el('button', { type: 'button', class: 'btn', onclick: () => { drawHouse(null, guardLine()); SFX.boop(); } }, '💬 לדבר עם ' + guardName().split(' ')[0]) : null,
       SEA.includes(pet.kind) ? el('button', { type: 'button', class: 'btn', onclick: () => { $('#houseDlg').close(); openMermaids(); } }, '🧜‍♀️ לעצב בנות ים') : null);
     $('#houseFood').replaceChildren(mode === 'feed' ? el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => feed(f) }))) : null);
-    const TABS2 = [['wear', '👗 להלביש'], ['color', '🎨 צבע וגודל'], ['home', '🏠 הבית'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
+    const TABS2 = [['wear', '👗 להלביש'], ['color', '🎨 צבע וגודל'], ['home', '🏠 הבית'], ['tricks', '🎪 גדילה וטריקים'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
     $('#houseTabs').replaceChildren(...TABS2.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(houseTab === id), onclick: () => { houseTab = id; drawHouse(); } }, name)));
     const tab = $('#houseTab');
     if (houseTab === 'wear') {
@@ -3431,7 +3598,7 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
               el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { wear: { [slot]: id } })) }), got ? v[1] : '🔒 ' + v[1]);
           })))));
     } else if (houseTab === 'color') {
-      const size = el('input', { type: 'range', id: 'houseSize', min: 0.65, max: 1.15, step: 0.05, value: pet.size || 1, oninput: e => { pet.size = Number(e.target.value); savePet(); $('#houseScene .pet-art').innerHTML = petSVG(pet); renderPet(); } });
+      const size = el('input', { type: 'range', id: 'houseSize', min: 0.65, max: 1.15, step: 0.05, value: pet.size || 1, oninput: e => { pet.size = Number(e.target.value); savePet(); $('#houseScene .pet-art').innerHTML = petSVG(grownPet(pet)); renderPet(); } });
       size.addEventListener('change', () => drawHouse());
       tab.replaceChildren(el('div', { class: 'pet-pick' }, ...PET_COLORS.map(([deg, name]) => el('button', { type: 'button', 'aria-pressed': String((pet.color || 0) === deg), onclick: () => { pet.color = deg; savePet(); drawHouse(); renderPet(); } },
         el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { color: deg })) }), name))),
@@ -3447,6 +3614,8 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
             onclick: () => { pet.house.hidden = shown ? [...(pet.house.hidden || []), f[3]] : (pet.house.hidden || []).filter(x => x !== f[3]); savePet(); drawHouse(); } },
             el('span', { class: 'ic', html: stickerHTML(f[3]) }), (got ? '' : '🔒 ') + STICKERS[f[3]][0]);
         })));
+    } else if (houseTab === 'tricks') {
+      tab.replaceChildren(petTricksPanel());
     } else if (houseTab === 'unlocks') {
       const d = firstsDone();
       tab.replaceChildren(el('p', { class: 'muted' }, 'כל דבר שעושים בפעם הראשונה פותח הפתעה!'),
@@ -3907,6 +4076,10 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
     ['trophy', 'מדליות', () => { buildMedals(); $('#medDlg').showModal(); }],
     ['cat', 'חיית המחמד שלי', () => openHouse()],
     ['shell', 'בנות הים שלי', () => openMermaids()],
+    ['shell', 'העולם מתחת למים', () => openSea()],
+    ['magicmoon', 'יומן חלומות', () => openDreams()],
+    ['music', 'פסנתר קטן', () => openPiano()],
+    ['dog', 'הטריקים של החיה', () => { houseTab = 'tricks'; openHouse(); }],
     ['smiley', 'היומן שלי', () => openDiary()],
     ['ball', 'משחקים', () => openGames()],
     ['gift', 'תיבת הפתעה', () => openSurprise()],
@@ -4655,6 +4828,481 @@ dialog#lock.pattern-stars { background-image: var(--lock-pattern); background-si
       !box.length && !stars.length && mode !== 'star' ? el('p', { class: 'muted' }, 'גם כשעובר על המסך כוכב נופל 🌠 (פעם בכמה ימים), אם תלחצי עליו מהר, תוכלי לבקש משאלה!') : null);
     if (!$('#wishDlg').open) $('#wishDlg').showModal();
   }
+
+  // ================= under the sea: a scene to decorate =================
+  const SEA_PETS = ['whale', 'fish', 'turtle'];
+  const seaHash = s => { let h = 7; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
+  // a thick outlined line (outline + color), like the mermaid arms
+  const tube = (d, col, w = 8) => `<path d="${d}" fill="none" stroke="${O}" stroke-width="${w + 5}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // each piece is drawn around 0,0 (about 70 wide). anim: swim | float | sway | bubbles. glow: shines at night
+  const SEA_ITEMS = {
+    coral: ['אלמוג ורוד', 1, 'sway', false, () => tube('M0 30 V6 M0 16 L-13 2 L-15 -16 M-13 2 L-25 -6 M0 6 L10 -10 L8 -26 M10 -10 L23 -17 M0 -2 V-22', '#ff8fb8') + `<ellipse cx="0" cy="31" rx="14" ry="5" fill="#b8c2cf" ${S2}/>`],
+    coral2: ['מניפה סגולה', 1, 'sway', false, () => `<path d="M0 30 C-32 20 -38 -12 -24 -28 C-10 -40 10 -40 24 -28 C38 -12 32 20 0 30 Z" fill="#b58cff" ${S}/>` +
+      [-24, -12, 0, 12, 24].map(x => `<path d="M0 27 Q${x * 0.6} 0 ${x} -${30 - Math.abs(x) * 0.3}" fill="none" stroke="#7a52c9" stroke-width="1.8" stroke-linecap="round"/>`).join('') +
+      [-8, -20].map(y => `<path d="M-${26 + y * 0.3} ${y} Q0 ${y - 8} ${26 + y * 0.3} ${y}" fill="none" stroke="#7a52c9" stroke-width="1.6" opacity=".7"/>`).join('') + tube('M0 36 V26', '#8e6bd6', 5)],
+    coral3: ['אלמוג צינורות', 1, null, false, () => [[-22, -8, 12, '#ffb04d'], [-9, -24, 13, '#ff8a3c'], [5, -14, 12, '#ffb04d'], [18, -2, 11, '#ff8a3c']].map(([x, y, w, c]) =>
+      `<rect x="${x - w / 2}" y="${y}" width="${w}" height="${32 - y}" rx="${w / 2}" fill="${c}" ${S}/><ellipse cx="${x}" cy="${y + 3}" rx="${w / 2 - 2}" ry="2.6" fill="#b3521a"/>`).join('')],
+    coral4: ['אלמוג עגול', 1, null, false, () => `<path d="M-30 28 C-34 -2 -18 -20 0 -20 C18 -20 34 -2 30 28 Z" fill="#ffd84d" ${S}/>` +
+      ['M-22 18 q4 -10 10 -4 q6 6 10 -4 q4 -10 10 -2 q6 6 10 -4', 'M-24 6 q6 -8 10 -2 q6 6 10 -4 q6 -8 12 -2 q4 4 10 -2', 'M-16 -8 q6 -6 10 0 q6 4 10 -2 q4 -4 10 0'].map(d => `<path d="${d}" fill="none" stroke="#d9a400" stroke-width="2.2" stroke-linecap="round"/>`).join('')],
+    seaweed: ['אצות', 1.1, 'sway', false, () => `<path d="M-10 32 C-20 14 0 4 -10 -12 C-16 -24 -6 -32 -4 -38 C4 -26 -2 -14 2 -6 C8 8 -6 18 0 32 Z" fill="#5cc96b" ${S}/>` +
+      `<path d="M2 32 C12 18 -2 10 10 -4 C16 -12 12 -20 18 -26 C24 -14 20 -6 18 2 C14 14 22 22 12 32 Z" fill="#3fae6a" ${S}/><path d="M-6 26 Q-10 10 -6 -8" fill="none" stroke="#2d8a4a" stroke-width="1.8" stroke-linecap="round"/>`],
+    shell: ['צדף', 0.8, null, false, () => `<path d="M-6 22 L-28 -2 C-28 -20 -12 -26 0 -26 C12 -26 28 -20 28 -2 L6 22 Z" fill="#ffc2d6" ${S}/>` +
+      [-20, -10, 0, 10, 20].map(x => `<path d="M0 20 L${x} -${24 - Math.abs(x) * 0.2}" stroke="#e58aa9" stroke-width="2" stroke-linecap="round"/>`).join('') + `<path d="M-9 20 H9 L7 28 H-7 Z" fill="#ffa8c4" ${S}/>` + shine(-18, -10)],
+    starfish: ['כוכב ים', 0.8, null, false, () => `<polygon points="${starPts(0, 2, 30, 13)}" fill="#ff8a6b" ${S}/>` + [[-12, -6], [12, -6], [-8, 14], [8, 14], [0, -16]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.6" fill="#fff" opacity=".8"/>`).join('') + face(0, 3, .8)],
+    chest: ['תיבת אוצר', 1, null, true, () => `<path d="M-30 -6 L-27 -30 C-10 -38 12 -38 28 -32 L30 -6 Z" fill="#a0673e" ${S}/>` +
+      `<path d="M-28 -4 C-22 -18 -8 -12 0 -20 C8 -12 22 -18 28 -4 Z" fill="#ffd84d" ${S}/><circle cx="-12" cy="-12" r="4" fill="#ffcf3a" ${S2}/><circle cx="12" cy="-13" r="4" fill="#ffcf3a" ${S2}/><path d="M0 -24 l5 5 l-5 6 l-5 -6 Z" fill="#7ee0ff" ${S2}/>` +
+      `<rect x="-31" y="-6" width="62" height="34" rx="4" fill="#c98a4b" ${S}/><rect x="-31" y="3" width="62" height="6" fill="#ffcf3a" ${S2}/><rect x="-6" y="0" width="12" height="14" rx="2" fill="#ffd84d" ${S2}/><circle cx="0" cy="7" r="2" fill="${O}"/>`],
+    castle: ['ארמון', 1.3, null, false, () => `<rect x="-33" y="-18" width="18" height="48" fill="#ffc2d6" ${S}/><rect x="15" y="-18" width="18" height="48" fill="#ffc2d6" ${S}/>` +
+      `<rect x="-16" y="-4" width="32" height="34" fill="#ffd6e4" ${S}/><path d="M-36 -18 L-24 -38 L-12 -18 Z M12 -18 L24 -38 L36 -18 Z" fill="#b58cff" ${S}/><path d="M-18 -4 L0 -24 L18 -4 Z" fill="#8e6bd6" ${S}/>` +
+      `<path d="M-8 30 V16 A8 8 0 0 1 8 16 V30 Z" fill="#6b4f8a" ${S2}/><path d="M-24 -38 V-48 L-16 -45 L-24 -42" fill="#ffd84d" ${S2}/>` +
+      `<rect x="-27" y="-6" width="6" height="9" rx="3" fill="#7ec8ff" ${S2}/><rect x="21" y="-6" width="6" height="9" rx="3" fill="#7ec8ff" ${S2}/><circle cx="0" cy="4" r="4" fill="#7ec8ff" ${S2}/>`],
+    rocks: ['סלעים', 1, null, false, () => `<path d="M-34 26 C-38 8 -26 -6 -12 -4 C-2 -12 12 -8 14 4 C22 0 34 8 32 26 Z" fill="#9aa7b8" ${S}/><path d="M-6 26 C-8 14 2 8 10 12 C18 10 24 18 22 26 Z" fill="#b8c2cf" ${S}/>` +
+      `<path d="M-24 6 q4 -4 8 -2 M4 -2 q3 -2 6 0" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" opacity=".7"/>`],
+    fish: ['דג כתום', 0.8, 'swim', false, () => `<path d="M20 0 L36 -13 L33 0 L36 13 Z" fill="#ff9a3c" ${S}/><ellipse cx="0" cy="0" rx="25" ry="16" fill="#ff9a3c" ${S}/>` +
+      `<path d="M-8 -15 C-12 -5 -12 5 -8 15 L-2 16 C-6 5 -6 -5 -2 -16 Z" fill="#fff" ${S2}/><path d="M9 -14 C6 -5 6 5 9 14 L14 12 C11 5 11 -5 14 -12 Z" fill="#fff" ${S2}/><path d="M-2 -16 L4 -24 L10 -14" fill="#ff9a3c" ${S2}/>` +
+      `<circle cx="-15" cy="-3" r="3" fill="${O}"/><circle cx="-14" cy="-4.2" r="1.1" fill="#fff"/><path d="M-22 4 q3 2 5 0" fill="none" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/>`],
+    fish2: ['דג כחול', 0.8, 'swim', false, () => `<path d="M20 0 L36 -14 L32 0 L36 14 Z" fill="#ffd84d" ${S}/><path d="M-26 0 C-20 -18 12 -20 22 0 C12 20 -20 18 -26 0 Z" fill="#4fa8ff" ${S}/>` +
+      `<path d="M-6 -8 C4 -14 14 -8 14 0 C8 -4 0 -2 -6 -8 Z" fill="#1f4f9a"/><path d="M-4 -16 L6 -24 L12 -12" fill="#4fa8ff" ${S2}/><circle cx="-15" cy="-3" r="3" fill="${O}"/><circle cx="-14" cy="-4.2" r="1.1" fill="#fff"/><circle cx="-10" cy="4" r="2" fill="#ff8fab" opacity=".6"/>`],
+    jelly: ['מדוזה', 0.9, 'float', true, () => [-14, -5, 5, 14].map((x, i) => tube(`M${x} 2 q${i % 2 ? 5 : -5} 8 0 14 q${i % 2 ? -5 : 5} 8 0 16`, '#ffb3dd', 2.6)).join('') +
+      `<path d="M-26 2 C-26 -32 26 -32 26 2 Q20 7 13 2 Q6 7 0 2 Q-6 7 -13 2 Q-20 7 -26 2 Z" fill="#ff9ad5" ${S}/>${face(0, -10, .8)}${shine(-16, -14)}`],
+    turtle: ['צב ים', 1, 'swim', false, () => `<path d="M-6 12 L-14 26 L-2 20 Z M14 12 L20 26 L8 20 Z M-8 -12 L-18 -24 L-2 -18 Z M14 -12 L22 -24 L8 -18 Z" fill="#8fd694" ${S}/>` +
+      `<path d="M26 0 L36 -4 L36 4 Z" fill="#8fd694" ${S2}/><ellipse cx="4" cy="0" rx="24" ry="17" fill="#4fbf73" ${S}/>` +
+      `<path d="M4 -10 l7 4 v8 l-7 4 l-7 -4 v-8 Z" fill="#7fd98a" ${S2}/><path d="M-10 -6 l-6 6 M-10 6 l-6 -6 M18 -6 l6 6 M18 6 l6 -6" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>` +
+      `<circle cx="-26" cy="-2" r="10" fill="#8fd694" ${S}/><circle cx="-29" cy="-4" r="1.8" fill="${O}"/><path d="M-32 1 q3 2 6 0" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/><circle cx="-23" cy="1" r="2" fill="#ff8fab" opacity=".6"/>`],
+    bubbler: ['מכונת בועות', 0.9, 'bubbles', true, () => [0, 1, 2, 3].map(i => `<circle class="sea-bub" cx="${i % 2 ? 3 : -3}" cy="-24" r="${4 + i % 3 * 2}" fill="#dff6ff" fill-opacity=".45" stroke="#fff" stroke-width="1.8" style="animation-delay:-${i * 0.9}s"/>`).join('') +
+      `<rect x="-7" y="-20" width="14" height="16" rx="3" fill="#b8c2cf" ${S}/><rect x="-24" y="-6" width="48" height="34" rx="10" fill="#7ec8ff" ${S}/><circle cx="-10" cy="10" r="7" fill="#fff" ${S2}/><path d="M-10 10 l4 -4" stroke="${O}" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="6" r="3" fill="#ff7a9a" ${S2}/><circle cx="17" cy="6" r="3" fill="#ffd84d" ${S2}/><rect x="6" y="14" width="14" height="5" rx="2.5" fill="#4fbf73" ${S2}/>`],
+    pearls: ['פנינה בצדפה', 0.8, null, true, () => `<path d="M-28 4 C-32 -26 32 -26 28 4 Z" fill="#d8ccff" ${S}/>` +
+      [-14, 0, 14].map(x => `<path d="M0 2 L${x} -${18 - Math.abs(x) * 0.2}" stroke="#a592e0" stroke-width="1.8" stroke-linecap="round"/>`).join('') +
+      `<circle cx="0" cy="2" r="11" fill="#fffaf0" ${S}/><circle cx="-4" cy="-2" r="3" fill="#fff"/><path d="M-30 4 C-26 26 26 26 30 4 Z" fill="#c9b8ff" ${S}/>` + [-16, -6, 6, 16].map(x => `<path d="M${x} 7 Q${x * 0.9} 13 ${x * 0.7} 19" fill="none" stroke="#a592e0" stroke-width="1.6" stroke-linecap="round"/>`).join('')],
+    anchor: ['עוגן', 1, null, false, () => `<circle cx="0" cy="-28" r="7" fill="none" stroke="${O}" stroke-width="9"/><circle cx="0" cy="-28" r="7" fill="none" stroke="#8a96a8" stroke-width="4.5"/>` +
+      tube('M0 -20 V28 M-14 -10 H14 M-26 6 C-24 28 24 28 26 6', '#8a96a8', 5) + `<path d="M-31 10 L-26 0 L-20 10 Z M31 10 L26 0 L20 10 Z" fill="#8a96a8" ${S2}/>`],
+    ship: ['ספינה טבועה', 1.5, null, false, () => `<g transform="rotate(-12)"><rect x="-4" y="-42" width="6" height="44" fill="#8a5a36" ${S2}/>` +
+      `<path d="M2 -38 C14 -30 18 -18 12 -8 L2 -10 Z" fill="#fff5e0" ${S2}/><path d="M6 -26 l5 4 l-4 3" fill="none" stroke="#c9a86a" stroke-width="1.6"/>` +
+      `<path d="M-46 -4 H44 L34 22 H-36 Z" fill="#a0673e" ${S}/><path d="M-42 6 H40 M-38 14 H36" stroke="#6e4428" stroke-width="1.8"/>` +
+      [-24, -8, 8, 24].map(x => `<circle cx="${x}" cy="3" r="3.4" fill="#4b3a5a" ${S2}/>`).join('') + `<path d="M28 -4 L34 -14 L44 -4" fill="#a0673e" ${S2}/></g>` +
+      `<path d="M-10 22 q4 -6 8 0 q4 -6 8 0" fill="none" stroke="#3fae6a" stroke-width="3" stroke-linecap="round"/>`],
+  };
+  const SEA_BGS = [['day', '☀️ יום', ['#9fe3ff', '#3aa6dc', '#1d6fa3']], ['sunset', '🌅 שקיעה', ['#ffc49b', '#ff8fb8', '#7a5fc9']], ['night', '🌙 לילה', ['#1b2358', '#11173d', '#070b24']]];
+  let sea = Object.assign({ bg: 'day', items: [] }, store.get('sea', {}));
+  let seaTool = 'coral', seaSel = null, seaConfirm = false, seaUid = 0;
+  const saveSea = () => store.set('sea', sea);
+  const seaItemSVG = (it, glowOn) => {
+    const def = SEA_ITEMS[it.t]; if (!def) return '';
+    const h = seaHash(it.id), dur = (def[2] === 'swim' ? 8 : 4) + h % 5, delay = h % 7;
+    const anim = def[2] ? ` class="sea-${def[2]}" style="animation-duration:${dur}s;animation-delay:-${delay}s"` : '';
+    return `<g class="sea-it${it.id === seaSel ? ' sel' : ''}" data-id="${it.id}" transform="translate(${it.x.toFixed(1)} ${it.y.toFixed(1)}) scale(${(it.f ? -1 : 1) * it.s} ${it.s})"><g${anim}${glowOn && def[3] ? ' filter="url(#seaGlow)"' : ''}>${def[4]()}</g></g>`;
+  };
+  function seaMarkup(photo) {
+    const bg = SEA_BGS.find(b => b[0] === sea.bg) || SEA_BGS[0], [c1, c2, c3] = bg[2], night = sea.bg === 'night';
+    const rays = [60, 170, 300, 430, 530].map((x, i) => `<path class="sea-ray" style="animation-delay:-${i * 1.3}s" d="M${x} -10 L${x + 40} -10 L${x + 110 - i * 12} 360 L${x + 30 - i * 12} 360 Z" fill="${night ? '#cfd9ff' : '#fff'}" opacity="${night ? 0.07 : 0.16}"/>`).join('');
+    const sand = `<path d="M0 352 C80 332 150 360 240 346 C330 332 420 362 510 344 C560 336 590 344 600 348 V400 H0 Z" fill="${night ? '#8a7d6a' : sea.bg === 'sunset' ? '#f0c89a' : '#f2d8a0'}" stroke="${O}" stroke-width="2.5"/>` +
+      Array.from({ length: 26 }, (_, i) => `<circle cx="${(i * 97) % 590 + 5}" cy="${362 + (i * 13) % 32}" r="${1.4 + i % 3 * 0.6}" fill="${O}" opacity=".18"/>`).join('');
+    const glowDots = night ? Array.from({ length: 24 }, (_, i) => `<circle class="sea-twinkle" style="animation-delay:-${i % 5}s" cx="${(i * 131) % 590 + 5}" cy="${(i * 71) % 300 + 20}" r="${1.2 + i % 3 * 0.7}" fill="${['#9fffe0', '#b8c8ff', '#ffd6f5'][i % 3]}"/>`).join('') : '';
+    const bubbles = Array.from({ length: 10 }, (_, i) => `<circle class="sea-bub" style="animation-duration:${6 + i % 4}s;animation-delay:-${i * 1.1}s" cx="${40 + (i * 157) % 530}" cy="${340 - (i * 23) % 60}" r="${3 + i % 4 * 1.5}" fill="#fff" fill-opacity=".25" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/>`).join('');
+    const mer = mermaids.length ? mermaids : [];
+    const swim = mer.map((m, i) => {
+      const n = mer.length, x = 30 + (i + 0.5) * (460 / n), y = i % 2 ? 150 : 70, h = seaHash(m.id);
+      return `<g class="sea-mer" style="animation-duration:${16 + h % 8}s;animation-delay:-${h % 9}s"><g class="sea-bob" style="animation-delay:-${i * 0.7}s">${placeSvg(mermaidSVG(m, 'sea' + (seaUid++)), x, y, 90, 135)}</g></g>`;
+    }).join('') + (pet && SEA_PETS.includes(pet.kind) ? `<g class="sea-mer" style="animation-duration:22s;animation-direction:alternate-reverse"><g class="sea-bob">${placeSvg(petSVG(grownPet(pet)), 440, 190, 100, 114)}</g></g>` : '');
+    const items = sea.items.slice().sort((a, b) => a.y - b.y).map(it => seaItemSVG(it, night)).join('');
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' class="sea-svg" role="img" aria-label="העולם מתחת למים"'}>` +
+      `<defs><linearGradient id="seaW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset=".55" stop-color="${c2}"/><stop offset="1" stop-color="${c3}"/></linearGradient>` +
+      `<filter id="seaGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>` +
+      `<rect width="600" height="400" fill="url(#seaW)"/>${night ? `<circle cx="520" cy="-10" r="60" fill="#fff6c8" opacity=".25"/>` : ''}${rays}${glowDots}${sand}` +
+      `<g class="sea-items">${items}</g><g class="sea-swimmers" pointer-events="none">${swim}</g><g pointer-events="none">${bubbles}</g></svg>`;
+  }
+  function openSea() {
+    drawSea();
+    if (!$('#seaDlg').open) $('#seaDlg').showModal();
+  }
+  function drawSea() {
+    const body = $('#seaBody');
+    const scene = el('div', { class: 'sea-scene', html: seaMarkup() });
+    const svgEl = scene.firstChild;
+    const cur = () => sea.items.find(i => i.id === seaSel);
+    const toSvg = e => { const p = svgEl.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+    const nodeOf = id => svgEl.querySelector(`.sea-it[data-id="${id}"]`);
+    const setTf = it => { const n = nodeOf(it.id); if (n) n.setAttribute('transform', `translate(${it.x.toFixed(1)} ${it.y.toFixed(1)}) scale(${(it.f ? -1 : 1) * it.s} ${it.s})`); };
+    const select = id => { seaSel = id; seaConfirm = false; svgEl.querySelectorAll('.sea-it').forEach(n => n.classList.toggle('sel', n.dataset.id === id)); drawTools(); };
+    let drag = null;
+    svgEl.addEventListener('pointerdown', e => {
+      const p = toSvg(e), hit = e.target.closest('.sea-it');
+      if (hit) {
+        const it = sea.items.find(i => i.id === hit.dataset.id); if (!it) return;
+        select(it.id); drag = { it, dx: it.x - p.x, dy: it.y - p.y, moved: false };
+        svgEl.setPointerCapture(e.pointerId); e.preventDefault(); return;
+      }
+      if (!seaTool) { select(null); return; }
+      if (sea.items.length >= 80) { toast(stickerHTML('shell'), 'הים כבר מלא! אפשר להוריד משהו כדי לשים עוד'); return; }
+      const it = { id: 's' + Date.now().toString(36) + (seaUid++), t: seaTool, x: Math.max(10, Math.min(590, p.x)), y: Math.max(20, Math.min(390, p.y)), s: SEA_ITEMS[seaTool][1], f: false };
+      sea.items.push(it); saveSea(); SFX.pop();
+      svgEl.querySelector('.sea-items').insertAdjacentHTML('beforeend', seaItemSVG(it, sea.bg === 'night'));
+      select(it.id);
+    });
+    svgEl.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const p = toSvg(e);
+      drag.it.x = Math.max(10, Math.min(590, p.x + drag.dx)); drag.it.y = Math.max(20, Math.min(390, p.y + drag.dy)); drag.moved = true;
+      setTf(drag.it);
+    });
+    const endDrag = () => {
+      if (!drag) return;
+      if (drag.moved) {
+        saveSea();
+        // things lower in the picture stand in front
+        const g = svgEl.querySelector('.sea-items'), n = nodeOf(drag.it.id);
+        const after = [...g.children].find(c => c !== n && (sea.items.find(i => i.id === c.dataset.id) || {}).y > drag.it.y);
+        if (after !== n.nextElementSibling) g.insertBefore(n, after || null);
+      }
+      drag = null;
+    };
+    svgEl.addEventListener('pointerup', endDrag);
+    svgEl.addEventListener('pointercancel', endDrag);
+    const tools = el('div', { class: 'chips sea-tools' });
+    function drawTools() {
+      const it = cur(), dis = !it;
+      const b = (label, fn, extra = {}) => el('button', Object.assign({ type: 'button', class: 'btn', disabled: dis, onclick: fn }, extra), label);
+      tools.replaceChildren(
+        b('➖', () => { it.s = Math.max(0.4, +(it.s - 0.15).toFixed(2)); setTf(it); saveSea(); SFX.boop(); }, { 'aria-label': 'להקטין' }),
+        b('➕', () => { it.s = Math.min(2.4, +(it.s + 0.15).toFixed(2)); setTf(it); saveSea(); SFX.pop(); }, { 'aria-label': 'להגדיל' }),
+        b('↔️ להפוך', () => { it.f = !it.f; setTf(it); saveSea(); SFX.pop(); }),
+        b('🗑️ להוריד', () => { sea.items = sea.items.filter(x => x !== it); const n = nodeOf(it.id); if (n) n.remove(); saveSea(); SFX.boop(); select(null); }),
+        el('span', { class: 'sea-hint' }, it ? `✋ ${SEA_ITEMS[it.t][0]}: גוררים כדי להזיז` : seaTool ? `👆 לוחצים על המים כדי לשים ${SEA_ITEMS[seaTool][0]}` : '👆 לוחצים על קישוט כדי לבחור אותו'));
+    }
+    const pal = el('div', { class: 'sea-pal', role: 'group', 'aria-label': 'קישוטים' },
+      el('button', { type: 'button', 'aria-pressed': String(!seaTool), onclick: () => { seaTool = null; drawSea(); } }, el('span', { class: 'ic hand' }, '✋'), 'רק להזיז'),
+      ...Object.entries(SEA_ITEMS).map(([id, d]) => el('button', { type: 'button', 'aria-pressed': String(seaTool === id), onclick: () => { seaTool = id; seaSel = null; SFX.pop(); drawSea(); } },
+        el('span', { class: 'ic', html: `<svg viewBox="-44 -46 88 88" xmlns="http://www.w3.org/2000/svg">${d[4]()}</svg>` }), d[0])));
+    const bgs = el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'צבע המים:'),
+      ...SEA_BGS.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(sea.bg === id), onclick: () => { sea.bg = id; saveSea(); SFX.pop(); drawSea(); } }, name)));
+    const photoBtn = el('button', { type: 'button', class: 'btn main', onclick: () => seaPhoto(svgEl) }, '📸 לצלם למדבקה');
+    const clear = seaConfirm
+      ? el('span', { class: 'chips' }, el('span', {}, 'להוריד את כל הקישוטים?'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { sea.items = []; seaSel = null; seaConfirm = false; saveSea(); drawSea(); } }, 'כן, לנקות'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { seaConfirm = false; drawSea(); } }, 'לא'))
+      : el('button', { type: 'button', class: 'btn', disabled: !sea.items.length, onclick: () => { seaConfirm = true; drawSea(); } }, '🧹 לנקות הכל');
+    drawTools();
+    body.replaceChildren(scene, tools, pal, bgs,
+      mermaids.length ? null : el('p', { class: 'muted' }, '🧜‍♀️ עוד אין לך בנות ים! אפשר לעצב אותן ב"בנות הים שלי" והן יבואו לשחות פה.'),
+      el('div', { class: 'chips' }, photoBtn, clear,
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#seaDlg').close(); openMermaids(); } }, '🧜‍♀️ לעצב בנות ים')));
+  }
+  function seaPhoto(svgEl) {
+    const was = seaSel; seaSel = null;
+    const scene = seaMarkup(true); seaSel = was;
+    const photo = `<svg viewBox="0 0 480 400" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-3 240 200)"><rect x="20" y="24" width="440" height="352" rx="12" fill="#fffdf5" stroke="${O}" stroke-width="6"/>` +
+      `${placeSvg(scene, 38, 42, 404, 269)}<rect x="38" y="42" width="404" height="269" fill="none" stroke="${O}" stroke-width="3"/>` +
+      `<g transform="translate(206 318) scale(1.1)">${stickerInner('shell')}</g></g></svg>`;
+    const c = { id: 'my' + Date.now().toString(36), url: svgData(photo) };
+    customStk.push(c);
+    if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('camera'), 'אין מספיק מקום לשמור את הצילום 😢'); return; }
+    registerCustom(c);
+    if (!reduceMotion()) { svgEl.parentNode.classList.remove('flash'); void svgEl.parentNode.offsetWidth; svgEl.parentNode.classList.add('flash'); }
+    tone(1800, 0.05, 'square', 0, 0.05); SFX.ding();
+    toast(stickerHTML(c.id), '📸 הצילום נשמר כמדבקה! הוא מחכה לך באלבום ובמדבקות של הימים');
+    afterChange();
+  }
+
+  // ================= dream journal =================
+  const DREAM_TYPES = [['good', '😊', 'חלום טוב'], ['funny', '😂', 'מצחיק'], ['weird', '🌀', 'מוזר'], ['scary', '😱', 'מפחיד'], ['magic', '✨', 'קסום'], ['fly', '🕊️', 'עפתי באוויר'],
+    ['animals', '🐾', 'עם חיות'], ['sea', '🌊', 'מתחת למים'], ['family', '🏡', 'עם המשפחה'], ['friends', '👯', 'עם חברות'], ['again', '🔁', 'חוזר שוב'], ['lucid', '💡', 'ידעתי שזה חלום']];
+  let dreams = store.get('dreams', []);
+  let dreamEdit = null, dreamDel = null, dreamFilter = null;
+  const dreamDraft = () => ({ id: null, date: localToday(), title: '', text: '', types: [], clear: 3 });
+  const dreamWhen = k => { const f = fromIso(k); return `${k === localToday() ? 'הלילה, ' : ''}${f.d} ב${MONTHS[f.m]} ${f.y}`; };
+  function openDreams() {
+    if (pin && !unlocked) { showLock(() => openDreams(), true); return; }
+    dreamEdit = dreamEdit || dreamDraft(); dreamDel = null;
+    $('#dreamMoon').innerHTML = stickerHTML('magicmoon');
+    drawDreams();
+    if (!$('#dreamDlg').open) $('#dreamDlg').showModal();
+  }
+  function drawDreams() {
+    const d = dreamEdit, saveList = () => store.set('dreams', dreams);
+    const date = el('input', { type: 'date', id: 'dreamDate', value: d.date, max: addDays(localToday(), 1), oninput: e => { d.date = e.target.value; } });
+    const title = el('input', { type: 'text', id: 'dreamName', maxLength: 60, value: d.title, placeholder: 'למשל: הלוויתן שעף', oninput: e => { d.title = e.target.value; } });
+    const ta = el('textarea', { id: 'dreamText', value: d.text, placeholder: 'מה חלמתי? איפה הייתי? מי היה שם? מה קרה בסוף?', oninput: e => { d.text = e.target.value; } });
+    ta.value = d.text;
+    const msg = el('span', { class: 'saved' });
+    const types = el('div', { class: 'chips' }, ...DREAM_TYPES.map(([id, em, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(d.types.includes(id)),
+      onclick: e => { d.types = d.types.includes(id) ? d.types.filter(x => x !== id) : [...d.types, id]; e.currentTarget.setAttribute('aria-pressed', String(d.types.includes(id))); SFX.pop(); } }, `${em} ${name}`)));
+    const moons = el('span', { class: 'moons', role: 'group', 'aria-label': 'כמה ברור אני זוכרת' }), clearTxt = el('span', { class: 'muted' });
+    const drawMoons = () => clearTxt.replaceChildren(CLEAR_TXT[d.clear]) || moons.replaceChildren(...[1, 2, 3, 4, 5].map(n => el('button', { type: 'button', class: d.clear >= n ? 'on' : '', 'aria-label': `${n} מתוך 5`, 'aria-pressed': String(d.clear === n), html: stickerHTML('moon'), onclick: () => { d.clear = n; SFX.ding(); drawMoons(); } })));
+    const CLEAR_TXT = ['', 'בקושי זוכרת', 'קצת זוכרת', 'זוכרת די טוב', 'זוכרת טוב', 'כאילו זה קרה באמת!'];
+    drawMoons();
+    const save = () => {
+      if (!d.title.trim() && !d.text.trim()) { msg.textContent = 'כותבים משהו על החלום קודם 🙂'; ta.focus(); return; }
+      if (!d.date) d.date = localToday();
+      const rec = { id: d.id || 'd' + Date.now().toString(36), date: d.date, title: d.title.trim(), text: d.text.trim(), types: d.types, clear: d.clear };
+      const i = dreams.findIndex(x => x.id === rec.id);
+      if (i >= 0) dreams[i] = rec; else dreams.push(rec);
+      if (!saveList()) { if (i < 0) dreams.pop(); msg.textContent = 'לא הצלחתי לשמור 😢'; return; }
+      SFX.yay(); dreamEdit = dreamDraft(); drawDreams(); afterChange();
+      toast(stickerHTML('magicmoon'), i >= 0 ? 'החלום עודכן 🌙' : 'החלום נשמר ביומן החלומות 🌙');
+    };
+    const editing = !!d.id;
+    const form = el('div', { class: 'box dream-form' },
+      el('h4', {}, editing ? '✏️ לערוך חלום' : '🌙 מה חלמתי?'),
+      el('div', { class: 'dream-2' }, el('div', { class: 'row' }, el('label', { for: 'dreamDate' }, 'באיזה לילה?'), date), el('div', { class: 'row' }, el('label', { for: 'dreamName' }, 'שם לחלום'), title)),
+      el('label', { for: 'dreamText' }, 'מה קרה בחלום'), ta,
+      el('span', { class: 'lbl' }, 'איזה חלום זה היה? (אפשר כמה)'), types,
+      el('div', { class: 'row' }, el('span', { class: 'lbl' }, 'כמה ברור אני זוכרת?'), el('div', { class: 'chips', style: 'align-items:center' }, moons, clearTxt)),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: save }, editing ? '💾 לשמור שינויים' : '✨ לשמור את החלום'),
+        editing ? el('button', { type: 'button', class: 'btn', onclick: () => { dreamEdit = dreamDraft(); drawDreams(); } }, 'ביטול') : null, msg));
+    // list
+    const counts = {}; dreams.forEach(x => x.types.forEach(t => { counts[t] = (counts[t] || 0) + 1; }));
+    const top = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+    const typeOf = id => DREAM_TYPES.find(t => t[0] === id);
+    const shown = dreams.filter(x => !dreamFilter || x.types.includes(dreamFilter)).sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+    const card = x => el('article', { class: 'dream-card' },
+      el('div', { class: 'dream-top' },
+        el('span', { class: 'dream-em' }, x.types.map(t => typeOf(t) ? typeOf(t)[1] : '').join('') || '💭'),
+        el('div', { class: 'dream-t' }, el('b', {}, x.title || 'חלום בלי שם'), el('span', { class: 'muted' }, dreamWhen(x.date))),
+        el('span', { class: 'dream-moons', role: 'img', 'aria-label': `זוכרת ${x.clear} מתוך 5`, html: [1, 2, 3, 4, 5].map(n => `<i class="${n <= x.clear ? 'on' : ''}">${stickerHTML('moon')}</i>`).join('') })),
+      x.text ? el('p', { class: 'dream-text' }, x.text) : null,
+      x.types.length ? el('div', { class: 'dream-tags' }, ...x.types.map(t => typeOf(t) ? el('span', {}, typeOf(t).slice(1).join(' ')) : null)) : null,
+      dreamDel === x.id
+        ? el('div', { class: 'chips' }, el('span', {}, 'למחוק את החלום הזה?'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { dreams = dreams.filter(y => y !== x); saveList(); dreamDel = null; if (dreamEdit.id === x.id) dreamEdit = dreamDraft(); SFX.boop(); drawDreams(); } }, 'כן, למחוק'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { dreamDel = null; drawDreams(); } }, 'לא'))
+        : el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'chip', onclick: () => { dreamEdit = JSON.parse(JSON.stringify(x)); dreamDel = null; drawDreams(); $('#dreamDlg .sheet').scrollTop = 0; } }, '✏️ לערוך'),
+          el('button', { type: 'button', class: 'chip', onclick: () => { dreamDel = x.id; drawDreams(); } }, '🗑️ למחוק')));
+    $('#dreamBody').replaceChildren(form,
+      el('h4', { class: 'sec-title' }, `📖 החלומות שלי (${dreams.length})`),
+      dreams.length ? el('p', { class: 'muted' }, top ? `הכי הרבה חלמתי חלומות ${typeOf(top[0])[1]} ${typeOf(top[0])[2]}` : 'כל החלומות שכתבת נשמרים פה') : null,
+      Object.keys(counts).length > 1 ? el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!dreamFilter), onclick: () => { dreamFilter = null; drawDreams(); } }, 'הכל'),
+        ...DREAM_TYPES.filter(t => counts[t[0]]).map(([id, em]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dreamFilter === id), onclick: () => { dreamFilter = id; drawDreams(); } }, `${em} ${counts[id]}`))) : null,
+      el('div', { class: 'dream-list' }, ...(shown.length ? shown.map(card) : [el('p', { class: 'muted' }, 'עוד אין חלומות. בבוקר, כשמתעוררים, כותבים מהר לפני ששוכחים! 💤')])));
+  }
+
+  // ================= the pet grows and learns tricks =================
+  const PET_STAGES = [['baby', 'תינוק/ה', '🍼', 0.72, 1], ['kid', 'צעיר/ה', '🧒', 0.86, 3], ['grown', 'גדול/ה', '⭐', 1, 6]];
+  function petGrowth() {
+    const xp = xpTotal(), level = petLevel(xp);
+    const i = PET_STAGES.reduce((a, s, j) => level >= s[4] ? j : a, 0), s = PET_STAGES[i], nx = PET_STAGES[i + 1];
+    const from = levelXp(s[4]), to = nx ? levelXp(nx[4]) : null;
+    return { stage: s[0], name: s[1], emoji: s[2], scale: s[3], level, xp, nextAt: nx ? nx[4] : null, nextName: nx ? nx[1] : null,
+      xpToNext: nx ? Math.max(0, to - xp) : 0, pct: nx ? Math.min(100, Math.round((xp - from) / (to - from) * 100)) : 100 };
+  }
+  // a copy of the pet drawn at its growth size (petSVG keeps it between 0.65 and 1.15; small pets get bigger eyes)
+  const grownPet = p => Object.assign({}, p, { size: (p.size || 1) * petGrowth().scale });
+  const applyPetScale = grownPet;
+  const TRICKS = [['jump', 2, 'קפיצה', '⬆️'], ['spin', 3, 'סיבוב', '🌀'], ['dance', 4, 'ריקוד', '💃'], ['double', 5, 'קפיצה כפולה', '⏫'], ['wave', 6, 'נפנוף', '👋'], ['roll', 8, 'גלגול', '🔄'], ['star', 10, 'כוכב', '⭐']];
+  function doTrick(node, id) {
+    if (!node) return;
+    const svgEl = node.tagName.toLowerCase() === 'svg' ? node : node.querySelector('svg');
+    if (!svgEl) return;
+    TRICKS.forEach(t => svgEl.classList.remove('trick-' + t[0]));
+    void svgEl.getBoundingClientRect();
+    svgEl.classList.add('trick-' + id);
+    svgEl.addEventListener('animationend', () => svgEl.classList.remove('trick-' + id), { once: true });
+  }
+  function petTricksPanel() {
+    if (!pet) return el('p', { class: 'muted' }, 'קודם מאמצים חיה 🥚');
+    const g = petGrowth(), nm = pet.name || 'החיה';
+    const stageArt = el('div', { class: 'trick-stage' });
+    const say = el('span', { class: 'trick-say' }, `${nm} מוכן/ה להופעה! 🎪`);
+    stageArt.append(say, el('div', { class: 'trick-pet', html: petSVG(grownPet(pet)) }), el('div', { class: 'trick-fx' }));
+    const bar = el('div', { class: 'xpbar' }, el('i')); bar.firstChild.style.width = g.pct + '%';
+    const path = el('div', { class: 'grow-path' }, ...PET_STAGES.map(([id, name, em, sc, lvl]) => el('div', { class: 'grow-step' + (id === g.stage ? ' on' : '') + (g.level < lvl ? ' locked' : '') },
+      el('span', { class: 'ic', html: petSVG(Object.assign({}, pet, { size: (pet.size || 1) * sc })) }), `${em} ${name}`, el('small', {}, `מרמה ${lvl}`))));
+    const run = (id, name) => {
+      doTrick(stageArt.querySelector('.trick-pet'), id);
+      doTrick($('#houseScene .pet-art'), id);
+      SFX.pet(pet.kind);
+      if (id === 'star' || id === 'double') [0, 1, 2, 3, 4].forEach(i => tone(784 * (1 + i * 0.25), 0.12, 'triangle', 0.1 + i * 0.08, 0.06));
+      say.textContent = `${nm} עשה/תה ${name}! 👏`;
+      if (id === 'star' && !reduceMotion()) {
+        const fx = stageArt.querySelector('.trick-fx');
+        fx.replaceChildren(...[0, 1, 2, 3, 4, 5].map(i => { const s = el('span', { html: stickerHTML(i % 2 ? 'sparkles' : 'star') }); s.style.setProperty('--a', `${i * 60}deg`); return s; }));
+        setTimeout(() => fx.replaceChildren(), 1400);
+      }
+    };
+    return el('div', { class: 'row tricks-panel' },
+      el('div', { class: 'row' },
+        el('span', { class: 'lbl' }, `${g.emoji} ${nm} ${g.name} · רמה ${g.level}`),
+        bar,
+        el('span', { class: 'muted' }, g.nextAt ? `עוד ${g.xpToNext} נקודות עד ש${nm} ${g.nextName} (רמה ${g.nextAt})` : `${nm} כבר גדול/ה! 🌟`),
+        path),
+      stageArt,
+      el('span', { class: 'lbl' }, '🎪 טריקים'),
+      el('div', { class: 'trick-btns' }, ...TRICKS.map(([id, lvl, name, em]) => g.level >= lvl
+        ? el('button', { type: 'button', class: 'chip', onclick: () => run(id, name) }, `${em} ${name}`)
+        : el('button', { type: 'button', class: 'chip', disabled: true, title: `נפתח ברמה ${lvl}` }, `🔒 ${name} · רמה ${lvl}`))),
+      el('p', { class: 'muted' }, 'כל פעם שכותבים ביומן, מסמנים הרגל או משחקים, החיה מקבלת נקודות, גדלה ולומדת טריקים חדשים.'));
+  }
+
+  // ================= little piano =================
+  const NOTE_HE = ['דו', 'דו#', 'רה', 'רה#', 'מי', 'פה', 'פה#', 'סול', 'סול#', 'לה', 'לה#', 'סי'];
+  const isBlack = m => [1, 3, 6, 8, 10].includes(m % 12);
+  const midiHz = m => 440 * Math.pow(2, (m - 69) / 12);
+  const PIANO_WHITE_KEYS = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', "'"];
+  const PIANO_BLACK_KEYS = { w: 61, e: 63, t: 66, y: 68, u: 70, o: 73, p: 75 };
+  const PIANO_KEYMAP = {};
+  (() => { let w = 0; for (let m = 60; m <= 84 && w < PIANO_WHITE_KEYS.length; m++) if (!isBlack(m)) PIANO_KEYMAP[PIANO_WHITE_KEYS[w++]] = m; Object.assign(PIANO_KEYMAP, PIANO_BLACK_KEYS); })();
+  const PIANO_LABEL = Object.fromEntries(Object.entries(PIANO_KEYMAP).map(([k, m]) => [m, k.toUpperCase()]));
+  const INSTRUMENTS = [['piano', '🎹 פסנתר'], ['bells', '🔔 פעמונים'], ['xylo', '🪵 קסילופון'], ['toy', '🧸 צעצוע']];
+  const PIANO_SONGS = [
+    ['birthday', '🎂 יום הולדת שמח', 'G4:.75 G4:.25 A4 G4 C5 B4:2 G4:.75 G4:.25 A4 G4 D5 C5:2 G4:.75 G4:.25 G5 E5 C5 B4 A4:2 F5:.75 F5:.25 E5 C5 D5 C5:2'],
+    ['twinkle', '⭐ כוכב קטן', 'C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2 G4 G4 F4 F4 E4 E4 D4:2 G4 G4 F4 F4 E4 E4 D4:2 C4 C4 G4 G4 A4 A4 G4:2 F4 F4 E4 E4 D4 D4 C4:2'],
+    ['joy', '🎶 אודה לשמחה', 'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 E4:1.5 D4:.5 D4:2 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4:1.5 C4:.5 C4:2'],
+  ];
+  const parseSong = s => s.split(' ').map(t => { const [n, d] = t.split(':'), L = 'C D EF G A B'.indexOf(n[0]); return [12 * (Number(n.slice(-1)) + 1) + L, Number(d || 1)]; });
+  let melodies = store.get('melodies', []);
+  let piano = { inst: 'piano', rec: null, learn: null, timers: [], playing: null, delId: null, saveRec: null };
+  function pianoSound(m, inst = piano.inst) {
+    if (!design.sound) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+      const t = actx.currentTime, f = midiHz(m), out = actx.createGain();
+      out.gain.value = 0.9; out.connect(actx.destination);
+      const partial = (mult, type, vol, dur, attack = 0.005) => {
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = type; o.frequency.setValueAtTime(f * mult, t);
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.connect(g); g.connect(out); o.start(t); o.stop(t + dur + 0.05);
+      };
+      if (inst === 'bells') { partial(1, 'sine', 0.12, 2.2); partial(2.76, 'sine', 0.04, 1.2); partial(5.4, 'sine', 0.015, 0.6); }
+      else if (inst === 'xylo') { partial(1, 'triangle', 0.18, 0.45); partial(4, 'sine', 0.05, 0.12); }
+      else if (inst === 'toy') { partial(1, 'square', 0.045, 0.35, 0.01); partial(2, 'triangle', 0.03, 0.2); }
+      else { partial(1, 'triangle', 0.14, 1.3, 0.008); partial(2, 'sine', 0.05, 0.8); partial(3, 'sine', 0.015, 0.4); }
+    } catch {}
+  }
+  const pianoKey = m => $(`#pianoDlg .pkey[data-m="${m}"]`);
+  function pianoLight(m, ms = 220) {
+    const k = pianoKey(m); if (!k) return;
+    k.classList.add('on'); clearTimeout(k._t); k._t = setTimeout(() => k.classList.remove('on'), ms);
+  }
+  function pianoStop() { piano.timers.forEach(clearTimeout); piano.timers = []; piano.playing = null; }
+  function pianoPress(m) {
+    pianoSound(m); pianoLight(m, 260);
+    if (piano.rec) { if (piano.rec.notes.length < 600) piano.rec.notes.push([m, Math.round(performance.now() - piano.rec.start)]); }
+    const L = piano.learn;
+    if (L && !L.done) {
+      const want = L.notes[L.i][0];
+      if (m === want) { L.i++; if (L.i >= L.notes.length) { L.done = true; setTimeout(() => { SFX.yay(); confetti($('#pianoDlg .confetti-c')); }, 300); } }
+      else { L.miss++; const k = pianoKey(m); if (k) { k.classList.remove('nope'); void k.offsetWidth; k.classList.add('nope'); } }
+      drawLearn();
+    }
+  }
+  function pianoPlay(notes, id, inst) {
+    pianoStop();
+    piano.playing = id;
+    notes.forEach(([m, t]) => piano.timers.push(setTimeout(() => { pianoSound(m, inst); pianoLight(m, 240); }, t)));
+    const end = (notes.length ? notes[notes.length - 1][1] : 0) + 600;
+    piano.timers.push(setTimeout(() => { piano.playing = null; drawPianoLists(); }, end));
+    drawPianoLists();
+  }
+  const songTimed = (song, beat = 480) => { let t = 0; return parseSong(song[2]).map(([m, d]) => { const r = [m, t]; t += d * beat; return r; }); };
+  function openPiano() {
+    pianoStop(); piano.learn = null; piano.rec = null; piano.saveRec = null; piano.delId = null;
+    drawPiano();
+    if (!$('#pianoDlg').open) $('#pianoDlg').showModal();
+  }
+  function drawPiano() {
+    const keys = [];
+    for (let m = 60; m <= 84; m++) keys.push(m);
+    const whites = keys.filter(m => !isBlack(m)), W = 100 / whites.length;
+    const board = el('div', { class: 'piano', role: 'group', 'aria-label': 'פסנתר' });
+    keys.forEach(m => {
+      const black = isBlack(m), wi = whites.filter(x => x < m).length;
+      const k = el('button', { type: 'button', class: 'pkey ' + (black ? 'black' : 'white c' + (m % 12)), 'data-m': m, 'aria-label': NOTE_HE[m % 12] + (m >= 72 ? ' גבוה' : ''), tabIndex: -1 },
+        black ? null : el('span', { class: 'nm' }, NOTE_HE[m % 12]), PIANO_LABEL[m] ? el('span', { class: 'kb' }, PIANO_LABEL[m]) : null);
+      if (black) { k.style.left = `${wi * W - W * 0.3}%`; k.style.width = `${W * 0.6}%`; }
+      k.addEventListener('pointerdown', e => { e.preventDefault(); if (k.hasPointerCapture && k.hasPointerCapture(e.pointerId)) k.releasePointerCapture(e.pointerId); pianoPress(m); });
+      k.addEventListener('pointerenter', e => { if (e.buttons && e.pointerType === 'mouse') pianoPress(m); else if (e.pointerType !== 'mouse' && e.pressure > 0) pianoPress(m); });
+      board.append(k);
+    });
+    const insts = el('div', { class: 'chips' }, ...INSTRUMENTS.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(piano.inst === id), onclick: () => { piano.inst = id; drawPiano(); pianoSound(72); } }, name)));
+    const recBtn = el('button', { type: 'button', class: 'btn' + (piano.rec ? ' main rec-on' : ''), onclick: () => {
+      if (piano.rec) { const r = piano.rec; piano.rec = null; if (r.notes.length) { const t0 = r.notes[0][1]; piano.saveRec = r.notes.map(([m, t]) => [m, t - t0]); } drawPiano(); }
+      else { pianoStop(); piano.learn = null; piano.saveRec = null; piano.rec = { start: performance.now(), notes: [] }; drawPiano(); }
+    } }, piano.rec ? '⏹️ לעצור הקלטה' : '⏺️ להקליט מנגינה');
+    let saveBox = null;
+    if (piano.saveRec) {
+      const nm = el('input', { type: 'text', id: 'melName', maxLength: 30, placeholder: 'למשל: השיר של פנדי', 'aria-label': 'שם למנגינה' });
+      saveBox = el('div', { class: 'box' }, el('h4', {}, `🎼 הקלטת ${piano.saveRec.length} צלילים!`), el('label', { for: 'melName' }, 'איך לקרוא למנגינה?'), nm,
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn', onclick: () => pianoPlay(piano.saveRec, 'rec', piano.inst) }, '▶️ לשמוע'),
+          el('button', { type: 'button', class: 'btn main', onclick: () => {
+            const mel = { id: 'mel' + Date.now().toString(36), name: nm.value.trim() || `מנגינה ${melodies.length + 1}`, inst: piano.inst, notes: piano.saveRec, date: localToday() };
+            melodies.push(mel);
+            if (!store.set('melodies', melodies)) { melodies.pop(); toast(stickerHTML('music'), 'אין מקום לשמור 😢'); return; }
+            piano.saveRec = null; SFX.yay(); drawPiano(); toast(stickerHTML('music'), `🎶 "${mel.name}" נשמרה!`);
+          } }, '💾 לשמור'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { piano.saveRec = null; drawPiano(); } }, 'לא לשמור')));
+      setTimeout(() => nm.focus(), 30);
+    } else if (piano.rec) saveBox = el('p', { class: 'rec-note' }, '🔴 מקליטים... מנגנים ואז לוחצים "לעצור"');
+    $('#pianoBody').replaceChildren(
+      design.sound ? null : el('p', { class: 'store-warn' }, '🔇 הצלילים כבויים, אז לא ישמעו כלום. מדליקים צלילים בכפתור 🔊 למעלה.'),
+      el('div', { class: 'row' }, el('span', { class: 'lbl' }, 'כלי נגינה'), insts),
+      el('div', { class: 'piano-wrap' }, board),
+      el('p', { class: 'muted piano-tip' }, '⌨️ אפשר לנגן גם במקלדת: A S D F G H J K L ; \' לקלידים הלבנים, ו-W E T Y U O P לשחורים (במקלדת באנגלית).'),
+      el('div', { class: 'learn-box', id: 'learnBox' }),
+      el('div', { class: 'chips' }, recBtn), saveBox,
+      el('div', { class: 'row', id: 'pianoLists' }));
+    drawLearn(); drawPianoLists();
+  }
+  function drawLearn() {
+    const box = $('#learnBox'); if (!box) return;
+    document.querySelectorAll('#pianoDlg .pkey.next').forEach(k => k.classList.remove('next'));
+    const L = piano.learn;
+    if (!L) { box.replaceChildren(); box.hidden = true; return; }
+    box.hidden = false;
+    const song = PIANO_SONGS.find(s => s[0] === L.id);
+    if (L.done) {
+      box.replaceChildren(el('b', {}, `🎉 כל הכבוד! ניגנת את "${song[1].replace(/^\S+ /, '')}"${L.miss ? '' : ' בלי אף טעות!'}`),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { piano.learn = { id: L.id, notes: L.notes, i: 0, miss: 0 }; drawLearn(); } }, '🔁 עוד פעם'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { piano.learn = null; drawLearn(); } }, 'סיום')));
+      return;
+    }
+    const m = L.notes[L.i][0], k = pianoKey(m);
+    if (k) k.classList.add('next');
+    const bar = el('div', { class: 'xpbar' }, el('i')); bar.firstChild.style.width = `${L.i / L.notes.length * 100}%`;
+    box.replaceChildren(el('div', { class: 'chips', style: 'align-items:center' }, el('b', {}, `${song[1]}`), el('span', {}, `הצליל הבא: `, el('b', { class: 'next-note' }, NOTE_HE[m % 12] + (m >= 72 ? ' (גבוה)' : '')), PIANO_LABEL[m] ? el('span', { class: 'muted' }, ` · מקש ${PIANO_LABEL[m]}`) : null),
+      el('button', { type: 'button', class: 'btn', style: 'margin-inline-start:auto', onclick: () => { piano.learn = null; drawLearn(); } }, 'להפסיק ללמוד')), bar);
+  }
+  function drawPianoLists() {
+    const box = $('#pianoLists'); if (!box) return;
+    const playBtn = (id, fn) => el('button', { type: 'button', class: 'chip', onclick: () => piano.playing === id ? (pianoStop(), drawPianoLists()) : fn() }, piano.playing === id ? '⏹️ לעצור' : '▶️ לשמוע');
+    box.replaceChildren(
+      el('h4', { class: 'sec-title' }, '🎼 שירים ללמוד'),
+      ...PIANO_SONGS.map(s => el('div', { class: 'book-row' }, el('span', { class: 't' }, s[1]), el('span', { class: 'acts' },
+        playBtn(s[0], () => pianoPlay(songTimed(s), s[0], piano.inst)),
+        el('button', { type: 'button', class: 'chip', onclick: () => { pianoStop(); piano.rec = null; piano.learn = { id: s[0], notes: parseSong(s[2]), i: 0, miss: 0 }; drawPianoLists(); drawLearn(); $('#pianoDlg .piano-wrap').scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } }, '🎓 ללמוד לנגן')))),
+      el('h4', { class: 'sec-title' }, '💾 המנגינות שלי'),
+      ...(melodies.length ? melodies.map(mel => el('div', { class: 'book-row' },
+        el('span', { class: 't' }, '🎵 ' + mel.name), el('span', { class: 'a' }, `${mel.notes.length} צלילים · ${(INSTRUMENTS.find(i => i[0] === mel.inst) || INSTRUMENTS[0])[1]}`),
+        el('span', { class: 'acts' }, piano.delId === mel.id
+          ? el('span', { class: 'chips' }, el('span', {}, 'למחוק?'),
+            el('button', { type: 'button', class: 'chip', onclick: () => { melodies = melodies.filter(x => x !== mel); store.set('melodies', melodies); piano.delId = null; if (piano.playing === mel.id) pianoStop(); SFX.boop(); drawPianoLists(); } }, 'כן'),
+            el('button', { type: 'button', class: 'chip', onclick: () => { piano.delId = null; drawPianoLists(); } }, 'לא'))
+          : el('span', { class: 'chips' }, playBtn(mel.id, () => pianoPlay(mel.notes, mel.id, mel.inst)),
+            el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { piano.delId = mel.id; drawPianoLists(); } }, '🗑️'))))) :
+        [el('p', { class: 'muted' }, 'עוד אין מנגינות. לוחצים על ⏺️ ומנגנים משהו משלך!')]));
+  }
+  const pianoDown = new Set();
+  // e.code works even when the keyboard is set to Hebrew
+  const PIANO_CODES = { KeyA: 'a', KeyS: 's', KeyD: 'd', KeyF: 'f', KeyG: 'g', KeyH: 'h', KeyJ: 'j', KeyK: 'k', KeyL: 'l', Semicolon: ';', Quote: "'", KeyW: 'w', KeyE: 'e', KeyT: 't', KeyY: 'y', KeyU: 'u', KeyO: 'o', KeyP: 'p' };
+  const pianoMidiOf = e => PIANO_KEYMAP[PIANO_CODES[e.code]] ?? PIANO_KEYMAP[e.key.toLowerCase()];
+  document.addEventListener('keydown', e => {
+    if (!$('#pianoDlg') || !$('#pianoDlg').open || e.ctrlKey || e.metaKey || e.altKey) return;
+    if (e.target.matches && e.target.matches('input, textarea')) return;
+    const m = pianoMidiOf(e);
+    if (m == null) return;
+    e.preventDefault();
+    if (e.repeat || pianoDown.has(m)) return;
+    pianoDown.add(m); pianoPress(m);
+    const k = pianoKey(m); if (k) { clearTimeout(k._t); k.classList.add('on'); }
+  });
+  document.addEventListener('keyup', e => {
+    const m = pianoMidiOf(e);
+    if (pianoDown.delete(m)) pianoLight(m, 60);
+  });
+  $('#pianoDlg').addEventListener('close', () => { pianoStop(); piano.rec = null; pianoDown.clear(); });
 
   // ================= sticker album =================
   function openAlbum() {
