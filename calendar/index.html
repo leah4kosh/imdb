@@ -740,6 +740,102 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
 .rec-note { margin: 0; color: #d7263d; animation: blink .8s infinite alternate; }
 .btn.rec-on { background: #d7263d; border-color: #d7263d; color: #fff; }
 @media (prefers-reduced-motion: reduce) { .pkey.next, .rec-note { animation: none; } }
+/* ---------- ice cream shop ---------- */
+.ice-shop { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px 12px 18px; border-radius: 18px; border: 2px solid var(--line); color: #3a2b3c;
+  background: linear-gradient(#fff5fa 0 72%, #ffc2d6 72% 76%, #f7a8c4 76%); overflow: hidden; }
+.ice-shop::before { content: ''; position: absolute; inset: 0 0 auto; height: 16px; background: repeating-linear-gradient(90deg, #ff9ab8 0 24px, #fff 24px 48px); border-bottom: 2px solid #3a2b3c22; }
+.ice-side { position: relative; display: grid; justify-items: center; align-content: end; gap: 6px; min-height: 210px; padding-top: 14px; }
+.ice-lbl { font-weight: 400; font-size: .95em; background: #fff; border-radius: 999px; padding: 0 10px; border: 1.5px solid #f7a8c4; }
+.ice-bubble { position: relative; display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 6px; background: #fff; border: 2px solid #3a2b3c; border-radius: 16px; padding: 4px 8px; width: 100%; max-width: 220px; }
+.ice-bubble::after { content: ''; position: absolute; bottom: -9px; inset-inline-start: 40%; width: 14px; height: 14px; background: #fff; border: solid #3a2b3c; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.ice-bubble .art svg { width: 64px; height: auto; max-height: 150px; display: block; }
+.ice-bubble small { font-size: .85em; line-height: 1.25; }
+.ice-cust { position: relative; width: 104px; height: 104px; animation: iceIn .45s ease-out; }
+.ice-cust .art svg { width: 100%; height: 100%; display: block; }
+.ice-cust .mood { position: absolute; top: -4px; inset-inline-end: -8px; font-size: 1.5em; }
+.ice-cust.happy { animation: iceHop .4s ease-in-out 2; }
+.ice-cust.sad .art { filter: grayscale(.6); transform: rotate(-6deg); transition: .3s; }
+@keyframes iceIn { from { transform: translateX(60px); opacity: 0; } }
+@keyframes iceHop { 50% { transform: translateY(-14px); } }
+.ice-bar { width: 110px; height: 10px; border-radius: 99px; background: #fff; border: 1.5px solid #3a2b3c; overflow: hidden; }
+.ice-bar i { display: block; height: 100%; width: 0; transition: width .1s linear; }
+.ice-build { width: 120px; color: #3a2b3c; }
+.ice-build svg { width: 100%; height: auto; display: block; }
+.ice-over { position: absolute; inset: 0; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 10px; text-align: center; background: rgb(255 245 250 / .9); font-size: 1.15em; padding: 12px; }
+.ice-over[hidden] { display: none; }
+.ice-over b { font-weight: 400; font-size: 1.5em; color: #e24a86; }
+.ice-float { position: absolute; top: 64%; left: 50%; transform: translateX(-50%); z-index: 3; background: #fff; border: 2px solid #3a2b3c; border-radius: 999px; padding: 2px 14px; font-size: 1.2em; white-space: nowrap; animation: iceFloat 1.1s ease-out forwards; pointer-events: none; }
+@keyframes iceFloat { to { transform: translate(-50%, -60px); opacity: 0; } }
+.ice-ctl { display: grid; gap: 8px; }
+.ice-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ice-h { min-width: 96px; color: var(--soft); font-size: .95em; }
+.ice-pick { width: 56px; height: 56px; padding: 4px; border-radius: 12px; border: 2px solid var(--line); background: #fff; }
+.ice-pick svg { width: 100%; height: 100%; }
+.ice-pick[aria-pressed="true"] { border-color: var(--accent); outline: 2px solid var(--accent); }
+.ice-flav { width: 58px; height: 58px; border-radius: 50%; border: 2.5px solid #3a2b3c; color: #3a2b3c; font-size: .78em; line-height: 1.1; padding: 2px; box-shadow: inset -5px -6px 0 rgb(0 0 0 / .08), inset 4px 5px 0 rgb(255 255 255 / .5); }
+.ice-flav:not(:disabled):active { transform: scale(.92); }
+.ice-ctl button:disabled { opacity: .4; cursor: default; }
+.ice-act { justify-content: center; }
+@media (max-width: 480px) { .ice-h { min-width: 100%; } .ice-cust { width: 84px; height: 84px; } .ice-bubble { grid-template-columns: 50px 1fr; } .ice-bubble .art svg { width: 50px; } .ice-build { width: 96px; } }
+
+/* ---------- cake decorating ---------- */
+.cake-wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+.cake-stage { border-radius: 18px; border: 2px solid var(--line); background: radial-gradient(circle at 50% 40%, #fff 0 30%, #ffeef6 70%), #ffeef6; touch-action: none; user-select: none; }
+.cake-stage > svg { width: 100%; height: auto; display: block; cursor: copy; }
+.cake-stage > svg.erasing { cursor: not-allowed; }
+.cake-stage .cake-it { cursor: grab; }
+.cake-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker .35s ease-in-out infinite alternate; }
+@keyframes flicker { to { transform: scale(.85, 1.1) rotate(4deg); } }
+.cake-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 6px; margin-top: 8px; }
+.cake-tool { display: grid; justify-items: center; gap: 0; border: 2px solid var(--line); background: var(--card); border-radius: 12px; padding: 4px 2px; font-size: 1.25em; line-height: 1.2; }
+.cake-tool small { font-size: .55em; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cake-tool[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); box-shadow: 0 0 0 2px var(--accent); }
+.cake-ctl { display: grid; gap: 10px; }
+.cake-row { display: grid; gap: 4px; }
+.cake-h { color: var(--soft); font-size: .95em; }
+.cake-ctl .sw3 { width: 26px; height: 26px; }
+.cake-ctl .swatches { gap: 5px; }
+@media (max-width: 560px) { .cake-wrap { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .cake-flame { animation: none; } }
+
+/* ---------- tic-tac-toe vs the pet ---------- */
+.ttt-opts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ttt-mine { width: 42px; height: 42px; padding: 3px; display: grid; place-items: center; }
+.ttt-mine svg { width: 100%; height: 100%; }
+.ttt-top { display: flex; align-items: center; gap: 10px; justify-content: center; }
+.ttt-pet { width: 76px; height: 86px; flex: none; }
+.ttt-pet svg { width: 100%; height: 100%; display: block; }
+.ttt-pet.think { animation: tttThink 1s ease-in-out infinite; }
+.ttt-pet.happy { animation: iceHop .4s ease-in-out 3; }
+.ttt-pet.sad { filter: grayscale(.4); transform: rotate(-8deg); }
+@keyframes tttThink { 0%, 100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
+.ttt-say { position: relative; background: var(--paper); border: 2px solid var(--line); border-radius: 16px; padding: 8px 14px; font-size: 1.1em; max-width: 280px; }
+.ttt-say::before { content: ''; position: absolute; top: 50%; inset-inline-start: -8px; width: 12px; height: 12px; margin-top: -6px; background: var(--paper); border: solid var(--line); border-width: 0 0 2px 2px; transform: rotate(45deg); }
+.ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: min(330px, 100%); margin: 0 auto; direction: ltr; }
+.ttt-cell { aspect-ratio: 1; border-radius: 18px; border: 2.5px solid var(--line); background: var(--card); padding: 10px; transition: background .2s, transform .15s; }
+.ttt-cell:not(:disabled):hover { background: var(--paper); transform: scale(1.03); }
+.ttt-cell:disabled { cursor: default; color: inherit; }
+.ttt-cell svg { width: 100%; height: 100%; display: block; animation: tttPop .25s ease-out; }
+.ttt-cell.win { background: #fff3a8; border-color: #ffb020; animation: iceHop .5s ease-in-out 2; }
+@keyframes tttPop { from { transform: scale(.3); opacity: 0; } }
+
+/* ---------- 2048 with stickers ---------- */
+.g48-board { position: relative; width: min(380px, 100%); aspect-ratio: 1; margin: 0 auto; direction: ltr; background: #d9c7ee; border: 3px solid var(--ink); border-radius: 18px; touch-action: none; user-select: none; overflow: hidden; }
+.g48-cell, .g48-tile { position: absolute; width: 22.5%; height: 22.5%; border-radius: 14px; }
+.g48-cell { background: rgb(255 255 255 / .45); }
+.g48-tile { z-index: 1; display: grid; place-items: center; border: 2px solid rgb(58 43 60 / .25); transition: left .12s ease-out, top .12s ease-out; box-shadow: 0 3px 0 rgb(58 43 60 / .18); }
+.g48-tile svg { width: 76%; height: 76%; display: block; pointer-events: none; }
+.g48-tile b { position: absolute; bottom: 2px; right: 6px; font-family: 'Rubik', system-ui, sans-serif; font-weight: 600; font-size: clamp(9px, 2.6vw, 12px); color: #3a2b3c; opacity: .75; }
+.g48-tile.top { box-shadow: 0 0 16px #ffd84d, 0 3px 0 rgb(58 43 60 / .18); border-color: #e0a800; }
+.g48-tile.new { animation: g48In .2s ease-out .08s backwards; }
+.g48-tile.pop { animation: g48Pop .2s ease-out; z-index: 2; }
+@keyframes g48In { from { transform: scale(0); } }
+@keyframes g48Pop { 50% { transform: scale(1.18); } }
+.g48-road { display: flex; justify-content: center; gap: 2px; direction: ltr; flex-wrap: wrap; }
+.g48-step { width: 28px; height: 28px; opacity: .3; filter: grayscale(1); }
+.g48-step.got { opacity: 1; filter: none; }
+.g48-step svg { width: 100%; height: 100%; display: block; }
+@media (max-width: 480px) { .ttt-mine { width: 36px; height: 36px; } .ttt-pet { width: 60px; height: 68px; } .g48-road { gap: 0; flex-wrap: nowrap; } .g48-step { width: 24px; height: 24px; } }
 /* ---------- pet house / adopt ---------- */
 .steps { display: flex; gap: 6px; justify-content: center; }
 .steps i { width: 34px; height: 8px; border-radius: 99px; background: var(--line); }
@@ -4187,7 +4283,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   function drawGames() {
     if (catchStop) { catchStop(); catchStop = null; }
     $('#gamesTabs').replaceChildren(...GAME_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
-    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame }[gamesTab] || memoryGame)();
+    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game }[gamesTab] || memoryGame)();
   }
   function memoryGame() {
     const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
@@ -4281,7 +4377,7 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   $('#gamesDlg').addEventListener('close', () => { if (catchStop) { catchStop(); catchStop = null; } });
 
   // ================= more games: maze, puzzle, coloring, spot the difference, pearls, sound memory =================
-  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים']];
+  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048']];
   const petArt = () => pet ? petSVG(pet) : stickerHTML('cat');
   const petNm = () => pet ? pet.name || 'החיה' : 'החתול';
   const svgData = s => 'data:image/svg+xml,' + encodeURIComponent(s);
@@ -5304,6 +5400,493 @@ svg.trick-star { animation: tstar 1.4s ease-in-out; transform-origin: 50% 55%; }
   });
   $('#pianoDlg').addEventListener('close', () => { pianoStop(); piano.rec = null; pianoDown.clear(); });
 
+  // ---------- 29. ice cream shop ----------
+  const ICE_FLAVORS = [['straw', 'תות', '#ff9ab8'], ['van', 'וניל', '#fff3cf'], ['choc', 'שוקולד', '#9a6240'], ['mint', 'מנטה', '#9be3c9'], ['blue', 'אוכמניות', '#a9b8ff'], ['lemon', 'לימון', '#ffe66b']];
+  const ICE_BASES = [['waffle', 'גביע וופל'], ['choco', 'גביע שוקולד'], ['cup', 'כוס']];
+  const ICE_TOPS = [['none', '🚫 בלי'], ['sprinkles', '🌈 סוכריות'], ['cherry', '🍒 דובדבן'], ['sauce', '🍫 רוטב שוקולד']];
+  let iceUid = 0;
+  const iceCol = id => (ICE_FLAVORS.find(f => f[0] === id) || ICE_FLAVORS[1])[2];
+  const iceScoop = (cx, cy, r, col, k) => {
+    // round top, wavy bottom edge with one drip
+    const a = r * 0.937, y = cy + r * 0.35, n = 5, w = 2 * a / n;
+    let d = `M${cx - a} ${y} A${r} ${r} 0 1 1 ${cx + a} ${y}`;
+    for (let i = 0; i < n; i++) {
+      const x0 = cx + a - i * w, x1 = x0 - w;
+      d += i === k ? ` C${x0 - 1} ${y + r * 0.95} ${x1 + 1} ${y + r * 0.95} ${x1} ${y}` : ` Q${x0 - w / 2} ${y + r * 0.3} ${x1} ${y}`;
+    }
+    return `<path d="${d} Z" fill="${col}" ${S}/><path d="M${cx - r * 0.55} ${cy - r * 0.35} q${r * 0.2} ${-r * 0.35} ${r * 0.55} ${-r * 0.42}" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>`;
+  };
+  function iceSVG(o, opts = {}) {
+    const u = 'ic' + (++iceUid), cx = 50, r = 19, cone = o.base === 'waffle' || o.base === 'choco';
+    let s = '';
+    if (cone) {
+      const f = o.base === 'choco' ? '#8a5530' : '#f2b56b', ln = o.base === 'choco' ? '#5e3519' : '#c98a3e', tri = 'M24 80 L76 80 L50 138 Z';
+      const hatch = Array.from({ length: 10 }, (_, i) => `M${i * 10 - 10} 78 l40 62 M${i * 10 + 20} 78 l-40 62`).join(' ');
+      s += `<defs><clipPath id="${u}"><path d="${tri}"/></clipPath></defs><path d="${tri}" fill="${f}"/><path d="${hatch}" stroke="${ln}" stroke-width="2.2" clip-path="url(#${u})"/><path d="${tri}" fill="none" ${S}/><rect x="21" y="75" width="58" height="9" rx="4.5" fill="${f}" ${S2}/>`;
+    } else if (o.base === 'cup') {
+      const cup = 'M23 84 H77 L71 128 Q50 133 29 128 Z';
+      s += `<defs><clipPath id="${u}"><path d="${cup}"/></clipPath></defs><path d="${cup}" fill="#fff"/><path d="M30 84 V134 M42 84 V134 M54 84 V134 M66 84 V134" stroke="#ff9ab8" stroke-width="5" clip-path="url(#${u})"/><path d="${cup}" fill="none" ${S}/><rect x="19" y="79" width="62" height="9" rx="4.5" fill="#ffc2d6" ${S2}/>`;
+    } else if (opts.ghost) {
+      s += `<path d="M24 80 L76 80 L50 138 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-dasharray="6 5" opacity=".35"/><text x="50" y="106" text-anchor="middle" font-size="22" fill="currentColor" opacity=".35">?</text>`;
+    }
+    const cy0 = cone ? 70 : 72;
+    o.scoops.forEach((f, i) => { s += iceScoop(cx, cy0 - i * 21, r, iceCol(f), (i * 2 + 1) % 5); });
+    const n = o.scoops.length;
+    if (n) {
+      const cy = cy0 - (n - 1) * 21, top = cy - r;
+      if (o.top === 'sauce') {
+        const t = cy - r * 0.2;
+        s += `<path d="M${cx - r * 0.98} ${t} A${r} ${r} 0 0 1 ${cx + r * 0.98} ${t} Q${cx + r * 0.8} ${t + 9} ${cx + r * 0.6} ${t + 3} C${cx + r * 0.52} ${t + 17} ${cx + r * 0.22} ${t + 17} ${cx + r * 0.18} ${t + 3} Q${cx} ${t + 8} ${cx - r * 0.3} ${t + 2} C${cx - r * 0.38} ${t + 12} ${cx - r * 0.66} ${t + 12} ${cx - r * 0.7} ${t + 3} Q${cx - r * 0.86} ${t + 6} ${cx - r * 0.98} ${t} Z" fill="#6b3b22" ${S2}/><path d="M${cx - 8} ${top + 6} q4 -3 8 -3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>`;
+      }
+      s += face(cx, cy + 3, 0.62);
+      if (o.top === 'sprinkles') {
+        const cols = ['#ff5a6e', '#7ec8ff', '#ffd84d', '#6fcf7f', '#b58cff'];
+        o.scoops.forEach((_, i) => [[-10, -8, 20], [3, -13, -30], [11, -5, 60], [-13, 2, -70], [8, -15, 10], [-4, -15, 80]].forEach(([dx, dy, a], j) => {
+          s += `<rect x="${cx + dx - 3}" y="${cy0 - i * 21 + dy - 1.2}" width="6" height="2.4" rx="1.2" fill="${cols[(i + j) % 5]}" transform="rotate(${a} ${cx + dx} ${cy0 - i * 21 + dy})"/>`;
+        }));
+      }
+      if (o.top === 'cherry') s += `<path d="M${cx + 3} ${top - 5} q2 -10 9 -12" fill="none" stroke="#4f8a3c" stroke-width="2.4" stroke-linecap="round"/><circle cx="${cx + 3}" cy="${top}" r="6.5" fill="#ff2e4d" ${S2}/><circle cx="${cx + 1}" cy="${top - 2}" r="1.8" fill="#fff" opacity=".85"/>`;
+    }
+    if (opts.fit) { const t = Math.floor(cy0 - Math.max(0, n - 1) * 21 - r - (o.top === 'cherry' ? 20 : 4)); opts.vb = `16 ${t} 68 ${141 - t}`; }
+    return `<svg viewBox="${opts.vb || '0 -14 100 154'}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  }
+  function iceGame() {
+    const ROUND = 60;
+    const HAIRS = ['#6b4226', '#3a2b3c', '#e8573f', '#ffcf3a', '#b07642', '#b58cff'], SKINS = ['#ffe3d1', '#f6d0b1', '#e8b48f', '#c98e6b', '#8d5a3b'];
+    const OUTFITS = ['#ff9ad5', '#7ec8ff', '#6fcf7f', '#ffb020', '#b58cff', '#ff5a6e'], HATS = [null, null, 'cap', 'straw', 'flowers', 'wizard'];
+    const ANIMALS = ['cat', 'dog', 'bunny', 'bear', 'panda', 'owl', 'lion', 'dino'];
+    const rnd = a => a[Math.floor(Math.random() * a.length)];
+    let running = false, coins = 0, served = 0, left = ROUND, cust = null, build = null, busy = false, timer = 0, leaveT = 0, over = false;
+    const info = el('div', { class: 'game-info' });
+    const custBox = el('div', { class: 'ice-cust' }), bubble = el('div', { class: 'ice-bubble' }), bar = el('div', { class: 'ice-bar' }, el('i'));
+    const buildBox = el('div', { class: 'ice-build' }), overlay = el('div', { class: 'ice-over' });
+    const shop = el('div', { class: 'ice-shop' },
+      el('div', { class: 'ice-side' }, bubble, custBox, bar),
+      el('div', { class: 'ice-side' }, el('b', { class: 'ice-lbl' }, 'הגלידה שלך'), buildBox), overlay);
+    const ctl = el('div', { class: 'ice-ctl' });
+    const drawInfo = () => info.replaceChildren(el('span', {}, `🪙 ${coins}`), el('span', {}, `🍦 ${served}`), el('span', {}, `⏱️ ${Math.ceil(left)}`), games.iceBest ? el('span', {}, `🏆 השיא: ${games.iceBest}`) : null);
+    const randOrder = () => {
+      const k = 1 + Math.floor(Math.random() * Math.min(3, 1 + Math.floor(served / 2)));
+      return { base: rnd(ICE_BASES)[0], scoops: Array.from({ length: k }, () => rnd(ICE_FLAVORS)[0]), top: served < 1 ? 'none' : rnd(ICE_TOPS)[0] };
+    };
+    const drawCust = () => {
+      if (!cust) { custBox.replaceChildren(); bubble.replaceChildren(); bubble.hidden = true; return; }
+      custBox.className = 'ice-cust ' + cust.mood;
+      custBox.replaceChildren(el('span', { class: 'art', html: cust.art }), el('span', { class: 'mood' }, { wait: '😊', happy: '🤩', sad: '😢' }[cust.mood]));
+      bubble.hidden = false;
+      bubble.replaceChildren(el('span', { class: 'art', html: iceSVG(cust.order, { fit: true }) }), el('small', {},
+        `${ICE_BASES.find(b => b[0] === cust.order.base)[1]}, ${cust.order.scoops.map(f => ICE_FLAVORS.find(x => x[0] === f)[1]).join(' + ')}${cust.order.top !== 'none' ? ', ' + ICE_TOPS.find(t => t[0] === cust.order.top)[1].split(' ').slice(1).join(' ') : ''}`));
+    };
+    const drawBar = () => {
+      const p = cust ? Math.max(0, cust.patience / cust.max) : 0, i = bar.firstChild;
+      i.style.width = (p * 100).toFixed(1) + '%'; i.style.background = p > 0.5 ? '#6fcf7f' : p > 0.25 ? '#ffb020' : '#ff5a6e';
+    };
+    const drawBuild = () => { buildBox.innerHTML = iceSVG(build, { ghost: true, vb: '10 -14 80 154' }); };
+    const drawCtl = () => {
+      const off = !running || busy, full = build.scoops.length >= 3;
+      const b = (label, on, press, cls = 'chip', extra = {}) => el('button', Object.assign({ type: 'button', class: cls, disabled: off || !on, onclick: press }, extra), label);
+      ctl.replaceChildren(
+        el('div', { class: 'ice-row' }, el('span', { class: 'ice-h' }, '1. גביע או כוס'), ...ICE_BASES.map(([id, name]) => {
+          const x = b('', true, () => { build.base = id; SFX.pop(); drawAll(); }, 'ice-pick', { 'aria-pressed': String(build.base === id), 'aria-label': name, title: name });
+          x.innerHTML = iceSVG({ base: id, scoops: [], top: 'none' }, { vb: '14 70 72 72' }); return x;
+        })),
+        el('div', { class: 'ice-row' }, el('span', { class: 'ice-h' }, '2. כדורים'), ...ICE_FLAVORS.map(([id, name, c]) => {
+          const x = b('', build.base && !full, () => { build.scoops.push(id); tone(600 + build.scoops.length * 120, 0.08, 'triangle'); drawAll(); }, 'ice-flav', { 'aria-label': name, title: name });
+          x.style.background = c; x.append(el('span', {}, name)); return x;
+        })),
+        el('div', { class: 'ice-row' }, el('span', { class: 'ice-h' }, '3. תוספת'), ...ICE_TOPS.map(([id, name]) => b(name, build.scoops.length > 0, () => { build.top = id; SFX.boop(); drawAll(); }, 'chip', { 'aria-pressed': String(build.scoops.length > 0 && build.top === id) }))),
+        el('div', { class: 'chips ice-act' },
+          b('↩️ לבטל', build.base, () => { if (build.top !== 'none') build.top = 'none'; else if (build.scoops.length) build.scoops.pop(); else build.base = null; drawAll(); }, 'btn'),
+          b('🗑️ לזרוק', build.base, () => { build = { base: null, scoops: [], top: 'none' }; SFX.boop(); drawAll(); }, 'btn'),
+          b('🛎️ להגיש!', build.scoops.length > 0, serve, 'btn main')));
+    };
+    const drawAll = () => { drawInfo(); drawCust(); drawBar(); drawBuild(); drawCtl(); };
+    const newCust = () => {
+      busy = false;
+      const order = randOrder();
+      const art = Math.random() < 0.55
+        ? person({ skin: rnd(SKINS), hair: rnd(HAIRS), hairStyle: rnd(['long', 'short', 'bun']), outfit: rnd(OUTFITS), hat: rnd(HATS) })
+        : stickerHTML(rnd(ANIMALS));
+      const max = Math.max(6, 15 - served) + order.scoops.length * 2 + (order.top !== 'none' ? 1 : 0);
+      cust = { order, art, max, patience: max, mood: 'wait' };
+      build = { base: null, scoops: [], top: 'none' };
+      drawAll();
+    };
+    const floater = text => { const f = el('span', { class: 'ice-float' }, text); shop.append(f); setTimeout(() => f.remove(), 1100); };
+    const leave = (mood, msg) => {
+      busy = true; cust.mood = mood; drawAll(); floater(msg);
+      leaveT = setTimeout(() => { if (running) newCust(); }, 1100);
+    };
+    const same = (a, b) => a.base === b.base && a.top === b.top && [...a.scoops].sort().join() === [...b.scoops].sort().join();
+    function serve() {
+      if (!running || busy || !cust) return;
+      if (same(build, cust.order)) {
+        const got = 1 + cust.order.scoops.length * 2 + (cust.order.top !== 'none' ? 2 : 0) + Math.round(cust.patience / cust.max * 3);
+        coins += got; served++; SFX.yay(); leave('happy', `יש! ${got} 🪙`);
+      } else { SFX.boop(); tone(220, 0.3, 'sawtooth', 0.12, 0.05); leave('sad', 'זה לא מה שביקשתי... 😢'); }
+    }
+    const end = () => {
+      running = false; over = true; clearInterval(timer); clearTimeout(leaveT); cust = null;
+      games.icePlays = (games.icePlays || 0) + 1;
+      const best = coins > (games.iceBest || 0); if (best) games.iceBest = coins;
+      store.set('games', games); afterChange();
+      if (best && coins > 0) { confetti($('#gamesDlg .confetti-c')); SFX.yay(); }
+      drawAll();
+      overlay.hidden = false;
+      overlay.replaceChildren(el('b', {}, `החנות נסגרה! 🍦`), el('span', {}, `הגשת ${served} גלידות והרווחת ${coins} מטבעות${best && coins ? ' - שיא חדש! 🏆' : ''}`),
+        el('button', { type: 'button', class: 'btn main', onclick: start }, 'לשחק שוב'));
+    };
+    const start = () => {
+      clearInterval(timer); clearTimeout(leaveT);
+      running = true; over = false; coins = 0; served = 0; left = ROUND; overlay.hidden = true;
+      newCust();
+      timer = setInterval(() => {
+        const sec = Math.ceil(left);
+        left -= 0.1;
+        if (left <= 0) { end(); return; }
+        if (Math.ceil(left) !== sec) drawInfo();
+        if (cust && !busy) {
+          cust.patience -= 0.1; drawBar();
+          if (cust.patience <= 0) { tone(260, 0.25, 'triangle'); leave('sad', 'נמאס לי לחכות... 😢'); }
+        }
+      }, 100);
+    };
+    catchStop = () => { clearInterval(timer); clearTimeout(leaveT); };
+    build = { base: null, scoops: [], top: 'none' };
+    overlay.replaceChildren(el('b', {}, 'חנות הגלידות של ' + (pet ? petNm() : 'הלוח') + ' 🍦'), el('span', {}, 'יש לך 60 שניות!'), el('button', { type: 'button', class: 'btn main', onclick: start }, '▶️ לפתוח את החנות'));
+    drawAll();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'לקוחות באים עם הזמנה בבועה. בונים בדיוק את הגלידה שהם רוצים: גביע או כוס, כדורים בטעמים הנכונים, ותוספת. ואז לוחצים "להגיש"! כל לקוח מחכה פחות ופחות זמן ⏱️'),
+      info, shop, ctl);
+  }
+
+  // ---------- 30. decorate a cake ----------
+  const CAKE_COLORS = ['#ffc2d6', '#fff1c7', '#9a6240', '#b5f0c8', '#cfe6ff', '#e5d6ff', '#ffd9a8', '#ff8fa3'];
+  const FROST_COLORS = ['#ffffff', '#ff9ad5', '#ffe66b', '#7ec8ff', '#b58cff', '#6b3b22', '#9be3c9'];
+  const PLATE_COLORS = ['#ffffff', '#ffd84d', '#7ec8ff', '#ff9ad5', '#b5f0c8', '#c0c8d8'];
+  const CAKE_DECOS = [['strawberry', '🍓', 'תות'], ['cherry', '🍒', 'דובדבן'], ['candle', '🕯️', 'נר'], ['star', '⭐', 'כוכב'], ['heart', '💖', 'לב'], ['flower', '🌸', 'פרח'], ['sprinkle', '🌈', 'סוכריות'], ['pet', '🐾', 'החיה'], ['erase', '🧽', 'למחוק']];
+  const cakeNew = () => ({ tiers: 2, flavors: ['#ffc2d6', '#fff1c7', '#cfe6ff'], frost: 'drips', frostColor: '#ffffff', plate: '#ffd84d', sprinkles: false, name: '', items: [] });
+  const cakeGeo = n => {
+    const sz = n === 1 ? [[210, 92]] : n === 2 ? [[224, 76], [158, 64]] : [[232, 64], [178, 56], [124, 50]];
+    let yb = 262;
+    return sz.map(([w, h]) => { const t = { x: 150 - w / 2, w, h, yb, yt: yb - h }; yb = t.yt + 4; return t; });
+  };
+  const cakeItem = (it, i, lit) => {
+    const { t, x, y } = it, g = inner => `<g data-i="${i}" class="cake-it">${inner}</g>`;
+    if (t === 'cherry') return g(`<path d="M${x} ${y - 5} q3 -11 10 -13" fill="none" stroke="#4f8a3c" stroke-width="2.6" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="8" fill="#ff2e4d" ${S2}/><circle cx="${x - 2.5}" cy="${y - 2.5}" r="2.2" fill="#fff" opacity=".85"/>`);
+    if (t === 'candle') return g(`<rect x="${x - 4.5}" y="${y - 34}" width="9" height="34" rx="2" fill="#fff" ${S2}/><path d="M${x - 4} ${y - 26} l8 -5 M${x - 4} ${y - 16} l8 -5 M${x - 4} ${y - 6} l8 -5" stroke="#ff7a9a" stroke-width="2.4"/><path d="M${x} ${y - 34} v-4" stroke="${O}" stroke-width="1.6"/>`
+      + (lit ? `<path class="cake-flame" d="M${x} ${y - 52} C${x + 7} ${y - 43} ${x + 5} ${y - 37} ${x} ${y - 37} C${x - 5} ${y - 37} ${x - 7} ${y - 43} ${x} ${y - 52} Z" fill="#ffb020" ${S2} stroke-width="1.4"/><path d="M${x} ${y - 46} C${x + 3} ${y - 42} ${x + 2} ${y - 39} ${x} ${y - 39} C${x - 2} ${y - 39} ${x - 3} ${y - 42} ${x} ${y - 46} Z" fill="#fff3a0"/>` : ''));
+    if (t === 'sprinkle') {
+      const cols = ['#ff5a6e', '#7ec8ff', '#ffd84d', '#6fcf7f', '#b58cff', '#ff9ad5'];
+      return g(`<circle cx="${x}" cy="${y}" r="14" fill="transparent"/>` + [[-9, -4, 20], [0, -9, -40], [8, -3, 70], [-4, 5, -10], [6, 7, 40], [-11, 6, 90], [11, -10, 0]].map(([dx, dy, a], j) =>
+        `<rect x="${x + dx - 3.5}" y="${y + dy - 1.4}" width="7" height="2.8" rx="1.4" fill="${cols[j % 6]}" transform="rotate(${a} ${x + dx} ${y + dy})"/>`).join(''));
+    }
+    if (t === 'pet') return g(placeSvg(petArt(), x - 24, y - 50, 48, 55));
+    return g(placeSvg(stickerHTML(t), x - 16, y - 16, 32, 32));
+  };
+  function cakeSVG(c, lit = true) {
+    const tiers = cakeGeo(c.tiers);
+    const ry = 11, frontY = (t, x) => t.yt + ry * Math.sqrt(Math.max(0, 1 - ((x - 150) / (t.w / 2)) ** 2));
+    let s = `<ellipse cx="150" cy="${tiers[0].yb + 8}" rx="${tiers[0].w / 2 + 34}" ry="17" fill="${c.plate}" ${S}/><ellipse cx="150" cy="${tiers[0].yb + 4}" rx="${tiers[0].w / 2 + 18}" ry="10" fill="#fff" opacity=".35"/>`;
+    tiers.forEach((t, i) => {
+      const { x, w, yt, yb } = t, fc = c.frostColor;
+      s += `<path d="M${x} ${yt} V${yb} A${w / 2} ${ry} 0 0 0 ${x + w} ${yb} V${yt} Z" fill="${c.flavors[i] || CAKE_COLORS[0]}" ${S}/>`;
+      s += `<path d="M${x + 8} ${yt + 18} V${yb - 4}" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".35"/>`;
+      if (c.frost === 'drips') {
+        const m = Math.round(w / 20), sw = w / m;
+        let d = `M${x} ${yt}`;
+        for (let k = 0; k < m; k++) {
+          const xa = x + k * sw, xb = xa + sw, dep = [16, 7, 24, 10, 19, 6, 13][(k + i * 3) % 7];
+          d += ` L${xa} ${frontY(t, xa) + 4} C${xa + 1} ${frontY(t, xa) + dep + 8} ${xb - 1} ${frontY(t, xb) + dep + 8} ${xb} ${frontY(t, xb) + 4}`;
+        }
+        s += `<path d="${d} L${x + w} ${yt} Z" fill="${fc}" ${S2}/>`;
+      } else s += `<path d="M${x} ${yt} V${yt + 10} A${w / 2} ${ry} 0 0 0 ${x + w} ${yt + 10} V${yt} Z" fill="${fc}" ${S2}/>`;
+      s += `<ellipse cx="150" cy="${yt}" rx="${w / 2}" ry="${ry}" fill="${fc}" ${S2}/>`;
+      if (c.frost === 'swirls') {
+        const m = Math.round(w / 18);
+        for (let k = 0; k <= m; k++) {
+          const xx = x + 6 + k * (w - 12) / m, yy = frontY(t, xx) + 1;
+          s += `<circle cx="${xx}" cy="${yy}" r="7.5" fill="${fc}" ${S2}/><path d="M${xx - 3.5} ${yy + 1} a3.5 3.5 0 1 1 3.5 3" fill="none" stroke="${O}" stroke-width="1.2" opacity=".45"/>`;
+        }
+        s += `<path d="M${x} ${yb - 6} ${Array.from({ length: Math.round(w / 14) }, (_, k) => `q7 6 14 0`).join(' ')}" fill="none" stroke="${fc}" stroke-width="5" stroke-linecap="round"/>`;
+      }
+      if (c.sprinkles) {
+        const cols = ['#ff5a6e', '#7ec8ff', '#ffd84d', '#6fcf7f', '#b58cff'];
+        for (let k = 0; k < Math.round(w / 9); k++) {
+          const px = x + 10 + ((k * 37 + i * 11) % (w - 20)), py = yt + 4 + ((k * 23) % Math.max(10, t.h - 14)) * (k % 3 ? 1 : 0) - (k % 3 ? 0 : 6 + (k * 7) % 6);
+          s += `<rect x="${px - 3}" y="${py - 1.2}" width="6" height="2.4" rx="1.2" fill="${cols[k % 5]}" transform="rotate(${(k * 53) % 180} ${px} ${py})"/>`;
+        }
+      }
+    });
+    if (c.name) {
+      const t = tiers[0];
+      s += `<text x="150" y="${t.yb - t.h / 2 + 16}" text-anchor="middle" font-size="${c.name.length > 10 ? 18 : 24}" font-family="'Gveret Levin', Rubik, sans-serif" fill="#fff" stroke="${O}" stroke-width="4" paint-order="stroke" stroke-linejoin="round">${c.name.replace(/[<&>"]/g, ch => ({ '<': '&lt;', '&': '&amp;', '>': '&gt;', '"': '&quot;' }[ch]))}</text>`;
+    }
+    s += c.items.map((it, i) => cakeItem(it, i, lit)).join('');
+    return `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  }
+  function cakeGame() {
+    let cake = Object.assign(cakeNew(), store.get('cake', {})), tool = 'strawberry', lit = true, drag = null;
+    const save = () => store.set('cake', cake);
+    const stage = el('div', { class: 'cake-stage' }), ctl = el('div', { class: 'cake-ctl' }), msg = el('span', { class: 'saved' });
+    const drawCake = () => {
+      stage.innerHTML = cakeSVG(cake, lit);
+      stage.firstChild.classList.toggle('erasing', tool === 'erase');
+    };
+    const pt = e => { const s = stage.firstChild, p = s.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; const q = p.matrixTransform(s.getScreenCTM().inverse()); return { x: Math.max(8, Math.min(292, q.x)), y: Math.max(20, Math.min(292, q.y)) }; };
+    stage.addEventListener('pointerdown', e => {
+      const p = pt(e), g = e.target.closest('[data-i]');
+      if (g) {
+        const i = +g.dataset.i;
+        if (tool === 'erase') { cake.items.splice(i, 1); SFX.boop(); save(); drawCake(); return; }
+        drag = { i, dx: cake.items[i].x - p.x, dy: cake.items[i].y - p.y };
+      } else if (tool !== 'erase') {
+        if (cake.items.length >= 80) { msg.textContent = 'העוגה מלאה! אפשר למחוק קצת עם 🧽'; return; }
+        cake.items.push({ t: tool, x: Math.round(p.x), y: Math.round(p.y) }); drag = { i: cake.items.length - 1, dx: 0, dy: 0 };
+        tone(700 + Math.random() * 300, 0.07, 'triangle', 0, 0.06); drawCake();
+      }
+      if (drag) { try { stage.setPointerCapture(e.pointerId); } catch {} e.preventDefault(); }
+    });
+    stage.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const p = pt(e), it = cake.items[drag.i];
+      it.x = Math.round(p.x + drag.dx); it.y = Math.round(p.y + drag.dy); drawCake();
+    });
+    const drop = () => { if (drag) { drag = null; save(); } };
+    stage.addEventListener('pointerup', drop); stage.addEventListener('pointercancel', drop);
+    const swatches = (cols, cur, set, label) => el('div', { class: 'swatches' }, ...cols.map(c => {
+      const b = el('button', { type: 'button', class: 'sw3', 'aria-label': label, 'aria-pressed': String(cur === c), onclick: () => { set(c); SFX.pop(); save(); draw(); } }); b.style.background = c; return b;
+    }));
+    const row = (title, ...kids) => el('div', { class: 'cake-row' }, el('span', { class: 'cake-h' }, title), ...kids);
+    const surprise = () => {
+      const r = a => a[Math.floor(Math.random() * a.length)];
+      cake = Object.assign(cakeNew(), { name: cake.name, tiers: 1 + Math.floor(Math.random() * 3), flavors: [r(CAKE_COLORS), r(CAKE_COLORS), r(CAKE_COLORS)], frost: r(['smooth', 'drips', 'swirls']), frostColor: r(FROST_COLORS), plate: r(PLATE_COLORS), sprinkles: Math.random() < 0.5 });
+      const tiers = cakeGeo(cake.tiers), top = tiers[tiers.length - 1], deco = r([['strawberry', 'cherry'], ['heart', 'star'], ['flower', 'strawberry'], ['cherry', 'heart']]);
+      const nC = 1 + Math.floor(Math.random() * 5);
+      for (let k = 0; k < nC; k++) cake.items.push({ t: 'candle', x: Math.round(150 - (nC - 1) * 11 + k * 22), y: top.yt + 4 });
+      tiers.forEach((t, i) => {
+        const m = Math.max(2, Math.round(t.w / 50));
+        for (let k = 0; k < m; k++) cake.items.push({ t: deco[(k + i) % 2], x: Math.round(t.x + (k + 0.5) * t.w / m), y: Math.round(t.yb - t.h * (cake.name && i === 0 ? 0.78 : 0.42)) });
+      });
+      SFX.ding(); save(); draw();
+    };
+    const draw = () => {
+      drawCake();
+      ctl.replaceChildren(
+        row('🎂 קומות', el('div', { class: 'chips' }, ...[1, 2, 3].map(n => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cake.tiers === n), onclick: () => { cake.tiers = n; SFX.pop(); save(); draw(); } }, String(n))))),
+        ...Array.from({ length: cake.tiers }, (_, i) => row(cake.tiers === 1 ? '🍰 טעם' : `🍰 קומה ${i + 1}`, swatches(CAKE_COLORS, cake.flavors[i], c => { cake.flavors[i] = c; }, 'טעם'))),
+        row('🧁 ציפוי', el('div', { class: 'chips' }, ...[['smooth', 'חלק'], ['drips', 'נוזל'], ['swirls', 'סלסולים']].map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cake.frost === id), onclick: () => { cake.frost = id; SFX.pop(); save(); draw(); } }, n)),
+          el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cake.sprinkles), onclick: () => { cake.sprinkles = !cake.sprinkles; SFX.pop(); save(); draw(); } }, '🌈 סוכריות בכל העוגה'))),
+        row('🎨 צבע ציפוי', swatches(FROST_COLORS, cake.frostColor, c => { cake.frostColor = c; }, 'צבע ציפוי')),
+        row('🍽️ צלחת', swatches(PLATE_COLORS, cake.plate, c => { cake.plate = c; }, 'צבע צלחת')),
+        row('✍️ שם', el('input', { type: 'text', maxLength: 14, value: cake.name, placeholder: 'מה לכתוב על העוגה?', oninput: e => { cake.name = e.target.value; save(); drawCake(); } })));
+      tools.replaceChildren(...CAKE_DECOS.map(([id, ic, n]) => el('button', { type: 'button', class: 'cake-tool', 'aria-pressed': String(tool === id), title: id === 'pet' ? petNm() : n,
+        onclick: () => { tool = id; draw(); } }, el('span', {}, ic), el('small', {}, id === 'pet' ? petNm() : n))));
+    };
+    const tools = el('div', { class: 'cake-tools' });
+    draw();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'מעצבים עוגה! בוחרים קישוט למטה ולוחצים על העוגה כדי לשים אותו. אפשר לגרור קישוטים למקום אחר, ולמחוק עם 🧽.'),
+      el('div', { class: 'cake-wrap' }, el('div', {}, stage, tools), ctl),
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { lit = true; drawCake(); SFX.birthday(); } }, '🎵 יום הולדת שמח'),
+        el('button', { type: 'button', class: 'btn', onclick: () => {
+          if (!lit || !cake.items.some(it => it.t === 'candle')) { lit = true; drawCake(); return; }
+          lit = false; drawCake(); tone(180, 0.4, 'sawtooth', 0, 0.03); setTimeout(() => { SFX.yay(); confetti($('#gamesDlg .confetti-c')); }, 300);
+        } }, '🌬️ לכבות נרות'),
+        el('button', { type: 'button', class: 'btn', onclick: surprise }, '🎲 הפתעה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { cake = cakeNew(); lit = true; SFX.boop(); save(); draw(); } }, '🗑️ להתחיל מחדש'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          const c = { id: 'my' + Date.now().toString(36), url: svgData(cakeSVG(cake, true)) };
+          customStk.push(c);
+          if (!store.set('customStk', customStk)) { customStk.pop(); msg.textContent = 'אין מספיק מקום לשמור עוד מדבקה.'; return; }
+          registerCustom(c); winGame('cakeStickers'); msg.textContent = '✔️ העוגה נהייתה מדבקה! אפשר לשים אותה על ימים.';
+        } }, '✨ להפוך למדבקה'), msg));
+  }
+
+  // ---------- 31. tic-tac-toe against the pet ----------
+  const TTT_LINES = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  const TTT_ME = [['x', '❌'], ['heart', 'לב'], ['star', 'כוכב'], ['strawberry', 'תות'], ['butterfly', 'פרפר'], ['flower', 'פרח']];
+  const X_ART = `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M12 12 L36 36 M36 12 L12 36" stroke="${O}" stroke-width="11" stroke-linecap="round"/><path d="M12 12 L36 36 M36 12 L12 36" stroke="#ff5a8a" stroke-width="6" stroke-linecap="round"/></svg>`;
+  function tttGame() {
+    let level = store.get('tttLevel', 'mid'), me = store.get('tttMe', 'x'), b, turn, over, first = 'x', thinkT = 0, line = null;
+    const info = el('div', { class: 'game-info' }), board = el('div', { class: 'ttt-board' }), say = el('div', { class: 'ttt-say' }), end = el('div');
+    const petBox = el('div', { class: 'ttt-pet', html: petArt() });
+    const meArt = () => me === 'x' || !STICKERS[me] ? X_ART : stickerHTML(me);
+    const winLn = bb => TTT_LINES.find(l => bb[l[0]] && bb[l[0]] === bb[l[1]] && bb[l[0]] === bb[l[2]]) || null;
+    const empties = bb => bb.map((v, i) => v ? -1 : i).filter(i => i >= 0);
+    const rnd = a => a[Math.floor(Math.random() * a.length)];
+    const finds = (bb, who) => empties(bb).find(i => { bb[i] = who; const w = winLn(bb); bb[i] = null; return w; });
+    const mm = (bb, who, d) => {
+      const w = winLn(bb); if (w) return bb[w[0]] === 'o' ? 10 - d : d - 10;
+      const e = empties(bb); if (!e.length) return 0;
+      let best = who === 'o' ? -99 : 99;
+      for (const i of e) { bb[i] = who; const v = mm(bb, who === 'o' ? 'x' : 'o', d + 1); bb[i] = null; best = who === 'o' ? Math.max(best, v) : Math.min(best, v); }
+      return best;
+    };
+    const aiMove = () => {
+      const e = empties(b);
+      if (level === 'easy') { const w = finds(b, 'o'); return w != null && Math.random() < 0.3 ? w : rnd(e); }
+      if (level === 'mid') {
+        const w = finds(b, 'o'); if (w != null) return w;
+        const bl = finds(b, 'x'); if (bl != null && Math.random() < 0.75) return bl;
+        if (!b[4] && Math.random() < 0.5) return 4;
+        return rnd(e);
+      }
+      const scored = e.map(i => { b[i] = 'o'; const v = mm(b, 'x', 1); b[i] = null; return [i, v]; });
+      const top = Math.max(...scored.map(s => s[1]));
+      return rnd(scored.filter(s => s[1] === top))[0];
+    };
+    const talk = (t, cls = '') => { say.textContent = `${petNm()}: ${t}`; petBox.className = 'ttt-pet ' + cls; };
+    const drawInfo = () => info.replaceChildren(el('span', {}, `👧 את: ${games.tttWins || 0}`), el('span', {}, `🐾 ${petNm()}: ${games.tttLosses || 0}`), games.tttDraws ? el('span', {}, `🤝 תיקו: ${games.tttDraws}`) : null);
+    const draw = () => {
+      board.replaceChildren(...b.map((v, i) => el('button', { type: 'button', class: 'ttt-cell' + (line && line.includes(i) ? ' win' : '') + (v ? ' full' : ''), 'aria-label': v ? (v === 'x' ? 'שלי' : petNm()) : `משבצת ${i + 1}`,
+        html: v === 'x' ? meArt() : v === 'o' ? petArt() : '', disabled: !!v || over || turn !== 'x', onclick: () => play(i) })));
+      drawInfo();
+    };
+    const finish = () => {
+      line = winLn(b);
+      if (!line && empties(b).length) return false;
+      over = true; clearTimeout(thinkT);
+      if (line && b[line[0]] === 'x') { games.tttWins = (games.tttWins || 0) + 1; talk(rnd(['וואו! ניצחת אותי! 😮', 'לא האמנתי! את אלופה! 🏆', 'אוף... בפעם הבאה אני אנצח! 😤']), 'sad'); store.set('games', games); confetti($('#gamesDlg .confetti-c')); SFX.yay(); afterChange(); }
+      else if (line) { games.tttLosses = (games.tttLosses || 0) + 1; talk(rnd(['יש! ניצחתי! 😸 עוד סיבוב?', 'הופה! שלוש בשורה! 🎉', 'חחח, תפסתי אותך! 😜']), 'happy'); store.set('games', games); SFX.boop(); tone(700, 0.15, 'triangle', 0.1); tone(900, 0.2, 'triangle', 0.25); }
+      else { games.tttDraws = (games.tttDraws || 0) + 1; talk(rnd(['תיקו! אנחנו שוות כוח 🤝', 'תיקו! אף אחת לא ניצחה 😅']), ''); store.set('games', games); SFX.ding(); }
+      draw();
+      end.replaceChildren(el('div', { class: 'game-win' }, el('button', { type: 'button', class: 'btn main', onclick: newGame }, 'עוד סיבוב')));
+      return true;
+    };
+    const petTurn = () => {
+      turn = 'o'; draw(); talk(rnd(['הממ... אני חושב/ת 🤔', 'רגע, רגע... 🤔', 'איפה לשים? 🧐', 'אהה... 💭']), 'think');
+      thinkT = setTimeout(() => {
+        const i = aiMove(); b[i] = 'o'; tone(PET_VOICE[pet && pet.kind] || 440, 0.12, 'triangle');
+        turn = 'x';
+        if (!finish()) { talk(rnd(['שמתי פה! תורך 😊', 'חחח, נסי לעצור את זה!', 'עכשיו את!', 'הנה! 🐾']), ''); draw(); }
+      }, 600 + Math.random() * 500);
+    };
+    const play = i => {
+      if (over || turn !== 'x' || b[i]) return;
+      b[i] = 'x'; SFX.pop();
+      if (!finish()) petTurn();
+    };
+    const newGame = () => {
+      clearTimeout(thinkT);
+      b = Array(9).fill(null); over = false; line = null; end.replaceChildren();
+      turn = first; const who = first; first = first === 'x' ? 'o' : 'x';
+      if (who === 'o') petTurn(); else { talk(rnd(['את מתחילה! 😊', 'בואי נשחק! תורך!', 'אני מוכן/ה! תתחילי 😺']), ''); draw(); }
+    };
+    catchStop = () => clearTimeout(thinkT);
+    const levels = el('div', { class: 'chips' });
+    const mine = el('div', { class: 'chips' });
+    const drawOpts = () => {
+      levels.replaceChildren(...[['easy', 'קלה'], ['mid', 'בינונית'], ['hard', 'קשה']].map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(level === id),
+        onclick: () => { level = id; store.set('tttLevel', id); drawOpts(); newGame(); } }, n)));
+      mine.replaceChildren(el('span', { class: 'muted' }, 'אני משחקת עם:'), ...TTT_ME.map(([id, n]) => el('button', { type: 'button', class: 'chip ttt-mine', 'aria-pressed': String(me === id), 'aria-label': n,
+        html: id === 'x' ? X_ART : stickerHTML(id), onclick: () => { me = id; store.set('tttMe', id); drawOpts(); draw(); } })));
+    };
+    drawOpts(); newGame();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, `משחקים איקס עיגול נגד ${petNm()}! מי ששמה שלוש בשורה (או באלכסון) מנצחת.`),
+      el('div', { class: 'ttt-opts' }, el('span', { class: 'muted' }, 'רמה:'), levels), mine, info,
+      el('div', { class: 'ttt-top' }, petBox, say), board, end);
+  }
+
+  // ---------- 32. 2048 with stickers ----------
+  const G48_IDS = ['strawberry', 'apple', 'cookie', 'cupcake', 'donut', 'icecream', 'cake', 'balloon', 'gift', 'crown', 'goldstar'];
+  const G48_BG = ['#ffe3ea', '#ffd9d2', '#fff0c9', '#e3f1ff', '#ffe0f3', '#dff7ec', '#f1e3ff', '#ffd6e6', '#e6dcff', '#fff3a8', '#ffd84d'];
+  function g2048Game() {
+    const N = 4, saved = store.get('g2048', null);
+    let tiles = [], nid = 1, score = 0, won = false, keepGoing = false, dead = false, lock = false;
+    const board = el('div', { class: 'g48-board' }), info = el('div', { class: 'game-info' }), end = el('div'), road = el('div', { class: 'g48-road' });
+    board.append(...Array.from({ length: N * N }, (_, i) => { const c = el('div', { class: 'g48-cell' }); c.style.left = (2 + (i % N) * 24.5) + '%'; c.style.top = (2 + ((i / N) | 0) * 24.5) + '%'; return c; }));
+    const els = new Map();
+    const place = (t, e) => { e.style.left = (2 + t.c * 24.5) + '%'; e.style.top = (2 + t.r * 24.5) + '%'; };
+    const fill = (t, e) => { e.style.background = G48_BG[t.v - 1]; e.classList.toggle('top', t.v === G48_IDS.length); e.innerHTML = stickerHTML(G48_IDS[t.v - 1]) + `<b>${2 ** t.v}</b>`; };
+    const mk = (t, cls) => { const e = el('div', { class: 'g48-tile ' + (cls || '') }); fill(t, e); place(t, e); board.append(e); els.set(t.id, e); };
+    const maxV = () => tiles.reduce((m, t) => Math.max(m, t.v), 0);
+    const drawInfo = () => {
+      info.replaceChildren(el('span', {}, `⭐ ${score}`), el('span', {}, `🏆 השיא: ${games.g2048Best || 0}`));
+      const mv = maxV();
+      road.replaceChildren(...G48_IDS.map((id, i) => el('span', { class: 'g48-step' + (i < mv ? ' got' : ''), title: String(2 ** (i + 1)), html: stickerHTML(id) })));
+    };
+    const spawn = () => {
+      const free = [];
+      for (let r = 0; r < N; r++) for (let c = 0; c < N; c++) if (!tiles.some(t => t.r === r && t.c === c)) free.push([r, c]);
+      if (!free.length) return;
+      const [r, c] = free[Math.floor(Math.random() * free.length)];
+      const t = { id: nid++, v: Math.random() < 0.9 ? 1 : 2, r, c }; tiles.push(t); mk(t, 'new');
+    };
+    const canMove = () => tiles.length < N * N || tiles.some(t => tiles.some(u => u.v === t.v && Math.abs(u.r - t.r) + Math.abs(u.c - t.c) === 1));
+    const save = () => store.set('g2048', { tiles: tiles.map(t => [t.r, t.c, t.v]), score, won, keepGoing });
+    const move = dir => {
+      if (lock || dead || (won && !keepGoing)) return;
+      const vert = dir === 'up' || dir === 'down', rev = dir === 'right' || dir === 'down';
+      let moved = false, gain = 0;
+      const gone = [], grown = [];
+      for (let k = 0; k < N; k++) {
+        const line = tiles.filter(t => (vert ? t.c : t.r) === k).sort((a, c) => (vert ? a.r - c.r : a.c - c.c) * (rev ? -1 : 1));
+        const out = [];
+        for (const t of line) {
+          const last = out[out.length - 1];
+          let pos;
+          if (last && last.v === t.v && !last.m) { last.m = true; last.v++; gain += 2 ** last.v; gone.push([t, last]); grown.push(last); pos = out.length - 1; }
+          else { out.push(t); pos = out.length - 1; }
+          const idx = rev ? N - 1 - pos : pos, r = vert ? idx : k, c = vert ? k : idx;
+          if (t.r !== r || t.c !== c) moved = true;
+          t.r = r; t.c = c;
+        }
+      }
+      if (!moved) { tiles.forEach(t => { delete t.m; }); return; }
+      lock = true;
+      tiles = tiles.filter(t => !gone.some(([g]) => g === t));
+      tiles.forEach(t => { delete t.m; });
+      score += gain;
+      if (score > (games.g2048Best || 0)) games.g2048Best = score;
+      tiles.forEach(t => { const e = els.get(t.id); e.classList.remove('new', 'pop'); place(t, e); });
+      gone.forEach(([t, into]) => { const e = els.get(t.id); e.style.zIndex = 0; place(into, e); });
+      if (gain) tone(440 + Math.min(10, Math.log2(gain)) * 60, 0.09, 'triangle', 0, 0.07); else tone(300, 0.04, 'sine', 0, 0.03);
+      setTimeout(() => {
+        gone.forEach(([t]) => { els.get(t.id).remove(); els.delete(t.id); });
+        grown.forEach(t => { const e = els.get(t.id); fill(t, e); e.classList.remove('pop'); void e.offsetWidth; e.classList.add('pop'); });
+        spawn(); drawInfo(); lock = false;
+        if (!won && maxV() >= G48_IDS.length) {
+          won = true; winGame('g2048Wins');
+          end.replaceChildren(el('div', { class: 'game-win' }, el('b', {}, 'הגעת לכוכב הזהב! ✨🎉'),
+            el('button', { type: 'button', class: 'btn main', onclick: () => { keepGoing = true; end.replaceChildren(); save(); } }, 'להמשיך לשחק'),
+            el('button', { type: 'button', class: 'btn', onclick: newGame }, 'משחק חדש')));
+        } else if (!canMove()) {
+          dead = true; store.set('games', games); SFX.boop();
+          end.replaceChildren(winLine(`אין עוד מהלכים! צברת ${score} נקודות${score >= (games.g2048Best || 0) && score ? ' - שיא! 🏆' : ''}`, newGame));
+        }
+        store.set('games', games); save();
+      }, 130);
+    };
+    const newGame = () => {
+      tiles.forEach(t => els.get(t.id).remove()); els.clear(); tiles = []; score = 0; won = false; keepGoing = false; dead = false; lock = false; end.replaceChildren();
+      spawn(); spawn(); drawInfo(); save();
+    };
+    let sx = null, sy = 0;
+    board.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; try { board.setPointerCapture(e.pointerId); } catch {} });
+    board.addEventListener('pointerup', e => {
+      if (sx == null) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+      if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+      move(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+    });
+    board.addEventListener('pointercancel', () => { sx = null; });
+    catchStop = addKeys(e => {
+      const d = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right' }[e.key];
+      if (d) { e.preventDefault(); move(d); }
+    });
+    const pad = el('div', { class: 'dpad' }, el('span'), el('button', { type: 'button', 'aria-label': 'למעלה', onclick: () => move('up') }, '⬆️'), el('span'),
+      el('button', { type: 'button', 'aria-label': 'שמאלה', onclick: () => move('left') }, '⬅️'), el('span'), el('button', { type: 'button', 'aria-label': 'ימינה', onclick: () => move('right') }, '➡️'),
+      el('span'), el('button', { type: 'button', 'aria-label': 'למטה', onclick: () => move('down') }, '⬇️'), el('span'));
+    if (saved && saved.tiles && saved.tiles.length) {
+      score = saved.score || 0; won = !!saved.won; keepGoing = !!saved.keepGoing;
+      saved.tiles.forEach(([r, c, v]) => { const t = { id: nid++, r, c, v }; tiles.push(t); mk(t); });
+      drawInfo();
+      if (!canMove()) { dead = true; end.replaceChildren(winLine(`אין עוד מהלכים! צברת ${score} נקודות`, newGame)); }
+      else if (won && !keepGoing) keepGoing = true;
+    } else newGame();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'מזיזים את כל המדבקות עם החצים (או מחליקים על הלוח). שתי מדבקות זהות שנפגשות מתחברות למדבקה הבאה בדרך! מגיעים עד לכוכב הזהב ✨'),
+      info, road, board, end, pad, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: newGame }, '🔀 משחק חדש')));
+  }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
