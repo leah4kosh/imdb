@@ -2365,6 +2365,124 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
 .ps-stars { font-size: 2.4em; letter-spacing: 4px; }
 .ps-stars span { display: inline-block; animation: shPop .5s ease both; }
 @media (max-width: 700px) { .ps-game { grid-template-columns: 1fr; } .ps-stage { min-height: 250px; } }
+
+/* pets: designer, many pets, party, vet, bath */
+#pet .art .pz-eyes, .scene .pet-art .pz-eyes, .pz-des-prev .pz-eyes, .pz-party-pet .pz-eyes { transform-box: fill-box; transform-origin: center; animation: pzblink 5.5s infinite; }
+@keyframes pzblink { 0%, 93%, 100% { transform: scaleY(1); } 95.5% { transform: scaleY(.12); } }
+.pz-des { display: grid; grid-template-columns: 180px 1fr; gap: 14px; align-items: start; }
+.pz-des-side { position: sticky; top: 40px; display: grid; gap: 8px; justify-items: center; }
+.pz-des-prev { width: 170px; height: 194px; border-radius: 22px; background: radial-gradient(circle at 50% 40%, #fff 0 40%, #ffeef7 70%, #e9f3ff); border: 2px solid var(--line); }
+.pz-des-prev svg { width: 100%; height: 100%; display: block; }
+.pz-des-side .chips { justify-content: center; }
+.pz-des-main { display: grid; gap: 12px; min-width: 0; }
+.pz-des-tabs { top: 0; }
+.pz-sec { display: grid; gap: 6px; }
+.pz-sec > .lbl { font-size: 1.05em; }
+.pz-sw { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.pz-swb { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--line); background: var(--c); padding: 0; box-shadow: inset 0 -3px 0 rgb(0 0 0 / .08); font-size: .75em; color: var(--soft); }
+.pz-swb.auto { background: conic-gradient(#3a2b3c 0 25%, #3fa0ff 0 50%, #ff5a8a 0 75%, #ffb020 0); color: #fff; text-shadow: 0 0 3px #000; }
+.pz-swb[aria-pressed="true"] { border-color: var(--ink); outline: 3px solid var(--accent); outline-offset: 1px; transform: scale(1.08); }
+.pz-picker { position: relative; width: 36px; height: 32px; display: inline-grid; place-items: center; border: 2px dashed var(--line); border-radius: 12px; cursor: pointer; font-size: 1.1em; }
+.pz-picker input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+.pz-opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+.pz-opts button { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 4px; display: grid; justify-items: center; font-size: .82em; gap: 2px; }
+.pz-opts button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.pz-opts .ic { width: 58px; height: 52px; }
+.pz-opts .ic svg { width: 100%; height: 100%; display: block; }
+.pz-seg button { border: none; background: none; padding: 4px 14px; font: inherit; color: inherit; }
+.pz-seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.pz-seg { justify-self: start; }
+@media (max-width: 560px) { .pz-des { grid-template-columns: 1fr; } .pz-des-side { position: static; } }
+
+.pz-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.pz-card { display: grid; justify-items: center; gap: 4px; padding: 8px 6px; border: 2px solid var(--line); border-radius: 18px; background: var(--card); text-align: center; }
+.pz-card.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--card)); }
+.pz-card b { font-weight: 400; } .pz-card small { color: var(--soft); margin-top: -4px; }
+.pz-card-art { width: 84px; height: 96px; border: none; background: none; padding: 0; cursor: pointer; }
+.pz-card-art svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.pz-card .chip { font-size: .85em; padding: 2px 10px; }
+.pz-badge { font-size: .85em; color: var(--accent); }
+.pz-add { border-style: dashed; align-content: center; cursor: pointer; font: inherit; color: inherit; min-height: 150px; }
+.pz-plus { font-size: 2em; }
+svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
+@keyframes pzhop { 30% { transform: translateY(-22%) scale(1.05, .95); } 55% { transform: translateY(0) scale(1.08, .9); } 75% { transform: translateY(-5%); } }
+
+.pz-party-stage { position: relative; height: 300px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); background: radial-gradient(circle at 15% 20%, #fff8 0 6%, transparent 7%), radial-gradient(circle at 80% 15%, #fff8 0 8%, transparent 9%), linear-gradient(#ffe0f0 0 64%, #b8e8a0 64%); }
+.pz-party-pet { position: absolute; bottom: 14px; width: var(--w, 100px); height: calc(var(--w, 100px) * 1.15); transform: translateX(-50%); border: none; background: none; padding: 0; cursor: pointer; }
+.pz-party-pet svg { width: 100%; height: 100%; display: block; overflow: visible; animation: pzbob 1.6s ease-in-out infinite; animation-delay: var(--d, 0s); transform-origin: 50% 100%; }
+.pz-party-pet.dance svg { animation: pzdance 1.3s ease-in-out 1; }
+@keyframes pzbob { 50% { transform: translateY(-8px) scale(1.02, .98); } }
+@keyframes pzdance { 25% { transform: rotate(-14deg) translateY(-10px); } 50% { transform: rotate(0) translateY(0) scaleX(-1); } 75% { transform: rotate(14deg) translateY(-10px) scaleX(-1); } }
+.pz-fx { position: absolute; inset: 0; pointer-events: none; }
+.pz-fx > * { pointer-events: auto; }
+.pz-say { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #fff; color: #1f2a44; border: 2px solid #3a2b3c; border-radius: 14px; padding: 4px 12px; font-size: .95em; max-width: 92%; text-align: center; z-index: 3; }
+.pz-heart { position: absolute; bottom: 45%; width: 30px; height: 30px; transform: translateX(-50%); animation: floatup 1.2s ease-out forwards; pointer-events: none; }
+.pz-heart svg, .pz-ball svg { width: 100%; height: 100%; }
+.pz-ball { position: absolute; bottom: 55%; width: 40px; height: 40px; transform: translateX(-50%); transition: left .4s ease-in-out; animation: pzballup .42s ease-in-out infinite; pointer-events: none; left: 0; }
+@keyframes pzballup { 50% { bottom: 72%; } }
+.pz-note { position: absolute; bottom: 20%; font-size: 1.6em; animation: floatup 1.8s ease-out forwards; pointer-events: none; }
+.pz-bub { position: absolute; bottom: -40px; width: 42px; height: 42px; border-radius: 50%; border: 2px solid #9fdcff; background: radial-gradient(circle at 32% 30%, #fff 0 14%, #e6f7ff88 30%, #bfeaff55 70%); padding: 0; animation: pzbubup 6s linear forwards; cursor: pointer; }
+.pz-bub.pop { animation: pzpop .25s ease-out forwards; }
+@keyframes pzbubup { to { transform: translateY(-360px) translateX(20px); } }
+@keyframes pzpop { to { transform: scale(1.6); opacity: 0; } }
+
+.pz-vet-room { position: relative; min-height: 290px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); background: linear-gradient(#e8f6ff 0 66%, #cfe9df 66%); display: grid; grid-template-columns: 1fr 1fr; align-items: end; padding: 50px 12px 12px; gap: 10px; }
+.pz-vet-room::before { content: '✚'; position: absolute; top: 12px; right: 16px; font-size: 2.2em; color: #ff6b8b; opacity: .35; }
+.pz-vet-pet { width: 190px; height: 218px; justify-self: center; }
+.pz-vet-pet svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.pz-vet-pet.healed svg { animation: pzhop .7s ease 2; }
+.pz-vet-card { background: #fff; color: #1f2a44; border: 2px solid #3a2b3c; border-radius: 16px; padding: 10px 12px; display: grid; gap: 4px; align-self: center; box-shadow: 3px 4px 0 rgb(0 0 0 / .08); }
+.pz-vet-card b { font-weight: 400; } .pz-vet-card .muted { color: #5b6b8c; }
+.pz-vet-steps { display: flex; gap: 6px; }
+.pz-step { width: 38px; height: 38px; border-radius: 12px; border: 2px dashed #c9dcf5; display: grid; place-items: center; color: #9aa6bd; }
+.pz-step.ok { border-style: solid; border-color: #4fbf73; background: #eafbef; }
+.pz-step svg { width: 30px; height: 30px; }
+.pz-good { color: #2e9b57; font-size: 1.15em; }
+.pz-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 6px; }
+.pz-tool { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 4px; display: grid; justify-items: center; font-size: .8em; touch-action: none; cursor: grab; user-select: none; }
+.pz-tool .ic { width: 42px; height: 42px; pointer-events: none; } .pz-tool .ic svg { width: 100%; height: 100%; }
+.pz-tool.hint { border-color: #ffb020; animation: pzglow 1s ease-in-out infinite; }
+@keyframes pzglow { 50% { box-shadow: 0 0 0 5px #ffd84d88; transform: scale(1.06); } }
+.pz-ghost { position: fixed; width: 60px; height: 60px; transform: translate(-50%, -60%) rotate(-10deg); pointer-events: none; z-index: 30; filter: drop-shadow(0 6px 6px rgb(0 0 0 / .25)); }
+.pz-ghost svg { width: 100%; height: 100%; }
+@media (max-width: 560px) { .pz-vet-room { grid-template-columns: 1fr; } .pz-vet-pet { width: 150px; height: 172px; } }
+
+.pz-bath-steps { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.pz-bstep { display: grid; justify-items: center; font-size: .78em; padding: 3px 6px; border-radius: 12px; border: 2px solid var(--line); opacity: .55; min-width: 58px; }
+.pz-bstep .ic { width: 30px; height: 30px; } .pz-bstep .ic svg { width: 100%; height: 100%; }
+.pz-bstep.on { opacity: 1; border-color: var(--accent); background: var(--paper); transform: scale(1.08); }
+.pz-bstep.ok { opacity: 1; border-color: #4fbf73; background: #eafbef; }
+.pz-bath-stage { position: relative; height: 340px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); touch-action: none; cursor: none; user-select: none; background: #eaf7ff; }
+.pz-bath-stage.done { cursor: default; background: radial-gradient(circle at 50% 45%, #fff 0 30%, #ffe6f3 70%); }
+.pz-tiles { position: absolute; inset: 0 0 30% 0; background: linear-gradient(90deg, #ffffff66 2px, transparent 2px) 0 0 / 40px 40px, linear-gradient(#ffffff66 2px, transparent 2px) 0 0 / 40px 40px, linear-gradient(#cdefff, #b7e4fb); }
+.pz-bath-stage.done .pz-tiles { display: none; }
+.pz-bath-pet { position: absolute; left: 50%; bottom: 118px; width: 184px; height: 210px; transform: translateX(-50%); pointer-events: none; }
+.pz-bath-stage.done .pz-bath-pet { bottom: 30px; }
+.pz-bath-pet svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.pz-bath-pet.wet svg { filter: saturate(1.25) brightness(.95); }
+.pz-bath-pet.done svg { animation: pzhop .7s ease 2; }
+.pz-tub-back { position: absolute; left: 50%; bottom: 96px; width: min(322px, 92%); height: 38px; transform: translateX(-50%); border-radius: 50%; background: #bfeaff; border: 2px solid #3a2b3c; }
+.pz-tub { position: absolute; left: 50%; bottom: 8px; width: min(340px, 98%); height: 120px; transform: translateX(-50%); pointer-events: none; }
+.pz-tub svg { width: 100%; height: 100%; display: block; }
+.pz-bath-fx { position: absolute; inset: 0; pointer-events: none; }
+.pz-bubble { position: absolute; width: calc(26px * var(--s, 1)); height: calc(26px * var(--s, 1)); transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 32% 30%, #fff 0 18%, #ffffffcc 35%, #e6f7ffcc 70%); border: 1.5px solid #9fdcff; animation: pzbubin .25s ease-out; }
+.pz-bubble.big { width: calc(38px * var(--s, 1)); height: calc(38px * var(--s, 1)); }
+.pz-bubble.pop { animation: pzpop .25s ease-out forwards; }
+@keyframes pzbubin { from { transform: translate(-50%, -50%) scale(.2); } }
+.pz-drop { position: absolute; width: 12px; height: 16px; transform: translate(-50%, -50%); background: #7ec8ff; border: 1.5px solid #4f9fe0; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; clip-path: none; }
+.pz-drop::before { content: ''; position: absolute; top: -6px; left: 2px; border: 4px solid transparent; border-bottom: 6px solid #7ec8ff; }
+.pz-drop.gone { animation: pzpop .3s ease-out forwards; }
+.pz-water { position: absolute; width: 6px; height: 16px; border-radius: 3px; background: #7ec8ffcc; transform: translate(-50%, 0); animation: pzfall .6s linear forwards; }
+@keyframes pzfall { to { transform: translate(-50%, 70px); opacity: 0; } }
+.pz-wind, .pz-sparkle { position: absolute; transform: translate(-50%, -50%); font-size: 1.4em; animation: floatup .9s ease-out forwards; }
+.pz-cursor { position: absolute; width: 58px; height: 58px; transform: translate(-30%, -70%) rotate(-8deg); pointer-events: none; z-index: 4; filter: drop-shadow(0 4px 4px rgb(0 0 0 / .2)); }
+.pz-cursor svg { width: 100%; height: 100%; }
+.pz-bath-stage.tool-shower .pz-cursor { transform: translate(-50%, -95%); }
+.pz-bath-bar { height: 12px; }
+.pz-ba { display: flex; justify-content: center; align-items: center; gap: 12px; }
+.pz-ba > div { display: grid; justify-items: center; }
+.pz-ba .ic { width: 90px; height: 104px; } .pz-ba .ic svg { width: 100%; height: 100%; }
+.pz-ba b { font-size: 1.6em; font-weight: 400; }
 </style>
 </head>
 <body class="bg-dots">
@@ -3265,6 +3383,42 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div id="coinsBody" class="row"></div>
+  </div>
+</dialog>
+
+
+<!-- Pets: all pets playing together -->
+<dialog id="petzPartyDlg" aria-labelledby="petzPartyTitle" style="width:min(760px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="petzPartyTitle">🎉 כל החיות משחקות ביחד</h3><div class="sub">לוחצים על חיה כדי שתקפוץ!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="petzPartyBody"></div>
+  </div>
+</dialog>
+
+<!-- Pets: vet clinic -->
+<dialog id="petzVetDlg" aria-labelledby="petzVetTitle" style="width:min(760px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="petzVetTitle">🏥 מרפאת החיות</h3><div class="sub">את הווטרינרית! עוזרים לחיה להרגיש טוב</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="petzVetBody"></div>
+  </div>
+</dialog>
+
+<!-- Pets: bath and pamper -->
+<dialog id="petzBathDlg" aria-labelledby="petzBathTitle" style="width:min(720px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="petzBathTitle">🛁 אמבטיה ופינוק</h3><div class="sub">מקלחים, מייבשים ומפנקים</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="petzBathBody"></div>
   </div>
 </dialog>
 
@@ -5166,14 +5320,14 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   // ================= pet: look, clothes, house =================
   const PET_KINDS = [['cat', 'חתול'], ['dog', 'כלב'], ['bunny', 'ארנב'], ['bear', 'דובי'], ['panda', 'פנדה'], ['lion', 'אריה'], ['owl', 'ינשוף'], ['dino', 'דינוזאור'], ['turtle', 'צב'], ['fish', 'דג'], ['whale', 'לוויתן']];
   const PET_COLORS = [[0, 'הצבע הרגיל'], [60, 'צבע 1'], [120, 'צבע 2'], [180, 'צבע 3'], [240, 'צבע 4'], [300, 'צבע 5']];
-  // where the head top, the eyes and the neck are, for each animal (in the 48×48 drawing)
+  // where the head top, the eyes and the neck are, for each animal (in the 48×48 drawing; the new cute chibi art)
   const ANCHOR = {
-    cat: { head: [24, 9], eyes: [24, 25], neck: [24, 39] }, dog: { head: [24, 12], eyes: [24, 22], neck: [24, 39] },
-    bunny: { head: [24, 17], eyes: [24, 30], neck: [24, 44] }, bear: { head: [24, 11], eyes: [24, 24], neck: [24, 42] },
-    panda: { head: [24, 12], eyes: [24, 24.5], neck: [24, 42] }, lion: { head: [24, 9], eyes: [24, 23], neck: [24, 39] },
-    owl: { head: [24, 9], eyes: [24, 20.5], neck: [24, 41] }, dino: { head: [31, 7], eyes: [31, 12], neck: [30, 25], side: true },
-    turtle: { head: [40, 25], eyes: [41.5, 29], neck: [39, 34], side: true, small: true }, fish: { head: [20, 13], eyes: [13, 22], neck: [30, 32], side: true },
-    whale: { head: [22, 14], eyes: [11, 25], neck: [30, 34], side: true },
+    cat: { head: [24, 8.6], eyes: [24, 23.8], neck: [24, 35.2] }, dog: { head: [24, 8.6], eyes: [24, 23.8], neck: [24, 35.2] },
+    bunny: { head: [24, 8.6], eyes: [24, 23.8], neck: [24, 35.2] }, bear: { head: [24, 8.6], eyes: [24, 23.8], neck: [24, 35.2] },
+    panda: { head: [24, 8.6], eyes: [24, 23.8], neck: [24, 35.2] }, lion: { head: [24, 5], eyes: [24, 23.8], neck: [24, 35.2] },
+    owl: { head: [24, 11.5], eyes: [24, 22], neck: [24, 32.5] }, dino: { head: [24, 6.5], eyes: [24, 23.8], neck: [24, 35.2] },
+    turtle: { head: [24, 8.8], eyes: [24, 22], neck: [24, 33] }, fish: { head: [24, 13.5], eyes: [24, 26], neck: [24, 38.5] },
+    whale: { head: [24, 16.5], eyes: [24, 29.5], neck: [24, 40.5] },
   };
   const WEAR = {
     crown: ['head', 'כתר', () => `<g transform="translate(-11 -14) scale(.46)">${stickerInner('crown')}</g>`],
@@ -5182,23 +5336,256 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     sunglasses: ['face', 'משקפי שמש', side => side ? `<circle cx="0" cy="0" r="4.2" fill="#3a2b3c"/><path d="M-4 0 H-9" stroke="#3a2b3c" stroke-width="1.8"/>` : `<rect x="-11" y="-3.5" width="9" height="7" rx="3" fill="#3a2b3c"/><rect x="2" y="-3.5" width="9" height="7" rx="3" fill="#3a2b3c"/><path d="M-2 -1 H2" stroke="#3a2b3c" stroke-width="2"/><path d="M-9 -1.5 l3 -1" stroke="#fff" stroke-width="1.2"/>`],
     bow: ['neck', 'פפיון', () => `<g transform="translate(-8 -8) scale(.34)">${stickerInner('bow')}</g>`],
   };
-  // eyes of each animal (x, y, radius) in the 48×48 drawing, to make them a bit bigger when the pet is small
-  const PET_EYES = {
-    cat: [[20.6, 25, 1.53], [27.4, 25, 1.53]], dog: [[19, 22, 1.9], [29, 22, 1.9]], bunny: [[20.8, 30, 1.44], [27.2, 30, 1.44]],
-    bear: [[18.5, 24, 1.9], [29.5, 24, 1.9]], panda: [[18, 24.5, 1.6, '#fff'], [30, 24.5, 1.6, '#fff']], lion: [[20.6, 23, 1.53], [27.4, 23, 1.53]],
-    owl: [[18, 20.5, 2.6], [30, 20.5, 2.6]], dino: [[31, 12, 1.6]], turtle: [[41.5, 29, 1.3]], fish: [[13, 22, 2.2]], whale: [[12.2, 25, 1.26], [17.8, 25, 1.26]],
+  // ================= pet art: cute chibi animals you can design =================
+  // p.look = { c1, c2, pattern, belly, bellyC, eyes, eyeC, cheeks, cheekC, mouth, ears, tail, paci, paciC, fluff, line, x: { bow, wings, horn, halo, flower, glasses } }
+  // missing fields fall back to the animal's defaults (old pets keep their hue via p.color)
+  const PZ_KIND = {
+    cat: { c1: '#ffb56b', c2: '#e8893a', bellyC: '#fff1e0', belly: true, mouth: 'cat', ears: 'point', tail: 'long', pattern: 'stripes' },
+    dog: { c1: '#f0d2a8', c2: '#9b6b43', bellyC: '#fff6ea', belly: true, mouth: 'tongue', ears: 'flop', tail: 'wag', pattern: 'none' },
+    bunny: { c1: '#ffffff', c2: '#f5c6dc', bellyC: '#fff0f6', belly: true, mouth: 'cat', ears: 'up', tail: 'pom', pattern: 'none' },
+    bear: { c1: '#c68b59', c2: '#8a5a3c', bellyC: '#f1d3b3', belly: true, mouth: 'smile', ears: 'round', tail: 'pom', pattern: 'none' },
+    panda: { c1: '#ffffff', c2: '#3a3a4a', bellyC: '#ffffff', belly: false, mouth: 'smile', ears: 'round', tail: 'pom', pattern: 'none' },
+    lion: { c1: '#ffcf6b', c2: '#e8892b', bellyC: '#fff3d6', belly: true, mouth: 'cat', ears: 'round', tail: 'tuft', pattern: 'none' },
+    owl: { c1: '#b58a5e', c2: '#8a6440', bellyC: '#f6dcc0', belly: true, mouth: 'none', ears: 'tufts', tail: 'none', pattern: 'none' },
+    dino: { c1: '#6fcf7f', c2: '#ffd84d', bellyC: '#e2f8c9', belly: true, mouth: 'open', ears: 'spikes', tail: 'dino', pattern: 'none' },
+    turtle: { c1: '#9be37a', c2: '#4fbf73', bellyC: '#fff1b8', belly: true, mouth: 'smile', ears: 'none', tail: 'none', pattern: 'none' },
+    fish: { c1: '#ffd84d', c2: '#ff9a3c', bellyC: '#fff6c4', belly: true, mouth: 'tiny', ears: 'none', tail: 'none', pattern: 'none' },
+    whale: { c1: '#7ec8ff', c2: '#4f9fe0', bellyC: '#eaf6ff', belly: true, mouth: 'smile', ears: 'none', tail: 'none', pattern: 'none' },
   };
+  // head / body ellipses, face positions (48×48 drawing)
+  const PZ_GEO = {
+    std: { head: [24, 22, 15.5, 13.8], body: [24, 39.5, 10.5, 8], eyeY: 23.8, eyeDX: 6.3, eyeS: 1, cheekY: 28.2, cheekDX: 10.4, noseY: 27, mouthY: 28.3, belly: [24, 41.3, 6.4, 4.9] },
+    owl: { head: null, body: [24, 29.5, 16, 17.5], eyeY: 22, eyeDX: 6.3, eyeS: 1.12, cheekY: 27.4, cheekDX: 11.2, noseY: 26, mouthY: 29.4, belly: [24, 38, 9, 7.5] },
+    turtle: { head: [24, 21.5, 13.8, 12.6], body: [24, 39, 15.5, 8.6], eyeY: 22, eyeDX: 5.8, eyeS: .95, cheekY: 26.6, cheekDX: 9.3, noseY: 25.3, mouthY: 26.6, belly: [24, 41, 8.5, 5] },
+    fish: { head: null, body: [24, 28, 17, 14.5], eyeY: 26, eyeDX: 6.6, eyeS: 1.08, cheekY: 31, cheekDX: 11.2, noseY: 30, mouthY: 31.3, belly: [24, 35.6, 9, 5.2] },
+    whale: { head: null, body: [24, 31, 20, 15], eyeY: 29.5, eyeDX: 7.2, eyeS: 1.05, cheekY: 34, cheekDX: 12, noseY: 33.5, mouthY: 34.6, belly: [24, 40, 13, 5.4] },
+  };
+  const pzGeo = k => PZ_GEO[k] || PZ_GEO.std;
+  // eyes of each animal (x, y, radius), kept for older code that reads it
+  const PET_EYES = Object.fromEntries(Object.keys(PZ_KIND).map(k => { const g = pzGeo(k); return [k, [[24 - g.eyeDX, g.eyeY, 2.6], [24 + g.eyeDX, g.eyeY, 2.6]]]; }));
+  const PZ_EARS = {
+    cat: [['point', 'מחודדות'], ['round', 'עגולות'], ['fold', 'מקופלות']], dog: [['flop', 'נופלות'], ['up', 'זקופות'], ['small', 'קטנטנות']],
+    bunny: [['up', 'למעלה'], ['lop', 'נופלות'], ['one', 'אחת למטה']], bear: [['round', 'עגולות'], ['small', 'קטנות']], panda: [['round', 'עגולות'], ['small', 'קטנות']],
+    lion: [['round', 'רעמה רגילה'], ['big', 'רעמה ענקית'], ['spiky', 'רעמה פרועה']], owl: [['tufts', 'נוצות'], ['none', 'בלי']], dino: [['spikes', 'קוצים'], ['horns', 'קרניים'], ['none', 'בלי']],
+  };
+  const PZ_TAILS = [['auto', 'רגיל'], ['long', 'ארוך'], ['fluffy', 'פרוותי'], ['heart', 'לב'], ['pom', 'פונפון'], ['none', 'בלי']];
+  const PZ_TAIL_KINDS = ['cat', 'dog', 'bunny', 'bear', 'panda', 'lion', 'dino'];
+  let petzUid = 0;
+  const pzF = n => +(+n).toFixed(2);
+  const pzHex = h => { h = String(h || '#000').replace('#', ''); if (h.length === 3) h = h.split('').map(c => c + c).join(''); const n = parseInt(h.slice(0, 6), 16) || 0; return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+  const pzToHex = a => '#' + a.map(v => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, '0')).join('');
+  const pzMix = (a, b, t) => { const x = pzHex(a), y = pzHex(b); return pzToHex(x.map((v, i) => v + (y[i] - v) * t)); };
+  const pzLight = (c, t) => pzMix(c, '#ffffff', t);
+  const pzLum = c => { const [r, g, b] = pzHex(c); return (0.299 * r + 0.587 * g + 0.114 * b) / 255; };
+  // the same maths as CSS hue-rotate, so pets colored the old way look the same
+  const pzHue = (c, deg) => {
+    const [r, g, b] = pzHex(c).map(v => v / 255), a = deg * Math.PI / 180, cs = Math.cos(a), sn = Math.sin(a);
+    return pzToHex([
+      r * (0.213 + cs * 0.787 - sn * 0.213) + g * (0.715 - cs * 0.715 - sn * 0.715) + b * (0.072 - cs * 0.072 + sn * 0.928),
+      r * (0.213 - cs * 0.213 + sn * 0.143) + g * (0.715 + cs * 0.285 + sn * 0.140) + b * (0.072 - cs * 0.072 - sn * 0.283),
+      r * (0.213 - cs * 0.213 - sn * 0.787) + g * (0.715 - cs * 0.715 + sn * 0.715) + b * (0.072 + cs * 0.928 + sn * 0.072)].map(v => v * 255));
+  };
+  function petzLook(p) {
+    const kind = PZ_KIND[p && p.kind] ? p.kind : 'cat', d = PZ_KIND[kind], L = (p && p.look) || {}, hue = (p && p.color) || 0;
+    const r = Object.assign({ c1: d.c1, c2: d.c2, pattern: d.pattern, belly: d.belly, bellyC: d.bellyC, eyes: 'shiny', eyeC: '', cheeks: true, cheekC: '#ff8fab',
+      mouth: d.mouth, ears: 'auto', tail: 'auto', paci: false, paciC: '#8fd3ff', fluff: false, line: 1 }, L);
+    if (!L.c1 && hue) r.c1 = pzHue(d.c1, hue);
+    if (!L.c2 && hue) r.c2 = pzHue(d.c2, hue);
+    r.x = Object.assign({}, L.x);
+    if (r.ears === 'auto' || !(PZ_EARS[kind] || []).some(e => e[0] === r.ears)) r.ears = d.ears;
+    if (r.tail === 'auto' || !PZ_TAIL_KINDS.includes(kind)) r.tail = d.tail;
+    return r;
+  }
+  // an ellipse, or a fluffy scalloped one
+  function pzShape(cx, cy, rx, ry, attrs, fl = 0, rot = 0) {
+    const tr = rot ? ` transform="rotate(${rot} ${cx} ${cy})"` : '';
+    if (!fl) return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"${tr} ${attrs}/>`;
+    const n = Math.max(9, Math.round((rx + ry) * 0.6)), k = 1 + fl * 0.17;
+    let d = '';
+    for (let i = 0; i <= n; i++) {
+      const a = i / n * 2 * Math.PI - Math.PI / 2, x = cx + rx * Math.cos(a), y = cy + ry * Math.sin(a);
+      if (!i) { d = `M${pzF(x)} ${pzF(y)}`; continue; }
+      const m = a - Math.PI / n;
+      d += ` Q${pzF(cx + rx * k * Math.cos(m))} ${pzF(cy + ry * k * Math.sin(m))} ${pzF(x)} ${pzF(y)}`;
+    }
+    return `<path d="${d} Z"${tr} ${attrs}/>`;
+  }
+  const pzMirror = s => `<g transform="matrix(-1 0 0 1 48 0)">${s}</g>`;
+  const pzBoth = s => s + pzMirror(s);
+  const pzHeart = (x, y, s) => `M${pzF(x)} ${pzF(y + s * .9)} C${pzF(x - s * 1.5)} ${pzF(y - s * .1)} ${pzF(x - s * .9)} ${pzF(y - s * 1.2)} ${pzF(x)} ${pzF(y - s * .45)} C${pzF(x + s * .9)} ${pzF(y - s * 1.2)} ${pzF(x + s * 1.5)} ${pzF(y - s * .1)} ${pzF(x)} ${pzF(y + s * .9)} Z`;
+  const pzSpark = (x, y, r, c, op = 1) => `<path d="M${pzF(x)} ${pzF(y - r)} Q${pzF(x + r * .18)} ${pzF(y - r * .18)} ${pzF(x + r)} ${pzF(y)} Q${pzF(x + r * .18)} ${pzF(y + r * .18)} ${pzF(x)} ${pzF(y + r)} Q${pzF(x - r * .18)} ${pzF(y + r * .18)} ${pzF(x - r)} ${pzF(y)} Q${pzF(x - r * .18)} ${pzF(y - r * .18)} ${pzF(x)} ${pzF(y - r)} Z" fill="${c}" opacity="${op}"/>`;
+  // one eye: style, center, scale, color, is it the right eye, drawn on a dark patch
+  function pzEye(style, x, y, s, c, right, dark) {
+    const ink = dark ? '#fff' : O, def = style === 'star' ? '#ffb020' : style === 'heart' ? '#ff5a8a' : O, col = c || def;
+    const hl = (dx, dy, r) => `<circle cx="${pzF(x + dx * s)}" cy="${pzF(y + dy * s)}" r="${pzF(r * s)}" fill="#fff"/>`;
+    const glow = pzLight(col, col === O ? .28 : .45);
+    const sclera = dark && !['sleepy', 'happy'].includes(style) && !(style === 'wink' && right) ? `<circle cx="${x}" cy="${y}" r="${pzF(3.5 * s)}" fill="#fff"/>` : '';
+    const shiny = () => `<ellipse cx="${x}" cy="${y}" rx="${pzF(2.85 * s)}" ry="${pzF(3.35 * s)}" fill="${col}"/><ellipse cx="${x}" cy="${pzF(y + 1.6 * s)}" rx="${pzF(1.8 * s)}" ry="${pzF(1.3 * s)}" fill="${glow}" opacity=".75"/>` + hl(.85, -1.2, 1.15) + hl(-.95, 1.1, .5);
+    const arc = up => `<path d="M${pzF(x - 2.8 * s)} ${pzF(y + (up ? 1.2 : 0) * s)} Q${x} ${pzF(y + (up ? -2.6 : 2.6) * s)} ${pzF(x + 2.8 * s)} ${pzF(y + (up ? 1.2 : 0) * s)}" fill="none" stroke="${ink}" stroke-width="${pzF(1.6 * s)}" stroke-linecap="round"/>`;
+    const side = right ? 1 : -1;
+    switch (style) {
+      case 'anime': return sclera + `<ellipse cx="${x}" cy="${y}" rx="${pzF(2.9 * s)}" ry="${pzF(3.9 * s)}" fill="${col}"/><ellipse cx="${x}" cy="${pzF(y + .3 * s)}" rx="${pzF(1.5 * s)}" ry="${pzF(2.1 * s)}" fill="${O}" opacity=".55"/><ellipse cx="${x}" cy="${pzF(y + 2 * s)}" rx="${pzF(2 * s)}" ry="${pzF(1.4 * s)}" fill="${pzLight(col, .55)}" opacity=".8"/>`
+        + `<ellipse cx="${pzF(x - .9 * s)}" cy="${pzF(y - 1.5 * s)}" rx="${pzF(1.25 * s)}" ry="${pzF(1.6 * s)}" fill="#fff"/>` + hl(1.2, 1.6, .55) + pzSpark(x + 1.4 * s, y - 2 * s, 1.1 * s, '#fff')
+        + `<path d="M${pzF(x - 3.2 * s)} ${pzF(y - 2.6 * s)} Q${x} ${pzF(y - 5.4 * s)} ${pzF(x + 3.2 * s)} ${pzF(y - 2.6 * s)}" fill="none" stroke="${ink}" stroke-width="${pzF(1.1 * s)}" stroke-linecap="round"/>`;
+      case 'sleepy': return arc(false) + `<path d="M${pzF(x - 2 * s)} ${pzF(y + 1.6 * s)} l${pzF(-.6 * s)} ${pzF(1 * s)} M${x} ${pzF(y + 2.1 * s)} v${pzF(1.1 * s)} M${pzF(x + 2 * s)} ${pzF(y + 1.6 * s)} l${pzF(.6 * s)} ${pzF(1 * s)}" stroke="${ink}" stroke-width="${pzF(.8 * s)}" stroke-linecap="round"/>`;
+      case 'happy': return arc(true);
+      case 'star': return sclera + `<polygon points="${starPts(x, y, 3.6 * s, 1.7 * s)}" fill="${col}" stroke="${O}" stroke-width="${pzF(.7 * s)}" stroke-linejoin="round"/>` + hl(.6, -.9, .6);
+      case 'heart': return sclera + `<path d="${pzHeart(x, y + .2 * s, 3 * s)}" fill="${col}" stroke="${O}" stroke-width="${pzF(.7 * s)}" stroke-linejoin="round"/>` + hl(-1, -.9, .6);
+      case 'round': return sclera + `<circle cx="${x}" cy="${y}" r="${pzF(2.3 * s)}" fill="${col}"/>` + hl(.8, -.8, .8);
+      case 'wink': return right ? `<path d="M${pzF(x - 2.6 * s)} ${pzF(y - 1.8 * s)} L${pzF(x + 2.2 * s)} ${y} L${pzF(x - 2.6 * s)} ${pzF(y + 1.8 * s)}" fill="none" stroke="${ink}" stroke-width="${pzF(1.6 * s)}" stroke-linecap="round" stroke-linejoin="round"/>` : sclera + shiny();
+      case 'lashes': return sclera + shiny() + `<path d="M${pzF(x + side * 2.1 * s)} ${pzF(y - 2.4 * s)} l${pzF(side * 1.6 * s)} ${pzF(-1.3 * s)} M${pzF(x + side * 2.7 * s)} ${pzF(y - 1.2 * s)} l${pzF(side * 1.9 * s)} ${pzF(-.5 * s)} M${pzF(x + side * .9 * s)} ${pzF(y - 3.1 * s)} l${pzF(side * .8 * s)} ${pzF(-1.5 * s)}" stroke="${ink}" stroke-width="${pzF(.9 * s)}" stroke-linecap="round"/>`;
+      case 'dot': return sclera + `<circle cx="${x}" cy="${y}" r="${pzF(1.6 * s)}" fill="${col}"/>` + hl(.5, -.5, .5);
+      default: return sclera + shiny();
+    }
+  }
+  function pzMouth(style, x, y, s, lw) {
+    const w = `fill="none" stroke="${O}" stroke-width="${pzF(lw * .6)}" stroke-linecap="round" stroke-linejoin="round"`;
+    switch (style) {
+      case 'none': return '';
+      case 'smile': return `<path d="M${pzF(x - 2.4 * s)} ${y} Q${x} ${pzF(y + 2.6 * s)} ${pzF(x + 2.4 * s)} ${y}" ${w}/>`;
+      case 'open': return `<path d="M${pzF(x - 2.8 * s)} ${y} Q${x} ${pzF(y + 5 * s)} ${pzF(x + 2.8 * s)} ${y} Z" fill="#c23b5a" stroke="${O}" stroke-width="${pzF(lw * .55)}" stroke-linejoin="round"/><path d="M${pzF(x - 1.6 * s)} ${pzF(y + 2.2 * s)} Q${x} ${pzF(y + 1.2 * s)} ${pzF(x + 1.6 * s)} ${pzF(y + 2.2 * s)} Q${x} ${pzF(y + 3.8 * s)} ${pzF(x - 1.6 * s)} ${pzF(y + 2.2 * s)} Z" fill="#ff8fab"/>`;
+      case 'tongue': return `<path d="M${pzF(x - .9 * s)} ${pzF(y + .8 * s)} Q${x} ${pzF(y + 4.2 * s)} ${pzF(x + .9 * s)} ${pzF(y + .8 * s)} Z" fill="#ff7a9a" stroke="${O}" stroke-width="${pzF(lw * .45)}" stroke-linejoin="round"/>` + pzMouth('cat', x, y, s, lw);
+      case 'tiny': return `<ellipse cx="${x}" cy="${pzF(y + .9 * s)}" rx="${pzF(1 * s)}" ry="${pzF(1.2 * s)}" fill="#c23b5a" stroke="${O}" stroke-width="${pzF(lw * .45)}"/>`;
+      case 'frown': return `<path d="M${pzF(x - 2.2 * s)} ${pzF(y + 1.8 * s)} Q${x} ${pzF(y - .4 * s)} ${pzF(x + 2.2 * s)} ${pzF(y + 1.8 * s)}" ${w}/>`;
+      default: return `<path d="M${pzF(x - 2.8 * s)} ${pzF(y - .2 * s)} Q${pzF(x - 1.4 * s)} ${pzF(y + 2 * s)} ${x} ${pzF(y - .1 * s)} Q${pzF(x + 1.4 * s)} ${pzF(y + 2 * s)} ${pzF(x + 2.8 * s)} ${pzF(y - .2 * s)}" ${w}/>`;
+    }
+  }
+  // pattern shapes inside one ellipse [cx, cy, rx, ry]; isHead keeps the face clear
+  function pzPattern(type, E, c2, isHead, lw) {
+    const [cx, cy, rx, ry] = E, P = (dx, dy) => [pzF(cx + dx * rx), pzF(cy + dy * ry)];
+    if (type === 'spots') return (isHead ? [[-.62, -.55, .2], [.5, -.68, .15], [.8, .08, .13], [-.85, .12, .11], [.05, -.9, .1]] : [[-.55, -.25, .22], [.55, .2, .2], [.2, -.7, .14], [-.35, .62, .13], [.85, -.35, .1]])
+      .map(([x, y, r]) => { const [a, b] = P(x, y); return `<circle cx="${a}" cy="${b}" r="${pzF(r * rx)}" fill="${c2}"/>`; }).join('');
+    if (type === 'patches') return isHead ? (() => { const [a, b] = P(.5, -.45); return `<circle cx="${a}" cy="${b}" r="${pzF(rx * .52)}" fill="${c2}"/>`; })()
+      : (() => { const [a, b] = P(-.62, .05); const [e, f] = P(.7, .6); return `<circle cx="${a}" cy="${b}" r="${pzF(rx * .58)}" fill="${c2}"/><circle cx="${e}" cy="${f}" r="${pzF(rx * .35)}" fill="${c2}"/>`; })();
+    if (type === 'stripes') {
+      const sw = `fill="none" stroke="${c2}" stroke-width="${pzF(Math.max(1.5, rx * .12))}" stroke-linecap="round"`;
+      if (isHead) { const t = cy - ry; return `<path d="M${cx} ${pzF(t)} v${pzF(ry * .42)} M${pzF(cx - rx * .27)} ${pzF(t + ry * .08)} q.6 ${pzF(ry * .2)} 0 ${pzF(ry * .32)} M${pzF(cx + rx * .27)} ${pzF(t + ry * .08)} q-.6 ${pzF(ry * .2)} 0 ${pzF(ry * .32)}" ${sw}/>` + pzBoth(`<path d="M${pzF(cx - rx)} ${pzF(cy)} h${pzF(rx * .24)} M${pzF(cx - rx)} ${pzF(cy + ry * .3)} h${pzF(rx * .18)}" ${sw}/>`).replace('matrix(-1 0 0 1 48 0)', `matrix(-1 0 0 1 ${2 * cx} 0)`); }
+      return [-.45, 0, .45].map(dy => `<path d="M${pzF(cx - rx)} ${pzF(cy + dy * ry)} q${pzF(rx * .25)} ${pzF(-ry * .08)} ${pzF(rx * .35)} ${pzF(ry * .1)} M${pzF(cx + rx)} ${pzF(cy + dy * ry)} q${pzF(-rx * .25)} ${pzF(-ry * .08)} ${pzF(-rx * .35)} ${pzF(ry * .1)}" ${sw}/>`).join('');
+    }
+    if (type === 'sparkles') return (isHead ? [[-.6, -.5, .15], [.55, -.6, .12], [.82, .15, .1], [-.8, .2, .09], [0, -.82, .1]] : [[-.5, -.2, .17], [.5, .25, .15], [.1, -.6, .11], [-.2, .55, .12]])
+      .map(([x, y, r], i) => { const [a, b] = P(x, y); return pzSpark(a, b, r * rx * 1.4, i % 2 ? '#fff' : c2); }).join('');
+    return '';
+  }
+  const pzTube = (d, w, col, lw) => `<path d="${d}" fill="none" stroke="${O}" stroke-width="${pzF(w + 2 * lw)}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  function pzTail(t, c) {
+    const { L, lw, st } = c;
+    if (t === 'long' || t === 'tuft') return pzTube('M31 43.5 C40 45 44.5 38 41.5 32 C40 29 42 26.5 44.5 27.5', 3.6, L.c1, lw) + (t === 'tuft' ? pzShape(44.3, 27.4, 3.3, 3.3, `fill="${L.c2}" ${st}`, 1) : '');
+    if (t === 'wag') return pzTube('M32 42 Q39.5 40 41 32.5', 4.2, L.c1, lw);
+    if (t === 'fluffy') return pzShape(38.5, 35.5, 5.2, 9.4, `fill="url(#${c.u}g)" ${st}`, 1, 32) + pzShape(41.9, 29.6, 2.8, 3.2, `fill="${pzLight(L.c1, .7)}"`, 0, 32);
+    if (t === 'heart') return pzTube('M31 43.5 C39 45 41.5 39 40 33.5', 2.2, L.c1, lw) + `<path d="${pzHeart(40, 30.6, 3.5)}" fill="${L.cheekC}" ${st}/>`;
+    if (t === 'pom') return pzShape(34.2, 44.4, 4, 4, `fill="${pzLight(L.c1, .55)}" ${st}`, 1);
+    if (t === 'dino') return `<path d="M30 45.5 Q43 47.5 47 36 Q41 41.5 31 37.5 Z" fill="url(#${c.u}g)" ${st}/><path d="M37.5 41.2 l2.4 -3.4 l.6 3 M42 38.8 l2.6 -3 l.1 3" fill="${L.c2}" ${c.st2}/>`;
+    return '';
+  }
+  function pzExtras(c, a) {
+    const { L, st2 } = c, x = L.x || {}, [hx, hy] = a.head, [ex, ey] = a.eyes, g = c.G, ed = g.eyeDX;
+    let back = '', front = '', top = '';
+    if (x.wings) { const wc = typeof x.wings === 'string' ? x.wings : '#cfe8ff'; back += pzBoth(`<path d="M16 34 C8 26 1 29 3 35 C4.5 39 10 39.5 16 37 Z" fill="${wc}" ${st2}/><path d="M15 38 C9 40 5 44 8.5 46 C11 47 14 43.5 16.5 40 Z" fill="${pzLight(wc, .45)}" ${st2}/><path d="M7 33 q3 1 6 2.5" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>`); }
+    if (x.halo) back += `<ellipse cx="${hx}" cy="${pzF(hy - 4.5)}" rx="7.5" ry="2.2" fill="none" stroke="${O}" stroke-width="3.6"/><ellipse cx="${hx}" cy="${pzF(hy - 4.5)}" rx="7.5" ry="2.2" fill="none" stroke="#ffd84d" stroke-width="1.8"/>`;
+    if (x.horn) top += `<path d="M${hx - 2.6} ${pzF(hy + 1.6)} L${hx} ${pzF(hy - 9)} L${hx + 2.6} ${pzF(hy + 1.6)} Z" fill="#ffe27a" ${st2}/><path d="M${hx - 1.9} ${pzF(hy - 1)} l3.6 -1.3 M${hx - 1.3} ${pzF(hy - 4)} l2.5 -1" stroke="#ff9ad5" stroke-width="1.1" stroke-linecap="round"/>`;
+    if (x.flower) { const fc = typeof x.flower === 'string' ? x.flower : '#ff9ad5', fx = hx - 10.5, fy = hy + 4.2; top += [0, 72, 144, 216, 288].map(d => { const r = d * Math.PI / 180; return `<circle cx="${pzF(fx + 2.3 * Math.cos(r))}" cy="${pzF(fy + 2.3 * Math.sin(r))}" r="2" fill="${fc}" ${st2}/>`; }).join('') + `<circle cx="${fx}" cy="${fy}" r="1.5" fill="#ffd84d" ${st2}/>`; }
+    if (x.bow) { const bc = typeof x.bow === 'string' ? x.bow : '#ff5a8a', bx = hx + 9, by = hy + 3.2; top += `<g transform="translate(${bx} ${by}) rotate(18)"><path d="M0 0 C-3.5 -4.5 -7.5 -2 -6.5 1.8 C-5.5 4.5 -2 2.5 0 0 Z M0 0 C3.5 -4.5 7.5 -2 6.5 1.8 C5.5 4.5 2 2.5 0 0 Z" fill="${bc}" ${st2}/><circle r="1.7" fill="${pzLight(bc, .35)}" ${st2}/><path d="M-5 -.5 q1.5 -1.5 3 -1" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round" opacity=".8"/></g>`; }
+    if (x.glasses) { const gc = typeof x.glasses === 'string' ? x.glasses : '#ff5a8a', r = 3.9 * g.eyeS; front += `<circle cx="${ex - ed}" cy="${ey}" r="${pzF(r)}" fill="#fff" fill-opacity=".22" stroke="${gc}" stroke-width="1.3"/><circle cx="${ex + ed}" cy="${ey}" r="${pzF(r)}" fill="#fff" fill-opacity=".22" stroke="${gc}" stroke-width="1.3"/><path d="M${pzF(ex - ed + r)} ${ey} Q${ex} ${ey - 1.6} ${pzF(ex + ed - r)} ${ey}" fill="none" stroke="${gc}" stroke-width="1.3"/>`; }
+    return { back, front, top };
+  }
   function petSVG(p, opts = {}) {
-    const a = ANCHOR[p.kind] || ANCHOR.cat, w = p.wear || {};
+    p = p || {};
+    const kind = PZ_KIND[p.kind] ? p.kind : 'cat', a = ANCHOR[kind] || ANCHOR.cat, w = p.wear || {};
+    const L = Object.assign(petzLook(p), opts.look || {}), G = pzGeo(['owl', 'turtle', 'fish', 'whale'].includes(kind) ? kind : 'std');
+    const mood = opts.mood;
+    if (mood === 'sad' || mood === 'sick') { L.eyes = 'sleepy'; L.mouth = mood === 'sad' ? 'frown' : 'tiny'; }
+    if (mood === 'happy') { L.eyes = 'happy'; L.mouth = kind === 'owl' ? 'none' : 'open'; }
+    const u = 'pz' + (++petzUid), lw = [1.5, 2.1, 2.8][L.line] || 2.1, fl = L.fluff ? 1 : 0;
+    const st = `stroke="${O}" stroke-width="${lw}" stroke-linejoin="round" stroke-linecap="round"`, st2 = `stroke="${O}" stroke-width="${pzF(lw * .72)}" stroke-linejoin="round" stroke-linecap="round"`;
+    const c = { u, L, lw, st, st2, G };
+    const F1 = `fill="url(#${u}${L.pattern === 'gradient' ? 'l' : 'g'})" ${st}`, F2 = `fill="url(#${u}h)" ${st}`;
     const put = (slot, id) => {
       if (!id || !WEAR[id] || WEAR[id][0] !== slot) return '';
       const [x, y] = a[slot === 'face' ? 'eyes' : slot];
-      return `<g transform="translate(${x} ${y})${a.small ? ' scale(.7)' : ''}">${WEAR[id][2](a.side)}</g>`;
+      return `<g transform="translate(${x} ${y})">${WEAR[id][2](false)}</g>`;
     };
-    const tint = p.color ? ` style="filter:hue-rotate(${p.color}deg)"` : '';
-    const sz = Math.max(0.65, Math.min(1.15, p.size || 1)), k = Math.max(0, 1 - sz) * 1.3;
-    const eyes = k > 0 ? (PET_EYES[p.kind] || []).map(([x, y, r, c]) => `<circle cx="${x}" cy="${y}" r="${(r * (1 + k)).toFixed(2)}" fill="${c || O}"/>${c ? '' : `<circle cx="${(x + r * 0.35).toFixed(2)}" cy="${(y - r * 0.4).toFixed(2)}" r="${(r * (1 + k) * 0.38).toFixed(2)}" fill="#fff"/>`}`).join('') : '';
-    return `<svg viewBox="-4 -14 56 64" xmlns="http://www.w3.org/2000/svg"><g transform="translate(24 47) scale(${sz}) translate(-24 -47)"><g${tint}>${stickerInner(p.kind)}${eyes}</g>${put('neck', w.neck)}${put('face', w.face)}${put('head', w.head)}</g>${opts.extra || ''}</svg>`;
+    const sz = Math.max(0.65, Math.min(1.15, p.size || 1)), k = Math.max(0, 1 - sz) * 1.3, es = G.eyeS * (1 + k * 0.5);
+    const shade = col => pzMix(col, pzLum(col) > .8 ? '#9c8fc4' : '#5a3a5a', pzLum(col) > .8 ? .2 : .24);
+    const defs = `<defs><radialGradient id="${u}g" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="${pzLight(L.c1, .5)}"/><stop offset=".55" stop-color="${L.c1}"/><stop offset="1" stop-color="${shade(L.c1)}"/></radialGradient>`
+      + `<radialGradient id="${u}h" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="${pzLight(L.c2, .35)}"/><stop offset=".6" stop-color="${L.c2}"/><stop offset="1" stop-color="${shade(L.c2)}"/></radialGradient>`
+      + (L.pattern === 'gradient' ? `<linearGradient id="${u}l" gradientUnits="userSpaceOnUse" x1="0" y1="8" x2="0" y2="47"><stop offset=".12" stop-color="${pzLight(L.c1, .25)}"/><stop offset=".5" stop-color="${L.c1}"/><stop offset=".95" stop-color="${L.c2}"/></linearGradient>` : '')
+      + (G.head ? `<clipPath id="${u}ch"><ellipse cx="${G.head[0]}" cy="${G.head[1]}" rx="${G.head[2]}" ry="${G.head[3]}"/></clipPath>` : '')
+      + `<clipPath id="${u}cb"><ellipse cx="${G.body[0]}" cy="${G.body[1]}" rx="${G.body[2]}" ry="${G.body[3]}"/></clipPath></defs>`;
+    const pat = (E, clip, head) => L.pattern && !['none', 'gradient'].includes(L.pattern) ? `<g clip-path="url(#${u}${clip})">${pzPattern(L.pattern, E, L.c2, head, lw)}</g>` : '';
+    const shine = (E) => `<ellipse cx="${pzF(E[0] - E[2] * .42)}" cy="${pzF(E[1] - E[3] * .5)}" rx="${pzF(E[2] * .24)}" ry="${pzF(E[3] * .15)}" transform="rotate(-28 ${pzF(E[0] - E[2] * .42)} ${pzF(E[1] - E[3] * .5)})" fill="#fff" opacity=".45"/>`;
+    const ex = pzExtras(c, a);
+    let back = ex.back, body = '', head = '', face = '', front = '';
+    const std = !['owl', 'turtle', 'fish', 'whale'].includes(kind);
+    back += pzTail(L.tail, c);
+    const B = G.body, H = G.head;
+    if (std) {
+      // ears behind the head
+      if (kind === 'cat' && L.ears === 'point') back += pzBoth(`<path d="M9.6 17 Q8.4 6 11.2 3 Q14.2 2.4 20.8 8.8 Z" ${F1}/><path d="M11.8 12.6 Q11.4 7.2 12.6 5.9 Q14.4 5.8 17.4 8.9 Z" fill="${pzLight(L.cheekC, .35)}"/>`);
+      if (kind === 'cat' && L.ears === 'round') back += pzBoth(`<circle cx="12.4" cy="10.4" r="5.2" ${F1}/><circle cx="12.6" cy="10.8" r="2.6" fill="${pzLight(L.cheekC, .35)}"/>`);
+      if (kind === 'dog' && L.ears === 'up') back += pzBoth(`<path d="M9.6 17 Q8.2 5.5 12.6 3.2 Q16.8 5 20.4 9.4 Z" ${F2}/>`);
+      if (kind === 'bunny' && (L.ears === 'up' || L.ears === 'one')) back += `<ellipse cx="17.6" cy="2.6" rx="4.3" ry="10.6" transform="rotate(-9 17.6 2.6)" ${F1}/><ellipse cx="17.6" cy="3.6" rx="1.9" ry="7.2" transform="rotate(-9 17.6 3.6)" fill="${pzLight(L.cheekC, .35)}"/>`
+        + (L.ears === 'up' ? pzMirror(`<ellipse cx="17.6" cy="2.6" rx="4.3" ry="10.6" transform="rotate(-9 17.6 2.6)" ${F1}/><ellipse cx="17.6" cy="3.6" rx="1.9" ry="7.2" transform="rotate(-9 17.6 3.6)" fill="${pzLight(L.cheekC, .35)}"/>`) : '');
+      if (kind === 'bear' || kind === 'panda') { const r = L.ears === 'small' ? 3.8 : 5.3, ex2 = L.ears === 'small' ? 13.6 : 12.2, ey2 = L.ears === 'small' ? 11.4 : 10.6; back += pzBoth(kind === 'panda' ? `<circle cx="${ex2}" cy="${ey2}" r="${r}" ${F2}/>` : `<circle cx="${ex2}" cy="${ey2}" r="${r}" ${F1}/><circle cx="${ex2 + .2}" cy="${ey2 + .4}" r="${pzF(r * .5)}" fill="${L.bellyC}"/>`); }
+      if (kind === 'lion') {
+        const mane = L.ears === 'spiky' ? `<polygon points="${starPts(24, 22.5, 22, 16.5, 13)}" ${F2}/>` : pzShape(24, 22.5, L.ears === 'big' ? 22 : 19.4, L.ears === 'big' ? 20 : 17.6, F2, 1.2);
+        back += mane + pzBoth(`<circle cx="12.6" cy="11.2" r="3.9" ${F1}/><circle cx="12.7" cy="11.5" r="1.8" fill="${L.bellyC}"/>`);
+      }
+      if (kind === 'dino' && L.ears === 'spikes') back += `<path d="M15.6 12 L17.4 4.6 L21.8 9.2 Z M21 9 L24 1.8 L27 9 Z M26.2 9.2 L30.6 4.6 L32.4 12 Z" fill="${L.c2}" ${st2}/>`;
+      if (kind === 'dino' && L.ears === 'horns') back += pzBoth(`<path d="M13.6 11.6 Q12.6 5 15.2 3.8 Q16.6 7 19 9.2 Z" fill="${pzLight(L.c2, .3)}" ${st2}/>`);
+      // body, belly, feet, arms
+      body += pzShape(B[0], B[1], B[2], B[3], F1, fl) + pat(B, 'cb', false) + shine(B);
+      if (L.belly) body += pzShape(G.belly[0], G.belly[1], G.belly[2], G.belly[3], `fill="${L.bellyC}"`, fl * .6) + (kind === 'dino' ? `<path d="M19.5 39.5 h9 M19 42.5 h10" stroke="${O}" stroke-width=".8" opacity=".25" stroke-linecap="round"/>` : '');
+      const limb = kind === 'panda' ? F2 : F1;
+      body += pzBoth(`<ellipse cx="18.4" cy="46.2" rx="3.9" ry="2.5" ${limb}/><ellipse cx="18.4" cy="46.6" rx="1.7" ry="1" fill="${pzLight(L.cheekC, .45)}" opacity=".9"/><ellipse cx="15.3" cy="39.4" rx="2.8" ry="4.2" transform="rotate(28 15.3 39.4)" ${limb}/>`);
+      head += pzShape(H[0], H[1], H[2], H[3], F1, fl) + pat(H, 'ch', true) + shine(H);
+      // front ears
+      if (kind === 'cat' && L.ears === 'fold') front += pzBoth(`<path d="M11.2 13.4 Q11.8 7.2 17.6 8.4 Q16 11.6 12.8 14.6 Z" ${F1}/>`);
+      if (kind === 'dog' && L.ears === 'flop') front += pzBoth(`<ellipse cx="9.6" cy="20.5" rx="4.6" ry="9.4" transform="rotate(16 9.6 20.5)" ${F2}/>`);
+      if (kind === 'dog' && L.ears === 'small') front += pzBoth(`<path d="M10.2 12.4 Q11.6 6.4 18.6 8.6 Q15.2 11.8 12.4 15.2 Z" ${F2}/>`);
+      if (kind === 'bunny' && (L.ears === 'lop' || L.ears === 'one')) { const lop = `<ellipse cx="8.8" cy="21.5" rx="4.1" ry="10" transform="rotate(20 8.8 21.5)" ${F1}/><ellipse cx="9" cy="22" rx="1.7" ry="6.6" transform="rotate(20 9 22)" fill="${pzLight(L.cheekC, .35)}"/>`; front += L.ears === 'lop' ? pzBoth(lop) : pzMirror(lop); }
+      // face details
+      if (kind === 'panda') face += pzBoth(`<ellipse cx="${pzF(24 - G.eyeDX)}" cy="${pzF(G.eyeY + .4)}" rx="${pzF(3.9 * es)}" ry="${pzF(4.9 * es)}" transform="rotate(22 ${pzF(24 - G.eyeDX)} ${G.eyeY})" fill="${L.c2}"/>`);
+      if (['dog', 'bear', 'lion', 'panda'].includes(kind)) face += `<ellipse cx="24" cy="${G.noseY + 1.3}" rx="5.4" ry="3.7" fill="${kind === 'panda' ? '#fff' : L.bellyC}"/>`;
+      if (kind === 'cat') face += pzBoth(`<path d="M6.6 26.2 L11 27 M6.9 29.4 L11 28.5" stroke="${O}" stroke-width=".9" stroke-linecap="round" opacity=".65"/>`);
+    } else if (kind === 'owl') {
+      if (L.ears === 'tufts') back += pzBoth(`<path d="M10.6 17.6 Q8.4 9 10.6 6.6 Q14.4 8.8 19 13.4 Z" ${F1}/>`);
+      body += pzShape(B[0], B[1], B[2], B[3], F1, fl) + pat(B, 'cb', false) + shine(B);
+      if (L.belly) body += pzShape(G.belly[0], G.belly[1], G.belly[2], G.belly[3], `fill="${L.bellyC}"`, fl * .6) + `<path d="M19.5 35.5 q1.5 1.6 3 0 M25.5 35.5 q1.5 1.6 3 0 M22.5 39.5 q1.5 1.6 3 0 M19.5 42.5 q1.5 1.3 3 0 M25.5 42.5 q1.5 1.3 3 0" fill="none" stroke="${L.c2}" stroke-width="1.1" stroke-linecap="round" opacity=".7"/>`;
+      body += pzBoth(`<path d="M9.2 26 C4.8 30 5.2 39 10.4 42 C12.4 37 12.4 31 9.2 26 Z" ${F2}/><ellipse cx="19.2" cy="46.8" rx="2.8" ry="1.6" fill="#ffb020" ${st2}/>`);
+      face += pzBoth(`<circle cx="${pzF(24 - G.eyeDX)}" cy="${G.eyeY}" r="${pzF(6 * es)}" fill="${pzLight(L.bellyC, .4)}" ${st2} stroke-opacity=".35"/>`);
+    } else if (kind === 'turtle') {
+      back += pzBoth(`<ellipse cx="9.4" cy="41.5" rx="4.2" ry="3" transform="rotate(-20 9.4 41.5)" ${F1}/><ellipse cx="16.8" cy="46.2" rx="3.6" ry="2.4" ${F1}/>`) + `<path d="M38 44 L43.5 45.5 L38.5 47 Z" ${F1}/>`;
+      body += pzShape(B[0], B[1], B[2], B[3], F2, fl) + `<path d="M18.5 33 L29.5 33 L33 39 L29.5 45 L18.5 45 L15 39 Z M18.5 33 L14 31.5 M29.5 33 L34 31.5 M33 39 L39.4 39 M15 39 L8.6 39 M18.5 45 L16 47 M29.5 45 L32 47" fill="${pzLight(L.c2, .25)}" ${st2} stroke-opacity=".6"/>` + pat(B, 'cb', false) + shine(B);
+      if (L.belly) body += `<ellipse cx="24" cy="39" rx="5.5" ry="4" fill="${L.bellyC}" opacity=".85"/>`;
+      head += pzShape(H[0], H[1], H[2], H[3], F1, fl) + pat(H, 'ch', true) + shine(H);
+    } else if (kind === 'fish') {
+      back += `<path d="M37 28 L47.5 18.5 Q44.5 28 47.5 37.5 Z" ${F2}/><path d="M14 16 Q23 5 34 15 Z" ${F2}/>`;
+      body += pzShape(B[0], B[1], B[2], B[3], F1, fl) + pat(B, 'cb', false) + shine(B);
+      if (L.belly) body += `<ellipse cx="${G.belly[0]}" cy="${G.belly[1]}" rx="${G.belly[2]}" ry="${G.belly[3]}" fill="${L.bellyC}"/>`;
+      body += pzBoth(`<path d="M8.6 30 Q2.5 30.5 3.4 36.5 Q7.8 35.5 10.2 33 Z" ${F2}/>`) + `<path d="M31 18 q3.5 3 3.2 7 M35 20 q2.6 2.6 2.4 5.6" fill="none" stroke="${L.c2}" stroke-width="1.2" stroke-linecap="round" opacity=".8"/>`;
+    } else if (kind === 'whale') {
+      back += pzTube('M38 36 Q44.5 31 43.6 23', 5, L.c1, lw) + `<path d="M43.6 23.5 Q37.5 16.5 35.5 19 Q37.6 24 43.6 25.8 Q49.6 24 51.6 19 Q49.6 16.5 43.6 23.5 Z" ${F1}/>`
+        + `<path d="M24 16 q-2.5 -6 -7 -6.5 M24 16 q2.5 -6 7 -6.5 M24 16 V8" fill="none" stroke="#9fdcff" stroke-width="2.4" stroke-linecap="round"/><circle cx="17" cy="9.2" r="1.3" fill="#9fdcff"/><circle cx="31" cy="9.2" r="1.3" fill="#9fdcff"/><circle cx="24" cy="7" r="1.4" fill="#9fdcff"/>`;
+      body += pzShape(B[0], B[1], B[2], B[3], F1, fl) + pat(B, 'cb', false) + shine(B);
+      if (L.belly) body += `<g clip-path="url(#${u}cb)"><ellipse cx="24" cy="44" rx="16" ry="7.5" fill="${L.bellyC}"/><path d="M14 40 q10 3.5 20 0 M16 43 q8 2.6 16 0" fill="none" stroke="${O}" stroke-width=".8" opacity=".25" stroke-linecap="round"/></g>`;
+      body += pzBoth(`<ellipse cx="7.4" cy="38.4" rx="4.4" ry="2.4" transform="rotate(-32 7.4 38.4)" ${F1}/>`);
+    }
+    // cheeks, eyes, nose, mouth, pacifier
+    const ey = G.eyeY, exL = pzF(24 - G.eyeDX), exR = pzF(24 + G.eyeDX), dark = kind === 'panda' && pzLum(L.c2) < .45;
+    if (L.cheeks) face += pzBoth(`<ellipse cx="${pzF(24 - G.cheekDX)}" cy="${G.cheekY}" rx="2.7" ry="1.65" fill="${L.cheekC}" opacity=".7"/><circle cx="${pzF(24 - G.cheekDX + .9)}" cy="${pzF(G.cheekY - .5)}" r=".55" fill="#fff" opacity=".85"/>`);
+    face += `<g class="pz-eyes">${pzEye(L.eyes, exL, ey, es, L.eyeC, false, dark)}${pzEye(L.eyes, exR, ey, es, L.eyeC, true, dark)}</g>`;
+    if (mood === 'sad') face += `<path d="M${exL - 1.2} ${ey + 3.4} q-1.4 2.4 0 3.4 q1.4 -1 0 -3.4 Z" fill="#8fd3ff" stroke="#4f9fe0" stroke-width=".6"/>`;
+    const nx = 24, ny = G.noseY;
+    let nose = '';
+    if (['cat', 'bunny', 'lion'].includes(kind)) nose = `<path d="M${nx - 1.6} ${ny - .9} Q${nx} ${ny - 1.5} ${nx + 1.6} ${ny - .9} Q${nx} ${ny + 1.3} ${nx - 1.6} ${ny - .9} Z" fill="#ff8fab" ${st2}/>`;
+    else if (['dog', 'bear', 'panda'].includes(kind)) nose = `<ellipse cx="${nx}" cy="${ny - .3}" rx="2.3" ry="1.6" fill="${O}"/><ellipse cx="${nx - .6}" cy="${ny - .8}" rx=".8" ry=".45" fill="#fff" opacity=".8"/>`;
+    else if (kind === 'dino') nose = `<circle cx="${nx - 2}" cy="${ny - .8}" r=".7" fill="${O}"/><circle cx="${nx + 2}" cy="${ny - .8}" r=".7" fill="${O}"/>`;
+    else if (kind === 'owl') nose = `<path d="M${nx - 2.1} ${ny - .6} Q${nx} ${ny - 1.8} ${nx + 2.1} ${ny - .6} L${nx} ${ny + 2.6} Z" fill="#ffb020" ${st2}/>`;
+    const my = nose && kind !== 'owl' ? ny + .6 : G.mouthY;
+    face += (kind === 'owl' && L.mouth !== 'open' && L.mouth !== 'tiny' ? '' : pzMouth(L.mouth, nx, my, 1, lw)) + nose;
+    if (L.paci) { const pc = L.paciC || '#8fd3ff', py = my + 1.4; face += `<circle cx="${nx}" cy="${py + 3.4}" r="2.3" fill="none" stroke="${O}" stroke-width="2.6"/><circle cx="${nx}" cy="${py + 3.4}" r="2.3" fill="none" stroke="${pzLight(pc, .2)}" stroke-width="1.2"/><ellipse cx="${nx}" cy="${py}" rx="4.8" ry="2.9" fill="${pc}" ${st2}/><circle cx="${nx}" cy="${py}" r="1.5" fill="${pzLight(pc, .55)}" ${st2}/><path d="M${nx - 3.4} ${py - .8} q1 -1.2 2.4 -1.3" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round"/>`; }
+    const inner = back + body + head + face + front + ex.front + ex.top + (opts.over || '');
+    return `<svg viewBox="-4 -14 56 64" xmlns="http://www.w3.org/2000/svg">${defs}<g transform="translate(24 47) scale(${sz}) translate(-24 -47)">${inner}${put('neck', w.neck)}${put('face', w.face)}${put('head', w.head)}</g>${opts.extra || ''}</svg>`;
   }
   const FOODS = ['apple', 'strawberry', 'watermelon', 'cookie', 'donut', 'pizza', 'icecream', 'cupcake'];
   const HOUSE_BGS = [['room', 'חדר'], ['ocean', 'ים'], ['safari', 'ספארי'], ['forest', 'יער'], ['clouds', 'שמיים'], ['space', 'חלל']];
@@ -5322,12 +5709,12 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   // ================= adopt: design → name → feed =================
   let adopt = null;
   function openAdopt() {
-    adopt = { step: 0, kind: 'cat', color: 0, name: '', size: 1 };
+    adopt = { step: 0, kind: 'cat', color: 0, name: '', size: 1, look: null };
     drawAdopt();
     $('#adoptDlg').showModal();
   }
   function drawAdopt() {
-    const st = adopt.step, p = { kind: adopt.kind, color: adopt.color, size: adopt.size, wear: {} };
+    const st = adopt.step, p = { kind: adopt.kind, color: adopt.color, size: adopt.size, look: adopt.look && adopt.lookKind === adopt.kind ? adopt.look : undefined, wear: {} };
     $('#adoptSteps').replaceChildren(...[0, 1, 2, 3].map(i => el('i', { class: i <= st ? 'on' : '' })));
     const preview = el('div', { class: 'big-pet', html: petSVG(p) });
     const next = (label = 'הבא ←') => el('button', { type: 'button', class: 'btn main', onclick: () => { adopt.step++; drawAdopt(); } }, label);
@@ -5339,12 +5726,11 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
           el('span', { class: 'ic', html: stickerHTML(id) }), name))),
         el('div', { class: 'chips' }, next()));
     } else if (st === 1) {
-      const size = el('input', { type: 'range', id: 'adoptSize', min: 0.65, max: 1.15, step: 0.05, value: adopt.size, oninput: e => { adopt.size = Number(e.target.value); preview.innerHTML = petSVG({ kind: adopt.kind, color: adopt.color, size: adopt.size, wear: {} }); } });
-      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '2. בחרי צבע וגודל'), preview,
-        el('div', { class: 'pet-pick' }, ...PET_COLORS.map(([deg, name]) => el('button', { type: 'button', 'aria-pressed': String(adopt.color === deg), onclick: () => { adopt.color = deg; drawAdopt(); } },
-          el('span', { class: 'ic', html: petSVG({ kind: adopt.kind, color: deg, size: adopt.size, wear: {} }) }), name))),
-        el('div', { class: 'row' }, el('label', { for: 'adoptSize' }, 'גודל: קטנטן וחמוד ← → גדול'), size, el('span', { class: 'muted' }, 'ככל שהחיה קטנה יותר, העיניים שלה קצת יותר גדולות 🥹')),
-        el('p', { class: 'muted' }, 'בגדים, קישוטים לבית וגם מישהו ששומר על החיה ייפתחו כשתעשי דברים בלוח!'),
+      if (adopt.lookKind !== adopt.kind) { adopt.look = null; adopt.lookKind = adopt.kind; }
+      const tgt = { kind: adopt.kind, color: 0, size: adopt.size, look: adopt.look, wear: {} };
+      body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '2. מעצבים את החיה! 🎨'),
+        petzDesigner(tgt, () => { adopt.look = tgt.look; adopt.size = tgt.size; }),
+        el('p', { class: 'muted' }, 'אפשר לשנות הכול גם אחר כך, בבית של החיה. בגדים וקישוטים לבית ייפתחו כשתעשי דברים בלוח!'),
         el('div', { class: 'chips' }, back, next()));
     } else if (st === 2) {
       const inp = el('input', { type: 'text', id: 'adoptName', maxLength: 20, placeholder: 'למשל: פנדי', value: adopt.name, oninput: e => { adopt.name = e.target.value; } });
@@ -5358,7 +5744,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
         el('div', { class: 'pet-art', html: petSVG(p) }));
       body.replaceChildren(el('h4', { style: 'margin:0;font-weight:400;font-size:1.4em' }, '4. בואי נאכיל את ' + adopt.name + '!'), scene,
         el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => {
-          pet = { v: 2, kind: adopt.kind, color: adopt.color, size: adopt.size, name: adopt.name.trim(), wear: {}, house: { bg: defaultBg(adopt.kind), hidden: [] }, fed: { [localToday()]: 1 }, played: {}, onboarded: true };
+          pet = petzAdopted({ v: 2, kind: adopt.kind, color: adopt.color, size: adopt.size, look: p.look, name: adopt.name.trim(), wear: {}, house: { bg: defaultBg(adopt.kind), hidden: [] }, fed: { [localToday()]: 1 }, played: {}, onboarded: true });
           savePet();
           const fly = el('span', { class: 'fly', html: stickerHTML(f) }); scene.append(fly); SFX.munch();
           setTimeout(() => {
@@ -5372,7 +5758,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   }
 
   // ================= the pet's house =================
-  let houseTab = 'wear';
+  let houseTab = 'design';
   function openHouse(feedNow) {
     if (!pet || !pet.onboarded) { openAdopt(); return; }
     drawHouse(feedNow ? 'feed' : null);
@@ -5395,13 +5781,16 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       el('button', { type: 'button', class: 'btn main', onclick: () => drawHouse('feed') }, '🍎 להאכיל'),
       el('button', { type: 'button', class: 'btn', onclick: play }, '⚽ לשחק'),
       el('button', { type: 'button', class: 'btn', onclick: pat }, '🤗 ללטף'),
+      el('button', { type: 'button', class: 'btn', onclick: () => openBath(pet) }, '🛁 אמבטיה'),
       un.has('guardian') ? el('button', { type: 'button', class: 'btn', onclick: () => { drawHouse(null, guardLine()); SFX.boop(); } }, '💬 לדבר עם ' + guardName().split(' ')[0]) : null,
       SEA.includes(pet.kind) ? el('button', { type: 'button', class: 'btn', onclick: () => { $('#houseDlg').close(); openMermaids(); } }, '🧜‍♀️ לעצב בנות ים') : null);
     $('#houseFood').replaceChildren(mode === 'feed' ? el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => feed(f) }))) : null);
-    const TABS2 = [['wear', '👗 להלביש'], ['color', '🎨 צבע וגודל'], ['home', '🏠 הבית'], ['tricks', '🎪 גדילה וטריקים'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
+    const TABS2 = [['design', '🎨 לעצב'], ['pets', '🐾 החיות שלי'], ['wear', '👗 להלביש'], ['home', '🏠 הבית'], ['tricks', '🎪 גדילה וטריקים'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
     $('#houseTabs').replaceChildren(...TABS2.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(houseTab === id), onclick: () => { houseTab = id; drawHouse(); } }, name)));
     const tab = $('#houseTab');
-    if (houseTab === 'wear') {
+    if (houseTab === 'design') tab.replaceChildren(petzHouseDesign());
+    else if (houseTab === 'pets') tab.replaceChildren(petzHousePets());
+    else if (houseTab === 'wear') {
       tab.replaceChildren(...[['head', 'על הראש'], ['face', 'על הפנים'], ['neck', 'על הצוואר']].map(([slot, name]) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, name),
         el('div', { class: 'wear-pick' },
           el('button', { type: 'button', 'aria-pressed': String(!pet.wear[slot]), onclick: () => { delete pet.wear[slot]; savePet(); drawHouse(); renderPet(); } }, el('span', { class: 'ic' }), 'בלי'),
@@ -5827,8 +6216,8 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.09.24-nails';
-  const WHATS_NEW = ['💅 סלון ציפורניים: מעצבים ציפורניים ומדביקים אותן לבנות שעיצבת!', '💰 בסוף ציד האוצרות מקבלים אוצר אמיתי: 14 פריטים מיוחדים ונעולים לבנות, כמו כתר יהלומים, כנפי פיה ונעלי קריסטל'];
+  const APP_VERSION = '2026.09.25-bakery';
+  const WHATS_NEW = ['🐾 מעצבים חיות: צבע, עיניים, בטן, מוצץ ועוד! ואפשר כמה חיות', '🧁 מאפייה: אופים ומאכילים את החיות ואת הבנות', '👜 חנות בגדים ומטבעות 🪙', '💇‍♀️ מספרה, 🧖‍♀️ ספא, 💍 תכשיטים, 👑 נשף', '🏥 וטרינרית ו-🛁 אמבטיה לחיה', '🌌 חלל, 🍭 ארץ הממתקים, ❄️ ארמון קרח', '🎁 לוח הפתעות, 🏅 אתגר יומי, 📸 אלבום השנה', '🎮 משחקים חדשים ו-🧰 תפריט מסודר בחדרים'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -5932,13 +6321,17 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     ["gem", "מעצבת תכשיטים", () => openJewelry()],
     ["crown", "הנשף המלכותי", () => openBall()],
     ["gift", "חנות בגדים", () => openShop()],
+    ['cat', 'לעצב חיה', () => { houseTab = 'design'; openHouse(); }],
+    ['panda', 'כל החיות שלי', () => { houseTab = 'pets'; openHouse(); }],
+    ['dog', 'וטרינרית', () => openVet()],
+    ['bunny', 'אמבטיה לחיה', () => openBath()],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   // the "more" menu, sorted into rooms, with search and favorites
   const MORE_ROOMS = [
     ['fav', '⭐ המועדפים', []],
     ['fashion', '👗 אופנה ויופי', ['אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
-    ['pets', '🐾 החיות', ['חיה', 'חיית', 'בנות הים', 'וטרינר', 'אמבטיה']],
+    ['pets', '🐾 החיות', ['חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
     ['games', '🎮 משחקים', ['משחקים']],
     ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח']],
     ['create', '✏️ ליצור', ['מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
@@ -16980,6 +17373,493 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       }
     } catch {}
   })();
+  // ================= many pets, pet designer, party, vet, bath (pets agent) =================
+  // 'pets' = every pet she has; 'pet' (and the global `pet`) = the one in the corner. Old code keeps saving 'pet'; we merge it back by id.
+  const petzNorm = q => Object.assign({ v: 2, color: 0, wear: {}, house: { bg: null, hidden: [] }, fed: {}, played: {}, onboarded: true }, q);
+  const petzId = () => 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  let petzList = (store.get('pets', []) || []).filter(q => q && q.kind).map(petzNorm);
+  function petzSync() {
+    if (!pet || !pet.onboarded) return;
+    if (!pet.id) { pet.id = petzId(); store.set('pet', pet); }
+    const i = petzList.findIndex(q => q.id === pet.id);
+    if (i < 0) petzList.unshift(pet); else petzList[i] = pet;
+  }
+  function petzSave() { petzSync(); store.set('pets', petzList); if (pet) store.set('pet', pet); }
+  petzSync(); if (pet && pet.onboarded) store.set('pets', petzList);
+  function allPets() { petzSync(); return petzList.slice(); }
+  const petzKindName = k => (PET_KINDS.find(x => x[0] === k) || [0, 'חיה'])[1];
+  const petzName = p => (p && p.name) || 'החיה';
+  function petzSetActive(id) {
+    petzSync();
+    const q = petzList.find(x => x.id === id);
+    if (!q || q === pet) return;
+    pet = q; petzSave(); SFX.pet(pet.kind);
+    renderPet(); if ($('#houseDlg').open) drawHouse(null, `היי! עכשיו אני בפינה! 💖`);
+  }
+  // called by the adopt dialog when the new pet is made (clicking food twice keeps the same pet)
+  function petzAdopted(np) {
+    const had = adopt && adopt.pid && petzList.find(x => x.id === adopt.pid);
+    if (had) { Object.assign(had, np, { id: had.id }); store.set('pets', petzList); return had; }
+    petzSync();
+    np.id = petzId(); if (adopt) adopt.pid = np.id;
+    petzList.push(np); store.set('pets', petzList);
+    return np;
+  }
+  const PZ_SAYS = { cat: 'מיאו', dog: 'הב הב', bunny: 'ניף ניף', bear: 'גררר', panda: 'מממ', lion: 'רווווור', owl: 'הוּ הוּ', dino: 'ראאאר', turtle: 'ששש', fish: 'בלוב בלוב', whale: 'ווווש' };
+  // shared contract: feed any of her pets. food = { id, name, art, yum: 1-3 }
+  function feedPet(p, food = {}) {
+    p = p || pet; if (!p) return '';
+    const real = (p.id && petzList.find(x => x.id === p.id)) || p, t = localToday(), yum = Math.max(1, Math.min(3, food.yum || 2));
+    real.fed = real.fed || {}; real.fed[t] = (real.fed[t] || 0) + 1; real.happyAt = Date.now();
+    SFX.pet(real.kind); if (yum >= 3) setTimeout(() => SFX.yay(), 250);
+    if (real === pet) savePet();
+    petzSave();
+    try { renderPet(); } catch {}
+    const nm = petzName(real), f = food.name || 'האוכל', snd = PZ_SAYS[real.kind] || '';
+    return [`${nm}: ${snd}... ${f}? נחמד, תודה 🙂`, `${nm}: ${snd}! יאמי, ${f} ממש טעים לי! 😋`, `${nm}: ${snd}!!! ${f} זה הדבר הכי טעים בעולם! 💖💖`][yum - 1];
+  }
+
+  // ---------- the designer ----------
+  const PZ_BODY = ['#ffb56b', '#f0d2a8', '#c68b59', '#8a5a3c', '#ffffff', '#efe9e1', '#b8bcc8', '#4a4a5a', '#ffcf6b', '#ffe98a', '#ffd1e6', '#ff9ec4', '#ffb3a0', '#e6d2ff', '#b58cff', '#bfeaff', '#7ec8ff', '#b8f0a0', '#6fcf7f', '#8fe6d0'];
+  const PZ_C2 = ['#e8893a', '#9b6b43', '#3a3a4a', '#ffffff', '#ff5a8a', '#ff9ad5', '#b58cff', '#7ec8ff', '#4f9fe0', '#4fbf73', '#ffd84d', '#ff9a3c', '#ff6b6b', '#8a5a3c'];
+  const PZ_BELLY = ['#ffffff', '#fff1e0', '#fff0f6', '#fff6c4', '#eaf6ff', '#e2f8c9', '#f1d3b3', '#f3e8ff', '#ffd6e6'];
+  const PZ_EYEC = ['', '#3a2b3c', '#7a4a2a', '#3fa0ff', '#2fbf8f', '#8e5bd6', '#ff5a8a', '#ffb020', '#e8573f'];
+  const PZ_CHEEK = ['#ff8fab', '#ffb3a0', '#ff6b8b', '#e0a3ff', '#ffc94d', '#8fd3ff'];
+  const PZ_PACI = ['#8fd3ff', '#ff9ad5', '#b58cff', '#ffd84d', '#6fcf7f', '#ffffff', '#ff6b6b'];
+  const PZ_XC = ['#ff5a8a', '#ff9ad5', '#b58cff', '#cfe8ff', '#7ec8ff', '#ffd84d', '#6fcf7f', '#ff9a3c', '#ffffff'];
+  const PZ_EYES = [['shiny', 'נוצצות'], ['anime', 'אנימה'], ['sleepy', 'ישנוניות'], ['happy', 'שמחות'], ['star', 'כוכבים'], ['heart', 'לבבות'], ['round', 'עגולות'], ['wink', 'קריצה'], ['lashes', 'ריסים'], ['dot', 'נקודות']];
+  const PZ_MOUTHS = [['cat', 'חמוד'], ['smile', 'חיוך'], ['open', 'צוחק'], ['tongue', 'לשון'], ['tiny', 'או!']];
+  const PZ_PATTERNS = [['none', 'חלק'], ['spots', 'נקודות'], ['stripes', 'פסים'], ['patches', 'כתמים'], ['gradient', 'מעבר צבע'], ['sparkles', 'נצנצים']];
+  const PZ_XTRAS = [['bow', '🎀 פפיון', '#ff5a8a'], ['wings', '🧚 כנפיים', '#cfe8ff'], ['horn', '🦄 קרן', 0], ['halo', '😇 הילה', 0], ['flower', '🌸 פרח', '#ff9ad5'], ['glasses', '👓 משקפיים', '#ff5a8a']];
+  const pzPick = a => a[Math.floor(Math.random() * a.length)];
+  function petzRandomLook(kind) {
+    const L = Object.assign(petzLook({ kind }), { v: 1 });
+    Object.assign(L, { c1: pzPick(PZ_BODY), c2: pzPick(PZ_C2), pattern: pzPick(PZ_PATTERNS)[0], belly: Math.random() < .75, bellyC: pzPick(PZ_BELLY), eyes: pzPick(PZ_EYES)[0],
+      eyeC: pzPick(PZ_EYEC), cheekC: pzPick(PZ_CHEEK), mouth: kind === 'owl' ? 'none' : pzPick(PZ_MOUTHS)[0], paci: Math.random() < .25, paciC: pzPick(PZ_PACI), fluff: Math.random() < .3, x: {} });
+    if (PZ_EARS[kind]) L.ears = pzPick(PZ_EARS[kind])[0];
+    if (PZ_TAIL_KINDS.includes(kind)) L.tail = pzPick(PZ_TAILS)[0];
+    PZ_XTRAS.forEach(([id, , col]) => { if (Math.random() < .22) L.x[id] = col ? pzPick(PZ_XC) : 1; });
+    return L;
+  }
+  const petzThumb = (p, crop) => { const s = petSVG(p); return crop ? s.replace('viewBox="-4 -14 56 64"', `viewBox="${crop}"`) : s; };
+  let petzDesSec = 'colors', petzDesLast = null;
+  // designs any pet-like object in place (t.look, t.size); onChange runs after every change
+  function petzDesigner(t, onChange) {
+    if (!t.look || !t.look.v) { t.look = Object.assign(petzLook(t), { v: 1 }); t.color = 0; }
+    if (petzDesLast !== (t.id || t)) { petzDesLast = t.id || t; petzDesSec = 'colors'; }
+    const box = el('div', { class: 'pz-des' });
+    const draw = () => {
+      const L = t.look, kind = t.kind, a = ANCHOR[kind] || ANCHOR.cat;
+      const prev = el('div', { class: 'pz-des-prev', html: petSVG(t) });
+      const changed = (full = true) => { if (onChange) onChange(); if (full) draw(); else prev.innerHTML = petSVG(t); };
+      const set = (k, v) => { L[k] = v; SFX.pop(); changed(); };
+      const setX = (k, v) => { L.x = Object.assign({}, L.x); if (v) L.x[k] = v; else delete L.x[k]; SFX.pop(); changed(); };
+      const face = `${pzF(a.eyes[0] - 12.5)} ${pzF(a.eyes[1] - 9)} 25 22`;
+      const thumb = (look, crop) => petzThumb(Object.assign({}, t, { size: 1, wear: {}, look: Object.assign({}, L, look) }), crop);
+      const picker = (cur, cb) => el('label', { class: 'pz-picker', title: 'צבע משלי' }, '🌈', el('input', { type: 'color', value: /^#[0-9a-f]{6}$/i.test(cur || '') ? cur : '#ff9ad5', 'aria-label': 'לבחור צבע משלי', oninput: e => cb(e.target.value, false), onchange: e => cb(e.target.value, true) }));
+      const sw = (cur, list, key, withPicker = true) => {
+        const cb = (c, full = true) => { L[key] = c; if (full) SFX.pop(); changed(full); };
+        return el('div', { class: 'pz-sw' }, ...list.map(c => el('button', { type: 'button', class: 'pz-swb' + (c ? '' : ' auto'), style: `--c:${c || '#fff'}`, 'aria-pressed': String((cur || '') === c), 'aria-label': c || 'אוטומטי', title: c ? '' : 'לפי הסגנון', onclick: () => cb(c) }, c ? '' : 'A')), withPicker ? picker(cur, cb) : null);
+      };
+      const xsw = (id, cur) => el('div', { class: 'pz-sw' }, ...PZ_XC.map(c => el('button', { type: 'button', class: 'pz-swb', style: `--c:${c}`, 'aria-pressed': String(cur === c), 'aria-label': c, onclick: () => setX(id, c) })),
+        picker(typeof cur === 'string' ? cur : '', (c, full) => { L.x = Object.assign({}, L.x, { [id]: c }); changed(full); }));
+      const opts = (list, key, crop, extra = {}) => el('div', { class: 'pz-opts' }, ...list.map(([id, name]) => el('button', { type: 'button', 'aria-pressed': String(L[key] === id), onclick: () => set(key, id) },
+        el('span', { class: 'ic', html: thumb(Object.assign({ [key]: id }, extra), crop) }), name)));
+      const tog = (on, cb, yes = 'יש', no = 'בלי') => el('div', { class: 'seg pz-seg' },
+        el('button', { type: 'button', 'aria-pressed': String(!on), onclick: () => cb(false) }, no), el('button', { type: 'button', 'aria-pressed': String(!!on), onclick: () => cb(true) }, yes));
+      const sec = (title, ...kids) => el('div', { class: 'pz-sec' }, el('span', { class: 'lbl' }, title), ...kids);
+      const hasEars = !!PZ_EARS[kind], hasTail = PZ_TAIL_KINDS.includes(kind);
+      const SECS = [['colors', '🎨 צבעים'], ['face', '👀 פנים'], hasEars || hasTail ? ['ears', '🐾 אוזניים וזנב'] : null, ['extras', '✨ תוספות']].filter(Boolean);
+      if (!SECS.some(s => s[0] === petzDesSec)) petzDesSec = 'colors';
+      let body;
+      if (petzDesSec === 'colors') {
+        body = [sec('צבע הגוף', sw(L.c1, PZ_BODY, 'c1')),
+          sec('דוגמה', opts(PZ_PATTERNS, 'pattern')),
+          sec(kind === 'panda' ? 'צבע שני (אוזניים, ידיים ודוגמה)' : kind === 'lion' ? 'צבע שני (רעמה ודוגמה)' : 'צבע שני (לדוגמה ולפרטים)', sw(L.c2, PZ_C2, 'c2')),
+          sec('בטן', tog(L.belly, v => set('belly', v)), L.belly ? sw(L.bellyC, PZ_BELLY, 'bellyC') : null),
+          sec('פרווה', tog(L.fluff, v => set('fluff', v), '☁️ פרוותי', 'חלק')),
+          sec('קו מסביב', el('div', { class: 'seg pz-seg' }, ...[[0, 'דק'], [1, 'רגיל'], [2, 'עבה']].map(([v, n]) => el('button', { type: 'button', 'aria-pressed': String((L.line ?? 1) === v), onclick: () => set('line', v) }, n))))];
+        if (t.size != null) {
+          const size = el('input', { type: 'range', min: 0.65, max: 1.15, step: 0.05, value: t.size || 1, 'aria-label': 'גודל', oninput: e => { t.size = Number(e.target.value); changed(false); } });
+          body.push(sec('גודל: קטנטן וחמוד ← → גדול', size, el('span', { class: 'muted' }, 'ככל שהחיה קטנה יותר, העיניים שלה גדולות יותר 🥹')));
+        }
+      } else if (petzDesSec === 'face') {
+        body = [sec('עיניים', opts(PZ_EYES, 'eyes', face)), sec('צבע עיניים', sw(L.eyeC, PZ_EYEC, 'eyeC')),
+          kind === 'owl' ? null : sec('פה', opts(PZ_MOUTHS, 'mouth', face, { paci: false })),
+          sec('לחיים ורודות', tog(L.cheeks, v => set('cheeks', v)), L.cheeks ? sw(L.cheekC, PZ_CHEEK, 'cheekC') : null),
+          sec('מוצץ 🍼', tog(L.paci, v => set('paci', v), 'עם מוצץ', 'בלי מוצץ'), L.paci ? sw(L.paciC, PZ_PACI, 'paciC') : null)];
+      } else if (petzDesSec === 'ears') {
+        body = [hasEars ? sec(kind === 'lion' ? 'רעמה' : kind === 'dino' ? 'על הראש' : 'אוזניים', opts(PZ_EARS[kind], 'ears')) : null,
+          hasTail ? sec('זנב', opts(kind === 'dino' ? PZ_TAILS.filter(x => ['auto', 'heart', 'none'].includes(x[0])) : PZ_TAILS, 'tail')) : null];
+      } else {
+        body = PZ_XTRAS.map(([id, name, col]) => sec(name, tog(L.x && L.x[id], v => setX(id, v ? (col || 1) : 0)), col && L.x && L.x[id] ? xsw(id, L.x[id]) : null));
+        body.push(el('p', { class: 'muted' }, 'כתרים, משקפי שמש ועוד בגדים נמצאים בלשונית 👗 להלביש'));
+      }
+      box.replaceChildren(
+        el('div', { class: 'pz-des-side' }, prev,
+          el('div', { class: 'chips' },
+            el('button', { type: 'button', class: 'btn', onclick: () => { t.look = petzRandomLook(kind); SFX.yay(); changed(); } }, '🎲 הפתעה!'),
+            el('button', { type: 'button', class: 'btn', onclick: () => { t.look = Object.assign(petzLook({ kind }), { v: 1 }); SFX.boop(); changed(); } }, '↺ מההתחלה'))),
+        el('div', { class: 'pz-des-main' },
+          el('div', { class: 'tabs pz-des-tabs', role: 'tablist' }, ...SECS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(petzDesSec === id), onclick: () => { petzDesSec = id; draw(); } }, n))),
+          ...body));
+    };
+    draw();
+    return box;
+  }
+  // house tab: design the pet in the corner
+  function petzHouseDesign() {
+    return petzDesigner(pet, () => {
+      savePet(); petzSave();
+      const art = $('#houseScene .pet-art'); if (art) art.innerHTML = petSVG(grownPet(pet));
+      renderPet();
+    });
+  }
+  // house tab: all my pets
+  function petzHousePets() {
+    const list = allPets();
+    return el('div', { class: 'row' },
+      el('p', { class: 'muted', style: 'margin:0' }, list.length > 1 ? 'לוחצים על ⭐ כדי לבחור מי יושב/ת בפינה של הלוח.' : 'אפשר לאמץ עוד חיות, והן ישחקו ביחד!'),
+      el('div', { class: 'pz-cards' }, ...list.map(q => el('div', { class: 'pz-card' + (q === pet ? ' on' : '') },
+        el('button', { type: 'button', class: 'pz-card-art', 'aria-label': petzName(q), html: petSVG(q), onclick: e => { SFX.pet(q.kind); const s = e.currentTarget.querySelector('svg'); if (s) { s.classList.remove('pz-hop'); void s.getBoundingClientRect(); s.classList.add('pz-hop'); } } }),
+        el('b', {}, petzName(q)), el('small', {}, petzKindName(q.kind)),
+        q === pet ? el('span', { class: 'pz-badge' }, '⭐ בפינה') : el('button', { type: 'button', class: 'chip', onclick: () => petzSetActive(q.id) }, '⭐ לשים בפינה'),
+        el('button', { type: 'button', class: 'chip', onclick: () => openBath(q) }, '🛁 אמבטיה'))),
+        el('button', { type: 'button', class: 'pz-card pz-add', onclick: () => { $('#houseDlg').close(); openAdopt(); } }, el('span', { class: 'pz-plus' }, '➕'), el('b', {}, 'לאמץ עוד חיה'))),
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn main', onclick: () => openPetzParty() }, '🎉 כולם משחקים ביחד'),
+        el('button', { type: 'button', class: 'btn', onclick: () => openVet() }, '🏥 מרפאת החיות'),
+        el('button', { type: 'button', class: 'btn', onclick: () => openBath(pet) }, '🛁 אמבטיה ופינוק')));
+  }
+
+  // ---------- party: all pets play together ----------
+  function openPetzParty() {
+    const list = allPets();
+    if (!list.length) { openAdopt(); return; }
+    const t = localToday();
+    list.forEach(q => { q.played = q.played || {}; q.played[t] = (q.played[t] || 0) + 1; });
+    petzSave(); if (typeof afterChange === 'function') afterChange();
+    const stage = el('div', { class: 'pz-party-stage' }), fx = el('div', { class: 'pz-fx' });
+    const say = el('span', { class: 'pz-say' }, list.length > 1 ? 'יש! כולם ביחד! 🎉' : `${petzName(list[0])} מחכה לחברים... אולי נאמץ עוד? 🥚`);
+    const n = Math.min(list.length, 8);
+    const nodes = list.slice(0, 8).map((q, i) => {
+      const b = el('button', { type: 'button', class: 'pz-party-pet', 'aria-label': petzName(q), html: petSVG(q), onclick: () => hop(i, true) });
+      b.style.left = `${50 + (i - (n - 1) / 2) * (n > 1 ? Math.min(26, 84 / (n - 1)) : 0)}%`; b.style.setProperty('--d', `${(i * 0.23) % 1}s`); b.style.setProperty('--w', `${Math.max(64, Math.min(120, 520 / n))}px`);
+      return b;
+    });
+    const hop = (i, talk) => {
+      const b = nodes[i], q = list[i]; if (!b) return;
+      b.classList.remove('hop'); void b.offsetWidth; b.classList.add('hop'); SFX.pet(q.kind);
+      if (talk) { say.textContent = `${petzName(q)}: ${PZ_SAYS[q.kind] || ''}! ${pzPick(['איזה כיף!', 'עוד!', 'אני אוהב/ת אתכם!', 'בואו נרקוד!', 'תפסו אותי!'])}`; heart(b); }
+    };
+    const heart = b => { if (reduceMotion()) return; const h = el('span', { class: 'pz-heart', html: stickerHTML('heart') }); h.style.left = b.style.left; fx.append(h); setTimeout(() => h.remove(), 1300); };
+    let busy = false;
+    const ball = () => {
+      if (busy) return; busy = true; SFX.boop();
+      const bl = el('span', { class: 'pz-ball', html: stickerHTML('ball') }); fx.append(bl);
+      const order = nodes.map((_, i) => i); let k = 0;
+      const step = () => {
+        if (k >= order.length) { bl.remove(); busy = false; say.textContent = 'גוֹל! כולם ניצחו! ⚽🏆'; SFX.yay(); return; }
+        bl.style.left = nodes[order[k]].style.left; hop(order[k], false); k++; setTimeout(step, 420);
+      };
+      setTimeout(step, 50);
+    };
+    const dance = () => {
+      say.textContent = 'מסיבת ריקודים! 💃🕺';
+      [523, 659, 784, 659, 880, 784, 1047].forEach((f, i) => tone(f, 0.18, 'triangle', i * 0.18, 0.07));
+      nodes.forEach(b => { b.classList.remove('dance'); void b.offsetWidth; b.classList.add('dance'); });
+      if (!reduceMotion()) for (let i = 0; i < 8; i++) { const m = el('span', { class: 'pz-note' }, pzPick(['🎵', '🎶', '✨', '💖'])); m.style.left = `${5 + Math.random() * 90}%`; m.style.animationDelay = `${i * 0.15}s`; fx.append(m); setTimeout(() => m.remove(), 2400); }
+    };
+    const bubbles = () => {
+      say.textContent = 'בועות! מי יתפוס הכי הרבה? 🫧';
+      for (let i = 0; i < 10; i++) {
+        const bb = el('button', { type: 'button', class: 'pz-bub', 'aria-label': 'בועה', onclick: () => { bb.classList.add('pop'); tone(900 + Math.random() * 500, 0.06, 'sine'); hop(Math.floor(Math.random() * nodes.length), false); setTimeout(() => bb.remove(), 250); } });
+        bb.style.left = `${5 + Math.random() * 88}%`; bb.style.animationDelay = `${i * 0.35}s`; fx.append(bb); setTimeout(() => bb.remove(), 7000);
+      }
+    };
+    stage.append(...nodes, fx, say);
+    $('#petzPartyBody').replaceChildren(stage,
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn main', onclick: ball }, '⚽ לזרוק כדור'),
+        el('button', { type: 'button', class: 'btn', onclick: dance }, '💃 מסיבת ריקודים'),
+        el('button', { type: 'button', class: 'btn', onclick: bubbles }, '🫧 בועות סבון'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#petzPartyDlg').close(); if ($('#houseDlg').open) $('#houseDlg').close(); openAdopt(); } }, '➕ עוד חבר/ה')));
+    if (!$('#petzPartyDlg').open) $('#petzPartyDlg').showModal();
+    setTimeout(() => nodes.forEach((_, i) => setTimeout(() => hop(i, false), i * 120)), 200);
+  }
+
+  // ---------- drawn tools ----------
+  const PZ_TOOL_ART = {
+    thermo: `<g transform="rotate(-38 24 24)"><rect x="19.5" y="3" width="9" height="33" rx="4.5" fill="#fff" ${S}/><rect x="22.5" y="12" width="3" height="22" rx="1.5" fill="#ff5a6e"/><circle cx="24" cy="38" r="6.5" fill="#ff5a6e" ${S}/><path d="M28.5 10 h-2.5 M28.5 15 h-2.5 M28.5 20 h-2.5 M28.5 25 h-2.5" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/></g>`,
+    steth: `<path d="M13 6 V17 A11 11 0 0 0 35 17 V6" fill="none" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M13 6 V17 A11 11 0 0 0 35 17 V6" fill="none" stroke="#7ec8ff" stroke-width="2.4" stroke-linecap="round"/><path d="M24 28 V33 Q24 40 31 40" fill="none" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M24 28 V33 Q24 40 31 40" fill="none" stroke="#7ec8ff" stroke-width="2.4" stroke-linecap="round"/><circle cx="34" cy="40" r="5.5" fill="#cfd6e0" ${S}/><circle cx="34" cy="40" r="2.4" fill="#fff"/>`,
+    bandage: `<g transform="rotate(-35 24 24)"><rect x="4" y="16" width="40" height="16" rx="8" fill="#ffd8b0" ${S}/><rect x="17" y="16" width="14" height="16" fill="#fff1e0" ${S2}/><path d="${pzHeart(24, 24.5, 3.4)}" fill="#ff6b8b"/><circle cx="9.5" cy="22" r="1" fill="#e8a870"/><circle cx="12" cy="26" r="1" fill="#e8a870"/><circle cx="38.5" cy="22" r="1" fill="#e8a870"/><circle cx="36" cy="26" r="1" fill="#e8a870"/></g>`,
+    medicine: `<rect x="27" y="6" width="14" height="22" rx="4" fill="#b58cff" ${S}/><rect x="29" y="2" width="10" height="6" rx="2" fill="#fff" ${S2}/><rect x="29.5" y="13" width="9" height="8" rx="2" fill="#fff" opacity=".9"/><path d="M4 40 L20 30" stroke="${O}" stroke-width="5.5" stroke-linecap="round"/><path d="M4 40 L20 30" stroke="#cfd6e0" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="26" cy="27" rx="8" ry="5.5" transform="rotate(-32 26 27)" fill="#cfd6e0" ${S}/><ellipse cx="26.4" cy="26.6" rx="5.2" ry="3.2" transform="rotate(-32 26.4 26.6)" fill="#ff7aa8"/>`,
+    cotton: `<path d="M8 40 L22 26" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M8 40 L22 26" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>${pzShape(28, 20, 10, 8.5, `fill="#fff" ${S}`, 1)}<circle cx="25" cy="17.5" r="2" fill="#eef3fb"/>`,
+    ice: `<rect x="7" y="12" width="34" height="26" rx="9" fill="#9fdcff" ${S}/><rect x="13" y="18" width="9" height="8" rx="2" fill="#fff" opacity=".85"/><rect x="25" y="22" width="9" height="8" rx="2" fill="#fff" opacity=".85"/><path d="M18 8 h12 v5 h-12 Z" fill="#7ec8ff" ${S2}/>`,
+    tea: `<path d="M17 12 q-3 -4 0 -7 M25 12 q-3 -4 0 -7" fill="none" stroke="${O}" stroke-width="1.8" stroke-linecap="round" opacity=".6"/><path d="M34 21 H38 A5 5 0 0 1 38 31 H34" fill="none" ${S}/><path d="M8 16 H35 V34 A7 7 0 0 1 28 41 H15 A7 7 0 0 1 8 34 Z" fill="#fff" ${S}/><path d="M10.5 20 H32.5" stroke="#ffb020" stroke-width="3" stroke-linecap="round"/><path d="${pzHeart(21.5, 30, 3.2)}" fill="#ff9ad5"/><path d="M5 42 H38" ${S}/>`,
+    blanket: `<path d="M5 14 Q24 8 43 14 V36 Q24 42 5 36 Z" fill="#c9b2ff" ${S}/><path d="M5 25 Q24 19 43 25 M5 30 Q24 24 43 30" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/><circle cx="14" cy="18" r="1.8" fill="#ffd84d"/><circle cx="33" cy="17" r="1.8" fill="#ffd84d"/><circle cx="24" cy="35" r="1.8" fill="#ffd84d"/>`,
+    brush: `<g transform="rotate(-40 24 24)"><rect x="21" y="14" width="6" height="32" rx="3" fill="#7ec8ff" ${S}/><rect x="19" y="3" width="10" height="13" rx="2.5" fill="#fff" ${S2}/><path d="M21 5 V14 M24 5 V14 M27 5 V14" stroke="#9fdcff" stroke-width="1.6"/></g>`,
+    bath: `<path d="M6 22 H42 V28 A12 12 0 0 1 30 40 H18 A12 12 0 0 1 6 28 Z" fill="#fff" ${S}/><path d="M10 40 L8 44 M38 40 L40 44" ${S}/><circle cx="15" cy="17" r="4.5" fill="#bfeaff" ${S2}/><circle cx="24" cy="14" r="5.5" fill="#bfeaff" ${S2}/><circle cx="32.5" cy="17.5" r="4" fill="#bfeaff" ${S2}/><path d="M6 22 H42" stroke="#7ec8ff" stroke-width="3"/>`,
+    soap: `<rect x="7" y="20" width="34" height="18" rx="7" fill="#ff9ad5" ${S}/><path d="M12 25 q6 -2 12 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/><circle cx="16" cy="12" r="5" fill="#e6f7ff" ${S2}/><circle cx="27" cy="9" r="3.6" fill="#e6f7ff" ${S2}/><circle cx="35" cy="14" r="2.8" fill="#e6f7ff" ${S2}/>`,
+    shower: `<path d="M8 6 H20 Q26 6 26 12 V16" fill="none" stroke="${O}" stroke-width="5.5" stroke-linecap="round"/><path d="M8 6 H20 Q26 6 26 12 V16" fill="none" stroke="#cfd6e0" stroke-width="2.6" stroke-linecap="round"/><path d="M14 22 Q14 14 26 14 Q38 14 38 22 Z" fill="#9aa6bd" ${S}/><g fill="#7ec8ff"><circle cx="19" cy="29" r="1.6"/><circle cx="26" cy="31" r="1.6"/><circle cx="33" cy="29" r="1.6"/><circle cx="22" cy="37" r="1.6"/><circle cx="30" cy="38" r="1.6"/><circle cx="26" cy="44" r="1.6"/></g>`,
+    towel: `<rect x="8" y="10" width="32" height="28" rx="5" fill="#ffd84d" ${S}/><path d="M8 18 H40 M8 30 H40" stroke="#fff" stroke-width="3"/><path d="M8 38 L8 42 M14 38 V42 M20 38 V42 M26 38 V42 M32 38 V42 M40 38 V42" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>`,
+    dryer: `<path d="M26 24 L30 42 H36 L33 24 Z" fill="#b58cff" ${S}/><path d="M8 10 H28 A10 10 0 0 1 28 30 H8 A4 4 0 0 1 8 10 Z" fill="#ff9ad5" ${S}/><circle cx="28" cy="20" r="5" fill="#fff" ${S2}/><path d="M2 14 q-2 3 0 6 M2 22 q-2 3 0 6" fill="none" stroke="#7ec8ff" stroke-width="2" stroke-linecap="round"/>`,
+    comb: `<rect x="6" y="12" width="36" height="10" rx="5" fill="#ffb3cd" ${S}/>${[10, 15, 20, 25, 30, 35, 39].map(x => `<path d="M${x} 22 V35" stroke="${O}" stroke-width="3.6" stroke-linecap="round"/><path d="M${x} 22 V35" stroke="#ffb3cd" stroke-width="1.6" stroke-linecap="round"/>`).join('')}`,
+    perfume: `<rect x="10" y="18" width="24" height="24" rx="8" fill="#e6d2ff" ${S}/><rect x="17" y="12" width="10" height="7" rx="2" fill="#ffd84d" ${S2}/><path d="M27 15 H33 Q38 15 38 10" fill="none" ${S2}/><circle cx="39.5" cy="9" r="4" fill="#ff9ad5" ${S2}/><path d="${pzHeart(22, 30, 4)}" fill="#ff9ad5"/>`,
+  };
+  const pzToolSVG = id => ({ hug: stickerHTML('heart'), toy: stickerHTML('ball'), lollipop: stickerHTML('lollipop'), bow: stickerHTML('bow') })[id] || svg(PZ_TOOL_ART[id] || '');
+  // a tool you can click, or drag onto the target
+  function petzDragTool(btn, target, onUse) {
+    let start = null, ghost = null;
+    btn.addEventListener('pointerdown', e => { start = [e.clientX, e.clientY]; try { btn.setPointerCapture(e.pointerId); } catch {} });
+    btn.addEventListener('pointermove', e => {
+      if (!start) return;
+      if (!ghost && Math.hypot(e.clientX - start[0], e.clientY - start[1]) > 8) { ghost = el('span', { class: 'pz-ghost', html: btn.querySelector('.ic').innerHTML }); (btn.closest('dialog') || document.body).append(ghost); }
+      if (ghost) { ghost.style.left = e.clientX + 'px'; ghost.style.top = e.clientY + 'px'; }
+    });
+    const end = e => {
+      if (!start) return;
+      const dragged = !!ghost; start = null;
+      if (ghost) { ghost.remove(); ghost = null; }
+      if (!dragged) return;
+      btn.dataset.dragged = '1';
+      const r = target().getBoundingClientRect();
+      if (e.clientX >= r.left - 20 && e.clientX <= r.right + 20 && e.clientY >= r.top - 20 && e.clientY <= r.bottom + 20) onUse();
+    };
+    btn.addEventListener('pointerup', end);
+    btn.addEventListener('pointercancel', () => { start = null; if (ghost) { ghost.remove(); ghost = null; } });
+    btn.addEventListener('click', () => { if (btn.dataset.dragged) { delete btn.dataset.dragged; return; } onUse(); });
+  }
+  const petzGames = () => (typeof games === 'object' && games) || null;
+  const petzCoins = (n, why) => { if (typeof addCoins === 'function') try { addCoins(n, why); } catch {} };
+
+  // ---------- vet ----------
+  const PZ_VISITORS = ['בובי', 'לולו', 'פיצי', 'שוקו', 'מוקה', 'פופי', 'קיקי', 'צ\'יקו', 'מילקי', 'נוני', 'טופי', 'בּוּבָּה'];
+  const PZ_VET_TOOLS = [['thermo', 'מדחום'], ['steth', 'סטטוסקופ'], ['medicine', 'תרופה'], ['cotton', 'צמר גפן'], ['bandage', 'פלסטר'], ['ice', 'שקית קרח'], ['tea', 'תה חם'], ['blanket', 'שמיכה'], ['hug', 'חיבוק'], ['toy', 'צעצוע'], ['brush', 'מברשת שיניים'], ['bath', 'אמבטיה'], ['lollipop', 'סוכרייה']];
+  const PZ_PROBS = [
+    { id: 'sneeze', t: 'מתעטש/ת ויש לו/ה חום', say: 'אַפְּצִ\'י! אני לא מרגיש/ה טוב...', hint: 'קודם בודקים חום, ואחר כך נותנים תרופה', steps: ['thermo', 'medicine'], mood: 'sick' },
+    { id: 'paw', t: 'נשרט/ה ברגל', say: 'איי! נשרטתי ברגל כשרצתי בגינה', hint: 'קודם מנקים את השריטה, ואז שמים פלסטר', steps: ['cotton', 'bandage'], mood: 'sad' },
+    { id: 'tummy', t: 'כואבת לו/ה הבטן', say: 'אוי... הבטן שלי עושה בלוּבּ בלוּבּ', hint: 'משהו חם לשתות, ואז לנוח מתחת לשמיכה', steps: ['tea', 'blanket'], mood: 'sick' },
+    { id: 'sad', t: 'עצוב/ה היום', say: 'אני קצת עצוב/ה... אף אחד לא שיחק איתי', hint: 'קודם חיבוק גדול, ואז משחקים ביחד', steps: ['hug', 'toy'], mood: 'sad' },
+    { id: 'dirty', t: 'התלכלך/ה בבוץ', say: 'קפצתי בשלולית של בוץ! אופס 🙈', hint: 'מי שמתלכלך הולך לאמבטיה!', steps: ['bath'], mood: '' },
+    { id: 'tooth', t: 'כואבת לו/ה השן', say: 'השן שלי כואבת... אכלתי יותר מדי סוכריות', hint: 'שקית קרח על הלחי, ואז מצחצחים שיניים', steps: ['ice', 'brush'], mood: 'sad' },
+  ];
+  const PZ_TOOL_SAY = {
+    thermo: 'המדחום מראה 38.5° — יש חום! 🌡️', medicine: 'גלוּק! התרופה בטעם תות 🍓', cotton: 'ניקינו בעדינות... לא כאב בכלל!', bandage: 'פלסטר עם לבבות! ❤️',
+    tea: 'לגימה של תה חם... אההה 🍵', blanket: 'שמיכה חמה ומנוחה קטנה 😴', hug: 'חיבוק גדול! 🤗', toy: 'יש! צעצוע! בואי נשחק!', ice: 'קר קר! אבל זה עוזר ❄️',
+    brush: 'צחצוח צחצוח! שיניים נקיות ✨', bath: 'יאללה לאמבטיה! 🛁', steth: 'בּוּם־בּוּם... הלב נשמע חזק ובריא ❤️', lollipop: 'סוכרייה?! תודה, רופאה! 🍭',
+  };
+  let petzVet = null;
+  // things drawn on a patient (48×48 drawing)
+  function petzVetOver(p, prob, done, healed) {
+    const G = pzGeo(p.kind), std = !['owl', 'turtle', 'fish', 'whale'].includes(p.kind), has = id => done.includes(id);
+    const bx = std ? 18.4 : G.body[0] - G.body[2] * .5, by = std ? 45.4 : G.body[1] + G.body[3] * .6;
+    if (healed) return [[8, 12], [40, 10], [6, 36], [42, 34], [24, 4]].map(([x, y], i) => pzSpark(x, y, i % 2 ? 2.4 : 3.2, i % 2 ? '#ffd84d' : '#fff', .95)).join('');
+    let s = '';
+    if (prob === 'sneeze') {
+      if (!has('medicine')) s += `<circle cx="24" cy="${G.noseY}" r="2.8" fill="#ff5a6e" opacity=".55"/><path d="M36 ${G.eyeY - 7} q1.6 2.6 0 3.8 q-1.6 -1.2 0 -3.8 Z" fill="#9fdcff" stroke="#4f9fe0" stroke-width=".6"/>`;
+      if (has('thermo') && !has('medicine')) s += `<g transform="rotate(20 ${24 + 3} ${G.mouthY + 1})"><rect x="25" y="${G.mouthY}" width="9" height="2.4" rx="1.2" fill="#fff" stroke="${O}" stroke-width=".8"/><circle cx="34" cy="${G.mouthY + 1.2}" r="1.6" fill="#ff5a6e" stroke="${O}" stroke-width=".8"/></g>`;
+    }
+    if (prob === 'paw') {
+      if (!has('bandage')) s += `<path d="M${bx - 2} ${by - 1.5} l3.5 2 M${bx - 1} ${by - 2.4} l3.5 2" stroke="#e8304f" stroke-width="1" stroke-linecap="round" opacity="${has('cotton') ? .35 : 1}"/>`;
+      else s += `<g transform="rotate(-20 ${bx} ${by - 1})"><rect x="${bx - 4}" y="${by - 2.6}" width="8" height="3.4" rx="1.6" fill="#ffd8b0" stroke="${O}" stroke-width=".7"/><path d="${pzHeart(bx, by - .9, 1.1)}" fill="#ff6b8b"/></g>`;
+    }
+    if (prob === 'tummy') {
+      if (!has('blanket')) s += `<path d="M${G.belly[0] - 2} ${G.belly[1]} a2 2 0 1 1 2 2 a3.4 3.4 0 1 1 -3.4 -3.4" fill="none" stroke="#8fcf5a" stroke-width="1.1" stroke-linecap="round"/>`;
+      if (has('tea') && !has('blanket')) s += `<path d="M34 ${G.mouthY - 2} q-1.6 -2 0 -4 M37 ${G.mouthY - 1} q-1.6 -2 0 -4" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/>`;
+    }
+    if (prob === 'dirty' && !has('bath')) s += [[16, G.eyeY - 7, 3.2], [33, G.eyeY + 4, 2.6], [G.body[0] - 4, G.body[1] + 1, 3.6], [G.body[0] + 5, G.body[1] + 3, 2.4], [30, G.eyeY - 9, 2]].map(([x, y, r]) => `<ellipse cx="${pzF(x)}" cy="${pzF(y)}" rx="${r}" ry="${pzF(r * .8)}" fill="#8a5a3c" opacity=".75"/>`).join('');
+    if (prob === 'tooth') {
+      if (!has('ice')) s += `<ellipse cx="${24 + G.cheekDX}" cy="${G.cheekY}" rx="3.6" ry="3" fill="#ff8fab" opacity=".6"/>`;
+      else if (!has('brush')) s += `<rect x="${24 + G.cheekDX - 3.5}" y="${G.cheekY - 3}" width="7" height="6" rx="2" fill="#9fdcff" stroke="${O}" stroke-width=".8" transform="rotate(12 ${24 + G.cheekDX} ${G.cheekY})"/>`;
+    }
+    if (prob === 'tummy' && has('blanket')) s += `<g clip-path="none"><path d="M${G.body[0] - G.body[2] - 2} ${G.body[1] - 1} Q24 ${G.body[1] - 5} ${G.body[0] + G.body[2] + 2} ${G.body[1] - 1} L${G.body[0] + G.body[2] + 1} ${G.body[1] + G.body[3] + 1} Q24 ${G.body[1] + G.body[3] + 3} ${G.body[0] - G.body[2] - 1} ${G.body[1] + G.body[3] + 1} Z" fill="#c9b2ff" stroke="${O}" stroke-width="1.2" stroke-linejoin="round"/><circle cx="20" cy="${G.body[1] + 2}" r="1.1" fill="#ffd84d"/><circle cx="28" cy="${G.body[1] + 4}" r="1.1" fill="#ffd84d"/></g>`;
+    return s;
+  }
+  function openVet() {
+    const mine = allPets(), own = mine.length && Math.random() < 0.55;
+    const pk = own ? pzPick(mine) : (() => { const kind = pzPick(PET_KINDS)[0]; return { kind, name: pzPick(PZ_VISITORS), size: 0.85 + Math.random() * 0.25, look: petzRandomLook(kind), wear: {}, visitor: true }; })();
+    const prob = pzPick(PZ_PROBS);
+    petzVet = { p: pk, prob, done: [], wrong: 0, healed: false, candy: false };
+    drawVet(prob.say);
+    if (!$('#petzVetDlg').open) $('#petzVetDlg').showModal();
+    setTimeout(() => SFX.pet(pk.kind), 200);
+  }
+  function drawVet(line) {
+    const V = petzVet, P = V.prob, nm = petzName(V.p);
+    const mood = V.healed ? 'happy' : V.done.includes('hug') || V.done.includes('medicine') || V.done.includes('bandage') ? '' : P.mood;
+    const art = el('div', { class: 'pz-vet-pet' + (V.healed ? ' healed' : ''), html: petSVG(V.p, { mood, over: petzVetOver(V.p, P.id, V.done, V.healed) }) });
+    const need = P.steps[V.done.length];
+    const card = el('div', { class: 'pz-vet-card' },
+      el('b', {}, `📋 ${nm} ${V.p.visitor ? '(מטופל/ת אורח/ת)' : '(שלך!)'}`),
+      el('span', {}, `הבעיה: ${nm} ${P.t}`),
+      el('span', { class: 'muted' }, `💡 ${P.hint}`),
+      el('div', { class: 'pz-vet-steps' }, ...P.steps.map((s, i) => el('span', { class: 'pz-step' + (i < V.done.length ? ' ok' : ''), html: i < V.done.length ? pzToolSVG(s) : '' }, i < V.done.length ? '' : '?'))),
+      V.healed ? el('b', { class: 'pz-good' }, `🎉 ${nm} הבריא/ה!`) : null);
+    const room = el('div', { class: 'pz-vet-room' }, art, el('span', { class: 'pz-say' }, line || P.say), card);
+    const use = id => {
+      if (id === 'steth') { SFX.boop(); tone(90, 0.12, 'sine', 0, 0.2); tone(90, 0.12, 'sine', 0.25, 0.2); drawVet(PZ_TOOL_SAY.steth); return; }
+      if (V.healed) {
+        if (id === 'lollipop' && !V.candy) { V.candy = true; SFX.yay(); drawVet(PZ_TOOL_SAY.lollipop); return; }
+        drawVet(`${nm}: אני כבר בריא/ה לגמרי! תודה! 💖`); return;
+      }
+      if (id === 'lollipop') { drawVet(`${nm}: סוכרייה אחרי שמבריאים! 🍭`); SFX.boop(); return; }
+      if (id !== need) {
+        V.wrong++; SFX.boop();
+        drawVet(`${nm}: הממ... לא זה עכשיו. ${V.wrong >= 2 ? 'אולי ה' + PZ_VET_TOOLS.find(t => t[0] === need)[1] + '? ✨' : 'נסי משהו אחר! 🤔'}`); return;
+      }
+      if (id === 'bath') {
+        V.done.push('bath'); drawVet(PZ_TOOL_SAY.bath);
+        openBath(V.p, { dirty: true, onDone: () => { finish(); } });
+        return;
+      }
+      V.done.push(id); V.wrong = 0; SFX.pop(); SFX.pet(V.p.kind);
+      if (V.done.length >= P.steps.length) finish(PZ_TOOL_SAY[id]); else drawVet(PZ_TOOL_SAY[id]);
+    };
+    const finish = pre => {
+      V.healed = true;
+      const g = petzGames(); if (g) { g.vetHealed = (g.vetHealed || 0) + 1; store.set('games', g); }
+      if (!V.p.visitor) { const r = petzList.find(x => x.id === V.p.id); if (r) { r.vetAt = localToday(); petzSave(); } }
+      petzCoins(10, 'ריפאת חיה במרפאה');
+      SFX.yay(); confetti($('#petzVetDlg .confetti-c'));
+      drawVet(`${pre ? pre + ' ' : ''}${nm} מרגיש/ה מצוין! אפשר לתת סוכרייה 🍭`);
+    };
+    const tools = el('div', { class: 'pz-tools' }, ...PZ_VET_TOOLS.map(([id, n]) => {
+      const b = el('button', { type: 'button', class: 'pz-tool' + (!V.healed && V.wrong >= 2 && id === need ? ' hint' : '') + (V.healed && id === 'lollipop' && !V.candy ? ' hint' : ''), title: n },
+        el('span', { class: 'ic', html: pzToolSVG(id) }), n);
+      petzDragTool(b, () => art, () => use(id));
+      return b;
+    }));
+    const g = petzGames();
+    $('#petzVetBody').replaceChildren(room,
+      el('p', { class: 'muted', style: 'margin:0' }, V.healed ? 'כל הכבוד, רופאה! 👩‍⚕️' : '👆 לוחצים על כלי, או גוררים אותו אל החיה'),
+      tools,
+      el('div', { class: 'chips' },
+        V.healed ? el('button', { type: 'button', class: 'btn main', onclick: openVet }, '🐾 המטופל/ת הבא/ה') : el('button', { type: 'button', class: 'btn', onclick: openVet }, '🔄 מטופל/ת אחר/ת'),
+        g && g.vetHealed ? el('span', { class: 'pill' }, `🏥 ריפאת ${g.vetHealed} חיות`) : null));
+  }
+
+  // ---------- bath & pamper ----------
+  const PZ_BATH_STEPS = [['soap', 'סבון', 'משפשפים עם הסבון על החיה עד שיש הרבה קצף 🫧'], ['shower', 'מקלחת', 'שוטפים את כל הקצף עם המקלחת 🚿'], ['towel', 'מגבת', 'מנגבים את כל הטיפות 💧'],
+    ['dryer', 'פן', 'מייבשים עם הפן — מזיזים אותו מסביב 💨'], ['comb', 'מברשת', 'מסרקים את הפרווה שתהיה רכה ופרוותית ☁️'], ['perfume', 'בושם', 'לוחצים 3 פעמים לריח טוב ✨'], ['bow', 'קישוט', 'בוחרים קישוט יפה 🎀']];
+  let petzBath = null;
+  function openBath(p, o = {}) {
+    p = p || pet || allPets()[0];
+    if (!p) { const kind = pzPick(PET_KINDS)[0]; p = { kind, name: pzPick(PZ_VISITORS), look: petzRandomLook(kind), wear: {}, visitor: true }; }
+    const L = petzLook(p);
+    petzBath = { p, o, step: 0, prog: 0, look: Object.assign({}, L, { fluff: false, x: Object.assign({}, L.x) }), bubbles: [], drops: [], sprays: 0, dist: 0, last: null, before: petSVG(p, { mood: 'sad', over: petzMud(p, 1) }) };
+    drawBath();
+    if (!$('#petzBathDlg').open) $('#petzBathDlg').showModal();
+    SFX.pet(p.kind);
+  }
+  const petzMud = (p, k) => { const G = pzGeo(p.kind); return k > 0.02 ? [[16, G.eyeY - 7, 3.2], [33, G.eyeY + 4, 2.6], [G.body[0] - 4, G.body[1] + 1, 3.6], [G.body[0] + 5, G.body[1] + 3, 2.4], [30, G.eyeY - 9, 2], [G.body[0] + 1, G.body[1] - 3, 2]].map(([x, y, r]) => `<ellipse cx="${pzF(x)}" cy="${pzF(y)}" rx="${r}" ry="${pzF(r * .8)}" fill="#8a5a3c" opacity="${pzF(.8 * k)}"/>`).join('') : ''; };
+  function drawBath(line) {
+    const B = petzBath, p = B.p, [id, name, help] = PZ_BATH_STEPS[Math.min(B.step, PZ_BATH_STEPS.length - 1)], done = B.step >= PZ_BATH_STEPS.length;
+    const tmp = Object.assign({}, p, { look: B.look });
+    const wet = B.step >= 1 && B.step <= 3;
+    const artHTML = () => petSVG(tmp, { mood: done || B.step >= 4 ? 'happy' : B.step === 0 ? 'sick' : '', over: petzMud(p, B.step === 0 ? 1 - B.prog : 0) + (B.step >= 5 || done ? [[9, 14], [39, 12], [6, 34], [42, 32]].map(([x, y], i) => pzSpark(x, y, 2.6, i % 2 ? '#ffd84d' : '#fff', .95)).join('') : '') });
+    const art = el('div', { class: 'pz-bath-pet' + (wet ? ' wet' : '') + (done ? ' done' : ''), html: artHTML() });
+    const fx = el('div', { class: 'pz-bath-fx' });
+    const cursor = el('span', { class: 'pz-cursor', html: pzToolSVG(id) }); cursor.hidden = true;
+    const say = el('span', { class: 'pz-say' }, line || (done ? `${petzName(p)} נקי/ה, ריחני/ת ויפה! 💖` : help));
+    const bar = el('div', { class: 'xpbar pz-bath-bar' }, el('i')); bar.firstChild.style.width = Math.round(Math.min(1, B.prog) * 100) + '%';
+    const out = done || id === 'bow';
+    const stage = el('div', { class: 'pz-bath-stage' + (out ? ' done' : '') + (B.step >= 1 && !done ? ' tool-' + id : '') },
+      el('div', { class: 'pz-tiles' }), out ? null : el('div', { class: 'pz-tub-back' }), art, out ? null : el('div', { class: 'pz-tub', html: svg(`<path d="M2 14 H46 V24 A16 14 0 0 1 30 38 H18 A16 14 0 0 1 2 24 Z" fill="#fff" stroke="${O}" stroke-width="1.6" stroke-linejoin="round"/><path d="M2 14 H46" stroke="#7ec8ff" stroke-width="2.4"/><path d="M8 38 L6 44 M40 38 L42 44" stroke="${O}" stroke-width="2.2" stroke-linecap="round"/><circle cx="10" cy="22" r="1.4" fill="#ffc2d6"/><circle cx="38" cy="26" r="1.4" fill="#ffc2d6"/><circle cx="24" cy="30" r="1.4" fill="#ffc2d6"/>`).replace('viewBox="0 0 48 48"', 'viewBox="0 10 48 36" preserveAspectRatio="none"') }), fx, cursor, say);
+    // keep bubbles / drops that already exist
+    const addBubble = (x, y, big) => { const b = el('span', { class: 'pz-bubble' + (big ? ' big' : '') }); b.style.left = x + '%'; b.style.top = y + '%'; b.style.setProperty('--s', (0.6 + Math.random() * 0.8).toFixed(2)); fx.append(b); return b; };
+    B.bubbles = B.bubbles.map(([x, y]) => [x, y, addBubble(x, y)]);
+    B.drops = B.drops.map(([x, y]) => { const d = el('span', { class: 'pz-drop' }); d.style.left = x + '%'; d.style.top = y + '%'; fx.append(d); return [x, y, d]; });
+    const next = (msg) => {
+      B.step++; B.prog = 0; B.last = null; B.dist = 0; SFX.yay();
+      if (B.step === 2) { B.drops = Array.from({ length: 12 }, () => [39 + Math.random() * 22, 22 + Math.random() * 40]); }
+      if (B.step === 5) { B.look.fluff = true; }
+      drawBath(msg);
+    };
+    const rel = e => { const r = stage.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100]; };
+    const onPet = e => { const r = art.getBoundingClientRect(); return e.clientX > r.left + r.width * .08 && e.clientX < r.right - r.width * .08 && e.clientY > r.top + r.height * .12 && e.clientY < r.bottom; };
+    let down = false;
+    const work = e => {
+      if (out) return;
+      const [x, y] = rel(e);
+      cursor.hidden = false; cursor.style.left = x + '%'; cursor.style.top = y + '%';
+      if (!down || done) return;
+      const moved = B.last ? Math.hypot(x - B.last[0], y - B.last[1]) : 99;
+      if (id === 'soap') {
+        if (moved < 4 || !onPet(e)) return;
+        B.last = [x, y]; B.bubbles.push([x, y, addBubble(x, y, Math.random() < .3)]); B.prog = B.bubbles.length / 34;
+        if (B.bubbles.length % 3 === 0) tone(700 + Math.random() * 400, 0.05, 'sine', 0, 0.05);
+        art.innerHTML = petSVG(tmp, { mood: 'sick', over: petzMud(p, 1 - B.prog) });
+        if (B.prog >= 1) next('וואו, כמה קצף! 🫧 עכשיו מקלחת!');
+      } else if (id === 'shower') {
+        if (moved > 3 && !reduceMotion()) { B.last = [x, y]; const w = el('span', { class: 'pz-water' }); w.style.left = x + '%'; w.style.top = y + '%'; fx.append(w); setTimeout(() => w.remove(), 600); }
+        const before = B.bubbles.length;
+        B.bubbles = B.bubbles.filter(([bx, by, n]) => { if (Math.hypot(bx - x, (by - y) * .7) < 11) { n.classList.add('pop'); setTimeout(() => n.remove(), 250); return false; } return true; });
+        if (B.bubbles.length !== before) tone(1000 + Math.random() * 400, 0.04, 'sine', 0, 0.04);
+        B.prog = 1 - B.bubbles.length / 34;
+        if (!B.bubbles.length) next('כל הקצף ירד! עכשיו מגבת 🧺');
+      } else if (id === 'towel') {
+        const before = B.drops.length;
+        B.drops = B.drops.filter(([dx, dy, n]) => { if (Math.hypot(dx - x, (dy - y) * .7) < 10) { n.classList.add('gone'); setTimeout(() => n.remove(), 300); return false; } return true; });
+        if (B.drops.length !== before) tone(500, 0.05, 'triangle', 0, 0.04);
+        B.prog = 1 - B.drops.length / 12;
+        if (!B.drops.length) next('כמעט יבש/ה! עכשיו פן 💨');
+      } else if (id === 'dryer' || id === 'comb') {
+        if (!B.last) { B.last = [x, y]; return; }
+        B.dist += moved; B.last = [x, y];
+        if (moved > 2 && Math.random() < .35 && !reduceMotion()) { const w = el('span', { class: id === 'dryer' ? 'pz-wind' : 'pz-sparkle' }, id === 'dryer' ? '〰️' : '✨'); w.style.left = x + '%'; w.style.top = y + '%'; fx.append(w); setTimeout(() => w.remove(), 700); }
+        B.prog = B.dist / 420;
+        if (id === 'comb' && B.prog >= .5 && !B.look.fluff) { B.look.fluff = true; art.innerHTML = artHTML(); }
+        if (B.prog >= 1) next(id === 'dryer' ? 'יבש/ה וחמים/ה! עכשיו מסרקים ☁️' : 'איזו פרווה רכה ופרוותית! ☁️');
+      }
+      bar.firstChild.style.width = Math.round(Math.min(1, B.prog) * 100) + '%';
+    };
+    stage.addEventListener('pointerdown', e => { down = true; try { stage.setPointerCapture(e.pointerId); } catch {} work(e);
+      if (id === 'perfume' && !done) {
+        B.sprays++; B.prog = B.sprays / 3; tone(1200, 0.08, 'sine'); tone(1600, 0.1, 'sine', 0.06);
+        if (!reduceMotion()) for (let i = 0; i < 6; i++) { const s = el('span', { class: 'pz-sparkle' }, pzPick(['✨', '💖', '🌸'])); s.style.left = (38 + Math.random() * 24) + '%'; s.style.top = (20 + Math.random() * 40) + '%'; fx.append(s); setTimeout(() => s.remove(), 900); }
+        bar.firstChild.style.width = Math.round(Math.min(1, B.prog) * 100) + '%';
+        if (B.sprays >= 3) setTimeout(() => next('ממממ, איזה ריח טוב! 🌸 עכשיו קישוט'), 500);
+      }
+    });
+    stage.addEventListener('pointermove', work);
+    stage.addEventListener('pointerup', () => { down = false; B.last = id === 'soap' ? B.last : null; });
+    stage.addEventListener('pointerleave', () => { cursor.hidden = true; });
+    let extra = null;
+    if (id === 'bow' && !done) {
+      const setBow = (k, v) => { B.look.x = Object.assign({}, B.look.x); ['bow', 'flower'].forEach(z => delete B.look.x[z]); if (k) B.look.x[k] = v; SFX.pop(); art.innerHTML = artHTML(); };
+      extra = el('div', { class: 'row' },
+        el('div', { class: 'pz-sw' }, ...PZ_XC.map(c => el('button', { type: 'button', class: 'pz-swb', style: `--c:${c}`, 'aria-label': 'פפיון', onclick: () => setBow('bow', c) })),
+          el('button', { type: 'button', class: 'chip', onclick: () => setBow('flower', pzPick(PZ_XC)) }, '🌸 פרח'), el('button', { type: 'button', class: 'chip', onclick: () => setBow(null) }, 'בלי')),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => finishBath() }, '✨ סיימנו!')));
+    }
+    const finishBath = () => {
+      B.step = PZ_BATH_STEPS.length;
+      const g = petzGames(); if (g) { g.bathDone = (g.bathDone || 0) + 1; store.set('games', g); }
+      if (!p.visitor) {
+        const r = petzList.find(x => x.id === p.id) || (p === pet ? pet : null);
+        if (r) { r.bathAt = localToday(); r.played = r.played || {}; r.played[localToday()] = (r.played[localToday()] || 0) + 1; if (r === pet) savePet(); petzSave(); try { renderPet(); } catch {} }
+      }
+      petzCoins(8, 'אמבטיה לחיה');
+      confetti($('#petzBathDlg .confetti-c'));
+      drawBath();
+      if (B.o.onDone) B.o.onDone();
+    };
+    const keep = done && !p.visitor ? el('button', { type: 'button', class: 'btn', onclick: e => {
+      const r = petzList.find(x => x.id === p.id) || p;
+      r.look = Object.assign({}, r.look && r.look.v ? r.look : Object.assign(petzLook(r), { v: 1 }), { x: Object.assign({}, (r.look && r.look.x) || {}, { bow: B.look.x.bow, flower: B.look.x.flower }) });
+      ['bow', 'flower'].forEach(z => { if (!r.look.x[z]) delete r.look.x[z]; });
+      r.color = 0; if (r === pet) savePet(); petzSave(); try { renderPet(); } catch {}
+      e.target.disabled = true; e.target.textContent = '💾 נשמר!'; SFX.ding();
+    } }, '💾 להשאיר את הקישוט') : null;
+    $('#petzBathBody').replaceChildren(
+      el('div', { class: 'pz-bath-steps' }, ...PZ_BATH_STEPS.map(([sid, sn], i) => el('span', { class: 'pz-bstep' + (i < B.step ? ' ok' : i === B.step ? ' on' : '') }, el('span', { class: 'ic', html: pzToolSVG(sid) }), sn))),
+      stage, done ? null : bar, extra,
+      done ? el('div', { class: 'pz-ba' },
+        el('div', {}, el('span', { class: 'ic', html: B.before }), el('small', {}, 'לפני 🙈')), el('b', {}, '←'),
+        el('div', {}, el('span', { class: 'ic', html: artHTML() }), el('small', {}, 'אחרי 😍'))) : null,
+      done ? el('div', { class: 'chips' }, keep, el('button', { type: 'button', class: 'btn main', onclick: () => $('#petzBathDlg').close() }, 'סיום 💖'), el('button', { type: 'button', class: 'btn', onclick: () => openBath(p, {}) }, '🛁 עוד פעם')) : null);
+  }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
