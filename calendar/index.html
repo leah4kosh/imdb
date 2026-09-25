@@ -2204,6 +2204,167 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   .ptn-result { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .bkr-table { height: 300px; }
 }
+/* ---------- 🪙 coins ---------- */
+.coin-chip { display: inline-flex; align-items: center; gap: 6px; border: 2px solid #e0a820; background: linear-gradient(180deg, #fff8d6, #ffe98a); color: #7a4a00; border-radius: 999px; padding: 3px 12px 3px 6px; font-size: 1em; font-family: inherit; cursor: pointer; box-shadow: 0 2px 0 #d9a21a; }
+.coin-chip .cc-ic { width: 26px; height: 26px; display: inline-block; flex: none; }
+.coin-chip .cc-ic svg { width: 100%; height: 100%; display: block; }
+.coin-chip .cc-n { font-weight: 700; min-width: 1.4em; text-align: center; font-variant-numeric: tabular-nums; }
+.coin-chip:hover { transform: translateY(-1px); }
+.coin-chip.bump { animation: ccBump .6s ease; }
+.coin-chip.bump .cc-ic { animation: ccSpin .6s ease; }
+@keyframes ccBump { 30% { transform: scale(1.18); } 60% { transform: scale(.96); } }
+@keyframes ccSpin { to { transform: rotateY(360deg); } }
+.coin-pop { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 99; display: flex; align-items: center; gap: 8px; background: linear-gradient(180deg, #fffbe6, #ffe98a); color: #6a4000; border: 2px solid #e0a820; border-radius: 999px; padding: 6px 16px 6px 8px; box-shadow: 0 8px 22px rgb(0 0 0 / .22); animation: cpIn 2.6s ease forwards; pointer-events: none; white-space: nowrap; max-width: calc(100vw - 32px); }
+.coin-pop .cp-ic { width: 32px; height: 32px; animation: ccSpin .8s ease .1s; }
+.coin-pop .cp-ic svg { width: 100%; height: 100%; display: block; }
+.coin-pop b { font-size: 1.35em; }
+.coin-pop .cp-sub { font-size: .95em; overflow: hidden; text-overflow: ellipsis; }
+@keyframes cpIn { 0% { opacity: 0; transform: translate(-50%, -30px) scale(.7); } 12% { opacity: 1; transform: translate(-50%, 0) scale(1.08); } 20% { transform: translate(-50%, 0) scale(1); } 80% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, -24px); } }
+.cn-big { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1.3em; }
+.cn-big b { font-size: 2.4em; color: #c98a12; line-height: 1; }
+.cn-big .cn-ic { width: 64px; height: 64px; animation: ccSpin 2.4s ease-in-out infinite alternate; }
+.cn-big .cn-ic svg { width: 100%; height: 100%; display: block; }
+.cn-ways { display: grid; gap: 4px; }
+.cn-way { display: grid; grid-template-columns: 30px 1fr auto; gap: 8px; align-items: center; }
+.cn-way b { color: #c98a12; }
+.cn-hist { display: grid; gap: 2px; max-height: 260px; overflow-y: auto; }
+.cn-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 8px; padding: 3px 6px; border-radius: 8px; }
+.cn-row:nth-child(odd) { background: var(--paper); }
+.cn-row b { color: #3f9c6e; }
+.cn-row.neg b { color: #e0314b; }
+
+/* ---------- 👜 boutique ---------- */
+#shopDlg .sheet-head { align-items: center; }
+#shopDlg .sheet-head h3 { flex: 1; }
+.sh-coinslot .coin-chip { font-size: 1.15em; }
+.sh-banner { position: relative; border-radius: 18px; overflow: hidden; border: 2px solid #ff9ec4; height: 190px; background: #fff0f6; }
+.sh-bn-art, .sh-bn-art svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sh-keeper { position: absolute; bottom: -4px; right: 50%; transform: translateX(50%); height: 196px; filter: drop-shadow(0 4px 6px rgb(80 20 50 / .25)); animation: shBob 3s ease-in-out infinite; }
+@keyframes shBob { 50% { transform: translateX(50%) translateY(-3px); } }
+.sh-bubble { position: absolute; top: 34px; left: calc(50% + 70px); max-width: min(260px, 40%); background: #fff; color: #5a2040; border: 2px solid #ff9ec4; border-radius: 16px 16px 16px 4px; padding: 6px 12px; font-size: .95em; box-shadow: 0 4px 10px rgb(0 0 0 / .1); animation: shPop .5s ease; }
+.sh-bubble b { font-weight: 400; color: #e0508a; }
+@keyframes shPop { from { transform: scale(.6); opacity: 0; } }
+.sh-sale { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; justify-content: center; background: repeating-linear-gradient(-45deg, #fff4c4 0 14px, #ffe98a 14px 28px); border: 2px dashed #e0a820; color: #6a4000; border-radius: 14px; padding: 6px 12px; font: inherit; cursor: pointer; }
+.sh-sale .sh-tag { background: #e0314b; color: #fff; border-radius: 999px; padding: 1px 10px; animation: shWig 2s ease-in-out infinite; }
+@keyframes shWig { 0%, 80%, 100% { transform: rotate(0); } 85% { transform: rotate(-6deg); } 90% { transform: rotate(6deg); } 95% { transform: rotate(-3deg); } }
+.sh-cats { justify-content: center; }
+.sh-main { display: grid; grid-template-columns: 1fr 300px; gap: 14px; align-items: start; }
+.sh-shelf { background: linear-gradient(#fff6fa, #ffeaf2); border-radius: 18px; padding: 10px; border: 2px solid #ffd3e5; }
+.sh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.sh-card { position: relative; display: grid; gap: 4px; justify-items: center; text-align: center; background: var(--card); border: 2px solid #ffd3e5; border-radius: 16px; padding: 8px 6px 8px; box-shadow: 0 3px 0 #ffc4dc; }
+.sh-card.own { border-color: #9ee4b8; box-shadow: 0 3px 0 #b9f0c8; }
+.sh-card.onsale { border-color: #ffd23f; box-shadow: 0 3px 0 #ffe27a; }
+.sh-card.focus { outline: 3px solid var(--accent); animation: shPop .6s ease; }
+.sh-art { width: 100%; height: 132px; border: none; padding: 0; border-radius: 12px; background: radial-gradient(circle at 50% 40%, #fff, #ffeef6 70%); cursor: pointer; display: grid; place-items: center; position: relative; overflow: hidden; }
+.sh-art img { max-width: 100%; max-height: 128px; display: block; transition: transform .2s; }
+.sh-art img:not([src]) { width: 60px; height: 60px; border-radius: 50%; background: #ffe0ec; animation: shPulse 1s ease-in-out infinite alternate; }
+@keyframes shPulse { to { opacity: .4; } }
+.sh-art img.scene { width: 100%; max-height: none; height: 132px; object-fit: cover; }
+.sh-art:hover img { transform: scale(1.06); }
+.sh-art .sh-dot { position: absolute; bottom: 6px; left: 6px; width: 20px; height: 20px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px #0002; }
+.sh-name { font-size: .98em; line-height: 1.15; min-height: 2.3em; display: grid; place-items: center; }
+.sh-price { display: inline-flex; align-items: center; gap: 3px; color: #c98a12; font-size: 1.05em; }
+.sh-price s { color: #b0a0a0; font-size: .85em; }
+.sh-price .sh-c { width: 18px; height: 18px; display: inline-block; }
+.sh-price .sh-c svg { width: 100%; height: 100%; display: block; }
+.sh-price.muted { font-size: .85em; color: var(--soft); }
+.sh-btns { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.sh-btns .btn { padding: 3px 9px; font-size: .88em; }
+.sh-badge { position: absolute; top: 6px; right: 6px; z-index: 1; font-size: .78em; border-radius: 999px; padding: 1px 8px; }
+.sh-badge.sale { background: #e0314b; color: #fff; }
+.sh-badge.own { background: #3f9c6e; color: #fff; }
+.sh-side { display: grid; gap: 10px; position: sticky; top: 0; }
+.sh-mt { margin: 0; font-weight: 400; color: var(--accent); font-size: 1.15em; text-align: center; }
+.sh-mirror { position: relative; margin: 0 auto; width: 190px; height: 330px; border-radius: 95px 95px 18px 18px; border: 8px solid #e9c46a; box-shadow: inset 0 0 0 3px #fff4c4, 0 6px 16px rgb(120 80 20 / .25); background: radial-gradient(circle at 50% 30%, #f4fbff, #d9ecfa); overflow: hidden; }
+.sh-mirror img { width: 100%; height: 100%; object-fit: contain; object-position: bottom; display: block; }
+.sh-mirror .sh-shine { position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgb(255 255 255 / .55) 40%, transparent 50%); transform: translateX(-120%); pointer-events: none; }
+.sh-mirror.flash .sh-shine { animation: shShine .8s ease; }
+@keyframes shShine { to { transform: translateX(120%); } }
+.sh-who { justify-content: center; }
+.sh-who .chip { font-size: .85em; padding: 2px 8px 2px 4px; }
+.sh-bag h4 { margin: 0; }
+.sh-bag-list { display: grid; gap: 2px; }
+.sh-bag-row { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; align-items: center; padding: 2px 4px; border-bottom: 1px dashed var(--line); }
+.sh-bag-row .x { font-size: 1em; }
+.sh-bag-row.total { border-bottom: none; font-size: 1.1em; grid-template-columns: 1fr auto; }
+.sh-pay { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+.sh-register { width: 70px; height: 62px; display: inline-block; flex: none; }
+.sh-register svg { width: 100%; height: 100%; display: block; }
+.sh-register.ring { animation: shRing .7s ease; }
+@keyframes shRing { 20% { transform: rotate(-8deg) scale(1.15); } 40% { transform: rotate(8deg) scale(1.15); } 60% { transform: rotate(-4deg); } }
+.sh-pay .btn[disabled] { opacity: .5; }
+.sh-msg { margin: 0; color: #e0314b; min-height: 1em; }
+.sh-receipt { display: grid; gap: 4px; color: #5a3a10; background: #fffdf2; border: 1.5px dashed #e0c070; border-radius: 10px; padding: 8px; animation: shPop .5s ease; }
+.sh-fly { position: fixed; width: 26px; height: 26px; z-index: 100; pointer-events: none; }
+.sh-fly svg { width: 100%; height: 100%; display: block; }
+.sh-go { margin-inline-start: 6px; padding: 2px 10px; font-size: .9em; }
+.sw3.sh-lock { position: relative; border-style: dashed; font-size: .75em; opacity: .85; }
+.sw3.sh-lock::after { content: '🛍️'; position: absolute; top: -6px; left: -6px; font-size: .9em; }
+@media (max-width: 760px) { .sh-main { grid-template-columns: 1fr; } .sh-side { position: static; order: -1; } .sh-mirror { width: 130px; height: 225px; } .sh-bubble { left: auto; right: 8px; top: 30px; max-width: 42%; } .sh-keeper { right: 62%; } .sh-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); } }
+
+/* ---------- 🏃‍♀️ fashion run ---------- */
+.fr-wrap { position: relative; border-radius: 18px; overflow: hidden; border: 2px solid var(--line); background: #1d1233; touch-action: none; user-select: none; }
+.fr-wrap canvas { width: 100%; height: auto; display: block; }
+.fr-over { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 10px; text-align: center; background: rgb(20 10 40 / .55); color: #fff; padding: 16px; }
+.fr-over[hidden] { display: none; }
+.fr-theme { font-size: 2em; line-height: 1.1; background: linear-gradient(90deg, #ff9ec4, #ffe27a, #8cc8ff); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 2px 0 #0006); }
+.fr-want { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; max-width: 480px; }
+.fr-want img { width: 54px; height: 54px; border-radius: 12px; background: #fff; border: 2px solid #ffe27a; }
+.fr-keys { font-size: .95em; opacity: .9; }
+.fr-hud { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; font-size: 1.1em; }
+.fr-pad { display: flex; gap: 10px; justify-content: center; direction: ltr; }
+.fr-pad .btn { font-size: 1.4em; padding: 4px 26px; }
+.fr-show { display: grid; grid-template-columns: 190px 1fr; gap: 14px; align-items: center; }
+.fr-sum { display: grid; gap: 8px; justify-items: center; text-align: center; }
+.fr-sum p { margin: 0; }
+.fr-best { color: #c98a12; font-weight: 400; font-size: 1.2em; }
+.fr-prize { font-size: 1.2em; color: #7a4a00; background: #fff4c4; border-radius: 999px; padding: 2px 14px; }
+.fr-judges .fc-judge { width: 130px; }
+.fr-judges .fc-judge .ic { width: 70px; height: 70px; }
+.fr-model { border-radius: 16px; overflow: hidden; border: 2px solid var(--line); animation: frWalk 1.4s ease-in-out infinite alternate; }
+.fr-model img { width: 100%; display: block; }
+@keyframes frWalk { from { transform: translateY(0) rotate(-1deg); } to { transform: translateY(-4px) rotate(1deg); } }
+.fr-worn { display: flex; flex-wrap: wrap; gap: 4px; }
+.fr-worn span { border-radius: 999px; padding: 1px 10px; font-size: .9em; background: var(--paper); border: 1.5px solid var(--line); }
+.fr-worn span.good { border-color: #3f9c6e; background: #e3f7ea; color: #1f6a44; }
+.fr-worn span.bad { border-color: #e0314b; background: #ffe6ea; color: #9a1a30; }
+@media (max-width: 600px) { .fr-show { grid-template-columns: 1fr; } .fr-model { max-width: 200px; margin: 0 auto; } }
+
+/* ---------- 🎤 pop star ---------- */
+.ps-songs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.ps-song { display: grid; gap: 4px; justify-items: center; border: 2px solid var(--line); border-radius: 18px; padding: 12px; background: linear-gradient(160deg, #2a1050, #5a1f7a); color: #fff; font: inherit; cursor: pointer; }
+.ps-song .e { font-size: 2.2em; }
+.ps-song .d { opacity: .85; font-size: .9em; }
+.ps-song.locked { filter: grayscale(.7); opacity: .7; }
+.ps-song:not(.locked):hover { transform: translateY(-2px); }
+.ps-game { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px; align-items: stretch; }
+.ps-stage { position: relative; border-radius: 18px; overflow: hidden; min-height: 360px; background: radial-gradient(ellipse at 50% 100%, #6a2a9a, #2a0f4a 55%, #12062a); border: 2px solid #3a1f5a; }
+.ps-beam { position: absolute; top: -20px; width: 120px; height: 120%; background: linear-gradient(180deg, var(--c), transparent 85%); opacity: .28; transform-origin: 50% 0; clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%); animation: psSwing 3s ease-in-out infinite alternate; mix-blend-mode: screen; }
+@keyframes psSwing { from { transform: rotate(-22deg); } to { transform: rotate(22deg); } }
+.ps-floor { position: absolute; bottom: 0; left: 0; right: 0; height: 70px; background: linear-gradient(#3a1a5a, #1c0a30); border-top: 3px solid #ffe27a; }
+.ps-girl { position: absolute; bottom: 30px; left: 50%; height: 78%; transform: translateX(-50%); transition: transform .08s; filter: drop-shadow(0 0 14px rgb(255 160 240 / .5)); }
+.ps-stage.beat .ps-girl { transform: translateX(-50%) translateY(-5px) scale(1.02); }
+.ps-stage.beat .ps-light { opacity: 1; }
+.ps-lights { position: absolute; top: 6px; left: 0; right: 0; display: flex; justify-content: space-around; }
+.ps-light { width: 16px; height: 16px; border-radius: 50%; background: var(--c); box-shadow: 0 0 16px 6px var(--c); opacity: .45; transition: opacity .1s; }
+.ps-crowd { position: absolute; bottom: -6px; left: 0; right: 0; display: flex; justify-content: space-around; font-size: 2.1em; }
+.ps-crowd span { display: inline-block; transition: transform .2s; }
+.ps-crowd img { width: 46px; height: 46px; }
+.ps-crowd.cheer span { animation: psJump .5s ease 2; }
+.ps-crowd.cheer span:nth-child(2n) { animation-delay: .1s; }
+@keyframes psJump { 50% { transform: translateY(-18px) rotate(-8deg); } }
+.ps-say { position: absolute; top: 34px; left: 50%; transform: translateX(-50%); font-size: 1.6em; color: #fff; text-shadow: 0 2px 0 #7a1f8a, 0 0 12px #ff5fd8; white-space: nowrap; pointer-events: none; }
+.ps-say.pop { animation: psSay .6s ease; }
+@keyframes psSay { from { transform: translateX(-50%) scale(1.6); opacity: 0; } 30% { opacity: 1; } }
+.ps-lane-wrap { display: grid; gap: 6px; }
+.ps-lane-wrap canvas { width: 100%; height: auto; display: block; border-radius: 16px; background: #150a28; border: 2px solid #3a1f5a; touch-action: none; }
+.ps-pads { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; direction: ltr; }
+.ps-pads button { border: 3px solid var(--c); background: color-mix(in srgb, var(--c) 25%, var(--card)); border-radius: 14px; font-size: 1.2em; padding: 8px 0; color: var(--ink); font-family: inherit; touch-action: manipulation; }
+.ps-pads button.on { background: var(--c); color: #fff; transform: translateY(2px); }
+.ps-res { display: grid; gap: 8px; justify-items: center; text-align: center; }
+.ps-stars { font-size: 2.4em; letter-spacing: 4px; }
+.ps-stars span { display: inline-block; animation: shPop .5s ease both; }
+@media (max-width: 700px) { .ps-game { grid-template-columns: 1fr; } .ps-stage { min-height: 250px; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -3081,6 +3242,29 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="ptnBody"></div>
+  </div>
+</dialog>
+
+
+<dialog id="shopDlg" aria-labelledby="shopTitle" style="width:min(1060px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="shopTitle">👜 הבוטיק</h3>
+      <span id="shopCoinSlot" class="sh-coinslot"></span>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="shopBody" class="row"></div>
+  </div>
+</dialog>
+
+<dialog id="coinsDlg" aria-labelledby="coinsTitle" style="width:min(520px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="coinsTitle">🪙 המטבעות שלי</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="coinsBody" class="row"></div>
   </div>
 </dialog>
 
@@ -5747,6 +5931,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     ["sparkles", "ספא", () => openSpa()],
     ["gem", "מעצבת תכשיטים", () => openJewelry()],
     ["crown", "הנשף המלכותי", () => openBall()],
+    ["gift", "חנות בגדים", () => openShop()],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   // the "more" menu, sorted into rooms, with search and favorites
@@ -5870,7 +6055,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   function drawGames() {
     if (catchStop) { catchStop(); catchStop = null; }
     $('#gamesTabs').replaceChildren(...GAME_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
-    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame, pnum: paintNumGame, potion: potionGame, escape: escapeGame }[gamesTab] || memoryGame)();
+    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame, pnum: paintNumGame, potion: potionGame, escape: escapeGame, frun: fashionRunGame, popstar: popStarGame }[gamesTab] || memoryGame)();
   }
   function memoryGame() {
     const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
@@ -5895,7 +6080,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       if (a.id === c.id) {
         a.done = c.done = true; a.open = c.open = false; first = null; found++; SFX.ding();
         if (found === 6) {
-          games.memoryWins++; if (!games.memoryBest || moves < games.memoryBest) games.memoryBest = moves;
+          games.memoryWins++; if (typeof addCoins === 'function') addCoins(10, 'ניצחון בזיכרון'); if (!games.memoryBest || moves < games.memoryBest) games.memoryBest = moves;
           store.set('games', games); confetti($('#gamesDlg .confetti-c')); SFX.yay(); afterChange();
           draw(); info.append(el('b', { style: 'font-weight:400;color:var(--accent)' }, `ניצחת ב-${moves} צעדים! 🎉`), el('button', { type: 'button', class: 'btn main', onclick: memoryGame }, 'לשחק שוב'));
           return;
@@ -5945,7 +6130,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
         left--; drawInfo();
         if (left <= 0) {
           running = false; clearInterval(timer);
-          games.catchPlays++; const best = score > games.catchBest; if (best) games.catchBest = score;
+          games.catchPlays++; if (typeof addCoins === 'function' && score > 0) addCoins(Math.min(15, Math.max(2, Math.round(score / 3))), 'תפוס את הכוכב'); const best = score > games.catchBest; if (best) games.catchBest = score;
           store.set('games', games); afterChange();
           if (best && score > 0) { confetti($('#gamesDlg .confetti-c')); SFX.yay(); }
           drawInfo();
@@ -5964,14 +6149,14 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   $('#gamesDlg').addEventListener('close', () => { if (catchStop) { catchStop(); catchStop = null; } });
 
   // ================= more games: maze, puzzle, coloring, spot the difference, pearls, sound memory =================
-  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים'], ['words', '🔤 חיפוש מילים'], ['ladders', '🐍 סולמות ונחשים'], ['jump', '🐸 קפיצות'], ['pizza', '🍕 מסעדת פיצה'], ['fcontest', '🏆 תחרות אופנה'], ['sudoku', '🧩 סודוקו מדבקות'], ['gmemory', '👯 זיכרון בנות'], ['hide', '🎯 איפה החיה?']];
+  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים'], ['words', '🔤 חיפוש מילים'], ['ladders', '🐍 סולמות ונחשים'], ['jump', '🐸 קפיצות'], ['pizza', '🍕 מסעדת פיצה'], ['fcontest', '🏆 תחרות אופנה'], ['sudoku', '🧩 סודוקו מדבקות'], ['gmemory', '👯 זיכרון בנות'], ['hide', '🎯 איפה החיה?'], ['frun', '🏃‍♀️ ריצת אופנה'], ['popstar', '🎤 כוכבת פופ']];
   const petArt = () => pet ? petSVG(pet) : stickerHTML('cat');
   const petNm = () => pet ? pet.name || 'החיה' : 'החתול';
   const svgData = s => 'data:image/svg+xml,' + encodeURIComponent(s);
   // put a whole <svg> inside a bigger svg at x/y with a size
   const placeSvg = (s, x, y, w, h) => s.replace('<svg ', `<svg x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" `);
   const myMermaid = () => mermaids.find(x => x.id === guardMer) || mermaids[0] || newMermaid();
-  const winGame = field => { games[field] = (games[field] || 0) + 1; store.set('games', games); confetti($('#gamesDlg .confetti-c')); SFX.yay(); afterChange(); };
+  const winGame = field => { games[field] = (games[field] || 0) + 1; store.set('games', games); confetti($('#gamesDlg .confetti-c')); SFX.yay(); afterChange(); if (typeof addCoins === 'function') addCoins(10, 'ניצחון במשחק'); };
   const winLine = (text, again) => el('div', { class: 'game-win' }, el('b', {}, text), el('button', { type: 'button', class: 'btn main', onclick: again }, 'לשחק שוב'));
   const addKeys = fn => { const kd = e => { if ($('#gamesDlg').open) fn(e); }; document.addEventListener('keydown', kd); return () => document.removeEventListener('keydown', kd); };
 
@@ -8223,7 +8408,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       stars: [[5, 5, 2.4], [13, 13, 1.8]].map(([x, y, r]) => `<path d="M${x} ${y - r} L${fx(x + r * 0.3)} ${fx(y - r * 0.3)} L${x + r} ${y} L${fx(x + r * 0.3)} ${fx(y + r * 0.3)} L${x} ${y + r} L${fx(x - r * 0.3)} ${fx(y + r * 0.3)} L${x - r} ${y} L${fx(x - r * 0.3)} ${fx(y - r * 0.3)}Z" fill="${m1}"/>`).join(''),
       checks: `<rect width="8" height="8" fill="${m1}" opacity=".7"/><rect x="8" y="8" width="8" height="8" fill="${m1}" opacity=".7"/>`,
       plaid: `<rect x="0" y="5" width="16" height="5" fill="${fmx(c, '#000', 0.3)}" opacity=".45"/><rect x="5" y="0" width="5" height="16" fill="${fmx(c, '#000', 0.3)}" opacity=".45"/><rect x="0" y="13" width="16" height="1" fill="${m1}"/><rect x="13" y="0" width="1" height="16" fill="${m1}"/>`,
-    }[p];
+    }[p] || (typeof shopMotif === 'function' ? shopMotif(c, p) : undefined);
   };
   const fashPatDef = (id, c, p) => { const m = fashMotif(c, p); return m ? `<pattern id="${id}" patternUnits="userSpaceOnUse" width="16" height="16"${['plaid', 'checks', 'stripes'].includes(p) ? '' : ' patternTransform="rotate(-8)"'}><rect width="16" height="16" fill="${c}"/>${m}</pattern>` : ''; };
   let fashPi = 0;
@@ -8265,12 +8450,13 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   // the studio's option lists, with the hunt treasures (locked ones get a 🔒)
   function fashF() {
     const tr = cat => TREASURES.filter(t => t.cat === cat).map(t => [t.opt, '💎 ' + t.n, treasureLocked(t.id)]);
-    return Object.assign({}, FASH, { dresses: [...FASH.dresses, ...tr('dress')], jackets: [...FASH.jackets, ...tr('jacket')], shoes: [...FASH.shoes, ...tr('shoes')], scenes: [...FASH.scenes, ...tr('scene')], shadowStyles: [...FASH.shadowStyles, ...tr('shadowStyle')],
-      accs: [...FASH.accs, ...tr('acc')], hairColors: [...FASH.hairColors, ...tr('hairColor').map(x => x[0])], tailColors: [...FASH.tailColors, ...tr('tailColor').map(x => x[0])] });
+    return (typeof shopFashF === 'function' ? shopFashF : x => x)(Object.assign({}, FASH, { dresses: [...FASH.dresses, ...tr('dress')], jackets: [...FASH.jackets, ...tr('jacket')], shoes: [...FASH.shoes, ...tr('shoes')], scenes: [...FASH.scenes, ...tr('scene')], shadowStyles: [...FASH.shadowStyles, ...tr('shadowStyle')],
+      accs: [...FASH.accs, ...tr('acc')], hairColors: [...FASH.hairColors, ...tr('hairColor').map(x => x[0])], tailColors: [...FASH.tailColors, ...tr('tailColor').map(x => x[0])] }));
   }
   const fashLocked = opt => { const t = TREASURES.find(x => x.opt === opt && ['hairColor', 'tailColor'].includes(x.cat)); return !!t && treasureLocked(t.id); };
   const fashNail = (n, i) => ({ goldglitter: '#e9c46a', rainbow: ['#ff6f7a', '#ffd45c', '#7ed48a', '#6fb8ff', '#b37bff'][i % 5], french: '#fff8f4', hearts: '#ff9ec4', galaxy: '#2e2a6e' }[n] || n);
   function girlSVG(g, uid, opt = {}) {
+    const shG0 = g; if (typeof shopGirlMap === 'function') g = shopGirlMap(g);
     const u = 'g' + String(uid || g.id).replace(/[^a-zA-Z0-9]/g, '');
     const PZ = opt.pose || null, pa = k => (PZ && +PZ[k]) || 0, RG = GIRL_RIG;
     const armG = (s, fore) => { const S = s > 0 ? RG.shoulderL : RG.shoulderR, E = s > 0 ? RG.elbowL : RG.elbowR; return `rotate(${fx(-s * pa(s > 0 ? 'la' : 'ra'))} ${S[0]} ${S[1]})` + (fore ? ` rotate(${fx(s * pa(s > 0 ? 'lf' : 'rf'))} ${E[0]} ${E[1]})` : ''); };
@@ -8888,6 +9074,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     if (gl === 'sun') accFace = both(s => `<path d="${spath(mp([[152, 64, 1], [175.5, 63, 1], [175, 72], [168, 78.5], [157, 77], [152.5, 70]], s))}" fill="${def('sg', `<linearGradient id="${u}-sg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2a2030"/><stop offset="1" stop-color="#6a4a6a"/></linearGradient>`)}" stroke="#1a1418" stroke-width="1.3"/><path d="M${mx(156, s)} 67 l${s * 6} 0" stroke="#fff" stroke-width="1.2" opacity=".5"/><path d="M${mx(175.5, s)} 64 L${mx(182.5, s)} 66" stroke="#1a1418" stroke-width="1.4"/>`) + `<path d="M147.5 65 Q150 63.5 152.5 65" fill="none" stroke="#1a1418" stroke-width="1.4"/>`;
     if (gl === 'hearts') accFace = both(s => `<path d="M${mx(163.5, s)} 80 C${mx(150, s)} 72 ${mx(153, s)} 60 ${mx(163.5, s)} 66 C${mx(174, s)} 60 ${mx(177, s)} 72 ${mx(163.5, s)} 80Z" fill="#ff5f8f" fill-opacity=".75" stroke="#d8305a" stroke-width="1.4"/><path d="M${mx(157, s)} 67 q${s * 2} -2 ${s * 4} -1" stroke="#fff" stroke-width="1" fill="none" opacity=".7"/><path d="M${mx(175.5, s)} 67 L${mx(182.5, s)} 67" stroke="#d8305a" stroke-width="1.3"/>`) + `<path d="M152.5 68 Q150 66 147.5 68" fill="none" stroke="#d8305a" stroke-width="1.3"/>`;
 
+    if (typeof shopGirlDraw === 'function') { const x = shopGirlDraw(shG0, { u, def, fab, bigHair, hs, onArm, onLeg, mx, both, AC, HC, PZ, MT, dress, armAcc }); accHead += x.head; accFace += x.face; accBody += x.body; accBag += x.bag; backExtra += x.back; }
     // ---------- scene ----------
     const bgSVG = opt.bg === false ? '' : fashScene(g.scene || 'runway', g.sceneColor || FASH.sceneColors[0], u, def);
     // ---------- a mermaid tail instead of legs ----------
@@ -8950,6 +9137,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
 
   // ---------- scenes behind her ----------
   function fashScene(id, color, u, def) {
+    { const s = typeof shopScene === 'function' && shopScene(id, color, u, def); if (s) return s; }
     const R = (x, y, w, h, f, x2 = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"${x2}/>`;
     const sky = (k, stops) => def('s' + k, `<linearGradient id="${u}-s${k}" x1="0" x2="0" y1="0" y2="1">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient>`);
     const floorShine = def('fl', `<linearGradient id="${u}-fl" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>`);
@@ -9063,12 +9251,13 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
     zb.onclick = () => { fashZoom = !fashZoom; SFX.pop(); drawFashion(); };
     const upd = patch => { Object.assign(g, patch); fashMsg = ''; if (!saveGirls()) fashMsg = 'אין מספיק מקום לשמור 😕'; drawFashion(); };
     const swatches = (list, cur, key, none) => el('div', { class: 'swatches' }, ...list.map(c => {
+      if (typeof shopColorLocked === 'function' && shopColorLocked(c)) return shopSwatchLock(c, lockMsg);
       if (fashLocked(c)) { const b = el('button', { type: 'button', class: 'sw3 tr-lock', title: 'מוצאים באוצר של ציד האוצרות', 'aria-label': 'נעול', onclick: lockMsg }, '🔒'); return b; }
       const b = el('button', { type: 'button', class: 'sw3', 'aria-pressed': String((cur || 'none') === c), 'aria-label': c === 'none' ? 'בלי' : 'צבע', title: c === 'none' ? (none || 'בלי') : '', onclick: () => upd({ [key]: c }) }, c === 'none' ? '✕' : '');
       b.style.background = c === 'galaxy' ? 'radial-gradient(circle at 30% 30%, #fff 0 6%, #b04ad0 30%, #3a2a8e 70%, #1c1a4e)' : c === 'holotail' ? 'linear-gradient(135deg, #ffd6f2, #d6c4ff, #bff0ff, #c8ffe6)' : c === 'none' ? 'var(--card)' : c === 'holo' ? 'linear-gradient(135deg, #ffc4ec, #d6c4ff, #b3ecff, #c4ffe0)' : c[0] === '*' ? `radial-gradient(circle at 35% 30%, #fff 0 14%, ${c.slice(1)} 55%, ${fmx(c.slice(1), '#000000', 0.2)})` : c === 'natural' ? `linear-gradient(135deg, ${fmx(g.skin || FASH.skins[1], '#d86a7a', 0.42)}, ${g.skin || FASH.skins[1]})` : c === 'gloss' ? 'radial-gradient(circle at 35% 30%, #fff 0 18%, #f4a6b8 45%, #e07a90)' : c;
       return b;
     }));
-    const lockMsg = () => { fashMsg = '🔒 את זה מוצאים באוצר של ציד האוצרות! 🗺️'; const m = $('#fashMsg'); if (m) m.textContent = fashMsg; SFX.boop(); };
+    const lockMsg = ev => { if (typeof shopLockMsg === 'function' && shopLockMsg(ev)) return; fashMsg = '🔒 את זה מוצאים באוצר של ציד האוצרות! 🗺️'; const m = $('#fashMsg'); if (m) m.textContent = fashMsg; SFX.boop(); };
     const chips = (list, cur, key) => el('div', { class: 'chips' }, ...list.map(([id, name, lk]) => lk ? el('button', { type: 'button', class: 'chip tr-lock', title: 'מוצאים באוצר של ציד האוצרות', onclick: lockMsg }, '🔒 ' + name.replace('💎 ', '')) : el('button', { type: 'button', class: 'chip', 'aria-pressed': String((cur == null ? list[0][0] : cur) === id), onclick: () => upd({ [key]: id }) }, name)));
     const toggle = (key, name) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!g[key]), onclick: () => upd({ [key]: !g[key] }) }, (g[key] ? '✔️ ' : '') + name);
     const patsRow = (c, cur, key) => el('div', { class: 'swatches fash-pats' }, ...FASH.pats.map(([id, name]) => el('button', { type: 'button', class: 'sw3', title: name, 'aria-label': name, 'aria-pressed': String((cur || 'plain') === id), html: fashPatIcon(c, id), onclick: () => upd({ [key]: id }) })));
@@ -9343,7 +9532,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
           el('button', { type: 'button', class: 'btn', onclick: () => { const c = Object.assign(JSON.parse(JSON.stringify(g)), { id: newGirl().id, name: `${face.name || 'דוגמנית'} (${th.n})` }); girls.push(c); saveGirls(); SFX.ding(); } }, '💾 לשמור אותה בסטודיו')));
       [0, 1, 2].forEach(i => setTimeout(() => tone(660 + stars[i] * 90, 0.18, 'triangle'), 350 * i));
       if (total > (games.fashionBest || 0)) { games.fashionBest = total; }
-      games.fashionPlays = (games.fashionPlays || 0) + 1; store.set('games', games);
+      games.fashionPlays = (games.fashionPlays || 0) + 1; store.set('games', games); if (typeof addCoins === 'function') addCoins(Math.max(3, Math.round(total / 1.5)), 'תחרות אופנה');
       if (total >= 12) { SFX.yay(); confetti($('#gamesDlg .confetti-c')); }
       try { afterChange(); } catch {}
       draw();
@@ -16067,6 +16256,730 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
   GAME_TABS.push(['pnum', '🎨 צביעה לפי מספרים'], ['potion', '🔮 שיקויים'], ['escape', '🏰 בורחים מהטירה']);
   MORE.splice(Math.max(0, MORE.findIndex(m => m[1] === 'להדפסה')) || MORE.length, 0, ['cupcake', 'המאפייה שלי', () => openBakery()], ['wand', 'מעבדת שיקויים', () => openPotions()]);
 
+  // ================= 🪙 coins, 👜 clothes shop, 🏃‍♀️ fashion run, 🎤 pop star =================
+  // ---------- 🪙 coins (shared contract: coinsNow / addCoins / spendCoins / coinChip) ----------
+  let shopCoins = Object.assign({ n: 0, hist: [], welcome: false }, store.get('coins', {}));
+  const shopSaveCoins = () => store.set('coins', shopCoins);
+  const SHOP_COIN = `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="21.6" r="17" fill="#c98a12"/><circle cx="20" cy="20" r="17" fill="#ffd23f" stroke="#b07a10" stroke-width="2"/><circle cx="20" cy="20" r="12.4" fill="none" stroke="#f0a818" stroke-width="1.6"/><path d="M20 11.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.1 5.9-.8z" fill="#fff3b0" stroke="#d99a10" stroke-width="1" stroke-linejoin="round"/><path d="M9.5 14 q3 -6 9 -7.2" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".75"/></svg>`;
+  function coinsNow() { return Math.max(0, Math.round(+shopCoins.n || 0)); }
+  const shopCoinSound = () => { tone(1568, 0.07, 'square', 0, 0.04); tone(2093, 0.22, 'square', 0.07, 0.04); };
+  function shopCoinsRefresh(bump) {
+    document.querySelectorAll('.coin-chip').forEach(c => { const n = c.querySelector('.cc-n'); if (n) n.textContent = coinsNow(); if (bump) { c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump'); } });
+    const cd = $('#coinsDlg'); if (cd && cd.open) drawCoins();
+  }
+  // a small "+N 🪙" bubble on top of whatever is open
+  function shopCoinPop(text, sub) {
+    const host = [...document.querySelectorAll('dialog[open]')].pop() || document.body;
+    const p = el('div', { class: 'coin-pop', role: 'status' }, el('span', { class: 'cp-ic', html: SHOP_COIN }), el('b', { dir: 'ltr' }, text), sub ? el('span', { class: 'cp-sub' }, sub) : null);
+    host.append(p); setTimeout(() => p.remove(), 2600);
+  }
+  function addCoins(n, reason = '') {
+    n = Math.round(+n || 0); if (n <= 0) return coinsNow();
+    shopCoins.n = coinsNow() + n; shopCoins.hist.unshift({ t: localToday(), n, r: String(reason || '') }); shopCoins.hist = shopCoins.hist.slice(0, 60);
+    shopSaveCoins(); shopCoinsRefresh(true); shopCoinPop(`+${n}`, reason); shopCoinSound();
+    return coinsNow();
+  }
+  function spendCoins(n, reason = '') {
+    n = Math.round(+n || 0); if (n < 0 || coinsNow() < n) return false;
+    shopCoins.n = coinsNow() - n; shopCoins.hist.unshift({ t: localToday(), n: -n, r: String(reason || 'קנייה') }); shopCoins.hist = shopCoins.hist.slice(0, 60);
+    shopSaveCoins(); shopCoinsRefresh(false); return true;
+  }
+  function coinChip() {
+    return el('button', { type: 'button', class: 'coin-chip', 'aria-label': 'המטבעות שלי', title: 'המטבעות שלי', onclick: openCoins }, el('span', { class: 'cc-ic', html: SHOP_COIN }), el('span', { class: 'cc-n' }, String(coinsNow())));
+  }
+  function openCoins() { drawCoins(); if (!$('#coinsDlg').open) $('#coinsDlg').showModal(); }
+  function drawCoins() {
+    const hist = shopCoins.hist || [];
+    const ways = [['🎮', 'לנצח במשחקים', '', '+10'], ['🎁', 'לפתוח את תיבת ההפתעה', '', '+15'], ['🏃‍♀️', 'ריצת אופנה', 'עד ', '+40'], ['🎤', 'כוכבת פופ', 'עד ', '+30'], ['🏆', 'תחרות אופנה', 'עד ', '+10']];
+    $('#coinsBody').replaceChildren(
+      el('div', { class: 'cn-big' }, el('span', { class: 'cn-ic', html: SHOP_COIN }), el('b', {}, String(coinsNow())), el('span', {}, 'מטבעות')),
+      el('div', { class: 'chips', style: 'justify-content:center' }, el('button', { type: 'button', class: 'btn main', onclick: () => { $('#coinsDlg').close(); openShop(); } }, '👜 לחנות הבגדים')),
+      el('div', { class: 'box' }, el('h4', {}, '💡 איך מרוויחים מטבעות?'), el('div', { class: 'cn-ways' }, ...ways.map(([e, t, pre, n]) => el('div', { class: 'cn-way' }, el('span', {}, e), el('span', {}, t), el('b', {}, pre, el('bdi', { dir: 'ltr' }, n)))))),
+      el('div', { class: 'box' }, el('h4', {}, '📜 מה היה לאחרונה'), hist.length ? el('div', { class: 'cn-hist' }, ...hist.slice(0, 30).map(h => el('div', { class: 'cn-row' + (h.n < 0 ? ' neg' : '') },
+        el('span', { class: 'muted' }, h.t ? h.t.slice(8, 10) + '/' + h.t.slice(5, 7) : ''), el('span', {}, h.r || ''), el('b', { dir: 'ltr' }, (h.n > 0 ? '+' : '') + h.n)))) : el('p', { class: 'muted' }, 'עוד אין כלום. משחקים ומרוויחים!')));
+  }
+
+  // ---------- 👜 shop items: new fashion pieces for the studio, locked until bought ----------
+  // base = the drawing it is built on, pat = its special fabric, c = the color it comes in
+  const SHOP_ITEMS = [
+    { id: 'sh_sequintop', cat: 'tops', n: 'גופיית פאייטים', p: 45, base: 'tank', pat: 'shf_sequin', c: '#ffb3cf', th: ['party'] },
+    { id: 'sh_rainbowtee', cat: 'tops', n: 'חולצת קשת', p: 35, base: 'tshirt', pat: 'shf_rainbow', c: '#ffffff', th: ['sport', 'beach'] },
+    { id: 'sh_leoblouse', cat: 'tops', n: 'חולצה מנומרת', p: 40, base: 'blouse', pat: 'shf_leopard', c: '#f1d9b0', th: ['party'] },
+    { id: 'sh_bowtop', cat: 'tops', n: 'חולצת תחרה ופפיון', p: 50, base: 'ruffle', pat: 'shf_lace', c: '#ffd9e8', th: ['princess', 'party'] },
+    { id: 'sh_tiedye', cat: 'tops', n: 'קפוצ\'ון טאי-דאי', p: 55, base: 'hoodie', pat: 'shf_tiedye', c: '#ffffff', th: ['sport', 'snow'] },
+    { id: 'sh_sequindress', cat: 'dresses', n: 'שמלת פאייטים', p: 80, base: 'party', pat: 'shf_sequin', c: '#bda4ff', th: ['party'] },
+    { id: 'sh_princess', cat: 'dresses', n: 'שמלת נסיכה נוצצת', p: 150, base: 'ballgown', pat: 'shf_glitter', c: '#ffc4de', th: ['princess'] },
+    { id: 'sh_galaxydress', cat: 'dresses', n: 'שמלת גלקסיה', p: 120, base: 'maxi', pat: 'shf_galaxy', c: '#2a2266', th: ['party', 'princess'] },
+    { id: 'sh_lacedress', cat: 'dresses', n: 'שמלת תחרה', p: 70, base: 'skater', pat: 'shf_lace', c: '#ffffff', th: ['princess'] },
+    { id: 'sh_cherrydress', cat: 'dresses', n: 'שמלת דובדבנים', p: 60, base: 'sundress', pat: 'shf_cherry', c: '#fff6ec', th: ['beach'] },
+    { id: 'sh_denimskirt', cat: 'bottoms', n: 'חצאית ג\'ינס', p: 30, base: 'skirt', pat: 'shf_denim', c: '#6d8fbd', th: ['beach'] },
+    { id: 'sh_glittertutu', cat: 'bottoms', n: 'טוטו נוצץ', p: 60, base: 'tulle', pat: 'shf_glitter', c: '#ffb3cf', th: ['party', 'princess'] },
+    { id: 'sh_rainbowpleats', cat: 'bottoms', n: 'חצאית קפלים קשת', p: 45, base: 'pleated', pat: 'shf_rainbow', c: '#ffffff', th: ['party'] },
+    { id: 'sh_galaxyleggings', cat: 'bottoms', n: 'טייץ גלקסיה', p: 40, base: 'leggings', pat: 'shf_galaxy', c: '#2a2266', th: ['sport', 'snow'] },
+    { id: 'sh_glitterboots', cat: 'shoes', n: 'מגפי נצנצים', p: 70, base: 'boots', c: '#c3a2ff', th: ['party', 'snow'] },
+    { id: 'sh_platform', cat: 'shoes', n: 'סניקרס פלטפורמה', p: 55, base: 'sneakers', c: '#ffffff', th: ['sport'] },
+    { id: 'sh_bunnyslip', cat: 'shoes', n: 'נעלי בית ארנב', p: 35, base: 'flats', c: '#ffc4de', th: ['snow'] },
+    { id: 'sh_rollers', cat: 'shoes', n: 'רולרבליידס', p: 90, base: 'hightops', c: '#ff5f8f', th: ['sport'] },
+    { id: 'sh_heartbag', cat: 'bags', n: 'תיק לב', p: 40, th: ['party', 'princess'] },
+    { id: 'sh_backpack', cat: 'bags', n: 'תיק גב קטן', p: 45, th: ['sport', 'beach'] },
+    { id: 'sh_bunnybag', cat: 'bags', n: 'תיק ארנב', p: 50, th: ['party'] },
+    { id: 'sh_partyhat', cat: 'hats', n: 'כובע מסיבה', p: 25, key: 'hat', c: '#ff5f8f', th: ['party'] },
+    { id: 'sh_catears', cat: 'hats', n: 'אוזני חתול', p: 30, th: ['party'] },
+    { id: 'sh_bunnyears', cat: 'hats', n: 'אוזני ארנב', p: 30, th: ['party', 'snow'] },
+    { id: 'sh_headphones', cat: 'hats', n: 'אוזניות', p: 65, th: ['sport'] },
+    { id: 'sh_bigbow', cat: 'hats', n: 'פפיון ענק', p: 25, th: ['princess', 'party'] },
+    { id: 'sh_starglasses', cat: 'accs', n: 'משקפי כוכבים', p: 35, key: 'glasses', th: ['party', 'beach'] },
+    { id: 'sh_boa', cat: 'accs', n: 'צעיף נוצות', p: 45, th: ['party', 'snow'] },
+    { id: 'sh_wand', cat: 'accs', n: 'שרביט קסמים', p: 60, th: ['princess'] },
+    { id: 'sh_balloon', cat: 'accs', n: 'בלון לב', p: 20, th: ['party', 'beach'] },
+    { id: 'sh_starband', cat: 'accs', n: 'קשת כוכבים', p: 30, th: ['party', 'princess'] },
+    { id: 'sh_h_rose', cat: 'hair', n: 'זהב ורוד', p: 40, color: '#e2a39a' },
+    { id: 'sh_h_cherry', cat: 'hair', n: 'אדום דובדבן', p: 40, color: '#c21f3a' },
+    { id: 'sh_h_sun', cat: 'hair', n: 'צהוב שמש', p: 35, color: '#ffd23f' },
+    { id: 'sh_h_teal', cat: 'hair', n: 'טורקיז', p: 45, color: '#17a2a0' },
+    { id: 'sh_h_violet', cat: 'hair', n: 'סגול עמוק', p: 45, color: '#7a3fc4' },
+    { id: 'sh_h_midnight', cat: 'hair', n: 'כחול לילה', p: 50, color: '#26346e' },
+    { id: 'sh_candy', cat: 'scenes', n: 'ארץ הממתקים', p: 80 },
+    { id: 'sh_stage', cat: 'scenes', n: 'במה של כוכבת פופ', p: 90 },
+    { id: 'sh_space', cat: 'scenes', n: 'חלל', p: 100 },
+    { id: 'sh_boutique', cat: 'scenes', n: 'הבוטיק', p: 60 },
+  ];
+  const SHOP_CATS = [['all', '✨ הכל'], ['tops', '👚 חולצות'], ['dresses', '👗 שמלות'], ['bottoms', '🩳 חצאיות ומכנסיים'], ['shoes', '👟 נעליים'], ['bags', '👜 תיקים'], ['hats', '🎀 לראש'], ['accs', '💍 אקססוריז'], ['hair', '💇‍♀️ צבעי שיער'], ['scenes', '🏙️ רקעים']];
+  const SHOP_BY = Object.fromEntries(SHOP_ITEMS.map(it => [it.id, it]));
+  let shopOwned = store.get('shopOwned', []);
+  const shopHas = id => shopOwned.includes(id);
+  const shopKey = it => it.key || { tops: 'top', dresses: 'dress', bottoms: 'bottom', shoes: 'shoes', bags: 'acc', hats: 'acc', accs: 'acc', hair: 'hairColor', scenes: 'scene' }[it.cat];
+  const shopWeek = () => Math.floor((Date.now() / 864e5 + 4) / 7);
+  const shopSale = () => SHOP_ITEMS[(shopWeek() * 7 + 3) % SHOP_ITEMS.length];
+  const shopPrice = it => shopSale() === it ? Math.max(10, Math.round(it.p * 0.6 / 5) * 5) : it.p;
+  // what to change on a girl so she wears it
+  function shopApply(g, it) {
+    const k = shopKey(it);
+    if (k === 'acc') return { acc: Object.assign({}, g.acc, { [it.id]: true }) };
+    if (k === 'hairColor') return { hairColor: it.color };
+    if (k === 'scene') return { scene: it.id };
+    const p = { [k]: it.id }, ck = { top: 'topColor', dress: 'dressColor', bottom: 'bottomColor', shoes: 'shoeColor', hat: 'hatColor' }[k];
+    if (ck && it.c) p[ck] = it.c;
+    if (k === 'dress' || k === 'shoes') p.mermaid = false;
+    if (k === 'top' || k === 'bottom') p.dress = 'none';
+    return p;
+  }
+  // the studio's lists get the shop pieces (locked ones: 🔒 + price, "קונים בחנות")
+  function shopFashF(F) {
+    const L = key => SHOP_ITEMS.filter(it => it.cat !== 'hair' && shopKey(it) === key).map(it => [it.id, shopHas(it.id) ? '🛍️ ' + it.n : `🛍️ ${it.n} · ${shopPrice(it)}🪙`, !shopHas(it.id)]);
+    return Object.assign({}, F, { tops: [...F.tops, ...L('top')], dresses: [...F.dresses, ...L('dress')], bottoms: [...F.bottoms, ...L('bottom')], shoes: [...F.shoes, ...L('shoes')], hats: [...F.hats, ...L('hat')],
+      glasses: [...F.glasses, ...L('glasses')], accs: [...F.accs, ...L('acc')], scenes: [...F.scenes, ...L('scene')], hairColors: [...F.hairColors, ...SHOP_ITEMS.filter(it => it.cat === 'hair').map(it => it.color)] });
+  }
+  const shopColorItem = c => SHOP_ITEMS.find(it => it.cat === 'hair' && it.color === c);
+  function shopColorLocked(c) { const it = shopColorItem(c); return !!it && !shopHas(it.id); }
+  function shopSwatchLock(c, onclick) {
+    const it = shopColorItem(c), b = el('button', { type: 'button', class: 'sw3 sh-lock', 'data-shop': it ? it.id : '', title: `קונים בחנות הבגדים: ${it ? it.n : ''} · ${it ? shopPrice(it) : ''}🪙`, 'aria-label': 'נעול: קונים בחנות', onclick }, '🔒');
+    b.style.background = c; return b;
+  }
+  function shopLockMsg(ev) {
+    const b = ev && ev.currentTarget; if (!b) return false;
+    const it = b.dataset && b.dataset.shop ? SHOP_BY[b.dataset.shop] : SHOP_ITEMS.find(x => (b.textContent || '').includes('🛍️ ' + x.n + ' ·'));
+    if (!it) return false;
+    const m = $('#fashMsg');
+    if (m) m.replaceChildren(`🔒 את "${it.n}" קונים בחנות הבגדים ב-${shopPrice(it)} 🪙 `, el('button', { type: 'button', class: 'btn main sh-go', onclick: () => openShop(it.cat, it.id) }, '👜 לחנות'));
+    try { SFX.boop(); } catch {}
+    return true;
+  }
+  // girlSVG hook 1: shop pieces are drawn on top of a base piece with a special fabric
+  function shopGirlMap(g) {
+    if (!g) return g;
+    let o = null; const cp = () => o || (o = Object.assign({}, g));
+    [['top', 'topPat'], ['dress', 'dressPat'], ['bottom', 'bottomPat'], ['shoes', null]].forEach(([k, pk]) => { const it = SHOP_BY[g[k]]; if (it && it.base) { cp()[k] = it.base; if (pk && it.pat) o[pk] = it.pat; } });
+    if (SHOP_BY[g.hat]) cp().hat = 'none';
+    if (SHOP_BY[g.glasses]) cp().glasses = 'none';
+    return o || g;
+  }
+  // fabrics (a 16x16 tile drawn over the base color)
+  function shopMotif(c, p) {
+    if (!/^shf_/.test(p || '')) return undefined;
+    const dk = fmx(c, '#2a1020', 0.32), lt = fmx(c, '#ffffff', 0.55), L = flum(c);
+    const star = (x, y, r, f, o = 1) => `<path d="M${x} ${y - r}Q${x} ${y} ${x + r} ${y}Q${x} ${y} ${x} ${y + r}Q${x} ${y} ${x - r} ${y}Q${x} ${y} ${x} ${y - r}Z" fill="${f}" opacity="${o}"/>`;
+    if (p === 'shf_sequin') return [[0, 4], [8, 4], [16, 4], [4, 12], [12, 12], [0, 20], [8, 20], [16, 20], [4, -4], [12, -4]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="3.9" fill="${i % 3 ? fmx(c, '#ffffff', 0.18) : fmx(c, '#2a1020', 0.08)}" stroke="${dk}" stroke-width=".45"/><circle cx="${x - 1.2}" cy="${y - 1.3}" r="1" fill="#fff" opacity=".85"/>`).join('');
+    if (p === 'shf_glitter') return star(4, 5, 2.8, '#ffffff', 0.95) + star(12, 12, 2.2, '#fff2a8') + `<circle cx="11" cy="3" r=".8" fill="#fff"/><circle cx="3" cy="13" r=".7" fill="#ffe27a"/><circle cx="8" cy="9" r=".55" fill="#fff"/><circle cx="14.5" cy="7" r=".5" fill="#fff" opacity=".8"/>`;
+    if (p === 'shf_galaxy') return `<rect width="16" height="16" fill="#2a2266"/><circle cx="4" cy="4" r="6" fill="#6a3fc4" opacity=".45"/><circle cx="13" cy="12" r="5.5" fill="#c04ad0" opacity=".32"/><circle cx="2" cy="14" r="3" fill="#3a8ad8" opacity=".35"/>` +
+      star(11, 4, 2, '#fff') + `<circle cx="4" cy="10" r=".7" fill="#fff"/><circle cx="7" cy="2" r=".45" fill="#fff"/><circle cx="14" cy="15" r=".5" fill="#ffe27a"/><circle cx="9" cy="13" r=".4" fill="#fff"/>`;
+    if (p === 'shf_leopard') { const mid = fmx(c, '#b8742a', 0.45), sp = fmx(c, '#3a200e', 0.8); return [[4, 4, 0], [12, 11, 40], [12.5, 2, 70], [3, 13, -30]].map(([x, y, r], i) => `<g transform="translate(${x} ${y}) rotate(${r})"><ellipse rx="${i > 1 ? 1.8 : 2.4}" ry="${i > 1 ? 1.4 : 1.9}" fill="${mid}"/><path d="M${i > 1 ? -2.3 : -3} -.6q.4 -2.4 2.4 -2.5M1.4 -2.4q1.8 .6 1.6 2.2M2.8 1.4q-.6 1.8 -2.6 1.8M-1.2 2.6q-1.8 -.4 -1.9 -1.6" fill="none" stroke="${sp}" stroke-width="1.05" stroke-linecap="round"/></g>`).join(''); }
+    if (p === 'shf_denim') { const a = fmx(c, '#0a1a3a', 0.22), b = fmx(c, '#ffffff', 0.25); return `<path d="M-2 4L4 -2M-2 12L12 -2M-2 20L20 -2M6 20L20 6M14 20L20 14" stroke="${a}" stroke-width="1.1"/><path d="M0 6L6 0M0 14L14 0M2 16L16 2M10 16L16 10" stroke="${b}" stroke-width=".5" opacity=".7"/>`; }
+    if (p === 'shf_rainbow') return ['#ff8fa8', '#ffb86b', '#ffe27a', '#9ee493', '#8cc8ff', '#c3a2ff'].map((f, i) => `<rect x="0" y="${fx(i * 16 / 6)}" width="16" height="${fx(16 / 6 + 0.1)}" fill="${f}"/>`).join('') + `<rect width="16" height="16" fill="#fff" opacity=".12"/>`;
+    if (p === 'shf_tiedye') return `<circle cx="4" cy="4" r="6.5" fill="#ff9ec4" opacity=".6"/><circle cx="12" cy="12" r="6.5" fill="#8cc8ff" opacity=".6"/><circle cx="13" cy="3" r="4.2" fill="#ffe27a" opacity=".6"/><circle cx="3" cy="13" r="4.2" fill="#b9f0c8" opacity=".65"/><circle cx="8" cy="8" r="2.4" fill="#c3a2ff" opacity=".6"/>`;
+    if (p === 'shf_lace') { const lc = L > 0.75 ? fmx(c, '#b86a9a', 0.42) : fmx(c, '#ffffff', 0.78); return [[0, 4], [8, 4], [16, 4], [4, 12], [12, 12], [0, 20], [8, 20], [16, 20], [4, -4], [12, -4]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.2" fill="none" stroke="${lc}" stroke-width=".7"/><circle cx="${x}" cy="${y}" r=".8" fill="${lc}"/>`).join('') + `<circle cx="4" cy="4" r="1.6" fill="none" stroke="${lc}" stroke-width=".4" stroke-dasharray=".6 .6"/>`; }
+    if (p === 'shf_cherry') return `<path d="M5.5 9.5 Q6 5 9 3 M9 10.5 Q8.5 6 9 3" fill="none" stroke="#3f8a3a" stroke-width=".8"/><ellipse cx="10.5" cy="3.2" rx="2" ry=".9" transform="rotate(-25 10.5 3.2)" fill="#5fb85a"/><circle cx="5.2" cy="11" r="2.2" fill="#e0314b"/><circle cx="9.2" cy="11.8" r="2.2" fill="#d0243e"/><circle cx="4.5" cy="10.3" r=".6" fill="#fff" opacity=".85"/><circle cx="8.5" cy="11.1" r=".6" fill="#fff" opacity=".85"/><circle cx="13.5" cy="14" r=".7" fill="${dk}" opacity=".35"/>`;
+    return undefined;
+  }
+  // girlSVG hook 2: extra drawings for shop pieces (hats, bags, things in her hands, shoe details)
+  function shopGirlDraw(g, H) {
+    const r = { head: '', face: '', body: '', bag: '', back: '' };
+    if (!g) return r;
+    const A = g.acc || {}, AC = H.AC || '#ff5f8f', ACd = fmx(AC, '#241018', 0.4), bh = H.bigHair, w = bh ? 1.28 : 1, top = bh ? 18 : 30;
+    const heart = (x, y, s) => `M${x} ${y + 0.9 * s}C${x - 1.7 * s} ${y - 0.2 * s} ${x - 1.1 * s} ${y - 1.5 * s} ${x} ${y - 0.6 * s}C${x + 1.1 * s} ${y - 1.5 * s} ${x + 1.7 * s} ${y - 0.2 * s} ${x} ${y + 0.9 * s}Z`;
+    const star = (x, y, R, k = 0.45) => 'M' + Array.from({ length: 10 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / 5, q = i % 2 ? R * k : R; return `${fx(x + q * Math.cos(a))} ${fx(y + q * Math.sin(a))}`; }).join('L') + 'Z';
+    const band = (c, sw = 5) => `<path d="M${150 - 31 * w} 64 C${150 - 34 * w} 20 ${150 + 34 * w} 20 ${150 + 31 * w} 64" fill="none" stroke="${fmx(c, '#241018', 0.35)}" stroke-width="${sw + 1.4}" stroke-linecap="round"/><path d="M${150 - 31 * w} 64 C${150 - 34 * w} 20 ${150 + 34 * w} 20 ${150 + 31 * w} 64" fill="none" stroke="${c}" stroke-width="${sw}" stroke-linecap="round"/>`;
+    const onHand = (s, str) => { if (H.PZ && H.armAcc) H.armAcc[s].push(H.onArm(s, 330, str)); else r.body += str; };
+    // ---- head ----
+    if (A.sh_catears) r.head += [-1, 1].map(s => { const x = 150 + s * 22 * w; return `<path d="M${x - s * 10} ${top + 10} L${x + s * 2} ${top - 20} L${x + s * 12} ${top + 4}Z" fill="${AC}" stroke="${ACd}" stroke-width="1.2" stroke-linejoin="round"/><path d="M${x - s * 5} ${top + 6} L${x + s * 2} ${top - 11} L${x + s * 7.5} ${top + 3}Z" fill="#ffc4de"/>`; }).join('') + band(AC, 4);
+    if (A.sh_bunnyears) r.head += [-1, 1].map(s => `<g transform="rotate(${s * 12} ${150 + s * 14} ${top + 4})"><ellipse cx="${150 + s * 14}" cy="${top - 22}" rx="8.5" ry="25" fill="#fff" stroke="#d9c4d4" stroke-width="1.2"/><ellipse cx="${150 + s * 14}" cy="${top - 20}" rx="4.2" ry="18" fill="#ffc4de"/></g>`).join('') + band('#ffffff', 4.5);
+    if (A.sh_starband) r.head += band('#ffe27a', 4.2) + [[-26, 44], [-15, 31], [0, 27], [15, 31], [26, 44]].map(([dx, y], i) => `<path d="${star(150 + dx * w, y + (bh ? -4 : 0), i === 2 ? 7.5 : 5.5)}" fill="${['#ff9ec4', '#8cc8ff', '#ffd23f', '#c3a2ff', '#9ee493'][i]}" stroke="#fff" stroke-width="1"/>`).join('');
+    if (A.sh_bigbow) { const y = top - 6; r.head += `<path d="M150 ${y} C138 ${y - 22} 112 ${y - 18} 116 ${y + 2} C119 ${y + 18} 140 ${y + 12} 150 ${y}Z M150 ${y} C162 ${y - 22} 188 ${y - 18} 184 ${y + 2} C181 ${y + 18} 160 ${y + 12} 150 ${y}Z" fill="${AC}" stroke="${ACd}" stroke-width="1.3"/>` +
+      `<path d="M146 ${y + 3} L138 ${y + 26} L144 ${y + 23} L147 ${y + 28} Z M154 ${y + 3} L162 ${y + 26} L156 ${y + 23} L153 ${y + 28}Z" fill="${fmx(AC, '#000', 0.1)}" stroke="${ACd}" stroke-width="1"/><path d="M125 ${y - 6} q8 -6 18 2 M175 ${y - 6} q-8 -6 -18 2" fill="none" stroke="#fff" stroke-width="1.6" opacity=".55" stroke-linecap="round"/><rect x="143" y="${y - 7}" width="14" height="14" rx="5" fill="${fmx(AC, '#000', 0.12)}" stroke="${ACd}" stroke-width="1.2"/>`; }
+    if (A.sh_headphones) r.head += `<path d="M${150 - 35 * w} 78 C${150 - 40 * w} ${top - 26} ${150 + 40 * w} ${top - 26} ${150 + 35 * w} 78" fill="none" stroke="#3a3350" stroke-width="7.5" stroke-linecap="round"/><path d="M${150 - 35 * w} 78 C${150 - 40 * w} ${top - 26} ${150 + 40 * w} ${top - 26} ${150 + 35 * w} 78" fill="none" stroke="${AC}" stroke-width="4.5" stroke-linecap="round"/>` +
+      [-1, 1].map(s => { const x = 150 + s * 36 * w; return `<rect x="${x - 9}" y="68" width="18" height="30" rx="8" fill="${AC}" stroke="${ACd}" stroke-width="1.3"/><rect x="${x - 5}" y="72" width="10" height="22" rx="5" fill="#fff" opacity=".35"/><path d="${heart(x, 83, 3.2)}" fill="#fff"/>`; }).join('');
+    if (g.hat === 'sh_partyhat') { const HC = g.hatColor || '#ff5f8f', y = top + 2; r.head += `<g transform="rotate(14 150 ${y})"><path d="M128 ${y} L150 ${y - 58} L172 ${y}Z" fill="${HC}" stroke="${fmx(HC, '#241018', 0.4)}" stroke-width="1.3" stroke-linejoin="round"/>` +
+      `<path d="M133.6 ${y - 14} L166.4 ${y - 14} L162.5 ${y - 24} L137.5 ${y - 24}Z M141.3 ${y - 34} L158.7 ${y - 34} L155 ${y - 43} L145 ${y - 43}Z" fill="#fff" opacity=".85"/>` + [[140, y - 6], [158, y - 30], [150, y - 18]].map(([x, yy], i) => `<circle cx="${x}" cy="${yy}" r="2" fill="${['#ffd23f', '#8cc8ff', '#9ee493'][i]}"/>`).join('') +
+      `<path d="M128 ${y} Q150 ${y + 6} 172 ${y}" fill="none" stroke="${fmx(HC, '#000', 0.2)}" stroke-width="2.5"/>` + Array.from({ length: 8 }, (_, i) => `<circle cx="${fx(150 + 7 * Math.cos(i * Math.PI / 4))}" cy="${fx(y - 60 + 7 * Math.sin(i * Math.PI / 4))}" r="3.6" fill="#ffe27a"/>`).join('') + `<circle cx="150" cy="${y - 60}" r="5" fill="#fff6c4"/></g>`; }
+    // ---- face ----
+    if (g.glasses === 'sh_starglasses') r.face += [-1, 1].map(s => `<path d="${star(H.mx(163.5, s), 71, 14, 0.55)}" fill="#ff9ec4" fill-opacity=".72" stroke="#d8305a" stroke-width="1.6" stroke-linejoin="round"/><path d="M${H.mx(158, s)} 66 l${s * 4} -2" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".8"/><path d="M${H.mx(175.5, s)} 68 L${H.mx(183, s)} 67" stroke="#d8305a" stroke-width="1.4"/>`).join('') + `<path d="M146 69 Q150 66 154 69" fill="none" stroke="#d8305a" stroke-width="1.5"/>`;
+    // ---- body ----
+    if (A.sh_boa) { const pts = []; for (let i = 0; i <= 18; i++) { const t = i / 18; pts.push([114 + 72 * t, 140 + Math.sin(t * Math.PI) * 18]); } for (let i = 1; i <= 9; i++) { pts.push([124 - i * 0.8 + (i % 2) * 2, 150 + i * 10]); pts.push([176 + i * 0.8 - (i % 2) * 2, 150 + i * 10]); }
+      const c1 = AC, c2 = fmx(AC, '#ffffff', 0.5), c3 = fmx(AC, '#000000', 0.12); r.body += pts.map(([x, y], i) => `<circle cx="${fx(x + ((i * 7) % 5 - 2) * 0.8)}" cy="${fx(y + ((i * 3) % 5 - 2) * 0.8)}" r="${7.5 + (i % 3) * 1.2}" fill="${[c1, c2, c3][i % 3]}"/>`).join('') +
+        pts.map(([x, y], i) => `<path d="M${fx(x - 6)} ${fx(y + 2)} q3 -${4 + i % 3} 6 -1 q3 -${3 + i % 2} 6 1" fill="none" stroke="${i % 2 ? '#fff' : c2}" stroke-width="1" opacity=".75"/>`).join(''); }
+    if (g.top === 'sh_bowtop' && (!H.dress || H.dress === 'pinafore')) r.body += `<path d="M150 134 C144 124 130 126 132 135 C133 143 145 140 150 134Z M150 134 C156 124 170 126 168 135 C167 143 155 140 150 134Z" fill="${AC}" stroke="${ACd}" stroke-width="1"/><path d="M148 136 L143 152 L147 150 L149 154Z M152 136 L157 152 L153 150 L151 154Z" fill="${fmx(AC, '#000', 0.1)}" stroke="${ACd}" stroke-width=".8"/><circle cx="150" cy="134.5" r="3.4" fill="${fmx(AC, '#000', 0.12)}" stroke="${ACd}" stroke-width=".8"/>`;
+    if (g.dress === 'sh_princess') r.body += `<path d="M150 226 C140 212 118 214 121 226 C123 238 142 234 150 226Z M150 226 C160 212 182 214 179 226 C177 238 158 234 150 226Z" fill="#fff" stroke="#e7a0c0" stroke-width="1.2"/><path d="M146 229 L138 262 L144 258 L147 265Z M154 229 L162 262 L156 258 L153 265Z" fill="#fff" stroke="#e7a0c0" stroke-width="1"/><circle cx="150" cy="226.5" r="4.2" fill="#ffd6e8" stroke="#e7a0c0" stroke-width="1"/>` +
+      [[110, 330, 6], [190, 360, 5], [78, 460, 7], [222, 470, 6], [150, 410, 5], [126, 520, 6], [182, 530, 7], [170, 300, 4], [96, 390, 4], [206, 410, 4]].map(([x, y, s]) => `<path d="${star(x, y, s, 0.3)}" fill="#fff" opacity=".9"/>`).join('');
+    // ---- shoes ----
+    const long = ['ballgown', 'maxi', 'goldgown'].includes(H.dress);
+    if (!H.MT && !long) {
+      const feet = f => r.body += H.both(s => H.onLeg(s, 540, f(s)));
+      if (g.shoes === 'sh_glitterboots') feet(s => [[157, 462], [162, 478], [156, 494], [163, 508], [158, 522], [161, 546], [155, 556], [166, 560]].map(([x, y], i) => `<path d="${star(H.mx(x, s), y, i % 3 ? 2 : 3, 0.35)}" fill="${i % 2 ? '#fff' : '#fff2a8'}"/>`).join('') + `<path d="${heart(H.mx(160, s), 470, 3.2)}" fill="#ff5f8f" stroke="#fff" stroke-width=".6"/>`);
+      if (g.shoes === 'sh_platform') feet(s => { const a = H.mx(145, s), b = H.mx(176, s), x = Math.min(a, b); return ['#ff9ec4', '#ffe27a', '#8cc8ff'].map((c, i) => `<rect x="${x}" y="${572 + i * 4.2}" width="31" height="4.6" rx="2.3" fill="${c}" stroke="${fmx(c, '#241018', 0.35)}" stroke-width=".6"/>`).join(''); });
+      if (g.shoes === 'sh_bunnyslip') feet(s => { const x = H.mx(161, s); return [-1, 1].map(k => `<ellipse cx="${x + k * 4.5}" cy="551" rx="3" ry="8" transform="rotate(${k * 14} ${x + k * 4.5} 556)" fill="#fff" stroke="#e0bcd0" stroke-width=".8"/><ellipse cx="${x + k * 4.5}" cy="552" rx="1.4" ry="5" transform="rotate(${k * 14} ${x + k * 4.5} 556)" fill="#ffc4de"/>`).join('') +
+        `<circle cx="${x}" cy="566" r="7.5" fill="#fff" stroke="#e0bcd0" stroke-width=".8"/><circle cx="${x - 2.6}" cy="564.5" r="1" fill="#3a2030"/><circle cx="${x + 2.6}" cy="564.5" r="1" fill="#3a2030"/><path d="M${x - 1.2} 567.5 q1.2 1.2 2.4 0" fill="none" stroke="#e07a9a" stroke-width=".8"/><circle cx="${x}" cy="566.6" r=".9" fill="#ff9ec4"/>`; });
+      if (g.shoes === 'sh_rollers') feet(s => { const a = H.mx(146, s), b = H.mx(175, s), x = Math.min(a, b); return `<rect x="${x}" y="575" width="29" height="5" rx="2" fill="#dcdce6" stroke="#8a8aa0" stroke-width=".7"/>` + [5, 14.5, 24].map(d => `<circle cx="${x + d}" cy="584" r="4.3" fill="#8cf0d0" stroke="#3a9a88" stroke-width=".8"/><circle cx="${x + d}" cy="584" r="1.4" fill="#fff"/>`).join(''); });
+    }
+    // ---- bags ----
+    if (A.sh_heartbag) r.bag += `<path d="M134 132 L194 258" stroke="${fmx(AC, '#000', 0.35)}" stroke-width="2" fill="none"/><path d="${heart(196, 272, 13)}" fill="${AC}" stroke="${ACd}" stroke-width="1.2"/><path d="M186 263 q4 -5 9 -3" stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".7"/><circle cx="196" cy="266" r="2" fill="#ffd23f" stroke="#b08a2a" stroke-width=".5"/>`;
+    if (A.sh_backpack) { r.back += `<rect x="110" y="150" width="80" height="112" rx="18" fill="${AC}" stroke="${ACd}" stroke-width="1.4"/><rect x="110" y="150" width="80" height="112" rx="18" fill="#000" opacity=".08"/>`;
+      r.body += [-1, 1].map(s => `<path d="M${150 + s * 17} 132 Q${150 + s * 26} 170 ${150 + s * 25} 222" fill="none" stroke="${ACd}" stroke-width="6.4" stroke-linecap="round"/><path d="M${150 + s * 17} 132 Q${150 + s * 26} 170 ${150 + s * 25} 222" fill="none" stroke="${AC}" stroke-width="4.4" stroke-linecap="round"/><rect x="${150 + s * 25 - 3}" y="196" width="6" height="5" rx="1" fill="#ffd23f"/>`).join(''); }
+    if (A.sh_bunnybag) onHand(-1, `<g transform="translate(90.5 330) scale(1.35) translate(-90.5 -330)"><path d="M88 326 Q80 336 84 346 M93 326 Q101 336 97 346" fill="none" stroke="#e0a0c0" stroke-width="1.6"/>` + [-1, 1].map(k => `<ellipse cx="${90.5 + k * 7}" cy="346" rx="4" ry="11" transform="rotate(${k * 15} ${90.5 + k * 7} 354)" fill="#fff" stroke="#d9b4c8" stroke-width=".9"/><ellipse cx="${90.5 + k * 7}" cy="347" rx="2" ry="7" transform="rotate(${k * 15} ${90.5 + k * 7} 354)" fill="#ffc4de"/>`).join('') +
+      `<path d="M72 358 Q72 350 90.5 350 Q109 350 109 358 L107 380 Q90.5 388 74 380Z" fill="#fff" stroke="#d9b4c8" stroke-width="1.1"/><circle cx="85" cy="365" r="1.5" fill="#3a2030"/><circle cx="96" cy="365" r="1.5" fill="#3a2030"/><ellipse cx="80" cy="370" rx="3" ry="1.8" fill="#ffb3cf" opacity=".8"/><ellipse cx="101" cy="370" rx="3" ry="1.8" fill="#ffb3cf" opacity=".8"/><path d="M88.5 369 q2 2 4 0" fill="none" stroke="#c0607a" stroke-width=".9"/></g>`);
+    // ---- hands ----
+    if (A.sh_wand) onHand(1, `<path d="M208 322 L230 372" stroke="#a57f22" stroke-width="3.4" stroke-linecap="round"/><path d="M208 322 L230 372" stroke="#fff2c0" stroke-width="1.4" stroke-linecap="round"/><path d="${star(233, 380, 11)}" fill="#ffd23f" stroke="#c9982e" stroke-width="1.2" stroke-linejoin="round"/><path d="${star(233, 380, 4.5)}" fill="#fff6c4"/>` +
+      [[248, 366, 3], [220, 392, 2.4], [250, 394, 2]].map(([x, y, s]) => `<path d="${star(x, y, s, 0.3)}" fill="#fff"/>`).join('') + `<path d="M226 360 l-3 -2 M234 364 l2 -3" stroke="#ff9ec4" stroke-width="1.2" stroke-linecap="round"/>`);
+    if (A.sh_balloon) onHand(-1, `<path d="M90 324 C84 290 96 250 70 214" fill="none" stroke="#9a8a9a" stroke-width="1"/><path d="${heart(66, 190, 20)}" fill="#ff5f8f" stroke="#d8305a" stroke-width="1.2"/><path d="M54 178 q4 -8 12 -6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/><path d="M66 208 l-3 5 h6z" fill="#d8305a"/>`);
+    if (A.sh_mic) onHand(1, `<path d="M209 318 L211 350" stroke="#3a3350" stroke-width="5" stroke-linecap="round"/><path d="M209 318 L211 350" stroke="#8a84a8" stroke-width="2" stroke-linecap="round" opacity=".6"/><circle cx="211.4" cy="356" r="7.5" fill="#c8c8d8" stroke="#6a6480" stroke-width="1.1"/><path d="M205 353 h13 M204.5 357 h14 M206 361 h11" stroke="#8a84a8" stroke-width=".7"/><circle cx="209" cy="353" r="1.8" fill="#fff" opacity=".8"/><rect x="206.5" y="346" width="9" height="3" rx="1" fill="#ff5fa2"/>`);
+    return r;
+  }
+  // girlSVG hook 3: the new backgrounds
+  function shopScene(id, color, u, def) {
+    if (!/^sh_/.test(id || '')) return '';
+    const grad = (k, stops, v = true) => def('sh' + k, `<linearGradient id="${u}-sh${k}" x1="0" x2="${v ? 0 : 1}" y1="0" y2="${v ? 1 : 0}">${stops.map(([o, c, op]) => `<stop offset="${o}" stop-color="${c}"${op != null ? ` stop-opacity="${op}"` : ''}/>`).join('')}</linearGradient>`);
+    const R = (x, y, w, h, f, ex = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"${ex}/>`;
+    const tw = (x, y, s, f = '#fff', o = 0.9) => `<path d="M${x} ${y - s}Q${x} ${y} ${x + s} ${y}Q${x} ${y} ${x} ${y + s}Q${x} ${y} ${x - s} ${y}Q${x} ${y} ${x} ${y - s}Z" fill="${f}" opacity="${o}"/>`;
+    if (id === 'sh_candy') return R(0, 0, 300, 600, grad('cd', [[0, '#ffc9e8'], [0.5, '#e8d6ff'], [1, '#fff0f7']])) +
+      [[60, 90, 1], [230, 60, 0.8], [170, 150, 0.7]].map(([x, y, s], i) => `<g fill="${['#ffb3d9', '#c8e6ff', '#ffd6f0'][i]}"><ellipse cx="${x}" cy="${y}" rx="${34 * s}" ry="${16 * s}"/><ellipse cx="${x - 18 * s}" cy="${y - 8 * s}" rx="${18 * s}" ry="${14 * s}"/><ellipse cx="${x + 14 * s}" cy="${y - 10 * s}" rx="${20 * s}" ry="${15 * s}"/></g>`).join('') +
+      [[40, 400, 70, '#ff9ec4'], [130, 410, 60, '#b9f0c8'], [230, 400, 80, '#c8b4ff'], [300, 410, 50, '#ffe27a']].map(([x, y, r, c]) => `<path d="M${x - r} ${y + 20} A${r} ${r * 0.9} 0 0 1 ${x + r} ${y + 20}Z" fill="${c}"/><ellipse cx="${x - r * 0.3}" cy="${y - r * 0.45}" rx="${r * 0.25}" ry="${r * 0.12}" fill="#fff" opacity=".45"/>`).join('') +
+      [[48, 300, 26, '#ff5fa2'], [258, 280, 22, '#8a6bff']].map(([x, y, r, c]) => `<path d="M${x} ${y + r} V430" stroke="#fff" stroke-width="6" stroke-linecap="round"/><path d="M${x} ${y + r} V430" stroke="#ffb3cf" stroke-width="6" stroke-dasharray="6 6"/><circle cx="${x}" cy="${y}" r="${r}" fill="#fff" stroke="${c}" stroke-width="2"/>` +
+        `<path d="M${x} ${y} m-2 0 a2 2 0 1 1 4 0 a5 5 0 1 1 -10 0 a8 8 0 1 1 16 0 a11 11 0 1 1 -22 0 a14 14 0 1 1 28 0" fill="none" stroke="${c}" stroke-width="4.2" transform="translate(0 ${r * 0.05}) scale(1)" opacity=".85"/>`).join('') +
+      `<path d="M212 440 V356 a14 14 0 0 1 28 0" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/><path d="M212 440 V356 a14 14 0 0 1 28 0" fill="none" stroke="#ff4d6d" stroke-width="8" stroke-dasharray="7 7" stroke-linecap="round"/>` +
+      R(0, 430, 300, 170, grad('cf', [[0, '#ffd1e6'], [1, '#ffb3d4']])) + Array.from({ length: 30 }, (_, i) => { const r0 = Math.floor(i / 6), c0 = i % 6; return (r0 + c0) % 2 ? '' : `<path d="M${c0 * 50 + (r0 % 2) * 0} ${440 + r0 * 34} l25 17 l-25 17 l-25 -17Z" fill="#fff" opacity=".45"/>`; }).join('') +
+      Array.from({ length: 26 }, (_, i) => `<rect x="${(i * 53) % 290}" y="${20 + (i * 97) % 400}" width="7" height="2.4" rx="1.2" transform="rotate(${(i * 47) % 180} ${(i * 53) % 290} ${20 + (i * 97) % 400})" fill="${['#ff5fa2', '#ffd23f', '#5fc8ff', '#7ee08a', '#b37bff'][i % 5]}"/>`).join('');
+    if (id === 'sh_stage') return R(0, 0, 300, 600, grad('st', [[0, '#12062a'], [0.6, '#3a0f5c'], [1, '#1a0830']])) +
+      [[40, '#ff5fd8'], [110, '#5fd8ff'], [190, '#ffe27a'], [260, '#9e7bff']].map(([x, c], i) => `<path d="M${x} 20 L${x - 70 + i * 20} 470 L${x + 30 + i * 20} 470Z" fill="${c}" opacity=".16"/><circle cx="${x}" cy="22" r="10" fill="${c}"/><circle cx="${x}" cy="22" r="5" fill="#fff"/>`).join('') + R(0, 0, 300, 16, '#241040') +
+      Array.from({ length: 30 }, (_, i) => tw((i * 71) % 300, 40 + (i * 43) % 300, 1.2 + (i % 3), '#fff', 0.4 + (i % 3) * 0.2)).join('') +
+      both2(s => `<path d="M${s > 0 ? 300 : 0} 0 H${s > 0 ? 250 : 50} Q${s > 0 ? 262 : 38} 120 ${s > 0 ? 240 : 60} 250 Q${s > 0 ? 265 : 35} 380 ${s > 0 ? 250 : 50} 470 H${s > 0 ? 300 : 0}Z" fill="${grad('cu', [[0, '#b0103a'], [0.5, '#e8325a'], [1, '#8a0a2a']], false)}"/><path d="M${s > 0 ? 268 : 32} 10 Q${s > 0 ? 276 : 24} 240 ${s > 0 ? 266 : 34} 470 M${s > 0 ? 284 : 16} 10 Q${s > 0 ? 290 : 10} 240 ${s > 0 ? 282 : 18} 470" stroke="#7a0822" stroke-width="2" fill="none" opacity=".6"/>`) +
+      `<path d="M-10 440 H310 L300 600 H0Z" fill="${grad('sf', [[0, '#5a2a7a'], [1, '#2a1040']])}"/><path d="M-10 440 H310" stroke="#ffe27a" stroke-width="3"/>` + Array.from({ length: 13 }, (_, i) => `<circle cx="${10 + i * 23.3}" cy="448" r="3.4" fill="${['#ffe27a', '#ff9ef0', '#9ef0ff'][i % 3]}"/>`).join('') +
+      `<ellipse cx="150" cy="560" rx="110" ry="22" fill="#fff" opacity=".12"/>` + [[36, 500], [264, 500]].map(([x, y]) => `<rect x="${x - 22}" y="${y - 40}" width="44" height="80" rx="6" fill="#1c1030" stroke="#54406e" stroke-width="2"/><circle cx="${x}" cy="${y - 16}" r="10" fill="#3a2a50" stroke="#8a6ab0" stroke-width="2"/><circle cx="${x}" cy="${y + 18}" r="14" fill="#3a2a50" stroke="#8a6ab0" stroke-width="2"/>`).join('') +
+      [[70, 160], [230, 120], [200, 330]].map(([x, y], i) => `<path d="M${x} ${y} v-18 l12 -4 v18" fill="none" stroke="${['#ff9ef0', '#9ef0ff', '#ffe27a'][i]}" stroke-width="2.2"/><ellipse cx="${x - 3}" cy="${y}" rx="4" ry="3" fill="${['#ff9ef0', '#9ef0ff', '#ffe27a'][i]}"/><ellipse cx="${x + 9}" cy="${y - 4}" rx="4" ry="3" fill="${['#ff9ef0', '#9ef0ff', '#ffe27a'][i]}"/>`).join('');
+    if (id === 'sh_space') return R(0, 0, 300, 600, grad('sp', [[0, '#07082a'], [0.6, '#231a5e'], [1, '#3a2a7a']])) +
+      Array.from({ length: 60 }, (_, i) => `<circle cx="${(i * 67) % 300}" cy="${(i * 41) % 440}" r="${0.6 + (i % 4) * 0.4}" fill="#fff" opacity="${0.4 + (i % 3) * 0.2}"/>`).join('') + [[60, 60, 5], [250, 200, 4], [30, 300, 3.5]].map(([x, y, s]) => tw(x, y, s)).join('') +
+      `<circle cx="226" cy="110" r="40" fill="${grad('pl', [[0, '#ffb3cf'], [1, '#b06ad8']])}"/><path d="M196 90 q30 -10 60 4 M190 112 q36 -8 72 6" stroke="#fff" stroke-width="3" fill="none" opacity=".25"/><ellipse cx="226" cy="112" rx="66" ry="13" fill="none" stroke="#ffe27a" stroke-width="5" transform="rotate(-14 226 112)" opacity=".9"/><path d="M186 92 a40 40 0 0 1 80 0" fill="${grad('pl', [])}" transform="rotate(-14 226 112)"/>` +
+      `<circle cx="70" cy="190" r="16" fill="#5fb8ff"/><path d="M60 182 q6 4 4 10 q8 2 10 -6 q-4 -8 -12 -6Z M72 196 q4 -4 10 -1" fill="#7ee08a"/><circle cx="70" cy="190" r="16" fill="none" stroke="#fff" stroke-width="1" opacity=".4"/>` +
+      `<path d="M20 40 l60 22" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".6"/><circle cx="80" cy="62" r="3" fill="#fff"/>` +
+      `<path d="M0 450 Q150 420 300 450 V600 H0Z" fill="${grad('ms', [[0, '#c8c0e0'], [1, '#8a82b0']])}"/>` + [[50, 500, 22], [220, 480, 16], [150, 560, 28], [270, 560, 12], [100, 470, 9]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * 0.35}" fill="#7a72a0" opacity=".6"/><ellipse cx="${x}" cy="${y - r * 0.06}" rx="${r * 0.8}" ry="${r * 0.25}" fill="#9a92c0"/>`).join('') +
+      `<g transform="translate(250 400) rotate(20)"><path d="M0 -24 C10 -14 10 6 6 14 H-6 C-10 6 -10 -14 0 -24Z" fill="#fff" stroke="#8a82b0" stroke-width="1.4"/><circle cx="0" cy="-6" r="4.5" fill="#8cc8ff" stroke="#8a82b0"/><path d="M-6 8 L-12 18 L-6 14Z M6 8 L12 18 L6 14Z" fill="#ff5f8f"/><path d="M-4 15 Q0 30 4 15" fill="#ffd23f"/></g>`;
+    if (id === 'sh_boutique') return R(0, 0, 300, 600, '#ffe6f0') + Array.from({ length: 16 }, (_, i) => R(i * 20, 0, 10, 440, '#ffd3e5')).join('') +
+      `<path d="M0 0 H300 V30 H0Z" fill="#ff8fb8"/>` + Array.from({ length: 11 }, (_, i) => `<path d="M${i * 30} 30 a15 14 0 0 0 30 0" fill="${i % 2 ? '#fff' : '#ff8fb8'}"/>`).join('') +
+      `<rect x="92" y="70" width="116" height="200" rx="58" fill="#e8f6ff" stroke="#e9c46a" stroke-width="7"/><path d="M120 110 l30 -20 M130 140 l50 -34" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".8"/>` +
+      `<path d="M12 160 H86" stroke="#b08a5a" stroke-width="4" stroke-linecap="round"/><path d="M16 160 V430 M82 160 V430" stroke="#b08a5a" stroke-width="3"/>` + [[24, '#ff9ec4'], [40, '#8cc8ff'], [56, '#ffe27a'], [72, '#b9f0c8']].map(([x, c]) => `<path d="M${x} 160 q-4 -8 0 -12 q4 2 2 6" fill="none" stroke="#888" stroke-width="1"/><path d="M${x - 8} 172 L${x - 4} 164 H${x + 4} L${x + 8} 172 L${x + 12} 226 H${x - 12}Z" fill="${c}" stroke="${fmx(c, '#000', 0.25)}" stroke-width="1"/>`).join('') +
+      [[222, 180], [222, 260], [222, 340]].map(([x, y], i) => `<rect x="${x}" y="${y}" width="70" height="7" rx="2" fill="#c9a27e"/>` + (i === 0 ? `<path d="M${x + 8} ${y} q6 -22 12 0Z M${x + 24} ${y} h16 v-18 h-16Z M${x + 48} ${y} q8 -20 16 0Z" fill="#ff5f8f" stroke="#c0305a"/><path d="M${x + 22} ${y - 18} q10 -12 20 0" fill="none" stroke="#c0305a" stroke-width="1.5"/>` : i === 1 ? `<path d="M${x + 8} ${y} h22 q2 -10 -8 -12 h-10Z M${x + 38} ${y} h22 q2 -10 -8 -12 h-10Z" fill="#bda4ff" stroke="#7a4fbf"/>` : `<circle cx="${x + 16}" cy="${y - 10}" r="9" fill="#ffe27a" stroke="#c9982e"/><rect x="${x + 36}" y="${y - 22}" width="24" height="22" rx="4" fill="#8cc8ff" stroke="#3f6fd8"/><path d="M${x + 40} ${y - 22} q8 -10 16 0" fill="none" stroke="#3f6fd8" stroke-width="1.5"/>`)).join('') +
+      R(0, 440, 300, 160, grad('bw', [[0, '#e6c49c'], [1, '#c9a27e']])) + Array.from({ length: 6 }, (_, i) => `<path d="M0 ${460 + i * 26} H300" stroke="#b8906e" stroke-width="1" opacity=".5"/>`).join('') +
+      `<ellipse cx="150" cy="552" rx="118" ry="26" fill="#ff9ec4" opacity=".7"/><ellipse cx="150" cy="552" rx="100" ry="18" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="5 4" opacity=".7"/>` +
+      `<path d="M262 440 l-8 -34 h28 l-8 34Z" fill="#fff" stroke="#e0b0c8"/><path d="M268 406 q-16 -30 -2 -48 q4 22 6 48 q4 -30 18 -40 q0 26 -14 40" fill="#6fbf73"/>`;
+    return '';
+  }
+  const both2 = f => f(1) + f(-1);
+
+  // ---------- 👜 the boutique ----------
+  const SHOP_MODEL = { id: 'shmodel', skin: '#f2c8a8', face: 'oval', eyeShape: 'almond', eyeColor: '#6b4226', eyeSize: 1.08, brows: 'soft', lashes: 'long', lipColor: '#ec8f9c', lipStyle: 'gloss', blushStyle: 'rosy', nose: 'small', lips: 'soft',
+    hair: 'wavy', hairColor: '#6e4228', top: 'tshirt', topColor: '#ffffff', topPat: 'plain', bottom: 'jeans', bottomColor: '#9dd8f5', bottomPat: 'plain', dress: 'none', legwear: 'bare', shoes: 'flats', shoeColor: '#ffffff', hat: 'none', glasses: 'none', acc: {}, accColor: '#ff5f8f', scene: 'plain', sceneColor: '#fff1f7' };
+  const SHOP_KEEPER = Object.assign({}, SHOP_MODEL, { id: 'shkeeper', skin: '#e8b48e', hair: 'sleekpony', hairColor: '#2b1e1a', eyeColor: '#3a2418', lipColor: '#e0508a', lashes: 'doll', shadowStyle: 'wash', shadow: '#f7a3c4', top: 'blouse', topColor: '#ffffff', bottom: 'pleated', bottomColor: '#ff5f8f', bottomPat: 'checks', jacket: 'cardigan', jacketColor: '#ffb3cf', shoes: 'maryjanes', shoeColor: '#e0314b', legwear: 'knee', legColor: '#ffffff', acc: { pearls: true, earrings: true, bow: true }, accColor: '#ff5f8f' });
+  const SHOP_CROP = { tops: '60 30 180 190', dresses: '40 40 220 360', bottoms: '66 200 168 250', shoes: '96 430 108 160', bags: '56 100 188 250', hats: '72 -34 156 150', accs: '56 30 188 260', hair: '62 -12 176 272' };
+  const SHOP_ITEM_CROP = { sh_princess: '0 30 300 560', sh_galaxydress: '20 30 260 540', sh_galaxyleggings: '66 200 168 390', sh_rollers: '96 430 108 172', sh_starglasses: '100 36 100 72', sh_boa: '70 90 160 180', sh_wand: '90 190 170 220', sh_balloon: '14 140 236 236', sh_bunnybag: '50 250 170 150', sh_backpack: '50 40 200 240', sh_heartbag: '60 40 180 260' };
+  let shUid = 0, shopFillTok = null;
+  const shImgCache = new Map();
+  // a girl as a light <img> url (cached)
+  const shopImg = (g, opt = {}, crop) => {
+    const k = JSON.stringify([g, opt, crop || '']);
+    let v = shImgCache.get(k);
+    if (!v) { let s = girlSVG(g, 'shi' + (shUid++), opt); if (crop) s = s.replace(/viewBox="[^"]*"/, `viewBox="${crop}"`); v = svgData(s); if (shImgCache.size > 220) shImgCache.clear(); shImgCache.set(k, v); }
+    return v;
+  };
+  const shopSceneURL = (id, vb = '0 40 300 440') => { const defs = [], seen = {}, u = 'shs' + (shUid++); const d = (k, s) => { if (!seen[k]) { seen[k] = 1; defs.push(s); } return `url(#${u}-${k})`; }; const body = fashScene(id, '#ffd9e8', u, d); return svgData(`<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg"><defs>${defs.join('')}</defs>${body}</svg>`); };
+  function shopItemArt(it) {
+    if (it.cat === 'scenes') return shopSceneURL(it.id);
+    const g = JSON.parse(JSON.stringify(SHOP_MODEL));
+    if (it.cat === 'hats' || it.cat === 'hair') g.hair = 'straight';
+    if (['tops', 'dresses', 'bags'].includes(it.cat) || it.id === 'sh_boa') g.hair = 'ponyhigh';
+    Object.assign(g, shopApply(g, it));
+    if (it.cat === 'bags' || it.cat === 'accs') g.accColor = { sh_heartbag: '#ff5f8f', sh_backpack: '#8cc8ff', sh_boa: '#ff9ec4' }[it.id] || g.accColor;
+    return shopImg(g, { bg: false }, SHOP_ITEM_CROP[it.id] || SHOP_CROP[it.cat]);
+  }
+  // the boutique banner: awning, shelves, racks and the shopkeeper
+  const SHOP_BANNER = (() => {
+    const W = 900, H = 230;
+    const dressS = (x, y, c, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 q-4 -8 0 -12 q4 2 2 6" fill="none" stroke="#9a8a9a" stroke-width="1.2"/><path d="M-9 12 L-5 3 H5 L9 12 L15 62 H-15Z" fill="${c}" stroke="${fmx(c, '#000', 0.25)}" stroke-width="1.2"/><path d="M-5 3 Q0 9 5 3" fill="none" stroke="${fmx(c, '#000', 0.25)}" stroke-width="1"/><path d="M-12 40 H12" stroke="#fff" stroke-width="1.5" opacity=".5"/></g>`;
+    const top = (x, y, c) => `<g transform="translate(${x} ${y})"><path d="M0 0 q-4 -8 0 -12 q4 2 2 6" fill="none" stroke="#9a8a9a" stroke-width="1.2"/><path d="M-16 8 L-6 3 Q0 8 6 3 L16 8 L20 20 L12 22 V44 H-12 V22 L-20 20Z" fill="${c}" stroke="${fmx(c, '#000', 0.25)}" stroke-width="1.2"/></g>`;
+    const bag = (x, y, c) => `<g transform="translate(${x} ${y})"><path d="M-8 0 q8 -16 16 0" fill="none" stroke="${fmx(c, '#000', 0.3)}" stroke-width="2"/><rect x="-13" y="0" width="26" height="20" rx="5" fill="${c}" stroke="${fmx(c, '#000', 0.3)}" stroke-width="1.2"/><circle cx="0" cy="8" r="2" fill="#ffd23f"/></g>`;
+    const shoe = (x, y, c) => `<g transform="translate(${x} ${y})"><path d="M-12 0 Q-12 -10 -4 -10 Q2 -4 12 -2 Q14 4 10 4 H-12Z" fill="${c}" stroke="${fmx(c, '#000', 0.3)}" stroke-width="1.2"/><path d="M-12 4 H10" stroke="#fff" stroke-width="2"/></g>`;
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="shbw" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff0f6"/><stop offset="1" stop-color="#ffe0ec"/></linearGradient><linearGradient id="shbf" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e8c8a2"/><stop offset="1" stop-color="#cfa77f"/></linearGradient></defs>` +
+      `<rect width="${W}" height="${H}" fill="url(#shbw)"/>` + Array.from({ length: 45 }, (_, i) => `<rect x="${i * 20}" y="0" width="10" height="${H}" fill="#ffd9e8" opacity=".55"/>`).join('') +
+      `<rect x="0" y="${H - 34}" width="${W}" height="34" fill="url(#shbf)"/>` + Array.from({ length: 10 }, (_, i) => `<path d="M${i * 96} ${H - 34} v34" stroke="#b8906e" opacity=".4"/>`).join('') +
+      // racks
+      [60, 690].map(x0 => `<path d="M${x0} 70 H${x0 + 150}" stroke="#b08a5a" stroke-width="5" stroke-linecap="round"/><path d="M${x0 + 6} 70 V${H - 34} M${x0 + 144} 70 V${H - 34}" stroke="#b08a5a" stroke-width="4"/><path d="M${x0 - 6} ${H - 34} h24 M${x0 + 132} ${H - 34} h24" stroke="#b08a5a" stroke-width="4" stroke-linecap="round"/>` +
+        (x0 < 300 ? [['#ff9ec4', 1], ['#8cc8ff', 0], ['#ffe27a', 1], ['#c3a2ff', 0], ['#9ee493', 1]] : [['#ff5f8f', 0], ['#fff6c4', 1], ['#b9f0c8', 0], ['#bda4ff', 1], ['#ffb86b', 0]]).map(([c, d], i) => d ? dressS(x0 + 22 + i * 27, 82, c) : top(x0 + 22 + i * 27, 82, c)).join('')).join('') +
+      // shelves
+      [[250, 60], [250, 128], [520, 60], [520, 128]].map(([x, y], i) => `<rect x="${x}" y="${y}" width="130" height="7" rx="3" fill="#c9a27e"/>` + (i % 2 ? [shoe(x + 22, y - 2, '#ff5f8f'), shoe(x + 62, y - 2, '#8cc8ff'), shoe(x + 104, y - 2, '#ffe27a')] : [bag(x + 22, y - 20, '#bda4ff'), bag(x + 64, y - 20, '#ff9ec4'), bag(x + 106, y - 20, '#9ee493')]).join('')).join('') +
+      // mirror
+      `<rect x="408" y="40" width="84" height="150" rx="42" fill="#e8f6ff" stroke="#e9c46a" stroke-width="6"/><path d="M428 80 l24 -16 M432 104 l40 -26" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/>` +
+      // awning
+      `<path d="M0 0 H${W} V26 H0Z" fill="#ff7aa8"/>` + Array.from({ length: 30 }, (_, i) => `<path d="M${i * 30} 26 a15 15 0 0 0 30 0" fill="${i % 2 ? '#fff' : '#ff7aa8'}"/><rect x="${i * 30}" y="0" width="15" height="26" fill="#fff" opacity="${i % 2 ? 0 : 0.9}"/>`).join('') +
+      [[230, 180], [860, 170], [30, 150]].map(([x, y]) => `<path d="M${x} ${y - 7} l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2Z" fill="#ffd23f"/>`).join('') + `</svg>`;
+  })();
+  const SHOP_LINES = ['ברוכה הבאה לבוטיק! 💖', 'יש לנו בגדים חדשים ✨', 'את מוזמנת למדוד מול המראה 🪞', 'כל הבגדים מגיעים ישר לסטודיו האופנה 👗', 'אוהבת את הסגנון שלך! 😍'];
+  let shopUI = { cat: 'all', bag: [], tryG: null, girlId: null, msg: '', done: null, focus: null, line: 0 };
+  function openShop(cat, focus) {
+    shopUI.cat = cat && SHOP_CATS.some(c => c[0] === cat) ? cat : shopUI.cat || 'all';
+    shopUI.focus = focus || null; shopUI.msg = ''; shopUI.done = null; shopUI.line = Math.floor(Math.random() * SHOP_LINES.length);
+    if (!shopUI.girlId || !girls.find(g => g.id === shopUI.girlId)) shopUI.girlId = (girls.find(g => g.id === fashSel) || girls[0] || {}).id || null;
+    shopResetTry();
+    drawShop();
+    if (!$('#shopDlg').open) $('#shopDlg').showModal();
+    if (focus) setTimeout(() => { const c = document.querySelector(`#shopDlg [data-id="${focus}"]`); if (c) c.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 60);
+  }
+  function shopResetTry() {
+    const g = girls.find(x => x.id === shopUI.girlId);
+    shopUI.tryG = JSON.parse(JSON.stringify(g || Object.assign({}, SHOP_MODEL, { name: 'דוגמנית' })));
+    shopUI.tryG.scene = shopUI.tryG.scene || 'runway';
+    shopUI.tried = [];
+  }
+  function shopTry(it) {
+    Object.assign(shopUI.tryG, shopApply(shopUI.tryG, it));
+    shopUI.tried = [...(shopUI.tried || []).filter(x => x !== it.id), it.id];
+    shopUI.msg = ''; try { SFX.pop(); } catch {}
+    drawShop();
+    const m = document.querySelector('#shopDlg .sh-mirror'); if (m) { m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash'); }
+  }
+  function shopToBag(it) {
+    if (shopHas(it.id)) return;
+    if (!shopUI.bag.includes(it.id)) shopUI.bag.push(it.id); else shopUI.bag = shopUI.bag.filter(x => x !== it.id);
+    shopUI.done = null; shopUI.msg = ''; try { SFX.ding(); } catch {}
+    drawShop();
+  }
+  const shopKaching = () => { tone(140, 0.08, 'square', 0, 0.06); tone(95, 0.1, 'square', 0.06, 0.05); tone(2637, 0.5, 'sine', 0.16, 0.09); tone(3520, 0.6, 'sine', 0.2, 0.07); tone(2093, 0.4, 'triangle', 0.26, 0.05); };
+  function shopCheckout() {
+    const items = shopUI.bag.map(id => SHOP_BY[id]).filter(it => it && !shopHas(it.id));
+    if (!items.length) return;
+    const total = items.reduce((a, it) => a + shopPrice(it), 0);
+    if (coinsNow() < total) { shopUI.msg = `חסרים לך עוד ${total - coinsNow()} מטבעות 🪙 מרוויחים במשחקים ובתיבת ההפתעה!`; try { SFX.boop(); } catch {} drawShop(); return; }
+    // coins fly from her purse to the register
+    const dlg = $('#shopDlg'), from = dlg.querySelector('.coin-chip'), to = dlg.querySelector('.sh-register');
+    const n = Math.min(12, 3 + Math.round(total / 15));
+    if (from && to && dlg.animate) {
+      const a = from.getBoundingClientRect(), b = to.getBoundingClientRect();
+      for (let i = 0; i < n; i++) {
+        const c = el('span', { class: 'sh-fly', html: SHOP_COIN }); c.style.left = (a.left + a.width / 2 - 13) + 'px'; c.style.top = (a.top + a.height / 2 - 13) + 'px'; dlg.append(c);
+        const dx = b.left + b.width / 2 - a.left - a.width / 2, dy = b.top + b.height / 2 - a.top - a.height / 2;
+        c.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${dx / 2}px, ${dy / 2 - 90}px) scale(1.25) rotate(180deg)`, opacity: 1, offset: 0.5 }, { transform: `translate(${dx}px, ${dy}px) scale(.5) rotate(360deg)`, opacity: 0.3 }], { duration: 700, delay: i * 70, easing: 'ease-in-out', fill: 'forwards' });
+        setTimeout(() => { c.remove(); tone(1800 + i * 60, 0.05, 'square', 0, 0.025); }, 700 + i * 70);
+      }
+    }
+    spendCoins(total, `קניות בבוטיק (${items.length})`);
+    shopOwned = [...shopOwned, ...items.map(it => it.id)]; store.set('shopOwned', shopOwned);
+    shopUI.bag = []; shopUI.msg = '';
+    setTimeout(() => {
+      shopKaching(); shopUI.done = items.map(it => it.id);
+      drawShop();
+      const r = dlg.querySelector('.sh-register'); if (r) r.classList.add('ring');
+      confetti(dlg.querySelector('.confetti-c')); try { SFX.yay(); } catch {}
+      try { if ($('#fashionDlg').open) drawFashion(); } catch {}
+    }, 700 + n * 70);
+  }
+  function shopWearDone() {
+    const g = girls.find(x => x.id === shopUI.girlId); if (!g || !shopUI.done) return;
+    shopUI.done.forEach(id => Object.assign(g, shopApply(g, SHOP_BY[id])));
+    saveGirls(); try { SFX.pop(); } catch {}
+    shopUI.msg = `✔️ ${g.name || 'היא'} לובשת עכשיו את הבגדים החדשים!`;
+    shopResetTry(); drawShop();
+    try { if ($('#fashionDlg').open) drawFashion(); } catch {}
+  }
+  function drawShop() {
+    $('#shopCoinSlot').replaceChildren(coinChip());
+    const sale = shopSale(), S = shopUI;
+    const keeper = shopImg(Object.assign({}, SHOP_KEEPER), { bg: false, pose: { la: 70, lf: -100 } }, '40 -10 220 330');
+    const banner = el('div', { class: 'sh-banner' }, el('div', { class: 'sh-bn-art', html: SHOP_BANNER }), el('img', { class: 'sh-keeper', src: keeper, alt: 'המוכרת' }),
+      el('div', { class: 'sh-bubble' }, el('b', {}, 'שירה המוכרת: '), SHOP_LINES[S.line % SHOP_LINES.length]));
+    const saleBar = el('button', { type: 'button', class: 'sh-sale', onclick: () => openShop(sale.cat, sale.id) }, el('span', { class: 'sh-tag' }, '🏷️ מבצע השבוע'), el('span', {}, `${sale.n}: `), el('s', {}, `${sale.p}`), el('b', {}, ` רק ${shopPrice(sale)} 🪙`), shopHas(sale.id) ? el('span', {}, ' ✔️ כבר שלך') : null);
+    const cats = el('div', { class: 'chips fash-sub sh-cats' }, ...SHOP_CATS.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(S.cat === id), onclick: () => { S.cat = id; S.focus = null; drawShop(); } }, n)));
+    const list = SHOP_ITEMS.filter(it => S.cat === 'all' || it.cat === S.cat);
+    const pending = [];
+    const grid = el('div', { class: 'sh-grid' }, ...list.map(it => {
+      const own = shopHas(it.id), inBag = S.bag.includes(it.id), onSale = sale === it;
+      const img = el('img', { alt: it.n, class: it.cat === 'scenes' ? 'scene' : '' }); pending.push([img, it]);
+      return el('div', { class: 'sh-card' + (own ? ' own' : '') + (S.focus === it.id ? ' focus' : '') + (onSale ? ' onsale' : ''), 'data-id': it.id },
+        onSale ? el('span', { class: 'sh-badge sale' }, '🏷️ מבצע') : null, own ? el('span', { class: 'sh-badge own' }, '✔️ שלך') : null,
+        el('button', { type: 'button', class: 'sh-art' + (it.cat === 'hair' ? ' hair' : ''), 'aria-label': 'למדוד: ' + it.n, onclick: () => shopTry(it) }, img, it.cat === 'hair' ? el('span', { class: 'sh-dot', style: `background:${it.color}` }) : null),
+        el('span', { class: 'sh-name' }, it.n),
+        own ? el('span', { class: 'sh-price muted' }, 'בסטודיו האופנה 👗') : el('span', { class: 'sh-price' }, onSale ? el('s', {}, String(it.p)) : null, el('b', {}, ` ${shopPrice(it)}`), el('span', { class: 'sh-c', html: SHOP_COIN })),
+        el('div', { class: 'sh-btns' }, el('button', { type: 'button', class: 'btn', onclick: () => shopTry(it) }, '🪞 למדוד'),
+          own ? null : el('button', { type: 'button', class: 'btn' + (inBag ? ' main' : ''), onclick: () => shopToBag(it) }, inBag ? '✔️ בסל' : '🛍️ לסל')));
+    }));
+    // fill pictures a few at a time, so the shop opens fast
+    const tok = {}; shopFillTok = tok; let i = 0;
+    const fill = () => { if (shopFillTok !== tok) return; const t = performance.now(); while (i < pending.length && performance.now() - t < 30) { const [im, it] = pending[i++]; try { im.src = shopItemArt(it); } catch { } } if (i < pending.length) setTimeout(fill, 0); };
+    // mirror
+    const tg = S.tryG, gl = girls.length ? el('div', { class: 'chips sh-who' }, ...girls.slice(0, 12).map(g => el('button', { type: 'button', class: 'chip bo-who', 'aria-pressed': String(g.id === S.girlId), onclick: () => { S.girlId = g.id; shopResetTry(); drawShop(); } },
+      el('img', { src: girlImgURL(g, { view: 'head', bg: false }), alt: '' }), g.name || 'בלי שם'))) : el('p', { class: 'muted' }, 'אין עדיין בנות בסטודיו, אז מודדים על הדוגמנית 😊');
+    const triedScene = (S.tried || []).some(id => SHOP_BY[id].cat === 'scenes');
+    const mirror = el('div', { class: 'sh-mirror' }, el('img', { src: shopImg(tg, { bg: triedScene }), alt: 'המראה' }), el('span', { class: 'sh-shine' }));
+    const bagItems = S.bag.map(id => SHOP_BY[id]), total = bagItems.reduce((a, it) => a + shopPrice(it), 0);
+    const register = `<svg viewBox="0 0 64 56" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="24" width="52" height="28" rx="5" fill="#ff8fb8" stroke="#c0305a" stroke-width="2"/><rect x="12" y="6" width="30" height="16" rx="3" fill="#dff4ff" stroke="#3f6fd8" stroke-width="2"/><text x="27" y="18" font-size="10" text-anchor="middle" fill="#1f2a4a" font-family="sans-serif">${total || coinsNow()}</text><path d="M24 22 v4 M32 22 v4" stroke="#c0305a" stroke-width="2"/>` +
+      [0, 1, 2].map(r => [0, 1, 2, 3].map(c => `<rect x="${12 + c * 9}" y="${28 + r * 7}" width="6" height="4.5" rx="1.2" fill="#fff" opacity=".9"/>`).join('')).join('') + `<rect x="48" y="28" width="6" height="18" rx="2" fill="#ffd23f"/><rect x="4" y="50" width="56" height="5" rx="2" fill="#c0305a"/></svg>`;
+    const bag = el('div', { class: 'sh-bag box' }, el('h4', {}, '🛍️ הסל שלי'),
+      S.done ? el('div', { class: 'sh-receipt' }, el('b', {}, '🧾 תודה על הקנייה! 🎉'), ...S.done.map(id => el('span', {}, '✔️ ' + SHOP_BY[id].n)), el('span', { class: 'muted' }, 'הכל מחכה בסטודיו האופנה'),
+        el('div', { class: 'chips' }, girls.find(g => g.id === S.girlId) ? el('button', { type: 'button', class: 'btn main', onclick: shopWearDone }, `👗 להלביש את ${(girls.find(g => g.id === S.girlId) || {}).name || 'הבחורה'}`) : null,
+          el('button', { type: 'button', class: 'btn', onclick: () => { $('#shopDlg').close(); openFashion(); } }, '✨ לסטודיו'))) :
+        bagItems.length ? el('div', { class: 'sh-bag-list' }, ...bagItems.map(it => el('div', { class: 'sh-bag-row' }, el('span', {}, it.n), el('b', {}, `${shopPrice(it)} 🪙`), el('button', { type: 'button', class: 'x', 'aria-label': 'להוציא מהסל', onclick: () => shopToBag(it) }, '✕'))),
+          el('div', { class: 'sh-bag-row total' }, el('span', {}, 'סה"כ'), el('b', {}, `${total} 🪙`))) : el('p', { class: 'muted' }, 'הסל ריק. בוחרים בגדים ולוחצים "🛍️ לסל"'),
+      el('div', { class: 'sh-pay' }, el('span', { class: 'sh-register', html: register }), S.done ? null : el('button', { type: 'button', class: 'btn main', disabled: !bagItems.length, onclick: shopCheckout }, '💳 לקופה')),
+      el('p', { class: 'sh-msg', role: 'status' }, S.msg));
+    const side = el('div', { class: 'sh-side' }, el('h4', { class: 'sh-mt' }, '🪞 המראה: מודדים לפני שקונים'), mirror, gl,
+      (S.tried || []).length ? el('div', { class: 'chips' }, el('span', { class: 'muted' }, `מודדת: ${(S.tried || []).map(id => SHOP_BY[id].n).join(', ')}`), el('button', { type: 'button', class: 'btn', onclick: () => { shopResetTry(); drawShop(); } }, '↩️ להוריד הכל')) : null, bag);
+    $('#shopBody').replaceChildren(banner, saleBar, cats, el('div', { class: 'sh-main' }, el('div', { class: 'sh-shelf' }, grid), side));
+    setTimeout(fill, 0);
+  }
+  $('#shopDlg').addEventListener('close', () => { try { if ($('#fashionDlg').open) drawFashion(); } catch {} });
+
+  // ---------- 🏃‍♀️ fashion run: 3 lanes, collect clothes that fit the theme, then the runway ----------
+  const FR_ITEMS = {
+    partydress: ['שמלת מסיבה', { dress: 'party', dressColor: '#ff5f8f', dressPat: 'plain' }], sundress: ['שמלת קיץ', { dress: 'sundress', dressColor: '#ffd45c', dressPat: 'flowers' }],
+    ballgown: ['שמלת נשף', { dress: 'ballgown', dressColor: '#bda4ff', dressPat: 'plain' }], tutu: ['חצאית טוטו', { bottom: 'tulle', bottomColor: '#ffb3cf', bottomPat: 'plain', dress: 'none' }],
+    shorts: ['ברמודה', { bottom: 'shorts', bottomColor: '#9dd8f5', bottomPat: 'plain', dress: 'none' }], leggings: ['טייץ', { bottom: 'leggings', bottomColor: '#2b2b30', bottomPat: 'plain', dress: 'none' }],
+    tank: ['גופייה', { top: 'tank', topColor: '#ff9b6e', topPat: 'plain', dress: 'none' }], sweater: ['סוודר', { top: 'sweater', topColor: '#e0314b', topPat: 'plain', dress: 'none' }],
+    hoodie: ['קפוצ\'ון', { top: 'hoodie', topColor: '#a8dc8f', topPat: 'plain', dress: 'none' }], puffer: ['מעיל פוך', { jacket: 'puffer', jacketColor: '#3f6fd8', jacketPat: 'plain' }],
+    sunhat: ['כובע קש', { hat: 'sunhat' }], beanie: ['כובע גרב', { hat: 'beanie', hatColor: '#ff5f8f' }], cap: ['כובע מצחייה', { hat: 'cap', hatColor: '#3f6fd8' }], sunglasses: ['משקפי שמש', { glasses: 'sun' }],
+    tiara: ['נזר', { acc: 'tiara' }], earrings: ['עגילים', { acc: 'earrings' }], scarf: ['צעיף', { acc: 'scarf' }], watch: ['שעון', { acc: 'watch' }], pearls: ['פנינים', { acc: 'pearls' }], bow: ['פפיון', { acc: 'bow' }],
+    sandals: ['סנדלים', { shoes: 'sandals', shoeColor: '#c9a27e' }], boots: ['מגפיים', { shoes: 'boots', shoeColor: '#8a5a3c' }], sneakers: ['סניקרס', { shoes: 'sneakers', shoeColor: '#ff5f8f' }], maryjanes: ['נעלי סטרפ', { shoes: 'maryjanes', shoeColor: '#e0314b' }],
+  };
+  const FR_THEMES = [
+    { id: 'party', n: 'מסיבה', e: '🎉', good: ['partydress', 'tutu', 'tiara', 'earrings', 'maryjanes', 'bow', 'pearls'], bad: ['puffer', 'beanie', 'boots', 'hoodie', 'scarf'] },
+    { id: 'beach', n: 'חוף', e: '🏖️', good: ['sundress', 'shorts', 'tank', 'sunhat', 'sunglasses', 'sandals'], bad: ['puffer', 'beanie', 'boots', 'sweater', 'scarf'] },
+    { id: 'snow', n: 'יום שלג', e: '❄️', good: ['puffer', 'beanie', 'sweater', 'scarf', 'boots', 'leggings'], bad: ['sandals', 'tank', 'shorts', 'sunhat', 'sunglasses'] },
+    { id: 'sport', n: 'ספורט', e: '⚽', good: ['leggings', 'tank', 'hoodie', 'cap', 'sneakers', 'watch', 'shorts'], bad: ['ballgown', 'maryjanes', 'tiara', 'partydress', 'pearls'] },
+    { id: 'princess', n: 'נסיכה', e: '👑', good: ['ballgown', 'tiara', 'pearls', 'earrings', 'maryjanes', 'bow'], bad: ['cap', 'hoodie', 'shorts', 'sneakers', 'boots'] },
+  ];
+  // the item list, with the shop pieces she owns
+  function frItems() {
+    const m = {};
+    Object.entries(FR_ITEMS).forEach(([id, [n, p]]) => { m[id] = { id, n, p }; });
+    SHOP_ITEMS.filter(it => shopHas(it.id) && it.th && !['hair', 'scenes'].includes(it.cat)).forEach(it => { m[it.id] = { id: it.id, n: it.n, p: shopKey(it) === 'acc' ? { acc: it.id } : shopApply(SHOP_MODEL, it), shop: 1, th: it.th }; });
+    return m;
+  }
+  const frSlot = p => p.acc ? 'acc_' + p.acc : p.dress && p.dress !== 'none' ? 'dress' : p.top ? 'top' : p.bottom ? 'bottom' : Object.keys(p).find(k => ['jacket', 'hat', 'glasses', 'shoes'].includes(k)) || 'x';
+  const frWear = (g, p) => { if (p.acc) g.acc = Object.assign({}, g.acc, { [p.acc]: true }); else Object.assign(g, p); };
+  const frCrop = p => p.acc ? (['scarf', 'pearls', 'sh_boa', 'sh_heartbag', 'sh_backpack'].includes(p.acc) ? '60 90 180 180' : ['watch', 'sh_wand', 'sh_bunnybag', 'sh_balloon'].includes(p.acc) ? '30 150 240 250' : '72 -34 156 150')
+    : p.dress && p.dress !== 'none' ? '30 40 240 440' : p.top ? '60 30 180 190' : p.bottom ? '66 200 168 250' : p.jacket ? '50 90 200 220' : p.hat ? '72 -34 156 150' : p.glasses ? '96 30 108 90' : p.shoes ? '96 430 108 160' : '0 0 300 600';
+  const frArt = it => { const g = JSON.parse(JSON.stringify(SHOP_MODEL)); g.hair = 'ponyhigh'; frWear(g, JSON.parse(JSON.stringify(it.p))); return shopImg(g, { bg: false }, frCrop(it.p)); };
+  const FR_RUN = [{ la: 38, lf: -80, ra: -30, rf: -85, ll: 14, lk: 26, rl: -8, rk: 8, head: 3 }, { la: -30, lf: -85, ra: 38, rf: -80, ll: -8, lk: 8, rl: 14, rk: 26, head: -3 }, { la: 150, lf: -20, ra: 150, rf: -20, head: -8, ll: 8, rl: 8 }];
+  let frTheme = null;
+  function fashionRunGame() {
+    const body = $('#gamesBody'), W = 640, H = 440, HZ = 120, GY = 418;
+    const cv = el('canvas', { width: W, height: H, 'aria-label': 'ריצת אופנה: עוברים בין שלושה מסלולים' }), ctx = cv.getContext('2d');
+    const info = el('div', { class: 'game-info fr-hud' }), over = el('div', { class: 'fr-over' }), wrap = el('div', { class: 'fr-wrap' }, cv, over);
+    const items = frItems(), th = frTheme = FR_THEMES[Math.floor(Math.random() * FR_THEMES.length)];
+    const good = id => th.good.includes(id) || !!(items[id] && items[id].th && items[id].th.includes(th.id)), bad = id => th.bad.includes(id);
+    const src = girls.find(x => x.id === fashSel) || girls[0] || Object.assign({}, SHOP_MODEL, { name: 'דוגמנית' });
+    const g = Object.assign(JSON.parse(JSON.stringify(src)), { top: 'tshirt', topColor: '#f4ece0', topPat: 'plain', bottom: 'jeans', bottomColor: '#9dd8f5', bottomPat: 'plain', dress: 'none', jacket: 'none', hat: 'none', glasses: 'none', shoes: 'flats', shoeColor: '#ffffff', legwear: 'bare', acc: {}, mermaid: false, scene: 'runway' });
+    const img = u => { const i = new Image(); i.src = u; return i; };
+    let frames = [], frameKey = '';
+    const makeFrames = () => { const k = JSON.stringify(g); if (k === frameKey) return; frameKey = k; const nf = FR_RUN.map(p => img(shopImg(g, { bg: false, pose: p }))); let n = 0; nf.forEach(i => { i.onload = () => { if (++n === nf.length) frames = nf; }; }); if (!frames.length) frames = nf; };
+    const coinImg = img(svgData(SHOP_COIN)), artImg = {};
+    const itemImg = id => artImg[id] || (artImg[id] = img(frArt(items[id])));
+    const ids = Object.keys(items), goodIds = ids.filter(good), otherIds = ids.filter(id => !good(id));
+    goodIds.slice(0, 6).forEach(itemImg);
+    // state
+    let objs = [], lane = 1, lx = 1, dist = 0, speed = 5, T = 0, left = 40, hearts = 3, coinsC = 0, hurt = 0, run = false, done = false, raf = 0, last = 0, spawnAt = 4, floaters = [], sparks = [];
+    const wear = {}, worn = [];
+    const drawInfo = () => info.replaceChildren(el('span', { class: 'fc-theme' }, `${th.e} ${th.n}`), el('span', {}, '❤️'.repeat(hearts) + '🤍'.repeat(3 - hearts)), el('span', {}, `🪙 ${coinsC}`),
+      el('span', {}, `👗 ${Object.values(wear).filter(good).length}`), el('span', {}, `⏱️ ${Math.ceil(left)}`), games.frunBest ? el('span', {}, `🏆 ${games.frunBest}`) : null);
+    const P = d => { const t = 1 / (1 + Math.max(-0.9, d) * 0.34); return { t, y: HZ + (GY - HZ) * t }; };
+    const laneX = (l, t) => W / 2 + (l - 1) * 170 * t;
+    const spawn = () => {
+      const r = Math.random(), lanes = [0, 1, 2].sort(() => Math.random() - 0.5);
+      if (r < 0.55) { const id = Math.random() < 0.62 ? gcRnd(goodIds) : gcRnd(otherIds); objs.push({ k: 'gate', id, l: lanes[0], d: 14 }); itemImg(id);
+        if (Math.random() < 0.5) objs.push({ k: Math.random() < 0.5 ? 'puddle' : 'cone', l: lanes[1], d: 14 });
+        else { const id2 = Math.random() < 0.5 ? gcRnd(goodIds) : gcRnd(otherIds); if (id2 !== id) { objs.push({ k: 'gate', id: id2, l: lanes[1], d: 14 }); itemImg(id2); } } }
+      else if (r < 0.8) { const l = lanes[0]; [0, 1.1, 2.2].forEach(dd => objs.push({ k: 'coin', l, d: 14 + dd })); objs.push({ k: Math.random() < 0.5 ? 'puddle' : 'cone', l: lanes[1], d: 14.6 }); }
+      else { objs.push({ k: 'puddle', l: lanes[0], d: 14 }); objs.push({ k: 'cone', l: lanes[1], d: 15.5 }); }
+    };
+    const say = (text, col = '#fff') => floaters.push({ text, col, t: 0, x: laneX(lane, 1), y: 190 });
+    const collect = o => {
+      if (o.k === 'coin') { coinsC++; tone(1760, 0.06, 'square', 0, 0.03); tone(2349, 0.1, 'square', 0.05, 0.03); sparks.push(...Array.from({ length: 6 }, () => ({ x: laneX(o.l, 1), y: 330, vx: (Math.random() - 0.5) * 160, vy: -Math.random() * 180, t: 0, c: '#ffd23f' }))); }
+      else if (o.k === 'gate') {
+        const it = items[o.id], p = JSON.parse(JSON.stringify(it.p)), s = frSlot(p);
+        if (s === 'dress') { delete wear.top; delete wear.bottom; } if (s === 'top' || s === 'bottom') { delete wear.dress; }
+        wear[s] = o.id; frWear(g, p); makeFrames();
+        if (good(o.id)) { say(`✨ ${it.n}! מתאים ל${th.n}`, '#ffe27a'); SFX.ding(); } else if (bad(o.id)) { say(`🙈 ${it.n}? לא ל${th.n}...`, '#ffb3c0'); SFX.boop(); } else { say(`👗 ${it.n}`, '#fff'); SFX.pop(); }
+        sparks.push(...Array.from({ length: 14 }, () => ({ x: laneX(o.l, 1), y: 260 + Math.random() * 80, vx: (Math.random() - 0.5) * 260, vy: -60 - Math.random() * 200, t: 0, c: good(o.id) ? '#ffe27a' : '#ff9ec4' })));
+      } else if (!hurt) {
+        hearts--; hurt = 1.1; say(o.k === 'puddle' ? '💦 שלולית!' : '🚧 אופס!', '#9ef0ff'); tone(160, 0.18, 'sawtooth', 0, 0.05); tone(110, 0.2, 'sawtooth', 0.1, 0.05);
+        if (hearts <= 0) setTimeout(finish, 600);
+      }
+      drawInfo();
+    };
+    // ---- drawing ----
+    const star = (x, y, r, c) => { ctx.fillStyle = c; ctx.beginPath(); for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, q = i % 2 ? r * 0.45 : r; ctx.lineTo(x + q * Math.cos(a), y + q * Math.sin(a)); } ctx.fill(); };
+    const drawBg = () => {
+      let gr = ctx.createLinearGradient(0, 0, 0, HZ + 10); gr.addColorStop(0, '#1d1036'); gr.addColorStop(1, '#5a2a7a'); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, HZ + 10);
+      for (let i = 0; i < 26; i++) { ctx.fillStyle = `rgba(255,255,255,${0.3 + (i % 3) * 0.2})`; ctx.fillRect((i * 97) % W, (i * 37) % (HZ - 20), 2, 2); }
+      [[80, '#ff5fd8'], [320, '#ffe27a'], [560, '#5fd8ff']].forEach(([x, c], i) => { ctx.globalAlpha = 0.14 + 0.06 * Math.sin(T * 2 + i); ctx.fillStyle = c; ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x - 90 + Math.sin(T + i) * 40, H); ctx.lineTo(x + 90 + Math.sin(T + i) * 40, H); ctx.fill(); ctx.globalAlpha = 1; });
+      // arch far away with the theme
+      ctx.fillStyle = '#ff9ec4'; ctx.fillRect(W / 2 - 64, HZ - 44, 8, 46); ctx.fillRect(W / 2 + 56, HZ - 44, 8, 46); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.roundRect ? ctx.roundRect(W / 2 - 74, HZ - 62, 148, 26, 13) : ctx.rect(W / 2 - 74, HZ - 62, 148, 26); ctx.fill();
+      ctx.fillStyle = '#c0306a'; ctx.font = '17px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(`${th.e} ${th.n} ${th.e}`, W / 2, HZ - 48);
+      // crowd
+      for (let s = -1; s <= 1; s += 2) for (let k = 0; k < 9; k++) { const t = 0.25 + k * 0.1, y = HZ + (GY - HZ) * t, x = W / 2 + s * (60 + 300 * t), r = 7 + 14 * t, j = Math.abs(Math.sin(T * 6 + k)) * 4 * t; ctx.fillStyle = k % 2 ? '#2a1640' : '#351c52'; ctx.beginPath(); ctx.arc(x + s * 30 * t, y - r * 2.2 - j, r, 0, 7); ctx.fill(); ctx.beginPath(); ctx.ellipse(x + s * 30 * t, y - j, r * 1.5, r * 1.3, 0, Math.PI, 0); ctx.fill(); }
+      // runway
+      const road = t => 36 + 270 * t;
+      gr = ctx.createLinearGradient(0, HZ, 0, H); gr.addColorStop(0, '#f6c2dc'); gr.addColorStop(1, '#ffe6f2'); ctx.fillStyle = gr;
+      ctx.beginPath(); ctx.moveTo(W / 2 - road(0.02), HZ); ctx.lineTo(W / 2 + road(0.02), HZ); ctx.lineTo(W / 2 + road(1.1), H); ctx.lineTo(W / 2 - road(1.1), H); ctx.fill();
+      ctx.strokeStyle = '#ffd23f'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(W / 2 - road(0.02), HZ); ctx.lineTo(W / 2 - road(1.1), H); ctx.moveTo(W / 2 + road(0.02), HZ); ctx.lineTo(W / 2 + road(1.1), H); ctx.stroke();
+      // moving lane dashes and bulbs
+      for (let k = 0; k < 16; k++) { const d0 = k * 1.4 - (dist % 1.4), a = P(d0), b = P(d0 + 0.6); if (a.t < 0.12) continue;
+        ctx.strokeStyle = 'rgba(255,255,255,.85)'; [0.5, 1.5].forEach(l => { ctx.lineWidth = 1 + 4 * a.t; ctx.beginPath(); ctx.moveTo(laneX(l, a.t), a.y); ctx.lineTo(laneX(l, b.t), b.y); ctx.stroke(); });
+        [-1, 1].forEach(s => { ctx.fillStyle = k % 2 ? '#ffe27a' : '#ff9ef0'; ctx.beginPath(); ctx.arc(W / 2 + s * (road(a.t) + 4 * a.t), a.y, 2 + 5 * a.t, 0, 7); ctx.fill(); }); }
+    };
+    const drawObj = o => {
+      const { t, y } = P(o.d), x = laneX(o.l, t), s = t;
+      if (o.k === 'coin') { const w = 34 * s * (0.7 + 0.3 * Math.abs(Math.cos(T * 4 + o.d))); ctx.drawImage(coinImg, x - w / 2, y - 60 * s - 17 * s, w, 34 * s); return; }
+      if (o.k === 'puddle') { ctx.fillStyle = 'rgba(80,150,230,.75)'; ctx.beginPath(); ctx.ellipse(x, y - 6 * s, 62 * s, 16 * s, 0, 0, 7); ctx.fill(); ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 2 * s; ctx.beginPath(); ctx.ellipse(x - 10 * s, y - 8 * s, 26 * s, 6 * s, 0, 0, 7); ctx.stroke(); ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.beginPath(); ctx.ellipse(x + 26 * s, y - 10 * s, 7 * s, 2.5 * s, 0, 0, 7); ctx.fill(); return; }
+      if (o.k === 'cone') { ctx.fillStyle = '#ff7a2a'; ctx.beginPath(); ctx.moveTo(x, y - 70 * s); ctx.lineTo(x + 24 * s, y - 8 * s); ctx.lineTo(x - 24 * s, y - 8 * s); ctx.fill(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.moveTo(x - 12.5 * s, y - 38 * s); ctx.lineTo(x + 12.5 * s, y - 38 * s); ctx.lineTo(x + 16.5 * s, y - 28 * s); ctx.lineTo(x - 16.5 * s, y - 28 * s); ctx.fill(); ctx.fillStyle = '#d95a1a'; ctx.fillRect(x - 32 * s, y - 10 * s, 64 * s, 10 * s); return; }
+      // clothing gate: posts, a banner, and the piece in a bubble
+      const gd = good(o.id), w = 70 * s, hh = 150 * s;
+      ctx.fillStyle = gd ? '#ffd23f' : '#ff9ec4'; ctx.fillRect(x - w - 5 * s, y - hh, 10 * s, hh); ctx.fillRect(x + w - 5 * s, y - hh, 10 * s, hh);
+      ctx.fillStyle = gd ? '#fff4c4' : '#fff'; ctx.strokeStyle = gd ? '#e0a820' : '#ff7aa8'; ctx.lineWidth = 3 * s; ctx.beginPath(); ctx.arc(x, y - hh + 8 * s, 50 * s, 0, 7); ctx.fill(); ctx.stroke();
+      if (gd) { ctx.globalAlpha = 0.5 + 0.5 * Math.sin(T * 8); [[-52, -40], [52, -30], [0, -100]].forEach(([dx, dy]) => star(x + dx * s, y - hh + 8 * s + dy * s, 9 * s, '#fff')); ctx.globalAlpha = 1; }
+      const im = artImg[o.id]; if (im && im.complete && im.naturalWidth) { const r = Math.min(80 * s / im.naturalWidth, 80 * s / im.naturalHeight); ctx.save(); ctx.beginPath(); ctx.arc(x, y - hh + 8 * s, 46 * s, 0, 7); ctx.clip(); ctx.drawImage(im, x - im.naturalWidth * r / 2, y - hh + 8 * s - im.naturalHeight * r / 2, im.naturalWidth * r, im.naturalHeight * r); ctx.restore(); }
+    };
+    const drawGirl = () => {
+      const x = laneX(lx, 1), fr = frames[hurt > 0 ? 2 : Math.floor(T * 7) % 2], bob = run ? Math.abs(Math.sin(T * 11)) * 7 : 0;
+      ctx.fillStyle = 'rgba(40,10,40,.25)'; ctx.beginPath(); ctx.ellipse(x, GY + 4, 40, 9, 0, 0, 7); ctx.fill();
+      if (fr && fr.complete && fr.naturalWidth) { ctx.globalAlpha = hurt > 0 && Math.floor(T * 14) % 2 ? 0.45 : 1; ctx.drawImage(fr, x - 58, GY - 232 - bob, 116, 232); ctx.globalAlpha = 1; }
+    };
+    const frame = now => {
+      const dt = Math.min(0.05, (now - (last || now)) / 1000); last = now;
+      if (run) {
+        T += dt; left -= dt; speed = 5 + (40 - left) * 0.1; dist += speed * dt; hurt = Math.max(0, hurt - dt);
+        lx += (lane - lx) * Math.min(1, dt * 14);
+        objs.forEach(o => { const before = o.d; o.d -= speed * dt; if (!o.hit && before > 0.25 && o.d <= 0.25 && o.l === lane) { o.hit = 1; collect(o); } });
+        objs = objs.filter(o => o.d > -0.85 && !(o.hit && o.k !== 'puddle' && o.k !== 'cone'));
+        spawnAt -= speed * dt; if (spawnAt <= 0) { spawn(); spawnAt = 4.6 + Math.random() * 2; }
+        if (Math.floor(left) !== Math.floor(left + dt)) drawInfo();
+        if (left <= 0) { finish(); return; }
+      }
+      drawBg();
+      [...objs].sort((a, b) => b.d - a.d).filter(o => o.d > 0).forEach(drawObj);
+      drawGirl();
+      objs.filter(o => o.d <= 0).forEach(drawObj);
+      sparks = sparks.filter(p => (p.t += dt) < 0.8); sparks.forEach(p => { p.x += p.vx * dt; p.y += p.vy * dt; p.vy += 400 * dt; ctx.globalAlpha = 1 - p.t / 0.8; star(p.x, p.y, 6, p.c); ctx.globalAlpha = 1; });
+      floaters = floaters.filter(f => (f.t += dt) < 1.4); floaters.forEach(f => { ctx.globalAlpha = Math.min(1, 2 * (1.4 - f.t)); ctx.font = '26px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.lineWidth = 5; ctx.strokeStyle = '#3a1050'; ctx.strokeText(f.text, W / 2, 170 - f.t * 30); ctx.fillStyle = f.col; ctx.fillText(f.text, W / 2, 170 - f.t * 30); ctx.globalAlpha = 1; });
+      raf = requestAnimationFrame(frame);
+    };
+    const move = d => { if (!run) return; const n = Math.max(0, Math.min(2, lane + d)); if (n !== lane) { lane = n; tone(660 + n * 110, 0.05, 'triangle', 0, 0.05); } };
+    const keysOff = addKeys(e => { if (['ArrowLeft', 'a', 'A'].includes(e.key)) { move(-1); e.preventDefault(); } if (['ArrowRight', 'd', 'D'].includes(e.key)) { move(1); e.preventDefault(); } });
+    let px = null;
+    cv.addEventListener('pointerdown', e => { px = e.clientX; });
+    cv.addEventListener('pointerup', e => { if (px == null) return; const dx = e.clientX - px, r = cv.getBoundingClientRect(); px = null; if (Math.abs(dx) > 25) move(dx > 0 ? 1 : -1); else move(e.clientX - r.left < r.width / 2 ? -1 : 1); });
+    const stop = () => { cancelAnimationFrame(raf); keysOff(); run = false; };
+    catchStop = stop;
+    function finish() {
+      if (done) return; done = true; stop(); catchStop = null;
+      const wornIds = Object.values(wear), nG = wornIds.filter(good).length, nB = wornIds.filter(bad).length;
+      const ratio = Math.max(0, Math.min(1, (nG - nB * 0.8) / 5)), stars = [0, 1, 2].map(i => Math.max(1, Math.min(5, Math.round(1 + ratio * 4 + (i - 1) * 0.3 + (Math.random() - 0.5) * 0.6))));
+      const pts = Math.max(0, nG * 100 - nB * 40 + coinsC * 10 + hearts * 30), best = pts > (games.frunBest || 0), reward = Math.min(40, 4 + nG * 4 + Math.floor(coinsC / 2));
+      if (best) games.frunBest = pts; games.frunPlays = (games.frunPlays || 0) + 1; store.set('games', games);
+      const say = n => n >= 5 ? 'מושלם! ✨' : n === 4 ? 'יפה מאוד! 💖' : n === 3 ? 'נחמד! 😊' : n === 2 ? 'אפשר עוד קצת...' : 'אופס 🙈';
+      const judges = [[petArt(), petNm()], [girlSVG(Object.assign({}, JUDGE_GIRL), 'frj' + (shUid++), { view: 'head', bg: false }), 'המעצבת נועה'], [girlSVG(SHOP_KEEPER, 'frk' + (shUid++), { view: 'head', bg: false }), 'שירה מהבוטיק']];
+      const model = Object.assign({}, g, { scene: 'runway' });
+      body.replaceChildren(el('p', { class: 'muted' }, `${th.e} הנושא: ${th.n}. ${src.name || 'היא'} עולה למסלול, והשופטות מחליטות!`),
+        el('div', { class: 'fr-show' }, el('div', { class: 'fr-model' }, el('img', { src: shopImg(model, { pose: { la: 35, lf: 80, ra: 35, rf: 80, head: 5 } }), alt: '' })),
+          el('div', { class: 'fr-sum' }, el('div', { class: 'fc-total' }, `${pts} נקודות`), best && pts > 0 ? el('b', { class: 'fr-best' }, '🏆 שיא חדש!') : null,
+            el('div', { class: 'fr-worn' }, ...(wornIds.length ? wornIds.map(id => el('span', { class: good(id) ? 'good' : bad(id) ? 'bad' : '' }, (good(id) ? '✔️ ' : bad(id) ? '✖️ ' : '') + items[id].n)) : [el('span', {}, 'לא אספה בגדים 🙈')])),
+            el('p', { class: 'muted' }, `🪙 אספת ${coinsC} מטבעות בדרך · ${'❤️'.repeat(hearts) || '💔'}`), el('p', { class: 'fr-prize' }, `קיבלת ${reward} מטבעות! 🪙`),
+            el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: fashionRunGame }, '🔁 עוד ריצה'),
+              el('button', { type: 'button', class: 'btn', onclick: e => { outfits.unshift({ id: 'o' + Date.now().toString(36), name: `${th.e} ${th.n} (ריצת אופנה)`, o: outfitOf(g) }); if (!store.set('outfits', outfits)) outfits.shift(); e.target.disabled = true; e.target.textContent = '✔️ נשמר בארון'; SFX.ding(); } }, '💾 לשמור בארון')))),
+        el('div', { class: 'fc-judges fr-judges' }, ...stars.map((n, i) => el('div', { class: 'fc-judge', style: `animation-delay:${i * 0.35}s` }, el('span', { class: 'ic', html: judges[i][0] }), el('b', {}, judges[i][1]), el('span', { class: 'fc-stars' }, '⭐'.repeat(n) + '☆'.repeat(5 - n)), el('span', { class: 'fc-say' }, say(n))))));
+      try { $('#gamesBody').scrollIntoView({ block: 'start', behavior: 'smooth' }); } catch {}
+      [0, 1, 2].forEach(i => setTimeout(() => tone(660 + stars[i] * 90, 0.18, 'triangle'), 350 * i));
+      if (stars.reduce((a, b) => a + b, 0) >= 11) { SFX.yay(); confetti($('#gamesDlg .confetti-c')); }
+      setTimeout(() => addCoins(reward, 'ריצת אופנה 🏃‍♀️'), 1100);
+      try { afterChange(); } catch {}
+    }
+    const start = () => { over.hidden = true; run = true; try { wrap.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch {} last = 0; drawInfo(); tone(523, 0.1, 'triangle'); tone(784, 0.2, 'triangle', 0.1); };
+    over.replaceChildren(el('div', { class: 'fr-theme' }, `${th.e} ${th.n} ${th.e}`), el('b', {}, `רצים על המסלול ואוספים בגדים שמתאימים ל${th.n}!`),
+      el('div', { class: 'fr-want' }, ...goodIds.slice(0, 6).map(id => el('img', { src: frArt(items[id]), alt: items[id].n, title: items[id].n }))),
+      el('span', { class: 'fr-keys' }, 'מחליפים מסלול עם החצים ⬅️ ➡️, או מחליקים / לוחצים על הצד. נזהרים משלוליות ומקונוסים!'),
+      el('button', { type: 'button', class: 'btn main', style: 'font-size:1.3em', onclick: start }, '🏃‍♀️ לרוץ!'));
+    makeFrames(); drawInfo();
+    body.replaceChildren(el('p', { class: 'muted' }, 'כל בגד שעוברים דרכו - היא לובשת מיד! בסוף השופטות נותנות כוכבים לפי הנושא, ומקבלים מטבעות 🪙'), info, wrap,
+      el('div', { class: 'fr-pad' }, el('button', { type: 'button', class: 'btn', 'aria-label': 'שמאלה', onclick: () => move(-1) }, '⬅️'), el('button', { type: 'button', class: 'btn', 'aria-label': 'ימינה', onclick: () => move(1) }, '➡️')));
+    raf = requestAnimationFrame(frame);
+  }
+
+  // ---------- 🎤 pop star: notes fall in 4 lanes, hit them on the beat (D F J K or tap) ----------
+  const PS_SONGS = [
+    { id: 's1', n: 'כוכבת קטנה', e: '⭐', d: 'קל', bpm: 92, travel: 1900, bass: ['C3', 'G2', 'A2', 'F2'], rep: 2,
+      mel: 'E5 G5 A5 G5 | E5 C5 D5:2 | E5 G5 A5 C6 | A5:2 G5:2 | F5 A5 G5 E5 | D5 E5 C5:2 | D5 E5 G5 E5 | D5:2 C5:2' },
+    { id: 's2', n: 'ריקוד בחלון', e: '💃', d: 'בינוני', bpm: 108, travel: 1600, bass: ['A2', 'F2', 'C3', 'G2'], rep: 2,
+      mel: 'C5:.5 D5:.5 E5 G5 E5 | D5:.5 C5:.5 D5 A4:2 | C5:.5 D5:.5 E5 G5 A5 | G5:.5 E5:.5 G5 D5:2 | E5:.5 F5:.5 G5 A5 G5 | E5:.5 D5:.5 C5 A4:2 | C5:.5 E5:.5 D5 G5:.5 E5:.5 D5 | C5:2 -:2' },
+    { id: 's3', n: 'אורות הבמה', e: '🌟', d: 'קשה', bpm: 124, travel: 1350, bass: ['C3', 'F2', 'A2', 'G2'], rep: 2,
+      mel: 'G4+C5 E5:.5 G5:.5 A5 G5:.5 E5:.5 | F4+A4 C5:.5 D5:.5 E5 D5:.5 C5:.5 | E5:.5 G5:.5 C6:.5 G5:.5 A5 G5 | F5:.5 E5:.5 D5:.5 E5:.5 C5+G5:2 | A4+E5 G5:.5 A5:.5 C6 A5:.5 G5:.5 | F4+C5 A5:.5 G5:.5 F5 E5:.5 D5:.5 | E5:.5 E5:.5 G5:.5 G5:.5 A5:.5 A5:.5 C6 | G4+D5:2 C5+E5:2' },
+  ];
+  const PS_COL = ['#ff5fa2', '#b37bff', '#3fb6ff', '#3fd6a0'], PS_KEYS = ['D', 'F', 'J', 'K'], PS_CODES = ['KeyD', 'KeyF', 'KeyJ', 'KeyK'];
+  const PS_POSES = [{ la: -20, lf: 145 }, { la: -20, lf: 145, ra: 150, rf: -15, head: -4 }, { la: -20, lf: 145, ra: 60, rf: -70, ll: 10, lk: 26, head: 6 }, { la: -20, lf: 145, ra: -25, rf: 85, rl: 12, rk: 28, head: -6 }, { la: 150, lf: -20, ra: 150, rf: -20, head: 4, ll: 6, rl: 6 }, { la: -20, lf: 145, ra: 110, rf: -50, ll: -5, rl: 8, head: 3 }];
+  const psFreq = n => { const m = /^([A-G])(#?)(\d)$/.exec(n); if (!m) return 0; const k = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 }[m[1]] + (m[2] ? 1 : 0); return 440 * 2 ** ((k + (+m[3] - 4) * 12 - 9) / 12); };
+  function psNotes(song) {
+    const out = []; let b = 0;
+    for (let r = 0; r < (song.rep || 1); r++) song.mel.split(/\s+/).filter(t => t && t !== '|').forEach(tok => { const [p, d] = tok.split(':'), len = d ? +d : 1; if (p !== '-') p.split('+').forEach(n => out.push({ b, f: psFreq(n), len })); b += len; });
+    const fs = [...new Set(out.map(n => n.f))].sort((a, b2) => a - b2);
+    out.forEach(n => { n.lane = Math.min(3, Math.floor(fs.indexOf(n.f) * 4 / fs.length)); });
+    out.forEach((n, i) => { const o = out[i - 1]; if (o && o.b === n.b && o.lane === n.lane) n.lane = n.lane < 3 ? n.lane + 1 : n.lane - 1; });
+    return { notes: out, beats: b };
+  }
+  const psBest = () => (games.popBest = games.popBest || {});
+  function popStarGame() {
+    const body = $('#gamesBody'), B = psBest();
+    const unlocked = i => i === 0 || ((B[PS_SONGS[i - 1].id] || {}).stars || 0) >= 1;
+    body.replaceChildren(el('p', { class: 'muted' }, 'הבחורה שלך על הבמה! 🎤 תווים יורדים ב-4 מסלולים. לוחצים D F J K (או על הכפתורים) בדיוק כשהתו מגיע לקו. כל תו בזמן = ריקוד, קומבו ומחיאות כפיים!'),
+      design.sound ? null : el('p', { class: 'store-warn' }, '🔇 הצלילים כבויים - אפשר לשחק עם האורות שמהבהבים בקצב. כדאי להדליק 🔊 למעלה!'),
+      el('div', { class: 'ps-songs' }, ...PS_SONGS.map((s, i) => { const b = B[s.id] || {}, ok = unlocked(i);
+        return el('button', { type: 'button', class: 'ps-song' + (ok ? '' : ' locked'), onclick: () => ok ? psPlay(i) : (SFX.boop(), toast(stickerHTML('star'), 'צריך לפחות כוכב אחד בשיר הקודם ⭐')) },
+          el('span', { class: 'e' }, ok ? s.e : '🔒'), el('b', {}, s.n), el('span', { class: 'd' }, `${'🎵'.repeat(i + 1)} ${s.d} · ${s.bpm} פעימות`), el('span', {}, b.stars != null ? '⭐'.repeat(b.stars) + '☆'.repeat(3 - b.stars) : '☆☆☆'), b.score ? el('span', { class: 'd' }, `🏆 ${b.score}`) : null); })));
+  }
+  function psPlay(idx) {
+    const song = PS_SONGS[idx], { notes } = psNotes(song), mspb = 60000 / song.bpm, body = $('#gamesBody');
+    const W = 400, H = 420, HY = 360, TR = song.travel;
+    const src = girls.find(x => x.id === fashSel) || girls[0] || Object.assign({}, SHOP_MODEL, { name: 'כוכבת' });
+    const g = Object.assign(JSON.parse(JSON.stringify(src)), { mermaid: false, acc: Object.assign({}, src.acc, { sh_mic: true, sh_balloon: false, sh_wand: false, sh_bunnybag: false }) });
+    const poses = PS_POSES.map(p => shopImg(g, { bg: false, pose: p }));
+    const cv = el('canvas', { width: W, height: H, 'aria-label': 'מסלולי התווים' }), ctx = cv.getContext('2d');
+    const girlImg = el('img', { class: 'ps-girl', src: poses[0], alt: src.name || '' }), say = el('div', { class: 'ps-say' });
+    const crowdE = ['🙋‍♀️', '👧', '🧒', '👦', '🙋', '👧🏽', '🧒🏻'];
+    const crowd = el('div', { class: 'ps-crowd' }, ...crowdE.slice(0, 3).map(e => el('span', {}, e)), el('span', {}, el('img', { src: svgData(petArt()), alt: '' })), ...crowdE.slice(3).map(e => el('span', {}, e)));
+    const stage = el('div', { class: 'ps-stage' }, ...['#ff5fd8', '#5fd8ff', '#ffe27a', '#9e7bff'].map((c, i) => { const b = el('div', { class: 'ps-beam' }); b.style.setProperty('--c', c); b.style.left = `${8 + i * 24}%`; b.style.animationDelay = `${-i * 0.7}s`; return b; }),
+      el('div', { class: 'ps-lights' }, ...[0, 1, 2, 3, 4, 5].map(i => { const l = el('span', { class: 'ps-light' }); l.style.setProperty('--c', PS_COL[i % 4]); return l; })), el('div', { class: 'ps-floor' }), girlImg, crowd, say);
+    const info = el('div', { class: 'game-info' });
+    const pads = el('div', { class: 'ps-pads' }, ...PS_KEYS.map((k, i) => { const b = el('button', { type: 'button', 'aria-label': 'מסלול ' + k, onpointerdown: e => { e.preventDefault(); hit(i); } }, k); b.style.setProperty('--c', PS_COL[i]); return b; }));
+    let t0 = 0, raf = 0, sched = 0, schedT = 0, lastBeat = -99, pose = 0, score = 0, combo = 0, maxC = 0, nP = 0, nG = 0, nM = 0, flash = [0, 0, 0, 0], fx = [], over = false, sayT = 0;
+    const endMs = (Math.max(...notes.map(n => n.b + n.len))) * mspb;
+    const drawInfo = () => info.replaceChildren(el('span', { class: 'fc-theme' }, `${song.e} ${song.n}`), el('span', {}, `✨ ${score}`), el('span', {}, `🔥 קומבו ${combo}`), el('span', {}, `✔️ ${nP + nG}/${notes.length}`));
+    const shout = (txt, col) => { say.textContent = txt; say.style.color = col || '#fff'; say.classList.remove('pop'); void say.offsetWidth; say.classList.add('pop'); sayT = performance.now(); };
+    const cheer = () => { crowd.classList.remove('cheer'); void crowd.offsetWidth; crowd.classList.add('cheer'); [784, 988, 1175, 1568].forEach((f, i) => tone(f, 0.12, 'triangle', i * 0.05, 0.05)); shout(`🔥 ${combo} ברצף! הקהל משתגע!`, '#ffe27a'); };
+    const dance = () => { pose = (pose % (poses.length - 1)) + 1; girlImg.src = poses[combo && combo % 10 === 0 ? 4 : pose]; };
+    function hit(l) {
+      if (over || !t0) return;
+      flash[l] = 1; const b = pads.children[l]; b.classList.add('on'); setTimeout(() => b.classList.remove('on'), 110);
+      const t = performance.now() - t0; let best = null, bd = 1e9;
+      notes.forEach(n => { if (!n.done && n.lane === l) { const d = Math.abs(n.b * mspb - t); if (d < bd) { bd = d; best = n; } } });
+      if (!best || bd > 150) return;
+      best.done = bd <= 70 ? 'p' : 'g'; combo++; maxC = Math.max(maxC, combo);
+      if (best.done === 'p') { nP++; score += 100 + Math.min(combo, 50) * 2; shout('מושלם! ✨', '#ffe27a'); } else { nG++; score += 50 + Math.min(combo, 50); shout('טוב! 👍', '#9ef0ff'); }
+      fx.push({ l, t: 0, c: PS_COL[l], p: best.done === 'p' });
+      dance(); if (combo % 10 === 0) cheer(); drawInfo();
+    }
+    const schedule = () => {
+      if (!design.sound) return;
+      const now = performance.now(), until = now + 260;
+      const at = ms => Math.max(0, (t0 + ms - now) / 1000);
+      while (sched < notes.length && t0 + notes[sched].b * mspb < until) { const n = notes[sched++]; tone(n.f, Math.min(0.9, n.len * mspb / 1000 * 0.9), 'triangle', at(n.b * mspb), 0.09); tone(n.f * 2, 0.08, 'sine', at(n.b * mspb), 0.02); }
+      while (t0 + schedT * mspb < until && schedT * mspb <= endMs) { const b = schedT, bar = Math.floor(b / 4), w = at(b * mspb);
+        if (b < 0) tone(b === -1 ? 1320 : 990, 0.06, 'square', w, 0.04);
+        else { tone(3200, 0.03, 'square', w, 0.012); if (b % 2 === 0) tone(psFreq(song.bass[bar % song.bass.length]), mspb / 1000 * 1.6, 'sine', w, 0.11); if (b % 4 === 2) tone(180, 0.08, 'triangle', w, 0.06); }
+        schedT++; }
+    };
+    const frame = () => {
+      const now = performance.now(), t = now - t0, beat = t / mspb;
+      schedule();
+      if (Math.floor(beat) !== lastBeat) { lastBeat = Math.floor(beat); stage.classList.add('beat'); setTimeout(() => stage.classList.remove('beat'), 110); if (beat < 0) shout(String(-lastBeat), '#fff'); else if (lastBeat === 0) shout('🎤 שרים!', '#ff9ef0'); }
+      if (sayT && now - sayT > 700) { say.textContent = ''; sayT = 0; }
+      notes.forEach(n => { if (!n.done && t - n.b * mspb > 150) { n.done = 'm'; nM++; if (combo >= 5) shout('פספוס 💨', '#ffb3c0'); combo = 0; drawInfo(); } });
+      // draw
+      ctx.clearRect(0, 0, W, H);
+      const gr = ctx.createLinearGradient(0, 0, 0, H); gr.addColorStop(0, '#12062a'); gr.addColorStop(1, '#2a0f4a'); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+      for (let l = 0; l < 4; l++) { const x = l * 100; ctx.fillStyle = `rgba(255,255,255,${l % 2 ? 0.03 : 0.06})`; ctx.fillRect(x, 0, 100, H); if (flash[l] > 0) { const fg = ctx.createLinearGradient(0, HY, 0, 0); fg.addColorStop(0, PS_COL[l]); fg.addColorStop(1, 'transparent'); ctx.globalAlpha = flash[l] * 0.5; ctx.fillStyle = fg; ctx.fillRect(x, 0, 100, HY); ctx.globalAlpha = 1; flash[l] = Math.max(0, flash[l] - 0.08); } }
+      const bf = beat - Math.floor(beat); ctx.fillStyle = `rgba(255,255,255,${beat >= 0 ? 0.25 * (1 - bf) : 0.1})`; ctx.fillRect(0, HY - 3, W, 6);
+      for (let l = 0; l < 4; l++) { ctx.strokeStyle = PS_COL[l]; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(l * 100 + 50, HY, 26, 0, 7); ctx.stroke(); ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.font = '18px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(PS_KEYS[l], l * 100 + 50, HY + 42); }
+      notes.forEach(n => {
+        if (n.done === 'p' || n.done === 'g') return;
+        const dt = n.b * mspb - t; if (dt > TR || dt < -300) return;
+        const y = HY - dt / TR * (HY + 30), x = n.lane * 100 + 50, c = PS_COL[n.lane];
+        if (n.len >= 2) { ctx.fillStyle = c; ctx.globalAlpha = 0.25; ctx.fillRect(x - 7, y - n.len * mspb / TR * (HY + 30) * 0.8, 14, n.len * mspb / TR * (HY + 30) * 0.8); ctx.globalAlpha = 1; }
+        ctx.globalAlpha = n.done === 'm' ? 0.3 : 1;
+        const rg = ctx.createRadialGradient(x - 7, y - 7, 2, x, y, 24); rg.addColorStop(0, '#fff'); rg.addColorStop(0.35, c); rg.addColorStop(1, c);
+        ctx.fillStyle = rg; ctx.beginPath(); ctx.moveTo(x, y - 24); ctx.lineTo(x + 24, y); ctx.lineTo(x, y + 24); ctx.lineTo(x - 24, y); ctx.closePath(); ctx.fill(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke(); ctx.globalAlpha = 1;
+      });
+      fx = fx.filter(f => (f.t += 0.04) < 1); fx.forEach(f => { ctx.globalAlpha = 1 - f.t; ctx.strokeStyle = f.p ? '#ffe27a' : f.c; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(f.l * 100 + 50, HY, 26 + f.t * 40, 0, 7); ctx.stroke(); ctx.globalAlpha = 1; });
+      if (t > endMs + 1400) { finish(); return; }
+      raf = requestAnimationFrame(frame);
+    };
+    const keysOff = addKeys(e => { const i = PS_CODES.indexOf(e.code); if (i >= 0 && !e.repeat) { e.preventDefault(); hit(i); } });
+    const stop = () => { cancelAnimationFrame(raf); keysOff(); over = true; };
+    catchStop = stop;
+    function finish() {
+      stop(); catchStop = null;
+      const acc = (nP + nG * 0.6) / notes.length, stars = acc >= 0.9 ? 3 : acc >= 0.7 ? 2 : acc >= 0.45 ? 1 : 0;
+      const B = psBest(), old = B[song.id] || {}, best = score > (old.score || 0);
+      B[song.id] = { score: Math.max(score, old.score || 0), stars: Math.max(stars, old.stars || 0) }; games.popPlays = (games.popPlays || 0) + 1; store.set('games', games);
+      const reward = stars ? 5 + stars * 5 + idx * 3 : 3;
+      girlImg.src = poses[stars >= 2 ? 4 : 1];
+      if (stars >= 2) { SFX.yay(); confetti($('#gamesDlg .confetti-c')); crowd.classList.add('cheer'); }
+      const next = PS_SONGS[idx + 1];
+      body.replaceChildren(el('div', { class: 'ps-game' }, stage, el('div', { class: 'ps-res box' }, el('h4', {}, `${song.e} ${song.n}`),
+        el('div', { class: 'ps-stars' }, ...[0, 1, 2].map(i => { const s = el('span', {}, i < stars ? '⭐' : '☆'); s.style.animationDelay = `${0.2 + i * 0.3}s`; return s; })),
+        el('div', { class: 'fc-total' }, `${score}`), best ? el('b', { class: 'fr-best' }, '🏆 שיא חדש!') : null,
+        el('span', {}, `מושלם ${nP} · טוב ${nG} · פספוס ${nM} · קומבו הכי ארוך ${maxC}`), el('span', { class: 'fr-prize' }, `קיבלת ${reward} מטבעות! 🪙`),
+        stars === 0 ? el('span', { class: 'muted' }, 'עוד קצת אימון ויהיה כוכב! ⭐') : null,
+        el('div', { class: 'chips', style: 'justify-content:center' }, el('button', { type: 'button', class: 'btn main', onclick: () => psPlay(idx) }, '🔁 שוב'),
+          next && B[song.id].stars >= 1 ? el('button', { type: 'button', class: 'btn', onclick: () => psPlay(idx + 1) }, `${next.e} לשיר הבא`) : null,
+          el('button', { type: 'button', class: 'btn', onclick: popStarGame }, '🎵 כל השירים')))));
+      setTimeout(() => addCoins(reward, `כוכבת פופ: ${song.n} 🎤`), 900);
+      try { afterChange(); } catch {}
+    }
+    drawInfo();
+    const go = el('button', { type: 'button', class: 'btn main', style: 'font-size:1.2em', onclick: () => { go.remove(); t0 = performance.now() + 4 * mspb; schedT = -4; sched = 0; try { cv.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch {} raf = requestAnimationFrame(frame); } }, '🎤 מתחילים!');
+    body.replaceChildren(info, el('div', { class: 'ps-game' }, stage, el('div', { class: 'ps-lane-wrap' }, cv, pads)), el('div', { class: 'chips', style: 'justify-content:center' }, go, el('button', { type: 'button', class: 'btn', onclick: () => { stop(); catchStop = null; popStarGame(); } }, '🎵 לבחור שיר')));
+    cv.addEventListener('pointerdown', e => { const r = cv.getBoundingClientRect(); hit(Math.max(0, Math.min(3, Math.floor((e.clientX - r.left) / r.width * 4)))); });
+    // an empty stage before the song starts
+    ctx.fillStyle = '#1a0a30'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#fff'; ctx.font = '22px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('לוחצים "מתחילים!" 🎤', W / 2, H / 2);
+  }
+  // ---------- start: welcome coins, the coin chip and a shop button in the header ----------
+  (function shopInit() {
+    try {
+      const tools = document.querySelector('header.top .tools');
+      if (tools && !tools.querySelector('.coin-chip')) {
+        const chip = coinChip(); chip.id = 'coinChipTop'; tools.prepend(chip);
+        const f = $('#openFash'); if (f) f.after(el('button', { type: 'button', class: 'btn', id: 'openShopTop', onclick: () => openShop() }, '👜 חנות'));
+      }
+      if (!shopCoins.welcome) {
+        const g = store.get('games', {}), sum = Object.entries(g).filter(([k, v]) => /Wins|Plays|colored/.test(k) && typeof v === 'number').reduce((a, [, v]) => a + v, 0);
+        const bonus = 50 + Math.min(50, Math.round(sum * 2));
+        shopCoins.welcome = true; shopCoins.n = coinsNow() + bonus; shopCoins.hist.unshift({ t: localToday(), n: bonus, r: 'מתנת פתיחה לחנות הבגדים 🎁' }); shopSaveCoins(); shopCoinsRefresh(false);
+        setTimeout(() => shopCoinPop(`+${bonus}`, 'מתנה! יש חנות בגדים חדשה 👜'), 1600);
+      }
+    } catch {}
+  })();
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
@@ -16103,6 +17016,7 @@ textarea.yb-cap:focus { outline: 2px dashed #ff9ad5; }
       else if (r < 0.85) prize = { type: 'fact', text: FACTS[Math.floor(Math.random() * FACTS.length)] };
       else prize = { type: 'treat' };
       surprise.last = t; surprise.count++; surprise.today = prize;
+      if (typeof addCoins === 'function') setTimeout(() => addCoins(15, 'תיבת הפתעה 🎁'), 700);
       store.set('surprise', surprise);
       SFX.yay(); confetti($('#surpDlg .confetti-c'));
       openSurprise(); renderStrip(); afterChange();
