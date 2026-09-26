@@ -2579,6 +2579,32 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
 .dnc-gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
 @media (max-width: 700px) { .gch-wrap { grid-template-columns: 1fr; height: auto; gap: 8px; } .gch-who { flex-direction: row; align-items: center; } .gch-who select { flex: 1; } .gch-list { flex-direction: row; overflow-x: auto; padding-bottom: 2px; } .gch-th { flex: none; padding: 4px 10px 4px 6px; } .gch-thn span { display: none; } .gch-av { width: 34px; height: 34px; } .gch-msg .gch-sp { width: 34px; } .gch-st { display: none; } .gch-ic { width: 36px; height: 36px; } .gch-bar { gap: 4px; padding: 6px; } .gch-msg { max-width: 92%; } .gch-msgs { height: 50vh; } .dnc-top { grid-template-columns: 1fr; } .gch-card { flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) { .dnc-in.jump, .dnc-in.spin, .dnc-spot, .dnc-beam, .dnc-glint, .dnc-tile, .gch-bub.typing span, .dnc-stage.perform .dnc-ch.p .dnc-in { animation: none; } }
+
+/* ---------- worlds3: theme park + aquarium ---------- */
+.pk-scene > svg { cursor: pointer; }
+.pk-buy { border-color: var(--accent); }
+.aq-scene { background: #3b3f5a; }
+.aq-scene .aq-f { cursor: pointer; }
+.aq-scene .aq-tail { transform-box: fill-box; transform-origin: 0% 50%; animation: aqwag .5s ease-in-out infinite alternate; }
+.aq-scene .aq-sway, .aq-pal-sway { transform-box: fill-box; transform-origin: 50% 100%; animation: seasway 4s ease-in-out infinite alternate; }
+.aq-scene .aq-bub { transform-box: fill-box; transform-origin: center; animation: seabub 4s ease-in infinite; }
+.aq-scene .aq-ray { animation: searay 6s ease-in-out infinite alternate; }
+.aq-scene .aq-nom { transform-box: fill-box; transform-origin: center; animation: aqnom .9s ease-out forwards; }
+.aq-sponge { position: absolute; top: 20%; left: 0; font-size: 64px; pointer-events: none; animation: aqsponge 1.4s ease-in-out forwards; }
+@keyframes aqwag { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+@keyframes aqnom { from { transform: translateY(0) scale(.5); opacity: 1; } to { transform: translateY(-30px) scale(1.4); opacity: 0; } }
+@keyframes aqsponge { 0% { transform: translate(0, 0) rotate(-10deg); } 25% { transform: translate(25vw, 60px) rotate(10deg); } 50% { transform: translate(50vw, 0) rotate(-10deg); } 75% { transform: translate(25vw, 90px) rotate(10deg); } 100% { transform: translate(60vw, 20px) rotate(0); opacity: 0; } }
+.aq-head { align-items: center; justify-content: space-between; }
+.aq-shop, .aq-fam { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; }
+.aq-card { display: grid; justify-items: center; gap: 2px; border: 2px solid var(--line); border-radius: 16px; padding: 6px; background: linear-gradient(170deg, #e8f7ff, var(--card)); color: var(--ink); text-align: center; line-height: 1.15; font: inherit; }
+.aq-card .ic { width: 90px; height: 72px; } .aq-card .ic svg { width: 100%; height: 100%; }
+.aq-card b { font-weight: 400; font-size: .92em; }
+.aq-card small { color: var(--soft); font-size: .8em; }
+.aq-card.new { border-style: dashed; }
+.aq-card.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; background: var(--paper); }
+button.aq-card:disabled { opacity: .55; }
+.aq-gv { display: inline-block; width: 18px; height: 12px; border-radius: 6px; border: 1.5px solid var(--ink); margin-inline-end: 4px; vertical-align: middle; }
+@media (prefers-reduced-motion: reduce) { .aq-scene *, .pk-scene * { animation: none !important; } .aq-sponge { display: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -3532,6 +3558,31 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
     <div class="row" id="danceBody"></div>
   </div>
 </dialog>
+
+<!-- Theme park -->
+<dialog id="parkDlg" aria-labelledby="parkTitle" style="width:min(900px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="parkTitle">🎢 פארק השעשועים שלי</h3><div class="sub">בונים שבילים, מתקנים ודוכנים. המבקרים עולים על המתקנים ומשלמים כרטיסים!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="parkBody"></div>
+  </div>
+</dialog>
+
+<!-- Aquarium -->
+<dialog id="aquaDlg" aria-labelledby="aquaTitle" style="width:min(900px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="aquaTitle">🐠 האקווריום שלי</h3><div class="sub">מקשטים, מאכילים כל יום, מגדלים דגים ורואים תינוקות נולדים!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="aquaBody"></div>
+  </div>
+</dialog>
+
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -4564,6 +4615,7 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
     if (wishes.some(w => w.kind === 'box' && w.open <= t && !w.opened)) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openWishes() }, el('span', { class: 'ic', html: giftSVG(false) }), 'משאלה מלפני שנה מחכה לך! 🎁'));
     { const h = huntNow(); if (!h || !h.done) pills.push(el('button', { type: 'button', class: 'pill', onclick: openHunt }, el('span', { class: 'ic', html: stickerHTML('treasure') }), h ? `ציד אוצרות: רמז ${h.step + 1}/5` : 'ציד אוצרות חדש! 🗺️')); }
     try { [gardenPill(), butterflyPill()].forEach(p => p && pills.push(p)); } catch {}
+    try { const ap = aquariumPill(); if (ap) pills.push(ap); } catch {}
     if (!secret.found[t.slice(0, 7)]) pills.push(el('button', { type: 'button', class: 'pill', onclick: () => openDay(t) }, el('span', { class: 'ic', html: stickerHTML('sparkles') }), `מדבקה סודית מסתתרת באחד מימי ${MONTHS[m]} 🔍`));
     if (letters.some(l => l.open <= t && !l.read)) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openLetters() }, el('span', { class: 'ic', html: envSVG(false) }), 'יש לך מכתב מהעבר! 💌'));
     countdowns.filter(c => c.date >= t).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 2).forEach(c => {
@@ -6401,6 +6453,8 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
     ['rocket', 'מסע בחלל', () => openSpace()],
     ['lollipop', 'ארץ הממתקים', () => openCandy()],
     ['snowflake', 'ארמון הקרח', () => openIce()],
+    ['balloon', 'פארק שעשועים', () => openPark()],
+    ['fish', 'אקווריום', () => openAquarium()],
     ['magicmoon', 'יומן חלומות', () => openDreams()],
     ['music', 'פסנתר קטן', () => openPiano()],
     ['dog', 'הטריקים של החיה', () => { houseTab = 'tricks'; openHouse(); }],
@@ -6445,7 +6499,7 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
     ['fashion', '👗 אופנה ויופי', ['צ\'אט', 'ריקוד', 'אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
     ['pets', '🐾 החיות', ['חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
     ['games', '🎮 משחקים', ['משחקים']],
-    ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח']],
+    ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום']],
     ['create', '✏️ ליצור', ['מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
     ['magic', '✨ הפתעות וקסם', ['הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי']],
     ['board', '📅 הלוח שלי', ['ימי הולדת', 'חגים', 'מערכת', 'בוקר', 'הרגלים', 'מדליות', 'היומן שלי', 'ספירות', 'הספרים', 'המנעול', 'גיבוי', 'להדפסה']],
@@ -14126,7 +14180,7 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
   function openTown() {
     twConfirm = false;
     drawTown();
-    if (!$('#townDlg').open) { $('#townDlg').showModal(); $('#townDlg').addEventListener('close', () => cancelAnimationFrame(twRaf), { once: true }); }
+    if (!$('#townDlg').open) { $('#townDlg').showModal(); $('#townDlg').addEventListener('close', () => { if (!$('#townDlg').open) cancelAnimationFrame(twRaf); }, { once: true }); }
     const svgEl = $('#townBody .tw-scene svg'); if (svgEl) twStartWalkers(svgEl);
   }
   function drawTown() {
@@ -18328,6 +18382,503 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
     drawDanceCtl(false);
   }
   $('#danceDlg').addEventListener('close', dncStop);
+  // ================= worlds3: theme park + aquarium (uses the wd*/w2*/tw* helpers above) =================
+  const pkCoins = () => { try { return typeof coinsNow === 'function' ? coinsNow() : 0; } catch { return 0; } };
+  const pkSpend = (n, why) => { try { return typeof spendCoins === 'function' ? spendCoins(n, why) : true; } catch { return false; } };
+  const pkCoinChip = () => { try { return typeof coinChip === 'function' ? coinChip() : null; } catch { return null; } };
+  let pkStill = false;
+  const pkNoMo = () => pkStill || reduceMotion();
+  const pkSmil = s => pkNoMo() ? '' : s;
+  // ---------- 🎢 theme park: a 10×7 grid (same layout as the town) with rides that move ----------
+  const PK_C = 10, PK_R = 7, PK_W = 58, PK_H = 52, PK_X = 10, PK_Y = 36;
+  const pkXY = i => [PK_X + (i % PK_C) * PK_W, PK_Y + Math.floor(i / PK_C) * PK_H];
+  const pkCenter = i => { const [x, y] = pkXY(i); return [x + PK_W / 2, y + PK_H / 2]; };
+  const pkNb = i => { const c = i % PK_C, r = Math.floor(i / PK_C); return { n: r > 0 ? i - PK_C : -1, s: r < PK_R - 1 ? i + PK_C : -1, w: c > 0 ? i - 1 : -1, e: c < PK_C - 1 ? i + 1 : -1 }; };
+  const pkIs = (g, i, t) => i >= 0 && !!g[i] && g[i].t === t;
+  const pkBy = (x, y) => y + PK_H - 5;
+  const pkFlagTop = (x, y, c) => `<path d="M${x} ${y} V${y - 12} L${x + 9} ${y - 9} L${x} ${y - 6}" fill="${c}" ${S2}/>`;
+  // id: name, ground?, drag-paint?, price (0 = free), draw(x, y, v, i, grid)
+  const PK_TILES = {
+    path: ['שביל', true, true, 0], coaster: ['רכבת הרים', true, true, 0],
+    ferris: ['גלגל ענק', false, false, 0, (x, y) => { const cx = x + 29, by = pkBy(x, y), wy = by - 46;
+      return `<path d="M${cx - 20} ${by} L${cx} ${wy} L${cx + 20} ${by}" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M${cx - 20} ${by} L${cx} ${wy} L${cx + 20} ${by}" fill="none" stroke="#b58cff" stroke-width="3" stroke-linecap="round"/>` +
+        `<g transform="translate(${cx} ${wy})"><g>${pkSmil('<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/>')}` +
+        `<circle r="30" fill="none" stroke="${O}" stroke-width="5"/><circle r="30" fill="none" stroke="#ff9ad5" stroke-width="2.6"/>` + Array.from({ length: 8 }, (_, k) => { const a = k * Math.PI / 4, px = Math.cos(a) * 30, py = Math.sin(a) * 30;
+          return `<path d="M0 0 L${wdFx(px)} ${wdFx(py)}" stroke="${O}" stroke-width="1.4"/><rect x="${wdFx(px - 5)}" y="${wdFx(py - 4)}" width="10" height="8" rx="3" fill="${['#ffd84d', '#7ec8ff', '#7fe0b8', '#ff6b8b'][k % 4]}" stroke="${O}" stroke-width="1.4"/>`; }).join('') +
+        `</g><circle r="5" fill="#fff" ${S2}/></g>`; }],
+    carousel: ['קרוסלה', false, false, 0, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      const horse = (k, c) => `<g>${pkSmil(`<animateMotion dur="5s" begin="-${(k * 5 / 3).toFixed(2)}s" repeatCount="indefinite" path="M${cx + 17} ${by - 16} A17 4 0 1 1 ${cx - 17} ${by - 16} A17 4 0 1 1 ${cx + 17} ${by - 16}"/>`)}` +
+        `<g transform="${pkNoMo() ? `translate(${cx + (k - 1) * 14} ${by - 16})` : ''}"><path d="M0 -26 V6" stroke="#ffd84d" stroke-width="2"/><ellipse cx="0" cy="0" rx="7" ry="4.4" fill="${c}" stroke="${O}" stroke-width="1.4"/><circle cx="-7" cy="-4" r="3.4" fill="${c}" stroke="${O}" stroke-width="1.4"/><path d="M-5 4 v4 M5 4 v4" stroke="${O}" stroke-width="1.4"/></g></g>`;
+      return `<ellipse cx="${cx}" cy="${by - 4}" rx="25" ry="7" fill="#ffd6ec" ${S}/><path d="M${cx} ${by - 6} V${by - 40}" stroke="#ffd84d" stroke-width="4"/>` + ['#fff', '#ffd84d', '#b8e0ff'].map((c, k) => horse(k, c)).join('') +
+        `<path d="M${cx - 28} ${by - 38} L${cx} ${by - 58} L${cx + 28} ${by - 38} Z" fill="#ff6b8b" ${S}/><path d="M${cx - 14} ${by - 48} L${cx} ${by - 58} L${cx - 4} ${by - 38} Z M${cx + 14} ${by - 48} L${cx} ${by - 58} L${cx + 12} ${by - 38} Z" fill="#fff"/>` +
+        `<path d="M${cx - 28} ${by - 38} q7 7 14 0 q7 7 14 0 q7 7 14 0 q7 7 14 0" fill="#ff9ad5" ${S2}/>${pkFlagTop(cx, by - 58, '#ffd84d')}`; }],
+    swing: ['קרוסלת נדנדות', false, false, 40, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      const chair = (k, c) => `<g>${pkSmil(`<animateMotion dur="3.4s" begin="-${(k * 3.4 / 4).toFixed(2)}s" repeatCount="indefinite" path="M${cx + 24} ${by - 36} A24 6 0 1 1 ${cx - 24} ${by - 36} A24 6 0 1 1 ${cx + 24} ${by - 36}"/>`)}` +
+        `<g transform="${pkNoMo() ? `translate(${cx - 18 + k * 12} ${by - 36})` : ''}"><path d="M0 -14 V0" stroke="${O}" stroke-width="1.2"/><rect x="-4" y="-1" width="8" height="5" rx="2" fill="${c}" stroke="${O}" stroke-width="1.3"/></g></g>`;
+      return `<rect x="${cx - 4}" y="${by - 64}" width="8" height="64" fill="#7ec8ff" ${S2}/><ellipse cx="${cx}" cy="${by - 3}" rx="16" ry="4" fill="#d8dde6" ${S2}/>` +
+        `<path d="M${cx - 22} ${by - 56} Q${cx} ${by - 72} ${cx + 22} ${by - 56} Z" fill="#ffd84d" ${S}/>` + ['#ff6b8b', '#7fe0b8', '#b58cff', '#ffa24d'].map((c, k) => chair(k, c)).join('') + pkFlagTop(cx, by - 66, '#ff6b8b'); }],
+    teacups: ['ספלי תה', false, false, 30, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      const cup = (k, c) => `<g>${pkSmil(`<animateMotion dur="4s" begin="-${(k * 4 / 3).toFixed(2)}s" repeatCount="indefinite" path="M${cx + 14} ${by - 10} A14 5 0 1 1 ${cx - 14} ${by - 10} A14 5 0 1 1 ${cx + 14} ${by - 10}"/>`)}` +
+        `<g transform="${pkNoMo() ? `translate(${cx - 14 + k * 14} ${by - 10})` : ''}"><path d="M-9 -8 H9 Q9 4 0 4 Q-9 4 -9 -8 Z" fill="${c}" ${S2}/><path d="M9 -5 q5 1 0 6" fill="none" stroke="${O}" stroke-width="1.6"/><ellipse cy="-8" rx="9" ry="2.6" fill="#fff" stroke="${O}" stroke-width="1.4"/></g></g>`;
+      return `<ellipse cx="${cx}" cy="${by - 6}" rx="26" ry="9" fill="#e6dcff" ${S}/><path d="M${cx - 8} ${by - 16} q8 -10 16 0" fill="none" stroke="#fff" stroke-width="0"/>` + ['#ff9ad5', '#7ec8ff', '#ffd84d'].map((c, k) => cup(k, c)).join('') +
+        `<path d="M${cx - 5} ${by - 40} h10 v14 q-5 5 -10 0 Z" fill="#fff" ${S2}/><path d="M${cx} ${by - 40} v-6" ${S}/>`; }],
+    bumper: ['מכוניות מתנגשות', false, false, 50, (x, y) => { const by = pkBy(x, y), top = by - 30;
+      const car = (k, c, d) => `<g>${pkSmil(`<animateMotion dur="${3 + k}s" begin="-${k}s" repeatCount="indefinite" path="${d}"/>`)}<g transform="${pkNoMo() ? `translate(${x + 16 + k * 13} ${top + 14})` : ''}"><rect x="-6" y="-4" width="12" height="8" rx="3" fill="${c}" stroke="${O}" stroke-width="1.4"/><circle cy="-5" r="2.6" fill="#f6d0b1" stroke="${O}" stroke-width="1"/><path d="M0 -8 V-14" stroke="${O}" stroke-width="1"/></g></g>`;
+      return `<rect x="${x + 4}" y="${top}" width="50" height="28" rx="8" fill="#5b5fb0" ${S}/><rect x="${x + 8}" y="${top + 3}" width="42" height="22" rx="6" fill="#6f74c8"/>` +
+        car(0, '#ff6b8b', `M${x + 14} ${top + 8} L${x + 44} ${top + 18} L${x + 20} ${top + 20} Z`) + car(1, '#ffd84d', `M${x + 44} ${top + 8} L${x + 14} ${top + 18} L${x + 36} ${top + 10} Z`) + car(2, '#7fe0b8', `M${x + 28} ${top + 20} L${x + 44} ${top + 10} L${x + 14} ${top + 10} Z`) +
+        `<path d="M${x + 4} ${top - 2} H${x + 54}" stroke="#ffd84d" stroke-width="3" stroke-dasharray="4 4"/>`; }],
+    drop: ['מגדל נפילה', false, false, 60, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      return `<rect x="${cx - 5}" y="${by - 88}" width="10" height="88" fill="#ff9ad5" ${S2}/><path d="M${cx - 5} ${by - 70} h10 M${cx - 5} ${by - 50} h10 M${cx - 5} ${by - 30} h10" stroke="#fff" stroke-width="2"/><polygon points="${starPts(cx, by - 94, 8, 3.5)}" fill="#ffd84d" ${S2}/>` +
+        `<g>${pkSmil('<animateTransform attributeName="transform" type="translate" values="0 0; 0 -62; 0 -62; 0 0; 0 0" keyTimes="0; .55; .7; .78; 1" dur="4.5s" repeatCount="indefinite"/>')}` +
+        `<rect x="${cx - 14}" y="${by - 16}" width="28" height="9" rx="4" fill="#7ec8ff" ${S2}/>${[-8, 0, 8].map(dx => `<circle cx="${cx + dx}" cy="${by - 19}" r="3" fill="#f6d0b1" stroke="${O}" stroke-width="1"/>`).join('')}</g>`; }],
+    splash: ['סירות מים', false, false, 50, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      return `<ellipse cx="${cx}" cy="${by - 16}" rx="26" ry="16" fill="#c9ced8" ${S}/><ellipse cx="${cx}" cy="${by - 16}" rx="21" ry="12" fill="#7ec8ff" ${S2}/>` +
+        `<g>${pkSmil(`<animateMotion dur="6s" repeatCount="indefinite" path="M${cx + 12} ${by - 16} A12 6 0 1 1 ${cx - 12} ${by - 16} A12 6 0 1 1 ${cx + 12} ${by - 16}"/>`)}<g transform="${pkNoMo() ? `translate(${cx} ${by - 16})` : ''}"><path d="M-9 -2 H9 L6 4 H-6 Z" fill="#ffd84d" ${S2}/><circle cy="-5" r="3" fill="#f6d0b1" stroke="${O}" stroke-width="1"/></g></g>` +
+        `<path d="M${cx - 18} ${by - 30} q2 -8 6 -2 M${cx + 14} ${by - 32} q3 -8 6 -1" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>`; }],
+    gate: ['שער כניסה', false, false, 0, (x, y) => { const by = pkBy(x, y), nm = wdEsc(((pkData && pkData.name) || '').slice(0, 8));
+      return `<rect x="${x + 4}" y="${by - 50}" width="10" height="50" fill="#ff6b8b" ${S2}/><rect x="${x + 44}" y="${by - 50}" width="10" height="50" fill="#ff6b8b" ${S2}/><path d="M${x} ${by - 48} Q${x + 29} ${by - 74} ${x + 58} ${by - 48} V${by - 38} Q${x + 29} ${by - 62} ${x} ${by - 38} Z" fill="#ffd84d" ${S}/>` +
+        `<text x="${x + 29}" y="${by - 50}" text-anchor="middle" direction="rtl" font-size="8.5" fill="${O}" font-family="inherit">${nm}</text>` + pkFlagTop(x + 9, by - 50, '#7ec8ff') + pkFlagTop(x + 49, by - 50, '#7fe0b8') +
+        `<circle cx="${x + 9}" cy="${by - 30}" r="3" fill="#fff6a8" ${S2}/><circle cx="${x + 49}" cy="${by - 30}" r="3" fill="#fff6a8" ${S2}/>`; }],
+    icecream: ['דוכן גלידה', false, false, 0, (x, y) => twShop(x, y, '#dcfff0', '#7fe0b8', 'icecream')],
+    donut: ['דוכן דונאטס', false, false, 15, (x, y) => twShop(x, y, '#ffe0f0', '#ff9ad5', 'donut')],
+    candy: ['צמר גפן מתוק', false, false, 15, (x, y) => twShop(x, y, '#f4ecff', '#b58cff', 'lollipop')],
+    balloons: ['מוכר בלונים', false, false, 10, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      return `<rect x="${cx - 14}" y="${by - 18}" width="28" height="14" rx="3" fill="#ffd84d" ${S2}/><circle cx="${cx - 8}" cy="${by - 3}" r="4" fill="#6b5a7a" ${S2}/><circle cx="${cx + 8}" cy="${by - 3}" r="4" fill="#6b5a7a" ${S2}/>` +
+        [[-12, -58, '#ff6b8b'], [0, -66, '#7ec8ff'], [12, -56, '#7fe0b8'], [-4, -48, '#b58cff'], [8, -44, '#ffd84d']].map(([dx, dy, c], k) => `<g class="wd-bob" style="animation-delay:-${k * 0.6}s"><path d="M${cx} ${by - 18} L${cx + dx} ${by + dy + 8}" stroke="${O}" stroke-width="1"/><ellipse cx="${cx + dx}" cy="${by + dy}" rx="6" ry="7.5" fill="${c}" stroke="${O}" stroke-width="1.5"/></g>`).join(''); }],
+    fountain: ['מזרקה', false, false, 20, (x, y, v, i, g) => TW_TILES.fountain[3](x, y, v, i, g)],
+    tree: ['עצים', false, true, 0, (x, y, v, i, g) => TW_TILES.tree[3](x, y, v, i, g)],
+    flowers: ['ערוגת פרחים', true, true, 0, (x, y, v, i, g) => TW_TILES.flowers[3](x, y, v, i, g)],
+    lamp: ['פנס', false, true, 0, (x, y, v, i, g) => TW_TILES.lamp[3](x, y, v, i, g)],
+  };
+  const PK_RIDES = ['ferris', 'carousel', 'swing', 'teacups', 'bumper', 'drop', 'splash', 'coaster'];
+  const PK_START = () => { const g = Array(PK_C * PK_R).fill(null), put = (i, t, v = 0) => { g[i] = { t, v }; };
+    [64, 54, 44, 43, 42, 41, 45, 46, 47, 48, 34, 24].forEach(i => put(i, 'path')); put(66, 'tree', 0); put(63, 'tree', 2);
+    [11, 12, 13, 23, 33, 32, 31, 21].forEach(i => put(i, 'coaster')); put(22, 'flowers'); put(35, 'ferris'); put(37, 'carousel'); put(55, 'icecream'); put(65, 'gate'); put(58, 'tree', 1); put(18, 'tree', 0); put(51, 'lamp');
+    return g; };
+  let pkData = Object.assign({ name: 'פארק השעשועים שלי', grid: null, owned: {}, paid: '', visits: 0 }, store.get('park', {}));
+  if (!Array.isArray(pkData.grid) || pkData.grid.length !== PK_C * PK_R) pkData.grid = PK_START();
+  let pkTool = 'path', pkRaf = 0, pkWalkers = [], pkCars = [], pkAsk = false, pkBuy = null;
+  const savePark = () => store.set('park', pkData);
+  const pkOwned = id => !PK_TILES[id][3] || !!pkData.owned[id];
+  function pkJoin(g, t, w, fill, lift = 0) {
+    let out = '', marks = '';
+    g.forEach((cell, i) => {
+      if (!cell || cell.t !== t) return;
+      const [x, y] = pkXY(i), [cx, cy0] = pkCenter(i), cy = cy0 - lift, nb = pkNb(i), h = w / 2, is = j => pkIs(g, j, t);
+      if (t === 'coaster') {
+        const arms = [['n', 0, -1], ['s', 0, 1], ['w', -1, 0], ['e', 1, 0]].filter(([k]) => is(nb[k]));
+        marks += `<path d="M${cx - 8} ${cy0 + 10} L${cx - 3} ${cy + 2} M${cx + 8} ${cy0 + 10} L${cx + 3} ${cy + 2}" stroke="#a0673e" stroke-width="3" stroke-linecap="round"/>`;
+        const d = arms.length ? arms.map(([, dx, dy]) => `M${cx} ${cy} L${cx + dx * PK_W / 2} ${cy + dy * PK_H / 2}`).join(' ') : `M${cx - 10} ${cy} H${cx + 10}`;
+        out += `<path d="${d}" fill="none" stroke="${O}" stroke-width="12" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#ff6b8b" stroke-width="8" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#fff" stroke-width="8" stroke-dasharray="2 6"/>`;
+        return;
+      }
+      const parts = [`<rect x="${cx - h}" y="${cy - h}" width="${w}" height="${w}" rx="${Object.values(nb).some(is) ? 4 : 10}"/>`];
+      if (is(nb.n)) parts.push(`<rect x="${cx - h}" y="${y}" width="${w}" height="${PK_H / 2}"/>`);
+      if (is(nb.s)) parts.push(`<rect x="${cx - h}" y="${cy}" width="${w}" height="${PK_H / 2}"/>`);
+      if (is(nb.w)) parts.push(`<rect x="${x}" y="${cy - h}" width="${PK_W / 2}" height="${w}"/>`);
+      if (is(nb.e)) parts.push(`<rect x="${cx}" y="${cy - h}" width="${PK_W / 2}" height="${w}"/>`);
+      out += parts.join('');
+      marks += `<circle cx="${cx - 6}" cy="${cy + 4}" r="1.6" fill="#d9b77a"/><circle cx="${cx + 7}" cy="${cy - 5}" r="1.4" fill="#d9b77a"/>`;
+    });
+    return t === 'coaster' ? marks + out : `<g fill="${O}" stroke="${O}" stroke-width="5" stroke-linejoin="round">${out}</g><g fill="${fill}">${out}</g>${marks}`;
+  }
+  function pkTilesSVG(g = pkData.grid) {
+    let things = '';
+    g.forEach((cell, i) => { const d = cell && PK_TILES[cell.t]; if (!d || !d[4]) return; const [x, y] = pkXY(i), art = d[4](x, y, cell.v || 0, i, g); things += d[1] ? '' : `<g>${art}</g>`; });
+    const ground = pkJoin(g, 'path', 30, '#f7e2b5') + g.map((cell, i) => { const d = cell && PK_TILES[cell.t]; if (!d || !d[4] || !d[1]) return ''; const [x, y] = pkXY(i); return d[4](x, y, cell.v || 0, i, g); }).join('');
+    return `<g class="pk-ground">${ground}</g><g class="pk-track">${pkJoin(g, 'coaster', 0, '', 10)}</g><g class="pk-things">${things}</g>`;
+  }
+  const pkCarArt = `<g transform="translate(0 -10)"><path d="M-13 -4 H13 L10 6 H-10 Z" fill="#ffd84d" ${S2}/><circle cx="-6" cy="-8" r="4" fill="#f6d0b1" stroke="${O}" stroke-width="1.2"/><circle cx="5" cy="-8" r="4" fill="#ffd6a8" stroke="${O}" stroke-width="1.2"/><path d="M-9 -12 l-3 -5 M9 -12 l3 -5" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/><circle cx="-7" cy="7" r="2.4" fill="${O}"/><circle cx="7" cy="7" r="2.4" fill="${O}"/></g>`;
+  function pkMarkup(photo) {
+    const grass = Array.from({ length: PK_C * PK_R }, (_, i) => { const [x, y] = pkXY(i); return (i + Math.floor(i / PK_C)) % 2 ? `<rect x="${x}" y="${y}" width="${PK_W}" height="${PK_H}" fill="#9fda78"/>` : ''; }).join('');
+    const name = (pkData.name || '').trim();
+    const people = photo ? pkWalkers.map(w => `<g transform="translate(${wdFx(w.x)} ${wdFx(w.y)}) scale(${w.dir} 1)">${w.g ? wdGirl(w.g, -13, -52, 26, 52, true) : w.art}</g>`).join('') + pkCars.map(c => `<g transform="translate(${wdFx(c.x)} ${wdFx(c.y)})">${pkCarArt}</g>`).join('') : '';
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="פארק השעשועים"'}>` +
+      `<defs><linearGradient id="pkSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd6ec"/><stop offset="1" stop-color="#dff4ff"/></linearGradient></defs>` +
+      `<rect width="600" height="${PK_Y + 4}" fill="url(#pkSky)"/><rect y="${PK_Y}" width="600" height="${400 - PK_Y}" fill="#a8e27f"/>${grass}<path d="M0 ${PK_Y} H600" stroke="${O}" stroke-width="2.5"/>` +
+      w2Cloud(70, 18, 0.55, '#fff') + w2Cloud(540, 16, 0.5, '#fff') +
+      `<g class="pk-tiles">${pkTilesSVG()}</g><g class="pk-mer" pointer-events="none">${pkMermaids(photo)}</g><g class="pk-cars" pointer-events="none"></g><g class="pk-people" pointer-events="none">${people}</g>` +
+      `<g class="pk-banner" pointer-events="none"${name ? '' : ' style="display:none"'}><path d="M180 4 H420 L410 15 L420 26 H180 L190 15 Z" fill="#ffd84d" ${S}/><text class="pk-name" x="300" y="21" text-anchor="middle" direction="rtl" font-family="Gveret Levin, Rubik, Arial, sans-serif" font-size="15" fill="${O}">🎡 ${wdEsc(name.slice(0, 24))}</text></g></svg>`;
+  }
+  function pkMermaids(photo) {
+    if (!mermaids.length) return '';
+    const wet = pkData.grid.map((c, i) => c && (c.t === 'splash' || c.t === 'fountain') ? i : -1).filter(i => i >= 0);
+    return mermaids.slice(0, Math.min(2, wet.length)).map((m, k) => { const [cx, cy] = pkCenter(wet[k]);
+      return `<g class="wd-bob" style="animation-delay:-${k * 0.8}s">${placeSvg(mermaidSVG(m, 'pk' + (wdUid++)), cx + 8, cy - 36, 26, 39)}</g>`; }).join('');
+  }
+  // visitors walk the paths and hop onto rides next to them; coaster cars run on the track
+  function pkStartLife(svgEl) {
+    cancelAnimationFrame(pkRaf);
+    const g = pkData.grid, paths = g.map((c, i) => c && c.t === 'path' ? i : -1).filter(i => i >= 0);
+    const vis = (k, p) => { try { return placeSvg(petSVG(p), -15, -34, 30, 34); } catch { return stickerHTML(['bunny', 'bear', 'panda'][k % 3]).replace('<svg ', '<svg x="-14" y="-30" width="28" height="28" '); } };
+    const who = [...w2Pets().map((p, k) => ({ art: vis(k, p) })), ...girls.slice(0, 2).map(g2 => ({ g: g2, art: wdGirl(g2, -13, -52, 26, 52) })),
+      ...['bunny', 'bear', 'panda'].map((kind, k) => ({ art: vis(k, { kind, name: '' }) }))].slice(0, 8);
+    const layer = svgEl.querySelector('.pk-people'), carL = svgEl.querySelector('.pk-cars');
+    pkWalkers = paths.length ? who.map((w, k) => Object.assign(w, { at: paths[(k * 5 + 1) % paths.length], to: -1, prev: -1, t: 1, sp: 0.6 + (k % 4) * 0.08, dir: 1, x: 0, y: 0, ride: null })) : [];
+    pkWalkers.forEach(w => { w.to = w.at; });
+    layer.innerHTML = pkWalkers.map(w => `<g>${w.art}<g class="pk-yay" style="display:none"><circle cx="0" cy="-44" r="9" fill="#fff" ${S2}/><path d="M-4 -46 Q0 -40 4 -46" fill="none" stroke="#ff6b8b" stroke-width="2" stroke-linecap="round"/><circle cx="-3" cy="-48" r="1.2" fill="${O}"/><circle cx="3" cy="-48" r="1.2" fill="${O}"/></g></g>`).join('');
+    // one car per piece of track (up to 3)
+    const track = g.map((c, i) => c && c.t === 'coaster' ? i : -1).filter(i => i >= 0), seen = new Set();
+    pkCars = [];
+    track.forEach(i => { if (seen.has(i) || pkCars.length >= 3) return; const st = [i]; seen.add(i); let size = 0; while (st.length) { const j = st.pop(); size++; Object.values(pkNb(j)).forEach(n => { if (pkIs(g, n, 'coaster') && !seen.has(n)) { seen.add(n); st.push(n); } }); } if (size > 1) pkCars.push({ at: i, to: i, prev: -1, t: 1, x: 0, y: 0, dir: 1 }); });
+    carL.innerHTML = pkCars.map(() => `<g>${pkCarArt}</g>`).join('');
+    const wn = [...layer.children], cn = [...carL.children];
+    const rideNear = i => Object.values(pkNb(i)).filter(j => j >= 0 && g[j] && PK_RIDES.includes(g[j].t) && g[j].t !== 'coaster');
+    const place = () => {
+      pkWalkers.forEach((w, k) => {
+        if (w.ride) { const [cx, cy] = pkCenter(w.ride.i); w.x = cx + (k % 3 - 1) * 8; w.y = cy + 10 - Math.abs(Math.sin(w.ride.t * 6)) * 4; }
+        else { const a = pkCenter(w.at), b = pkCenter(w.to), t = Math.max(0, Math.min(1, w.t)); w.x = a[0] + (b[0] - a[0]) * t; w.y = a[1] + (b[1] - a[1]) * t + 12; }
+        const hop = !w.ride && w.at !== w.to ? -Math.abs(Math.sin(w.t * Math.PI * 3)) * 2.5 : 0;
+        wn[k].setAttribute('transform', `translate(${wdFx(w.x)} ${wdFx(w.y + hop)}) scale(${w.dir} 1)`);
+        wn[k].lastChild.style.display = w.ride ? '' : 'none';
+      });
+      pkCars.forEach((c, k) => { const a = pkCenter(c.at), b = pkCenter(c.to), t = Math.max(0, Math.min(1, c.t)); c.x = a[0] + (b[0] - a[0]) * t; c.y = a[1] + (b[1] - a[1]) * t - 2; cn[k].setAttribute('transform', `translate(${wdFx(c.x)} ${wdFx(c.y)}) scale(${c.dir} 1)`); });
+    };
+    place();
+    if (reduceMotion()) return;
+    let last = performance.now();
+    const step = now => {
+      if (!$('#parkDlg').open || !svgEl.isConnected) return;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      pkWalkers.forEach(w => {
+        if (w.ride) { w.ride.t += dt; if (w.ride.t > 3.5) w.ride = null; return; }
+        w.t += dt * w.sp;
+        if (w.t >= 1) {
+          w.prev = w.at; w.at = w.to;
+          const rides = rideNear(w.at);
+          if (rides.length && Math.random() < 0.35) { w.ride = { i: rides[Math.floor(Math.random() * rides.length)], t: 0 }; w.t = 1; tone(900 + Math.random() * 300, 0.08, 'triangle', 0, 0.03); return; }
+          const nb = Object.values(pkNb(w.at)).filter(j => pkIs(g, j, 'path')), fwd = nb.filter(j => j !== w.prev), pool = fwd.length && Math.random() < 0.85 ? fwd : nb;
+          w.to = pool.length ? pool[Math.floor(Math.random() * pool.length)] : w.at; w.t = w.to === w.at ? -0.8 : 0;
+          const dx = pkCenter(w.to)[0] - pkCenter(w.at)[0]; if (dx) w.dir = dx < 0 ? -1 : 1;
+        }
+      });
+      pkCars.forEach(c => {
+        c.t += dt * 2.4;
+        if (c.t >= 1) {
+          const came = c.at; c.prev = came; c.at = c.to;
+          const nb = Object.values(pkNb(c.at)).filter(j => pkIs(g, j, 'coaster')), fwd = nb.filter(j => j !== c.prev);
+          const straight = fwd.find(j => j - c.at === c.at - came);
+          c.to = straight !== undefined ? straight : fwd.length ? fwd[0] : nb.length ? nb[0] : c.at; c.t = 0;
+          const dx = pkCenter(c.to)[0] - pkCenter(c.at)[0]; if (dx) c.dir = dx < 0 ? -1 : 1;
+        }
+      });
+      place();
+      pkRaf = requestAnimationFrame(step);
+    };
+    pkRaf = requestAnimationFrame(step);
+  }
+  function openPark() {
+    pkAsk = false; pkBuy = null;
+    const t = wdToday();
+    drawPark();
+    const dlg = $('#parkDlg');
+    if (!dlg.open) { dlg.showModal(); dlg.addEventListener('close', () => { if (!dlg.open) cancelAnimationFrame(pkRaf); }, { once: true }); }
+    pkStartLife($('#parkBody .pk-scene svg'));
+    if (pkData.paid !== t) {
+      const rides = pkData.grid.filter(c => c && PK_RIDES.includes(c.t) && c.t !== 'coaster').length + (pkData.grid.some(c => c && c.t === 'coaster') ? 1 : 0);
+      const n = Math.min(15, 2 + rides);
+      pkData.paid = t; pkData.visits = (pkData.visits || 0) + 1; savePark();
+      setTimeout(() => { w2Coins(n, `🎟️ כרטיסים מהפארק (${rides} מתקנים)`); }, 500);
+    }
+  }
+  function drawPark() {
+    const body = $('#parkBody');
+    const scene = el('div', { class: 'wd-scene pk-scene', html: pkMarkup() }), svgEl = scene.firstChild;
+    const toSvg = e => { const p = svgEl.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+    const cellAt = e => { const p = toSvg(e), c = Math.floor((p.x - PK_X) / PK_W), r = Math.floor((p.y - PK_Y) / PK_H); return c >= 0 && c < PK_C && r >= 0 && r < PK_R ? r * PK_C + c : -1; };
+    let painting = false, lastCell = -1, changed = false;
+    const redraw = () => { svgEl.querySelector('.pk-tiles').innerHTML = pkTilesSVG(); svgEl.querySelector('.pk-mer').innerHTML = pkMermaids(); };
+    const apply = i => {
+      if (i < 0 || i === lastCell) return; lastCell = i;
+      const cur = pkData.grid[i];
+      if (pkTool === 'erase') { if (!cur) return; pkData.grid[i] = null; tone(260, 0.08); }
+      else {
+        if (!pkOwned(pkTool)) return;
+        const v = pkTool === 'tree' ? wdHash('t' + i + Date.now()) % 3 : 0;
+        if (cur && cur.t === pkTool) return;
+        pkData.grid[i] = { t: pkTool, v }; tone(pkTool === 'path' ? 420 : 620, 0.07, 'triangle'); tone(pkTool === 'path' ? 560 : 880, 0.08, 'triangle', 0.05);
+      }
+      changed = true; redraw();
+    };
+    svgEl.addEventListener('pointerdown', e => { painting = true; lastCell = -1; changed = false; try { svgEl.setPointerCapture(e.pointerId); } catch {} e.preventDefault(); apply(cellAt(e)); });
+    svgEl.addEventListener('pointermove', e => { if (painting && (pkTool === 'erase' || PK_TILES[pkTool][2])) apply(cellAt(e)); });
+    const end = () => { if (!painting) return; painting = false; if (changed) { savePark(); pkStartLife(svgEl); } };
+    svgEl.addEventListener('pointerup', end); svgEl.addEventListener('pointercancel', end);
+    const nameIn = el('input', { type: 'text', id: 'pkName', maxLength: 24, value: pkData.name || '', placeholder: 'למשל: פארק הקשת', oninput: e => {
+      pkData.name = e.target.value; savePark();
+      svgEl.querySelector('.pk-name').textContent = '🎡 ' + e.target.value.slice(0, 24); svgEl.querySelector('.pk-banner').style.display = e.target.value.trim() ? '' : 'none';
+      if (pkData.grid.some(c => c && c.t === 'gate')) redraw();
+    } });
+    const icon = id => {
+      const g = Array(PK_C * PK_R).fill(null), i = PK_C + 1; g[i] = { t: id, v: 0 };
+      if (id === 'path' || id === 'coaster') { g[i - 1] = { t: id }; g[i + 1] = { t: id }; }
+      const [x, y] = pkXY(i);
+      if (id === 'path' || id === 'coaster') return `<svg class="clip" viewBox="${x} ${y - 3} ${PK_W} ${PK_W}" xmlns="http://www.w3.org/2000/svg">${pkTilesSVG(g)}</svg>`;
+      pkStill = true; const inner = pkTilesSVG(g); pkStill = false;
+      return wdIcon('pk-' + id, inner, `${x - 2} ${y - 40} 62 94`);
+    };
+    const pick = id => { SFX.pop(); pkTool = id; pkBuy = null; drawPark(); pkStartLife($('#parkBody .pk-scene svg')); };
+    const pal = el('div', { class: 'wd-pal', role: 'group', 'aria-label': 'לבנות' },
+      el('button', { type: 'button', 'aria-pressed': String(pkTool === 'erase'), onclick: () => pick('erase') }, el('span', { class: 'ic hand' }, '🧽'), el('span', {}, 'מחק')),
+      ...Object.entries(PK_TILES).map(([id, d]) => wdPalBtn(pkTool === id, icon(id), d[0], () => {
+        if (pkOwned(id)) pick(id); else { pkBuy = id; SFX.pop(); drawPark(); pkStartLife($('#parkBody .pk-scene svg')); }
+      }, pkOwned(id) ? (d[2] ? 'אפשר לגרור' : PK_RIDES.includes(id) ? '🎠 מתקן' : null) : `🔒 ${d[3]} מטבעות`)));
+    const buyRow = pkBuy ? (() => { const d = PK_TILES[pkBuy], have = pkCoins(), can = have >= d[3];
+      return el('div', { class: 'box pk-buy' }, el('b', {}, `🛒 לקנות ${d[0]} ב־${d[3]} מטבעות?`), el('span', { class: 'muted' }, can ? `יש לך ${have} מטבעות` : `יש לך ${have} מטבעות. צריך עוד ${d[3] - have}. כל יום שנכנסים לפארק מקבלים כרטיסים (מטבעות)!`),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', disabled: !can, onclick: () => {
+          if (!pkSpend(d[3], `קניתי ${d[0]} לפארק`)) { toast(stickerHTML('sparkles'), 'אין מספיק מטבעות עדיין'); return; }
+          pkData.owned[pkBuy] = true; savePark(); SFX.yay(); confetti($('#parkDlg .confetti-c')); toast(icon(pkBuy), `🎉 ${d[0]} חדש בפארק! לוחצים על משבצת כדי לשים אותו`); pick(pkBuy);
+        } }, '🪙 לקנות'), el('button', { type: 'button', class: 'btn', onclick: () => { pkBuy = null; drawPark(); pkStartLife($('#parkBody .pk-scene svg')); } }, 'לא עכשיו'))); })() : null;
+    const hint = pkTool === 'erase' ? '🧽 לוחצים (או גוררים) על משהו כדי למחוק אותו' : `👆 לוחצים על משבצת כדי לשים ${PK_TILES[pkTool][0]}${PK_TILES[pkTool][2] ? ' (אפשר גם לגרור ולצייר)' : ''}`;
+    const rides = pkData.grid.filter(c => c && PK_RIDES.includes(c.t)).length;
+    const clear = pkAsk
+      ? el('span', { class: 'chips' }, el('span', {}, 'למחוק את כל הפארק?'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { pkData.grid = Array(PK_C * PK_R).fill(null); pkAsk = false; savePark(); drawPark(); pkStartLife($('#parkBody .pk-scene svg')); } }, 'כן'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { pkAsk = false; drawPark(); pkStartLife($('#parkBody .pk-scene svg')); } }, 'לא'))
+      : el('button', { type: 'button', class: 'btn', onclick: () => { pkAsk = true; drawPark(); pkStartLife($('#parkBody .pk-scene svg')); } }, '🧹 להתחיל מחדש');
+    body.replaceChildren(
+      el('div', { class: 'tw-namebox' }, el('label', { for: 'pkName' }, '🏷️ איך קוראים לפארק?'), nameIn, pkCoinChip()),
+      scene, el('p', { class: 'wd-hint' }, hint), buyRow, pal,
+      el('p', { class: 'muted' }, `🎟️ ${rides} מתקנים בפארק. כל יום שבאים לבקר, המבקרים קונים כרטיסים ואת מקבלת מטבעות! 🛤️ מציירים מסילה של רכבת הרים (עדיף בלולאה סגורה) והקרון ייסע עליה.`),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => wdPhoto(pkMarkup(true), 'balloon', scene, pkData.name) }, '📸 לצלם למדבקה'), clear));
+  }
+
+  // ---------- 🐠 aquarium: decorate a tank, collect, feed, grow and breed fish ----------
+  const AQ_SHAPES = [['round', 'דג כדור'], ['long', 'דג חץ'], ['angel', 'דג מלאך'], ['puffer', 'דג נפוח']];
+  const AQ_PATS = [['stripes', 'מפוספס'], ['dots', 'מנוקד'], ['spots', 'מנומר'], ['sparkle', 'נוצץ'], ['scales', 'קשקשי'], ['fade', 'זוהר']];
+  const AQ_COLS = [['#ff9a3c', '#ffffff'], ['#4fa8ff', '#ffd84d'], ['#ff9ad5', '#ffffff'], ['#7fe0b8', '#3a86c8'], ['#ffd84d', '#ff6b8b'], ['#b58cff', '#fff6c2'],
+    ['#ff6b6b', '#ffd6a8'], ['#3fd0d6', '#ff9ad5'], ['#ffa24d', '#5a4a6e'], ['#c9d8ff', '#7a52c9'], ['#ff7ab8', '#ffd84d'], ['#8fd694', '#ffffff']];
+  const AQ_MUT = ['#ffd700', '#e0b0ff', '#00e0c0', '#ff4fa0', '#7a5cff', '#ffffff'];
+  const AQ_NAMES = ['נמו', 'בועה', 'פיפי', 'זהבי', 'לולי', 'טופי', 'מיקי', 'ג׳ינג׳י', 'קשתי', 'דובדבן', 'שוקו', 'מנגו', 'קיווי', 'פופקורן', 'סוכריה', 'נוני', 'גלית', 'צ׳יפס', 'במבה', 'פנינה', 'שמשון', 'לימונית', 'תותי', 'פיסטוק'];
+  const AQ_KINDS = AQ_SHAPES.flatMap(([sh, sn], s) => AQ_PATS.map(([pt, pn], p) => { const k = s * 6 + p; return { k, sh, pt, n: `${sn} ${pn}`, tail: (s + p) % 3, c1: AQ_COLS[k % 12][0], c2: AQ_COLS[(k * 5 + 1) % 12][1], price: 6 + s * 3 + p * 2 + (pt === 'sparkle' ? 8 : 0) }; }));
+  function aqFishArt(kind, c1, c2, u) {
+    const K = AQ_KINDS[kind] || AQ_KINDS[0];
+    const B = { round: ['M-24 0 C-24 -18 -6 -20 6 -18 C18 -16 24 -8 24 0 C24 8 18 16 6 18 C-6 20 -24 18 -24 0 Z', 22, -24],
+      long: ['M-30 0 C-26 -12 -4 -13 14 -10 C24 -8 28 -4 28 0 C28 4 24 8 14 10 C-4 13 -26 12 -30 0 Z', 26, -30],
+      angel: ['M-19 0 C-17 -16 -4 -22 6 -20 C16 -16 20 -8 20 0 C20 8 16 16 6 20 C-4 22 -17 16 -19 0 Z', 18, -19],
+      puffer: ['M-22 0 A22 21 0 1 1 22 0 A22 21 0 1 1 -22 0 Z', 20, -22] }[K.sh];
+    const [body, xt, hx] = B;
+    const tails = [`M${xt} 0 C${xt + 14} -18 ${xt + 22} -14 ${xt + 20} 0 C${xt + 22} 14 ${xt + 14} 18 ${xt} 0 Z`, `M${xt} 0 L${xt + 20} -16 L${xt + 13} 0 L${xt + 20} 16 Z`, `M${xt} 0 C${xt + 10} -20 ${xt + 30} -22 ${xt + 26} -6 C${xt + 22} 0 ${xt + 30} 8 ${xt + 24} 18 C${xt + 14} 20 ${xt + 8} 10 ${xt} 0 Z`];
+    const fill = K.pt === 'fade' ? `url(#${u}g)` : c1;
+    const pats = {
+      stripes: [-6, 5, 15].map(x => `<rect x="${x}" y="-26" width="5" height="52" fill="${c2}"/>`).join(''),
+      dots: [[-4, -9], [6, -12], [14, -4], [4, 0], [-4, 9], [12, 8], [20, 2], [6, 13]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.4" fill="${c2}"/>`).join(''),
+      spots: `<ellipse cx="6" cy="-10" rx="8" ry="6" fill="${c2}"/><ellipse cx="16" cy="6" rx="6" ry="7" fill="${c2}"/><ellipse cx="-2" cy="12" rx="5" ry="4" fill="${c2}"/>`,
+      sparkle: [[4, -10, 0.55], [16, 2, 0.45], [2, 10, 0.4]].map(([x, y, s]) => wdSpark(x, y, s, c2, '')).join('') + `<circle cx="10" cy="-4" r="1.4" fill="#fff"/><circle cx="-2" cy="2" r="1.2" fill="#fff"/><circle cx="18" cy="-8" r="1.2" fill="#fff"/>`,
+      scales: [-10, -2, 6].map(y => [-2, 7, 16].map(x => `<path d="M${x - 4} ${y} a4 4 0 0 0 8 0" fill="none" stroke="${c2}" stroke-width="1.8"/>`).join('')).join(''),
+      fade: '',
+    };
+    const fins = K.sh === 'angel' ? `<path d="M-4 -19 C2 -42 16 -40 16 -14 Z M-4 19 C2 42 16 40 16 14 Z" fill="${c2}" ${S2}/>` : K.sh === 'puffer' ? Array.from({ length: 10 }, (_, i) => { const a = i / 10 * Math.PI * 2; return `<path d="M${wdFx(Math.cos(a) * 20)} ${wdFx(Math.sin(a) * 19)} L${wdFx(Math.cos(a) * 27)} ${wdFx(Math.sin(a) * 26)}" stroke="${O}" stroke-width="2" stroke-linecap="round"/>`; }).join('') + `<path d="M-2 -20 Q6 -30 14 -17 Z" fill="${c2}" ${S2}/>` : `<path d="M-6 ${K.sh === 'long' ? -11 : -17} Q2 ${K.sh === 'long' ? -24 : -30} 14 ${K.sh === 'long' ? -10 : -15} Z" fill="${c2}" ${S2}/>`;
+    const ex = hx + 11, ey = -4;
+    return `<defs><clipPath id="${u}c"><path d="${body}"/></clipPath>${K.pt === 'fade' ? `<linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient>` : ''}</defs>` +
+      `<g class="aq-tail"><path d="${tails[K.tail]}" fill="${c2}" ${S}/></g>${fins}<path d="${body}" fill="${fill}"/><g clip-path="url(#${u}c)">${pats[K.pt]}<ellipse cx="0" cy="14" rx="22" ry="8" fill="#fff" opacity=".3"/></g><path d="${body}" fill="none" ${S}/>` +
+      `<ellipse cx="4" cy="6" rx="6" ry="3.4" transform="rotate(25 4 6)" fill="${c2}" ${S2}/>` +
+      `<circle cx="${ex}" cy="${ey}" r="5.4" fill="#fff" ${S2}/><circle cx="${ex - 1}" cy="${ey + 0.5}" r="3" fill="${O}"/><circle cx="${ex - 2}" cy="${ey - 1}" r="1.1" fill="#fff"/>` +
+      `<circle cx="${ex + 5}" cy="${ey + 8}" r="2.4" fill="#ff8fab" opacity=".6"/><path d="${K.sh === 'puffer' ? `M${hx + 3} 5 q2.5 2.6 5 0` : `M${hx + 2} 4 q2.4 2.4 4.8 0`}" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>`;
+  }
+  const aqFishSVG = (kind, c1, c2, u) => `<svg viewBox="-36 -44 90 88" xmlns="http://www.w3.org/2000/svg">${aqFishArt(kind, c1, c2, u || 'aqi' + (wdUid++))}</svg>`;
+  const aqSea = (id, dy = -28) => () => `<g transform="translate(0 ${dy})">${SEA_ITEMS[id][4]()}</g>`;
+  const AQ_COLS2 = ['#5cc96b', '#3fae6a', '#ff6b8b', '#ff9ad5', '#ffb04d', '#ffd84d', '#b58cff', '#7ec8ff', '#9aa7b8', '#ffffff', '#c98a4b'];
+  const AQ_ITEMS = {
+    weed: ['אצה ארוכה', 1, 0, c => `<g class="aq-sway"><path d="M-8 0 C-18 -24 4 -40 -8 -64 C-14 -80 -4 -94 -2 -100 C8 -84 0 -64 4 -48 C10 -24 -4 -12 4 0 Z" fill="${c}" ${S}/><path d="M-2 -8 Q-8 -40 -4 -80" fill="none" stroke="${fmx(c, O, 0.25)}" stroke-width="1.8"/></g>`],
+    fern: ['שיח ירוק', 1, 1, c => `<g class="aq-sway">${[-40, -20, 0, 20, 40].map(a => `<g transform="rotate(${a})"><path d="M0 0 C-8 -20 -6 -40 0 -54 C6 -40 8 -20 0 0 Z" fill="${c}" ${S2}/></g>`).join('')}</g>`],
+    redplant: ['צמח אדום', 1, 2, c => `<g class="aq-sway">${[-14, 0, 14].map((x, i) => `<path d="M${x * 0.3} 0 Q${x} -30 ${x} ${-50 - i % 2 * 12}" fill="none" stroke="#3fae6a" stroke-width="3"/><ellipse cx="${x}" cy="${-54 - i % 2 * 12}" rx="8" ry="12" fill="${c}" ${S2}/>`).join('')}</g>`],
+    coral: ['אלמוג', 1, 3, c => tube('M0 0 V-24 M0 -14 L-14 -30 L-16 -46 M-14 -30 L-26 -36 M0 -24 L12 -40 L10 -56 M12 -40 L24 -46 M0 -30 V-50', c, 8) + `<ellipse cx="0" cy="0" rx="14" ry="4" fill="#b8c2cf" ${S2}/>`],
+    rock: ['סלעים', 1, 8, c => `<path d="M-36 0 C-40 -18 -28 -32 -12 -30 C-2 -40 14 -36 16 -22 C26 -26 38 -14 34 0 Z" fill="${c}" ${S}/><path d="M-6 0 C-8 -12 2 -18 10 -14 C18 -16 24 -8 22 0 Z" fill="${fmx(c, '#ffffff', 0.25)}" ${S2}/><path d="M-26 -18 q4 -4 8 -2" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/>`],
+    arch: ['קשת סלע', 1.1, 8, c => `<path d="M-48 0 V-30 C-48 -66 48 -66 48 -30 V0 H28 V-28 C28 -44 -28 -44 -28 -28 V0 Z" fill="${c}" ${S}/><path d="M-36 -44 q8 -8 16 -8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".6"/><circle cx="20" cy="-48" r="4" fill="#5cc96b" ${S2}/>`],
+    castle: ['טירה', 1.1, 3, c => `<rect x="-34" y="-62" width="18" height="62" fill="${c}" ${S}/><rect x="16" y="-62" width="18" height="62" fill="${c}" ${S}/><rect x="-18" y="-44" width="36" height="44" fill="${fmx(c, '#ffffff', 0.3)}" ${S}/>` +
+      `<path d="M-37 -62 L-25 -82 L-13 -62 Z M13 -62 L25 -82 L37 -62 Z" fill="#b58cff" ${S}/><path d="M-20 -44 L0 -64 L20 -44 Z" fill="#8e6bd6" ${S}/><path d="M-8 0 V-16 A8 8 0 0 1 8 -16 V0 Z" fill="#3b3f5a" ${S2}/><circle cx="-25" cy="-40" r="4" fill="#3b3f5a" ${S2}/><circle cx="25" cy="-40" r="4" fill="#3b3f5a" ${S2}/>`],
+    bubbler: ['מכונת בועות', 0.9, 5, c => [0, 1, 2, 3].map(i => `<circle class="aq-bub" cx="${i % 2 ? 3 : -3}" cy="-44" r="${4 + i % 3 * 2}" fill="#dff6ff" fill-opacity=".4" stroke="#fff" stroke-width="1.8" style="animation-delay:-${i * 0.8}s"/>`).join('') +
+      `<path d="M-30 -8 L-26 -34 C-10 -42 12 -42 28 -36 L30 -8 Z" fill="#a0673e" ${S}/><path d="M-28 -6 C-22 -20 -8 -14 0 -22 C8 -14 22 -20 28 -6 Z" fill="${c}" ${S}/><rect x="-31" y="-8" width="62" height="12" rx="3" fill="#c98a4b" ${S}/><rect x="-5" y="-10" width="10" height="12" rx="2" fill="${c}" ${S2}/>`],
+    lamp: ['מנורת מדוזה', 0.9, 3, c => [-10, -3, 4, 11].map((x, i) => tube(`M${x} -44 q${i % 2 ? 4 : -4} 8 0 14 q${i % 2 ? -4 : 4} 7 0 12`, fmx(c, '#ffffff', 0.4), 2.4)).join('') +
+      `<circle cy="-56" r="26" fill="${c}" opacity=".25"/><path d="M-20 -44 C-20 -72 20 -72 20 -44 Q10 -40 0 -44 Q-10 -40 -20 -44 Z" fill="${c}" ${S}/>${face(0, -54, 0.7)}<rect x="-6" y="-14" width="12" height="14" rx="3" fill="#9aa7b8" ${S2}/>`, 2],
+    diver: ['צוללן קטן', 0.9, 4, c => `<rect x="-14" y="-34" width="28" height="30" rx="8" fill="${c}" ${S}/><path d="M-10 -4 V0 M10 -4 V0" ${S}/><circle cy="-48" r="17" fill="#d8dde6" ${S}/><circle cy="-48" r="10" fill="#bfe9ff" ${S2}/>${face(0, -48, 0.55)}` +
+      `<path d="M14 -40 Q30 -50 26 -70" fill="none" ${S}/><circle class="aq-bub" cx="26" cy="-76" r="4" fill="#dff6ff" fill-opacity=".5" stroke="#fff" stroke-width="1.5"/>`],
+    pineapple: ['בית אננס', 1, 4, c => `<path d="M-10 -66 L-18 -90 L-4 -76 L0 -96 L6 -76 L18 -90 L10 -66 Z" fill="#3fae6a" ${S}/><ellipse cy="-34" rx="28" ry="36" fill="${c}" ${S}/>` +
+      `<path d="M-22 -54 L14 -8 M-8 -68 L24 -28 M-26 -30 L4 2 M22 -54 L-14 -8 M8 -68 L-24 -28 M26 -30 L-4 2" stroke="${fmx(c, O, 0.25)}" stroke-width="1.6"/><path d="M-8 0 V-16 A8 8 0 0 1 8 -16 V0 Z" fill="#7ec8ff" ${S2}/><circle cx="12" cy="-40" r="6" fill="#7ec8ff" ${S2}/>`],
+    chest: ['תיבת אוצר', 1, null, aqSea('chest', -28)],
+    ship: ['ספינה טבועה', 1.3, null, aqSea('ship', -22)],
+    anchor: ['עוגן', 0.9, null, aqSea('anchor', -38)],
+    pearl: ['פנינה בצדפה', 0.8, null, aqSea('pearls', -20)],
+    starfish: ['כוכב ים', 0.7, null, aqSea('starfish', -32)],
+  };
+  const AQ_GRAVEL = [['sand', 'חול', ['#f2d8a0', '#e0c080', '#fff0c8']], ['pink', 'ורוד', ['#ffc2d6', '#ff9ab8', '#fff']], ['blue', 'כחול', ['#9fd8ff', '#5b9fe0', '#e0f4ff']], ['rainbow', 'קשת', ['#ff9ad5', '#ffd84d', '#7fe0b8', '#7ec8ff', '#b58cff']], ['night', 'שחור', ['#4b4f6a', '#2f3350', '#8a8fa8']], ['white', 'לבן', ['#ffffff', '#e6e9f0', '#d0d6e2']]];
+  let aqData = Object.assign({ fish: null, eggs: [], items: null, gravel: 'sand', clean: '', fed: '', seen: {}, born: 0, light: 'day', named: 0 }, store.get('aquarium', {}));
+  if (!aqData.fish) { const t = localToday(); aqData.fish = [{ id: 'a0', kind: 0, c1: AQ_KINDS[0].c1, c2: AQ_KINDS[0].c2, name: 'נמו', born: t, g: 3 }, { id: 'a1', kind: 0, c1: '#ffb04d', c2: '#ffffff', name: 'בועה', born: t, g: 3 }]; aqData.seen = { 0: true }; aqData.clean = t; aqData.named = 2; }
+  if (!aqData.items) aqData.items = [['weed', 70, 372, 1.1, '#5cc96b'], ['fern', 520, 378, 1, '#3fae6a'], ['rock', 440, 382, 1, '#9aa7b8'], ['castle', 240, 376, 1, '#7ec8ff'], ['bubbler', 360, 384, 0.9, '#ffd84d'], ['redplant', 130, 384, 1, '#ff6b8b']]
+    .map(([t, x, y, s, c], i) => ({ id: 'q' + i, t, x, y, s, f: false, c, z: 0 }));
+  const aqSt = { tool: null, sel: null, ask: false };
+  let aqTab = 'tank', aqRaf = 0, aqSwim = [], aqFlakes = [], aqPair = [];
+  const saveAqua = () => store.set('aquarium', aqData);
+  const aqStage = f => f.g < 2 ? 0 : f.g < 5 ? 1 : 2;
+  const AQ_STAGE = [['תינוק', 0.8], ['צעיר', 1.15], ['גדול', 1.45]];
+  const aqDirt = () => aqData.clean ? Math.max(0, daysBetween(aqData.clean, wdToday())) : 0;
+  const aqHungry = () => aqData.fish.length && aqData.fed !== wdToday();
+  const aqEd = () => ({ st: aqSt, items: () => aqData.items, defs: AQ_ITEMS, cols: AQ_COLS2, save: saveAqua, bounds: [30, 250, 570, 392], max: 40, prefix: 'aq-', where: 'בקרקעית', redraw: () => drawAqua() });
+  function aqMarkup(photo) {
+    const night = aqData.light === 'night', gv = (AQ_GRAVEL.find(g => g[0] === aqData.gravel) || AQ_GRAVEL[0])[2], dirt = Math.min(6, aqDirt());
+    const W = night ? ['#1b2a6a', '#0b1438'] : ['#aee8ff', '#2f8fd0'];
+    const rays = [80, 220, 360, 480].map((x, i) => `<path class="aq-ray" style="animation-delay:-${i * 1.4}s" d="M${x} 30 L${x + 40} 30 L${x + 90 - i * 10} 360 L${x + 20 - i * 10} 360 Z" fill="#fff" fill-opacity="${night ? 0.04 : 0.1}"/>`).join('');
+    const pebbles = Array.from({ length: 90 }, (_, i) => `<ellipse cx="${(i * 67) % 600}" cy="${356 + (i * 29) % 44}" rx="${4 + i % 3 * 1.6}" ry="${3 + i % 2}" fill="${gv[i % gv.length]}" stroke="${O}" stroke-width=".8" stroke-opacity=".35"/>`).join('');
+    const back = [[30, 70, '#2d8a5a'], [150, 90, '#3fae6a'], [470, 80, '#2d8a5a'], [570, 60, '#3fae6a']].map(([x, h, c]) => `<path class="aq-sway" d="M${x - 10} 360 C${x - 20} ${360 - h / 2} ${x + 6} ${360 - h * 0.7} ${x - 4} ${360 - h} C${x + 10} ${360 - h * 0.7} ${x + 8} ${360 - h / 3} ${x + 10} 360 Z" fill="${c}" opacity=".45"/>`).join('');
+    const bubbles = Array.from({ length: 8 }, (_, i) => `<circle class="aq-bub" style="animation-duration:${5 + i % 4}s;animation-delay:-${i * 1.1}s" cx="${50 + (i * 157) % 500}" cy="${330 - (i * 23) % 40}" r="${2.5 + i % 3 * 1.5}" fill="#fff" fill-opacity=".25" stroke="#fff" stroke-opacity=".8" stroke-width="1.4"/>`).join('');
+    const algae = dirt >= 2 ? `<rect x="14" y="26" width="572" height="366" fill="#6fae3a" opacity="${(Math.min(dirt, 6) * 0.045).toFixed(2)}" pointer-events="none"/>` + Array.from({ length: Math.min(14, (dirt - 1) * 3) }, (_, i) => { const h = wdHash('alg' + i), x = i % 2 ? 22 + h % 60 : 520 + h % 58, y = 40 + (h >>> 6) % 300; return `<ellipse cx="${x}" cy="${y}" rx="${8 + h % 12}" ry="${6 + (h >>> 3) % 8}" fill="#5a9a3a" opacity=".35" pointer-events="none"/>`; }).join('') : '';
+    const eggs = aqData.eggs.map((e, i) => { const x = 90 + (wdHash(e.id) % 420), y = 368; return `<g transform="translate(${x} ${y})">${Array.from({ length: e.n + 2 }, (_, k) => `<circle cx="${(k % 3) * 6 - 6}" cy="${-Math.floor(k / 3) * 5}" r="3.2" fill="${fmx(e.c1, '#ffffff', 0.4)}" fill-opacity=".85" stroke="${O}" stroke-width=".9"/>`).join('')}</g>`; }).join('');
+    const fish = photo ? aqSwim.map(f => `<g transform="translate(${wdFx(f.x)} ${wdFx(f.y)}) scale(${wdFx(f.dir * f.sz)} ${wdFx(f.sz)})">${aqFishArt(f.f.kind, f.f.c1, f.f.c2, 'aqp' + (wdUid++))}</g>`).join('') : '';
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="האקווריום שלי"'}><defs><linearGradient id="aqW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${W[0]}"/><stop offset="1" stop-color="${W[1]}"/></linearGradient>${WD_GLOW('aqGlow')}</defs>` +
+      `<rect width="600" height="400" fill="#3b3f5a"/><rect x="14" y="14" width="572" height="380" rx="10" fill="url(#aqW)"/>${rays}${back}` +
+      `<path d="M14 28 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t12 0 V14 H14 Z" fill="${night ? '#2b3a8a' : '#dff6ff'}" opacity=".7"/>` +
+      `<path d="M14 356 C120 344 220 360 320 350 C420 342 500 358 586 350 V394 H14 Z" fill="${gv[0]}"/>${pebbles}` +
+      `<g class="w2-items"${night ? ' filter="url(#aqGlow)"' : ''}>${w2Items(aqEd(), photo)}</g><g class="aq-eggs" pointer-events="none">${eggs}</g><g class="aq-fishes">${fish}</g><g class="aq-flakes" pointer-events="none"></g>${bubbles}${algae}` +
+      `<path d="M40 40 L90 40 L40 120 Z M110 40 L125 40 L60 150 L52 150 Z" fill="#fff" opacity=".12" pointer-events="none"/><g class="aq-fx" pointer-events="none"></g>` +
+      `<rect x="14" y="14" width="572" height="380" rx="10" fill="none" stroke="${O}" stroke-width="5" pointer-events="none"/><rect x="4" y="4" width="592" height="392" rx="14" fill="none" stroke="#6b5a7a" stroke-width="8" pointer-events="none"/></svg>`;
+  }
+  // fish swim; with flakes in the water they race to eat
+  function aqStartSwim(svgEl, clickable) {
+    cancelAnimationFrame(aqRaf);
+    const layer = svgEl.querySelector('.aq-fishes'), flL = svgEl.querySelector('.aq-flakes'), fx = svgEl.querySelector('.aq-fx');
+    const old = new Map(aqSwim.map(s => [s.f.id, s]));
+    aqSwim = aqData.fish.map((f, k) => { const o = old.get(f.id), h = wdHash(f.id); return Object.assign({ x: 80 + h % 440, y: 80 + (h >>> 7) % 200, vx: 0, vy: 0, tx: 300, ty: 180, dir: 1, wait: 0 }, o ? { x: o.x, y: o.y, dir: o.dir } : {}, { f, sz: AQ_STAGE[aqStage(f)][1] }); });
+    aqSwim.forEach(s => { s.tx = s.x; s.ty = s.y; });
+    layer.innerHTML = aqSwim.map((s, k) => `<g class="aq-f" data-id="${s.f.id}"${clickable ? '' : ' pointer-events="none"'}><g class="aq-fb">${aqFishArt(s.f.kind, s.f.c1, s.f.c2, 'aqs' + k + 'x' + (wdUid++))}</g></g>`).join('');
+    const nodes = [...layer.children];
+    flL.innerHTML = aqFlakes.map(fl => `<circle r="3.2" fill="${fl.c}" stroke="${O}" stroke-width=".8"/>`).join('');
+    const place = () => {
+      aqSwim.forEach((s, k) => { nodes[k].setAttribute('transform', `translate(${wdFx(s.x)} ${wdFx(s.y)})`); nodes[k].firstChild.setAttribute('transform', `scale(${wdFx(s.dir * s.sz)} ${wdFx(s.sz)})`); });
+      [...flL.children].forEach((n, k) => { const fl = aqFlakes[k]; if (fl) { n.setAttribute('cx', wdFx(fl.x)); n.setAttribute('cy', wdFx(fl.y)); } });
+    };
+    place();
+    let last = performance.now();
+    const step = now => {
+      if (!$('#aquaDlg').open || !svgEl.isConnected) return;
+      const dt = Math.min(0.05, (now - last) / 1000); last = now;
+      aqFlakes.forEach(fl => { fl.t += dt; if (fl.y < 350) { fl.y += 26 * dt; fl.x += Math.sin(fl.t * 2 + fl.p) * 10 * dt; } });
+      const gone = aqFlakes.filter(fl => fl.t > 14);
+      aqSwim.forEach(s => {
+        let sp = 42;
+        if (aqFlakes.length) {
+          let best = null, bd = 1e9; aqFlakes.forEach(fl => { const d = Math.hypot(fl.x - s.x, fl.y - s.y); if (d < bd) { bd = d; best = fl; } });
+          s.tx = best.x + (s.dir > 0 ? 14 : -14) * s.sz; s.ty = best.y; sp = 90;
+          if (bd < 16 * s.sz + 6 && !gone.includes(best)) { gone.push(best); tone(600 + Math.random() * 300, 0.05, 'triangle', 0, 0.04); if (!reduceMotion()) { fx.insertAdjacentHTML('beforeend', `<circle class="aq-nom" cx="${wdFx(best.x)}" cy="${wdFx(best.y - 6)}" r="4" fill="#fff" fill-opacity=".4" stroke="#fff" stroke-width="1.4"/>`); const b = fx.lastChild; setTimeout(() => b.remove(), 900); } }
+        } else if ((s.wait -= dt) <= 0 && Math.hypot(s.tx - s.x, s.ty - s.y) < 8) { s.wait = Math.random() * 2; s.tx = 60 + Math.random() * 480; s.ty = 60 + Math.random() * 250; }
+        const dx = s.tx - s.x, dy = s.ty - s.y, d = Math.hypot(dx, dy);
+        if (d > 1) { s.vx += (dx / d * sp - s.vx) * Math.min(1, dt * 2.5); s.vy += (dy / d * sp * 0.7 - s.vy) * Math.min(1, dt * 2.5); } else { s.vx *= 0.9; s.vy *= 0.9; }
+        s.x = Math.max(40, Math.min(560, s.x + s.vx * dt)); s.y = Math.max(50, Math.min(338, s.y + s.vy * dt + Math.sin(now / 500 + s.x) * 0.1));
+        if (Math.abs(s.vx) > 6) s.dir = s.vx < 0 ? 1 : -1;
+      });
+      if (gone.length) { aqFlakes = aqFlakes.filter(fl => !gone.includes(fl)); flL.innerHTML = aqFlakes.map(fl => `<circle r="3.2" fill="${fl.c}" stroke="${O}" stroke-width=".8"/>`).join(''); }
+      place();
+      aqRaf = requestAnimationFrame(step);
+    };
+    aqRaf = requestAnimationFrame(step);
+  }
+  function aqHatch() {
+    const t = wdToday(), ready = aqData.eggs.filter(e => e.laid < t);
+    if (!ready.length) return 0;
+    let n = 0;
+    ready.forEach(e => { for (let k = 0; k < e.n && aqData.fish.length < 24; k++) {
+      const mut = Math.random() < 0.08, r = 0.3 + Math.random() * 0.4;
+      const c1 = mut ? AQ_MUT[Math.floor(Math.random() * AQ_MUT.length)] : fmx(e.c1, e.d1, r), c2 = Math.random() < 0.5 ? e.c2 : e.d2;
+      aqData.fish.push({ id: 'a' + Date.now().toString(36) + (wdUid++), kind: e.kind, c1, c2, name: AQ_NAMES[(aqData.named++) % AQ_NAMES.length], born: t, g: 0, rare: mut }); n++; aqData.born++;
+    } });
+    aqData.eggs = aqData.eggs.filter(e => !ready.includes(e)); saveAqua();
+    return n;
+  }
+  function openAquarium() {
+    aqSt.sel = null; aqSt.ask = false; aqPair = [];
+    const n = aqHatch();
+    drawAqua();
+    const dlg = $('#aquaDlg');
+    if (!dlg.open) { dlg.showModal(); dlg.addEventListener('close', () => { if (!dlg.open) { cancelAnimationFrame(aqRaf); aqFlakes = []; } }, { once: true }); }
+    if (n) setTimeout(() => { SFX.yay(); confetti($('#aquaDlg .confetti-c')); toast(aqFishSVG(aqData.fish[aqData.fish.length - 1].kind, aqData.fish[aqData.fish.length - 1].c1, aqData.fish[aqData.fish.length - 1].c2), n === 1 ? '🥚 ביצה בקעה! נולד דג תינוק!' : `🥚 ${n} דגים תינוקות נולדו!`); w2Coins(3, 'דגים תינוקות נולדו'); }, 400);
+  }
+  function aqFeed() {
+    const t = wdToday();
+    for (let k = 0; k < 10; k++) aqFlakes.push({ x: 80 + Math.random() * 440, y: 30 + Math.random() * 10, t: -k * 0.12, p: Math.random() * 6, c: ['#ffb04d', '#ff6b6b', '#ffd84d', '#a0673e'][k % 4] });
+    const svgEl = $('#aquaBody .aq-scene svg'); if (svgEl) svgEl.querySelector('.aq-flakes').innerHTML = aqFlakes.map(fl => `<circle r="3.2" fill="${fl.c}" stroke="${O}" stroke-width=".8"/>`).join('');
+    tone(700, 0.06, 'triangle'); tone(900, 0.06, 'triangle', 0.08);
+    if (aqData.fed !== t) {
+      aqData.fed = t; const grew = [];
+      aqData.fish.forEach(f => { const s0 = aqStage(f); f.g = (f.g || 0) + 1; if (aqStage(f) > s0) grew.push(f); });
+      saveAqua();
+      setTimeout(() => { toast(stickerHTML('fish'), grew.length ? `🐟 הדגים אכלו! ${grew.map(f => f.name).join(', ')} ${grew.length === 1 ? 'גדל' : 'גדלו'}!` : '🐟 הדגים אכלו ושמחים! כל יום שמאכילים הם גדלים'); try { renderStrip(); } catch {} }, 1500);
+      setTimeout(() => { if (grew.length) { const s = $('#aquaBody .aq-scene svg'); if (s) aqStartSwim(s, aqTab === 'tank'); } }, 2500);
+    }
+  }
+  function aqClean(scene) {
+    if (aqDirt() < 2) return;
+    if (!reduceMotion()) { const sp = el('div', { class: 'aq-sponge', html: '🧽' }); scene.append(sp); setTimeout(() => sp.remove(), 1600); }
+    [0, 0.2, 0.4, 0.6].forEach(w => tone(300 + w * 400, 0.12, 'sine', w, 0.05));
+    setTimeout(() => { aqData.clean = wdToday(); saveAqua(); SFX.yay(); w2Coins(2, 'ניקית את האקווריום'); toast(stickerHTML('sparkles'), '✨ האקווריום נקי ונוצץ! הדגים מודים לך'); drawAqua(); }, reduceMotion() ? 50 : 1400);
+  }
+  function drawAqua() {
+    cancelAnimationFrame(aqRaf);
+    const body = $('#aquaBody'), t = wdToday(), dirt = aqDirt();
+    const tabs = wdTabs([['tank', '🐠 האקווריום'], ['deco', '🪴 לקשט'], ['family', '💕 משפחות'], ['shop', '🛒 חנות דגים']], aqTab, id => { aqTab = id; aqSt.sel = null; aqPair = []; drawAqua(); });
+    const kinds = new Set(aqData.fish.map(f => f.kind)); Object.keys(aqData.seen).forEach(k => kinds.add(+k));
+    const head = el('div', { class: 'chips aq-head' }, el('span', { class: 'lbl' }, `🐟 ${aqData.fish.length} דגים · אספת ${kinds.size}/${AQ_KINDS.length} סוגים`), pkCoinChip());
+    if (aqTab === 'shop') {
+      body.replaceChildren(head, tabs, el('div', { class: 'aq-shop' }, ...AQ_KINDS.map(K => {
+        const have = aqData.fish.filter(f => f.kind === K.k).length, full = aqData.fish.length >= 24;
+        return el('div', { class: 'aq-card' + (aqData.seen[K.k] ? '' : ' new') }, el('span', { class: 'ic', html: aqFishSVG(K.k, K.c1, K.c2) }), el('b', {}, K.n), el('small', {}, have ? `יש לך ${have}` : aqData.seen[K.k] ? 'היה לך' : '✨ חדש!'),
+          el('button', { type: 'button', class: 'chip', disabled: full, onclick: () => {
+            if (!pkSpend(K.price, `קניתי ${K.n}`)) { toast(stickerHTML('fish'), `צריך ${K.price} מטבעות. מרוויחים מטבעות במשחקים ובפארק!`); SFX.boop(); return; }
+            aqData.fish.push({ id: 'a' + Date.now().toString(36) + (wdUid++), kind: K.k, c1: K.c1, c2: K.c2, name: AQ_NAMES[(aqData.named++) % AQ_NAMES.length], born: t, g: 1 });
+            aqData.seen[K.k] = true; saveAqua(); SFX.yay(); toast(aqFishSVG(K.k, K.c1, K.c2), `🎉 ${K.n} חדש שוחה באקווריום!`); drawAqua();
+          } }, full ? 'האקווריום מלא' : `🪙 ${K.price}`));
+      })));
+      return;
+    }
+    if (aqTab === 'family') {
+      const adults = aqData.fish.filter(f => aqStage(f) === 2), sel = aqPair.map(id => aqData.fish.find(f => f.id === id)).filter(Boolean);
+      const ok = sel.length === 2 && sel[0].kind === sel[1].kind && sel.every(f => f.bred !== t) && aqData.fish.length + aqData.eggs.reduce((a, e) => a + e.n, 0) < 24;
+      const why = sel.length < 2 ? '👆 בוחרים שני דגים גדולים מאותו סוג' : sel[0].kind !== sel[1].kind ? '🙈 רק דגים מאותו סוג יכולים להטיל ביצים ביחד' : !sel.every(f => f.bred !== t) ? '😴 אחד מהם כבר הטיל ביצים היום. נסי מחר!' : ok ? '' : '🐟 האקווריום מלא מדי לתינוקות';
+      body.replaceChildren(head, tabs,
+        el('p', { class: 'muted' }, '💕 שני דגים גדולים מאותו סוג מטילים ביצים. מחר הביצים בוקעות, והתינוקות מקבלים צבעים מעורבבים משני ההורים (ולפעמים צבע מיוחד ✨)!'),
+        el('div', { class: 'aq-fam' }, ...(aqData.fish.length ? aqData.fish.map(f => { const st = aqStage(f), on = aqPair.includes(f.id);
+          return el('button', { type: 'button', class: 'aq-card' + (on ? ' on' : '') + (st < 2 ? ' small' : ''), disabled: st < 2, 'aria-pressed': String(on), onclick: () => { aqPair = on ? aqPair.filter(x => x !== f.id) : [...aqPair, f.id].slice(-2); SFX.pop(); drawAqua(); } },
+            el('span', { class: 'ic', html: aqFishSVG(f.kind, f.c1, f.c2) }), el('b', {}, `${f.name}${f.rare ? ' ✨' : ''}`), el('small', {}, `${AQ_KINDS[f.kind].n} · ${AQ_STAGE[st][0]}${st < 2 ? ` (עוד ${5 - f.g} ימי אוכל)` : ''}`)); }) : [el('p', { class: 'muted' }, 'עוד אין דגים')])),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', disabled: !ok, onclick: () => {
+          const [a, b] = sel; a.bred = t; b.bred = t;
+          aqData.eggs.push({ id: 'e' + Date.now().toString(36), kind: a.kind, c1: a.c1, d1: b.c1, c2: a.c2, d2: b.c2, laid: t, n: 1 + Math.floor(Math.random() * 3) });
+          saveAqua(); aqPair = []; SFX.yay(); toast(stickerHTML('egg'), `🥚 ${a.name} ו${b.name} הטילו ביצים! מחר הן יבקעו`); aqTab = 'tank'; drawAqua();
+        } }, '💕 להטיל ביצים'), why ? el('span', { class: 'wd-hint' }, why) : null),
+        aqData.eggs.length ? el('p', { class: 'muted' }, `🥚 יש ${aqData.eggs.reduce((a, e) => a + e.n, 0)} ביצים באקווריום. הן בוקעות מחר!`) : null,
+        adults.length ? null : el('p', { class: 'muted' }, '🍤 מאכילים את הדגים כל יום, ואחרי כמה ימים הם גדלים ויכולים להטיל ביצים.'));
+      return;
+    }
+    const scene = el('div', { class: 'wd-scene aq-scene', html: aqMarkup() }), svgEl = scene.firstChild;
+    if (aqTab === 'deco') {
+      const o = aqEd(), E = w2Editor(svgEl, o);
+      body.replaceChildren(head, tabs, scene, E.tools, E.colors, E.pal,
+        el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'חצץ:'), ...AQ_GRAVEL.map(([id, name, cs]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(aqData.gravel === id), onclick: () => { aqData.gravel = id; saveAqua(); SFX.pop(); drawAqua(); } },
+          el('span', { class: 'aq-gv', style: `background:linear-gradient(90deg, ${cs.join(', ')})` }), name))),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { const was = aqSt.sel; aqSt.sel = null; const s = aqMarkup(true); aqSt.sel = was; wdPhoto(s, 'fish', scene); } }, '📸 לצלם למדבקה'),
+          w2ClearBtn(aqSt, 'להוריד את כל הקישוטים?', aqData.items.length, () => { aqData.items = []; saveAqua(); }, drawAqua)));
+      aqStartSwim(svgEl, false);
+      return;
+    }
+    svgEl.addEventListener('pointerdown', e => {
+      const hit = e.target.closest('.aq-f'); if (!hit) return;
+      const f = aqData.fish.find(x => x.id === hit.dataset.id); if (!f) return;
+      SFX.ding(); toast(aqFishSVG(f.kind, f.c1, f.c2), `${f.name}${f.rare ? ' ✨' : ''} · ${AQ_KINDS[f.kind].n} · ${AQ_STAGE[aqStage(f)][0]}`);
+    });
+    const status = dirt >= 4 ? '🟢 האקווריום מלוכלך מאוד! הדגים מבקשים לנקות' : dirt >= 2 ? '🟢 קצת אצות על הזכוכית. כדאי לנקות' : '✨ האקווריום נקי';
+    body.replaceChildren(head, tabs, scene,
+      el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn main', onclick: aqFeed }, aqHungry() ? '🍤 להאכיל (הם רעבים!)' : '🍤 להאכיל'),
+        el('button', { type: 'button', class: 'btn', disabled: dirt < 2, onclick: () => aqClean(scene) }, '🧽 לנקות'),
+        el('button', { type: 'button', class: 'chip', 'aria-pressed': String(aqData.light === 'night'), onclick: () => { aqData.light = aqData.light === 'night' ? 'day' : 'night'; saveAqua(); SFX.pop(); drawAqua(); } }, aqData.light === 'night' ? '🌙 אורות לילה' : '💡 אור יום'),
+        el('button', { type: 'button', class: 'btn', onclick: () => wdPhoto(aqMarkup(true), 'fish', scene) }, '📸')),
+      el('p', { class: 'muted' }, `${status} · ${aqData.fed === t ? '🍤 הדגים אכלו היום' : '🍤 הדגים עוד לא אכלו היום'}${aqData.eggs.length ? ' · 🥚 יש ביצים!' : ''} · 👆 לוחצים על דג כדי לראות מי זה`));
+    aqStartSwim(svgEl, true);
+  }
+  // a hint for the top strip when the fish are hungry
+  function aquariumPill() {
+    if (!aqHungry()) return null;
+    return el('button', { type: 'button', class: 'pill', onclick: () => openAquarium() }, el('span', { class: 'ic', html: stickerHTML('fish') }), 'הדגים באקווריום רעבים! 🍤');
+  }
+
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
