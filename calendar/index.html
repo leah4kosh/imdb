@@ -3309,6 +3309,11 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 #pet .pet-group .ic { width: calc(var(--pet-size, 62px) * .78 * var(--s, 1)); height: calc(var(--pet-size, 62px) * .78 * var(--s, 1)); margin-inline-start: -12px; animation: bob 2.6s ease-in-out var(--d, 0s) infinite; }
 #pet .pet-group .ic:first-child { margin-inline-start: 0; }
 #pet .pet-group .ic svg { width: 100%; height: 100%; filter: drop-shadow(0 3px 3px rgb(0 0 0 / .25)); }
+
+/* ---------- worlds6: more of everything ---------- */
+.wd-scene .gd6-swing { transform-box: fill-box; transform-origin: 50% 0%; animation: gd6swing 2.6s ease-in-out infinite alternate; }
+@keyframes gd6swing { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+@media (prefers-reduced-motion: reduce) { .wd-scene .gd6-swing { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -14805,7 +14810,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   function gdVaseSVG() {
     const v = gdData.vase, flowers = v.filter(t => !['bush', 'mush'].includes(GD_PLANTS[t][5])).slice(-9), harvest = v.filter(t => ['bush', 'mush'].includes(GD_PLANTS[t][5])).slice(-6);
     const fan = flowers.map((t, i) => { const a = flowers.length < 2 ? 0 : -40 + 80 * i / (flowers.length - 1); return `<g transform="translate(110 178) rotate(${a.toFixed(1)}) scale(1.3)">${gdPlantArt(t, 4)}</g>`; }).join('');
-    const basket = harvest.length ? `<g transform="translate(200 214)">${harvest.map((t, i) => { const x = -22 + (i % 3) * 20, y = -34 - Math.floor(i / 3) * 10; return t === 'strawberry' ? gdBerry(x, y, 1.3) : t === 'blueberry' ? `<circle cx="${x}" cy="${y}" r="6" fill="#5b7fe0" ${S2}/><circle cx="${x + 5}" cy="${y + 3}" r="5" fill="#5b7fe0" ${S2}/>` : `<g transform="translate(0 ${y + 10})">${gdMush(x, 0.45, '#ff5a6e')}</g>`; }).join('')}` +
+    const basket = harvest.length ? `<g transform="translate(200 214)">${harvest.map((t, i) => { const x = -22 + (i % 3) * 20, y = -34 - Math.floor(i / 3) * 10; return t === 'strawberry' ? gdBerry(x, y, 1.3) : t === 'blueberry' ? `<circle cx="${x}" cy="${y}" r="6" fill="#5b7fe0" ${S2}/><circle cx="${x + 5}" cy="${y + 3}" r="5" fill="#5b7fe0" ${S2}/>` : t === 'mushroom' ? `<g transform="translate(0 ${y + 10})">${gdMush(x, 0.45, '#ff5a6e')}</g>` : `<g transform="translate(${x} ${y + 8}) scale(.3)">${GD_PLANTS[t][6]()}</g>`; }).join('')}` +
       `<path d="M-38 -24 C-38 -60 38 -60 38 -24" fill="none" stroke="${O}" stroke-width="7"/><path d="M-38 -24 C-38 -60 38 -60 38 -24" fill="none" stroke="#e0a868" stroke-width="3.5"/><path d="M-40 -24 H40 L32 2 H-32 Z" fill="#e0a868" ${S}/><path d="M-36 -14 H36 M-34 -5 H34" stroke="#b07a4a" stroke-width="1.8"/></g>` : '';
     const vase = `<path d="M84 174 C72 196 76 222 92 232 H128 C144 222 148 196 136 174 Z" fill="#b8e0ff" ${S}/><rect x="80" y="166" width="60" height="12" rx="6" fill="#d6ecff" ${S}/><path d="M86 204 q24 10 48 0" fill="none" stroke="#ff9ad5" stroke-width="4" stroke-linecap="round"/>${shine(90, 196)}${face(110, 212, 0.8)}`;
     return `<svg viewBox="0 0 260 240" xmlns="http://www.w3.org/2000/svg"><ellipse cx="130" cy="232" rx="120" ry="7" fill="${O}" opacity=".12"/>${fan}${vase}${basket}</svg>`;
@@ -14891,8 +14896,8 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   let bfTab = 'meadow', bfPop = null;
   const saveBf = () => store.set('butterflies', bfData);
   // today's visitor: the same for everyone on that date, 5% rare, and never the same everyday one two days in a row
-  const bfIdx = k => { const h = wdHash('bf' + k); return (h % 100) < 5 ? 32 + (h >>> 8) % 4 : (h >>> 8) % 32; };
-  const bfOf = k => { let i = bfIdx(k); const y = bfIdx(addDays(k, -1)); if (i === y && i < 32) i = (i + 1) % 32; return BF_LIST[i]; };
+  const bfIdx = k => { const h = wdHash('bf' + k), C = BF_LIST.filter(b => !b.rare).length, R = BF_LIST.length - C; return (h % 100) < 5 ? C + (h >>> 8) % R : (h >>> 8) % C; };
+  const bfOf = k => { const L = [...BF_LIST.filter(b => !b.rare), ...BF_LIST.filter(b => b.rare)], C = L.findIndex(b => b.rare); let i = bfIdx(k); const y = bfIdx(addDays(k, -1)); if (i === y && i < C) i = (i + 1) % C; return L[i]; };
   function bfMarkup(photo) {
     const t = wdToday(), today = bfOf(t), caughtToday = !!bfData.days[t], motion = !photo && !reduceMotion();
     const flowers = [[40, 330, 'tulip', 0.55], [118, 372, 'daisy', 0.6], [196, 318, 'lavender', 0.5], [270, 382, 'tulip', 0.5], [350, 330, 'daisy', 0.55], [430, 376, 'sunflower', 0.5], [512, 324, 'lavender', 0.55], [568, 380, 'daisy', 0.5], [480, 250, 'tulip', 0.4], [90, 250, 'daisy', 0.4], [300, 262, 'lavender', 0.38]]
@@ -14959,15 +14964,15 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
         el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => wdPhoto(bfMarkup(true), 'butterfly', scene) }, '📸 לצלם למדבקה'),
           el('span', { class: 'muted' }, kinds ? '👆 לוחצים על פרפר שעף כדי לראות את השם שלו' : 'הפרפרים שתתפסי יעופו פה באחו')));
     } else {
-      main = el('div', { class: 'bf-album' }, ...BF_LIST.map(d => {
+      if (bfTab === 'house') main = bfHouse(); else main = el('div', { class: 'bf-album' }, ...[...BF_LIST.filter(b => !b.rare), ...BF_LIST.filter(b => b.rare)].map(d => {
         const n = bfData.caught[d.id] || 0;
         return el('div', { class: 'bf-card' + (n ? '' : ' locked') + (d.rare ? ' rare' : '') },
           el('span', { class: 'ic', html: bfSVG(d, null, n ? 'bf-flap' : '') }), el('b', {}, n ? d.n : '???'),
           el('small', {}, n ? `${d.rare ? '✨ נדיר · ' : ''}${n === 1 ? 'נתפס פעם אחת' : `נתפס ${n} פעמים`}` : d.rare ? '✨ נדיר' : 'עוד לא'));
       }));
     }
-    body.replaceChildren(head, wdTabs([['meadow', '🌼 האחו'], ['album', `📖 האלבום (${kinds}/${total})`]], bfTab, id => { bfTab = id; bfPop = null; drawBf(); }), main,
-      bfTab === 'album' ? el('p', { class: 'muted' }, `כל יום מגיע פרפר אחר. יש ${total} סוגים, ו־4 מהם נדירים מאוד ✨`) : null);
+    body.replaceChildren(head, wdTabs([['meadow', '🌼 האחו'], ['house', '🏡 בית הפרפרים'], ['album', `📖 האלבום (${kinds}/${total})`]], bfTab, id => { bfTab = id; bfPop = null; drawBf(); }), main,
+      bfTab === 'album' ? el('p', { class: 'muted' }, `כל יום מגיע פרפר אחר. יש ${total} סוגים, ו־${BF_LIST.filter(b => b.rare).length} מהם נדירים מאוד ✨`) : null);
   }
   // a hint for the top strip while today's butterfly is still free
   function butterflyPill() {
@@ -14998,7 +15003,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       panels: `<path d="M0.5 0 V40 M20.5 0 V40" stroke="${d}" stroke-width="1.6" opacity=".6"/><circle cx="10" cy="12" r="1.2" fill="${d}" opacity=".5"/><circle cx="30" cy="30" r="1.2" fill="${d}" opacity=".5"/>`,
       waves: `<path d="M0 10 Q10 2 20 10 T40 10" fill="none" stroke="#ff9ad5" stroke-width="3"/><path d="M0 20 Q10 12 20 20 T40 20" fill="none" stroke="#ffd84d" stroke-width="3"/><path d="M0 30 Q10 22 20 30 T40 30" fill="none" stroke="#7ec8ff" stroke-width="3"/>`,
       galaxy: `<circle cx="8" cy="9" r="1.2" fill="#fff"/><circle cx="28" cy="16" r="0.9" fill="#fff6c2"/><circle cx="18" cy="32" r="1.4" fill="#fff"/><polygon points="${starPts(33, 33, 3.5, 1.4, 4)}" fill="#ffe27a"/>`,
-    }[p] || '';
+    }[p] || (RM_PAT_X[p] ? RM_PAT_X[p](a, d, c) : '');
     const base = p === 'galaxy' ? fmx(c, '#1d1f4a', 0.75) : c;
     return `<pattern id="${id}" patternUnits="userSpaceOnUse" width="40" height="40"${tf ? ` patternTransform="${tf}"` : ''}><rect width="40" height="40" fill="${base}"/>${body}</pattern>`;
   }
@@ -15305,20 +15310,20 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   function twStartWalkers(svgEl) {
     cancelAnimationFrame(twRaf);
     const layer = svgEl.querySelector('.tw-people'), roads = twData.grid.map((c, i) => c && c.t === 'road' ? i : -1).filter(i => i >= 0);
-    const who = [pet ? placeSvg(petSVG(grownPet(pet)), -17, -38, 34, 39) : null, ...girls.slice(0, 3).map(g => g)].filter(Boolean);
+    const who = [...w2Pets().map(p => placeSvg(petSVG(p), -17, -38, 34, 39)), ...girls.slice(0, 3).map(g => g), ...(roads.length > 2 ? TW6_CARS : [])].filter(Boolean);
     if (!roads.length || !who.length) { twWalkers = []; layer.replaceChildren(); return; }
     const old = twWalkers;
     twWalkers = who.map((art, k) => {
       const girl = typeof art === 'string' ? null : art; if (girl) art = wdGirl(girl, -14, -56, 28, 56);
       const o = old[k] && roads.includes(old[k].at) && roads.includes(old[k].to) ? old[k] : null, at = o ? o.at : roads[(k * 7 + 3) % roads.length];
-      return Object.assign({ girl, art, at, to: at, prev: -1, t: 1, sp: 0.55 + k * 0.08, dir: 1, x: 0, y: 0 }, o ? { to: o.to, prev: o.prev, t: o.t, dir: o.dir } : {}, { art, girl });
+      return Object.assign({ girl, art, at, to: at, prev: -1, t: 1, sp: (typeof art === 'string' && art.includes('tw-car') ? 1.3 : 0.55) + k * 0.08, car: typeof art === 'string' && art.includes('tw-car'), dir: 1, x: 0, y: 0 }, o ? { to: o.to, prev: o.prev, t: o.t, dir: o.dir } : {}, { art, girl });
     });
     layer.innerHTML = twWalkers.map(w => `<g>${w.art}</g>`).join('');
     const nodes = [...layer.children];
     const place = (w, n) => {
       const a = twCenter(w.at), b = twCenter(w.to), t = Math.max(0, Math.min(1, w.t));
       w.x = a[0] + (b[0] - a[0]) * t; w.y = a[1] + (b[1] - a[1]) * t + 10;
-      const hop = w.at !== w.to ? -Math.abs(Math.sin(t * Math.PI * 3)) * 3 : 0;
+      const hop = w.at !== w.to && !w.car ? -Math.abs(Math.sin(t * Math.PI * 3)) * 3 : 0;
       n.setAttribute('transform', `translate(${wdFx(w.x)} ${wdFx(w.y + hop)}) scale(${w.dir} 1)`);
     };
     twWalkers.forEach((w, k) => place(w, nodes[k]));
@@ -16573,7 +16578,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     : el('button', { type: 'button', class: 'btn', disabled: !has, onclick: () => { st.ask = true; redraw(); } }, '🧹 לנקות הכל');
 
   // ---------- 🌌 space: fly the rocket between planets, discover them, land and decorate ----------
-  const SPC_W = 2400, SPC_H = 1600;
+  const SPC_W = 3360, SPC_H = 1600;
   const SPC_NAMES = ['לולו', 'זוהרית', 'בלובי', 'פיצקי', 'מנטה', 'קוקו', 'שמשית', 'ענבלי', 'טוטי', 'פרחונית', 'קרחונית', 'ג׳לי', 'סטארי', 'דובדבן'];
   const SPC_COLS = [['#ff9ad5', '#ffd6ec'], ['#7ec8ff', '#d6f0ff'], ['#b58cff', '#e6dbff'], ['#ffd84d', '#fff3b8'], ['#7fe0b8', '#d9fff0'], ['#ffa24d', '#ffe0b8'], ['#ff6b8b', '#ffc2d0'],
     ['#9fe6ff', '#ffffff'], ['#e0b0ff', '#ffd6f5'], ['#8fd694', '#fff6a8'], ['#c9d8ff', '#ffffff'], ['#ff7ab8', '#b58cff'], ['#5b7fe0', '#ffd84d'], ['#ff5a6e', '#ffe0e6']];
@@ -16585,6 +16590,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   });
   const spcById = id => SPC_PLANETS.find(p => p.id === id);
   function spcArt(p, u, photo) {
+    if (p.station) return spcStationArt(p, u, photo);
     const r = p.r, c1 = p.c1, c2 = p.c2, ring = fmx(c1, '#ffffff', 0.35), still = photo || reduceMotion();
     const pats = {
       bands: [-0.55, -0.05, 0.45].map(k => { const y = k * r, b = r * 0.2; return `<path d="M${-r} ${wdFx(y)} Q${wdFx(-r / 2)} ${wdFx(y - 7)} 0 ${wdFx(y)} T${r} ${wdFx(y)} V${wdFx(y + b)} Q${wdFx(r / 2)} ${wdFx(y + b + 7)} 0 ${wdFx(y + b)} T${-r} ${wdFx(y + b)} Z" fill="${c2}"/>`; }).join(''),
@@ -16653,7 +16659,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const g1 = fmx(p.c1, '#ffffff', 0.15), g2 = fmx(p.c1, '#3a2b3c', 0.12);
     return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="על הכוכב"'}><defs><linearGradient id="spcSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#11173d"/><stop offset="1" stop-color="${fmx(p.c1, '#1b2358', 0.6)}"/></linearGradient><clipPath id="spcWin"><circle cy="-4" r="11"/></clipPath></defs>` +
       `<rect width="600" height="400" fill="url(#spcSky)"/>${stars}<g transform="translate(500 80) scale(.7)">${spcArt(other, 'spo', photo)}</g>` +
-      `<path d="M0 250 Q150 222 300 232 T600 246 V400 H0 Z" fill="${g1}" ${S}/><path d="M0 300 Q200 280 360 296 T600 292 V400 H0 Z" fill="${g2}" opacity=".35"/>` +
+      `${p.station ? spcDeck() : `<path d="M0 250 Q150 222 300 232 T600 246 V400 H0 Z" fill="${g1}" ${S}/>`}<path d="M0 300 Q200 280 360 296 T600 292 V400 H0 Z" fill="${g2}" opacity=".35"/>` +
       [[80, 300, 26], [250, 360, 18], [470, 330, 30], [560, 380, 14], [360, 268, 12]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * 0.35}" fill="${fmx(p.c1, O, 0.18)}" opacity=".5"/><path d="M${x - r} ${y} A${r} ${r * 0.35} 0 0 1 ${x + r} ${y}" fill="none" stroke="#fff" stroke-width="1.6" opacity=".5"/>`).join('') +
       `<g transform="translate(60 246) scale(.9)">${spcRocket()}</g><g class="w2-items">${w2Items(o, photo)}</g></svg>`;
   }
@@ -16662,7 +16668,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const neb = Array.from({ length: 8 }, (_, i) => { const h = wdHash('neb' + i); return `<circle cx="${h % 1100}" cy="${(h >>> 11) % 800}" r="${130 + h % 90}" fill="url(#spcNeb${i % 3})"/>`; }).join('');
     const planets = SPC_PLANETS.map(p => `<g class="spc-pl" data-id="${p.id}" transform="translate(${p.x} ${p.y})">${spcArt(p, 'sp' + p.id)}` +
       `<text y="${p.r + (p.ring ? 30 : 24)}" text-anchor="middle" direction="rtl" font-size="17" fill="${spcData.found[p.id] ? '#fff6c2' : '#9aa0cc'}" font-family="inherit">${spcData.found[p.id] ? wdEsc(p.n) : '???'}</text></g>`).join('');
-    const map = `<g class="spc-map" transform="translate(10 312)" pointer-events="none"><rect width="120" height="80" rx="10" fill="#0b1030" fill-opacity=".75" stroke="#8e7cff" stroke-width="2"/>` +
+    const map = `<g class="spc-map" transform="translate(10 312)" pointer-events="none"><rect width="${SPC_W / 20}" height="80" rx="10" fill="#0b1030" fill-opacity=".75" stroke="#8e7cff" stroke-width="2"/>` +
       SPC_PLANETS.map(p => `<circle cx="${wdFx(p.x / 20)}" cy="${wdFx(p.y / 20)}" r="${spcData.found[p.id] ? 4 : 3}" fill="${spcData.found[p.id] ? p.c1 : '#5a5f8a'}"/>`).join('') + `<circle class="spc-me" r="3.4" fill="#fff" stroke="#ff6b8b" stroke-width="2"/></g>`;
     return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="החלל"><defs><linearGradient id="spcBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1030"/><stop offset=".6" stop-color="#1d1850"/><stop offset="1" stop-color="#361f5c"/></linearGradient><clipPath id="spcWin"><circle cy="-4" r="11"/></clipPath>${['#b58cff', '#ff9ad5', '#7ec8ff'].map((c, i) => `<radialGradient id="spcNeb${i}"><stop offset="0" stop-color="${c}" stop-opacity=".32"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('')}</defs>` +
       `<rect width="600" height="400" fill="url(#spcBg)"/><g class="spc-l0">${neb}</g><g class="spc-l1">${layer(0.15, 70, 'a')}</g><g class="spc-l2">${layer(0.4, 60, 'b')}</g><g class="spc-l3">${layer(0.7, 40, 'c')}</g>` +
@@ -19822,7 +19828,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const B = { round: ['M-24 0 C-24 -18 -6 -20 6 -18 C18 -16 24 -8 24 0 C24 8 18 16 6 18 C-6 20 -24 18 -24 0 Z', 22, -24],
       long: ['M-30 0 C-26 -12 -4 -13 14 -10 C24 -8 28 -4 28 0 C28 4 24 8 14 10 C-4 13 -26 12 -30 0 Z', 26, -30],
       angel: ['M-19 0 C-17 -16 -4 -22 6 -20 C16 -16 20 -8 20 0 C20 8 16 16 6 20 C-4 22 -17 16 -19 0 Z', 18, -19],
-      puffer: ['M-22 0 A22 21 0 1 1 22 0 A22 21 0 1 1 -22 0 Z', 20, -22] }[K.sh];
+      puffer: ['M-22 0 A22 21 0 1 1 22 0 A22 21 0 1 1 -22 0 Z', 20, -22] }[K.sh] || AQ_SH_X[K.sh];
     const [body, xt, hx] = B;
     const tails = [`M${xt} 0 C${xt + 14} -18 ${xt + 22} -14 ${xt + 20} 0 C${xt + 22} 14 ${xt + 14} 18 ${xt} 0 Z`, `M${xt} 0 L${xt + 20} -16 L${xt + 13} 0 L${xt + 20} 16 Z`, `M${xt} 0 C${xt + 10} -20 ${xt + 30} -22 ${xt + 26} -6 C${xt + 22} 0 ${xt + 30} 8 ${xt + 24} 18 C${xt + 14} 20 ${xt + 8} 10 ${xt} 0 Z`];
     const fill = K.pt === 'fade' ? `url(#${u}g)` : c1;
@@ -19837,7 +19843,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const fins = K.sh === 'angel' ? `<path d="M-4 -19 C2 -42 16 -40 16 -14 Z M-4 19 C2 42 16 40 16 14 Z" fill="${c2}" ${S2}/>` : K.sh === 'puffer' ? Array.from({ length: 10 }, (_, i) => { const a = i / 10 * Math.PI * 2; return `<path d="M${wdFx(Math.cos(a) * 20)} ${wdFx(Math.sin(a) * 19)} L${wdFx(Math.cos(a) * 27)} ${wdFx(Math.sin(a) * 26)}" stroke="${O}" stroke-width="2" stroke-linecap="round"/>`; }).join('') + `<path d="M-2 -20 Q6 -30 14 -17 Z" fill="${c2}" ${S2}/>` : `<path d="M-6 ${K.sh === 'long' ? -11 : -17} Q2 ${K.sh === 'long' ? -24 : -30} 14 ${K.sh === 'long' ? -10 : -15} Z" fill="${c2}" ${S2}/>`;
     const ex = hx + 11, ey = -4;
     return `<defs><clipPath id="${u}c"><path d="${body}"/></clipPath>${K.pt === 'fade' ? `<linearGradient id="${u}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient>` : ''}</defs>` +
-      `<g class="aq-tail"><path d="${tails[K.tail]}" fill="${c2}" ${S}/></g>${fins}<path d="${body}" fill="${fill}"/><g clip-path="url(#${u}c)">${pats[K.pt]}<ellipse cx="0" cy="14" rx="22" ry="8" fill="#fff" opacity=".3"/></g><path d="${body}" fill="none" ${S}/>` +
+      `<g class="aq-tail"><path d="${tails[K.tail]}" fill="${c2}" ${S}/></g>${fins}<path d="${body}" fill="${fill}"/><g clip-path="url(#${u}c)">${pats[K.pt] ?? AQ_PT_X[K.pt](c1, c2)}<ellipse cx="0" cy="14" rx="22" ry="8" fill="#fff" opacity=".3"/></g><path d="${body}" fill="none" ${S}/>` +
       `<ellipse cx="4" cy="6" rx="6" ry="3.4" transform="rotate(25 4 6)" fill="${c2}" ${S2}/>` +
       `<circle cx="${ex}" cy="${ey}" r="5.4" fill="#fff" ${S2}/><circle cx="${ex - 1}" cy="${ey + 0.5}" r="3" fill="${O}"/><circle cx="${ex - 2}" cy="${ey - 1}" r="1.1" fill="#fff"/>` +
       `<circle cx="${ex + 5}" cy="${ey + 8}" r="2.4" fill="#ff8fab" opacity=".6"/><path d="${K.sh === 'puffer' ? `M${hx + 3} 5 q2.5 2.6 5 0` : `M${hx + 2} 4 q2.4 2.4 4.8 0`}" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round"/>`;
@@ -19892,7 +19898,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const eggs = aqData.eggs.map((e, i) => { const x = 90 + (wdHash(e.id) % 420), y = 368; return `<g transform="translate(${x} ${y})">${Array.from({ length: e.n + 2 }, (_, k) => `<circle cx="${(k % 3) * 6 - 6}" cy="${-Math.floor(k / 3) * 5}" r="3.2" fill="${fmx(e.c1, '#ffffff', 0.4)}" fill-opacity=".85" stroke="${O}" stroke-width=".9"/>`).join('')}</g>`; }).join('');
     const fish = photo ? aqSwim.map(f => `<g transform="translate(${wdFx(f.x)} ${wdFx(f.y)}) scale(${wdFx(f.dir * f.sz)} ${wdFx(f.sz)})">${aqFishArt(f.f.kind, f.f.c1, f.f.c2, 'aqp' + (wdUid++))}</g>`).join('') : '';
     return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="האקווריום שלי"'}><defs><linearGradient id="aqW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${W[0]}"/><stop offset="1" stop-color="${W[1]}"/></linearGradient>${WD_GLOW('aqGlow')}</defs>` +
-      `<rect width="600" height="400" fill="#3b3f5a"/><rect x="14" y="14" width="572" height="380" rx="10" fill="url(#aqW)"/>${rays}${back}` +
+      `<rect width="600" height="400" fill="#3b3f5a"/><rect x="14" y="14" width="572" height="380" rx="10" fill="url(#aqW)"/>${rays}${aqData.bg === 'reef' ? aqReefBg() : ''}${back}` +
       `<path d="M14 28 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t12 0 V14 H14 Z" fill="${night ? '#2b3a8a' : '#dff6ff'}" opacity=".7"/>` +
       `<path d="M14 356 C120 344 220 360 320 350 C420 342 500 358 586 350 V394 H14 Z" fill="${gv[0]}"/>${pebbles}` +
       `<g class="w2-items"${night ? ' filter="url(#aqGlow)"' : ''}>${w2Items(aqEd(), photo)}</g><g class="aq-eggs" pointer-events="none">${eggs}</g><g class="aq-fishes">${fish}</g><g class="aq-flakes" pointer-events="none"></g>${bubbles}${algae}` +
@@ -20016,7 +20022,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const scene = el('div', { class: 'wd-scene aq-scene', html: aqMarkup() }), svgEl = scene.firstChild;
     if (aqTab === 'deco') {
       const o = aqEd(), E = w2Editor(svgEl, o);
-      body.replaceChildren(head, tabs, scene, E.tools, E.colors, E.pal,
+      body.replaceChildren(head, tabs, scene, E.tools, E.colors, E.pal, aqBgRow(),
         el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'חצץ:'), ...AQ_GRAVEL.map(([id, name, cs]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(aqData.gravel === id), onclick: () => { aqData.gravel = id; saveAqua(); SFX.pop(); drawAqua(); } },
           el('span', { class: 'aq-gv', style: `background:linear-gradient(90deg, ${cs.join(', ')})` }), name))),
         el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { const was = aqSt.sel; aqSt.sel = null; const s = aqMarkup(true); aqSt.sel = was; wdPhoto(s, 'fish', scene); } }, '📸 לצלם למדבקה'),
@@ -23784,6 +23790,280 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
         ...all.slice(0, 6).map((p, i) => { const s = el('span', { class: 'ic', html: petSVG(p) }); s.style.setProperty('--d', `${i * .25}s`); s.style.setProperty('--s', String(Math.min(1.1, p.size || 1))); return s; })),
       el('button', { type: 'button', class: 'name', onclick: open }, `🏠 החיות שלי · ${all.length}`));
   };
+  // ================= worlds6: more of everything for all the worlds (adds to the defs above) =================
+  // ---------- 🌷 garden: +10 plants, +8 decorations ----------
+  Object.assign(GD_PLANTS, {
+    poppy: ['פרג', 4, '#ff4f4f', false, false, 'flower', () => gdStem(50, 3) + gdLeaf(0, -10, -140, 0.9) + gdLeaf(0, -22, -40, 0.85) +
+      [[-7, -58], [7, -58], [0, -66], [0, -51]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="10" fill="#ff4f4f" ${S2}/>`).join('') + `<circle cx="0" cy="-58" r="5" fill="#3b3f5a" ${S2}/>` + [[-3, -60], [3, -57], [0, -55]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r=".9" fill="#ffd84d"/>`).join('')],
+    lily: ['שושן', 5, '#ffb3d9', false, false, 'flower', () => gdStem(62, -3) + gdLeaf(0, -12, -150, 1.1) + gdLeaf(0, -26, -30, 1) +
+      `<polygon points="${starPts(0, -70, 20, 7, 6)}" fill="#ffe0f0" ${S}/><polygon points="${starPts(0, -70, 11, 4, 6)}" fill="#ff9ad5"/><path d="M0 -70 l-5 -9 M0 -70 l5 -9 M0 -70 l0 -11" stroke="#b0503a" stroke-width="1.4"/>${face(0, -66, 0.4)}`],
+    bell: ['פעמונית', 4, '#9c8cff', false, false, 'flower', () => tube('M0 0 Q2 -40 0 -58 Q14 -66 24 -56', '#5cbf5c', 3.5) + gdLeaf(0, -14, -140, 0.9) + gdLeaf(1, -30, -40, 0.8) +
+      [[0, -52, 1], [14, -58, 0.85], [24, -48, 0.8]].map(([x, y, s]) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-8 12 C-8 0 -5 -6 0 -6 C5 -6 8 0 8 12 Q4 9 0 12 Q-4 9 -8 12 Z" fill="#9c8cff" ${S2}/><circle cy="13" r="2" fill="#ffd84d"/></g>`).join('')],
+    orchid: ['סחלב', 6, '#d88cff', false, false, 'flower', () => tube('M0 0 C-6 -30 8 -50 20 -62', '#5cbf5c', 3.2) + gdLeaf(0, -4, -160, 1.1, '#4fae5a') + gdLeaf(0, -4, -20, 1.1, '#4fae5a') +
+      [[18, -64, 1], [4, -46, 0.8]].map(([x, y, s]) => `<g transform="translate(${x} ${y}) scale(${s})">${[0, 72, 144, 216, 288].map(r => `<ellipse cx="0" cy="-8" rx="5.5" ry="9" transform="rotate(${r})" fill="#f0c8ff" ${S2}/>`).join('')}<path d="M-5 2 Q0 12 5 2 Z" fill="#b05ad8" ${S2}/><circle r="3" fill="#ffd84d" ${S2}/></g>`).join('')],
+    pansy: ['אמנון ותמר', 3, '#8e6bd6', false, false, 'flower', () => gdLeaf(0, 0, -160, 1, '#4fae5a') + gdLeaf(0, 0, -20, 1, '#4fae5a') + gdStem(26, -8, '#5cbf5c', -12) + gdStem(36, 6, '#5cbf5c', 10) +
+      [[-12, -30, 0.85, '#8e6bd6'], [10, -40, 1, '#ffd84d']].map(([x, y, s, c]) => `<g transform="translate(${x} ${y}) scale(${s})"><circle cx="-7" cy="-7" r="8" fill="${c}" ${S2}/><circle cx="7" cy="-7" r="8" fill="${c}" ${S2}/><circle cx="-8" cy="4" r="8" fill="#b58cff" ${S2}/><circle cx="8" cy="4" r="8" fill="#b58cff" ${S2}/><circle cy="4" r="8" fill="#6b4fb0" ${S2}/>${face(0, 2, 0.5)}</g>`).join('')],
+    hydrangea: ['הידרנגאה', 5, '#8fb8ff', false, false, 'flower', () => gdBush('#4fae5a') + Array.from({ length: 16 }, (_, i) => { const a = i * 2.4, r = 5 + (i % 4) * 5; return gdFlower5(Math.round(Math.cos(a) * r * 1.4), Math.round(-36 + Math.sin(a) * r), 0.55, ['#8fb8ff', '#c9a2ff', '#b8d4ff'][i % 3]); }).join('') + face(0, -36, 0.5)],
+    tomato: ['עגבניות שרי', 5, '#ff4f4f', false, false, 'bush', () => gdBush() + [[-18, -12], [-6, -22], [8, -10], [20, -20], [2, -32]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="6.5" fill="#ff4f4f" ${S2}/><path d="M${x - 3} ${y - 6} l3 2 l3 -2" fill="none" stroke="#3f9a4f" stroke-width="1.6"/>${shine(x - 4, y - 1)}`).join('') + face(8, -10, 0.35)],
+    pumpkin: ['דלעת', 6, '#ffa24d', false, false, 'bush', () => gdLeaf(-10, -4, -160, 1.1, '#4fae5a') + gdLeaf(10, -4, -20, 1.1, '#4fae5a') + `<path d="M2 -40 Q6 -48 12 -48" fill="none" stroke="#3f9a4f" stroke-width="3" stroke-linecap="round"/>` +
+      `<ellipse cx="-12" cy="-20" rx="14" ry="18" fill="#ff9a3c" ${S}/><ellipse cx="12" cy="-20" rx="14" ry="18" fill="#ff9a3c" ${S}/><ellipse cx="0" cy="-20" rx="12" ry="19" fill="#ffa24d" ${S}/>${face(0, -20, 0.7)}`],
+    heartflower: ['פרח לבבות', 7, '#ff6b9a', true, true, 'flower', () => gdStem(64, 4) + gdLeaf(0, -14, -140, 1) + gdLeaf(1, -30, -40, 0.95) +
+      [0, 72, 144, 216, 288].map(r => `<g transform="rotate(${r} 0 -74)">${bfHeart(0, -88, 1.7, '#ff9ad5')}</g>`).join('') + `<circle cx="0" cy="-74" r="9" fill="#fff0f6" ${S}/>${face(0, -74, 0.55)}` + wdSpark(-28, -92, 0.6, '#ffd6f5', 'wd-tw', 0) + wdSpark(26, -60, 0.55, '#fff6a8', 'wd-tw', 0.8)],
+    starflower: ['פרח כוכבים', 8, '#ffd84d', true, true, 'flower', () => gdStem(66, -3, '#5fb49a') + gdLeaf(0, -14, -140, 1, '#7fd0b5') + gdLeaf(0, -30, -40, 1, '#7fd0b5') +
+      `<polygon points="${starPts(0, -76, 24, 11)}" fill="#ffd84d" ${S}/><polygon points="${starPts(0, -76, 13, 6)}" fill="#fff6a8"/>${face(0, -74, 0.6)}` + wdSpark(-30, -84, 0.6, '#fff6a8', 'wd-tw', 0.2) + wdSpark(28, -98, 0.5, '#bfe9ff', 'wd-tw', 1) + wdSpark(24, -56, 0.45, '#ffd6f5', 'wd-tw', 0.6)],
+  });
+  Object.assign(GD_DECO, {
+    swing: ['נדנדה', 1.1, false, () => `<path d="M-40 0 L-30 -80 H30 L40 0" fill="none" ${S}/><path d="M-40 0 L-30 -80 H30 L40 0" fill="none" stroke="#c98a4b" stroke-width="3"/><g class="gd6-swing"><path d="M-12 -80 V-26 M12 -80 V-26" stroke="${O}" stroke-width="1.8"/><rect x="-16" y="-28" width="32" height="6" rx="3" fill="#ff9ad5" ${S2}/></g>`],
+    windmill: ['טחנת רוח', 1, false, () => `<path d="M-16 0 L-10 -60 H10 L16 0 Z" fill="#fff6e0" ${S}/><path d="M-6 0 V-14 A6 6 0 0 1 6 -14 V0" fill="#a0673e" ${S2}/><path d="M-12 -60 L0 -76 L12 -60 Z" fill="#ff6b8b" ${S2}/>` +
+      `<g transform="translate(0 -62)"><g>${reduceMotion() ? '' : '<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="8s" repeatCount="indefinite"/>'}${[0, 90, 180, 270].map(r => `<path d="M0 0 L-6 -40 H6 Z" transform="rotate(${r})" fill="#fffdf5" ${S2}/>`).join('')}</g><circle r="4" fill="#ffd84d" ${S2}/></g>`],
+    well: ['באר משאלות', 1, false, () => `<path d="M-30 -60 H30 L22 -72 H-22 Z" fill="#ff7a7a" ${S}/><path d="M-24 -60 V-30 M24 -60 V-30" ${S}/><rect x="-28" y="-30" width="56" height="30" rx="4" fill="#c9ced8" ${S}/><path d="M-28 -20 H28 M-28 -10 H28 M-14 -30 V-20 M10 -20 V-10 M-4 -10 V0" stroke="#9aa7b8" stroke-width="1.6"/><path d="M0 -60 V-44" stroke="${O}" stroke-width="1.4"/><rect x="-5" y="-44" width="10" height="8" fill="#a0673e" ${S2}/>`],
+    scarecrow: ['דחליל חמוד', 1, false, () => `<path d="M0 0 V-60 M-30 -46 H30" ${S}/><path d="M0 0 V-60 M-30 -46 H30" stroke="#a0673e" stroke-width="3"/><path d="M-16 -50 H16 L12 -20 H-12 Z" fill="#7ec8ff" ${S}/><rect x="-6" y="-44" width="12" height="10" fill="#ffd84d" ${S2}/>` +
+      `<circle cy="-66" r="12" fill="#ffe0b8" ${S}/>${face(0, -66, 0.6)}<path d="M-18 -74 H18 L10 -78 Q0 -94 -10 -78 Z" fill="#ffd46b" ${S2}/><path d="M-30 -46 l-4 4 M-30 -46 l-5 -1 M30 -46 l4 4 M30 -46 l5 -1" stroke="#ffd46b" stroke-width="2" stroke-linecap="round"/>`],
+    picnic: ['פיקניק', 1.1, false, () => `<path d="M-50 0 L-30 -24 H40 L56 0 Z" fill="#ff9aa8" ${S}/><path d="M-40 -12 H48 M-24 0 L-12 -24 M4 0 L10 -24 M30 0 L28 -24" stroke="#fff" stroke-width="3"/>` +
+      `<path d="M-20 -24 V-36 H0 V-24" fill="#e0a868" ${S2}/><path d="M-20 -36 Q-10 -48 0 -36" fill="none" stroke="#a0673e" stroke-width="2.4"/>${gdBerry(18, -22, 1)}<circle cx="32" cy="-16" r="6" fill="#ff5a6e" ${S2}/>`],
+    mushhouse: ['בית פטרייה', 1.1, false, () => `<path d="M-18 0 C-20 -20 -16 -34 -14 -40 H14 C16 -34 20 -20 18 0 Z" fill="#fff5e0" ${S}/><path d="M-6 0 V-12 A6 6 0 0 1 6 -12 V0 Z" fill="#a0673e" ${S2}/><circle cx="8" cy="-26" r="4" fill="#bfe9ff" ${S2}/>` +
+      `<path d="M-40 -36 C-38 -78 38 -78 40 -36 Q0 -26 -40 -36 Z" fill="#ff5a6e" ${S}/><circle cx="-20" cy="-54" r="5" fill="#fff"/><circle cx="6" cy="-64" r="4" fill="#fff"/><circle cx="24" cy="-48" r="4.4" fill="#fff"/>`],
+    hedgehog: ['קיפוד', 0.9, false, () => `<path d="M-28 0 C-34 -10 -30 -30 -10 -34 L-4 -40 L2 -34 L8 -40 L12 -32 L18 -36 L20 -28 L28 -28 C32 -18 30 -6 26 0 Z" fill="#a0673e" ${S}/><path d="M18 -4 C26 -6 34 -12 32 -18 C28 -22 20 -20 14 -14 Z" fill="#f2d8a0" ${S2}/><circle cx="34" cy="-17" r="2.4" fill="${O}"/><circle cx="24" cy="-14" r="1.8" fill="${O}"/>`],
+    arbor: ['קשת פרחים', 1.2, false, () => `<path d="M-40 0 V-60 A40 40 0 0 1 40 -60 V0" fill="none" stroke="${O}" stroke-width="8"/><path d="M-40 0 V-60 A40 40 0 0 1 40 -60 V0" fill="none" stroke="#fffdf5" stroke-width="4"/>` +
+      Array.from({ length: 11 }, (_, i) => { const a = Math.PI + i * Math.PI / 10; return gdFlower5(Math.round(Math.cos(a) * 40), Math.round(-60 + Math.sin(a) * 40), 0.6, ['#ff9ad5', '#ffd84d', '#ff6b8b', '#b58cff'][i % 4]); }).join('') + gdLeaf(-40, -30, -150, 0.7) + gdLeaf(40, -30, -30, 0.7)],
+  });
+  // ---------- 🦋 butterflies: 2 new wing shapes, +18 everyday kinds, +2 rare, and a butterfly house ----------
+  BF_SHAPES.push(['M2 -3 C6 -30 26 -44 40 -36 Q48 -30 44 -22 Q50 -14 42 -8 Q36 0 2 2 Z', 'M2 2 Q24 2 30 12 Q36 20 28 26 Q26 34 16 30 Q6 28 2 10 Z'],
+    ['M2 -3 C12 -26 36 -40 48 -30 C50 -18 30 -4 2 2 Z', 'M2 2 C16 4 26 12 26 22 L30 46 L20 30 C10 28 4 20 2 10 Z']);
+  (() => {
+    const used = new Set(BF_LIST.filter(b => !b.rare).map(b => b.col + '|' + b.pat)), add = [];
+    BF_COLS.forEach((c, ci) => Object.keys(BF_PATS).forEach(p => { if (!used.has(ci + '|' + p)) add.push([ci, p]); }));
+    add.slice(0, 18).forEach(([ci, p], i) => BF_LIST.push({ id: 'b' + (32 + i), n: `פרפר ${BF_COLS[ci][0]} ${BF_PATS[p]}`, shape: [5, 6, 0, 1, 2, 3, 4][i % 7], col: ci, pat: p }));
+    BF_LIST.push({ id: 'r4', n: 'פרפר לב הזהב', shape: 4, col: 'gold', pat: 'hearts', rare: true }, { id: 'r5', n: 'פרפר כוכב הקרח', shape: 5, col: 'diamond', pat: 'sparkle', rare: true });
+  })();
+  function bfHouse() {
+    const ids = Object.keys(bfData.caught).filter(bfById), motion = !reduceMotion();
+    const plants = [[60, 360, 'sunflower', 0.9], [150, 380, 'tulip', 0.8], [250, 370, 'lavender', 0.8], [360, 384, 'heartflower', 0.7], [450, 372, 'daisy', 0.8], [540, 360, 'rose', 0.85], [110, 300, 'lily', 0.55], [500, 300, 'orchid', 0.6]]
+      .map(([x, y, k, s]) => GD_PLANTS[k] ? `<g transform="translate(${x} ${y}) scale(${s})">${gdPlantArt(k, 4)}</g>` : '').join('');
+    const fly = ids.slice(0, 60).map((id, i) => {
+      const d = bfById(id), h = wdHash('house' + id), sz = 34 + h % 12, cx = 90 + h % 420, cy = 100 + (h >>> 5) % 180, path = wdLoop(h, cx, cy, 60 + h % 50, 30 + (h >>> 3) % 35), st = path.match(/^M([\d.-]+) ([\d.-]+)/);
+      return `<g class="bf-fly" data-id="${d.id}"${motion ? '' : ` transform="translate(${st[1]} ${st[2]})"`}>${motion ? `<animateMotion dur="${10 + h % 9}s" begin="-${h % 9}s" repeatCount="indefinite" path="${path}"/>` : ''}<g class="bf-bob" style="animation-delay:-${(h % 10) / 5}s">${placeSvg(bfSVG(d, `bfh${i}x${wdUid++}`, 'bf-flap'), -sz / 2, -sz * 0.45, sz, sz * 0.9)}</g></g>`;
+    }).join('');
+    const svg = photo => `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="בית הפרפרים"'}><defs><linearGradient id="bfhG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6fff4"/><stop offset="1" stop-color="#fff0f8"/></linearGradient></defs>` +
+      `<rect width="600" height="400" fill="url(#bfhG)"/><path d="M20 390 V150 L300 30 L580 150 V390 Z" fill="#dff6ff" fill-opacity=".45" stroke="${O}" stroke-width="4"/>` +
+      `<path d="M160 90 V390 M300 30 V390 M440 90 V390 M20 270 H580 M20 150 H580" stroke="#fff" stroke-width="5"/><path d="M160 90 V390 M300 30 V390 M440 90 V390 M20 270 H580 M20 150 H580" stroke="${O}" stroke-width="1.4" opacity=".4"/>` +
+      `<path d="M0 360 C120 340 240 356 300 350 C380 344 480 358 600 350 V400 H0 Z" fill="#9edc8a" ${S}/><ellipse cx="300" cy="372" rx="60" ry="12" fill="#7ec8ff" ${S2}/>${plants}` +
+      `<g class="bf-flyers">${fly}</g><path d="M40 170 l50 -22 M40 190 l30 -13" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".8"/></svg>`;
+    const scene = el('div', { class: 'wd-scene bf-scene', html: svg() });
+    scene.firstChild.addEventListener('pointerdown', e => { const hit = e.target.closest('.bf-fly'); if (!hit) return; const d = bfById(hit.dataset.id); SFX.ding(); toast(bfSVG(d), `${d.n}${d.rare ? ' ✨ נדיר' : ''}`); });
+    return el('div', { class: 'row' }, scene,
+      el('p', { class: 'muted' }, ids.length ? `🏡 כל ${ids.length} סוגי הפרפרים שתפסת גרים פה ביחד בבית הזכוכית!` : '🏡 הבית עוד ריק. כל פרפר שתתפסי באחו יעבור לגור כאן!'),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => wdPhoto(svg(true), 'butterfly', scene) }, '📸 לצלם למדבקה')));
+  }
+
+  // ---------- 🛋️ room: +25 furniture pieces, a pets' corner, +10 wallpapers ----------
+  // every pet together on one big cushion
+  const rm6Pets = () => { const l = w2Pets(); const all = l.length ? l : [{ kind: 'cat' }]; return all.slice(0, 4).map((p, i, a) => { const x = (i - (a.length - 1) / 2) * 34; return placeSvg(petSVG(p), x - 22, -58 - (i % 2) * 4, 44, 50); }).join(''); };
+  Object.assign(RM_ITEMS, {
+    petcorner: ['פינת החיות', 1.1, '', 0, c => `<ellipse cx="0" cy="-8" rx="74" ry="20" fill="${c}" ${S}/><ellipse cx="0" cy="-12" rx="60" ry="12" fill="${rmLt(c)}" ${S2}/><path d="M-74 -8 Q-74 8 0 10 Q74 8 74 -8" fill="${rmDk(c)}" ${S}/>` +
+      `<g transform="translate(-86 -6)"><ellipse rx="12" ry="5" fill="#7ec8ff" ${S2}/><ellipse cy="-2" rx="8" ry="2.4" fill="#a0673e"/></g><g transform="translate(86 -6)"><ellipse rx="12" ry="5" fill="#ff9ad5" ${S2}/><ellipse cy="-2" rx="8" ry="2.4" fill="#bfe9ff"/></g>${rm6Pets()}` +
+      `<circle cx="60" cy="-26" r="7" fill="#ffd84d" ${S2}/><path d="M53 -26 h14 M60 -33 v14" stroke="#ff6b8b" stroke-width="1.6"/>${bfHeart(-58, -40, 1.1, '#ff6b8b')}`],
+    sofa: ['ספה', 1, '', 0, c => rmBox(-70, -30, 140, 26, 26, c) + `<rect x="-70" y="-66" width="140" height="38" rx="12" fill="${c}" ${S}/><rect x="-80" y="-44" width="18" height="40" rx="8" fill="${rmDk(c)}" ${S}/><rect x="62" y="-44" width="18" height="40" rx="8" fill="${rmDk(c)}" ${S}/>` +
+      `<rect x="-56" y="-60" width="34" height="24" rx="8" fill="${rmLt(c)}" ${S2}/><rect x="22" y="-60" width="34" height="24" rx="8" fill="#fff6c2" ${S2}/>${bfHeart(39, -48, 0.9, '#ff6b8b')}<path d="M-60 -4 V2 M60 -4 V2" ${S}/>`],
+    armchair: ['כורסה', 1, '', 7, c => `<rect x="-30" y="-70" width="60" height="44" rx="16" fill="${c}" ${S}/>` + rmBox(-30, -30, 60, 24, 14, c) + `<rect x="-40" y="-46" width="14" height="40" rx="7" fill="${rmDk(c)}" ${S}/><rect x="26" y="-46" width="14" height="40" rx="7" fill="${rmDk(c)}" ${S}/><path d="M-24 -6 V2 M24 -6 V2" ${S}/>`],
+    vanity: ['שולחן איפור', 1, '', 0, c => `<ellipse cx="0" cy="-96" rx="26" ry="30" fill="${rmLt(c)}" ${S}/><ellipse cx="0" cy="-96" rx="19" ry="23" fill="#dff4ff" ${S2}/><path d="M-10 -106 l10 -8" stroke="#fff" stroke-width="3" stroke-linecap="round"/>` +
+      rmBox(-44, -56, 88, 10, 16, c) + `<path d="M-38 -46 V0 M38 -46 V0" ${S}/><rect x="-6" y="-72" width="6" height="16" rx="2" fill="#ff6b8b" ${S2}/><circle cx="12" cy="-62" r="6" fill="#b58cff" ${S2}/><rect x="-26" y="-64" width="12" height="8" rx="2" fill="#ffd84d" ${S2}/>`],
+    piano: ['פסנתר', 1, '', 11, c => rmBox(-54, -80, 108, 58, 18, c) + `<rect x="-50" y="-44" width="100" height="14" fill="#fff" ${S2}/>` + Array.from({ length: 9 }, (_, i) => `<rect x="${-44 + i * 11}" y="-44" width="5" height="8" fill="${O}"/>`).join('') + `<path d="M-48 -22 V0 M48 -22 V0" ${S}/><path d="M-30 -70 q10 -6 20 0 M8 -68 l4 -8" fill="none" stroke="#fff6c2" stroke-width="2"/>`],
+    tv: ['טלוויזיה', 1, '', 11, c => rmBox(-44, -24, 88, 22, 14, c) + `<rect x="-50" y="-96" width="100" height="64" rx="6" fill="#3b3f5a" ${S}/><rect x="-44" y="-90" width="88" height="52" rx="3" fill="#7ec8ff"/>` +
+      `<path d="M-44 -48 Q-10 -70 20 -52 T44 -56 V-38 H-44 Z" fill="#8fd694"/><circle cx="24" cy="-76" r="7" fill="#ffd84d"/><path d="M-6 -32 L0 -24 L6 -32" fill="none" ${S2}/>`],
+    fishbowl: ['צנצנת דגים', 0.8, '', 5, c => rmBox(-22, -24, 44, 22, 12, rmLt(c)) + `<circle cx="0" cy="-52" r="28" fill="#dff4ff" fill-opacity=".8" ${S}/><path d="M-26 -58 H26 V-46 A26 26 0 0 1 -26 -46 Z" fill="#7ec8ff" opacity=".5"/>` +
+      `<g transform="translate(2 -50) scale(.5)">${typeof aqFishArt === 'function' ? aqFishArt(0, '#ff9a3c', '#fff', 'rmfb') : ''}</g><path d="M-18 -70 q4 -4 8 -2" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`],
+    birdcage: ['כלוב ציפור', 0.9, '', 3, c => `<path d="M0 -118 V-104" ${S}/><path d="M-26 -30 V-70 A26 30 0 0 1 26 -70 V-30 Z" fill="none" ${S}/>` + [-16, -6, 6, 16].map(x => `<path d="M${x} -30 V${-70 - (20 - Math.abs(x)) * 1}" stroke="${c}" stroke-width="2"/>`).join('') +
+      `<rect x="-30" y="-32" width="60" height="8" rx="3" fill="${c}" ${S2}/><path d="M-4 -30 V0 M4 -30 V0 M-14 0 H14" ${S}/><g transform="translate(0 -52)"><ellipse rx="9" ry="7" fill="#7fe0b8" ${S2}/><circle cx="-6" cy="-5" r="5" fill="#7fe0b8" ${S2}/><path d="M-11 -5 l-4 1 l4 2" fill="#ffa24d"/><circle cx="-7" cy="-6" r="1.2" fill="${O}"/></g>`],
+    eggchair: ['כיסא ביצה תלוי', 1, '', 7, c => `<path d="M0 -150 V-110" ${S}/><path d="M-34 -40 C-40 -100 -20 -112 0 -112 C20 -112 40 -100 34 -40 Q0 -20 -34 -40 Z" fill="${c}" ${S}/><path d="M-24 -50 C-28 -90 -14 -98 0 -98 C14 -98 28 -90 24 -50 Q0 -38 -24 -50 Z" fill="#fffdf5" ${S2}/><ellipse cx="0" cy="-54" rx="18" ry="7" fill="${rmLt(c)}" ${S2}/><path d="M0 -40 V0 M-16 0 H16" ${S}/>`],
+    pouf: ['פוף עגול', 0.8, '', 4, c => `<ellipse cx="0" cy="-8" rx="28" ry="10" fill="${rmDk(c)}" ${S}/><rect x="-28" y="-30" width="56" height="22" fill="${c}"/><path d="M-28 -30 V-8 M28 -30 V-8" ${S}/><ellipse cx="0" cy="-30" rx="28" ry="10" fill="${rmLt(c)}" ${S}/><circle cx="0" cy="-30" r="2.4" fill="${c}"/>`],
+    cushions: ['ערימת כריות', 0.9, '', 1, c => `<rect x="-40" y="-20" width="46" height="20" rx="8" fill="${c}" ${S}/><rect x="-6" y="-24" width="46" height="24" rx="8" fill="#7ec8ff" ${S}/><rect x="-24" y="-44" width="40" height="22" rx="8" fill="#ffd84d" ${S}/>${bfHeart(-4, -33, 0.9, '#ff6b8b')}<polygon points="${starPts(18, -12, 6, 2.6)}" fill="#fff"/>`],
+    guitar: ['גיטרה', 0.9, '', 10, c => `<g transform="rotate(-12)"><rect x="-4" y="-110" width="8" height="60" fill="#6b4226" ${S2}/><rect x="-7" y="-122" width="14" height="14" rx="3" fill="#6b4226" ${S2}/><path d="M0 -58 C-26 -58 -26 -36 -14 -30 C-30 -20 -24 0 0 0 C24 0 30 -20 14 -30 C26 -36 26 -58 0 -58 Z" fill="${c}" ${S}/><circle cy="-30" r="7" fill="#3b3f5a" ${S2}/><path d="M-2 -110 V-6 M2 -110 V-6" stroke="#fff" stroke-width=".8"/></g>`],
+    rockhorse: ['סוס נדנדה', 1, '', 0, c => `<path d="M-44 -6 Q0 16 44 -6" fill="none" stroke="${O}" stroke-width="8" stroke-linecap="round"/><path d="M-44 -6 Q0 16 44 -6" fill="none" stroke="#c98a4b" stroke-width="4" stroke-linecap="round"/><path d="M-24 0 L-18 -26 M24 0 L18 -26" ${S}/>` +
+      `<ellipse cx="0" cy="-34" rx="30" ry="14" fill="${c}" ${S}/><path d="M22 -40 L34 -70 C40 -74 50 -70 48 -62 L36 -44 Z" fill="${c}" ${S}/><path d="M34 -70 C26 -70 20 -58 22 -44" fill="none" stroke="#ffd84d" stroke-width="5" stroke-linecap="round"/><circle cx="40" cy="-64" r="2" fill="${O}"/><path d="M-30 -36 C-44 -40 -46 -24 -40 -18" fill="none" stroke="#ffd84d" stroke-width="5" stroke-linecap="round"/><rect x="-10" y="-50" width="20" height="8" rx="3" fill="#ff6b8b" ${S2}/>`],
+    unicorn: ['חד־קרן פרווה', 0.9, '', 9, c => `<ellipse cx="0" cy="-22" rx="24" ry="20" fill="${c}" ${S}/><circle cx="18" cy="-48" r="17" fill="${c}" ${S}/><path d="M20 -64 L26 -86 L30 -62 Z" fill="#ffd84d" ${S2}/><path d="M6 -60 C-6 -64 -14 -50 -8 -40 C-18 -40 -26 -30 -20 -20" fill="none" stroke="#ff9ad5" stroke-width="6" stroke-linecap="round"/>${face(22, -46, 0.7)}<path d="M-14 -4 V2 M12 -4 V2" stroke="${O}" stroke-width="5" stroke-linecap="round"/>`],
+    globe: ['גלובוס', 0.8, '', 10, c => `<path d="M-16 0 H16 L8 -8 H-8 Z M0 -8 V-18" fill="${c}" ${S2}/><path d="M-28 -52 A30 30 0 0 0 20 -20" fill="none" stroke="${c}" stroke-width="3"/><circle cx="0" cy="-46" r="24" fill="#7ec8ff" ${S}/><path d="M-16 -58 q8 -4 12 4 q4 8 -4 12 q-8 -2 -8 -16 Z M6 -40 q8 -6 12 2 q-2 10 -12 8 Z" fill="#8fd694" ${S2}/>`],
+    heartrug: ['שטיח לב', 1, 'r', 1, c => `<path d="M0 22 C-60 4 -76 -14 -50 -22 C-30 -28 -10 -20 0 -12 C10 -20 30 -28 50 -22 C76 -14 60 4 0 22 Z" fill="${c}" ${S}/><path d="M0 12 C-40 0 -52 -12 -36 -16 C-24 -19 -8 -14 0 -8 C8 -14 24 -19 36 -16 C52 -12 40 0 0 12 Z" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="4 4"/>`],
+    starrug: ['שטיח כוכב', 1, 'r', 3, c => `<g transform="scale(1 .35)"><polygon points="${starPts(0, 0, 76, 34)}" fill="${c}" stroke="${O}" stroke-width="6" stroke-linejoin="round"/><polygon points="${starPts(0, 0, 48, 22)}" fill="${rmLt(c)}"/></g>`],
+    painting: ['תמונה על הקיר', 1, 'w', 10, c => `<rect x="-36" y="-28" width="72" height="54" rx="3" fill="${c}" ${S}/><rect x="-30" y="-22" width="60" height="42" fill="#bfe9ff"/><path d="M-30 20 L-8 -4 L6 10 L16 0 L30 14 V20 Z" fill="#8fd694" ${S2}/><circle cx="18" cy="-10" r="6" fill="#ffd84d"/><rect x="-30" y="-22" width="60" height="42" fill="none" ${S2}/>`],
+    bunting: ['דגלונים', 1, 'w', null, () => `<path d="M-80 -10 Q0 14 80 -10" fill="none" stroke="${O}" stroke-width="1.6"/>` + Array.from({ length: 9 }, (_, i) => { const t = (i + 0.5) / 9, x = -80 + 160 * t, y = -10 + 24 * t * (1 - t) * 2; return `<path d="M${wdFx(x - 7)} ${wdFx(y)} L${wdFx(x + 7)} ${wdFx(y)} L${wdFx(x)} ${wdFx(y + 16)} Z" fill="${['#ff6b8b', '#ffd84d', '#7fe0b8', '#7ec8ff', '#b58cff'][i % 5]}" stroke="${O}" stroke-width="1.3" stroke-linejoin="round"/>`; }).join('')],
+    neon: ['שלט ניאון', 1, 'w', 0, c => `<rect x="-40" y="-26" width="80" height="52" rx="10" fill="#3b3f5a" ${S}/><path d="M0 16 C-24 4 -30 -10 -18 -16 C-10 -20 -4 -14 0 -8 C4 -14 10 -20 18 -16 C30 -10 24 4 0 16 Z" fill="none" stroke="${c}" stroke-width="4"/><path d="M0 16 C-24 4 -30 -10 -18 -16 C-10 -20 -4 -14 0 -8 C4 -14 10 -20 18 -16 C30 -10 24 4 0 16 Z" fill="none" stroke="#fff" stroke-width="1.4" class="wd-tw"/>`],
+    moonlamp: ['מנורת ירח', 1, 'w', 3, c => `<circle r="30" fill="${c}" opacity=".25"/><path d="M4 -24 A24 24 0 1 0 22 14 A18 18 0 1 1 4 -24 Z" fill="${c}" ${S}/><circle cx="-8" cy="-2" r="2" fill="${O}"/><circle cx="0" cy="4" r="2" fill="${O}"/><path d="M-8 8 q4 4 8 1" fill="none" stroke="${O}" stroke-width="1.6"/>` + wdSpark(24, -20, 0.5, '#fff6a8', 'wd-tw', 0)],
+    rack: ['מתלה בגדים', 1, '', 10, c => `<path d="M-40 0 V-100 H40 V0 M-48 0 H-32 M32 0 H48" fill="none" ${S}/>` + [[-26, '#ff9ad5'], [-6, '#7ec8ff'], [14, '#ffd84d'], [30, '#b58cff']].map(([x, col]) => `<path d="M${x} -100 v6" ${S2}/><path d="M${x - 10} -94 H${x + 10} L${x + 8} -52 H${x - 8} Z" fill="${col}" ${S2}/>`).join('')],
+    hangplant: ['עציץ תלוי', 1, 'w', 4, c => `<path d="M0 -60 L-14 -20 M0 -60 L14 -20" stroke="${O}" stroke-width="1.4"/><path d="M-18 -20 H18 L12 0 H-12 Z" fill="${c}" ${S}/>` + [-14, -4, 6, 14].map((x, i) => `<path d="M${x} -4 Q${x + (i % 2 ? 6 : -6)} 16 ${x} ${24 + i * 4}" fill="none" stroke="#3fae6a" stroke-width="2.4"/><ellipse cx="${x}" cy="${24 + i * 4}" rx="4" ry="6" fill="#5cbf5c" ${S2}/>`).join('')],
+    laptop: ['מחשב נייד', 0.8, '', 0, c => rmBox(-30, -10, 60, 8, 14, '#d8dde6') + `<path d="M-26 -12 L-22 -52 H26 L24 -12 Z" fill="${c}" ${S}/><rect x="-18" y="-48" width="38" height="30" rx="3" fill="#bfe9ff" ${S2}/>${bfHeart(1, -32, 1, '#ff6b8b')}`],
+    bookpile: ['ערימת ספרים', 0.8, '', 1, c => [['#ff6b8b', -2], ['#7ec8ff', 3], [c, -4], ['#ffd84d', 2], ['#7fe0b8', 0]].map(([col, dx], i) => `<rect x="${-24 + dx}" y="${-12 - i * 12}" width="48" height="12" rx="2" fill="${col}" ${S2}/><path d="M${-20 + dx} ${-6 - i * 12} h40" stroke="#fff" stroke-width="1.4"/>`).join('') + `<circle cx="4" cy="-72" r="7" fill="#ff5a6e" ${S2}/>`],
+    mushlamp: ['מנורת פטרייה', 0.9, '', 1, c => `<circle cy="-50" r="34" fill="#fff6a8" opacity=".3"/><path d="M-8 0 C-9 -14 -7 -26 -6 -34 H6 C7 -26 9 -14 8 0 Z" fill="#fff5e0" ${S}/><path d="M-30 -32 C-28 -66 28 -66 30 -32 Q0 -24 -30 -32 Z" fill="${c}" ${S}/><circle cx="-12" cy="-46" r="4" fill="#fff"/><circle cx="8" cy="-52" r="3.4" fill="#fff"/><circle cx="18" cy="-40" r="3" fill="#fff"/>`],
+  });
+  const RM_PAT_X = {
+    rainbows: a => `<path d="M4 30 A14 14 0 0 1 32 30" fill="none" stroke="#ff9ab8" stroke-width="3"/><path d="M8 30 A10 10 0 0 1 28 30" fill="none" stroke="#ffd84d" stroke-width="3"/><path d="M12 30 A6 6 0 0 1 24 30" fill="none" stroke="#7ec8ff" stroke-width="3"/>`,
+    moons: a => `<path d="M12 4 A8 8 0 1 0 20 16 A6 6 0 1 1 12 4 Z" fill="${a}"/><circle cx="30" cy="30" r="1.6" fill="#fff6c2"/><circle cx="6" cy="32" r="1.1" fill="#fff"/>`,
+    butterflies: a => `<g transform="translate(12 12)"><ellipse cx="-4" cy="-2" rx="4" ry="5" fill="${a}"/><ellipse cx="4" cy="-2" rx="4" ry="5" fill="${a}"/><ellipse cx="-3" cy="4" rx="3" ry="3" fill="${a}"/><ellipse cx="3" cy="4" rx="3" ry="3" fill="${a}"/></g><g transform="translate(30 30) scale(.7)"><ellipse cx="-4" cy="-2" rx="4" ry="5" fill="#ffd6ec"/><ellipse cx="4" cy="-2" rx="4" ry="5" fill="#ffd6ec"/></g>`,
+    cats: a => `<g transform="translate(14 16)"><path d="M-8 0 L-8 -10 L-3 -5 H3 L8 -10 V0 A8 7 0 0 1 -8 0 Z" fill="${a}"/><circle cx="-3" cy="-1" r="1" fill="#3a2b3c" opacity=".5"/><circle cx="3" cy="-1" r="1" fill="#3a2b3c" opacity=".5"/></g><circle cx="32" cy="32" r="1.6" fill="${a}"/>`,
+    strawberries: a => `<path d="M12 22 C4 18 4 8 12 8 C20 8 20 18 12 22 Z" fill="#ff8fa3"/><path d="M8 8 l4 3 l4 -3" fill="#7fe0b8"/><path d="M30 38 C24 35 24 28 30 28 C36 28 36 35 30 38 Z" fill="${a}"/>`,
+    argyle: (a, d) => `<path d="M20 0 L40 20 L20 40 L0 20 Z" fill="${a}"/><path d="M0 0 L40 40 M40 0 L0 40" stroke="${d}" stroke-width="1" stroke-dasharray="3 3" opacity=".6"/>`,
+    zigzag: a => `<path d="M0 12 L10 4 L20 12 L30 4 L40 12 M0 32 L10 24 L20 32 L30 24 L40 32" fill="none" stroke="${a}" stroke-width="3"/>`,
+    sprinkles: () => [[6, 8, 30, '#ff9ab8'], [26, 12, -40, '#7ec8ff'], [14, 28, 70, '#ffd84d'], [32, 32, 10, '#7fe0b8'], [4, 36, -20, '#b58cff']].map(([x, y, r, c]) => `<rect x="${x - 3}" y="${y - 1}" width="6" height="2.4" rx="1.2" transform="rotate(${r} ${x} ${y})" fill="${c}"/>`).join(''),
+    leaves: a => `<path d="M8 16 C8 6 18 4 22 4 C22 10 18 18 8 16 Z" fill="${a}"/><path d="M26 36 C26 28 34 26 38 26 C38 32 34 38 26 36 Z" fill="#b8e8b0"/>`,
+    crowns: a => `<path d="M8 20 L8 10 L13 15 L18 8 L23 15 L28 10 L28 20 Z" fill="${a}"/><circle cx="32" cy="34" r="1.6" fill="#ffd84d"/>`,
+  };
+  RM_PATS.push(['rainbows', 'קשתות'], ['moons', 'ירחים'], ['butterflies', 'פרפרים'], ['cats', 'חתולים'], ['strawberries', 'תותים'], ['argyle', 'מעוינים'], ['zigzag', 'זיגזג'], ['sprinkles', 'סוכריות'], ['leaves', 'עלים'], ['crowns', 'כתרים']);
+  // ---------- 🏙️ town: +12 building types, and cars, a bus and an ice-cream truck on the roads ----------
+  const tw6By = y => y + TW_H - 5;
+  Object.assign(TW_TILES, {
+    cinema: ['קולנוע', false, false, (x, y) => { const by = tw6By(y), t = by - 44;
+      return `<rect x="${x + 6}" y="${t}" width="46" height="44" rx="2" fill="#b58cff" ${S}/><rect x="${x + 2}" y="${t - 14}" width="54" height="16" rx="4" fill="#ffd84d" ${S2}/>` + Array.from({ length: 8 }, (_, k) => `<circle class="wd-tw" style="animation-delay:-${k * 0.2}s" cx="${x + 6 + k * 6.5}" cy="${t - 6}" r="1.6" fill="#ff6b8b"/>`).join('') +
+        `<path d="M${x + 22} ${by} V${by - 16} H${x + 36} V${by}" fill="#6b3a5a" ${S2}/><rect x="${x + 10}" y="${t + 6}" width="10" height="14" fill="#fff" ${S2}/><rect x="${x + 38}" y="${t + 6}" width="10" height="14" fill="#fff" ${S2}/><polygon points="${starPts(x + 29, t + 13, 6, 2.6)}" fill="#ffd84d" ${S2}/>`; }],
+    museum: ['מוזיאון', false, false, (x, y) => { const by = tw6By(y), t = by - 36;
+      return `<path d="M${x + 2} ${t} L${x + 29} ${t - 18} L${x + 56} ${t} Z" fill="#f4ead8" ${S}/><rect x="${x + 4}" y="${t}" width="50" height="6" fill="#e8dcc8" ${S2}/>` + [10, 22, 34, 46].map(dx => `<rect x="${x + dx - 2}" y="${t + 6}" width="6" height="${36 - 10}" fill="#fffdf5" ${S2}/>`).join('') + `<rect x="${x + 2}" y="${by - 4}" width="54" height="5" fill="#e8dcc8" ${S2}/><circle cx="${x + 29}" cy="${t - 7}" r="4" fill="#ffd84d" ${S2}/>`; }],
+    hotel: ['מלון', false, false, (x, y, v) => { const by = tw6By(y), t = by - 70, c = TW_HOUSE[(v + 4) % TW_HOUSE.length];
+      return `<rect x="${x + 9}" y="${t}" width="40" height="70" rx="3" fill="${c}" ${S}/><rect x="${x + 13}" y="${t - 10}" width="32" height="10" rx="3" fill="#ff6b8b" ${S2}/><text x="${x + 29}" y="${t - 2}" text-anchor="middle" font-size="7" fill="#fff" font-family="Arial">HOTEL</text>` +
+        Array.from({ length: 9 }, (_, k) => `<rect x="${x + 14 + (k % 3) * 11}" y="${t + 6 + Math.floor(k / 3) * 14}" width="7" height="9" rx="1.5" fill="${k % 4 ? '#dff4ff' : '#fff3a8'}" ${S2}/>`).join('') + `<path d="M${x + 22} ${by} V${by - 14} H${x + 36} V${by}" fill="#ffd84d" ${S2}/>`; }],
+    firestation: ['תחנת כיבוי', false, false, (x, y) => { const by = tw6By(y), t = by - 40;
+      return `<rect x="${x + 4}" y="${t}" width="50" height="40" fill="#ff6b6b" ${S}/><path d="M${x + 2} ${t} L${x + 29} ${t - 14} L${x + 56} ${t} Z" fill="#c0303f" ${S2}/><rect x="${x + 10}" y="${by - 26}" width="38" height="26" rx="3" fill="#fff6e0" ${S2}/>` +
+        [by - 20, by - 14, by - 8].map(yy => `<path d="M${x + 10} ${yy} H${x + 48}" stroke="#d8c8a8" stroke-width="1.4"/>`).join('') + `<circle cx="${x + 29}" cy="${t + 7}" r="5" fill="#ffd84d" ${S2}/><circle class="wd-tw" cx="${x + 29}" cy="${t - 16}" r="3" fill="#ff3b3b"/>`; }],
+    vet: ['מרפאת חיות', false, false, (x, y) => twShop(x, y, '#e8fff4', '#7fe0b8', 'dog', `<path d="M${x + 47} ${y + 6} h6 v-6 h4 v6 h6 v4 h-6 v6 h-4 v-6 h-6 Z" transform="translate(-10 -4)" fill="#ff6b6b" stroke="${O}" stroke-width="1"/>`)],
+    pizzeria: ['פיצרייה', false, false, (x, y) => twShop(x, y, '#fff1e0', '#ff6b6b', 'pizza')],
+    candyshop: ['חנות ממתקים', false, false, (x, y) => twShop(x, y, '#ffe8f4', '#ff9ad5', 'lollipop')],
+    dance: ['סטודיו לריקוד', false, false, (x, y) => twShop(x, y, '#f0e8ff', '#b58cff', 'music')],
+    lighthouse: ['מגדלור', false, false, (x, y) => { const cx = x + 29, by = tw6By(y);
+      return `<path d="M${cx - 12} ${by} L${cx - 8} ${by - 60} H${cx + 8} L${cx + 12} ${by} Z" fill="#fff" ${S}/><path d="M${cx - 11} ${by - 16} H${cx + 11} M${cx - 10} ${by - 36} H${cx + 10}" stroke="#ff6b6b" stroke-width="7"/><rect x="${cx - 10}" y="${by - 72}" width="20" height="12" fill="#fff6a8" ${S2}/>` +
+        `<path d="M${cx - 13} ${by - 72} L${cx} ${by - 84} L${cx + 13} ${by - 72} Z" fill="#ff6b6b" ${S2}/><path class="wd-tw" d="M${cx + 10} ${by - 66} L${cx + 34} ${by - 74} V${by - 58} Z" fill="#fff6a8" opacity=".6"/>`; }],
+    windmill: ['טחנת רוח', false, false, (x, y) => { const cx = x + 29, by = tw6By(y);
+      return `<path d="M${cx - 14} ${by} L${cx - 9} ${by - 44} H${cx + 9} L${cx + 14} ${by} Z" fill="#fff6e0" ${S}/><path d="M${cx - 5} ${by} V${by - 10} A5 5 0 0 1 ${cx + 5} ${by - 10} V${by}" fill="#a0673e" ${S2}/>` +
+        `<g transform="translate(${cx} ${by - 46})"><g>${reduceMotion() ? '' : '<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="7s" repeatCount="indefinite"/>'}${[0, 90, 180, 270].map(r => `<path d="M0 0 L-5 -30 H5 Z" transform="rotate(${r})" fill="#ffd6ec" ${S2}/>`).join('')}</g><circle r="3.4" fill="#ffd84d" ${S2}/></g>`; }],
+    treehouse: ['בית עץ', false, false, (x, y) => { const cx = x + 29, by = tw6By(y);
+      return `<rect x="${cx - 5}" y="${by - 40}" width="10" height="40" fill="#a0673e" ${S2}/><circle cx="${cx}" cy="${by - 58}" r="26" fill="#5cbf5c" ${S}/><rect x="${cx - 16}" y="${by - 56}" width="32" height="20" fill="#e0a868" ${S2}/><path d="M${cx - 20} ${by - 56} L${cx} ${by - 70} L${cx + 20} ${by - 56} Z" fill="#ff6b8b" ${S2}/>` +
+        `<rect x="${cx - 4}" y="${by - 50}" width="8" height="10" fill="#fff6a8" ${S2}/><path d="M${cx + 16} ${by - 36} L${cx + 20} ${by} M${cx + 24} ${by - 36} L${cx + 28} ${by} M${cx + 17} ${by - 26} H${cx + 25} M${cx + 18} ${by - 14} H${cx + 26}" stroke="${O}" stroke-width="1.6"/>`; }],
+    swimpool: ['בריכת שחייה', true, false, (x, y) => `<rect x="${x + 4}" y="${y + 6}" width="50" height="40" rx="8" fill="#e8f0ff" ${S}/><rect x="${x + 9}" y="${y + 11}" width="40" height="30" rx="5" fill="#7ec8ff" ${S2}/><path d="M${x + 14} ${y + 20} q5 -3 10 0 t10 0 M${x + 20} ${y + 32} q5 -3 10 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="${x + 40}" cy="${y + 30}" r="5" fill="none" stroke="#ff6b8b" stroke-width="3"/>`],
+  });
+  const TW6_CARS = [
+    `<g class="tw-car"><rect x="-13" y="-16" width="26" height="12" rx="5" fill="#ff9ad5" ${S2}/><path d="M-7 -16 L-4 -24 H6 L9 -16 Z" fill="#dff4ff" ${S2}/><circle cx="-7" cy="-3" r="3.6" fill="${O}"/><circle cx="7" cy="-3" r="3.6" fill="${O}"/><circle cx="12" cy="-11" r="1.6" fill="#fff6a8"/></g>`,
+    `<g class="tw-car"><rect x="-18" y="-26" width="36" height="22" rx="5" fill="#ffd84d" ${S2}/>${[-12, -3, 6].map(dx => `<rect x="${dx}" y="-22" width="7" height="7" rx="1.5" fill="#dff4ff" stroke="${O}" stroke-width="1"/>`).join('')}<circle cx="-10" cy="-3" r="3.6" fill="${O}"/><circle cx="10" cy="-3" r="3.6" fill="${O}"/></g>`,
+    `<g class="tw-car"><rect x="-16" y="-24" width="32" height="20" rx="5" fill="#fffdf5" ${S2}/><path d="M-16 -12 H16" stroke="#ff9ad5" stroke-width="3"/><circle cx="0" cy="-30" r="5" fill="#ff9ad5" ${S2}/><path d="M-3 -26 L0 -18 L3 -26 Z" fill="#f2b56b"/><circle cx="-9" cy="-3" r="3.6" fill="${O}"/><circle cx="9" cy="-3" r="3.6" fill="${O}"/></g>`,
+  ];
+
+  // ---------- 🌌 space: +8 planets, a space station, +10 decorations ----------
+  [['כוכב מרשמלו', '#ffe0f0', '#ffffff', 'dots', 1], ['כוכב נצנצים', '#c9b8ff', '#fff6c2', 'stars', 2], ['כוכב קשתית', '#7ec8ff', '#ff9ad5', 'bands', 1], ['כוכב פרפרית', '#ffb3d9', '#b58cff', 'hearts', 0],
+    ['כוכב גלידונת', '#dcfff0', '#ff9ad5', 'swirl', 2], ['כוכב שוקו', '#c98a4b', '#f2d8a0', 'spots', 1], ['כוכב לבבית', '#ff6b8b', '#ffd6e4', 'hearts', 0], ['כוכב ענני', '#e6f4ff', '#ffffff', 'dots', 1]]
+    .forEach(([n, c1, c2, pat, moons], i) => { const h = wdHash('planet6' + i); SPC_PLANETS.push({ id: 'p' + (14 + i), n, c1, c2, pat, r: 46 + h % 24, ring: i % 3 === 1, moons, x: 2640 + (i % 2) * 480 + (h % 120) - 60, y: 230 + Math.floor(i / 2) * 390 + ((h >>> 9) % 100) - 50 }); });
+  SPC_PLANETS.push({ id: 'st', n: 'תחנת החלל', station: true, c1: '#9aa7c8', c2: '#dfe6f5', pat: 'dots', r: 58, ring: true, moons: 0, x: 1200, y: 540 });
+  function spcStationArt(p, u, photo) {
+    const spin = photo || reduceMotion() ? '' : '<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="30s" repeatCount="indefinite"/>';
+    const panel = x => `<g transform="translate(${x} 0)"><rect x="-30" y="-14" width="60" height="28" rx="3" fill="#5b7fe0" ${S}/><path d="M-30 0 H30 M-15 -14 V14 M0 -14 V14 M15 -14 V14" stroke="#bfe0ff" stroke-width="1.6"/></g>`;
+    return `<g transform="scale(.75)"><g>${spin}<ellipse rx="${p.r + 22}" ry="${p.r + 22}" fill="none" stroke="${O}" stroke-width="12"/><ellipse rx="${p.r + 22}" ry="${p.r + 22}" fill="none" stroke="#dfe6f5" stroke-width="7"/>` +
+      [0, 90, 180, 270].map(r => `<rect x="-4" y="${-p.r - 26}" width="8" height="${p.r - 20}" transform="rotate(${r})" fill="#c9d0e0" ${S2}/>`).join('') + `</g>` +
+      `<path d="M-40 0 H-90 M40 0 H90" stroke="${O}" stroke-width="5"/>${panel(-112)}${panel(112)}` +
+      `<circle r="40" fill="#eef2fb" ${S}/><circle r="40" fill="none" stroke="#b8c2d8" stroke-width="3" stroke-dasharray="6 8"/>` + [[-22, -14], [22, -14], [0, 24]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="6" fill="#bfe9ff" ${S2}/>`).join('') +
+      `${face(0, 2, 1.3)}<path d="M0 -40 V-60" ${S}/><circle class="wd-tw" cy="-63" r="5" fill="#ff6b8b" ${S2}/></g>`;
+  }
+  const spcDeck = () => `<path d="M0 250 L600 250 V400 H0 Z" fill="#c9d0e0" ${S}/><path d="M0 250 H600" stroke="#fff" stroke-width="3"/>` + Array.from({ length: 12 }, (_, i) => `<path d="M${i * 60} 250 L${i * 80 - 140} 400" stroke="#aab4cc" stroke-width="2"/>`).join('') +
+    [290, 330, 372].map(y => `<path d="M0 ${y} H600" stroke="#aab4cc" stroke-width="2"/>`).join('') + [[120, 262], [300, 262], [480, 262]].map(([x, y], i) => `<circle class="wd-tw" style="animation-delay:-${i * 0.5}s" cx="${x}" cy="${y}" r="4" fill="#7ee0ff"/>`).join('') +
+    `<rect x="0" y="150" width="600" height="100" fill="#dfe6f5" ${S}/><path d="M0 170 H600 M0 232 H600" stroke="#b8c2d8" stroke-width="3"/>` +
+    [90, 230, 370, 510].map((x, i) => `<circle cx="${x}" cy="200" r="30" fill="#b8c2d8" ${S}/><circle cx="${x}" cy="200" r="22" fill="#141a45" ${S2}/><circle cx="${x - 8}" cy="${192 + i % 2 * 8}" r="1.6" fill="#fff"/><circle cx="${x + 7}" cy="${204 - i % 2 * 6}" r="1.2" fill="#fff6c2"/><path d="M${x - 12} 188 q6 -6 12 -4" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/>`).join('');
+  Object.assign(SPC_ITEMS, {
+    robot: ['רובוט חמוד', 1, 9, c => `<path d="M-12 -8 V0 M12 -8 V0" ${S}/><rect x="-20" y="-38" width="40" height="30" rx="8" fill="${c}" ${S}/><rect x="-16" y="-66" width="32" height="26" rx="8" fill="${c}" ${S}/><circle cx="-6" cy="-54" r="4" fill="#7ee0ff" ${S2}/><circle cx="6" cy="-54" r="4" fill="#7ee0ff" ${S2}/><path d="M-5 -46 H5" ${S2}/>` +
+      `<path d="M0 -66 V-76" ${S2}/><circle class="wd-tw" cy="-78" r="3.4" fill="#ff6b8b" ${S2}/><path d="M-20 -30 L-30 -20 M20 -30 L30 -20" ${S}/>${bfHeart(0, -24, 1, '#ff6b8b')}`],
+    comet: ['שביט', 1, 4, c => `<path d="M-60 -30 Q-20 -20 0 0 Q-24 -8 -60 -14 Z" fill="${c}" opacity=".5"/><path d="M-50 -40 Q-16 -24 0 0" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/><circle r="12" fill="${c}" ${S}/>${face(0, 0, 0.6)}`, 3],
+    moonhouse: ['בית ירח', 1.1, 8, c => `<path d="M-40 0 V-40 A40 40 0 0 1 40 -40 V0 Z" fill="${c}" ${S}/><circle cx="-14" cy="-40" r="7" fill="#bfe9ff" ${S2}/><circle cx="14" cy="-40" r="7" fill="#bfe9ff" ${S2}/><path d="M-8 0 V-16 A8 8 0 0 1 8 -16 V0" fill="#b58cff" ${S2}/><path d="M26 -70 A12 12 0 1 0 34 -52 A9 9 0 1 1 26 -70 Z" fill="#ffe27a" ${S2}/>`],
+    portal: ['שער קסם', 1.1, 2, c => `<ellipse cx="0" cy="-50" rx="30" ry="46" fill="${c}" ${S}/><ellipse cx="0" cy="-50" rx="20" ry="36" fill="#141a45"/>` + [0, 1, 2].map(k => `<ellipse class="wd-tw" style="animation-delay:-${k * 0.5}s" cx="0" cy="-50" rx="${16 - k * 5}" ry="${30 - k * 9}" fill="none" stroke="${['#ff9ad5', '#7ee0ff', '#fff6a8'][k]}" stroke-width="2.4"/>`).join('') + `<ellipse cx="0" cy="0" rx="34" ry="6" fill="#9aa7b8" ${S2}/>`],
+    spacetree: ['עץ חלל', 1, 1, c => `<path d="M0 0 C-6 -20 6 -40 0 -60" fill="none" stroke="${O}" stroke-width="8"/><path d="M0 0 C-6 -20 6 -40 0 -60" fill="none" stroke="#b58cff" stroke-width="4"/>` + [[0, -70, 16], [-20, -54, 12], [20, -56, 12]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" ${S}/><circle class="wd-tw" cx="${x}" cy="${y}" r="3" fill="#fff"/>`).join('')],
+    alienpet: ['כלבלב חייזרי', 0.9, 0, c => `<ellipse cx="0" cy="-16" rx="22" ry="14" fill="${c}" ${S}/><path d="M-16 -4 V2 M-4 -2 V2 M8 -2 V2 M18 -4 V2" ${S}/><circle cx="-18" cy="-30" r="13" fill="${c}" ${S}/><path d="M-26 -40 l-6 -10 M-12 -42 l2 -12" ${S}/><circle cx="-32" cy="-51" r="3" fill="#ffd84d" ${S2}/><circle cx="-10" cy="-55" r="3" fill="#ffd84d" ${S2}/>${face(-18, -30, 0.6)}<path d="M22 -18 q10 -8 6 -16" fill="none" ${S}/>`],
+    craterpool: ['בריכת כוכבים', 1, 3, c => `<ellipse rx="56" ry="16" fill="${fmx(c, O, 0.2)}" ${S}/><ellipse cy="-2" rx="46" ry="11" fill="#7ee0ff" ${S2}/>` + [[-20, -4], [10, 0], [26, -6]].map(([x, y]) => `<polygon class="wd-tw" points="${starPts(x, y, 5, 2)}" fill="#fff6a8"/>`).join(''), 0],
+    satellite: ['לוויין', 1, 9, c => `<rect x="-12" y="-12" width="24" height="24" rx="4" fill="${c}" ${S}/><rect x="-46" y="-8" width="30" height="16" fill="#5b7fe0" ${S2}/><rect x="16" y="-8" width="30" height="16" fill="#5b7fe0" ${S2}/><path d="M0 -12 V-24" ${S2}/><circle class="wd-tw" cy="-26" r="3" fill="#ff6b8b"/>`, 3],
+    trampoline: ['טרמפולינה', 1, 1, c => `<path d="M-40 0 L-34 -18 M40 0 L34 -18 M0 0 V-18" ${S}/><ellipse cy="-20" rx="44" ry="10" fill="${c}" ${S}/><ellipse cy="-21" rx="36" ry="7" fill="#3b3f5a"/><g class="wd-bob"><circle cy="-50" r="9" fill="#8fe07a" ${S2}/>${face(0, -50, 0.4)}</g>`],
+    glowmush: ['פטריות זוהרות', 1, 5, c => `<circle cy="-20" r="30" fill="${c}" opacity=".18"/>` + [[-14, 0.8], [8, 1.1], [24, 0.6]].map(([x, s]) => `<g transform="translate(${x} 0) scale(${s})"><path d="M-3 0 V-16 H3 V0 Z" fill="#fff5e0" ${S2}/><path d="M-14 -14 C-12 -32 12 -32 14 -14 Q0 -10 -14 -14 Z" fill="${c}" ${S2}/><circle class="wd-tw" cx="-4" cy="-22" r="2" fill="#fff"/></g>`).join('')],
+  });
+  // ---------- 🍭 candy land: +10 pieces ----------
+  Object.assign(CND_ITEMS, {
+    chocofount: ['מזרקת שוקולד', 1, 8, c => `<ellipse cy="-6" rx="40" ry="10" fill="#c98a4b" ${S}/><ellipse cy="-8" rx="32" ry="6" fill="${c}"/><rect x="-4" y="-50" width="8" height="42" fill="#fff" ${S2}/><ellipse cy="-30" rx="22" ry="5" fill="#fff" ${S2}/><ellipse cy="-50" rx="13" ry="4" fill="#fff" ${S2}/>` +
+      `<path d="M-13 -50 Q-18 -40 -22 -30 M13 -50 Q18 -40 22 -30 M-22 -30 Q-30 -18 -32 -8 M22 -30 Q30 -18 32 -8" fill="none" stroke="${c}" stroke-width="5" stroke-linecap="round"/><circle cy="-58" r="6" fill="#ff3b5c" ${S2}/>`],
+    popsicle: ['ארטיק ענק', 1, 1, c => `<rect x="-5" y="-24" width="10" height="24" rx="4" fill="#f2d8a0" ${S2}/><path d="M-20 -24 V-80 A20 20 0 0 1 20 -80 V-24 Z" fill="${c}" ${S}/><path d="M-20 -56 H20 M-20 -40 H20" stroke="#fff" stroke-width="5" opacity=".7"/><path d="M-20 -70 Q-10 -62 0 -70 T20 -70" fill="none" stroke="${O}" stroke-width="2"/>${face(0, -46, 0.8)}`],
+    jellybeans: ['ערימת ג׳לי', 0.9, 0, c => Array.from({ length: 14 }, (_, i) => { const x = -30 + (i * 11) % 60, y = -6 - Math.floor(i / 5) * 9 - (i % 2) * 3; return `<ellipse cx="${x}" cy="${y}" rx="7" ry="4.4" transform="rotate(${i * 37} ${x} ${y})" fill="${[c, '#ffd84d', '#7fe0b8', '#7ec8ff', '#b58cff', '#ff6b6b'][i % 6]}" ${S2}/>`; }).join('')],
+    macarons: ['מגדל מקרונים', 1, 0, c => [0, 1, 2, 3].map(i => { const w = 30 - i * 5, y = -i * 18, col = [c, '#7fe0b8', '#ffd84d', '#b58cff'][i]; return `<ellipse cx="0" cy="${y - 6}" rx="${w}" ry="7" fill="${col}" ${S2}/><rect x="${-w + 3}" y="${y - 10}" width="${2 * w - 6}" height="4" fill="#fff"/><ellipse cx="0" cy="${y - 13}" rx="${w}" ry="7" fill="${col}" ${S2}/>`; }).join('') + `<circle cy="-80" r="6" fill="#ff3b5c" ${S2}/>`],
+    cake: ['עוגת קומות', 1.1, 0, c => [[48, 0, c], [36, -26, '#fff6c2'], [24, -48, '#ffd6ec']].map(([w, y, col]) => `<rect x="${-w}" y="${y - 24}" width="${2 * w}" height="24" rx="5" fill="${col}" ${S}/><path d="M${-w} ${y - 20} q6 8 12 0 ${Array.from({ length: Math.floor(w / 6) - 1 }, () => 'q6 8 12 0').join(' ')}" fill="#fff" ${S2}/>`).join('') +
+      `<rect x="-3" y="-90" width="6" height="18" rx="2" fill="#7ec8ff" ${S2}/><path d="M0 -100 C4 -96 4 -92 0 -92 C-4 -92 -4 -96 0 -100 Z" fill="#ffb020" ${S2}/>` + cndSprinkles([[-30, -12, 20], [20, -8, -30], [-12, -40, 60], [14, -36, 0]])],
+    train: ['רכבת סוכריות', 1.1, 5, c => `<rect x="-70" y="-30" width="40" height="24" rx="5" fill="${c}" ${S}/><rect x="-24" y="-30" width="40" height="24" rx="5" fill="#ff9ad5" ${S}/><path d="M22 -6 V-44 H48 V-30 H62 V-6 Z" fill="#ffd84d" ${S}/><rect x="28" y="-40" width="14" height="10" fill="#dff4ff" ${S2}/>` +
+      `<rect x="50" y="-54" width="8" height="14" fill="#ff6b6b" ${S2}/>` + [-60, -40, -14, 6, 32, 54].map(x => `<circle cx="${x}" cy="-4" r="6" fill="#fff" ${S2}/><circle cx="${x}" cy="-4" r="2" fill="#ff6b8b"/>`).join('') + `<circle cx="-50" cy="-38" r="6" fill="#7fe0b8" ${S2}/><circle cx="-4" cy="-38" r="6" fill="#ffd84d" ${S2}/>`],
+    swirl: ['סוכריית ספירלה', 1, 6, c => `<path d="M0 0 V-40" stroke="${O}" stroke-width="8" stroke-linecap="round"/><path d="M0 0 V-40" stroke="#fff" stroke-width="4"/><circle cy="-62" r="24" fill="#fff" ${S}/>` +
+      [0, 60, 120, 180, 240, 300].map((r, i) => `<path d="M0 -62 Q10 -76 0 -86" transform="rotate(${r} 0 -62)" fill="none" stroke="${i % 2 ? c : '#ff6b8b'}" stroke-width="7"/>`).join('') + `<circle cy="-62" r="24" fill="none" ${S}/>`],
+    gumball: ['מכונת מסטיקים', 0.9, 1, c => `<path d="M-18 0 L-14 -30 H14 L18 0 Z" fill="${c}" ${S}/><rect x="-6" y="-22" width="12" height="10" rx="2" fill="#d8dde6" ${S2}/><circle cy="-58" r="28" fill="#dff4ff" fill-opacity=".8" ${S}/>` +
+      Array.from({ length: 12 }, (_, i) => `<circle cx="${Math.round(Math.cos(i * 2.1) * (6 + (i % 3) * 7))}" cy="${Math.round(-54 + Math.sin(i * 2.1) * (6 + (i % 3) * 6))}" r="5" fill="${['#ff6b8b', '#ffd84d', '#7fe0b8', '#7ec8ff', '#b58cff'][i % 5]}" stroke="${O}" stroke-width="1"/>`).join('') + `<rect x="-8" y="-92" width="16" height="8" rx="3" fill="${c}" ${S2}/>`],
+    candyflower: ['פרח סוכריות', 1, 0, c => `<path d="M0 0 V-46" stroke="#5cbf5c" stroke-width="4"/>` + gdLeaf(0, -14, -150, 0.8) + [0, 60, 120, 180, 240, 300].map(r => `<ellipse cx="0" cy="-72" rx="7" ry="11" transform="rotate(${r} 0 -58)" fill="${r % 120 ? c : '#fff'}" ${S2}/>`).join('') + `<circle cy="-58" r="9" fill="#ffd84d" ${S}/>${face(0, -58, 0.45)}`],
+    sprinklebush: ['שיח סוכריות', 1, 6, c => `<path d="M-36 0 C-44 -14 -36 -34 -20 -32 C-16 -48 12 -50 18 -34 C34 -38 44 -18 34 0 Z" fill="${c}" ${S}/>` + cndSprinkles(Array.from({ length: 14 }, (_, i) => [Math.round(-26 + (i * 13) % 52), Math.round(-8 - (i * 7) % 30), i * 40]))],
+  });
+  // ---------- ❄️ ice palace: +10 pieces ----------
+  Object.assign(FRZ_ITEMS, {
+    bridge: ['גשר קרח', 1.1, 1, c => `<path d="M-70 0 Q0 -40 70 0 V10 Q0 -26 -70 10 Z" fill="${c}" ${S}/>` + [-50, -25, 0, 25, 50].map(x => `<path d="M${x} ${-Math.round(30 * (1 - Math.pow(x / 70, 2))) + 4} V${-Math.round(30 * (1 - Math.pow(x / 70, 2))) - 14}" ${S2}/>`).join('') + `<path d="M-60 -14 Q0 -54 60 -14" fill="none" stroke="#fff" stroke-width="3"/>` + frzIcicles(-50, 50, 4, 7)],
+    fox: ['שועל שלג', 0.9, 7, c => `<path d="M20 -10 C44 -20 46 -44 30 -44 C38 -30 26 -20 16 -20 Z" fill="${c}" ${S}/><ellipse cx="0" cy="-16" rx="20" ry="14" fill="${c}" ${S}/><path d="M-10 -4 V2 M8 -4 V2" ${S}/><circle cx="-16" cy="-34" r="13" fill="${c}" ${S}/><path d="M-26 -42 L-24 -56 L-16 -46 Z M-12 -46 L-6 -56 L-4 -42 Z" fill="${c}" ${S2}/>${face(-16, -34, 0.6)}<path d="M-28 -32 l-6 1" ${S2}/>`],
+    bear: ['דוב קוטב', 1, 7, c => `<ellipse cx="0" cy="-22" rx="30" ry="20" fill="${c}" ${S}/><path d="M-18 -6 V2 M-6 -4 V2 M8 -4 V2 M20 -6 V2" stroke="${O}" stroke-width="6" stroke-linecap="round"/><circle cx="-26" cy="-40" r="16" fill="${c}" ${S}/><circle cx="-36" cy="-52" r="5" fill="${c}" ${S2}/><circle cx="-18" cy="-54" r="5" fill="${c}" ${S2}/>${face(-26, -40, 0.7)}<ellipse cx="-34" cy="-36" rx="4" ry="3" fill="${O}"/><path d="M-10 -34 Q-6 -30 -2 -34" fill="none" stroke="#ff9ad5" stroke-width="3"/>`],
+    sled: ['מזחלת', 1, 6, c => `<path d="M-40 -4 H36 Q48 -4 46 -16" fill="none" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M-30 -4 V-14 M24 -4 V-14" ${S}/><rect x="-40" y="-26" width="70" height="12" rx="4" fill="${c}" ${S}/><path d="M-36 -26 H26" stroke="#fff" stroke-width="2"/>${bfHeart(-6, -20, 0.9, '#fff')}`],
+    lantern: ['פנס קרח', 1, 8, c => `<rect x="-3" y="-60" width="6" height="60" fill="#c9d8ff" ${S2}/><circle cy="-76" r="20" fill="${c}" opacity=".3"/><path d="M-12 -62 H12 L10 -90 H-10 Z" fill="#eaf8ff" fill-opacity=".8" ${S}/><circle class="wd-tw" cy="-76" r="6" fill="${c}"/><path d="M-14 -90 H14 L0 -100 Z" fill="#c9d8ff" ${S2}/>`],
+    fireplace: ['אח קסומה', 1.1, 2, c => `<rect x="-44" y="-70" width="88" height="70" rx="4" fill="#eaf8ff" ${S}/><rect x="-50" y="-78" width="100" height="10" rx="3" fill="${c}" ${S2}/><path d="M-26 0 V-40 A26 22 0 0 1 26 -40 V0 Z" fill="#3b3f5a" ${S2}/>` +
+      `<path class="wd-tw" d="M-14 0 C-18 -14 -8 -20 -6 -34 C0 -20 6 -26 4 -40 C14 -26 20 -14 14 0 Z" fill="#7ee0ff" opacity=".9"/><path d="M-6 0 C-8 -8 -2 -12 0 -20 C4 -12 8 -8 6 0 Z" fill="#fff"/>` + frzFlake(-34, -88, 6) + frzFlake(34, -88, 6)],
+    crown: ['כתר על כרית', 0.8, 6, c => `<ellipse cy="-8" rx="30" ry="10" fill="${c}" ${S}/><path d="M-30 -8 Q0 8 30 -8" fill="${fmx(c, O, 0.15)}"/><path d="M-20 -14 L-22 -40 L-10 -28 L0 -46 L10 -28 L22 -40 L20 -14 Z" fill="#ffe9a8" ${S}/>` + [-12, 0, 12].map((x, i) => `<circle cx="${x}" cy="-22" r="3" fill="${['#ff6b8b', '#7ee0ff', '#b58cff'][i]}" ${S2}/>`).join('')],
+    reindeer: ['אייל', 1, 1, c => `<ellipse cx="0" cy="-30" rx="26" ry="14" fill="#c98a4b" ${S}/><path d="M-18 -18 V0 M-6 -18 V0 M8 -18 V0 M20 -18 V0" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M-22 -36 L-30 -56" stroke="${O}" stroke-width="10" stroke-linecap="round"/><path d="M-22 -36 L-30 -56" stroke="#c98a4b" stroke-width="6" stroke-linecap="round"/>` +
+      `<circle cx="-32" cy="-60" r="11" fill="#c98a4b" ${S}/><path d="M-36 -70 L-42 -86 M-40 -80 L-48 -82 M-28 -70 L-22 -86 M-24 -80 L-16 -82" stroke="#a0673e" stroke-width="3" stroke-linecap="round"/>${face(-32, -60, 0.5)}<circle cx="-42" cy="-58" r="3.4" fill="#ff5a6e"/><path d="M-10 -40 H14" stroke="${c}" stroke-width="5"/>`],
+    mirror: ['מראת קרח', 1, 3, c => `<rect x="-4" y="-16" width="8" height="16" fill="${c}" ${S2}/><ellipse cy="-60" rx="30" ry="44" fill="${c}" ${S}/><ellipse cy="-60" rx="22" ry="36" fill="#eaf8ff" ${S2}/><path d="M-10 -80 L4 -94 M-14 -64 L8 -86" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>` + frzFlake(0, -106, 7)],
+    owl: ['ינשוף שלג', 0.8, 7, c => `<ellipse cy="-26" rx="20" ry="26" fill="${c}" ${S}/><path d="M-16 -46 L-14 -58 L-6 -48 M16 -46 L14 -58 L6 -48" fill="${c}" ${S2}/><circle cx="-8" cy="-34" r="7" fill="#fff" ${S2}/><circle cx="8" cy="-34" r="7" fill="#fff" ${S2}/><circle cx="-8" cy="-34" r="3.4" fill="${O}"/><circle cx="8" cy="-34" r="3.4" fill="${O}"/><path d="M-3 -26 L0 -22 L3 -26 Z" fill="#ffa24d"/>` +
+      `<path d="M-10 -14 l3 3 l3 -3 M2 -14 l3 3 l3 -3" fill="none" stroke="#c9d8ff" stroke-width="1.6"/><path d="M-6 0 v-3 M6 0 v-3" stroke="#ffa24d" stroke-width="3" stroke-linecap="round"/>`],
+  });
+
+  // ---------- 🎢 theme park: +5 rides ----------
+  Object.assign(PK_TILES, {
+    pirate: ['ספינת פיראטים', false, false, 45, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      return `<path d="M${cx - 22} ${by} L${cx} ${by - 52} L${cx + 22} ${by}" fill="none" stroke="${O}" stroke-width="5"/><path d="M${cx - 22} ${by} L${cx} ${by - 52} L${cx + 22} ${by}" fill="none" stroke="#a0673e" stroke-width="2.6"/>` +
+        `<g transform="translate(${cx} ${by - 52})"><g>${pkSmil('<animateTransform attributeName="transform" type="rotate" values="-35;35;-35" dur="3.2s" repeatCount="indefinite"/>')}<path d="M0 0 V30" ${S2}/>` +
+        `<path d="M-26 30 H26 L20 44 H-20 Z" fill="#c98a4b" ${S}/><path d="M0 30 V14 L14 24 Z" fill="#fffdf5" ${S2}/>${[-14, -4, 6, 16].map(dx => `<circle cx="${dx}" cy="28" r="3" fill="#f6d0b1" stroke="${O}" stroke-width="1"/>`).join('')}<path d="M-6 40 h4 M4 40 h4" stroke="${O}" stroke-width="1.4"/></g></g><circle cx="${cx}" cy="${by - 52}" r="3" fill="#ffd84d" ${S2}/>`; }],
+    octopus: ['תמנון מסתובב', false, false, 55, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      return `<g transform="translate(${cx} ${by - 26})"><g>${pkSmil('<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="6s" repeatCount="indefinite"/>')}` +
+        [0, 60, 120, 180, 240, 300].map((r, i) => `<g transform="rotate(${r})"><path d="M0 0 Q14 6 22 0" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M0 0 Q14 6 22 0" fill="none" stroke="#b58cff" stroke-width="3" stroke-linecap="round"/><circle cx="23" cy="0" r="4" fill="${['#ffd84d', '#7fe0b8', '#ff9ad5'][i % 3]}" stroke="${O}" stroke-width="1.2"/></g>`).join('') +
+        `</g><circle r="12" fill="#b58cff" ${S}/>${face(0, 0, 0.55)}</g><path d="M${cx - 16} ${by} L${cx} ${by - 16} L${cx + 16} ${by}" fill="none" ${S2}/>`; }],
+    slide: ['מגלשת ענק', false, false, 35, (x, y) => { const by = pkBy(x, y), d = `M${x + 12} ${by - 60} C${x + 30} ${by - 50} ${x + 20} ${by - 20} ${x + 52} ${by - 4}`;
+      return `<path d="M${x + 6} ${by} V${by - 64} M${x + 16} ${by} V${by - 64}" ${S}/>${[by - 12, by - 26, by - 40, by - 54].map(yy => `<path d="M${x + 6} ${yy} H${x + 16}" stroke="${O}" stroke-width="1.8"/>`).join('')}` +
+        `<path d="${d}" fill="none" stroke="${O}" stroke-width="10" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#7ec8ff" stroke-width="6" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#fff" stroke-width="1.6" stroke-dasharray="4 6"/>` +
+        `<g>${pkSmil(`<animateMotion dur="2.6s" repeatCount="indefinite" path="${d}"/>`)}<circle cy="-6" r="4" fill="#f6d0b1" stroke="${O}" stroke-width="1.2" transform="${pkNoMo() ? `translate(${x + 24} ${by - 36})` : ''}"/></g>`; }],
+    mirrors: ['ארמון המראות', false, false, 40, (x, y) => { const by = pkBy(x, y), t = by - 44;
+      return `<rect x="${x + 6}" y="${t}" width="46" height="44" fill="#e6dcff" ${S}/><path d="M${x + 4} ${t} L${x + 29} ${t - 20} L${x + 54} ${t} Z" fill="#b58cff" ${S}/>` +
+        [x + 11, x + 23, x + 35].map((xx, i) => `<rect x="${xx}" y="${t + 8}" width="10" height="20" rx="4" fill="#dff4ff" ${S2}/><path class="wd-tw" style="animation-delay:-${i * 0.4}s" d="M${xx + 2} ${t + 12} l5 -3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`).join('') +
+        `<path d="M${x + 23} ${by} V${by - 12} H${x + 35} V${by}" fill="#8e6bd6" ${S2}/>${pkFlagTop(x + 29, t - 20, '#ffd84d')}`; }],
+    balloonride: ['כדור פורח', false, false, 60, (x, y) => { const cx = x + 29, by = pkBy(x, y);
+      return `<path d="M${cx} ${by} V${by - 40}" stroke="${O}" stroke-width="1.2" stroke-dasharray="3 3"/><rect x="${cx - 10}" y="${by - 6}" width="20" height="6" rx="2" fill="#a0673e" ${S2}/>` +
+        `<g>${pkSmil('<animateTransform attributeName="transform" type="translate" values="0 0; 0 -14; 0 0" dur="4s" repeatCount="indefinite"/>')}<path d="M${cx - 18} ${by - 62} C${cx - 18} ${by - 90} ${cx + 18} ${by - 90} ${cx + 18} ${by - 62} C${cx + 18} ${by - 50} ${cx + 6} ${by - 44} ${cx + 4} ${by - 38} H${cx - 4} C${cx - 6} ${by - 44} ${cx - 18} ${by - 50} ${cx - 18} ${by - 62} Z" fill="#ff9ad5" ${S}/>` +
+        `<path d="M${cx - 6} ${by - 84} Q${cx - 10} ${by - 60} ${cx - 3} ${by - 40} M${cx + 6} ${by - 84} Q${cx + 10} ${by - 60} ${cx + 3} ${by - 40}" fill="none" stroke="#ffd84d" stroke-width="3"/><rect x="${cx - 6}" y="${by - 36}" width="12" height="8" rx="2" fill="#c98a4b" ${S2}/><circle cx="${cx}" cy="${by - 38}" r="3" fill="#f6d0b1" stroke="${O}" stroke-width="1"/></g>`; }],
+  });
+  PK_RIDES.push('pirate', 'octopus', 'slide', 'mirrors', 'balloonride');
+  // ---------- 🐠 aquarium: 2 new body shapes and 2 new patterns (+16 fish), +10 decorations, a coral reef background ----------
+  const AQ_SH_X = {
+    disc: ['M-20 0 C-20 -22 10 -26 20 -8 L20 8 C10 26 -20 22 -20 0 Z', 18, -20],
+    tiny: ['M-24 0 C-20 -8 0 -9 14 -6 C20 -4 22 -2 22 0 C22 2 20 4 14 6 C0 9 -20 8 -24 0 Z', 20, -24],
+  };
+  const AQ_PT_X = {
+    hearts: (c1, c2) => [[4, -8, 0.9], [14, 4, 0.7], [0, 10, 0.6]].map(([x, y, s]) => bfHeart(x, y, s, c2)).join(''),
+    neon: (c1, c2) => `<rect x="-30" y="-4" width="60" height="6" fill="${c2}"/><rect x="-30" y="-2.4" width="60" height="2" fill="#fff" opacity=".8"/>`,
+  };
+  [['disc', 'דג דיסקוס'], ['tiny', 'דג ניאון']].forEach(([sh, sn], s) => AQ_PATS.forEach(([pt, pn], p) => { const k = AQ_KINDS.length; AQ_KINDS.push({ k, sh, pt, n: `${sn} ${pn}`, tail: (s + p) % 3, c1: AQ_COLS[(k * 7) % 12][0], c2: AQ_COLS[(k * 3 + 2) % 12][1], price: 14 + s * 4 + p * 2 + (pt === 'sparkle' ? 8 : 0) }); }));
+  [['round', 'דג כדור', 'hearts', 'לבבי'], ['angel', 'דג מלאך', 'hearts', 'לבבי'], ['long', 'דג חץ', 'neon', 'ניאון'], ['disc', 'דג דיסקוס', 'neon', 'ניאון']].forEach(([sh, sn, pt, pn], i) => { const k = AQ_KINDS.length;
+    AQ_KINDS.push({ k, sh, pt, n: `${sn} ${pn}`, tail: i % 3, c1: ['#ff9ad5', '#ffd84d', '#3fd0d6', '#b58cff'][i], c2: ['#ff4f8a', '#ff6b6b', '#ff4fa0', '#7ee0ff'][i], price: 30 + i * 3 }); });
+  Object.assign(AQ_ITEMS, {
+    clam: ['צדפה ענקית', 1, 3, c => `<path d="M-40 0 C-44 -40 44 -40 40 0 Z" fill="${c}" ${S}/>` + [-24, -12, 0, 12, 24].map(x => `<path d="M0 -2 L${x} ${-30 + Math.abs(x) * 0.3}" stroke="${fmx(c, O, 0.2)}" stroke-width="1.8"/>`).join('') + `<circle cy="-8" r="10" fill="#fffaf0" ${S}/><circle cx="-3" cy="-11" r="3" fill="#fff"/><path d="M-42 0 C-38 14 38 14 42 0 Z" fill="${fmx(c, O, 0.1)}" ${S}/>`],
+    sub: ['צוללת צהובה', 1, 5, c => `<ellipse cy="-30" rx="44" ry="22" fill="${c}" ${S}/><rect x="-10" y="-62" width="20" height="16" rx="4" fill="${c}" ${S2}/><path d="M0 -62 V-72 H10" ${S2}/>` + [-22, 0, 22].map(x => `<circle cx="${x}" cy="-30" r="7" fill="#bfe9ff" ${S2}/>`).join('') + `<path d="M44 -30 L56 -40 V-20 Z" fill="${c}" ${S2}/><circle class="aq-bub" cx="-50" cy="-40" r="4" fill="#dff6ff" fill-opacity=".5" stroke="#fff" stroke-width="1.4"/>`],
+    octo: ['תמנון חמוד', 0.9, 6, c => [-20, -10, 0, 10, 20].map((x, i) => tube(`M${x} -20 q${i % 2 ? 6 : -6} 10 0 16 q${i % 2 ? -4 : 4} 4 ${i % 2 ? 4 : -4} 4`, c, 5)).join('') + `<path d="M-24 -18 C-26 -60 26 -60 24 -18 Z" fill="${c}" ${S}/>${face(0, -34, 0.9)}${shine(-14, -44)}`],
+    volcano: ['הר געש בועות', 1.1, 8, c => [0, 1, 2].map(i => `<circle class="aq-bub" cx="${i - 1}" cy="-52" r="${4 + i * 2}" fill="#dff6ff" fill-opacity=".4" stroke="#fff" stroke-width="1.6" style="animation-delay:-${i * 1.1}s"/>`).join('') + `<path d="M-50 0 L-12 -48 H12 L50 0 Z" fill="${c}" ${S}/><path d="M-12 -48 Q-6 -34 0 -44 Q6 -34 12 -48" fill="#ff9a3c" ${S2}/>`],
+    column: ['עמוד עתיק', 1, 9, c => `<rect x="-14" y="-80" width="28" height="80" fill="${c}" ${S}/><path d="M-6 -76 V-4 M6 -76 V-4" stroke="#d8dde6" stroke-width="2"/><rect x="-20" y="-88" width="40" height="10" rx="3" fill="${c}" ${S2}/><path d="M-14 -40 q10 6 14 20 q4 -14 14 -18" fill="none" stroke="#3fae6a" stroke-width="3"/>`],
+    kelp: ['אצת ענק', 1.2, 1, c => `<g class="aq-sway"><path d="M0 0 C-10 -40 10 -80 0 -130" fill="none" stroke="${O}" stroke-width="6"/><path d="M0 0 C-10 -40 10 -80 0 -130" fill="none" stroke="${c}" stroke-width="3"/>` + [-20, -44, -68, -92, -116].map((y, i) => `<ellipse cx="${i % 2 ? 10 : -10}" cy="${y}" rx="11" ry="6" transform="rotate(${i % 2 ? -30 : 30} ${i % 2 ? 10 : -10} ${y})" fill="${c}" ${S2}/>`).join('') + `</g>`],
+    anemone: ['שושנת ים', 0.9, 3, c => `<g class="aq-sway">${Array.from({ length: 9 }, (_, i) => { const a = -150 + i * 15; return `<path d="M0 -8 L${Math.round(Math.cos(a * Math.PI / 180) * 30)} ${Math.round(-8 + Math.sin(a * Math.PI / 180) * 30)}" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M0 -8 L${Math.round(Math.cos(a * Math.PI / 180) * 30)} ${Math.round(-8 + Math.sin(a * Math.PI / 180) * 30)}" stroke="${c}" stroke-width="4" stroke-linecap="round"/>`; }).join('')}</g><ellipse cy="-4" rx="18" ry="8" fill="${fmx(c, O, 0.2)}" ${S2}/>`],
+    mermaidstatue: ['פסל בת ים', 1, 9, c => `<rect x="-22" y="-12" width="44" height="12" rx="3" fill="${fmx(c, O, 0.1)}" ${S}/><path d="M-6 -12 C-14 -30 4 -40 -2 -56 C8 -48 10 -30 6 -12 Z" fill="${c}" ${S}/><path d="M-2 -56 L-14 -62 L-6 -52 Z M-2 -56 L6 -66 L2 -54 Z" fill="${c}" ${S2}/><circle cx="0" cy="-70" r="9" fill="${c}" ${S}/><path d="M-8 -74 C-12 -60 -10 -50 -4 -46" fill="none" stroke="${fmx(c, O, 0.2)}" stroke-width="3"/>`],
+    snail: ['חלזון ים', 0.8, 2, c => `<path d="M-30 0 Q-30 -8 -20 -8 H24 Q30 -8 30 0 Z" fill="#ffe0b8" ${S}/><path d="M-24 -10 l-4 -12 M-18 -10 l0 -12" ${S2}/><circle cx="-28" cy="-23" r="2.4" fill="${O}"/><circle cx="-18" cy="-23" r="2.4" fill="${O}"/><circle cx="6" cy="-24" r="20" fill="${c}" ${S}/><path d="M6 -24 m-3 0 a3 3 0 1 1 3 3 a7 7 0 1 1 -7 -7 a12 12 0 1 1 12 12" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>`],
+    crab: ['סרטן', 0.8, 2, c => `<path d="M-20 -6 L-30 2 M-16 -4 L-24 4 M20 -6 L30 2 M16 -4 L24 4" ${S}/><ellipse cy="-12" rx="22" ry="13" fill="${c}" ${S}/><path d="M-20 -20 L-30 -34 M20 -20 L30 -34" ${S}/><path d="M-36 -40 L-24 -36 L-28 -28 Z M36 -40 L24 -36 L28 -28 Z" fill="${c}" ${S2}/><path d="M-6 -24 V-30 M6 -24 V-30" ${S2}/><circle cx="-6" cy="-32" r="3" fill="#fff" ${S2}/><circle cx="6" cy="-32" r="3" fill="#fff" ${S2}/>${face(0, -12, 0.5)}`],
+  });
+  // the coral reef behind the glass (a background choice in the decorate tab)
+  const aqReefBg = () => `<g opacity=".8">` + [[40, 300, '#ff9ab8', 1.1], [120, 320, '#ffd84d', 0.9], [210, 290, '#b58cff', 1], [320, 310, '#7fe0b8', 1.2], [420, 296, '#ff7a7a', 1], [520, 306, '#7ec8ff', 1.1], [580, 320, '#ffb04d', 0.8]].map(([x, y, c, s], i) =>
+    `<g transform="translate(${x} ${y + 40}) scale(${s})">${i % 3 === 0 ? tube('M0 0 V-40 M0 -20 L-16 -40 L-18 -56 M0 -30 L14 -50 L12 -66', c, 7) : i % 3 === 1 ? `<path d="M-30 0 C-34 -40 30 -50 30 0 Z" fill="${c}" ${S2}/>` + [-16, -2, 12].map(xx => `<path d="M${xx} -4 q4 -10 8 -2" fill="none" stroke="${fmx(c, O, 0.25)}" stroke-width="2"/>`).join('') : `<path d="M0 0 C-30 -10 -34 -50 -20 -60 C-8 -66 8 -66 20 -60 C34 -50 30 -10 0 0 Z" fill="${c}" ${S2}/>` + [-14, 0, 14].map(xx => `<path d="M0 -4 Q${xx * 0.6} -30 ${xx} -56" fill="none" stroke="${fmx(c, O, 0.2)}" stroke-width="1.6"/>`).join('')}</g>`).join('') +
+    `<path d="M14 340 C80 300 140 330 200 318 C260 306 330 330 400 314 C470 300 540 326 586 316 V360 H14 Z" fill="#e0a8c8" opacity=".5"/></g>`;
+  const aqBgRow = () => el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'רקע:'),
+    ...[['plain', '🌊 מים'], ['reef', '🪸 שונית אלמוגים']].map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((aqData.bg || 'plain') === id), onclick: () => { aqData.bg = id; saveAqua(); SFX.pop(); drawAqua(); } }, name)));
+
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
