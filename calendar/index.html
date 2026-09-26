@@ -2605,6 +2605,191 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
 button.aq-card:disabled { opacity: .55; }
 .aq-gv { display: inline-block; width: 18px; height: 12px; border-radius: 6px; border: 1.5px solid var(--ink); margin-inline-end: 4px; vertical-align: middle; }
 @media (prefers-reduced-motion: reduce) { .aq-scene *, .pk-scene * { animation: none !important; } .aq-sponge { display: none; } }
+/* ===== movie maker ===== */
+.mv-hero { background: linear-gradient(135deg, #ffe3e8, #fff3d6); }
+.mv-thumb svg { border-radius: 10px; }
+.mv-dir { display: inline-flex; align-items: center; gap: 4px; }
+.mv-dir input { width: 120px !important; }
+.mv-music .chip { font-size: .92em; }
+.mv-scenes { gap: 6px; }
+.mv-scbtn { position: relative; width: 78px; padding: 2px; border: 2px solid var(--line); border-radius: 10px; background: var(--card); display: grid; }
+.mv-scbtn[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.mv-scimg > svg { width: 100%; height: auto; display: block; border-radius: 7px; }
+.mv-scbtn small { position: absolute; top: 3px; right: 5px; background: #2b2233; color: #fff; border-radius: 99px; padding: 0 6px; font-size: .75em; }
+.mv-keys { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 8px 12px; border-radius: 16px; border: 2.5px solid #4fbf73; background: #effbf1; }
+.mv-keys.is-end { border-color: #ff5a6e; background: #fff0f2; }
+.mv-kbtns { display: flex; gap: 0; border-radius: 999px; overflow: hidden; border: 2px solid var(--ink); flex: none; }
+.mv-kbtns button { border: none; padding: 7px 14px; background: var(--card); font-size: 1.05em; color: var(--ink); }
+.mv-kbtns .mv-kstart[aria-pressed="true"] { background: #4fbf73; color: #fff; }
+.mv-kbtns .mv-kend[aria-pressed="true"] { background: #ff5a6e; color: #fff; }
+.mv-khint { flex: 1 1 260px; font-size: .95em; color: #4a3b4c; }
+.mv-try { font-weight: 600; }
+.mv-below { display: grid; gap: 8px; }
+.mv-set { gap: 6px; }
+.mv-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.mv-row input[type="range"] { flex: 1 1 120px; width: auto; }
+.mv-row select { border: 2px solid var(--line); border-radius: 10px; padding: 3px 6px; background: var(--card); color: var(--ink); font: inherit; }
+.mv-nm { min-width: 90px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mv-cinema { position: relative; border-radius: 22px; padding: 0 16px 14px; overflow: hidden; background: radial-gradient(ellipse at 50% 30%, #6d1426, #2a0610 75%); box-shadow: inset 0 0 60px rgb(0 0 0 / .5); }
+.mv-valance { height: 44px; margin: 0 -16px 10px; background: radial-gradient(circle at 50% 0, #d0213d 0 27px, transparent 28px) 0 16px / 56px 28px repeat-x, linear-gradient(#8f0b22, #d0213d) top / 100% 20px no-repeat; filter: drop-shadow(0 4px 4px rgb(0 0 0 / .4)); }
+.mv-stagebox { position: relative; width: min(100%, calc(60vh * 1.5)); aspect-ratio: 3 / 2; margin: 0 auto; border-radius: 10px; overflow: hidden; border: 6px solid #e8c15a; background: #0b0710; box-shadow: 0 0 44px rgb(255 214 140 / .28), 0 0 0 3px #7a5a12; }
+.mv-screen, .mv-screen > svg { width: 100%; height: 100%; display: block; }
+.mv-cur { position: absolute; top: 0; bottom: 0; width: 51%; z-index: 2; transition: transform 1.1s cubic-bezier(.6, .05, .3, 1); background: repeating-linear-gradient(90deg, #a90f29 0 14px, #d9243f 14px 26px, #b8142f 26px 38px); box-shadow: inset 0 -40px 50px rgb(0 0 0 / .35), inset 0 20px 30px rgb(0 0 0 / .25); }
+.mv-cur.l { left: 0; } .mv-cur.r { right: 0; }
+.mv-cur::after { content: ""; position: absolute; top: 58%; width: 16px; height: 26px; border-radius: 8px; background: #ffd84d; box-shadow: 0 0 0 2px #7a5a12; }
+.mv-cur.l::after { right: 10px; } .mv-cur.r::after { left: 10px; }
+.mv-stagebox.open .mv-cur.l { transform: translateX(-90%); }
+.mv-stagebox.open .mv-cur.r { transform: translateX(90%); }
+.mv-ctrl { display: grid; grid-template-columns: 70px 1fr 70px; align-items: end; gap: 10px; margin-top: 10px; }
+.mv-pop-l > svg, .mv-pop-r > svg { width: 64px; height: 80px; display: block; filter: drop-shadow(0 4px 6px rgb(0 0 0 / .4)); }
+.mv-pop-r > svg { transform: scaleX(-1) rotate(-6deg); } .mv-pop-l > svg { transform: rotate(-6deg); }
+.mv-ctrl-mid { display: grid; gap: 6px; justify-items: center; }
+.mv-btns { justify-content: center; align-items: center; }
+.mv-play { width: 58px; height: 58px; border-radius: 50%; border: 3px solid #7a5a12; background: #ffd84d; font-size: 1.6em; line-height: 1; box-shadow: 0 4px 0 #7a5a12; }
+.mv-play:active { transform: translateY(3px); box-shadow: 0 1px 0 #7a5a12; }
+.mv-small { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #e8c15a; background: #3a0c18; font-size: 1.1em; }
+.mv-prog { width: 100%; height: 10px; border-radius: 99px; background: rgb(255 255 255 / .2); cursor: pointer; overflow: hidden; }
+.mv-prog i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #ffd84d, #ff9ad5); border-radius: 99px; }
+.mv-time { color: #ffe9b0; font-size: .9em; font-family: Rubik, sans-serif; }
+.mv-tr-fade { animation: mvFade .8s ease-out; }
+.mv-tr-sparkle { animation: mvFade 1s ease-out; }
+.mv-tr-slide { animation: mvSlide .75s cubic-bezier(.2, .8, .3, 1); }
+.mv-tr-iris { animation: mvIris .9s ease-out; }
+@keyframes mvFade { from { opacity: 0; } }
+@keyframes mvSlide { from { transform: translateX(-100%); } }
+@keyframes mvIris { from { clip-path: circle(0% at 50% 50%); } to { clip-path: circle(75% at 50% 50%); } }
+.mv-spk { transform-box: fill-box; transform-origin: center; animation: mvSpk 1.1s ease-out both; }
+@keyframes mvSpk { 0% { transform: scale(0) rotate(0); opacity: 0; } 40% { transform: scale(1.3) rotate(90deg); opacity: 1; } 100% { transform: scale(0) rotate(200deg); opacity: 0; } }
+.mv-pop { transform-box: fill-box; transform-origin: center; animation: mvPop .45s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes mvPop { from { transform: scale(0); } }
+.mv-twk { animation: blinkTw 1.4s ease-in-out infinite alternate; }
+@keyframes blinkTw { from { opacity: .25; } }
+.mv-titlein { transform-box: fill-box; transform-origin: center; animation: mvTitle 1.2s cubic-bezier(.3, 1.4, .5, 1); }
+@keyframes mvTitle { from { transform: scale(.3); opacity: 0; } }
+/* ===== music box ===== */
+.mb-main { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(260px, 1fr); gap: 16px; align-items: start; }
+.mb-left { display: grid; gap: 8px; justify-items: center; position: sticky; top: -18px; background: var(--card); z-index: 1; padding-block: 4px; }
+.mb-right { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.mb-stage { width: 100%; border-radius: 24px; background: radial-gradient(circle at 50% 28%, #fffdf8 0, #ffe6f2 50%, #eed7ff 100%); border: 2px solid var(--line); overflow: hidden; }
+.mb-stage > svg { width: 100%; max-height: 58vh; display: block; margin: 0 auto; }
+.mb-ctl { justify-content: center; }
+.mb-play { font-size: 1.2em; padding: 8px 22px; }
+.mb-now { text-align: center; }
+.mb-loop { display: inline-flex; align-items: center; gap: 6px; }
+.mb-svg .mb-lidc { transform-box: fill-box; transform-origin: 50% 0%; transition: transform .45s ease-in, opacity .3s .15s; }
+.mb-svg .mb-lido { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); opacity: 0; transition: transform .55s cubic-bezier(.3, 1.3, .5, 1), opacity .2s; }
+.mb-svg.open .mb-lidc { transform: scaleY(.05); opacity: 0; }
+.mb-svg.open .mb-lido { transform: none; opacity: 1; transition-delay: .3s; }
+.mb-svg .mb-dancer { transform: translateY(46px); opacity: 0; transition: transform .8s cubic-bezier(.3, 1.3, .5, 1) .5s, opacity .4s .4s; }
+.mb-svg.open .mb-dancer { transform: none; opacity: 1; }
+.mb-svg:not(.open) .mb-dancer { transition-delay: 0s; transition-duration: .3s; }
+.mb-svg .mb-spin { transform-box: fill-box; transform-origin: 50% 100%; }
+.mb-svg.spin .mb-spin { animation: mbSpin var(--spin, 1.6s) linear infinite; }
+.mb-svg.spin.slow .mb-spin { animation-duration: calc(var(--spin, 1.6s) * 2.6); }
+@keyframes mbSpin {
+  0% { transform: scaleX(1); animation-timing-function: ease-in; }
+  25% { transform: scaleX(.04); animation-timing-function: ease-out; }
+  50% { transform: scaleX(-1); animation-timing-function: ease-in; }
+  75% { transform: scaleX(-.04); animation-timing-function: ease-out; }
+  100% { transform: scaleX(1); }
+}
+.mb-svg .mb-key { transform-box: fill-box; transform-origin: 0% 50%; }
+.mb-svg.wind .mb-key { animation: mbKey .36s linear infinite; }
+.mb-svg.spin .mb-key { animation-duration: 1.4s; }
+@keyframes mbKey { 0% { transform: scaleY(1); } 50% { transform: scaleY(-1); } 100% { transform: scaleY(1); } }
+.mb-svg .mb-note { opacity: 0; }
+.mb-svg.spin:not(.slow) .mb-note { animation: mbNote 2.2s ease-out infinite; }
+@keyframes mbNote { 0% { opacity: 0; transform: translateY(20px); } 25% { opacity: 1; } 100% { opacity: 0; transform: translate(-16px, -90px) rotate(-12deg); } }
+.mb-cards { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.mb-card.on { border-color: var(--accent); }
+.mb-mini { border: none; background: radial-gradient(circle at 50% 30%, #fff, #ffeaf5); border-radius: 14px; padding: 0; }
+.mb-mini > svg { width: 100%; height: auto; display: block; }
+/* ===== newspaper ===== */
+.nw-bar { position: sticky; top: -18px; z-index: 2; background: var(--card); padding-block: 6px; }
+.nw-tpls { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.nw-paper { --nw-ink: #1d1a1f; --nw-acc: #c8102e; color: var(--nw-ink); background: #fbf7ee; border-radius: 6px; padding: 22px 26px; box-shadow: 0 10px 28px rgb(40 20 30 / .22), 0 0 0 1px #e2d8c3; font-family: 'Rubik', system-ui, sans-serif; display: grid; gap: 16px; }
+.nw-mast { display: grid; grid-template-columns: 110px 1fr 110px; align-items: center; gap: 10px; border-bottom: 4px double var(--nw-ink); padding-bottom: 8px; }
+.nw-name { margin: 0; text-align: center; font-family: 'Suez One', 'Rubik', serif; font-weight: 400; font-size: clamp(1.8em, 5vw, 3.3em); line-height: 1.05; letter-spacing: .5px; }
+input.nw-name { width: 100%; border: 2px dashed #c9b88f; background: #fff; border-radius: 10px; font-size: 2.2em; color: var(--nw-ink); }
+.nw-ear { display: grid; place-items: center; }
+.nw-wx, .nw-price { display: grid; justify-items: center; border: 2px solid var(--nw-ink); border-radius: 10px; padding: 4px 6px; min-width: 92px; background: #fff; font-size: .9em; line-height: 1.2; }
+.nw-wx b { font-size: 1.8em; line-height: 1.1; }
+.nw-dateline { grid-column: 1 / -1; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 14px; font-size: .88em; border-top: 1.5px solid var(--nw-ink); padding-top: 5px; }
+.nw-art { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.nw-tag { color: var(--nw-acc); font-size: .8em; font-weight: 600; letter-spacing: .3px; }
+.nw-h { margin: 0; font-family: 'Suez One', 'Rubik', serif; font-weight: 400; font-size: 1.3em; line-height: 1.2; }
+.nw-b { margin: 0; font-size: .95em; line-height: 1.55; white-space: pre-wrap; }
+.nw-lead { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); grid-template-areas: "tag pic" "h pic" "b pic" "tools tools"; column-gap: 18px; border-bottom: 1.5px solid var(--nw-ink); padding-bottom: 14px; }
+.nw-lead .nw-tag { grid-area: tag; } .nw-lead .nw-h { grid-area: h; font-size: 2.2em; } .nw-lead .nw-b { grid-area: b; font-size: 1.05em; } .nw-lead .nw-pic { grid-area: pic; max-height: 260px; } .nw-lead .nw-tools { grid-area: tools; }
+.nw-lead input.nw-h { font-size: 1.6em; }
+.nw-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px 18px; }
+.nw-cols .nw-art { border-inline-start: 1px solid #cfc3a8; padding-inline-start: 14px; }
+.nw-pic { overflow: hidden; border-radius: 4px; max-height: 170px; display: grid; place-items: center; }
+.nw-pic.photo { border: 1.5px solid var(--nw-ink); background: #fff; }
+.nw-pic.photo > svg, .nw-pic.photo > img { width: 100%; height: 100%; max-height: inherit; object-fit: cover; display: block; }
+.nw-pic.soft { background: #fff; border: 1.5px dashed #cfc3a8; border-radius: 12px; padding: 6px; }
+.nw-pic.soft > svg { width: auto; height: 130px; max-width: 100%; display: block; }
+.nw-lead .nw-pic.soft > svg { height: 200px; }
+.nw-in { width: 100%; border: 2px dashed #c9b88f; background: #fff; border-radius: 8px; padding: 4px 8px; color: var(--nw-ink); font: inherit; }
+textarea.nw-in { min-height: 70px; }
+.nw-tools { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.nw-tools select { border: 2px solid #c9b88f; border-radius: 8px; padding: 2px 4px; font: inherit; font-size: .85em; max-width: 160px; }
+.nw-extra { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; border-top: 4px double var(--nw-ink); padding-top: 12px; }
+.nw-box { border: 1.5px solid var(--nw-ink); border-radius: 8px; padding: 10px; display: grid; gap: 6px; align-content: start; background: #fff; }
+.nw-box h4 { margin: 0; font-family: 'Suez One', 'Rubik', serif; font-weight: 400; font-size: 1.1em; }
+.nw-box p { margin: 0; font-size: .93em; line-height: 1.5; }
+.nw-comic .nw-pic { max-height: 330px; }
+.nw-grid { display: grid; gap: 2px; direction: ltr; }
+.nw-grid button { aspect-ratio: 1; border: 1px solid #bdb19a; background: #fffdf6; border-radius: 4px; padding: 0; font: 600 1em 'Rubik', sans-serif; color: var(--nw-ink); }
+.nw-grid button.on { background: #ffe27a; }
+.nw-grid button.got { background: #a8e6b8; border-color: #3f9c6e; }
+.nw-words { display: flex; flex-wrap: wrap; gap: 4px 10px; font-weight: 600; }
+.nw-words .got { text-decoration: line-through; color: #3f9c6e; }
+.nw-foot { text-align: center; font-size: .85em; border-top: 1.5px solid var(--nw-ink); padding-top: 6px; }
+.nw-arch { display: inline-flex; gap: 2px; }
+/* magazine */
+.nw-paper.tpl-magazine { --nw-ink: #3a2146; --nw-acc: #ff4f9a; background: linear-gradient(160deg, #fff0f7, #f1ecff 60%, #e9f7ff); font-family: 'Varela Round', 'Rubik', sans-serif; box-shadow: 0 10px 28px rgb(120 60 140 / .22); }
+.tpl-magazine .nw-name { font-family: 'Rubik Bubbles', 'Suez One', sans-serif; color: #ff4f9a; }
+.tpl-magazine .nw-mast, .tpl-magazine .nw-extra { border-style: dotted; border-color: #ff9ad5; }
+.tpl-magazine .nw-art:not(.nw-lead) { background: #fff; border-radius: 18px; padding: 12px; border: none; box-shadow: 0 4px 14px rgb(160 80 170 / .14); }
+.tpl-magazine .nw-lead { background: #fff; border-radius: 22px; padding: 16px; border: 3px solid #ffc2e0; }
+.tpl-magazine .nw-h { font-family: 'Playpen Sans Hebrew', 'Varela Round', sans-serif; font-weight: 600; }
+.tpl-magazine .nw-tag { background: #ffe0ef; border-radius: 99px; padding: 1px 10px; justify-self: start; }
+.tpl-magazine .nw-box { border: none; border-radius: 18px; box-shadow: 0 4px 14px rgb(160 80 170 / .14); }
+.tpl-magazine .nw-wx, .tpl-magazine .nw-price { border-color: #ff9ad5; border-radius: 16px; }
+/* tabloid */
+.nw-paper.tpl-tabloid { --nw-acc: #e0112b; background: #fffef8; }
+.tpl-tabloid .nw-mast { background: #e0112b; color: #fff; margin: -22px -26px 0; padding: 12px 20px 10px; border: none; border-radius: 6px 6px 0 0; }
+.tpl-tabloid .nw-name { font-family: 'Secular One', 'Suez One', sans-serif; font-size: clamp(2em, 6vw, 3.8em); text-shadow: 3px 3px 0 #7a0616; }
+.tpl-tabloid .nw-dateline { border-color: #fff; }
+.tpl-tabloid .nw-wx, .tpl-tabloid .nw-price { color: #1d1a1f; border-color: #fff; }
+.tpl-tabloid .nw-lead { grid-template-columns: 1fr; grid-template-areas: "tag" "h" "pic" "b" "tools"; }
+.tpl-tabloid .nw-lead .nw-h { font-family: 'Secular One', 'Suez One', sans-serif; font-size: 3em; line-height: 1.05; background: linear-gradient(transparent 55%, #ffe24d 55%); justify-self: start; padding: 0 6px; }
+.tpl-tabloid .nw-lead .nw-pic { max-height: 320px; }
+.tpl-tabloid .nw-h { font-family: 'Secular One', 'Suez One', sans-serif; }
+.tpl-tabloid .nw-tag { background: #e0112b; color: #fff; padding: 1px 8px; justify-self: start; border-radius: 3px; }
+#nwPrint { display: none; }
+@media print {
+  body.nw-printing { padding: 0 !important; background: #fff !important; }
+  body.nw-printing > *:not(#nwPrint) { display: none !important; }
+  body.nw-printing #nwPrint { display: block !important; }
+  #nwPrint .nw-paper { box-shadow: none; border-radius: 0; }
+  #nwPrint .nw-noprint { display: none !important; }
+  #nwPrint .nw-art, #nwPrint .nw-box { break-inside: avoid; }
+}
+@media (max-width: 820px) {
+  .mb-main { grid-template-columns: 1fr; }
+  .mb-left { position: static; }
+  .nw-mast { grid-template-columns: 1fr; }
+  .nw-ear { display: none; }
+  .nw-lead { grid-template-columns: 1fr; grid-template-areas: "tag" "h" "pic" "b" "tools"; }
+  .nw-paper { padding: 14px; }
+  .tpl-tabloid .nw-mast { margin: -14px -14px 0; }
+  .mv-ctrl { grid-template-columns: 44px 1fr 44px; }
+  .mv-pop-l > svg, .mv-pop-r > svg { width: 42px; height: 54px; }
+}
+@media (prefers-reduced-motion: reduce) { .mb-svg.spin .mb-spin, .mb-svg.wind .mb-key, .mv-spk { animation: none; } }
+.mv-ed .cm-left { max-height: calc(100vh - 70px); overflow-y: auto; overscroll-behavior: contain; }
 </style>
 </head>
 <body class="bg-dots">
@@ -3580,6 +3765,43 @@ button.aq-card:disabled { opacity: .55; }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="aquaBody"></div>
+  </div>
+</dialog>
+
+
+<!-- Movie maker -->
+<dialog id="movieDlg" class="cm-dlg" aria-labelledby="movieTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="movieTitle">🎬 יוצרים סרט</h3><div class="sub">סצנות, דמויות שזזות, מוזיקה ואפקטים, ואז צופים בקולנוע!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="movieBody"></div>
+  </div>
+</dialog>
+
+<!-- Music box -->
+<dialog id="musicBoxDlg" class="cm-dlg" aria-labelledby="musicBoxTitle" style="width:min(1000px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="musicBoxTitle">🎵 תיבת נגינה</h3><div class="sub">מעצבים קופסה, בוחרים רקדנית ומנגינה, ומסובבים את המפתח</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="musicBoxBody"></div>
+  </div>
+</dialog>
+
+<!-- Newspaper -->
+<dialog id="newsDlg" class="cm-dlg" aria-labelledby="newsTitle" style="width:min(1000px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="newsTitle">📰 העיתון שלי</h3><div class="sub">כל החדשות מהלוח שלך, בעיתון אמיתי להדפסה</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="newsBody"></div>
   </div>
 </dialog>
 
@@ -6469,6 +6691,9 @@ button.aq-card:disabled { opacity: .55; }
     ['camera', 'אלבום השנה שלי', () => openYearbook()],
     ['book', 'אלבום מדבקות', () => openAlbum()],
     ['palette', 'מדבקה משלי', () => openMkStk()],
+    ['camera', 'יוצרים סרט', () => openMovie()],
+    ['music', 'תיבת נגינה', () => openMusicBox()],
+    ['book', 'העיתון שלי', () => openNews()],
     ['palette', 'יוצרים קומיקס', () => openComic()],
     ['book', 'כותבים סיפור', () => openStory()],
     ['sparkles', 'מדבקות זזות', () => openFlip()],
@@ -6500,7 +6725,7 @@ button.aq-card:disabled { opacity: .55; }
     ['pets', '🐾 החיות', ['חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
     ['games', '🎮 משחקים', ['משחקים']],
     ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום']],
-    ['create', '✏️ ליצור', ['מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
+    ['create', '✏️ ליצור', ['סרט', 'תיבת נגינה', 'עיתון', 'מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
     ['magic', '✨ הפתעות וקסם', ['הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי']],
     ['board', '📅 הלוח שלי', ['ימי הולדת', 'חגים', 'מערכת', 'בוקר', 'הרגלים', 'מדליות', 'היומן שלי', 'ספירות', 'הספרים', 'המנעול', 'גיבוי', 'להדפסה']],
   ];
@@ -18878,6 +19103,717 @@ button.aq-card:disabled { opacity: .55; }
     if (!aqHungry()) return null;
     return el('button', { type: 'button', class: 'pill', onclick: () => openAquarium() }, el('span', { class: 'ic', html: stickerHTML('fish') }), 'הדגים באקווריום רעבים! 🍤');
   }
+
+  // ================= notes helper (sharps, rests) shared by the movie maker and the music box =================
+  const MB_LET = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  // 'C5:.5 D#5 R:2' -> [[midi|0, beats]]
+  const mbParse = s => s.trim().split(/\s+/).map(t => {
+    const [n, d] = t.split(':'), m = n.match(/^([A-G])(#?)(\d)$/);
+    return [m ? 12 * (+m[3] + 1) + MB_LET[m[1]] + (m[2] ? 1 : 0) : 0, Number(d || 1)];
+  });
+  const mbTimed = (s, beat, shift = 0) => { let t = 0; return mbParse(s).map(([m, d]) => { const r = [m ? m + shift : 0, Math.round(t)]; t += d * beat; return r; }).filter(x => x[0]); };
+  const mbLen = (s, beat) => mbParse(s).reduce((a, [, d]) => a + d * beat, 0);
+
+  // ================= 🎬 movie maker =================
+  let mvMovies = store.get('movies', []);
+  let mvCur = null, mvSc = 0, mvView = 'list', mvMode = 'start', mvDelId = null, mvDelScene = false, mvEd = null, mvP = null, mvBack = 'list';
+  const MV_W = 600, MV_H = 400;
+  const MV_KF = ['x', 'y', 's', 'r', 'f', 'pose', 'sq'];
+  const MV_TRANS = [['fade', '🌫️ עמעום'], ['slide', '➡️ החלקה'], ['sparkle', '✨ נצנצים'], ['iris', '⭕ עיגול'], ['none', '✂️ בלי']];
+  const MV_CAMS = [['none', '📷 רגיל'], ['zin', '🔍 זום פנימה'], ['zout', '🔎 זום החוצה'], ['pr', '👉 מצלמה ימינה'], ['pl', '👈 מצלמה שמאלה'], ['shake', '🫨 רעידת אדמה']];
+  const MV_SFX = {
+    boing: ['🦘 בוינג', () => [300, 420, 560, 420, 330].forEach((f, i) => tone(f, 0.09, 'triangle', i * 0.05, 0.1))],
+    pop: ['🎈 פופ', () => SFX.pop()],
+    ding: ['🔔 דינג', () => { tone(1568, 0.7, 'sine', 0, 0.1); tone(2093, 0.5, 'sine', 0.02, 0.05); }],
+    whoosh: ['💨 ווש', () => [1100, 900, 720, 560, 430, 330, 250].forEach((f, i) => tone(f, 0.06, 'sine', i * 0.025, 0.06))],
+    magic: ['🪄 קסם', () => [880, 1109, 1319, 1760, 2217].forEach((f, i) => tone(f, 0.25, 'sine', i * 0.07, 0.07))],
+    yay: ['🎉 יששש', () => SFX.yay()],
+    drum: ['🥁 תופים', () => [0, 0.12, 0.24, 0.42].forEach((w, i) => tone(i === 3 ? 70 : 110, 0.18, 'sine', w, 0.3))],
+    laugh: ['😂 צחוק', () => [520, 500, 470, 440].forEach((f, i) => tone(f, 0.09, 'triangle', i * 0.16, 0.1))],
+    oops: ['😮 אופס', () => { tone(600, 0.12, 'triangle', 0, 0.1); tone(420, 0.2, 'triangle', 0.12, 0.1); }],
+  };
+  // original tunes (made for this app)
+  const MV_MUSIC = [
+    ['none', '🔇 בלי מוזיקה'],
+    ['happy', '🌈 הרפתקה שמחה', 'xylo', 'C5 E5 G5 E5 F5 A5 G5:2 E5 G5 C6 G5 A5 F5 G5:2 A5 G5 F5 E5 D5 E5 C5:2 D5 E5 F5 D5 E5 C5 D5 G4 C5:2 R:2', 250],
+    ['dream', '🌙 חלום רך', 'bells', 'E5:2 G5 A5 G5:2 E5:2 D5 E5 C5:2 R A4 C5 D5 E5:2 G5 E5 D5:3 R E5:2 G5 A5 C6:2 B5 A5 G5:2 E5 D5 C5:4', 420],
+    ['circus', '🎪 קרקס מצחיק', 'toy', 'G4 C5 E5 G5 A5 G5 E5 C5 D5 F5 A5 F5 G5:2 R G4 C5 E5 G5 A5 G5 E5 C5 D5 B4 G4 B4 C5:2 R:2', 190],
+    ['magic', '🏰 מסע קסום', 'piano', 'A4 C5 E5 A5:2 G5 E5 F5:2 E5 D5 C5 B4:2 R A4 C5 E5 A5:2 B5 C6 B5:2 G#5 A5:3 R', 330],
+  ];
+  const mvMus = { timers: [] };
+  function mvMusicStop() { mvMus.timers.forEach(clearTimeout); mvMus.timers = []; }
+  function mvMusicStart(id) {
+    mvMusicStop();
+    const M = MV_MUSIC.find(x => x[0] === id);
+    if (!M || !M[2] || !design.sound) return;
+    const loop = () => { mvMus.timers = []; mbTimed(M[3], M[4]).forEach(([m, t]) => mvMus.timers.push(setTimeout(() => pianoSound(m, M[2]), t))); mvMus.timers.push(setTimeout(loop, mbLen(M[3], M[4]))); };
+    loop();
+  }
+  const mvEase = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  const mvNewScene = i => ({ id: cmNew('sc'), bg: cmBgDef(CM_PANEL_BGS[i % CM_PANEL_BGS.length]), items: [], end: {}, show: {}, dur: 5, trans: i ? 'fade' : 'none', cam: 'none', sfx: [] });
+  const mvIsText = it => ['bub', 'cap', 'sfx', 'txt', 'emo', 'stk', 'shape'].includes(it.t);
+  // the state of an item at k (0 = start, 1 = end)
+  function mvState(it, end, k) {
+    if (!end || !Object.keys(end).length) return it;
+    const L = (a, b) => a + (b - a) * k, o = Object.assign({}, it);
+    ['x', 'y'].forEach(p => { if (end[p] != null) o[p] = L(it[p], end[p]); });
+    if (end.s != null) o.s = L(it.s || 1, end.s);
+    if (end.r != null) o.r = L(it.r || 0, end.r);
+    if (end.sq != null) o.sq = L(it.sq || 0, end.sq);
+    if (end.f != null) o.f = k < 0.5 ? it.f : end.f;
+    if (end.pose && (it.t === 'girl' || it.t === 'mer')) {
+      const base = it.t === 'mer' ? { la: 20, ra: 20 } : {}, p0 = Object.assign({}, base, it.pose), p1 = Object.assign({}, base, end.pose), p = {};
+      new Set([...Object.keys(p0), ...Object.keys(p1)]).forEach(q => { p[q] = Math.round(L(+p0[q] || 0, +p1[q] || 0) / 4) * 4; });
+      o.pose = p;
+    }
+    return o;
+  }
+  // in "end" mode the editor works on a copy of the items with the end keyframe on top
+  function mvViewOf(sc) {
+    if (mvMode === 'start') return sc;
+    sc.end = sc.end || {};
+    return { bg: sc.bg, items: sc.items.map(it => Object.assign(cmCopy(it), cmCopy(sc.end[it.id] || {}))), _end: true };
+  }
+  function mvSync(sc, view) {
+    if (!view || !view._end) return;
+    sc.bg = view.bg;
+    const byId = Object.fromEntries(sc.items.map(it => [it.id, it]));
+    sc.items = view.items.map(v => { const b = byId[v.id]; if (!b) return cmCopy(v); Object.keys(v).forEach(k => { if (!MV_KF.includes(k)) b[k] = cmCopy(v[k]); }); return b; });
+    const end = {};
+    view.items.forEach(v => {
+      const b = sc.items.find(i => i.id === v.id), e = {};
+      MV_KF.forEach(k => { if (v[k] !== undefined && JSON.stringify(v[k]) !== JSON.stringify(b[k])) e[k] = cmCopy(v[k]); });
+      if (Object.keys(e).length) end[v.id] = e;
+    });
+    sc.end = end;
+  }
+  const mvPaths = sc => Object.entries(sc.end || {}).map(([id, e]) => {
+    const it = sc.items.find(i => i.id === id); if (!it) return '';
+    const x1 = e.x ?? it.x, y1 = e.y ?? it.y;
+    if (Math.hypot(x1 - it.x, y1 - it.y) < 6) return `<circle cx="${cmF(it.x)}" cy="${cmF(it.y)}" r="10" fill="none" stroke="#ff4f9a" stroke-width="2.5" stroke-dasharray="4 4"/>`;
+    const a = Math.atan2(y1 - it.y, x1 - it.x), h = (d) => `${cmF(x1 - 12 * Math.cos(a + d))},${cmF(y1 - 12 * Math.sin(a + d))}`;
+    return `<path d="M${cmF(it.x)} ${cmF(it.y)} L${cmF(x1)} ${cmF(y1)}" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".7"/><path d="M${cmF(it.x)} ${cmF(it.y)} L${cmF(x1)} ${cmF(y1)}" stroke="#ff4f9a" stroke-width="3" stroke-dasharray="9 7" stroke-linecap="round"/>` +
+      `<polygon points="${cmF(x1)},${cmF(y1)} ${h(0.5)} ${h(-0.5)}" fill="#ff4f9a" stroke="#fff" stroke-width="1.5"/><circle cx="${cmF(it.x)}" cy="${cmF(it.y)}" r="6" fill="#4fbf73" stroke="#fff" stroke-width="2"/>`;
+  }).join('');
+  const mvSceneStill = (sc, k = 0) => cmStageSVG({ W: MV_W, H: MV_H, areas: () => [{ x: 0, y: 0, w: MV_W, h: MV_H, rx: 10, scene: { bg: sc.bg, items: sc.items.map(it => mvState(it, (sc.end || {})[it.id], k)) } }] }, false);
+  const mvSaveList = cmSaver('movies', () => mvMovies, () => toast(stickerHTML('camera'), 'אין מספיק מקום לשמור את הסרט 😕'));
+  const mvStore = now => { if (!mvCur) return; mvCur.at = Date.now(); cmUpsert(mvMovies, mvCur); mvSaveList(now); };
+  const mvStars = m => { const names = new Set(); m.scenes.forEach(sc => sc.items.forEach(it => {
+    if (it.t === 'girl') { const g = girls.find(x => x.id === it.ref); if (g && g.name) names.add(g.name); }
+    if (it.t === 'mer') { const x = mermaids.find(y => y.id === it.ref); if (x) names.add((x.name || 'בת הים') + ' בת הים'); }
+    if (it.t === 'pet' && pet) names.add(pet.name || 'החיה שלי');
+  })); return [...names]; };
+  function openMovie() {
+    if (mvView === 'play' && !mvP) mvView = 'list';
+    if (mvView !== 'list' && !mvCur) mvView = 'list';
+    drawMovie();
+    if (!$('#movieDlg').open) $('#movieDlg').showModal();
+  }
+  function drawMovie(opt) {
+    const body = $('#movieBody');
+    if (mvView === 'play' && mvCur) return drawMoviePlayer(body, opt);
+    mvStopPlayer();
+    if (mvView === 'edit' && mvCur) return drawMovieEdit(body);
+    mvView = 'list';
+    const card = m => el('article', { class: 'cm-card mv-card' },
+      el('button', { type: 'button', class: 'cm-thumb mv-thumb', 'aria-label': 'לצפות', onclick: () => { mvCur = m; mvBack = 'list'; mvView = 'play'; drawMovie(); }, html: mvSceneStill(m.scenes[0]) }),
+      el('b', {}, m.title || 'סרט בלי שם'), el('span', { class: 'muted' }, `${m.scenes.length} סצנות · ${Math.round(m.scenes.reduce((a, s) => a + s.dur, 0))} שניות`),
+      mvDelId === m.id
+        ? el('div', { class: 'chips' }, el('span', {}, 'למחוק?'), el('button', { type: 'button', class: 'chip', onclick: () => { mvMovies = mvMovies.filter(x => x !== m); store.set('movies', mvMovies); mvDelId = null; SFX.boop(); drawMovie(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { mvDelId = null; drawMovie(); } }, 'לא'))
+        : el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'chip', onclick: () => { mvCur = m; mvBack = 'list'; mvView = 'play'; drawMovie(); } }, '🍿 לצפות'),
+          el('button', { type: 'button', class: 'chip', onclick: () => { mvCur = m; mvSc = 0; mvMode = 'start'; mvView = 'edit'; mvEd = null; drawMovie(); } }, '✏️ לערוך'),
+          el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { mvDelId = m.id; drawMovie(); } }, '🗑️')));
+    body.replaceChildren(
+      el('div', { class: 'cm-hero mv-hero' }, el('div', {}, el('b', {}, '🎬 אולפן הסרטים שלך!'), el('p', { class: 'muted' }, 'סצנות עם רקעים ודמויות שזזות, בועות, מוזיקה ואפקטים. בסוף צופים בקולנוע עם פופקורן!')),
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          mvCur = { id: cmNew('mv'), title: '', director: stMe(), music: 'happy', scenes: [mvNewScene(0)], at: Date.now() };
+          mvSc = 0; mvMode = 'start'; mvView = 'edit'; mvEd = null; SFX.pop(); drawMovie();
+        } }, '➕ סרט חדש')),
+      mvMovies.length ? el('h4', { class: 'sec-title' }, `🎞️ הסרטים שלי (${mvMovies.length})`) : null,
+      mvMovies.length ? el('div', { class: 'cm-cards' }, ...mvMovies.map(card)) : el('p', { class: 'muted' }, 'עוד אין סרטים. אור, מצלמה, אקשן! 🎥'));
+  }
+  function drawMovieEdit(body) {
+    const m = mvCur;
+    mvSc = cmClamp(mvSc, 0, m.scenes.length - 1);
+    const sc = m.scenes[mvSc];
+    const view = mvViewOf(sc);
+    const below = el('div', { class: 'mv-below' });
+    const refreshPaths = () => { const g = mvEd && mvEd.node.querySelector('.mv-paths'); if (g) g.innerHTML = mvPaths(sc); };
+    const cfg = {
+      W: MV_W, H: MV_H, showArea: false, maxVh: 52, tabs: CM_TABS, tab: 'chars', below,
+      areas: () => [{ x: 0, y: 0, w: MV_W, h: MV_H, rx: 14, scene: view }],
+      over: () => `<g class="mv-paths" pointer-events="none">${mvPaths(sc)}</g>`,
+      change: () => { mvSync(sc, view); mvStore(); refreshPaths(); drawBelow(); },
+    };
+    const prev = mvEd && mvEd.ed;
+    mvEd = cmEditor(cfg);
+    mvEd.node.classList.add('mv-ed');
+    if (prev) { mvEd.ed.tab = prev.tab; mvEd.ed.emoCat = prev.emoCat; }
+    const chip = (on, label, fn, extra = {}) => el('button', Object.assign({ type: 'button', class: 'chip', 'aria-pressed': String(on), onclick: fn }, extra), label);
+    function drawBelow() {
+      const texts = sc.items.filter(mvIsText);
+      sc.show = sc.show || {}; sc.sfx = sc.sfx || [];
+      const secs = v => `${(+v).toFixed(1).replace('.0', '')} שנ׳`;
+      below.replaceChildren(
+        el('div', { class: 'box mv-set' },
+          el('h4', {}, `⚙️ הגדרות סצנה ${mvSc + 1}`),
+          el('label', { class: 'lbl mv-row' }, `⏱️ כמה זמן: `, el('b', { class: 'mv-dur' }, secs(sc.dur)),
+            el('input', { type: 'range', min: 2, max: 12, step: 0.5, value: sc.dur, oninput: e => { sc.dur = +e.target.value; e.target.previousSibling.textContent = secs(sc.dur); }, onchange: () => { mvStore(); drawBelow(); } })),
+          el('span', { class: 'lbl' }, '🎞️ איך הסצנה מתחילה'),
+          el('div', { class: 'chips' }, ...MV_TRANS.map(([k, n]) => chip(sc.trans === k, n, () => { sc.trans = k; mvStore(); drawBelow(); }))),
+          el('span', { class: 'lbl' }, '🎥 מצלמה'),
+          el('div', { class: 'chips' }, ...MV_CAMS.map(([k, n]) => chip(sc.cam === k, n, () => { sc.cam = k; if (k !== 'zin' && k !== 'zout') delete sc.camAt; mvStore(); drawBelow(); })),
+            (sc.cam === 'zin' || sc.cam === 'zout') ? el('button', { type: 'button', class: 'chip', onclick: () => {
+              const it = mvEd.ed.sel && sc.items.find(i => i.id === mvEd.ed.sel);
+              if (!it) { toast(stickerHTML('camera'), 'קודם לוחצים על דמות בתמונה 👆'); return; }
+              sc.camAt = [it.x, it.y]; SFX.ding(); mvStore(); drawBelow();
+            } }, sc.camAt ? '🎯 הזום על הנבחר ✔️' : '🎯 זום על מה שבחרתי') : null),
+          el('span', { class: 'lbl' }, '🔊 צלילים בסצנה'),
+          ...sc.sfx.map((s, i) => el('div', { class: 'mv-row' },
+            el('select', { 'aria-label': 'צליל', onchange: e => { s.k = e.target.value; MV_SFX[s.k][1](); mvStore(); } }, ...Object.entries(MV_SFX).map(([k, [n]]) => el('option', { value: k, selected: s.k === k }, n))),
+            el('span', { class: 'muted' }, 'אחרי'), el('b', {}, secs(s.t)),
+            el('input', { type: 'range', min: 0, max: sc.dur, step: 0.5, value: Math.min(s.t, sc.dur), 'aria-label': 'מתי', oninput: e => { s.t = +e.target.value; e.target.previousSibling.textContent = secs(s.t); }, onchange: () => mvStore() }),
+            el('button', { type: 'button', class: 'chip', 'aria-label': 'להוריד צליל', onclick: () => { sc.sfx.splice(i, 1); mvStore(); drawBelow(); } }, '✕'))),
+          sc.sfx.length < 4 ? el('button', { type: 'button', class: 'chip', onclick: () => { sc.sfx.push({ k: Object.keys(MV_SFX)[sc.sfx.length % 9], t: Math.min(sc.dur, 1 + sc.sfx.length) }); SFX.pop(); mvStore(); drawBelow(); } }, '➕ צליל') : null,
+          texts.length ? el('span', { class: 'lbl' }, '💬 מתי כל דבר מופיע') : null,
+          ...texts.map(it => {
+            const r = sc.show[it.id] || [0, sc.dur], nm = { bub: '💬 ' + (it.text || '').slice(0, 14), cap: '📜 ' + (it.text || '').slice(0, 14), sfx: '💥 ' + it.text, txt: '🔤 ' + (it.text || '').slice(0, 14), emo: it.e, stk: '⭐ מדבקה', shape: '🔷 צורה' }[it.t];
+            return el('div', { class: 'mv-row' }, el('span', { class: 'mv-nm' }, nm), el('span', { class: 'muted' }, 'מופיע אחרי'), el('b', {}, secs(Math.min(r[0], sc.dur))),
+              el('input', { type: 'range', min: 0, max: sc.dur, step: 0.5, value: Math.min(r[0], sc.dur), 'aria-label': 'מתי מופיע', oninput: e => { sc.show[it.id] = [+e.target.value, sc.dur]; e.target.previousSibling.textContent = secs(+e.target.value); }, onchange: () => mvStore() }));
+          })));
+    }
+    drawBelow();
+    const music = el('div', { class: 'chips mv-music' }, el('span', { class: 'lbl' }, '🎵 מוזיקה:'),
+      ...MV_MUSIC.map(([k, n]) => chip(m.music === k, n, () => { m.music = k; mvStore(); if (k !== 'none') { mvMusicStart(k); setTimeout(mvMusicStop, 4000); } else mvMusicStop(); drawMovie(); })));
+    const scenes = el('div', { class: 'cm-pages mv-scenes' }, el('span', { class: 'lbl' }, 'סצנות:'),
+      ...m.scenes.map((s, i) => el('button', { type: 'button', class: 'mv-scbtn', 'aria-pressed': String(i === mvSc), 'aria-label': `סצנה ${i + 1}`, onclick: () => { mvSc = i; mvDelScene = false; mvEd = null; drawMovie(); } },
+        el('span', { class: 'mv-scimg', html: cmSceneBg(s.bg, 150, 100, 'mt' + (cmN++)).replace(/^/, '<svg viewBox="0 0 150 100" xmlns="http://www.w3.org/2000/svg">') + '</svg>' }), el('small', {}, `${i + 1}`))),
+      m.scenes.length < 12 ? el('button', { type: 'button', class: 'chip', onclick: () => { m.scenes.splice(mvSc + 1, 0, mvNewScene(m.scenes.length)); mvSc++; mvMode = 'start'; mvStore(true); SFX.pop(); drawMovie(); } }, '➕ סצנה חדשה') : null,
+      m.scenes.length < 12 ? el('button', { type: 'button', class: 'chip', title: 'סצנה חדשה שמתחילה איפה שהקודמת נגמרה', onclick: () => {
+        const n = Object.assign(cmCopy(sc), { id: cmNew('sc'), end: {}, show: {}, sfx: [], trans: 'fade', cam: 'none' });
+        n.items = sc.items.map(it => Object.assign(cmCopy(it), cmCopy((sc.end || {})[it.id] || {})));
+        m.scenes.splice(mvSc + 1, 0, n); mvSc++; mvMode = 'start'; mvStore(true); SFX.pop(); drawMovie();
+      } }, '➡️ להמשיך מהסוף') : null,
+      m.scenes.length > 1 ? (mvDelScene
+        ? el('span', { class: 'chips' }, el('span', {}, 'למחוק את הסצנה?'), el('button', { type: 'button', class: 'chip', onclick: () => { m.scenes.splice(mvSc, 1); mvDelScene = false; mvStore(true); SFX.boop(); drawMovie(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { mvDelScene = false; drawMovie(); } }, 'לא'))
+        : el('button', { type: 'button', class: 'chip', onclick: () => { mvDelScene = true; drawMovie(); } }, '🗑️ סצנה')) : null);
+    const moved = Object.keys(sc.end || {}).length;
+    const keys = el('div', { class: 'mv-keys ' + (mvMode === 'end' ? 'is-end' : 'is-start') },
+      el('div', { class: 'mv-kbtns', role: 'group', 'aria-label': 'איזה רגע עורכים' },
+        el('button', { type: 'button', class: 'mv-kstart', 'aria-pressed': String(mvMode === 'start'), onclick: () => { if (mvMode === 'start') return; mvMode = 'start'; SFX.pop(); drawMovie(); } }, '🟢 התחלת הסצנה'),
+        el('button', { type: 'button', class: 'mv-kend', 'aria-pressed': String(mvMode === 'end'), onclick: () => { if (mvMode === 'end') return; mvMode = 'end'; SFX.pop(); drawMovie(); } }, '🔴 סוף הסצנה')),
+      el('span', { class: 'mv-khint' }, mvMode === 'start' ? '👈 מסדרים איפה כולם מתחילים. אחר כך עוברים ל"סוף" וגוררים אותם לאן שהם זזים, מגדילים, מסובבים ומשנים תנוחה.' : '🎯 גוררים כל דמות לאן שהיא תגיע בסוף, ומשנים לה תנוחה. הסרט יזיז אותה לאט מההתחלה לסוף!'),
+      el('div', { class: 'chips' },
+        moved ? el('button', { type: 'button', class: 'chip', onclick: () => { sc.end = {}; SFX.boop(); mvStore(); drawMovie(); } }, '🔁 בלי תזוזה') : null,
+        el('button', { type: 'button', class: 'chip mv-try', onclick: () => { mvStore(true); mvBack = 'edit'; mvView = 'play'; drawMovie({ only: mvSc }); } }, '▶️ לנסות את הסצנה')));
+    body.replaceChildren(
+      el('div', { class: 'cm-bar' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { mvStore(true); mvView = 'list'; drawMovie(); } }, '🎞️ כל הסרטים'),
+        el('input', { type: 'text', class: 'cm-title-in', value: m.title, maxLength: 50, placeholder: 'שם הסרט', 'aria-label': 'שם הסרט', oninput: e => { m.title = e.target.value; mvStore(); } }),
+        el('label', { class: 'mv-dir' }, 'בימוי: ', el('input', { type: 'text', value: m.director || '', maxLength: 30, placeholder: 'השם שלי', 'aria-label': 'בימוי', oninput: e => { m.director = e.target.value; mvStore(); } })),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { const fresh = !mvMovies.includes(m); mvStore(true); SFX.yay(); toast(stickerHTML('camera'), 'הסרט נשמר! 🎬'); if (fresh && typeof addCoins === 'function') addCoins(10, 'סרט חדש'); afterChange(); } }, '💾 לשמור'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { mvStore(true); mvBack = 'edit'; mvView = 'play'; drawMovie(); } }, '🍿 לצפות'),
+        el('button', { type: 'button', class: 'btn', onclick: () => cmToSticker(mvFilmSVG(m), 640, 470) }, '✨ למדבקה')),
+      music, scenes, keys, mvEd.node);
+    mvEd.draw();
+  }
+  const mvFilmSVG = m => {
+    const holes = y => Array.from({ length: 13 }, (_, i) => `<rect x="${18 + i * 48}" y="${y}" width="26" height="14" rx="3" fill="#fff" opacity=".9"/>`).join('');
+    return `<svg viewBox="0 0 640 470" xmlns="http://www.w3.org/2000/svg" width="640" height="470"><defs></defs><rect width="640" height="470" rx="22" fill="#2b2233"/>${holes(8)}${holes(448)}` +
+      mvSceneStill(m.scenes[0], 0.5).replace('<svg ', '<svg x="20" y="35" ').replace(/ width="600" height="400"/, ' width="600" height="400"') +
+      (m.title ? `<g transform="translate(320 400)">${cmTitleSVG({ text: m.title, fs: 38, font: 'bold', c: '#ffd84d', e: 'outline' }, 'mvft')}</g>` : '') + `</svg>`;
+  };
+  // ---------- the cinema player ----------
+  const MV_POPCORN = `<svg viewBox="0 0 80 100" xmlns="http://www.w3.org/2000/svg">${[[22, 30], [40, 22], [58, 30], [30, 16], [50, 14], [40, 34], [18, 42], [62, 42]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="11" fill="#fff8e1" ${S2}/>`).join('')}<circle cx="37" cy="22" r="3" fill="#ffd84d"/><circle cx="55" cy="36" r="3" fill="#ffd84d"/>` +
+    `<path d="M10 40 H70 L62 96 H18 Z" fill="#fff" ${S}/><path d="M22 40 L27 96 M38 40 V96 M54 40 L50 96" stroke="#ff4f5e" stroke-width="7"/><path d="M10 40 H70 L62 96 H18 Z" fill="none" ${S}/><rect x="24" y="56" width="32" height="16" rx="4" fill="#ffd84d" ${S2}/><text x="40" y="68.5" font-size="10" text-anchor="middle" font-family="Rubik, sans-serif" fill="#3a2b3c" font-weight="700">POP</text></svg>`;
+  function mvStopPlayer() { if (!mvP) return; cancelAnimationFrame(mvP.raf); mvP.playing = false; mvMusicStop(); mvP = null; }
+  function drawMoviePlayer(body, opt) {
+    const m = mvCur, only = opt && opt.only != null ? opt.only : (mvP && mvP.only);
+    mvStopPlayer();
+    const scenes = only != null ? [m.scenes[only]] : m.scenes;
+    const segs = [...(only != null ? [] : [{ kind: 'title', dur: 3.6 }]), ...scenes.map((sc, i) => ({ kind: 'scene', sc, dur: sc.dur, i })), ...(only != null ? [] : [{ kind: 'credits', dur: 8 }])];
+    const total = segs.reduce((a, s) => a + s.dur, 0);
+    const screen = el('div', { class: 'mv-screen' });
+    const bar = el('div', { class: 'mv-prog' }, el('i'));
+    const timeTxt = el('span', { class: 'mv-time', dir: 'ltr' });
+    const playBtn = el('button', { type: 'button', class: 'mv-play', 'aria-label': 'לנגן' }, '▶️');
+    const stage = el('div', { class: 'mv-stagebox' + (only != null ? ' open' : '') }, screen, el('div', { class: 'mv-cur l' }), el('div', { class: 'mv-cur r' }));
+    const P = mvP = { segs, total, T: 0, playing: false, raf: 0, seg: -1, nodes: null, only, stage, ended: false };
+    const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+    function buildSeg(i) {
+      const s = segs[i]; P.seg = i; P.nodes = null; P.keys = {};
+      const u = 'mvp' + (cmN++);
+      let svg;
+      if (s.kind === 'title') {
+        svg = `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="${u}g" cx=".5" cy=".45" r=".8"><stop offset="0" stop-color="#5b3a9e"/><stop offset="1" stop-color="#1a1238"/></radialGradient></defs><rect width="600" height="400" fill="url(#${u}g)"/>` +
+          Array.from({ length: 40 }, (_, j) => `<circle class="mv-twk" style="animation-delay:${(j % 7) * 0.3}s" cx="${(j * 137) % 600}" cy="${(j * 71) % 400}" r="${1 + j % 3}" fill="#fff"/>`).join('') +
+          `<g class="mv-titlein"><g transform="translate(300 175)">${cmTitleSVG({ text: m.title || 'הסרט שלי', fs: m.title && m.title.length > 14 ? 50 : 66, font: 'bold', c: '#ffd84d', e: 'outline' }, u + 't')}</g>` +
+          `<g transform="translate(300 262)">${cmTextEl([m.director ? `בימוי: ${m.director}` : 'סרט חדש'], cmFontCss('round'), 30, 'fill="#fff"')}</g><g transform="translate(300 320)">${cmTextEl(['🎬'], 'sans-serif', 40, '')}</g></g></svg>`;
+      } else if (s.kind === 'credits') {
+        const stars = mvStars(m), mus = MV_MUSIC.find(x => x[0] === m.music);
+        const lines = [['הסוף', 60, '#ffd84d'], ['', 20], [`בימוי: ${m.director || 'אני'}`, 30, '#fff'], [`תסריט: ${m.director || 'אני'}`, 30, '#fff'], ['', 16],
+          ...(stars.length ? [['בכיכוב:', 26, '#ff9ad5'], ...stars.map(n => [n, 30, '#fff'])] : []), ['', 16],
+          [`מוזיקה: ${mus && mus[2] ? mus[1].replace(/^\S+\s/, '') : 'שקט מוחלט'}`, 26, '#fff'], ['צילום: המצלמה הקסומה 📷', 26, '#fff'], ['', 20], ['תודה שצפיתם! 🍿', 36, '#ffd84d']];
+        let y = 0; const txt = lines.map(([t, fs, c]) => { y += fs * 1.4; return t ? `<g transform="translate(300 ${y})">${cmTextEl([t], cmFontCss(fs > 40 ? 'bold' : 'round'), fs, `fill="${c}"`)}</g>` : ''; }).join('');
+        P.creditsH = y;
+        svg = `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="400" fill="#120d24"/>${Array.from({ length: 30 }, (_, j) => `<circle class="mv-twk" style="animation-delay:${(j % 5) * 0.4}s" cx="${(j * 97) % 600}" cy="${(j * 53) % 400}" r="${1 + j % 2}" fill="#fff"/>`).join('')}<g class="mv-roll">${txt}</g></svg>`;
+      } else {
+        const sc = s.sc;
+        svg = `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="${u}c"><rect width="600" height="400"/></clipPath></defs><g clip-path="url(#${u}c)"><g class="mv-cam">${cmSceneBg(sc.bg, MV_W, MV_H, u)}` +
+          sc.items.map(it => `<g class="mv-it" data-id="${it.id}" transform="${cmTf(it)}"><g class="mv-in">${cmInner(it, 'mi' + it.id)}</g></g>`).join('') + `</g></g><g class="mv-fx"></g></svg>`;
+      }
+      screen.innerHTML = svg;
+      const sv = screen.firstElementChild;
+      if (s.kind === 'scene') {
+        P.nodes = Object.fromEntries([...sv.querySelectorAll('.mv-it')].map(n => [n.dataset.id, n]));
+        s.sc.items.forEach(it => { P.keys[it.id] = JSON.stringify(it.pose || 0) + '|' + Math.round(it.sq || 0); });
+        P.cam = sv.querySelector('.mv-cam'); P.fx = sv.querySelector('.mv-fx'); P.shown = {};
+        const tr = i === 0 && only == null ? 'fade' : s.sc.trans || 'fade';
+        if (tr !== 'none' && !reduceMotion()) { sv.classList.add('mv-tr-' + tr); if (tr === 'sparkle') mvSparkle(P.fx); }
+      } else if (!reduceMotion()) sv.classList.add('mv-tr-fade');
+      P.roll = sv.querySelector('.mv-roll');
+    }
+    function render(prevT) {
+      let acc = 0, i = 0;
+      while (i < segs.length - 1 && P.T >= acc + segs[i].dur) acc += segs[i++].dur;
+      if (i !== P.seg) buildSeg(i);
+      const s = segs[i], t = Math.min(s.dur, P.T - acc), pt = prevT == null ? -1 : prevT - acc;
+      if (s.kind === 'scene') {
+        const sc = s.sc, k = mvEase(cmClamp((t - 0.3) / Math.max(0.5, sc.dur - 0.8), 0, 1)), u = t / sc.dur;
+        sc.items.forEach(it => {
+          const n = P.nodes[it.id]; if (!n) return;
+          const st = mvState(it, (sc.end || {})[it.id], k);
+          n.setAttribute('transform', cmTf(st));
+          const key = JSON.stringify(st.pose || 0) + '|' + Math.round((st.sq || 0));
+          if (P.keys[it.id] !== key) n.firstElementChild.innerHTML = cmInner(st, 'mi' + it.id);
+          P.keys[it.id] = key;
+          const r = (sc.show || {})[it.id], vis = !r || t >= r[0] - 0.001;
+          n.style.display = vis ? '' : 'none';
+          if (vis && !P.shown[it.id] && r && r[0] > 0) { const inn = n.firstElementChild; inn.classList.remove('mv-pop'); void inn.getBoundingClientRect(); inn.classList.add('mv-pop'); if (P.playing) SFX.pop(); }
+          P.shown[it.id] = vis;
+        });
+        const ek = mvEase(cmClamp(u, 0, 1)), [cx, cy] = sc.camAt || [300, 200];
+        let tf = '';
+        if (sc.cam === 'zin') { const z = 1 + 0.45 * ek; tf = `translate(${cmF(cx * (1 - z))} ${cmF(cy * (1 - z))}) scale(${z})`; }
+        else if (sc.cam === 'zout') { const z = 1.45 - 0.45 * ek; tf = `translate(${cmF(cx * (1 - z))} ${cmF(cy * (1 - z))}) scale(${z})`; }
+        else if (sc.cam === 'pr') tf = `translate(${cmF(-150 * ek)} -50) scale(1.25)`;
+        else if (sc.cam === 'pl') tf = `translate(${cmF(-150 + 150 * ek)} -50) scale(1.25)`;
+        else if (sc.cam === 'shake') { const a = t < sc.dur - 0.4 ? 5 : 0; tf = `translate(${cmF(Math.sin(t * 47) * a)} ${cmF(Math.cos(t * 39) * a * 0.7)})`; }
+        if (sc.cam === 'pr' || sc.cam === 'pl') tf = tf.replace(/translate\(([-\d.]+) -50\)/, (_, x) => `translate(${cmF(cmClamp(+x, -150, 0))} -50)`);
+        P.cam.setAttribute('transform', tf);
+        if (P.playing && prevT != null) (sc.sfx || []).forEach(f => { if (f.t > pt && f.t <= t && MV_SFX[f.k]) MV_SFX[f.k][1](); });
+        if (P.playing && prevT != null && pt < 0 && sc.trans === 'sparkle') MV_SFX.magic[1]();
+      } else if (s.kind === 'credits' && P.roll) P.roll.setAttribute('transform', `translate(0 ${cmF(400 - (t / s.dur) * (P.creditsH + 420))})`);
+      bar.firstChild.style.width = `${(P.T / total * 100).toFixed(2)}%`;
+      timeTxt.textContent = `${fmt(P.T)} / ${fmt(total)}`;
+    }
+    function tick(now) {
+      if (!P.playing || mvP !== P) return;
+      if (!$('#movieDlg').open) { pause(); return; }
+      const dt = Math.min(0.1, (now - P.last) / 1000); P.last = now;
+      const prevT = P.T; P.T = Math.min(total, P.T + dt);
+      render(prevT);
+      if (P.T >= total) { end(); return; }
+      P.raf = requestAnimationFrame(tick);
+    }
+    function start() {
+      if (P.ended) { P.T = 0; P.seg = -1; P.ended = false; render(); }
+      P.playing = true; P.last = performance.now(); playBtn.textContent = '⏸️'; playBtn.setAttribute('aria-label', 'הפסקה');
+      if (m.music && m.music !== 'none') mvMusicStart(m.music);
+      P.raf = requestAnimationFrame(tick);
+    }
+    function play() {
+      if (P.playing) { pause(); return; }
+      if (!stage.classList.contains('open')) { stage.classList.add('open'); tone(392, 0.2, 'triangle', 0, 0.08); tone(523, 0.3, 'triangle', 0.15, 0.08); setTimeout(() => { if (mvP === P) start(); }, reduceMotion() ? 0 : 1100); playBtn.textContent = '⏸️'; return; }
+      start();
+    }
+    function pause() { P.playing = false; cancelAnimationFrame(P.raf); mvMusicStop(); playBtn.textContent = '▶️'; playBtn.setAttribute('aria-label', 'לנגן'); }
+    function end() {
+      pause(); P.ended = true; playBtn.textContent = '🔁'; playBtn.setAttribute('aria-label', 'שוב');
+      if (only == null) { setTimeout(() => { if (mvP === P) stage.classList.remove('open'); }, 600); SFX.yay(); confetti($('#movieDlg .confetti-c')); }
+    }
+    playBtn.onclick = play;
+    bar.addEventListener('click', e => { const r = bar.getBoundingClientRect(); P.T = cmClamp((r.right - e.clientX) / r.width, 0, 1) * total; if (P.T >= total) P.T = total - 0.01; P.ended = false; render(); });
+    body.replaceChildren(
+      el('div', { class: 'cm-bar' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { mvStopPlayer(); mvView = mvBack === 'edit' ? 'edit' : 'list'; mvEd = null; drawMovie(); } }, mvBack === 'edit' ? '✏️ חזרה לעריכה' : '🎞️ כל הסרטים'),
+        el('b', { class: 'cm-readtitle' }, only != null ? `ניסיון: סצנה ${only + 1}` : m.title || 'הסרט שלי'),
+        mvBack === 'edit' ? null : el('button', { type: 'button', class: 'btn', onclick: () => { mvStopPlayer(); mvSc = 0; mvMode = 'start'; mvView = 'edit'; mvEd = null; drawMovie(); } }, '✏️ לערוך')),
+      el('div', { class: 'mv-cinema' },
+        el('div', { class: 'mv-valance' }),
+        stage,
+        el('div', { class: 'mv-ctrl' },
+          el('span', { class: 'mv-pop-l', html: MV_POPCORN }),
+          el('div', { class: 'mv-ctrl-mid' }, el('div', { class: 'chips mv-btns' },
+            el('button', { type: 'button', class: 'mv-small', 'aria-label': 'מההתחלה', onclick: () => { P.T = 0; P.seg = -1; P.ended = false; render(); if (!P.playing) { playBtn.textContent = '▶️'; } } }, '⏮️'), playBtn), bar, timeTxt),
+          el('span', { class: 'mv-pop-r', html: MV_POPCORN }))));
+    render();
+    if (only != null) setTimeout(() => { if (mvP === P) play(); }, 200);
+  }
+  function mvSparkle(g) {
+    g.innerHTML = Array.from({ length: 18 }, (_, i) => { const x = 40 + (i * 131) % 520, y = 30 + (i * 83) % 340, r = 8 + (i % 4) * 4; return `<g transform="translate(${x} ${y})"><path class="mv-spk" style="animation-delay:${(i % 6) * 0.07}s" d="M0 ${-r} Q${r * .15} ${-r * .15} ${r} 0 Q${r * .15} ${r * .15} 0 ${r} Q${-r * .15} ${r * .15} ${-r} 0 Q${-r * .15} ${-r * .15} 0 ${-r} Z" fill="${['#ffd84d', '#fff', '#ff9ad5', '#9fe6ff'][i % 4]}"/></g>`; }).join('');
+    setTimeout(() => { g.innerHTML = ''; }, 1300);
+  }
+
+  // ================= 🎵 music box =================
+  let mbBoxes = store.get('musicBoxes', []);
+  let mbCur = null, mbTab = 'box', mbDelId = null;
+  const mbRun = { timers: [], on: false };
+  const MB_SHAPES = [['rect', 'מלבן'], ['round', 'עגולה'], ['heart', 'לב'], ['octa', 'מתומנת'], ['chest', 'תיבת אוצר']];
+  const MB_COLORS = ['#ff9ad5', '#b58cff', '#7ec8ff', '#4fc3a1', '#ffd84d', '#ff7a7a', '#fff4e0', '#2b2b5a', '#c9a27e', '#ffffff', '#ffc2d4', '#a8e6cf'];
+  const MB_TRIMS = ['#ffd84d', '#d9dce8', '#ff5a8a', '#ffffff', '#b58cff', '#3f9c6e', '#2b2233'];
+  const MB_PATS = [['none', 'חלק'], ['dots', 'נקודות'], ['stripes', 'פסים'], ['hearts', 'לבבות'], ['stars', 'כוכבים'], ['flowers', 'פרחים'], ['checks', 'משבצות']];
+  const MB_GEMS = [['none', 'בלי'], ['row', 'שורה'], ['corners', 'בפינות'], ['heart', 'לב גדול'], ['sparkle', 'נצנצים']];
+  const MB_GEMC = ['#ff4f9a', '#4fa8ff', '#9b5cff', '#2fbf71', '#ffd84d', '#ffffff', '#ff7a3d'];
+  const MB_LIDS = [['mirror', '🪞 מראה'], ['hearts', '💗 לבבות'], ['stars', '🌟 שמי לילה'], ['velvet', '🍷 קטיפה'], ['rainbow', '🌈 קשת']];
+  const MB_SONGS = [
+    ['twinkle', '⭐ כוכב קטן', 'C5 C5 G5 G5 A5 A5 G5:2 F5 F5 E5 E5 D5 D5 C5:2 G5 G5 F5 F5 E5 E5 D5:2 G5 G5 F5 F5 E5 E5 D5:2 C5 C5 G5 G5 A5 A5 G5:2 F5 F5 E5 E5 D5 D5 C5:2', 420],
+    ['brahms', '🌙 שיר ערש (ברהמס)', 'E5:.5 E5:.5 G5:2 E5:.5 E5:.5 G5:2 E5:.5 G5:.5 C6 B5:1.5 A5:.5 A5 G5:2 D5:.5 E5:.5 F5 D5 D5:.5 E5:.5 F5:2 D5:.5 F5:.5 B5:.5 A5:.5 G5 B5 C6:3', 460],
+    ['elise', '🎹 לאליזה', 'E6:.5 D#6:.5 E6:.5 D#6:.5 E6:.5 B5:.5 D6:.5 C6:.5 A5 R:.5 C5:.5 E5:.5 A5:.5 B5 R:.5 E5:.5 G#5:.5 B5:.5 C6 R:.5 E5:.5 E6:.5 D#6:.5 E6:.5 D#6:.5 E6:.5 B5:.5 D6:.5 C6:.5 A5 R:.5 C5:.5 E5:.5 A5:.5 B5 R:.5 E5:.5 C6:.5 B5:.5 A5:2', 380],
+    ['swan', '🦢 אגם הברבורים', 'F#5:3 B4:.5 C#5:.5 D5:.5 E5:.5 F#5:1.5 D5:.5 F#5:1.5 D5:.5 F#5:1.5 B4:.5 D5:.5 B4:.5 G4:.5 D5:.5 B4:3 R', 460],
+    ['frere', '🔔 אחינו יעקב', 'C5 D5 E5 C5 C5 D5 E5 C5 E5 F5 G5:2 E5 F5 G5:2 G5:.5 A5:.5 G5:.5 F5:.5 E5 C5 G5:.5 A5:.5 G5:.5 F5:.5 E5 C5 C5 G4 C5:2 C5 G4 C5:2', 400],
+    ['birthday', '🎂 יום הולדת שמח', 'G5:.75 G5:.25 A5 G5 C6 B5:2 G5:.75 G5:.25 A5 G5 D6 C6:2 G5:.75 G5:.25 G6 E6 C6 B5 A5:2 F6:.75 F6:.25 E6 C6 D6 C6:2', 430],
+  ];
+  const mbNew = () => ({ id: null, name: '', shape: 'rect', c1: '#ff9ad5', c2: '#ffd84d', pat: 'hearts', gems: 'row', gemC: '#9b5cff', lid: 'mirror', dancer: 'ballerina', song: 'twinkle', speed: 1, loop: false });
+  function mbNote(m) {
+    if (!design.sound) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+      const t = actx.currentTime, f = midiHz(m), out = actx.createGain();
+      out.gain.value = 0.85; out.connect(actx.destination);
+      [[1, 0.16, 1.9], [2, 0.045, 0.9], [3.93, 0.03, 0.4], [6.1, 0.012, 0.18]].forEach(([mul, v, d]) => {
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = 'sine'; o.frequency.setValueAtTime(f * mul, t);
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(v, t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+        o.connect(g); g.connect(out); o.start(t); o.stop(t + d + 0.05);
+      });
+    } catch {}
+  }
+  function mbNotes(b) {
+    const sp = b.speed || 1;
+    if (String(b.song).startsWith('m:')) {
+      const mel = melodies.find(x => 'm:' + x.id === b.song);
+      if (mel && mel.notes && mel.notes.length) {
+        const avg = mel.notes.reduce((a, n) => a + n[0], 0) / mel.notes.length, sh = avg < 70 ? 12 : 0, t0 = mel.notes[0][1];
+        return mel.notes.map(([m, t]) => [m + sh, Math.round((t - t0) / sp)]);
+      }
+    }
+    const s = MB_SONGS.find(x => x[0] === b.song) || MB_SONGS[0];
+    return mbTimed(s[2], s[3] / sp);
+  }
+  const mbSongName = b => { if (String(b.song).startsWith('m:')) { const mel = melodies.find(x => 'm:' + x.id === b.song); return mel ? '🎹 ' + mel.name : '🎵'; } return (MB_SONGS.find(x => x[0] === b.song) || MB_SONGS[0])[1]; };
+  // ---------- the little figures ----------
+  function mbDancer(b, u) {
+    const d = b.dancer || 'ballerina';
+    const nest = (src, w, h) => src.replace('<svg ', `<svg x="${cmF(-w / 2)}" y="${cmF(-h)}" width="${cmF(w)}" height="${cmF(h)}" overflow="visible" `);
+    if (d.startsWith('g:')) {
+      const g = girls.find(x => 'g:' + x.id === d);
+      if (g) try { return nest(girlSVG(g, u + 'g', { bg: false, pose: { la: 150, lf: 25, ra: 150, rf: 25, rl: 22, rk: 95 } }), 84, 168); } catch {}
+    }
+    if (d === 'mermaid') { const mm = mermaids[0] || newMermaid(); try { return nest(mermaidSVG(mm, u + 'm', { pose: { la: 150, ra: 150, tail: 10 } }), 84, 126); } catch { return nest(mermaidSVG(mm, u + 'm'), 84, 126); } }
+    if (d === 'pet' && pet) return nest(petSVG(pet), 90, 102);
+    if (d === 'unicorn') return `<path d="M0 -150 V0" stroke="#e7b93a" stroke-width="5"/><path d="M0 -150 V0" stroke="#fff3b0" stroke-width="2" stroke-dasharray="3 5"/>` +
+      `<g transform="translate(0 -62)"><path d="M-30 30 L-34 58 M-16 32 L-14 60 M14 32 L12 60 M28 28 L34 56" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M-30 30 L-34 58 M-16 32 L-14 60 M14 32 L12 60 M28 28 L34 56" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>` +
+      `<ellipse cx="0" cy="18" rx="40" ry="20" fill="#fff" ${S}/><path d="M26 10 Q34 -18 30 -34 L50 -40 Q58 -26 44 -18 L38 10 Z" fill="#fff" ${S}/><path d="M44 -44 L52 -70 L50 -40 Z" fill="#ffd84d" ${S2}/>` +
+      `<path d="M30 -36 Q14 -30 18 -10 Q8 -2 20 8 Q26 -14 34 -30 Z" fill="#ff9ad5" ${S2}/><path d="M-40 14 Q-60 10 -58 34 Q-50 24 -40 26 Z" fill="#b58cff" ${S2}/><circle cx="44" cy="-30" r="2.4" fill="${O}"/><circle cx="48" cy="-22" r="2.2" fill="#ff8fab" opacity=".7"/></g>` +
+      `<ellipse cx="0" cy="-150" rx="10" ry="5" fill="#ffd84d" ${S2}/>`;
+    if (d === 'swan') return `<path d="M-40 -30 Q-44 -2 -6 0 H26 Q46 -6 40 -30 Q30 -18 8 -20 Q-18 -18 -40 -30 Z" fill="#fff" ${S}/><path d="M22 -20 Q30 -44 22 -64 Q16 -82 30 -86 Q40 -86 40 -76 L50 -72 L40 -70 Q30 -74 30 -66 Q40 -44 30 -18 Z" fill="#fff" ${S}/><circle cx="34" cy="-79" r="2" fill="${O}"/><path d="M40 -76 L52 -72 L40 -70 Z" fill="#ff9b3d" ${S2}/><path d="M-30 -26 Q-10 -40 10 -24" fill="none" stroke="#dfe7f7" stroke-width="4" stroke-linecap="round"/><path d="M-6 -44 l2 -8 l2 8 l-2 3 Z" fill="#ffd84d"/>`;
+    // ballerina (default)
+    return `<path d="M-4 -40 L-8 -4 L-10 0 H-2 L0 -40 Z M4 -40 L8 -18 L20 -30 L22 -26 L10 -12 L6 -40 Z" fill="#ffd9c7" ${S2}/>` +
+      `<path d="M-34 -46 Q-18 -60 0 -56 Q18 -60 34 -46 Q20 -34 0 -38 Q-20 -34 -34 -46 Z" fill="#ffc2e0" ${S2}/><path d="M-26 -48 Q0 -40 26 -48" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/>` +
+      `<path d="M-9 -76 Q-10 -62 -8 -54 H8 Q10 -62 9 -76 Z" fill="#ff7ab8" ${S2}/>` +
+      `<path d="M-8 -74 Q-26 -92 -12 -112 M8 -74 Q26 -92 12 -112" fill="none" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M-8 -74 Q-26 -92 -12 -112 M8 -74 Q26 -92 12 -112" fill="none" stroke="#ffd9c7" stroke-width="3.8" stroke-linecap="round"/>` +
+      `<circle cx="0" cy="-88" r="12" fill="#ffd9c7" ${S2}/><path d="M-12 -90 Q-12 -102 0 -102 Q12 -102 12 -90 Q6 -96 0 -94 Q-6 -96 -12 -90 Z" fill="#8a5a2b" ${S2}/><circle cx="0" cy="-104" r="5.5" fill="#8a5a2b" ${S2}/>` +
+      `<circle cx="-4" cy="-87" r="1.4" fill="${O}"/><circle cx="4" cy="-87" r="1.4" fill="${O}"/><path d="M-3 -82.5 Q0 -80 3 -82.5" fill="none" stroke="${O}" stroke-width="1.2" stroke-linecap="round"/><circle cx="-7" cy="-84" r="1.8" fill="#ff8fab" opacity=".6"/><circle cx="7" cy="-84" r="1.8" fill="#ff8fab" opacity=".6"/>` +
+      `<path d="M-4 -106 l4 -5 l4 5" fill="#ffd84d" ${S2}/>`;
+  }
+  // ---------- the box drawing (400 x 440) ----------
+  function mbSVG(b, u, big) {
+    const c1 = b.c1, c2 = b.c2, dk = fmx(c1, '#2a1030', 0.25), lt = fmx(c1, '#ffffff', 0.35), sh = b.shape;
+    const defs = [];
+    const PAT = { dots: `<circle cx="8" cy="8" r="3.4"/><circle cx="24" cy="24" r="3.4"/>`, stripes: `<rect width="8" height="32"/>`, hearts: `<path d="M16 24 C4 16 5 7 11 6 C14 6 15.5 8 16 10 C16.5 8 18 6 21 6 C27 7 28 16 16 24 Z"/>`,
+      stars: `<polygon points="${starPts(16, 16, 8, 3.4)}"/>`, flowers: [0, 72, 144, 216, 288].map(a => `<circle cx="${cmF(16 + 5 * Math.cos(a * Math.PI / 180))}" cy="${cmF(16 + 5 * Math.sin(a * Math.PI / 180))}" r="3.6"/>`).join('') + `<circle cx="16" cy="16" r="2.6" fill="#ffd84d"/>`,
+      checks: `<rect width="16" height="16"/><rect x="16" y="16" width="16" height="16"/>` }[b.pat];
+    if (PAT) defs.push(`<pattern id="${u}p" width="32" height="32" patternUnits="userSpaceOnUse"${b.pat === 'stripes' ? ' patternTransform="rotate(30)"' : ''}><g fill="${c2}" opacity=".55">${PAT}</g></pattern>`);
+    defs.push(cmGrad(u + 'sh', [[0, '#000000'], [0.5, '#ffffff'], [1, '#000000']], 1, 0).replace(/stop-color="#000000"/g, 'stop-color="#2a1030" stop-opacity=".18"').replace(/stop-color="#ffffff"/, 'stop-color="#ffffff" stop-opacity=".12"'));
+    // front face path per shape
+    const F = {
+      rect: 'M70 250 H330 V392 Q330 400 322 400 H78 Q70 400 70 392 Z',
+      round: 'M70 250 V380 A130 26 0 0 0 330 380 V250 A130 26 0 0 1 70 250 Z',
+      heart: 'M70 250 H330 C336 300 290 350 200 404 C110 350 64 300 70 250 Z',
+      octa: 'M70 250 L110 262 H290 L330 250 V386 L290 400 H110 L70 386 Z',
+      chest: 'M70 250 H330 V396 H70 Z',
+    }[sh] || '';
+    const top = {
+      rect: 'M70 250 L94 226 H306 L330 250 Z', round: 'M70 250 A130 26 0 0 1 330 250 A130 26 0 0 1 70 250 Z', heart: 'M70 250 L94 226 H306 L330 250 Z',
+      octa: 'M70 250 L96 232 L140 224 H260 L304 232 L330 250 L290 262 H110 Z', chest: 'M70 250 L94 226 H306 L330 250 Z',
+    }[sh];
+    const inner = sh === 'round' ? 'M86 250 A114 20 0 0 1 314 250 A114 20 0 0 1 86 250 Z' : sh === 'octa' ? 'M86 250 L106 238 L144 232 H256 L294 238 L314 250 L284 258 H116 Z' : 'M86 248 L102 232 H298 L314 248 Z';
+    const velvet = b.lid === 'velvet' ? '#7a1f3d' : b.lid === 'stars' ? '#1d1f52' : fmx(c1, '#3a0f3a', 0.55);
+    // gems
+    const gem = (x, y, r, c) => `<g transform="translate(${x} ${y})"><path d="M0 ${-r} L${r * .9} ${-r * .2} L${r * .55} ${r} H${-r * .55} L${-r * .9} ${-r * .2} Z" fill="${c}" ${S2}/><path d="M0 ${-r} L${-r * .3} ${-r * .2} H${r * .3} Z" fill="#fff" opacity=".7"/><path d="M${-r * .9} ${-r * .2} H${r * .9}" stroke="${O}" stroke-width="1" opacity=".4"/></g>`;
+    const gc = b.gemC || '#9b5cff', gy = 318;
+    const gems = { row: [-80, -40, 0, 40, 80].map((dx, i) => gem(200 + dx, gy, 10, i % 2 ? '#fff' : gc)).join(''), corners: [[92, 272], [308, 272], [92, 376], [308, 376]].map(([x, y]) => gem(x, y, 11, gc)).join(''),
+      heart: `<path d="M200 352 C168 334 166 306 184 300 C192 297 198 302 200 308 C202 302 208 297 216 300 C234 306 232 334 200 352 Z" fill="${gc}" ${S}/><path d="M186 310 q4 -6 10 -5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>` + [[140, 320], [260, 320]].map(([x, y]) => gem(x, y, 7, '#fff')).join(''),
+      sparkle: [[110, 280, 9], [300, 300, 11], [160, 360, 7], [250, 370, 9], [200, 290, 6], [130, 340, 5], [280, 350, 6]].map(([x, y, r], i) => `<path transform="translate(${x} ${y})" d="M0 ${-r} Q${r * .15} ${-r * .15} ${r} 0 Q${r * .15} ${r * .15} 0 ${r} Q${-r * .15} ${r * .15} ${-r} 0 Q${-r * .15} ${-r * .15} 0 ${-r} Z" fill="${i % 2 ? '#fff' : gc}" stroke="${O}" stroke-width="1"/>`).join('') }[b.gems] || '';
+    // lid, inside
+    const lidIn = {
+      mirror: `<defs>${cmGrad(u + 'mi', [[0, '#e8f7ff'], [0.5, '#bfe3ff'], [1, '#f4fbff']], 1, 1)}</defs><rect x="118" y="86" width="164" height="124" rx="60" fill="url(#${u}mi)" stroke="${c2}" stroke-width="5"/><path d="M150 120 L190 96 M146 146 L214 104 M160 180 L240 130" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".75"/>`,
+      hearts: `<rect x="112" y="82" width="176" height="132" rx="16" fill="#ffd1e8"/>` + Array.from({ length: 12 }, (_, i) => `<path transform="translate(${130 + (i % 4) * 46} ${104 + Math.floor(i / 4) * 42}) scale(.55)" d="M0 14 C-18 2 -18 -10 -9 -12 C-4 -13 -1 -9 0 -6 C1 -9 4 -13 9 -12 C18 -10 18 2 0 14 Z" fill="#ff7ab8"/>`).join(''),
+      stars: `<rect x="112" y="82" width="176" height="132" rx="16" fill="#1d1f52"/>` + Array.from({ length: 14 }, (_, i) => `<polygon points="${starPts(126 + (i * 53) % 150, 96 + (i * 37) % 108, i % 3 ? 4 : 7, i % 3 ? 1.6 : 3)}" fill="#fff6c2"/>`).join('') + `<path d="M252 104 A14 14 0 1 0 266 126 A11 11 0 1 1 252 104 Z" fill="#ffe27a"/>`,
+      velvet: `<rect x="112" y="82" width="176" height="132" rx="16" fill="#7a1f3d"/><path d="M130 100 V200 M160 100 V200 M190 100 V200 M220 100 V200 M250 100 V200" stroke="#9a3358" stroke-width="10" opacity=".6"/><rect x="170" y="120" width="60" height="56" rx="28" fill="#dfe7f7" stroke="${c2}" stroke-width="4"/>`,
+      rainbow: `<rect x="112" y="82" width="176" height="132" rx="16" fill="#fff4fa"/>` + ['#ff6b6b', '#ffb020', '#ffd84d', '#4fbf73', '#7ec8ff', '#b58cff'].map((c, i) => `<path d="M${130 + i * 9} 206 A${70 - i * 9} ${70 - i * 9} 0 0 1 ${270 - i * 9} 206" fill="none" stroke="${c}" stroke-width="9"/>`).join(''),
+    }[b.lid] || '';
+    const lidOpen = `<g class="mb-lido"><rect x="94" y="64" width="212" height="164" rx="22" fill="${c1}" ${S}/>${PAT ? `<rect x="94" y="64" width="212" height="164" rx="22" fill="url(#${u}p)"/>` : ''}<rect x="104" y="74" width="192" height="146" rx="18" fill="${dk}" opacity=".35"/>${lidIn}<rect x="94" y="64" width="212" height="164" rx="22" fill="none" stroke="${c2}" stroke-width="4" opacity=".9"/></g>`;
+    const lidTop = sh === 'chest' ? 'M70 250 Q70 186 200 180 Q330 186 330 250 Z' : top;
+    const lidClosed = `<g class="mb-lidc"><path d="${lidTop}" fill="${lt}" ${S}/>${PAT ? `<path d="${lidTop}" fill="url(#${u}p)"/>` : ''}` +
+      (sh === 'chest' ? `<path d="M120 190 Q118 220 120 250 M280 190 Q282 220 280 250" stroke="${c2}" stroke-width="9" fill="none"/>` : sh === 'round' ? `<ellipse cx="200" cy="250" rx="130" ry="26" fill="none" stroke="${c2}" stroke-width="5"/>` : `<path d="M70 250 L94 226 H306 L330 250" fill="none" stroke="${c2}" stroke-width="5" stroke-linejoin="round"/>`) +
+      `<rect x="${sh === 'round' ? 70 : 68}" y="248" width="${sh === 'round' ? 260 : 264}" height="16" rx="6" fill="${c1}" ${S2}/><path d="M72 256 H328" stroke="${c2}" stroke-width="4"/>` +
+      (b.gems !== 'none' ? gem(200, sh === 'chest' ? 214 : 238, 9, gc) : '') + `</g>`;
+    const feet = sh === 'round' || sh === 'heart' ? '' : [96, 304].map(x => `<ellipse cx="${x}" cy="404" rx="14" ry="8" fill="${c2}" ${S2}/>`).join('');
+    const bands = sh === 'chest' ? `<path d="M120 250 V396 M280 250 V396" stroke="${c2}" stroke-width="10"/><path d="M120 250 V396 M280 250 V396" stroke="${O}" stroke-width="1.5" stroke-dasharray="2 14" opacity=".5"/><rect x="184" y="262" width="32" height="38" rx="6" fill="${c2}" ${S2}/><circle cx="200" cy="278" r="4" fill="${O}"/><path d="M200 280 V290" stroke="${O}" stroke-width="3"/>`
+      : sh === 'octa' ? `<path d="M110 262 V400 M290 262 V400" stroke="${dk}" stroke-width="2" opacity=".5"/><path d="M70 250 L110 262 V400 L70 386 Z" fill="#2a1030" opacity=".12"/><path d="M330 250 L290 262 V400 L330 386 Z" fill="#2a1030" opacity=".18"/>` : '';
+    const key = `<g class="mb-key-wrap" transform="translate(${sh === 'heart' ? 318 : 330} 322)"><rect x="0" y="-4" width="26" height="8" fill="#d9dce8" ${S2}/><g class="mb-key"><path d="M26 0 C30 -26 58 -30 58 -12 C58 -2 44 0 34 0 C44 0 58 2 58 12 C58 30 30 26 26 0 Z" fill="#ffd84d" ${S2}/><circle cx="46" cy="-12" r="4" fill="#fff" opacity=".8"/><circle cx="46" cy="12" r="4" fill="#fff" opacity=".8"/></g></g>`;
+    const dancer = `<g class="mb-dancer-wrap" transform="translate(200 ${sh === 'round' ? 250 : 242})"><ellipse cx="0" cy="0" rx="22" ry="7" fill="${c2}" ${S2}/><g class="mb-dancer"><g class="mb-spin">${mbDancer(b, u + 'd')}</g></g></g>`;
+    const notes = big ? `<g class="mb-notes">${['♪', '♫', '♪', '♬'].map((n, i) => `<text class="mb-note" style="animation-delay:${i * 0.55}s" x="${150 + i * 34}" y="200" font-size="30" fill="${['#ff4f9a', '#9b5cff', '#4fa8ff', '#2fbf71'][i]}" font-family="sans-serif">${n}</text>`).join('')}</g>` : '';
+    return `<svg viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg" class="mb-svg"><defs>${defs.join('')}</defs><ellipse cx="200" cy="410" rx="170" ry="18" fill="#2a1030" opacity=".14"/>${lidOpen}` +
+      `<path d="${top}" fill="${velvet}" ${S}/><path d="${inner}" fill="#000" opacity=".22"/>${dancer}${feet}` +
+      `<path d="${F}" fill="${c1}" ${S}/>${PAT ? `<path d="${F}" fill="url(#${u}p)"/>` : ''}<path d="${F}" fill="url(#${u}sh)"/>${bands}` +
+      (sh !== 'chest' ? `<path d="${sh === 'round' ? 'M70 270 A130 26 0 0 0 330 270' : sh === 'heart' ? 'M72 268 H328' : 'M70 268 H330'}" fill="none" stroke="${c2}" stroke-width="5"/>` : '') +
+      `<path d="${F}" fill="none" ${S}/>${gems}${key}${lidClosed}${notes}</svg>`;
+  }
+  function mbStop(node) {
+    mbRun.timers.forEach(clearTimeout); mbRun.timers = []; mbRun.on = false;
+    const sv = node || $('#mbStage .mb-svg');
+    if (sv) sv.classList.remove('wind', 'open', 'spin', 'slow');
+  }
+  function mbPlay() {
+    const sv = $('#mbStage .mb-svg'); if (!sv) return;
+    mbStop(sv); mbRun.on = true;
+    const T = (fn, ms) => mbRun.timers.push(setTimeout(fn, ms));
+    const b = mbCur, notes = mbNotes(b), len = (notes.length ? notes[notes.length - 1][1] : 0) + 900;
+    sv.classList.add('wind');
+    [0, 180, 360, 540, 720, 900].forEach(w => T(() => tone(2600, 0.02, 'square', 0, 0.04), w));
+    T(() => { sv.classList.add('open'); tone(660, 0.08, 'triangle', 0, 0.05); }, 1100);
+    T(() => { sv.classList.add('spin'); sv.style.setProperty('--spin', `${(1.6 / (b.speed || 1)).toFixed(2)}s`); }, 1500);
+    const round = start => {
+      notes.forEach(([m, t]) => T(() => mbNote(m), start + t));
+      T(() => { if (b.loop && mbRun.on) round(0); else { sv.classList.add('slow'); T(() => { sv.classList.remove('spin', 'slow', 'wind'); T(() => { sv.classList.remove('open'); mbRun.on = false; mbDrawBtns(); }, 700); }, 1800); } }, start + len);
+    };
+    round(1700);
+    mbDrawBtns();
+  }
+  const mbDrawBtns = () => { const bt = $('#mbPlayBtn'); if (bt) { bt.textContent = mbRun.on ? '⏹️ לעצור' : '🔑 לסובב את המפתח'; bt.classList.toggle('main', !mbRun.on); } };
+  function openMusicBox() {
+    if (!mbCur) mbCur = mbNew();
+    mbDelId = null; drawMusicBox();
+    if (!$('#musicBoxDlg').open) $('#musicBoxDlg').showModal();
+  }
+  function drawMusicBox() {
+    mbStop();
+    const b = mbCur, body = $('#musicBoxBody');
+    const stage = el('div', { class: 'mb-stage', id: 'mbStage', html: mbSVG(b, 'mb' + (cmN++), true) });
+    const upd = p => { Object.assign(b, p); SFX.pop(); drawMusicBox(); };
+    const chips = (list, key) => el('div', { class: 'chips' }, ...list.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(b[key] === k), onclick: () => upd({ [key]: k }) }, n)));
+    const sw = (list, key) => cmSwatches(b[key], c => upd({ [key]: c }), list);
+    const tabs = [['box', '📦 קופסה'], ['gems', '💎 אבני חן'], ['lid', '🪞 מכסה'], ['dancer', '💃 רקדנית'], ['song', '🎵 מנגינה']];
+    let tb;
+    if (mbTab === 'box') tb = [el('span', { class: 'lbl' }, 'צורה'), chips(MB_SHAPES, 'shape'), el('span', { class: 'lbl' }, 'צבע הקופסה'), sw(MB_COLORS, 'c1'), el('span', { class: 'lbl' }, 'צבע הקישוטים'), sw(MB_TRIMS, 'c2'), el('span', { class: 'lbl' }, 'דוגמה'), chips(MB_PATS, 'pat')];
+    else if (mbTab === 'gems') tb = [el('span', { class: 'lbl' }, 'איפה האבנים'), chips(MB_GEMS, 'gems'), el('span', { class: 'lbl' }, 'צבע האבנים'), sw(MB_GEMC, 'gemC')];
+    else if (mbTab === 'lid') tb = [el('span', { class: 'lbl' }, 'מה יש בתוך המכסה'), chips(MB_LIDS, 'lid'), el('p', { class: 'muted' }, '💡 רואים את זה כשהמכסה נפתח!'), el('button', { type: 'button', class: 'btn', onclick: () => { const sv = $('#mbStage .mb-svg'); sv.classList.toggle('open'); SFX.pop(); } }, '👀 לפתוח ולסגור את המכסה')];
+    else if (mbTab === 'dancer') {
+      const opts = [['ballerina', '🩰 בלרינה'], ['unicorn', '🦄 חד קרן בקרוסלה'], ['swan', '🦢 ברבור'], ['mermaid', '🧜‍♀️ ' + ((mermaids[0] || {}).name || 'בת ים')], ...(pet ? [['pet', '🐾 ' + (pet.name || 'החיה שלי')]] : []), ...girls.slice(0, 12).map(g => ['g:' + g.id, '👧 ' + (g.name || 'בת')])];
+      tb = [el('span', { class: 'lbl' }, 'מי רוקדת על הבמה הקטנה?'), chips(opts, 'dancer')];
+    } else {
+      tb = [el('span', { class: 'lbl' }, '🎼 שירי ערש ומנגינות'), el('div', { class: 'chips' }, ...MB_SONGS.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(b.song === k), onclick: () => upd({ song: k }) }, n))),
+        el('span', { class: 'lbl' }, '🎹 מנגינות שלי מהפסנתר'),
+        melodies.length ? el('div', { class: 'chips' }, ...melodies.map(mel => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(b.song === 'm:' + mel.id), onclick: () => upd({ song: 'm:' + mel.id }) }, '🎹 ' + mel.name))) : el('p', { class: 'muted' }, 'עוד אין. אפשר להקליט מנגינה ב"פסנתר קטן" והיא תופיע פה!'),
+        el('label', { class: 'lbl' }, '🐢 מהירות 🐇', el('input', { type: 'range', min: 0.6, max: 1.6, step: 0.1, value: b.speed || 1, onchange: e => { b.speed = +e.target.value; } })),
+        el('label', { class: 'mb-loop' }, el('input', { type: 'checkbox', checked: !!b.loop, onchange: e => { b.loop = e.target.checked; } }), ' 🔁 לנגן שוב ושוב')];
+    }
+    const msg = el('span', { class: 'saved' });
+    const save = () => {
+      const fresh = !b.id; b.id = b.id || cmNew('mb'); b.name = b.name.trim();
+      cmUpsert(mbBoxes, cmCopy(b));
+      if (!store.set('musicBoxes', mbBoxes)) { msg.textContent = 'אין מספיק מקום לשמור 😕'; return; }
+      SFX.yay(); toast(stickerHTML('music'), 'תיבת הנגינה נשמרה! 🎵'); if (fresh && typeof addCoins === 'function') addCoins(5, 'תיבת נגינה'); afterChange(); drawMusicBox();
+    };
+    const card = x => el('article', { class: 'cm-card mb-card' + (x.id === b.id ? ' on' : '') },
+      el('button', { type: 'button', class: 'mb-mini', 'aria-label': 'לפתוח', html: mbSVG(x, 'mbl' + (cmN++)).replace('class="mb-svg"', 'class="mb-svg open"'), onclick: () => { mbCur = cmCopy(x); mbDelId = null; drawMusicBox(); setTimeout(mbPlay, 150); } }),
+      el('b', {}, x.name || 'תיבת נגינה'), el('span', { class: 'muted' }, mbSongName(x)),
+      mbDelId === x.id
+        ? el('div', { class: 'chips' }, el('span', {}, 'למחוק?'), el('button', { type: 'button', class: 'chip', onclick: () => { mbBoxes = mbBoxes.filter(y => y !== x); store.set('musicBoxes', mbBoxes); if (mbCur.id === x.id) mbCur.id = null; mbDelId = null; SFX.boop(); drawMusicBox(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { mbDelId = null; drawMusicBox(); } }, 'לא'))
+        : el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => { mbCur = cmCopy(x); drawMusicBox(); setTimeout(mbPlay, 150); } }, '▶️'), el('button', { type: 'button', class: 'chip', onclick: () => { mbCur = cmCopy(x); drawMusicBox(); } }, '✏️'), el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { mbDelId = x.id; drawMusicBox(); } }, '🗑️')));
+    body.replaceChildren(
+      el('div', { class: 'mb-main' },
+        el('div', { class: 'mb-left' }, stage,
+          el('div', { class: 'chips mb-ctl' }, el('button', { type: 'button', class: 'btn main mb-play', id: 'mbPlayBtn', onclick: () => { if (mbRun.on) { mbStop(); mbDrawBtns(); } else mbPlay(); } }, '🔑 לסובב את המפתח')),
+          el('p', { class: 'muted mb-now' }, `🎵 ${mbSongName(b)}`)),
+        el('div', { class: 'mb-right' },
+          el('div', { class: 'tabs', role: 'tablist' }, ...tabs.map(([k, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(mbTab === k), onclick: () => { mbTab = k; drawMusicBox(); } }, n))),
+          el('div', { class: 'cm-tabbody' }, ...tb),
+          el('div', { class: 'box' },
+            el('input', { type: 'text', value: b.name, maxLength: 30, placeholder: 'שם לתיבה (למשל: תיבת החלומות)', 'aria-label': 'שם התיבה', oninput: e => { b.name = e.target.value; } }),
+            el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: save }, b.id ? '💾 לשמור שינויים' : '✨ לשמור את התיבה'),
+              el('button', { type: 'button', class: 'btn', onclick: () => { mbCur = mbNew(); drawMusicBox(); } }, '➕ תיבה חדשה'), msg)))),
+      el('h4', { class: 'sec-title' }, `🎶 תיבות הנגינה שלי (${mbBoxes.length})`),
+      mbBoxes.length ? el('div', { class: 'cm-cards mb-cards' }, ...mbBoxes.map(card)) : el('p', { class: 'muted' }, 'עוד אין. מעצבים ושומרים את הראשונה! 💝'));
+    mbDrawBtns();
+  }
+
+  // ================= 📰 my newspaper =================
+  let nwIssues = store.get('news', []);
+  let nwCur = null, nwEdit = false, nwDelId = null;
+  const NW_TPL = [['classic', '📰 עיתון'], ['magazine', '💖 מגזין'], ['tabloid', '📣 כותרות ענק']];
+  const nwMe = () => stMe() || '';
+  const nwMonth = () => localToday().slice(0, 7);
+  function nwFacts() {
+    const out = [], today = localToday(), add = (h, b, pic, tag) => out.push({ id: cmNew('a'), h, b, pic: pic || null, tag: tag || '' });
+    const T = fn => { try { fn(); } catch {} };
+    T(() => { for (let i = 0; i <= 30; i++) { const k = addDays(today, i), hs = holidaysOn(k); if (hs.length) { const x = hs[0], nm = holName(x);
+      add(i === 0 ? `היום: ${nm}! חג שמח 🎉` : `עוד ${i} ${i === 1 ? 'יום' : 'ימים'}: ${nm}`, (HOLIDAYS[x.id].desc || '') + ' המערכת מאחלת לכל הקוראים חג שמח!', { k: 'stk', ref: HOLIDAYS[x.id].stk || 'star' }, '🎉 חגים'); break; } } });
+    T(() => { if (!pet) return; const g = petGrowth(), nm = pet.name || 'החיה', tr = TRICKS.filter(t => g.level >= t[1]);
+      add(tr.length ? `${nm} למד/ה טריק חדש: ${tr[tr.length - 1][2]}! ${tr[tr.length - 1][3]}` : `${nm} מתאמן/ת על הטריק הראשון`,
+        `${nm} הגיע/ה לרמה ${g.level} ${g.emoji}. ${tr.length ? `עד עכשיו ${tr.length === 1 ? 'יש טריק אחד' : `יש ${tr.length} טריקים`}: ${tr.map(t => t[2]).join(', ')}.` : ''} ${g.nextAt ? `עוד ${g.xpToNext} נקודות לשלב הבא.` : 'כבר גדול/ה ומוכשר/ת!'}`, { k: 'pet' }, '🐾 חיות'); });
+    T(() => { const ps = typeof allPets === 'function' ? allPets() : []; if (ps.length > 1) add(`בבית גרות ${ps.length} חיות מחמד!`, `${ps.map(p => p.name).filter(Boolean).join(', ')} – משפחה גדולה ושמחה.`, { k: 'pet', i: 1 }, '🐾 חיות'); });
+    T(() => { const ks = Object.keys(bfData.days).filter(k => k.startsWith(nwMonth())).sort(), kinds = Object.keys(bfData.caught).length; if (!ks.length && !kinds) return;
+      add(ks.length ? `${ks.length} פרפרים נאספו החודש!` : `באלבום הפרפרים: ${kinds} סוגים`, `חוקרת הפרפרים שלנו מדווחת: באלבום יש כבר ${kinds} סוגים שונים. ${ks.length ? 'האחרון שנתפס: ' + (bfById(bfData.days[ks[ks.length - 1]]) || {}).n + '.' : ''}`, { k: 'bf', ref: ks.length ? bfData.days[ks[ks.length - 1]] : Object.keys(bfData.caught)[0] }, '🦋 טבע'); });
+    T(() => { const kinds = Object.keys(gdData.got); if (!gdData.picked) return; const last = gdData.vase[gdData.vase.length - 1];
+      add(`פריחה בגינה: ${gdData.picked} פרחים נקטפו!`, `בגינה צמחו כבר ${kinds.length} סוגים של פרחים. ${last && GD_PLANTS[last] ? `הפרח האחרון באגרטל: ${GD_PLANTS[last][0]}.` : ''} אל תשכחו להשקות!`, last ? { k: 'flower', ref: last } : null, '🌷 גינה'); });
+    T(() => { if (!girls.length) return; const g = girls[girls.length - 1];
+      add(`בסטודיו האופנה: ${girls.length} דוגמניות!`, `הדוגמנית החדשה ביותר היא ${g.name || 'בלי שם'}${g.age ? `, בת ${g.age}` : ''}. מבקרי האופנה אומרים: "מהמם!" ✨`, { k: 'girl', ref: g.id }, '👗 אופנה'); });
+    T(() => { const c = cmComics[0]; if (!c) return; add(`קומיקס חדש: "${c.title || 'בלי שם'}"`, `${c.pages.length} ${c.pages.length === 1 ? 'עמוד' : 'עמודים'} של הרפתקאות, בועות דיבור והמון צחוקים. אפשר לקרוא בפינת הקומיקס!`, { k: 'comic', ref: c.id }, '💬 קומיקס'); });
+    T(() => { const mv = mvMovies[0]; if (!mv) return; add(`בקולנוע: "${mv.title || 'הסרט החדש'}"`, `סרט חדש ${mv.director ? `בבימוי ${mv.director}` : ''} עם ${mv.scenes.length} סצנות. הביקורות: 🍿🍿🍿🍿🍿`, { k: 'movie', ref: mv.id }, '🎬 תרבות'); });
+    T(() => { const ph = store.get('photos', []); if (ph.length) add('תמונה מתא הצילום 📸', `צולם ב-${ph[0].date || 'לאחרונה'}. איזה חיוך!`, { k: 'photo', i: 0 }, '📸 תמונות'); });
+    T(() => { const GL = [['catchBest', 'תפוס את הכוכב'], ['simonBest', 'זיכרון צלילים'], ['pearlBest', 'פנינים'], ['bubbleBest', 'יורים בועות'], ['runBest', 'מרוץ בת ים'], ['jumpBest', 'קפיצות'], ['pizzaBest', 'פיצה'], ['iceBest', 'גלידות'], ['wordBest', 'חיפוש מילים'], ['popBest', 'פופ'], ['fashionBest', 'תחרות אופנה']];
+      const recs = GL.filter(([f]) => +games[f] > 0).sort((a, c) => games[c[0]] - games[a[0]]).slice(0, 3);
+      if (recs.length) add(`שיא חדש: ${games[recs[0][0]]} נקודות ב${recs[0][1]}!`, `מדור הספורט מדווח על שיאים: ${recs.map(([f, n]) => `${n}: ${games[f]}`).join(' · ')}. ${games.memoryWins ? `וגם ${games.memoryWins} ניצחונות במשחק הזיכרון!` : ''}`, { k: 'stk', ref: 'trophy' }, '🏆 ספורט'); });
+    T(() => { const list = birthdays.filter(b => b.date && b.name).map(b => ({ b, n: nextBday(b) })).filter(x => x.n && x.n.days <= 45).sort((a, c) => a.n.days - c.n.days); if (!list.length) return; const { b, n } = list[0];
+      add(n.days === 0 ? `היום יום ההולדת של ${b.me ? 'העורכת הראשית' : b.name}! 🎂` : `עוד ${n.days} ימים: יום ההולדת של ${b.me ? 'העורכת הראשית' : b.name}`, `${n.age ? `חוגגים ${n.age}! ` : ''}מזל טוב מכל המערכת, ושיהיה המון כיף 🎈`, { k: 'stk', ref: 'cake' }, '🎂 שמחות'); });
+    T(() => { const read = books.filter(b => b.status === 'done'); if (read.length) add(`${read.length} ספרים נקראו!`, `הספר האחרון: "${read[read.length - 1].title || ''}". המלצת המערכת: להמשיך לקרוא! 📚`, { k: 'stk', ref: 'book' }, '📚 ספרים'); });
+    T(() => { if (mbBoxes.length) add(`נחשפה תיבת נגינה חדשה: "${mbBoxes[0].name || 'תיבת נגינה'}"`, `בפנים רוקדת ${({ ballerina: 'בלרינה', unicorn: 'חד קרן', swan: 'ברבור', mermaid: 'בת ים', pet: 'החיה' })[mbBoxes[0].dancer] || 'דוגמנית'} לצלילי ${mbSongName(mbBoxes[0]).replace(/^\S+\s/, '')}.`, { k: 'mbox', ref: mbBoxes[0].id }, '🎵 מוזיקה'); });
+    T(() => { if (typeof coinsNow === 'function' && coinsNow() > 0) add(`בקופה: ${coinsNow()} מטבעות 🪙`, 'הכלכלנית שלנו ממליצה לחסוך לדבר מיוחד!', { k: 'stk', ref: 'treasure' }, '💰 כלכלה'); });
+    return out;
+  }
+  const nwWeather = () => { try { const d = wx && wx.byDate && wx.byDate[localToday()]; if (!d) return null; const w = WMO[d.code] || ['🌡️', '']; return { ic: w[0], nm: w[1], max: Math.round(d.max), min: Math.round(d.min) }; } catch { return null; } };
+  function nwWords(seed) {
+    const hebOnly = s => String(s || '').replace(/[^א-ת]/g, '');
+    const cand = [pet && pet.name, ...girls.map(g => g.name), ...(mermaids || []).map(m => m.name), 'סוכה', 'לולב', 'פרפר', 'גינה', 'עיתון', 'חבר', 'ציור', 'שמש', 'ספר', 'כוכב'].map(hebOnly).filter(w => w.length >= 2 && w.length <= 7);
+    const r = cmRnd(seed), words = [...new Set(cand)].sort(() => r() - 0.5).slice(0, 7), N = 9;
+    const G = Array.from({ length: N }, () => Array(N).fill('')), placed = [];
+    words.forEach(w => {
+      for (let tries = 0; tries < 60; tries++) {
+        const dir = r() < 0.55 ? [0, -1] : [1, 0], L = w.length;
+        const row = Math.floor(r() * (N - (dir[0] ? L - 1 : 0))), col = dir[1] ? L - 1 + Math.floor(r() * (N - L + 1)) : Math.floor(r() * N);
+        const cells = [...w].map((_, i) => [row + dir[0] * i, col + dir[1] * i]);
+        if (cells.every(([y, x], i) => y >= 0 && x >= 0 && y < N && x < N && (!G[y][x] || G[y][x] === w[i]))) { cells.forEach(([y, x], i) => { G[y][x] = w[i]; }); placed.push({ w, cells: cells.map(c => c.join(',')) }); break; }
+      }
+    });
+    const AB = 'אבגדהוזחטיכלמנסעפצקרשת';
+    G.forEach(row => row.forEach((c, i) => { if (!c) row[i] = AB[Math.floor(r() * AB.length)]; }));
+    return { G, placed };
+  }
+  function nwNew() {
+    const me = nwMe();
+    return { id: null, at: Date.now(), name: me ? `העיתון של ${me}` : 'העיתון שלי', tpl: 'classic', no: nwIssues.length + 1, date: localToday(), seed: Math.floor(Math.random() * 1e6), arts: nwFacts().slice(0, 7), joke: Math.floor(Math.random() * 1000) };
+  }
+  function nwPic(p, big) {
+    if (!p) return null;
+    try {
+      const wrap = (html, cls = '') => el('div', { class: 'nw-pic ' + cls, html });
+      if (p.k === 'pet') { const ps = typeof allPets === 'function' ? allPets() : []; const q = p.i ? ps.find(x => x !== pet) || pet : pet; return q ? wrap(petSVG(q), 'soft') : null; }
+      if (p.k === 'girl') { const g = girls.find(x => x.id === p.ref) || girls[0]; return g ? el('div', { class: 'nw-pic photo' }, el('img', { src: girlImgURL(g, { view: 'head' }), alt: g.name || '' })) : null; }
+      if (p.k === 'comic') { const c = cmComics.find(x => x.id === p.ref) || cmComics[0]; return c ? wrap(cmStageSVG(cmPageCfg(c.pages[0]), false), 'photo') : null; }
+      if (p.k === 'movie') { const mv = mvMovies.find(x => x.id === p.ref) || mvMovies[0]; return mv ? wrap(mvSceneStill(mv.scenes[0]), 'photo') : null; }
+      if (p.k === 'photo') { const ph = store.get('photos', [])[p.i || 0]; return ph ? el('div', { class: 'nw-pic photo' }, el('img', { src: ph.url, alt: '' })) : null; }
+      if (p.k === 'bf') { const d = bfById(p.ref); return d ? wrap(bfSVG(d), 'soft') : null; }
+      if (p.k === 'flower') return GD_PLANTS[p.ref] ? wrap(`<svg viewBox="-70 -130 140 140" xmlns="http://www.w3.org/2000/svg">${GD_PLANTS[p.ref][6]()}</svg>`, 'soft') : null;
+      if (p.k === 'mbox') { const x = mbBoxes.find(y => y.id === p.ref); return x ? wrap(mbSVG(x, 'nwm' + (cmN++)), 'soft') : null; }
+      if (p.k === 'stk') return STICKERS[p.ref] ? wrap(stickerHTML(p.ref), 'soft stk') : null;
+    } catch {}
+    return null;
+  }
+  const NW_PICS = () => [[null, '🚫 בלי'], ...(pet ? [[{ k: 'pet' }, '🐾 החיה']] : []), ...girls.slice(0, 8).map(g => [{ k: 'girl', ref: g.id }, '👧 ' + (g.name || 'בת')]),
+    ...cmComics.slice(0, 4).map(c => [{ k: 'comic', ref: c.id }, '💬 ' + (c.title || 'קומיקס')]), ...mvMovies.slice(0, 3).map(m => [{ k: 'movie', ref: m.id }, '🎬 ' + (m.title || 'סרט')]),
+    ...store.get('photos', []).slice(0, 6).map((_, i) => [{ k: 'photo', i }, `📸 תמונה ${i + 1}`]), ...['star', 'heart', 'rainbow', 'cake', 'trophy', 'sun'].map(s => [{ k: 'stk', ref: s }, '⭐ ' + STICKERS[s][0]])];
+  function openNews() {
+    if (!nwCur) nwCur = nwNew();
+    drawNews();
+    if (!$('#newsDlg').open) $('#newsDlg').showModal();
+  }
+  function nwPaper(n) {
+    const w = nwWeather(), arts = n.arts, lead = arts[0], rest = arts.slice(1);
+    let heb = ''; try { heb = hebDateText(hebOf(n.date)); } catch {}
+    const d = fromIso(n.date), dayName = DAYS[new Date(d.y, d.m, d.d).getDay()];
+    const E = nwEdit;
+    const txt = (a, key, cls, tag = 'div') => E
+      ? el(tag === 'div' ? 'textarea' : 'input', Object.assign({ class: 'nw-in ' + cls, dir: 'rtl', value: a[key] || '', 'aria-label': key === 'h' ? 'כותרת' : 'כתבה', oninput: e => { a[key] = e.target.value; nwSave(); } }, tag === 'div' ? { rows: 3 } : { type: 'text' }))
+      : el(tag === 'div' ? 'p' : 'h3', { class: cls }, a[key] || '');
+    const artEl = (a, i, isLead) => {
+      const pic = nwPic(a.pic, isLead);
+      const tools = E ? el('div', { class: 'nw-tools nw-noprint' },
+        el('select', { 'aria-label': 'תמונה', onchange: e => { a.pic = NW_PICS()[+e.target.value][0]; nwSave(); drawNews(); } }, ...NW_PICS().map(([p, nm], j) => el('option', { value: j, selected: JSON.stringify(p) === JSON.stringify(a.pic) }, nm))),
+        i > 0 ? el('button', { type: 'button', class: 'chip', title: 'להעביר למעלה', onclick: () => { arts.splice(i, 1); arts.splice(i - 1, 0, a); nwSave(); drawNews(); } }, '⬆️') : null,
+        el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק כתבה', onclick: () => { arts.splice(i, 1); nwSave(); drawNews(); } }, '🗑️')) : null;
+      return el('article', { class: 'nw-art' + (isLead ? ' nw-lead' : '') }, a.tag ? el('span', { class: 'nw-tag' }, a.tag) : null, txt(a, 'h', 'nw-h', 'h'), pic, txt(a, 'b', 'nw-b'), tools);
+    };
+    // word search
+    const ws = nwWords(n.seed), found = new Set();
+    const cells = el('div', { class: 'nw-grid', style: `grid-template-columns:repeat(${ws.G.length}, 1fr)` });
+    const list = el('div', { class: 'nw-words' }, ...ws.placed.map(p => el('span', { 'data-w': p.w }, p.w)));
+    ws.G.forEach((row, y) => row.forEach((c, x) => cells.append(el('button', { type: 'button', 'data-c': `${y},${x}`, onclick: e => {
+      e.currentTarget.classList.toggle('on'); tone(900, 0.05, 'triangle');
+      const on = new Set([...cells.querySelectorAll('.on')].map(b => b.dataset.c));
+      ws.placed.forEach(p => { if (!found.has(p.w) && p.cells.every(k => on.has(k))) { found.add(p.w); list.querySelector(`[data-w="${p.w}"]`).classList.add('got'); p.cells.forEach(k => cells.querySelector(`[data-c="${k}"]`).classList.add('got')); SFX.ding(); if (found.size === ws.placed.length) { SFX.yay(); confetti($('#newsDlg .confetti-c')); } } });
+    } }, c))));
+    const comic = cmComics[0];
+    const joke = JOKES[(n.joke || 0) % JOKES.length];
+    return el('div', { class: 'nw-paper tpl-' + n.tpl },
+      el('header', { class: 'nw-mast' },
+        el('div', { class: 'nw-ear' }, w ? el('div', { class: 'nw-wx' }, el('b', {}, w.ic), el('span', {}, `${w.max}° / ${w.min}°`), el('small', {}, w.nm)) : el('div', { class: 'nw-wx' }, el('b', {}, '🌈'), el('small', {}, 'מזג אוויר של כיף'))),
+        E ? el('input', { class: 'nw-in nw-name', type: 'text', value: n.name, maxLength: 40, 'aria-label': 'שם העיתון', oninput: e => { n.name = e.target.value; nwSave(); } }) : el('h2', { class: 'nw-name' }, n.name),
+        el('div', { class: 'nw-ear' }, el('div', { class: 'nw-price' }, el('small', {}, 'מחיר'), el('b', {}, 'חיוך אחד 😊'))),
+        el('div', { class: 'nw-dateline' }, el('span', {}, `גיליון מס' ${n.no}`), el('span', {}, `יום ${dayName}, ${d.d} ב${MONTHS[d.m]} ${d.y}${heb ? ' · ' + heb : ''}`), el('span', {}, 'העיתון הכי שווה בעולם!'))),
+      lead ? artEl(lead, 0, true) : el('p', { class: 'muted' }, 'עוד אין כתבות. לוחצים על "✏️ לערוך" ומוסיפים!'),
+      el('div', { class: 'nw-cols' }, ...rest.map((a, i) => artEl(a, i + 1, false))),
+      E ? el('div', { class: 'chips nw-noprint' }, el('button', { type: 'button', class: 'btn', onclick: () => { arts.push({ id: cmNew('a'), h: 'כותרת חדשה', b: 'מה קרה? כותבים פה...', pic: null, tag: '✏️ מהכתבת' }); nwSave(); drawNews(); } }, '➕ כתבה חדשה')) : null,
+      el('div', { class: 'nw-extra' },
+        comic ? el('section', { class: 'nw-box nw-comic' }, el('h4', {}, `🖍️ פינת הקומיקס: ${comic.title || ''}`), el('div', { class: 'nw-pic photo', html: cmStageSVG(cmPageCfg(comic.pages[0]), false) })) : null,
+        el('section', { class: 'nw-box nw-puzzle' }, el('h4', {}, '🧩 פינת החידות: מצאי את המילים'), el('p', { class: 'muted nw-noprint' }, 'לוחצים על האותיות של כל מילה (מימין לשמאל או מלמעלה למטה)'), cells, list),
+        el('section', { class: 'nw-box nw-joke' }, el('h4', {}, '😂 הבדיחה של הגיליון'), el('p', {}, joke), el('h4', {}, '💡 ידעת ש...?'), el('p', {}, FACTS[(n.joke || 0) % FACTS.length]))),
+      el('footer', { class: 'nw-foot' }, `נכתב, צולם ונערך באהבה על ידי ${nwMe() || 'המערכת'} 💖 · כל הזכויות שמורות`));
+  }
+  function nwSave() { if (!nwCur || !nwCur.id) return; cmUpsert(nwIssues, nwCur); if (!store.set('news', nwIssues)) toast(stickerHTML('book'), 'אין מספיק מקום לשמור את העיתון 😕'); }
+  function nwPrint() {
+    const old = $('#nwPrint'); if (old) old.remove();
+    const was = nwEdit; nwEdit = false;
+    const out = el('div', { id: 'nwPrint' }, nwPaper(nwCur)); nwEdit = was;
+    document.body.append(out); document.body.classList.add('nw-printing');
+    const done = () => { document.body.classList.remove('nw-printing'); out.remove(); window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done);
+    try { window.print(); } catch {}
+    setTimeout(() => { if (!matchMedia('print').matches) done(); }, 1500);
+  }
+  function drawNews() {
+    const n = nwCur, body = $('#newsBody');
+    const archive = nwIssues.filter(x => x.id !== n.id);
+    body.replaceChildren(
+      el('div', { class: 'cm-bar nw-bar' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { nwCur = nwNew(); nwEdit = false; SFX.yay(); drawNews(); } }, '🗞️ גיליון חדש מהחדשות שלי'),
+        el('button', { type: 'button', class: 'btn' + (nwEdit ? ' main' : ''), onclick: () => { nwEdit = !nwEdit; SFX.pop(); drawNews(); } }, nwEdit ? '✔️ סיימתי לערוך' : '✏️ לערוך'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { const fresh = !n.id; n.id = n.id || cmNew('nw'); nwSave(); SFX.yay(); toast(stickerHTML('book'), 'הגיליון נשמר בארכיון! 📰'); if (fresh && typeof addCoins === 'function') addCoins(5, 'עיתון חדש'); afterChange(); drawNews(); } }, n.id ? '💾 נשמר' : '💾 לשמור'),
+        el('button', { type: 'button', class: 'btn', onclick: nwPrint }, '🖨️ להדפיס'),
+        el('span', { class: 'nw-tpls' }, ...NW_TPL.map(([k, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(n.tpl === k), onclick: () => { n.tpl = k; nwSave(); SFX.pop(); drawNews(); } }, nm)))),
+      nwPaper(n),
+      archive.length ? el('h4', { class: 'sec-title' }, `🗂️ ארכיון העיתונים (${archive.length})`) : null,
+      archive.length ? el('div', { class: 'chips' }, ...archive.map(x => nwDelId === x.id
+        ? el('span', { class: 'chips' }, el('span', {}, `למחוק את גיליון ${x.no}?`), el('button', { type: 'button', class: 'chip', onclick: () => { nwIssues = nwIssues.filter(y => y !== x); store.set('news', nwIssues); nwDelId = null; drawNews(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { nwDelId = null; drawNews(); } }, 'לא'))
+        : el('span', { class: 'nw-arch' }, el('button', { type: 'button', class: 'chip', onclick: () => { nwCur = x; nwEdit = false; drawNews(); $('#newsDlg .sheet').scrollTop = 0; } }, `📰 גיליון ${x.no} · ${fromIso(x.date).d}/${fromIso(x.date).m + 1}`), el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { nwDelId = x.id; drawNews(); } }, '🗑️')))) : null);
+  }
+  $('#movieDlg').addEventListener('close', () => { mvStopPlayer(); if (mvView === 'play') mvView = mvBack === 'edit' ? 'edit' : 'list'; mvStore(true); });
+  $('#musicBoxDlg').addEventListener('close', () => mbStop());
 
   // ================= sticker album =================
   function openAlbum() {
