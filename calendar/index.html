@@ -3070,6 +3070,173 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 .crz-price { position: absolute; top: 2px; left: 4px; background: #fff6c4; border: 1.5px solid #e0a800; border-radius: 99px; padding: 0 5px; font-size: .78em; }
 .crz-buy { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 14px; background: #fffbe6; border: 2px dashed #ffd84d; }
 .crz-wgrid .ic { width: 66px; height: 62px; }
+/* ---------- events: sukkah, birthday party, café ---------- */
+.evt-folks { display: flex; flex-wrap: wrap; gap: 6px; max-height: 210px; overflow-y: auto; padding: 2px; }
+.evt-folk { position: relative; border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 4px 6px; display: grid; justify-items: center; gap: 2px; font-size: .82em; min-width: 70px; }
+.evt-folk img { width: 52px; height: 52px; object-fit: contain; }
+.evt-folk[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); box-shadow: 0 0 0 2px var(--accent) inset; }
+.evt-folk .ok { position: absolute; top: 2px; left: 4px; color: #3f8f3a; }
+.evt-sw { width: 32px; height: 32px; border-radius: 50%; border: 2.5px solid var(--line); padding: 0; }
+.evt-sw[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 3px var(--accent); }
+.flash-host.flash::after, .suk-scene.flash::after, .pty-stage.flash::after { content: ""; position: absolute; inset: 0; background: #fff; animation: seaflash .5s ease-out forwards; pointer-events: none; }
+/* sukkah */
+.suk-scene { position: relative; border-radius: 18px; overflow: hidden; border: 2.5px solid var(--ink); background: #6fc3ff; }
+.suk-scene > svg { width: 100%; height: auto; display: block; touch-action: none; cursor: crosshair; user-select: none; }
+.suk-scene .suk-it { cursor: grab; }
+.suk-scene .suk-it.sel { filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 5px #ff6b9a); }
+.suk-scene .suk-sway, .suk-scene .suk-float, .suk-scene .suk-tw, .suk-scene .suk-fl { transform-box: fill-box; }
+.suk-scene .suk-sway { transform-origin: 50% 0; animation: sukSway 3s ease-in-out infinite alternate; }
+.suk-scene .suk-float { transform-origin: 50% 100%; animation: seafloat 4s ease-in-out infinite; }
+.suk-scene.night .suk-tw { animation: blink 1.4s ease-in-out infinite alternate; }
+.suk-scene .suk-fl { transform-origin: 50% 100%; animation: sukFl .5s ease-in-out infinite alternate; }
+@keyframes sukSway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+@keyframes sukFl { from { transform: scaleY(.85) rotate(-3deg); } to { transform: scaleY(1.1) rotate(3deg); } }
+.suk-lulav { position: absolute; left: 50%; top: 18%; width: 22%; margin-left: -11%; transition: transform .19s ease-in-out; pointer-events: none; filter: drop-shadow(0 4px 6px rgb(0 0 0 / .3)); }
+.suk-lulav svg { width: 100%; height: auto; display: block; }
+.suk-cap { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); background: rgb(255 255 255 / .93); color: #2d5a1f; border-radius: 999px; padding: 4px 16px; font-size: 1.2em; white-space: nowrap; pointer-events: none; }
+.suk-pal .ic { width: 58px; height: 44px; }
+.suk-top { justify-content: center; }
+@media (prefers-reduced-motion: reduce) { .suk-scene .suk-sway, .suk-scene .suk-float, .suk-scene.night .suk-tw, .suk-scene .suk-fl { animation: none; } .suk-lulav { transition: none; } }
+/* birthday party */
+.pty-steps { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+.pty-steps button { border: 2px solid var(--line); background: var(--card); border-radius: 999px; padding: 3px 10px; font-size: .88em; }
+.pty-steps button.now { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.pty-steps button.done { border-color: var(--accent); }
+.pty-steps button:disabled { opacity: .45; }
+.pty-say { margin: 0; font-size: 1.3em; text-align: center; }
+.pty-h { margin: 0; font-size: 1.15em; font-weight: 400; color: var(--accent); }
+.pty-nav { justify-content: center; }
+.pty-whos { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; }
+.pty-who { border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px; display: grid; justify-items: center; gap: 2px; }
+.pty-who img { width: 72px; height: 72px; object-fit: contain; }
+.pty-who small { color: var(--soft); font-size: .78em; }
+.pty-who[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); box-shadow: 0 0 0 2px var(--accent) inset; }
+.pty-set select, .pty-set input { font: inherit; border: 2px solid var(--line); border-radius: 10px; padding: 2px 6px; background: var(--card); color: var(--ink); }
+.pty-two { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+.pty-card { position: relative; }
+.pty-card > svg, .pty-mini > svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 4px 8px rgb(0 0 0 / .15)); }
+.pty-stks { display: flex; flex-wrap: wrap; gap: 4px; }
+.pty-stks button { width: 42px; height: 42px; padding: 3px; border: 2px solid var(--line); background: var(--card); border-radius: 12px; }
+.pty-stks button svg { width: 100%; height: 100%; }
+.pty-stks button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); box-shadow: 0 0 0 2px var(--accent) inset; }
+.pty-lbl { display: grid; gap: 4px; }
+.pty-lbl textarea { font: inherit; border: 2px solid var(--line); border-radius: 12px; padding: 6px 8px; background: var(--card); color: var(--ink); resize: vertical; }
+.pty-fly { position: absolute; inset: 0; pointer-events: none; }
+.pty-fly span { position: absolute; left: 50%; top: 50%; font-size: 2em; animation: ptyFly 1.2s ease-in forwards; }
+.pty-fly span:nth-child(2n) { --dx: -260px; } .pty-fly span:nth-child(2n+1) { --dx: 260px; }
+@keyframes ptyFly { from { transform: translate(-50%, -50%) scale(.5); opacity: 1; } to { transform: translate(var(--dx, 200px), -300px) scale(1.2) rotate(20deg); opacity: 0; } }
+.pty-stage { position: relative; border-radius: 18px; overflow: hidden; border: 2.5px solid var(--ink); background: #ffe9f2; }
+.pty-stage > svg { width: 100%; height: auto; display: block; }
+.pty-stage .pty-bal, .pty-stage .pty-bob, .pty-stage .pty-fl { transform-box: fill-box; }
+.pty-stage .pty-bal { transform-origin: 50% 100%; animation: seafloat 3.4s ease-in-out infinite; }
+.pty-stage .pty-fl { transform-origin: 50% 100%; animation: sukFl .45s ease-in-out infinite alternate; }
+.pty-stage .pty-cd { cursor: pointer; }
+.pty-stage .pty-smoke { animation: ptySmoke 1.4s ease-out forwards; }
+@keyframes ptySmoke { from { opacity: .9; transform: translateY(0); } to { opacity: 0; transform: translateY(-14px); } }
+.pty-stage.sing .pty-bob { transform-origin: 50% 100%; animation: ptyBob .6s ease-in-out infinite alternate; }
+@keyframes ptyBob { from { transform: translateY(0) rotate(-1.5deg); } to { transform: translateY(-6px) rotate(1.5deg); } }
+.pty-lyrics { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: center; font-size: 1.25em; color: var(--soft); }
+.pty-lyrics span { transition: transform .2s, color .2s; }
+.pty-lyrics span.on { color: var(--accent); transform: scale(1.15); }
+.pty-cap { margin: 0; text-align: center; font-size: 1.2em; }
+.pty-cakes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.pty-cakeb { border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px; display: grid; justify-items: center; gap: 2px; }
+.pty-cakeb .art { width: 120px; height: 120px; } .pty-cakeb .art svg { width: 100%; height: 100%; overflow: visible; }
+.pty-cakeb[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); box-shadow: 0 0 0 2px var(--accent) inset; }
+.pty-gbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; }
+.pty-gb { position: relative; border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 8px 10px; display: grid; gap: 2px; text-align: start; }
+.pty-gb b { font-size: 1.15em; font-weight: 400; } .pty-gb small { color: var(--soft); }
+.pty-gb.done { border-color: #3f8f3a; } .pty-gb .ok { position: absolute; top: 6px; left: 8px; }
+.pty-game { display: grid; gap: 8px; }
+.pty-game:empty { display: none; }
+.pty-ring, .pty-mc { position: relative; width: min(100%, 460px); aspect-ratio: 1; margin: 0 auto; border-radius: 50%; background: radial-gradient(circle, #fff6fb 0 55%, #ffe0ec 56% 100%); border: 2.5px dashed var(--accent); }
+.pty-mc { width: min(100%, 680px); aspect-ratio: 16 / 10; border-radius: 24px; background: #fff6fb; }
+.pty-mc .pty-pl { width: 60px; } .pty-mc .pty-pl img { width: 50px; height: 50px; }
+.pty-pl { position: absolute; width: 72px; transform: translate(-50%, -50%); display: grid; justify-items: center; font-size: .8em; transition: left .35s ease, top .35s ease, opacity .5s; }
+.pty-mc.walk .pty-pl { transition: none; }
+.pty-pl img { width: 60px; height: 60px; object-fit: contain; background: #fff; border-radius: 50%; border: 2px solid var(--line); }
+.pty-pl span { background: rgb(255 255 255 / .9); color: #3a2b3c; border-radius: 999px; padding: 0 6px; white-space: nowrap; }
+.pty-pl.sit img { border-color: #3f8f3a; box-shadow: 0 0 0 3px #b8f0b8; }
+.pty-pl.out { opacity: .25; left: 92% !important; top: 90% !important; }
+.pty-chair { position: absolute; top: 52%; width: 46px; transform: translate(-50%, -35%); }
+.pty-parcel { position: absolute; width: 58px; height: 58px; transform: translate(-50%, -50%); transition: left .22s ease, top .22s ease; font-size: 2.6em; display: grid; place-items: center; z-index: 2; }
+.pty-parcel svg { width: 100%; height: 100%; }
+.pty-parcel.rip { animation: ptyRip .5s ease; }
+@keyframes ptyRip { 30% { transform: translate(-50%, -50%) scale(1.4) rotate(-10deg); } 60% { transform: translate(-50%, -50%) scale(.9) rotate(8deg); } }
+.pty-tail { width: min(100%, 520px); margin: 0 auto; } .pty-tail svg { width: 100%; height: auto; display: block; }
+.pty-gifts { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+.pty-gift { border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px; display: grid; justify-items: center; gap: 2px; min-height: 150px; }
+.pty-gift .art { width: 84px; height: 84px; } .pty-gift .art svg { width: 100%; height: 100%; overflow: visible; }
+.pty-gift.shake .art { animation: ptyShake .6s ease; }
+@keyframes ptyShake { 20%, 60% { transform: rotate(-12deg); } 40%, 80% { transform: rotate(12deg); } }
+.pty-gift .pty-lid { transition: transform .5s; transform-box: fill-box; transform-origin: 0 100%; }
+.pty-gift .pty-lid.off { transform: translate(-4px, -10px) rotate(-18deg); }
+.pty-gift:disabled { opacity: 1; cursor: default; }
+.pty-gift small { color: var(--soft); }
+.pty-got { display: grid; justify-items: center; font-size: .95em; animation: ptyPop .5s ease; }
+.pty-got b { font-size: 2.4em; font-weight: 400; line-height: 1; }
+.pty-got.rare { color: #b07a10; }
+@keyframes ptyPop { from { transform: scale(.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.pty-alb { display: grid; gap: 10px; }
+.pty-ent { display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center; border: 1.5px solid var(--line); border-radius: 16px; padding: 8px; }
+@media (max-width: 640px) { .pty-two, .pty-ent { grid-template-columns: 1fr; } .pty-pl { width: 56px; } .pty-pl img { width: 44px; height: 44px; } }
+@media (prefers-reduced-motion: reduce) { .pty-stage .pty-bal, .pty-stage .pty-fl, .pty-stage.sing .pty-bob, .pty-fly span, .pty-parcel.rip, .pty-gift.shake .art, .pty-got { animation: none; } }
+/* café */
+.caf-head { justify-content: space-between; align-items: center; }
+.caf-stage { position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; border: 2.5px solid var(--ink); background: #fff3e0; }
+.caf-stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.caf-stage.mini { max-width: 520px; margin: 0 auto; width: 100%; }
+.caf-barista { position: absolute; right: 13%; bottom: 25%; height: 58%; }
+.caf-waiter { position: absolute; left: 1%; bottom: 3%; height: 60%; }
+.caf-tray { position: absolute; left: 1.5%; bottom: 38%; font-size: 1.6em; }
+.caf-counter { position: absolute; right: 0; bottom: 0; width: 52%; height: 36%; }
+.caf-counter svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.caf-cust { position: absolute; left: -30%; bottom: 3%; height: 62%; display: grid; justify-items: center; transition: left 1.2s ease-in-out; }
+.caf-cust.p { height: 36%; } .caf-cust.h { height: 44%; } .caf-cust.m { height: 56%; }
+.caf-cust img { height: 100%; width: auto; }
+.caf-cust.in { left: 24%; animation: cafWalk .4s ease-in-out 3 alternate; }
+.caf-cust.out { left: -30%; }
+.caf-cust.happy img { animation: ptyBob .35s ease-in-out infinite alternate; }
+.caf-cust .bn { position: absolute; bottom: -2px; background: rgb(255 255 255 / .92); color: #3a2b3c; border-radius: 999px; padding: 0 8px; font-size: .8em; white-space: nowrap; }
+@keyframes cafWalk { to { transform: translateY(-6px); } }
+.caf-bubble { position: absolute; left: 40%; top: 5%; width: 25%; min-width: 150px; background: #fff; color: #3a2b3c; border: 2.5px solid #3a2b3c; border-radius: 18px; padding: 6px 8px; display: grid; justify-items: center; gap: 2px; animation: ptyPop .35s ease; z-index: 2; }
+.caf-bubble::after { content: ""; position: absolute; left: -12px; bottom: 18px; border: 10px solid transparent; border-right-color: #3a2b3c; }
+.caf-bubble small { text-align: center; font-size: .8em; line-height: 1.2; }
+.caf-bubble.said b { font-weight: 400; text-align: center; font-size: .95em; }
+.caf-want { display: flex; align-items: flex-end; gap: 4px; }
+.caf-want .art { width: 70px; height: 86px; } .caf-want .art.sn { width: 40px; height: 40px; }
+.caf-want .art svg { width: 100%; height: 100%; overflow: visible; }
+.caf-hearts span { position: absolute; bottom: 45%; font-size: 1.5em; animation: bkrHeart 1.4s ease-out forwards; opacity: 0; }
+@keyframes cafHeart { from { transform: translateY(0) scale(.6); opacity: 1; } to { transform: translateY(-120px) scale(1.2); opacity: 0; } }
+.caf-hearts span { animation-name: cafHeart; }
+.caf-prog { position: absolute; top: 8px; right: 8px; background: rgb(255 255 255 / .92); color: #3a2b3c; border-radius: 999px; padding: 2px 12px; font-size: .9em; }
+.caf-stage .caf-steam, .caf-cup .caf-steam, .caf-want .caf-steam { animation: cafSteam 2s ease-in-out infinite; }
+@keyframes cafSteam { 0% { opacity: 0; transform: translateY(6px); } 50% { opacity: .8; } 100% { opacity: 0; transform: translateY(-8px); } }
+.caf-stage .caf-note { animation: seafloat 2s ease-in-out infinite; }
+.caf-stage .caf-tw { animation: blink 1.6s ease-in-out infinite alternate; }
+.caf-wait { text-align: center; color: var(--soft); margin: 0; min-height: 1.4em; }
+.caf-prep { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 12px; align-items: start; }
+.caf-left { display: grid; justify-items: center; gap: 6px; position: relative; }
+.caf-cup { width: 150px; height: 180px; background: radial-gradient(circle at 50% 70%, var(--paper), transparent 70%); border-radius: 16px; }
+.caf-cup svg { width: 100%; height: 100%; overflow: visible; }
+.caf-snkc { position: absolute; top: 118px; left: 0; width: 48px; height: 48px; } .caf-snkc svg { width: 100%; height: 100%; }
+.caf-serve { font-size: 1.15em; }
+.caf-rows { display: grid; gap: 6px; }
+.caf-row { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; }
+.caf-row .lbl { min-width: 6.5em; }
+.caf-row .chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; }
+.dot { display: inline-block; width: 13px; height: 13px; border-radius: 50%; border: 1.5px solid #3a2b3c; }
+.caf-snk .art { width: 26px; height: 26px; display: inline-block; } .caf-snk .art svg { width: 100%; height: 100%; }
+.caf-ups { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+.caf-up { border: 2px solid var(--line); border-radius: 14px; padding: 8px; display: grid; gap: 6px; justify-items: center; text-align: center; }
+.caf-up b { font-weight: 400; } .caf-up.own { border-color: #3f8f3a; background: var(--paper); }
+.caf-end { text-align: center; display: grid; gap: 4px; border: 2px dashed var(--accent); border-radius: 18px; padding: 16px; }
+.caf-end h4 { margin: 0; font-size: 1.6em; font-weight: 400; color: var(--accent); } .caf-end p { margin: 0; }
+.caf-stars { font-size: 2em; }
+.evt-folk .none { font-size: 2em; line-height: 52px; }
+@media (max-width: 640px) { .caf-prep { grid-template-columns: 1fr; } .caf-cup { width: 120px; height: 140px; } .caf-bubble { left: 44%; min-width: 0; width: 50%; font-size: .85em; } .caf-want .art { width: 48px; height: 60px; } .caf-row .lbl { min-width: 0; width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .caf-cust { transition: none; } .caf-cust.in, .caf-cust.happy img, .caf-hearts span, .caf-stage .caf-note, .caf-stage .caf-tw, .caf-steam { animation: none !important; } }
+.caf-given { position: absolute; left: 36%; bottom: 8%; width: 9%; aspect-ratio: 120 / 150; animation: ptyPop .4s ease; } .caf-given svg { width: 100%; height: 100%; overflow: visible; }
 </style>
 </head>
 <body class="bg-dots">
@@ -4153,6 +4320,39 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 </dialog>
 
 
+<!-- Sukkah -->
+<dialog id="sukDlg" aria-labelledby="sukTitle" style="width:min(900px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="sukTitle">🌿 הסוכה שלי</h3><div class="sub">בוחרים קישוט ולוחצים בסוכה כדי לתלות אותו. מזמינים אורחים לשולחן!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="sukBody"></div>
+  </div>
+</dialog>
+<!-- Birthday party planner -->
+<dialog id="ptyDlg" aria-labelledby="ptyTitle" style="width:min(920px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="ptyTitle">🎉 מסיבת יום הולדת</h3><div class="sub">מתכננים מסיבה: הזמנות, קישוטים, עוגה, משחקים, מתנות ונרות!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="ptyBody"></div>
+  </div>
+</dialog>
+<!-- Café -->
+<dialog id="cafDlg" aria-labelledby="cafTitle" style="width:min(960px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="cafTitle">☕ בית הקפה שלי</h3><div class="sub">הבנות שלך עובדות בבית קפה! מכינים בדיוק מה שהלקוחות מזמינים ומקבלים טיפים 🪙</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="cafBody"></div>
+  </div>
+</dialog>
+
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
   <div class="sheet">
@@ -5184,6 +5384,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     if (wishes.some(w => w.kind === 'box' && w.open <= t && !w.opened)) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openWishes() }, el('span', { class: 'ic', html: giftSVG(false) }), 'משאלה מלפני שנה מחכה לך! 🎁'));
     { const h = huntNow(); if (!h || !h.done) pills.push(el('button', { type: 'button', class: 'pill', onclick: openHunt }, el('span', { class: 'ic', html: stickerHTML('treasure') }), h ? `ציד אוצרות: רמז ${h.step + 1}/5` : 'ציד אוצרות חדש! 🗺️')); }
     try { [gardenPill(), butterflyPill()].forEach(p => p && pills.push(p)); } catch {}
+    try { [partyPill(), sukkahPill()].forEach(p => p && pills.unshift(p)); } catch {}
     try { const ap = aquariumPill(); if (ap) pills.push(ap); } catch {}
     if (!secret.found[t.slice(0, 7)]) pills.push(el('button', { type: 'button', class: 'pill', onclick: () => openDay(t) }, el('span', { class: 'ic', html: stickerHTML('sparkles') }), `מדבקה סודית מסתתרת באחד מימי ${MONTHS[m]} 🔍`));
     if (letters.some(l => l.open <= t && !l.read)) pills.unshift(el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openLetters() }, el('span', { class: 'ic', html: envSVG(false) }), 'יש לך מכתב מהעבר! 💌'));
@@ -6949,8 +7150,8 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.09.25-bakery';
-  const WHATS_NEW = ['🐾 מעצבים חיות: צבע, עיניים, בטן, מוצץ ועוד! ואפשר כמה חיות', '🧁 מאפייה: אופים ומאכילים את החיות ואת הבנות', '👜 חנות בגדים ומטבעות 🪙', '💇‍♀️ מספרה, 🧖‍♀️ ספא, 💍 תכשיטים, 👑 נשף', '🏥 וטרינרית ו-🛁 אמבטיה לחיה', '🌌 חלל, 🍭 ארץ הממתקים, ❄️ ארמון קרח', '🎁 לוח הפתעות, 🏅 אתגר יומי, 📸 אלבום השנה', '🎮 משחקים חדשים ו-🧰 תפריט מסודר בחדרים'];
+  const APP_VERSION = '2026.09.26-sukkah';
+  const WHATS_NEW = ['🌿 הסוכה שלי: מקשטים סוכה ומזמינים את הבנות והחיות! חג שמח!', '🦄 אורווה, 🐉 דרקונים, 🧚‍♀️ פיות, 🥚 ביצי הפתעה ו-👕 בגדים לחיות', '🎉 מסיבת יום הולדת, ☕ בית קפה, 💬 צ\'אט הבנות, 💃 סטודיו ריקוד', '🎬 יוצרים סרט, 🎵 תיבת נגינה, 📰 העיתון שלי', '🎢 פארק שעשועים, 🐠 אקווריום', '⛳ מיני גולף, 🧩 חידות היגיון, 🪄 שרביט קסמים'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -7079,9 +7280,9 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     ['fashion', '👗 אופנה ויופי', ['צ\'אט', 'ריקוד', 'אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
     ['pets', '🐾 החיות', ['דרקונים', 'פיות', 'חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
     ['games', '🎮 משחקים', ['משחקים']],
-    ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום']],
+    ['worlds', '🌱 עולמות', ['בית הקפה', 'מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום']],
     ['create', '✏️ ליצור', ['סרט', 'תיבת נגינה', 'עיתון', 'מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
-    ['magic', '✨ הפתעות וקסם', ['הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי', 'שרביט']],
+    ['magic', '✨ הפתעות וקסם', ['סוכה', 'מסיבת', 'הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי', 'שרביט']],
     ['board', '📅 הלוח שלי', ['ימי הולדת', 'חגים', 'מערכת', 'בוקר', 'הרגלים', 'מדליות', 'היומן שלי', 'ספירות', 'הספרים', 'המנעול', 'גיבוי', 'להדפסה']],
   ];
   const roomOf = name => (MORE_ROOMS.slice(1).find(([, , keys]) => keys.some(k => name.includes(k))) || ['other'])[0];
@@ -8489,7 +8690,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const { t, x, y } = it, g = inner => `<g data-i="${i}" class="cake-it">${inner}</g>`;
     if (t === 'cherry') return g(`<path d="M${x} ${y - 5} q3 -11 10 -13" fill="none" stroke="#4f8a3c" stroke-width="2.6" stroke-linecap="round"/><circle cx="${x}" cy="${y}" r="8" fill="#ff2e4d" ${S2}/><circle cx="${x - 2.5}" cy="${y - 2.5}" r="2.2" fill="#fff" opacity=".85"/>`);
     if (t === 'candle') return g(`<rect x="${x - 4.5}" y="${y - 34}" width="9" height="34" rx="2" fill="#fff" ${S2}/><path d="M${x - 4} ${y - 26} l8 -5 M${x - 4} ${y - 16} l8 -5 M${x - 4} ${y - 6} l8 -5" stroke="#ff7a9a" stroke-width="2.4"/><path d="M${x} ${y - 34} v-4" stroke="${O}" stroke-width="1.6"/>`
-      + (lit ? `<path class="cake-flame" d="M${x} ${y - 52} C${x + 7} ${y - 43} ${x + 5} ${y - 37} ${x} ${y - 37} C${x - 5} ${y - 37} ${x - 7} ${y - 43} ${x} ${y - 52} Z" fill="#ffb020" ${S2} stroke-width="1.4"/><path d="M${x} ${y - 46} C${x + 3} ${y - 42} ${x + 2} ${y - 39} ${x} ${y - 39} C${x - 2} ${y - 39} ${x - 3} ${y - 42} ${x} ${y - 46} Z" fill="#fff3a0"/>` : ''));
+      + (lit ? `<path class="cake-flame" d="M${x} ${y - 52} C${x + 7} ${y - 43} ${x + 5} ${y - 37} ${x} ${y - 37} C${x - 5} ${y - 37} ${x - 7} ${y - 43} ${x} ${y - 52} Z" fill="#ffb020" stroke="${O}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M${x} ${y - 46} C${x + 3} ${y - 42} ${x + 2} ${y - 39} ${x} ${y - 39} C${x - 2} ${y - 39} ${x - 3} ${y - 42} ${x} ${y - 46} Z" fill="#fff3a0"/>` : ''));
     if (t === 'sprinkle') {
       const cols = ['#ff5a6e', '#7ec8ff', '#ffd84d', '#6fcf7f', '#b58cff', '#ff9ad5'];
       return g(`<circle cx="${x}" cy="${y}" r="14" fill="transparent"/>` + [[-9, -4, 20], [0, -9, -40], [8, -3, 70], [-4, 5, -10], [6, 7, 40], [-11, 6, 90], [11, -10, 0]].map(([dx, dy, a], j) =>
@@ -21727,6 +21928,1053 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   crzReady = true;
   $('#crzStableDlg').addEventListener('close', () => { if (crzRide) { crzRide.stop(); crzRide = null; } });
   $('#crzFairyDlg').addEventListener('close', () => clearInterval(crzGardenTimer));
+  // ================= 🎉 events: 🌿 sukkah, 🎂 birthday party planner, ☕ café =================
+  let evtN = 0;
+  const evtTry = (f, d) => { try { return f(); } catch { return d; } };
+  const evtPick = a => a[Math.floor(Math.random() * a.length)];
+  const evtEsc = s => String(s == null ? '' : s).replace(/[<&>"]/g, ch => ({ '<': '&lt;', '&': '&amp;', '>': '&gt;', '"': '&quot;' }[ch]));
+  const evtCoins = (n, why) => evtTry(() => { if (typeof addCoins === 'function') addCoins(n, why); });
+  const evtS = w => `stroke="${O}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
+  const evtFont = `font-family="'Gveret Levin', Rubik, sans-serif"`;
+  const evtDark = (c, t = 0.45) => evtTry(() => mix(c, '#1b2150', t), c);
+  const evtPets = () => { const l = evtTry(() => typeof allPets === 'function' ? allPets() : [], []); return l.length ? l : pet ? [pet] : []; };
+  // everyone she can invite: girls from the fashion studio, her pets, her mermaids
+  function evtFolks() {
+    return [...girls.map(g => ({ key: 'g:' + g.id, type: 'g', name: g.name || 'בובה', o: g })),
+      ...evtPets().map(p => ({ key: 'p:' + (p.id || p.kind), type: 'p', name: p.name || 'החיה', o: p })),
+      ...mermaids.map(m => ({ key: 'm:' + m.id, type: 'm', name: m.name || 'בת ים', o: m }))];
+  }
+  const evtFolk = key => evtFolks().find(f => f.key === key);
+  const evtImgC = new Map();
+  // a guest as a light image url (cached)
+  const evtImg = (f, opt = {}) => {
+    if (f.type === 'g') return girlImgURL(f.o, Object.assign({ bg: false }, opt));
+    const k = f.type + JSON.stringify(f.o);
+    let v = evtImgC.get(k);
+    if (!v) { v = svgData(f.type === 'm' ? mermaidSVG(f.o, 'evm' + (evtN++)) : petSVG(f.o)); if (evtImgC.size > 60) evtImgC.clear(); evtImgC.set(k, v); }
+    return v;
+  };
+  const evtHead = f => f.type === 'g' ? girlImgURL(f.o, { view: 'head', bg: false }) : evtImg(f);
+  const evtImage = (url, x, y, w, h, extra = '') => `<image href="${url}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}"${extra}/>`;
+  // a guest sitting behind a table whose top edge is at y=ty (girls on chairs, pets on a cushion, mermaids in a little tub)
+  function evtSeat(f, cx, ty, k = 1, opt = {}) {
+    const wood = opt.chair || '#c98a4b', nc = opt.night ? evtDark : (c => c);
+    let s = '', hatY = 0;
+    if (f.type === 'g') {
+      s += `<rect x="${cx - 30 * k}" y="${ty - 92 * k}" width="${60 * k}" height="${92 * k}" rx="${12 * k}" fill="${nc(wood)}" stroke="${O}" stroke-width="2.5"/><rect x="${cx - 21 * k}" y="${ty - 82 * k}" width="${42 * k}" height="${40 * k}" rx="${8 * k}" fill="${nc(opt.cushion || '#ff9ad5')}" stroke="${O}" stroke-width="1.8"/>`;
+      s += evtImage(evtImg(f, opt.pose ? { pose: opt.pose } : {}), cx - 60 * k, ty - 112 * k, 120 * k, 240 * k);
+      hatY = ty - 106 * k;
+    } else if (f.type === 'm') {
+      s += `<ellipse cx="${cx}" cy="${ty - 20 * k}" rx="${40 * k}" ry="${12 * k}" fill="${nc('#8fd3ff')}" stroke="${O}" stroke-width="2.5"/>`;
+      s += evtImage(evtImg(f), cx - 44 * k, ty - 88 * k, 88 * k, 132 * k);
+      s += `<path d="M${cx - 40 * k} ${ty - 20 * k} Q${cx} ${ty - 6 * k} ${cx + 40 * k} ${ty - 20 * k} L${cx + 36 * k} ${ty + 4} H${cx - 36 * k} Z" fill="${nc('#7ec8ff')}" stroke="${O}" stroke-width="2.5" stroke-linejoin="round"/>` +
+        [[-24, -14, 4], [-10, -10, 3], [18, -13, 4.5], [28, -18, 2.5]].map(([dx, dy, r]) => `<circle cx="${cx + dx * k}" cy="${ty + dy * k}" r="${r * k}" fill="#fff" opacity=".85"/>`).join('');
+      hatY = ty - 84 * k;
+    } else {
+      s += `<rect x="${cx - 26 * k}" y="${ty - 70 * k}" width="${52 * k}" height="${70 * k}" rx="${12 * k}" fill="${nc(wood)}" stroke="${O}" stroke-width="2.5"/>`;
+      s += evtImage(evtImg(f), cx - 40 * k, ty - 78 * k, 80 * k, 91 * k);
+      hatY = ty - 72 * k;
+    }
+    if (opt.hat) s += evtHat(cx + (f.type === 'p' ? 0 : 4 * k), hatY, k, opt.hat);
+    if (opt.label) s += `<text x="${cx}" y="${ty + 30 * k}" text-anchor="middle" font-size="${13 * k}" ${evtFont} fill="#fff" stroke="${O}" stroke-width="3" paint-order="stroke">${evtEsc(opt.label)}</text>`;
+    return s;
+  }
+  // a party hat (or a crown for the birthday one)
+  const evtHat = (x, y, k, kind) => kind === 'crown'
+    ? `<path d="M${x - 16 * k} ${y} L${x - 18 * k} ${y - 20 * k} L${x - 8 * k} ${y - 10 * k} L${x} ${y - 24 * k} L${x + 8 * k} ${y - 10 * k} L${x + 18 * k} ${y - 20 * k} L${x + 16 * k} ${y} Z" fill="#ffd84d" stroke="${O}" stroke-width="2" stroke-linejoin="round"/><circle cx="${x}" cy="${y - 6 * k}" r="${3 * k}" fill="#ff5a8a"/>`
+    : `<path d="M${x - 13 * k} ${y} L${x} ${y - 32 * k} L${x + 13 * k} ${y} Z" fill="${kind}" stroke="${O}" stroke-width="2" stroke-linejoin="round"/><path d="M${x - 7 * k} ${y - 14 * k} L${x + 6 * k} ${y - 10 * k} M${x - 10 * k} ${y - 6 * k} L${x + 10 * k} ${y - 2 * k}" stroke="#fff" stroke-width="${2.4 * k}" stroke-linecap="round" opacity=".8"/><circle cx="${x}" cy="${y - 33 * k}" r="${5 * k}" fill="#fff" stroke="${O}" stroke-width="1.6"/>`;
+  // the front of a table with a table cloth
+  const evtTable = (x0, x1, ty, cloth, night) => {
+    const c = night ? evtDark(cloth, 0.35) : cloth, n = Math.max(4, Math.round((x1 - x0) / 34)), w = (x1 - x0) / n;
+    return `<path d="M${x0 + 16} ${ty + 40} V${ty + 84} M${x1 - 16} ${ty + 40} V${ty + 84}" stroke="${O}" stroke-width="11" stroke-linecap="round"/><path d="M${x0 + 16} ${ty + 40} V${ty + 84} M${x1 - 16} ${ty + 40} V${ty + 84}" stroke="${night ? '#6e5a44' : '#b07642'}" stroke-width="6" stroke-linecap="round"/>` +
+      `<path d="M${x0} ${ty} H${x1} V${ty + 40} ${Array.from({ length: n }, (_, i) => `Q${(x1 - (i + 0.5) * w).toFixed(1)} ${ty + 56} ${(x1 - (i + 1) * w).toFixed(1)} ${ty + 40}`).join(' ')} Z" fill="${c}" stroke="${O}" stroke-width="2.5" stroke-linejoin="round"/>` +
+      `<path d="M${x0} ${ty + 8} H${x1}" stroke="#fff" stroke-width="3" opacity=".5"/>`;
+  };
+  // pick guests: a row of toggles with little heads
+  function evtGuestPick(sel, max, onChange, exclude) {
+    const folks = evtFolks().filter(f => f.key !== exclude);
+    if (!folks.length) return el('p', { class: 'muted' }, 'עוד אין את מי להזמין! אפשר לעצב בנות בסטודיו האופנה, לאמץ חיה או לעצב בת ים 💖');
+    return el('div', { class: 'evt-folks' }, ...folks.map(f => {
+      const on = sel.includes(f.key);
+      return el('button', { type: 'button', class: 'evt-folk ' + f.type, 'aria-pressed': String(on), onclick: () => {
+        if (on) sel.splice(sel.indexOf(f.key), 1);
+        else { if (sel.length >= max) { toast(stickerHTML('heart'), `אפשר להזמין עד ${max} אורחים`); return; } sel.push(f.key); f.type === 'p' ? SFX.pet(f.o.kind) : SFX.pop(); }
+        onChange();
+      } }, el('img', { src: evtHead(f), alt: '' }), el('span', {}, f.name), on ? el('b', { class: 'ok' }, '✔') : null);
+    }));
+  }
+  // save a scene picture as a sticker (frame + caption). The picture is turned into a small image so it doesn't fill up the storage.
+  function evtPhoto(scene, cap, stk, host) {
+    const photo = `<svg viewBox="0 0 480 400" width="480" height="400" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-3 240 200)"><rect x="20" y="24" width="440" height="352" rx="12" fill="#fffdf5" stroke="${O}" stroke-width="6"/>` +
+      `${placeSvg(scene, 38, 42, 404, 269)}<rect x="38" y="42" width="404" height="269" fill="none" stroke="${O}" stroke-width="3"/>` +
+      `<g transform="translate(40 318) scale(.95)">${stickerInner(stk)}</g><text x="260" y="352" text-anchor="middle" font-size="30" ${evtFont} fill="${O}">${evtEsc(cap)}</text></g></svg>`;
+    if (host && !reduceMotion()) { host.classList.remove('flash'); void host.offsetWidth; host.classList.add('flash'); }
+    tone(1800, 0.05, 'square', 0, 0.05);
+    const keep = url => {
+      const c = { id: 'my' + Date.now().toString(36), url };
+      customStk.push(c);
+      if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('camera'), 'אין מספיק מקום לשמור את הצילום 😢'); return; }
+      registerCustom(c); SFX.ding();
+      toast(stickerHTML(c.id), '📸 הצילום נשמר כמדבקה! הוא מחכה לך באלבום ובמדבקות של הימים');
+      evtTry(afterChange);
+    };
+    // the HTML parser forgives small slips in the drawing; the XML serializer then writes a clean picture
+    const box = document.createElement('div'); box.innerHTML = photo;
+    const src = svgData(new XMLSerializer().serializeToString(box.firstElementChild));
+    const img = new Image();
+    img.onload = () => {
+      let url = '';
+      try {
+        const cv = document.createElement('canvas'); cv.width = 600; cv.height = 500;
+        cv.getContext('2d').drawImage(img, 0, 0, 600, 500);
+        url = cv.toDataURL('image/webp', 0.86);
+        if (!url.startsWith('data:image/webp')) url = cv.toDataURL('image/png');
+      } catch { url = ''; }
+      keep(url && url.length < 900000 ? url : src);
+    };
+    img.onerror = () => toast(stickerHTML('camera'), 'הצילום לא הצליח 😕 אפשר לנסות שוב');
+    img.src = src;
+  }
+  const evtWrap = (s, max) => { const out = []; let line = ''; String(s).split(/\s+/).filter(Boolean).forEach(w => { if ((line + ' ' + w).trim().length > max && line) { out.push(line); line = w; } else line = (line + ' ' + w).trim(); }); if (line) out.push(line); return out; };
+
+  // ---------- 🌿 the sukkah ----------
+  const SUK_WALLS = [['fabric', '🧵 בד'], ['wood', '🪵 עץ'], ['panels', '🖼️ לוחות מצוירים']];
+  const SUK_COLORS = ['#dff1ff', '#fff3d6', '#ffe0ec', '#e2f5da', '#ece2ff', '#fff6a8'];
+  const SUK_ROOFS = [['palm', '🌴 כפות תמרים'], ['bamboo', '🎋 במבוק'], ['branches', '🌿 ענפים']];
+  const SUK_CLOTHS = ['#ffffff', '#ffd6e4', '#d7ecff', '#fff1b8', '#dff5d6', '#e8dcff'];
+  const SUK_HOLS = ['sukkot1', 'sukkot2', 'cholsukkot', 'hoshana'];
+  const sukHang = (inner, len = 44) => `<path d="M0 -${len} V-14" stroke="#8a6a3a" stroke-width="1.8"/><circle cx="0" cy="-${len}" r="2.4" fill="#8a6a3a"/>` + inner;
+  const sukChain = cols => {
+    let s = '';
+    for (let i = 0; i <= 16; i++) {
+      const x = -80 + i * 10, y = 24 * (1 - (x / 80) ** 2) - 10, a = (Math.atan(-48 * x / 6400) * 180 / Math.PI).toFixed(1), c = cols[i % cols.length], ry = i % 2 ? 2 : 4.6;
+      s += `<ellipse cx="${x}" cy="${y.toFixed(1)}" rx="7.4" ry="${ry}" transform="rotate(${a} ${x} ${y.toFixed(1)})" fill="none" stroke="${O}" stroke-width="6"/><ellipse cx="${x}" cy="${y.toFixed(1)}" rx="7.4" ry="${ry}" transform="rotate(${a} ${x} ${y.toFixed(1)})" fill="none" stroke="${c}" stroke-width="3.2"/>`;
+    }
+    return s + `<circle cx="-80" cy="-10" r="3" fill="#ffd84d" ${S2}/><circle cx="80" cy="-10" r="3" fill="#ffd84d" ${S2}/>`;
+  };
+  const sukPoster = (bg, inner, title, tc = '#d23a5a') => `<rect x="-34" y="-44" width="68" height="88" rx="4" fill="${bg}" ${S}/><rect x="-28" y="-38" width="56" height="76" rx="3" fill="none" stroke="${tc}" stroke-width="1.6" stroke-dasharray="4 3"/>` +
+    inner + `<text x="0" y="34" text-anchor="middle" font-size="${title.length > 6 ? 11 : 14}" ${evtFont} fill="${tc}">${title}</text><circle cx="-26" cy="-38" r="3" fill="#ff5a6e" ${S2}/><circle cx="26" cy="-38" r="3" fill="#7ec8ff" ${S2}/>`;
+  const sukLulav = () => `<path d="M-3 40 C-4 10 -2 -30 0 -62 C2 -30 4 10 3 40 Z" fill="#7fb24a" ${S}/><path d="M0 -58 V36" stroke="#4f7d2c" stroke-width="1.4"/>` +
+    [-1, 1].map(s => `<path d="M${s * 3} 22 C${s * 16} 10 ${s * 16} -8 ${s * 12} -22 C${s * 8} -8 ${s * 6} 8 ${s * 3} 22 Z" fill="#6fbf5a" ${S2}/><path d="M${s * 3} 30 C${s * 18} 24 ${s * 20} 12 ${s * 18} 4 C${s * 12} 12 ${s * 8} 22 ${s * 3} 30 Z" fill="#9ed36a" ${S2}/>`).join('') +
+    [[-8, 6], [8, 2], [-7, 16], [9, 14]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="3.2" ry="5" fill="#3f8f3a" ${evtS(1.2)}/>`).join('') +
+    `<rect x="-6" y="26" width="12" height="16" rx="4" fill="#c9a86a" ${S2}/><path d="M-6 31 H6 M-6 36 H6" stroke="#8a6a3a" stroke-width="1.4"/>`;
+  const sukEtrog = (x = 0, y = 0, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-2 -18 l3 -6 l4 2" fill="none" stroke="#6b8f3a" stroke-width="2" stroke-linecap="round"/><path d="M0 -18 C14 -18 16 -2 13 8 C10 17 4 22 0 24 C-4 22 -10 17 -13 8 C-16 -2 -14 -18 0 -18 Z" fill="#ffd93d" ${S}/>` +
+    `<circle cx="0" cy="26" r="2" fill="#a0673e" ${evtS(1)}/>${[[-6, -6], [5, -9], [7, 4], [-8, 8], [0, 12]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r=".9" fill="#d9a400"/>`).join('')}${shine(-9, -6)}</g>`;
+  // [name, scale, anim, glow, draw, layer, group]
+  const SUK_ITEMS = {
+    chainR: ['שרשרת קשת', 1, null, false, () => sukChain(['#ff5a6e', '#ff9f43', '#ffd84d', '#6fcf7f', '#4fa8ff', '#b58cff']), null, 'chain'],
+    chainP: ['שרשרת ורודה', 1, null, false, () => sukChain(['#ff9ad5', '#ffffff', '#ff5a8a']), null, 'chain'],
+    chainB: ['שרשרת כחול-לבן', 1, null, false, () => sukChain(['#3a78d8', '#ffffff', '#7ec8ff']), null, 'chain'],
+    chainG: ['שרשרת זהב', 1, null, false, () => sukChain(['#ffd84d', '#e0a800', '#fff3b0']), null, 'chain'],
+    chainV: ['שרשרת סגולה', 1, null, false, () => sukChain(['#b58cff', '#8fdc6f', '#e8dcff']), null, 'chain'],
+    flags: ['דגלונים', 1, null, false, () => `<path d="M-80 -14 Q0 16 80 -14" fill="none" stroke="${O}" stroke-width="1.8"/>` + [-66, -44, -22, 0, 22, 44, 66].map((x, i) => { const y = -14 + 30 * (1 - (x / 80) ** 2) * 0.5 + 1; return `<path d="M${x - 9} ${y.toFixed(1)} L${x + 9} ${y.toFixed(1)} L${x} ${(y + 20).toFixed(1)} Z" fill="${['#ff5a6e', '#ffd84d', '#4fa8ff', '#6fcf7f', '#ff9ad5', '#b58cff', '#ff9f43'][i]}" ${S2}/>`; }).join(''), null, 'chain'],
+    pom: ['רימון', 0.9, 'sway', false, () => sukHang(`<circle cx="0" cy="4" r="16" fill="#e0314b" ${S}/><path d="M-6 -12 L-7 -19 L-3 -15 L0 -21 L3 -15 L7 -19 L6 -12 Z" fill="#c4213a" ${S2}/>${shine(-10, 0)}<path d="M-4 12 q4 3 8 0" stroke="#a51a30" stroke-width="1.6" fill="none"/>`), null, 'fruit'],
+    apple: ['תפוח', 0.9, 'sway', false, () => sukHang(`<path d="M0 -8 C8 -16 20 -10 18 4 C16 18 6 22 0 18 C-6 22 -16 18 -18 4 C-20 -10 -8 -16 0 -8 Z" fill="#ff4d5e" ${S}/><path d="M0 -8 C0 -12 1 -15 3 -17" stroke="#6b4226" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M3 -13 C8 -20 14 -18 15 -15 C11 -12 6 -12 3 -13 Z" fill="#6fcf7f" ${S2}/>${shine(-12, -2)}`), null, 'fruit'],
+    gapple: ['תפוח ירוק', 0.9, 'sway', false, () => sukHang(`<path d="M0 -8 C8 -16 20 -10 18 4 C16 18 6 22 0 18 C-6 22 -16 18 -18 4 C-20 -10 -8 -16 0 -8 Z" fill="#9be05a" ${S}/><path d="M0 -8 C0 -12 1 -15 3 -17" stroke="#6b4226" stroke-width="2.4" stroke-linecap="round" fill="none"/>${shine(-12, -2)}`), null, 'fruit'],
+    grapes: ['ענבים', 0.9, 'sway', false, () => sukHang(`<path d="M0 -14 C6 -20 14 -20 16 -16 C10 -12 4 -12 0 -14 Z" fill="#6fcf7f" ${S2}/>` + [[-9, -6], [0, -6], [9, -6], [-5, 3], [5, 3], [-9, 12], [0, 12], [9, 12], [-4, 20], [5, 20], [0, 28]].filter((_, i) => i !== 5 && i !== 7).map(([x, y]) => `<circle cx="${x}" cy="${y}" r="6" fill="#9b6bd6" ${S2}/><circle cx="${x - 2}" cy="${y - 2}" r="1.6" fill="#fff" opacity=".7"/>`).join('')), null, 'fruit'],
+    etrog: ['אתרוג', 0.9, 'sway', false, () => sukHang(sukEtrog(0, 4, .95), 46), null, 'fruit'],
+    orange: ['תפוז', 0.85, 'sway', false, () => sukHang(`<circle cx="0" cy="4" r="16" fill="#ff9f2e" ${S}/><path d="M0 -12 C4 -18 10 -18 13 -15 C9 -11 4 -11 0 -12 Z" fill="#4fbf73" ${S2}/>${[[-6, 0], [5, -3], [7, 9], [-4, 11], [0, 4]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="1" fill="#e07a10"/>`).join('')}${shine(-10, 0)}`), null, 'fruit'],
+    dates: ['תמרים', 0.9, 'sway', false, () => sukHang(`<path d="M0 -14 C-4 -4 -12 2 -16 8 M0 -14 C2 -2 4 6 2 14 M0 -14 C6 -4 12 2 16 8" stroke="#c98a12" stroke-width="2.2" fill="none"/>` + [[-16, 14], [-8, 12], [2, 20], [10, 14], [17, 14], [-12, 22], [8, 24]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4.4" ry="7" fill="#8a4a24" ${S2}/>`).join('')), null, 'fruit'],
+    lemon: ['לימון', 0.85, 'sway', false, () => sukHang(`<path d="M-17 4 C-17 -8 -8 -13 0 -13 C8 -13 17 -8 17 4 C17 14 8 19 0 19 C-8 19 -17 14 -17 4 Z" fill="#fff05a" ${S}/><path d="M-17 4 l-5 0 M17 4 l5 0" stroke="${O}" stroke-width="2.4" stroke-linecap="round"/>${shine(-10, -2)}`), null, 'fruit'],
+    lantern: ['פנס', 0.9, 'sway', true, () => sukHang(`<path d="M-8 -16 H8 L12 -8 H-12 Z" fill="#c98a12" ${S2}/><path d="M-12 -8 H12 L16 14 L0 24 L-16 14 Z" fill="#ffe27a" ${S}/><path d="M-12 -8 L0 24 M12 -8 L0 24 M0 -8 V24 M-15 6 H15" stroke="#c98a12" stroke-width="1.6"/><path d="M-4 24 H4 L2 30 H-2 Z" fill="#c98a12" ${S2}/><circle cx="0" cy="6" r="5" fill="#fff6c4" opacity=".9"/>`, 30), null, 'light'],
+    ball: ['פנס נייר', 0.9, 'sway', true, () => sukHang(`<rect x="-7" y="-20" width="14" height="6" rx="2" fill="#3a2b3c"/><ellipse cx="0" cy="2" rx="20" ry="17" fill="#ff8fb8" ${S}/>` + [-12, -4, 4, 12].map(x => `<path d="M${x} -14 Q${x * 1.5} 2 ${x} 18" fill="none" stroke="#e0578f" stroke-width="1.5"/>`).join('') + `<rect x="-7" y="17" width="14" height="5" rx="2" fill="#3a2b3c"/><path d="M0 22 V32" stroke="#ff5a6e" stroke-width="2.5"/>`, 32), null, 'light'],
+    fairy: ['שרשרת אורות', 1, null, true, () => `<path d="M-90 -12 Q-45 14 0 -8 Q45 14 90 -12" fill="none" stroke="#3f8f3a" stroke-width="2"/>` + Array.from({ length: 11 }, (_, i) => {
+      const x = -85 + i * 17, y = (x < 0 ? -12 + 4 * (x + 90) / 90 : -8 - 4 * x / 90) + 13 * Math.sin(Math.PI * ((x + 90) % 90) / 90);
+      return `<g class="suk-tw" style="animation-delay:-${(i * 0.37).toFixed(2)}s"><rect x="${x - 2.5}" y="${(y - 2).toFixed(1)}" width="5" height="4" fill="#3a2b3c"/><ellipse cx="${x}" cy="${(y + 7).toFixed(1)}" rx="4.4" ry="6.4" fill="${['#ffd84d', '#ff6b8b', '#7ec8ff', '#8fdc6f', '#ffb04d'][i % 5]}" ${evtS(1.2)}/></g>`;
+    }).join(''), null, 'light'],
+    star: ['כוכב נייר', 0.9, 'sway', true, () => sukHang(`<polygon points="${starPts(0, 4, 20, 9)}" fill="#ffd84d" ${S}/><polygon points="${starPts(0, 4, 10, 4.5)}" fill="#fff3b0"/>`), null, 'light'],
+    moon: ['ירח מנייר', 0.9, 'sway', true, () => sukHang(`<path d="M6 -16 A20 20 0 1 0 12 20 A15 15 0 1 1 6 -16 Z" fill="#fff0a0" ${S}/><circle cx="-6" cy="4" r="1.6" fill="${O}"/><path d="M-9 10 q3 2 6 0" stroke="${O}" stroke-width="1.5" fill="none" stroke-linecap="round"/>`), null, 'light'],
+    candles: ['פמוטים', 0.8, null, true, () => [-12, 12].map(x => `<rect x="${x - 4}" y="-14" width="8" height="26" rx="2" fill="#fff" ${S2}/><path class="suk-fl" d="M${x} -28 C${x + 5} -21 ${x + 4} -16 ${x} -16 C${x - 4} -16 ${x - 5} -21 ${x} -28 Z" fill="#ffb020" ${evtS(1.2)}/><path d="M${x - 9} 12 H${x + 9} L${x + 6} 22 H${x - 6} Z" fill="#d9d9e8" ${S2}/>`).join(''), 'table', 'table'],
+    posterH: ['חג שמח', 1, null, false, () => sukPoster('#fff6c4', `<path d="M-18 16 V-6 L0 -20 L18 -6 V16 Z" fill="#ffcf8a" ${S2}/><path d="M-22 -6 C-12 -14 -6 -18 0 -22 C6 -18 12 -14 22 -6" fill="none" stroke="#4fbf73" stroke-width="4" stroke-linecap="round"/><rect x="-5" y="2" width="10" height="14" fill="#a0673e" ${evtS(1.2)}/>`, 'חג שמח!'), 'wall', 'poster'],
+    posterW: ['ברוכים הבאים', 1, null, false, () => sukPoster('#e3f4ff', `<circle cx="0" cy="-10" r="13" fill="#ffd84d" ${S2}/>${face(0, -10, .6)}<path d="M-20 12 Q0 -2 20 12" fill="none" stroke="#ff5a8a" stroke-width="3" stroke-linecap="round"/>`, 'ברוכים הבאים', '#2f5fd0'), 'wall', 'poster'],
+    posterU: ['אושפיזין', 1, null, false, () => sukPoster('#f3e6ff', `<path d="M-18 14 L0 -6 L18 14 Z" fill="#e8c890" ${S2}/><path d="M0 -6 V14" stroke="${O}" stroke-width="1.4"/>` + Array.from({ length: 7 }, (_, i) => `<polygon points="${starPts(-21 + i * 7, -24 + Math.abs(i - 3) * 2.5, 3.4, 1.5)}" fill="#ffc933"/>`).join(''), 'אושפיזין', '#6b3fb0'), 'wall', 'poster'],
+    poster4: ['ארבעת המינים', 1, null, false, () => sukPoster('#eaf8e0', `<g transform="translate(-8 -2) scale(.42)">${sukLulav()}</g>${sukEtrog(12, -4, .6)}`, 'ארבעת המינים', '#2d7a3a'), 'wall', 'poster'],
+    posterK: ['ציור שלי', 1, null, false, () => sukPoster('#ffffff', `<circle cx="14" cy="-20" r="7" fill="#ffd84d"/><path d="M-20 14 V-2 H4 V14 Z" fill="#ff9ad5" stroke="#ff5a8a" stroke-width="1.5"/><path d="M-24 -2 L-8 -16 L8 -2" fill="none" stroke="#4fbf73" stroke-width="3" stroke-linecap="round"/><path d="M12 14 V2 M8 6 q4 -4 8 0" stroke="#3aa6dc" stroke-width="2" fill="none"/>`, 'ציור שלי', '#ff5a8a'), 'wall', 'poster'],
+    balloons: ['בלונים', 1, 'float', false, () => `<path d="M-14 -8 Q-6 20 0 34 M0 -14 V34 M14 -8 Q6 20 0 34" fill="none" stroke="${O}" stroke-width="1.4"/>` + [[-14, -22, '#ff5a8a'], [14, -22, '#7ec8ff'], [0, -30, '#ffd84d']].map(([x, y, c]) => `<ellipse cx="${x}" cy="${y}" rx="12" ry="15" fill="${c}" ${S2}/><path d="M${x - 2} ${y + 15} l2 4 l2 -4 Z" fill="${c}" ${evtS(1)}/>${shine(x - 7, y - 4)}`).join(''), 'wall', 'fun'],
+    pompom: ['פומפום נייר', 0.9, 'sway', false, () => sukHang(Array.from({ length: 10 }, (_, i) => `<ellipse cx="0" cy="-8" rx="6" ry="12" transform="rotate(${i * 36} 0 4)" fill="#ffb3dd" ${evtS(1.2)}/>`).join('') + `<circle cx="0" cy="4" r="6" fill="#ff6fb0" ${S2}/>`, 40), null, 'fun'],
+    bird: ['ציפור מנייר', 0.85, 'float', false, () => sukHang(`<path d="M-18 4 C-14 -10 10 -12 16 0 L26 -4 L20 6 C12 16 -10 16 -18 4 Z" fill="#7ec8ff" ${S}/><path d="M-4 0 C-2 -14 8 -18 12 -12 C8 -6 2 -2 -4 0 Z" fill="#4fa8ff" ${S2}/><circle cx="-10" cy="2" r="1.8" fill="${O}"/><path d="M-19 4 l-6 2 l6 2" fill="#ffb020" ${evtS(1)}/>`, 40), null, 'fun'],
+    lulav: ['לולב ואתרוג', 1, null, false, () => `<g transform="translate(-8 -6)">${sukLulav()}</g>${sukEtrog(20, 20, .75)}<ellipse cx="4" cy="44" rx="30" ry="5" fill="#000" opacity=".12"/>`, null, 'fun'],
+    carpetR: ['שטיח עגול', 1.3, null, false, () => `<ellipse cx="0" cy="0" rx="62" ry="17" fill="#ff9ad5" ${S}/><ellipse cx="0" cy="0" rx="48" ry="12" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="6 4"/><ellipse cx="0" cy="0" rx="28" ry="7" fill="#ffd84d" ${S2}/>`, 'floor', 'fun'],
+    carpetP: ['שטיח מזרחי', 1.3, null, false, () => `<path d="M-58 -12 H58 L66 14 H-66 Z" fill="#c9443a" ${S}/><path d="M-50 -7 H50 L56 9 H-56 Z" fill="none" stroke="#ffd84d" stroke-width="2.4"/><path d="M-16 1 L0 -5 L16 1 L0 7 Z" fill="#2f5fd0" ${S2}/>` + [-64, -52, -40, 40, 52, 64].map(x => `<path d="M${x} 14 v6" stroke="#ffd84d" stroke-width="2"/>`).join(''), 'floor', 'fun'],
+    cushion: ['כרית', 1, null, false, () => `<path d="M-26 -12 Q0 -20 26 -12 Q32 0 26 12 Q0 20 -26 12 Q-32 0 -26 -12 Z" fill="#b58cff" ${S}/><circle cx="0" cy="0" r="4" fill="#ffd84d" ${S2}/><path d="M-16 -6 Q0 0 -16 6 M16 -6 Q0 0 16 6" stroke="#8e6bd6" stroke-width="1.6" fill="none"/>`, 'floor', 'fun'],
+    chair: ['כיסא', 1, null, false, () => `<rect x="-16" y="-40" width="32" height="40" rx="6" fill="#c98a4b" ${S}/><rect x="-11" y="-34" width="22" height="18" rx="4" fill="#ff9ad5" ${S2}/><rect x="-20" y="-2" width="40" height="8" rx="3" fill="#b07642" ${S}/><path d="M-16 6 V34 M16 6 V34" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M-16 6 V34 M16 6 V34" stroke="#b07642" stroke-width="3.5" stroke-linecap="round"/>`, 'floor', 'fun'],
+    plant: ['עציץ הדס', 1, 'sway', false, () => `<path d="M0 10 C-2 -10 -6 -24 -14 -34 M0 10 C2 -8 8 -22 14 -32 M0 10 V-30" stroke="#3f7a2c" stroke-width="2.4" fill="none"/>` + [[-8, -16], [-12, -28], [-4, -24], [6, -14], [10, -26], [2, -34], [4, -22], [-6, -8], [8, -4]].map(([x, y], i) => `<ellipse cx="${x}" cy="${y}" rx="3" ry="6" transform="rotate(${i % 2 ? 30 : -30} ${x} ${y})" fill="#4fbf73" ${evtS(1.1)}/>`).join('') + `<path d="M-16 8 H16 L12 34 H-12 Z" fill="#e0764a" ${S}/><rect x="-18" y="4" width="36" height="8" rx="3" fill="#f08a5a" ${S2}/>`, 'wall', 'fun'],
+    challah: ['חלה', 0.8, null, false, () => `<ellipse cx="0" cy="10" rx="40" ry="7" fill="#e8e8f2" ${S2}/>` + [-22, -8, 8, 22].map((x, i) => `<ellipse cx="${x}" cy="${-2 - (i % 3 ? 5 : 0)}" rx="13" ry="10" fill="#e8a24a" ${S2}/><path d="M${x - 6} ${-6 - (i % 3 ? 5 : 0)} q6 -4 12 2" stroke="#c07a2a" stroke-width="1.6" fill="none"/>`).join('') + [[-14, -10], [2, -14], [16, -9], [-4, -4]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.3" ry=".8" fill="#fff"/>`).join(''), 'table', 'table'],
+    fruitbowl: ['קערת פירות', 0.85, null, false, () => `<circle cx="-14" cy="-6" r="10" fill="#e0314b" ${S2}/><circle cx="12" cy="-6" r="10" fill="#ff9f2e" ${S2}/><circle cx="0" cy="-14" r="10" fill="#9be05a" ${S2}/>${sukEtrog(-2, -2, .45)}<path d="M-32 -2 H32 C30 16 16 22 0 22 C-16 22 -30 16 -32 -2 Z" fill="#7ec8ff" ${S}/><path d="M-20 8 H20" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>`, 'table', 'table'],
+    honey: ['דבש', 0.75, null, false, () => `<path d="M-14 -10 H14 V14 C14 22 -14 22 -14 14 Z" fill="#ffc933" ${S}/><rect x="-16" y="-18" width="32" height="9" rx="3" fill="#ff9ad5" ${S2}/><path d="M-8 -2 H8 L10 6 H-10 Z" fill="#fff" ${evtS(1.2)}/><circle cx="0" cy="2" r="2.6" fill="#ffc933"/>`, 'table', 'table'],
+    jug: ['מיץ', 0.8, null, false, () => `<path d="M-14 -22 H12 L16 -30 L18 -22 C18 0 16 20 14 24 H-14 C-16 20 -18 0 -14 -22 Z" fill="#dff6ff" ${S}/><path d="M-15 -6 H16 L14 22 H-14 Z" fill="#ff9f43" opacity=".85"/><path d="M16 -14 C28 -14 28 10 15 10" fill="none" ${S}/>`, 'table', 'table'],
+    cake: ['עוגה', 0.8, null, false, () => `<ellipse cx="0" cy="18" rx="34" ry="6" fill="#e8e8f2" ${S2}/><rect x="-26" y="-8" width="52" height="24" rx="6" fill="#ffc2d6" ${S}/><path d="M-26 -2 Q-20 6 -14 -2 Q-8 6 -2 -2 Q4 6 10 -2 Q16 6 22 -2 Q24 2 26 -2 V-8 H-26 Z" fill="#fff" ${S2}/><circle cx="-10" cy="-12" r="4" fill="#e0314b" ${S2}/><circle cx="8" cy="-12" r="4" fill="#e0314b" ${S2}/>`, 'table', 'table'],
+    pomplate: ['צלחת רימונים', 0.8, null, false, () => `<ellipse cx="0" cy="8" rx="34" ry="8" fill="#fff" ${S2}/>` + [[-14, -2], [0, -8], [14, -2]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="10" fill="#e0314b" ${S2}/><path d="M${x - 3} ${y - 9} l1 -4 l2 2 l2 -2 l1 4" fill="#c4213a" ${evtS(1)}/>`).join(''), 'table', 'table'],
+  };
+  const SUK_GROUPS = [['chain', '🔗 שרשראות'], ['fruit', '🍎 פירות'], ['light', '💡 אורות'], ['poster', '🖼️ פוסטרים'], ['fun', '🎈 עוד'], ['table', '🍽️ לשולחן']];
+  const sukSeed = () => ({ wall: 'fabric', color: '#dff1ff', roof: 'palm', night: false, cloth: '#ffffff', guests: [], shook: {}, items: [
+    { id: 'k1', t: 'chainR', x: 190, y: 104, s: 1, f: false }, { id: 'k2', t: 'chainB', x: 410, y: 104, s: 1, f: false }, { id: 'k3', t: 'pom', x: 118, y: 150, s: 0.9, f: false },
+    { id: 'k4', t: 'etrog', x: 300, y: 150, s: 0.9, f: false }, { id: 'k5', t: 'grapes', x: 482, y: 150, s: 0.9, f: false }, { id: 'k6', t: 'posterH', x: 190, y: 190, s: 0.85, f: false },
+    { id: 'k7', t: 'posterU', x: 410, y: 190, s: 0.85, f: false }, { id: 'k8', t: 'fruitbowl', x: 250, y: 312, s: 0.8, f: false }, { id: 'k9', t: 'challah', x: 350, y: 314, s: 0.8, f: false }] });
+  let suk = Object.assign(sukSeed(), store.get('sukkah', {}));
+  let sukTool = 'chainR', sukGroup = 'chain', sukSel = null, sukConfirm = false, sukTab = 'deco', sukShake = null;
+  const sukSave = () => store.set('sukkah', suk);
+  const sukGuests = () => suk.guests.map(evtFolk).filter(Boolean).slice(0, 6);
+  const SUK_TY = 300;
+  const sukItemSVG = it => {
+    const d = SUK_ITEMS[it.t]; if (!d) return '';
+    const h = [...it.id].reduce((a, c) => a * 31 + c.charCodeAt(0) >>> 0, 7), glow = suk.night && d[3];
+    const anim = d[2] ? ` class="suk-${d[2]}" style="animation-duration:${3 + h % 3}s;animation-delay:-${h % 5}s"` : '';
+    return `<g class="suk-it${it.id === sukSel ? ' sel' : ''}" data-id="${it.id}" transform="translate(${it.x.toFixed(1)} ${it.y.toFixed(1)}) scale(${(it.f ? -1 : 1) * it.s} ${it.s})">` +
+      (glow ? `<circle cx="0" cy="4" r="44" fill="url(#sukHalo)" pointer-events="none"/>` : '') + `<g${anim}${glow ? ' filter="url(#sukGlow)"' : ''}>${d[4]()}</g></g>`;
+  };
+  function sukRoof(n) {
+    const leaf = c => n ? evtDark(c, 0.5) : c;
+    let s = '';
+    if (suk.roof === 'bamboo') {
+      for (let i = 0; i < 9; i++) { const y = -4 + i * 12.5, off = i % 2 ? 14 : 0; if (i % 3 === 2) continue;
+        s += `<rect x="-10" y="${y}" width="620" height="9" rx="4.5" fill="${leaf(i % 2 ? '#d8c27a' : '#c9b060')}" stroke="${O}" stroke-width="2"/>` + Array.from({ length: 7 }, (_, j) => `<path d="M${off + 40 + j * 90} ${y} v9" stroke="${leaf('#8a7a3a')}" stroke-width="2"/>`).join(''); }
+      s += [40, 170, 300, 430, 560].map((x, i) => `<path d="M${x} ${-4} C${x + 20} 30 ${x - 10} 60 ${x + 16} ${88 + i % 2 * 10}" fill="none" stroke="${leaf('#5aa846')}" stroke-width="5" stroke-linecap="round"/>`).join('');
+    } else if (suk.roof === 'branches') {
+      for (let i = 0; i < 8; i++) {
+        const x = i * 84 - 20, y = 10 + (i % 3) * 24, dir = i % 2 ? 1 : -1;
+        s += `<path d="M${x} ${y} Q${x + 60} ${y + dir * 16} ${x + 120} ${y + 6}" fill="none" stroke="${leaf('#7a5230')}" stroke-width="4" stroke-linecap="round"/>`;
+        s += Array.from({ length: 9 }, (_, j) => { const lx = x + j * 13, ly = y + dir * 8 * Math.sin(j / 2.5) + 2, a = (j % 2 ? 40 : -40) + i * 7; return `<ellipse cx="${lx}" cy="${ly.toFixed(1)}" rx="5.5" ry="12" transform="rotate(${a} ${lx} ${ly.toFixed(1)})" fill="${leaf(['#5cb85c', '#7ccf5a', '#4a9e4a'][(i + j) % 3])}" stroke="${O}" stroke-width="1.4"/>`; }).join('');
+      }
+    } else {
+      for (let i = 0; i < 9; i++) {
+        const x0 = i * 76 - 40, y0 = i % 2 ? -6 : 60, x1 = x0 + 150, y1 = i % 2 ? 76 : 2, len = Math.hypot(x1 - x0, y1 - y0), ux = (x1 - x0) / len, uy = (y1 - y0) / len;
+        s += `<path d="M${x0} ${y0} L${x1} ${y1}" stroke="${leaf('#8a7a3a')}" stroke-width="3" stroke-linecap="round"/>`;
+        s += Array.from({ length: 14 }, (_, j) => { const t = 10 + j * 10, px = x0 + ux * t, py = y0 + uy * t; return [-1, 1].map(sd => { const ex = px + (ux * 10 - uy * 26 * sd), ey = py + (uy * 10 + ux * 26 * sd); return `<path d="M${px.toFixed(1)} ${py.toFixed(1)} Q${((px + ex) / 2 - uy * 4 * sd).toFixed(1)} ${((py + ey) / 2 + ux * 4 * sd).toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}" stroke="${leaf((i + j) % 2 ? '#6fbf4a' : '#58a83c')}" stroke-width="5" stroke-linecap="round" fill="none"/>`; }).join(''); }).join('');
+      }
+    }
+    return `<g class="suk-roof">${s}</g><rect x="0" y="86" width="600" height="10" fill="${n ? '#5a4632' : '#b07642'}" stroke="${O}" stroke-width="2.5"/>`;
+  }
+  function sukWalls(n) {
+    const c = n ? evtDark(suk.color) : suk.color, dk = x => n ? evtDark(x) : x, back = 'M60 96 H540 V300 H60 Z';
+    let s = '';
+    if (suk.wall === 'wood') {
+      s += `<path d="${back}" fill="${dk('#e0b27a')}"/>` + Array.from({ length: 9 }, (_, i) => `<path d="M60 ${96 + i * 23} H540" stroke="${dk('#b07642')}" stroke-width="2"/><path d="M${120 + (i * 97) % 380} ${104 + i * 23} q14 -4 28 0" stroke="${dk('#c98a4b')}" stroke-width="1.5" fill="none"/>`).join('');
+      s += `<path d="M0 60 L60 96 V300 L0 340 Z M600 60 L540 96 V300 L600 340 Z" fill="${dk('#d09a5e')}" stroke="${O}" stroke-width="2.5"/>`;
+    } else if (suk.wall === 'panels') {
+      s += `<path d="${back}" fill="${dk('#fff8ea')}"/>` + [0, 1, 2].map(i => { const x = 70 + i * 157; return `<rect x="${x}" y="104" width="146" height="188" rx="6" fill="${c}" stroke="${dk('#e0a800')}" stroke-width="5"/><path d="M${x + 16} 292 V150 A57 57 0 0 1 ${x + 130} 150 V292" fill="none" stroke="${dk('#e0a800')}" stroke-width="2.5" stroke-dasharray="7 4"/>` +
+        Array.from({ length: 6 }, (_, j) => `<polygon points="${starPts(x + 26 + (j % 3) * 47, 184 + Math.floor(j / 3) * 60, 7, 3, 6)}" fill="${dk(['#7ec8ff', '#ff9ad5', '#8fdc6f'][(i + j) % 3])}" opacity=".9"/>`).join(''); }).join('');
+      s += `<path d="M0 60 L60 96 V300 L0 340 Z M600 60 L540 96 V300 L600 340 Z" fill="${c}" stroke="${O}" stroke-width="2.5"/><path d="M8 70 L52 98 V292 L8 322 Z M592 70 L548 98 V292 L592 322 Z" fill="none" stroke="${dk('#e0a800')}" stroke-width="3"/>`;
+    } else {
+      const st = dk(mix(suk.color, '#3a78d8', 0.35));
+      s += `<path d="${back}" fill="${c}"/>` + Array.from({ length: 16 }, (_, i) => `<path d="M${75 + i * 30} 96 V300" stroke="${st}" stroke-width="${i % 4 === 0 ? 5 : 2}" opacity=".45"/>`).join('') +
+        Array.from({ length: 16 }, (_, i) => `<path d="M${60 + i * 30} 96 Q${75 + i * 30} 112 ${90 + i * 30} 96" fill="${dk(mix(suk.color, '#ffffff', 0.5))}" stroke="${O}" stroke-width="1.5"/>`).join('');
+      s += `<path d="M0 60 L60 96 V300 L0 340 Z M600 60 L540 96 V300 L600 340 Z" fill="${dk(mix(suk.color, '#8a96a8', 0.18))}" stroke="${O}" stroke-width="2.5"/>` + [16, 34, 566, 584].map(x => `<path d="M${x} ${x < 300 ? 60 + x * 0.6 : 60 + (600 - x) * 0.6} V${x < 300 ? 340 - x * 0.66 : 340 - (600 - x) * 0.66}" stroke="${st}" stroke-width="2" opacity=".45"/>`).join('');
+    }
+    s += `<path d="${back}" fill="none" stroke="${O}" stroke-width="2.5"/>`;
+    // poles + floor
+    s += `<path d="M0 340 L60 300 H540 L600 340 V400 H0 Z" fill="${dk(suk.wall === 'wood' ? '#cfd6c4' : '#e9dcc4')}" stroke="${O}" stroke-width="2.5"/>` +
+      Array.from({ length: 7 }, (_, i) => `<path d="M${130 + i * 57} 300 L${40 + i * 87} 400" stroke="${dk('#cbbd9f')}" stroke-width="2"/>`).join('') +
+      [60, 540].map(x => `<rect x="${x - 6}" y="90" width="12" height="212" fill="${dk('#a0673e')}" stroke="${O}" stroke-width="2"/>`).join('');
+    return s;
+  }
+  function sukMarkup(photo) {
+    const n = suk.night, gs = sukGuests(), N = gs.length;
+    const sky = n ? ['#0f1440', '#2b2f6e'] : ['#6fc3ff', '#d9f3ff'];
+    const stars = n ? Array.from({ length: 34 }, (_, i) => `<polygon class="suk-tw" style="animation-delay:-${(i % 7) * 0.4}s" points="${starPts((i * 89) % 596 + 2, (i * 37) % 92 + 4, 3.4 + i % 3, 1.5)}" fill="#fff8c4"/>`).join('') + `<circle cx="470" cy="40" r="26" fill="#fff4b8"/><circle cx="482" cy="32" r="24" fill="${sky[0]}"/>`
+      : `<circle cx="90" cy="30" r="28" fill="#ffe066"/>` + [[240, 30], [460, 44]].map(([x, y]) => `<g fill="#fff"><circle cx="${x}" cy="${y}" r="14"/><circle cx="${x + 16}" cy="${y - 6}" r="17"/><circle cx="${x + 34}" cy="${y}" r="13"/></g>`).join('');
+    const sukBack = t => ['floor', 'wall'].includes(SUK_ITEMS[t][5]);
+    const items = l => suk.items.filter(it => SUK_ITEMS[it.t] && sukBack(it.t) === l).sort((a, b) => a.y - b.y).map(sukItemSVG).join('');
+    const half = Math.min(262, Math.max(150, N * 50)), x0 = 300 - half, x1 = 300 + half, k = N > 4 ? 0.9 : 1.05;
+    const seats = gs.map((f, i) => evtSeat(f, x0 + 24 + (i + 0.5) * (x1 - x0 - 48) / N, SUK_TY, k, { night: n, cushion: ['#ff9ad5', '#7ec8ff', '#ffd84d', '#8fdc6f', '#b58cff', '#ff9f43'][i % 6] })).join('');
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${photo ? '' : ' role="img" aria-label="הסוכה שלי"'}>` +
+      `<defs><linearGradient id="sukSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sky[0]}"/><stop offset="1" stop-color="${sky[1]}"/></linearGradient>` +
+      `<radialGradient id="sukHalo"><stop offset="0" stop-color="#fff3a0" stop-opacity=".55"/><stop offset="1" stop-color="#fff3a0" stop-opacity="0"/></radialGradient>` +
+      `<clipPath id="sukClip"><rect width="600" height="${SUK_TY + 40}"/></clipPath><filter id="sukGlow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>` +
+      `<rect width="600" height="400" fill="url(#sukSky)"/>${stars}${sukWalls(n)}${n ? `<ellipse cx="300" cy="230" rx="260" ry="160" fill="url(#sukHalo)" opacity=".5"/>` : ''}` +
+      `<g class="suk-floor">${items(true)}</g><g pointer-events="none"><g clip-path="url(#sukClip)">${seats}</g>${evtTable(x0, x1, SUK_TY, suk.cloth, n)}</g>${sukRoof(n)}<g class="suk-items">${items(false)}</g></svg>`;
+  }
+  function openSukkah() {
+    drawSukkah();
+    if (!$('#sukDlg').open) $('#sukDlg').showModal();
+  }
+  function drawSukkah() {
+    const body = $('#sukBody');
+    const scene = el('div', { class: 'suk-scene' + (suk.night ? ' night' : ''), html: sukMarkup() });
+    const svgEl = scene.firstChild;
+    const cur = () => suk.items.find(i => i.id === sukSel);
+    const toSvg = e => { const p = svgEl.createSVGPoint(); p.x = e.clientX; p.y = e.clientY; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+    const nodeOf = id => svgEl.querySelector(`.suk-it[data-id="${id}"]`);
+    const setTf = it => { const nd = nodeOf(it.id); if (nd) nd.setAttribute('transform', `translate(${it.x.toFixed(1)} ${it.y.toFixed(1)}) scale(${(it.f ? -1 : 1) * it.s} ${it.s})`); };
+    const select = id => { sukSel = id; sukConfirm = false; svgEl.querySelectorAll('.suk-it').forEach(nd => nd.classList.toggle('sel', nd.dataset.id === id)); drawTools(); };
+    let drag = null;
+    svgEl.addEventListener('pointerdown', e => {
+      const p = toSvg(e), hit = e.target.closest('.suk-it');
+      if (hit) {
+        const it = suk.items.find(i => i.id === hit.dataset.id); if (!it) return;
+        select(it.id); drag = { it, dx: it.x - p.x, dy: it.y - p.y, moved: false };
+        svgEl.setPointerCapture(e.pointerId); e.preventDefault(); return;
+      }
+      if (!sukTool || sukTab !== 'deco') { select(null); return; }
+      if (suk.items.length >= 90) { toast(stickerHTML('leaf'), 'הסוכה כבר מלאה! אפשר להוריד משהו כדי לשים עוד'); return; }
+      const d = SUK_ITEMS[sukTool];
+      const it = { id: 'k' + Date.now().toString(36) + (evtN++), t: sukTool, x: Math.max(10, Math.min(590, p.x)), y: Math.max(12, Math.min(392, p.y)), s: d[1], f: false };
+      suk.items.push(it); sukSave(); SFX.pop();
+      svgEl.querySelector(['floor', 'wall'].includes(d[5]) ? '.suk-floor' : '.suk-items').insertAdjacentHTML('beforeend', sukItemSVG(it));
+      select(it.id);
+    });
+    svgEl.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const p = toSvg(e);
+      drag.it.x = Math.max(10, Math.min(590, p.x + drag.dx)); drag.it.y = Math.max(12, Math.min(392, p.y + drag.dy)); drag.moved = true;
+      setTf(drag.it);
+    });
+    const endDrag = () => {
+      if (!drag) return;
+      if (drag.moved) {
+        sukSave();
+        const nd = nodeOf(drag.it.id), g = nd.parentNode;
+        const after = [...g.children].find(c => c !== nd && (suk.items.find(i => i.id === c.dataset.id) || {}).y > drag.it.y);
+        if (after !== nd.nextElementSibling) g.insertBefore(nd, after || null);
+      }
+      drag = null;
+    };
+    svgEl.addEventListener('pointerup', endDrag);
+    svgEl.addEventListener('pointercancel', endDrag);
+    const tools = el('div', { class: 'chips suk-tools' });
+    function drawTools() {
+      const it = cur(), dis = !it;
+      const b = (label, fn, extra = {}) => el('button', Object.assign({ type: 'button', class: 'btn', disabled: dis, onclick: fn }, extra), label);
+      tools.replaceChildren(
+        b('➖', () => { it.s = Math.max(0.4, +(it.s - 0.15).toFixed(2)); setTf(it); sukSave(); SFX.boop(); }, { 'aria-label': 'להקטין' }),
+        b('➕', () => { it.s = Math.min(2.4, +(it.s + 0.15).toFixed(2)); setTf(it); sukSave(); SFX.pop(); }, { 'aria-label': 'להגדיל' }),
+        b('↔️ להפוך', () => { it.f = !it.f; setTf(it); sukSave(); SFX.pop(); }),
+        b('🗑️ להוריד', () => { suk.items = suk.items.filter(x => x !== it); const nd = nodeOf(it.id); if (nd) nd.remove(); sukSave(); SFX.boop(); select(null); }),
+        el('span', { class: 'sea-hint' }, it ? `✋ ${SUK_ITEMS[it.t][0]}: גוררים כדי להזיז` : sukTool && sukTab === 'deco' ? `👆 לוחצים בסוכה כדי לשים ${SUK_ITEMS[sukTool][0]}` : '👆 לוחצים על קישוט כדי לבחור אותו'));
+    }
+    drawTools();
+    const tab = (id, name) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(sukTab === id), onclick: () => { sukTab = id; SFX.pop(); drawSukkah(); } }, name);
+    let panel;
+    if (sukTab === 'deco') {
+      panel = [el('div', { class: 'chips' }, ...SUK_GROUPS.map(([id, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(sukGroup === id), onclick: () => { sukGroup = id; const first = Object.keys(SUK_ITEMS).find(k => SUK_ITEMS[k][6] === id); sukTool = first; SFX.pop(); drawSukkah(); } }, nm))),
+        el('div', { class: 'sea-pal suk-pal', role: 'group', 'aria-label': 'קישוטים' },
+          el('button', { type: 'button', 'aria-pressed': String(!sukTool), onclick: () => { sukTool = null; drawSukkah(); } }, el('span', { class: 'ic hand' }, '✋'), 'רק להזיז'),
+          ...Object.entries(SUK_ITEMS).filter(([, d]) => d[6] === sukGroup).map(([id, d]) => el('button', { type: 'button', 'aria-pressed': String(sukTool === id), onclick: () => { sukTool = id; sukSel = null; SFX.pop(); drawSukkah(); } },
+            el('span', { class: 'ic', html: `<svg viewBox="${d[6] === 'chain' || id === 'fairy' ? '-92 -40 184 80' : '-46 -50 92 92'}" xmlns="http://www.w3.org/2000/svg">${d[4]()}</svg>` }), d[0])))];
+    } else if (sukTab === 'guests') {
+      panel = [el('p', { class: 'muted' }, '🪑 מי באה לשבת בסוכה? (עד 6 אורחים. בנות הים יושבות בגיגית מים קטנה 🛁)'), evtGuestPick(suk.guests, 6, () => { sukSave(); drawSukkah(); }),
+        el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'מפה:'), ...SUK_CLOTHS.map(c => el('button', { type: 'button', class: 'evt-sw', style: `background:${c}`, 'aria-label': 'צבע מפה', 'aria-pressed': String(suk.cloth === c), onclick: () => { suk.cloth = c; sukSave(); SFX.pop(); drawSukkah(); } })))];
+    } else {
+      panel = [el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'דפנות:'), ...SUK_WALLS.map(([id, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(suk.wall === id), onclick: () => { suk.wall = id; sukSave(); SFX.pop(); drawSukkah(); } }, nm))),
+        suk.wall === 'wood' ? null : el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'צבע:'), ...SUK_COLORS.map(c => el('button', { type: 'button', class: 'evt-sw', style: `background:${c}`, 'aria-label': 'צבע', 'aria-pressed': String(suk.color === c), onclick: () => { suk.color = c; sukSave(); SFX.pop(); drawSukkah(); } }))),
+        el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'סכך:'), ...SUK_ROOFS.map(([id, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(suk.roof === id), onclick: () => { suk.roof = id; sukSave(); SFX.pop(); drawSukkah(); } }, nm))),
+        el('p', { class: 'muted' }, '💡 רואים את השמיים מבין הסכך, ובלילה אפשר לראות כוכבים!')];
+    }
+    const clear = sukConfirm
+      ? el('span', { class: 'chips' }, el('span', {}, 'להוריד את כל הקישוטים?'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { suk.items = []; sukSel = null; sukConfirm = false; sukSave(); drawSukkah(); } }, 'כן, לנקות'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { sukConfirm = false; drawSukkah(); } }, 'לא'))
+      : el('button', { type: 'button', class: 'btn', disabled: !suk.items.length, onclick: () => { sukConfirm = true; drawSukkah(); } }, '🧹 לנקות הכל');
+    body.replaceChildren(
+      el('div', { class: 'chips suk-top' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { suk.night = !suk.night; sukSave(); suk.night ? tone(392, 0.4, 'sine', 0, 0.05) : SFX.ding(); drawSukkah(); } }, suk.night ? '☀️ ליום' : '🌙 ללילה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => sukLulavShake(scene) }, '🌿 לנענע לולב'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { const was = sukSel; sukSel = null; evtPhoto(sukMarkup(true), 'חג סוכות שמח!', 'pomegranate', scene); sukSel = was; } }, '📸 לצלם למדבקה')),
+      scene, tools,
+      el('div', { class: 'tabs', role: 'tablist' }, tab('deco', '🎀 קישוטים'), tab('guests', '👯 אורחים'), tab('look', '🛖 הסוכה')),
+      ...panel, el('div', { class: 'chips' }, clear));
+  }
+  // shake the lulav to all six directions
+  function sukLulavShake(scene) {
+    if (sukShake) return;
+    const dirs = [['➡️ ימינה', 'translate(70px,0) rotate(18deg)'], ['⬅️ שמאלה', 'translate(-70px,0) rotate(-18deg)'], ['⬆️ למעלה', 'translate(0,-50px)'], ['⬇️ למטה', 'translate(0,40px) rotate(8deg)'], ['🔼 קדימה', 'scale(1.3)'], ['🔽 אחורה', 'scale(.75)']];
+    const art = el('div', { class: 'suk-lulav', html: `<svg viewBox="-40 -70 90 120" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-6 0)">${sukLulav()}</g>${sukEtrog(-22, 26, .75)}</svg>` });
+    const cap = el('div', { class: 'suk-cap' }, '🌿 מנענעים לכל הכיוונים!');
+    scene.append(art, cap);
+    let step = 0, sub = 0;
+    const swish = () => { tone(180 + Math.random() * 60, 0.12, 'sawtooth', 0, 0.025); tone(900, 0.06, 'triangle', 0.02, 0.02); };
+    sukShake = setInterval(() => {
+      if (!document.body.contains(art)) { clearInterval(sukShake); sukShake = null; return; }
+      if (step >= dirs.length) {
+        clearInterval(sukShake); sukShake = null;
+        art.style.transform = ''; cap.textContent = '✨ כל הכבוד! חג סוכות שמח! ✨'; SFX.yay();
+        const t = localToday();
+        if (!suk.shook[t]) { suk.shook[t] = 1; sukSave(); evtCoins(5, 'נענוע לולב'); }
+        setTimeout(() => { art.remove(); cap.remove(); }, 1600);
+        return;
+      }
+      cap.textContent = dirs[step][0];
+      art.style.transform = sub % 2 ? '' : dirs[step][1]; if (sub % 2 === 0) swish();
+      if (++sub >= 6) { sub = 0; step++; }
+    }, 210);
+  }
+  // a pill on the strip during Sukkot (and on the eve)
+  function sukkahPill() {
+    const t = localToday(), today = evtTry(() => dayInfo(t).hols.map(x => x.id), []), tmr = evtTry(() => dayInfo(addDays(t, 1)).hols.map(x => x.id), []);
+    const inHol = today.some(id => SUK_HOLS.includes(id)), eve = !inHol && tmr.includes('sukkot1');
+    if (!inHol && !eve) return null;
+    return el('button', { type: 'button', class: 'pill', style: 'border-color:#3f8f3a', onclick: openSukkah }, el('span', { class: 'ic', html: stickerHTML('pomegranate') }),
+      eve ? 'מחר סוכות! בואי לבנות סוכה 🌿' : suk.guests.length ? 'חג סוכות שמח! האורחים מחכים בסוכה 🌿' : 'חג סוכות שמח! בואי לקשט את הסוכה 🌿');
+  }
+  $('#sukDlg').addEventListener('close', () => { clearInterval(sukShake); sukShake = null; });
+
+  // ---------- 🎂 the birthday party planner ----------
+  const PTY_STEPS = [['who', '🎂 של מי?'], ['inv', '💌 הזמנות'], ['deco', '🎈 קישוטים'], ['cake', '🍰 עוגה'], ['games', '🎲 משחקים'], ['gifts', '🎁 מתנות'], ['candles', '🕯️ נרות'], ['album', '📸 אלבום']];
+  const PTY_BG = ['#ffe0ec', '#dff1ff', '#fff3c4', '#e2f5da', '#ece2ff', '#ffe6d2'];
+  const PTY_PATS = [['dots', '⚪ נקודות'], ['stripes', '〰️ פסים'], ['confetti', '🎊 קונפטי'], ['hearts', '💗 לבבות'], ['stars', '⭐ כוכבים']];
+  const PTY_STK = ['balloon', 'cake', 'gift', 'star', 'heart', 'crown', 'unicorn', 'rainbow', 'cupcake', 'sparkles', 'icecream', 'butterfly'];
+  const PTY_BALLOONS = [['rainbow', '🌈 קשת', ['#ff5a6e', '#ffd84d', '#6fcf7f', '#4fa8ff', '#b58cff']], ['pink', '💗 ורוד', ['#ff9ad5', '#ff5a8a', '#ffffff', '#ffc2d6']], ['blue', '💙 כחול', ['#4fa8ff', '#7ec8ff', '#ffffff', '#2f5fd0']], ['gold', '⭐ זהב', ['#ffd84d', '#ffffff', '#e0a800', '#fff3b0']], ['mint', '🌿 מנטה', ['#8fdc6f', '#b8f0d0', '#ffffff', '#ffd84d']]];
+  const PTY_WALLS = ['#ffe9f2', '#e6f3ff', '#fff6d6', '#eafbe4', '#f1e8ff'];
+  const PTY_CLOTHS = ['#ffffff', '#ffd6e4', '#d7ecff', '#fff1b8', '#dff5d6', '#e8dcff'];
+  const PTY_HATS = ['#ff5a8a', '#4fa8ff', '#ffd84d', '#6fcf7f', '#b58cff', '#ff9f43'];
+  const PTY_CAKES = [
+    ['🍓 עוגת תותים', { tiers: 2, flavors: ['#ffc2d6', '#fff1c7'], frost: 'drips', frostColor: '#ff9ad5', plate: '#ffd84d', sprinkles: true, items: [] }],
+    ['🍫 עוגת שוקולד', { tiers: 1, flavors: ['#8b5a3c'], frost: 'swirls', frostColor: '#6b4226', plate: '#ffffff', sprinkles: true, items: [] }],
+    ['🦄 עוגת קשת', { tiers: 3, flavors: ['#b58cff', '#7ec8ff', '#8fdc6f'], frost: 'drips', frostColor: '#ffffff', plate: '#ff9ad5', sprinkles: true, items: [] }],
+  ];
+  const PTY_GIFTS = [['🧸', 'דובי רך'], ['📚', 'ספר הרפתקאות'], ['🎨', 'ערכת ציור'], ['🛼', 'גלגיליות'], ['🪀', 'יו-יו זוהר'], ['🧩', 'פאזל ענק'], ['🎀', 'סרטים לשיער'], ['🦄', 'חד-קרן מפלסטלינה'], ['🎧', 'אוזניות ורודות'], ['📓', 'יומן עם מנעול'],
+    ['🪁', 'עפיפון'], ['🌈', 'מנורת קשת'], ['🎲', 'משחק קופסה'], ['🫧', 'מכונת בועות'], ['🔮', 'כדור שלג קסום'], ['🌱', 'ערכת גינה קטנה'], ['🎹', 'אורגנית'], ['💍', 'טבעת נוצצת'], ['👑', 'כתר נסיכה'], ['🖍️', 'ארגז טושים'], ['🧁', 'ערכת אפייה'], ['⛸️', 'מחליקיים']];
+  const PTY_PETGIFTS = [['🦴', 'עצם לעיסה'], ['🧶', 'כדור צמר'], ['🛏️', 'מיטה רכה'], ['🎾', 'כדור טניס'], ['🐟', 'חטיף דג'], ['🎀', 'פפיון חגיגי'], ['🥕', 'גזר מתוק']];
+  const PTY_TUNE = [523, 587, 659, 523, 659, 784, 698, 659, 587, 523, 587, 659, 698, 784, 880, 784];
+  let ptyBd = store.get('ptyBdays', {});
+  let ptyAlbum = store.get('parties', []);
+  let pty = null, ptyTimers = [], ptyRaf = 0, ptyIv = 0;
+  const PTY_TY = 296;
+  const ptyLater = (fn, ms) => ptyTimers.push(setTimeout(fn, ms));
+  const ptyStop = () => { ptyTimers.forEach(clearTimeout); ptyTimers = []; cancelAnimationFrame(ptyRaf); clearInterval(ptyIv); };
+  const ptySaveBd = () => store.set('ptyBdays', ptyBd);
+  const ptySaveAlbum = () => { if (!store.set('parties', ptyAlbum)) toast(stickerHTML('cake'), 'אין מספיק מקום לשמור את האלבום 😕'); };
+  const ptyNew = () => ({ step: 'who', who: null, inv: { bg: PTY_BG[0], pat: 'confetti', stk: ['balloon', 'cake', 'gift'], text: '' }, guests: [], sent: false,
+    deco: { balloons: 'rainbow', banner: true, streamers: true, hats: true, wall: PTY_WALLS[0], cloth: '#ffffff' }, cake: null, played: [], gifts: null, blown: null, sung: false, saved: false, wish: '', coinsGame: false });
+  const ptyHost = () => pty && pty.who ? evtFolk(pty.who) : null;
+  const ptyBdOf = key => ptyBd[key] || null;
+  const ptyAge = key => { const b = ptyBdOf(key), f = evtFolk(key); return b && b.age ? +b.age : f && f.type !== 'p' ? (+f.o.age || 11) : 1; };
+  const ptyDays = md => { if (!md) return null; const t = localToday(), y = +t.slice(0, 4); let k = `${y}-${md}`; if (k < t) k = `${y + 1}-${md}`; return daysBetween(t, k); };
+  const ptyMdText = md => md ? `${+md.slice(3)}/${+md.slice(0, 2)}` : '';
+  const ptyGuests = () => pty.guests.map(evtFolk).filter(Boolean);
+  // ---- the invitation card ----
+  function ptyCardSVG(inv, host, name, age, md) {
+    const u = 'pc' + (evtN++), bg = inv.bg, dk = mix(bg, '#3a2b3c', 0.25);
+    const pat = { dots: Array.from({ length: 40 }, (_, i) => `<circle cx="${(i % 8) * 42 + (Math.floor(i / 8) % 2) * 21 + 10}" cy="${Math.floor(i / 8) * 44 + 12}" r="5" fill="#fff" opacity=".6"/>`).join(''),
+      stripes: Array.from({ length: 14 }, (_, i) => `<path d="M${i * 30 - 60} 0 L${i * 30 + 40} 220" stroke="#fff" stroke-width="9" opacity=".45"/>`).join(''),
+      confetti: Array.from({ length: 44 }, (_, i) => `<rect x="${(i * 71) % 316}" y="${(i * 47) % 206}" width="8" height="3.4" rx="1.5" fill="${PTY_HATS[i % 6]}" transform="rotate(${(i * 53) % 180} ${(i * 71) % 316} ${(i * 47) % 206})" opacity=".8"/>`).join(''),
+      hearts: Array.from({ length: 24 }, (_, i) => { const x = (i % 6) * 56 + 14, y = Math.floor(i / 6) * 56 + 16; return `<path d="M${x} ${y + 4} c-6 -8 -14 -2 -8 5 l8 7 l8 -7 c6 -7 -2 -13 -8 -5 z" fill="#fff" opacity=".55"/>`; }).join(''),
+      stars: Array.from({ length: 24 }, (_, i) => `<polygon points="${starPts((i % 6) * 56 + 18 + (Math.floor(i / 6) % 2) * 22, Math.floor(i / 6) * 56 + 18, 7, 3)}" fill="#fff" opacity=".6"/>`).join('') }[inv.pat] || '';
+    const lines = evtWrap(inv.text || `בואו לחגוג איתי יום הולדת ${age}!`, 20).slice(0, 3);
+    const corners = [[12, 164], [62, 168], [112, 164], [162, 168]];
+    const stk = (inv.stk || []).slice(0, 4).map((id, i) => placeSvg(stickerHTML(id), corners[i][0], corners[i][1], 44, 44)).join('');
+    return `<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="${u}c"><rect x="4" y="4" width="312" height="212" rx="16"/></clipPath><clipPath id="${u}a"><circle cx="258" cy="84" r="40"/></clipPath></defs>` +
+      `<rect x="4" y="4" width="312" height="212" rx="16" fill="${bg}"/><g clip-path="url(#${u}c)">${pat}</g><rect x="14" y="14" width="292" height="192" rx="12" fill="none" stroke="${dk}" stroke-width="2" stroke-dasharray="6 5"/>` +
+      `<rect x="4" y="4" width="312" height="212" rx="16" fill="none" stroke="${O}" stroke-width="4"/>` +
+      `<circle cx="258" cy="84" r="44" fill="#fff" stroke="${O}" stroke-width="3"/>${host ? `<g clip-path="url(#${u}a)"><circle cx="258" cy="84" r="40" fill="${mix(bg, '#ffffff', 0.5)}"/>${evtImage(evtHead(host), host.type === 'g' ? 214 : 222, host.type === 'g' ? 40 : 48, host.type === 'g' ? 88 : 72, host.type === 'g' ? 100 : 82)}</g>` : ''}` +
+      `<text x="258" y="150" text-anchor="middle" font-size="19" ${evtFont} fill="${O}">${evtEsc(name)}</text>` +
+      `<text x="116" y="46" text-anchor="middle" font-size="26" ${evtFont} fill="#e0315a" stroke="#fff" stroke-width="4" paint-order="stroke">הזמנה למסיבה!</text>` +
+      lines.map((l, i) => `<text x="116" y="${80 + i * 24}" text-anchor="middle" font-size="18" ${evtFont} fill="${O}" stroke="#fff" stroke-width="3" paint-order="stroke">${evtEsc(l)}</text>`).join('') +
+      (md ? `<text x="258" y="176" text-anchor="middle" font-size="16" ${evtFont} fill="${dk}">🎂 ${ptyMdText(md)}</text>` : '') + stk + `</svg>`;
+  }
+  // ---- the cake (hers from the cake game, or a ready one) with our own candles ----
+  function ptyCake() {
+    const host = ptyHost(), nm = host ? host.name : '';
+    let c;
+    if (pty.cake === 'mine') c = Object.assign(cakeNew(), store.get('cake', {}));
+    else c = Object.assign(cakeNew(), JSON.parse(JSON.stringify((PTY_CAKES[+pty.cake] || PTY_CAKES[0])[1])));
+    c.items = (c.items || []).filter(i => i.t !== 'candle'); c.name = nm.length > 12 ? '' : nm;
+    return c;
+  }
+  // candles: one per year up to 9, and from 10 on big number candles
+  const ptyUnits = () => { const a = Math.max(1, Math.min(120, ptyAge(pty.who))); return a < 10 ? Array(a).fill(null) : String(a).split(''); };
+  function ptyCakeSVG(c, blown) {
+    const top = cakeGeo(c.tiers || 1).slice(-1)[0], u = ptyUnits(), n = u.length, w = top.w - 34;
+    const flame = (x, y) => `<circle cx="${x}" cy="${y - 11}" r="11" fill="#fff3a0" opacity=".45"/><path class="pty-fl" d="M${x} ${y - 22} C${x + 7} ${y - 13} ${x + 5} ${y - 6} ${x} ${y - 6} C${x - 5} ${y - 6} ${x - 7} ${y - 13} ${x} ${y - 22} Z" fill="#ffb020" ${evtS(1.4)}/><path d="M${x} ${y - 16} C${x + 3} ${y - 11} ${x + 2} ${y - 9} ${x} ${y - 9} C${x - 2} ${y - 9} ${x - 3} ${y - 11} ${x} ${y - 16} Z" fill="#fff3a0"/>`;
+    const smoke = (x, y) => `<path class="pty-smoke" d="M${x} ${y - 6} q-5 -6 0 -12 q5 -6 0 -12" fill="none" stroke="#b8c2cf" stroke-width="2.4" stroke-linecap="round"/>`;
+    const cand = u.map((dg, i) => {
+      const x = top.x + 17 + (n === 1 ? w / 2 : i * w / (n - 1)), y = top.yt + 4 + (dg == null ? (i % 2) * 5 : 0), off = blown && blown[i];
+      const body = dg == null
+        ? `<rect x="${x - 4.5}" y="${y - 34}" width="9" height="34" rx="2" fill="#fff" ${S2}/><path d="M${x - 4} ${y - 26} l8 -5 M${x - 4} ${y - 16} l8 -5 M${x - 4} ${y - 6} l8 -5" stroke="${PTY_HATS[i % 6]}" stroke-width="2.4"/><path d="M${x} ${y - 34} v-5" stroke="${O}" stroke-width="1.6"/>`
+        : `<text x="${x}" y="${y}" text-anchor="middle" font-size="58" font-weight="700" font-family="Rubik, Arial, sans-serif" fill="${PTY_HATS[(i * 2) % 6]}" stroke="${O}" stroke-width="3" paint-order="stroke">${dg}</text><path d="M${x} ${y - 42} v-6" stroke="${O}" stroke-width="1.8"/>`;
+      const fy = dg == null ? y - 39 : y - 47;
+      return `<g class="pty-cd" data-c="${i}">${body}${off ? smoke(x, fy) : flame(x, fy)}<rect x="${x - 16}" y="${fy - 26}" width="32" height="${dg == null ? 66 : 76}" fill="transparent"/></g>`;
+    }).join('');
+    return cakeSVG(c, false).replace(/<\/svg>$/, cand + '</svg>').replace('<svg ', '<svg overflow="visible" ');
+  }
+  // ---- the party room ----
+  function ptyRoomSVG(o = {}) {
+    const d = pty.deco, host = ptyHost(), gs = ptyGuests().slice(0, 6), bl = (PTY_BALLOONS.find(b => b[0] === d.balloons) || PTY_BALLOONS[0])[2];
+    const wall = d.wall, dk = mix(wall, '#3a2b3c', 0.12);
+    let s = `<rect width="600" height="400" fill="${wall}"/>` + Array.from({ length: 48 }, (_, i) => `<circle cx="${(i % 12) * 52 + (Math.floor(i / 12) % 2) * 26 + 10}" cy="${Math.floor(i / 12) * 70 + 30}" r="4" fill="#fff" opacity=".7"/>`).join('');
+    s += `<path d="M0 318 H600 V400 H0 Z" fill="#e9c89a" stroke="${O}" stroke-width="2.5"/>` + Array.from({ length: 6 }, (_, i) => `<path d="M${i * 110 + 20} 318 L${i * 130 - 30} 400" stroke="#d2ab78" stroke-width="2"/>`).join('') + `<path d="M0 330 H600" stroke="#d2ab78" stroke-width="2"/>`;
+    if (d.streamers) {
+      s += [0, 1, 2].map(r => `<path d="M-10 ${6 + r * 8} ${Array.from({ length: 6 }, (_, i) => `Q${i * 104 + 42} ${46 + r * 10} ${i * 104 + 94} ${6 + r * 8}`).join(' ')}" fill="none" stroke="${bl[r % bl.length]}" stroke-width="7" stroke-linecap="round" opacity=".95"/>`).join('');
+      s += [30, 570, 150, 450].map((x, i) => `<path d="M${x} 0 ${Array.from({ length: 7 }, (_, j) => `q${j % 2 ? 8 : -8} 11 0 22`).join(' ')}" fill="none" stroke="${bl[(i + 1) % bl.length]}" stroke-width="5" stroke-linecap="round"/>`).join('');
+    }
+    if (d.banner) {
+      s += `<path d="M86 52 Q300 96 514 52" fill="none" stroke="${O}" stroke-width="2"/>` + Array.from({ length: 11 }, (_, i) => { const x = 100 + i * 40, y = 52 + 44 * (1 - ((x - 300) / 214) ** 2) * 0.5 + 1; return `<path d="M${x - 14} ${y.toFixed(1)} H${x + 14} L${x} ${(y + 26).toFixed(1)} Z" fill="${bl[i % bl.length]}" ${S2}/>`; }).join('');
+      const txt = `יום הולדת שמח${host ? ' ' + host.name : ''}!`;
+      s += `<rect x="${300 - Math.min(230, 40 + txt.length * 9)}" y="98" width="${2 * Math.min(230, 40 + txt.length * 9)}" height="40" rx="20" fill="#fff" stroke="${O}" stroke-width="2.5"/><text x="300" y="127" text-anchor="middle" font-size="26" ${evtFont} fill="#e0315a">${evtEsc(txt)}</text>`;
+    }
+    const cluster = (x, flip) => [[-22, 150], [0, 128], [22, 152], [-8, 176], [14, 180]].map(([dx, y], i) => {
+      const bx = x + dx * flip, c = bl[(i + (flip > 0 ? 0 : 2)) % bl.length];
+      return `<path d="M${bx} ${y + 20} Q${bx + 6} ${y + 80} ${x} 330" fill="none" stroke="${O}" stroke-width="1.3"/><g class="pty-bal" style="animation-delay:-${i * 0.6}s"><ellipse cx="${bx}" cy="${y}" rx="19" ry="23" fill="${c}" ${S2}/><path d="M${bx - 3} ${y + 23} l3 5 l3 -5 Z" fill="${c}" ${evtS(1)}/>${shine(bx - 11, y - 6)}</g>`;
+    }).join('') + `<rect x="${x - 7}" y="324" width="14" height="10" rx="3" fill="#b58cff" ${S2}/>`;
+    s += cluster(52, 1) + cluster(548, -1);
+    // seats: the birthday one in the middle, friends around
+    const order = [];
+    gs.forEach((g, i) => { if (i % 2) order.push({ f: g, i }); else order.unshift({ f: g, i }); });
+    const mid = Math.floor(order.length / 2), withCake = o.cake !== false && pty.cake != null;
+    if (host) order.splice(mid, 0, { f: host, host: true });
+    if (withCake) order.splice(host ? mid + 1 : mid, 0, null);
+    const N = order.length, half = Math.min(250, Math.max(150, N * 44)), x0 = 300 - half, x1 = 300 + half, k = N > 6 ? 0.84 : 0.96;
+    const slotX = i => x0 + 22 + (i + 0.5) * (x1 - x0 - 44) / N, cakeX = withCake ? slotX(order.indexOf(null)) : 300;
+    const seats = order.map((x, i) => !x ? '' : `<g class="pty-bob" style="animation-delay:-${(i * 0.27).toFixed(2)}s">${evtSeat(x.f, slotX(i), PTY_TY, x.host ? k * 1.08 : k, { hat: d.hats ? (x.host ? 'crown' : PTY_HATS[x.i % 6]) : null, cushion: bl[i % bl.length] })}</g>`).join('');
+    s += `<defs><clipPath id="ptyClip${o.uid || ''}"><rect width="600" height="${PTY_TY + 40}"/></clipPath></defs><g clip-path="url(#ptyClip${o.uid || ''})" pointer-events="none">${seats}</g>${evtTable(x0, x1, PTY_TY, d.cloth, false)}`;
+    if (withCake) s += `<g class="pty-cake">${placeSvg(ptyCakeSVG(ptyCake(), pty.blown), cakeX - 80, PTY_TY - 132, 160, 160)}</g>`;
+    else s += `<g transform="translate(300 ${PTY_TY + 6})"><ellipse cx="-80" cy="0" rx="26" ry="6" fill="#fff" ${S2}/><ellipse cx="80" cy="0" rx="26" ry="6" fill="#fff" ${S2}/><path d="M-10 -12 H10 L8 4 H-8 Z" fill="#ff9ad5" ${S2}/></g>`;
+    return `<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg"${o.photo ? '' : ' role="img" aria-label="המסיבה"'}>${s}</svg>`;
+  }
+  // ---- the dialog ----
+  function openParty(key) {
+    ptyStop();
+    if (!pty || pty.saved) pty = ptyNew();
+    if (key && evtFolk(key)) { pty = ptyNew(); pty.who = key; }
+    ptyDraw();
+    if (!$('#ptyDlg').open) $('#ptyDlg').showModal();
+  }
+  const ptyGo = step => { ptyStop(); pty.step = step; SFX.pop(); ptyDraw(); const sh = $('#ptyDlg .sheet'); if (sh) sh.scrollTop = 0; };
+  function ptyDraw() {
+    const idx = PTY_STEPS.findIndex(s => s[0] === pty.step), host = ptyHost();
+    const reach = i => i === 0 || (host && (i <= 3 || pty.cake != null)) || PTY_STEPS[i][0] === 'album';
+    const steps = el('div', { class: 'pty-steps' }, ...PTY_STEPS.map(([id, nm], i) => el('button', { type: 'button', class: i === idx ? 'now' : i < idx ? 'done' : '', disabled: !reach(i), onclick: () => ptyGo(id) }, nm)));
+    const fn = { who: ptyWho, inv: ptyInv, deco: ptyDeco, cake: ptyCakeStep, games: ptyGames, gifts: ptyGifts, candles: ptyCandles, album: ptyAlbumStep }[pty.step] || ptyWho;
+    $('#ptyBody').replaceChildren(steps, ...[].concat(fn()).filter(Boolean));
+  }
+  const ptyNext = (to, label, dis) => el('div', { class: 'chips pty-nav' }, el('button', { type: 'button', class: 'btn main', disabled: !!dis, onclick: () => ptyGo(to) }, label));
+  function ptyWho() {
+    const folks = evtFolks(), host = ptyHost();
+    const card = f => {
+      const b = ptyBdOf(f.key), dd = b ? ptyDays(b.d) : null;
+      return el('button', { type: 'button', class: 'pty-who', 'aria-pressed': String(pty.who === f.key), onclick: () => { pty.who = f.key; pty.guests = pty.guests.filter(k => k !== f.key); f.type === 'p' ? SFX.pet(f.o.kind) : SFX.pop(); ptyDraw(); } },
+        el('img', { src: evtHead(f), alt: '' }), el('b', {}, f.name), el('small', {}, b ? (dd === 0 ? '🎉 היום!' : `🎂 ${ptyMdText(b.d)} · עוד ${dd} ימים`) : 'בלי תאריך'));
+    };
+    let setBox = null;
+    if (host) {
+      const b = ptyBdOf(host.key) || {}, [mm, dd] = (b.d || '').split('-');
+      const day = el('select', { 'aria-label': 'יום' }, el('option', { value: '' }, 'יום'), ...Array.from({ length: 31 }, (_, i) => el('option', { value: String(i + 1).padStart(2, '0'), selected: +dd === i + 1 }, String(i + 1))));
+      const mon = el('select', { 'aria-label': 'חודש' }, el('option', { value: '' }, 'חודש'), ...MONTHS.map((m, i) => el('option', { value: String(i + 1).padStart(2, '0'), selected: +mm === i + 1 }, m)));
+      const age = el('input', { type: 'number', min: 1, max: 120, value: ptyAge(host.key), 'aria-label': 'גיל', style: 'width:5em' });
+      const save = () => { const o = Object.assign({}, ptyBdOf(host.key) || {}); if (day.value && mon.value) o.d = `${mon.value}-${day.value}`; o.age = Math.max(1, Math.min(120, +age.value || 1)); ptyBd[host.key] = o; ptySaveBd(); };
+      [day, mon, age].forEach(x => x.addEventListener('change', () => { save(); SFX.pop(); }));
+      const dleft = b.d ? ptyDays(b.d) : null;
+      setBox = el('div', { class: 'box pty-set' }, el('h4', {}, `🎂 יום ההולדת של ${host.name}`),
+        el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'תאריך:'), day, mon, el('span', { class: 'lbl' }, 'חוגגת גיל:'), age),
+        el('p', { class: 'muted' }, b.d ? (dleft === 0 ? '🎉 היום יום ההולדת! איזה כיף!' : `עוד ${dleft} ימים ליום ההולדת 🎈`) : 'אפשר לבחור תאריך (לא חובה), ואז נזכור אותו 💖'));
+    }
+    return [ptyAlbum.length ? el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => ptyGo('album') }, `📖 אלבום המסיבות (${ptyAlbum.length})`)) : null,
+      el('p', { class: 'pty-say' }, '🎉 למי עושים מסיבת יום הולדת?'),
+      folks.length ? el('div', { class: 'pty-whos' }, ...folks.map(card)) : el('p', { class: 'muted' }, 'עוד אין לך בנות, חיות או בנות ים... אפשר לעצב בנות בסטודיו האופנה 💖'),
+      setBox, ptyNext('inv', 'הבא: הזמנות 💌 ⬅️', !host)];
+  }
+  function ptyInv() {
+    const host = ptyHost(), inv = pty.inv, age = ptyAge(pty.who), b = ptyBdOf(pty.who) || {};
+    const prev = el('div', { class: 'pty-card', html: ptyCardSVG(inv, host, host.name, age, b.d) });
+    const redraw = () => { prev.innerHTML = ptyCardSVG(inv, host, host.name, age, b.d); };
+    const ta = el('textarea', { maxLength: 80, rows: 2, placeholder: `בואו לחגוג איתי יום הולדת ${age}!`, 'aria-label': 'מה כתוב בהזמנה' });
+    ta.value = inv.text; ta.addEventListener('input', () => { inv.text = ta.value; redraw(); });
+    const guests = el('div');
+    const drawGuests = () => guests.replaceChildren(evtGuestPick(pty.guests, 6, () => { drawGuests(); sendBtn.disabled = !pty.guests.length; }, pty.who));
+    const sendBtn = el('button', { type: 'button', class: 'btn main', disabled: !pty.guests.length, onclick: () => {
+      pty.sent = true; SFX.yay();
+      const fly = el('div', { class: 'pty-fly' }, ...ptyGuests().map((g, i) => { const e = el('span', {}, '💌'); e.style.animationDelay = (i * 0.15) + 's'; return e; }));
+      prev.append(fly);
+      ptyLater(() => { toast(stickerHTML('heart'), `ההזמנות נשלחו ל-${pty.guests.length} אורחים! 💌`); ptyGo('deco'); }, 1300);
+    } }, '📮 לשלוח הזמנות!');
+    drawGuests();
+    return [el('p', { class: 'pty-say' }, `💌 מעצבים הזמנה למסיבה של ${host.name}`),
+      el('div', { class: 'pty-two' }, prev, el('div', { class: 'row' },
+        el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'צבע:'), ...PTY_BG.map(c => el('button', { type: 'button', class: 'evt-sw', style: `background:${c}`, 'aria-label': 'צבע', 'aria-pressed': String(inv.bg === c), onclick: () => { inv.bg = c; SFX.pop(); ptyDraw(); } }))),
+        el('div', { class: 'chips' }, ...PTY_PATS.map(([id, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(inv.pat === id), onclick: () => { inv.pat = id; SFX.pop(); ptyDraw(); } }, nm))),
+        el('div', { class: 'pty-stks', role: 'group', 'aria-label': 'מדבקות (עד 4)' }, ...PTY_STK.map(id => el('button', { type: 'button', 'aria-pressed': String(inv.stk.includes(id)), 'aria-label': id, html: stickerHTML(id), onclick: () => {
+          if (inv.stk.includes(id)) inv.stk = inv.stk.filter(x => x !== id); else { if (inv.stk.length >= 4) inv.stk.shift(); inv.stk.push(id); }
+          SFX.pop(); ptyDraw();
+        } }))),
+        el('label', { class: 'pty-lbl' }, '✏️ מה כתוב בהזמנה?', ta))),
+      el('h4', { class: 'pty-h' }, `👯 את מי מזמינים? (${pty.guests.length}/6)`), guests,
+      el('div', { class: 'chips pty-nav' }, sendBtn, el('button', { type: 'button', class: 'btn', onclick: () => ptyGo('deco') }, 'לדלג ⬅️'))];
+  }
+  function ptyDeco() {
+    const d = pty.deco;
+    const tg = (k, nm) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(d[k]), onclick: () => { d[k] = !d[k]; SFX.pop(); ptyDraw(); } }, (d[k] ? '✔️ ' : '') + nm);
+    return [el('p', { class: 'pty-say' }, '🎈 מקשטים את חדר המסיבה!'),
+      el('div', { class: 'pty-stage', html: ptyRoomSVG({ cake: false }) }),
+      el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'בלונים:'), ...PTY_BALLOONS.map(([id, nm]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(d.balloons === id), onclick: () => { d.balloons = id; SFX.pop(); ptyDraw(); } }, nm))),
+      el('div', { class: 'chips' }, tg('banner', '🎏 שלט עם השם'), tg('streamers', '🎊 סרטים'), tg('hats', '🥳 כובעי מסיבה')),
+      el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'קיר:'), ...PTY_WALLS.map(c => el('button', { type: 'button', class: 'evt-sw', style: `background:${c}`, 'aria-label': 'צבע קיר', 'aria-pressed': String(d.wall === c), onclick: () => { d.wall = c; SFX.pop(); ptyDraw(); } })),
+        el('span', { class: 'lbl' }, 'מפה:'), ...PTY_CLOTHS.map(c => el('button', { type: 'button', class: 'evt-sw', style: `background:${c}`, 'aria-label': 'צבע מפה', 'aria-pressed': String(d.cloth === c), onclick: () => { d.cloth = c; SFX.pop(); ptyDraw(); } }))),
+      ptyNext('cake', 'הבא: עוגה 🍰 ⬅️')];
+  }
+  function ptyCakeStep() {
+    const mine = store.get('cake', null);
+    const opts = [...(mine ? [['mine', '🎂 העוגה שעיצבתי']] : []), ...PTY_CAKES.map((c, i) => [String(i), c[0]])];
+    if (pty.cake == null) pty.cake = opts[0][0];
+    return [el('p', { class: 'pty-say' }, '🍰 איזו עוגה תהיה במסיבה?'),
+      el('div', { class: 'pty-cakes' }, ...opts.map(([id, nm]) => { const was = pty.cake; pty.cake = id; const art = ptyCakeSVG(ptyCake(), null); pty.cake = was;
+        return el('button', { type: 'button', class: 'pty-cakeb', 'aria-pressed': String(pty.cake === id), onclick: () => { pty.cake = id; SFX.pop(); ptyDraw(); } }, el('span', { class: 'art', html: art }), nm); })),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { $('#ptyDlg').close(); openGames('cake'); } }, '🎨 לעצב עוגה משלי (במשחק העוגה)')),
+      ptyNext('games', 'הבא: משחקי מסיבה 🎲 ⬅️')];
+  }
+  // players for the party games: me + the birthday one + guests
+  const ptyPlayers = () => [{ name: 'אני', img: svgData(stickerHTML('star')), me: true }, ...[ptyHost(), ...ptyGuests()].filter(Boolean).map(f => ({ name: f.name, img: evtHead(f), f }))];
+  function ptyGames() {
+    const box = el('div', { class: 'pty-game' });
+    const pick = (id, nm, desc, fn) => el('button', { type: 'button', class: 'pty-gb' + (pty.played.includes(id) ? ' done' : ''), onclick: () => { ptyStop(); SFX.pop(); fn(box, () => ptyGameWon(id)); } }, el('b', {}, nm), el('small', {}, desc), pty.played.includes(id) ? el('span', { class: 'ok' }, '✔️') : null);
+    return [el('p', { class: 'pty-say' }, '🎲 בוחרים משחק מסיבה!'),
+      el('div', { class: 'pty-gbs' }, pick('parcel', '🎁 חבילה עוברת', 'המוזיקה מתנגנת והחבילה עוברת... עוצרים ופותחים שכבה!', ptyParcel),
+        pick('chairs', '🪑 כיסאות מוזיקליים', 'כולם מסתובבים, וכשהמוזיקה נעצרת - מהר לשבת!', ptyChairs),
+        pick('tail', '🦄 זנב לחד-הקרן', 'עם כיסוי עיניים - מנסים לנעוץ את הזנב במקום!', ptyTail)),
+      box, ptyNext('gifts', 'הבא: לפתוח מתנות 🎁 ⬅️')];
+  }
+  function ptyGameWon(id) {
+    if (!pty.played.includes(id)) pty.played.push(id);
+    SFX.yay(); evtTry(() => confetti($('#ptyDlg .confetti-c')));
+    if (!pty.coinsGame) { pty.coinsGame = true; evtCoins(5, 'משחק מסיבה'); }
+  }
+  // 🎁 pass the parcel
+  function ptyParcel(box, won) {
+    const pl = ptyPlayers(), n = pl.length, layers = ['#ff5a8a', '#4fa8ff', '#ffd84d', '#6fcf7f', '#b58cff'].slice(0, Math.max(3, Math.min(5, n + 1)));
+    let at = 0, left = layers.length, playing = false, note = 0;
+    const ring = el('div', { class: 'pty-ring' }), cap = el('p', { class: 'pty-cap' }, 'לוחצים "מוזיקה!" והחבילה מתחילה לעבור 🎶');
+    const pos = i => { const a = -Math.PI / 2 + i * 2 * Math.PI / n; return [50 + 38 * Math.cos(a), 50 + 38 * Math.sin(a)]; };
+    pl.forEach((p, i) => { const [x, y] = pos(i); const e = el('div', { class: 'pty-pl' }, el('img', { src: p.img, alt: '' }), el('span', {}, p.name)); e.style.left = x + '%'; e.style.top = y + '%'; ring.append(e); });
+    const parcel = el('div', { class: 'pty-parcel' });
+    const paint = () => { parcel.innerHTML = left ? `<svg viewBox="0 0 60 60"><rect x="8" y="20" width="44" height="34" rx="4" fill="${layers[left - 1]}" ${S}/><rect x="4" y="12" width="52" height="12" rx="3" fill="${layers[left - 1]}" ${S}/><path d="M30 12 V54" stroke="#fff" stroke-width="6"/><path d="M30 12 C20 0 12 6 18 12 M30 12 C40 0 48 6 42 12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><text x="46" y="50" font-size="12" ${evtFont} fill="#fff">${left}</text></svg>` : '🏆'; };
+    const place = () => { const [x, y] = pos(at); parcel.style.left = x + '%'; parcel.style.top = (y + 9) + '%'; };
+    paint(); place(); ring.append(parcel);
+    const btn = el('button', { type: 'button', class: 'btn main' }, '▶️ מוזיקה!');
+    btn.onclick = () => {
+      if (!left) return;
+      if (!playing) {
+        playing = true; btn.textContent = '⏹️ עוצרים!'; cap.textContent = '🎶 החבילה עוברת...';
+        ptyIv = setInterval(() => { at = (at + 1) % n; place(); tone(PTY_TUNE[note++ % PTY_TUNE.length], 0.2, 'triangle', 0, 0.06); }, 240 + Math.random() * 60);
+      } else {
+        playing = false; clearInterval(ptyIv); btn.textContent = '▶️ מוזיקה!';
+        left--; paint(); SFX.pop(); parcel.classList.remove('rip'); void parcel.offsetWidth; parcel.classList.add('rip');
+        if (left) cap.textContent = `🎁 ${pl[at].name} פותחת שכבה! נשארו עוד ${left}`;
+        else { const pr = evtPick(PTY_GIFTS); cap.textContent = `🎉 ${pl[at].name} זכתה ב${pr[1]} ${pr[0]}!`; btn.disabled = true; won(); }
+      }
+    };
+    box.replaceChildren(ring, cap, el('div', { class: 'chips', style: 'justify-content:center' }, btn));
+  }
+  // 🪑 musical chairs
+  function ptyChairs(box, won) {
+    let pl = ptyPlayers().slice(0, 7).map(p => Object.assign({}, p, { out: false }));
+    if (pl.length < 2) pl.push({ name: 'דובי', img: svgData(stickerHTML('bear')) });
+    const stage = el('div', { class: 'pty-mc' }), cap = el('p', { class: 'pty-cap' }, 'לוחצים "מוזיקה!" וכולם מסתובבים סביב הכיסאות 🎶');
+    const chairArt = svgData(`<svg viewBox="-24 -44 48 82" xmlns="http://www.w3.org/2000/svg">${SUK_ITEMS.chair[4]()}</svg>`);
+    let chairs = [], ang = 0, walking = false, note = 0, last = 0;
+    pl.forEach(p => { p.el = el('div', { class: 'pty-pl' }, el('img', { src: p.img, alt: '' }), el('span', {}, p.name)); stage.append(p.el); });
+    const setChairs = () => {
+      chairs.forEach(c => c.el.remove());
+      const m = pl.filter(p => !p.out).length - 1;
+      chairs = Array.from({ length: m }, (_, i) => { const e = el('img', { class: 'pty-chair', src: chairArt, alt: '' }), x = 50 + (i - (m - 1) / 2) * Math.min(14, 76 / Math.max(1, m)); e.style.left = x + '%'; stage.prepend(e); return { el: e, x }; });
+    };
+    const put = () => { const act = pl.filter(p => !p.out); act.forEach((p, i) => { const a = ang + i * 2 * Math.PI / act.length; p.el.style.left = (50 + 40 * Math.cos(a)) + '%'; p.el.style.top = (48 + 32 * Math.sin(a)) + '%'; }); };
+    setChairs(); put();
+    const btn = el('button', { type: 'button', class: 'btn main' }, '▶️ מוזיקה!');
+    const loop = t => { if (!walking) return; if (t - last > 280) { last = t; tone(PTY_TUNE[note++ % PTY_TUNE.length], 0.22, 'square', 0, 0.035); } ang += 0.018; put(); ptyRaf = requestAnimationFrame(loop); };
+    btn.onclick = () => {
+      if (!walking) {
+        pl.forEach(p => p.el.classList.remove('sit'));
+        walking = true; btn.textContent = '⏹️ לעצור את המוזיקה!'; cap.textContent = '🎶 מסתובבים, מסתובבים...'; stage.classList.add('walk');
+        ptyRaf = requestAnimationFrame(loop);
+        return;
+      }
+      walking = false; cancelAnimationFrame(ptyRaf); stage.classList.remove('walk'); SFX.boop();
+      const act = pl.filter(p => !p.out).sort(() => Math.random() - 0.5);
+      chairs.forEach((c, i) => { const p = act[i]; p.el.classList.add('sit'); p.el.style.left = c.x + '%'; p.el.style.top = '52%'; });
+      const outP = act[act.length - 1]; outP.out = true; outP.el.classList.add('out');
+      const rest = pl.filter(p => !p.out);
+      if (rest.length === 1) { cap.textContent = `🏆 ${rest[0].name} ניצחה בכיסאות המוזיקליים!`; btn.disabled = true; won(); return; }
+      cap.textContent = `😅 ${outP.name} לא מצאה כיסא! עוד סיבוב...`; btn.textContent = '▶️ עוד סיבוב!';
+      ptyLater(setChairs, 900);
+    };
+    box.replaceChildren(stage, cap, el('div', { class: 'chips', style: 'justify-content:center' }, btn));
+  }
+  // 🦄 pin the tail on the unicorn
+  function ptyTail(box, won) {
+    const T = [96, 118], tailArt = `<g><path d="M0 0 C-18 -6 -30 6 -34 22 C-26 14 -18 16 -14 22 C-16 10 -8 4 0 0 Z" fill="#ff9ad5" ${S2}/><path d="M-2 2 C-14 6 -20 20 -18 34 C-12 24 -6 22 -2 26 C-6 16 -4 8 -2 2 Z" fill="#7ec8ff" ${S2}/><path d="M0 0 C-10 12 -8 26 0 34 C2 24 6 20 10 20 C4 12 2 6 0 0 Z" fill="#ffd84d" ${S2}/></g>`;
+    const uni = `<rect width="320" height="240" rx="14" fill="#fff8e6" stroke="${O}" stroke-width="4"/><path d="M16 214 C80 200 240 200 304 214" stroke="#8fdc6f" stroke-width="10" stroke-linecap="round"/>` +
+      `<path d="M120 170 V206 M150 172 V208 M200 172 V208 M230 170 V206" stroke="${O}" stroke-width="15" stroke-linecap="round"/><path d="M120 170 V206 M150 172 V208 M200 172 V208 M230 170 V206" stroke="#fff" stroke-width="10" stroke-linecap="round"/>` +
+      `<ellipse cx="176" cy="140" rx="84" ry="44" fill="#fff" ${S}/><path d="M232 118 C244 84 250 60 262 50 C282 48 300 62 296 82 C292 96 274 96 262 94 C256 110 250 124 244 132 Z" fill="#fff" ${S}/>` +
+      `<path d="M270 52 L286 10 L282 54 Z" fill="#ffd84d" ${S2}/><path d="M258 52 C240 60 236 80 238 104 C226 90 224 70 236 56 C230 60 222 70 222 84 C214 64 232 44 258 52 Z" fill="#b58cff" ${S2}/>` +
+      `<circle cx="280" cy="70" r="3.5" fill="${O}"/><circle cx="286" cy="80" r="4" fill="#ff8fab" opacity=".6"/><circle cx="${T[0]}" cy="${T[1]}" r="9" fill="none" stroke="#ff5a8a" stroke-width="2" stroke-dasharray="3 3" class="pty-target"/>`;
+    const tries = []; let t0 = 0, cur = [160, 120], blind = false;
+    const svgBox = el('div', { class: 'pty-tail' });
+    const draw = () => { svgBox.innerHTML = `<svg viewBox="0 0 320 240" xmlns="http://www.w3.org/2000/svg">${uni}${tries.map(p => `<g transform="translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})">${tailArt}</g>`).join('')}` +
+      (blind ? `<rect width="320" height="240" rx="14" fill="#2b2250" opacity=".93"/><text x="160" y="40" text-anchor="middle" font-size="22" ${evtFont} fill="#fff">🙈 כיסוי עיניים!</text><g class="pty-cur" transform="translate(${cur[0].toFixed(1)} ${cur[1].toFixed(1)})" opacity=".35">${tailArt}</g>` : '') + `</svg>`; };
+    const cap = el('p', { class: 'pty-cap' }, 'יש לך 3 ניסיונות. לוחצים "כיסוי עיניים", והזנב זז לבד... לוחצים "לנעוץ!" ברגע הנכון 🎯');
+    const btn = el('button', { type: 'button', class: 'btn main' }, '🙈 כיסוי עיניים');
+    const wander = t => { if (!blind) return; const s = (t - t0) / 1000; cur = [160 + 120 * Math.sin(s * 1.7) * Math.cos(s * 0.6), 120 + 80 * Math.sin(s * 2.3 + 1)]; const g = svgBox.querySelector('.pty-cur'); if (g) g.setAttribute('transform', `translate(${cur[0].toFixed(1)} ${cur[1].toFixed(1)})`); ptyRaf = requestAnimationFrame(wander); };
+    btn.onclick = () => {
+      if (!blind) { blind = true; t0 = performance.now() - Math.random() * 4000; btn.textContent = '📌 לנעוץ!'; draw(); ptyRaf = requestAnimationFrame(wander); SFX.boop(); return; }
+      blind = false; cancelAnimationFrame(ptyRaf); tries.push(cur.slice()); draw(); SFX.pop();
+      const dist = Math.hypot(cur[0] - T[0], cur[1] - T[1]);
+      cap.textContent = dist < 22 ? '🎯 בול! הזנב בדיוק במקום!' : dist < 55 ? '⭐ כמעט! ממש קרוב!' : evtPick(['😂 חחח, הזנב על הראש!', '😆 אופס! זה זנב באוויר!', '🤭 חד-הקרן צוחקת!']);
+      if (tries.length >= 3 || dist < 22) { btn.disabled = true; const best = Math.min(...tries.map(p => Math.hypot(p[0] - T[0], p[1] - T[1]))); cap.textContent += best < 55 ? ' 🏆 כל הכבוד!' : ' 🎉 היה מצחיק!'; won(); }
+      else btn.textContent = '🙈 עוד ניסיון';
+    };
+    draw();
+    box.replaceChildren(svgBox, cap, el('div', { class: 'chips', style: 'justify-content:center' }, btn));
+  }
+  // 🎁 gifts
+  function ptyGifts() {
+    const host = ptyHost(), gs = ptyGuests();
+    if (!pty.gifts) {
+      const from = gs.length ? gs.map(g => g.name) : ['סבא וסבתא', 'המשפחה'];
+      while (from.length < 3) from.push(evtPick(['סבא וסבתא', 'המשפחה', 'השכנה', 'הדודה']));
+      pty.gifts = from.slice(0, 6).map((f, i) => ({ from: f, c: PTY_HATS[i % 6], r: PTY_HATS[(i + 3) % 6], got: null }));
+    }
+    const grid = el('div', { class: 'pty-gifts' });
+    const box = (g, open) => `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><rect x="12" y="34" width="56" height="40" rx="4" fill="${g.c}" ${S}/><path d="M40 34 V74" stroke="${g.r}" stroke-width="7"/>` +
+      `<g class="${open ? 'pty-lid off' : 'pty-lid'}"><rect x="8" y="24" width="64" height="13" rx="3" fill="${g.c}" ${S}/><path d="M40 24 V37" stroke="${g.r}" stroke-width="7"/><path d="M40 24 C28 8 18 14 26 22 Z M40 24 C52 8 62 14 54 22 Z" fill="${g.r}" ${S2}/></g></svg>`;
+    const draw = () => grid.replaceChildren(...pty.gifts.map(g => el('button', { type: 'button', class: 'pty-gift' + (g.got ? ' open' : ''), disabled: !!g.got, onclick: e => {
+      const b = e.currentTarget; b.classList.add('shake'); SFX.boop();
+      ptyLater(() => {
+        const r = Math.random(), pets = host && host.type === 'p';
+        if (r < 0.05 && typeof unlockTreasure === 'function') { const t = evtTry(unlockTreasure); if (t) { g.got = ['👑', 'אוצר נדיר: ' + t.name, 'treasure']; toast(t.art, `💎 אוצר נדיר! ${t.name}`); } }
+        if (!g.got && r < 0.15) { const n = 10 + Math.floor(Math.random() * 3) * 5; g.got = ['🪙', `${n} מטבעות!`, 'coins']; evtCoins(n, 'מתנת יום הולדת'); }
+        if (!g.got) g.got = evtPick(pets && Math.random() < 0.7 ? PTY_PETGIFTS : PTY_GIFTS);
+        SFX.yay(); draw();
+      }, 650);
+    } }, el('span', { class: 'art', html: box(g, !!g.got) }), g.got ? el('span', { class: 'pty-got' + (g.got[2] ? ' rare' : '') }, el('b', {}, g.got[0]), g.got[1]) : null, el('small', {}, `מ${/^[א-ת]/.test(g.from) ? '' : '-'}${g.from}`))));
+    draw();
+    return [el('p', { class: 'pty-say' }, `🎁 ${host.name} פותחת מתנות! לוחצים על מתנה`), grid, ptyNext('candles', 'הבא: נרות ושירה 🕯️ ⬅️')];
+  }
+  // 🕯️ candles & singing
+  function ptyCandles() {
+    const host = ptyHost(), n = ptyAge(pty.who), nu = ptyUnits().length;
+    if (!pty.blown || pty.blown.length !== nu) pty.blown = Array(nu).fill(false);
+    const stage = el('div', { class: 'pty-stage flash-host', html: ptyRoomSVG({}) });
+    const lyr = ['היום יום הולדת', 'היום יום הולדת', `היום יום הולדת ל${host.name}`, 'היום יום הולדת!'];
+    const words = el('div', { class: 'pty-lyrics' }, ...lyr.map(l => el('span', {}, l)));
+    const cap = el('p', { class: 'pty-cap' }, pty.blown.every(Boolean) ? '🎉 מזל טוב!' : '🎵 קודם שרים, ואז מכבים את הנרות (לוחצים על כל להבה, או על "לנשוף")');
+    const all = () => pty.blown.every(Boolean);
+    const blow = i => {
+      if (pty.blown[i]) return;
+      pty.blown[i] = true; tone(300 + Math.random() * 200, 0.18, 'sawtooth', 0, 0.02);
+      const g = stage.querySelector('.pty-cake > svg'); if (g) { const t = document.createElement('div'); t.innerHTML = placeSvg(ptyCakeSVG(ptyCake(), pty.blown), +g.getAttribute('x'), PTY_TY - 132, 160, 160); g.replaceWith(t.firstChild); }
+      if (all()) { cap.textContent = `🎉 מזל טוב ${host.name}! 🎉`; SFX.yay(); evtTry(() => confetti($('#ptyDlg .confetti-c'))); ptyLater(() => { ptyDraw(); }, 1400); }
+    };
+    stage.addEventListener('click', e => { const c = e.target.closest('.pty-cd'); if (c) blow(+c.dataset.c); });
+    const sing = el('button', { type: 'button', class: 'btn main', onclick: () => {
+      ptyStop(); pty.sung = true; SFX.birthday(); stage.classList.add('sing');
+      [0, 1.2, 2.4, 3.9].forEach((t, i) => ptyLater(() => { [...words.children].forEach((w, j) => w.classList.toggle('on', j === i)); }, t * 1000));
+      ptyLater(() => { [...words.children].forEach(w => w.classList.remove('on')); stage.classList.remove('sing'); cap.textContent = '🌬️ עכשיו מבקשים משאלה ומכבים את הנרות!'; }, 5600);
+    } }, '🎵 לשיר יום הולדת שמח');
+    const puff = el('button', { type: 'button', class: 'btn', onclick: () => { pty.blown.forEach((b, i) => ptyLater(() => blow(i), i * 130)); } }, '🌬️ לנשוף!');
+    const done = all();
+    const wish = el('input', { type: 'text', maxLength: 60, value: pty.wish, placeholder: 'המשאלה שלי... (סוד!)', 'aria-label': 'משאלה' });
+    wish.addEventListener('input', () => { pty.wish = wish.value; });
+    return [el('p', { class: 'pty-say' }, `🕯️ ${host.name} חוגגת ${n}!`), stage, words, cap,
+      done ? el('div', { class: 'box' }, el('h4', {}, '💭 משאלת יום הולדת'), wish,
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: ptySave }, '💾 לשמור באלבום המסיבות'),
+          el('button', { type: 'button', class: 'btn', onclick: () => evtPhoto(ptyRoomSVG({ photo: true, uid: 'ph' }), `יום הולדת שמח ${host.name}!`, 'cake', stage) }, '📸 לצלם למדבקה')))
+        : el('div', { class: 'chips', style: 'justify-content:center' }, sing, puff)];
+  }
+  function ptySave() {
+    const host = ptyHost(); if (!host) return;
+    const b = ptyBdOf(pty.who) || {};
+    const entry = { id: 'pt' + Date.now().toString(36), date: localToday(), who: pty.who, name: host.name, type: host.type, age: ptyAge(pty.who), md: b.d || '', inv: JSON.parse(JSON.stringify(pty.inv)),
+      guests: pty.guests.slice(), gnames: ptyGuests().map(g => g.name), gifts: (pty.gifts || []).filter(g => g.got).map(g => g.got.slice(0, 2)), games: pty.played.slice(), wish: pty.wish.slice(0, 60), deco: Object.assign({}, pty.deco) };
+    if (!pty.saved) { ptyAlbum.unshift(entry); ptyAlbum = ptyAlbum.slice(0, 40); ptySaveAlbum(); evtCoins(15, 'מסיבת יום הולדת'); }
+    pty.saved = true; SFX.ding(); ptyGo('album');
+  }
+  let ptyDel = null;
+  function ptyAlbumStep() {
+    const list = ptyAlbum;
+    return [el('p', { class: 'pty-say' }, list.length ? `📖 אלבום המסיבות (${list.length})` : 'עוד אין מסיבות באלבום... בואי נחגוג! 🎉'),
+      el('div', { class: 'pty-alb' }, ...list.map(e => {
+        const f = evtFolk(e.who), fd = fromIso(e.date);
+        return el('div', { class: 'pty-ent' }, el('div', { class: 'pty-mini', html: ptyCardSVG(e.inv, f, e.name, e.age, e.md) }),
+          el('div', { class: 'row' }, el('b', {}, `🎂 ${e.name} חגגה ${e.age}!`), el('small', { class: 'muted' }, `${fd.d} ב${MONTHS[fd.m]} ${fd.y}`),
+            e.gnames.length ? el('span', {}, '👯 ', e.gnames.join(', ')) : null,
+            e.gifts.length ? el('span', {}, '🎁 ', e.gifts.map(g => g[0]).join(' ')) : null,
+            e.wish ? el('span', {}, '💭 ', el('i', {}, e.wish)) : null,
+            ptyDel === e.id ? el('span', { class: 'chips' }, 'למחוק?', el('button', { type: 'button', class: 'chip', onclick: () => { ptyAlbum = ptyAlbum.filter(x => x !== e); ptySaveAlbum(); ptyDel = null; ptyDraw(); } }, 'כן'), el('button', { type: 'button', class: 'chip', onclick: () => { ptyDel = null; ptyDraw(); } }, 'לא'))
+              : el('button', { type: 'button', class: 'chip', style: 'justify-self:start', onclick: () => { ptyDel = e.id; ptyDraw(); } }, '🗑️')));
+      })),
+      el('div', { class: 'chips pty-nav' }, el('button', { type: 'button', class: 'btn main', onclick: () => { pty = ptyNew(); ptyDraw(); } }, '🎉 מסיבה חדשה'))];
+  }
+  // a pill on the strip when one of her girls/pets/mermaids has a birthday today or tomorrow
+  function partyPill() {
+    const hit = Object.entries(ptyBd).map(([k, b]) => ({ k, n: b && b.d ? ptyDays(b.d) : null, f: evtFolk(k) })).filter(x => x.f && x.n != null && x.n <= 1).sort((a, b) => a.n - b.n)[0];
+    if (!hit) return null;
+    return el('button', { type: 'button', class: 'pill', style: 'border-color:var(--accent)', onclick: () => openParty(hit.k) }, el('span', { class: 'ic', html: stickerHTML('cake') }),
+      hit.n === 0 ? `היום יום ההולדת של ${hit.f.name}! לעשות מסיבה? 🎉` : `מחר יום ההולדת של ${hit.f.name}! 🎈`);
+  }
+  $('#ptyDlg').addEventListener('close', () => { ptyStop(); evtTry(() => { confettiRun++; }); });
+
+  // ---------- ☕ the café ----------
+  const CAF_SIZES = [['s', 'קטן', 0.8], ['m', 'בינוני', 0.9], ['l', 'גדול', 1]];
+  const CAF_DRINKS = {
+    cocoa: { n: 'שוקו חם', cup: 'mug', steps: {
+      base: [['cocoa', 'שוקו', '#8b5a3c'], ['white', 'שוקו לבן', '#f1dcc0'], ['pink', 'שוקו תות', '#f59bb5']],
+      milk: [['foam', 'קצף', '#fff8ee'], ['cream', 'קצפת', '#ffffff'], ['none', 'בלי', null]],
+      syrup: [['none', 'בלי', null], ['vanilla', 'וניל', '#f0cf6a'], ['caramel', 'קרמל', '#d98a2b'], ['choco', 'שוקולד', '#5a3520']],
+      top: [['heart', 'ציור לב'], ['marsh', 'מרשמלו'], ['sprinkles', 'סוכריות'], ['cinnamon', 'קינמון'], ['none', 'בלי']] } },
+    shake: { n: 'מילקשייק', cup: 'tall', steps: {
+      base: [['van', 'וניל', '#fff1c7'], ['choc', 'שוקולד', '#9a6a4a'], ['straw', 'תות', '#ffb3cf'], ['mint', 'מנטה', '#c6f0d6']],
+      milk: [['cream', 'קצפת', '#ffffff'], ['none', 'בלי', null]],
+      syrup: [['none', 'בלי', null], ['choco', 'שוקולד', '#5a3520'], ['caramel', 'קרמל', '#d98a2b'], ['berry', 'תות', '#e0314b']],
+      top: [['cherry', 'דובדבן'], ['sprinkles', 'סוכריות'], ['cookie', 'עוגייה'], ['none', 'בלי']] } },
+    lemon: { n: 'לימונדה', cup: 'glass', steps: {
+      base: [['lemon', 'לימון', '#fff27a'], ['pink', 'ורודה', '#ffb3cf'], ['mint', 'נענע', '#c9f2b8'], ['blue', 'קסם כחול', '#a8dcff']],
+      ice: [['ice', 'עם קרח'], ['none', 'בלי קרח']],
+      top: [['slice', 'פרוסת לימון'], ['mint', 'עלה נענע'], ['straw', 'תות'], ['none', 'בלי']] } },
+    boba: { n: 'באבל טי', cup: 'boba', steps: {
+      base: [['milk', 'תה חלב', '#e8cfa8'], ['taro', 'טארו', '#c9a7e8'], ['mango', 'מנגו', '#ffc94d'], ['matcha', 'מאצ׳ה', '#b5d98a'], ['straw', 'תות', '#ffb3cf']],
+      pearls: [['black', 'טפיוקה', '#3a2b3c'], ['rainbow', 'ג׳לי צבעוני', '#ff9ad5'], ['pop', 'פניני תות', '#ff5a8a']],
+      top: [['cream', 'קצף'], ['none', 'בלי']] } },
+    latte: { n: 'קפה הפוך', cup: 'cup', grown: true, steps: {
+      base: [['espresso', 'אספרסו', '#6b4226'], ['decaf', 'נטול קפאין', '#8a5a3c']],
+      milk: [['foam', 'חלב', '#fff8ee'], ['oat', 'חלב שיבולת', '#f3e6cc']],
+      top: [['heart', 'ציור לב'], ['leaf', 'ציור עלה'], ['star', 'ציור כוכב'], ['none', 'בלי']] } },
+  };
+  const CAF_STEP = { size: '📏 גודל', base: '🥤 טעם', milk: '☁️ חלב וקצף', syrup: '🍯 סירופ', ice: '🧊 קרח', pearls: '🫧 פנינים', top: '✨ קישוט' };
+  const CAF_WALLS = [['cream', '#fff3e0', 0, 'שמנת'], ['pink', '#ffe0ec', 10, 'ורוד'], ['mint', '#dcf5e6', 10, 'מנטה'], ['lav', '#ece2ff', 10, 'לבנדר'], ['sky', '#dff1ff', 10, 'תכלת'], ['peach', '#ffe2cc', 10, 'אפרסק']];
+  const CAF_UPS = [['tables', '🪑 שולחנות עם מפות', 20], ['plants', '🪴 עציצים', 15], ['board', '📋 לוח תפריט מצויר', 25], ['lights', '💡 שרשרת אורות', 20], ['awning', '⛱️ חלון עם גגון', 30], ['cakes', '🍰 ויטרינת עוגות', 25], ['music', '🎶 פטפון', 15], ['cat', '🐈 חתולת בית הקפה', 35]];
+  const CAF_PEOPLE = ['סבתא רחל', 'דני', 'מיכל', 'יוסי', 'נועם', 'אורית', 'הדר', 'עמית', 'רון', 'טל', 'דודה שוש', 'המורה אילנה', 'הדוור משה'];
+  const CAF_HAIR = ['#6b4226', '#3a2b3c', '#e8573f', '#ffcf3a', '#b07642', '#d9d9e0', '#8e6bd6'], CAF_SKIN = ['#f6d0b1', '#e8b48f', '#c98a5e', '#8d5a3b', '#ffe0c8'];
+  const CAF_OUT = ['#ff9ad5', '#7ec8ff', '#6fcf7f', '#ffb020', '#b58cff', '#ff7a7a', '#4fc3a1'];
+  const CAF_HATS = [null, null, null, 'cap', 'straw', 'flowers', 'safari'];
+  let caf = Object.assign({ barista: null, waiter: null, owned: [], wall: 'cream', served: 0, tips: 0, best: 0, perfect: 0 }, store.get('cafe', {}));
+  let cafTab = 'work', cafS = null, cafTimers = [];
+  const cafSave = () => store.set('cafe', caf);
+  const cafLater = (fn, ms) => cafTimers.push(setTimeout(fn, ms));
+  const cafStop = () => { cafTimers.forEach(clearTimeout); cafTimers = []; };
+  const cafHas = id => caf.owned.includes(id);
+  const cafGirl = id => girls.find(g => g.id === id);
+  const cafWall = () => (CAF_WALLS.find(w => w[0] === caf.wall) || CAF_WALLS[0])[1];
+  const cafOpt = (d, k, v) => (CAF_DRINKS[d].steps[k] || []).find(o => o[0] === v);
+  const cafKeys = d => ['size', ...Object.keys(CAF_DRINKS[d].steps)];
+  function cafSnacks() {
+    const bt = evtTry(() => bkr.treats, []) || [];
+    const cro = evtTry(() => bkrTreatSVG({ r: 'croissant', fl: 'plain', tops: [], shape: 'circle' }), stickerHTML('cookie'));
+    return [['croissant', 'קרואסון', cro], ['cupcake', 'קאפקייק', stickerHTML('cupcake')], ['cookie', 'עוגייה', stickerHTML('cookie')], ['donut', 'דונאט', stickerHTML('donut')],
+      ...bt.filter(t => t.n > 0).slice(0, 6).map(t => ['bk:' + t.id, evtTry(() => bkrTreatName(t), 'ממתק') + ' ⭐', evtTry(() => bkrTreatSVG(t), stickerHTML('cupcake')), t])];
+  }
+  // ---- the drink ----
+  function cafCupSVG(o) {
+    const d = CAF_DRINKS[o.d], st = d.steps, sz = (CAF_SIZES.find(s => s[0] === o.size) || CAF_SIZES[1])[2];
+    const base = o.base ? cafOpt(o.d, 'base', o.base)[2] : null, milk = o.milk && o.milk !== 'none' ? cafOpt(o.d, 'milk', o.milk) : null, syr = o.syrup && o.syrup !== 'none' ? cafOpt(o.d, 'syrup', o.syrup)[2] : null;
+    const W = 70 * sz, H = { mug: 62, tall: 92, glass: 84, boba: 90, cup: 40 }[d.cup] * sz, x0 = 60 - W / 2, yb = 140, yt = yb - H;
+    let back = '', body = '', front = '', top = '';
+    const drizzle = (y, w) => syr ? `<path d="M${60 - w / 2 + 4} ${y} ${Array.from({ length: 5 }, (_, i) => `L${(60 - w / 2 + 4 + (i + 0.5) * (w - 8) / 5).toFixed(1)} ${y + (i % 2 ? -5 : 5)}`).join(' ')} L${60 + w / 2 - 4} ${y}" fill="none" stroke="${syr}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>` : '';
+    const art = (kind, cx, cy, col) => kind === 'heart' ? `<path d="M${cx} ${cy + 7} C${cx - 14} ${cy - 2} ${cx - 8} ${cy - 11} ${cx} ${cy - 4} C${cx + 8} ${cy - 11} ${cx + 14} ${cy - 2} ${cx} ${cy + 7} Z" fill="${col}"/>`
+      : kind === 'leaf' ? `<path d="M${cx} ${cy + 8} C${cx - 12} ${cy} ${cx - 8} ${cy - 8} ${cx} ${cy - 9} C${cx + 8} ${cy - 8} ${cx + 12} ${cy} ${cx} ${cy + 8} Z" fill="${col}"/><path d="M${cx} ${cy + 8} V${cy - 8} M${cx} ${cy - 2} l-6 -3 M${cx} ${cy - 2} l6 -3 M${cx} ${cy + 3} l-7 -3 M${cx} ${cy + 3} l7 -3" stroke="#fff8ee" stroke-width="1.4"/>`
+        : kind === 'star' ? `<polygon points="${starPts(cx, cy, 9, 4)}" fill="${col}"/>` : '';
+    if (d.cup === 'mug' || d.cup === 'cup') {
+      const ry = 7 * sz;
+      if (d.cup === 'cup') back += `<ellipse cx="60" cy="${yb + 2}" rx="${W / 2 + 18}" ry="7" fill="#fff" ${S2}/>`;
+      body += `<path d="M${x0 + W} ${yt + 10} C${x0 + W + 22} ${yt + 8} ${x0 + W + 22} ${yt + H * 0.7} ${x0 + W - 2} ${yt + H * 0.72}" fill="none" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M${x0 + W} ${yt + 10} C${x0 + W + 22} ${yt + 8} ${x0 + W + 22} ${yt + H * 0.7} ${x0 + W - 2} ${yt + H * 0.72}" fill="none" stroke="${d.cup === 'cup' ? '#fff' : '#ff9ad5'}" stroke-width="5" stroke-linecap="round"/>`;
+      body += `<path d="M${x0} ${yt} H${x0 + W} C${x0 + W} ${yb - 4} ${x0 + W - 6} ${yb} ${60} ${yb} C${x0 + 6} ${yb} ${x0} ${yb - 4} ${x0} ${yt} Z" fill="${d.cup === 'cup' ? '#ffffff' : '#ff9ad5'}" ${S}/>` + (d.cup === 'mug' ? `<path d="M${x0 + 8} ${yt + 22} h${W - 16}" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".7"/><circle cx="60" cy="${yt + H * 0.62}" r="${6 * sz}" fill="#fff" opacity=".85"/>` : '');
+      body += `<ellipse cx="60" cy="${yt}" rx="${W / 2}" ry="${ry}" fill="${base || '#f4f4f8'}" ${S2}/>`;
+      if (milk && milk[0] !== 'cream') body += `<ellipse cx="60" cy="${yt}" rx="${W / 2 - 4}" ry="${ry - 2}" fill="${milk[2]}"/>`;
+      if (o.top === 'heart' || o.top === 'leaf' || o.top === 'star') top += `<g transform="translate(60 ${yt}) scale(1 .45) translate(-60 ${-yt})">${art(o.top, 60, yt, milk && milk[0] !== 'cream' ? (base || '#8b5a3c') : '#fff8ee')}</g>`;
+      if (milk && milk[0] === 'cream') top += `<path d="M${x0 + 4} ${yt} C${x0} ${yt - 14} ${x0 + 14} ${yt - 20} ${60 - 6} ${yt - 16} C${60} ${yt - 32} ${60 + 16} ${yt - 26} ${60 + 10} ${yt - 14} C${x0 + W} ${yt - 18} ${x0 + W + 2} ${yt - 4} ${x0 + W - 4} ${yt} Z" fill="#fff" ${S2}/>`;
+      top += drizzle(milk && milk[0] === 'cream' ? yt - 12 : yt, W * 0.8);
+      const ty = milk && milk[0] === 'cream' ? yt - 16 : yt - 2;
+      if (o.top === 'marsh') top += [[-14, 0, '#ffd6e4'], [0, -6, '#fff'], [13, 0, '#d8f0ff'], [-4, 4, '#fff6c4']].map(([dx, dy, c]) => `<rect x="${60 + dx - 5}" y="${ty + dy - 5}" width="10" height="9" rx="3" fill="${c}" ${evtS(1.2)}/>`).join('');
+      if (o.top === 'sprinkles') top += Array.from({ length: 9 }, (_, i) => `<rect x="${60 - 18 + (i * 37) % 36}" y="${ty - 4 + (i * 13) % 8}" width="6" height="2.4" rx="1.2" fill="${CAF_OUT[i % 7]}" transform="rotate(${(i * 53) % 180} ${60 - 15 + (i * 37) % 36} ${ty - 3 + (i * 13) % 8})"/>`).join('');
+      if (o.top === 'cinnamon') top += Array.from({ length: 16 }, (_, i) => `<circle cx="${60 - 18 + (i * 29) % 36}" cy="${ty - 2 + (i * 7) % 6}" r="1.2" fill="#a0522d"/>`).join('');
+      if (base && d.cup === 'mug' || base && d.cup === 'cup') top += [0, 1].map(i => `<path class="caf-steam" style="animation-delay:-${i * 0.8}s" d="M${52 + i * 16} ${ty - 12} q-5 -7 0 -14 q5 -7 0 -14" fill="none" stroke="#c9ccd8" stroke-width="3" stroke-linecap="round" opacity=".8"/>`).join('');
+    } else {
+      // see-through glasses
+      const nb = d.cup === 'tall' ? 0.72 : d.cup === 'boba' ? 0.8 : 0.9, xb0 = 60 - W * nb / 2, xb1 = 60 + W * nb / 2;
+      const glass = `M${x0} ${yt} L${xb0} ${yb} H${xb1} L${x0 + W} ${yt} Z`, lvl = yt + H * 0.12;
+      const lx0 = x0 + (xb0 - x0) * 0.12, lx1 = x0 + W - (x0 + W - xb1) * 0.12;
+      if (d.cup !== 'tall' || true) back += `<path d="M${d.cup === 'boba' ? 68 : 70} ${yt - 30} L${d.cup === 'boba' ? 60 : 58} ${yb - 8}" stroke="${O}" stroke-width="${d.cup === 'boba' ? 11 : 7}" stroke-linecap="round"/><path d="M${d.cup === 'boba' ? 68 : 70} ${yt - 30} L${d.cup === 'boba' ? 60 : 58} ${yb - 8}" stroke="${d.cup === 'boba' ? '#ff9ad5' : '#7ec8ff'}" stroke-width="${d.cup === 'boba' ? 7 : 4}" stroke-linecap="round"/>`;
+      if (base) body += `<path d="M${lx0} ${lvl} L${xb0 + 1} ${yb - 1} H${xb1 - 1} L${lx1} ${lvl} Z" fill="${base}" opacity=".92"/>`;
+      if (syr && base) body += `<path d="M${lx0 + 3} ${lvl + 2} q4 14 1 28 M${lx1 - 3} ${lvl + 2} q-4 12 -1 22 M60 ${lvl + 1} q3 10 0 18" fill="none" stroke="${syr}" stroke-width="3" stroke-linecap="round" opacity=".9"/>`;
+      if (o.ice === 'ice' && base) body += [[-12, 14, 12], [8, 10, -8], [-2, 30, 20]].map(([dx, dy, a]) => `<rect x="${60 + dx - 7}" y="${lvl + dy - 7}" width="14" height="14" rx="3" fill="#fff" fill-opacity=".55" stroke="#fff" stroke-width="1.6" transform="rotate(${a} ${60 + dx} ${lvl + dy})"/>`).join('');
+      if (o.pearls && base) { const pc = cafOpt(o.d, 'pearls', o.pearls); body += Array.from({ length: 13 }, (_, i) => `<circle cx="${xb0 + 7 + (i % 5) * (xb1 - xb0 - 14) / 4 + (Math.floor(i / 5) % 2) * 4}" cy="${yb - 6 - Math.floor(i / 5) * 8}" r="4.3" fill="${o.pearls === 'rainbow' ? CAF_OUT[i % 7] : pc[2]}" ${evtS(1)}/>`).join(''); }
+      body += `<path d="${glass}" fill="#e8f7ff" fill-opacity=".25" ${S}/><path d="M${x0 + 8} ${yt + 10} L${xb0 + 6} ${yb - 10}" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".75"/>`;
+      if (d.cup === 'boba') body += `<ellipse cx="60" cy="${yt}" rx="${W / 2 + 3}" ry="5" fill="#fff" fill-opacity=".6" ${S2}/>`;
+      const creamy = milk && milk[0] === 'cream' || o.top === 'cream';
+      if (creamy) top += `<path d="M${x0 + 2} ${yt} C${x0 - 2} ${yt - 14} ${x0 + 14} ${yt - 20} ${54} ${yt - 16} C${58} ${yt - 32} ${74} ${yt - 26} ${68} ${yt - 14} C${x0 + W} ${yt - 18} ${x0 + W + 3} ${yt - 4} ${x0 + W - 2} ${yt} Z" fill="#fff" ${S2}/>`;
+      top += creamy ? drizzle(yt - 10, W * 0.7) : '';
+      const ty = creamy ? yt - 22 : yt - 4;
+      if (o.top === 'cherry') top += `<path d="M62 ${ty - 4} q4 -12 12 -14" fill="none" stroke="#4f8a3c" stroke-width="2.4" stroke-linecap="round"/><circle cx="61" cy="${ty}" r="7" fill="#ff2e4d" ${S2}/>${shine(56, ty - 1)}`;
+      if (o.top === 'sprinkles') top += Array.from({ length: 9 }, (_, i) => `<rect x="${60 - 16 + (i * 37) % 32}" y="${ty + 2 + (i * 13) % 8}" width="6" height="2.4" rx="1.2" fill="${CAF_OUT[i % 7]}" transform="rotate(${(i * 53) % 180} ${60 - 13 + (i * 37) % 32} ${ty + 3 + (i * 13) % 8})"/>`).join('');
+      if (o.top === 'cookie') top += `<circle cx="46" cy="${ty + 2}" r="9" fill="#d9a066" ${S2}/><circle cx="43" cy="${ty}" r="1.8" fill="#5a3520"/><circle cx="49" cy="${ty + 4}" r="1.8" fill="#5a3520"/>`;
+      if (o.top === 'slice') top += `<circle cx="${x0 + 4}" cy="${yt + 2}" r="11" fill="#fff05a" ${S2}/><circle cx="${x0 + 4}" cy="${yt + 2}" r="7" fill="#fffbc4"/><path d="M${x0 + 4} ${yt - 5} V${yt + 9} M${x0 - 3} ${yt + 2} H${x0 + 11}" stroke="#f0d000" stroke-width="1.4"/>`;
+      if (o.top === 'mint') top += `<path d="M${x0 + W - 6} ${yt} C${x0 + W - 18} ${yt - 10} ${x0 + W - 10} ${yt - 22} ${x0 + W + 4} ${yt - 16} C${x0 + W + 4} ${yt - 6} ${x0 + W} ${yt} ${x0 + W - 6} ${yt} Z" fill="#4fbf73" ${S2}/>`;
+      if (o.top === 'straw') top += `<path d="M${x0 + 4} ${yt - 14} C${x0 + 18} ${yt - 14} ${x0 + 16} ${yt + 6} ${x0 + 4} ${yt + 8} C${x0 - 8} ${yt + 6} ${x0 - 10} ${yt - 14} ${x0 + 4} ${yt - 14} Z" fill="#ff4d6a" ${S2}/><path d="M${x0 - 2} ${yt - 14} l6 -5 l6 5" fill="#4fbf73" ${S2}/>`;
+    }
+    return `<svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg" overflow="visible"><ellipse cx="60" cy="${yb + 5}" rx="${W / 2 + 10}" ry="4" fill="#000" opacity=".12"/>${back}${body}${front}${top}</svg>`;
+  }
+  // ---- customers ----
+  function cafCustomer(exclude) {
+    const pets = evtPets(), mers = mermaids.slice(), gs = girls.filter(g => !exclude.includes(g.id));
+    const pool = [...pets.map(p => ['p', p]), ...mers.map(m => ['m', m]), ...gs.map(g => ['g', g])];
+    if (pool.length && Math.random() < 0.6) {
+      const [type, o] = evtPick(pool), f = { type, o, name: o.name || (type === 'p' ? 'החיה' : type === 'm' ? 'בת ים' : 'בובה') };
+      return { f, name: f.name, img: evtImg(f), kind: type, grown: false };
+    }
+    const hairStyle = evtPick(['long', 'short', 'bun', 'long']);
+    const art = person({ skin: evtPick(CAF_SKIN), hair: evtPick(CAF_HAIR), hairStyle, outfit: evtPick(CAF_OUT), hat: evtPick(CAF_HATS) });
+    return { name: evtPick(CAF_PEOPLE), img: svgData(art), kind: 'h', grown: Math.random() < 0.6 };
+  }
+  function cafOrder(c) {
+    const ids = Object.keys(CAF_DRINKS).filter(k => !CAF_DRINKS[k].grown || c.grown), d = evtPick(ids), o = { d, size: evtPick(CAF_SIZES)[0] };
+    Object.entries(CAF_DRINKS[d].steps).forEach(([k, opts]) => { o[k] = evtPick(opts)[0]; });
+    if (Math.random() < 0.45) { const sn = cafSnacks(); o.snack = evtPick(sn)[0]; }
+    return o;
+  }
+  const cafOrderText = o => { const d = CAF_DRINKS[o.d]; return [`${d.n} ${(CAF_SIZES.find(s => s[0] === o.size) || [0, ''])[1]}`, ...Object.keys(d.steps).map(k => { const v = cafOpt(o.d, k, o[k]); return v && v[0] !== 'none' ? v[1] : null; }).filter(Boolean)].join(' · '); };
+  // ---- the dialog ----
+  function openCafe() {
+    cafStop();
+    if (!cafGirl(caf.barista)) { evtTry(() => bEnsureGirl()); caf.barista = (girls[0] || {}).id || null; cafSave(); }
+    if (!cafS || cafS.phase === 'end') cafNewShift();
+    cafDraw();
+    if (!$('#cafDlg').open) $('#cafDlg').showModal();
+  }
+  const cafNewShift = () => { cafS = { n: 0, of: 6, cust: null, order: null, cup: {}, snack: null, tips: 0, stars: [], phase: 'arrive', said: '' }; };
+  function cafDraw() {
+    const tab = (id, nm) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(cafTab === id), onclick: () => { cafTab = id; SFX.pop(); cafDraw(); } }, nm);
+    const head = el('div', { class: 'chips caf-head' }, evtTry(() => coinChip(), null), el('div', { class: 'tabs', role: 'tablist' }, tab('work', '☕ לעבוד'), tab('shop', '🎨 לשדרג'), tab('team', '👩‍🍳 הצוות')));
+    const body = cafTab === 'shop' ? cafShop() : cafTab === 'team' ? cafTeam() : cafWork();
+    $('#cafBody').replaceChildren(head, ...[].concat(body).filter(Boolean));
+  }
+  function cafBg() {
+    const wall = cafWall(), dk = mix(wall, '#3a2b3c', 0.12);
+    let s = `<rect width="800" height="450" fill="${wall}"/><rect y="250" width="800" height="70" fill="${dk}"/><path d="M0 250 H800" stroke="${O}" stroke-width="2.5"/>` +
+      Array.from({ length: 20 }, (_, i) => `<path d="M${i * 40 + 20} 254 V318" stroke="${mix(dk, '#ffffff', 0.35)}" stroke-width="3"/>`).join('');
+    s += `<path d="M0 318 H800 V450 H0 Z" fill="#f4e4d0"/>` + Array.from({ length: 36 }, (_, i) => (i + Math.floor(i / 12)) % 2 ? `<rect x="${(i % 12) * 67}" y="${318 + Math.floor(i / 12) * 44}" width="67" height="44" fill="#e6cfb4"/>` : '').join('') + `<path d="M0 318 H800" stroke="${O}" stroke-width="2.5"/>`;
+    // window
+    s += `<rect x="60" y="60" width="200" height="150" rx="10" fill="#bfe8ff" stroke="${O}" stroke-width="3"/><path d="M160 60 V210 M60 135 H260" stroke="#fff" stroke-width="7"/><path d="M160 60 V210 M60 135 H260" stroke="${O}" stroke-width="1.5"/><circle cx="220" cy="92" r="14" fill="#ffe066"/><path d="M80 120 q10 -12 22 0 q10 -10 20 0" fill="#fff"/>`;
+    if (cafHas('awning')) s += `<path d="M44 44 H276 L262 84 H58 Z" fill="#fff" stroke="${O}" stroke-width="2.5"/>` + Array.from({ length: 6 }, (_, i) => `<path d="M${44 + i * 38.6} 44 H${63 + i * 38.6} L${61 + i * 34} 84 H${58 + i * 34} Z" fill="#ff7a9a"/>`).join('') + `<path d="M58 84 ${Array.from({ length: 6 }, (_, i) => `q17 14 34 0`).join(' ')}" fill="#ff7a9a" stroke="${O}" stroke-width="2"/>`;
+    // menu board
+    const fancy = cafHas('board');
+    s += `<rect x="330" y="40" width="200" height="150" rx="8" fill="${fancy ? '#2f4a3a' : '#3a3a44'}" stroke="${fancy ? '#c98a4b' : O}" stroke-width="${fancy ? 8 : 3}"/><text x="430" y="72" text-anchor="middle" font-size="22" ${evtFont} fill="${fancy ? '#ffd84d' : '#fff'}">תפריט</text>` +
+      Object.values(CAF_DRINKS).map((d, i) => `<text x="510" y="${98 + i * 19}" text-anchor="start" direction="rtl" font-size="15" ${evtFont} fill="${fancy ? CAF_OUT[i] : '#e8e8f2'}">${evtEsc(d.n)}</text>`).join('') +
+      (fancy ? `<g transform="translate(362 150) scale(.5)">${stickerInner('cupcake')}</g><g transform="translate(372 100) scale(.5)">${stickerInner('heart')}</g>` : '');
+    // shelf behind the counter
+    s += `<rect x="560" y="120" width="220" height="10" fill="#c98a4b" stroke="${O}" stroke-width="2"/>` + [[580, '#ff9ad5'], [620, '#7ec8ff'], [660, '#ffd84d']].map(([x, c]) => `<path d="M${x} 120 V100 H${x + 26} V120 Z" fill="${c}" ${S2}/><path d="M${x + 26} 104 q8 0 8 7 q0 7 -8 7" fill="none" ${S2}/>`).join('') +
+      `<rect x="712" y="84" width="24" height="36" rx="6" fill="#fff" fill-opacity=".7" ${S2}/><rect x="715" y="98" width="18" height="20" rx="3" fill="#8b5a3c"/><rect x="744" y="90" width="24" height="30" rx="6" fill="#fff" fill-opacity=".7" ${S2}/><circle cx="750" cy="112" r="3" fill="#3a2b3c"/><circle cx="758" cy="108" r="3" fill="#3a2b3c"/><circle cx="755" cy="114" r="3" fill="#3a2b3c"/>`;
+    if (cafHas('music')) s += `<rect x="600" y="160" width="60" height="20" rx="4" fill="#b07642" ${S2}/><ellipse cx="626" cy="160" rx="24" ry="6" fill="#3a2b3c"/><circle cx="626" cy="160" r="4" fill="#ff5a8a"/><path d="M650 156 l-12 4" stroke="#d9d9e8" stroke-width="3"/><text class="caf-note" x="680" y="150" font-size="22">🎵</text><text class="caf-note" style="animation-delay:-1s" x="700" y="130" font-size="18">🎶</text><rect x="560" y="180" width="220" height="10" fill="#c98a4b" stroke="${O}" stroke-width="2"/>`;
+    if (cafHas('lights')) s += `<path d="M0 12 Q100 40 200 14 Q300 40 400 14 Q500 40 600 14 Q700 40 800 12" fill="none" stroke="#3f8f3a" stroke-width="2"/>` + Array.from({ length: 24 }, (_, i) => { const x = 16 + i * 33, y = 14 + 13 * Math.sin(Math.PI * ((x % 200) / 200)); return `<ellipse class="caf-tw" style="animation-delay:-${(i % 5) * 0.3}s" cx="${x}" cy="${(y + 6).toFixed(1)}" rx="5" ry="7" fill="${CAF_OUT[i % 7]}" ${evtS(1.2)}/>`; }).join('');
+    if (cafHas('plants')) s += [[20, 318], [300, 318]].map(([x, y]) => `<path d="M${x + 20} ${y - 40} C${x} ${y - 80} ${x + 10} ${y - 100} ${x + 22} ${y - 110} M${x + 20} ${y - 40} C${x + 30} ${y - 70} ${x + 46} ${y - 84} ${x + 50} ${y - 100}" stroke="#3f8f3a" stroke-width="3" fill="none"/>` + [[0, -80], [6, -100], [22, -110], [36, -80], [48, -98], [12, -60], [34, -58]].map(([dx, dy], i) => `<ellipse cx="${x + dx + 4}" cy="${y + dy}" rx="8" ry="14" transform="rotate(${i % 2 ? 35 : -35} ${x + dx + 4} ${y + dy})" fill="${i % 2 ? '#5cb85c' : '#4fbf73'}" ${evtS(1.4)}/>`).join('') + `<path d="M${x} ${y - 40} H${x + 44} L${x + 38} ${y} H${x + 6} Z" fill="#e0764a" ${S}/>`).join('');
+    if (cafHas('tables')) s += [[110, 392], [250, 400]].map(([x, y], i) => `<path d="M${x - 50} ${y - 34} v30 M${x + 50} ${y - 34} v30" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M${x} ${y - 30} V${y + 16} M${x - 18} ${y + 18} H${x + 18}" stroke="${O}" stroke-width="6" stroke-linecap="round"/><ellipse cx="${x}" cy="${y - 34}" rx="46" ry="12" fill="${['#ff9ad5', '#7ec8ff'][i]}" ${S}/><path d="M${x - 46} ${y - 34} q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 12 0" fill="${['#ff9ad5', '#7ec8ff'][i]}" ${S2}/><circle cx="${x - 10}" cy="${y - 40}" r="6" fill="#fff" ${S2}/><path d="M${x + 12} ${y - 50} v-8 M${x + 8} ${y - 58} h8" stroke="#4fbf73" stroke-width="2"/><circle cx="${x + 12}" cy="${y - 60}" r="4" fill="#ff5a6e"/>`).join('');
+    if (cafHas('cat')) s += `<ellipse cx="740" cy="430" rx="40" ry="10" fill="#b58cff" ${S2}/>${placeSvg(stickerHTML('cat'), 712, 372, 58, 58)}<text x="770" y="378" font-size="16" fill="${O}">z</text><text x="780" y="364" font-size="12" fill="${O}">z</text>`;
+    return `<svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  }
+  const cafCounter = () => `<svg viewBox="0 0 400 170" preserveAspectRatio="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="400" height="24" rx="6" fill="#fff5e6" stroke="${O}" stroke-width="3"/><rect x="8" y="24" width="392" height="146" fill="#c98a4b" stroke="${O}" stroke-width="3"/>` +
+    Array.from({ length: 6 }, (_, i) => `<rect x="${24 + i * 64}" y="44" width="48" height="110" rx="6" fill="#d9a066" stroke="#a0673e" stroke-width="2"/>`).join('') +
+    (cafHas('cakes') ? `<rect x="30" y="-58" width="120" height="58" rx="8" fill="#e8f7ff" fill-opacity=".6" stroke="${O}" stroke-width="2.5"/><path d="M40 -20 h40 v20 h-40 Z" fill="#ffc2d6" ${S2}/><path d="M40 -20 q10 8 20 0 q10 8 20 0" fill="#fff" ${S2}/><path d="M96 -22 h40 v22 h-40 Z" fill="#8b5a3c" ${S2}/><circle cx="116" cy="-26" r="5" fill="#e0314b" ${S2}/>` : '') +
+    `<path d="M300 -2 v-26 h36 v26" fill="#e8e8f2" ${S2}/><circle cx="318" cy="-34" r="7" fill="#ffd84d" ${S2}/></svg>`;
+  function cafWork() {
+    const s = cafS, bar = cafGirl(caf.barista), wt = cafGirl(caf.waiter);
+    if (s.phase === 'end') {
+      const avg = s.stars.length ? s.stars.reduce((a, b) => a + b, 0) / s.stars.length : 0;
+      return [el('div', { class: 'caf-end' }, el('h4', {}, '🎉 המשמרת נגמרה!'), el('p', {}, `הגשת ${s.stars.length} הזמנות והרווחת `, el('b', {}, `${s.tips} 🪙`), ' בטיפים!'),
+        el('p', { class: 'caf-stars' }, '⭐'.repeat(Math.round(avg)) || '💪'), el('p', { class: 'muted' }, `בסך הכל הגשת ${caf.served} משקאות • שיא טיפים במשמרת: ${caf.best} 🪙`),
+        el('div', { class: 'chips', style: 'justify-content:center' }, el('button', { type: 'button', class: 'btn main', onclick: () => { cafNewShift(); cafDraw(); } }, '☕ משמרת חדשה'), el('button', { type: 'button', class: 'btn', onclick: () => { cafTab = 'shop'; cafDraw(); } }, '🎨 לשדרג את בית הקפה')))];
+    }
+    const stage = el('div', { class: 'caf-stage', html: cafBg() });
+    if (wt) stage.append(el('img', { class: 'caf-waiter', src: girlImgURL(wt, { bg: false, pose: { ra: 70, rf: 60 } }), alt: '' }), el('span', { class: 'caf-tray' }, '🍰'));
+    if (bar) stage.append(el('img', { class: 'caf-barista', src: girlImgURL(bar, { bg: false, pose: s.phase === 'served' ? { la: 140, lf: -20, ra: 140, rf: -20 } : null }), alt: '' }));
+    stage.append(el('div', { class: 'caf-counter', html: cafCounter() }));
+    const cust = s.cust;
+    if (cust) {
+      const ce = el('div', { class: 'caf-cust ' + cust.kind + (s.phase === 'arrive' ? '' : ' in') + (s.phase === 'served' ? ' happy' : '') + (s.phase === 'leave' ? ' out' : '') }, el('img', { src: cust.img, alt: '' }), el('span', { class: 'bn' }, cust.name));
+      stage.append(ce);
+      if (s.phase === 'arrive') requestAnimationFrame(() => requestAnimationFrame(() => ce.classList.add('in')));
+      if (s.order && s.phase !== 'leave') {
+        const sn = s.order.snack ? cafSnacks().find(x => x[0] === s.order.snack) : null;
+        stage.append(el('div', { class: 'caf-bubble' + (s.phase === 'served' ? ' said' : '') }, ...(s.phase === 'served' ? [el('b', {}, s.said)]
+          : [el('div', { class: 'caf-want' }, el('span', { class: 'art', html: cafCupSVG(s.order) }), sn ? el('span', { class: 'art sn', html: sn[2] }) : null),
+            el('small', {}, cafOrderText(s.order) + (sn ? ` + ${sn[1].replace(' ⭐', '')}` : ''))])));
+      }
+      if (s.phase === 'served' && s.cup && s.cup.d) stage.append(el('span', { class: 'caf-given', html: cafCupSVG(Object.assign({ size: 'm' }, s.cup)) }));
+      if (s.phase === 'served') stage.append(el('div', { class: 'caf-hearts' }, ...Array.from({ length: 6 }, (_, i) => { const h = el('span', {}, evtPick(['💖', '✨', '😋', '💕'])); h.style.cssText = `left:${22 + Math.random() * 16}%;animation-delay:${i * 0.12}s`; return h; })));
+    }
+    stage.append(el('div', { class: 'caf-prog' }, `לקוח ${Math.min(s.n + (cust ? 1 : 0), s.of)}/${s.of} · 🪙 ${s.tips}`));
+    if (!cust) cafLater(cafNextCustomer, 500);
+    return [stage, s.order && s.phase === 'order' ? cafPrep() : el('p', { class: 'caf-wait' }, s.phase === 'served' ? '' : '⏳ לקוח חדש נכנס...')];
+  }
+  function cafNextCustomer() {
+    const s = cafS; if (!$('#cafDlg').open || cafTab !== 'work' || !s || s.phase === 'end' || s.cust) return;
+    if (s.n >= s.of) { s.phase = 'end'; caf.best = Math.max(caf.best, s.tips); cafSave(); SFX.yay(); evtTry(() => confetti($('#cafDlg .confetti-c'))); cafDraw(); return; }
+    s.cust = cafCustomer([caf.barista, caf.waiter]); s.order = null; s.cup = { d: null }; s.snack = null; s.phase = 'arrive';
+    tone(1320, 0.12, 'triangle', 0, 0.05); tone(1760, 0.2, 'triangle', 0.1, 0.05);
+    cafDraw();
+    const cu = s.cust;
+    cafLater(() => { if (cafS !== s || s.cust !== cu || s.order) return; s.order = cafOrder(s.cust); s.phase = 'order'; if (s.cust.kind === 'p') evtTry(() => SFX.pet(s.cust.f.o.kind)); else SFX.pop(); cafDraw(); }, 1300);
+  }
+  function cafPrep() {
+    const s = cafS;
+    const wrap = el('div', { class: 'caf-prep' });
+    const draw = () => {
+      const c = s.cup;
+      const keys = c.d ? cafKeys(c.d) : [], done = c.d && keys.every(k => c[k]);
+      const cup = el('div', { class: 'caf-cup', html: c.d ? cafCupSVG(Object.assign({ size: 'm' }, c)) : `<svg viewBox="0 0 120 150"><text x="60" y="84" text-anchor="middle" font-size="46">☕</text></svg>` });
+      const snackSel = s.snack ? cafSnacks().find(x => x[0] === s.snack) : null;
+      const rows = [el('div', { class: 'caf-row' }, el('span', { class: 'lbl' }, '🥤 משקה:'), ...Object.entries(CAF_DRINKS).map(([id, d]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(c.d === id), onclick: () => { s.cup = { d: id }; SFX.pop(); cafPrepRedraw(); } }, d.n)))];
+      if (c.d) keys.forEach(k => {
+        const opts = k === 'size' ? CAF_SIZES.map(z => [z[0], z[1]]) : CAF_DRINKS[c.d].steps[k];
+        rows.push(el('div', { class: 'caf-row' }, el('span', { class: 'lbl' }, CAF_STEP[k] + ':'), ...opts.map(o => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(c[k] === o[0]), onclick: () => { c[k] = o[0]; k === 'base' ? tone(300, 0.25, 'sine', 0, 0.06) : SFX.pop(); cafPrepRedraw(); } },
+          o[2] ? el('i', { class: 'dot', style: `background:${o[2]}` }) : null, o[1]))));
+      });
+      rows.push(el('div', { class: 'caf-row' }, el('span', { class: 'lbl' }, '🥐 מאפה:'), el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!s.snack), onclick: () => { s.snack = null; SFX.pop(); cafPrepRedraw(); } }, 'בלי'),
+        ...cafSnacks().map(([id, nm, art]) => el('button', { type: 'button', class: 'chip caf-snk', 'aria-pressed': String(s.snack === id), onclick: () => { s.snack = id; SFX.pop(); cafPrepRedraw(); } }, el('span', { class: 'art', html: art }), nm))));
+      wrap.replaceChildren(el('div', { class: 'caf-left' }, cup, snackSel ? el('span', { class: 'caf-snkc', html: snackSel[2] }) : null,
+        el('button', { type: 'button', class: 'btn main caf-serve', disabled: !done, onclick: cafServe }, '🛎️ להגיש!'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { s.cup = { d: null }; s.snack = null; SFX.boop(); cafPrepRedraw(); } }, '🔄 כוס חדשה')),
+        el('div', { class: 'caf-rows' }, ...rows));
+    };
+    wrap._draw = draw; draw();
+    return wrap;
+  }
+  const cafPrepRedraw = () => { const w = $('#cafBody .caf-prep'); if (w && w._draw) w._draw(); };
+  function cafServe() {
+    const s = cafS, o = s.order, c = s.cup;
+    let stars = 0;
+    if (c.d === o.d) { const keys = cafKeys(o.d), ok = keys.filter(k => c[k] === o[k]).length / keys.length; stars = ok >= 0.99 ? 3 : ok >= 0.6 ? 2 : 1; }
+    const snackOk = (o.snack || null) === (s.snack || null);
+    if (!snackOk && stars === 3) stars = 2;
+    // one of her own bakery treats leaves the showcase
+    if (s.snack && s.snack.startsWith('bk:')) evtTry(() => { const t = bkr.treats.find(x => 'bk:' + x.id === s.snack); if (t) { t.n--; if (t.n <= 0) bkr.treats = bkr.treats.filter(x => x !== t); bkrSave(); } });
+    const tip = [1, 2, 4, 7][stars] + (o.snack && snackOk ? 2 : 0) + (s.snack && s.snack.startsWith('bk:') ? 2 : 0) + Math.floor(caf.owned.length / 2);
+    s.tips += tip; s.stars.push(stars); s.n++; caf.served++; caf.tips += tip; if (stars === 3) caf.perfect++; cafSave();
+    const dn = CAF_DRINKS[c.d || o.d].n, cust = s.cust;
+    let line = [`אממ... זה לא מה שהזמנתי 😅 אבל תודה!`, `נחמד! כמעט מה שרציתי 🙂`, `טעים מאוד! תודה! 😊`, `וואו! בדיוק מה שרציתי! הכי טעים! 🤩`][stars];
+    if (cust.kind === 'p') line = evtTry(() => typeof feedPet === 'function' ? feedPet(cust.f.o, { id: 'cafe-' + c.d, name: dn, art: cafCupSVG(c), yum: Math.max(1, stars) }) : line, line) || line;
+    else if (cust.kind === 'm' && stars >= 2) line = `${cust.name}: בלוב בלוב! ${dn} זה כמו קסם מהים! 🐚`;
+    s.said = line + `  +${tip} 🪙`; s.phase = 'served';
+    stars >= 2 ? SFX.yay() : SFX.boop();
+    evtCoins(tip, 'טיפ בבית הקפה');
+    cafDraw();
+    cafLater(() => { if (cafS !== s) return; s.phase = 'leave'; cafDraw(); }, 2600);
+    cafLater(() => { if (cafS !== s) return; s.cust = null; s.order = null; cafNextCustomer(); }, 3400);
+  }
+  function cafShop() {
+    const coins = evtTry(() => coinsNow(), 0);
+    const buy = (id, price, fn) => { if (evtTry(() => spendCoins(price, 'בית הקפה'), false)) { fn(); cafSave(); SFX.yay(); toast(stickerHTML('cocoa'), 'בית הקפה שודרג! ✨'); cafDraw(); } else { SFX.boop(); toast(stickerHTML('cocoa'), 'עוד אין מספיק מטבעות... אפשר להרוויח בטיפים! 🪙'); } };
+    return [el('div', { class: 'caf-stage mini', html: cafBg() }),
+      el('p', { class: 'muted' }, '💡 כל שני שדרוגים = עוד מטבע טיפ מכל לקוח!'),
+      el('div', { class: 'caf-ups' }, ...CAF_UPS.map(([id, nm, pr]) => el('div', { class: 'caf-up' + (cafHas(id) ? ' own' : '') }, el('b', {}, nm),
+        cafHas(id) ? el('span', { class: 'ok' }, '✔️ יש!') : el('button', { type: 'button', class: 'btn' + (coins >= pr ? ' main' : ''), onclick: () => buy(id, pr, () => caf.owned.push(id)) }, `${pr} 🪙`)))),
+      el('h4', { class: 'pty-h' }, '🎨 צבע הקירות'),
+      el('div', { class: 'chips' }, ...CAF_WALLS.map(([id, c, pr, nm]) => {
+        const own = !pr || cafHas('wall_' + id);
+        return el('button', { type: 'button', class: 'chip', 'aria-pressed': String(caf.wall === id), onclick: () => own ? (caf.wall = id, cafSave(), SFX.pop(), cafDraw()) : buy('wall_' + id, pr, () => { caf.owned.push('wall_' + id); caf.wall = id; }) },
+          el('i', { class: 'dot', style: `background:${c}` }), nm, own ? '' : ` · ${pr} 🪙`);
+      }))];
+  }
+  function cafTeam() {
+    const pick = (field, allowNone) => el('div', { class: 'evt-folks' }, ...(allowNone ? [el('button', { type: 'button', class: 'evt-folk', 'aria-pressed': String(!caf[field]), onclick: () => { caf[field] = null; cafSave(); SFX.pop(); cafDraw(); } }, el('span', { class: 'none' }, '🚫'), el('span', {}, 'בלי'))] : []),
+      ...girls.map(g => el('button', { type: 'button', class: 'evt-folk g', 'aria-pressed': String(caf[field] === g.id), onclick: () => { caf[field] = g.id; if (field === 'barista' && caf.waiter === g.id) caf.waiter = null; if (field === 'waiter' && caf.barista === g.id) caf.barista = null; cafSave(); SFX.pop(); cafDraw(); } },
+        el('img', { src: girlImgURL(g, { view: 'head', bg: false }), alt: '' }), el('span', {}, g.name || 'בובה'))));
+    return [el('h4', { class: 'pty-h' }, '☕ מי הבריסטה? (מכינה את המשקאות מאחורי הדלפק)'), pick('barista', false),
+      el('h4', { class: 'pty-h' }, '🍰 מי המלצרית? (עומדת ליד השולחנות)'), pick('waiter', true),
+      el('p', { class: 'muted' }, `☕ הוגשו ${caf.served} משקאות • ⭐ ${caf.perfect} הזמנות מושלמות • 🪙 ${caf.tips} בטיפים`),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { $('#cafDlg').close(); openFashion(); } }, '👗 לעצב בנות חדשות'))];
+  }
+  $('#cafDlg').addEventListener('close', () => { cafStop(); if (cafS && cafS.phase !== 'end') { cafS.cust = null; cafS.order = null; cafS.phase = 'arrive'; } });
+
+  // the three new tiles in the "more" menu (before "להדפסה")
+  { const i = MORE.findIndex(m => m[1] === 'להדפסה'); MORE.splice(i < 0 ? MORE.length : i, 0, ['pomegranate', 'הסוכה שלי', () => openSukkah()], ['balloon', 'מסיבת יום הולדת', () => openParty()], ['cocoa', 'בית הקפה שלי', () => openCafe()]); }
+
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
