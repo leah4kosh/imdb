@@ -2939,6 +2939,137 @@ button.wn-page:hover { transform: translateY(-2px) rotate(-1deg); }
 @keyframes wnRainbow { 0% { opacity: 0; transform: scaleY(.2); transform-origin: bottom; } 8%, 90% { opacity: .85; transform: none; } 100% { opacity: 0; } }
 #gamesTabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
 #gamesTabs button { flex: none; }
+
+/* creatures: shared */
+.crz-rb { background: conic-gradient(#ff6f7a, #ffb35c, #ffe066, #7ed48a, #6fb8ff, #b37bff, #ff6f7a) !important; }
+.crz-des .pz-des-prev { height: 170px; }
+.crz-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+.crz-card { display: grid; justify-items: center; gap: 2px; padding: 6px; border: 2px solid var(--line); border-radius: 16px; background: var(--card); font: inherit; color: inherit; }
+.crz-card.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--card)); }
+.crz-card .ic { width: 88px; height: 80px; } .crz-card .ic > svg, .crz-card .ic > img { width: 100%; height: 100%; display: block; object-fit: contain; }
+.crz-card b { font-weight: 400; font-size: .9em; }
+.crz-add { border-style: dashed; align-content: center; min-height: 110px; }
+.crz-plus { font-size: 2em; }
+.crz-float, .crz-spark { position: absolute; transform: translate(-50%, -50%); font-size: 1.5em; pointer-events: none; animation: floatup 1.2s ease-out forwards; z-index: 3; }
+.crz-spark { font-size: 1.1em; animation-duration: .8s; }
+svg.crz-horse { overflow: visible; }
+
+/* stable */
+.crz-stalls { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; padding: 12px; border-radius: 20px; background: repeating-linear-gradient(90deg, #d9a66b 0 28px, #cf9a5e 28px 30px); border: 2px solid #9b6b43; }
+.crz-stall { position: relative; height: 180px; border: 3px solid #9b6b43; border-radius: 14px 14px 6px 6px; background: linear-gradient(#fff3dc 0 70%, #f2d58a 70%); padding: 0; cursor: pointer; overflow: hidden; font: inherit; color: inherit; }
+.crz-stall::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: repeating-linear-gradient(90deg, #b07a47 0 18px, #9b6b43 18px 20px); border-top: 3px solid #7a5230; opacity: .92; pointer-events: none; }
+.crz-stall.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent); }
+.crz-stall-art { position: absolute; left: 50%; bottom: 6px; width: 92%; height: 150px; transform: translateX(-50%); }
+.crz-stall-art > svg { width: 100%; height: 100%; display: block; }
+.crz-plate { position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); background: #fff8e8; border: 2px solid #7a5230; border-radius: 8px; padding: 0 10px; z-index: 1; font-size: .9em; }
+.crz-hungry { position: absolute; top: 6px; right: 8px; background: #fff; border: 2px solid #3a2b3c; border-radius: 12px; padding: 0 6px; font-size: .85em; z-index: 1; }
+.crz-newstall { display: grid; place-items: center; align-content: center; gap: 4px; background: #fff8e8; border-style: dashed; }
+.crz-newstall::after { display: none; }
+.crz-barn, .crz-groom-stage { position: relative; height: 280px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); background: linear-gradient(#ffe9c9 0 66%, #f2d58a 66%); touch-action: none; user-select: none; }
+.crz-feed-horse, .crz-groom-horse { position: absolute; left: 50%; bottom: 10px; width: 300px; height: 268px; transform: translateX(-50%); pointer-events: none; }
+.crz-feed-horse > svg, .crz-groom-horse > svg { width: 100%; height: 100%; display: block; }
+.crz-fly { position: absolute; width: 50px; height: 50px; left: 8%; bottom: 20%; animation: crzfly .65s ease-in forwards; z-index: 2; }
+.crz-fly > svg { width: 100%; height: 100%; }
+@keyframes crzfly { to { left: 66%; bottom: 58%; transform: scale(.5); opacity: .4; } }
+.crz-prizes { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.crz-prize { display: grid; justify-items: center; padding: 10px; border: 2px solid #ffd84d; border-radius: 16px; background: #fffbe6; }
+.crz-prize.none { filter: grayscale(1); opacity: .5; }
+.crz-prize-em { font-size: 2.6em; } .crz-prize b { font-weight: 400; }
+svg.crz-horse.run .crz-lf, svg.crz-horse.run .crz-lb2 { transform-box: fill-box; transform-origin: 50% 0; animation: crzleg .42s ease-in-out infinite alternate; }
+svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box; transform-origin: 50% 0; animation: crzleg .42s ease-in-out infinite alternate-reverse; }
+@keyframes crzleg { from { transform: rotate(-22deg); } to { transform: rotate(22deg); } }
+.crz-ride-stage { position: relative; height: 300px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); cursor: pointer; touch-action: manipulation; user-select: none; --x: 0px; outline: none; }
+.crz-ride-sky { position: absolute; inset: 0; background: radial-gradient(circle at 85% 18%, #fff7b0 0 24px, transparent 25px), linear-gradient(#bfe6ff, #eaf7ff 70%); }
+.crz-ride-hills { position: absolute; left: 0; right: 0; bottom: 60px; height: 120px; background: radial-gradient(ellipse 160px 80px at 80px 120px, #a8e08f 98%, transparent) repeat-x; background-size: 320px 120px; background-position-x: calc(var(--x) * .3); opacity: .9; }
+.crz-ride-ground { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; background: repeating-linear-gradient(90deg, #8fd08a 0 40px, #83c77e 40px 80px); background-position-x: var(--x); border-top: 4px solid #6fb86a; }
+.crz-ride-world { position: absolute; left: 0; right: 0; bottom: 48px; height: 70px; }
+.crz-fence { position: absolute; left: 0; bottom: 0; width: 60px; height: 60px; }
+.crz-fence > svg { width: 100%; height: 100%; }
+.crz-fence.knock > svg { transform: rotate(-20deg) translateY(6px); opacity: .7; transition: .3s; }
+.crz-ride-horse { position: absolute; left: 12%; bottom: 36px; width: 230px; height: 206px; pointer-events: none; transition: transform .05s linear; }
+.crz-ride-horse > svg { width: 100%; height: 100%; display: block; }
+.crz-ride-hud { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: #fff; color: #1f2a44; border: 2px solid #3a2b3c; border-radius: 14px; padding: 4px 12px; white-space: nowrap; max-width: 94%; overflow: hidden; text-overflow: ellipsis; }
+.crz-ride-hud b { font-weight: 400; }
+.crz-rider-pick { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--line); background: var(--card); padding: 0; overflow: hidden; }
+.crz-rider-pick[aria-pressed="true"] { border-color: var(--accent); }
+.crz-rider-pick img { width: 100%; height: 100%; object-fit: cover; }
+
+/* dragons */
+.crz-dregg-wrap { display: grid; place-items: center; height: 260px; border-radius: 20px; background: radial-gradient(circle at 50% 70%, #ffe6f3, #e6dcff 60%, #cfc2f0); }
+.crz-dregg { width: 150px; height: 170px; border: none; background: none; padding: 0; cursor: pointer; }
+.crz-dregg > svg { width: 100%; height: 100%; }
+.crz-dregg.wob { animation: crzwob .45s ease; }
+@keyframes crzwob { 25% { transform: rotate(-12deg); } 50% { transform: rotate(10deg); } 75% { transform: rotate(-5deg); } }
+.crz-cave-mini, .crz-sky { position: relative; height: 290px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); background: radial-gradient(circle at 50% 80%, #6a5a9a, #2e2248 75%); }
+.crz-sky { background: radial-gradient(circle at 80% 20%, #fff7b0 0 22px, transparent 23px), linear-gradient(#9fd8ff, #ffe6f3); }
+.crz-dr-art, .crz-dr-fly { position: absolute; left: 50%; bottom: 6px; width: 240px; height: 240px; transform: translateX(-50%); }
+.crz-dr-art > svg, .crz-dr-fly > svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.crz-dr-art .crz-wl, .crz-dr-fly .crz-wl, .crz-cave .crz-wl { transform-box: fill-box; transform-origin: 100% 60%; animation: crzflap 1.6s ease-in-out infinite; }
+.crz-dr-art .crz-wr, .crz-dr-fly .crz-wr, .crz-cave .crz-wr { transform-box: fill-box; transform-origin: 0% 60%; animation: crzflapR 1.6s ease-in-out infinite; }
+@keyframes crzflap { 50% { transform: rotate(-10deg); } }
+@keyframes crzflapR { 50% { transform: matrix(-1, 0, 0, 1, 100, 0) rotate(-10deg); } }
+.crz-dr-fly.t-fly { animation: crzflyup 2.4s ease-in-out; }
+.crz-dr-fly.t-fly .crz-wl, .crz-dr-fly.t-loop .crz-wl { animation-duration: .3s; }
+.crz-dr-fly.t-loop { animation: crzloop 2s ease-in-out; }
+@keyframes crzflyup { 30% { transform: translate(-80%, -90px) rotate(-8deg); } 60% { transform: translate(-20%, -110px) rotate(8deg); } }
+@keyframes crzloop { 20% { transform: translate(-50%, -80px); } 60% { transform: translate(-50%, -80px) rotate(360deg); } 100% { transform: translate(-50%, 0) rotate(360deg); } }
+.crz-bounce > svg { animation: pzhop .6s ease; }
+.crz-fire { animation: crzfire .35s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 0 50%; }
+@keyframes crzfire { to { transform: scale(1.12, .9); } }
+.crz-dr-stats { display: flex; flex-wrap: wrap; gap: 6px; }
+.crz-cave { border-radius: 20px; overflow: hidden; border: 2px solid var(--line); cursor: crosshair; }
+.crz-cave > svg { width: 100%; height: auto; display: block; }
+.crz-cave-tools .ic { width: 48px; height: 42px; display: grid; place-items: center; }
+.crz-cave-tools .ic > svg { width: 100%; height: 100%; }
+
+/* fairies */
+.crz-garden { position: relative; height: 400px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); }
+.crz-garden-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.crz-garden .crz-bloom { cursor: pointer; }
+.crz-garden .crz-bloom.pop { animation: crzbloom .6s ease; }
+@keyframes crzbloom { 40% { transform: scale(1.35) rotate(12deg); } }
+.crz-gfx { position: absolute; inset: 0; pointer-events: none; }
+.crz-gfairy { position: absolute; top: var(--y); left: 0; width: 120px; height: 175px; border: none; background: none; padding: 0; cursor: pointer; animation: crzacross var(--dur) linear infinite var(--dir); animation-delay: var(--delay); z-index: 2; }
+.crz-gfairy img { width: 100%; height: 100%; object-fit: contain; animation: crzbob 2.2s ease-in-out infinite; filter: drop-shadow(0 6px 8px rgb(120 80 160 / .25)); }
+.crz-gfairy.twirl img { animation: crztwirl .9s ease; }
+@keyframes crzacross { 0% { left: -14%; } 100% { left: 100%; } }
+@keyframes crzbob { 50% { transform: translateY(-16px) rotate(-3deg); } }
+@keyframes crztwirl { 50% { transform: rotate(180deg) scale(1.15); } 100% { transform: rotate(360deg); } }
+.crz-trail { position: absolute; transform: translate(-50%, -50%); font-size: 1em; color: #fff; text-shadow: 0 0 6px #fff7b0; animation: crztrail 1.4s ease-out forwards; }
+@keyframes crztrail { to { transform: translate(-50%, 30px) scale(.4); opacity: 0; } }
+.crz-card .ic > img { width: 100%; height: 100%; object-fit: contain; }
+.crz-des .pz-des-prev > img { width: 100%; height: 100%; object-fit: contain; }
+
+/* eggs */
+.crz-nest { position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: end; gap: 10px; min-height: 190px; padding: 20px 12px 34px; border-radius: 22px; background: radial-gradient(ellipse at 50% 100%, #c98f3a 0 30%, transparent 31%), linear-gradient(#fff6e6, #ffe9c9); border: 2px solid var(--line); }
+.crz-egg { width: 96px; height: 116px; border: none; background: none; padding: 0; cursor: pointer; transition: transform .15s; }
+.crz-egg > svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 4px rgb(120 80 40 / .25)); }
+.crz-egg.on { transform: scale(1.1); }
+.crz-egg.wob { animation: crzwob .45s ease; }
+.crz-warm { display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: center; }
+.crz-warm .xpbar i { background: linear-gradient(90deg, #ffd84d, #ff7a45); }
+.crz-hatch { position: relative; display: grid; justify-items: center; gap: 4px; padding: 16px; border-radius: 22px; background: radial-gradient(circle, #fff 0 30%, #fff1f8 60%, #e6dcff); border: 2px solid var(--line); overflow: hidden; }
+.crz-hatch-art { width: 190px; height: 218px; animation: crzpop .8s cubic-bezier(.3, 1.6, .5, 1); }
+.crz-hatch-art > svg { width: 100%; height: 100%; }
+.crz-hatch-shell { position: absolute; top: 40%; width: 70px; height: 84px; opacity: 0; animation: crzshell 1s ease-out; }
+.crz-hatch-shell > svg { width: 100%; height: 100%; }
+@keyframes crzshell { 0% { opacity: 1; left: 45%; } 100% { opacity: 0; left: 5%; transform: rotate(-60deg) translateY(60px); } }
+@keyframes crzpop { from { transform: scale(.2) translateY(40px); opacity: 0; } }
+.crz-hatch-name { font-size: 1.5em; font-weight: 400; } .crz-hatch-stars { font-size: 1.1em; }
+.crz-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; padding: 10px; border-radius: 18px; background: repeating-linear-gradient(#fff8ec 0 150px, #d9a66b 150px 158px); }
+.crz-slot { display: grid; justify-items: center; text-align: center; font-size: .82em; padding: 4px; }
+.crz-slot .ic { width: 78px; height: 90px; } .crz-slot .ic > svg { width: 100%; height: 100%; }
+.crz-slot b { font-weight: 400; } .crz-slot small { color: #e0a800; }
+.crz-slot.locked .ic { filter: brightness(0) opacity(.2); }
+.crz-slot.s3:not(.locked) .ic { filter: drop-shadow(0 0 6px #ffe27a); }
+
+/* pet wardrobe */
+.crz-wardrobe { display: grid; gap: 10px; }
+.crz-wgrid button { position: relative; }
+.crz-wgrid .crz-locked .ic { opacity: .75; }
+.crz-price { position: absolute; top: 2px; left: 4px; background: #fff6c4; border: 1.5px solid #e0a800; border-radius: 99px; padding: 0 5px; font-size: .78em; }
+.crz-buy { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 14px; background: #fffbe6; border: 2px dashed #ffd84d; }
+.crz-wgrid .ic { width: 66px; height: 62px; }
 </style>
 </head>
 <body class="bg-dots">
@@ -3965,6 +4096,59 @@ button.wn-page:hover { transform: translateY(-2px) rotate(-1deg); }
     </div>
     <div class="tabs" role="tablist" id="wandTabs"></div>
     <div id="wandBody" class="row"></div>
+  </div>
+</dialog>
+
+
+<!-- Creatures: stable -->
+<dialog id="crzStableDlg" aria-labelledby="crzStableTitle" style="width:min(820px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="crzStableTitle">🦄 האורווה שלי</h3><div class="sub" id="crzStableSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="crzStableTabs"></div>
+    <div class="row" id="crzStableBody"></div>
+  </div>
+</dialog>
+
+<!-- Creatures: dragons -->
+<dialog id="crzDragonDlg" aria-labelledby="crzDragonTitle" style="width:min(820px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="crzDragonTitle">🐉 הדרקונים שלי</h3><div class="sub" id="crzDragonSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="crzDragonTabs"></div>
+    <div class="row" id="crzDragonBody"></div>
+  </div>
+</dialog>
+
+<!-- Creatures: fairies -->
+<dialog id="crzFairyDlg" aria-labelledby="crzFairyTitle" style="width:min(860px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="crzFairyTitle">🧚‍♀️ הפיות שלי</h3><div class="sub" id="crzFairySub">מעצבים פיות, והן עפות בגינה הקסומה</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="crzFairyTabs"></div>
+    <div class="row" id="crzFairyBody"></div>
+  </div>
+</dialog>
+
+<!-- Creatures: mystery eggs -->
+<dialog id="crzEggDlg" aria-labelledby="crzEggTitle" style="width:min(760px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="crzEggTitle">🥚 ביצי הפתעה</h3><div class="sub" id="crzEggSub">כל 3 ימים מגיעה ביצה חדשה. מחממים אותה בליטופים עד שהיא בוקעת!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="crzEggTabs"></div>
+    <div class="row" id="crzEggBody"></div>
   </div>
 </dialog>
 
@@ -6131,7 +6315,8 @@ button.wn-page:hover { transform: translateY(-2px) rotate(-1deg); }
     const my = nose && kind !== 'owl' ? ny + .6 : G.mouthY;
     face += (kind === 'owl' && L.mouth !== 'open' && L.mouth !== 'tiny' ? '' : pzMouth(L.mouth, nx, my, 1, lw)) + nose;
     if (L.paci) { const pc = L.paciC || '#8fd3ff', py = my + 1.4; face += `<circle cx="${nx}" cy="${py + 3.4}" r="2.3" fill="none" stroke="${O}" stroke-width="2.6"/><circle cx="${nx}" cy="${py + 3.4}" r="2.3" fill="none" stroke="${pzLight(pc, .2)}" stroke-width="1.2"/><ellipse cx="${nx}" cy="${py}" rx="4.8" ry="2.9" fill="${pc}" ${st2}/><circle cx="${nx}" cy="${py}" r="1.5" fill="${pzLight(pc, .55)}" ${st2}/><path d="M${nx - 3.4} ${py - .8} q1 -1.2 2.4 -1.3" stroke="#fff" stroke-width=".9" fill="none" stroke-linecap="round"/>`; }
-    const inner = back + body + head + face + front + ex.front + ex.top + (opts.over || '');
+    const cz = typeof crzClothes === 'function' ? crzClothes(p, kind, G, lw) : null;
+    const inner = (cz ? cz.back : '') + back + body + (cz ? cz.body : '') + head + face + front + ex.front + ex.top + (cz ? cz.top : '') + (opts.over || '');
     return `<svg viewBox="-4 -14 56 64" xmlns="http://www.w3.org/2000/svg">${defs}<g transform="translate(24 47) scale(${sz}) translate(-24 -47)">${inner}${put('neck', w.neck)}${put('face', w.face)}${put('head', w.head)}</g>${opts.extra || ''}</svg>`;
   }
   const FOODS = ['apple', 'strawberry', 'watermelon', 'cookie', 'donut', 'pizza', 'icecream', 'cupcake'];
@@ -6332,10 +6517,11 @@ button.wn-page:hover { transform: translateY(-2px) rotate(-1deg); }
       un.has('guardian') ? el('button', { type: 'button', class: 'btn', onclick: () => { drawHouse(null, guardLine()); SFX.boop(); } }, '💬 לדבר עם ' + guardName().split(' ')[0]) : null,
       SEA.includes(pet.kind) ? el('button', { type: 'button', class: 'btn', onclick: () => { $('#houseDlg').close(); openMermaids(); } }, '🧜‍♀️ לעצב בנות ים') : null);
     $('#houseFood').replaceChildren(mode === 'feed' ? el('div', { class: 'foods' }, ...FOODS.map(f => el('button', { type: 'button', 'aria-label': STICKERS[f][0], html: stickerHTML(f), onclick: () => feed(f) }))) : null);
-    const TABS2 = [['design', '🎨 לעצב'], ['pets', '🐾 החיות שלי'], ['wear', '👗 להלביש'], ['home', '🏠 הבית'], ['tricks', '🎪 גדילה וטריקים'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
+    const TABS2 = [['design', '🎨 לעצב'], ['clothes', '👕 בגדים'], ['pets', '🐾 החיות שלי'], ['wear', '👗 להלביש'], ['home', '🏠 הבית'], ['tricks', '🎪 גדילה וטריקים'], ['unlocks', '🔓 מה אפשר לפתוח'], ['me', '✏️ שם וחיה']];
     $('#houseTabs').replaceChildren(...TABS2.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(houseTab === id), onclick: () => { houseTab = id; drawHouse(); } }, name)));
     const tab = $('#houseTab');
-    if (houseTab === 'design') tab.replaceChildren(petzHouseDesign());
+    if (houseTab === 'clothes') tab.replaceChildren(crzWardrobe());
+    else if (houseTab === 'design') tab.replaceChildren(petzHouseDesign());
     else if (houseTab === 'pets') tab.replaceChildren(petzHousePets());
     else if (houseTab === 'wear') {
       tab.replaceChildren(...[['head', 'על הראש'], ['face', 'על הפנים'], ['neck', 'על הצוואר']].map(([slot, name]) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, name),
@@ -6880,13 +7066,18 @@ button.wn-page:hover { transform: translateY(-2px) rotate(-1deg); }
     ['heart', 'צ\'אט הבנות', () => openGirlsChat()],
     ['music', 'סטודיו ריקוד', () => openDance()],
     ['wand', 'שרביט הקסמים', () => openWand()],
+    ['unicorn', 'האורווה של החיות', () => openStable()],
+    ['dino', 'הדרקונים שלי', () => openDragons()],
+    ['butterfly', 'הפיות שלי', () => openFairies()],
+    ['egg', 'ביצי הפתעה של החיות', () => openEggs()],
+    ['crown', 'בגדים לחיה', () => { houseTab = 'clothes'; openHouse(); }],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   // the "more" menu, sorted into rooms, with search and favorites
   const MORE_ROOMS = [
     ['fav', '⭐ המועדפים', []],
     ['fashion', '👗 אופנה ויופי', ['צ\'אט', 'ריקוד', 'אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
-    ['pets', '🐾 החיות', ['חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
+    ['pets', '🐾 החיות', ['דרקונים', 'פיות', 'חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
     ['games', '🎮 משחקים', ['משחקים']],
     ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום']],
     ['create', '✏️ ליצור', ['סרט', 'תיבת נגינה', 'עיתון', 'מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
@@ -20692,6 +20883,850 @@ button.wn-page:hover { transform: translateY(-2px) rotate(-1deg); }
         : el('span', { class: 'wn-page locked' }, el('span', { class: 'wn-shape', html: wnGuideSVG(id) }), el('b', {}, '❔'), el('small', {}, 'עוד לא נלמד')))),
       pad, msg);
   }
+  // ================= creatures: stable, dragons, fairies, mystery eggs, pet clothes (creatures agent) =================
+  var crzReady = false; // petSVG may run before this chunk; the clothes hook waits for this
+  let crzUid = 0;
+  const crzPick = a => a[Math.floor(Math.random() * a.length)];
+  const crzId = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const crzDays = (a, b) => Math.round((new Date(b + 'T12:00') - new Date(a + 'T12:00')) / 864e5);
+  const crzCoins = (n, why) => { if (typeof addCoins === 'function') try { addCoins(n, why); } catch {} };
+  const crzSpend = (n, why) => typeof spendCoins === 'function' ? spendCoins(n, why) : true;
+  const crzHave = () => typeof coinsNow === 'function' ? coinsNow() : 999;
+  const crzGame = (k, n = 1) => { if (typeof games === 'object' && games) { games[k] = (games[k] || 0) + n; store.set('games', games); } };
+  const crzOpen = id => { const d = $('#' + id); if (!d.open) d.showModal(); };
+  const crzRainbow = ['#ff6f7a', '#ffb35c', '#ffe066', '#7ed48a', '#6fb8ff', '#b37bff'];
+  // generic pickers used by all the designers
+  function crzSw(cur, list, cb, picker = true) {
+    return el('div', { class: 'pz-sw' }, ...list.map(c => el('button', { type: 'button', class: 'pz-swb' + (c === 'rainbow' ? ' crz-rb' : ''), style: `--c:${c}`, 'aria-pressed': String(cur === c), 'aria-label': c, onclick: () => cb(c, true) })),
+      picker ? el('label', { class: 'pz-picker', title: 'צבע משלי' }, '🌈', el('input', { type: 'color', value: /^#[0-9a-f]{6}$/i.test(cur || '') ? cur : '#ff9ad5', 'aria-label': 'צבע משלי', oninput: e => cb(e.target.value, false), onchange: e => cb(e.target.value, true) })) : null);
+  }
+  function crzOpts(list, cur, cb, art) {
+    return el('div', { class: 'pz-opts' }, ...list.map(([id, name]) => el('button', { type: 'button', 'aria-pressed': String(cur === id), onclick: () => cb(id) }, art ? el('span', { class: 'ic', html: art(id) }) : null, name)));
+  }
+  const crzTog = (on, cb, yes = 'יש', no = 'בלי') => el('div', { class: 'seg pz-seg' },
+    el('button', { type: 'button', 'aria-pressed': String(!on), onclick: () => cb(false) }, no), el('button', { type: 'button', 'aria-pressed': String(!!on), onclick: () => cb(true) }, yes));
+  const crzSec = (title, ...kids) => el('div', { class: 'pz-sec' }, el('span', { class: 'lbl' }, title), ...kids);
+  // a two-column designer: big preview on the side, tabs of sections
+  function crzDesigner(o) {
+    // o = { art: () => svg, secs: [[id, label, () => [nodes]]], state: {sec}, buttons: [nodes] }
+    const box = el('div', { class: 'pz-des crz-des' });
+    const draw = () => {
+      if (!o.secs.some(s => s[0] === o.state.sec)) o.state.sec = o.secs[0][0];
+      const prev = el('div', { class: 'pz-des-prev crz-prev', html: o.art() });
+      o.refresh = () => { prev.innerHTML = o.art(); };
+      box.replaceChildren(el('div', { class: 'pz-des-side' }, prev, el('div', { class: 'chips' }, ...(o.buttons ? o.buttons() : []))),
+        el('div', { class: 'pz-des-main' }, el('div', { class: 'tabs pz-des-tabs', role: 'tablist' }, ...o.secs.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(o.state.sec === id), onclick: () => { o.state.sec = id; draw(); } }, n))),
+          ...o.secs.find(s => s[0] === o.state.sec)[2]()));
+    };
+    o.redraw = draw; draw();
+    return box;
+  }
+  // a small list of "my creatures" cards
+  function crzCards(list, art, name, cur, onPick, onAdd, addLabel) {
+    return el('div', { class: 'crz-cards' }, ...list.map(x => el('button', { type: 'button', class: 'crz-card' + (x === cur ? ' on' : ''), onclick: () => onPick(x) }, el('span', { class: 'ic', html: art(x) }), el('b', {}, name(x)))),
+      onAdd ? el('button', { type: 'button', class: 'crz-card crz-add', onclick: onAdd }, el('span', { class: 'crz-plus' }, '➕'), el('b', {}, addLabel)) : null);
+  }
+  const crzFloat = (host, txt, x = 50, y = 40, cls = 'crz-float') => { if (reduceMotion()) return; const s = el('span', { class: cls }, txt); s.style.left = x + '%'; s.style.top = y + '%'; host.append(s); setTimeout(() => s.remove(), 1300); };
+  // ---------- 🦄 horse art: a chibi pony seen from the side, facing right (viewBox 0 -10 112 100) ----------
+  const CRZ_HORSE_DEF = { c1: '#fff4f8', mane: '#ff9ad5', mane2: '#b58cff', maneStyle: 'flowing', tailStyle: 'flowing', horn: 'none', wings: 'none', wingC: '#cfe8ff', hoofC: '#b58cff',
+    marks: {}, markC: '#ffffff', eyes: 'shiny', eyeC: '', cheekC: '#ff8fab', saddle: false, saddleC: '#ff5a8a', blanket: false, blanketC: '#7ec8ff', bridle: false, bridleC: '#ffd84d', crown: false, crownC: '#ff9ad5' };
+  const crzHorseLook = h => Object.assign({}, CRZ_HORSE_DEF, h, { marks: Object.assign({}, (h && h.marks) || {}) });
+  function crzLocks(style, c, c2, pts, dir) {
+    // hair along a line of points (mane or tail); dir = which side the locks fall to
+    const S2x = `stroke="${O}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"`;
+    const cols = style === 'rainbow' ? crzRainbow : [c, c2 && style === 'flowing' ? c : c];
+    if (style === 'curly') return pts.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${5.2 - i * 0.3}" fill="${c}" ${S2x}/><path d="M${x - 1.8} ${y} a1.8 1.8 0 1 1 1.8 1.8" fill="none" stroke="${pzLight(c, .5)}" stroke-width="1.1" stroke-linecap="round"/>`).join('');
+    if (style === 'braids') return pts.map(([x, y], i) => [0, 1, 2].map(k => `<ellipse cx="${pzF(x + dir[0] * k * 3.6)}" cy="${pzF(y + dir[1] * k * 3.6)}" rx="2.6" ry="2.1" fill="${c}" ${S2x}/>`).join('') + (i % 2 ? '' : `<circle cx="${pzF(x + dir[0] * 9.5)}" cy="${pzF(y + dir[1] * 9.5)}" r="1.6" fill="${c2}" ${S2x}/>`)).join('');
+    if (style === 'short') return pts.map(([x, y]) => `<path d="M${x - 3} ${y + 2} L${pzF(x - dir[1] * 2)} ${pzF(y - 5)} L${x + 3} ${y + 1} Z" fill="${c}" ${S2x}/>`).join('');
+    // flowing / rainbow: one soft wavy shape along the line (rainbow = stacked colored copies)
+    const band = (k, col) => {
+      const P = pts.map(([x, y], i) => [x + dir[0] * k * (1 + i * 0.12), y + dir[1] * k * (1 + i * 0.12)]);
+      let d = `M${pts[0][0]} ${pts[0][1]}`;
+      P.forEach(([x, y], i) => { const [px, py] = i ? P[i - 1] : pts[0]; d += ` Q${pzF((px + x) / 2 + dir[0] * 3.2)} ${pzF((py + y) / 2 + dir[1] * 3.2)} ${pzF(x)} ${pzF(y)}`; });
+      const last = pts[pts.length - 1];
+      d += ` L${last[0]} ${last[1]}`; for (let i = pts.length - 2; i >= 0; i--) d += ` L${pts[i][0]} ${pts[i][1]}`;
+      return `<path d="${d} Z" fill="${col}" ${S2x}/>`;
+    };
+    if (style === 'rainbow') return [1, .82, .64, .46, .3].map((k, i) => band(11 * k, crzRainbow[i])).join('');
+    return band(11, c) + band(6, pzLight(c, .22)).replace(S2x, 'stroke="none"') + pts.slice(1, -1).map(([x, y]) => `<path d="M${pzF(x + dir[0] * 3)} ${pzF(y + dir[1] * 3)} q${pzF(dir[0] * 3)} ${pzF(dir[1] * 3 + 1)} ${pzF(dir[0] * 6)} ${pzF(dir[1] * 6)}" fill="none" stroke="#fff" stroke-width=".9" opacity=".6" stroke-linecap="round"/>`).join('');
+  }
+  function crzHorseSVG(h, o = {}) {
+    const L = crzHorseLook(h), u = 'hz' + (++crzUid), st = `stroke="${O}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"`, st2 = `stroke="${O}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"`;
+    const c1 = L.c1, dark = pzMix(c1, '#5a3a5a', .18), muz = pzLight(c1, .45), F = `fill="url(#${u}g)" ${st}`, Fd = `fill="${dark}" ${st}`, mk = L.marks;
+    const defs = `<defs><radialGradient id="${u}g" cx=".38" cy=".3" r=".85"><stop offset="0" stop-color="${pzLight(c1, .5)}"/><stop offset=".6" stop-color="${c1}"/><stop offset="1" stop-color="${pzMix(c1, pzLum(c1) > .8 ? '#9c8fc4' : '#5a3a5a', .2)}"/></radialGradient></defs>`;
+    const leg = (x, far, cls) => {
+      const sock = mk.socks ? `<rect x="${x - 4}" y="72" width="8" height="8" fill="${L.markC}"/>` : '';
+      return `<g class="${cls}">${`<rect x="${x - 4}" y="60" width="8" height="24" rx="4" ${far ? Fd : F}/>`}${sock}<rect x="${x - 4.6}" y="80" width="9.2" height="6" rx="2.2" fill="${far ? pzMix(L.hoofC, '#3a2b3c', .2) : L.hoofC}" ${st2}/></g>`;
+    };
+    const jump = o.jump;
+    const legs = (far) => far ? leg(34, 1, 'crz-lb2') + leg(64, 1, 'crz-lf2') : leg(40, 0, 'crz-lb') + leg(70, 0, 'crz-lf');
+    const legsT = far => jump ? `<g transform="rotate(${far ? 28 : 34} 38 60)">${far ? leg(34, 1, '') : leg(40, 0, '')}</g><g transform="rotate(${far ? -38 : -46} 66 60)">${far ? leg(64, 1, '') : leg(70, 0, '')}</g>` : legs(far);
+    const wing = (far) => {
+      if (L.wings === 'none') return '';
+      const wc = far ? pzMix(L.wingC, '#5a3a5a', .15) : L.wingC, tr = far ? 'translate(6 -3) scale(.9)' : '';
+      const shape = L.wings === 'butterfly' ? `<path d="M48 44 C38 22 22 18 20 30 C19 38 32 42 48 46 Z" fill="${wc}" ${st2}/><path d="M48 46 C36 46 28 54 32 58 C36 61 44 54 48 48 Z" fill="${pzLight(wc, .35)}" ${st2}/><circle cx="30" cy="31" r="3" fill="#fff" opacity=".7"/>`
+        : L.wings === 'crystal' ? `<path d="M48 45 L40 20 L34 32 L26 22 L28 38 L20 34 L30 46 Z" fill="${wc}" fill-opacity=".8" ${st2}/><path d="M40 20 L38 40 M26 22 L32 42" stroke="#fff" stroke-width="1" opacity=".8"/>`
+        : `<path d="M48 46 C42 30 32 20 20 22 C25 25 24 27 27 29 C22 30 23 33 28 35 C24 37 27 40 32 40 C30 43 38 46 48 48 Z" fill="${wc}" ${st2}/><path d="M26 27 Q34 30 40 38 M26 33 Q33 35 38 41" fill="none" stroke="${pzMix(wc, '#3a2b3c', .25)}" stroke-width=".9" opacity=".6"/>`;
+      return `<g transform="${tr}">${shape}</g>`;
+    };
+    const maneC = L.mane, tail = crzLocks(L.tailStyle, maneC, L.mane2, L.tailStyle === 'short' ? [[26, 50]] : ['flowing', 'rainbow'].includes(L.tailStyle) ? [[27, 45], [23, 50], [20, 57], [18, 64], [18, 72]] : [[27, 47], [25, 51], [26, 55], [28, 49]], L.tailStyle === 'short' ? [-1, .2] : ['flowing', 'rainbow'].includes(L.tailStyle) ? [-.85, .35] : [-.45, 1]);
+    const mane = crzLocks(L.maneStyle, maneC, L.mane2, ['flowing', 'rainbow'].includes(L.maneStyle) ? [[73, 11], [68, 16], [64, 23], [61, 31], [59, 39], [58, 46]] : [[71, 13], [67, 19], [64, 26], [62, 33], [60, 40]], [-.9, .45]);
+    const forelock = L.maneStyle === 'short' ? '' : L.maneStyle === 'curly' ? `<circle cx="76" cy="12" r="4.2" fill="${maneC}" ${st2}/>` : `<path d="M71 11 Q79 7 83 13 Q78 12 76 17 Q74 13 71 14 Z" fill="${L.maneStyle === 'rainbow' ? crzRainbow[4] : maneC}" ${st2}/>`;
+    const horn = L.horn === 'none' ? '' : (() => { const hc = { gold: '#ffe27a', pearl: '#fff6fb', rainbow: '#ffd1f0', crystal: '#bfeaff' }[L.horn] || '#ffe27a'; return `<path d="M76 13 L88 -7 L81 15 Z" fill="${hc}" ${st2}/>` + (L.horn === 'rainbow' ? `<path d="M78 10 l5 -1 M80 5 l4 -1 M82 0 l3 -.6" stroke="${crzRainbow[0]}" stroke-width="1.3"/><path d="M79 7.5 l4.5 -1 M81 2.5 l3.5 -.8" stroke="${crzRainbow[4]}" stroke-width="1.3"/>` : `<path d="M78 10 l5 -1.4 M80 5 l4 -1.2 M82 0 l3 -.9" stroke="${pzMix(hc, '#3a2b3c', .3)}" stroke-width="1" stroke-linecap="round"/>`) + pzSpark(90, -4, 2.2, '#fff'); })();
+    const marks = (mk.spots ? [[36, 52, 2.6], [30, 57, 2], [42, 58, 2.2], [34, 62, 1.6], [45, 51, 1.6]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${L.markC}" opacity=".9"/>`).join('') : '')
+      + (mk.pinto ? `<path d="M40 43 Q52 40 55 50 Q50 60 40 58 Q34 52 40 43 Z" fill="${L.markC}" opacity=".9"/>` : '');
+    const headMarks = (mk.star ? `<polygon points="${starPts(82, 15, 3.2, 1.4)}" fill="${L.markC}"/>` : '') + (mk.blaze ? `<path d="M83 13 Q88 22 92 27 L95 29 Q89 22 86 13 Z" fill="${L.markC}"/>` : '');
+    const blanket = L.blanket ? `<path d="M37 43 Q50 38 63 43 L65 58 Q50 63 35 58 Z" fill="${L.blanketC}" ${st2}/><path d="M35.5 56 Q50 61 64.5 56" fill="none" stroke="${pzLight(L.blanketC, .55)}" stroke-width="2" stroke-dasharray="2 2"/>` : '';
+    const saddle = L.saddle ? `<path d="M42 44 Q50 40 58 43 Q60 38 62 41 L59 47 Q50 48 41 47 Z" fill="${L.saddleC}" ${st2}/><path d="M50 47 V60" stroke="${O}" stroke-width="1.2"/><path d="M47.5 60 h5 v3 h-5 Z" fill="#ffd84d" ${st2}/>` : '';
+    const bridle = L.bridle ? `<path d="M74 17 Q80 26 87 35 M85 26 Q91 24 97 29 M84 37 Q91 39 98 34" fill="none" stroke="${L.bridleC}" stroke-width="2" stroke-linecap="round"/><circle cx="86" cy="35" r="1.6" fill="#ffe27a" ${st2}/>` + (o.reins !== false ? `<path d="M86 35 Q74 44 ${L.saddle ? 58 : 62} 44" fill="none" stroke="${L.bridleC}" stroke-width="1.3"/>` : '') : '';
+    const crown = L.crown ? [[70, 12], [74.5, 9.5], [79.5, 9], [84, 11]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="2.6" fill="${i % 2 ? pzLight(L.crownC, .4) : L.crownC}" ${st2}/><circle cx="${x}" cy="${y}" r=".9" fill="#ffd84d"/>`).join('') + `<path d="M68 14 q-2 2 -1 4 M86 13 q2 1 2 3" stroke="#6fcf7f" stroke-width="1.6" fill="none" stroke-linecap="round"/>` : '';
+    const eye = pzEye(o.mood === 'happy' ? 'happy' : o.mood === 'sleepy' ? 'sleepy' : L.eyes, 83, 23.5, 1.28, L.eyeC, false, false);
+    const face = `<ellipse cx="89" cy="30" rx="3" ry="1.8" fill="${L.cheekC}" opacity=".7"/><ellipse cx="96.2" cy="30.5" rx="1.1" ry="1.5" fill="${O}" opacity=".75"/><path d="M${o.mood === 'eat' ? '91 36 q2.5 3 5 0' : '91.5 36 q2.5 2 4.5 -.5'}" fill="${o.mood === 'eat' ? '#ff8fab' : 'none'}" ${st2}/>`;
+    const neck = `<path d="M57 50 C59 38 63 29 70 24 L80 33 C76 41 74 50 72 58 Z" ${F}/>`;
+    const head = `<path d="M71 15 L68.5 3 L78.5 11 Z" ${F}/><path d="M71.4 12.6 L70.4 7 L75 10.6 Z" fill="${L.cheekC}" opacity=".6"/>`
+      + `<ellipse cx="81" cy="24" rx="14.5" ry="12.5" ${F}/><ellipse cx="91" cy="31.5" rx="9" ry="7.6" fill="${muz}" ${st}/><ellipse cx="76" cy="18" rx="4" ry="2.3" fill="#fff" opacity=".45" transform="rotate(-25 76 18)"/>`;
+    const farEar = `<path d="M75.5 13 L76.5 2 L83 11 Z" ${Fd}/>`;
+    const body = `<ellipse cx="50" cy="55" rx="25" ry="15.5" ${F}/><ellipse cx="42" cy="47" rx="8" ry="3" fill="#fff" opacity=".4" transform="rotate(-12 42 47)"/>`;
+    const neckFill = `<path d="M58.5 50 C60.5 38 64 30 70.5 25.5 L78.5 33 C75 41 73.2 49 71 56 Z" fill="url(#${u}g)"/>`;
+    const inner = `${o.back || ''}${tail}${wing(true)}${legsT(true)}${neck}${o.rider || ''}${body}${marks}${neckFill}${blanket}${saddle}${wing(false)}${legsT(false)}${farEar}${mane}${head}${headMarks}${forelock}${horn}${crown}${eye}${face}${bridle}${o.over || ''}`;
+    return `<svg viewBox="0 -10 112 100" xmlns="http://www.w3.org/2000/svg" class="crz-horse${o.run ? ' run' : ''}">${defs}${inner}</svg>`;
+  }
+  // ---------- 🦄 the stable ----------
+  const CRZ_HORSE_NAMES = ['קשת', 'ענן', 'נסיכה', 'כוכבית', 'סוכריה', 'לבנה', 'פנינה', 'רוח', 'דבש', 'שוקולד', 'זוהר', 'פרפר', 'חלום', 'מרשמלו'];
+  const CRZ_HC = ['#fff4f8', '#ffffff', '#f3e3c7', '#e8c9a0', '#c68b59', '#8a5a3c', '#3a3a4a', '#b8bcc8', '#ffd1e6', '#e6d2ff', '#bfeaff', '#ffe98a', '#b8f0a0', '#ffb3a0'];
+  const CRZ_MC = ['#ff9ad5', '#ff5a8a', '#b58cff', '#7ec8ff', '#8fe6d0', '#ffd84d', '#ffffff', '#f3e3c7', '#c68b59', '#4a2a1a', '#3a3a4a', '#ff9a3c'];
+  let crzHorses = Object.assign({ list: [], cur: null, ribbons: {}, best: 0, rider: null }, store.get('horses', {}));
+  const crzSaveHorses = () => store.set('horses', crzHorses);
+  const crzHorse = () => crzHorses.list.find(h => h.id === crzHorses.cur) || crzHorses.list[0] || null;
+  let crzStTab = 'stalls', crzHDes = { sec: 'colors' }, crzRide = null;
+  function crzNewHorse(rand) {
+    const h = { id: crzId('h'), name: crzPick(CRZ_HORSE_NAMES), fed: {}, groomed: {} };
+    if (rand) Object.assign(h, { c1: crzPick(CRZ_HC), mane: crzPick(CRZ_MC), mane2: crzPick(CRZ_MC), maneStyle: crzPick(['flowing', 'curly', 'braids', 'rainbow', 'flowing']), tailStyle: crzPick(['flowing', 'curly', 'braids', 'rainbow']),
+      horn: crzPick(['none', 'none', 'gold', 'pearl', 'rainbow', 'crystal']), wings: crzPick(['none', 'none', 'feather', 'butterfly', 'crystal']), wingC: crzPick(['#cfe8ff', '#ffc2e0', '#e6d2ff', '#ffffff']), hoofC: crzPick(CRZ_MC),
+      marks: crzPick([{}, { star: 1 }, { socks: 1 }, { spots: 1 }, { blaze: 1, socks: 1 }]), eyes: crzPick(['shiny', 'anime', 'lashes', 'shiny']) });
+    return h;
+  }
+  const crzHorseKind = h => h.horn !== 'none' && h.horn && h.wings !== 'none' && h.wings ? 'אליקורן' : h.horn && h.horn !== 'none' ? 'חד-קרן' : h.wings && h.wings !== 'none' ? 'פגסוס' : 'פוני';
+  function crzRiderGirl() {
+    const gl = typeof girls !== 'undefined' ? girls : [];
+    const g = gl.find(x => x.id === crzHorses.rider) || gl[0];
+    if (g) return g;
+    if (!crzHorses.riderLook) { crzHorses.riderLook = Object.assign({ id: 'crzrider' }, randomGirl(), { dress: 'none', bottom: 'jeans', hat: 'none', mermaid: false }); crzSaveHorses(); }
+    return crzHorses.riderLook;
+  }
+  // a horse with the girl sitting on it
+  function crzRiderSVG(h, o = {}) {
+    const g = Object.assign({}, crzRiderGirl(), { mermaid: false, scene: 'plain' }), k = .15;
+    const pose = o.cheer ? { la: 150, ra: 150, lf: 10, rf: 10 } : { la: 55, lf: -40, ra: 10 };
+    let s = girlSVG(g, 'cr' + (++crzUid), { view: 'full', bg: false, pose }).replace(/viewBox="[^"]*"/, 'viewBox="0 0 300 300"');
+    s = s.replace('<svg ', `<svg x="${44 - 150 * k}" y="${52 - 284 * k}" width="${300 * k}" height="${300 * k}" `);
+    return crzHorseSVG(Object.assign({}, h, { saddle: true, bridle: h.bridle !== false }), Object.assign({}, o, { rider: s }));
+  }
+  function openStable(tab) {
+    if (!crzHorses.list.length) { const h = crzNewHorse(false); h.name = 'קשת'; crzHorses.list.push(h); crzHorses.cur = h.id; crzSaveHorses(); }
+    if (tab) crzStTab = tab;
+    drawStable();
+    crzOpen('crzStableDlg');
+  }
+  function drawStable(msg) {
+    if (crzRide && crzStTab !== 'ride') { crzRide.stop(); crzRide = null; }
+    const h = crzHorse(), today = localToday();
+    $('#crzStableSub').textContent = `${h.name} · ${crzHorseKind(h)}` + (h.fed[today] ? ' · שבע/ה 😊' : ' · רעב/ה! 🥕');
+    const TABS = [['stalls', '🐴 האורווה'], ['design', '🎨 לעצב'], ['groom', '🪮 טיפוח'], ['feed', '🥕 אוכל'], ['ride', '🏇 רכיבה'], ['prizes', '🏆 פרסים']];
+    $('#crzStableTabs').replaceChildren(...TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(crzStTab === id), onclick: () => { crzStTab = id; drawStable(); } }, n)));
+    const body = $('#crzStableBody');
+    const save = () => { crzSaveHorses(); };
+    if (crzStTab === 'stalls') {
+      const stalls = el('div', { class: 'crz-stalls' }, ...crzHorses.list.map(x => el('button', { type: 'button', class: 'crz-stall' + (x === h ? ' on' : ''), onclick: () => { crzHorses.cur = x.id; save(); tone(520, .1, 'triangle'); tone(390, .14, 'triangle', .1); drawStable(); } },
+        el('span', { class: 'crz-stall-art', html: crzHorseSVG(x, { mood: x.fed[today] ? '' : 'sleepy' }) }), el('span', { class: 'crz-plate' }, x.name), x.fed[today] ? null : el('span', { class: 'crz-hungry' }, '🥕?'))),
+        crzHorses.list.length < 12 ? el('button', { type: 'button', class: 'crz-stall crz-newstall', onclick: () => { const n = crzNewHorse(true); crzHorses.list.push(n); crzHorses.cur = n.id; save(); SFX.yay(); crzStTab = 'design'; drawStable(`ברוכ/ה הבא/ה, ${n.name}! 🎉`); } }, el('span', { class: 'crz-plus' }, '➕'), el('b', {}, 'סוס חדש')) : null);
+      body.replaceChildren(el('p', { class: 'muted', style: 'margin:0' }, msg || 'לוחצים על תא כדי לבחור סוס. כל סוס צריך אוכל, טיפוח ורכיבה!'), stalls);
+    } else if (crzStTab === 'design') {
+      const set = (k, v) => { h[k] = v; save(); SFX.pop(); o.redraw(); };
+      const cset = k => (c, full) => { h[k] = c; save(); if (full) o.redraw(); else o.refresh(); };
+      const thumb = (k, v) => crzHorseSVG(Object.assign({}, h, { [k]: v }));
+      const o = { state: crzHDes, art: () => crzHorseSVG(h), buttons: () => [
+        el('button', { type: 'button', class: 'btn', onclick: () => { const r = crzNewHorse(true); Object.keys(r).forEach(k => { if (!['id', 'name', 'fed', 'groomed'].includes(k)) h[k] = r[k]; }); save(); SFX.yay(); o.redraw(); } }, '🎲 הפתעה!')],
+      secs: [
+        ['colors', '🎨 צבעים', () => [crzSec('שם', el('input', { type: 'text', maxLength: 16, value: h.name, oninput: e => { h.name = e.target.value; save(); } })),
+          crzSec('צבע הגוף', crzSw(h.c1 || CRZ_HORSE_DEF.c1, CRZ_HC, cset('c1'))), crzSec('פרסות', crzSw(h.hoofC || CRZ_HORSE_DEF.hoofC, CRZ_MC, cset('hoofC'))),
+          crzSec('סימנים', el('div', { class: 'chips' }, ...[['star', '⭐ כוכב במצח'], ['blaze', 'פס לבן'], ['socks', '🧦 גרביים'], ['spots', 'נקודות'], ['pinto', 'כתם גדול']].map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!(h.marks || {})[id]), onclick: () => { h.marks = Object.assign({}, h.marks); if (h.marks[id]) delete h.marks[id]; else h.marks[id] = 1; save(); SFX.pop(); o.redraw(); } }, n)))),
+          crzSec('צבע הסימנים', crzSw(h.markC || '#ffffff', ['#ffffff', '#fff1e0', '#3a3a4a', '#8a5a3c', '#ffd1e6', '#e6d2ff', '#bfeaff'], cset('markC')))]],
+        ['mane', '💇 רעמה וזנב', () => [crzSec('רעמה', crzOpts([['flowing', 'גולשת'], ['curly', 'מתולתלת'], ['braids', 'צמות'], ['rainbow', 'קשת'], ['short', 'קצרה']], h.maneStyle || 'flowing', v => set('maneStyle', v), v => thumb('maneStyle', v))),
+          crzSec('זנב', crzOpts([['flowing', 'גולש'], ['curly', 'מתולתל'], ['braids', 'צמה'], ['rainbow', 'קשת'], ['short', 'קצר']], h.tailStyle || 'flowing', v => set('tailStyle', v), v => thumb('tailStyle', v))),
+          crzSec('צבע רעמה וזנב', crzSw(h.mane || CRZ_HORSE_DEF.mane, CRZ_MC, cset('mane'))), crzSec('צבע סרטים בצמות', crzSw(h.mane2 || CRZ_HORSE_DEF.mane2, CRZ_MC, cset('mane2')))]],
+        ['magic', '🦄 קסם', () => [crzSec('קרן', crzOpts([['none', 'בלי'], ['gold', 'זהב'], ['pearl', 'פנינה'], ['rainbow', 'קשת'], ['crystal', 'קריסטל']], h.horn || 'none', v => set('horn', v), v => thumb('horn', v))),
+          crzSec('כנפיים', crzOpts([['none', 'בלי'], ['feather', 'נוצות'], ['butterfly', 'פרפר'], ['crystal', 'קריסטל']], h.wings || 'none', v => set('wings', v), v => thumb('wings', v))),
+          crzSec('צבע כנפיים', crzSw(h.wingC || CRZ_HORSE_DEF.wingC, ['#cfe8ff', '#ffc2e0', '#e6d2ff', '#ffffff', '#fff1b8', '#b8f0a0', '#ffb3a0'], cset('wingC')))]],
+        ['face', '👀 פנים', () => [crzSec('עיניים', crzOpts(PZ_EYES, h.eyes || 'shiny', v => set('eyes', v), v => crzHorseSVG(Object.assign({}, h, { eyes: v })).replace('viewBox="0 -10 112 100"', 'viewBox="66 8 34 30"'))),
+          crzSec('צבע עיניים', crzSw(h.eyeC || '', PZ_EYEC, cset('eyeC'), false)), crzSec('לחיים', crzSw(h.cheekC || '#ff8fab', ['#ff8fab', '#ffb3a0', '#e0a3ff', '#ff6b8b'], cset('cheekC'), false))]],
+        ['tack', '🏇 אוכף וקישוט', () => [
+          crzSec('אוכף', crzTog(h.saddle, v => set('saddle', v)), h.saddle ? crzSw(h.saddleC || CRZ_HORSE_DEF.saddleC, CRZ_MC, cset('saddleC')) : null),
+          crzSec('שמיכת גב', crzTog(h.blanket, v => set('blanket', v)), h.blanket ? crzSw(h.blanketC || CRZ_HORSE_DEF.blanketC, CRZ_MC, cset('blanketC')) : null),
+          crzSec('רסן', crzTog(h.bridle, v => set('bridle', v)), h.bridle ? crzSw(h.bridleC || CRZ_HORSE_DEF.bridleC, CRZ_MC, cset('bridleC')) : null),
+          crzSec('זר פרחים', crzTog(h.crown, v => set('crown', v)), h.crown ? crzSw(h.crownC || CRZ_HORSE_DEF.crownC, CRZ_MC, cset('crownC')) : null)]],
+      ] };
+      body.replaceChildren(crzDesigner(o));
+    } else if (crzStTab === 'groom') {
+      body.replaceChildren(crzGroom(h));
+    } else if (crzStTab === 'feed') {
+      const art = el('div', { class: 'crz-feed-horse', html: crzHorseSVG(h) }), stage = el('div', { class: 'crz-barn' }, art), say = el('span', { class: 'pz-say' }, msg || `${h.name} מחכה לאוכל!`);
+      stage.append(say);
+      const FOODS = [['hay', 'חציר', 1], ['carrot', 'גזר', 2], ['apple', 'תפוח', 2], ['sugar', 'קוביית סוכר', 3]];
+      const fart = id => id === 'apple' ? stickerHTML('apple') : svg({
+        hay: `<path d="M8 34 Q24 22 40 34 L38 42 H10 Z" fill="#ffd46b" ${S}/><path d="M12 34 L10 22 M18 32 L17 18 M24 31 L24 16 M30 32 L31 18 M36 34 L38 22" stroke="#e0a800" stroke-width="2" stroke-linecap="round"/><path d="M9 38 H39" stroke="#c98f3a" stroke-width="2.4"/>`,
+        carrot: `<path d="M14 40 L34 16 Q38 18 36 22 Z" fill="#ff9a3c" ${S}/><path d="M34 16 Q36 8 42 8 M34 16 Q40 14 44 16 M34 16 Q32 10 34 6" fill="none" stroke="#4fbf73" stroke-width="3" stroke-linecap="round"/><path d="M22 30 l3 2 M26 25 l3 2" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/>`,
+        sugar: `<path d="M12 20 L24 14 L36 20 L36 34 L24 40 L12 34 Z" fill="#fff" ${S}/><path d="M12 20 L24 26 L36 20 M24 26 V40" fill="none" ${S2}/><circle cx="18" cy="28" r=".9" fill="#cfe8ff"/><circle cx="30" cy="29" r=".9" fill="#cfe8ff"/>`,
+      }[id]);
+      body.replaceChildren(stage, el('div', { class: 'foods' }, ...FOODS.map(([id, n, yum]) => el('button', { type: 'button', 'aria-label': n, title: n, html: fart(id), onclick: () => {
+        const f = el('span', { class: 'crz-fly', html: fart(id) }); stage.append(f); SFX.munch();
+        h.fed[today] = (h.fed[today] || 0) + 1; save();
+        setTimeout(() => { art.innerHTML = crzHorseSVG(h, { mood: 'eat' }); f.remove(); }, 650);
+        setTimeout(() => { art.innerHTML = crzHorseSVG(h, { mood: 'happy' }); tone(330, .12, 'triangle'); tone(495, .16, 'triangle', .1); say.textContent = [`${n}? נחמד, תודה 🙂`, `יאמי! ${n}! 😋`, `וואו!!! ${n}! הכי טעים בעולם! 💖`][yum - 1]; crzFloat(stage, '💖', 70, 30); $('#crzStableSub').textContent = `${h.name} · ${crzHorseKind(h)} · שבע/ה 😊`; }, 1150);
+      } }))));
+    } else if (crzStTab === 'ride') {
+      body.replaceChildren(crzRideGame(h));
+    } else {
+      const R = crzHorses.ribbons, RIB = [['gold', '🏆', 'גביע זהב'], ['blue', '🎗️', 'סרט כחול'], ['red', '🎀', 'סרט אדום'], ['yellow', '🏵️', 'סרט צהוב']];
+      body.replaceChildren(el('p', { class: 'muted', style: 'margin:0' }, 'מקבלים פרסים ברכיבה: כמה שיותר קפיצות מוצלחות, ככה הפרס יותר גדול!'),
+        el('div', { class: 'crz-prizes' }, ...RIB.map(([id, em, n]) => el('div', { class: 'crz-prize' + (R[id] ? '' : ' none') }, el('span', { class: 'crz-prize-em' }, em), el('b', {}, n), el('small', {}, `× ${R[id] || 0}`)))),
+        el('p', {}, `🏅 השיא שלך: ${crzHorses.best || 0} מתוך 10 משוכות`));
+    }
+  }
+  // grooming: brush, wash, braid, hoof polish
+  function crzGroom(h) {
+    const today = localToday();
+    const art = el('div', { class: 'crz-groom-horse', html: crzHorseSVG(h) }), fx = el('div', { class: 'pz-bath-fx' }), stage = el('div', { class: 'crz-groom-stage' }, art, fx);
+    const say = el('span', { class: 'pz-say' }, 'בוחרים כלי ומעבירים אותו על הסוס 👆'); stage.append(say);
+    let tool = 'brush', prog = 0, last = null, down = false, bubbles = [];
+    const bar = el('div', { class: 'xpbar' }, el('i'));
+    const setProg = v => { prog = Math.min(1, v); bar.firstChild.style.width = Math.round(prog * 100) + '%'; };
+    const done = txt => {
+      say.textContent = txt; SFX.yay(); crzFloat(stage, '✨', 55, 35); crzFloat(stage, '💖', 40, 30);
+      h.groomed = h.groomed || {}; const first = !h.groomed[today]; h.groomed[today] = 1; crzSaveHorses();
+      if (first) crzCoins(3, 'טיפחת את הסוס');
+      art.innerHTML = crzHorseSVG(h, { mood: 'happy' });
+    };
+    const TOOLS = [['brush', '🪮 מברשת'], ['wash', '🧽 לרחוץ'], ['braid', '🎀 לקלוע צמות'], ['hoof', '💅 לק לפרסות']];
+    const tools = el('div', { class: 'chips' }, ...TOOLS.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(tool === id), onclick: e => {
+      tool = id; setProg(0); tools.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(c === e.currentTarget)));
+      if (id === 'braid') { h.maneStyle = 'braids'; h.tailStyle = 'braids'; h.mane2 = crzPick(CRZ_MC); crzSaveHorses(); SFX.pop(); done('צמות עם סרטים! איזה יופי 🎀'); }
+      else if (id === 'hoof') { h.hoofC = crzPick(CRZ_MC.filter(c => c !== h.hoofC)); crzSaveHorses(); SFX.pop(); done('לק חדש לפרסות! 💅'); }
+      else say.textContent = id === 'brush' ? 'מבריש/ה? מעבירים את המברשת על הסוס 🪮' : 'משפשפים עם הספוג, ואז הקצף נעלם 🧽';
+    } }, n)));
+    const rel = e => { const r = stage.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100]; };
+    stage.addEventListener('pointerdown', e => { down = true; try { stage.setPointerCapture(e.pointerId); } catch {} });
+    stage.addEventListener('pointerup', () => { down = false; last = null; });
+    stage.addEventListener('pointermove', e => {
+      if (!down || !['brush', 'wash'].includes(tool) || prog >= 1) return;
+      const [x, y] = rel(e), m = last ? Math.hypot(x - last[0], y - last[1]) : 0; last = [x, y];
+      if (tool === 'brush') { setProg(prog + m / 350); if (Math.random() < .25) crzFloat(stage, '✨', x, y, 'crz-spark'); if (prog >= 1) done('הפרווה מבריקה ורכה! ✨'); }
+      else if (m > 3 || !bubbles.length) {
+        const b = el('span', { class: 'pz-bubble' }); b.style.left = x + '%'; b.style.top = y + '%'; b.style.setProperty('--s', (.6 + Math.random() * .7).toFixed(2)); fx.append(b); bubbles.push(b); setProg(bubbles.length / 24);
+        if (prog >= 1) { bubbles.forEach((q, i) => setTimeout(() => { q.classList.add('pop'); setTimeout(() => q.remove(), 250); tone(900 + i * 20, .04, 'sine', 0, .04); }, 400 + i * 40)); bubbles = []; setTimeout(() => done('נקי ומבריק! 🫧'), 1500); }
+      }
+    });
+    return el('div', { class: 'row' }, tools, stage, bar);
+  }
+  // the ride: a gentle side-scrolling jumping game
+  function crzRideGame(h) {
+    const wrap = el('div', { class: 'row' });
+    const gl = typeof girls !== 'undefined' ? girls : [];
+    const pickRider = gl.length > 1 ? el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'מי רוכבת?'), ...gl.slice(0, 8).map(g => el('button', { type: 'button', class: 'crz-rider-pick', 'aria-pressed': String(crzRiderGirl() === g), title: g.name || '', onclick: () => { crzHorses.rider = g.id; crzSaveHorses(); drawStable(); } },
+      el('img', { src: girlImgURL(g, { view: 'head', bg: false }), alt: g.name || '' })))) : null;
+    const runArt = crzRiderSVG(h, { run: true }), jumpArt = crzRiderSVG(h, { jump: true, cheer: true });
+    const horse = el('div', { class: 'crz-ride-horse', html: runArt });
+    const world = el('div', { class: 'crz-ride-world' }), hud = el('div', { class: 'crz-ride-hud' }, 'לוחצים (או רווח) כדי לקפוץ מעל המשוכות!');
+    const stage = el('div', { class: 'crz-ride-stage', tabindex: 0 }, el('div', { class: 'crz-ride-sky' }), el('div', { class: 'crz-ride-hills' }), el('div', { class: 'crz-ride-ground' }), world, horse, hud);
+    const startBtn = el('button', { type: 'button', class: 'btn main', onclick: () => start() }, '🏇 יוצאים לרכוב!');
+    wrap.append(pickRider || '', stage, el('div', { class: 'chips' }, startBtn));
+    let raf = 0, running = false, t0 = 0, fences = [], jumpT = -9, cleared = 0, hit = 0, spawned = 0, next = 0, slow = 0, prev = 0, dist = 0;
+    const TOTAL = 10, W = () => stage.clientWidth || 600;
+    const jump = () => { if (!running) return; const now = performance.now(); if (now - jumpT > 850) { jumpT = now; horse.innerHTML = jumpArt; tone(520, .12, 'triangle'); tone(780, .14, 'triangle', .08); } };
+    const kd = e => { if (e.code === 'Space' && running && $('#crzStableDlg').open) { e.preventDefault(); jump(); } };
+    stage.addEventListener('pointerdown', jump);
+    const stop = () => { running = false; cancelAnimationFrame(raf); document.removeEventListener('keydown', kd); };
+    crzRide = { stop };
+    const start = () => {
+      stop(); world.replaceChildren(); fences = []; cleared = hit = spawned = 0; next = 700; dist = 0; slow = 0; running = true; prev = performance.now(); t0 = prev;
+      startBtn.disabled = true; hud.textContent = `משוכות: 0 / ${TOTAL}`; stage.classList.add('go'); document.addEventListener('keydown', kd); stage.focus();
+      const loop = now => {
+        if (!running) return;
+        const dt = Math.min(50, now - prev); prev = now;
+        const speed = (slow > now ? 0.12 : 0.3) * (W() / 600); dist += speed * dt;
+        stage.style.setProperty('--x', (-dist % 2000) + 'px');
+        if (spawned < TOTAL && dist > next) { const f = el('span', { class: 'crz-fence', html: crzFenceSVG(spawned) }); world.append(f); fences.push({ n: f, x: W() + 40, done: false }); spawned++; next = dist + 330 + Math.random() * 220; }
+        const jt = (now - jumpT) / 850, air = jt >= 0 && jt < 1 ? Math.sin(jt * Math.PI) : 0;
+        if (jt >= 1 && horse.dataset.j !== 'r') { horse.innerHTML = runArt; horse.dataset.j = 'r'; } else if (jt < 1) horse.dataset.j = 'j';
+        horse.style.transform = `translateY(${-air * 80}px) rotate(${air ? (jt < .5 ? -6 : 6) : 0}deg)`;
+        const hc = horse.offsetLeft + horse.offsetWidth * 0.55;
+        fences.forEach(f => {
+          f.x -= speed * dt; f.n.style.transform = `translateX(${f.x}px)`;
+          if (!f.done && f.x + 30 < hc) {
+            f.done = true;
+            if (air > .25) { cleared++; crzFloat(stage, '⭐', 30, 25); tone(880, .1, 'sine'); hud.textContent = `משוכות: ${cleared} / ${TOTAL}`; }
+            else { hit++; f.n.classList.add('knock'); slow = now + 600; tone(220, .15, 'triangle'); hud.textContent = `אופס! לא נורא 😊 משוכות: ${cleared} / ${TOTAL}`; }
+          }
+        });
+        fences = fences.filter(f => { if (f.x < -120) { f.n.remove(); return false; } return true; });
+        if (spawned >= TOTAL && !fences.length) { finish(); return; }
+        raf = requestAnimationFrame(loop);
+      };
+      raf = requestAnimationFrame(loop);
+    };
+    const finish = () => {
+      stop(); stage.classList.remove('go'); startBtn.disabled = false; startBtn.textContent = '🏇 עוד סיבוב';
+      const prize = cleared >= 10 ? ['gold', '🏆', 'גביע זהב!'] : cleared >= 8 ? ['blue', '🎗️', 'סרט כחול!'] : cleared >= 5 ? ['red', '🎀', 'סרט אדום!'] : ['yellow', '🏵️', 'סרט צהוב — כל הכבוד על הניסיון!'];
+      crzHorses.ribbons[prize[0]] = (crzHorses.ribbons[prize[0]] || 0) + 1; crzHorses.best = Math.max(crzHorses.best || 0, cleared); crzSaveHorses();
+      crzGame('rides'); crzCoins(4 + cleared, 'רכיבה על הסוס'); SFX.yay(); confetti($('#crzStableDlg .confetti-c'));
+      horse.innerHTML = jumpArt; horse.style.transform = '';
+      hud.replaceChildren(el('b', {}, `${prize[1]} ${prize[2]}`), el('span', {}, ` קפצת מעל ${cleared} מתוך ${TOTAL} משוכות`));
+    };
+    return wrap;
+  }
+  const crzFenceSVG = i => svg(i % 3 === 2
+    ? `<rect x="6" y="18" width="36" height="8" rx="4" fill="#ff9ad5" ${S}/><rect x="6" y="30" width="36" height="8" rx="4" fill="#fff" ${S}/><rect x="4" y="12" width="6" height="34" rx="2" fill="#b58cff" ${S2}/><rect x="38" y="12" width="6" height="34" rx="2" fill="#b58cff" ${S2}/><circle cx="7" cy="11" r="3" fill="#ffd84d" ${S2}/><circle cx="41" cy="11" r="3" fill="#ffd84d" ${S2}/>`
+    : i % 3 === 1 ? `<path d="M4 46 Q4 26 24 24 Q44 26 44 46 Z" fill="#8fd08a" ${S}/><circle cx="14" cy="34" r="2.4" fill="#ff9ad5"/><circle cx="26" cy="30" r="2.4" fill="#ffd84d"/><circle cx="35" cy="37" r="2.4" fill="#ff9ad5"/>`
+    : `<rect x="6" y="20" width="36" height="6" rx="3" fill="#fff" ${S}/><rect x="6" y="32" width="36" height="6" rx="3" fill="#ff6b8b" ${S}/><rect x="5" y="14" width="5" height="32" rx="2" fill="#fff" ${S2}/><rect x="38" y="14" width="5" height="32" rx="2" fill="#fff" ${S2}/>`);
+  // ---------- 🐉 baby dragons (viewBox 0 0 100 100, feet at y≈92) ----------
+  const CRZ_DRAGON_DEF = { c1: '#9be3c9', c2: '#b58cff', pattern: 'scales', belly: true, bellyC: '#fff1c4', wings: 'bat', wingC: '#ffc2e0', horns: 'small', hornC: '#fff6d8', spikes: true, frills: true, eyes: 'shiny', eyeC: '', cheekC: '#ff8fab', fire: 'pink' };
+  const CRZ_FIRE = { pink: ['#ff9ad5', '#ffd1ec', '#ffffff'], blue: ['#7ec8ff', '#c9ecff', '#ffffff'], rainbow: crzRainbow, gold: ['#ffb020', '#ffe27a', '#fff6c4'], purple: ['#b58cff', '#e6d2ff', '#ffffff'], green: ['#6fdc8f', '#c9f7d4', '#ffffff'] };
+  const crzDragonLook = d => Object.assign({}, CRZ_DRAGON_DEF, d);
+  function crzFireSVG(kind, x, y) {
+    const c = CRZ_FIRE[kind] || CRZ_FIRE.pink;
+    return `<g class="crz-fire">${[0, 1, 2, 3, 4].map(i => `<path d="M${x} ${y} Q${x + 14 + i * 6} ${y - 8 + i * 4} ${x + 26 + i * 7} ${y - 4 + i * 5} Q${x + 18 + i * 5} ${y + 4 + i * 2} ${x} ${y + 3} Z" fill="${c[i % c.length]}" opacity="${.9 - i * .1}"/>`).join('')}${[[x + 30, y - 6], [x + 40, y + 6], [x + 24, y + 10], [x + 46, y - 2]].map(([a, b], i) => pzSpark(a, b, 3 - i * .4, i % 2 ? '#fff' : c[0])).join('')}</g>`;
+  }
+  function crzDragonSVG(d, o = {}) {
+    const L = crzDragonLook(d), u = 'dz' + (++crzUid), stage = o.stage || d.stage || 1;
+    const st = `stroke="${O}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"`, st2 = `stroke="${O}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"`;
+    const F = `fill="url(#${u}${L.pattern === 'gradient' ? 'l' : 'g'})" ${st}`, F2 = `fill="${L.c2}" ${st2}`;
+    const shade = c => pzMix(c, pzLum(c) > .8 ? '#9c8fc4' : '#4a2a4a', .22);
+    const defs = `<defs><radialGradient id="${u}g" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="${pzLight(L.c1, .5)}"/><stop offset=".55" stop-color="${L.c1}"/><stop offset="1" stop-color="${shade(L.c1)}"/></radialGradient>`
+      + `<linearGradient id="${u}l" gradientUnits="userSpaceOnUse" x1="0" y1="20" x2="0" y2="92"><stop offset=".1" stop-color="${pzLight(L.c1, .25)}"/><stop offset=".95" stop-color="${L.c2}"/></linearGradient>`
+      + `<clipPath id="${u}h"><ellipse cx="50" cy="42" rx="24" ry="21"/></clipPath><clipPath id="${u}b"><ellipse cx="50" cy="72" rx="19" ry="17"/></clipPath></defs>`;
+    const wing = () => {
+      if (L.wings === 'none') return '';
+      const wc = L.wingC, big = stage >= 3 ? 1.25 : stage === 2 ? 1.1 : 1;
+      const one = L.wings === 'feather' ? `<path d="M40 60 C32 40 16 32 6 38 C12 41 11 44 15 46 C9 48 11 52 17 53 C13 56 17 60 23 59 C22 64 30 66 40 66 Z" fill="${wc}" ${st2}/><path d="M16 45 Q26 48 34 56 M18 53 Q27 55 34 61" fill="none" stroke="${pzMix(wc, O, .25)}" stroke-width="1" opacity=".6"/>`
+        : L.wings === 'butterfly' ? `<path d="M40 58 C30 34 10 32 8 44 C7 52 22 56 40 60 Z" fill="${wc}" ${st2}/><path d="M40 62 C28 62 20 72 25 76 C30 79 37 70 40 64 Z" fill="${pzLight(wc, .35)}" ${st2}/><circle cx="20" cy="44" r="3.4" fill="#fff" opacity=".7"/>`
+        : L.wings === 'crystal' ? `<path d="M40 60 L30 32 L24 46 L14 36 L16 52 L6 50 L20 62 Z" fill="${wc}" fill-opacity=".85" ${st2}/><path d="M30 32 L30 56 M14 36 L24 58" stroke="#fff" stroke-width="1.2" opacity=".8"/>`
+        : `<path d="M40 60 C34 42 20 32 8 34 C12 38 12 42 10 46 C16 45 18 48 17 52 C22 50 25 53 24 57 C30 55 34 58 34 63 Z" fill="${wc}" ${st2}/><path d="M8 34 L24 57 M10 46 L30 60" stroke="${pzMix(wc, O, .3)}" stroke-width="1.1" opacity=".55"/>`;
+      return `<g class="crz-wings"><g class="crz-wl" transform="translate(40 60) scale(${big}) translate(-40 -60)">${one}</g><g class="crz-wr" transform="matrix(-1 0 0 1 100 0) translate(40 60) scale(${big}) translate(-40 -60)">${one}</g></g>`;
+    };
+    const tail = `${pzTube('M62 82 C76 86 86 80 88 68', 7, L.c1, 2.4)}<path d="${pzHeart(89.5, 63, 5)}" fill="${L.c2}" ${st2} transform="rotate(20 89.5 63)"/>`;
+    const pat = (clip, E, head) => {
+      if (L.pattern === 'scales') return `<g clip-path="url(#${u}${clip})">${Array.from({ length: 16 }, (_, i) => { const x = E[0] - E[2] + (i % 4) * E[2] * .55 + (Math.floor(i / 4) % 2) * E[2] * .27, y = E[1] - E[3] * (head ? .95 : .7) + Math.floor(i / 4) * E[3] * (head ? .22 : .42); return head && y > E[1] - E[3] * .25 ? '' : `<path d="M${pzF(x - 3.4)} ${pzF(y)} q3.4 4 6.8 0" fill="none" stroke="${L.c2}" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>`; }).join('')}</g>`;
+      return L.pattern && !['none', 'gradient'].includes(L.pattern) ? `<g clip-path="url(#${u}${clip})">${pzPattern(L.pattern, E, L.c2, head, 2.4)}</g>` : '';
+    };
+    const horns = { small: `<path d="M36 26 L32 12 L42 22 Z" fill="${L.hornC}" ${st2}/><path d="M64 26 L68 12 L58 22 Z" fill="${L.hornC}" ${st2}/>`,
+      curly: `<path d="M36 25 C28 22 26 12 33 11 C38 11 38 17 34 17" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M36 25 C28 22 26 12 33 11 C38 11 38 17 34 17" fill="none" stroke="${L.hornC}" stroke-width="3.4" stroke-linecap="round"/><path d="M64 25 C72 22 74 12 67 11 C62 11 62 17 66 17" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M64 25 C72 22 74 12 67 11 C62 11 62 17 66 17" fill="none" stroke="${L.hornC}" stroke-width="3.4" stroke-linecap="round"/>`,
+      unicorn: `<path d="M46 22 L50 2 L54 22 Z" fill="${L.hornC}" ${st2}/><path d="M47.5 16 l5 -1.6 M48.5 10 l3.4 -1.2" stroke="${pzMix(L.hornC, O, .3)}" stroke-width="1" stroke-linecap="round"/>`,
+      antlers: `<path d="M38 24 L32 8 M34 14 L27 11 M33 10 L36 4 M62 24 L68 8 M66 14 L73 11 M67 10 L64 4" fill="none" stroke="${O}" stroke-width="5.4" stroke-linecap="round"/><path d="M38 24 L32 8 M34 14 L27 11 M33 10 L36 4 M62 24 L68 8 M66 14 L73 11 M67 10 L64 4" fill="none" stroke="${L.hornC}" stroke-width="2.8" stroke-linecap="round"/>`,
+      none: '' }[L.horns] || '';
+    const spikes = L.spikes ? `<path d="M44 23 L47 13 L50 22 L53 12 L56 23 Z" fill="${L.c2}" ${st2}/>` : '';
+    const frills = L.frills ? `<path d="M27 38 L16 32 L20 40 L14 44 L27 46 Z" ${F2}/><path d="M73 38 L84 32 L80 40 L86 44 L73 46 Z" ${F2}/>` : '';
+    const es = stage === 1 ? 2.05 : stage === 2 ? 1.9 : 1.8, mood = o.mood;
+    const eyeSt = mood === 'happy' ? 'happy' : mood === 'sleepy' ? 'sleepy' : L.eyes;
+    const eyes = `<g class="pz-eyes">${pzEye(eyeSt, 40, 44, es, L.eyeC, false, false)}${pzEye(eyeSt, 60, 44, es, L.eyeC, true, false)}</g>`;
+    const face = `<ellipse cx="31" cy="52" rx="4.2" ry="2.6" fill="${L.cheekC}" opacity=".7"/><ellipse cx="69" cy="52" rx="4.2" ry="2.6" fill="${L.cheekC}" opacity=".7"/><circle cx="46.5" cy="51" r="1" fill="${O}" opacity=".7"/><circle cx="53.5" cy="51" r="1" fill="${O}" opacity=".7"/>`
+      + pzMouth(o.fire || mood === 'happy' ? 'open' : 'cat', 50, 55, 1.5, 2.4) + (o.fire || mood === 'happy' ? '' : `<path d="M47 55.6 l.9 1.8 l.9 -1.8" fill="#fff" stroke="${O}" stroke-width=".6"/>`);
+    const body = `<ellipse cx="50" cy="72" rx="19" ry="17" ${F}/>${pat('b', [50, 72, 19, 17], false)}`
+      + (L.belly ? `<ellipse cx="50" cy="75" rx="11.5" ry="11.5" fill="${L.bellyC}"/><path d="M41 70 h18 M40 75 h20 M41 80 h18" stroke="${O}" stroke-width="1" opacity=".2" stroke-linecap="round"/>` : '')
+      + `<ellipse cx="40" cy="89" rx="7" ry="4.2" ${F}/><ellipse cx="60" cy="89" rx="7" ry="4.2" ${F}/><path d="M35.5 90 v1.6 M39.5 91 v1.6 M56.5 91 v1.6 M60.5 91 v1.6 M64.5 90 v1.6" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>`
+      + `<ellipse cx="33" cy="72" rx="4.4" ry="6.4" transform="rotate(28 33 72)" ${F}/><ellipse cx="67" cy="72" rx="4.4" ry="6.4" transform="rotate(-28 67 72)" ${F}/>`;
+    const head = `<ellipse cx="50" cy="42" rx="24" ry="21" ${F}/>${pat('h', [50, 42, 24, 21], true)}<ellipse cx="38" cy="30" rx="6" ry="3" fill="#fff" opacity=".45" transform="rotate(-28 38 30)"/>`;
+    const sc = stage === 1 ? .78 : stage === 2 ? .9 : 1;
+    const inner = `${tail}${wing()}${horns}${spikes}${frills}${body}${head}${eyes}${face}${o.fire ? crzFireSVG(L.fire, 56, 57) : ''}${o.over || ''}`;
+    return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="crz-dragon">${defs}<g transform="translate(50 94) scale(${sc}) translate(-50 -94)">${inner}</g></svg>`;
+  }
+  // ---------- dragon care ----------
+  const CRZ_DRAGON_NAMES = ['ניצוץ', 'גחלת', 'קשתית', 'פיקסי', 'אבני', 'זוהרה', 'לבה', 'טוסטי', 'בועה', 'כוכבון', 'ענבר', 'מרשמלו'];
+  let crzDragons = Object.assign({ list: [], cur: null, cave: [] }, store.get('dragons', {}));
+  const crzSaveDragons = () => store.set('dragons', crzDragons);
+  const crzDragon = () => crzDragons.list.find(d => d.id === crzDragons.cur) || crzDragons.list[0] || null;
+  const crzCareDays = d => Object.keys(d.care || {}).length;
+  function crzDragonStage(d) {
+    const age = crzDays(d.born || localToday(), localToday()), care = crzCareDays(d);
+    return age >= 5 && care >= 4 ? 3 : age >= 2 && care >= 2 ? 2 : 1;
+  }
+  const CRZ_STAGE_N = ['', 'דרקון תינוק 🥚', 'דרקון ילד 🐣', 'דרקון גדול 🐉'];
+  const CRZ_TRICKS = [['fire', '🔥 אש נוצצת', 1], ['fly', '🪽 לעוף', 2], ['loop', '🌀 לולאה באוויר', 3]];
+  let crzDrTab = 'home', crzDrDes = { sec: 'colors' };
+  function crzNewDragon(rand) {
+    const d = { id: crzId('d'), name: crzPick(CRZ_DRAGON_NAMES), born: localToday(), care: {}, fed: {} };
+    if (rand) Object.assign(d, { c1: crzPick(PZ_BODY), c2: crzPick(PZ_C2), pattern: crzPick(['scales', 'spots', 'stripes', 'sparkles', 'gradient', 'none']), wings: crzPick(['bat', 'feather', 'butterfly', 'crystal']), wingC: crzPick(PZ_XC), horns: crzPick(['small', 'curly', 'unicorn', 'antlers']), fire: crzPick(Object.keys(CRZ_FIRE)), eyes: crzPick(['shiny', 'anime', 'lashes', 'star', 'heart']) });
+    return d;
+  }
+  function openDragons(tab) {
+    if (tab) crzDrTab = tab;
+    if (!crzDragons.list.length) crzDrTab = 'adopt';
+    drawDragons();
+    crzOpen('crzDragonDlg');
+  }
+  function drawDragons(msg) {
+    const d = crzDragon(), body = $('#crzDragonBody'), today = localToday();
+    const TABS = d ? [['home', '🐉 הדרקון'], ['design', '🎨 לעצב'], ['tricks', '✨ טריקים'], ['cave', '💎 המערה'], ['adopt', '🥚 דרקון חדש']] : [['adopt', '🥚 דרקון חדש']];
+    $('#crzDragonTabs').replaceChildren(...TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(crzDrTab === id), onclick: () => { crzDrTab = id; drawDragons(); } }, n)));
+    if (d) { const s = crzDragonStage(d); d.stage = s; $('#crzDragonSub').textContent = `${d.name} · ${CRZ_STAGE_N[s]}`; } else $('#crzDragonSub').textContent = 'עוד אין דרקון... בואי נבקיע ביצה!';
+    const care = kind => { d.care = d.care || {}; d.care[today] = Object.assign({}, d.care[today], { [kind]: 1 }); const before = d.stage, now = crzDragonStage(d); d.stage = now; crzSaveDragons(); const p = body.querySelector('.crz-cd'); if (p) p.textContent = `💖 ${crzCareDays(d)} ימי טיפול`; return now > before; };
+    if (crzDrTab === 'adopt' || !d) {
+      const egg = el('button', { type: 'button', class: 'crz-dregg', 'aria-label': 'ביצת דרקון', html: svg(`<ellipse cx="24" cy="27" rx="15" ry="19" fill="#b58cff" ${S}/><path d="M12 24 l5 3 l4 -4 l5 4 l5 -4 l4 3 l3 -2" fill="none" stroke="#ffd84d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="34" r="2.4" fill="#ff9ad5"/><circle cx="30" cy="36" r="2" fill="#7ec8ff"/><circle cx="24" cy="15" r="1.8" fill="#fff"/>${shine(15, 18)}`) });
+      let taps = 0;
+      egg.onclick = () => {
+        taps++; egg.classList.remove('wob'); void egg.offsetWidth; egg.classList.add('wob'); tone(400 + taps * 60, .08, 'triangle');
+        if (taps >= 5) { const n = crzNewDragon(true); crzDragons.list.push(n); crzDragons.cur = n.id; crzSaveDragons(); SFX.yay(); confetti($('#crzDragonDlg .confetti-c')); crzDrTab = 'design'; drawDragons(`🎉 ${n.name} בקע/ה! עכשיו מעצבים אותו/ה`); }
+      };
+      body.replaceChildren(el('p', { class: 'muted', style: 'margin:0' }, 'לוחצים על הביצה 5 פעמים כדי שתבקע! הדרקון גדל כל יום שמאכילים ומשחקים איתו.'), el('div', { class: 'crz-dregg-wrap' }, egg));
+      return;
+    }
+    if (crzDrTab === 'home') {
+      const art = el('div', { class: 'crz-dr-art', html: crzDragonSVG(d, { mood: d.care && d.care[today] ? '' : 'sleepy' }) });
+      const stage = el('div', { class: 'crz-cave-mini' }, art), say = el('span', { class: 'pz-say' }, msg || (d.care && d.care[today] ? `${d.name} שמח/ה! 💖` : `${d.name} מחכה לך... 🥺`));
+      stage.append(say);
+      const s = d.stage, age = crzDays(d.born, today), cd = crzCareDays(d);
+      const hint = s === 3 ? 'גדל/ה לגמרי! 🐉 אפשר לעשות את כל הטריקים' : s === 2 ? `עוד ${Math.max(0, 5 - age)} ימים ו־${Math.max(0, 4 - cd)} ימי טיפול עד שיגדל/תגדל לגמרי` : `עוד ${Math.max(0, 2 - age)} ימים ו־${Math.max(0, 2 - cd)} ימי טיפול עד השלב הבא`;
+      const grew = up => { if (up) { SFX.yay(); confetti($('#crzDragonDlg .confetti-c')); drawDragons(`🎉 ${d.name} גדל/ה! עכשיו ${CRZ_STAGE_N[d.stage]}`); return true; } return false; };
+      const FOODS = [['strawberry', 'תות'], ['watermelon', 'אבטיח'], ['cookie', 'עוגייה'], ['pepper', 'פלפל חריף'], ['marsh', 'מרשמלו']];
+      const fart = id => id === 'pepper' ? svg(`<path d="M16 16 Q8 30 18 42 Q30 46 34 34 Q38 22 28 16 Z" fill="#ff5a5a" ${S}/><path d="M22 16 Q24 8 30 8" fill="none" stroke="#4fbf73" stroke-width="3" stroke-linecap="round"/>${shine(16, 26)}`) : id === 'marsh' ? svg(`<path d="M8 38 L36 10" stroke="#c98f3a" stroke-width="3" stroke-linecap="round"/><rect x="24" y="6" width="16" height="14" rx="5" fill="#fff" ${S} transform="rotate(-45 32 13)"/><rect x="16" y="14" width="14" height="12" rx="5" fill="#ffd1ec" ${S} transform="rotate(-45 23 20)"/>`) : stickerHTML(id);
+      body.replaceChildren(stage,
+        el('div', { class: 'crz-dr-stats' }, el('span', { class: 'pill' }, `🎂 בן/בת ${age} ימים`), el('span', { class: 'pill crz-cd' }, `💖 ${cd} ימי טיפול`), el('span', { class: 'pill' }, CRZ_STAGE_N[s])),
+        el('p', { class: 'muted', style: 'margin:0' }, '🌱 ' + hint),
+        el('span', { class: 'lbl' }, 'להאכיל:'),
+        el('div', { class: 'foods' }, ...FOODS.map(([id, n]) => el('button', { type: 'button', title: n, 'aria-label': n, html: fart(id), onclick: () => {
+          SFX.munch(); d.fed[today] = (d.fed[today] || 0) + 1;
+          if (grew(care('fed'))) return;
+          art.innerHTML = crzDragonSVG(d, { mood: 'happy', fire: id === 'pepper' });
+          say.textContent = id === 'pepper' ? `חם חם חם! 🔥 ${d.name} נושף/ת אש ${d.fire === 'rainbow' ? 'בצבעי הקשת' : 'נוצצת'}!` : `יאמי! ${n}! 😋`;
+          crzFloat(stage, id === 'pepper' ? '🔥' : '💖', 62, 30);
+        } }))),
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn', onclick: () => { if (grew(care('played'))) return; art.classList.remove('crz-bounce'); void art.offsetWidth; art.classList.add('crz-bounce'); tone(660, .1, 'triangle'); tone(880, .12, 'triangle', .1); say.textContent = `${d.name} תפס/ה את הכדור! ⚽`; crzFloat(stage, '⚽', 50, 20); } }, '⚽ לשחק בכדור'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { if (grew(care('played'))) return; art.innerHTML = crzDragonSVG(d, { mood: 'happy' }); [0, 1, 2].forEach(i => tone(700 + i * 120, .08, 'sine', i * .09)); say.textContent = 'כי כי כי! זה מדגדג! 😆'; crzFloat(stage, '😆', 40, 30); } }, '🤗 לדגדג'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { art.innerHTML = crzDragonSVG(d, { mood: 'sleepy' }); say.textContent = 'זזזז... חלום על ענני סוכר 💤'; crzFloat(stage, '💤', 60, 25); } }, '💤 לישון')));
+    } else if (crzDrTab === 'design') {
+      const set = (k, v) => { d[k] = v; crzSaveDragons(); SFX.pop(); o.redraw(); };
+      const cset = k => (c, full) => { d[k] = c; crzSaveDragons(); if (full) o.redraw(); else o.refresh(); };
+      const thumb = (k, v) => crzDragonSVG(Object.assign({}, d, { [k]: v }));
+      const o = { state: crzDrDes, art: () => crzDragonSVG(d, { fire: crzDrDes.sec === 'fire' }), buttons: () => [el('button', { type: 'button', class: 'btn', onclick: () => { const r = crzNewDragon(true); ['c1', 'c2', 'pattern', 'wings', 'wingC', 'horns', 'fire', 'eyes'].forEach(k => { d[k] = r[k]; }); crzSaveDragons(); SFX.yay(); o.redraw(); } }, '🎲 הפתעה!')],
+        secs: [
+          ['colors', '🎨 קשקשים', () => [crzSec('שם', el('input', { type: 'text', maxLength: 16, value: d.name, oninput: e => { d.name = e.target.value; crzSaveDragons(); } })),
+            crzSec('צבע', crzSw(d.c1 || CRZ_DRAGON_DEF.c1, PZ_BODY, cset('c1'))), crzSec('דוגמה', crzOpts([['scales', 'קשקשים'], ['none', 'חלק'], ['spots', 'נקודות'], ['stripes', 'פסים'], ['sparkles', 'נצנצים'], ['gradient', 'מעבר צבע']], d.pattern || 'scales', v => set('pattern', v), v => thumb('pattern', v))),
+            crzSec('צבע שני (דוגמה, קוצים וזנב)', crzSw(d.c2 || CRZ_DRAGON_DEF.c2, PZ_C2, cset('c2'))), crzSec('בטן', crzTog(d.belly !== false, v => set('belly', v)), d.belly !== false ? crzSw(d.bellyC || CRZ_DRAGON_DEF.bellyC, PZ_BELLY, cset('bellyC')) : null)]],
+          ['wings', '🪽 כנפיים', () => [crzSec('סוג', crzOpts([['bat', 'דרקון'], ['feather', 'נוצות'], ['butterfly', 'פרפר'], ['crystal', 'קריסטל'], ['none', 'בלי']], d.wings || 'bat', v => set('wings', v), v => thumb('wings', v))), crzSec('צבע', crzSw(d.wingC || CRZ_DRAGON_DEF.wingC, PZ_XC.concat(PZ_BODY.slice(0, 6)), cset('wingC')))]],
+          ['head', '👑 ראש', () => [crzSec('קרניים', crzOpts([['small', 'קטנות'], ['curly', 'מסולסלות'], ['unicorn', 'חד-קרן'], ['antlers', 'ענפים'], ['none', 'בלי']], d.horns || 'small', v => set('horns', v), v => thumb('horns', v).replace('viewBox="0 0 100 100"', 'viewBox="14 0 72 60"'))),
+            crzSec('צבע קרניים', crzSw(d.hornC || CRZ_DRAGON_DEF.hornC, ['#fff6d8', '#ffe27a', '#ffffff', '#ffd1ec', '#bfeaff', '#c68b59', '#b58cff'], cset('hornC'))),
+            crzSec('קוצים על הראש', crzTog(d.spikes !== false, v => set('spikes', v))), crzSec('סנפירים באוזניים', crzTog(d.frills !== false, v => set('frills', v)))]],
+          ['face', '👀 פנים', () => [crzSec('עיניים', crzOpts(PZ_EYES, d.eyes || 'shiny', v => set('eyes', v), v => crzDragonSVG(Object.assign({}, d, { eyes: v })).replace('viewBox="0 0 100 100"', 'viewBox="22 26 56 42"'))),
+            crzSec('צבע עיניים', crzSw(d.eyeC || '', PZ_EYEC, cset('eyeC'), false)), crzSec('לחיים', crzSw(d.cheekC || '#ff8fab', PZ_CHEEK, cset('cheekC'), false))]],
+          ['fire', '🔥 אש', () => [crzSec('צבע האש הנוצצת', crzOpts([['pink', 'ורודה'], ['blue', 'כחולה'], ['rainbow', 'קשת'], ['gold', 'זהב'], ['purple', 'סגולה'], ['green', 'ירוקה']], d.fire || 'pink', v => set('fire', v), v => crzDragonSVG(Object.assign({}, d, { fire: v }), { fire: true })))]],
+        ] };
+      body.replaceChildren(msg ? el('p', { style: 'margin:0' }, msg) : '', crzDesigner(o));
+    } else if (crzDrTab === 'tricks') {
+      const sky = el('div', { class: 'crz-sky' }), art = el('div', { class: 'crz-dr-fly', html: crzDragonSVG(d) }), say = el('span', { class: 'pz-say' }, 'בוחרים טריק!');
+      sky.append(art, say);
+      body.replaceChildren(sky, el('div', { class: 'chips' }, ...CRZ_TRICKS.map(([id, n, need]) => el('button', { type: 'button', class: 'btn', disabled: d.stage < need, title: d.stage < need ? 'נפתח כש' + CRZ_STAGE_N[need] : '', onclick: () => {
+        art.className = 'crz-dr-fly'; void art.offsetWidth;
+        if (id === 'fire') { art.innerHTML = crzDragonSVG(d, { fire: true, mood: 'happy' }); [0, 1, 2, 3].forEach(i => tone(300 + i * 90, .12, 'sawtooth', i * .06, .04)); setTimeout(() => { art.innerHTML = crzDragonSVG(d); }, 1600); }
+        else { art.innerHTML = crzDragonSVG(d, { mood: 'happy' }); art.classList.add('t-' + id); [523, 659, 784, 1047].forEach((f, i) => tone(f, .14, 'triangle', i * .12, .06)); }
+        say.textContent = { fire: `${d.name} נושף/ת אש נוצצת! ✨🔥`, fly: `${d.name} עף/ה! 🪽`, loop: 'לולאה באוויר! וווי! 🌀' }[id];
+        crzGame('dragonTricks');
+      } }, (d.stage < need ? '🔒 ' : '') + n))), el('p', { class: 'muted' }, 'טריקים חדשים נפתחים כשהדרקון גדל.'));
+    } else if (crzDrTab === 'cave') {
+      body.replaceChildren(crzCave(d));
+    }
+  }
+  // the dragon cave: tap to place gems and gold
+  const CRZ_CAVE_ITEMS = [['gem-r', 'אודם', '#ff5a7a'], ['gem-b', 'ספיר', '#5aa8ff'], ['gem-g', 'אזמרגד', '#4fd18a'], ['gem-p', 'אמטיסט', '#b58cff'], ['gold', 'ערמת זהב', '#ffcf3a'], ['coins', 'מטבעות', '#ffcf3a'], ['crystal', 'קריסטלים', '#bfeaff'], ['torch', 'לפיד', '#ff9a3c'], ['chest', 'תיבת אוצר', ''], ['shroom', 'פטריה זוהרת', '#8fe6d0'], ['pillow', 'כרית', '#ffc2e0']];
+  function crzCaveItem(t, x, y) {
+    const it = CRZ_CAVE_ITEMS.find(i => i[0] === t) || CRZ_CAVE_ITEMS[0], c = it[2], g = s => `<g transform="translate(${x} ${y}) scale(1.6)">${s}</g>`, s2 = `stroke="${O}" stroke-width="2" stroke-linejoin="round"`;
+    if (t.startsWith('gem')) return g(`<path d="M-12 -8 L-6 -16 H6 L12 -8 L0 8 Z" fill="${c}" ${s2}/><path d="M-12 -8 H12 M-6 -16 L-3 -8 L0 8 L3 -8 L6 -16" fill="none" stroke="#fff" stroke-width="1.2" opacity=".7"/>${pzSpark(8, -18, 3, '#fff')}`);
+    if (t === 'gold') return g(`<path d="M-26 8 Q-20 -14 0 -18 Q20 -14 26 8 Z" fill="${c}" ${s2}/>${[[-12, -2], [4, -8], [12, 2], [-4, 4]].map(([a, b]) => `<ellipse cx="${a}" cy="${b}" rx="5" ry="3" fill="#ffe27a" ${s2}/>`).join('')}${pzSpark(-6, -14, 3.5, '#fff')}`);
+    if (t === 'coins') return g([[-10, 4], [0, 0], [10, 5], [-4, -6], [6, -5]].map(([a, b]) => `<ellipse cx="${a}" cy="${b}" rx="7" ry="4" fill="${c}" ${s2}/><path d="M${a - 2} ${b} h4" stroke="#e0a800" stroke-width="1.4"/>`).join(''));
+    if (t === 'crystal') return g(`<path d="M-14 8 L-12 -10 L-8 -16 L-4 -8 L-4 8 Z M-4 8 L-2 -22 L4 -28 L8 -20 L8 8 Z M8 8 L10 -6 L14 -10 L18 -4 L16 8 Z" fill="${c}" fill-opacity=".85" ${s2}/><path d="M0 -20 V4 M-10 -8 V4" stroke="#fff" stroke-width="1.3" opacity=".8"/>`);
+    if (t === 'torch') return g(`<rect x="-3" y="-8" width="6" height="26" rx="2" fill="#9b6b43" ${s2}/><path d="M0 -30 Q10 -18 4 -8 H-4 Q-10 -18 0 -30 Z" fill="${c}" ${s2}/><path d="M0 -22 Q4 -14 1 -9 H-1 Q-4 -14 0 -22 Z" fill="#ffe27a"/>`);
+    if (t === 'chest') return `<svg x="${x - 38}" y="${y - 54}" width="76" height="76" viewBox="0 0 48 48">${stickerInner('treasure')}</svg>`;
+    if (t === 'shroom') return g(`<rect x="-3" y="-4" width="6" height="12" rx="2" fill="#fff" ${s2}/><path d="M-12 -2 Q-12 -16 0 -16 Q12 -16 12 -2 Z" fill="${c}" ${s2}/><circle cx="-4" cy="-10" r="1.8" fill="#fff"/><circle cx="4" cy="-8" r="1.4" fill="#fff"/><circle r="18" cy="-8" fill="${c}" opacity=".18"/>`);
+    return g(`<ellipse cx="0" cy="0" rx="26" ry="10" fill="${c}" ${s2}/><ellipse cx="-8" cy="-3" rx="8" ry="2.4" fill="#fff" opacity=".5"/>`);
+  }
+  let crzCaveTool = 'gem-r';
+  function crzCave(d) {
+    const W = 800, H = 440;
+    const svgEl = () => `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="crzcv" cx=".5" cy=".6" r=".7"><stop offset="0" stop-color="#5a4a8a"/><stop offset="1" stop-color="#241a3a"/></radialGradient></defs>`
+      + `<rect width="${W}" height="${H}" fill="url(#crzcv)"/><path d="M0 0 H${W} V60 Q700 110 620 70 Q560 120 480 80 Q420 130 340 80 Q260 120 200 70 Q120 110 60 70 Q20 90 0 70 Z" fill="#2e2248"/>`
+      + `${[[90, 60], [260, 80], [520, 76], [700, 62]].map(([x, y]) => `<path d="M${x - 10} ${y - 10} L${x} ${y + 26} L${x + 10} ${y - 10} Z" fill="#3a2e5a"/>`).join('')}<path d="M0 ${H - 70} Q200 ${H - 100} 400 ${H - 80} Q600 ${H - 60} ${W} ${H - 90} V${H} H0 Z" fill="#3d3060"/>`
+      + crzDragons.cave.map((it, i) => `<g class="crz-cave-it" data-i="${i}">${crzCaveItem(it.t, it.x, it.y)}</g>`).join('')
+      + crzDragons.list.slice(0, 4).map((x, i) => `<svg x="${300 + i * 110 - (i % 2) * 40}" y="${H - 230 + (i % 2) * 20}" width="${170 - i * 10}" height="${170 - i * 10}" viewBox="0 0 100 100">${crzDragonSVG(x).replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg>`).join('') + '</svg>';
+    const scene = el('div', { class: 'crz-cave', html: svgEl() });
+    const redraw = () => { scene.innerHTML = svgEl(); };
+    scene.addEventListener('click', e => {
+      const svgN = scene.querySelector('svg'), r = svgN.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
+      const hitEl = e.target.closest('.crz-cave-it');
+      if (crzCaveTool === 'erase') { if (hitEl) { crzDragons.cave.splice(+hitEl.dataset.i, 1); crzSaveDragons(); SFX.boop(); redraw(); } return; }
+      if (crzDragons.cave.length >= 80) { toast(stickerHTML('gem'), 'המערה מלאה! אפשר למחוק משהו 🧽'); return; }
+      crzDragons.cave.push({ t: crzCaveTool, x: Math.round(x), y: Math.round(Math.max(60, y)) }); crzSaveDragons(); tone(900 + Math.random() * 300, .08, 'sine'); redraw();
+    });
+    const tools = el('div', { class: 'pz-opts crz-cave-tools' }, ...[...CRZ_CAVE_ITEMS, ['erase', 'למחוק', '']].map(([id, n]) => el('button', { type: 'button', 'aria-pressed': String(crzCaveTool === id), onclick: e => { crzCaveTool = id; tools.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); } },
+      el('span', { class: 'ic', html: id === 'erase' ? '<span style="font-size:1.8em">🧽</span>' : `<svg viewBox="-48 -54 96 80">${crzCaveItem(id, 0, 0)}</svg>` }), n)));
+    return el('div', { class: 'row' }, el('p', { class: 'muted', style: 'margin:0' }, '👆 בוחרים אבן חן או זהב ולוחצים במערה כדי לשים. הדרקונים שלך גרים כאן!'), scene, tools,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { crzDragons.cave = []; crzSaveDragons(); redraw(); } }, '🧹 לנקות הכול')));
+  }
+  // ---------- 🧚‍♀️ fairies: a girl (girlSVG) + wings, glow, wand, petal skirt ----------
+  const CRZ_FAIRY_NAMES = ['טל', 'פרחית', 'נצנץ', 'זוהרית', 'קשתית', 'ליבי', 'שושנה', 'אורית', 'נוצה', 'פנינה', 'עלמה', 'דבורית'];
+  const CRZ_WINGS = [['butterfly', 'פרפר'], ['dragonfly', 'שפירית'], ['crystal', 'קריסטל'], ['leaf', 'עלים'], ['heart', 'לבבות']];
+  const CRZ_WANDS = [['star', 'כוכב'], ['heart', 'לב'], ['moon', 'ירח'], ['flower', 'פרח'], ['none', 'בלי']];
+  const CRZ_WING_C = ['#ffc2e0', '#e6d2ff', '#bfeaff', '#c9f7d4', '#fff1b8', '#ffd1ec', '#b58cff', '#7ec8ff', '#8fe6d0', '#ffb3a0', '#ffffff'];
+  const CRZ_FAIRY_POSE = { la: 75, lf: -55, ra: 28, rf: 20, ll: 4, lk: 10, rl: 12, rk: -6 };
+  let crzFairies = Object.assign({ list: [], cur: null }, store.get('fairies', {}));
+  const crzSaveFairies = () => store.set('fairies', crzFairies);
+  const crzFairy = () => crzFairies.list.find(f => f.id === crzFairies.cur) || crzFairies.list[0] || null;
+  function crzNewFairy() {
+    const g = Object.assign({}, randomGirl(), { dress: crzPick(['party', 'sundress', 'ballgown', 'skater']), dressColor: crzPick(['#ffb3cf', '#bda4ff', '#9dd8f5', '#a8dc8f', '#ffd45c', '#ffffff', '#ff5f8f']),
+      hat: 'none', glasses: 'none', jacket: 'none', mermaid: false, scene: 'plain', shoes: 'flats', legwear: 'bare' });
+    g.acc = Object.assign({}, g.acc, { flowers: Math.random() < .6 }); delete g.acc.bag;
+    const wc = crzPick(CRZ_WING_C);
+    return { id: crzId('fy'), name: crzPick(CRZ_FAIRY_NAMES), girl: g, wings: crzPick(CRZ_WINGS)[0], wingC: wc, wingC2: crzPick(CRZ_WING_C.filter(c => c !== wc)), glow: crzPick(['#fff1b8', '#ffd1ec', '#bfeaff', '#e6d2ff', '#c9f7d4']), wand: crzPick(['star', 'heart', 'moon', 'flower']), petals: Math.random() < .5, petalC: crzPick(['#ff9ad5', '#ffb3a0', '#b58cff', '#ffd84d', '#8fe6d0']) };
+  }
+  function crzWingSVG(type, c1, c2, u) {
+    const line = pzMix(c1, O, .45), sw = `stroke="${line}" stroke-width="3" stroke-linejoin="round"`, F = `fill="url(#${u}w)"`;
+    const one = {
+      butterfly: `<path d="M150 180 C100 80 12 60 22 150 C28 196 100 204 150 196 Z" ${F} ${sw}/><path d="M150 202 C98 214 44 256 66 296 C88 318 132 262 150 212 Z" ${F} ${sw}/><circle cx="62" cy="128" r="14" fill="#fff" opacity=".55"/><circle cx="92" cy="104" r="7" fill="#fff" opacity=".5"/><circle cx="92" cy="262" r="9" fill="#fff" opacity=".5"/>`,
+      dragonfly: `<ellipse cx="78" cy="148" rx="80" ry="22" transform="rotate(-24 78 148)" ${F} fill-opacity=".8" ${sw}/><ellipse cx="86" cy="216" rx="68" ry="18" transform="rotate(16 86 216)" ${F} fill-opacity=".8" ${sw}/><path d="M150 180 L20 124 M150 204 L26 196 M70 130 l-10 30 M100 144 l-8 24 M60 200 l6 20" stroke="#fff" stroke-width="2" opacity=".7"/>`,
+      crystal: `<path d="M150 184 L96 70 L80 120 L30 84 L48 150 L6 150 L60 196 L150 198 Z" ${F} fill-opacity=".85" ${sw}/><path d="M150 206 L70 214 L44 270 L96 256 L110 300 Z" ${F} fill-opacity=".85" ${sw}/><path d="M96 70 L112 180 M30 84 L90 186 M44 270 L130 212" stroke="#fff" stroke-width="2.4" opacity=".8"/>`,
+      leaf: `<path d="M150 186 C120 110 60 60 14 70 C24 130 80 190 150 196 Z" ${F} ${sw}/><path d="M150 186 C110 140 60 100 18 72 M60 104 l10 26 M92 130 l6 24 M40 86 l-2 20" fill="none" stroke="${line}" stroke-width="2" opacity=".6"/><path d="M150 204 C110 214 64 250 60 294 C100 290 136 250 150 212 Z" ${F} ${sw}/><path d="M150 208 Q100 250 62 292" fill="none" stroke="${line}" stroke-width="2" opacity=".6"/>`,
+      heart: `<path d="M150 196 C120 196 40 190 30 130 C22 80 80 70 104 110 C110 70 160 90 150 196 Z" ${F} ${sw}/><path d="M150 206 C130 216 76 240 84 280 C92 310 126 290 132 262 C150 280 160 240 150 212 Z" ${F} ${sw}/><circle cx="66" cy="124" r="10" fill="#fff" opacity=".5"/>`,
+    }[type] || '';
+    return `<defs><linearGradient id="${u}w" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${pzLight(c1, .3)}"/><stop offset=".55" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>`
+      + `<g transform="translate(150 175) scale(1.3) translate(-150 -175)"><g class="crz-fw-l">${one}</g><g class="crz-fw-r" transform="matrix(-1 0 0 1 300 0)">${one}</g></g>`;
+  }
+  function crzWandSVG(type, x, y) {
+    if (type === 'none') return '';
+    const tx = x + 46, ty = y - 58, tip = { star: `<polygon points="${starPts(tx, ty, 17, 7.5)}" fill="#ffe27a" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`,
+      heart: `<path d="${pzHeart(tx, ty + 2, 13)}" fill="#ff7aa8" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`,
+      moon: `<path d="M${tx + 6} ${ty - 16} A16 16 0 1 0 ${tx + 10} ${ty + 12} A12 12 0 1 1 ${tx + 6} ${ty - 16} Z" fill="#fff1b8" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`,
+      flower: [0, 72, 144, 216, 288].map(d => { const r = d * Math.PI / 180; return `<circle cx="${pzF(tx + 9 * Math.cos(r))}" cy="${pzF(ty + 9 * Math.sin(r))}" r="8" fill="#ff9ad5" stroke="${O}" stroke-width="2.4"/>`; }).join('') + `<circle cx="${tx}" cy="${ty}" r="6" fill="#ffd84d" stroke="${O}" stroke-width="2.4"/>` }[type] || '';
+    return `<path d="M${x} ${y} L${tx} ${ty}" stroke="${O}" stroke-width="8" stroke-linecap="round"/><path d="M${x} ${y} L${tx} ${ty}" stroke="#fff" stroke-width="4" stroke-linecap="round"/>${tip}${pzSpark(tx + 22, ty - 16, 8, '#fff')}${pzSpark(tx - 18, ty - 22, 5, '#ffe27a')}`;
+  }
+  const crzFairyCache = new Map();
+  function crzFairySVG(f, o = {}) {
+    const key = JSON.stringify([f, o]);
+    if (crzFairyCache.has(key)) return crzFairyCache.get(key);
+    const u = 'fy' + (++crzUid), pose = Object.assign({}, CRZ_FAIRY_POSE, o.pose || {}), fk = girlPoseFK(pose);
+    const g = Object.assign({}, f.girl, { mermaid: false, scene: 'plain' });
+    const girl = girlSVG(g, u + 'g', { view: 'full', bg: false, pose }).replace('<svg ', '<svg x="0" y="0" width="300" height="600" overflow="visible" ');
+    const glow = `<defs><radialGradient id="${u}r"><stop offset="0" stop-color="${f.glow || '#fff1b8'}" stop-opacity=".85"/><stop offset=".6" stop-color="${f.glow || '#fff1b8'}" stop-opacity=".25"/><stop offset="1" stop-color="${f.glow || '#fff1b8'}" stop-opacity="0"/></radialGradient></defs><ellipse cx="150" cy="250" rx="210" ry="270" fill="url(#${u}r)"/>`;
+    const petals = f.petals ? `<g>${[-60, -36, -12, 12, 36, 60].map((d, i) => `<ellipse cx="150" cy="330" rx="20" ry="46" transform="rotate(${d} 150 280)" fill="${i % 2 ? pzLight(f.petalC, .35) : f.petalC}" stroke="${pzMix(f.petalC, O, .4)}" stroke-width="2.4"/>`).join('')}<ellipse cx="150" cy="286" rx="42" ry="10" fill="#6fcf7f" stroke="${O}" stroke-width="2"/></g>` : '';
+    const [hx, hy] = fk.handL;
+    const dust = [[40, 470], [260, 430], [70, 380], [230, 520], [150, 560]].map(([x, y], i) => pzSpark(x, y, 6 + (i % 3) * 2, i % 2 ? '#fff' : f.glow || '#ffe27a', .9)).join('');
+    const s = `<svg viewBox="-70 -20 440 640" xmlns="http://www.w3.org/2000/svg" class="crz-fairy">${glow}${crzWingSVG(f.wings, f.wingC, f.wingC2 || f.wingC, u)}${girl}${petals}${crzWandSVG(f.wand || 'star', hx, hy)}${dust}</svg>`;
+    if (crzFairyCache.size > 60) crzFairyCache.clear();
+    crzFairyCache.set(key, s);
+    return s;
+  }
+  const crzFairyImg = (f, o) => svgData(crzFairySVG(f, o));
+  let crzFyTab = 'garden', crzFyDes = { sec: 'wings' }, crzGardenTimer = 0;
+  function openFairies(tab) {
+    if (!crzFairies.list.length) { const f = crzNewFairy(); crzFairies.list.push(f); crzFairies.cur = f.id; crzSaveFairies(); if (!tab) tab = 'design'; }
+    if (tab) crzFyTab = tab;
+    drawFairies();
+    crzOpen('crzFairyDlg');
+  }
+  function drawFairies(msg) {
+    clearInterval(crzGardenTimer);
+    const f = crzFairy(), body = $('#crzFairyBody');
+    const TABS = [['garden', '🌸 הגינה הקסומה'], ['design', '🎨 לעצב פיה'], ['all', '🧚‍♀️ כל הפיות']];
+    $('#crzFairyTabs').replaceChildren(...TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(crzFyTab === id), onclick: () => { crzFyTab = id; drawFairies(); } }, n)));
+    if (crzFyTab === 'garden') body.replaceChildren(crzGarden(msg));
+    else if (crzFyTab === 'all') {
+      body.replaceChildren(crzCards(crzFairies.list, x => `<img src="${crzFairyImg(x)}" alt="">`, x => x.name, f, x => { crzFairies.cur = x.id; crzSaveFairies(); crzFyTab = 'design'; drawFairies(); },
+        () => { const n = crzNewFairy(); crzFairies.list.push(n); crzFairies.cur = n.id; crzSaveFairies(); SFX.yay(); crzFyTab = 'design'; drawFairies(); }, 'פיה חדשה'));
+    } else {
+      const g = f.girl, save = () => crzSaveFairies();
+      const set = (k, v) => { f[k] = v; save(); SFX.pop(); o.redraw(); }, gset = (k, v) => { g[k] = v; save(); SFX.pop(); o.redraw(); };
+      const cset = (k, isG) => (c, full) => { (isG ? g : f)[k] = c; save(); if (full) o.redraw(); else o.refresh(); };
+      const chips = (list, cur, cb) => el('div', { class: 'chips' }, ...list.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cur === id), onclick: () => cb(id) }, n)));
+      const wingThumb = t => `<svg viewBox="0 60 300 260">${crzWingSVG(t, f.wingC, f.wingC2 || f.wingC, 'wt' + t + (++crzUid))}</svg>`;
+      const hairs = FASH.hairs.filter(h => ['straight', 'wavy', 'mermaid', 'bangs', 'halfbuns', 'bob', 'ponyhigh', 'pigtails', 'spacebuns', 'topbun', 'ballerina', 'heartbun', 'braids', 'fishtail', 'crownbraid', 'milkmaid', 'ribbonbraids', 'curly', 'afropuffs'].includes(h[0]));
+      const o = { state: crzFyDes, art: () => `<img src="${crzFairyImg(f)}" alt="" style="width:100%;height:100%;object-fit:contain">`,
+        buttons: () => [el('button', { type: 'button', class: 'btn', onclick: () => { const r = crzNewFairy(); Object.assign(f, r, { id: f.id, name: f.name }); save(); SFX.yay(); o.redraw(); } }, '🎲 הפתעה!')],
+        secs: [
+          ['wings', '🦋 כנפיים', () => [crzSec('שם', el('input', { type: 'text', maxLength: 16, value: f.name, oninput: e => { f.name = e.target.value; save(); } })),
+            crzSec('כנפיים', crzOpts(CRZ_WINGS, f.wings, v => set('wings', v), wingThumb)), crzSec('צבע כנפיים', crzSw(f.wingC, CRZ_WING_C, cset('wingC'))), crzSec('צבע שני', crzSw(f.wingC2 || f.wingC, CRZ_WING_C, cset('wingC2'))),
+            crzSec('זוהר', crzSw(f.glow, ['#fff1b8', '#ffd1ec', '#bfeaff', '#e6d2ff', '#c9f7d4', '#ffffff', '#ffb3a0'], cset('glow')))]],
+          ['hair', '💇 שיער ופנים', () => [crzSec('תסרוקת', chips(hairs, g.hair, v => gset('hair', v))), crzSec('צבע שיער', crzSw(g.hairColor, FASH.hairColors, cset('hairColor', true), false)),
+            crzSec('עור', crzSw(g.skin, FASH.skins, cset('skin', true), false)), crzSec('צבע עיניים', crzSw(g.eyeColor, FASH.eyeColors, cset('eyeColor', true), false))]],
+          ['dress', '👗 שמלה', () => [crzSec('שמלה', chips(FASH.dresses.filter(d => d[0] !== 'none'), g.dress, v => gset('dress', v))), crzSec('צבע', crzSw(g.dressColor, FASH.colors, cset('dressColor', true))),
+            crzSec('דוגמה', chips(FASH.pats, g.dressPat || 'plain', v => gset('dressPat', v))),
+            crzSec('חצאית עלי כותרת 🌸', crzTog(f.petals, v => set('petals', v)), f.petals ? crzSw(f.petalC, ['#ff9ad5', '#ffb3a0', '#b58cff', '#ffd84d', '#8fe6d0', '#7ec8ff', '#ffffff'], cset('petalC')) : null)]],
+          ['magic', '✨ קסם', () => [crzSec('שרביט', crzOpts(CRZ_WANDS, f.wand || 'star', v => set('wand', v), t => `<svg viewBox="-10 -90 110 110">${crzWandSVG(t, 0, 0)}</svg>`)),
+            crzSec('זר פרחים', crzTog(g.acc && g.acc.flowers, v => { g.acc = Object.assign({}, g.acc, { flowers: v }); save(); SFX.pop(); o.redraw(); })),
+            crzSec('נזר', crzTog(g.acc && g.acc.tiara, v => { g.acc = Object.assign({}, g.acc, { tiara: v }); save(); SFX.pop(); o.redraw(); })),
+            crzSec('נצנצים על הפנים', crzTog(g.glitter, v => gset('glitter', v)))]],
+        ] };
+      body.replaceChildren(crzDesigner(o), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { crzFyTab = 'garden'; drawFairies(`${f.name} עפה לגינה! ✨`); } }, '🌸 לעוף לגינה')));
+    }
+  }
+  function crzGarden(msg) {
+    const stage = el('div', { class: 'crz-garden' });
+    stage.innerHTML = `<svg class="crz-garden-bg" viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="crzgs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd9f0"/><stop offset=".6" stop-color="#e6f3ff"/></linearGradient></defs><rect width="800" height="420" fill="url(#crzgs)"/>`
+      + `<circle cx="680" cy="70" r="36" fill="#fff7c9"/><path d="M0 330 Q200 290 400 320 Q600 350 800 300 V420 H0 Z" fill="#a8e08f"/><path d="M0 360 Q260 330 520 360 Q680 380 800 350 V420 H0 Z" fill="#8fd08a"/>`
+      + [[80, 330, '#ff9ad5'], [170, 350, '#ffd84d'], [260, 325, '#b58cff'], [360, 345, '#ff7a9a'], [470, 330, '#7ec8ff'], [560, 352, '#ffb3a0'], [650, 322, '#ff9ad5'], [740, 345, '#ffd84d']].map(([x, y, c], i) => `<g class="crz-bloom" data-i="${i}" style="transform-origin:${x}px ${y - 40}px"><path d="M${x} ${y + 40} Q${x - 6} ${y} ${x} ${y - 40}" stroke="#4fbf73" stroke-width="5" fill="none"/><ellipse cx="${x - 12}" cy="${y}" rx="10" ry="5" fill="#6fcf7f" transform="rotate(-30 ${x - 12} ${y})"/>${[0, 60, 120, 180, 240, 300].map(d => { const r = d * Math.PI / 180; return `<circle cx="${pzF(x + 13 * Math.cos(r))}" cy="${pzF(y - 40 + 13 * Math.sin(r))}" r="11" fill="${c}" stroke="${O}" stroke-width="2"/>`; }).join('')}<circle cx="${x}" cy="${y - 40}" r="8" fill="#ffe27a" stroke="${O}" stroke-width="2"/></g>`).join('')
+      + [[120, 250], [610, 240], [330, 220]].map(([x, y]) => `<g><rect x="${x - 3}" y="${y}" width="6" height="${400 - y}" fill="#c98f3a" opacity="0"/><ellipse cx="${x}" cy="${y + 90}" rx="26" ry="20" fill="#ff5a6e" stroke="${O}" stroke-width="2.4"/><rect x="${x - 8}" y="${y + 104}" width="16" height="26" rx="4" fill="#fff" stroke="${O}" stroke-width="2.4"/><circle cx="${x - 10}" cy="${y + 84}" r="4" fill="#fff"/><circle cx="${x + 8}" cy="${y + 92}" r="5" fill="#fff"/></g>`).join('') + `</svg>`;
+    const fx = el('div', { class: 'crz-gfx' }), say = el('span', { class: 'pz-say' }, msg || 'לוחצים על פיה כדי שתעשה קסם, ועל פרח כדי שיפרח ✨');
+    const list = crzFairies.list.slice(0, 6);
+    const nodes = list.map((f, i) => {
+      const n = el('button', { type: 'button', class: 'crz-gfairy', 'aria-label': f.name, style: `--dur:${14 + i * 3}s;--delay:${-i * 2.3}s;--y:${20 + (i % 3) * 18}%;--dir:${i % 2 ? 'reverse' : 'normal'}`, onclick: () => {
+        n.classList.remove('twirl'); void n.offsetWidth; n.classList.add('twirl'); [784, 988, 1175, 1568].forEach((q, k) => tone(q, .12, 'sine', k * .07, .06));
+        say.textContent = `${f.name}: ${crzPick(['אברה קדברה! ✨', 'בואי נעוף ביחד! 🧚‍♀️', 'אבקת פיות לכולם! 💫', 'איזה יום קסום! 🌸'])}`;
+        for (let k = 0; k < 8; k++) trail(n, true);
+      } }, el('img', { src: crzFairyImg(f), alt: '' }));
+      return n;
+    });
+    const trail = (n, burst) => {
+      if (reduceMotion() || !stage.isConnected) return;
+      const r = n.getBoundingClientRect(), R = stage.getBoundingClientRect(); if (!R.width) return;
+      const s = el('span', { class: 'crz-trail' }, crzPick(['✨', '⭐', '💫', '·']));
+      s.style.left = ((r.left + r.width / 2 - R.left) / R.width * 100 + (burst ? (Math.random() - .5) * 14 : 0)) + '%'; s.style.top = ((r.top + r.height * .55 - R.top) / R.height * 100 + (burst ? (Math.random() - .5) * 20 : 0)) + '%';
+      fx.append(s); setTimeout(() => s.remove(), 1400);
+    };
+    crzGardenTimer = setInterval(() => { if (!$('#crzFairyDlg').open || !stage.isConnected) { clearInterval(crzGardenTimer); return; } nodes.forEach(n => trail(n)); }, 380);
+    stage.addEventListener('click', e => { const b = e.target.closest('.crz-bloom'); if (!b) return; b.classList.remove('pop'); void b.getBoundingClientRect(); b.classList.add('pop'); tone(660 + +b.dataset.i * 60, .15, 'triangle'); crzGame('fairyBlooms'); });
+    stage.append(...nodes, fx, say);
+    return el('div', { class: 'row' }, stage, el('div', { class: 'chips' },
+      el('button', { type: 'button', class: 'btn', onclick: () => { crzFyTab = 'design'; drawFairies(); } }, '🎨 לעצב פיה'),
+      crzFairies.list.length < 12 ? el('button', { type: 'button', class: 'btn', onclick: () => { const n = crzNewFairy(); crzFairies.list.push(n); crzFairies.cur = n.id; crzSaveFairies(); SFX.yay(); drawFairies(`פיה חדשה הגיעה: ${n.name}! 🧚‍♀️`); } }, '➕ עוד פיה') : null));
+  }
+  // ---------- 🥚 mystery eggs & rare creatures (drawn with petSVG + a rare decoration) ----------
+  // [id, name, stars, kind, look, deco]
+  const CRZ_RARES = [
+    ['galaxycat', 'חתול גלקסיה', 3, 'cat', { c1: '#3d3a78', c2: '#c9b2ff', pattern: 'sparkles', eyes: 'star', eyeC: '#ffd84d', cheekC: '#b58cff' }, 'stars'],
+    ['crystalbunny', 'ארנבון קריסטל', 3, 'bunny', { c1: '#e6f7ff', c2: '#9fdcff', pattern: 'sparkles', eyes: 'anime', eyeC: '#3fa0ff', cheekC: '#9fdcff' }, 'crystal'],
+    ['rainbowowl', 'ינשוף קשת', 2, 'owl', { c1: '#ff9ad5', c2: '#7ec8ff', pattern: 'gradient', eyes: 'shiny' }, 'rainbow'],
+    ['cloudpuppy', 'כלבלב ענן', 2, 'dog', { c1: '#ffffff', c2: '#dfe8f5', fluff: true, eyes: 'happy', x: { wings: '#cfe8ff' } }, 'cloud'],
+    ['starfox', 'שועל כוכבים', 3, 'cat', { c1: '#ff9a3c', c2: '#ffd84d', pattern: 'none', belly: true, bellyC: '#ffffff', tail: 'fluffy', eyes: 'star', eyeC: '#ffb020' }, 'stars'],
+    ['firekitten', 'חתלתול אש', 2, 'cat', { c1: '#ff6b4a', c2: '#ffd84d', pattern: 'gradient', eyes: 'anime', eyeC: '#ffb020' }, 'flame'],
+    ['icepenguin', 'פינגווין קרח', 2, 'owl', { c1: '#3a4a6a', c2: '#2a3450', belly: true, bellyC: '#ffffff', ears: 'none', cheekC: '#9fdcff', eyes: 'round' }, 'snow'],
+    ['flowerdeer', 'אייל פרחים', 3, 'dog', { c1: '#e8b88a', c2: '#ffffff', pattern: 'spots', ears: 'up', eyes: 'lashes', cheekC: '#ff9ad5' }, 'antlers'],
+    ['candybear', 'דובון ממתקים', 1, 'bear', { c1: '#ffc2e0', c2: '#7ec8ff', pattern: 'spots', eyes: 'heart' }, 'candy'],
+    ['moonbunny', 'ארנבת הירח', 2, 'bunny', { c1: '#fff6c4', c2: '#ffe27a', pattern: 'none', eyes: 'sleepy' }, 'moon'],
+    ['seaglasswhale', 'לוויתן זכוכית ים', 2, 'whale', { c1: '#8fe6d0', c2: '#ffffff', pattern: 'sparkles' }, 'bubbles'],
+    ['goldturtle', 'צב הזהב', 3, 'turtle', { c1: '#ffe27a', c2: '#ffb020', eyes: 'star', eyeC: '#ff9a3c' }, 'crown'],
+    ['pinklion', 'אריה ורוד', 1, 'lion', { c1: '#ffd1e6', c2: '#ff5a8a' }, ''],
+    ['mintpanda', 'פנדה מנטה', 1, 'panda', { c2: '#4fbf73', eyes: 'shiny' }, ''],
+    ['rainbowfish', 'דג קשת', 1, 'fish', { c1: '#ff9ad5', c2: '#7ec8ff', pattern: 'gradient' }, 'bubbles'],
+    ['angeldino', 'דינו מלאך', 2, 'dino', { c1: '#e6d2ff', c2: '#ffffff', x: { halo: 1, wings: '#ffffff' } }, ''],
+    ['beebear', 'דובון דבורה', 1, 'bear', { c1: '#ffd84d', c2: '#3a3a4a', pattern: 'stripes', x: { wings: '#e6f7ff' } }, 'antennae'],
+    ['berrycat', 'חתול פטל', 1, 'cat', { c1: '#b58cff', c2: '#ff5a8a', pattern: 'spots', eyes: 'heart' }, ''],
+    ['snowowl', 'ינשוף שלג', 2, 'owl', { c1: '#ffffff', c2: '#dfe8f5', fluff: true, eyes: 'anime', eyeC: '#3fa0ff' }, 'snow'],
+    ['lavadino', 'דינו לבה', 3, 'dino', { c1: '#4a4a5a', c2: '#ff6b4a', pattern: 'stripes', eyes: 'star', eyeC: '#ffb020' }, 'flame'],
+    ['unipuppy', 'כלבלב חד-קרן', 3, 'dog', { c1: '#ffffff', c2: '#ff9ad5', pattern: 'sparkles', ears: 'flop', eyes: 'anime', eyeC: '#b58cff', x: { horn: 1 } }, 'rainbow'],
+    ['cottonpanda', 'פנדה צמר גפן מתוק', 2, 'panda', { c1: '#ffd1e6', c2: '#b58cff' }, 'candy'],
+    ['aurorawhale', 'לוויתן זוהר צפוני', 3, 'whale', { c1: '#7ec8ff', c2: '#b58cff', pattern: 'gradient', eyes: 'lashes' }, 'stars'],
+    ['cloverbunny', 'ארנבון תלתן', 1, 'bunny', { c1: '#c9f7d4', c2: '#6fcf7f', eyes: 'happy' }, 'clover'],
+    ['thunderpup', 'כלבלב ברק', 2, 'dog', { c1: '#ffe27a', c2: '#3a3a4a', ears: 'up', eyes: 'wink' }, 'bolt'],
+  ];
+  const crzRare = id => CRZ_RARES.find(r => r[0] === id);
+  const crzRarePet = (r, extra = {}) => Object.assign({ kind: r[3], name: r[1], look: Object.assign({ v: 1 }, petzLook({ kind: r[3] }), r[4], { x: Object.assign({}, r[4].x) }), rare: r[0], wear: {}, size: 1 }, extra);
+  // the extra sparkle of each rare (drawn in the 48×48 pet space, from the clothes hook)
+  function crzRareDeco(p, kind) {
+    const r = crzRare(p.rare); if (!r || !r[5]) return '';
+    const a = ANCHOR[kind] || ANCHOR.cat, [hx, hy] = a.head, s2 = `stroke="${O}" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"`;
+    switch (r[5]) {
+      case 'stars': return [[hx - 16, hy + 2, 2.4, '#ffd84d'], [hx + 16, hy + 6, 2, '#fff'], [hx + 12, hy - 4, 1.6, '#ffd84d'], [hx - 12, hy + 16, 1.4, '#fff']].map(([x, y, rr, c]) => `<polygon points="${starPts(x, y, rr * 1.5, rr * .65)}" fill="${c}" ${s2}/>`).join('');
+      case 'crystal': return `<path d="M${hx - 4} ${hy + 1} L${hx - 3} ${hy - 5} L${hx - 1} ${hy - 7} L${hx} ${hy + 1} Z M${hx} ${hy + 1} L${hx + 1} ${hy - 9} L${hx + 3} ${hy - 11} L${hx + 4} ${hy + 1} Z" fill="#bfeaff" fill-opacity=".9" ${s2}/>`;
+      case 'flame': return `<path d="M${hx} ${hy - 9} Q${hx + 6} ${hy - 3} ${hx + 3} ${hy + 2} Q${hx} ${hy} ${hx - 3} ${hy + 2} Q${hx - 5} ${hy - 4} ${hx} ${hy - 9} Z" fill="#ff9a3c" ${s2}/><path d="M${hx} ${hy - 4} Q${hx + 2} ${hy - 1} ${hx + 1} ${hy + 1} H${hx - 1} Q${hx - 2} ${hy - 1} ${hx} ${hy - 4} Z" fill="#ffe27a"/>`;
+      case 'snow': return [[hx - 15, hy + 4], [hx + 15, hy], [hx + 17, hy + 18]].map(([x, y]) => `<path d="M${x - 2.4} ${y} h4.8 M${x} ${y - 2.4} v4.8 M${x - 1.7} ${y - 1.7} l3.4 3.4 M${x + 1.7} ${y - 1.7} l-3.4 3.4" stroke="#9fdcff" stroke-width="1" stroke-linecap="round"/>`).join('');
+      case 'antlers': return `<path d="M${hx - 5} ${hy + 2} L${hx - 8} ${hy - 7} M${hx - 7} ${hy - 4} L${hx - 11} ${hy - 6} M${hx + 5} ${hy + 2} L${hx + 8} ${hy - 7} M${hx + 7} ${hy - 4} L${hx + 11} ${hy - 6}" stroke="${O}" stroke-width="2.6" stroke-linecap="round"/><path d="M${hx - 5} ${hy + 2} L${hx - 8} ${hy - 7} M${hx - 7} ${hy - 4} L${hx - 11} ${hy - 6} M${hx + 5} ${hy + 2} L${hx + 8} ${hy - 7} M${hx + 7} ${hy - 4} L${hx + 11} ${hy - 6}" stroke="#f3e3c7" stroke-width="1.2" stroke-linecap="round"/><circle cx="${hx - 8}" cy="${hy - 7}" r="1.6" fill="#ff9ad5" ${s2}/><circle cx="${hx + 11}" cy="${hy - 6}" r="1.6" fill="#ffd84d" ${s2}/>`;
+      case 'candy': return `<path d="M${hx + 13} ${hy + 18} L${hx + 17} ${hy + 8}" stroke="${O}" stroke-width="1.8"/><circle cx="${hx + 17}" cy="${hy + 6}" r="3.4" fill="#ff9ad5" ${s2}/><path d="M${hx + 17} ${hy + 6} m-1.5 0 a1.5 1.5 0 1 1 1.5 1.5" fill="none" stroke="#fff" stroke-width=".8"/>`;
+      case 'moon': return `<path d="M${hx + 2} ${hy + 4} A4 4 0 1 0 ${hx + 3} ${hy + 11} A3 3 0 1 1 ${hx + 2} ${hy + 4} Z" fill="#ffe27a" ${s2}/>`;
+      case 'bubbles': return [[hx - 8, hy - 2, 1.8], [hx - 5, hy - 7, 1.2], [hx + 6, hy - 5, 1.5]].map(([x, y, rr]) => `<circle cx="${x}" cy="${y}" r="${rr}" fill="#e6f7ff" stroke="#7ec8ff" stroke-width=".7"/>`).join('');
+      case 'crown': return `<path d="M${hx - 5} ${hy + 1} L${hx - 6} ${hy - 5} L${hx - 2.5} ${hy - 2} L${hx} ${hy - 6} L${hx + 2.5} ${hy - 2} L${hx + 6} ${hy - 5} L${hx + 5} ${hy + 1} Z" fill="#ffcf3a" ${s2}/>`;
+      case 'clover': return `<g transform="translate(${hx + 8} ${hy + 3})">${[0, 90, 180, 270].map(d => `<circle cx="${pzF(2 * Math.cos(d * Math.PI / 180))}" cy="${pzF(2 * Math.sin(d * Math.PI / 180))}" r="1.9" fill="#6fcf7f" ${s2}/>`).join('')}</g>`;
+      case 'bolt': return `<path d="M${hx + 12} ${hy + 2} L${hx + 8} ${hy + 9} H${hx + 11} L${hx + 8} ${hy + 15} L${hx + 15} ${hy + 7} H${hx + 12} Z" fill="#ffe27a" ${s2}/>`;
+      case 'antennae': return `<path d="M${hx - 3} ${hy + 1} Q${hx - 5} ${hy - 5} ${hx - 8} ${hy - 6} M${hx + 3} ${hy + 1} Q${hx + 5} ${hy - 5} ${hx + 8} ${hy - 6}" fill="none" stroke="${O}" stroke-width="1.2"/><circle cx="${hx - 8}" cy="${hy - 6}" r="1.5" fill="#3a3a4a"/><circle cx="${hx + 8}" cy="${hy - 6}" r="1.5" fill="#3a3a4a"/>`;
+      case 'cloud': return `<g opacity=".95">${[[-4, 0, 3], [0, -2, 3.6], [4, 0, 3]].map(([x, y, rr]) => `<circle cx="${hx + 14 + x}" cy="${hy + 2 + y}" r="${rr}" fill="#fff" stroke="#cfe0f5" stroke-width=".8"/>`).join('')}</g>`;
+      case 'rainbow': return `<g fill="none" stroke-width="1.1">${crzRainbow.map((c, i) => `<path d="M${hx - 10 + i * .9} ${hy + 1} A${10 - i * .9} ${8 - i * .8} 0 0 1 ${hx + 10 - i * .9} ${hy + 1}" stroke="${c}"/>`).join('')}</g>`;
+      default: return '';
+    }
+  }
+  let crzEggs = Object.assign({ list: [], last: null, col: {}, hatched: 0 }, store.get('eggs', {}));
+  const crzSaveEggs = () => store.set('eggs', crzEggs);
+  const CRZ_EGG_C = [['#ffd1ec', '#b58cff'], ['#bfeaff', '#ffd84d'], ['#e6d2ff', '#ff9ad5'], ['#c9f7d4', '#7ec8ff'], ['#fff1b8', '#ff9a3c'], ['#ffe0cc', '#6fcf7f']];
+  const crzEggSVG = (e, k = 0) => { const [a, b] = CRZ_EGG_C[e.c || 0]; return svg(`<ellipse cx="24" cy="27" rx="15" ry="19" fill="${a}" ${S}/><path d="M11 22 q3.3 -3 6.5 0 t6.5 0 t6.5 0 t6.5 0" fill="none" stroke="${b}" stroke-width="2.6" stroke-linecap="round"/><circle cx="18" cy="33" r="2.4" fill="${b}"/><circle cx="29" cy="36" r="2" fill="${b}"/><circle cx="25" cy="13" r="1.6" fill="#fff"/>${shine(15, 18)}${k > .6 ? `<path d="M14 28 l4 -3 l3 4 l4 -4 l3 3" fill="none" stroke="${O}" stroke-width="1.4" stroke-linejoin="round"/>` : ''}${k > .85 ? `<path d="M26 30 l3 4 l4 -3" fill="none" stroke="${O}" stroke-width="1.4"/>` : ''}`); };
+  const CRZ_TAPS = 12;
+  function giveEgg(reason = '') {
+    if (crzEggs.list.length >= 8) return false;
+    const e = { id: crzId('e'), got: localToday(), taps: 0, c: Math.floor(Math.random() * CRZ_EGG_C.length), reason };
+    crzEggs.list.push(e); crzSaveEggs();
+    try { toast(crzEggSVG(e), `🥚 קיבלת ביצת הפתעה${reason ? ' — ' + reason : ''}! לחמם אותה ב"ביצי הפתעה"`); SFX.ding(); } catch {}
+    return true;
+  }
+  // a new egg every 3 days (the first one right away)
+  (() => { const t = localToday(); if (!crzEggs.last) { crzEggs.last = t; crzEggs.list.push({ id: crzId('e'), got: t, taps: 0, c: 0, reason: 'ביצת ברוכה הבאה' }); crzSaveEggs(); } else if (crzDays(crzEggs.last, t) >= 3) { crzEggs.last = t; crzEggs.list.length < 8 && crzEggs.list.push({ id: crzId('e'), got: t, taps: 0, c: Math.floor(Math.random() * CRZ_EGG_C.length), reason: 'ביצה של כל 3 ימים' }); crzSaveEggs(); } })();
+  function crzHatchPick() {
+    const roll = Math.random(), stars = roll < .15 ? 3 : roll < .45 ? 2 : 1;
+    let pool = CRZ_RARES.filter(r => r[2] === stars);
+    const fresh = pool.filter(r => !crzEggs.col[r[0]]);
+    if (fresh.length && Math.random() < .75) pool = fresh;
+    return crzPick(pool);
+  }
+  let crzEgTab = 'nest', crzEggSel = null;
+  function openEggs(tab) { if (tab) crzEgTab = tab; drawEggs(); crzOpen('crzEggDlg'); }
+  const crzStarsTxt = n => '⭐'.repeat(n) + '☆'.repeat(3 - n);
+  function drawEggs(msg, hatched) {
+    const body = $('#crzEggBody');
+    $('#crzEggTabs').replaceChildren(...[['nest', '🪺 הקן'], ['album', '📖 האוסף']].map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(crzEgTab === id), onclick: () => { crzEgTab = id; drawEggs(); } }, n)));
+    const nxt = crzEggs.last ? Math.max(0, 3 - crzDays(crzEggs.last, localToday())) : 0;
+    if (crzEgTab === 'album') {
+      const got = CRZ_RARES.filter(r => crzEggs.col[r[0]]).length;
+      body.replaceChildren(el('p', { style: 'margin:0' }, `יש לך ${got} מתוך ${CRZ_RARES.length} יצורים נדירים!`),
+        el('div', { class: 'crz-shelf' }, ...CRZ_RARES.map(r => { const has = crzEggs.col[r[0]]; return el('div', { class: 'crz-slot' + (has ? '' : ' locked') + ' s' + r[2] },
+          el('span', { class: 'ic', html: petSVG(crzRarePet(r)) }), el('b', {}, has ? r[1] : '???'), el('small', {}, crzStarsTxt(r[2]) + (has > 1 ? ` ×${has}` : ''))); })));
+      return;
+    }
+    const L = crzEggs.list;
+    if (hatched) {
+      const r = hatched, pet0 = crzRarePet(r), isNew = crzEggs.col[r[0]] === 1;
+      const adoptBtn = typeof petzList !== 'undefined' ? el('button', { type: 'button', class: 'btn main', onclick: e => {
+        const np = Object.assign(petzNorm(crzRarePet(r)), { id: 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), house: { bg: defaultBg(r[3]), hidden: [] }, fed: {}, played: {}, onboarded: true, v: 2 });
+        petzSync(); petzList.push(np); store.set('pets', petzList); SFX.yay(); e.target.disabled = true; e.target.textContent = `💖 ${r[1]} עבר/ה לגור בבית של החיות!`;
+      } }, '🐾 לאמץ כחיית מחמד') : null;
+      const stkBtn = el('button', { type: 'button', class: 'btn', onclick: e => {
+        const c = { id: 'my' + Date.now().toString(36), url: svgData(`<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="30" fill="#fff6fb" stroke="#ffb3d9" stroke-width="3"/>${placeSvg(petSVG(pet0), 6, 2, 52, 60)}</svg>`) };
+        customStk.push(c); if (!store.set('customStk', customStk)) { customStk.pop(); return; } registerCustom(c); SFX.ding(); e.target.disabled = true; e.target.textContent = '📸 נשמר באלבום המדבקות!';
+      } }, '📸 לשמור כמדבקה');
+      body.replaceChildren(el('div', { class: 'crz-hatch' },
+        el('span', { class: 'crz-hatch-shell l', html: crzEggSVG({ c: 0 }) }), el('span', { class: 'crz-hatch-art', html: petSVG(pet0, { mood: 'happy' }) }),
+        el('b', { class: 'crz-hatch-name' }, `${isNew ? '✨ חדש! ' : ''}${r[1]}`), el('span', { class: 'crz-hatch-stars' }, crzStarsTxt(r[2]) + (r[2] === 3 ? ' נדיר מאוד!' : r[2] === 2 ? ' נדיר' : ''))),
+        el('div', { class: 'chips' }, adoptBtn, stkBtn, el('button', { type: 'button', class: 'btn', onclick: () => drawEggs() }, '🪺 חזרה לקן')));
+      return;
+    }
+    const nest = el('div', { class: 'crz-nest' }, ...(L.length ? L.map(e => el('button', { type: 'button', class: 'crz-egg' + (crzEggSel === e.id ? ' on' : ''), 'aria-label': 'ביצה', html: crzEggSVG(e, e.taps / CRZ_TAPS), onclick: ev => tap(e, ev.currentTarget) })) : [el('p', { class: 'muted' }, 'הקן ריק... ביצה חדשה תגיע בקרוב! 🪺')]));
+    const bar = el('div', { class: 'crz-warm' }, el('span', {}, '🔥 חום:'), el('div', { class: 'xpbar' }, el('i')));
+    const cur = L.find(e => e.id === crzEggSel) || L[0];
+    const setBar = e => { bar.querySelector('i').style.width = Math.round((e ? e.taps / CRZ_TAPS : 0) * 100) + '%'; };
+    setBar(cur);
+    const tap = (e, node) => {
+      crzEggSel = e.id; nest.querySelectorAll('.crz-egg').forEach(n => n.classList.toggle('on', n === node));
+      e.taps++; node.classList.remove('wob'); void node.offsetWidth; node.classList.add('wob'); tone(360 + e.taps * 40, .08, 'triangle');
+      node.innerHTML = crzEggSVG(e, e.taps / CRZ_TAPS); setBar(e); crzFloat(nest, crzPick(['💖', '🔥', '✨']), 20 + Math.random() * 60, 30);
+      if (e.taps >= CRZ_TAPS) {
+        const r = crzHatchPick(); crzEggs.col[r[0]] = (crzEggs.col[r[0]] || 0) + 1; crzEggs.hatched++; crzEggs.list = L.filter(x => x !== e); crzSaveEggs();
+        crzGame('eggsHatched'); crzCoins(r[2] * 5, 'ביצה בקעה'); SFX.yay(); confetti($('#crzEggDlg .confetti-c'));
+        setTimeout(() => drawEggs('', r), 250);
+      } else crzSaveEggs();
+    };
+    body.replaceChildren(el('p', { style: 'margin:0' }, msg || (L.length ? `👆 מלטפים ביצה כדי לחמם אותה (${CRZ_TAPS} ליטופים והיא בוקעת!)` : '')), nest, L.length ? bar : null,
+      el('p', { class: 'muted', style: 'margin:0' }, nxt ? `🗓️ הביצה הבאה תגיע בעוד ${nxt} ${nxt === 1 ? 'יום' : 'ימים'}` : '🗓️ ביצה חדשה מגיעה כל 3 ימים'),
+      el('p', { class: 'muted', style: 'margin:0' }, `🐣 בקעו ${crzEggs.hatched || 0} ביצים · אוסף: ${CRZ_RARES.filter(r => crzEggs.col[r[0]]).length}/${CRZ_RARES.length}`));
+  }
+  // ---------- 👕 pet clothes (drawn inside petSVG through the crzClothes hook) ----------
+  // p.clothes = { body: {id, c, c2}, neck, head, feet, back }
+  const CRZ_CC = ['#ff9ad5', '#ff5a8a', '#b58cff', '#7ec8ff', '#8fe6d0', '#6fcf7f', '#ffd84d', '#ff9a3c', '#ff6b6b', '#ffffff', '#3a3a4a', '#c68b59'];
+  // [id, name, slot, price, default colors]
+  const CRZ_CLOTHES = [
+    ['sweater', 'סוודר', 'body', 0, ['#ff9ad5', '#ffffff']], ['hoodie', 'קפוצ\'ון', 'body', 0, ['#7ec8ff', '#ffffff']], ['dress', 'שמלה', 'body', 0, ['#ffd1e6', '#ff5a8a']],
+    ['raincoat', 'מעיל גשם', 'body', 0, ['#ffd84d', '#ff9a3c']], ['pajamas', 'פיג\'מה', 'body', 0, ['#b58cff', '#ffe27a']], ['tutu', 'חצאית טוטו', 'body', 15, ['#ffc2e0', '#e6d2ff']],
+    ['gown', 'שמלת נסיכה', 'body', 25, ['#e6d2ff', '#ffe27a']], ['bee', 'תחפושת דבורה', 'body', 20, ['#ffd84d', '#3a3a4a']], ['dino', 'תחפושת דינוזאור', 'body', 25, ['#6fcf7f', '#ffd84d']],
+    ['unicorn', 'תחפושת חד-קרן', 'body', 30, ['#ffffff', '#ff9ad5']], ['pumpkin', 'תחפושת דלעת', 'body', 20, ['#ff9a3c', '#6fcf7f']],
+    ['scarf', 'צעיף', 'neck', 0, ['#ff5a8a', '#ffffff']], ['bandana', 'בנדנה', 'neck', 0, ['#ff6b6b', '#ffffff']], ['pearls', 'שרשרת פנינים', 'neck', 12, ['#fff6fb', '#ffd1e6']],
+    ['beanie', 'כובע גרב', 'head', 0, ['#7ec8ff', '#ffffff']], ['sunhat', 'כובע קש', 'head', 0, ['#ffe08a', '#ff5a8a']], ['bigbow', 'סרט ענק', 'head', 0, ['#ff5a8a', '#ffffff']],
+    ['cap', 'כובע מצחייה', 'head', 0, ['#ff6b6b', '#ffffff']], ['tiara', 'נזר יהלומים', 'head', 20, ['#ffe27a', '#7ec8ff']], ['witch', 'כובע קוסמת', 'head', 15, ['#b58cff', '#ffd84d']],
+    ['booties', 'מגפונים', 'feet', 0, ['#ff9ad5', '#ffffff']], ['sneakers', 'נעלי ספורט', 'feet', 0, ['#ffffff', '#ff5a8a']],
+    ['cape', 'גלימה', 'back', 0, ['#ff5a8a', '#ffd84d']], ['starcape', 'גלימת כוכבים', 'back', 20, ['#3d3a78', '#ffd84d']], ['fairywings', 'כנפי פיה', 'back', 15, ['#e6f7ff', '#ffc2e0']],
+  ];
+  const CRZ_SLOTS = [['body', '👕 בגדים ותחפושות'], ['neck', '🧣 צוואר'], ['head', '🧢 כובעים'], ['feet', '👢 נעליים'], ['back', '🦸 על הגב']];
+  let crzOwned = store.get('crzOwned', []);
+  const crzItem = id => CRZ_CLOTHES.find(c => c[0] === id);
+  function crzClothes(p, kind, G, lw) {
+    if (!crzReady || !p) return null;
+    const cl = p.clothes || {}, out = { back: '', body: '', top: crzRareDeco(p, kind) };
+    if (!p.clothes) return out.top ? out : null;
+    const u = 'cz' + (++crzUid), a = ANCHOR[kind] || ANCHOR.cat, std = !['owl', 'turtle', 'fish', 'whale'].includes(kind);
+    const B = G.body, H = G.head || [24, a.eyes[1] - 2, 15, 13], st = `stroke="${O}" stroke-width="${pzF(lw * .72)}" stroke-linejoin="round" stroke-linecap="round"`;
+    const top = std ? B[1] - B[3] - 1 : G.mouthY + 3.5, hem = std ? B[1] + B[3] * .5 : B[1] + B[3] * .9;
+    const clip = `<clipPath id="${u}b"><ellipse cx="${B[0]}" cy="${B[1]}" rx="${B[2] + .8}" ry="${B[3] + .8}"/></clipPath><clipPath id="${u}h"><ellipse cx="${H[0]}" cy="${H[1]}" rx="${H[2] + .6}" ry="${H[3] + .6}"/></clipPath>`;
+    const torso = (c, h = hem) => `<g clip-path="url(#${u}b)"><rect x="${B[0] - B[2] - 2}" y="${top}" width="${B[2] * 2 + 4}" height="${pzF(h - top)}" fill="${c}" ${st}/></g>`;
+    const sleeves = c => std ? pzBoth(`<ellipse cx="15.3" cy="38.4" rx="3.2" ry="3.2" transform="rotate(28 15.3 38.4)" fill="${c}" ${st}/>`) : '';
+    const [hx, hy] = a.head, nk = a.neck;
+    const draw = {
+      sweater: (c, c2) => torso(c) + `<g clip-path="url(#${u}b)"><path d="M${B[0] - B[2]} ${pzF(hem - 1.4)} H${B[0] + B[2]}" stroke="${c2}" stroke-width="1.6" stroke-dasharray="1.2 1.2"/>${[[-4, 1], [3, 3], [-1, -2]].map(([x, y]) => `<path d="${pzHeart(B[0] + x, B[1] + y, 1.3)}" fill="${c2}"/>`).join('')}</g>` + sleeves(c) + (std ? `<ellipse cx="${nk[0]}" cy="${nk[1] + .6}" rx="6.5" ry="1.8" fill="${c2}" ${st}/>` : ''),
+      hoodie: (c, c2) => torso(c) + `<g clip-path="url(#${u}b)"><rect x="${B[0] - 4.5}" y="${pzF(B[1] + 1)}" width="9" height="4" rx="1.6" fill="${pzMix(c, O, .12)}" ${st}/></g>` + sleeves(c) + `<path d="M${nk[0] - 2} ${nk[1] + 1} v4 M${nk[0] + 2} ${nk[1] + 1} v4" stroke="${c2}" stroke-width="1" stroke-linecap="round"/>`,
+      dress: (c, c2) => `<path d="M${B[0] - B[2] * .7} ${top + 1} L${B[0] + B[2] * .7} ${top + 1} L${B[0] + B[2] + 3} ${pzF(hem + 3)} Q${B[0]} ${pzF(hem + 5)} ${B[0] - B[2] - 3} ${pzF(hem + 3)} Z" fill="${c}" ${st}/><path d="M${B[0] - B[2] - 2.4} ${pzF(hem + 1.6)} Q${B[0]} ${pzF(hem + 3.6)} ${B[0] + B[2] + 2.4} ${pzF(hem + 1.6)}" fill="none" stroke="${c2}" stroke-width="1.2" stroke-dasharray="1.4 1"/>` + sleeves(c) + `<path d="${pzHeart(B[0], top + 4, 1.6)}" fill="${c2}"/>`,
+      raincoat: (c, c2) => torso(c, hem + 1) + sleeves(c) + [0, 1, 2].map(i => `<circle cx="${B[0]}" cy="${pzF(top + 3 + i * 3)}" r=".9" fill="${c2}" ${st}/>`).join(''),
+      pajamas: (c, c2) => torso(c) + `<g clip-path="url(#${u}b)">${[[-4, 1], [3, -1], [0, 4], [5, 4]].map(([x, y], i) => i % 2 ? `<path d="M${B[0] + x} ${B[1] + y - 1.4} a1.4 1.4 0 1 0 1.2 2.4 a1.1 1.1 0 1 1 -1.2 -2.4 Z" fill="${c2}"/>` : `<polygon points="${starPts(B[0] + x, B[1] + y, 1.5, .6)}" fill="${c2}"/>`).join('')}</g>` + sleeves(c),
+      tutu: (c, c2) => [2.6, 0].map((dy, k) => `<path d="${Array.from({ length: 9 }, (_, i) => { const x = B[0] - B[2] - 2.5 + i * (B[2] * 2 + 5) / 8; return `${i ? 'L' : 'M'}${pzF(x)} ${pzF(hem - 3 + dy + (i % 2 ? 2.6 : 0))}`; }).join(' ')} L${B[0] + B[2] + 1} ${pzF(hem - 5 + dy)} L${B[0] - B[2] - 1} ${pzF(hem - 5 + dy)} Z" fill="${k ? c : c2}" fill-opacity=".92" ${st}/>`).join('') + `<rect x="${B[0] - B[2] + 1}" y="${pzF(hem - 6)}" width="${B[2] * 2 - 2}" height="2" rx="1" fill="${pzMix(c, O, .15)}"/>`,
+      gown: (c, c2) => `<path d="M${B[0] - B[2] * .6} ${top + 1} H${B[0] + B[2] * .6} L${B[0] + B[2] + 5} ${pzF(B[1] + B[3] + 1)} Q${B[0]} ${pzF(B[1] + B[3] + 3)} ${B[0] - B[2] - 5} ${pzF(B[1] + B[3] + 1)} Z" fill="${c}" ${st}/>${[-6, 0, 6].map(x => `<path d="M${B[0] + x * .5} ${top + 4} Q${B[0] + x} ${pzF(B[1] + 3)} ${B[0] + x * 1.4} ${pzF(B[1] + B[3])}" fill="none" stroke="#fff" stroke-width=".8" opacity=".7"/>`).join('')}${[[-5, B[1] + 5], [4, B[1] + 2], [0, B[1] + 7]].map(([x, y]) => pzSpark(B[0] + x, y, 1.4, c2)).join('')}` + sleeves(pzLight(c, .3)),
+      bee: (c, c2) => torso(c, B[1] + B[3] + 1) + `<g clip-path="url(#${u}b)">${[-3, 1.5, 6].map(dy => `<rect x="${B[0] - B[2] - 2}" y="${pzF(B[1] + dy - 1.2)}" width="${B[2] * 2 + 4}" height="2.4" fill="${c2}"/>`).join('')}</g>` + sleeves(c),
+      dino: (c, c2) => torso(c, B[1] + B[3] + 1) + `<g clip-path="url(#${u}b)"><ellipse cx="${B[0]}" cy="${pzF(B[1] + 2)}" rx="${pzF(B[2] * .55)}" ry="${pzF(B[3] * .7)}" fill="${pzLight(c, .55)}"/></g>` + sleeves(c),
+      unicorn: (c, c2) => torso(c, B[1] + B[3] + 1) + `<g clip-path="url(#${u}b)">${[[-3, 1], [3, 4], [0, -2]].map(([x, y]) => pzSpark(B[0] + x, B[1] + y, 1.6, c2)).join('')}</g>` + sleeves(c),
+      pumpkin: (c, c2) => `<ellipse cx="${B[0]}" cy="${pzF(B[1] + 1)}" rx="${B[2] + 2.5}" ry="${B[3] + .5}" fill="${c}" ${st}/><path d="M${B[0] - 4} ${pzF(B[1] - B[3] + 1)} Q${B[0] - 6} ${B[1] + 1} ${B[0] - 4} ${pzF(B[1] + B[3])} M${B[0] + 4} ${pzF(B[1] - B[3] + 1)} Q${B[0] + 6} ${B[1] + 1} ${B[0] + 4} ${pzF(B[1] + B[3])}" fill="none" stroke="${pzMix(c, O, .3)}" stroke-width="1"/>` + sleeves(c),
+      scarf: (c, c2) => `<path d="M${nk[0] - 8} ${nk[1] - 1} Q${nk[0]} ${nk[1] + 3} ${nk[0] + 8} ${nk[1] - 1} L${nk[0] + 8} ${nk[1] + 2} Q${nk[0]} ${nk[1] + 6} ${nk[0] - 8} ${nk[1] + 2} Z" fill="${c}" ${st}/><path d="M${nk[0] + 4} ${nk[1] + 3} l1.5 8 h3 l-1 -8 Z" fill="${c}" ${st}/><path d="M${nk[0] + 5.2} ${nk[1] + 7} h2.8" stroke="${c2}" stroke-width="1.2"/><path d="M${nk[0] - 6} ${nk[1] + .5} h3 M${nk[0] + 1} ${nk[1] + 2} h3" stroke="${c2}" stroke-width="1.2"/>`,
+      bandana: (c, c2) => `<path d="M${nk[0] - 7.5} ${nk[1] - 1} Q${nk[0]} ${nk[1] + 1.5} ${nk[0] + 7.5} ${nk[1] - 1} L${nk[0]} ${nk[1] + 7} Z" fill="${c}" ${st}/>${[[-3, 1], [2, 1.5], [0, 4]].map(([x, y]) => `<circle cx="${nk[0] + x}" cy="${nk[1] + y}" r=".6" fill="${c2}"/>`).join('')}`,
+      pearls: (c) => Array.from({ length: 9 }, (_, i) => { const t = i / 8, x = nk[0] - 7 + t * 14, y = nk[1] + Math.sin(t * Math.PI) * 3; return `<circle cx="${pzF(x)}" cy="${pzF(y)}" r="1.1" fill="${c}" stroke="#c9b2d6" stroke-width=".5"/>`; }).join(''),
+      beanie: (c, c2) => `<path d="M${hx - 10} ${hy + 5} Q${hx - 9} ${hy - 6} ${hx} ${hy - 6} Q${hx + 9} ${hy - 6} ${hx + 10} ${hy + 5} Z" fill="${c}" ${st}/><rect x="${hx - 10.5}" y="${hy + 3}" width="21" height="3.6" rx="1.8" fill="${c2}" ${st}/><circle cx="${hx}" cy="${hy - 6.5}" r="2.6" fill="${c2}" ${st}/>`,
+      sunhat: (c, c2) => `<ellipse cx="${hx}" cy="${hy + 3}" rx="15" ry="3.4" fill="${c}" ${st}/><path d="M${hx - 7} ${hy + 3} Q${hx - 7} ${hy - 5} ${hx} ${hy - 5} Q${hx + 7} ${hy - 5} ${hx + 7} ${hy + 3} Z" fill="${c}" ${st}/><path d="M${hx - 7} ${hy + 1.2} H${hx + 7}" stroke="${c2}" stroke-width="1.8"/><circle cx="${hx + 6}" cy="${hy + .5}" r="1.8" fill="${c2}" ${st}/>`,
+      bigbow: (c, c2) => `<g transform="translate(${hx - 8} ${hy + 2}) rotate(-15)"><path d="M0 0 C-5 -6 -10 -2 -9 2.4 C-8 6 -3 3 0 0 Z M0 0 C5 -6 10 -2 9 2.4 C8 6 3 3 0 0 Z" fill="${c}" ${st}/><circle r="2" fill="${c2}" ${st}/></g>`,
+      cap: (c, c2) => `<path d="M${hx - 9} ${hy + 4} Q${hx - 9} ${hy - 5} ${hx} ${hy - 5} Q${hx + 9} ${hy - 5} ${hx + 9} ${hy + 4} Z" fill="${c}" ${st}/><path d="M${hx + 7} ${hy + 3} Q${hx + 14} ${hy + 3} ${hx + 16} ${hy + 5.4} L${hx + 7} ${hy + 5.4} Z" fill="${c}" ${st}/><circle cx="${hx}" cy="${hy - 5}" r="1.2" fill="${c2}"/><path d="M${hx - 4} ${hy - 1} h8" stroke="${c2}" stroke-width="1.4"/>`,
+      tiara: (c, c2) => `<path d="M${hx - 7} ${hy + 3} L${hx - 7} ${hy - 1} L${hx - 3.5} ${hy + 1} L${hx} ${hy - 4} L${hx + 3.5} ${hy + 1} L${hx + 7} ${hy - 1} L${hx + 7} ${hy + 3} Z" fill="${c}" ${st}/><circle cx="${hx}" cy="${hy - .6}" r="1.5" fill="${c2}" ${st}/>${pzSpark(hx + 8, hy - 4, 1.6, '#fff')}`,
+      witch: (c, c2) => `<ellipse cx="${hx}" cy="${hy + 3}" rx="13" ry="3" fill="${c}" ${st}/><path d="M${hx - 6} ${hy + 3} L${hx + 3} ${hy - 13} Q${hx + 5} ${hy - 12} ${hx + 7} ${hy - 9} L${hx + 6} ${hy + 3} Z" fill="${c}" ${st}/><path d="M${hx - 5.5} ${hy + .6} H${hx + 6}" stroke="${c2}" stroke-width="1.8"/><polygon points="${starPts(hx + 1, hy - 4, 2, .9)}" fill="${c2}"/>`,
+      booties: (c, c2) => std ? pzBoth(`<path d="M14.2 43.6 h8.4 v3 q0 2.2 -2.2 2.2 h-4 q-2.2 0 -2.2 -2.2 Z" fill="${c}" ${st}/><path d="M14.2 44.4 h8.4" stroke="${c2}" stroke-width="1.4"/>`) : '',
+      sneakers: (c, c2) => std ? pzBoth(`<path d="M14 45 q4.4 -3 8.8 0 v1.6 q0 2 -2 2 h-4.8 q-2 0 -2 -2 Z" fill="${c}" ${st}/><path d="M14 47 h8.8" stroke="${c2}" stroke-width="1.6"/><path d="M17 44.8 l1.6 -.8 M19 44.6 l1.6 -.6" stroke="${c2}" stroke-width=".8"/>`) : '',
+    };
+    const back = {
+      hoodie: c => std ? `<ellipse cx="${H[0]}" cy="${H[1] + 1}" rx="${H[2] + 2.4}" ry="${H[3] + 2.2}" fill="${c}" ${st}/>` : '',
+      dino: (c, c2) => (std ? `<ellipse cx="${H[0]}" cy="${H[1] + 1}" rx="${H[2] + 2.4}" ry="${H[3] + 2.2}" fill="${c}" ${st}/>` : '') + `<path d="M${hx - 6} ${hy - 1} l2 -5 l2.5 4 l1.5 -6 l2 6 l2.5 -4 l2 5 Z" fill="${c2}" ${st}/>`,
+      unicorn: (c, c2) => std ? `<ellipse cx="${H[0]}" cy="${H[1] + 1}" rx="${H[2] + 2.4}" ry="${H[3] + 2.2}" fill="${c}" ${st}/>${crzRainbow.slice(0, 4).map((col, i) => `<path d="M${H[0] + 8 + i * 1.6} ${H[1] - H[3] + 1 + i * 2} q5 4 3 12" fill="none" stroke="${col}" stroke-width="2.2" stroke-linecap="round"/>`).join('')}` : '',
+      bee: (c, c2) => `<path d="M${B[0] - 3} ${B[1] - 2} C${B[0] - 12} ${B[1] - 14} ${B[0] - 20} ${B[1] - 6} ${B[0] - 10} ${B[1] + 1} Z M${B[0] + 3} ${B[1] - 2} C${B[0] + 12} ${B[1] - 14} ${B[0] + 20} ${B[1] - 6} ${B[0] + 10} ${B[1] + 1} Z" fill="#e6f7ff" fill-opacity=".9" ${st}/>`,
+      cape: (c, c2) => `<path d="M${nk[0] - 8} ${nk[1]} L${nk[0] + 8} ${nk[1]} L${nk[0] + 15} ${pzF(B[1] + B[3] + 1)} Q${nk[0]} ${pzF(B[1] + B[3] + 4)} ${nk[0] - 15} ${pzF(B[1] + B[3] + 1)} Z" fill="${c}" ${st}/>`,
+      starcape: (c, c2) => `<path d="M${nk[0] - 8} ${nk[1]} L${nk[0] + 8} ${nk[1]} L${nk[0] + 15} ${pzF(B[1] + B[3] + 1)} Q${nk[0]} ${pzF(B[1] + B[3] + 4)} ${nk[0] - 15} ${pzF(B[1] + B[3] + 1)} Z" fill="${c}" ${st}/>${[[-12, 6], [11, 9], [-9, 13], [13, 3]].map(([x, y]) => `<polygon points="${starPts(nk[0] + x, nk[1] + y, 1.8, .8)}" fill="${c2}"/>`).join('')}`,
+      fairywings: (c, c2) => `<path d="M${B[0] - 2} ${B[1] - 3} C${B[0] - 14} ${B[1] - 18} ${B[0] - 22} ${B[1] - 6} ${B[0] - 12} ${B[1] + 1} Z M${B[0] + 2} ${B[1] - 3} C${B[0] + 14} ${B[1] - 18} ${B[0] + 22} ${B[1] - 6} ${B[0] + 12} ${B[1] + 1} Z" fill="${c}" fill-opacity=".85" ${st}/><path d="M${B[0] - 3} ${B[1]} C${B[0] - 12} ${B[1] + 4} ${B[0] - 12} ${B[1] + 10} ${B[0] - 6} ${B[1] + 8} Z M${B[0] + 3} ${B[1]} C${B[0] + 12} ${B[1] + 4} ${B[0] + 12} ${B[1] + 10} ${B[0] + 6} ${B[1] + 8} Z" fill="${c2}" fill-opacity=".85" ${st}/>`,
+    };
+    const tops = {
+      bee: (c, c2) => `<path d="M${hx - 4} ${hy + 1} Q${hx - 6} ${hy - 6} ${hx - 9} ${hy - 7} M${hx + 4} ${hy + 1} Q${hx + 6} ${hy - 6} ${hx + 9} ${hy - 7}" fill="none" stroke="${O}" stroke-width="1.3"/><circle cx="${hx - 9}" cy="${hy - 7}" r="1.8" fill="${c2}"/><circle cx="${hx + 9}" cy="${hy - 7}" r="1.8" fill="${c2}"/>`,
+      unicorn: () => `<path d="M${hx - 2.2} ${hy + 2} L${hx} ${hy - 8} L${hx + 2.2} ${hy + 2} Z" fill="#ffe27a" ${st}/>`,
+      pumpkin: (c, c2) => `<path d="M${hx} ${hy + 1} q-.6 -4 2 -6" fill="none" stroke="${c2}" stroke-width="2.4" stroke-linecap="round"/><ellipse cx="${hx + 3.4}" cy="${hy - 4}" rx="2.6" ry="1.4" fill="${c2}" transform="rotate(-20 ${hx + 3.4} ${hy - 4})"/>`,
+      raincoat: (c) => cl.head ? '' : `<path d="M${hx - 11} ${hy + 5} Q${hx - 9} ${hy - 6} ${hx} ${hy - 5} Q${hx + 9} ${hy - 6} ${hx + 11} ${hy + 5} Q${hx + 14} ${hy + 6} ${hx + 15} ${hy + 8} L${hx - 15} ${hy + 8} Q${hx - 14} ${hy + 6} ${hx - 11} ${hy + 5} Z" fill="${c}" ${st}/>`,
+      pajamas: (c, c2) => cl.head ? '' : `<path d="M${hx - 9} ${hy + 4} Q${hx - 4} ${hy - 8} ${hx + 10} ${hy - 6} Q${hx + 14} ${hy + 1} ${hx + 16} ${hy + 8}" fill="none" stroke="none"/><path d="M${hx - 9} ${hy + 4} Q${hx} ${hy - 9} ${hx + 12} ${hy - 4} L${hx + 15} ${hy + 6} Q${hx + 9} ${hy + 2} ${hx + 9} ${hy + 4} Z" fill="${c}" ${st}/><circle cx="${hx + 15}" cy="${hy + 7}" r="2" fill="${c2}" ${st}/>`,
+    };
+    for (const [slot] of CRZ_SLOTS) {
+      const w = cl[slot]; if (!w || !crzItem(w.id)) continue;
+      const it = crzItem(w.id), c = w.c || it[4][0], c2 = w.c2 || it[4][1];
+      if (slot === 'back') { if (back[w.id]) out.back += back[w.id](c, c2); continue; }
+      if (back[w.id]) out.back += back[w.id](c, c2);
+      if (draw[w.id]) { if (slot === 'body') out.body += draw[w.id](c, c2); else out.top += draw[w.id](c, c2); }
+      if (tops[w.id]) out.top += tops[w.id](c, c2);
+    }
+    out.body = `<defs>${clip}</defs>` + out.body;
+    return out;
+  }
+  // house tab: the wardrobe
+  let crzWSlot = 'body', crzWBuy = null;
+  function crzWardrobe() {
+    const box = el('div', { class: 'crz-wardrobe' });
+    const draw = () => {
+      const cl = pet.clothes = pet.clothes || {}, w = cl[crzWSlot];
+      const refresh = () => { savePet(); if (typeof petzSave === 'function') petzSave(); const art = $('#houseScene .pet-art'); if (art) art.innerHTML = petSVG(grownPet(pet)); renderPet(); };
+      const wear = id => { if (!id) delete cl[crzWSlot]; else { const it = crzItem(id); cl[crzWSlot] = { id, c: (w && w.id === id && w.c) || it[4][0], c2: (w && w.id === id && w.c2) || it[4][1] }; } crzWBuy = null; SFX.pop(); refresh(); draw(); };
+      const items = CRZ_CLOTHES.filter(c => c[2] === crzWSlot);
+      const thumb = id => petSVG(Object.assign({}, pet, { size: 1, wear: {}, clothes: Object.assign({}, cl, { [crzWSlot]: id ? { id } : undefined }) })).replace('viewBox="-4 -14 56 64"', `viewBox="${crzWSlot === 'head' ? '2 -8 44 40' : crzWSlot === 'feet' ? '6 22 36 30' : '-2 -4 52 56'}"`);
+      const grid = el('div', { class: 'pz-opts crz-wgrid' },
+        el('button', { type: 'button', 'aria-pressed': String(!w), onclick: () => wear(null) }, el('span', { class: 'ic', html: thumb(null) }), 'בלי'),
+        ...items.map(([id, n, , price]) => { const own = !price || crzOwned.includes(id); return el('button', { type: 'button', 'aria-pressed': String(!!w && w.id === id), class: own ? '' : 'crz-locked', onclick: () => { if (own) wear(id); else { crzWBuy = id; draw(); } } },
+          el('span', { class: 'ic', html: thumb(id) }), n, own ? null : el('small', { class: 'crz-price' }, `🪙 ${price}`)); }));
+      const buy = crzWBuy ? (() => { const it = crzItem(crzWBuy); return el('div', { class: 'crz-buy' }, el('span', {}, `✨ ${it[1]} עולה ${it[3]} מטבעות (יש לך ${crzHave()})`),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { if (crzSpend(it[3], 'בגדים לחיה: ' + it[1])) { crzOwned.push(it[0]); store.set('crzOwned', crzOwned); SFX.yay(); wear(it[0]); } else { SFX.boop(); toast(stickerHTML('gift'), 'עוד אין מספיק מטבעות 🪙 — אפשר להרוויח במשחקים!'); } } }, '🛍️ לקנות'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { crzWBuy = null; draw(); } }, 'אולי אחר כך')); })() : null;
+      const colors = w ? el('div', { class: 'row' }, el('span', { class: 'lbl' }, 'צבע'), crzSw(w.c || crzItem(w.id)[4][0], CRZ_CC, (c, full) => { w.c = c; refresh(); if (full) draw(); }),
+        el('span', { class: 'lbl' }, 'צבע שני'), crzSw(w.c2 || crzItem(w.id)[4][1], CRZ_CC, (c, full) => { w.c2 = c; refresh(); if (full) draw(); })) : null;
+      box.replaceChildren(el('div', { class: 'tabs pz-des-tabs', role: 'tablist' }, ...CRZ_SLOTS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(crzWSlot === id), onclick: () => { crzWSlot = id; crzWBuy = null; draw(); } }, n))),
+        grid, buy, colors, el('p', { class: 'muted', style: 'margin:0' }, '🪙 בגדים מיוחדים קונים במטבעות. הבגדים מתאימים לכל חיה!'));
+    };
+    draw();
+    return box;
+  }
+  crzReady = true;
+  $('#crzStableDlg').addEventListener('close', () => { if (crzRide) { crzRide.stop(); crzRide = null; } });
+  $('#crzFairyDlg').addEventListener('close', () => clearInterval(crzGardenTimer));
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
