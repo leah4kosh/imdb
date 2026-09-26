@@ -3393,6 +3393,11 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 .tpl-night .nw-grid button.got { background: #2f7a55; }
 .tpl-night .muted { color: #a9b0e0; }
 .tpl-night .nw-in { background: #1e2452; color: #eef0ff; }
+/* fashion6: one-click makeup looks */
+.f6-looks { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+.f6-look { display: grid; justify-items: center; gap: 2px; padding: 4px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); font-size: .82em; }
+.f6-look[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.f6-look img { width: 72px; height: 72px; border-radius: 50%; background: #fff1f6; }
 </style>
 </head>
 <body class="bg-dots">
@@ -10217,9 +10222,9 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       stars: [[5, 5, 2.4], [13, 13, 1.8]].map(([x, y, r]) => `<path d="M${x} ${y - r} L${fx(x + r * 0.3)} ${fx(y - r * 0.3)} L${x + r} ${y} L${fx(x + r * 0.3)} ${fx(y + r * 0.3)} L${x} ${y + r} L${fx(x - r * 0.3)} ${fx(y + r * 0.3)} L${x - r} ${y} L${fx(x - r * 0.3)} ${fx(y - r * 0.3)}Z" fill="${m1}"/>`).join(''),
       checks: `<rect width="8" height="8" fill="${m1}" opacity=".7"/><rect x="8" y="8" width="8" height="8" fill="${m1}" opacity=".7"/>`,
       plaid: `<rect x="0" y="5" width="16" height="5" fill="${fmx(c, '#000', 0.3)}" opacity=".45"/><rect x="5" y="0" width="5" height="16" fill="${fmx(c, '#000', 0.3)}" opacity=".45"/><rect x="0" y="13" width="16" height="1" fill="${m1}"/><rect x="13" y="0" width="1" height="16" fill="${m1}"/>`,
-    }[p] || (typeof shopMotif === 'function' ? shopMotif(c, p) : undefined);
+    }[p] || (typeof shopMotif === 'function' ? shopMotif(c, p) : undefined) || (typeof f6Motif === 'function' ? f6Motif(c, p) : undefined);
   };
-  const fashPatDef = (id, c, p) => { const m = fashMotif(c, p); return m ? `<pattern id="${id}" patternUnits="userSpaceOnUse" width="16" height="16"${['plaid', 'checks', 'stripes'].includes(p) ? '' : ' patternTransform="rotate(-8)"'}><rect width="16" height="16" fill="${c}"/>${m}</pattern>` : ''; };
+  const fashPatDef = (id, c, p) => { const m = fashMotif(c, p); return m ? `<pattern id="${id}" patternUnits="userSpaceOnUse" width="16" height="16"${['plaid', 'checks', 'stripes', 'f6gingham', 'f6checker', 'f6scales'].includes(p) ? '' : ' patternTransform="rotate(-8)"'}><rect width="16" height="16" fill="${c}"/>${m}</pattern>` : ''; };
   let fashPi = 0;
   const fashPatIcon = (c, p) => { const id = `fpi${++fashPi}`; return `<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs>${fashPatDef(id, c, p)}</defs><circle cx="16" cy="16" r="16" fill="${p === 'plain' ? c : `url(#${id})`}"/></svg>`; };
 
@@ -10265,7 +10270,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   const fashLocked = opt => { const t = TREASURES.find(x => x.opt === opt && ['hairColor', 'tailColor'].includes(x.cat)); return !!t && treasureLocked(t.id); };
   const fashNail = (n, i) => ({ goldglitter: '#e9c46a', rainbow: ['#ff6f7a', '#ffd45c', '#7ed48a', '#6fb8ff', '#b37bff'][i % 5], french: '#fff8f4', hearts: '#ff9ec4', galaxy: '#2e2a6e' }[n] || n);
   function girlSVG(g, uid, opt = {}) {
-    const shG0 = g; if (typeof shopGirlMap === 'function') g = shopGirlMap(g);
+    const shG0 = g; if (typeof shopGirlMap === 'function') g = shopGirlMap(g); if (typeof f6GirlMap === 'function') g = f6GirlMap(g);
     const u = 'g' + String(uid || g.id).replace(/[^a-zA-Z0-9]/g, '');
     const PZ = opt.pose || null, pa = k => (PZ && +PZ[k]) || 0, RG = GIRL_RIG;
     const armG = (s, fore) => { const S = s > 0 ? RG.shoulderL : RG.shoulderR, E = s > 0 ? RG.elbowL : RG.elbowR; return `rotate(${fx(-s * pa(s > 0 ? 'la' : 'ra'))} ${S[0]} ${S[1]})` + (fore ? ` rotate(${fx(s * pa(s > 0 ? 'lf' : 'rf'))} ${E[0]} ${E[1]})` : ''); };
@@ -10389,6 +10394,26 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     let hairBack = '', hairFront = '', showEars = false;
     const hs = g.hair || 'straight', hatOn = !!g.hat && g.hat !== 'none';
     switch (hs) {
+      // ---- fashion6: more hairstyles ----
+      case 'sidepony': showEars = true; hairBack = nape; hairFront = both(capBack) + sheet([[[176, 30], [186, 24]], [[198, 50], [208, 44]], [[204, 96], [218, 90]], [[204, 146], [218, 148]], [[196, 204], [208, 210]]], { n: 18, locks: 3, wave: [2.5, 44, 80], tipLen: 0.3, len: j => [0.9, 1, 0.94][j] }) + tie(182, 30, 6); break;
+      case 'lowbuns': showEars = true; hairBack = nape; hairFront = both(capMid) + both(s => bun(mx(187, s), 98, 13)); break;
+      case 'waterfall': hairBack = backLong(250, { wave: [3, 40, 90] }); hairFront = both(capMid) + both(s => frontLock(s, 212, { wave: [3, 40, 110] })) + braid([[117, 66], [122, 44], [138, 29], [158, 26], [175, 36], [183, 52]], 11.5, { n: 12, end: false }); break;
+      case 'bubblepigs': showEars = true; hairBack = nape; hairFront = both(capMid) + both(s => [[189, 72, 7.5, 9.5], [195, 94, 8.5, 11], [198, 118, 9, 11.5], [198, 142, 8.5, 11], [195, 164, 7, 9.5], [192, 182, 5, 7]].map(([x, y, rx, ry], i) => `<ellipse cx="${mx(x, s)}" cy="${y}" rx="${rx}" ry="${ry}" fill="${hairFill}" ${hStroke}/><ellipse cx="${mx(x, s)}" cy="${y}" rx="${rx}" ry="${ry}" fill="${shadeH}"/><path d="M${mx(x - rx * 0.5, s)} ${y - ry * 0.4} q${s * rx * 0.4} ${-ry * 0.4} ${s * rx * 0.9} 0" fill="none" stroke="${hL}" stroke-width="1.2" opacity=".6"/>` + (i < 5 ? tie0(mx(x + 1, s), y + ry, 3.2) : '')).join('') + tie(mx(184, s), 62, 5)); break;
+      case 'curlybangs': hairBack = backLong(236, { wave: [4.5, 15, 40], n: 44, curls: 2.4, strands: 1, locks: 5 }); hairFront = both(s => frontLock(s, 196, { wave: [4.5, 15, 80], n: 40, curls: 2.2, strands: 1 })) + bangs(50); break;
+      case 'wavybob': hairBack = both(s => sheet([mp([[150, 18], [186, 48]], s), mp([[152, 60], [194, 80]], s), mp([[158, 100], [197, 108]], s), mp([[160, 124], [192, 128]], s)], { n: 16, locks: 3, wave: [3.2, 22, 60], tipLen: 0.25, strands: 2, len: j => [0.95, 1, 0.97][j] }));
+        hairFront = capSide() + sweep() + both(s => sheet([mp([[181, 72], [189, 70]], s), mp([[179, 96], [193, 98]], s), mp([[177, 120], [190, 122]], s)], { n: 12, locks: 2, tipLen: 0.3, strands: 2, wave: [3, 22, 80] })); break;
+      case 'bowhalfup': hairBack = backLong(248, { wave: [2, 50, 120] }); hairFront = both(capBack) + both(s => frontLock(s, 208)) + (hatOn ? '' : `<path d="M150 14 C138 -4 112 0 118 16 C122 28 140 24 150 14Z M150 14 C162 -4 188 0 182 16 C178 28 160 24 150 14Z" fill="${hairFill}" ${hStroke}/><path d="M150 14 C138 -4 112 0 118 16 C122 28 140 24 150 14Z M150 14 C162 -4 188 0 182 16 C178 28 160 24 150 14Z" fill="${shadeH}"/><path d="M124 10 q8 -6 18 2 M176 10 q-8 -6 -18 2" fill="none" stroke="${hL}" stroke-width="1.4" opacity=".6" stroke-linecap="round"/><ellipse cx="150" cy="15" rx="6.5" ry="7" fill="${hairFill}" ${hStroke}/>`); break;
+      case 'twintails': showEars = true; hairBack = nape; hairFront = both(capMid) + both(s => sheet([mp([[172, 24], [181, 18]], s), mp([[195, 38], [206, 33]], s), mp([[204, 90], [219, 86]], s), mp([[207, 170], [221, 172]], s), mp([[204, 250], [217, 256]], s), mp([[198, 318], [208, 324]], s)], { n: 26, locks: 3, wave: [3, 52, 80], tipLen: 0.22, len: j => [0.92, 1, 0.9][j] }) + tie(mx(177, s), 22, 5.5)); break;
+      case 'crownlong': hairBack = backLong(250, { wave: [2.5, 48, 110] }); hairFront = both(capBack) + both(s => frontLock(s, 212, { wave: [2.5, 48, 120] })) + braid([[117, 70], [120, 42], [135, 26], [150, 21], [165, 26], [180, 42], [183, 70]], 13, { n: 13, end: false }); break;
+      case 'minibuns': showEars = true; hairBack = nape; hairFront = both(capMid) + (hatOn ? '' : [[119, 38, 9.5], [137, 18, 10], [163, 18, 10], [181, 38, 9.5]].map(([x, y, r]) => bun(x, y, r)).join('')); break;
+      case 'asymbob': hairBack = both(s => sheet([mp([[150, 18], [186, 48]], s), mp([[152, 60], [192, 80]], s), mp([[158, 100], [193, 108]], s), mp([[160, s > 0 ? 136 : 106], [188, s > 0 ? 138 : 108]], s)], { n: 12, locks: 3, tipLen: 0.25, strands: 2 }));
+        hairFront = capSide() + sweep() + sheet([[[181, 72], [189, 70]], [[179, 100], [192, 102]], [[177, 130], [190, 134]]], { n: 10, locks: 2, tipLen: 0.3, strands: 2 }); break;
+      case 'braidpony': showEars = true; hairBack = nape; hairFront = both(capBack) + braid([[182, 26], [197, 50], [203, 92], [203, 140], [198, 196], [192, 240]], 16, { n: 14 }) + tie(180, 24, 6); break;
+      case 'bangswavy': hairBack = backLong(250, { wave: [3.5, 38, 70] }); hairFront = both(s => frontLock(s, 214, { wave: [4, 40, 90] })) + bangs(); break;
+      case 'halfbraid': hairBack = backLong(248, { wave: [2, 50, 120] }); hairFront = both(capBack) + both(s => frontLock(s, 208, { wave: [2, 50, 120] })) + both(s => braid(mp([[180, 56], [177, 40], [167, 28], [152, 22]], s), 8, { n: 7, end: false })) + tie(150, 22, 4.5); break;
+      case 'rapunzel': hairBack = nape + both(s => sheet([mp([[150, 26], [184, 50]], s), mp([[150, 60], [190, 84]], s), mp([[156, 100], [186, 104]], s)], { n: 10, locks: 2, tip: false, strands: 2 }));
+        hairFront = both(capMid) + braid([[180, 96], [190, 140], [195, 200], [194, 270], [190, 340], [186, 410], [183, 478]], 22, { n: 24 }) + [[191, 150], [196, 214], [193, 282], [188, 350], [185, 420]].map(([x, y], i) => `<g transform="translate(${x} ${y})">${[0, 72, 144, 216, 288].map(a => `<circle cx="${fx(3.2 * Math.cos(a * Math.PI / 180))}" cy="${fx(3.2 * Math.sin(a * Math.PI / 180))}" r="2.6" fill="${['#ffd6e8', '#fff6c4', '#e3d4ff', '#ffffff', '#ffc4de'][i]}" stroke="#d8a0c0" stroke-width=".4"/>`).join('')}<circle r="1.7" fill="#ffd45c"/></g>`).join(''); break;
+      case 'coilybob': hairBack = puff(150, 70, 56, 52, 24, 84); hairFront = coilCap() + both(s => puff(mx(178, s), 86, 10, 22, 9, 10)); break;
       case 'straight': hairBack = backLong(250); hairFront = both(capMid) + both(s => frontLock(s, 212)); break;
       case 'wavy': hairBack = backLong(250, { wave: [3.5, 38, 70] }); hairFront = both(capMid) + both(s => frontLock(s, 215, { wave: [4, 40, 90] })); break;
       case 'crimped': hairBack = backLong(245, { wave: [2.2, 9, 64], n: 60, strands: 3 }); hairFront = both(capMid) + both(s => frontLock(s, 210, { wave: [2.2, 9, 84], n: 50 })); break;
@@ -10534,12 +10559,13 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       tshirt: { neck: 'crew', hem: 270, e: 3, sl: 186, se: 3.4, sf: 1.5 }, longsleeve: { neck: 'crew', hem: 270, e: 2.4, sl: 292, se: 2, sf: 0.6 }, sweater: { neck: 'crew', hem: 276, e: 5, sl: 292, se: 4, sf: 1, rib: 1 },
       hoodie: { neck: 'crew', hem: 280, e: 5.5, sl: 292, se: 4.3, sf: 1, rib: 1 }, blouse: { neck: 'collar', hem: 268, e: 3, sl: 176, se: 5, sf: 3 }, tank: { neck: 'strap', hem: 268, e: 2 },
       turtle: { neck: 'turtle', hem: 270, e: 2.2, sl: 292, se: 1.6, sf: 0.6 }, ruffle: { neck: 'boat', hem: 268, e: 3, sl: 252, se: 2.6, sf: 5 },
+      ...(typeof f6Tops === 'function' ? f6Tops() : {}),
     };
     const DRESS = {
       party: { neck: 'scoop', e: 1.2, sl: 166, se: 3.5, sf: 3, top: 222, hem: 382, w: 76, wavy: 11 }, sundress: { neck: 'strap', e: 1.5, top: 204, hem: 420, w: 70 },
       ballgown: { neck: 'boat', e: 1, sl: 172, se: 6.5, sf: 3.5, top: 222, hem: 566, w: 132, wavy: 15 }, maxi: { neck: 'v', e: 2.2, sl: 292, se: 3, sf: 7, top: 216, hem: 548, w: 74 },
       skater: { neck: 'crew', e: 1.4, sl: 292, se: 2, sf: 0.6, top: 222, hem: 372, w: 66 }, pinafore: { neck: 'square', e: 3.2, top: 226, hem: 384, w: 60 },
-      ...beautyDresses(), goldgown: { neck: 'boat', e: 1, sl: 172, se: 6.5, sf: 3.5, top: 222, hem: 566, w: 136, wavy: 17 }, rainbowdress: { neck: 'scoop', e: 1.2, sl: 166, se: 3.5, sf: 3, top: 222, hem: 392, w: 86, wavy: 17 },
+      ...beautyDresses(), ...(typeof f6Dresses === 'function' ? f6Dresses() : {}), goldgown: { neck: 'boat', e: 1, sl: 172, se: 6.5, sf: 3.5, top: 222, hem: 566, w: 136, wavy: 17 }, rainbowdress: { neck: 'scoop', e: 1.2, sl: 166, se: 3.5, sf: 3, top: 222, hem: 392, w: 86, wavy: 17 },
     };
     // legs and shoes
     const legwear = g.legwear || 'bare', LC = g.legColor || '#ffffff';
@@ -10639,6 +10665,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
         dressSkirt += [0, 1, 2].map(i => `<path d="${skirtD(D.top + 2, D.hem - 20 + i * 10, D.w - 10 + i * 6, { wavy: 17 })}" fill="${rbw}" opacity="${0.5 + i * 0.15}" stroke="#fff" stroke-width=".8"/>`).join('') + Array.from({ length: 18 }, (_, i) => `<circle cx="${fx(80 + (i * 47) % 140)}" cy="${fx(250 + (i * 31) % 130)}" r="1" fill="#fff"/>`).join('');
         dressSVG += `<path d="M${150 - gbw(222) - 2} 219 H${150 + gbw(222) + 2} V227 H${150 - gbw(222) - 2}Z" fill="${rbw}"/>` + Array.from({ length: 8 }, (_, i) => `<circle cx="${fx(134 + (i * 13) % 34)}" cy="${fx(160 + (i * 17) % 50)}" r=".9" fill="#fff"/>`).join(''); }
       if (['ballgown', 'goldgown'].includes(dress)) dressSkirt += `<path d="M${150 - gbw(222) - 1} 219 H${150 + gbw(222) + 1} V226 H${150 - gbw(222) - 1}Z" fill="${fmx(c, '#fff', 0.5)}" opacity=".8"/>` + Array.from({ length: 26 }, (_, i) => { const a = i * 2.4, r = Math.sqrt(i / 26); return `<path d="M${fx(150 + Math.cos(a) * 110 * r * (0.4 + r * 0.6))} ${fx(250 + Math.abs(Math.sin(a)) * 300 * r)} l1 2.2 l2.2 1 l-2.2 1 l-1 2.2 l-1 -2.2 l-2.2 -1 l2.2 -1Z" fill="#fff" opacity=".8"/>`; }).join('');
+      { const F6 = typeof f6DressDeco === 'function' && f6DressDeco(dress, { c, D, u, def, sk, skirtD, fold, gbw, fx }); if (F6) { dressSkirt += F6.skirt; dressSVG += F6.bodice; } }
       { const BD = beautyDressDeco(dress, { c, D, u, def, sk, skirtD, fold, gbw, fx }); if (BD) { dressSkirt += BD.skirt; dressSVG += BD.bodice; } }
       if (dress === 'maxi') dressSkirt += fold('M100 380 Q150 392 200 380 M86 460 Q150 474 214 460', c, 0.45);
       if (dress === 'pinafore') dressSVG += both(s => `<circle cx="${mx(170.5, s)}" cy="143" r="2" fill="#f2d27a" stroke="#8a7440" stroke-width=".5"/>`) + `<path d="M140 238 h20 v18 q-10 5 -20 0Z" fill="none" stroke="${fmx(c, '#241018', 0.4)}" stroke-width=".9"/>`;
@@ -10883,6 +10910,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     if (gl === 'sun') accFace = both(s => `<path d="${spath(mp([[152, 64, 1], [175.5, 63, 1], [175, 72], [168, 78.5], [157, 77], [152.5, 70]], s))}" fill="${def('sg', `<linearGradient id="${u}-sg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2a2030"/><stop offset="1" stop-color="#6a4a6a"/></linearGradient>`)}" stroke="#1a1418" stroke-width="1.3"/><path d="M${mx(156, s)} 67 l${s * 6} 0" stroke="#fff" stroke-width="1.2" opacity=".5"/><path d="M${mx(175.5, s)} 64 L${mx(182.5, s)} 66" stroke="#1a1418" stroke-width="1.4"/>`) + `<path d="M147.5 65 Q150 63.5 152.5 65" fill="none" stroke="#1a1418" stroke-width="1.4"/>`;
     if (gl === 'hearts') accFace = both(s => `<path d="M${mx(163.5, s)} 80 C${mx(150, s)} 72 ${mx(153, s)} 60 ${mx(163.5, s)} 66 C${mx(174, s)} 60 ${mx(177, s)} 72 ${mx(163.5, s)} 80Z" fill="#ff5f8f" fill-opacity=".75" stroke="#d8305a" stroke-width="1.4"/><path d="M${mx(157, s)} 67 q${s * 2} -2 ${s * 4} -1" stroke="#fff" stroke-width="1" fill="none" opacity=".7"/><path d="M${mx(175.5, s)} 67 L${mx(182.5, s)} 67" stroke="#d8305a" stroke-width="1.3"/>`) + `<path d="M152.5 68 Q150 66 147.5 68" fill="none" stroke="#d8305a" stroke-width="1.3"/>`;
 
+    if (typeof f6GirlDraw === 'function') { const x = f6GirlDraw(shG0, g, { u, def, fab, bigHair, onArm, onLeg, PZ, MT, dress, armAcc, skirtD, shadeH, fold }); accHead += x.head; accFace += x.face; accBody += x.body; accBag += x.bag; backExtra += x.back; topSVG += x.top; bottomSVG += x.bottom; dressSVG += x.dress; dressSkirt += x.skirt; jacketSVG += x.jacket; }
     if (typeof shopGirlDraw === 'function') { const x = shopGirlDraw(shG0, { u, def, fab, bigHair, hs, onArm, onLeg, mx, both, AC, HC, PZ, MT, dress, armAcc }); accHead += x.head; accFace += x.face; accBody += x.body; accBag += x.bag; backExtra += x.back; }
     // ---------- scene ----------
     const bgSVG = opt.bg === false ? '' : fashScene(g.scene || 'runway', g.sceneColor || FASH.sceneColors[0], u, def);
@@ -10946,6 +10974,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 
   // ---------- scenes behind her ----------
   function fashScene(id, color, u, def) {
+    { const s = typeof f6Scene === 'function' && f6Scene(id, color, u, def); if (s) return s; }
     { const s = typeof shopScene === 'function' && shopScene(id, color, u, def); if (s) return s; }
     const R = (x, y, w, h, f, x2 = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"${x2}/>`;
     const sky = (k, stops) => def('s' + k, `<linearGradient id="${u}-s${k}" x1="0" x2="0" y1="0" y2="1">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient>`);
@@ -11090,9 +11119,10 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       body = [row('צורת העיניים', chips(F.eyeShapes, g.eyeShape, 'eyeShape')), row('צבע העיניים', swatches(F.eyeColors, g.eyeColor || F.eyeColors[0], 'eyeColor')),
         el('div', { class: 'row' }, el('label', { for: 'fashEyes' }, 'גודל העיניים'), es), row('גבות (בצבע של השיער)', chips(F.brows, g.brows, 'brows'))];
     } else if (fashTab === 'makeup') {
-      const MK = [['shadow', '🎨 צללית'], ['liner', '✒️ אייליינר'], ['lashes', '👁️ ריסים'], ['lips', '💋 שפתון'], ['blush', '🌸 סומק'], ['glow', '✨ היילייטר'], ['paint', '⭐ קישוטי פנים'], ['nails', '💅 לק']];
+      const MK = [...(typeof f6LooksBody === 'function' ? [['looks', '🪄 לוקים']] : []), ['shadow', '🎨 צללית'], ['liner', '✒️ אייליינר'], ['lashes', '👁️ ריסים'], ['lips', '💋 שפתון'], ['blush', '🌸 סומק'], ['glow', '✨ היילייטר'], ['paint', '⭐ קישוטי פנים'], ['nails', '💅 לק']];
       body = [el('div', { class: 'chips fash-sub' }, ...MK.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(fashMk === id), onclick: () => { fashMk = id; drawFashion(); } }, name)))];
       const shSt = g.shadowStyle || (g.shadow && g.shadow !== 'none' ? 'wash' : 'none');
+      if (fashMk === 'looks' && typeof f6LooksBody === 'function') body.push(...f6LooksBody(g, upd));
       if (fashMk === 'shadow') body.push(row('סגנון', chips(F.shadowStyles, shSt, 'shadowStyle')), row('צבע (עם נקודה לבנה = מנצנץ)', swatches(F.shadowColors, g.shadow && g.shadow !== 'none' ? g.shadow : F.shadowColors[0], 'shadow')));
       if (fashMk === 'liner') body.push(row('סגנון', chips(F.liners, g.liner || 'none', 'liner')), row('צבע', swatches(F.linerColors, g.linerColor || F.linerColors[0], 'linerColor')));
       if (fashMk === 'lashes') body.push(row('ריסים', chips(F.lashes, g.lashes || 'natural', 'lashes')), el('p', { class: 'muted' }, 'לריסים עם קצוות צבעוניים: הצבע בא מהאייליינר או מהצללית.'));
@@ -11642,7 +11672,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       strawberry: `<path d="M${fx(w * 0.5)} ${fx(yT + H * 0.82)} C${fx(w * 0.12)} ${fx(yT + H * 0.6)} ${fx(w * 0.14)} ${fx(yT + H * 0.3)} ${fx(w * 0.5)} ${fx(yT + H * 0.36)} C${fx(w * 0.86)} ${fx(yT + H * 0.3)} ${fx(w * 0.88)} ${fx(yT + H * 0.6)} ${fx(w * 0.5)} ${fx(yT + H * 0.82)}Z" fill="#ff4d6a"/><path d="M${fx(w * 0.3)} ${fx(yT + H * 0.34)} L${fx(w * 0.5)} ${fx(yT + H * 0.26)} L${fx(w * 0.7)} ${fx(yT + H * 0.34)} L${fx(w * 0.5)} ${fx(yT + H * 0.4)}Z" fill="#4fbf6a"/>` + [[0.4, 0.5], [0.6, 0.5], [0.5, 0.62], [0.38, 0.64], [0.62, 0.65], [0.5, 0.74]].map(([a, b]) => `<ellipse cx="${fx(w * a)}" cy="${fx(yT + H * b)}" rx="${fx(w * 0.025)}" ry="${fx(w * 0.04)}" fill="#fff2a8"/>`).join(''),
       smiley: `<circle cx="${fx(w / 2)}" cy="${fx(my)}" r="${fx(w * 0.32)}" fill="#ffd84d" stroke="#e0a800" stroke-width="${fx(w * 0.03)}"/><circle cx="${fx(w * 0.39)}" cy="${fx(my - w * 0.07)}" r="${fx(w * 0.045)}" fill="#3a2b3c"/><circle cx="${fx(w * 0.61)}" cy="${fx(my - w * 0.07)}" r="${fx(w * 0.045)}" fill="#3a2b3c"/><path d="M${fx(w * 0.36)} ${fx(my + w * 0.07)} Q${fx(w / 2)} ${fx(my + w * 0.22)} ${fx(w * 0.64)} ${fx(my + w * 0.07)}" fill="none" stroke="#3a2b3c" stroke-width="${fx(w * 0.045)}" stroke-linecap="round"/>`,
       lace: `<path d="M-1 ${fx(yT + H * 0.36)} ${Array.from({ length: 6 }, () => `q${fx(w / 12)} ${fx(w * 0.14)} ${fx(w / 6)} 0`).join(' ')} V${yT - 1} H-1Z" fill="${pc}" opacity=".9"/>` + Array.from({ length: 9 }, (_, i) => `<circle cx="${fx((i % 3 + 0.5) * w / 3)}" cy="${fx(yT + H * (0.5 + Math.floor(i / 3) * 0.15))}" r="${fx(w * 0.045)}" fill="none" stroke="${pc}" stroke-width="${fx(w * 0.02)}"/>`).join(''),
-    }[n.pat] || '';
+    }[n.pat] || (typeof f6NailPat === 'function' ? f6NailPat(n.pat, { w, H, yT, my, pc }) : '');
     let fin = '';
     if (n.finish === 'glitter') fin = Array.from({ length: 22 }, (_, i) => `<circle cx="${fx(w * rnd(i + 21))}" cy="${fx(yT + H * rnd(i + 57))}" r="${fx(w * (0.025 + 0.03 * rnd(i + 5)))}" fill="${['#ffffff', '#fff2a8', '#ffd1f0', '#c8f0ff'][i % 4]}" opacity=".95"/>`).join('');
     if (n.finish === 'shimmer') fin = `<rect x="-1" y="${yT}" width="${w + 2}" height="${H}" fill="#fff" opacity=".18"/>` + Array.from({ length: 12 }, (_, i) => `<circle cx="${fx(w * rnd(i + 31))}" cy="${fx(yT + H * rnd(i + 77))}" r="${fx(w * 0.02)}" fill="#fff" opacity=".8"/>`).join('');
@@ -15539,6 +15569,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const c = b.c || '#ffffff', hl = `<circle cx="${bFx(x - r * 0.35)}" cy="${bFx(y - r * 0.35)}" r="${bFx(r * 0.3)}" fill="#fff" opacity=".8"/>`, st = `stroke="${fmx(c, '#000000', 0.35)}" stroke-width="${bFx(r * 0.12)}"`;
     const star = (q, f) => `<path d="${Array.from({ length: 10 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? q * 0.45 : q; return `${i ? 'L' : 'M'}${bFx(x + Math.cos(a) * rr)} ${bFx(y + Math.sin(a) * rr)}`; }).join('')}Z" fill="${f}" ${st}/>`;
     const heart = (q, f) => `<path d="M${bFx(x)} ${bFx(y + q * 0.9)} C${bFx(x - q * 1.6)} ${bFx(y - q * 0.1)} ${bFx(x - q * 0.9)} ${bFx(y - q * 1.3)} ${bFx(x)} ${bFx(y - q * 0.45)} C${bFx(x + q * 0.9)} ${bFx(y - q * 1.3)} ${bFx(x + q * 1.6)} ${bFx(y - q * 0.1)} ${bFx(x)} ${bFx(y + q * 0.9)}Z" fill="${f}" ${st}/>`;
+    { const f6 = typeof f6Bead === 'function' ? f6Bead(b, x, y, r) : ''; if (f6) return f6; }
     switch (b.t) {
       case 'pearl': return `<circle cx="${bFx(x)}" cy="${bFx(y)}" r="${bFx(r)}" fill="${b.c || '#fffaf0'}" stroke="#d8c8b8" stroke-width="${bFx(r * 0.1)}"/>` + hl;
       case 'crystal': return `<path d="M${bFx(x)} ${bFx(y - r * 1.15)} L${bFx(x + r)} ${bFx(y)} L${bFx(x)} ${bFx(y + r * 1.15)} L${bFx(x - r)} ${bFx(y)}Z" fill="${c}" ${st} opacity=".92"/><path d="M${bFx(x - r)} ${bFx(y)} H${bFx(x + r)} M${bFx(x)} ${bFx(y - r * 1.15)} V${bFx(y + r * 1.15)}" stroke="#fff" stroke-width="${bFx(r * 0.12)}" opacity=".6"/>` + hl;
@@ -19289,7 +19320,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       el('div', { class: 'swatches' }, ...GCH_FAV.map(([c, n]) => { const b = el('button', { type: 'button', class: 'sw3', title: n, 'aria-label': n, 'aria-pressed': String(gchFav(g)[0] === c), onclick: () => upd({ favColor: c }) }); b.style.background = c; return b; })));
   }
   const gchHash = s => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
-  const gchPers = g => g.personality || GCH_PERS[gchHash(g.id) % GCH_PERS.length][0];
+  const gchPers = g => g.personality || GCH_PERS[gchHash(g.id) % 8][0];
   const gchFav = g => GCH_FAV.find(x => x[0] === g.favColor) || GCH_FAV[gchHash(g.id + 'c') % GCH_FAV.length];
   const gchPick = a => a[Math.floor(Math.random() * a.length)];
 
@@ -19322,6 +19353,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   const GCH_GAMES = [['memory', 'זיכרון'], ['catch', 'תפוס את הכוכב'], ['puzzle', 'פאזל'], ['ttt', 'איקס עיגול'], ['match3', 'שלוש בשורה'], ['fcontest', 'תחרות אופנה'], ['gmemory', 'זיכרון בנות'], ['cake', 'עוגה']];
   function gchReply(g, text, fromName) {
     const p = gchPers(g), t = (text || '').replace(/[?!.,]/g, ' '), has = re => re.test(t), L = k => gchPick(GCH_TXT[k][p] || GCH_TXT[k].friendly);
+    { const f6 = typeof f6ChatReply === 'function' ? f6ChatReply(g, t, text, p) : null; if (f6) return f6; }
     if (has(/לובשת|בגדים|שמלה|מה על|תלבושת|לבשת/)) return { text: `היום אני לובשת ${gchOutfit(g)} ${gchPick(['👗', '✨', '💃', '😊'])}` };
     if (has(/לשחק|נשחק|משחק/)) { const gm = GCH_GAMES.filter(x => typeof GAME_TABS === 'undefined' || GAME_TABS.some(y => y[0] === x[0])); const pick = gchPick(gm.length ? gm : GCH_GAMES); return { text: `${L('play')} מה דעתך על ${pick[1]}?`, game: pick[0] }; }
     if (has(/בת כמה|גיל/)) return { text: `אני בת ${g.age} ${gchPick(['🎂', '😊', '🌟'])}` };
@@ -24700,6 +24732,429 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   // ---------- newspaper: +3 templates ----------
   NW_TPL.push(['crayon', '🖍️ צבעוני'], ['royal', '👑 מלכותי'], ['night', '🌙 לילה']);
 
+  // ================= fashion6: more of everything for the studio (clothes, hair, prints, scenes, nails, beads, looks, dance, chat) =================
+  // (drawing hooks are function declarations with their data inside: girlSVG may call them while the page is still starting up)
+  function f6Tops() {
+    return { f6_puffblouse: { neck: 'boat', hem: 266, e: 3, sl: 172, se: 8.5, sf: 2 }, f6_heartsweater: { neck: 'crew', hem: 276, e: 5, sl: 292, se: 4, sf: 1, rib: 1 }, f6_jersey: { neck: 'v', hem: 272, e: 4.5, sl: 188, se: 4.5, sf: 1.5 },
+      f6_mermaidtop: { neck: 'strap', hem: 262, e: 1.6 }, f6_polo: { neck: 'crew', hem: 268, e: 3, sl: 184, se: 3.4, sf: 1.5 }, f6_sailortop: { neck: 'v', hem: 270, e: 3.5, sl: 186, se: 4, sf: 1.5 },
+      f6_spacetop: { neck: 'crew', hem: 282, e: 6.5, sl: 292, se: 6, sf: 2, rib: 1 } };
+  }
+  function f6Dresses() {
+    return { f6_fairy: { neck: 'strap', e: 1.4, top: 214, hem: 378, w: 74, wavy: 9 }, f6_ballet: { neck: 'scoop', e: 0.8, top: 226, hem: 318, w: 88, wavy: 23 },
+      f6_witch: { neck: 'v', e: 1.6, sl: 292, se: 3, sf: 9, top: 222, hem: 404, w: 80, wavy: 9 }, f6_mermaidgown: { neck: 'strap', e: 1.2, top: 218, hem: 560, w: 100, wavy: 11 },
+      f6_puff: { neck: 'crew', e: 1.4, sl: 172, se: 9, sf: 2, top: 222, hem: 376, w: 64 }, f6_tiered: { neck: 'square', e: 1.8, top: 214, hem: 432, w: 86 },
+      f6_nightgown: { neck: 'scoop', e: 3, sl: 180, se: 5, sf: 2.5, top: 200, hem: 470, w: 64 }, f6_cheer: { neck: 'v', e: 1.2, top: 224, hem: 326, w: 72, wavy: 15 },
+      f6_sailor: { neck: 'v', e: 1.4, sl: 186, se: 4, sf: 1.5, top: 222, hem: 370, w: 64, wavy: 13 } };
+  }
+  // costumes live in the dress list but are drawn as a top + bottom (+ extras); new bottoms/shoes/jackets are drawn on a base piece
+  function f6Base() {
+    return {
+      bottom: { f6_trackpants: 'leggings', f6_cheerskirt: 'pleated', f6_ruffleskirt: 'skirt', f6_longskirt: 'skirt', f6_starskirt: 'tulle' },
+      shoes: { f6_pointe: 'flats', f6_skates: 'boots', f6_slippers: 'flats', f6_heartsneak: 'sneakers', f6_wingsneak: 'hightops', f6_jelly: 'sandals', f6_cowgirl: 'boots' },
+      jacket: { f6_cape: 'none', f6_bomber: 'cardigan', f6_fluffy: 'cardigan', f6_raincoat: 'cardigan' },
+    };
+  }
+  function f6GirlMap(g) {
+    if (!g) return g;
+    const B = f6Base(), dc = g.dressColor || '#ff9ec4', dp = g.dressPat || 'plain';
+    let o = null; const cp = () => o || (o = Object.assign({}, g));
+    const C = {
+      f6_astro: { top: 'f6_spacetop', topColor: '#f2f3f8', topPat: 'plain', bottom: 'wide', bottomColor: '#f2f3f8', bottomPat: 'plain', shoes: 'boots', shoeColor: '#e6e8f0', jacket: 'none' },
+      f6_chef: { top: 'longsleeve', topColor: '#ffffff', topPat: 'plain', bottom: 'wide', bottomColor: '#2b2b30', bottomPat: 'checks', jacket: 'none' },
+      f6_doctor: { top: 'blouse', topColor: '#9dd8f5', topPat: 'plain', bottom: 'wide', bottomColor: '#1f2a4a', bottomPat: 'plain', jacket: 'blazer', jacketColor: '#ffffff', jacketPat: 'plain' },
+      f6_pajamas: { top: 'longsleeve', topColor: dc, topPat: dp === 'plain' ? 'f6moon' : dp, bottom: 'wide', bottomColor: dc, bottomPat: dp === 'plain' ? 'f6moon' : dp, jacket: 'none' },
+      f6_swim: { top: 'longsleeve', topColor: dc, topPat: dp, bottom: 'leggings', bottomColor: fmx(dc, '#1f2a4a', 0.55), bottomPat: 'plain', jacket: 'none', legwear: 'bare' },
+      f6_tracksuit: { top: 'hoodie', topColor: dc, topPat: dp, bottom: 'f6_trackpants', bottomColor: dc, bottomPat: 'plain' },
+      f6_overalls: { top: g.top && !/^f6_space/.test(g.top) ? g.top : 'tshirt', bottom: 'jeans', bottomColor: dc, bottomPat: 'plain' },
+    }[g.dress];
+    if (C) Object.assign(cp(), C, { dress: 'none' });
+    const w = o || g;
+    if (B.bottom[w.bottom]) cp().bottom = B.bottom[w.bottom];
+    if (B.shoes[w.shoes]) cp().shoes = B.shoes[w.shoes];
+    if (w.jacket in B.jacket) cp().jacket = B.jacket[w.jacket];
+    if (w.top === 'f6_mermaidtop' && (w.topPat || 'plain') === 'plain') cp().topPat = 'f6scales';
+    if (w.dress === 'f6_mermaidgown' && (w.dressPat || 'plain') === 'plain') cp().dressPat = 'f6scales';
+    return o || g;
+  }
+  // decoration on the new dresses: { skirt (under the arms), bodice }
+  function f6DressDeco(dress, x) {
+    const { c, D, sk, skirtD, fold, gbw, fx } = x, dk = fmx(c, '#241018', 0.4), lt = fmx(c, '#ffffff', 0.55);
+    const band = (y, h, f, st = dk) => `<path d="M${fx(150 - gbw(y) - 2)} ${y - h / 2} H${fx(150 + gbw(y) + 2)} V${y + h / 2} H${fx(150 - gbw(y) - 2)}Z" fill="${f}" stroke="${st}" stroke-width=".7"/>`;
+    const tw = (x0, y0, r, f = '#fff', o = 0.9) => `<path d="M${x0} ${y0 - r}Q${x0} ${y0} ${x0 + r} ${y0}Q${x0} ${y0} ${x0} ${y0 + r}Q${x0} ${y0} ${x0 - r} ${y0}Q${x0} ${y0} ${x0} ${y0 - r}Z" fill="${f}" opacity="${o}"/>`;
+    if (dress === 'f6_fairy') return {
+      skirt: [0, 1].map(i => `<path d="${skirtD(D.top + 4, D.hem - 34 + i * 20, D.w - 16 + i * 8, { wavy: 7 })}" fill="${i ? lt : fmx(c, '#ffffff', 0.3)}" opacity="${i ? 0.55 : 0.5}" stroke="#fff" stroke-width=".8"/>`).join('') +
+        [[122, 300], [176, 320], [140, 350], [166, 280], [112, 344], [188, 356]].map(([a, b], i) => tw(a, b, i % 2 ? 2.4 : 3.2, i % 3 ? '#fff' : '#fff6c4')).join(''),
+      bodice: [[-1, 0], [1, 0]].map(([s]) => `<path d="M${150 + s * 4} 214 q${s * 10} -10 ${s * 22} -2 q${s * -8} 8 ${s * -22} 2Z" fill="#8fd6a0" stroke="#4f9a63" stroke-width=".7"/>`).join('') + `<circle cx="150" cy="213" r="3.2" fill="#ffd45c" stroke="#c9982e" stroke-width=".6"/>` + tw(142, 170, 2) + tw(158, 186, 1.6),
+    };
+    if (dress === 'f6_ballet') return {
+      skirt: [98, 90, 82].map((w, i) => `<path d="${skirtD(D.top, D.hem + 6 - i * 5, w, { wavy: 21 })}" fill="${i === 2 ? c : lt}" opacity="${i === 2 ? 1 : 0.6}" stroke="${fmx(c, '#241018', 0.3)}" stroke-width=".7"/>`).join('') +
+        [[118, 300], [174, 296], [150, 310], [132, 280], [186, 312]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="1" fill="#fff"/>`).join(''),
+      bodice: band(224, 7, lt) + `<path d="M150 224 l-8 -5 v10Z M150 224 l8 -5 v10Z" fill="${lt}" stroke="${dk}" stroke-width=".6"/><circle cx="150" cy="224" r="2" fill="${c}" stroke="${dk}" stroke-width=".5"/>`,
+    };
+    if (dress === 'f6_witch') return {
+      skirt: `<path d="${skirtD(D.top + 150, D.hem, D.w - 4, { wavy: 9 })}" fill="${fmx(c, '#1a0c2a', 0.45)}" opacity=".45"/>` +
+        [[120, 300, 's'], [178, 330, 'm'], [140, 370, 's'], [196, 380, 's'], [104, 372, 'm'], [160, 262, 's']].map(([a, b, k]) => k === 'm' ? `<path d="M${a} ${b - 6} a6 6 0 1 0 4 10 a5 5 0 1 1 -4 -10Z" fill="#ffe08a"/>` : tw(a, b, 3.4, '#ffe08a', 0.95)).join(''),
+      bodice: band(222, 7, '#2b2b30', '#000') + `<path d="M144 180 L156 192 M156 180 L144 192 M144 194 L156 206 M156 194 L144 206" stroke="#2b2b30" stroke-width="1.2" stroke-linecap="round"/><circle cx="150" cy="222" r="2.6" fill="#a8dc8f" stroke="#3f6a3a" stroke-width=".5"/>`,
+    };
+    if (dress === 'f6_mermaidgown') return {
+      skirt: `<path d="${skirtD(D.top + 190, D.hem, D.w - 2, { wavy: 11 })}" fill="${fmx(c, '#ffffff', 0.3)}" opacity=".35"/>` + Array.from({ length: 10 }, (_, i) => tw(112 + (i * 37) % 80, 260 + (i * 53) % 280, 2.2, '#fff', 0.8)).join(''),
+      bodice: both(s => `<path d="M${mx(160, s)} 150 q${s * 10} -12 ${s * 18} 0 q${s * -9} 6 ${s * -18} 0Z" fill="#ffd6e8" stroke="#d88aa8" stroke-width=".7"/><path d="M${mx(164, s)} 150 l${s * 2} -7 M${mx(169, s)} 150 l${s * 1} -8 M${mx(174, s)} 150 l${s * -1} -7" stroke="#d88aa8" stroke-width=".5"/>`) +
+        band(218, 6, '#fff6c4', '#c9982e') + [136, 150, 164].map(xx => `<path d="M${xx} 220 q-4 -6 0 -9 q4 3 0 9Z" fill="#ffe0ef" stroke="#d88aa8" stroke-width=".5"/>`).join(''),
+    };
+    if (dress === 'f6_puff') return { skirt: '', bodice: both(s => `<path d="${spath(mp([[150, 139, 1], [162, 131, 1], [170, 140], [164, 150], [152, 146]], s))}" fill="#fff" stroke="${dk}" stroke-width=".8"/>`) + `<path d="M150 146 l-7 -5 v10Z M150 146 l7 -5 v10Z" fill="${dk}"/><circle cx="150" cy="146" r="1.8" fill="${dk}"/>` + band(222, 5, lt) };
+    if (dress === 'f6_tiered') return {
+      skirt: [290, 355].map((y, i) => `<path d="${skirtD(y, D.hem, D.w * (0.8 + i * 0.1) + 4, { wavy: 17 })}" fill="${i ? lt : fmx(c, '#ffffff', 0.25)}" opacity=".55" stroke="${dk}" stroke-width=".6"/>`).join('') + fold(`M${fx(150 - D.w * 0.62)} 290 Q150 300 ${fx(150 + D.w * 0.62)} 290 M${fx(150 - D.w * 0.84)} 356 Q150 368 ${fx(150 + D.w * 0.84)} 356`, c, 0.5),
+      bodice: band(214, 6, lt),
+    };
+    if (dress === 'f6_nightgown') return {
+      skirt: `<path d="${skirtD(D.hem - 14, D.hem + 4, D.w + 3, { wavy: 19 })}" fill="#fff" opacity=".75" stroke="${dk}" stroke-width=".5"/>` + Array.from({ length: 10 }, (_, i) => `<circle cx="${fx(150 - D.w + 6 + i * (D.w * 2 - 12) / 9)}" cy="${D.hem - 6}" r="1.4" fill="none" stroke="${dk}" stroke-width=".5" opacity=".6"/>`).join(''),
+      bodice: `<path d="M150 150 l-6 -4 v8Z M150 150 l6 -4 v8Z" fill="#fff" stroke="${dk}" stroke-width=".5"/>` + fold('M146 156 V196 M150 156 V198 M154 156 V196', c, 0.3),
+    };
+    if (dress === 'f6_cheer') return {
+      skirt: [0, 1].map(i => `<path d="M${fx(150 - D.w + 6)} ${D.hem - 10 + i * 6} Q150 ${D.hem - 5 + i * 6} ${fx(150 + D.w - 6)} ${D.hem - 10 + i * 6}" fill="none" stroke="${i ? '#fff' : lt}" stroke-width="2.4"/>`).join('') + fold(Array.from({ length: 10 }, (_, i) => `M${fx(150 - 20 + i * 4.4)} 234 L${fx(150 - D.w + 8 + i * (D.w * 2 - 16) / 9)} ${D.hem - 2}`).join(' '), c, 0.3),
+      bodice: `<path d="M136 136 L150 166 L164 136" fill="none" stroke="#fff" stroke-width="3"/><path d="M150 186 l3 6 l6.6 .9 l-4.8 4.6 l1.2 6.5 l-6 -3.2 l-6 3.2 l1.2 -6.5 l-4.8 -4.6 l6.6 -.9Z" fill="#fff" stroke="${dk}" stroke-width=".6"/>` + band(224, 6, '#fff'),
+    };
+    if (dress === 'f6_sailor') return { skirt: `<path d="M${fx(150 - D.w + 6)} ${D.hem - 8} Q150 ${D.hem - 3} ${fx(150 + D.w - 6)} ${D.hem - 8}" fill="none" stroke="#fff" stroke-width="2"/>`, bodice: f6SailorCollar() };
+    return null;
+  }
+  function f6SailorCollar() {
+    return `<path d="M128 134 L150 172 L172 134 L186 150 L178 176 L150 184 L122 176 L114 150Z" fill="#1f2a4a" stroke="#0e1428" stroke-width=".8"/><path d="M120 158 L150 178 L180 158 M118 166 L150 180 L182 166" fill="none" stroke="#fff" stroke-width="1.2"/>` +
+      `<path d="M150 176 l-9 -6 l2 12Z M150 176 l9 -6 l-2 12Z" fill="#e0314b" stroke="#8a1a28" stroke-width=".6"/><path d="M147 178 l-5 14 l4 -2 l2 3Z M153 178 l5 14 l-4 -2 l-2 3Z" fill="#e0314b"/><circle cx="150" cy="177" r="2.4" fill="#c0203a"/>`;
+  }
+  // girlSVG hook: extras for the new pieces. g0 = what she wears, g = the drawn (mapped) version
+  function f6GirlDraw(g0, g, H) {
+    const r = { head: '', face: '', body: '', bag: '', back: '', top: '', bottom: '', dress: '', skirt: '', jacket: '' };
+    if (!g0) return r;
+    const A = g0.acc || {}, AC = g.accColor || '#ff5f8f', ACd = fmx(AC, '#241018', 0.4), bh = H.bigHair, w = bh ? 1.28 : 1, top = bh ? 18 : 30, PZ = H.PZ;
+    const star = (x, y, R, k = 0.45) => 'M' + Array.from({ length: 10 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / 5, q = i % 2 ? R * k : R; return `${fx(x + q * Math.cos(a))} ${fx(y + q * Math.sin(a))}`; }).join('L') + 'Z';
+    const heart = (x, y, s) => `M${x} ${y + 0.9 * s}C${x - 1.7 * s} ${y - 0.2 * s} ${x - 1.1 * s} ${y - 1.5 * s} ${x} ${y - 0.6 * s}C${x + 1.1 * s} ${y - 1.5 * s} ${x + 1.7 * s} ${y - 0.2 * s} ${x} ${y + 0.9 * s}Z`;
+    const sc = (x, y, k, str) => `<g transform="translate(${x} ${y}) scale(${k}) translate(${-x} ${-y})">${str}</g>`;
+    const onHand = (s, str) => { if (PZ && H.armAcc) H.armAcc[s].push(H.onArm(s, 330, str)); else r.body += str; };
+    const bow = (x, y, k, c) => { const d = fmx(c, '#241018', 0.4); return `<g transform="translate(${x} ${y}) scale(${k})"><path d="M0 0 C-6 -9 -16 -6 -14 1 C-13 7 -5 5 0 0Z M0 0 C6 -9 16 -6 14 1 C13 7 5 5 0 0Z" fill="${c}" stroke="${d}" stroke-width="1"/><path d="M-2 1 L-6 12 L-3 10 L-1 13Z M2 1 L6 12 L3 10 L1 13Z" fill="${fmx(c, '#000', 0.12)}" stroke="${d}" stroke-width=".8"/><circle r="3" fill="${fmx(c, '#000', 0.1)}" stroke="${d}" stroke-width=".8"/><path d="M-10 -3 q3 -3 7 0" fill="none" stroke="#fff" stroke-width="1.2" opacity=".6"/></g>`; };
+    const dc = g0.dressColor || '#ff9ec4', tc = g.topColor || '#ffffff', bc = g.bottomColor || '#6d8fbd', jc = g.jacketColor || '#6d8fbd';
+    const long = ['ballgown', 'maxi', 'goldgown', 'princess', 'queen', 'f6_mermaidgown'].includes(H.dress);
+    // ---- costumes ----
+    const cos = g0.dress;
+    if (cos === 'f6_astro') r.top += `<rect x="128" y="222" width="44" height="9" rx="2" fill="#9aa3ad" stroke="#5a606a" stroke-width=".7"/><rect x="146" y="221" width="8" height="11" rx="2" fill="#ffd45c" stroke="#8a7440" stroke-width=".6"/>` +
+      `<rect x="136" y="164" width="28" height="22" rx="4" fill="#dfe3ec" stroke="#8a93a8" stroke-width=".8"/>` + [['#ff5f8f', 143, 171], ['#3fd6a0', 150, 171], ['#3fb6ff', 157, 171]].map(([c, a, b]) => `<circle cx="${a}" cy="${b}" r="2.3" fill="${c}"/>`).join('') + `<rect x="140" y="178" width="20" height="3" rx="1.5" fill="#ffd45c"/>` +
+      `<circle cx="126" cy="156" r="7" fill="#3f6fd8" stroke="#fff" stroke-width="1.2"/><path d="${star(126, 156, 4)}" fill="#fff"/><circle cx="174" cy="156" r="7" fill="#e0314b" stroke="#fff" stroke-width="1.2"/><path d="M171 160 l3 -8 l3 8Z M172.2 160 h3.6 v2 h-3.6Z" fill="#fff"/>`;
+    if (cos === 'f6_astro' && !PZ) r.bottom += both(s => `<rect x="${mx(150.5, s) - (s > 0 ? 0 : 19)}" y="398" width="19" height="16" rx="5" fill="#dfe3ec" stroke="#8a93a8" stroke-width=".8"/>`);
+    if (cos === 'f6_chef') { r.top += [170, 190, 210].map(y => `<circle cx="143" cy="${y}" r="1.8" fill="#dcdce6"/><circle cx="157" cy="${y}" r="1.8" fill="#dcdce6"/>`).join('') + `<path d="M138 128 Q150 144 162 128 L160 138 Q150 150 140 138Z" fill="#e0314b" stroke="#8a1a28" stroke-width=".7"/>`;
+      const ac = dc, acd = fmx(ac, '#241018', 0.4); r.body += `<path d="M132 160 Q150 154 168 160 L170 222 Q178 226 182 318 Q150 326 118 318 Q122 226 130 222Z" fill="${ac}" stroke="${acd}" stroke-width="1"/><path d="M132 160 L128 132 M168 160 L172 132" stroke="${acd}" stroke-width="2"/>` +
+        `<path d="M120 224 Q150 230 180 224" fill="none" stroke="${acd}" stroke-width="2.4"/><rect x="138" y="252" width="24" height="20" rx="3" fill="${fmx(ac, '#ffffff', 0.35)}" stroke="${acd}" stroke-width=".8"/><path d="${heart(150, 262, 4)}" fill="${acd}" opacity=".6"/>`; }
+    if (cos === 'f6_doctor') { r.jacket += both(s => `<path d="M${mx(150 + gbw(280) + 4.5, s)} 280 L${mx(150 + gbw(280) + 9, s)} 396 L${mx(154, s)} 396 L${mx(156, s)} 280Z" fill="#ffffff" stroke="#b8bcc8" stroke-width="1"/>`) +
+        `<rect x="168" y="176" width="14" height="16" rx="2" fill="#fff" stroke="#b8bcc8" stroke-width=".7"/><path d="M171 178 v6 M174 178 v6" stroke="#3f6fd8" stroke-width="1.2"/><rect x="118" y="178" width="16" height="11" rx="2" fill="#fff" stroke="#9aa3ad" stroke-width=".7"/><path d="M121 183 h10" stroke="#ff5f8f" stroke-width="1.6"/>`;
+      r.body += `<path d="M138 128 C132 160 140 186 150 190 C160 186 168 160 162 128" fill="none" stroke="#3a3350" stroke-width="2.2"/><circle cx="150" cy="196" r="5" fill="#c8ccd8" stroke="#6a6480" stroke-width="1"/><circle cx="150" cy="196" r="2" fill="#fff"/>`; }
+    if (cos === 'f6_pajamas') r.top += [165, 190, 215, 240].map(y => `<circle cx="150" cy="${y}" r="2" fill="#fff" stroke="${fmx(tc, '#241018', 0.4)}" stroke-width=".6"/>`).join('') + `<rect x="160" y="170" width="14" height="12" rx="2" fill="${fmx(tc, '#ffffff', 0.4)}" stroke="${fmx(tc, '#241018', 0.4)}" stroke-width=".7"/>`;
+    if (cos === 'f6_swim') { const sc = fmx(dc, '#ffffff', 0.15); r.bottom += `<path d="${H.skirtD(236, 312, 62, { wavy: 11 })}" fill="${sc}" stroke="${fmx(sc, '#241018', 0.4)}" stroke-width="1"/><path d="${H.skirtD(236, 312, 62, { wavy: 11 })}" fill="${H.shadeH}"/>`; }
+    if (cos === 'f6_overalls') { const oc = bc, od = fmx(oc, '#241018', 0.45); r.top += `<path d="M132 176 H168 L170 226 H130Z" fill="${oc}" stroke="${od}" stroke-width="1"/><rect x="140" y="184" width="20" height="14" rx="2" fill="none" stroke="${fmx(oc, '#ffcf7a', 0.55)}" stroke-width=".8" stroke-dasharray="1.6 1.2"/>` +
+      both(s => `<path d="M${mx(160, s)} 178 L${mx(166, s)} 134" stroke="${od}" stroke-width="7" stroke-linecap="round"/><path d="M${mx(160, s)} 178 L${mx(166, s)} 134" stroke="${oc}" stroke-width="5" stroke-linecap="round"/><circle cx="${mx(160.5, s)}" cy="178" r="2.6" fill="#e9c46a" stroke="#8a7440" stroke-width=".6"/>`); }
+    if (cos === 'f6_tracksuit') r.top += `<path d="M150 150 V268" stroke="${fmx(tc, '#241018', 0.35)}" stroke-width="1"/><rect x="148" y="150" width="4" height="7" rx="1" fill="#dcdce6"/>`;
+    if (cos === 'f6_fairy' && !A.wings) r.back += both(s => `<path d="M${mx(160, s)} 174 C${mx(186, s)} 124 ${mx(240, s)} 88 ${mx(250, s)} 122 C${mx(258, s)} 156 ${mx(214, s)} 180 ${mx(160, s)} 186Z M${mx(160, s)} 190 C${mx(196, s)} 196 ${mx(228, s)} 214 ${mx(220, s)} 240 C${mx(210, s)} 262 ${mx(182, s)} 232 ${mx(160, s)} 200Z" fill="${fmx(dc, '#ffffff', 0.45)}" fill-opacity=".82" stroke="${fmx(dc, '#ffffff', 0.2)}" stroke-width="1.6"/>` +
+      `<path d="M${mx(164, s)} 178 Q${mx(206, s)} 132 ${mx(240, s)} 116 M${mx(164, s)} 194 Q${mx(196, s)} 204 ${mx(212, s)} 228" fill="none" stroke="#fff" stroke-width="1" opacity=".8"/>` + [[228, 118], [210, 150], [236, 140], [204, 222]].map(([a, b]) => `<circle cx="${mx(a, s)}" cy="${b}" r="1.3" fill="#fff"/>`).join(''));
+    if (cos === 'f6_cheer' || A.f6_pompoms) both(s => onHand(s, f6Pom(mx(210, s), 336, s > 0 ? AC : fmx(AC, '#ffffff', 0.45))));
+    // ---- tops ----
+    const T = g.top, isTop = !H.dress || H.dress === 'pinafore';
+    if (isTop && T === 'f6_heartsweater') r.top += `<path d="${heart(150, 196, 14)}" fill="${flum(tc) > 0.6 ? '#ff5f8f' : '#ffd1e3'}" stroke="${fmx(tc, '#241018', 0.35)}" stroke-width=".9"/><path d="M138 188 q3 -6 9 -4" fill="none" stroke="#fff" stroke-width="1.6" opacity=".6" stroke-linecap="round"/>`;
+    if (isTop && T === 'f6_jersey') { const nc = flum(tc) > 0.6 ? '#1f2a4a' : '#ffffff'; r.top += `<text x="150" y="214" text-anchor="middle" font-size="34" font-weight="800" font-family="Rubik, Arial, sans-serif" fill="${nc}" stroke="${fmx(tc, '#241018', 0.4)}" stroke-width=".8">10</text><path d="M136 132 L150 158 L164 132" fill="none" stroke="${nc}" stroke-width="2.6"/>`; }
+    if (isTop && T === 'f6_mermaidtop') r.top += both(s => `<path d="M${mx(152, s)} 164 C${mx(152, s)} 146 ${mx(176, s)} 144 ${mx(178, s)} 160 C${mx(170, s)} 168 ${mx(160, s)} 170 ${mx(152, s)} 164Z" fill="#ffd6e8" stroke="#d88aa8" stroke-width=".8"/>` + [158, 164, 170].map(xx => `<path d="M${mx(xx, s)} 166 L${mx(xx + 1, s)} 150" stroke="#d88aa8" stroke-width=".5"/>`).join('')) + `<circle cx="150" cy="160" r="2.4" fill="#fffaf0" stroke="#c9b9a0" stroke-width=".5"/>`;
+    if (isTop && T === 'f6_polo') { const pd = fmx(tc, '#241018', 0.4); r.top += both(s => `<path d="${spath(mp([[150, 138, 1], [161, 130, 1], [168, 136], [164, 146], [153, 144]], s))}" fill="${fmx(tc, '#ffffff', 0.2)}" stroke="${pd}" stroke-width=".9"/>`) + `<path d="M150 140 V168" stroke="${pd}" stroke-width=".9"/>` + [148, 156, 164].map(y => `<circle cx="152" cy="${y}" r="1.3" fill="#fff" stroke="${pd}" stroke-width=".5"/>`).join('') + `<path d="${heart(170, 176, 3)}" fill="${fmx(tc, '#ff5f8f', 0.7)}"/>`; }
+    if (isTop && T === 'f6_sailortop') r.top += f6SailorCollar();
+    if (isTop && T === 'f6_puffblouse') r.top += `<path d="M130 134 Q150 142 170 134" fill="none" stroke="${fmx(tc, '#241018', 0.35)}" stroke-width="1"/>` + [0, 1, 2].map(i => `<path d="M136 ${150 + i * 5} q7 3 14 0 t14 0" fill="none" stroke="${fmx(tc, '#241018', 0.3)}" stroke-width=".7"/>`).join('');
+    // ---- bottoms ----
+    const Bm = g0.bottom, bd = fmx(bc, '#241018', 0.4);
+    if (!H.dress && Bm === 'f6_trackpants') { const U = [[174, 290], [171, 320], [167.5, 360], [165.3, 392], [164.4, 410]], Lo = [[164.4, 410], [165, 438], [164.3, 470], [163, 505], [162.4, 528]], ln = (pts, s) => `<path d="M${pts.map(([a, b]) => `${fx(mx(a, s))} ${b}`).join(' L')}" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"/>`;
+      r.bottom += both(s => PZ ? H.onLeg(s, 330, ln(U, s)) + H.onLeg(s, 470, ln(Lo, s)) : ln([...U, ...Lo.slice(1)], s)) +
+      both(s => H.onLeg(s, 520, `<path d="${gshape(mp(gseg(G_LEG, 516, 532), s), 1.6)}" fill="${fmx(bc, '#000', 0.12)}" stroke="${bd}" stroke-width=".8"/>`)); }
+    if (!H.dress && Bm === 'f6_cheerskirt') r.bottom += [0, 1].map(i => `<path d="M92 ${364 + i * 6} Q150 ${370 + i * 6} 208 ${364 + i * 6}" fill="none" stroke="${i ? '#fff' : fmx(bc, '#fff', 0.55)}" stroke-width="2.4"/>`).join('');
+    if (!H.dress && Bm === 'f6_ruffleskirt') r.bottom += `<path d="${H.skirtD(366, 404, 70, { wavy: 17 })}" fill="${H.fab('b', bc, g.bottomPat || 'plain')}" stroke="${bd}" stroke-width="1"/><path d="${H.skirtD(366, 404, 70, { wavy: 17 })}" fill="${H.shadeH}"/>` + H.fold('M88 372 Q150 380 212 372', bc, 0.4);
+    if (!H.dress && Bm === 'f6_longskirt') r.bottom += `<path d="${H.skirtD(222, 530, 80, { wavy: 0 })}" fill="${H.fab('b', bc, g.bottomPat || 'plain')}" stroke="${bd}" stroke-width="1.1"/><path d="${H.skirtD(222, 530, 80, {})}" fill="${H.shadeH}"/>` + H.fold('M144 240 L126 526 M156 240 L176 526 M138 260 L96 520 M162 260 L204 520', bc, 0.3) + `<path d="M${150 - gbw(222) - 2} 222 H${150 + gbw(222) + 2} v8 H${150 - gbw(222) - 2}Z" fill="${fmx(bc, '#000', 0.08)}" stroke="${bd}" stroke-width=".8"/>`;
+    if (!H.dress && Bm === 'f6_starskirt') r.bottom += [[118, 300, 5], [176, 318, 6], [140, 344, 4.5], [186, 350, 4], [108, 346, 4], [158, 286, 4.5]].map(([a, b, q]) => `<path d="${star(a, b, q)}" fill="#ffe27a" stroke="#fff" stroke-width=".6"/>`).join('');
+    // ---- jackets ----
+    const J = g0.jacket;
+    if (J === 'f6_cape') { r.back += `<path d="M116 134 C130 126 170 126 184 134 C212 220 232 330 244 470 Q150 494 56 470 C68 330 88 220 116 134Z" fill="${H.fab('j', jc, g.jacketPat || 'plain')}" stroke="${fmx(jc, '#241018', 0.45)}" stroke-width="1.2"/><path d="M116 134 C130 126 170 126 184 134 C212 220 232 330 244 470 Q150 494 56 470 C68 330 88 220 116 134Z" fill="${H.shadeH}"/>` +
+        H.fold('M130 150 L100 460 M170 150 L200 460 M150 140 L150 480', jc, 0.3);
+      r.jacket += both(s => `<path d="${spath(mp([[150, 124, 1], [168, 120], [185, 132], [178, 148], [160, 142, 1]], s))}" fill="${fmx(jc, '#ffffff', 0.25)}" stroke="${fmx(jc, '#241018', 0.4)}" stroke-width="1"/>`) + `<circle cx="150" cy="136" r="4.5" fill="#ffd45c" stroke="#b8862e" stroke-width=".8"/><path d="${star(150, 136, 3)}" fill="#fff6c4"/>`; }
+    if (J === 'f6_bomber') r.jacket += both(s => `<path d="M${mx(156, s)} 276 H${mx(150 + gbw(282) + 5, s)} L${mx(150 + gbw(292) + 5, s)} 292 H${mx(156, s)}Z" fill="${fmx(jc, '#000', 0.15)}" stroke="${fmx(jc, '#241018', 0.4)}" stroke-width=".8"/>` + H.fold(`M${mx(160, s)} 280 v10 M${mx(166, s)} 280 v10 M${mx(172, s)} 280 v10`, jc, 0.5) + `<path d="M${mx(166, s)} 190 h${s * 12} v10 h${s * -12}Z" fill="none" stroke="${fmx(jc, '#241018', 0.4)}" stroke-width=".8"/>`) + `<path d="M156 134 V288" stroke="#d8d8e0" stroke-width="1.6" stroke-dasharray="1.2 1"/>`;
+    if (J === 'f6_fluffy') { const fc = fmx(jc, '#ffffff', 0.7); r.jacket += both(s => Array.from({ length: 16 }, (_, i) => { const t = i / 15, y = 132 + t * 158, x = 158 + (i ? 2 : 6) + Math.sin(i) * 0.8; return `<circle cx="${fx(mx(x, s))}" cy="${fx(y)}" r="${5 + (i % 3)}" fill="${fc}" stroke="${fmx(fc, '#241018', 0.18)}" stroke-width=".5"/>`; }).join('') +
+        Array.from({ length: 6 }, (_, i) => `<circle cx="${fx(mx(160 + i * 6, s))}" cy="${290 + (i % 2)}" r="${5.5 + (i % 2)}" fill="${fc}" stroke="${fmx(fc, '#241018', 0.18)}" stroke-width=".5"/>`).join('')); }
+    if (J === 'f6_raincoat') r.jacket += both(s => [180, 214, 248].map(y => `<rect x="${mx(160, s) - 3}" y="${y}" width="6" height="11" rx="3" fill="#fff6c4" stroke="#8a7440" stroke-width=".6"/><path d="M${mx(160, s)} ${y + 5.5} h${s * -8}" stroke="#5a4a2a" stroke-width="1"/>`).join('') + `<path d="M${mx(166, s)} 236 h${s * 14} v14 h${s * -14}Z" fill="${fmx(jc, '#000', 0.06)}" stroke="${fmx(jc, '#241018', 0.4)}" stroke-width=".8"/>`) +
+      `<path d="M124 128 C122 104 178 104 176 128" fill="${jc}" stroke="${fmx(jc, '#241018', 0.4)}" stroke-width="1"/>`;
+    // ---- shoes (details drawn on a base shoe) ----
+    const S = g0.shoes, SC = g.shoeColor || '#ffffff';
+    if (!H.MT && !long && S && /^f6_/.test(S)) {
+      const feet = f => { r.body += both(s => H.onLeg(s, 540, f(s))); };
+      if (S === 'f6_pointe') feet(s => `<path d="M${mx(153, s)} 548 C${mx(146, s)} 530 ${mx(172, s)} 520 ${mx(158, s)} 506 C${mx(148, s)} 496 ${mx(170, s)} 488 ${mx(162, s)} 478" fill="none" stroke="#ffc4de" stroke-width="2" stroke-linecap="round"/><path d="M${mx(167, s)} 548 C${mx(174, s)} 532 ${mx(148, s)} 522 ${mx(162, s)} 508 C${mx(172, s)} 498 ${mx(150, s)} 490 ${mx(158, s)} 480" fill="none" stroke="#ffb3cf" stroke-width="2" stroke-linecap="round"/>`);
+      if (S === 'f6_skates') feet(s => { const x0 = Math.min(mx(150, s), mx(171, s)); return `<path d="M${x0} 580 H${x0 + 21}" fill="none" stroke="#c8ccd8" stroke-width="2.6" stroke-linecap="round"/><path d="M${s > 0 ? x0 + 21 : x0} 580 q${s * 3} 0 ${s * 3} -3" fill="none" stroke="#c8ccd8" stroke-width="2.2" stroke-linecap="round"/><path d="M${x0 + 4} 574 v5 M${x0 + 17} 574 v5" stroke="#9aa3ad" stroke-width="1.8"/>` + [470, 486, 502, 518].map(y => `<path d="M${mx(155.5, s)} ${y} l${s * 9} 3 M${mx(155.5, s)} ${y + 3} l${s * 9} -3" stroke="#fff" stroke-width="1"/>`).join('') + `<circle cx="${mx(160, s)}" cy="464" r="3.4" fill="${AC}"/>`; });
+      if (S === 'f6_slippers') feet(s => { const x = mx(160.5, s); return `<circle cx="${x}" cy="556" r="8" fill="${fmx(SC, '#ffffff', 0.5)}" stroke="${fmx(SC, '#241018', 0.25)}" stroke-width=".6"/>` + Array.from({ length: 10 }, (_, i) => { const a = i / 10 * Math.PI * 2; return `<circle cx="${fx(x + Math.cos(a) * 7)}" cy="${fx(556 + Math.sin(a) * 7)}" r="3" fill="${fmx(SC, '#ffffff', 0.6)}"/>`; }).join('') + `<circle cx="${x}" cy="556" r="4" fill="#fff"/>`; });
+      if (S === 'f6_heartsneak') feet(s => `<path d="${heart(mx(162, s), 552, 3.6)}" fill="${AC}" stroke="#fff" stroke-width=".7"/><path d="${heart(mx(157, s), 566, 2.2)}" fill="#fff" opacity=".9"/>`);
+      if (S === 'f6_wingsneak') feet(s => `<path d="M${mx(170, s)} 528 C${mx(184, s)} 520 ${mx(194, s)} 522 ${mx(190, s)} 528 C${mx(196, s)} 530 ${mx(192, s)} 536 ${mx(184, s)} 534 C${mx(188, s)} 540 ${mx(180, s)} 542 ${mx(170, s)} 538Z" fill="#fff" stroke="#c8c8dc" stroke-width=".8"/><path d="M${mx(174, s)} 530 l${s * 10} -3 M${mx(174, s)} 534 l${s * 9} 0" stroke="#c8c8dc" stroke-width=".6"/>`);
+      if (S === 'f6_jelly') feet(s => Array.from({ length: 7 }, (_, i) => `<circle cx="${fx(mx(154 + (i * 13) % 13 + i * 0.3, s))}" cy="${554 + (i * 5) % 16}" r="${i % 2 ? 0.8 : 1.1}" fill="#fff"/>`).join('') + `<path d="M${mx(153, s)} 550 Q${mx(160, s)} 546 ${mx(168, s)} 550" fill="none" stroke="${fmx(SC, '#ffffff', 0.5)}" stroke-width="1.4" opacity=".8"/>`);
+      if (S === 'f6_cowgirl') feet(s => `<path d="M${mx(154, s)} 470 q${s * 6} 10 ${s * 12} 0 M${mx(155, s)} 490 q${s * 5} 8 ${s * 10} 0" fill="none" stroke="#fff6c4" stroke-width="1.2"/><path d="${star(mx(160, s), 508, 4.2)}" fill="#ffd45c" stroke="#b8862e" stroke-width=".5"/><rect x="${mx(160, s) - 6}" y="575" width="12" height="4" rx="1" fill="${fmx(SC, '#000', 0.4)}"/>`);
+    }
+    // ---- hats ----
+    const hat = g0.hat, HC = g.hatColor || '#7a4fbf', HCd = fmx(HC, '#241018', 0.45), hw = bh ? 1.3 : 1, by = bh ? 24 : 36;
+    if (hat === 'f6_witchhat') r.head += `<ellipse cx="150" cy="${by}" rx="${64 * hw}" ry="12" fill="${HC}" stroke="${HCd}" stroke-width="1.1"/><path d="M${150 - 30 * hw} ${by} C${150 - 24 * hw} ${by - 26} ${150 - 8} ${by - 40} 170 ${by - 58} C168 ${by - 44} ${150 + 20 * hw} ${by - 22} ${150 + 30 * hw} ${by}Z" fill="${HC}" stroke="${HCd}" stroke-width="1.1"/>` +
+      `<path d="M${150 - 29 * hw} ${by - 4} Q150 ${by + 2} ${150 + 29 * hw} ${by - 4} L${150 + 27 * hw} ${by - 11} Q150 ${by - 5} ${150 - 27 * hw} ${by - 11}Z" fill="${AC}"/><path d="${star(150 + 14 * hw, by - 8, 5)}" fill="#ffd45c" stroke="#b8862e" stroke-width=".5"/><path d="${star(158, by - 30, 2.8)}" fill="#fff6c4"/><path d="${star(144, by - 18, 2.2)}" fill="#fff6c4"/>`;
+    if (hat === 'f6_chefhat') { const y0 = bh ? 22 : 34; r.head += `<path d="M${150 - 30 * hw} ${y0} C${150 - 48 * hw} ${y0 - 12} ${150 - 40 * hw} ${y0 - 44} ${150 - 18} ${y0 - 36} C${150 - 14} ${y0 - 56} ${150 + 14} ${y0 - 56} ${150 + 18} ${y0 - 36} C${150 + 40 * hw} ${y0 - 44} ${150 + 48 * hw} ${y0 - 12} ${150 + 30 * hw} ${y0}Z" fill="#ffffff" stroke="#c8ccd8" stroke-width="1.1"/>` +
+      `<rect x="${150 - 31 * hw}" y="${y0 - 6}" width="${62 * hw}" height="14" rx="3" fill="#f6f6fa" stroke="#c8ccd8" stroke-width="1"/><path d="M${150 - 14} ${y0 - 10} q4 -14 0 -22 M${150 + 10} ${y0 - 10} q-3 -14 2 -24" fill="none" stroke="#dcdce6" stroke-width="1.2"/>`; }
+    if (hat === 'f6_helmet') { const hg = H.def('f6hm', `<radialGradient id="${H.u}-f6hm" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ffffff" stop-opacity=".45"/><stop offset=".5" stop-color="#bfe8ff" stop-opacity=".12"/><stop offset="1" stop-color="#8ab8f0" stop-opacity=".35"/></radialGradient>`);
+      r.head += `<circle cx="150" cy="64" r="${bh ? 74 : 62}" fill="${hg}" stroke="#dfe3ec" stroke-width="3"/><path d="M${bh ? 96 : 104} 38 A${bh ? 62 : 52} ${bh ? 62 : 52} 0 0 1 ${bh ? 140 : 142} ${bh ? 2 : 10}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/><path d="M104 118 Q150 132 196 118 L194 128 Q150 142 106 128Z" fill="#dfe3ec" stroke="#8a93a8" stroke-width="1"/>`; }
+    if (hat === 'f6_bucket') { const y0 = bh ? 26 : 38; r.head += `<path d="M${150 - 52 * hw} ${y0 + 8} Q150 ${y0 - 4} ${150 + 52 * hw} ${y0 + 8} L${150 + 40 * hw} ${y0 - 4} Q150 ${y0 - 12} ${150 - 40 * hw} ${y0 - 4}Z" fill="${H.fab('h', HC, g.hatPat || 'plain')}" stroke="${HCd}" stroke-width="1"/>` +
+      `<path d="M${150 - 36 * hw} ${y0 - 2} C${150 - 36 * hw} ${y0 - 44} ${150 + 36 * hw} ${y0 - 44} ${150 + 36 * hw} ${y0 - 2} Q150 ${y0 - 8} ${150 - 36 * hw} ${y0 - 2}Z" fill="${H.fab('h', HC, g.hatPat || 'plain')}" stroke="${HCd}" stroke-width="1"/><path d="M${150 - 34 * hw} ${y0 - 10} Q150 ${y0 - 16} ${150 + 34 * hw} ${y0 - 10}" fill="none" stroke="${HCd}" stroke-width=".8" stroke-dasharray="2 1.4"/>`; }
+    if (hat === 'f6_flowercrown') r.head += Array.from({ length: 11 }, (_, i) => { const t = i / 10, a = Math.PI * (1 - t), x = 150 + Math.cos(a) * 36 * w, y = top + 20 - Math.sin(a) * 16, c = ['#ff9ec4', '#fff2a8', '#c3a2ff', '#ffffff', '#ffb07a', '#9dd8f5'][i % 6];
+      return `<ellipse cx="${fx(x - 5)}" cy="${fx(y + 3)}" rx="5" ry="2.4" transform="rotate(-30 ${fx(x - 5)} ${fx(y + 3)})" fill="#6fbf73"/>` + [0, 72, 144, 216, 288].map(d => `<circle cx="${fx(x + 3.6 * Math.cos(d * Math.PI / 180))}" cy="${fx(y + 3.6 * Math.sin(d * Math.PI / 180))}" r="3.4" fill="${c}" stroke="${fmx(c, '#8a3a5a', 0.3)}" stroke-width=".4"/>`).join('') + `<circle cx="${fx(x)}" cy="${fx(y)}" r="2" fill="#ffd45c"/>`; }).join('') +
+      `<path d="M${fx(150 + 36 * w)} ${top + 22} q10 30 2 70 M${fx(150 + 34 * w)} ${top + 24} q16 26 14 60" fill="none" stroke="${AC}" stroke-width="2.2" stroke-linecap="round"/>`;
+    // ---- glasses ----
+    if (g0.glasses === 'f6_catglasses') r.face += both(s => `<path d="${spath(mp([[152, 66, 1], [176, 62, 1], [182, 58, 1], [177, 72], [168, 78], [157, 77], [152.5, 71]], s))}" fill="#fff" fill-opacity=".12" stroke="${AC}" stroke-width="2"/><circle cx="${mx(177, s)}" cy="62" r="1.3" fill="#fff"/>`) + `<path d="M146.5 69 Q150 66.5 153.5 69" fill="none" stroke="${AC}" stroke-width="1.6"/>`;
+    // ---- accessories ----
+    if (A.f6_minibows) [[-1, 40], [1, 40]].forEach(([s, y]) => { r.head += bow(fx(150 + s * 25 * w), bh ? y - 12 : y, 0.72, AC); });
+    if (A.f6_sidebow) r.head += bow(fx(150 + 26 * w), bh ? 18 : 30, 1.05, AC);
+    if (A.f6_umbrella) onHand(1, `<path d="M209 330 L226 70" stroke="#6a4a3a" stroke-width="2.4" stroke-linecap="round"/><path d="M209 330 q-2 10 -9 8" fill="none" stroke="#6a4a3a" stroke-width="3" stroke-linecap="round"/>` +
+      `<path d="M171 108 C173 60 279 60 281 108 Q270 100 259 108 Q248 100 237 108 Q226 100 215 108 Q204 100 193 108 Q182 100 171 108Z" fill="${AC}" stroke="${ACd}" stroke-width="1.2"/><path d="M180 92 C190 72 212 66 226 66" fill="none" stroke="#fff" stroke-width="2" opacity=".45" stroke-linecap="round"/>` +
+      [193, 215, 237, 259].map((x, i) => `<path d="M226 64 Q${x} 80 ${x} 106" fill="none" stroke="${ACd}" stroke-width=".8" opacity=".6"/>` + (i % 2 ? '' : `<path d="${heart(x + 11, 92, 3)}" fill="#fff" opacity=".85"/>`)).join('') + `<path d="M226 64 v-8" stroke="#6a4a3a" stroke-width="2"/><circle cx="226" cy="55" r="2" fill="${ACd}"/>`);
+    if (A.f6_balloons) onHand(-1, [[58, 176, '#ff5f8f'], [86, 150, '#ffd45c'], [34, 142, '#3fb6ff'], [70, 116, '#bda4ff']].map(([x, y, c]) => `<path d="M90 324 Q${(90 + x) / 2 + 6} ${(324 + y) / 2} ${x} ${y + 22}" fill="none" stroke="#9a8a9a" stroke-width=".8"/>`).join('') +
+      [[58, 176, '#ff5f8f'], [86, 150, '#ffd45c'], [34, 142, '#3fb6ff'], [70, 116, '#bda4ff']].map(([x, y, c]) => `<ellipse cx="${x}" cy="${y}" rx="17" ry="21" fill="${c}" stroke="${fmx(c, '#241018', 0.35)}" stroke-width="1"/><path d="M${x - 9} ${y - 10} q3 -7 10 -7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".7"/><path d="M${x} ${y + 21} l-3 4 h6Z" fill="${fmx(c, '#241018', 0.2)}"/>`).join(''));
+    if (A.f6_teddy) onHand(1, f6Teddy(216, 316).replace(`translate(216 316)`, `translate(216 316) scale(1.35)`));
+    if (A.f6_bouquet) onHand(-1, sc(90, 330, 1.6, `<path d="M84 296 L90 336 L98 296Z" fill="#fff6ec" stroke="#d8c0b0" stroke-width=".9"/>` + [[80, 288, '#ff5f8f'], [92, 284, '#fff2a8'], [104, 290, '#c3a2ff'], [86, 276, '#ff9ec4'], [98, 274, '#ffffff'], [92, 296, '#ffb07a']].map(([x, y, c]) => `<path d="M91 300 L${x} ${y}" stroke="#4f9a5a" stroke-width="1.2"/>` + [0, 72, 144, 216, 288].map(d => `<circle cx="${fx(x + 3.6 * Math.cos(d * Math.PI / 180))}" cy="${fx(y + 3.6 * Math.sin(d * Math.PI / 180))}" r="3.4" fill="${c}" stroke="${fmx(c, '#8a3a5a', 0.3)}" stroke-width=".4"/>`).join('') + `<circle cx="${x}" cy="${y}" r="1.8" fill="#ffd45c"/>`).join('') +
+      `<ellipse cx="74" cy="296" rx="6" ry="2.6" transform="rotate(-30 74 296)" fill="#6fbf73"/><ellipse cx="108" cy="298" rx="6" ry="2.6" transform="rotate(30 108 298)" fill="#6fbf73"/><path d="M86 318 q4 6 8 0 l3 8 M86 318 l-3 8" fill="none" stroke="${AC}" stroke-width="1.6"/>`));
+    if (A.f6_icecream) onHand(1, sc(209, 330, 1.4, `<path d="M203 318 L210 350 L217 318Z" fill="#e8b46a" stroke="#b07a3a" stroke-width=".8"/><path d="M205 322 l8 8 M208 319 l7 7 M212 320 l-6 6" stroke="#b07a3a" stroke-width=".5"/><circle cx="210" cy="310" r="8.5" fill="#ffc4de" stroke="#e08aa8" stroke-width=".8"/><circle cx="210" cy="298" r="7.2" fill="#fff6c4" stroke="#e0c070" stroke-width=".8"/><circle cx="210" cy="288" r="3" fill="#e0314b"/>` +
+      [[206, 306], [213, 312], [208, 296], [214, 300]].map(([x, y], i) => `<rect x="${x}" y="${y}" width="2.4" height="1" rx=".5" fill="${['#3fb6ff', '#ffd45c', '#ff5f8f', '#3fd6a0'][i]}"/>`).join('')));
+    if (A.f6_basket) onHand(-1, sc(90, 330, 1.3, `<path d="M76 348 Q90 312 104 348" fill="none" stroke="#a8743a" stroke-width="3"/><path d="M72 346 H108 L103 374 Q90 378 77 374Z" fill="#d8a060" stroke="#8a5a2a" stroke-width="1"/><path d="M74 354 H106 M75 362 H105 M84 346 L82 376 M96 346 L98 376" stroke="#a8743a" stroke-width=".8"/>` +
+      [[80, 344, '#ff9ec4'], [90, 341, '#fff2a8'], [100, 344, '#c3a2ff']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="4.4" fill="${c}" stroke="${fmx(c, '#8a3a5a', 0.3)}" stroke-width=".5"/><circle cx="${x}" cy="${y}" r="1.6" fill="#ffd45c"/>`).join('')));
+    if (A.f6_starbag) r.bag += `<path d="M134 132 L190 258" stroke="${fmx(AC, '#000', 0.35)}" stroke-width="2" fill="none"/><path d="${star(194, 268, 15, 0.5)}" fill="${AC}" stroke="${ACd}" stroke-width="1.2" stroke-linejoin="round"/><path d="${star(194, 268, 6, 0.5)}" fill="#fff" opacity=".6"/><circle cx="188" cy="262" r="1.6" fill="#fff"/>`;
+    if (A.f6_camera) r.body += `<path d="M134 128 Q150 206 166 128" fill="none" stroke="#3a3350" stroke-width="1.6"/><rect x="136" y="186" width="28" height="19" rx="4" fill="${AC}" stroke="${ACd}" stroke-width="1"/><circle cx="150" cy="196" r="6.4" fill="#3a3350" stroke="#fff" stroke-width="1.4"/><circle cx="150" cy="196" r="3" fill="#6fb8ff"/><circle cx="148.6" cy="194.6" r="1" fill="#fff"/><rect x="156" y="188" width="5" height="3" rx="1" fill="#fff"/>`;
+    if (A.f6_book) onHand(1, `<g transform="rotate(-12 214 320)"><rect x="200" y="302" width="30" height="38" rx="3" fill="${AC}" stroke="${ACd}" stroke-width="1"/><rect x="226" y="304" width="4" height="34" fill="#fff" stroke="${ACd}" stroke-width=".6"/><path d="${heart(214, 318, 5)}" fill="#fff" opacity=".85"/><path d="M204 330 h18" stroke="#fff" stroke-width="1.4" opacity=".7"/></g>`);
+    return r;
+  }
+  function f6Pom(x, y, c) {
+    const d = fmx(c, '#241018', 0.3);
+    return Array.from({ length: 22 }, (_, i) => { const a = i * 2.39996, q = Math.sqrt((i + 0.5) / 22) * 23; return `<path d="M${fx(x)} ${fx(y)} L${fx(x + Math.cos(a) * (q + 4))} ${fx(y + Math.sin(a) * (q + 4))}" stroke="${i % 3 ? c : '#ffffff'}" stroke-width="3.2" stroke-linecap="round"/>`; }).join('') + `<circle cx="${x}" cy="${y}" r="7" fill="${c}" stroke="${d}" stroke-width=".6"/>`;
+  }
+  function f6Teddy(x, y) {
+    const b = '#c9905a', d = '#8a5a2a', l = '#ecc49a';
+    return `<g transform="translate(${x} ${y})"><circle cx="-10" cy="-26" r="5" fill="${b}" stroke="${d}" stroke-width=".8"/><circle cx="10" cy="-26" r="5" fill="${b}" stroke="${d}" stroke-width=".8"/><circle cx="-10" cy="-26" r="2.4" fill="${l}"/><circle cx="10" cy="-26" r="2.4" fill="${l}"/>` +
+      `<ellipse cx="0" cy="8" rx="13" ry="15" fill="${b}" stroke="${d}" stroke-width=".9"/><ellipse cx="0" cy="11" rx="7" ry="8" fill="${l}"/><circle cx="0" cy="-16" r="12.5" fill="${b}" stroke="${d}" stroke-width=".9"/><ellipse cx="0" cy="-11.5" rx="5.5" ry="4.2" fill="${l}"/>` +
+      `<circle cx="-4.4" cy="-18" r="1.5" fill="#2a1a10"/><circle cx="4.4" cy="-18" r="1.5" fill="#2a1a10"/><circle cx="-4" cy="-18.6" r=".5" fill="#fff"/><circle cx="4.8" cy="-18.6" r=".5" fill="#fff"/><path d="M-1.8 -13.4 h3.6 l-1.8 2Z" fill="#2a1a10"/><path d="M0 -11.4 q-2 2 -3.4 1 M0 -11.4 q2 2 3.4 1" fill="none" stroke="#2a1a10" stroke-width=".6"/>` +
+      `<ellipse cx="-12" cy="4" rx="4" ry="7" transform="rotate(30 -12 4)" fill="${b}" stroke="${d}" stroke-width=".8"/><ellipse cx="12" cy="4" rx="4" ry="7" transform="rotate(-30 12 4)" fill="${b}" stroke="${d}" stroke-width=".8"/><ellipse cx="-7" cy="22" rx="5" ry="4" fill="${b}" stroke="${d}" stroke-width=".8"/><ellipse cx="7" cy="22" rx="5" ry="4" fill="${b}" stroke="${d}" stroke-width=".8"/>` +
+      `<path d="M-6 -5 L0 -2 L6 -5 L6 1 L0 -2 L-6 1Z" fill="#ff5f8f" stroke="#c0305a" stroke-width=".5"/><circle cx="-8" cy="-12" r="1.8" fill="#ff9ec4" opacity=".6"/><circle cx="8" cy="-12" r="1.8" fill="#ff9ec4" opacity=".6"/></g>`;
+  }
+  // fabric prints: a motif in a 16x16 tile over the base colour
+  function f6Motif(c, p) {
+    if (!/^f6/.test(p || '')) return undefined;
+    const L = flum(c), m1 = L > 0.72 ? fmx(c, '#3a2030', 0.35) : fmx(c, '#ffffff', 0.72), dk = fmx(c, '#2a1020', 0.3);
+    const star = (x, y, r, f) => `<path d="M${x} ${y - r}Q${x} ${y} ${x + r} ${y}Q${x} ${y} ${x} ${y + r}Q${x} ${y} ${x - r} ${y}Q${x} ${y} ${x} ${y - r}Z" fill="${f}"/>`;
+    switch (p) {
+      case 'f6strawb': return [[5, 5], [13, 13]].map(([x, y]) => `<path d="M${x} ${y + 3.2} C${x - 3.4} ${y + 0.6} ${x - 3} ${y - 2.6} ${x} ${y - 1.8} C${x + 3} ${y - 2.6} ${x + 3.4} ${y + 0.6} ${x} ${y + 3.2}Z" fill="#ff4d6a"/><path d="M${x - 2} ${y - 2.2} l1 1.2 l1 -1.6 l1 1.6 l1 -1.2 l-.5 -1 h-3Z" fill="#4fb85a"/><circle cx="${x - 1}" cy="${y}" r=".35" fill="#fff6c4"/><circle cx="${x + 1}" cy="${y + 1.2}" r=".35" fill="#fff6c4"/>`).join('');
+      case 'f6lemon': return [[5, 5, -20], [13, 13, 25]].map(([x, y, a]) => `<g transform="rotate(${a} ${x} ${y})"><ellipse cx="${x}" cy="${y}" rx="3.4" ry="2.5" fill="#ffe14d" stroke="#d8b21c" stroke-width=".4"/><path d="M${x + 3.3} ${y} l1 -.4 v.8Z" fill="#d8b21c"/><ellipse cx="${x - 1}" cy="${y - 1}" rx="1" ry=".5" fill="#fff" opacity=".7"/><path d="M${x - 1.5} ${y - 2.4} q-1 -1.6 -2.6 -1.2 q.6 1.4 2.6 1.2Z" fill="#5fb85a"/></g>`).join('');
+      case 'f6cloud': return [[5, 6, 1], [13, 13, 0.8]].map(([x, y, k]) => `<g fill="${L > 0.8 ? '#bfe3f7' : '#ffffff'}"><ellipse cx="${x}" cy="${y}" rx="${4 * k}" ry="${1.8 * k}"/><circle cx="${x - 1.4 * k}" cy="${y - 1.2 * k}" r="${1.7 * k}"/><circle cx="${x + 1.2 * k}" cy="${y - 1.6 * k}" r="${2.1 * k}"/></g>`).join('');
+      case 'f6gingham': return `<rect x="0" y="0" width="8" height="16" fill="${m1}" opacity=".45"/><rect x="0" y="0" width="16" height="8" fill="${m1}" opacity=".45"/>`;
+      case 'f6checker': return `<rect width="8" height="8" fill="${L > 0.6 ? '#2b2b30' : '#ffffff'}"/><rect x="8" y="8" width="8" height="8" fill="${L > 0.6 ? '#2b2b30' : '#ffffff'}"/>`;
+      case 'f6zebra': return `<path d="M-1 2 Q6 0 10 3 Q13 5 17 3 L17 5.5 Q12 8 8 5.5 Q4 3.5 -1 5Z M-1 10 Q5 8 9 11 Q13 13 17 11 L17 13 Q12 15.5 8 13 Q4 11 -1 13Z" fill="${L > 0.4 ? '#2b2b30' : '#ffffff'}"/>`;
+      case 'f6cow': return `<path d="M2 3 C5 1 8 3 7 6 C6 9 2 8 1.5 6 C1 5 1 4 2 3Z M11 10 C14 9 16 11 15 13.5 C14 15.5 10.5 15 10 13 C9.6 11.5 10 10.6 11 10Z M12 1 C13.5 .5 15 2 14 3.5 C13 4.5 11.4 3.6 12 1Z" fill="${L > 0.4 ? '#2b2b30' : '#ffffff'}"/>`;
+      case 'f6moon': return `<path d="M4.4 2 a3.4 3.4 0 1 0 3 5.4 a2.7 2.7 0 1 1 -3 -5.4Z" fill="#ffe08a"/>` + star(12.5, 12, 2, '#fff6c4') + `<circle cx="12" cy="4" r=".6" fill="#fff"/><circle cx="3" cy="13" r=".5" fill="#fff"/>`;
+      case 'f6butterfly': return [[5, 5, '#ff9ec4'], [13, 13, '#9dd8f5']].map(([x, y, f]) => `<path d="M${x} ${y} C${x - 2.4} ${y - 3} ${x - 4} ${y - 1.2} ${x - 2.8} ${y + 0.4} C${x - 3.6} ${y + 2.2} ${x - 1.4} ${y + 2.8} ${x} ${y + 0.4} C${x + 1.4} ${y + 2.8} ${x + 3.6} ${y + 2.2} ${x + 2.8} ${y + 0.4} C${x + 4} ${y - 1.2} ${x + 2.4} ${y - 3} ${x} ${y}Z" fill="${f}" stroke="${fmx(f, '#241018', 0.35)}" stroke-width=".3"/><path d="M${x} ${y - 1.4} v2.6" stroke="#3a2b3c" stroke-width=".5"/>`).join('');
+      case 'f6confetti': return [[2, 3, '#ff5f8f', 20], [9, 2, '#ffd45c', -30], [14, 7, '#3fb6ff', 40], [5, 10, '#3fd6a0', -10], [11, 13, '#bda4ff', 60], [2, 15, '#ff9b6e', 0]].map(([x, y, f, a]) => `<rect x="${x}" y="${y}" width="2.6" height="1.1" rx=".4" fill="${f}" transform="rotate(${a} ${x} ${y})"/>`).join('') + `<circle cx="8" cy="7" r=".7" fill="#ff5f8f"/><circle cx="15" cy="15" r=".6" fill="#ffd45c"/>`;
+      case 'f6melon': return [[5, 5], [13, 13]].map(([x, y]) => `<path d="M${x - 3.6} ${y - 1} A3.6 3.6 0 0 0 ${x + 3.6} ${y - 1}Z" fill="#ff6f85" stroke="#4fb85a" stroke-width="1"/><circle cx="${x - 1.2}" cy="${y}" r=".4" fill="#2b2b30"/><circle cx="${x + 1.2}" cy="${y}" r=".4" fill="#2b2b30"/><circle cx="${x}" cy="${y + 1.2}" r=".4" fill="#2b2b30"/>`).join('');
+      case 'f6daisy': return [[5, 5, 1], [13, 12, 0.8]].map(([x, y, k]) => Array.from({ length: 8 }, (_, i) => { const a = i * Math.PI / 4; return `<ellipse cx="${fx(x + Math.cos(a) * 2 * k)}" cy="${fx(y + Math.sin(a) * 2 * k)}" rx="${fx(1.3 * k)}" ry="${fx(0.6 * k)}" transform="rotate(${fx(a * 180 / Math.PI)} ${fx(x + Math.cos(a) * 2 * k)} ${fx(y + Math.sin(a) * 2 * k)})" fill="#ffffff" stroke="#e0d0d8" stroke-width=".15"/>`; }).join('') + `<circle cx="${x}" cy="${y}" r="${fx(1.1 * k)}" fill="#ffd45c"/>`).join('');
+      case 'f6rainbowdots': return [[3, 3, '#ff6f7a'], [11, 3, '#ffb050'], [7, 8, '#ffe066'], [15, 8, '#7ed48a'], [3, 13, '#6fb8ff'], [11, 13, '#b37bff']].map(([x, y, f]) => `<circle cx="${x}" cy="${y}" r="1.7" fill="${f}"/>`).join('');
+      case 'f6scales': return [[0, 4], [8, 4], [16, 4], [4, 10], [12, 10], [0, 16], [8, 16], [16, 16], [4, -2], [12, -2]].map(([x, y]) => `<path d="M${x - 4} ${y} A4 4 0 0 0 ${x + 4} ${y}" fill="${fmx(c, '#ffffff', 0.18)}" stroke="${dk}" stroke-width=".5"/><path d="M${x - 2} ${y + 1.4} q2 1.2 4 0" fill="none" stroke="#fff" stroke-width=".4" opacity=".7"/>`).join('');
+    }
+    return undefined;
+  }
+  // ---------- new backgrounds ----------
+  function f6Scene(id, color, u, def) {
+    if (!/^f6_/.test(id || '')) return '';
+    const R = (x, y, w, h, f, ex = '') => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"${ex}/>`;
+    const grad = (k, stops) => def('f6' + k, `<linearGradient id="${u}-f6${k}" x1="0" x2="0" y1="0" y2="1">${stops.map(([o, c, op]) => `<stop offset="${o}" stop-color="${c}"${op != null ? ` stop-opacity="${op}"` : ''}/>`).join('')}</linearGradient>`);
+    const tw = (x, y, s, f = '#fff', o = 0.9) => `<path d="M${x} ${y - s}Q${x} ${y} ${x + s} ${y}Q${x} ${y} ${x} ${y + s}Q${x} ${y} ${x - s} ${y}Q${x} ${y} ${x} ${y - s}Z" fill="${f}" opacity="${o}"/>`;
+    const cloud = (x, y, k, f = '#fff', o = 0.9) => `<g fill="${f}" opacity="${o}"><ellipse cx="${x}" cy="${y}" rx="${34 * k}" ry="${12 * k}"/><ellipse cx="${x - 14 * k}" cy="${y - 8 * k}" rx="${16 * k}" ry="${12 * k}"/><ellipse cx="${x + 12 * k}" cy="${y - 11 * k}" rx="${19 * k}" ry="${14 * k}"/></g>`;
+    const flower = (x, y, r, c) => [0, 72, 144, 216, 288].map(a => `<circle cx="${fx(x + r * Math.cos(a * Math.PI / 180))}" cy="${fx(y + r * Math.sin(a * Math.PI / 180))}" r="${fx(r * 0.9)}" fill="${c}"/>`).join('') + `<circle cx="${x}" cy="${y}" r="${fx(r * 0.6)}" fill="#ffd45c"/>`;
+    switch (id) {
+      case 'f6_underwater': return R(0, 0, 300, 600, grad('uw', [[0, '#6fd6f0'], [0.5, '#2a9ec8'], [1, '#1a5f8e']])) +
+        [40, 120, 210, 270].map((x, i) => `<path d="M${x} -10 L${x - 30} 600 L${x + 20} 600Z" fill="#fff" opacity="${0.05 + (i % 2) * 0.04}"/>`).join('') +
+        Array.from({ length: 16 }, (_, i) => `<circle cx="${(i * 67) % 300}" cy="${40 + (i * 89) % 440}" r="${2 + (i % 4)}" fill="none" stroke="#fff" stroke-width="1" opacity=".55"/>`).join('') +
+        `<path d="M0 470 Q80 440 160 466 T300 456 V600 H0Z" fill="${grad('us', [[0, '#f2dca8'], [1, '#d8b878']])}"/>` +
+        [[30, 470, '#ff7a9a'], [260, 460, '#ffb07a'], [70, 480, '#c3a2ff']].map(([x, y, c]) => `<path d="M${x} ${y} C${x - 10} ${y - 30} ${x - 24} ${y - 50} ${x - 18} ${y - 70} M${x} ${y} C${x + 4} ${y - 34} ${x + 16} ${y - 56} ${x + 10} ${y - 84} M${x} ${y} C${x - 2} ${y - 26} ${x + 2} ${y - 40} ${x} ${y - 56}" fill="none" stroke="${c}" stroke-width="7" stroke-linecap="round"/>`).join('') +
+        [[228, 440], [290, 430]].map(([x, y]) => `<path d="M${x} ${y + 40} Q${x - 14} ${y} ${x - 4} ${y - 60} M${x} ${y + 40} Q${x + 10} ${y} ${x + 2} ${y - 50}" fill="none" stroke="#3f9c6e" stroke-width="5" stroke-linecap="round"/>`).join('') +
+        [[60, 170, '#ffd45c', 1], [236, 250, '#ff9ec4', -1], [100, 330, '#9dd8f5', 1]].map(([x, y, c, s]) => `<g transform="translate(${x} ${y}) scale(${s} 1)"><ellipse rx="14" ry="9" fill="${c}"/><path d="M12 0 L22 -8 L22 8Z" fill="${c}"/><circle cx="-7" cy="-2" r="2" fill="#2b2b30"/><circle cx="-7.6" cy="-2.6" r=".7" fill="#fff"/><path d="M-2 -8 q4 -6 8 0" fill="${fmx(c, '#000', 0.12)}"/></g>`).join('') +
+        `<path d="M160 560 l6 -12 l6 12 l12 2 l-9 8 l2 12 l-11 -6 l-11 6 l2 -12 l-9 -8Z" fill="#ff9b6e"/><path d="M40 560 q10 -16 20 0Z" fill="#fff6ec" stroke="#e0c0b0" stroke-width="1"/>`;
+      case 'f6_gardenparty': return R(0, 0, 300, 600, grad('gp', [[0, '#bfe8ff'], [1, '#eaf8ff']])) + cloud(70, 70, 1) + cloud(230, 110, 0.8) +
+        `<path d="M0 60 Q75 90 150 60 T300 60" fill="none" stroke="#b08a6a" stroke-width="1"/>` + Array.from({ length: 10 }, (_, i) => { const x = 10 + i * 30, y = 64 + Math.sin(i * 1.3) * 8; return `<path d="M${x - 8} ${y} L${x + 8} ${y} L${x} ${y + 14}Z" fill="${['#ff9ec4', '#ffd45c', '#9dd8f5', '#c3a2ff', '#a8dc8f'][i % 5]}"/>`; }).join('') +
+        `<path d="M0 380 Q150 360 300 380 V600 H0Z" fill="${grad('gg', [[0, '#9edb86'], [1, '#6fbf5e']])}"/>` +
+        `<rect x="190" y="360" width="100" height="10" rx="3" fill="#fff" stroke="#e0c0d0"/><path d="M190 370 h100 v36 h-100Z" fill="#ffd1e3"/><path d="M190 370 q12 14 25 0 t25 0 t25 0 t25 0" fill="#fff"/><rect x="198" y="406" width="6" height="40" fill="#fff"/><rect x="276" y="406" width="6" height="40" fill="#fff"/>` +
+        `<path d="M214 360 l6 -22 h10 l6 22Z" fill="#fff" stroke="#e0c0d0"/><circle cx="225" cy="336" r="6" fill="#ff5f8f"/><rect x="246" y="342" width="30" height="18" rx="3" fill="#fff6ec" stroke="#e0c0d0"/><path d="M246 348 h30" stroke="#ff9ec4" stroke-width="4"/>` +
+        Array.from({ length: 14 }, (_, i) => flower(12 + (i * 53) % 280, 440 + (i * 37) % 150, 3.4, ['#ff9ec4', '#fff', '#c3a2ff', '#ffd45c'][i % 4])).join('');
+      case 'f6_icerink': return R(0, 0, 300, 600, grad('ir', [[0, '#2b3a6e'], [0.55, '#8a9ad8'], [1, '#dfe7ff']])) +
+        Array.from({ length: 30 }, (_, i) => `<circle cx="${(i * 61) % 300}" cy="${(i * 47) % 360}" r="${1 + (i % 3) * 0.6}" fill="#fff" opacity=".85"/>`).join('') +
+        `<g fill="#1f2a55">${[[20, 360, 50], [80, 330, 40], [230, 340, 44], [280, 360, 40]].map(([x, y, h]) => `<path d="M${x} ${y - h * 1.6} L${x - 22} ${y} H${x + 22}Z"/>`).join('')}</g>` +
+        `<ellipse cx="150" cy="500" rx="200" ry="110" fill="${grad('ice', [[0, '#e8f6ff'], [1, '#bfe3f7']])}"/><path d="M40 470 q60 -20 120 6 M120 540 q60 -30 130 -6 M20 520 q30 -10 60 4" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/>` +
+        `<path d="M0 392 H300" stroke="#fff" stroke-width="6"/>` + Array.from({ length: 11 }, (_, i) => `<rect x="${i * 30}" y="386" width="4" height="14" fill="#e0314b"/>`).join('') + Array.from({ length: 10 }, (_, i) => `<circle cx="${15 + i * 30}" cy="378" r="4" fill="${['#ffd45c', '#ff9ec4', '#9dd8f5'][i % 3]}"/>`).join('');
+      case 'f6_fairground': return R(0, 0, 300, 600, grad('fg', [[0, '#ff9ec4'], [0.5, '#ffd1a8'], [1, '#fff1d6']])) +
+        `<g transform="translate(80 200)"><circle r="96" fill="none" stroke="#fff" stroke-width="5"/><circle r="10" fill="#fff"/>` + Array.from({ length: 8 }, (_, i) => { const a = i * Math.PI / 4, x = Math.cos(a) * 96, y = Math.sin(a) * 96; return `<path d="M0 0 L${fx(x)} ${fx(y)}" stroke="#fff" stroke-width="3"/><rect x="${fx(x - 11)}" y="${fx(y)}" width="22" height="16" rx="4" fill="${['#ff5f8f', '#3fb6ff', '#ffd45c', '#3fd6a0'][i % 4]}"/>`; }).join('') + `<path d="M-30 180 L0 0 L30 180" fill="none" stroke="#fff" stroke-width="6"/></g>` +
+        `<path d="M186 310 L240 250 L294 310Z" fill="#e0314b"/><path d="M186 310 L200 250 L214 310 M228 310 L240 250 L252 310 M266 310 L280 250 L294 310" fill="none" stroke="#fff" stroke-width="6"/><rect x="190" y="310" width="100" height="90" fill="#fff6ec"/><path d="M190 330 h100" stroke="#ffd45c" stroke-width="4"/><circle cx="240" cy="246" r="5" fill="#ffd45c"/>` +
+        `<path d="M0 400 H300 V600 H0Z" fill="${grad('fgg', [[0, '#a8dc8f'], [1, '#7ac06a']])}"/>` + Array.from({ length: 12 }, (_, i) => `<circle cx="${14 + i * 25}" cy="${40 + (i % 3) * 8}" r="4" fill="${['#ffd45c', '#fff', '#3fb6ff'][i % 3]}"/>`).join('') + `<path d="M0 40 Q150 70 300 40" fill="none" stroke="#b08a6a" stroke-width="1"/>`;
+      case 'f6_library': return R(0, 0, 300, 600, '#f6e6d2') + [30, 150, 270].map(y => R(0, y, 300, 8, '#a8743a')).join('') +
+        [[0, 30], [1, 150], [2, 270]].map(([k, y]) => Array.from({ length: 22 }, (_, i) => { const w = 9 + ((i * 7 + k * 3) % 5), x = 4 + i * 13.5, h = 70 + ((i * 11 + k * 5) % 30); return i % 7 === 3 ? '' : R(x, y - h + 118, w, h, ['#e0314b', '#3f6fd8', '#3f9c6e', '#ffd45c', '#bda4ff', '#ff9b6e', '#6b4a3a'][(i + k * 2) % 7], ` rx="1.5"`) + R(x + 2, y - h + 130, w - 4, 2, '#fff', ' opacity=".6"'); }).join('')).join('') +
+        R(0, 390, 300, 210, grad('lf', [[0, '#c69a6a'], [1, '#a87a4a']])) + `<ellipse cx="150" cy="540" rx="120" ry="24" fill="#e0314b" opacity=".75"/><ellipse cx="150" cy="540" rx="100" ry="16" fill="none" stroke="#ffd45c" stroke-width="2" opacity=".7"/>` +
+        `<path d="M250 390 l8 -30 h18 l8 30Z" fill="#3f9c6e"/><circle cx="267" cy="352" r="10" fill="#fff6c4" opacity=".9"/>`;
+      case 'f6_bakery': return R(0, 0, 300, 600, '#fff1f4') + Array.from({ length: 8 }, (_, i) => R(i * 40, 0, 20, 300, '#ffd9e4')).join('') +
+        `<path d="M0 0 H300 V40 Q285 56 270 40 Q255 56 240 40 Q225 56 210 40 Q195 56 180 40 Q165 56 150 40 Q135 56 120 40 Q105 56 90 40 Q75 56 60 40 Q45 56 30 40 Q15 56 0 40Z" fill="#ff5f8f"/>` +
+        R(10, 150, 280, 8, '#c69a6a') + R(10, 250, 280, 8, '#c69a6a') +
+        [[40, 150], [100, 150], [170, 150], [240, 150]].map(([x, y], i) => i % 2 ? `<path d="M${x - 14} ${y} l4 -16 h20 l4 16Z" fill="#e8b46a"/><path d="M${x - 12} ${y - 16} q12 -16 24 0Z" fill="${['#ff9ec4', '#bda4ff'][i % 2 ? 0 : 1]}"/><circle cx="${x}" cy="${y - 24}" r="3" fill="#e0314b"/>` : `<ellipse cx="${x}" cy="${y - 8}" rx="18" ry="8" fill="#e8b46a"/><ellipse cx="${x}" cy="${y - 10}" rx="12" ry="4" fill="#fff6ec"/>`).join('') +
+        [[60, 250], [150, 250], [240, 250]].map(([x, y], i) => `<rect x="${x - 22}" y="${y - 30}" width="44" height="30" rx="4" fill="${['#ffd1e3', '#fff6c4', '#e3d4ff'][i]}"/><path d="M${x - 22} ${y - 30} q11 8 22 0 t22 0" fill="#fff"/><circle cx="${x}" cy="${y - 36}" r="4" fill="#e0314b"/>`).join('') +
+        R(0, 400, 300, 200, grad('bk', [[0, '#f6e0c0'], [1, '#e8c89c']])) + Array.from({ length: 12 }, (_, i) => R((i % 6) * 50 + (Math.floor(i / 6) % 2) * 25, 420 + Math.floor(i / 6) * 60, 24, 24, '#fff6ec', ' opacity=".5"')).join('');
+      case 'f6_sunsetbeach': return R(0, 0, 300, 600, grad('sb', [[0, '#5b3a8e'], [0.38, '#ff7a9a'], [0.62, '#ffb86b'], [1, '#ffe0a8']])) + `<circle cx="150" cy="330" r="60" fill="#fff1a8" opacity=".95"/>` +
+        R(0, 330, 300, 90, grad('sbs', [[0, '#ff9a7a'], [1, '#5b6fb8']])) + [345, 362, 380, 398].map((y, i) => `<path d="M${120 - i * 14} ${y} H${180 + i * 14}" stroke="#fff6c4" stroke-width="3" opacity="${0.8 - i * 0.15}"/>`).join('') +
+        `<path d="M0 410 Q150 396 300 410 V600 H0Z" fill="${grad('sbd', [[0, '#f2c890'], [1, '#d8a06a']])}"/>` + cloud(60, 120, 0.9, '#ffc4d6', 0.8) + cloud(240, 90, 0.7, '#ffd6e0', 0.8) +
+        `<path d="M40 580 Q34 450 58 330" fill="none" stroke="#3a2040" stroke-width="8" stroke-linecap="round"/>${[[-40, 20], [-20, -20], [30, -14], [44, 22], [0, 30]].map(([dx, dy]) => `<path d="M58 330 Q${58 + dx * 0.6} ${330 + dy * 0.2 - 18} ${58 + dx} ${330 + dy}" fill="none" stroke="#3a2040" stroke-width="7" stroke-linecap="round"/>`).join('')}` +
+        `<path d="M220 140 q6 -5 12 0 q6 -5 12 0 M250 170 q5 -4 10 0 q5 -4 10 0" fill="none" stroke="#3a2040" stroke-width="1.6"/>`;
+      case 'f6_starry': return R(0, 0, 300, 600, grad('st', [[0, '#0e0a2e'], [0.6, '#2a2266'], [1, '#4a3a8e']])) +
+        Array.from({ length: 70 }, (_, i) => i % 7 ? `<circle cx="${(i * 73) % 300}" cy="${(i * 41) % 440}" r="${0.6 + (i % 3) * 0.5}" fill="#fff" opacity="${0.5 + (i % 4) * 0.12}"/>` : tw((i * 73) % 300, (i * 41) % 440, 5, '#fff6c4')).join('') +
+        `<path d="M232 60 a34 34 0 1 0 26 56 a28 28 0 1 1 -26 -56Z" fill="#fff1a8"/>` + Array.from({ length: 40 }, (_, i) => `<circle cx="${fx(20 + i * 7)}" cy="${fx(250 - i * 2.5 + ((i * 37) % 23) - 11)}" r="${0.5 + (i % 3) * 0.3}" fill="#e3d4ff" opacity=".7"/>`).join('') +
+        `<path d="M0 470 Q70 430 150 460 T300 450 V600 H0Z" fill="#1a1440"/><path d="M0 500 Q150 480 300 500 V600 H0Z" fill="#241c52"/>` + Array.from({ length: 10 }, (_, i) => `<circle cx="${20 + i * 29}" cy="${520 + (i % 3) * 20}" r="2" fill="#fff6a8" opacity=".85"/>`).join('');
+      case 'f6_blossom': return R(0, 0, 300, 600, grad('bl', [[0, '#cfe9ff'], [1, '#fff0f6']])) +
+        `<path d="M300 40 Q220 60 200 140 M300 110 Q250 120 230 170 M0 60 Q70 70 90 150" fill="none" stroke="#7a4a3a" stroke-width="7" stroke-linecap="round"/>` +
+        [[200, 140], [230, 170], [260, 70], [90, 150], [40, 80], [280, 120], [220, 110]].map(([x, y]) => Array.from({ length: 9 }, (_, i) => { const a = i * 0.7, q = 10 + (i % 3) * 8; return flower(fx(x + Math.cos(a) * q), fx(y + Math.sin(a) * q * 0.7), 4, ['#ffc4dc', '#ffd9e8', '#ffffff'][i % 3]); }).join('')).join('') +
+        `<path d="M0 420 Q150 400 300 420 V600 H0Z" fill="${grad('blg', [[0, '#b8e6a0'], [1, '#8ccf7e']])}"/>` +
+        Array.from({ length: 30 }, (_, i) => `<ellipse cx="${(i * 71) % 300}" cy="${160 + (i * 97) % 420}" rx="3" ry="1.8" transform="rotate(${i * 40} ${(i * 71) % 300} ${160 + (i * 97) % 420})" fill="#ffc4dc" opacity=".85"/>`).join('');
+      case 'f6_rainbowland': return R(0, 0, 300, 600, grad('rl', [[0, '#9fd8ff'], [1, '#fff0fa']])) +
+        ['#ff8fa8', '#ffb86b', '#ffe27a', '#9ee493', '#8cc8ff', '#c3a2ff'].map((c, i) => `<path d="M${-30 + i * 14} 420 A${180 - i * 14} ${180 - i * 14} 0 0 1 ${330 - i * 14} 420" fill="none" stroke="${c}" stroke-width="14"/>`).join('') +
+        cloud(30, 410, 1.3) + cloud(270, 410, 1.3) + cloud(150, 90, 0.8) +
+        `<path d="M0 440 Q80 410 160 440 T300 430 V600 H0Z" fill="#b9f0c8"/><path d="M0 480 Q150 460 300 480 V600 H0Z" fill="#9ee4b0"/>` + Array.from({ length: 12 }, (_, i) => tw(20 + (i * 53) % 260, 40 + (i * 37) % 240, 3 + (i % 3), ['#fff', '#fff6c4', '#ffd6f0'][i % 3])).join('') +
+        Array.from({ length: 10 }, (_, i) => flower(15 + i * 30, 510 + (i % 3) * 25, 3.4, ['#ff9ec4', '#fff', '#c3a2ff', '#ffd45c'][i % 4])).join('');
+    }
+    return '';
+  }
+  // ---------- 💅 more nail patterns ----------
+  function f6NailPat(p, x) {
+    if (!/^f6/.test(p || '')) return '';
+    const { w, H, yT, my, pc } = x, F = fx;
+    switch (p) {
+      case 'f6plaid': return [0.25, 0.6].map(t => `<rect x="-1" y="${F(yT + H * t)}" width="${w + 2}" height="${F(H * 0.12)}" fill="${pc}" opacity=".55"/>`).join('') + [0.3, 0.7].map(t => `<rect x="${F(w * t - w * 0.06)}" y="${yT - 1}" width="${F(w * 0.12)}" height="${H + 2}" fill="${pc}" opacity=".55"/>`).join('') + `<path d="M-1 ${F(yT + H * 0.45)} H${w + 1} M${F(w / 2)} ${yT} V${yT + H}" stroke="${fmx(pc, '#000', 0.3)}" stroke-width="${F(w * 0.03)}"/>`;
+      case 'f6chevron': return [0.25, 0.5, 0.75].map(t => `<path d="M-1 ${F(yT + H * t + w * 0.2)} L${F(w / 2)} ${F(yT + H * t - w * 0.1)} L${w + 1} ${F(yT + H * t + w * 0.2)}" fill="none" stroke="${pc}" stroke-width="${F(w * 0.13)}"/>`).join('');
+      case 'f6swirl': return `<path d="M${F(-w * 0.1)} ${F(yT + H * 0.8)} C${F(w * 0.6)} ${F(yT + H * 0.9)} ${F(w * 0.9)} ${F(yT + H * 0.5)} ${F(w * 0.4)} ${F(yT + H * 0.45)} C${F(w * 0.05)} ${F(yT + H * 0.4)} ${F(w * 0.3)} ${F(yT + H * 0.05)} ${F(w * 1.1)} ${F(yT + H * 0.15)}" fill="none" stroke="${pc}" stroke-width="${F(w * 0.16)}" stroke-linecap="round"/>`;
+      case 'f6cherry': return `<path d="M${F(w * 0.36)} ${F(my + w * 0.1)} Q${F(w * 0.42)} ${F(my - w * 0.45)} ${F(w * 0.62)} ${F(my - w * 0.52)} M${F(w * 0.66)} ${F(my + w * 0.16)} Q${F(w * 0.6)} ${F(my - w * 0.3)} ${F(w * 0.62)} ${F(my - w * 0.52)}" fill="none" stroke="#3f8a3a" stroke-width="${F(w * 0.05)}"/>` +
+        [[0.34, 0.2], [0.66, 0.26]].map(([a, b]) => `<circle cx="${F(w * a)}" cy="${F(my + w * b)}" r="${F(w * 0.17)}" fill="#e0314b"/><circle cx="${F(w * a - w * 0.06)}" cy="${F(my + w * b - w * 0.06)}" r="${F(w * 0.05)}" fill="#fff" opacity=".8"/>`).join('');
+      case 'f6lemon': return `<ellipse cx="${F(w / 2)}" cy="${F(my)}" rx="${F(w * 0.34)}" ry="${F(w * 0.25)}" fill="#ffe14d" stroke="#d8b21c" stroke-width="${F(w * 0.03)}"/><path d="M${F(w * 0.32)} ${F(my - w * 0.22)} q${F(-w * 0.1)} ${F(-w * 0.2)} ${F(-w * 0.26)} ${F(-w * 0.14)} q${F(w * 0.08)} ${F(w * 0.16)} ${F(w * 0.26)} ${F(w * 0.14)}Z" fill="#5fb85a"/><ellipse cx="${F(w * 0.4)}" cy="${F(my - w * 0.08)}" rx="${F(w * 0.1)}" ry="${F(w * 0.05)}" fill="#fff" opacity=".7"/>`;
+      case 'f6melon': return `<path d="M-1 ${F(yT + H * 0.62)} H${w + 1} V${yT - 1} H-1Z" fill="#ff6f85"/><rect x="-1" y="${F(yT + H * 0.62)}" width="${w + 2}" height="${F(H * 0.08)}" fill="#fff"/><rect x="-1" y="${F(yT + H * 0.7)}" width="${w + 2}" height="${F(H * 0.4)}" fill="#4fb85a"/>` + [[0.3, 0.3], [0.62, 0.22], [0.5, 0.45], [0.72, 0.46], [0.28, 0.5]].map(([a, b]) => `<ellipse cx="${F(w * a)}" cy="${F(yT + H * b)}" rx="${F(w * 0.04)}" ry="${F(w * 0.065)}" fill="#2b2b30"/>`).join('');
+      case 'f6daisy': return [[0.5, 0.35, 0.3], [0.35, 0.72, 0.22]].map(([a, b, q]) => { const cx = w * a, cy = yT + H * b, rr = w * q; return Array.from({ length: 8 }, (_, i) => { const t = i * Math.PI / 4; return `<ellipse cx="${F(cx + Math.cos(t) * rr * 0.6)}" cy="${F(cy + Math.sin(t) * rr * 0.6)}" rx="${F(rr * 0.42)}" ry="${F(rr * 0.2)}" transform="rotate(${F(t * 180 / Math.PI)} ${F(cx + Math.cos(t) * rr * 0.6)} ${F(cy + Math.sin(t) * rr * 0.6)})" fill="${pc}"/>`; }).join('') + `<circle cx="${F(cx)}" cy="${F(cy)}" r="${F(rr * 0.3)}" fill="#ffd45c"/>`; }).join('');
+      case 'f6moons': { const a = w * 0.56, b = my, R = w * 0.3; return `<path d="M${F(a)} ${F(b - R)} A${F(R)} ${F(R)} 0 1 0 ${F(a)} ${F(b + R)} A${F(R * 1.3)} ${F(R * 1.3)} 0 0 1 ${F(a)} ${F(b - R)}Z" fill="${pc}"/>` + [[0.25, 0.2], [0.75, 0.75], [0.3, 0.84]].map(([q, t]) => `<circle cx="${F(w * q)}" cy="${F(yT + H * t)}" r="${F(w * 0.05)}" fill="${pc}"/>`).join(''); }
+      case 'f6bubbles': return [[0.3, 0.25, 0.14], [0.68, 0.45, 0.2], [0.35, 0.68, 0.11], [0.62, 0.84, 0.09]].map(([a, b, q]) => `<circle cx="${F(w * a)}" cy="${F(yT + H * b)}" r="${F(w * q)}" fill="${pc}" fill-opacity=".25" stroke="${pc}" stroke-width="${F(w * 0.03)}"/><circle cx="${F(w * a - w * q * 0.35)}" cy="${F(yT + H * b - w * q * 0.35)}" r="${F(w * q * 0.25)}" fill="#fff"/>`).join('');
+      case 'f6candy': return Array.from({ length: 7 }, (_, i) => `<path d="M${F(-w + i * w * 0.36)} ${yT + H + 1} L${F(i * w * 0.36 + w * 0.4)} ${yT - 1}" stroke="${i % 2 ? pc : '#ffffff'}" stroke-width="${F(w * 0.16)}"/>`).join('');
+      case 'f6ladybug': return `<ellipse cx="${F(w / 2)}" cy="${F(my + w * 0.05)}" rx="${F(w * 0.3)}" ry="${F(w * 0.34)}" fill="#e0314b"/><path d="M${F(w / 2)} ${F(my - w * 0.28)} V${F(my + w * 0.38)}" stroke="#2b2b30" stroke-width="${F(w * 0.04)}"/><circle cx="${F(w / 2)}" cy="${F(my - w * 0.32)}" r="${F(w * 0.14)}" fill="#2b2b30"/>` + [[0.36, 0.0], [0.64, 0.0], [0.38, 0.2], [0.62, 0.2]].map(([a, b]) => `<circle cx="${F(w * a)}" cy="${F(my + w * b)}" r="${F(w * 0.05)}" fill="#2b2b30"/>`).join('');
+    }
+    return '';
+  }
+  // ---------- 💍 more beads for the jewelry designer ----------
+  function f6Bead(b, x, y, r) {
+    if (!/^f6/.test((b && b.t) || '')) return '';
+    const F = typeof bFx === 'function' ? bFx : fx, c = b.c || '#ffffff', st = `stroke="${fmx(c, '#000000', 0.35)}" stroke-width="${F(r * 0.12)}"`, hl = `<circle cx="${F(x - r * 0.35)}" cy="${F(y - r * 0.35)}" r="${F(r * 0.28)}" fill="#fff" opacity=".8"/>`;
+    switch (b.t) {
+      case 'f6shell': return `<path d="M${F(x)} ${F(y + r)} L${F(x - r * 1.1)} ${F(y - r * 0.2)} Q${F(x)} ${F(y - r * 1.5)} ${F(x + r * 1.1)} ${F(y - r * 0.2)}Z" fill="${c}" ${st}/>` + [-0.6, -0.2, 0.2, 0.6].map(k => `<path d="M${F(x)} ${F(y + r)} L${F(x + k * r * 1.2)} ${F(y - r * 0.7)}" stroke="${fmx(c, '#000', 0.3)}" stroke-width="${F(r * 0.08)}"/>`).join('');
+      case 'f6clover': return [0, 90, 180, 270].map(a => `<circle cx="${F(x + r * 0.5 * Math.cos(a * Math.PI / 180))}" cy="${F(y + r * 0.5 * Math.sin(a * Math.PI / 180))}" r="${F(r * 0.55)}" fill="${c}" ${st}/>`).join('') + `<circle cx="${F(x)}" cy="${F(y)}" r="${F(r * 0.25)}" fill="${fmx(c, '#ffffff', 0.5)}"/>`;
+      case 'f6smile': return `<circle cx="${F(x)}" cy="${F(y)}" r="${F(r)}" fill="${c === '#ffffff' ? '#ffd84d' : c}" ${st}/><circle cx="${F(x - r * 0.35)}" cy="${F(y - r * 0.2)}" r="${F(r * 0.12)}" fill="#3a2b3c"/><circle cx="${F(x + r * 0.35)}" cy="${F(y - r * 0.2)}" r="${F(r * 0.12)}" fill="#3a2b3c"/><path d="M${F(x - r * 0.45)} ${F(y + r * 0.2)} Q${F(x)} ${F(y + r * 0.65)} ${F(x + r * 0.45)} ${F(y + r * 0.2)}" fill="none" stroke="#3a2b3c" stroke-width="${F(r * 0.1)}"/>`;
+      case 'f6rainbow': return ['#ff6f7a', '#ffb050', '#ffe066', '#7ed48a', '#6fb8ff'].map((f, i) => `<path d="M${F(x - r * (1.1 - i * 0.16))} ${F(y + r * 0.4)} A${F(r * (1.1 - i * 0.16))} ${F(r * (1.1 - i * 0.16))} 0 0 1 ${F(x + r * (1.1 - i * 0.16))} ${F(y + r * 0.4)}" fill="none" stroke="${f}" stroke-width="${F(r * 0.17)}"/>`).join('');
+      case 'f6cube': return `<rect x="${F(x - r * 0.85)}" y="${F(y - r * 0.85)}" width="${F(r * 1.7)}" height="${F(r * 1.7)}" rx="${F(r * 0.3)}" fill="${c}" ${st}/>` + hl;
+      case 'f6disc': return `<ellipse cx="${F(x)}" cy="${F(y)}" rx="${F(r * 0.5)}" ry="${F(r * 1.05)}" fill="${c}" ${st}/><path d="M${F(x)} ${F(y - r)} V${F(y + r)}" stroke="${fmx(c, '#ffffff', 0.5)}" stroke-width="${F(r * 0.12)}"/>`;
+      case 'f6crown': return `<path d="M${F(x - r)} ${F(y + r * 0.6)} L${F(x - r)} ${F(y - r * 0.5)} L${F(x - r * 0.45)} ${F(y)} L${F(x)} ${F(y - r * 0.8)} L${F(x + r * 0.45)} ${F(y)} L${F(x + r)} ${F(y - r * 0.5)} L${F(x + r)} ${F(y + r * 0.6)}Z" fill="#e9c46a" stroke="#a57f22" stroke-width="${F(r * 0.1)}"/><circle cx="${F(x)}" cy="${F(y + r * 0.2)}" r="${F(r * 0.22)}" fill="${c === '#ffffff' ? '#ff5f8f' : c}"/>`;
+      case 'f6paw': return `<ellipse cx="${F(x)}" cy="${F(y + r * 0.3)}" rx="${F(r * 0.55)}" ry="${F(r * 0.45)}" fill="${c}" ${st}/>` + [[-0.6, -0.35], [-0.2, -0.75], [0.2, -0.75], [0.6, -0.35]].map(([a, q]) => `<circle cx="${F(x + a * r)}" cy="${F(y + q * r)}" r="${F(r * 0.24)}" fill="${c}" ${st}/>`).join('');
+      case 'f6strawb': return `<path d="M${F(x)} ${F(y + r * 1.05)} C${F(x - r * 1.2)} ${F(y + r * 0.2)} ${F(x - r * 1)} ${F(y - r * 0.8)} ${F(x)} ${F(y - r * 0.5)} C${F(x + r)} ${F(y - r * 0.8)} ${F(x + r * 1.2)} ${F(y + r * 0.2)} ${F(x)} ${F(y + r * 1.05)}Z" fill="#ff4d6a" stroke="#b02040" stroke-width="${F(r * 0.08)}"/><path d="M${F(x - r * 0.6)} ${F(y - r * 0.6)} L${F(x)} ${F(y - r * 0.3)} L${F(x + r * 0.6)} ${F(y - r * 0.6)} L${F(x)} ${F(y - r * 1)}Z" fill="#4fb85a"/>` + [[-0.3, 0], [0.3, 0.1], [0, 0.45]].map(([a, q]) => `<circle cx="${F(x + a * r)}" cy="${F(y + q * r)}" r="${F(r * 0.08)}" fill="#fff6c4"/>`).join('');
+      case 'f6evil': return `<circle cx="${F(x)}" cy="${F(y)}" r="${F(r)}" fill="#3f6fd8" stroke="#1f3a8a" stroke-width="${F(r * 0.1)}"/><circle cx="${F(x)}" cy="${F(y)}" r="${F(r * 0.62)}" fill="#fff"/><circle cx="${F(x)}" cy="${F(y)}" r="${F(r * 0.38)}" fill="#8cc8ff"/><circle cx="${F(x)}" cy="${F(y)}" r="${F(r * 0.18)}" fill="#1f2a4a"/>`;
+      case 'f6glitter': return `<circle cx="${F(x)}" cy="${F(y)}" r="${F(r)}" fill="${c}" ${st}/>` + [[-0.4, -0.3], [0.3, -0.4], [0.1, 0.3], [-0.3, 0.4], [0.5, 0.2]].map(([a, q], i) => `<circle cx="${F(x + a * r)}" cy="${F(y + q * r)}" r="${F(r * (i % 2 ? 0.1 : 0.14))}" fill="${i % 2 ? '#fff6c4' : '#fff'}"/>`).join('');
+    }
+    return '';
+  }
+  // ---------- 🪄 one-click makeup looks ----------
+  function f6Looks() {
+    return [
+      ['natural', '🌿 טבעי ועדין', { lashes: 'natural', lipColor: '#e8a0a8', lipStyle: 'tint', blushStyle: 'peach', glow: 'dewy', shadow: '#c98e7a', shadowStyle: 'wash', liner: 'none', paint: 'none', glitter: false }],
+      ['party', '🎉 מסיבה', { lashes: 'doll', lipColor: '#ff5fa2', lipStyle: 'gloss', blushStyle: 'rosy', glow: 'holo', shadow: '*#d6a0ff', shadowStyle: 'sparkle', liner: 'wing', linerColor: '#1f1316', paint: 'none', glitter: true }],
+      ['princess', '👑 נסיכה', { lashes: 'long', lipColor: '#f6a9c0', lipStyle: 'shimmer', blushStyle: 'rosy', glow: 'pearl', shadow: '*#f4b6c8', shadowStyle: 'halo', liner: 'thin', linerColor: '#5a3522', paint: 'gems', glitter: false }],
+      ['popstar', '🎤 כוכבת פופ', { lashes: 'dramatic', lipColor: '#d8465a', lipStyle: 'glitter', blushStyle: 'draped', glow: 'starry', shadow: '#7a4fbf', shadowStyle: 'smoky', liner: 'double', linerColor: '#7a4fbf', paint: 'star', glitter: true }],
+      ['rainbow', '🌈 קשת', { lashes: 'tips', lipColor: '#ff7a45', lipStyle: 'ombre', blushStyle: 'coral', glow: 'holo', shadow: '#3fb6c0', shadowStyle: 'rainbow', liner: 'colored', linerColor: '#3fd6a0', paint: 'rainbow', glitter: true }],
+      ['sunny', '☀️ יום שמש', { lashes: 'natural', lipColor: '#ffa07a', lipStyle: 'gloss', blushStyle: 'sunkissed', glow: 'bronze', shadow: '#e9c27a', shadowStyle: 'sunset', liner: 'none', paint: 'sparkfreckles', glitter: false }],
+      ['fairy', '🧚 פיה', { lashes: 'butterfly', lipColor: '#c3a2ff', lipStyle: 'sparkle', blushStyle: 'glow', glow: 'icy', shadow: '*#c8d4ff', shadowStyle: 'halo', liner: 'dotted', linerColor: '#ffffff', paint: 'butterfly', glitter: true }],
+      ['kitty', '🐱 חתולה', { lashes: 'long', lipColor: '#ec8f9c', lipStyle: 'satin', blushStyle: 'heart', glow: 'none', shadow: '#f7a3c4', shadowStyle: 'crease', liner: 'cat', linerColor: '#1f1316', paint: 'whiskers', glitter: false }],
+      ['winter', '❄️ מלכת השלג', { lashes: 'wispy', lipColor: '#b86a7a', lipStyle: 'matte', blushStyle: 'berry', glow: 'icy', shadow: '#8ec8f2', shadowStyle: 'ombre', liner: 'glitter', linerColor: '#3fb6ff', paint: 'moon', glitter: true }],
+      ['strawberry', '🍓 תות', { lashes: 'doll', lipColor: '#c0203a', lipStyle: 'heart', blushStyle: 'strawberry', glow: 'rose', shadow: '#e0607e', shadowStyle: 'lower', liner: 'puppy', linerColor: '#5a3522', paint: 'hearts', glitter: false }],
+    ];
+  }
+  function f6LooksBody(g, upd) {
+    const box = el('div', { class: 'f6-looks' }, ...f6Looks().map(([id, name, L]) => {
+      const on = Object.entries(L).every(([k, v]) => (g[k] ?? (typeof v === 'boolean' ? false : '')) === v);
+      const prev = Object.assign({}, g, L, { hat: 'none', glasses: 'none' });
+      return el('button', { type: 'button', class: 'f6-look', 'aria-pressed': String(on), title: name, onclick: () => { upd(Object.assign({}, L)); try { SFX.pop(); } catch {} } },
+        el('img', { src: girlImgURL(prev, { view: 'face', bg: false }), alt: '' }), el('span', {}, name));
+    }));
+    return [el('p', { class: 'muted' }, 'לוחצים על לוק, והאיפור כולו מתחלף בבת אחת. אחר כך אפשר לשנות כל דבר בנפרד ✨'), box];
+  }
+  // ---------- chat: more topics ----------
+  function f6ChatReply(g, t, text, p) {
+    const has = re => re.test(t), P = a => a[Math.floor(Math.random() * a.length)];
+    const by = (m, d) => P(m[p] || d);
+    if (has(/עצובה|עצוב לי|בוכה|לא טוב לי|רע לי|בודדה/)) return { text: P(['אוי, שולחת לך חיבוק ענק 🤗💗 רוצה לספר לי מה קרה?', 'אני פה בשבילך 💕 וכשעצוב, כדאי לספר גם לאמא או לאבא, הם הכי עוזרים.', 'מגיע לך רק טוב 🌈 בואי נחשוב על משהו שמח ביחד?']) };
+    if (has(/משעמם/)) return { text: P(['בואי נעשה תחרות אופנה! 👗', 'אולי נצייר משהו ביחד? 🎨', 'יש לי רעיון: ריקוד חדש בסטודיו! 💃', 'בואי נאפה עוגה דמיונית 🧁']) };
+    if (has(/ביי|להתראות|נדבר אחר כך|אני הולכת/)) return { text: P(['ביייי! 👋 נדבר אחר כך 💕', 'להתראות! היה כיף 😊', 'ביי ביי! חלומות מתוקים אם את הולכת לישון 🌙']) };
+    if (has(/תודה/)) return { text: P(['בכיף! 💕', 'אין בעד מה 😊', 'תמיד! 🌟']) };
+    if (has(/בדיחה|תצחיקי|משהו מצחיק/)) return { text: P(['למה הדג לא משחק כדורגל? כי הוא מפחד מהרשת 😂', 'מה אמר הגזר לגזר? כלום, גזרים לא מדברים 🥕😂', 'למה הספר הלך לרופא? כי היו לו יותר מדי עמודים כואבים 📚🤣', 'מה עושה פיל בבריכה? תופס מקום 🐘💦']) };
+    if (has(/רעבה|לאכול|אוכל|פיצה|גלידה|עוגה|ממתק/)) return { text: by({ baker: ['אפיתי היום קאפקייקס עם סוכריות! 🧁 רוצה אחד?', 'אני מכינה עוגת תותים 🍓🎂'], sporty: ['אני אוכלת בננה לפני אימון 🍌', 'פסטה ואז לרוץ! 🍝'], funny: ['אני יכולה לאכול פיצה ענקית לבד! 🍕😂'] }, ['הכי אני אוהבת גלידת תות 🍦', 'פיצה! תמיד פיצה 🍕', 'עוגיות שוקולד חמות 🍪', 'בסוכות אכלנו ארוחה ענקית בסוכה 🌿']) };
+    if (has(/חתול|כלב|חיה|חיות|גור|ארנב|אוגר/)) { const nm = typeof petNm === 'function' && typeof pet !== 'undefined' && pet ? petNm() : ''; return { text: by({ animals: ['אני מתה על חיות!!! 🐾 הכי אני אוהבת גורי חתולים', `${nm ? `איך ${nm}? תני לה/לו ליטוף ממני 🐾` : 'הלוואי שהיה לי כלבלב 🐶'}`] }, [nm ? `איזה חמוד ${nm}! 🐾` : 'חיות הן הכי חמודות 🐱🐶', 'אני אוהבת ארנבונים 🐰', 'ראיתי היום חתול שמנמן בחצר 🐈']) }; }
+    if (has(/לשיר|שיר|מוזיקה|זמרת/)) return { text: by({ singer: ['לה לה לה 🎤🎶 אני שרה כל היום!', 'בואי נשיר ביחד! אני אעשה את הקולות 🎵'], dancer: ['כששומעים שיר, אני ישר רוקדת 💃🎶'] }, ['אני אוהבת שירים שמחים 🎶', 'שרתי היום במקלחת 😂🎤', '🎵 לה לה לה... 🎵']) };
+    if (has(/לרקוד|ריקוד|רוקדת/)) return { text: by({ dancer: ['ריקוד זה הדבר הכי כיף בעולם! 💃✨', 'המצאתי צעד חדש, סיבוב וקפיצה! 🩰'], shy: ['אני רוקדת רק כשאף אחד לא רואה 🙈💃'] }, ['בואי נרקוד! בסטודיו הריקוד 💃', 'אני יודעת לעשות סיבוב 🌀']) };
+    if (has(/לצייר|ציור|צובעת/)) return { text: by({ artist: ['ציירתי היום קשת ענקית עם חד קרן 🦄🌈', 'בואי נצייר ביחד! אני מביאה טושים 🖍️'] }, ['אני אוהבת לצבוע בצבעים עליזים 🎨', 'ציירתי לך לב 💗']) };
+    if (has(/חלמתי|חלום/)) return { text: by({ dreamer: ['חלמתי שעפתי על ענן ורוד מעל הים ☁️💗', 'בחלום שלי הייתי נסיכה בטירה של כוכבים ✨🏰'] }, ['חלמתי שהיה לי פוני קטן 🐴', 'חלום נחמד! 🌙']) };
+    if (has(/יום הולדת|יומולדת/)) return { text: P(['יום הולדת שמח!!! 🎂🎉🎈', 'מזל טוב! מה ביקשת במשאלה? 🕯️✨', 'עד מאה ועשרים! 🥳']) };
+    if (has(/גשם|מזג האוויר|קר לי|חם לי|שמש/)) return { text: P(['כשיורד גשם אני אוהבת לקפוץ בשלוליות ☔', 'בשמש הכי כיף ללכת לים ☀️🏖️', 'קר? בואי נשתה שוקו חם ☕']) };
+    if (has(/לקרוא|ספר/)) return { text: by({ smart: ['עכשיו אני קוראת ספר על החלל 🚀📖', 'ספרים זה הכי! 🤓'], shy: ['אני קוראת כל ערב לפני השינה 📖🙈'] }, ['אני אוהבת ספרים עם הרפתקאות 📚', 'ספר טוב וכרית רכה 📖']) };
+    if (has(/מה את עושה|מה עושה|מה עשית/)) return { text: by({ baker: ['אופה עוגיות 🍪', 'מקשטת עוגה בקצפת 🎂'], explorer: ['חוקרת את החצר עם זכוכית מגדלת 🔍🐞', 'מכינה מפת אוצר 🗺️'], singer: ['מתאמנת על שיר חדש 🎤'], dancer: ['מתאמנת על פירואט 🩰'], sporty: ['קופצת בחבל! 🏃‍♀️'], artist: ['מציירת 🎨'] }, ['מדברת איתך! 😊', 'בוחרת בגדים למחר 👗', 'יושבת בסוכה 🌿']) };
+    if (has(/הרפתקה|טיול|לטייל/)) return { text: by({ explorer: ['בואי נצא להרפתקה! אני לוקחת פנס ומפה 🧭🔦', 'פעם מצאתי מערה עם עטלפים! 🦇'] }, ['טיול זה כיף! 🥾', 'בואי נטייל בפארק 🌳']) };
+    return null;
+  }
+
+  // ---------- registering all the new options ----------
+  try {
+    FASH.hairs.push(['sidepony', 'קוקו בצד'], ['lowbuns', 'שני קוקונים נמוכים'], ['waterfall', 'גלים עם צמת מפל'], ['bubblepigs', 'שתי קוקיות בועות'], ['curlybangs', 'תלתלים עם פוני'], ['wavybob', 'קארה גלי'], ['bowhalfup', 'חצי אסוף עם פפיון משיער'], ['twintails', 'קוקיות ארוכות מאוד'],
+      ['crownlong', 'שיער ארוך עם צמת כתר'], ['minibuns', 'ארבעה קוקונים קטנים'], ['asymbob', 'קארה א-סימטרי'], ['braidpony', 'צמה בקוקו גבוה'], ['bangswavy', 'גלי ארוך עם פוני'], ['halfbraid', 'חצי אסוף עם צמות'], ['rapunzel', 'צמת רפונזל עם פרחים'], ['coilybob', 'תלתלים קצרים']);
+    const hc = (id, ...l) => (FASH.hairCats.find(c => c[0] === id) || [0, 0, []])[2].push(...l);
+    hc('long', 'waterfall', 'bangswavy', 'bowhalfup'); hc('short', 'wavybob', 'asymbob'); hc('up', 'sidepony', 'lowbuns', 'bubblepigs', 'twintails', 'minibuns');
+    hc('braids', 'crownlong', 'braidpony', 'halfbraid', 'rapunzel'); hc('curls', 'curlybangs', 'coilybob');
+    FASH.tops.push(['f6_puffblouse', 'חולצה עם שרוולים נפוחים'], ['f6_heartsweater', 'סוודר לב'], ['f6_jersey', 'חולצת כדורגל'], ['f6_mermaidtop', 'חולצת בת ים'], ['f6_polo', 'חולצת פולו'], ['f6_sailortop', 'חולצת מלחים']);
+    FASH.bottoms.push(['f6_trackpants', 'מכנסי טרנינג'], ['f6_cheerskirt', 'חצאית מעודדות'], ['f6_ruffleskirt', 'חצאית עם מלמלה'], ['f6_longskirt', 'חצאית ארוכה'], ['f6_starskirt', 'טוטו כוכבים']);
+    FASH.dresses.push(['f6_fairy', 'שמלת פיה'], ['f6_ballet', 'בגד בלט עם טוטו'], ['f6_witch', 'שמלת מכשפה חמודה'], ['f6_mermaidgown', 'שמלת בת ים'], ['f6_puff', 'שמלה עם צווארון'], ['f6_tiered', 'שמלת שכבות'], ['f6_nightgown', 'כתונת לילה'],
+      ['f6_cheer', 'תלבושת מעודדת'], ['f6_sailor', 'שמלת מלחים'], ['f6_astro', '🎭 אסטרונאוטית'], ['f6_chef', '🎭 שפית'], ['f6_doctor', '🎭 רופאה'], ['f6_pajamas', '🎭 פיג\'מה'], ['f6_swim', '🎭 בגד ים סגור'], ['f6_tracksuit', '🎭 טרנינג'], ['f6_overalls', '🎭 אוברול']);
+    FASH.jackets.push(['f6_cape', 'שכמייה'], ['f6_bomber', 'ג\'קט בומבר'], ['f6_fluffy', 'מעיל פרווה רך'], ['f6_raincoat', 'מעיל גשם']);
+    FASH.shoes.push(['f6_pointe', 'נעלי בלט'], ['f6_skates', 'מחליקיים'], ['f6_slippers', 'נעלי בית פרוותיות'], ['f6_heartsneak', 'סניקרס לב'], ['f6_wingsneak', 'סניקרס עם כנפיים'], ['f6_jelly', 'סנדלי ג\'לי'], ['f6_cowgirl', 'מגפי בוקרת']);
+    FASH.hats.push(['f6_witchhat', 'כובע מכשפה'], ['f6_chefhat', 'כובע שף'], ['f6_helmet', 'קסדת חלל'], ['f6_bucket', 'כובע טמבל'], ['f6_flowercrown', 'זר פרחים גדול']);
+    FASH.glasses.push(['f6_catglasses', 'משקפי חתולה']);
+    FASH.accs.push(['f6_minibows', 'שני פפיונים קטנים'], ['f6_sidebow', 'פפיון בצד'], ['f6_umbrella', 'מטרייה'], ['f6_balloons', 'בלונים'], ['f6_teddy', 'דובי'], ['f6_bouquet', 'זר פרחים ביד'], ['f6_icecream', 'גלידה'],
+      ['f6_basket', 'סלסלה'], ['f6_starbag', 'תיק כוכב'], ['f6_camera', 'מצלמה'], ['f6_pompoms', 'פונפונים'], ['f6_book', 'ספר']);
+    FASH.pats.push(['f6strawb', 'תותים'], ['f6lemon', 'לימונים'], ['f6cloud', 'עננים'], ['f6gingham', 'משבצות פיקניק'], ['f6checker', 'לוח שחמט'], ['f6zebra', 'זברה'], ['f6cow', 'פרה'], ['f6moon', 'ירח וכוכבים'],
+      ['f6butterfly', 'פרפרים'], ['f6confetti', 'קונפטי'], ['f6melon', 'אבטיח'], ['f6daisy', 'חיננית'], ['f6rainbowdots', 'נקודות קשת'], ['f6scales', 'קשקשים']);
+    FASH.scenes.splice(FASH.scenes.findIndex(s => s[0] === 'plain'), 0, ['f6_underwater', 'מתחת לים'], ['f6_gardenparty', 'מסיבה בגינה'], ['f6_icerink', 'החלקה על הקרח'], ['f6_fairground', 'לונה פארק'], ['f6_library', 'ספרייה'],
+      ['f6_bakery', 'מאפייה'], ['f6_sunsetbeach', 'שקיעה בחוף'], ['f6_starry', 'לילה מכוכב'], ['f6_blossom', 'פריחה ורודה'], ['f6_rainbowland', 'ארץ הקשת']);
+  } catch (e) { console.warn('fashion6', e); }
+  try { NAIL.pats.push(['f6plaid', 'סקוטי'], ['f6chevron', 'זיגזג'], ['f6swirl', 'סלסול'], ['f6cherry', 'דובדבנים'], ['f6lemon', 'לימון'], ['f6melon', 'אבטיח'], ['f6daisy', 'חיננית'], ['f6moons', 'ירח'], ['f6bubbles', 'בועות'], ['f6candy', 'מקל סוכר'], ['f6ladybug', 'פרת משה רבנו']); } catch {}
+  try { JW.beads.push(['f6shell', 'צדף'], ['f6clover', 'תלתן'], ['f6smile', 'סמיילי'], ['f6rainbow', 'קשת'], ['f6cube', 'קובייה'], ['f6disc', 'דיסקית'], ['f6crown', 'כתר'], ['f6paw', 'כף רגל של חתול'], ['f6strawb', 'תות'], ['f6evil', 'עין כחולה'], ['f6glitter', 'חרוז נצנצים']); } catch {}
+  try {
+    DNC_MOVES.push(['wings', '🦅', 'כנפיים', { la: 100, lf: -30, ra: 100, rf: -30, head: 4 }, { tilt: 4 }], ['cheer', '📣', 'מעודדת', { la: 150, lf: 20, ra: 150, rf: 20, ll: 10, rl: 10 }, { jump: 1 }],
+      ['onhead', '🙆', 'ידיים על הראש', { la: 150, lf: 110, ra: 150, rf: 110, head: -4 }], ['swim', '🏊', 'שחייה', { la: 120, lf: -40, ra: 40, rf: 60, head: -6 }, { tilt: -6 }],
+      ['guitar', '🎸', 'גיטרה באוויר', { la: 40, lf: 100, ra: 20, rf: 80, head: 8, rl: 10 }], ['sun', '☀️', 'שמש', { la: 90, ra: 90, ll: 20, rl: 20 }, { jump: 1 }],
+      ['pointside', '👉', 'מצביעה הצידה', { la: 90, ra: 20, rf: 90, head: -10 }, { shift: 6 }], ['hug', '🤗', 'חיבוק', { la: 60, lf: 90, ra: 60, rf: 90, head: 6 }],
+      ['pirouette', '🩰', 'פירואט', { la: 150, lf: 40, ra: 150, rf: 40, ll: 30, lk: 70 }, { spin: 1 }], ['bunny', '🐰', 'קפיצת ארנב', { la: 120, lf: 140, ra: 120, rf: 140 }, { jump: 1 }],
+      ['wave2', '🌊', 'גל ידיים', { la: 130, lf: -40, ra: 50, rf: 40, head: 6 }, { tilt: 6 }], ['peace', '✌️', 'שלום!', { la: 150, lf: 30, ra: 20, rf: 10, head: -6, ll: 8 }]);
+    DNC_SONGS.push(['march', '🥁 מצעד', [392, 392, 523, 523, 587, 587, 523, 392], 'square'], ['fairysong', '🧚 שיר פיות', [784, 988, 1175, 988, 880, 784, 659, 784], 'triangle']);
+  } catch (e) { console.warn('fashion6 dance', e); }
+  try {
+    GCH_PERS.push(['dancer', '💃 רקדנית'], ['baker', '🧁 אופה'], ['explorer', '🧭 הרפתקנית'], ['singer', '🎤 זמרת']);
+    const add = (k, o) => Object.entries(o).forEach(([p, l]) => { GCH_TXT[k][p] = (GCH_TXT[k][p] || []).concat(l); });
+    add('hi', { dancer: ['היי! 💃 רקדתי כל הבוקר', 'שלום! 🩰✨'], baker: ['היי! 🧁 הידיים שלי מלאות קמח', 'שלום! הרגע יצאו עוגיות מהתנור 🍪'], explorer: ['היי! 🧭 מוכנה להרפתקה?', 'שלום מהחצר! מצאתי חיפושית 🐞'], singer: ['הייייי 🎤🎶', 'שלום! 🎵 לה לה לה'], friendly: ['היי חמודה! 🌸'], funny: ['היי! 🤪 נחשי מי זאת!'] });
+    add('how', { dancer: ['מעולה! 💃 למדתי צעד חדש', 'אני בסיבובים משמחה 🌀'], baker: ['טוב מאוד! אני מקשטת עוגה 🎂', 'מתוק כמו סוכרייה 🍭'], explorer: ['מעולה! הייתי בטיול בפארק 🌳', 'מלאת סקרנות 🔍'], singer: ['שמחה ומזמזמת 🎶', 'מעולה! כתבתי שיר 🎤'], friendly: ['הכל טוב, במיוחד כי את פה 💕'] });
+    add('thanks', { dancer: ['תודה! את רוקדת בלב שלי 💃💕', 'וואו תודה! 🩰'], baker: ['תודה! את מתוקה כמו קאפקייק 🧁', 'אוי, תודה! 🍰'], explorer: ['תודה! את אוצר אמיתי 🗺️💎'], singer: ['תודה! הלב שלי שר 🎶💖'] });
+    add('play', { dancer: ['כן! ואחר כך ריקוד? 💃'], baker: ['כן! ומי שמנצחת מקבלת עוגייה 🍪'], explorer: ['יאללה! כל משחק זה הרפתקה 🧭'], singer: ['כן! אני אשיר שיר ניצחון 🎤'] });
+    add('love', { dancer: ['לרקוד בלט וגם היפ הופ 🩰', 'להמציא ריקודים עם חברות 💃👯'], baker: ['לאפות עוגיות ועוגות 🧁', 'לקשט קאפקייקס בסוכריות 🍭'], explorer: ['לחפש אוצרות ולטפס על עצים 🌳', 'לגלות מקומות חדשים 🗺️'], singer: ['לשיר ולנגן בגיטרה 🎸', 'להופיע על במה 🎤✨'], friendly: ['לעשות מסיבות פיג\'מות 🌙'], smart: ['לפתור חידות 🧩'] });
+    add('other', { dancer: ['💃✨', 'איזה קצב! 🎶', 'וואו! 🩰'], baker: ['יאמי! 😋', 'מתוק! 🍬', 'איזה כיף 🧁'], explorer: ['מעניין! 🔍', 'וואו, הרפתקה! 🧭', 'ספרי עוד! 🗺️'], singer: ['🎶🎶', 'לה לה לה 🎵', 'את מוזיקה לאוזניים שלי 🎤'], friendly: ['איזה יופי! 🌸'], funny: ['חחח את הכי 🤣'] });
+  } catch (e) { console.warn('fashion6 chat', e); }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
