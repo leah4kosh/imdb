@@ -2790,6 +2790,155 @@ textarea.nw-in { min-height: 70px; }
 }
 @media (prefers-reduced-motion: reduce) { .mb-svg.spin .mb-spin, .mb-svg.wind .mb-key, .mv-spk { animation: none; } }
 .mv-ed .cm-left { max-height: calc(100vh - 70px); overflow-y: auto; overscroll-behavior: contain; }
+/* ---------- games4: mini golf ---------- */
+.gf-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.gf-pet { width: 54px; height: 62px; flex: none; animation: bob 2.4s ease-in-out infinite; }
+.gf-pet svg { width: 100%; height: 100%; display: block; }
+.gf-pet.cheer { animation: gfCheer .9s ease; }
+@keyframes gfCheer { 30% { transform: translateY(-18px) rotate(-8deg); } 60% { transform: translateY(0) rotate(6deg); } 80% { transform: translateY(-6px); } }
+.gf-say { min-height: 1.6em; min-width: 120px; background: var(--card); border: 2px solid var(--line); border-radius: 16px 16px 16px 4px; padding: 2px 12px; font-size: .95em; }
+.gf-say:empty { visibility: hidden; }
+.gf-hole { display: grid; text-align: center; font-size: .95em; }
+.gf-hole b { font-weight: 400; color: var(--accent); font-size: 1.15em; }
+.gf-wrap { border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; max-width: 600px; margin: 0 auto; width: 100%; box-shadow: 0 6px 0 rgb(0 0 0 / .08); }
+.gf-cv { width: 100%; aspect-ratio: 3 / 2; display: block; touch-action: none; cursor: crosshair; }
+.gf-card { overflow-x: auto; }
+.gf-card table { border-collapse: collapse; margin: 0 auto; font-family: Rubik, sans-serif; font-size: .8em; direction: rtl; }
+.gf-card th, .gf-card td { border: 1.5px solid var(--line); padding: 2px 7px; text-align: center; min-width: 26px; }
+.gf-card th { background: color-mix(in srgb, var(--accent) 14%, var(--card)); font-weight: 600; }
+.gf-card th.on { background: var(--accent); color: var(--accent-ink); }
+.gf-card td.under { background: #c9f0d6; font-weight: 600; }
+.gf-card td.par { background: #fff4c2; }
+.gf-card td.over { background: #ffe1e4; }
+
+/* ---------- logic puzzles ---------- */
+.lz-types { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+.lz-type { display: grid; gap: 4px; text-align: start; border: 2px solid var(--line); border-radius: 18px; padding: 12px; background: var(--card); transition: transform .15s; }
+.lz-type:hover { transform: translateY(-3px); border-color: var(--accent); }
+.lz-type b { font-weight: 400; font-size: 1.2em; }
+.lz-type small { font-family: Rubik, sans-serif; font-size: .75em; color: var(--soft); }
+.lz-bar { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.lz-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ffd84d, #ffb020); }
+.lz-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.lz-head b { font-weight: 400; font-size: 1.2em; color: var(--accent); }
+.lz-head small { margin-inline-start: auto; }
+.lz-levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; }
+.lz-lvl { display: grid; justify-items: center; gap: 2px; border: 2px solid var(--line); border-radius: 16px; padding: 8px 4px; background: var(--card); }
+.lz-lvl b { font-size: 1.5em; font-weight: 400; }
+.lz-lvl small { font-size: .7em; letter-spacing: -1px; }
+.lz-lvl.done { border-color: #ffc83d; background: color-mix(in srgb, #ffd84d 16%, var(--card)); }
+.lz-lvl:disabled { opacity: .45; cursor: default; }
+.lz-stage { display: grid; gap: 10px; justify-items: center; }
+.lz-win { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; padding: 10px; border-radius: 16px; background: color-mix(in srgb, #ffd84d 22%, var(--card)); }
+.lz-win b { font-weight: 400; font-size: 1.3em; color: var(--accent); }
+/* rush hour */
+.lz-rush-wrap { position: relative; padding-inline-end: 0; }
+.lz-rush { --cell: min(58px, calc((100vw - 110px) / 6)); direction: ltr; position: relative; width: calc(var(--cell) * 6 + 12px); height: calc(var(--cell) * 6 + 12px); padding: 6px; border-radius: 14px; background: #6b7390; border: 4px solid var(--ink);
+  background-image: linear-gradient(rgb(255 255 255 / .12) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .12) 1px, transparent 1px); background-size: var(--cell) var(--cell); background-position: 6px 6px; touch-action: none; }
+.lz-rush::after { content: ''; position: absolute; right: -8px; top: calc(6px + var(--cell) * 2); width: 12px; height: var(--cell); background: #6b7390; }
+.lz-exit { position: absolute; right: -58px; top: calc(10px + min(58px, calc((100vw - 110px) / 6)) * 2.2); font-size: .8em; color: #d7263d; direction: rtl; white-space: nowrap; }
+.lz-car { position: absolute; left: calc(6px + var(--c) * var(--cell)); top: calc(6px + var(--r) * var(--cell)); width: calc(var(--w) * var(--cell)); height: calc(var(--h) * var(--cell)); padding: 3px; cursor: grab; transition: left .15s, top .15s; touch-action: none; }
+.lz-car.drag { transition: none; cursor: grabbing; filter: drop-shadow(0 6px 4px rgb(0 0 0 / .3)); z-index: 2; }
+.lz-car svg { width: 100%; height: 100%; display: block; }
+.lz-car.out { left: calc(6px + 8 * var(--cell)); opacity: 0; transition: left .7s ease-in, opacity .7s .3s; }
+/* pipes */
+.lz-pipes { direction: ltr; display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 3px; width: min(100%, calc(var(--n) * 70px)); background: #7a5b3e; padding: 6px; border-radius: 14px; border: 3px solid var(--ink); }
+.lz-pipe { position: relative; aspect-ratio: 1; border: none; border-radius: 8px; padding: 0; background: #a8dc8f; overflow: hidden; }
+.lz-pipe .lz-p { position: absolute; inset: 0; transition: transform .18s ease; }
+.lz-pipe svg { width: 100%; height: 100%; display: block; }
+.lz-pipe .w { stroke: #c8ccd6; transition: stroke .3s; }
+.lz-pipe .wf { fill: #c8ccd6; transition: fill .3s; }
+.lz-pipe.wet .w { stroke: #4fb6f0; }
+.lz-pipe.wet .wf { fill: #4fb6f0; }
+.lz-fl, .lz-src { position: absolute; inset: 18%; display: grid; place-items: center; pointer-events: none; transition: transform .4s, filter .4s; }
+.lz-fl svg { width: 100%; height: 100%; }
+.lz-pipe:not(.wet) .lz-fl { filter: grayscale(1) brightness(1.1); transform: scale(.7); }
+.lz-pipe.wet .lz-fl { transform: scale(1.1); animation: lzBloom .5s ease; }
+@keyframes lzBloom { from { transform: scale(.6) rotate(-20deg); } }
+.lz-src { font-size: 1.8em; background: #fff; border-radius: 50%; border: 2.5px solid var(--ink); inset: 22%; }
+/* lanterns */
+.lz-night { display: grid; place-items: center; width: min(100%, 420px); padding: 14px; border-radius: 18px; background: radial-gradient(circle at 70% 20%, #3b4a8a, #1b2145); }
+.lz-lights { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 8px; width: min(100%, calc(var(--n) * 78px)); }
+.lz-lamp { aspect-ratio: 60 / 70; border: none; background: none; padding: 0; transition: transform .15s; }
+.lz-lamp svg { width: 100%; height: 100%; display: block; }
+.lz-lamp.lit svg { filter: drop-shadow(0 0 10px #ffd84d); }
+.lz-lamp:active { transform: scale(.92); }
+.lz-lamp.hint { animation: lzHint 1s ease-in-out infinite; }
+@keyframes lzHint { 50% { transform: scale(1.12); filter: drop-shadow(0 0 12px #7fe0bf); } }
+/* what comes next */
+.lz-seq { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; direction: ltr; padding: 10px; border-radius: 16px; background: color-mix(in srgb, var(--accent) 8%, var(--card)); border: 2px dashed var(--line); }
+.lz-it { width: 50px; height: 50px; display: grid; place-items: center; }
+.lz-it svg { width: 100%; height: 100%; transform: rotate(var(--rot)) scale(var(--sc)); }
+.lz-it.pop { animation: gd4pop .5s ease; }
+@keyframes gd4pop { 40% { transform: scale(1.3); } }
+.lz-q { width: 50px; height: 50px; display: grid; place-items: center; border: 3px dashed var(--accent); border-radius: 12px; font-size: 1.6em; color: var(--accent); animation: bob 1.6s ease-in-out infinite; }
+.lz-opts { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.lz-opt { border: 2.5px solid var(--line); background: var(--card); border-radius: 16px; padding: 8px; }
+.lz-opt.ok { border-color: #4fbf73; background: #e6f8ea; }
+.lz-opt.no { border-color: #ff8a98; opacity: .5; animation: shake .3s; }
+/* nonogram */
+.lz-nono { direction: ltr; display: grid; grid-template-columns: auto repeat(5, min(52px, calc((100vw - 150px) / 5))); gap: 3px; align-items: end; }
+.lz-cc { display: grid; justify-items: center; font-family: Rubik, sans-serif; font-size: .85em; line-height: 1.1; padding-bottom: 3px; color: var(--soft); }
+.lz-rc { display: flex; gap: 5px; justify-content: flex-end; align-self: center; font-family: Rubik, sans-serif; font-size: .85em; padding-inline-end: 4px; color: var(--soft); }
+.lz-cc b, .lz-rc b { font-weight: 600; color: var(--ink); }
+.lz-cc.ok b, .lz-rc.ok b { color: #4fbf73; }
+.lz-cell { aspect-ratio: 1; border: 2px solid var(--line); border-radius: 8px; background: var(--card); padding: 0; font-size: 1.1em; color: var(--soft); }
+.lz-cell.on { background: var(--c); border-color: color-mix(in srgb, var(--c) 70%, #000); }
+.lz-cell.x { color: #ff8a98; }
+.lz-cell.bad { animation: shake .3s; }
+.lz-cell.rev { border-radius: 2px; }
+.lz-cell.rev.x, .lz-cell.rev:not(.on) { opacity: .25; }
+.lz-reveal { font-size: 1.4em; color: var(--accent); animation: gd4pop .6s ease; }
+
+/* ---------- magic wand ---------- */
+.wn-top { display: flex; gap: 12px; align-items: center; }
+.wn-top b { font-weight: 400; font-size: 1.2em; }
+.wn-mini { width: 38px; height: 114px; flex: none; transform: rotate(18deg); }
+.wn-mini svg, .wn-preview svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.wn-tw { animation: wnTw 1.6s ease-in-out infinite; }
+@keyframes wnTw { 50% { transform: scale(.4) rotate(45deg); opacity: .5; } }
+.wn-spells, .wn-book { display: grid; grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); gap: 8px; }
+.wn-spell, .wn-page { display: grid; justify-items: center; gap: 2px; border: 2px solid var(--line); border-radius: 16px; padding: 8px 6px; background: var(--card); text-align: center; }
+.wn-spell b, .wn-page b { font-weight: 400; }
+.wn-spell small, .wn-page small { font-size: .78em; color: var(--soft); }
+.wn-spell.learned { border-color: #b58cff; background: color-mix(in srgb, #b58cff 12%, var(--card)); }
+.wn-st { font-family: Rubik, sans-serif; }
+.wn-shape { width: 50px; height: 50px; color: #b58cff; }
+.wn-shape svg { width: 100%; height: 100%; }
+.wn-page { background: linear-gradient(135deg, #fff8e8, #fdeccd); color: #3a2b3c; border-color: #e3c28a; }
+.wn-page.locked { opacity: .5; filter: grayscale(.8); }
+.wn-page.locked .wn-shape { color: #aaa; }
+button.wn-page:hover { transform: translateY(-2px) rotate(-1deg); }
+.wn-pad { position: relative; width: min(340px, 100%); aspect-ratio: 1; margin: 0 auto; border-radius: 22px; overflow: hidden; border: 3px solid var(--ink);
+  background: radial-gradient(circle at 30% 20%, #4b3d8f, #1d1840 70%); box-shadow: inset 0 0 40px rgb(0 0 0 / .4); cursor: none; touch-action: none; }
+.wn-pad::before { content: '✦ ✧ ⋆ ✦ ✧'; position: absolute; inset: 8px; color: rgb(255 255 255 / .25); font-size: 1.1em; letter-spacing: 30px; pointer-events: none; }
+.wn-pad canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.wn-guide { position: absolute; inset: 0; color: rgb(255 255 255 / .28); pointer-events: none; }
+.wn-guide svg { width: 100%; height: 100%; }
+.wn-guide path { stroke-dasharray: 3 7; }
+.wn-cur { position: absolute; left: -99px; top: 0; width: 26px; height: 78px; pointer-events: none; transform: translate(-50%, -8px) rotate(-28deg); transform-origin: 50% 8px; filter: drop-shadow(0 4px 4px rgb(0 0 0 / .4)); }
+.wn-cur svg { width: 100%; height: 100%; overflow: visible; }
+.wn-msg { text-align: center; min-height: 1.5em; margin: 0; font-size: 1.1em; }
+.wn-dots { display: flex; gap: 8px; justify-content: center; }
+.wn-dots i { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #b58cff; }
+.wn-dots i.on { background: #b58cff; box-shadow: 0 0 8px #b58cff; }
+.wn-design { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: start; }
+.wn-preview { height: 330px; padding: 14px 30px; border-radius: 18px; background: radial-gradient(circle, #fff 0, #f3ecff 70%); border: 2px solid var(--line); animation: bob 3s ease-in-out infinite; }
+.wn-sw { display: flex; flex-wrap: wrap; gap: 6px; }
+.wn-sw button { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--line); padding: 0; }
+.wn-sw button[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--accent); }
+@media (max-width: 480px) { .wn-design { grid-template-columns: 80px 1fr; } .wn-preview { height: 240px; padding: 10px 14px; } }
+/* spell effects (outside of the dialog) */
+.wn-fx { position: fixed; inset: 0; pointer-events: none; z-index: 40; overflow: hidden; }
+.wn-fx > span { position: absolute; display: block; line-height: 1; will-change: transform; }
+.wn-fx > span svg { width: 100%; height: 100%; display: block; }
+@keyframes wnBurst { from { transform: translate(-50%, -50%) scale(.3); opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(180deg); opacity: 0; } }
+@keyframes wnUp { from { transform: translate(0, 0); } 50% { transform: translate(var(--sway), -60vh); } to { transform: translate(0, -125vh); } }
+@keyframes wnFall { to { transform: translate(var(--sway), 115vh) rotate(260deg); } }
+@keyframes wnBloom { 0% { transform: scale(0) rotate(-40deg); opacity: 0; } 12% { transform: scale(1.15) rotate(8deg); opacity: 1; } 18% { transform: scale(1) rotate(0); } 85% { opacity: 1; } 100% { transform: scale(.6) translateY(-30px); opacity: 0; } }
+@keyframes wnRainbow { 0% { opacity: 0; transform: scaleY(.2); transform-origin: bottom; } 8%, 90% { opacity: .85; transform: none; } 100% { opacity: 0; } }
+#gamesTabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
+#gamesTabs button { flex: none; }
 </style>
 </head>
 <body class="bg-dots">
@@ -3802,6 +3951,20 @@ textarea.nw-in { min-height: 70px; }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="newsBody"></div>
+  </div>
+</dialog>
+
+
+<!-- Magic wand & spell school -->
+<dialog id="wandDlg" aria-labelledby="wandTitle" style="width:min(640px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <h3 id="wandTitle">🪄 השרביט הקסום</h3>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="wandTabs"></div>
+    <div id="wandBody" class="row"></div>
   </div>
 </dialog>
 
@@ -6716,6 +6879,7 @@ textarea.nw-in { min-height: 70px; }
     ['bunny', 'אמבטיה לחיה', () => openBath()],
     ['heart', 'צ\'אט הבנות', () => openGirlsChat()],
     ['music', 'סטודיו ריקוד', () => openDance()],
+    ['wand', 'שרביט הקסמים', () => openWand()],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   // the "more" menu, sorted into rooms, with search and favorites
@@ -6726,7 +6890,7 @@ textarea.nw-in { min-height: 70px; }
     ['games', '🎮 משחקים', ['משחקים']],
     ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום']],
     ['create', '✏️ ליצור', ['סרט', 'תיבת נגינה', 'עיתון', 'מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
-    ['magic', '✨ הפתעות וקסם', ['הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי']],
+    ['magic', '✨ הפתעות וקסם', ['הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי', 'שרביט']],
     ['board', '📅 הלוח שלי', ['ימי הולדת', 'חגים', 'מערכת', 'בוקר', 'הרגלים', 'מדליות', 'היומן שלי', 'ספירות', 'הספרים', 'המנעול', 'גיבוי', 'להדפסה']],
   ];
   const roomOf = name => (MORE_ROOMS.slice(1).find(([, , keys]) => keys.some(k => name.includes(k))) || ['other'])[0];
@@ -6839,7 +7003,7 @@ textarea.nw-in { min-height: 70px; }
   function drawGames() {
     if (catchStop) { catchStop(); catchStop = null; }
     $('#gamesTabs').replaceChildren(...GAME_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
-    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame, pnum: paintNumGame, potion: potionGame, escape: escapeGame, frun: fashionRunGame, popstar: popStarGame }[gamesTab] || memoryGame)();
+    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame, pnum: paintNumGame, potion: potionGame, escape: escapeGame, frun: fashionRunGame, popstar: popStarGame, golf: golfGame, logic: logicGame }[gamesTab] || memoryGame)();
   }
   function memoryGame() {
     const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
@@ -6933,7 +7097,7 @@ textarea.nw-in { min-height: 70px; }
   $('#gamesDlg').addEventListener('close', () => { if (catchStop) { catchStop(); catchStop = null; } });
 
   // ================= more games: maze, puzzle, coloring, spot the difference, pearls, sound memory =================
-  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים'], ['words', '🔤 חיפוש מילים'], ['ladders', '🐍 סולמות ונחשים'], ['jump', '🐸 קפיצות'], ['pizza', '🍕 מסעדת פיצה'], ['fcontest', '🏆 תחרות אופנה'], ['sudoku', '🧩 סודוקו מדבקות'], ['gmemory', '👯 זיכרון בנות'], ['hide', '🎯 איפה החיה?'], ['frun', '🏃‍♀️ ריצת אופנה'], ['popstar', '🎤 כוכבת פופ']];
+  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים'], ['words', '🔤 חיפוש מילים'], ['ladders', '🐍 סולמות ונחשים'], ['jump', '🐸 קפיצות'], ['pizza', '🍕 מסעדת פיצה'], ['fcontest', '🏆 תחרות אופנה'], ['sudoku', '🧩 סודוקו מדבקות'], ['gmemory', '👯 זיכרון בנות'], ['hide', '🎯 איפה החיה?'], ['frun', '🏃‍♀️ ריצת אופנה'], ['popstar', '🎤 כוכבת פופ'], ['golf', '⛳ מיני גולף'], ['logic', '🧩 חידות היגיון']];
   const petArt = () => pet ? petSVG(pet) : stickerHTML('cat');
   const petNm = () => pet ? pet.name || 'החיה' : 'החתול';
   const svgData = s => 'data:image/svg+xml,' + encodeURIComponent(s);
@@ -19815,6 +19979,719 @@ textarea.nw-in { min-height: 70px; }
   $('#movieDlg').addEventListener('close', () => { mvStopPlayer(); if (mvView === 'play') mvView = mvBack === 'edit' ? 'edit' : 'list'; mvStore(true); });
   $('#musicBoxDlg').addEventListener('close', () => mbStop());
 
+  // ================= games4: mini golf, logic puzzles, magic wand =================
+  const g4Pick = a => a[Math.floor(Math.random() * a.length)];
+  const g4Coins = (n, why) => { if (typeof addCoins === 'function' && n > 0) addCoins(n, why); };
+  const g4Img = s => { const i = new Image(); i.src = svgData(s); return i; };
+
+  // ---------- ⛳ mini golf ----------
+  const gfRect = (x, y, w, h) => [[x, y], [x + w, y], [x + w, y + h], [x, y + h]];
+  const GF_HOLES = [
+    { name: 'חימום', par: 2, start: [95, 200], cup: [505, 200], shape: gfRect(40, 110, 520, 180), walls: [[250, 110, 300, 168], [350, 290, 300, 232]], wc: '#b5773c' },
+    { name: 'טחנת הרוח', par: 3, start: [90, 200], cup: [505, 200], shape: gfRect(40, 90, 520, 220), walls: [[300, 90, 300, 175], [300, 225, 300, 310]], mill: { cx: 300, cy: 138, len: 78, sp: 0.03 }, wc: '#8e6bd6' },
+    { name: 'גשר הממתקים', par: 3, start: [90, 255], cup: [505, 140], shape: gfRect(40, 90, 520, 220), water: [{ r: [228, 90, 144, 220] }], bridge: [228, 178, 144, 44], wc: '#ff7aa8' },
+    { name: 'ארגז החול', par: 3, start: [125, 105], cup: [505, 292], shape: [[40, 60], [210, 60], [210, 230], [560, 230], [560, 350], [40, 350]], walls: [[40, 285, 105, 350]], sand: [{ e: [140, 300, 42, 26] }, { e: [360, 318, 60, 22] }, { e: [125, 175, 40, 20] }], wc: '#c98a4a' },
+    { name: 'גבעות', par: 3, start: [90, 200], cup: [510, 200], shape: gfRect(40, 100, 520, 200), ramps: [{ r: [190, 100, 90, 200], ax: -0.17, ay: 0 }, { r: [330, 100, 70, 200], ax: 0.1, ay: 0 }], walls: [[468, 162, 545, 162], [545, 162, 545, 238], [545, 238, 468, 238]], wc: '#8b5a2b' },
+    { name: 'שער הקסמים', par: 2, start: [90, 200], cup: [505, 262], shape: gfRect(40, 80, 520, 240), walls: [[300, 80, 300, 320]], portals: [{ a: [215, 200], b: [385, 150] }], wc: '#6a5acd' },
+    { name: 'המכשולים הזזים', par: 3, start: [80, 200], cup: [522, 200], shape: gfRect(40, 115, 520, 170), sliders: [{ x: 200, amp: 52, sp: 0.035, ph: 0 }, { x: 300, amp: 52, sp: 0.045, ph: 2 }, { x: 400, amp: 52, sp: 0.03, ph: 4 }], wc: '#3a9bd9' },
+    { name: 'הלולאה', par: 2, start: [90, 200], cup: [505, 200], shape: gfRect(40, 100, 520, 200), walls: [[300, 100, 300, 300], [175, 100, 250, 172], [175, 300, 250, 228], [250, 172, 292, 172], [250, 228, 292, 228]], loop: { z: [255, 176, 40, 48], c: [300, 146], r: 48, exit: [330, 200], min: 4.6 }, wc: '#ff9f1c' },
+    { name: 'הארמון הגדול', par: 4, start: [90, 110], cup: [515, 165], shape: gfRect(40, 60, 520, 290), walls: [[185, 60, 232, 222], [372, 350, 420, 190]], water: [{ e: [460, 270, 58, 40] }], sand: [{ e: [292, 118, 48, 30] }], portals: [{ a: [110, 300], b: [300, 290] }], mill: { cx: 455, cy: 60, len: 70, sp: -0.022 }, wc: '#e0468f' },
+  ];
+  const gfInZone = (z, x, y) => z.r ? x >= z.r[0] && x <= z.r[0] + z.r[2] && y >= z.r[1] && y <= z.r[1] + z.r[3] : ((x - z.e[0]) / z.e[2]) ** 2 + ((y - z.e[1]) / z.e[3]) ** 2 <= 1;
+  const gfInPoly = (pts, x, y) => { let inside = false; for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) { const [xi, yi] = pts[i], [xj, yj] = pts[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) inside = !inside; } return inside; };
+  let gfState = null;
+  function golfGame() {
+    if (catchStop) { catchStop(); catchStop = null; }
+    const W = 600, H = 400, BR = 7, WW = 5, dpr = Math.min(2, window.devicePixelRatio || 1);
+    const cv = el('canvas', { width: W * dpr, height: H * dpr, class: 'gf-cv', 'aria-label': 'מיני גולף: גוררים אחורה מהכדור ומשחררים' });
+    const ctx = cv.getContext('2d'); ctx.scale(dpr, dpr);
+    const S = gfState = { hole: 0, strokes: [], cur: 0 };
+    const sayBox = el('span', { class: 'gf-say' }, 'בהצלחה! ⛳'), petBox = el('span', { class: 'gf-pet', html: petArt() });
+    const card = el('div', { class: 'gf-card' }), info = el('div', { class: 'gf-hole' }), end = el('div');
+    const decoImgs = ['flower', 'tulip', 'mushroom', 'sunflower', 'butterfly', 'ladybug'].map(id => g4Img(stickerHTML(id)));
+    let H0, ball, vel, last, moving = false, drag = null, t = 0, raf = 0, sunk = false, loopAnim = null, splash = null, portalCool = 0, deco = [], sayT = 0;
+    const say = (txt, cheer) => { sayBox.textContent = txt; clearTimeout(sayT); sayT = setTimeout(() => { sayBox.textContent = ''; }, 2600); if (cheer) { petBox.classList.remove('cheer'); void petBox.offsetWidth; petBox.classList.add('cheer'); if (pet) SFX.pet(pet.kind); } };
+    const drawCard = () => {
+      const tot = S.strokes.reduce((a, b) => a + b, 0), parTot = GF_HOLES.slice(0, S.strokes.length).reduce((a, h) => a + h.par, 0);
+      card.replaceChildren(el('table', {}, el('tr', {}, el('th', {}, 'גומה'), ...GF_HOLES.map((h, i) => el('th', { class: i === S.hole && !S.done ? 'on' : '' }, String(i + 1))), el('th', {}, 'סה״כ')),
+        el('tr', {}, el('td', {}, 'פאר'), ...GF_HOLES.map(h => el('td', {}, String(h.par))), el('td', {}, String(GF_HOLES.reduce((a, h) => a + h.par, 0)))),
+        el('tr', {}, el('td', {}, 'אני'), ...GF_HOLES.map((h, i) => { const s = S.strokes[i]; return el('td', { class: s == null ? '' : s < h.par ? 'under' : s > h.par ? 'over' : 'par' }, s == null ? (i === S.hole && !S.done ? String(S.cur) : '') : String(s)); }),
+          el('td', {}, S.strokes.length ? `${tot} (${tot - parTot > 0 ? '+' : ''}${tot - parTot})` : ''))));
+      info.replaceChildren(el('b', {}, `גומה ${S.hole + 1}: ${H0.name}`), el('span', {}, `פאר ${H0.par} · חבטות: ${S.cur}`), games.golfBest ? el('span', {}, `🏆 השיא: ${games.golfBest}`) : null);
+    };
+    const load = i => {
+      S.hole = i; S.cur = 0; H0 = GF_HOLES[i]; ball = H0.start.slice(); last = ball.slice(); vel = [0, 0]; moving = false; sunk = false; loopAnim = null; splash = null;
+      // flowers and friends around the course (never on it)
+      let seed = 97 + i * 31; const r = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+      deco = [];
+      for (let k = 0; k < 80 && deco.length < 12; k++) {
+        const x = 10 + r() * 580, y = 10 + r() * 380;
+        if (gfInPoly(H0.shape, x, y) || H0.shape.some(([px, py], j) => { const [qx, qy] = H0.shape[(j + 1) % H0.shape.length]; return gfSegDist(x, y, px, py, qx, qy)[0] < 30; })) continue;
+        deco.push([x, y, 20 + r() * 14, Math.floor(r() * decoImgs.length)]);
+      }
+      drawCard();
+    };
+    const gfSegDist0 = gfSegDist;
+    const segs = () => {
+      const s = H0.shape.map((p, j) => [...p, ...H0.shape[(j + 1) % H0.shape.length]]).concat(H0.walls || []);
+      if (H0.mill) { const m = H0.mill; for (let k = 0; k < 4; k++) { const a = t * m.sp + k * Math.PI / 2; s.push([m.cx, m.cy, m.cx + Math.cos(a) * m.len, m.cy + Math.sin(a) * m.len, 'mill']); } }
+      (H0.sliders || []).forEach(sl => { const y = 200 + Math.sin(t * sl.sp + sl.ph) * sl.amp; s.push(...gfRect(sl.x - 11, y - 28, 22, 56).map((p, j, a) => [...p, ...a[(j + 1) % 4], 'slide'])); });
+      return s;
+    };
+    const step = () => {
+      t++;
+      if (portalCool) portalCool--;
+      if (splash) { splash.t++; if (splash.t > 40) { ball = last.slice(); vel = [0, 0]; moving = false; splash = null; S.cur++; drawCard(); } return; }
+      if (loopAnim) {
+        loopAnim.t += 1 / 36; const L = H0.loop, a = Math.PI / 2 - loopAnim.t * Math.PI * 2;
+        ball = [L.c[0] + Math.cos(a) * L.r * 0.9 + (loopAnim.t - 0.5) * 8, L.c[1] + Math.sin(a) * L.r];
+        if (loopAnim.t >= 1) { ball = L.exit.slice(); vel = [loopAnim.v * 0.85, 0]; loopAnim = null; say('וואו! לולאה! 🎢', true); }
+        return;
+      }
+      if (!moving || sunk) return;
+      const sp0 = Math.hypot(...vel), n = Math.max(1, Math.ceil(sp0 / 2.5)), ss = segs();
+      for (let k = 0; k < n; k++) {
+        ball[0] += vel[0] / n; ball[1] += vel[1] / n;
+        for (const [x1, y1, x2, y2, kind] of ss) {
+          const [d, cx, cy] = gfSegDist0(ball[0], ball[1], x1, y1, x2, y2);
+          if (d < BR + WW) {
+            const nx = (ball[0] - cx) / (d || 1), ny = (ball[1] - cy) / (d || 1), dot = vel[0] * nx + vel[1] * ny;
+            ball[0] = cx + nx * (BR + WW + 0.1); ball[1] = cy + ny * (BR + WW + 0.1);
+            if (dot < 0) { vel[0] -= 1.8 * dot * nx; vel[1] -= 1.8 * dot * ny; if (Math.abs(dot) > 1.2) tone(kind ? 520 : 240, 0.05, 'triangle', 0, 0.05); }
+            if (kind) { vel[0] += nx * 1.2; vel[1] += ny * 1.2; }
+          }
+        }
+      }
+      const [x, y] = ball;
+      (H0.ramps || []).forEach(rp => { if (gfInZone(rp, x, y)) { vel[0] += rp.ax; vel[1] += rp.ay; } });
+      const onBridge = H0.bridge && x >= H0.bridge[0] && x <= H0.bridge[0] + H0.bridge[2] && y >= H0.bridge[1] && y <= H0.bridge[1] + H0.bridge[3];
+      if (!onBridge && (H0.water || []).some(z => gfInZone(z, x, y))) { splash = { t: 0, x, y }; moving = false; tone(180, 0.3, 'sine'); tone(120, 0.3, 'sine', 0.1); say(g4Pick(['אוי, פלאש! 💦 עוד ניסיון', 'הכדור הלך לשחות 🐟', 'מים! לא נורא 💧']), true); return; }
+      const sand = (H0.sand || []).some(z => gfInZone(z, x, y));
+      const fr = sand ? 0.9 : 0.983; vel[0] *= fr; vel[1] *= fr;
+      (H0.portals || []).forEach(p => {
+        if (!portalCool && Math.hypot(x - p.a[0], y - p.a[1]) < 15) { const s = Math.hypot(...vel) || 1; ball = [p.b[0] + vel[0] / s * 20, p.b[1] + vel[1] / s * 20]; portalCool = 30; [880, 1180, 1580].forEach((f, i) => tone(f, 0.12, 'sine', i * 0.06, 0.06)); say('זזזזוווום! ✨', false); }
+      });
+      if (H0.loop && gfInZone({ r: H0.loop.z }, x, y) && vel[0] > 0) {
+        const s = Math.hypot(...vel);
+        if (s >= H0.loop.min) { loopAnim = { t: 0, v: s }; tone(660, 0.4, 'sawtooth', 0, 0.03); return; }
+        vel[0] = -Math.abs(vel[0]) * 0.6; say('צריך עוד כוח בשביל הלולאה! 💪', false);
+      }
+      const dc = Math.hypot(x - H0.cup[0], y - H0.cup[1]), s = Math.hypot(...vel);
+      if (dc < 10 && s < 7) { sunk = true; moving = false; holeDone(); return; }
+      if (dc < 12 && s < 9) { vel[0] += (H0.cup[0] - x) * 0.08; vel[1] += (H0.cup[1] - y) * 0.08; }
+      if (s < 0.07) { vel = [0, 0]; moving = false; if (S.cur >= 10) { sunk = true; say('נסיים את הגומה הזו ונמשיך 😊', false); setTimeout(holeDone, 600); } }
+    };
+    const holeDone = () => {
+      const k = S.cur, p = H0.par; S.strokes[S.hole] = k;
+      [784, 1047, 1319].forEach((f, i) => tone(f, 0.18, 'triangle', i * 0.08));
+      const msg = k === 1 ? 'חבטה אחת!!! הול אין וואן! 🏆' : k < p ? `מתחת לפאר! ${p - k === 1 ? 'בירדי 🐦' : 'איגל 🦅'}` : k === p ? 'בדיוק פאר! 👏' : 'נכנס! כל הכבוד 💪';
+      say(msg, true);
+      if (k === 1) confetti($('#gamesDlg .confetti-c'));
+      drawCard();
+      setTimeout(() => { if (gfState !== S) return; if (S.hole < GF_HOLES.length - 1) load(S.hole + 1); else finish(); }, 1700);
+    };
+    const finish = () => {
+      S.done = true; drawCard();
+      const tot = S.strokes.reduce((a, b) => a + b, 0), par = GF_HOLES.reduce((a, h) => a + h.par, 0);
+      const under = S.strokes.reduce((a, s, i) => a + Math.max(0, GF_HOLES[i].par - s), 0);
+      const best = !games.golfBest || tot < games.golfBest; if (best) games.golfBest = tot;
+      winGame('golfWins');
+      g4Coins(5 + under * 5, under ? `מיני גולף: ${under} מתחת לפאר` : 'סיימת מיני גולף');
+      end.replaceChildren(winLine(`סיימת 9 גומות ב-${tot} חבטות (פאר ${par})${best ? ' · שיא חדש! 🏆' : ''}`, golfGame));
+    };
+    const draw = () => {
+      ctx.clearRect(0, 0, W, H);
+      // rough grass with little tufts
+      ctx.fillStyle = '#5bb450'; ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = '#4c9d43'; ctx.lineWidth = 2;
+      for (let i = 0; i < 70; i++) { const x = (i * 83) % W, y = (i * 47) % H; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 3, y - 6); ctx.moveTo(x, y); ctx.lineTo(x + 3, y - 6); ctx.stroke(); }
+      deco.forEach(([x, y, s, k]) => { const im = decoImgs[k]; if (im.complete) ctx.drawImage(im, x - s / 2, y - s / 2, s, s); });
+      // the fairway with mowing stripes
+      const path = () => { ctx.beginPath(); H0.shape.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.closePath(); };
+      ctx.save(); path(); ctx.fillStyle = '#8fdc6f'; ctx.fill(); ctx.clip();
+      ctx.fillStyle = '#9ee57d'; for (let x = 0; x < W; x += 60) ctx.fillRect(x, 0, 30, H);
+      (H0.sand || []).forEach(z => { ctx.fillStyle = '#f3dc9b'; ctx.beginPath(); ctx.ellipse(z.e[0], z.e[1], z.e[2], z.e[3], 0, 0, 7); ctx.fill(); ctx.fillStyle = '#e2c47a'; for (let i = 0; i < 14; i++) { ctx.beginPath(); ctx.arc(z.e[0] + Math.cos(i * 2.4) * z.e[2] * 0.7 * ((i % 3 + 1) / 3), z.e[1] + Math.sin(i * 2.4) * z.e[3] * 0.7 * ((i % 3 + 1) / 3), 1.6, 0, 7); ctx.fill(); } });
+      (H0.water || []).forEach(z => {
+        ctx.fillStyle = '#56b8f0'; ctx.beginPath(); z.r ? ctx.rect(...z.r) : ctx.ellipse(z.e[0], z.e[1], z.e[2], z.e[3], 0, 0, 7); ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,.6)'; ctx.lineWidth = 2.5; const [bx, by, bw, bh] = z.r || [z.e[0] - z.e[2], z.e[1] - z.e[3], z.e[2] * 2, z.e[3] * 2];
+        for (let yy = by + 18; yy < by + bh - 8; yy += 26) { ctx.beginPath(); for (let xx = bx + 10; xx < bx + bw - 10; xx += 4) ctx.lineTo(xx, yy + Math.sin(xx / 8 + t / 12) * 3); ctx.stroke(); }
+      });
+      (H0.ramps || []).forEach(rp => {
+        const [x, y, w, h] = rp.r, g = ctx.createLinearGradient(x, 0, x + w, 0), up = rp.ax < 0;
+        g.addColorStop(0, up ? '#7cc85f' : '#b8ef95'); g.addColorStop(1, up ? '#b8ef95' : '#7cc85f'); ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+        ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+        for (let yy = y + 30; yy < y + h; yy += 50) { const cx = x + w / 2, d = up ? -1 : 1, o = ((t * 0.5) % 20) * d; ctx.beginPath(); ctx.moveTo(cx - 8 * d + o, yy - 10); ctx.lineTo(cx + 4 * d + o, yy); ctx.lineTo(cx - 8 * d + o, yy + 10); ctx.stroke(); }
+      });
+      ctx.restore();
+      if (H0.bridge) {
+        const [x, y, w, h] = H0.bridge;
+        ctx.save(); ctx.beginPath(); ctx.roundRect(x, y, w, h, 8); ctx.clip(); ctx.fillStyle = '#fff'; ctx.fillRect(x, y, w, h);
+        ctx.fillStyle = '#ff7aa8'; for (let xx = x - h; xx < x + w; xx += 22) { ctx.beginPath(); ctx.moveTo(xx, y + h); ctx.lineTo(xx + 11, y + h); ctx.lineTo(xx + 11 + h, y); ctx.lineTo(xx + h, y); ctx.fill(); }
+        ctx.restore(); ctx.strokeStyle = O; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.roundRect(x, y, w, h, 8); ctx.stroke();
+        [[x + 10, y - 2], [x + w - 10, y - 2], [x + 10, y + h + 2], [x + w - 10, y + h + 2]].forEach(([px, py]) => { ctx.fillStyle = '#ffd84d'; ctx.beginPath(); ctx.arc(px, py, 6, 0, 7); ctx.fill(); ctx.stroke(); });
+      }
+      (H0.portals || []).forEach(p => [[p.a, '#b58cff'], [p.b, '#ff9ad5']].forEach(([[x, y], c], j) => {
+        for (let k = 3; k >= 0; k--) { ctx.fillStyle = k % 2 ? c : '#fff'; ctx.beginPath(); ctx.arc(x, y, 6 + k * 5 + Math.sin(t / 8 + k) * 1.5, 0, 7); ctx.fill(); }
+        ctx.strokeStyle = O; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, 22, 0, 7); ctx.stroke();
+        ctx.fillStyle = O; ctx.font = '13px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(j ? 'יציאה' : 'כניסה', x, y + 38);
+      }));
+      const [hx, hy] = H0.cup;
+      ctx.fillStyle = '#2d3b2a'; ctx.beginPath(); ctx.ellipse(hx, hy, 11, 9, 0, 0, 7); ctx.fill(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+      // tee
+      ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.beginPath(); ctx.arc(H0.start[0], H0.start[1], 13, 0, 7); ctx.fill();
+      // walls: a dark outline, then the color, then a shine
+      const ss = segs();
+      const wall = (list, w, c) => { ctx.strokeStyle = c; ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.beginPath(); list.forEach(([a, b, c2, d]) => { ctx.moveTo(a, b); ctx.lineTo(c2, d); }); ctx.stroke(); };
+      const stat = ss.filter(s => !s[4]);
+      wall(stat, WW * 2 + 4, O); wall(stat, WW * 2, H0.wc); wall(stat, 2.5, 'rgba(255,255,255,.45)');
+      (H0.sliders || []).forEach(sl => { const y = 200 + Math.sin(t * sl.sp + sl.ph) * sl.amp; ctx.fillStyle = '#ffd84d'; ctx.strokeStyle = O; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(sl.x - 11, y - 28, 22, 56, 8); ctx.fill(); ctx.stroke(); ctx.fillStyle = O; ctx.beginPath(); ctx.arc(sl.x - 4, y - 6, 2, 0, 7); ctx.arc(sl.x + 4, y - 6, 2, 0, 7); ctx.fill(); ctx.beginPath(); ctx.arc(sl.x, y + 2, 4, 0.2, Math.PI - 0.2); ctx.stroke(); });
+      if (H0.loop) {
+        const L = H0.loop; ctx.lineWidth = 14; ctx.strokeStyle = O; ctx.beginPath(); ctx.arc(L.c[0], L.c[1], L.r, 0, 7); ctx.stroke();
+        ctx.lineWidth = 9; ctx.strokeStyle = '#ffb23f'; ctx.stroke(); ctx.lineWidth = 3; ctx.setLineDash([6, 6]); ctx.strokeStyle = '#fff'; ctx.stroke(); ctx.setLineDash([]);
+      }
+      if (H0.mill) {
+        const m = H0.mill;
+        if (m.cy > 100) { ctx.fillStyle = '#ffe3f0'; ctx.strokeStyle = O; ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(m.cx - 26, m.cy - 20, 52, 52, 6); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#ff7a9a'; ctx.beginPath(); ctx.moveTo(m.cx - 32, m.cy - 18); ctx.lineTo(m.cx, m.cy - 44); ctx.lineTo(m.cx + 32, m.cy - 18); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#7ec8ff'; ctx.fillRect(m.cx - 8, m.cy + 8, 16, 14); ctx.strokeRect(m.cx - 8, m.cy + 8, 16, 14); }
+        for (let k = 0; k < 4; k++) {
+          const a = t * m.sp + k * Math.PI / 2; ctx.save(); ctx.translate(m.cx, m.cy); ctx.rotate(a);
+          ctx.fillStyle = k % 2 ? '#fff' : '#b58cff'; ctx.strokeStyle = O; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(8, -3); ctx.lineTo(m.len, -12); ctx.lineTo(m.len, 12); ctx.lineTo(8, 3); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore();
+        }
+        ctx.fillStyle = '#ffd84d'; ctx.strokeStyle = O; ctx.beginPath(); ctx.arc(m.cx, m.cy, 8, 0, 7); ctx.fill(); ctx.stroke();
+      }
+      // the cup and its flag
+      ctx.strokeStyle = O; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(hx, hy - 44); ctx.stroke();
+      ctx.fillStyle = '#ff5a6e'; ctx.beginPath(); ctx.moveTo(hx, hy - 44); ctx.lineTo(hx + 24 + Math.sin(t / 10) * 3, hy - 37); ctx.lineTo(hx, hy - 30); ctx.closePath(); ctx.fill(); ctx.lineWidth = 1.8; ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.font = 'bold 10px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(String(S.hole + 1), hx + 8, hy - 34);
+      // aim: power line in the shot direction
+      if (drag && !moving) {
+        const dx = drag.x0 - drag.x, dy = drag.y0 - drag.y, len = Math.min(150, Math.hypot(dx, dy)), p = len / 150;
+        if (len > 4) {
+          const ux = dx / Math.hypot(dx, dy), uy = dy / Math.hypot(dx, dy);
+          ctx.strokeStyle = 'rgba(58,43,60,.35)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(ball[0], ball[1]); ctx.lineTo(ball[0] - ux * len * 0.6, ball[1] - uy * len * 0.6); ctx.stroke();
+          ctx.strokeStyle = `hsl(${120 - p * 120} 85% 45%)`; ctx.lineWidth = 5; ctx.setLineDash([2, 9]); ctx.lineCap = 'round';
+          ctx.beginPath(); ctx.moveTo(ball[0], ball[1]); ctx.lineTo(ball[0] + ux * (20 + len), ball[1] + uy * (20 + len)); ctx.stroke(); ctx.setLineDash([]);
+          ctx.fillStyle = `hsl(${120 - p * 120} 85% 45%)`; ctx.beginPath(); const tx = ball[0] + ux * (26 + len), ty = ball[1] + uy * (26 + len); ctx.moveTo(tx + ux * 8, ty + uy * 8); ctx.lineTo(tx - uy * 7, ty + ux * 7); ctx.lineTo(tx + uy * 7, ty - ux * 7); ctx.fill();
+          ctx.fillStyle = O; ctx.font = '14px Rubik, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(`${Math.round(p * 100)}%`, ball[0], ball[1] - 16);
+        }
+      }
+      // the ball
+      if (splash) { ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; for (let k = 0; k < 3; k++) { ctx.globalAlpha = Math.max(0, 1 - splash.t / 40); ctx.beginPath(); ctx.arc(splash.x, splash.y, 4 + splash.t * (0.5 + k * 0.3), 0, 7); ctx.stroke(); } ctx.globalAlpha = 1; }
+      else if (!sunk) {
+        ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.beginPath(); ctx.ellipse(ball[0] + 2, ball[1] + 4, BR, BR * 0.6, 0, 0, 7); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.strokeStyle = O; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(ball[0], ball[1], BR, 0, 7); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#ff9ad5'; ctx.beginPath(); ctx.arc(ball[0] - 2, ball[1] - 2, 2, 0, 7); ctx.fill();
+        if (!moving && !drag && t % 60 < 30) { ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(ball[0], ball[1], BR + 6, 0, 7); ctx.stroke(); }
+      }
+    };
+    const loop = () => { step(); draw(); raf = requestAnimationFrame(loop); };
+    const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * W / r.width, (e.clientY - r.top) * H / r.height]; };
+    cv.addEventListener('pointerdown', e => { if (moving || sunk || splash || loopAnim) return; const [x, y] = pos(e); drag = { x0: x, y0: y, x, y }; cv.setPointerCapture(e.pointerId); });
+    cv.addEventListener('pointermove', e => { if (!drag) return; const [x, y] = pos(e); drag.x = x; drag.y = y; });
+    const release = () => {
+      if (!drag) return;
+      const dx = drag.x0 - drag.x, dy = drag.y0 - drag.y, len = Math.hypot(dx, dy); drag = null;
+      if (len < 6) return;
+      const p = Math.min(150, len) / 150, sp = 1.2 + p * 14.5;
+      last = ball.slice(); vel = [dx / len * sp, dy / len * sp]; moving = true; S.cur++; drawCard(); tone(300 + p * 300, 0.06, 'square', 0, 0.06);
+    };
+    cv.addEventListener('pointerup', release); cv.addEventListener('pointercancel', () => { drag = null; });
+    catchStop = () => { cancelAnimationFrame(raf); clearTimeout(sayT); };
+    load(0); loop();
+    $('#gamesBody').replaceChildren(
+      el('p', { class: 'muted' }, 'לוחצים על המגרש, מושכים אחורה (כמו רוגטקה) ומשחררים. ככל שמושכים יותר, החבטה חזקה יותר! מתחת לפאר = מטבעות 🪙'),
+      el('div', { class: 'gf-top' }, petBox, sayBox, info),
+      el('div', { class: 'gf-wrap' }, cv), card, end,
+      el('div', { class: 'chips', style: 'justify-content:center' }, el('button', { type: 'button', class: 'btn', onclick: golfGame }, '🔄 להתחיל מחדש')));
+  }
+  function gfSegDist(px, py, x1, y1, x2, y2) {
+    const dx = x2 - x1, dy = y2 - y1, l = dx * dx + dy * dy, k = l ? Math.max(0, Math.min(1, ((px - x1) * dx + (py - y1) * dy) / l)) : 0, cx = x1 + k * dx, cy = y1 + k * dy;
+    return [Math.hypot(px - cx, py - cy), cx, cy];
+  }
+
+  // ---------- 🧩 logic puzzles ----------
+  const lzRng = seed => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const LZ_RUSH = [['..HHB.....B.D.AA.FDGG..F....II.EECC.', 2], ['.JJ...I..DD.IAAF.CG.HF.CG.H.BE....BE', 3], ['.GG.....IDFFAAID..BB.HH...CC...EE...', 4], ['.FFCC...BB.HAAD..H.EDJJHKED...KIIGG.', 5], ['EEMM.HI...KHIAALKD.G.LCD.GJ.CDBBJFFF', 6], ['.....EJJ.HCEAA.HCEF.D.C.FBD.IIFB..GG', 7], ['EE.LL..BB.H..AAFH.CC.FHJG.KK.JGIIDD.', 8], ['.HHJJ...GEE.AAGBK.D..BK.DFIII..FCCC.', 10], ['..DD.FH..BBFHIAA.F.I.GKKEE.GCC.JJ...', 11], ['..CIJB..CIJBAAF...KKF.G..DEEG..D.HH.', 13], ['IG.HHKIGCC.KAAF.EKD.F.E.D.FBBBJJLL..', 15], ['KDFF..KD.CCJAA.GIJ.BBGIHL.EMIHL.EM..', 17], ['.EEGGG...KBBAAMK.HCCMLLHFFF.DD..JJII', 20], ['..KEEEBBKDL..AADL.J.MM.IJGGFFICC.HHH', 23]];
+  const LZ_NONO = [
+    ['לב', '#ff5a8a', ['.X.X.', 'XXXXX', 'XXXXX', '.XXX.', '..X..']], ['עץ', '#4fae5a', ['..X..', '.XXX.', 'XXXXX', '..X..', '..X..']], ['בית', '#ff9f43', ['..X..', '.XXX.', 'XXXXX', 'XX.XX', 'XX.XX']],
+    ['כוכב', '#ffc83d', ['..X..', '.XXX.', 'XXXXX', '.XXX.', '.X.X.']], ['פטרייה', '#e8573f', ['.XXX.', 'XXXXX', 'XXXXX', '..X..', '.XXX.']], ['גלידה', '#ff9ad5', ['.XXX.', 'XXXXX', '.XXX.', '.XXX.', '..X..']],
+    ['חתול', '#b58cff', ['X...X', 'XXXXX', 'X.X.X', 'XXXXX', '.XXX.']], ['סמיילי', '#ffd23f', ['.XXX.', 'X.X.X', 'XXXXX', 'X...X', '.XXX.']], ['מטרייה', '#3a9bd9', ['.XXX.', 'XXXXX', '..X..', '..X..', '.XX..']],
+    ['דג', '#ff8a4c', ['.....', '.XX.X', 'XXXXX', '.XX.X', '.....']], ['כתר', '#e9b10a', ['X.X.X', 'X.X.X', 'XXXXX', 'XXXXX', 'XXXXX']], ['תו מוזיקה', '#6a5acd', ['..XXX', '..X.X', '..X..', 'XXX..', 'XXX..']],
+  ];
+  const LZ_TYPES = [
+    ['rush', '🚗 להוציא את המכונית', 'מזיזים מכוניות עד שהמכונית האדומה יכולה לצאת', LZ_RUSH.length],
+    ['pipes', '🌷 צינורות לפרחים', 'מסובבים צינורות כדי שהמים יגיעו לכל הפרחים', 12],
+    ['lights', '🏮 פנסים קסומים', 'לחיצה מדליקה ומכבה פנס ואת השכנים שלו. צריך להדליק את כולם!', 12],
+    ['pattern', '🔮 מה בא אחר כך?', 'מגלים את החוקיות ובוחרים מה הבא בתור', 12],
+    ['nono', '🖼️ תמונה נסתרת', 'המספרים אומרים כמה משבצות לצבוע בכל שורה וטור', LZ_NONO.length],
+  ];
+  let lzProg = store.get('logic', {}), lzType = null, lzLvl = null;
+  const lzStars = (type, i) => ((lzProg[type] || {})[i] || 0);
+  const lzOpen = (type, i) => i === 0 || lzStars(type, i - 1) > 0;
+  const lzStarTxt = n => '⭐'.repeat(n) + '☆'.repeat(3 - n);
+  function lzWin(stars, moves) {
+    const type = lzType, i = lzLvl, first = !lzStars(type, i), better = stars > lzStars(type, i);
+    lzProg[type] = Object.assign({}, lzProg[type], better ? { [i]: stars } : {}); store.set('logic', lzProg);
+    games.logicSolved = Object.values(lzProg).reduce((a, o) => a + Object.keys(o).length, 0); store.set('games', games);
+    confetti($('#gamesDlg .confetti-c')); SFX.yay(); afterChange();
+    if (first) g4Coins(stars === 3 ? 8 : 5, 'חידת היגיון');
+    const total = LZ_TYPES.find(x => x[0] === type)[3];
+    $('#lzEnd').replaceChildren(el('div', { class: 'lz-win' }, el('b', {}, `פתרת! ${lzStarTxt(stars)}`), moves != null ? el('span', {}, `${moves} מהלכים`) : null,
+      i + 1 < total ? el('button', { type: 'button', class: 'btn main', onclick: () => { lzLvl = i + 1; logicGame(); } }, 'לשלב הבא ⬅️') : el('span', {}, 'סיימת את כל השלבים! 🏆'),
+      el('button', { type: 'button', class: 'btn', onclick: () => logicGame() }, '🔄 שוב')));
+  }
+  function logicGame() {
+    if (catchStop) { catchStop(); catchStop = null; }
+    const body = $('#gamesBody');
+    if (!lzType) {
+      body.replaceChildren(el('p', { class: 'muted' }, 'חמישה סוגים של חידות, בכל אחד הרבה שלבים. כל שלב נותן עד 3 כוכבים ⭐'),
+        el('div', { class: 'lz-types' }, ...LZ_TYPES.map(([id, name, desc, n]) => {
+          const got = Object.values(lzProg[id] || {}).reduce((a, b) => a + b, 0);
+          return el('button', { type: 'button', class: 'lz-type', onclick: () => { lzType = id; lzLvl = null; logicGame(); } }, el('b', {}, name), el('span', { class: 'muted' }, desc),
+            el('span', { class: 'lz-bar' }, el('i', { style: `width:${Math.round(got / (n * 3) * 100)}%` })), el('small', {}, `⭐ ${got}/${n * 3}`));
+        })));
+      return;
+    }
+    const [, name, desc, n] = LZ_TYPES.find(x => x[0] === lzType);
+    if (lzLvl == null) {
+      body.replaceChildren(el('div', { class: 'lz-head' }, el('button', { type: 'button', class: 'chip', onclick: () => { lzType = null; logicGame(); } }, '➡️ כל החידות'), el('b', {}, name)),
+        el('p', { class: 'muted' }, desc),
+        el('div', { class: 'lz-levels' }, ...Array.from({ length: n }, (_, i) => {
+          const open = lzOpen(lzType, i), st = lzStars(lzType, i);
+          return el('button', { type: 'button', class: 'lz-lvl' + (st ? ' done' : ''), disabled: !open, 'aria-label': `שלב ${i + 1}${open ? '' : ' נעול'}`, onclick: () => { lzLvl = i; logicGame(); } },
+            el('b', {}, open ? String(i + 1) : '🔒'), el('small', {}, open ? lzStarTxt(st) : ''));
+        })));
+      return;
+    }
+    const stage = el('div', { class: 'lz-stage' }), bar = el('div', { class: 'game-info' });
+    body.replaceChildren(el('div', { class: 'lz-head' }, el('button', { type: 'button', class: 'chip', onclick: () => { lzLvl = null; logicGame(); } }, '➡️ לשלבים'), el('b', {}, `${name} · שלב ${lzLvl + 1}`), el('small', {}, lzStarTxt(lzStars(lzType, lzLvl)))),
+      bar, stage, el('div', { id: 'lzEnd' }));
+    ({ rush: lzRush, pipes: lzPipes, lights: lzLights, pattern: lzPattern, nono: lzNono })[lzType](stage, bar, lzLvl);
+  }
+
+  // -- 🚗 rush hour --
+  const LZ_CAR_COLORS = ['#7ec8ff', '#ffd84d', '#9be3c9', '#b58cff', '#ffb070', '#ff9ad5', '#86e3b8', '#f6c445', '#8fb3ff', '#c9a8ff', '#ffc3a0', '#a0e7e5', '#ffe08a', '#d7c4ff', '#b8ef95'];
+  const lzCarSVG = (len, h, color, target) => {
+    const L = len * 60, win = target && pet ? `<svg x="${L - 62}" y="10" width="34" height="40" viewBox="-4 -14 56 64">${petSVG(pet).replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg>` : '';
+    const body = `<rect x="4" y="8" width="${L - 8}" height="44" rx="16" fill="${color}" stroke="${O}" stroke-width="3"/><rect x="${L * 0.3}" y="14" width="${L * 0.4}" height="32" rx="9" fill="#dff4ff" stroke="${O}" stroke-width="2.2"/>` +
+      `<path d="M${L * 0.3 + 6} 20 l6 -3" stroke="#fff" stroke-width="3" stroke-linecap="round"/>` + win +
+      [12, L - 22].map(x => `<rect x="${x}" y="2" width="12" height="9" rx="3" fill="${O}"/><rect x="${x}" y="49" width="12" height="9" rx="3" fill="${O}"/>`).join('') +
+      `<circle cx="${L - 9}" cy="18" r="3.5" fill="#fff6c4" stroke="${O}" stroke-width="1.5"/><circle cx="${L - 9}" cy="42" r="3.5" fill="#fff6c4" stroke="${O}" stroke-width="1.5"/>` +
+      (len === 3 ? `<rect x="10" y="16" width="${L * 0.2}" height="28" rx="6" fill="#fff" opacity=".35"/>` : '');
+    return h ? `<svg viewBox="0 0 ${L} 60" xmlns="http://www.w3.org/2000/svg">${body}</svg>` : `<svg viewBox="0 0 60 ${L}" xmlns="http://www.w3.org/2000/svg"><g transform="translate(60 0) rotate(90)">${body}</g></svg>`;
+  };
+  function lzRush(stage, bar, i) {
+    const [src, opt] = LZ_RUSH[i], cars = {};
+    [...src].forEach((c, k) => { if (c === '.') return; (cars[c] = cars[c] || []).push(k); });
+    const list = Object.entries(cars).map(([id, cells], k) => ({ id, h: cells[1] - cells[0] === 1, r: Math.floor(cells[0] / 6), c: cells[0] % 6, len: cells.length, color: id === 'A' ? '#ff5a6e' : LZ_CAR_COLORS[k % LZ_CAR_COLORS.length] }));
+    let moves = 0, won = false;
+    const board = el('div', { class: 'lz-rush' });
+    const drawBar = () => bar.replaceChildren(el('span', {}, `מהלכים: ${moves}`), el('span', {}, `הכי מעט אפשרי: ${opt}`));
+    const occ = skip => { const g = new Array(36).fill(null); list.forEach(c => { if (c === skip) return; for (let k = 0; k < c.len; k++) g[(c.h ? c.r : c.r + k) * 6 + (c.h ? c.c + k : c.c)] = c; }); return g; };
+    const place = c => { c.node.style.cssText = `--r:${c.r};--c:${c.c};--w:${c.h ? c.len : 1};--h:${c.h ? 1 : c.len}`; };
+    list.forEach(c => {
+      c.node = el('div', { class: 'lz-car' + (c.id === 'A' ? ' me' : ''), html: lzCarSVG(c.len, c.h, c.color, c.id === 'A') });
+      place(c); board.append(c.node);
+      let start = null;
+      c.node.addEventListener('pointerdown', e => {
+        if (won) return; e.preventDefault(); c.node.setPointerCapture(e.pointerId);
+        const g = occ(c); let lo = c.h ? c.c : c.r, hi = lo;
+        while (lo > 0 && !g[c.h ? c.r * 6 + lo - 1 : (lo - 1) * 6 + c.c]) lo--;
+        while (hi + c.len < 6 && !g[c.h ? c.r * 6 + hi + c.len : (hi + c.len) * 6 + c.c]) hi++;
+        const cell = board.getBoundingClientRect().width / 6;
+        start = { x: e.clientX, y: e.clientY, p: c.h ? c.c : c.r, lo, hi, cell }; c.node.classList.add('drag');
+      });
+      c.node.addEventListener('pointermove', e => {
+        if (!start) return;
+        // RTL page, but the board is LTR, so right is right
+        const d = (c.h ? e.clientX - start.x : e.clientY - start.y) / start.cell, p = Math.max(start.lo, Math.min(start.hi, start.p + d));
+        c.node.style.setProperty(c.h ? '--c' : '--r', p);
+      });
+      const up = () => {
+        if (!start) return;
+        const v = parseFloat(c.node.style.getPropertyValue(c.h ? '--c' : '--r')), p = Math.round(v);
+        c.node.classList.remove('drag');
+        if (p !== start.p) { moves++; SFX.boop(); }
+        if (c.h) c.c = p; else c.r = p; start = null; place(c); drawBar();
+        if (c.id === 'A' && c.c === 4) {
+          won = true; c.node.classList.add('out'); [523, 659, 784, 1047].forEach((f, k) => tone(f, 0.14, 'triangle', k * 0.07));
+          setTimeout(() => lzWin(moves <= opt + 2 ? 3 : moves <= opt * 2 + 3 ? 2 : 1, moves), 700);
+        }
+      };
+      c.node.addEventListener('pointerup', up); c.node.addEventListener('pointercancel', up);
+    });
+    drawBar();
+    stage.replaceChildren(el('p', { class: 'muted' }, `גוררים את המכוניות קדימה ואחורה. המכונית האדומה עם ${petNm()} צריכה לצאת מהיציאה בצד ימין!`),
+      el('div', { class: 'lz-rush-wrap' }, board, el('span', { class: 'lz-exit' }, 'יציאה ➡️')));
+  }
+
+  // -- 🌷 pipes --
+  const LZ_ROT = m => ((m << 1) | (m >> 3)) & 15;
+  function lzPipes(stage, bar, i) {
+    const N = [3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6][i], R = lzRng(7919 * (i + 3)), cells = N * N, conn = new Array(cells).fill(0);
+    const nb = k => [[k - N, 1, 4], [k % N < N - 1 ? k + 1 : -1, 2, 8], [k + N, 4, 1], [k % N ? k - 1 : -1, 8, 2]].filter(([j]) => j >= 0 && j < cells);
+    const src = Math.floor(R() * N) * N + Math.floor(R() * N), seen = new Set([src]), st = [src];
+    while (st.length) {
+      const k = st[st.length - 1], opts = nb(k).filter(([j]) => !seen.has(j));
+      if (!opts.length) { st.pop(); continue; }
+      const [j, a, b] = opts[Math.floor(R() * opts.length)]; conn[k] |= a; conn[j] |= b; seen.add(j); st.push(j);
+    }
+    const deg = m => [1, 2, 4, 8].filter(b => m & b).length;
+    const flowers = conn.map((m, k) => k !== src && deg(m) === 1);
+    const rot = conn.map(() => Math.floor(R() * 4)), cur = conn.map((m, k) => { let x = m; for (let r = 0; r < rot[k]; r++) x = LZ_ROT(x); return x; });
+    // minimal taps back to the answer (straight pieces look the same after 2)
+    const par = conn.reduce((a, m, k) => { let x = cur[k], t = 0; while (x !== m && t < 4) { x = LZ_ROT(x); t++; } return a + t; }, 0);
+    let taps = 0, won = false; const deg90 = cur.map(() => 0);
+    const wet = () => {
+      const w = new Set([src]), q = [src];
+      while (q.length) { const k = q.shift(); nb(k).forEach(([j, a, b]) => { if ((cur[k] & a) && (cur[j] & b) && !w.has(j)) { w.add(j); q.push(j); } }); }
+      return w;
+    };
+    const arm = { 1: 'M50 50 V-2', 2: 'M50 50 H102', 4: 'M50 50 V102', 8: 'M50 50 H-2' };
+    const pipeSVG = m => `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">${[1, 2, 4, 8].filter(b => m & b).map(b => `<path d="${arm[b]}" stroke="${O}" stroke-width="30" stroke-linecap="round"/><path class="w" d="${arm[b]}" stroke-width="20" stroke-linecap="round"/>`).join('')}<circle cx="50" cy="50" r="17" fill="${O}"/><circle class="wf" cx="50" cy="50" r="12"/></svg>`;
+    const grid = el('div', { class: 'lz-pipes', style: `--n:${N}` });
+    const nodes = conn.map((m, k) => {
+      const icon = k === src ? `<span class="lz-src">💧</span>` : flowers[k] ? `<span class="lz-fl">${stickerHTML(g4Pick(['flower', 'tulip', 'sunflower']))}</span>` : '';
+      const b = el('button', { type: 'button', class: 'lz-pipe', 'aria-label': k === src ? 'מקור המים' : flowers[k] ? 'פרח' : 'צינור', onclick: () => {
+        if (won) return; taps++; cur[k] = LZ_ROT(cur[k]); deg90[k] += 90; b.firstChild.style.transform = `rotate(${deg90[k]}deg)`; tone(420 + (k % 5) * 40, 0.05, 'triangle', 0, 0.05); refresh();
+      } }, el('span', { class: 'lz-p', html: pipeSVG(cur[k]) }));
+      // the drawing never changes, it only turns, so the turning animates
+      if (icon) b.insertAdjacentHTML('beforeend', icon);
+      return b;
+    });
+    const refresh = () => {
+      const w = wet(); nodes.forEach((b, k) => { b.classList.toggle('wet', w.has(k)); b.classList.toggle('src', k === src); });
+      const nf = flowers.filter(Boolean).length, got = flowers.filter((f, k) => f && w.has(k)).length;
+      bar.replaceChildren(el('span', {}, `🌷 ${got}/${nf} פרחים`), el('span', {}, `סיבובים: ${taps}`));
+      if (got === nf && !won) { won = true; setTimeout(() => lzWin(taps <= par + 3 ? 3 : taps <= par * 2 + 4 ? 2 : 1, taps), 500); }
+    };
+    grid.append(...nodes);
+    stage.replaceChildren(el('p', { class: 'muted' }, 'לוחצים על צינור כדי לסובב אותו. המים יוצאים מהטיפה 💧 וצריכים להגיע לכל הפרחים!'), grid);
+    refresh();
+  }
+
+  // -- 🏮 lanterns (lights out, but light them all) --
+  function lzLights(stage, bar, i) {
+    const N = i < 5 ? 3 : 4, K = [1, 2, 2, 3, 4, 2, 3, 4, 5, 5, 6, 7][i], R = lzRng(104729 * (i + 1));
+    const on = new Array(N * N).fill(true), need = new Set();
+    const press = (k, arr) => [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dr, dc]) => { const r = Math.floor(k / N) + dr, c = k % N + dc; if (r >= 0 && r < N && c >= 0 && c < N) arr[r * N + c] = !arr[r * N + c]; });
+    while (need.size < K) need.add(Math.floor(R() * N * N));
+    need.forEach(k => press(k, on));
+    if (on.every(Boolean)) { need.clear(); need.add(0); press(0, on); }
+    let moves = 0, won = false, hint = -1;
+    const grid = el('div', { class: 'lz-lights', style: `--n:${N}` });
+    const lantern = lit => `<svg viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg"><path d="M30 2 V10" stroke="${O}" stroke-width="3"/><rect x="18" y="8" width="24" height="7" rx="3" fill="#c9832e" stroke="${O}" stroke-width="2.5"/>` +
+      `<path d="M14 16 H46 Q54 38 46 60 H14 Q6 38 14 16Z" fill="${lit ? '#ffd84d' : '#59607e'}" stroke="${O}" stroke-width="3"/>${lit ? '<ellipse cx="30" cy="38" rx="9" ry="13" fill="#fff6c4"/>' : ''}<path d="M22 18 Q18 38 22 58 M38 18 Q42 38 38 58" fill="none" stroke="${O}" stroke-width="1.5" opacity=".5"/>` +
+      `<rect x="18" y="59" width="24" height="7" rx="3" fill="#c9832e" stroke="${O}" stroke-width="2.5"/></svg>`;
+    const draw = () => {
+      grid.replaceChildren(...on.map((l, k) => el('button', { type: 'button', class: 'lz-lamp' + (l ? ' lit' : '') + (hint === k ? ' hint' : ''), 'aria-label': l ? 'פנס דולק' : 'פנס כבוי', html: lantern(l), onclick: () => {
+        if (won) return; press(k, on); need.has(k) ? need.delete(k) : need.add(k); moves++; hint = -1; tone(l ? 330 : 660, 0.08, 'sine'); draw();
+        if (on.every(Boolean)) { won = true; setTimeout(() => lzWin(moves <= K ? 3 : moves <= K * 2 + 2 ? 2 : 1, moves), 400); }
+      } })));
+      bar.replaceChildren(el('span', {}, `🏮 ${on.filter(Boolean).length}/${N * N}`), el('span', {}, `לחיצות: ${moves}`), el('button', { type: 'button', class: 'chip', onclick: () => { hint = [...need][0]; draw(); } }, '💡 רמז'));
+    };
+    draw();
+    stage.replaceChildren(el('p', { class: 'muted' }, 'כל לחיצה הופכת את הפנס ואת השכנים שלו (למעלה, למטה, ימינה ושמאלה). מדליקים את כל הפנסים!'), el('div', { class: 'lz-night' }, grid));
+  }
+
+  // -- 🔮 what comes next --
+  const LZ_PSTK = [['heart', 'star', 'moon'], ['apple', 'strawberry', 'watermelon', 'avocado'], ['cat', 'dog', 'bunny', 'panda'], ['flower', 'tulip', 'sunflower', 'leaf'], ['cupcake', 'donut', 'icecream', 'lollipop'], ['sun', 'cloud', 'rainbow', 'snowflake'], ['fish', 'whale', 'turtle', 'shell']];
+  function lzPattern(stage, bar, i) {
+    const R = lzRng(3571 * (i + 1) + 11), rp = a => a[Math.floor(R() * a.length)];
+    const kinds = [['AB'], ['AAB', 'ABB'], ['ABC'], ['AABB', 'ABBC'], ['rot'], ['ABCD', 'ABAC'], ['size'], ['ABCB', 'AABC'], ['rot2'], ['size2', 'ABCD'], ['AABBC', 'rot'], ['rot2', 'size2', 'ABCB', 'AABBC']][i];
+    const make = () => {
+      const kind = rp(kinds), set = rp(LZ_PSTK).slice().sort(() => R() - 0.5);
+      let seq;
+      if (kind === 'rot') { const id = set[0]; seq = Array.from({ length: 9 }, (_, k) => ({ id, rot: (k % 4) * 90, sc: 1 })); }
+      else if (kind === 'rot2') { seq = Array.from({ length: 9 }, (_, k) => ({ id: set[k % 2], rot: (k % 4) * 90, sc: 1 })); }
+      else if (kind === 'size') { const id = set[0]; seq = Array.from({ length: 9 }, (_, k) => ({ id, rot: 0, sc: [0.55, 0.8, 1.05][k % 3] })); }
+      else if (kind === 'size2') { seq = Array.from({ length: 9 }, (_, k) => ({ id: set[Math.floor(k / 2) % 2], rot: 0, sc: [0.6, 1.05][k % 2] })); }
+      else { const u = [...kind].map(ch => ch.charCodeAt(0) - 65); seq = Array.from({ length: Math.max(8, u.length * 2 + 1) }, (_, k) => ({ id: set[u[k % u.length]], rot: 0, sc: 1 })); }
+      const show = Math.min(seq.length - 1, 8), ans = seq[show];
+      const same = (a, b) => a.id === b.id && a.rot === b.rot && a.sc === b.sc;
+      const opts = [ans];
+      // wrong answers only change what the pattern is about (order, turn or size)
+      const extra = rp(LZ_PSTK.filter(x => x !== set))[0];
+      const cand = kind.startsWith('rot') ? [0, 90, 180, 270].map(rot => ({ id: ans.id, rot, sc: 1 })).concat(set.slice(0, 2).map(id => ({ id, rot: (ans.rot + 90) % 360, sc: 1 })))
+        : kind.startsWith('size') ? [0.55, 0.8, 1.05].map(sc => ({ id: ans.id, rot: 0, sc })).concat(set.slice(0, 2).map(id => ({ id, rot: 0, sc: ans.sc === 1.05 ? 0.6 : 1.05 })))
+        : [...set, extra].map(id => ({ id, rot: 0, sc: 1 }));
+      for (const c of cand.sort(() => R() - 0.5)) { if (opts.length >= 4) break; if (!opts.some(o => same(o, c))) opts.push(c); }
+      return { seq: seq.slice(0, show), ans, opts: opts.sort(() => R() - 0.5), same };
+    };
+    const Q = [make(), make(), make()];
+    let q = 0, miss = 0, busy = false;
+    const item = (it, cls = '') => el('span', { class: 'lz-it ' + cls, html: stickerHTML(it.id), style: `--rot:${it.rot}deg;--sc:${it.sc}` });
+    const draw = () => {
+      const P = Q[q];
+      bar.replaceChildren(el('span', {}, `שאלה ${q + 1}/3`), el('span', {}, `טעויות: ${miss}`));
+      stage.replaceChildren(el('p', { class: 'muted' }, 'מה בא אחרי? מסתכלים על החוקיות: סדר, סיבוב או גודל 🧐'),
+        el('div', { class: 'lz-seq' }, ...P.seq.map(it => item(it)), el('span', { class: 'lz-q' }, '?')),
+        el('div', { class: 'lz-opts' }, ...P.opts.map(o => { const b = el('button', { type: 'button', class: 'lz-opt', onclick: () => {
+          if (busy) return;
+          if (P.same(o, P.ans)) {
+            busy = true; b.classList.add('ok'); SFX.ding(); stage.querySelector('.lz-q').replaceWith(item(o, 'pop'));
+            setTimeout(() => { busy = false; q++; if (q < 3) draw(); else lzWin(miss === 0 ? 3 : miss <= 2 ? 2 : 1, null); }, 900);
+          } else { miss++; b.classList.add('no'); b.disabled = true; tone(200, 0.15, 'triangle'); bar.lastChild.textContent = `טעויות: ${miss}`; }
+        } }, item(o)); return b; })));
+    };
+    draw();
+  }
+
+  // -- 🖼️ nonogram 5×5 --
+  function lzNono(stage, bar, i) {
+    const [nm, color, rows] = LZ_NONO[i], N = 5, pic = rows.join('').split('').map(c => c === 'X');
+    const clue = cells => { const out = []; let run = 0; cells.forEach(v => { if (v) run++; else if (run) { out.push(run); run = 0; } }); if (run) out.push(run); return out.length ? out : [0]; };
+    const rc = Array.from({ length: N }, (_, r) => clue(pic.slice(r * N, r * N + N))), cc = Array.from({ length: N }, (_, c) => clue(pic.filter((_, k) => k % N === c)));
+    const st = pic.map(() => 0); // 0 empty, 1 filled, 2 marked
+    let mode = 1, miss = 0, won = false, bad = -1;
+    const grid = el('div', { class: 'lz-nono', style: `--c:${color}` });
+    const draw = () => {
+      const doneR = r => st.slice(r * N, r * N + N).every((v, c) => (v === 1) === pic[r * N + c]), doneC = c => st.every((v, k) => k % N !== c || (v === 1) === pic[k]);
+      grid.replaceChildren(el('span', { class: 'lz-corner' }),
+        ...cc.map((l, c) => el('span', { class: 'lz-cc' + (doneC(c) ? ' ok' : '') }, ...l.map(n => el('b', {}, String(n))))),
+        ...Array.from({ length: N }, (_, r) => [el('span', { class: 'lz-rc' + (doneR(r) ? ' ok' : '') }, ...rc[r].map(n => el('b', {}, String(n)))),
+          ...Array.from({ length: N }, (_, c) => { const k = r * N + c; return el('button', { type: 'button', class: 'lz-cell' + (st[k] === 1 ? ' on' : st[k] === 2 ? ' x' : '') + (won ? ' rev' : '') + (bad === k ? ' bad' : ''), 'aria-label': `שורה ${r + 1} טור ${c + 1}`, onclick: () => tap(k) }, st[k] === 2 ? '✕' : ''); })]).flat());
+      bar.replaceChildren(el('span', {}, `טעויות: ${miss}`),
+        el('button', { type: 'button', class: 'chip', 'aria-pressed': String(mode === 1), onclick: () => { mode = 1; draw(); } }, '🖌️ לצבוע'),
+        el('button', { type: 'button', class: 'chip', 'aria-pressed': String(mode === 2), onclick: () => { mode = 2; draw(); } }, '✕ לסמן ריק'));
+    };
+    const tap = k => {
+      if (won) return;
+      if (mode === 2) { st[k] = st[k] === 2 ? 0 : st[k] === 1 ? 1 : 2; SFX.boop(); draw(); return; }
+      if (st[k] === 1) return;
+      if (!pic[k]) { miss++; st[k] = 2; bad = k; tone(200, 0.15, 'triangle'); draw(); return; }
+      st[k] = 1; bad = -1; SFX.pop(); draw();
+      if (pic.every((v, j) => !v || st[j] === 1)) {
+        won = true; draw();
+        stage.append(el('div', { class: 'lz-reveal' }, `זה ${nm}! 🎉`));
+        setTimeout(() => lzWin(miss === 0 ? 3 : miss <= 2 ? 2 : 1, null), 600);
+      }
+    };
+    draw();
+    stage.replaceChildren(el('p', { class: 'muted' }, 'המספרים ליד כל שורה וטור אומרים כמה משבצות צבועות יש שם ברצף. אם יש שני מספרים, יש רווח ביניהם. צובעים ומגלים תמונה!'), grid);
+  }
+
+  // ---------- 🪄 magic wand & spell school ----------
+  // shapes as point lists (x right, y down), used for the guides and for recognizing
+  const WN_SHAPES = {
+    circle: () => Array.from({ length: 65 }, (_, i) => { const a = -Math.PI / 2 - i / 64 * Math.PI * 2; return [Math.cos(a), Math.sin(a)]; }),
+    star: () => [0, 2, 4, 1, 3, 0].map(k => { const a = -Math.PI / 2 + k * Math.PI * 2 / 5; return [Math.cos(a), Math.sin(a)]; }),
+    heart: () => Array.from({ length: 65 }, (_, i) => { const t = i / 64 * Math.PI * 2; return [16 * Math.sin(t) ** 3 / 16, -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) / 16]; }),
+    wave: () => Array.from({ length: 65 }, (_, i) => [i / 64 * 2 - 1, -Math.sin(i / 64 * Math.PI * 4) * 0.35]),
+    zigzag: () => [[-1, -0.4], [-0.5, 0.4], [0, -0.4], [0.5, 0.4], [1, -0.4]],
+    spiral: () => Array.from({ length: 81 }, (_, i) => { const t = i / 80 * Math.PI * 4.2, r = 0.08 + t / (Math.PI * 4.2) * 0.92; return [Math.cos(t) * r, Math.sin(t) * r]; }),
+    triangle: () => [[0, -0.9], [0.95, 0.75], [-0.95, 0.75], [0, -0.9]],
+    moon: () => [...Array.from({ length: 33 }, (_, i) => { const a = -Math.PI / 2 - i / 32 * Math.PI; return [Math.cos(a), Math.sin(a)]; }), ...Array.from({ length: 25 }, (_, i) => { const b = 2.11 + i / 24 * 2.06; return [0.6 + Math.cos(b) * 1.166, Math.sin(b) * 1.166]; })],
+  };
+  const WN_SPELLS = [
+    ['circle', '⭕ עיגול', '🎈 בלונים עפים', 'balloons'], ['star', '⭐ כוכב', '✨ פיצוץ נצנצים', 'sparkles'], ['heart', '💖 לב', '💖 גשם של לבבות', 'hearts'],
+    ['wave', '〰️ גל', '🌈 קשת מעל הלוח', 'rainbow'], ['zigzag', '⚡ זיגזג', '❄️ סופת שלג', 'snow'], ['spiral', '🌀 ספירלה', '🐾 החיה עושה טריק', 'trick'],
+    ['triangle', '🔺 משולש', '🌸 פרחים פורחים', 'flowers'], ['moon', '🌙 ירח', '🌙 יום ↔ לילה', 'night'],
+  ];
+  // a small "$1 recognizer": resample, turn, squash to a box, compare point by point
+  const WN_N = 64, WN_BOX = 250;
+  const wnLen = pts => pts.slice(1).reduce((a, p, i) => a + Math.hypot(p[0] - pts[i][0], p[1] - pts[i][1]), 0);
+  function wnResample(pts) {
+    const I = wnLen(pts) / (WN_N - 1), out = [pts[0].slice()], p = pts.map(q => q.slice()); let D = 0;
+    for (let i = 1; i < p.length; i++) {
+      const d = Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]);
+      if (D + d >= I && d > 0) { const q = [p[i - 1][0] + (I - D) / d * (p[i][0] - p[i - 1][0]), p[i - 1][1] + (I - D) / d * (p[i][1] - p[i - 1][1])]; out.push(q); p.splice(i, 0, q); D = 0; }
+      else D += d;
+    }
+    while (out.length < WN_N) out.push(p[p.length - 1].slice());
+    return out.slice(0, WN_N);
+  }
+  const wnCent = pts => [pts.reduce((a, p) => a + p[0], 0) / pts.length, pts.reduce((a, p) => a + p[1], 0) / pts.length];
+  const wnRot = (pts, th) => { const [cx, cy] = wnCent(pts), c = Math.cos(th), s = Math.sin(th); return pts.map(([x, y]) => [(x - cx) * c - (y - cy) * s + cx, (x - cx) * s + (y - cy) * c + cy]); };
+  function wnNorm(raw) {
+    let pts = wnResample(raw); const [cx, cy] = wnCent(pts);
+    pts = wnRot(pts, -Math.atan2(pts[0][1] - cy, pts[0][0] - cx));
+    const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]), w = Math.max(...xs) - Math.min(...xs), h = Math.max(...ys) - Math.min(...ys);
+    // thin shapes keep their proportions, so a line does not blow up
+    const sw = Math.max(w, h * 0.3, 1e-6), sh = Math.max(h, w * 0.3, 1e-6);
+    pts = pts.map(([x, y]) => [x * WN_BOX / sw, y * WN_BOX / sh]);
+    const [ax, ay] = wnCent(pts); return pts.map(([x, y]) => [x - ax, y - ay]);
+  }
+  const wnDist = (a, b) => a.reduce((s, p, i) => s + Math.hypot(p[0] - b[i][0], p[1] - b[i][1]), 0) / a.length;
+  function wnBest(pts, tpl) {
+    const phi = 0.5 * (Math.sqrt(5) - 1); let a = -Math.PI / 4, b = Math.PI / 4;
+    let x1 = phi * a + (1 - phi) * b, f1 = wnDist(wnRot(pts, x1), tpl), x2 = (1 - phi) * a + phi * b, f2 = wnDist(wnRot(pts, x2), tpl);
+    while (Math.abs(b - a) > 0.035) {
+      if (f1 < f2) { b = x2; x2 = x1; f2 = f1; x1 = phi * a + (1 - phi) * b; f1 = wnDist(wnRot(pts, x1), tpl); }
+      else { a = x1; x1 = x2; f1 = f2; x2 = (1 - phi) * a + phi * b; f2 = wnDist(wnRot(pts, x2), tpl); }
+    }
+    return Math.min(f1, f2);
+  }
+  let wnTpl = null;
+  const wnTemplates = () => wnTpl || (wnTpl = Object.entries(WN_SHAPES).flatMap(([id, f]) => {
+    const p = f(), closed = ['circle', 'heart', 'triangle', 'star'].includes(id), vars = [p, p.slice().reverse()];
+    // closed shapes can start anywhere
+    if (closed) { const r = wnResample(p); for (const k of [8, 16, 24, 32, 40, 48, 56]) { const q = r.slice(k).concat(r.slice(1, k + 1)); vars.push(q, q.slice().reverse()); } }
+    if (id === 'wave' || id === 'zigzag') vars.push(p.map(([x, y]) => [x, -y]), p.map(([x, y]) => [x, -y]).reverse());
+    if (id === 'spiral' || id === 'moon') vars.push(p.map(([x, y]) => [-x, y]), p.map(([x, y]) => [-x, y]).reverse());
+    // a spiral starts near its middle, so its turn is not reliable: keep it in many turns
+    if (id === 'spiral') vars.push(...vars.flatMap(v => [1, 2, 3, 4, 5, 6, 7].map(k => { const a = k * Math.PI / 4, c = Math.cos(a), s = Math.sin(a); return v.map(([x, y]) => [x * c - y * s, x * s + y * c]); })));
+    return vars.map(v => ({ id, pts: wnNorm(v) }));
+  }));
+  function wnRecognize(raw) {
+    if (raw.length < 8 || wnLen(raw) < 60) return null;
+    const pts = wnNorm(raw); let best = null, bd = Infinity;
+    for (const t of wnTemplates()) { const d = wnBest(pts, t.pts); if (d < bd) { bd = d; best = t.id; } }
+    return { id: best, score: 1 - bd / (0.5 * Math.hypot(WN_BOX, WN_BOX)) };
+  }
+
+  // ---- the wand itself ----
+  const WN_TYPES = [['wood', '🪵 עץ'], ['crystal', '💎 קריסטל'], ['candy', '🍭 סוכרייה'], ['star', '⭐ כוכב']];
+  const WN_GEMS = [['round', 'עגול'], ['heart', 'לב'], ['star', 'כוכב'], ['diamond', 'יהלום'], ['moon', 'ירח']];
+  const WN_COLORS = { wood: ['#a0673a', '#7a4a28', '#d9a066', '#f2d7b0', '#5c3b24'], crystal: ['#bde8ff', '#e3c9ff', '#ffd1e8', '#c7f2d8', '#fff1a8'], candy: ['#ff5a8a', '#7ec8ff', '#b58cff', '#4fbf73', '#ffb020'], star: ['#ffd84d', '#ff9ad5', '#b58cff', '#7ec8ff', '#ffffff'] };
+  const WN_PAL = ['#ff5a8a', '#ff9ad5', '#b58cff', '#7ec8ff', '#3cc7b6', '#4fbf73', '#ffd84d', '#ffb070', '#ffffff', '#e9c46a'];
+  let wand = Object.assign({ type: 'crystal', color: '#e3c9ff', gem: 'star', gemColor: '#ff9ad5', ribbon: true, ribbonColor: '#7ec8ff', sparkle: '#ffd84d', learned: {}, prog: {}, casts: 0 }, store.get('wand', {}));
+  const wnSave = () => store.set('wand', wand);
+  let wnUid = 0;
+  function wandSVG(w = wand, anim = true) {
+    const u = 'wn' + (wnUid++), c = w.color, S3 = `stroke="${O}" stroke-width="3" stroke-linejoin="round"`;
+    const shaftP = 'M44 292 Q43 180 46 74 H54 Q57 180 56 292 Q50 298 44 292Z';
+    let shaft;
+    if (w.type === 'wood') shaft = `<path d="${shaftP}" fill="${c}" ${S3}/><path d="M48 90 Q47 160 49 240 M52 110 Q53 170 51 280" stroke="${O}" stroke-width="1.2" opacity=".35" fill="none"/><path d="M43 250 H57 M43 262 H57 M43 274 H57" stroke="${O}" stroke-width="2" opacity=".5"/>`;
+    else if (w.type === 'crystal') shaft = `<path d="${shaftP}" fill="${c}" ${S3}/><path d="M50 76 V294" stroke="#fff" stroke-width="2" opacity=".8"/><path d="M47 110 L53 130 M47 170 L53 190 M47 230 L53 250" stroke="${O}" stroke-width="1" opacity=".3"/><path d="M46.5 90 V170" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".9"/>`;
+    else if (w.type === 'candy') shaft = `<defs><clipPath id="${u}c"><path d="${shaftP}"/></clipPath></defs><path d="${shaftP}" fill="#fff"/><g clip-path="url(#${u}c)">${Array.from({ length: 22 }, (_, i) => `<path d="M30 ${70 + i * 12} L70 ${58 + i * 12} L70 ${64 + i * 12} L30 ${76 + i * 12}Z" fill="${c}"/>`).join('')}</g><path d="${shaftP}" fill="none" ${S3}/>`;
+    else shaft = `<path d="M47 292 Q46 180 48 92 H52 Q54 180 53 292 Q50 296 47 292Z" fill="${c}" ${S3}/><polygon points="${starPts(50, 58, 34, 15)}" fill="${c}" ${S3}/><polygon points="${starPts(50, 58, 22, 10)}" fill="#fff" opacity=".45"/>`;
+    const gx = 50, gy = w.type === 'star' ? 58 : 60, gc = w.gemColor, gs = w.type === 'star' ? 0.62 : 1;
+    const gem = `<g transform="translate(${gx} ${gy}) scale(${gs})">${{
+      round: `<circle r="17" fill="${gc}" ${S3}/>`, heart: `<path d="M0 14 C-22 0 -16 -18 0 -9 C16 -18 22 0 0 14Z" fill="${gc}" ${S3}/>`,
+      star: `<polygon points="${starPts(0, 0, 20, 9)}" fill="${gc}" ${S3}/>`, diamond: `<path d="M0 -20 L16 -4 L0 20 L-16 -4Z" fill="${gc}" ${S3}/><path d="M-16 -4 H16 M0 -20 L-6 -4 L0 20 L6 -4 Z" fill="none" stroke="${O}" stroke-width="1.2" opacity=".5"/>`,
+      moon: `<path d="M6 -18 A18 18 0 1 0 6 18 A13 13 0 1 1 6 -18Z" fill="${gc}" ${S3}/>`,
+    }[w.gem] || ''}<circle cx="-6" cy="-7" r="4" fill="#fff" opacity=".85"/></g>`;
+    const bow = w.ribbon ? `<g transform="translate(50 150)"><path d="M0 0 C-22 -16 -26 8 0 2 C26 8 22 -16 0 0Z" fill="${w.ribbonColor}" ${S3}/><path d="M-2 3 Q-12 30 -20 44 M2 3 Q10 32 20 46" stroke="${O}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M-2 3 Q-12 30 -20 44 M2 3 Q10 32 20 46" stroke="${w.ribbonColor}" stroke-width="4" fill="none" stroke-linecap="round"/><circle r="5" fill="${w.ribbonColor}" ${S3}/></g>` : '';
+    const sp = [[20, 30, 7], [82, 24, 9], [86, 76, 6], [16, 88, 5], [50, 8, 6]].map(([x, y, r], i) => `<polygon class="${anim ? 'wn-tw' : ''}" style="animation-delay:${i * 0.3}s;transform-origin:${x}px ${y}px" points="${starPts(x, y, r, r * 0.35, 4)}" fill="${w.sparkle}" stroke="${O}" stroke-width="1"/>`).join('');
+    return `<svg viewBox="0 0 100 300" xmlns="http://www.w3.org/2000/svg">${shaft}${bow}${gem}${sp}</svg>`;
+  }
+  const wnGuideSVG = (id, cls = '') => {
+    const p = WN_SHAPES[id](), d = p.map(([x, y], i) => `${i ? 'L' : 'M'}${(50 + x * 38).toFixed(1)} ${(50 + y * 38).toFixed(1)}`).join(' ');
+    return `<svg class="${cls}" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="${d}" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${50 + p[0][0] * 38}" cy="${50 + p[0][1] * 38}" r="6" fill="#4fbf73" stroke="${O}" stroke-width="1.5"/></svg>`;
+  };
+
+  // ---- effects: all temporary, on top of the board ----
+  function wnFx(kind) {
+    const box = el('div', { class: 'wn-fx', 'aria-hidden': 'true' }); document.body.append(box);
+    const rnd = (a, b) => a + Math.random() * (b - a), bits = (n, make) => { for (let i = 0; i < n; i++) box.append(make(i)); };
+    const span = (html, css) => { const s = el('span', { html }); s.style.cssText = css; return s; };
+    let life = 6000;
+    if (kind === 'sparkles') { life = 2600; bits(70, () => { const a = rnd(0, Math.PI * 2), d = rnd(120, 520); return span(g4Pick(['✨', '⭐', '💫', '🌟']), `left:50%;top:45%;font-size:${rnd(16, 40)}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;animation:wnBurst ${rnd(1.2, 2.2)}s ease-out forwards`); }); }
+    else if (kind === 'hearts') { life = 7000; bits(45, () => span(g4Pick(['💖', '💗', '💕', '💓', '❤️', '🩷']), `left:${rnd(0, 98)}vw;bottom:-40px;font-size:${rnd(20, 44)}px;--sway:${rnd(-60, 60)}px;animation:wnUp ${rnd(3.5, 6)}s ${rnd(0, 1.5)}s ease-in forwards`)); }
+    else if (kind === 'balloons') { life = 9500; bits(18, () => { const c = g4Pick(WN_PAL.slice(0, 8)); return span(`<svg viewBox="0 0 40 80"><path d="M20 46 Q16 60 22 70 Q26 78 20 80" stroke="${O}" stroke-width="1.5" fill="none"/><ellipse cx="20" cy="22" rx="16" ry="20" fill="${c}" stroke="${O}" stroke-width="2"/><path d="M17 42 L23 42 L20 47Z" fill="${c}" stroke="${O}" stroke-width="1.5"/><ellipse cx="14" cy="14" rx="4" ry="6" fill="#fff" opacity=".6"/></svg>`, `left:${rnd(0, 94)}vw;bottom:-100px;width:${rnd(40, 64)}px;--sway:${rnd(-40, 40)}px;animation:wnUp ${rnd(5, 8)}s ${rnd(0, 1.5)}s ease-in forwards`); }); }
+    else if (kind === 'snow') { life = 13000; bits(90, () => span(g4Pick(['❄️', '❅', '❆', '•']), `left:${rnd(0, 100)}vw;top:-30px;color:#fff;text-shadow:0 0 4px #7ec8ff;font-size:${rnd(10, 30)}px;--sway:${rnd(-80, 80)}px;animation:wnFall ${rnd(5, 10)}s ${rnd(0, 3)}s linear forwards`)); }
+    else if (kind === 'flowers') { life = 11000; bits(28, () => span(stickerHTML(g4Pick(['flower', 'tulip', 'sunflower', 'butterfly', 'flower'])), `left:${rnd(2, 94)}vw;top:${rnd(8, 90)}vh;width:${rnd(34, 70)}px;height:auto;animation:wnBloom 10s ${rnd(0, 2)}s ease-out forwards`)); }
+    else if (kind === 'rainbow') {
+      life = 31000;
+      box.append(span(`<svg viewBox="0 0 400 210" preserveAspectRatio="none">${['#ff5a6e', '#ffa53d', '#ffd84d', '#6fcf7f', '#5ec8f2', '#7b8cff', '#b58cff'].map((c, i) => `<path d="M${10 + i * 12} 205 A${190 - i * 12} ${190 - i * 12} 0 0 1 ${390 - i * 12} 205" fill="none" stroke="${c}" stroke-width="13"/>`).join('')}<g fill="#fff" stroke="${O}" stroke-width="2"><path d="M0 205 q0 -26 26 -24 q12 -20 34 -4 q22 0 18 28z"/><path d="M400 205 q0 -26 -26 -24 q-12 -20 -34 -4 q-22 0 -18 28z"/></g></svg>`, 'left:5vw;top:2vh;width:90vw;height:46vh;opacity:0;animation:wnRainbow 30s ease-in-out forwards'));
+    }
+    else if (kind === 'trick') {
+      life = 3000;
+      const art = $('#pet .art');
+      if (art && typeof doTrick === 'function' && typeof TRICKS !== 'undefined') { doTrick(art, g4Pick(TRICKS.map(t => t[0]))); if (pet) SFX.pet(pet.kind); const r = art.getBoundingClientRect(); bits(12, () => span('✨', `left:${r.left + r.width / 2}px;top:${r.top + r.height / 3}px;font-size:22px;--dx:${rnd(-90, 90)}px;--dy:${rnd(-110, -20)}px;animation:wnBurst 1.4s ease-out forwards`)); }
+      else toast(stickerHTML('wand'), 'קודם מאמצים חיה, ואז היא תעשה טריקים! 🥚');
+    }
+    else if (kind === 'night') { life = 100; $('#darkBtn') && $('#darkBtn').click(); }
+    if (reduceMotion()) box.querySelectorAll('span').forEach(s => { s.style.animationDuration = '0.01s'; });
+    setTimeout(() => box.remove(), life);
+  }
+  function wnCast(id) {
+    const sp = WN_SPELLS.find(s => s[0] === id); if (!sp) return;
+    wand.casts = (wand.casts || 0) + 1; wnSave();
+    [880, 1175, 1568, 2093].forEach((f, i) => tone(f, 0.2, 'sine', i * 0.07, 0.07));
+    $('#wandDlg').close();
+    setTimeout(() => { wnFx(sp[3]); toast(stickerHTML('wand'), `${sp[1]}: ${sp[2]}!`); }, 120);
+  }
+
+  // ---- the window ----
+  let wnTab = 'school', wnLesson = null;
+  function openWand(tab) {
+    if (tab) wnTab = tab;
+    wnDraw();
+    if (!$('#wandDlg').open) $('#wandDlg').showModal();
+  }
+  // a drawing board: calls done(points) when the finger lifts
+  function wnPad(done, guide) {
+    const W = 340, box = el('div', { class: 'wn-pad' }), cv = el('canvas', { width: W * 2, height: W * 2, 'aria-label': 'לוח לציור לחש' }), ctx = cv.getContext('2d');
+    const cur = el('span', { class: 'wn-cur', html: wandSVG(wand, false) });
+    if (guide) box.append(el('span', { class: 'wn-guide', html: wnGuideSVG(guide, 'g') }));
+    box.append(cv, cur);
+    let pts = null, sparks = [];
+    const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * W, (e.clientY - r.top) / r.height * W]; };
+    const moveCur = e => { const r = box.getBoundingClientRect(); cur.style.left = `${e.clientX - r.left}px`; cur.style.top = `${e.clientY - r.top}px`; };
+    const paint = () => {
+      ctx.clearRect(0, 0, W * 2, W * 2); ctx.save(); ctx.scale(2, 2);
+      if (pts && pts.length > 1) {
+        ctx.lineCap = ctx.lineJoin = 'round'; ctx.shadowColor = wand.sparkle; ctx.shadowBlur = 14;
+        ctx.strokeStyle = wand.sparkle; ctx.lineWidth = 9; ctx.beginPath(); pts.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
+        ctx.shadowBlur = 0; ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.stroke();
+      }
+      sparks.forEach(s => { s.t++; ctx.globalAlpha = Math.max(0, 1 - s.t / 30); ctx.fillStyle = wand.sparkle; ctx.beginPath(); ctx.arc(s.x + s.dx * s.t, s.y + s.dy * s.t, 2.5, 0, 7); ctx.fill(); });
+      ctx.globalAlpha = 1; sparks = sparks.filter(s => s.t < 30); ctx.restore();
+      if (sparks.length || (pts && box.isConnected)) requestAnimationFrame(paint);
+    };
+    cv.addEventListener('pointerdown', e => { e.preventDefault(); cv.setPointerCapture(e.pointerId); pts = [pos(e)]; moveCur(e); box.classList.add('drawing'); requestAnimationFrame(paint); });
+    cv.addEventListener('pointermove', e => { moveCur(e); if (!pts) return; const p = pos(e); pts.push(p); if (Math.random() < 0.5) sparks.push({ x: p[0], y: p[1], dx: Math.random() * 2 - 1, dy: Math.random() * 2 - 1, t: 0 }); });
+    const up = () => { if (!pts) return; const p = pts; pts = null; box.classList.remove('drawing'); setTimeout(() => { if (!pts) ctx.clearRect(0, 0, W * 2, W * 2); }, 500); done(p); };
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    cv.addEventListener('pointerleave', () => { if (!pts) cur.style.left = '-99px'; });
+    return box;
+  }
+  function wnDraw() {
+    $('#wandTabs').replaceChildren(...[['school', '🏫 בית ספר לקסמים'], ['cast', '📖 ספר הלחשים'], ['design', '🎨 השרביט שלי']].map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(wnTab === id), onclick: () => { wnTab = id; wnLesson = null; wnDraw(); } }, n)));
+    const body = $('#wandBody'), nLearned = WN_SPELLS.filter(s => wand.learned[s[0]]).length;
+    if (wnTab === 'design') {
+      const prev = el('div', { class: 'wn-preview', html: wandSVG() });
+      const redraw = () => { wnSave(); prev.innerHTML = wandSVG(); wnDraw(); };
+      const sw = (list, key) => el('div', { class: 'wn-sw' }, ...list.map(c => el('button', { type: 'button', 'aria-label': 'צבע', 'aria-pressed': String(wand[key] === c), style: `background:${c}`, onclick: () => { wand[key] = c; SFX.pop(); redraw(); } })));
+      const chips = (list, key, after) => el('div', { class: 'chips' }, ...list.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(wand[key] === id), onclick: () => { wand[key] = id; if (after) after(id); SFX.pop(); redraw(); } }, n)));
+      body.replaceChildren(el('div', { class: 'wn-design' }, prev, el('div', { class: 'row' },
+        el('span', { class: 'lbl' }, 'מה השרביט?'), chips(WN_TYPES, 'type', id => { wand.color = WN_COLORS[id][0]; }),
+        el('span', { class: 'lbl' }, 'הצבע שלו'), sw(WN_COLORS[wand.type], 'color'),
+        el('span', { class: 'lbl' }, 'האבן בקצה'), chips(WN_GEMS, 'gem'), sw(WN_PAL, 'gemColor'),
+        el('span', { class: 'lbl' }, 'סרט'), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!wand.ribbon), onclick: () => { wand.ribbon = !wand.ribbon; redraw(); } }, wand.ribbon ? '✔️ יש סרט' : 'בלי סרט')),
+        wand.ribbon ? sw(WN_PAL, 'ribbonColor') : null,
+        el('span', { class: 'lbl' }, 'צבע הנצנצים (וגם של הקסם שמציירים)'), sw(WN_PAL, 'sparkle'))));
+      return;
+    }
+    if (wnTab === 'school' && wnLesson) {
+      const sp = WN_SPELLS.find(s => s[0] === wnLesson), msg = el('p', { class: 'wn-msg' }, 'מתחילים בנקודה הירוקה ומציירים לאורך הקו ✍️');
+      const dots = () => el('div', { class: 'wn-dots' }, ...[0, 1, 2].map(k => el('i', { class: k < (wand.prog[sp[0]] || 0) || wand.learned[sp[0]] ? 'on' : '' })));
+      const dotBox = el('div', {}, dots());
+      const pad = wnPad(pts => {
+        const r = wnRecognize(pts);
+        if (r && r.id === sp[0] && r.score > 0.62) {
+          wand.prog[sp[0]] = Math.min(3, (wand.prog[sp[0]] || 0) + 1); SFX.ding();
+          if (wand.prog[sp[0]] >= 3 && !wand.learned[sp[0]]) {
+            wand.learned[sp[0]] = true; wnSave(); msg.textContent = `למדת את הלחש ${sp[1]}! 🎓 עכשיו אפשר להטיל אותו מספר הלחשים`;
+            confetti($('#wandDlg .confetti-c')); SFX.yay(); g4Coins(5, 'למדת לחש חדש');
+          } else { wnSave(); msg.textContent = g4Pick(['יפה מאוד! ✨', 'מושלם! 🌟', 'וואו, קסם! 💫']) + (wand.learned[sp[0]] ? '' : ` עוד ${3 - wand.prog[sp[0]]}`); }
+          dotBox.replaceChildren(dots());
+        } else { msg.textContent = r ? 'כמעט! נסי שוב לאט לאט לאורך הקו 🙂' : 'צריך לצייר קצת יותר גדול 🙂'; tone(260, 0.12, 'triangle'); }
+      }, sp[0]);
+      body.replaceChildren(el('div', { class: 'lz-head' }, el('button', { type: 'button', class: 'chip', onclick: () => { wnLesson = null; wnDraw(); } }, '➡️ כל השיעורים'), el('b', {}, `שיעור: ${sp[1]}`)),
+        el('p', { class: 'muted' }, `הלחש הזה עושה: ${sp[2]}. מציירים אותו 3 פעמים כדי ללמוד.`), dotBox, pad, msg);
+      return;
+    }
+    if (wnTab === 'school') {
+      body.replaceChildren(el('div', { class: 'wn-top' }, el('span', { class: 'wn-mini', html: wandSVG() }), el('div', {}, el('b', {}, 'בית הספר לקסמים 🏫'), el('p', { class: 'muted' }, `כל לחש הוא צורה שמציירים באוויר. למדת ${nLearned} מתוך ${WN_SPELLS.length} לחשים.`))),
+        el('div', { class: 'wn-spells' }, ...WN_SPELLS.map(([id, name, what]) => el('button', { type: 'button', class: 'wn-spell' + (wand.learned[id] ? ' learned' : ''), onclick: () => { wnLesson = id; wnDraw(); } },
+          el('span', { class: 'wn-shape', html: wnGuideSVG(id) }), el('b', {}, name), el('small', {}, what), el('small', { class: 'wn-st' }, wand.learned[id] ? '🎓 נלמד' : `${wand.prog[id] || 0}/3`)))));
+      return;
+    }
+    const msg = el('p', { class: 'wn-msg' }, nLearned ? 'מציירים לחש שלמדת, והקסם קורה! 🪄' : 'עוד לא למדת לחשים. מתחילים בבית הספר לקסמים 🏫');
+    const pad = wnPad(pts => {
+      const r = wnRecognize(pts);
+      if (!r || r.score < 0.62) { msg.textContent = 'הקסם לא הצליח... נסי לצייר צורה ברורה יותר 🌀'; tone(200, 0.2, 'triangle'); return; }
+      const sp = WN_SPELLS.find(s => s[0] === r.id);
+      if (!wand.learned[r.id]) { msg.textContent = `זה נראה כמו ${sp[1]}! קודם לומדים את הלחש הזה בבית הספר 🏫`; return; }
+      msg.textContent = `${sp[1]}! ${sp[2]}`; wnCast(r.id);
+    });
+    body.replaceChildren(el('p', { class: 'muted' }, `הלחשים שלך (הטלת כבר ${wand.casts || 0} קסמים):`),
+      el('div', { class: 'wn-book' }, ...WN_SPELLS.map(([id, name, what]) => wand.learned[id] ? el('button', { type: 'button', class: 'wn-page', title: 'להטיל', onclick: () => wnCast(id) }, el('span', { class: 'wn-shape', html: wnGuideSVG(id) }), el('b', {}, name), el('small', {}, what))
+        : el('span', { class: 'wn-page locked' }, el('span', { class: 'wn-shape', html: wnGuideSVG(id) }), el('b', {}, '❔'), el('small', {}, 'עוד לא נלמד')))),
+      pad, msg);
+  }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
