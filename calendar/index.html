@@ -3398,6 +3398,46 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 .f6-look { display: grid; justify-items: center; gap: 2px; padding: 4px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); font-size: .82em; }
 .f6-look[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
 .f6-look img { width: 72px; height: 72px; border-radius: 50%; background: #fff1f6; }
+
+/* pets6: bigger home, activities, decor, group header, crest */
+.pz6-home { height: 520px; }
+.pz6-home .pz5-hpet .in > svg { filter: drop-shadow(0 3px 2px rgb(0 0 0 / .15)); }
+.pz6-decor { position: absolute; inset: 0; pointer-events: none; }
+.pz6-decor > svg { width: 100%; height: 100%; display: block; }
+.pz6-home.decorating { cursor: crosshair; outline: 3px dashed #ffb3d9; outline-offset: -3px; }
+.pz6-props { position: absolute; inset: 0; pointer-events: none; z-index: 140; }
+.pz6-prop { position: absolute; transform: translateX(-50%); width: 44px; }
+.pz6-prop > svg { width: 100%; height: auto; display: block; }
+.pz6-toy { transition: left .38s ease-in-out, bottom .38s ease-in-out; z-index: 150; }
+.pz6-bubble { aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 32% 30%, #fff 0 18%, #ffffffcc 35%, #e6f7ffcc 70%); border: 1.5px solid #9fdcff; animation: pzbubin .3s ease-out; }
+.pz6-home.disco::before { content: ''; position: absolute; inset: 0; z-index: 130; pointer-events: none; background: conic-gradient(from 0deg at 75% 60%, #ff5a8a33, #ffd84d33, #7ec8ff33, #b58cff33, #ff5a8a33); animation: pz6spin 1.6s linear infinite; }
+@keyframes pz6spin { to { filter: hue-rotate(360deg); } }
+.pz6-home.movie::after { opacity: .75; }
+.pz6-home.movie .pz6-tv { animation: pz6tv 1.2s steps(4) infinite; }
+@keyframes pz6tv { 25% { fill: #ff9ad5; } 50% { fill: #ffd84d; } 75% { fill: #7ec8ff; } }
+.pz6-home.snow::before { content: ''; position: absolute; inset: 0; z-index: 145; pointer-events: none; background-image: radial-gradient(circle, #fff 0 2px, transparent 2.5px), radial-gradient(circle, #fff 0 1.5px, transparent 2px); background-size: 60px 60px, 38px 38px; animation: pz6snow 6s linear infinite; }
+@keyframes pz6snow { to { background-position: 0 520px, 20px 520px; } }
+.pz5-hpet.dance .in > svg { animation: pzdance 1s ease-in-out infinite; }
+.pz5-hpet.slide .in > svg { animation: pz6slide .9s ease-in; }
+@keyframes pz6slide { 40% { transform: translate(10px, 12px) rotate(20deg); } }
+.pz5-hpet.cuddle .in > svg { animation: pz6cud 1.2s ease-in-out 2; }
+@keyframes pz6cud { 50% { transform: rotate(8deg) scale(1.05); } }
+.pz6-acts .btn { padding-inline: 12px; }
+.pz6-pick button { width: 54px; height: 54px; }
+.pz6-bdpick { display: flex; flex-wrap: wrap; gap: 6px; }
+.pz6-bdpick button { width: 64px; height: 72px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); padding: 2px; }
+.pz6-bdpick button > svg { width: 100%; height: 100%; }
+.pz6-decopts .ic { width: 52px; height: 44px; display: grid; place-items: center; } .pz6-decopts .ic > svg { width: 100%; height: 100%; }
+.pz6-groupscene .pz6-strip { position: absolute; left: 0; right: 0; bottom: 10px; display: flex; justify-content: center; align-items: flex-end; gap: 2px; padding: 0 8px; }
+.pz6-groupscene .pz6-strip > button { position: static; transform: none; border: none; background: none; padding: 0; cursor: pointer; }
+.pz6-groupscene .pz6-me { width: 120px; height: 138px; filter: drop-shadow(0 0 8px #fff7b0); }
+.pz6-groupscene .pz6-other { width: 70px; height: 80px; opacity: .92; }
+.pz6-groupscene .pz6-strip > button > svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.pz6-groupscene .pz6-strip > button.jump { animation: jump .6s ease; }
+@media (max-width: 560px) { .pz6-home { height: 440px; } .pz6-groupscene .pz6-me { width: 92px; height: 106px; } .pz6-groupscene .pz6-other { width: 52px; height: 60px; } }
+.pz6-crest-ed { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 8px; border-radius: 16px; background: #fff8fc; border: 2px dashed #ffd1e6; }
+.pz6-crest-mini { display: inline-block; vertical-align: middle; } .pz6-crest-mini > svg { display: block; }
+.pz6-motto { margin: 0; text-align: center; color: var(--soft); font-style: italic; }
 </style>
 </head>
 <body class="bg-dots">
@@ -4525,6 +4565,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     <div class="row" id="pz5BuildBody"></div>
   </div>
 </dialog>
+
 
 
 <!-- Secret code -->
@@ -6497,15 +6538,15 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   };
   // ---------- mix-and-match animals: new kinds and the "design your own animal" species ----------
   // parts: body (round/bean/long/cloud/pear), head (round/wide/oval/small/one), ears, nose, face, top, tail, feet, whiskers, eyeDY
-  const PB_BODIES = [['round', 'עגול'], ['bean', 'שעועית'], ['long', 'ארוך'], ['cloud', 'ענן פרוותי'], ['pear', 'אגס']];
-  const PB_HEADS = [['round', 'עגול'], ['wide', 'רחב'], ['oval', 'אליפסה'], ['small', 'קטן'], ['one', 'ראש וגוף ביחד']];
+  const PB_BODIES = [['round', 'עגול'], ['bean', 'שעועית'], ['long', 'ארוך'], ['cloud', 'ענן פרוותי'], ['pear', 'אגס'], ['tall', 'גבוה'], ['tiny', 'קטנטן'], ['heart', 'לב']];
+  const PB_HEADS = [['round', 'עגול'], ['wide', 'רחב'], ['oval', 'אליפסה'], ['small', 'קטן'], ['big', 'ענק'], ['heart', 'לב'], ['one', 'ראש וגוף ביחד']];
   const PB_EARS = [['cat', 'חתול'], ['bunny', 'ארנב ארוכות'], ['lop', 'ארנב נופלות'], ['floppy', 'כלב נופלות'], ['bear', 'דובי עגולות'], ['fox', 'שועל'], ['mouse', 'עכבר'], ['small', 'קטנטנות'],
-    ['elephant', 'פיל'], ['koala', 'קואלה'], ['side', 'לצדדים'], ['deer', 'אייל'], ['pig', 'חזיר'], ['monkey', 'קוף'], ['horns', 'קרניים'], ['antennae', 'מחושים'], ['gills', 'אקסולוטל'], ['none', 'בלי']];
-  const PB_NOSES = [['button', 'כפתור'], ['pink', 'משולש ורוד'], ['muzzle', 'לוע'], ['snout', 'חוטם פרה'], ['pig', 'אף חזיר'], ['beak', 'מקור'], ['bill', 'מקור ברווז'], ['hooked', 'מקור תוכי'], ['trunk', 'חדק'], ['big', 'אף גדול'], ['none', 'בלי']];
-  const PB_FACES = [['none', 'בלי'], ['raccoon', 'מסכת דביבון'], ['penguin', 'פנים של פינגווין'], ['monkey', 'פנים של קוף'], ['fox', 'לחיים לבנות'], ['redpanda', 'פנדה אדומה'], ['sheep', 'פנים של כבשה'], ['hamster', 'לחיים שמנמנות']];
-  const PB_TOPS = [['none', 'בלי'], ['tuft', 'תלתל'], ['crest', 'כרבולת'], ['wool', 'צמר'], ['ossicones', 'ג׳ירפה'], ['antlers', 'קרני אייל'], ['horns2', 'קרני פרה'], ['spines', 'קוצים של קיפוד'], ['eyebumps', 'עיני צפרדע']];
-  const PB_TAILS = [['fluffy', 'פרוותי'], ['curly', 'חזיר מסולסל'], ['long', 'חתול ארוך'], ['thin', 'עכבר דק'], ['stripey', 'פסים'], ['fin', 'סנפיר'], ['peacock', 'טווס'], ['dragon', 'דרקון'], ['puff', 'פונפון'], ['feathers', 'נוצות'], ['seal', 'כלב ים'], ['heart', 'לב'], ['none', 'בלי']];
-  const PB_FEET = [['paws', 'כפות'], ['hooves', 'פרסות'], ['flippers', 'סנפירים'], ['bird', 'רגלי ציפור'], ['webbed', 'רגלי צפרדע'], ['none', 'מרחפת']];
+    ['elephant', 'פיל'], ['koala', 'קואלה'], ['side', 'לצדדים'], ['deer', 'אייל'], ['pig', 'חזיר'], ['monkey', 'קוף'], ['horns', 'קרניים'], ['antennae', 'מחושים'], ['gills', 'אקסולוטל'], ['leaf', 'עלים'], ['star', 'כוכבים'], ['fins', 'סנפירים'], ['wings', 'כנפונים'], ['droopy', 'ארוכות נופלות'], ['curly', 'קרני איל'], ['none', 'בלי']];
+  const PB_NOSES = [['button', 'כפתור'], ['pink', 'משולש ורוד'], ['muzzle', 'לוע'], ['snout', 'חוטם פרה'], ['pig', 'אף חזיר'], ['beak', 'מקור'], ['bill', 'מקור ברווז'], ['hooked', 'מקור תוכי'], ['trunk', 'חדק'], ['big', 'אף גדול'], ['heart', 'אף לב'], ['star', 'אף כוכב'], ['long', 'חוטם ארוך'], ['kitty', 'אף חתלתול'], ['dot', 'נקודה'], ['none', 'בלי']];
+  const PB_FACES = [['none', 'בלי'], ['raccoon', 'מסכת דביבון'], ['penguin', 'פנים של פינגווין'], ['monkey', 'פנים של קוף'], ['fox', 'לחיים לבנות'], ['redpanda', 'פנדה אדומה'], ['sheep', 'פנים של כבשה'], ['hamster', 'לחיים שמנמנות'], ['tiger', 'פסי נמר'], ['eyepatch', 'כתם על העין'], ['stars', 'כוכבים מתחת לעיניים'], ['blush', 'סומק גדול'], ['muzzle2', 'אף לבן']];
+  const PB_TOPS = [['none', 'בלי'], ['tuft', 'תלתל'], ['crest', 'כרבולת'], ['wool', 'צמר'], ['ossicones', 'ג׳ירפה'], ['antlers', 'קרני אייל'], ['horns2', 'קרני פרה'], ['spines', 'קוצים של קיפוד'], ['eyebumps', 'עיני צפרדע'], ['flower', 'פרח'], ['bow', 'פפיון'], ['unicorn', 'קרן חד-קרן'], ['starantenna', 'אנטנת כוכב'], ['sprout', 'נבט'], ['mushroom', 'כובע פטרייה']];
+  const PB_TAILS = [['fluffy', 'פרוותי'], ['curly', 'חזיר מסולסל'], ['long', 'חתול ארוך'], ['thin', 'עכבר דק'], ['stripey', 'פסים'], ['fin', 'סנפיר'], ['peacock', 'טווס'], ['dragon', 'דרקון'], ['puff', 'פונפון'], ['feathers', 'נוצות'], ['seal', 'כלב ים'], ['heart', 'לב'], ['mermaid', 'בת ים'], ['star', 'כוכב'], ['lightning', 'ברק'], ['squirrel', 'סנאי'], ['lion', 'אריה'], ['none', 'בלי']];
+  const PB_FEET = [['paws', 'כפות'], ['hooves', 'פרסות'], ['flippers', 'סנפירים'], ['bird', 'רגלי ציפור'], ['webbed', 'רגלי צפרדע'], ['cloud', 'על ענן'], ['boots', 'מגפונים'], ['tentacles', 'זרועות תמנון'], ['none', 'מרחפת']];
   const PB_PART_KEYS = ['body', 'head', 'ears', 'nose', 'face', 'top', 'tail', 'feet', 'whiskers', 'eyeDY'];
   // [id, name, voice, parts, look defaults]
   const PB_NEW = [
@@ -6536,11 +6577,11 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const one = P.head === 'one';
     let B, H, V;
     if (one) {
-      const w = { bean: 14.2, long: 18, cloud: 16.4, pear: 17 }[P.body] || 16;
+      const w = { bean: 14.2, long: 18, cloud: 16.4, pear: 17, tall: 13, tiny: 14.5, heart: 16.5 }[P.body] || 16;
       B = [24, 29.8, w, 17.5]; H = null; V = [24, 22.6, w * .9, 12];
     } else {
-      B = { bean: [24, 38.8, 9.2, 9], long: [24, 40.5, 13.5, 7], cloud: [24, 39.5, 11, 8.2], pear: [24, 40.2, 12, 7.6] }[P.body] || [24, 39.5, 10.5, 8];
-      H = { wide: [24, 23, 17.5, 12.6], oval: [24, 21.5, 13.6, 14.6], small: [24, 23.6, 13, 11.8] }[P.head] || [24, 22, 15.5, 13.8];
+      B = { bean: [24, 38.8, 9.2, 9], long: [24, 40.5, 13.5, 7], cloud: [24, 39.5, 11, 8.2], pear: [24, 40.2, 12, 7.6], tall: [24, 38.2, 8.8, 9.6], tiny: [24, 41.2, 8.2, 6.2], heart: [24, 40, 11.5, 8] }[P.body] || [24, 39.5, 10.5, 8];
+      H = { wide: [24, 23, 17.5, 12.6], oval: [24, 21.5, 13.6, 14.6], small: [24, 23.6, 13, 11.8], big: [24, 21.2, 17, 15.2] }[P.head] || [24, 22, 15.5, 13.8];
       V = H;
     }
     const eyeY = pzF(V[1] + 1.8 + (+P.eyeDY || 0));
@@ -6580,6 +6621,10 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     let back = '', body = '', head = '', face = '', front = '';
     // ears (drawn in the classic head space, then fitted to this head)
     const earsBack = {
+      leaf: pzBoth(`<path d="M12 14 Q3.6 8.4 5.6 -.4 Q14 2.6 16.4 11 Z" fill="${L.c2}" ${st2}/><path d="M12.4 12.4 Q9.2 6.2 6.6 1" fill="none" stroke="${pzMix(L.c2, O, .3)}" stroke-width=".8"/>`),
+      star: pzBoth(`<polygon points="${starPts(13, 8.4, 6.6, 2.9)}" ${F1}/><polygon points="${starPts(13, 8.4, 3, 1.3)}" fill="${EC}"/>`),
+      fins: pzBoth(`<path d="M9.8 18 L.6 11.6 Q2.2 18 1.2 24.4 Z" ${F2}/><path d="M9 18 L3 14.6 M9 19.4 L2.4 19.6" stroke="#fff" stroke-width=".8" opacity=".7"/>`),
+      wings: pzBoth(`<path d="M11.4 15 C6 12.4 1.8 7 2.8 2.6 C5.8 4.8 7 4.8 8 6.8 C8 4.6 10.2 3.8 12.2 5.8 C12.2 8 13.2 10.2 14.8 12.2 Z" fill="#fff" ${st2}/><path d="M5 5.6 q3 3 6 6.4" fill="none" stroke="#c9d6ea" stroke-width=".8"/>`),
       cat: pzBoth(`<path d="M9.6 17 Q8.4 6 11.2 3 Q14.2 2.4 20.8 8.8 Z" ${F1}/><path d="M11.8 12.6 Q11.4 7.2 12.6 5.9 Q14.4 5.8 17.4 8.9 Z" fill="${EC}"/>`),
       bunny: pzBoth(`<ellipse cx="17.6" cy="2.6" rx="4.3" ry="10.6" transform="rotate(-9 17.6 2.6)" ${F1}/><ellipse cx="17.6" cy="3.6" rx="1.9" ry="7.2" transform="rotate(-9 17.6 3.6)" fill="${EC}"/>`),
       bear: pzBoth(`<circle cx="12.2" cy="10.6" r="5.3" ${F1}/><circle cx="12.4" cy="11" r="2.7" fill="${EC}"/>`),
@@ -6596,11 +6641,19 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       gills: pzBoth([[-150, 8], [-172, 9], [165, 8]].map(([d, l]) => { const r = d * Math.PI / 180, x0 = 10.2, y0 = 20; return pzTube(`M${x0} ${y0} L${pzF(x0 + l * Math.cos(r))} ${pzF(y0 + l * Math.sin(r))}`, 2.6, L.c2, lw); }).join('')),
     };
     const earsFront = {
+      droopy: pzBoth(`<path d="M11.4 13 C5 15 3.4 28 5.8 35 C8.2 37.2 11 35.2 11.8 31 C12.6 25 13.4 18 14.8 14.4 Z" ${F2}/>`),
+      curly: pzBoth(`<path d="M13.4 12.4 C7.6 9.2 3.2 14 5 18.6 C6.6 22.4 12 21.2 11.2 17.6 C10.6 15.4 8 16 8.4 17.6" fill="none" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M13.4 12.4 C7.6 9.2 3.2 14 5 18.6 C6.6 22.4 12 21.2 11.2 17.6 C10.6 15.4 8 16 8.4 17.6" fill="none" stroke="#f3e3c7" stroke-width="2.8" stroke-linecap="round"/>`),
       lop: pzBoth(`<ellipse cx="8.8" cy="21.5" rx="4.1" ry="10" transform="rotate(20 8.8 21.5)" ${F1}/><ellipse cx="9" cy="22" rx="1.7" ry="6.6" transform="rotate(20 9 22)" fill="${EC}"/>`),
       floppy: pzBoth(`<ellipse cx="9.6" cy="20.5" rx="4.6" ry="9.4" transform="rotate(16 9.6 20.5)" ${F2}/>`),
       pig: pzBoth(`<path d="M11 13.8 Q11.6 6.4 18.4 8.8 Q16 13.4 12.6 15.8 Z" ${F1}/><path d="M12.6 12.6 Q13 9 16.4 9.6 Q15 12 13.4 13.6 Z" fill="${EC}"/>`),
     };
     const tops = {
+      flower: [0, 72, 144, 216, 288].map(d => { const r = d * Math.PI / 180; return `<circle cx="${pzF(31 + 2.6 * Math.cos(r))}" cy="${pzF(9.4 + 2.6 * Math.sin(r))}" r="2.3" fill="${L.c2}" ${st2}/>`; }).join('') + `<circle cx="31" cy="9.4" r="1.7" fill="#ffd84d" ${st2}/>`,
+      bow: `<path d="M24 8.6 C20.5 4 16.5 6.6 17.5 10.4 C18.5 13 22 11 24 8.6 Z M24 8.6 C27.5 4 31.5 6.6 30.5 10.4 C29.5 13 26 11 24 8.6 Z" fill="${L.c2}" ${st2}/><circle cx="24" cy="8.8" r="1.8" fill="${pzLight(L.c2, .35)}" ${st2}/>`,
+      unicorn: `<path d="M21.6 10.2 L24 -3 L26.4 10.2 Z" fill="#ffe27a" ${st2}/><path d="M22.3 6.4 l3.4 -1.2 M22.9 2.4 l2.3 -.8" stroke="#ff9ad5" stroke-width="1" stroke-linecap="round"/>`,
+      starantenna: `<path d="M24 9 V1.6" stroke="${O}" stroke-width="1.3" stroke-linecap="round"/><polygon points="${starPts(24, .4, 3.4, 1.5)}" fill="#ffd84d" ${st2}/>`,
+      sprout: `<path d="M24 9 V3.6" stroke="#4fbf73" stroke-width="1.6" stroke-linecap="round"/><path d="M24 5 Q19.6 1.4 18 4.6 Q21 6.8 24 5 Z M24 4.2 Q28.4 .6 30 3.8 Q27 6 24 4.2 Z" fill="#7ed48a" ${st2}/>`,
+      mushroom: `<path d="M13.6 11.6 Q24 -3.4 34.4 11.6 Q24 9.2 13.6 11.6 Z" fill="#ff5a6e" ${st2}/><circle cx="19.4" cy="7" r="1.4" fill="#fff"/><circle cx="25.4" cy="4.6" r="1.6" fill="#fff"/><circle cx="29.6" cy="8" r="1.2" fill="#fff"/>`,
       tuft: pzTube('M24 9 C22 3.5 27.5 2.5 27 5.6 C26.6 7.6 24.3 7.2 25 5.8', 2, L.c2, lw),
       crest: [-24, 0, 24].map((d, i) => `<ellipse cx="24" cy="4.5" rx="2.3" ry="5.4" transform="rotate(${d} 24 10)" fill="${i === 1 ? L.c2 : pzLight(L.c2, .3)}" ${st2}/>`).join(''),
       wool: pzShape(24, 10.2, 10, 4.8, `fill="${L.c1}" ${st2}`, 1.5),
@@ -6612,11 +6665,16 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     back += hT(earsBack[P.ears] || '');
     if (P.top === 'spines') back += hT(`<polygon points="${starPts(24, 22.5, 20.5, 15.2, 16)}" fill="${L.c2}" ${st2}/>`);
     if (P.top === 'eyebumps') back += pzBoth(`<circle cx="${pzF(24 - G.eyeDX)}" cy="${G.eyeY}" r="${pzF(5.4 * G.eyeS)}" ${F1}/>`);
-    if (P.top && !['spines', 'eyebumps', 'wool', 'tuft', 'crest'].includes(P.top)) back += hT(tops[P.top] || '');
+    const PZ6_FRONT_TOPS = ['wool', 'tuft', 'crest', 'flower', 'bow', 'unicorn', 'starantenna', 'sprout', 'mushroom'];
+    if (P.top && P.top !== 'spines' && P.top !== 'eyebumps' && !PZ6_FRONT_TOPS.includes(P.top)) back += hT(tops[P.top] || '');
     // tail
     const ax = pzF(24 + B[2] * .76), ay = pzF(B[1] + B[3] * (G.one ? .62 : .5)), tipC = L.tipC || '';
     const tl = s => `<g transform="translate(${ax} ${ay})">${s}</g>`;
     const tails = {
+      star: pzTube('M0 0 C7 1 10 -4 10 -9', 2.4, L.c1, lw) + `<polygon points="${starPts(10, -12.2, 4.4, 2)}" fill="${tipC || '#ffd84d'}" ${st2}/>`,
+      lightning: `<path d="M-1 -1 L6 -4 L3.6 -6.4 L11.6 -13.6 L9.4 -9 L13 -9 L2.6 -1.4 Z" fill="${tipC || L.c1}" ${st}/>`,
+      squirrel: pzShape(4.6, -10.4, 5.8, 11, F1, 1, 14) + `<ellipse cx="7" cy="-19.2" rx="3.4" ry="2.8" fill="${tipC || pzLight(L.c1, .55)}"/>`,
+      lion: pzTube('M0 0 C9 1.5 13.5 -5.5 10.5 -11.5 C9 -14.5 11 -17 13.5 -16', 3.2, L.c1, lw) + pzShape(13.6, -16.2, 3.4, 3.4, `fill="${tipC || L.c2}" ${st}`, 1),
       long: pzTube('M0 0 C9 1.5 13.5 -5.5 10.5 -11.5 C9 -14.5 11 -17 13.5 -16', 3.6, L.c1, lw) + (tipC ? `<circle cx="13.4" cy="-16" r="2.2" fill="${tipC}" ${st2}/>` : ''),
       fluffy: pzShape(6.5, -8, 5.2, 9.4, F1, 1, 32) + `<ellipse cx="9.9" cy="-13.8" rx="3" ry="3.4" transform="rotate(32 9.9 -13.8)" fill="${tipC || pzLight(L.c1, .7)}"/>`,
       curly: pzTube('M-1 0 C4 -1 6.5 -5.5 3.6 -7 C1 -8 .3 -4.2 3 -3.6', 1.9, L.c1, lw),
@@ -6629,10 +6687,11 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       heart: pzTube('M0 0 C8 1.5 10.5 -4.5 9 -10', 2.2, L.c1, lw) + `<path d="${pzHeart(9, -12.9, 3.5)}" fill="${tipC || L.cheekC}" ${st}/>`,
     };
     if (P.tail === 'peacock') back += [-64, -40, -16, 16, 40, 64].map(d => `<g transform="rotate(${d} 24 ${B[1]})"><ellipse cx="24" cy="${pzF(B[1] - B[3] - 7)}" rx="4" ry="11" fill="${L.c2}" ${st2}/><circle cx="24" cy="${pzF(B[1] - B[3] - 13)}" r="2.3" fill="${tipC || '#3fb6c0'}" ${st2}/><circle cx="24" cy="${pzF(B[1] - B[3] - 13)}" r="1" fill="${L.c1}"/></g>`).join('');
+    else if (P.tail === 'mermaid') back += `<path d="M24 ${pzF(B[1] + B[3] - 3)} Q17 ${pzF(B[1] + B[3] + 5)} 12 ${pzF(B[1] + B[3] + 2)} Q18 ${pzF(B[1] + B[3] - 1.6)} 24 ${pzF(B[1] + B[3] - 6)} Q30 ${pzF(B[1] + B[3] - 1.6)} 36 ${pzF(B[1] + B[3] + 2)} Q31 ${pzF(B[1] + B[3] + 5)} 24 ${pzF(B[1] + B[3] - 3)} Z" fill="${tipC || L.c2}" ${st}/><path d="M16 ${pzF(B[1] + B[3] + 1.4)} q4 -1 7 -3 M32 ${pzF(B[1] + B[3] + 1.4)} q-4 -1 -7 -3" fill="none" stroke="#fff" stroke-width=".9" opacity=".7"/>`;
     else if (P.tail === 'seal') back += `<path d="M24 ${pzF(B[1] + B[3] - 2)} Q20 ${pzF(B[1] + B[3] + 3)} 15.5 ${pzF(B[1] + B[3] + 2.2)} Q19.5 ${pzF(B[1] + B[3] - 1)} 24 ${pzF(B[1] + B[3] - 4)} Q28.5 ${pzF(B[1] + B[3] - 1)} 32.5 ${pzF(B[1] + B[3] + 2.2)} Q28 ${pzF(B[1] + B[3] + 3)} 24 ${pzF(B[1] + B[3] - 2)} Z" ${F1}/>`;
     else if (tails[P.tail]) back += tl(tails[P.tail]);
     // ---- body
-    const bodyShape = (E, f1, flx) => P.body === 'pear' ? (() => { const [cx, cy, rx, ry] = E, top = cy - ry, bot = cy + ry; return `<path d="M${cx} ${pzF(top)} C${pzF(cx + rx * .6)} ${pzF(top)} ${pzF(cx + rx)} ${pzF(cy + ry * .1)} ${pzF(cx + rx)} ${pzF(cy + ry * .45)} C${pzF(cx + rx)} ${pzF(bot + 1)} ${pzF(cx - rx)} ${pzF(bot + 1)} ${pzF(cx - rx)} ${pzF(cy + ry * .45)} C${pzF(cx - rx)} ${pzF(cy + ry * .1)} ${pzF(cx - rx * .6)} ${pzF(top)} ${cx} ${pzF(top)} Z" ${f1}/>`; })()
+    const bodyShape = (E, f1, flx) => P.body === 'heart' ? (() => { const [cx, cy, rx, ry] = E, top = cy - ry, bot = cy + ry + 1; return `<path d="M${cx} ${pzF(bot)} C${pzF(cx - rx * 1.25)} ${pzF(cy + ry * .2)} ${pzF(cx - rx * 1.05)} ${pzF(top - 2)} ${cx} ${pzF(top + ry * .3)} C${pzF(cx + rx * 1.05)} ${pzF(top - 2)} ${pzF(cx + rx * 1.25)} ${pzF(cy + ry * .2)} ${cx} ${pzF(bot)} Z" ${f1}/>`; })() : P.body === 'pear' ? (() => { const [cx, cy, rx, ry] = E, top = cy - ry, bot = cy + ry; return `<path d="M${cx} ${pzF(top)} C${pzF(cx + rx * .6)} ${pzF(top)} ${pzF(cx + rx)} ${pzF(cy + ry * .1)} ${pzF(cx + rx)} ${pzF(cy + ry * .45)} C${pzF(cx + rx)} ${pzF(bot + 1)} ${pzF(cx - rx)} ${pzF(bot + 1)} ${pzF(cx - rx)} ${pzF(cy + ry * .45)} C${pzF(cx - rx)} ${pzF(cy + ry * .1)} ${pzF(cx - rx * .6)} ${pzF(top)} ${cx} ${pzF(top)} Z" ${f1}/>`; })()
       : pzShape(E[0], E[1], E[2], E[3], f1, P.body === 'cloud' ? Math.max(1.3, flx) : flx);
     body += bodyShape(B, F1, fl) + pat(B, 'cb', false) + shine(B);
     if (L.belly) body += pzShape(G.belly[0], G.belly[1], G.belly[2], G.belly[3], `fill="${L.bellyC}"`, fl * .6);
@@ -6640,6 +6699,9 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const fy = pzF(Math.min(46.4, B[1] + B[3] - 1.3)), fx = pzF(B[2] * (G.one ? .42 : .53)), ax2 = pzF(24 - B[2] * (G.one ? .93 : .83)), ay2 = pzF(G.one ? B[1] + 3 : B[1] - .1);
     const armPaw = `<ellipse cx="${ax2}" cy="${ay2}" rx="${G.one ? 3.2 : 2.8}" ry="${G.one ? 5.2 : 4.2}" transform="rotate(28 ${ax2} ${ay2})" ${F1}/>`;
     const feet = {
+      cloud: pzShape(24, pzF(Math.min(47.4, B[1] + B[3] + .6)), pzF(B[2] * 1.12), 3.6, `fill="#ffffff" ${st2}`, 1.4) + pzBoth(armPaw),
+      boots: pzBoth(`<path d="M${pzF(24 - fx - 3)} ${pzF(fy - 3.6)} h6 v4.4 q0 1.8 -1.8 1.8 h-2.4 q-1.8 0 -1.8 -1.8 Z" fill="${L.padC || '#ffd84d'}" ${st2}/><path d="M${pzF(24 - fx - 3)} ${pzF(fy + 1.4)} h6" stroke="${O}" stroke-width=".8" opacity=".5"/>${armPaw}`),
+      tentacles: [-1.5, -.5, .5, 1.5].map(i => pzTube(`M${pzF(24 + i * B[2] * .45)} ${pzF(B[1] + B[3] * .5)} q${pzF(i * 1.6)} 4.6 ${pzF(i * 3 + (i < 0 ? -2 : 2))} ${pzF(4.2)}`, 3.2, L.c1, lw)).join('') + pzBoth(armPaw),
       paws: pzBoth(`<ellipse cx="${pzF(24 - fx)}" cy="${fy}" rx="3.9" ry="2.5" ${F1}/><ellipse cx="${pzF(24 - fx)}" cy="${pzF(fy + .4)}" rx="1.7" ry="1" fill="${padC}" opacity=".9"/>${armPaw}`),
       hooves: pzBoth(`<rect x="${pzF(24 - fx - 2.8)}" y="${pzF(fy - 4.6)}" width="5.6" height="6.6" rx="2" ${F1}/><rect x="${pzF(24 - fx - 3)}" y="${pzF(fy + .2)}" width="6" height="2.4" rx="1.1" fill="${L.padC || '#7a5a4a'}" ${st2}/>${armPaw}<path d="M${pzF(ax2 - 2.6)} ${pzF(ay2 + 2.6)} q2.4 1.6 4.2 .4" fill="none" stroke="${L.padC || '#7a5a4a'}" stroke-width="1.6" stroke-linecap="round"/>`),
       flippers: pzBoth(`<ellipse cx="${pzF(24 - fx)}" cy="${pzF(fy + .6)}" rx="4.2" ry="1.9" fill="${L.padC || '#ffb020'}" ${st2}/><ellipse cx="${ax2}" cy="${pzF(ay2 + 1)}" rx="2.6" ry="6.4" transform="rotate(24 ${ax2} ${ay2})" ${F1}/>`),
@@ -6651,14 +6713,19 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     // ---- head
     if (!G.one) {
       const H = G.head;
-      head += pzShape(H[0], H[1], H[2], H[3], F1, fl) + pat(H, 'ch', true) + shine(H);
+      head += (P.head === 'heart' ? `<path d="M24 ${pzF(H[1] + H[3])} C${pzF(24 - H[2] * 1.2)} ${pzF(H[1] + H[3] * .45)} ${pzF(24 - H[2] * 1.05)} ${pzF(H[1] - H[3] * 1.05)} 24 ${pzF(H[1] - H[3] * .55)} C${pzF(24 + H[2] * 1.05)} ${pzF(H[1] - H[3] * 1.05)} ${pzF(24 + H[2] * 1.2)} ${pzF(H[1] + H[3] * .45)} 24 ${pzF(H[1] + H[3])} Z" ${F1}/>` : pzShape(H[0], H[1], H[2], H[3], F1, fl)) + pat(H, 'ch', true) + shine(H);
     }
     if (P.top === 'eyebumps') head += pzBoth(`<circle cx="${pzF(24 - G.eyeDX)}" cy="${G.eyeY}" r="${pzF(5.4 * G.eyeS - lw * .4)}" fill="url(#${u}g)"/>`);
-    if (['wool', 'tuft', 'crest'].includes(P.top)) head += hT(tops[P.top]);
+    if (PZ6_FRONT_TOPS.includes(P.top)) head += hT(tops[P.top]);
     // ---- front ears and face marks
     front += hT(earsFront[P.ears] || '');
     const dark = L.c2 && pzLum(L.c2) < .45;
     const faces = {
+      tiger: `<path d="M24 8.8 v4.2 M19.6 9.6 l1.2 3.2 M28.4 9.6 l-1.2 3.2 M9.2 21 h4.4 M9.4 24.2 h3.4 M38.8 21 h-4.4 M38.6 24.2 h-3.4" fill="none" stroke="${L.c2}" stroke-width="1.7" stroke-linecap="round"/>`,
+      eyepatch: `<ellipse cx="30.4" cy="23.4" rx="5.4" ry="4.8" fill="${pzMix(L.c2, '#ffffff', .2)}"/>`,
+      stars: pzBoth(`<polygon points="${starPts(16.6, 29.6, 1.7, .75)}" fill="#ffd84d"/>`),
+      blush: pzBoth(`<ellipse cx="13.4" cy="28" rx="5.4" ry="2.6" fill="${L.cheekC}" opacity=".45"/>`),
+      muzzle2: `<ellipse cx="24" cy="29" rx="7" ry="4.6" fill="${L.bellyC}"/>`,
       raccoon: `<path d="M8.6 22.6 Q15.6 17.2 24 20.8 Q32.4 17.2 39.4 22.6 Q34.6 29.4 28.4 26.4 Q24 24.6 19.6 26.4 Q13.4 29.4 8.6 22.6 Z" fill="${L.c2}"/>`,
       penguin: `<path d="M24 31 C11.5 28.6 9.6 16 16.8 13.6 C20 12.8 23 14.8 24 17.4 C25 14.8 28 12.8 31.2 13.6 C38.4 16 36.5 28.6 24 31 Z" fill="${L.bellyC}"/>`,
       monkey: `<path d="M24 32.6 C13 31 11.4 21 16.8 18 C20 16.8 22.8 18.4 24 20.4 C25.2 18.4 28 16.8 31.2 18 C36.6 21 35 31 24 32.6 Z" fill="${L.bellyC}"/>`,
@@ -6672,6 +6739,11 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     // nose (and where the mouth goes)
     const nC = L.noseC, ny = 27;
     const noses = {
+      heart: `<path d="${pzHeart(24, ny - .4, 2)}" fill="${nC || '#ff6b8b'}" ${st2}/>`,
+      star: `<polygon points="${starPts(24, ny - .3, 2.6, 1.2)}" fill="${nC || '#ffd84d'}" ${st2}/>`,
+      long: pzTube(`M24 ${ny - 2.6} Q24 ${ny + 2.8} 28 ${ny + 4}`, 3.8, L.c1, lw) + `<circle cx="28.6" cy="${ny + 4.1}" r="1.6" fill="${nC || O}"/>`,
+      kitty: `<path d="M21.9 ${ny - 1.2} Q24 ${ny - 2} 26.1 ${ny - 1.2} Q24 ${ny + 1.8} 21.9 ${ny - 1.2} Z" fill="${nC || '#ff8fab'}" ${st2}/><ellipse cx="23.3" cy="${ny - .9}" rx=".7" ry=".35" fill="#fff" opacity=".8"/>`,
+      dot: `<circle cx="24" cy="${ny - .2}" r="1.2" fill="${nC || O}"/>`,
       button: `<ellipse cx="24" cy="${ny - .3}" rx="2.3" ry="1.6" fill="${nC || O}"/><ellipse cx="23.4" cy="${ny - .8}" rx=".8" ry=".45" fill="#fff" opacity=".8"/>`,
       pink: `<path d="M22.4 ${ny - .9} Q24 ${ny - 1.5} 25.6 ${ny - .9} Q24 ${ny + 1.3} 22.4 ${ny - .9} Z" fill="${nC || '#ff8fab'}" ${st2}/>`,
       muzzle: `<ellipse cx="24" cy="${ny + 1.3}" rx="5.4" ry="3.7" fill="${L.bellyC}"/><ellipse cx="24" cy="${ny - .3}" rx="2.3" ry="1.6" fill="${nC || O}"/><ellipse cx="23.4" cy="${ny - .8}" rx=".8" ry=".45" fill="#fff" opacity=".8"/>`,
@@ -6684,8 +6756,8 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       big: `<ellipse cx="24" cy="${ny - .6}" rx="3.8" ry="3.1" fill="${nC || '#4a4a5a'}"/><ellipse cx="22.8" cy="${ny - 1.8}" rx="1.2" ry=".7" fill="#fff" opacity=".7"/>`,
     };
     const nose = hT(noses[P.nose] || '');
-    const my = { snout: 4.6, pig: 3.4, big: 2, beak: 2.8, none: 1.3 }[P.nose] ?? .6;
-    const noMouth = ['bill', 'hooked', 'trunk'].includes(P.nose);
+    const my = { snout: 4.6, pig: 3.4, big: 2, beak: 2.8, none: 1.3, heart: 1, star: 1, dot: .4 }[P.nose] ?? .6;
+    const noMouth = ['bill', 'hooked', 'trunk', 'long'].includes(P.nose);
     const mouthAt = noMouth ? null : pzF(V[1] + (5 + my) * (V[3] / 13.8));
     return { back, body, head, face, front, nose, mouthAt, dark, beak: P.nose === 'beak' };
   }
@@ -6748,6 +6820,11 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     if (x.earrings && G.head) { const c = col(x.earrings, '#ffe27a'), H = G.head; top += pzBoth(`<circle cx="${pzF(H[0] - H[2] + .4)}" cy="${pzF(H[1] + H[3] * .38)}" r="1.1" fill="${c}" ${st2}/><circle cx="${pzF(H[0] - H[2] + .4)}" cy="${pzF(H[1] + H[3] * .38 + 2.4)}" r="1.4" fill="${c}" ${st2}/>`); }
     if (x.tuft) { const c = col(x.tuft, L.c2); top += pzTube(`M${hx} ${pzF(hy + .8)} C${hx - 2} ${pzF(hy - 4.6)} ${hx + 3.5} ${pzF(hy - 5.6)} ${hx + 3} ${pzF(hy - 2.4)} C${hx + 2.6} ${pzF(hy - .4)} ${hx + .3} ${pzF(hy - .8)} ${hx + 1} ${pzF(hy - 2.2)}`, 2, c, 1.4); }
     if (x.fcrown) { const c = col(x.fcrown, '#ff9ad5'); top += [[-8, 3.2], [-4.4, 1], [0, .2], [4.4, 1], [8, 3.2]].map(([dx, dy], i) => `<circle cx="${pzF(hx + dx)}" cy="${pzF(hy + dy)}" r="2.2" fill="${i % 2 ? '#fff6c4' : c}" ${st2}/><circle cx="${pzF(hx + dx)}" cy="${pzF(hy + dy)}" r=".7" fill="#ffb020"/>`).join('') + `<path d="M${hx - 10} ${pzF(hy + 4.4)} q-1.4 1.6 -.6 3 M${hx + 10} ${pzF(hy + 4.4)} q1.4 1.6 .6 3" stroke="#6fcf7f" stroke-width="1.3" fill="none" stroke-linecap="round"/>`; }
+    if (x.clip) { const c = col(x.clip, '#ffd84d'); top += `<polygon points="${starPts(hx + 8.4, hy + 4.6, 2.8, 1.2)}" fill="${c}" ${st2}/><polygon points="${starPts(hx + 11.6, hy + 7.4, 1.8, .8)}" fill="${pzLight(c, .4)}" ${st2}/>`; }
+    if (x.hglasses) { const c = col(x.hglasses, '#ff5a8a'), ex = a.eyes[0], ey = a.eyes[1], ed = G.eyeDX, r = 3.6 * (G.eyeS || 1); top += [-1, 1].map(s => `<path d="${pzHeart(ex + s * ed, ey + .2, r)}" fill="${c}" fill-opacity=".35" stroke="${c}" stroke-width="1.3"/>`).join('') + `<path d="M${pzF(ex - ed + r)} ${ey - .6} Q${ex} ${ey - 2} ${pzF(ex + ed - r)} ${ey - .6}" fill="none" stroke="${c}" stroke-width="1.3"/>`; }
+    if (x.minicrown) { const c = col(x.minicrown, '#ffcf3a'); top += `<g transform="translate(${hx - 7} ${hy + 1.2}) rotate(-18)"><path d="M-4.4 1.6 L-5 -3 L-2 -.6 L0 -4.2 L2 -.6 L5 -3 L4.4 1.6 Z" fill="${c}" ${st2}/><circle cx="0" cy="-4.4" r=".9" fill="#ff7a9a"/></g>`; }
+    if (x.pearls) { const c = col(x.pearls, '#fff6fb'); top += Array.from({ length: 11 }, (_, i) => { const t = i / 10; return `<circle cx="${pzF(nx - 7.4 + t * 14.8)}" cy="${pzF(ny + .4 + Math.sin(t * Math.PI) * 2.6)}" r=".95" fill="${c}" stroke="#c9b2d6" stroke-width=".35"/>`; }).join(''); }
+    if (x.ribbon) { const c = col(x.ribbon, '#b58cff'); top += `<g transform="translate(${hx + 6.6} ${hy + 2.2})"><path d="M0 0 C-3 -3.6 -6 -1.4 -5 1.4 C-4 3.2 -1.6 1.8 0 0 Z M0 0 C3 -3.6 6 -1.4 5 1.4 C4 3.2 1.6 1.8 0 0 Z" fill="${c}" ${st2}/><path d="M0 .6 q-1 5 -3 8 M0 .6 q1 5 3.4 7.4" fill="none" stroke="${c}" stroke-width="1.4" stroke-linecap="round"/><circle r="1.2" fill="${pzLight(c, .3)}" ${st2}/></g>`; }
     return { top, back };
   }
   // wings in other styles (x.wings = color, L.wingStyle = fairy/angel/bat/butterfly)
@@ -7621,8 +7698,8 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.09.26-drawn-emoji';
-  const WHATS_NEW = ['🎨 כל האימוג\'ים בלוח הם עכשיו ציורים!', '🏡 כל החיות גרות ביחד, 👨‍👩‍👧 משפחות, 🐾 21 חיות חדשות ו-✨ חיה משלך'];
+  const APP_VERSION = '2026.09.26-more-everything';
+  const WHATS_NEW = ['🏡 בית ענק עם 2 קומות שבו כל החיות גרות ביחד, ו-11 דברים לעשות יחד', '👗 65 תסרוקות, 31 בגדים חדשים, 10 לוקים של איפור ועוד ציפורניים', '🛋️ לקשט את הבית, 🎂 יום הולדת לחיה, 👨‍👩‍👧 סמל ומוטו למשפחה'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -21669,7 +21746,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const wing = (far) => {
       if (L.wings === 'none') return '';
       const wc = far ? pzMix(L.wingC, '#5a3a5a', .15) : L.wingC, tr = far ? 'translate(6 -3) scale(.9)' : '';
-      const shape = L.wings === 'butterfly' ? `<path d="M48 44 C38 22 22 18 20 30 C19 38 32 42 48 46 Z" fill="${wc}" ${st2}/><path d="M48 46 C36 46 28 54 32 58 C36 61 44 54 48 48 Z" fill="${pzLight(wc, .35)}" ${st2}/><circle cx="30" cy="31" r="3" fill="#fff" opacity=".7"/>`
+      const shape = L.wings === 'bat' ? `<path d="M48 45 C40 30 30 24 18 26 C22 29 22 31 20 34 C25 33 27 35 26 38 C30 37 33 39 32 42 C38 41 44 43 48 47 Z" fill="${wc}" ${st2}/>` : L.wings === 'fairy' ? `<path d="M48 44 C42 24 26 18 22 28 C20 38 34 42 48 46 Z" fill="${wc}" fill-opacity=".7" ${st2}/><path d="M48 46 C40 48 33 56 37 60 C41 62 46 54 48 48 Z" fill="${pzLight(wc, .3)}" fill-opacity=".7" ${st2}/>${pzSpark(28, 30, 2.4, '#fff')}` : L.wings === 'butterfly' ? `<path d="M48 44 C38 22 22 18 20 30 C19 38 32 42 48 46 Z" fill="${wc}" ${st2}/><path d="M48 46 C36 46 28 54 32 58 C36 61 44 54 48 48 Z" fill="${pzLight(wc, .35)}" ${st2}/><circle cx="30" cy="31" r="3" fill="#fff" opacity=".7"/>`
         : L.wings === 'crystal' ? `<path d="M48 45 L40 20 L34 32 L26 22 L28 38 L20 34 L30 46 Z" fill="${wc}" fill-opacity=".8" ${st2}/><path d="M40 20 L38 40 M26 22 L32 42" stroke="#fff" stroke-width="1" opacity=".8"/>`
         : `<path d="M48 46 C42 30 32 20 20 22 C25 25 24 27 27 29 C22 30 23 33 28 35 C24 37 27 40 32 40 C30 43 38 46 48 48 Z" fill="${wc}" ${st2}/><path d="M26 27 Q34 30 40 38 M26 33 Q33 35 38 41" fill="none" stroke="${pzMix(wc, '#3a2b3c', .25)}" stroke-width=".9" opacity=".6"/>`;
       return `<g transform="${tr}">${shape}</g>`;
@@ -21677,7 +21754,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const maneC = L.mane, tail = crzLocks(L.tailStyle, maneC, L.mane2, L.tailStyle === 'short' ? [[26, 50]] : ['flowing', 'rainbow'].includes(L.tailStyle) ? [[27, 45], [23, 50], [20, 57], [18, 64], [18, 72]] : [[27, 47], [25, 51], [26, 55], [28, 49]], L.tailStyle === 'short' ? [-1, .2] : ['flowing', 'rainbow'].includes(L.tailStyle) ? [-.85, .35] : [-.45, 1]);
     const mane = crzLocks(L.maneStyle, maneC, L.mane2, ['flowing', 'rainbow'].includes(L.maneStyle) ? [[73, 11], [68, 16], [64, 23], [61, 31], [59, 39], [58, 46]] : [[71, 13], [67, 19], [64, 26], [62, 33], [60, 40]], [-.9, .45]);
     const forelock = L.maneStyle === 'short' ? '' : L.maneStyle === 'curly' ? `<circle cx="76" cy="12" r="4.2" fill="${maneC}" ${st2}/>` : `<path d="M71 11 Q79 7 83 13 Q78 12 76 17 Q74 13 71 14 Z" fill="${L.maneStyle === 'rainbow' ? crzRainbow[4] : maneC}" ${st2}/>`;
-    const horn = L.horn === 'none' ? '' : (() => { const hc = { gold: '#ffe27a', pearl: '#fff6fb', rainbow: '#ffd1f0', crystal: '#bfeaff' }[L.horn] || '#ffe27a'; return `<path d="M76 13 L88 -7 L81 15 Z" fill="${hc}" ${st2}/>` + (L.horn === 'rainbow' ? `<path d="M78 10 l5 -1 M80 5 l4 -1 M82 0 l3 -.6" stroke="${crzRainbow[0]}" stroke-width="1.3"/><path d="M79 7.5 l4.5 -1 M81 2.5 l3.5 -.8" stroke="${crzRainbow[4]}" stroke-width="1.3"/>` : `<path d="M78 10 l5 -1.4 M80 5 l4 -1.2 M82 0 l3 -.9" stroke="${pzMix(hc, '#3a2b3c', .3)}" stroke-width="1" stroke-linecap="round"/>`) + pzSpark(90, -4, 2.2, '#fff'); })();
+    const horn = L.horn === 'none' ? '' : (() => { const hc = { gold: '#ffe27a', pearl: '#fff6fb', rainbow: '#ffd1f0', crystal: '#bfeaff', star: '#fff1b8' }[L.horn] || '#ffe27a'; return `<path d="M76 13 L88 -7 L81 15 Z" fill="${hc}" ${st2}/>` + (L.horn === 'rainbow' ? `<path d="M78 10 l5 -1 M80 5 l4 -1 M82 0 l3 -.6" stroke="${crzRainbow[0]}" stroke-width="1.3"/><path d="M79 7.5 l4.5 -1 M81 2.5 l3.5 -.8" stroke="${crzRainbow[4]}" stroke-width="1.3"/>` : `<path d="M78 10 l5 -1.4 M80 5 l4 -1.2 M82 0 l3 -.9" stroke="${pzMix(hc, '#3a2b3c', .3)}" stroke-width="1" stroke-linecap="round"/>`) + (L.horn === 'star' ? `<polygon points="${starPts(88.6, -7.6, 4.6, 2)}" fill="#ffd84d" ${st2}/>` : pzSpark(90, -4, 2.2, '#fff')); })();
     const marks = (mk.spots ? [[36, 52, 2.6], [30, 57, 2], [42, 58, 2.2], [34, 62, 1.6], [45, 51, 1.6]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${L.markC}" opacity=".9"/>`).join('') : '')
       + (mk.pinto ? `<path d="M40 43 Q52 40 55 50 Q50 60 40 58 Q34 52 40 43 Z" fill="${L.markC}" opacity=".9"/>` : '');
     const headMarks = (mk.star ? `<polygon points="${starPts(82, 15, 3.2, 1.4)}" fill="${L.markC}"/>` : '') + (mk.blaze ? `<path d="M83 13 Q88 22 92 27 L95 29 Q89 22 86 13 Z" fill="${L.markC}"/>` : '');
@@ -21693,7 +21770,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const farEar = `<path d="M75.5 13 L76.5 2 L83 11 Z" ${Fd}/>`;
     const body = `<ellipse cx="50" cy="55" rx="25" ry="15.5" ${F}/><ellipse cx="42" cy="47" rx="8" ry="3" fill="#fff" opacity=".4" transform="rotate(-12 42 47)"/>`;
     const neckFill = `<path d="M58.5 50 C60.5 38 64 30 70.5 25.5 L78.5 33 C75 41 73.2 49 71 56 Z" fill="url(#${u}g)"/>`;
-    const inner = `${o.back || ''}${tail}${wing(true)}${legsT(true)}${neck}${o.rider || ''}${body}${marks}${neckFill}${blanket}${saddle}${wing(false)}${legsT(false)}${farEar}${mane}${head}${headMarks}${forelock}${horn}${crown}${eye}${face}${bridle}${o.over || ''}`;
+    const inner = `${o.back || ''}${tail}${wing(true)}${legsT(true)}${neck}${o.rider || ''}${body}${marks}${neckFill}${blanket}${saddle}${wing(false)}${legsT(false)}${farEar}${mane}${head}${headMarks}${forelock}${horn}${crown}${eye}${face}${bridle}${typeof pz6HorseTop === 'function' ? pz6HorseTop(L) : ''}${o.over || ''}`;
     return `<svg viewBox="0 -10 112 100" xmlns="http://www.w3.org/2000/svg" class="crz-horse${o.run ? ' run' : ''}">${defs}${inner}</svg>`;
   }
   // ---------- 🦄 the stable ----------
@@ -21760,8 +21837,8 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
         ['mane', '💇 רעמה וזנב', () => [crzSec('רעמה', crzOpts([['flowing', 'גולשת'], ['curly', 'מתולתלת'], ['braids', 'צמות'], ['rainbow', 'קשת'], ['short', 'קצרה']], h.maneStyle || 'flowing', v => set('maneStyle', v), v => thumb('maneStyle', v))),
           crzSec('זנב', crzOpts([['flowing', 'גולש'], ['curly', 'מתולתל'], ['braids', 'צמה'], ['rainbow', 'קשת'], ['short', 'קצר']], h.tailStyle || 'flowing', v => set('tailStyle', v), v => thumb('tailStyle', v))),
           crzSec('צבע רעמה וזנב', crzSw(h.mane || CRZ_HORSE_DEF.mane, CRZ_MC, cset('mane'))), crzSec('צבע סרטים בצמות', crzSw(h.mane2 || CRZ_HORSE_DEF.mane2, CRZ_MC, cset('mane2')))]],
-        ['magic', '🦄 קסם', () => [crzSec('קרן', crzOpts([['none', 'בלי'], ['gold', 'זהב'], ['pearl', 'פנינה'], ['rainbow', 'קשת'], ['crystal', 'קריסטל']], h.horn || 'none', v => set('horn', v), v => thumb('horn', v))),
-          crzSec('כנפיים', crzOpts([['none', 'בלי'], ['feather', 'נוצות'], ['butterfly', 'פרפר'], ['crystal', 'קריסטל']], h.wings || 'none', v => set('wings', v), v => thumb('wings', v))),
+        ['magic', '🦄 קסם', () => [crzSec('קרן', crzOpts([['none', 'בלי'], ['gold', 'זהב'], ['pearl', 'פנינה'], ['rainbow', 'קשת'], ['crystal', 'קריסטל'], ['star', 'כוכב']], h.horn || 'none', v => set('horn', v), v => thumb('horn', v))),
+          crzSec('כנפיים', crzOpts([['none', 'בלי'], ['feather', 'נוצות'], ['butterfly', 'פרפר'], ['crystal', 'קריסטל'], ['fairy', 'פיה'], ['bat', 'עטלף']], h.wings || 'none', v => set('wings', v), v => thumb('wings', v))),
           crzSec('צבע כנפיים', crzSw(h.wingC || CRZ_HORSE_DEF.wingC, ['#cfe8ff', '#ffc2e0', '#e6d2ff', '#ffffff', '#fff1b8', '#b8f0a0', '#ffb3a0'], cset('wingC')))]],
         ['face', '👀 פנים', () => [crzSec('עיניים', crzOpts(PZ_EYES, h.eyes || 'shiny', v => set('eyes', v), v => crzHorseSVG(Object.assign({}, h, { eyes: v })).replace('viewBox="0 -10 112 100"', 'viewBox="66 8 34 30"'))),
           crzSec('צבע עיניים', crzSw(h.eyeC || '', PZ_EYEC, cset('eyeC'), false)), crzSec('לחיים', crzSw(h.cheekC || '#ff8fab', ['#ff8fab', '#ffb3a0', '#e0a3ff', '#ff6b8b'], cset('cheekC'), false))]],
@@ -21769,7 +21846,9 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
           crzSec('אוכף', crzTog(h.saddle, v => set('saddle', v)), h.saddle ? crzSw(h.saddleC || CRZ_HORSE_DEF.saddleC, CRZ_MC, cset('saddleC')) : null),
           crzSec('שמיכת גב', crzTog(h.blanket, v => set('blanket', v)), h.blanket ? crzSw(h.blanketC || CRZ_HORSE_DEF.blanketC, CRZ_MC, cset('blanketC')) : null),
           crzSec('רסן', crzTog(h.bridle, v => set('bridle', v)), h.bridle ? crzSw(h.bridleC || CRZ_HORSE_DEF.bridleC, CRZ_MC, cset('bridleC')) : null),
-          crzSec('זר פרחים', crzTog(h.crown, v => set('crown', v)), h.crown ? crzSw(h.crownC || CRZ_HORSE_DEF.crownC, CRZ_MC, cset('crownC')) : null)]],
+          crzSec('זר פרחים', crzTog(h.crown, v => set('crown', v)), h.crown ? crzSw(h.crownC || CRZ_HORSE_DEF.crownC, CRZ_MC, cset('crownC')) : null),
+          crzSec('✨ פרווה נוצצת', crzTog(h.glitter, v => set('glitter', v))), crzSec('🎀 פפיון בזנב', crzTog(h.tailBow, v => set('tailBow', v)), h.tailBow ? crzSw(h.tailBowC || '#ff5a8a', CRZ_MC, cset('tailBowC')) : null),
+          crzSec('🌺 שרשרת פרחים', crzTog(h.lei, v => set('lei', v)), h.lei ? crzSw(h.leiC || '#ff9ad5', CRZ_MC, cset('leiC')) : null), crzSec('🎩 כובע קטנטן', crzTog(h.hat, v => set('hat', v)), h.hat ? crzSw(h.hatC || '#b58cff', CRZ_MC, cset('hatC')) : null)]],
       ] };
       body.replaceChildren(crzDesigner(o));
     } else if (crzStTab === 'groom') {
@@ -21912,7 +21991,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const wing = () => {
       if (L.wings === 'none') return '';
       const wc = L.wingC, big = stage >= 3 ? 1.25 : stage === 2 ? 1.1 : 1;
-      const one = L.wings === 'feather' ? `<path d="M40 60 C32 40 16 32 6 38 C12 41 11 44 15 46 C9 48 11 52 17 53 C13 56 17 60 23 59 C22 64 30 66 40 66 Z" fill="${wc}" ${st2}/><path d="M16 45 Q26 48 34 56 M18 53 Q27 55 34 61" fill="none" stroke="${pzMix(wc, O, .25)}" stroke-width="1" opacity=".6"/>`
+      const one = L.wings === 'fairy' ? `<path d="M40 58 C34 36 16 30 12 41 C10 50 26 56 40 60 Z" fill="${wc}" fill-opacity=".7" ${st2}/><path d="M40 62 C30 64 24 72 28 75 C32 77 38 70 40 64 Z" fill="${pzLight(wc, .3)}" fill-opacity=".7" ${st2}/>${pzSpark(20, 42, 2.6, '#fff')}` : L.wings === 'leaf' ? `<path d="M40 60 C30 44 16 36 6 40 C10 52 24 62 40 64 Z" fill="${wc}" ${st2}/><path d="M40 62 Q24 50 8 41" fill="none" stroke="${pzMix(wc, O, .3)}" stroke-width="1"/>` : L.wings === 'feather' ? `<path d="M40 60 C32 40 16 32 6 38 C12 41 11 44 15 46 C9 48 11 52 17 53 C13 56 17 60 23 59 C22 64 30 66 40 66 Z" fill="${wc}" ${st2}/><path d="M16 45 Q26 48 34 56 M18 53 Q27 55 34 61" fill="none" stroke="${pzMix(wc, O, .25)}" stroke-width="1" opacity=".6"/>`
         : L.wings === 'butterfly' ? `<path d="M40 58 C30 34 10 32 8 44 C7 52 22 56 40 60 Z" fill="${wc}" ${st2}/><path d="M40 62 C28 62 20 72 25 76 C30 79 37 70 40 64 Z" fill="${pzLight(wc, .35)}" ${st2}/><circle cx="20" cy="44" r="3.4" fill="#fff" opacity=".7"/>`
         : L.wings === 'crystal' ? `<path d="M40 60 L30 32 L24 46 L14 36 L16 52 L6 50 L20 62 Z" fill="${wc}" fill-opacity=".85" ${st2}/><path d="M30 32 L30 56 M14 36 L24 58" stroke="#fff" stroke-width="1.2" opacity=".8"/>`
         : `<path d="M40 60 C34 42 20 32 8 34 C12 38 12 42 10 46 C16 45 18 48 17 52 C22 50 25 53 24 57 C30 55 34 58 34 63 Z" fill="${wc}" ${st2}/><path d="M8 34 L24 57 M10 46 L30 60" stroke="${pzMix(wc, O, .3)}" stroke-width="1.1" opacity=".55"/>`;
@@ -21921,12 +22000,14 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const tail = `${pzTube('M62 82 C76 86 86 80 88 68', 7, L.c1, 2.4)}<path d="${pzHeart(89.5, 63, 5)}" fill="${L.c2}" ${st2} transform="rotate(20 89.5 63)"/>`;
     const pat = (clip, E, head) => {
       if (L.pattern === 'scales') return `<g clip-path="url(#${u}${clip})">${Array.from({ length: 16 }, (_, i) => { const x = E[0] - E[2] + (i % 4) * E[2] * .55 + (Math.floor(i / 4) % 2) * E[2] * .27, y = E[1] - E[3] * (head ? .95 : .7) + Math.floor(i / 4) * E[3] * (head ? .22 : .42); return head && y > E[1] - E[3] * .25 ? '' : `<path d="M${pzF(x - 3.4)} ${pzF(y)} q3.4 4 6.8 0" fill="none" stroke="${L.c2}" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>`; }).join('')}</g>`;
-      return L.pattern && !['none', 'gradient'].includes(L.pattern) ? `<g clip-path="url(#${u}${clip})">${pzPattern(L.pattern, E, L.c2, head, 2.4)}</g>` : '';
+      return L.pattern && !['none', 'gradient'].includes(L.pattern) ? `<g clip-path="url(#${u}${clip})">${pz5Pattern(L.pattern, E, L.c2, head)}</g>` : '';
     };
     const horns = { small: `<path d="M36 26 L32 12 L42 22 Z" fill="${L.hornC}" ${st2}/><path d="M64 26 L68 12 L58 22 Z" fill="${L.hornC}" ${st2}/>`,
       curly: `<path d="M36 25 C28 22 26 12 33 11 C38 11 38 17 34 17" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M36 25 C28 22 26 12 33 11 C38 11 38 17 34 17" fill="none" stroke="${L.hornC}" stroke-width="3.4" stroke-linecap="round"/><path d="M64 25 C72 22 74 12 67 11 C62 11 62 17 66 17" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M64 25 C72 22 74 12 67 11 C62 11 62 17 66 17" fill="none" stroke="${L.hornC}" stroke-width="3.4" stroke-linecap="round"/>`,
       unicorn: `<path d="M46 22 L50 2 L54 22 Z" fill="${L.hornC}" ${st2}/><path d="M47.5 16 l5 -1.6 M48.5 10 l3.4 -1.2" stroke="${pzMix(L.hornC, O, .3)}" stroke-width="1" stroke-linecap="round"/>`,
       antlers: `<path d="M38 24 L32 8 M34 14 L27 11 M33 10 L36 4 M62 24 L68 8 M66 14 L73 11 M67 10 L64 4" fill="none" stroke="${O}" stroke-width="5.4" stroke-linecap="round"/><path d="M38 24 L32 8 M34 14 L27 11 M33 10 L36 4 M62 24 L68 8 M66 14 L73 11 M67 10 L64 4" fill="none" stroke="${L.hornC}" stroke-width="2.8" stroke-linecap="round"/>`,
+      crown: `<path d="M37 24 L35 12 L42 17 L50 7 L58 17 L65 12 L63 24 Z" fill="#ffcf3a" ${st2}/><circle cx="50" cy="8" r="2" fill="#ff7aa8"/>`,
+      star: `<polygon points="${starPts(36, 15, 6.4, 2.8)}" fill="${L.hornC}" ${st2}/><polygon points="${starPts(64, 15, 6.4, 2.8)}" fill="${L.hornC}" ${st2}/>`,
       none: '' }[L.horns] || '';
     const spikes = L.spikes ? `<path d="M44 23 L47 13 L50 22 L53 12 L56 23 Z" fill="${L.c2}" ${st2}/>` : '';
     const frills = L.frills ? `<path d="M27 38 L16 32 L20 40 L14 44 L27 46 Z" ${F2}/><path d="M73 38 L84 32 L80 40 L86 44 L73 46 Z" ${F2}/>` : '';
@@ -22015,15 +22096,15 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       const o = { state: crzDrDes, art: () => crzDragonSVG(d, { fire: crzDrDes.sec === 'fire' }), buttons: () => [el('button', { type: 'button', class: 'btn', onclick: () => { const r = crzNewDragon(true); ['c1', 'c2', 'pattern', 'wings', 'wingC', 'horns', 'fire', 'eyes'].forEach(k => { d[k] = r[k]; }); crzSaveDragons(); SFX.yay(); o.redraw(); } }, '🎲 הפתעה!')],
         secs: [
           ['colors', '🎨 קשקשים', () => [crzSec('שם', el('input', { type: 'text', maxLength: 16, value: d.name, oninput: e => { d.name = e.target.value; crzSaveDragons(); } })),
-            crzSec('צבע', crzSw(d.c1 || CRZ_DRAGON_DEF.c1, PZ_BODY, cset('c1'))), crzSec('דוגמה', crzOpts([['scales', 'קשקשים'], ['none', 'חלק'], ['spots', 'נקודות'], ['stripes', 'פסים'], ['sparkles', 'נצנצים'], ['gradient', 'מעבר צבע']], d.pattern || 'scales', v => set('pattern', v), v => thumb('pattern', v))),
+            crzSec('צבע', crzSw(d.c1 || CRZ_DRAGON_DEF.c1, PZ_BODY, cset('c1'))), crzSec('דוגמה', crzOpts([['scales', 'קשקשים'], ['none', 'חלק'], ['spots', 'נקודות'], ['stripes', 'פסים'], ['sparkles', 'נצנצים'], ['gradient', 'מעבר צבע'], ['hearts', 'לבבות'], ['stars', 'כוכבים'], ['galaxy', 'גלקסיה'], ['rainbow', 'קשת'], ['zebra', 'זברה'], ['leopard', 'נמר']], d.pattern || 'scales', v => set('pattern', v), v => thumb('pattern', v))),
             crzSec('צבע שני (דוגמה, קוצים וזנב)', crzSw(d.c2 || CRZ_DRAGON_DEF.c2, PZ_C2, cset('c2'))), crzSec('בטן', crzTog(d.belly !== false, v => set('belly', v)), d.belly !== false ? crzSw(d.bellyC || CRZ_DRAGON_DEF.bellyC, PZ_BELLY, cset('bellyC')) : null)]],
-          ['wings', '🪽 כנפיים', () => [crzSec('סוג', crzOpts([['bat', 'דרקון'], ['feather', 'נוצות'], ['butterfly', 'פרפר'], ['crystal', 'קריסטל'], ['none', 'בלי']], d.wings || 'bat', v => set('wings', v), v => thumb('wings', v))), crzSec('צבע', crzSw(d.wingC || CRZ_DRAGON_DEF.wingC, PZ_XC.concat(PZ_BODY.slice(0, 6)), cset('wingC')))]],
-          ['head', '👑 ראש', () => [crzSec('קרניים', crzOpts([['small', 'קטנות'], ['curly', 'מסולסלות'], ['unicorn', 'חד-קרן'], ['antlers', 'ענפים'], ['none', 'בלי']], d.horns || 'small', v => set('horns', v), v => thumb('horns', v).replace('viewBox="0 0 100 100"', 'viewBox="14 0 72 60"'))),
+          ['wings', '🪽 כנפיים', () => [crzSec('סוג', crzOpts([['bat', 'דרקון'], ['feather', 'נוצות'], ['butterfly', 'פרפר'], ['crystal', 'קריסטל'], ['fairy', 'פיה'], ['leaf', 'עלים'], ['none', 'בלי']], d.wings || 'bat', v => set('wings', v), v => thumb('wings', v))), crzSec('צבע', crzSw(d.wingC || CRZ_DRAGON_DEF.wingC, PZ_XC.concat(PZ_BODY.slice(0, 6)), cset('wingC')))]],
+          ['head', '👑 ראש', () => [crzSec('קרניים', crzOpts([['small', 'קטנות'], ['curly', 'מסולסלות'], ['unicorn', 'חד-קרן'], ['antlers', 'ענפים'], ['crown', 'כתר'], ['star', 'כוכבים'], ['none', 'בלי']], d.horns || 'small', v => set('horns', v), v => thumb('horns', v).replace('viewBox="0 0 100 100"', 'viewBox="14 0 72 60"'))),
             crzSec('צבע קרניים', crzSw(d.hornC || CRZ_DRAGON_DEF.hornC, ['#fff6d8', '#ffe27a', '#ffffff', '#ffd1ec', '#bfeaff', '#c68b59', '#b58cff'], cset('hornC'))),
             crzSec('קוצים על הראש', crzTog(d.spikes !== false, v => set('spikes', v))), crzSec('סנפירים באוזניים', crzTog(d.frills !== false, v => set('frills', v)))]],
           ['face', '👀 פנים', () => [crzSec('עיניים', crzOpts(PZ_EYES, d.eyes || 'shiny', v => set('eyes', v), v => crzDragonSVG(Object.assign({}, d, { eyes: v })).replace('viewBox="0 0 100 100"', 'viewBox="22 26 56 42"'))),
             crzSec('צבע עיניים', crzSw(d.eyeC || '', PZ_EYEC, cset('eyeC'), false)), crzSec('לחיים', crzSw(d.cheekC || '#ff8fab', PZ_CHEEK, cset('cheekC'), false))]],
-          ['fire', '🔥 אש', () => [crzSec('צבע האש הנוצצת', crzOpts([['pink', 'ורודה'], ['blue', 'כחולה'], ['rainbow', 'קשת'], ['gold', 'זהב'], ['purple', 'סגולה'], ['green', 'ירוקה']], d.fire || 'pink', v => set('fire', v), v => crzDragonSVG(Object.assign({}, d, { fire: v }), { fire: true })))]],
+          ['fire', '🔥 אש', () => [crzSec('צבע האש הנוצצת', crzOpts([['pink', 'ורודה'], ['blue', 'כחולה'], ['rainbow', 'קשת'], ['gold', 'זהב'], ['purple', 'סגולה'], ['green', 'ירוקה'], ['ice', 'קרח'], ['candy', 'ממתקים'], ['star', 'כוכבים']], d.fire || 'pink', v => set('fire', v), v => crzDragonSVG(Object.assign({}, d, { fire: v }), { fire: true })))]],
         ] };
       body.replaceChildren(msg ? el('p', { style: 'margin:0' }, msg) : '', crzDesigner(o));
     } else if (crzDrTab === 'tricks') {
@@ -22051,6 +22132,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     if (t === 'torch') return g(`<rect x="-3" y="-8" width="6" height="26" rx="2" fill="#9b6b43" ${s2}/><path d="M0 -30 Q10 -18 4 -8 H-4 Q-10 -18 0 -30 Z" fill="${c}" ${s2}/><path d="M0 -22 Q4 -14 1 -9 H-1 Q-4 -14 0 -22 Z" fill="#ffe27a"/>`);
     if (t === 'chest') return `<svg x="${x - 38}" y="${y - 54}" width="76" height="76" viewBox="0 0 48 48">${stickerInner('treasure')}</svg>`;
     if (t === 'shroom') return g(`<rect x="-3" y="-4" width="6" height="12" rx="2" fill="#fff" ${s2}/><path d="M-12 -2 Q-12 -16 0 -16 Q12 -16 12 -2 Z" fill="${c}" ${s2}/><circle cx="-4" cy="-10" r="1.8" fill="#fff"/><circle cx="4" cy="-8" r="1.4" fill="#fff"/><circle r="18" cy="-8" fill="${c}" opacity=".18"/>`);
+    if (typeof pz6CaveItem === 'function') { const r6 = pz6CaveItem(t, c, g, s2); if (r6) return r6; }
     return g(`<ellipse cx="0" cy="0" rx="26" ry="10" fill="${c}" ${s2}/><ellipse cx="-8" cy="-3" rx="8" ry="2.4" fill="#fff" opacity=".5"/>`);
   }
   let crzCaveTool = 'gem-r';
@@ -22099,13 +22181,20 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       crystal: `<path d="M150 184 L96 70 L80 120 L30 84 L48 150 L6 150 L60 196 L150 198 Z" ${F} fill-opacity=".85" ${sw}/><path d="M150 206 L70 214 L44 270 L96 256 L110 300 Z" ${F} fill-opacity=".85" ${sw}/><path d="M96 70 L112 180 M30 84 L90 186 M44 270 L130 212" stroke="#fff" stroke-width="2.4" opacity=".8"/>`,
       leaf: `<path d="M150 186 C120 110 60 60 14 70 C24 130 80 190 150 196 Z" ${F} ${sw}/><path d="M150 186 C110 140 60 100 18 72 M60 104 l10 26 M92 130 l6 24 M40 86 l-2 20" fill="none" stroke="${line}" stroke-width="2" opacity=".6"/><path d="M150 204 C110 214 64 250 60 294 C100 290 136 250 150 212 Z" ${F} ${sw}/><path d="M150 208 Q100 250 62 292" fill="none" stroke="${line}" stroke-width="2" opacity=".6"/>`,
       heart: `<path d="M150 196 C120 196 40 190 30 130 C22 80 80 70 104 110 C110 70 160 90 150 196 Z" ${F} ${sw}/><path d="M150 206 C130 216 76 240 84 280 C92 310 126 290 132 262 C150 280 160 240 150 212 Z" ${F} ${sw}/><circle cx="66" cy="124" r="10" fill="#fff" opacity=".5"/>`,
+      star: `<polygon points="${starPts(78, 132, 72, 30, 5)}" ${F} ${sw}/><polygon points="${starPts(98, 240, 36, 15, 5)}" ${F} ${sw}/>`,
+      rainbow: `<defs><linearGradient id="${u}rb" x1="0" y1="0" x2="1" y2="1">${crzRainbow.map((c, i) => `<stop offset="${i / 5}" stop-color="${c}"/>`).join('')}</linearGradient></defs><path d="M150 180 C100 80 12 60 22 150 C28 196 100 204 150 196 Z" fill="url(#${u}rb)" fill-opacity=".85" ${sw}/><path d="M150 202 C98 214 44 256 66 296 C88 318 132 262 150 212 Z" fill="url(#${u}rb)" fill-opacity=".85" ${sw}/>`,
+      lace: `<path d="M150 180 C100 80 12 60 22 150 C28 196 100 204 150 196 Z" ${F} fill-opacity=".45" ${sw} stroke-dasharray="6 4"/><path d="M150 202 C98 214 44 256 66 296 C88 318 132 262 150 212 Z" ${F} fill-opacity=".45" ${sw} stroke-dasharray="6 4"/>${[[60, 120], [90, 100], [50, 160], [100, 160], [80, 250], [110, 230]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="none" stroke="#fff" stroke-width="2.4"/>`).join('')}`,
+      moth: `<path d="M150 186 L20 110 Q10 190 60 220 Z" ${F} ${sw}/><path d="M150 200 L60 230 Q70 300 130 250 Z" ${F} ${sw}/><circle cx="60" cy="160" r="16" fill="#fff" opacity=".6"/><circle cx="60" cy="160" r="8" fill="${c2}"/>`,
     }[type] || '';
     return `<defs><linearGradient id="${u}w" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${pzLight(c1, .3)}"/><stop offset=".55" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs>`
       + `<g transform="translate(150 175) scale(1.3) translate(-150 -175)"><g class="crz-fw-l">${one}</g><g class="crz-fw-r" transform="matrix(-1 0 0 1 300 0)">${one}</g></g>`;
   }
   function crzWandSVG(type, x, y) {
     if (type === 'none') return '';
-    const tx = x + 46, ty = y - 58, tip = { star: `<polygon points="${starPts(tx, ty, 17, 7.5)}" fill="#ffe27a" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`,
+    const tx = x + 46, ty = y - 58, tip = { crystal: `<path d="M${tx} ${ty - 18} L${tx + 11} ${ty - 6} L${tx + 7} ${ty + 12} H${tx - 7} L${tx - 11} ${ty - 6} Z" fill="#bfeaff" stroke="${O}" stroke-width="3" stroke-linejoin="round"/><path d="M${tx} ${ty - 18} V${ty + 12} M${tx - 11} ${ty - 6} H${tx + 11}" stroke="#fff" stroke-width="2"/>`,
+      butterfly: `<path d="M${tx} ${ty} C${tx - 20} ${ty - 22} ${tx - 26} ${ty} ${tx - 6} ${ty + 6} Z M${tx} ${ty} C${tx + 20} ${ty - 22} ${tx + 26} ${ty} ${tx + 6} ${ty + 6} Z" fill="#ff9ad5" stroke="${O}" stroke-width="2.6" stroke-linejoin="round"/>`,
+      rainbow: crzRainbow.map((c, i) => `<path d="M${tx - 18 + i * 2.4} ${ty + 4} A${18 - i * 2.4} ${18 - i * 2.4} 0 0 1 ${tx + 18 - i * 2.4} ${ty + 4}" fill="none" stroke="${c}" stroke-width="3"/>`).join(''),
+      star: `<polygon points="${starPts(tx, ty, 17, 7.5)}" fill="#ffe27a" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`,
       heart: `<path d="${pzHeart(tx, ty + 2, 13)}" fill="#ff7aa8" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`,
       moon: `<path d="M${tx + 6} ${ty - 16} A16 16 0 1 0 ${tx + 10} ${ty + 12} A12 12 0 1 1 ${tx + 6} ${ty - 16} Z" fill="#fff1b8" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>`,
       flower: [0, 72, 144, 216, 288].map(d => { const r = d * Math.PI / 180; return `<circle cx="${pzF(tx + 9 * Math.cos(r))}" cy="${pzF(ty + 9 * Math.sin(r))}" r="8" fill="#ff9ad5" stroke="${O}" stroke-width="2.4"/>`; }).join('') + `<circle cx="${tx}" cy="${ty}" r="6" fill="#ffd84d" stroke="${O}" stroke-width="2.4"/>` }[type] || '';
@@ -22400,6 +22489,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       if (back[w.id]) out.back += back[w.id](c, c2);
       if (draw[w.id]) { if (slot === 'body') out.body += draw[w.id](c, c2); else out.top += draw[w.id](c, c2); }
       if (tops[w.id]) out.top += tops[w.id](c, c2);
+      if (!draw[w.id] && !back[w.id] && !tops[w.id] && typeof pz6Cloth === 'function') { const r6 = pz6Cloth(w.id, c, c2, { B, H, nk, hx, hy, std, st, top, hem, sleeves, torso, u }); out.back += r6.back; out[slot === 'body' ? 'body' : 'top'] += r6.main; out.top += r6.top; }
     }
     out.body = `<defs>${clip}</defs>` + out.body;
     return out;
@@ -23692,16 +23782,61 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     return { babies, family: f, mixName };
   }
   let pz5FamView = null; // { mode: 'list'|'edit'|'tree'|'photo'|'baby', id }
+  // family crest (shape + color + emblem) and photo frames / poses (round 6)
+  const PZ6_CREST_SHAPES = [['shield', 'מגן'], ['heart', 'לב'], ['star', 'כוכב'], ['circle', 'עיגול'], ['cloud', 'ענן']];
+  const PZ6_EMBLEMS = [['paw', '🐾'], ['heart', '💖'], ['star', '⭐'], ['crown', '👑'], ['flower', '🌸'], ['moon', '🌙'], ['rainbow', '🌈'], ['fish', '🐟']];
+  const PZ6_FRAMES = [['classic', 'קלאסית'], ['hearts', 'לבבות'], ['flowers', 'פרחים'], ['stars', 'כוכבים'], ['rainbow', 'קשת'], ['gold', 'זהב']];
+  const PZ6_POSES = [['stand', '🧍 עומדים'], ['hands', '🤝 מחזיקים ידיים'], ['cuddle', '🤗 מתחבקים']];
+  function pz6CrestSVG(f, size = 48) {
+    const c = Object.assign({ shape: 'shield', color: '#ff9ad5', emblem: 'paw' }, f.crest), col = c.color, st = `stroke="${O}" stroke-width="2.4" stroke-linejoin="round"`;
+    const shape = { heart: `<path d="${pzHeart(24, 22, 13)}" fill="${col}" ${st}/>`, star: `<polygon points="${starPts(24, 25, 21, 10)}" fill="${col}" ${st}/>`, circle: `<circle cx="24" cy="24" r="19" fill="${col}" ${st}/>`,
+      cloud: pzShape(24, 25, 19, 14, `fill="${col}" ${st}`, 1.3) }[c.shape] || `<path d="M8 6 H40 V22 Q40 38 24 44 Q8 38 8 22 Z" fill="${col}" ${st}/><path d="M12 10 H36 V22 Q36 34 24 39 Q12 34 12 22 Z" fill="none" stroke="#fff" stroke-width="1.6" opacity=".7"/>`;
+    const em = { paw: `<ellipse cx="24" cy="28" rx="6" ry="5" fill="#fff"/>${[[17, 20], [22, 17], [27, 17], [32, 20]].map(([x, y]) => `<circle cx="${x - 0.5}" cy="${y}" r="2.4" fill="#fff"/>`).join('')}`,
+      heart: `<path d="${pzHeart(24, 25, 6)}" fill="#fff"/>`, star: `<polygon points="${starPts(24, 25, 8, 3.5)}" fill="#fff"/>`, crown: `<path d="M15 30 L14 18 L19.5 23 L24 15 L28.5 23 L34 18 L33 30 Z" fill="#ffe27a" stroke="${O}" stroke-width="1.4"/>`,
+      flower: [0, 72, 144, 216, 288].map(d => `<circle cx="${pzF(24 + 4.6 * Math.cos(d * Math.PI / 180))}" cy="${pzF(25 + 4.6 * Math.sin(d * Math.PI / 180))}" r="3.4" fill="#fff"/>`).join('') + `<circle cx="24" cy="25" r="2.6" fill="#ffd84d"/>`,
+      moon: `<path d="M27 16 A9 9 0 1 0 29 33 A7 7 0 1 1 27 16 Z" fill="#fff6c4"/>`, rainbow: ['#ff6f7a', '#ffd84d', '#7ed48a', '#6fb8ff'].map((cc, i) => `<path d="M${14 + i * 2} 29 A${10 - i * 2} ${9 - i * 2} 0 0 1 ${34 - i * 2} 29" fill="none" stroke="${cc}" stroke-width="2"/>`).join(''),
+      fish: `<path d="M14 25 Q22 17 30 25 Q22 33 14 25 Z M29 25 L35 20 V30 Z" fill="#fff"/>` }[c.emblem] || '';
+    return `<svg viewBox="0 0 48 48" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">${shape}${em}</svg>`;
+  }
   function pz5FamPhotoSVG(f, big) {
     const ms = pz5Members(f), rows = [0, 1, 2].map(g => ms.filter(x => PZ5_GEN[x.m.role] === g));
-    const W = 600, H = 440, sz = [118, 150, 104], base = [262, 350, 424];
-    let pets = '';
-    rows.forEach((row, g) => row.forEach((x, i) => { const n = row.length, w = sz[g] * (x.p.size || 1) / (g === 2 ? .8 : 1), cx = W / 2 + (i - (n - 1) / 2) * Math.min(w * .92, 520 / Math.max(1, n)); pets += placeSvg(petSVG(Object.assign({}, x.p, { size: 1 }), { mood: 'happy' }), cx - w / 2, base[g] - w * 1.14, w, w * 1.14); }));
-    const name = (f.name || 'המשפחה שלי').replace(/[<&>"]/g, '');
-    return `<svg viewBox="0 0 ${W} ${H + 40}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pz5wp${big ? 'b' : ''}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6f3"/><stop offset=".7" stop-color="#fff6e6"/></linearGradient></defs>`
-      + `<rect x="10" y="10" width="${W - 20}" height="${H + 20}" rx="26" fill="#fffdf5" stroke="${O}" stroke-width="5"/><rect x="28" y="28" width="${W - 56}" height="${H - 40}" rx="14" fill="url(#pz5wp${big ? 'b' : ''})"/>`
+    const W = 600, H = 440, sz = [118, 150, 104], base = [262, 350, 424], pose = f.pose || 'stand', frame = f.frame || 'classic', uid = big ? 'b' : 's';
+    let pets = '', links = '';
+    rows.forEach((row, g) => {
+      const n = row.length, pts = [];
+      row.forEach((x, i) => {
+        const w = sz[g] * (x.p.size || 1) / (g === 2 ? .8 : 1), gap = pose === 'cuddle' ? .62 : .92;
+        const cx = W / 2 + (i - (n - 1) / 2) * Math.min(w * gap, 520 / Math.max(1, n)), tilt = pose === 'cuddle' && n > 1 ? (i < (n - 1) / 2 ? 8 : i > (n - 1) / 2 ? -8 : 0) : 0;
+        const art = placeSvg(petSVG(Object.assign({}, x.p, { size: 1 }), { mood: 'happy' }), cx - w / 2, base[g] - w * 1.14, w, w * 1.14);
+        pets += tilt ? `<g transform="rotate(${tilt} ${pzF(cx)} ${base[g]})">${art}</g>` : art;
+        pts.push([cx, base[g] - w * .42, w]);
+      });
+      if (pose === 'hands') pts.slice(1).forEach(([x, y, w], i) => { const [px, py, pw] = pts[i]; links += `<path d="M${pzF(px + pw * .26)} ${pzF(py)} Q${pzF((px + x) / 2)} ${pzF(Math.max(py, y) + 14)} ${pzF(x - w * .26)} ${pzF(y)}" fill="none" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M${pzF(px + pw * .26)} ${pzF(py)} Q${pzF((px + x) / 2)} ${pzF(Math.max(py, y) + 14)} ${pzF(x - w * .26)} ${pzF(y)}" fill="none" stroke="#ffd1ec" stroke-width="4" stroke-linecap="round"/><path d="${pzHeart((px + x) / 2, Math.max(py, y) + 8, 5)}" fill="#ff5a8a"/>`; });
+      if (pose === 'cuddle') pts.slice(1).forEach(([x, y], i) => { links += `<path d="${pzHeart((pts[i][0] + x) / 2, Math.min(pts[i][1], y) - 34, 6)}" fill="#ff7aa8" stroke="${O}" stroke-width="1.4"/>`; });
+    });
+    const name = (f.name || 'המשפחה שלי').replace(/[<&>"]/g, ''), motto = (f.motto || '').replace(/[<&>"]/g, '');
+    const deco = {
+      hearts: Array.from({ length: 14 }, (_, i) => { const t = i / 14 * Math.PI * 2; return `<path d="${pzHeart(300 + Math.cos(t) * 285, 240 + Math.sin(t) * 232, 9)}" fill="${i % 2 ? '#ff5a8a' : '#ff9ad5'}" stroke="${O}" stroke-width="1.6"/>`; }).join(''),
+      flowers: Array.from({ length: 14 }, (_, i) => { const t = i / 14 * Math.PI * 2, x = 300 + Math.cos(t) * 285, y = 240 + Math.sin(t) * 232, c = ['#ff9ad5', '#ffd84d', '#b58cff', '#7ec8ff'][i % 4]; return [0, 72, 144, 216, 288].map(d => `<circle cx="${pzF(x + 7 * Math.cos(d * Math.PI / 180))}" cy="${pzF(y + 7 * Math.sin(d * Math.PI / 180))}" r="6" fill="${c}" stroke="${O}" stroke-width="1.4"/>`).join('') + `<circle cx="${pzF(x)}" cy="${pzF(y)}" r="4.4" fill="#ffe27a"/>`; }).join(''),
+      stars: Array.from({ length: 16 }, (_, i) => { const t = i / 16 * Math.PI * 2; return `<polygon points="${starPts(300 + Math.cos(t) * 285, 240 + Math.sin(t) * 232, 10, 4.4)}" fill="${i % 2 ? '#ffd84d' : '#fff6c4'}" stroke="${O}" stroke-width="1.4"/>`; }).join(''),
+    }[frame] || '';
+    const border = { rainbow: `<rect x="10" y="10" width="${W - 20}" height="${H + 20}" rx="26" fill="#fffdf5" stroke="url(#pz6rb${uid})" stroke-width="14"/>`, gold: `<rect x="10" y="10" width="${W - 20}" height="${H + 20}" rx="26" fill="#fffdf5" stroke="#e0a800" stroke-width="12"/><rect x="18" y="18" width="${W - 36}" height="${H + 4}" rx="20" fill="none" stroke="#ffe27a" stroke-width="3"/>` }[frame]
+      || `<rect x="10" y="10" width="${W - 20}" height="${H + 20}" rx="26" fill="#fffdf5" stroke="${O}" stroke-width="5"/>`;
+    const crest = f.crest ? `<svg x="${W / 2 - 34}" y="${H - 34}" width="68" height="68" viewBox="0 0 48 48">${pz6CrestSVG(f).replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg>` : '';
+    return `<svg viewBox="0 0 ${W} ${H + 40}" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pz5wp${uid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe6f3"/><stop offset=".7" stop-color="#fff6e6"/></linearGradient><linearGradient id="pz6rb${uid}" x1="0" y1="0" x2="1" y2="1">${['#ff6f7a', '#ffb35c', '#ffe066', '#7ed48a', '#6fb8ff', '#b37bff'].map((c, i) => `<stop offset="${i / 5}" stop-color="${c}"/>`).join('')}</linearGradient></defs>`
+      + border + `<rect x="28" y="28" width="${W - 56}" height="${H - 40}" rx="14" fill="url(#pz5wp${uid})"/>`
       + `<rect x="28" y="${H - 90}" width="${W - 56}" height="78" fill="#f2d9b8"/>${Array.from({ length: 9 }, (_, i) => `<path d="${pzHeart(70 + i * 57, 54 + (i % 2) * 8, 7)}" fill="${['#ff9ad5', '#ffd84d', '#7ec8ff'][i % 3]}"/>`).join('')}<path d="M40 50 Q300 90 560 50" fill="none" stroke="#c98f3a" stroke-width="2"/>`
-      + pets + `<rect x="${W / 2 - 150}" y="${H - 6}" width="300" height="40" rx="20" fill="#ff9ad5" stroke="${O}" stroke-width="3"/><text x="${W / 2}" y="${H + 21}" text-anchor="middle" font-size="24" font-family="Rubik, sans-serif" fill="#fff" stroke="${O}" stroke-width="3" paint-order="stroke">${name} 💖</text></svg>`;
+      + pets + links + deco + `<rect x="${W / 2 - 160}" y="${H - 6}" width="320" height="40" rx="20" fill="#ff9ad5" stroke="${O}" stroke-width="3"/><text x="${W / 2}" y="${H + 21}" text-anchor="middle" font-size="24" font-family="Rubik, sans-serif" fill="#fff" stroke="${O}" stroke-width="3" paint-order="stroke">${name} 💖</text>`
+      + (motto ? `<text x="${W / 2}" y="96" text-anchor="middle" font-size="16" font-family="Rubik, sans-serif" fill="${O}">“${motto}”</text>` : '') + crest.replace(`y="${H - 34}"`, `y="30"`) + `</svg>`;
+  }
+  function pz6CrestEditor(f, redraw) {
+    const c = f.crest = Object.assign({ shape: 'shield', color: '#ff9ad5', emblem: 'paw' }, f.crest);
+    const set = (k, v) => { c[k] = v; pz5SaveFam(); SFX.pop(); redraw(); };
+    return el('div', { class: 'pz6-crest-ed' }, el('span', { class: 'pz6-crest-big', html: pz6CrestSVG(f, 96) }),
+      el('div', { class: 'row' }, el('span', { class: 'lbl' }, '🛡️ הסמל של המשפחה'),
+        el('div', { class: 'chips' }, ...PZ6_CREST_SHAPES.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(c.shape === id), onclick: () => set('shape', id) }, n))),
+        el('div', { class: 'chips' }, ...PZ6_EMBLEMS.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(c.emblem === id), onclick: () => set('emblem', id) }, n))),
+        el('div', { class: 'pz-sw' }, ...['#ff9ad5', '#ff5a8a', '#b58cff', '#7ec8ff', '#6fcf7f', '#ffd84d', '#ff9a3c', '#3d4a8a'].map(col => el('button', { type: 'button', class: 'pz-swb', style: `--c:${col}`, 'aria-pressed': String(c.color === col), 'aria-label': col, onclick: () => set('color', col) })))));
   }
   function pz5Families() {
     const box = el('div', { class: 'row pz5-fam' });
@@ -23712,6 +23847,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       const f = pz5Fam.find(x => x.id === V.id); if (!f) { pz5FamView = null; return pz5Families(); }
       if (V.mode === 'edit') {
         box.append(el('div', { class: 'chips' }, back), el('label', { class: 'lbl' }, 'שם המשפחה', el('input', { type: 'text', maxLength: 24, value: f.name, oninput: e => { f.name = e.target.value; pz5SaveFam(); } })),
+          el('label', { class: 'lbl' }, 'המוטו של המשפחה', el('input', { type: 'text', maxLength: 40, placeholder: 'למשל: תמיד ביחד!', value: f.motto || '', oninput: e => { f.motto = e.target.value; pz5SaveFam(); } })), pz6CrestEditor(f, () => drawHouse()),
           el('p', { class: 'muted', style: 'margin:0' }, 'בוחרים לכל חיה תפקיד במשפחה. תינוקות קטנים וחמודים עם מוצץ, הורים קצת יותר גדולים, וסבא וסבתא עם משקפיים!'),
           el('div', { class: 'pz5-roles' }, ...all.map(p => { const m = f.members.find(x => x.pid === p.id), other = !m && pz5FamOf(p);
             return el('div', { class: 'pz5-rolerow' }, el('span', { class: 'ic', html: petSVG(Object.assign({}, p, { size: 1 })) }), el('b', {}, p.name || 'חיה', other ? el('small', {}, ` (ב${other.name})`) : null),
@@ -23722,12 +23858,15 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       } else if (V.mode === 'tree') {
         const ms = pz5Members(f), rows = [0, 1, 2].map(g => ms.filter(x => PZ5_GEN[x.m.role] === g)).filter(r => r.length);
         box.append(el('div', { class: 'chips' }, back, el('button', { type: 'button', class: 'btn', onclick: () => { pz5FamView = { mode: 'edit', id: f.id }; drawHouse(); } }, '✏️ לערוך'), el('button', { type: 'button', class: 'btn', onclick: () => { pz5FamView = { mode: 'photo', id: f.id }; drawHouse(); } }, '📸 תמונה משפחתית')),
-          el('h4', { class: 'pz5-famname' }, `🌳 ${f.name}`),
+          el('h4', { class: 'pz5-famname' }, el('span', { class: 'pz6-crest-mini', html: pz6CrestSVG(f, 40) }), ` ${f.name}`), f.motto ? el('p', { class: 'pz6-motto' }, `“${f.motto}”`) : null,
           ms.length ? el('div', { class: 'pz5-tree' }, ...rows.map((r, i) => el('div', { class: 'pz5-gen' + (i ? ' down' : '') }, ...r.map(x => portrait(x.p, x.m.role, x.p.twin ? 'twin' : ''))))) : el('p', { class: 'muted' }, 'עוד אין אף אחד במשפחה — לוחצים ✏️ לערוך'),
           pz5BabyMaker(f));
       } else {
         const svgS = pz5FamPhotoSVG(f, true);
-        box.append(el('div', { class: 'chips' }, back), el('div', { class: 'pz5-photo', html: svgS }),
+        box.append(el('div', { class: 'chips' }, back),
+          el('div', { class: 'chips' }, ...PZ6_POSES.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((f.pose || 'stand') === id), onclick: () => { f.pose = id; pz5SaveFam(); SFX.pop(); drawHouse(); } }, n))),
+          el('div', { class: 'chips' }, el('span', { class: 'lbl' }, '🖼️ מסגרת:'), ...PZ6_FRAMES.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((f.frame || 'classic') === id), onclick: () => { f.frame = id; pz5SaveFam(); SFX.pop(); drawHouse(); } }, n))),
+          el('div', { class: 'pz5-photo', html: svgS }),
           el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: e => {
             const c = { id: 'my' + Date.now().toString(36), url: svgData(pz5FamPhotoSVG(f)) }; customStk.push(c);
             if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('camera'), 'אין מספיק מקום לשמור 😢'); return; }
@@ -23739,7 +23878,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     // list of families
     box.append(el('p', { class: 'muted', style: 'margin:0' }, 'יוצרים משפחות: אמא, אבא, אחים, תינוקות ואפילו סבא וסבתא! ואפשר גם לעשות תינוק שמערבב את שני ההורים 💞'),
       el('div', { class: 'pz5-famlist' }, ...pz5Fam.map(f => { const ms = pz5Members(f);
-        return el('button', { type: 'button', class: 'pz5-famcard', onclick: () => { pz5FamView = { mode: 'tree', id: f.id }; drawHouse(); } }, el('b', {}, `🏡 ${f.name}`),
+        return el('button', { type: 'button', class: 'pz5-famcard', onclick: () => { pz5FamView = { mode: 'tree', id: f.id }; drawHouse(); } }, el('b', {}, el('span', { class: 'pz6-crest-mini', html: pz6CrestSVG(f, 26) }), ` ${f.name}`),
           el('div', { class: 'pz5-famfaces' }, ...ms.slice(0, 7).map(x => el('span', { class: 'ic', style: `--s:${x.p.size || 1}`, html: petSVG(Object.assign({}, x.p, { size: 1 })) }))), el('small', {}, `${ms.length} חיות במשפחה`)); }),
         el('button', { type: 'button', class: 'pz5-famcard pz5-newfam', onclick: () => { const nf = { id: 'f' + Date.now().toString(36), name: `משפחת ${(pet && pet.name) || 'החיות'}`, members: [] }; pz5Fam.push(nf); pz5SaveFam(); pz5FamView = { mode: 'edit', id: nf.id }; SFX.pop(); drawHouse(); } }, el('span', { class: 'crz-plus' }, '➕'), el('b', {}, 'משפחה חדשה'))),
       pz5BabyMaker(null));
@@ -23773,22 +23912,61 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     draw();
     return box;
   }
-  // ---------- 🏡 everyone together: the family home ----------
-  let pz5HomeTimer = 0, pz5Night = false;
-  const PZ5_HOME_LINES = ['היי! 👋', 'אני אוהב/ת את כולם פה! 💖', 'בואו נשחק!', 'איזה בית כיפי!', 'חיבוק? 🤗', 'מה נאכל היום?', 'את הכי טובה!', 'יאי, כולנו ביחד!'];
+  // ---------- 🏡 everyone together: the family home (round 6: a big 2-floor house, activities, decor) ----------
+  let pz5HomeTimer = 0, pz5Night = false, pz6Decor = store.get('pz6Decor', []), pz6DecorTool = null, pz6Snow = false;
+  const PZ5_HOME_LINES = ['היי! 👋', 'אני אוהב/ת את כולם פה! 💖', 'בואו נשחק!', 'איזה בית כיפי!', 'חיבוק? 🤗', 'מה נאכל היום?', 'את הכי טובה!', 'יאי, כולנו ביחד!', 'בואו נגלוש במגלשה! 🛝', 'מי קופץ לבריכה? 🏊'];
+  // the house (viewBox 600×520): top floor = treehouse · bunk-bed room · playroom; bottom floor = garden with pool · kitchen · living room
+  const PZ6_AREAS = {
+    tree: { n: '🌳 בית העץ', x: [5, 19], y: [60, 63] }, bunk: { n: '🛏️ חדר המיטות', x: [30, 55], y: [54, 57] }, play: { n: '🛝 חדר המשחקים', x: [64, 94], y: [54, 57] },
+    garden: { n: '🏊 הגינה והבריכה', x: [5, 30], y: [2, 9] }, kitchen: { n: '🍽️ המטבח', x: [38, 62], y: [2, 9] }, living: { n: '🛋️ הסלון', x: [70, 95], y: [2, 9] },
+  };
+  const PZ6_DECOR = [['plant', 'עציץ'], ['lamp', 'מנורה'], ['rug', 'שטיח'], ['painting', 'תמונה'], ['toybox', 'ארגז צעצועים'], ['aquarium', 'אקווריום'], ['balloons', 'בלונים'], ['lights', 'שרשרת אורות'],
+    ['beanbag', 'פוף'], ['books', 'מדף ספרים'], ['piano', 'פסנתר'], ['vase', 'אגרטל פרחים'], ['starlamp', 'מנורת כוכב'], ['teddy', 'דובי'], ['clock', 'שעון'], ['cushion', 'כרית לב'], ['erase', 'למחוק']];
+  function pz6DecorSVG(t, x, y) {
+    const s = `stroke="${O}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"`, g = b => `<g transform="translate(${x} ${y})">${b}</g>`;
+    switch (t) {
+      case 'plant': return g(`<path d="M-9 -12 H9 L7 0 H-7 Z" fill="#ff9a6b" ${s}/><path d="M0 -12 Q-10 -26 -14 -30 M0 -12 Q2 -28 4 -34 M0 -12 Q10 -22 14 -28" fill="none" stroke="#4fbf73" stroke-width="4" stroke-linecap="round"/>`);
+      case 'lamp': return g(`<path d="M-2 0 V-28" ${s}/><path d="M-12 -28 L-7 -42 H7 L12 -28 Z" fill="#fff1b8" ${s}/><ellipse cx="0" cy="0" rx="9" ry="3" fill="#c98f3a" ${s}/><circle cy="-32" r="22" fill="#fff7b0" opacity=".25"/>`);
+      case 'rug': return g(`<ellipse cx="0" cy="0" rx="34" ry="9" fill="#b58cff" ${s}/><ellipse cx="0" cy="0" rx="24" ry="5.6" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 3"/>`);
+      case 'painting': return g(`<rect x="-16" y="-24" width="32" height="24" rx="2" fill="#fff6e6" stroke="#c98f3a" stroke-width="4"/><path d="M-12 -4 L-4 -14 L2 -8 L6 -12 L12 -4 Z" fill="#6fcf7f"/><circle cx="7" cy="-18" r="3" fill="#ffd84d"/>`);
+      case 'toybox': return g(`<rect x="-16" y="-18" width="32" height="18" rx="3" fill="#ff6b6b" ${s}/><rect x="-18" y="-22" width="36" height="6" rx="2" fill="#ff9ad5" ${s}/><circle cx="-6" cy="-25" r="4" fill="#7ec8ff" ${s}/><path d="M4 -28 l6 4" stroke="#ffd84d" stroke-width="4"/>`);
+      case 'aquarium': return g(`<rect x="-20" y="-26" width="40" height="26" rx="4" fill="#bfeaff" ${s}/><path d="M-10 -12 q6 -6 12 0 q-6 6 -12 0 Z M2 -12 l5 -4 v8 Z" fill="#ff9a3c"/><circle cx="10" cy="-20" r="1.6" fill="#fff"/><circle cx="13" cy="-15" r="1.2" fill="#fff"/>`);
+      case 'balloons': return g(['#ff5a8a', '#ffd84d', '#7ec8ff'].map((c, i) => `<path d="M${(i - 1) * 3} 0 Q${(i - 1) * 8} -16 ${(i - 1) * 10} -30" fill="none" stroke="${O}" stroke-width="1.4"/><ellipse cx="${(i - 1) * 10}" cy="${-36 - (i % 2) * 6}" rx="7" ry="9" fill="${c}" ${s}/>`).join(''));
+      case 'lights': return g(`<path d="M-40 -6 Q0 12 40 -6" fill="none" stroke="#6fbf73" stroke-width="2"/>${[-32, -16, 0, 16, 32].map((dx, i) => `<circle cx="${dx}" cy="${3 - Math.abs(dx) / 8}" r="4" fill="${['#ffd84d', '#ff9ad5', '#7ec8ff', '#b58cff', '#6fcf7f'][i]}" ${s}/>`).join('')}`);
+      case 'beanbag': return g(`<path d="M-18 0 Q-22 -20 0 -24 Q22 -20 18 0 Z" fill="#ffc2e0" ${s}/><path d="M-8 -14 q8 -4 16 0" fill="none" stroke="#fff" stroke-width="2"/>`);
+      case 'books': return g(`<rect x="-20" y="-34" width="40" height="34" rx="2" fill="#c98f3a" ${s}/><path d="M-20 -17 H20" ${s}/>${[-16, -11, -6, 2, 8, 13].map((dx, i) => `<rect x="${dx}" y="${i < 3 ? -32 : -15}" width="4" height="13" fill="${['#ff6b6b', '#7ec8ff', '#ffd84d', '#b58cff', '#6fcf7f', '#ff9ad5'][i]}"/>`).join('')}`);
+      case 'piano': return g(`<rect x="-24" y="-28" width="48" height="22" rx="3" fill="#3a3a4a" ${s}/><rect x="-22" y="-12" width="44" height="8" fill="#fff" ${s}/>${[-16, -8, 0, 8, 16].map(dx => `<rect x="${dx - 1.6}" y="-12" width="3.2" height="5" fill="#3a3a4a"/>`).join('')}<path d="M-20 -4 V2 M20 -4 V2" ${s}/>`);
+      case 'vase': return g(`<path d="M-7 0 Q-11 -10 -5 -16 H5 Q11 -10 7 0 Z" fill="#7ec8ff" ${s}/>${[[-6, -26, '#ff9ad5'], [0, -30, '#ffd84d'], [6, -26, '#ff6b6b']].map(([dx, dy, c]) => `<path d="M0 -16 L${dx} ${dy}" stroke="#4fbf73" stroke-width="2"/><circle cx="${dx}" cy="${dy}" r="4" fill="${c}" ${s}/>`).join('')}`);
+      case 'starlamp': return g(`<circle cy="-18" r="20" fill="#fff7b0" opacity=".3"/><polygon points="${starPts(0, -18, 11, 5)}" fill="#ffd84d" ${s}/>`);
+      case 'teddy': return `<svg x="${x - 20}" y="${y - 38}" width="40" height="40" viewBox="0 0 48 48">${stickerInner('bear')}</svg>`;
+      case 'clock': return g(`<circle cy="-16" r="12" fill="#fff" ${s}/><path d="M0 -16 V-24 M0 -16 H6" ${s}/>`);
+      case 'cushion': return g(`<path d="${pzHeart(0, -10, 9)}" fill="#ff9ad5" ${s}/>`);
+    }
+    return '';
+  }
   function pz5HomeBg() {
-    const st = `stroke="${O}" stroke-width="3"`;
-    return `<svg class="pz5-home-bg" viewBox="0 0 600 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">`
-      + `<rect width="170" height="400" fill="#bfe6ff"/><circle cx="40" cy="48" r="22" fill="#fff3a8"/><rect y="290" width="170" height="110" fill="#8fd08a"/><rect x="112" y="150" width="18" height="150" fill="#b07a47" ${st}/><circle cx="121" cy="130" r="48" fill="#6fcf7f" ${st}/><circle cx="104" cy="120" r="6" fill="#ff5a6e"/><circle cx="138" cy="140" r="6" fill="#ff5a6e"/>`
-      + [22, 52, 82].map((x, i) => `<g><path d="M${x} 318 v-20" stroke="#4fbf73" stroke-width="3"/><circle cx="${x}" cy="296" r="7" fill="${['#ff9ad5', '#ffd84d', '#b58cff'][i]}" stroke="${O}" stroke-width="2"/></g>`).join('')
-      + `<rect x="170" width="260" height="400" fill="#ffe9f3"/><path d="M170 0 H430 V16 H170 Z" fill="#ffc2dd"/>${Array.from({ length: 8 }, (_, i) => `<circle cx="${186 + i * 33}" cy="32" r="3.5" fill="#fff"/>`).join('')}`
-      + `<rect x="250" y="60" width="100" height="80" rx="8" fill="#bfe6ff" ${st}/><path d="M300 60 V140 M250 100 H350" stroke="${O}" stroke-width="2.5"/><path d="M242 55 Q262 95 248 150 M358 55 Q338 95 352 150" fill="#ff9ad5" ${st}/>`
-      + `<rect x="170" y="290" width="260" height="110" fill="#f2d9b8"/><ellipse cx="320" cy="345" rx="80" ry="24" fill="#b58cff" opacity=".45"/>`
-      + `<rect x="330" y="232" width="92" height="58" rx="14" fill="#7ec8ff" ${st}/><rect x="324" y="214" width="104" height="30" rx="14" fill="#9fd6ff" ${st}/><rect x="324" y="244" width="16" height="42" rx="7" fill="#9fd6ff" ${st}/><rect x="412" y="244" width="16" height="42" rx="7" fill="#9fd6ff" ${st}/>`
-      + `<rect x="180" y="248" width="70" height="30" rx="8" fill="#fff" ${st}/><text x="215" y="269" font-size="15" text-anchor="middle" font-family="Rubik, sans-serif" fill="${O}">מטבח</text>`
-      + `<rect x="430" width="170" height="400" fill="#e6e0ff"/><rect x="430" y="290" width="170" height="110" fill="#d6c7f2"/><path d="M470 50 a22 22 0 1 0 22 30 a17 17 0 1 1 -22 -30 Z" fill="#fff3a8" stroke="${O}" stroke-width="2"/>${[[540, 70], [575, 110], [505, 120]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.4" fill="#fff"/>`).join('')}`
-      + [0, 1].map(i => `<ellipse cx="${475 + i * 80}" cy="${338 + i * 22}" rx="40" ry="15" fill="${['#ff9ad5', '#7ec8ff'][i]}" ${st}/><ellipse cx="${475 + i * 80}" cy="${333 + i * 22}" rx="28" ry="8" fill="#fff" opacity=".7"/>`).join('')
-      + `<path d="M170 0 V400 M430 0 V400" stroke="#fff" stroke-width="5" opacity=".7"/></svg>`;
+    const st = `stroke="${O}" stroke-width="3"`, st2 = `stroke="${O}" stroke-width="2"`;
+    return `<svg class="pz5-home-bg" viewBox="0 0 600 520" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">`
+      // top floor: treehouse (outside), bunk-bed room, playroom
+      + `<rect width="150" height="250" fill="#bfe6ff"/><circle cx="30" cy="30" r="16" fill="#fff3a8"/><rect x="92" y="90" width="18" height="160" fill="#b07a47" ${st}/><circle cx="100" cy="60" r="46" fill="#6fcf7f" ${st}/>`
+      + `<rect x="8" y="118" width="100" height="10" rx="3" fill="#c98f3a" ${st}/><path d="M16 118 V80 L58 58 L100 80 V118" fill="#e8b77a" ${st}/><path d="M10 82 L58 52 L106 82" fill="none" stroke="#ff6b6b" stroke-width="7" stroke-linecap="round"/><rect x="48" y="90" width="18" height="28" rx="8" fill="#9b6b43" ${st2}/><circle cx="30" cy="96" r="8" fill="#bfe6ff" ${st2}/>`
+      + `<path d="M130 128 V250 M142 128 V250 M130 150 H142 M130 172 H142 M130 194 H142 M130 216 H142 M130 238 H142" stroke="#9b6b43" stroke-width="3"/>`
+      + `<rect x="150" width="210" height="250" fill="#e6e0ff"/><rect x="150" y="226" width="210" height="24" fill="#d6c7f2"/>`
+      + `<rect x="180" y="96" width="150" height="130" rx="6" fill="none" stroke="#9b6b43" stroke-width="6"/><rect x="186" y="126" width="138" height="14" rx="6" fill="#7ec8ff" ${st2}/><rect x="186" y="196" width="138" height="14" rx="6" fill="#ff9ad5" ${st2}/><ellipse cx="206" cy="122" rx="14" ry="6" fill="#fff" ${st2}/><ellipse cx="206" cy="192" rx="14" ry="6" fill="#fff" ${st2}/><path d="M330 100 V226 M316 108 H330 M316 130 H330 M316 152 H330 M316 174 H330" stroke="#9b6b43" stroke-width="3"/>`
+      + `<path d="M190 60 a18 18 0 1 0 18 24 a14 14 0 1 1 -18 -24 Z" fill="#fff3a8" ${st2}/>`
+      + `<rect x="360" width="240" height="250" fill="#fff4d6"/><rect x="360" y="226" width="240" height="24" fill="#ffe0a8"/>${[0, 1, 2, 3, 4, 5].map(i => `<path d="M${380 + i * 38} 20 l8 14 h-16 Z" fill="${['#ff6b6b', '#ffd84d', '#6fcf7f', '#7ec8ff', '#b58cff', '#ff9ad5'][i]}"/>`).join('')}`
+      + `<path d="M385 226 V120 H410 V226 M385 140 H410 M385 165 H410 M385 190 H410" fill="none" stroke="#ff9a3c" stroke-width="4"/><path d="M410 120 H425 Q470 150 490 226" fill="none" stroke="${O}" stroke-width="12" stroke-linecap="round"/><path d="M410 120 H425 Q470 150 490 226" fill="none" stroke="#7ec8ff" stroke-width="7" stroke-linecap="round"/>`
+      + `<rect x="505" y="186" width="84" height="40" rx="8" fill="#fff" ${st}/>${Array.from({ length: 14 }, (_, i) => `<circle cx="${514 + (i % 7) * 11}" cy="${196 + Math.floor(i / 7) * 12 + (i % 2) * 3}" r="5.4" fill="${['#ff6b6b', '#ffd84d', '#6fcf7f', '#7ec8ff', '#b58cff', '#ff9ad5'][i % 6]}" ${st2}/>`).join('')}`
+      + `<rect x="0" y="244" width="600" height="12" fill="#c98f3a" ${st2}/>`
+      // bottom floor: garden with pool, kitchen with table, living room
+      + `<rect y="256" width="200" height="264" fill="#bfe6ff"/><rect y="440" width="200" height="80" fill="#8fd08a"/><ellipse cx="100" cy="470" rx="80" ry="22" fill="#7ec8ff" ${st}/><ellipse cx="100" cy="466" rx="64" ry="14" fill="#bfeaff" opacity=".8"/><path d="M60 466 q10 -6 20 0 t20 0 t20 0" fill="none" stroke="#fff" stroke-width="2"/>`
+      + [18, 40, 160, 184].map((x, i) => `<g><path d="M${x} 444 v-18" stroke="#4fbf73" stroke-width="3"/><circle cx="${x}" cy="424" r="7" fill="${['#ff9ad5', '#ffd84d', '#b58cff', '#ff6b6b'][i]}" ${st2}/></g>`).join('')
+      + `<rect x="200" y="256" width="200" height="264" fill="#fff0e6"/><rect x="200" y="470" width="200" height="50" fill="#f2d9b8"/>${Array.from({ length: 5 }, (_, i) => `<rect x="${200 + i * 40}" y="256" width="20" height="200" fill="#ffe6d6" opacity=".6"/>`).join('')}`
+      + `<rect x="220" y="300" width="42" height="110" rx="6" fill="#fff" ${st}/><path d="M220 340 H262" ${st2}/><rect x="238" y="310" width="4" height="18" fill="#9aa0ad"/>`
+      + `<rect x="270" y="436" width="116" height="10" rx="4" fill="#c98f3a" ${st}/><path d="M280 446 V470 M376 446 V470" stroke="#9b6b43" stroke-width="5"/><text x="328" y="296" font-size="15" text-anchor="middle" font-family="Rubik, sans-serif" fill="${O}">מטבח</text>`
+      + `<rect x="400" y="256" width="200" height="264" fill="#ffe9f3"/><rect x="400" y="470" width="200" height="50" fill="#f2d9b8"/><rect x="440" y="290" width="120" height="74" rx="8" fill="#3a3a4a" ${st}/><rect x="448" y="298" width="104" height="58" rx="4" fill="#5b6b9c" class="pz6-tv"/><path d="M490 364 L480 384 M510 364 L520 384" ${st2}/>`
+      + `<rect x="430" y="424" width="140" height="44" rx="14" fill="#7ec8ff" ${st}/><rect x="424" y="410" width="152" height="24" rx="12" fill="#9fd6ff" ${st}/><ellipse cx="500" cy="494" rx="70" ry="14" fill="#b58cff" opacity=".4"/>`
+      + `<path d="M150 0 V244 M360 0 V244 M200 256 V520 M400 256 V520" stroke="#fff" stroke-width="5" opacity=".75"/></svg>`;
   }
   function pz5Home() {
     clearInterval(pz5HomeTimer);
@@ -23797,84 +23975,152 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const ext = [...(typeof crzHorses !== 'undefined' ? crzHorses.list.map(o => ({ ext: 'horse', o, name: o.name, kind: 'horse', size: .9 })) : []),
       ...(typeof crzDragons !== 'undefined' ? crzDragons.list.map(o => ({ ext: 'dragon', o, name: o.name, kind: 'dino', size: .85 })) : [])].slice(0, 6);
     const list = [...allPets().slice(0, 14), ...ext];
-    let gx = 50;
-    const stage = el('div', { class: 'pz5-home' + (pz5Night ? ' night' : ''), html: pz5HomeBg() }), fx = el('div', { class: 'pz5-hfx' });
+    let area = pz5Night ? 'bunk' : 'living';
+    const stage = el('div', { class: 'pz5-home pz6-home' + (pz5Night ? ' night' : '') + (pz6Snow ? ' snow' : ''), html: pz5HomeBg() }), fx = el('div', { class: 'pz5-hfx' });
+    const decor = el('div', { class: 'pz6-decor' }), props = el('div', { class: 'pz6-props' });
+    const drawDecor = () => { decor.innerHTML = `<svg viewBox="0 0 600 520" preserveAspectRatio="none">${pz6Decor.map((d, i) => `<g data-i="${i}" class="pz6-dec">${pz6DecorSVG(d.t, d.x, d.y)}</g>`).join('')}</svg>`; };
+    drawDecor();
     const say = el('span', { class: 'pz-say' }, list.length > 1 ? `${list.length} חיות גרות פה ביחד, כמו משפחה אחת 💕` : 'כאן כל החיות גרות ביחד! אפשר לאמץ עוד 🥚');
-    const S = list.map((p, i) => ({ p, x: 36 + (i % 5) * 7 + (Math.floor(i / 5) % 2) * 3, y: 8 + Math.floor(i / 5) * 14, dir: 1, busy: 0, n: null, mood: pz5Night ? 'sleepy' : '' }));
-    const draw1 = s => { s.n.querySelector('.in').innerHTML = s.p.ext === 'horse' ? crzHorseSVG(s.p.o) : s.p.ext === 'dragon' ? crzDragonSVG(s.p.o) : petSVG(s.p, { mood: s.mood }); };
+    const S = list.map((p, i) => ({ p, x: 70 + (i % 5) * 5, y: 3 + Math.floor(i / 5) * 3, dir: 1, busy: 0, n: null, mood: pz5Night ? 'sleepy' : '', wear: null }));
+    const draw1 = s => { s.n.querySelector('.in').innerHTML = s.p.ext === 'horse' ? crzHorseSVG(s.p.o) : s.p.ext === 'dragon' ? crzDragonSVG(s.p.o) : petSVG(s.wear ? Object.assign({}, s.p, { wear: Object.assign({}, s.p.wear, s.wear) }) : s.p, { mood: s.mood }); };
     const place = (s, dur = 1.6) => {
       s.n.style.transition = `left ${dur}s ease-in-out, bottom ${dur}s ease-in-out`;
-      s.n.style.left = s.x + '%'; s.n.style.bottom = s.y + 'px'; s.n.style.zIndex = String(100 - Math.round(s.y));
+      s.n.style.left = s.x + '%'; s.n.style.bottom = s.y + '%'; s.n.style.zIndex = String(100 - Math.round(s.y % 50 * 2));
       s.n.querySelector('.in').style.transform = `scaleX(${s.dir})`;
     };
-    const moveTo = (s, x, y) => { x = Math.max(3, Math.min(95, x)); s.dir = x < s.x ? -1 : 1; s.x = x; s.y = Math.max(4, Math.min(60, y)); s.n.classList.add('walk'); place(s); setTimeout(() => s.n && s.n.classList.remove('walk'), 1600); };
+    const moveTo = (s, x, y) => { x = Math.max(3, Math.min(96, x)); s.dir = x < s.x ? -1 : 1; s.x = x; s.y = Math.max(1, Math.min(66, y)); s.n.classList.add('walk'); place(s); setTimeout(() => s.n && s.n.classList.remove('walk'), 1600); };
     const hop = s => { s.n.classList.remove('hop'); void s.n.offsetWidth; s.n.classList.add('hop'); };
-    const heart = (s, em = '💖') => { if (reduceMotion()) return; const h = el('span', { class: 'pz5-heart' }, em); h.style.left = s.x + '%'; h.style.bottom = (s.y + 70 * (s.p.size || 1)) + 'px'; fx.append(h); setTimeout(() => h.remove(), 1300); };
+    const heart = (s, em = '💖') => { if (reduceMotion()) return; const h = el('span', { class: 'pz5-heart' }, em); h.style.left = s.x + '%'; h.style.bottom = `calc(${s.y}% + ${Math.round(60 * (s.p.size || 1))}px)`; fx.append(h); setTimeout(() => h.remove(), 1300); };
+    const spot = (a, i, n) => { const A = PZ6_AREAS[a], t = n > 1 ? i / (n - 1) : .5; return [A.x[0] + (A.x[1] - A.x[0]) * t + (Math.random() - .5) * 2, A.y[0] + (i % 2) * (A.y[1] - A.y[0])]; };
+    const goArea = (a, keepBusy) => { area = a; S.forEach((s, i) => { if (keepBusy) s.busy = Date.now() + keepBusy; const [x, y] = spot(a, i, S.length); moveTo(s, x, y); }); };
     S.forEach(s => {
-      const w = Math.round(84 * (s.p.size || 1));
-      s.n = el('button', { type: 'button', class: 'pz5-hpet', 'aria-label': s.p.name || 'חיה', style: `--w:${w}px`, onclick: () => {
-        SFX.pet(s.p.kind); hop(s); heart(s);
-        const f = pz5FamOf(s.p), m = f && f.members.find(x => x.pid === s.p.id);
-        say.textContent = `${s.p.name || 'חיה'}: ${m && Math.random() < .5 ? `אני ה${pz5RoleName(m.role)} ב${f.name}! 🏡` : pzPick(PZ5_HOME_LINES)}`;
+      const w = Math.round((s.p.ext === 'horse' ? 74 : 60) * (s.p.size || 1));
+      s.n = el('button', { type: 'button', class: 'pz5-hpet', 'aria-label': s.p.name || 'חיה', style: `--w:${w}px`, onclick: e => {
+        if (pz6DecorTool) { stageClick(e); return; }
+        if (!s.p.ext) SFX.pet(s.p.kind); else tone(420, .12, 'triangle');
+        hop(s); heart(s);
+        const f = !s.p.ext && pz5FamOf(s.p), m = f && f.members.find(x => x.pid === s.p.id);
+        say.textContent = `${s.p.name || 'חיה'}: ${m && Math.random() < .4 ? `אני ה${pz5RoleName(m.role)} ב${f.name}! 🏡` : pzPick(PZ5_HOME_LINES)}`;
       } }, el('span', { class: 'in' }));
       draw1(s); place(s, 0); stage.append(s.n);
     });
-    stage.append(fx, say);
-    const famGroups = () => { const g = new Map(); S.forEach(s => { const f = pz5FamOf(s.p); const k = f ? f.id : 'solo' + s.p.id; if (!g.has(k)) g.set(k, []); g.get(k).push(s); }); return [...g.values()]; };
-    // wandering: pets walk around, family members stay close, sometimes two play together
+    stage.firstChild.after(decor); stage.append(props, fx, say);
+    setTimeout(() => { if (stage.isConnected) goArea(area); }, 60);
+    // always together: the whole group moves from room to room and wanders a little inside it
+    let tick = 0;
     pz5HomeTimer = setInterval(() => {
       if (!stage.isConnected || !$('#houseDlg').open) { clearInterval(pz5HomeTimer); return; }
-      if (pz5Night) return;
-      if (Math.random() < .08) gx = 30 + Math.random() * 40;
+      if (pz5Night || pz6DecorTool) return;
+      tick++;
       const free = S.filter(s => Date.now() > s.busy);
-      free.forEach(s => {
-        if (Math.random() > .35) return;
-        const f = pz5FamOf(s.p), mates = f ? S.filter(o => o !== s && f.members.some(m => m.pid === o.p.id)) : [];
-        if (mates.length && Math.random() < .45) { const o = pzPick(mates); moveTo(s, o.x + (Math.random() < .5 ? -7 : 7), o.y + 4 - Math.random() * 8); }
-        else moveTo(s, gx - 10 + Math.random() * 20, 6 + Math.random() * 28);
-      });
-      if (free.length > 1 && Math.random() < .25) {
-        const a = pzPick(free), b = pzPick(free.filter(x => x !== a)); if (!b) return;
-        a.busy = b.busy = Date.now() + 3200; moveTo(b, a.x + 8, a.y);
-        setTimeout(() => { if (!stage.isConnected) return; hop(a); setTimeout(() => hop(b), 200); heart(a, pzPick(['💖', '⚽', '✨'])); }, 1700);
-      }
+      if (free.length !== S.length) return;
+      if (tick % 6 === 0) { goArea(pzPick(Object.keys(PZ6_AREAS).filter(a => a !== area))); say.textContent = `כולם הולכים ביחד ל${PZ6_AREAS[area].n.slice(2).trim()} ${PZ6_AREAS[area].n.slice(0, 2)}`; return; }
+      free.forEach(s => { if (Math.random() < .3) { const A = PZ6_AREAS[area]; moveTo(s, A.x[0] + Math.random() * (A.x[1] - A.x[0]), A.y[0] + Math.random() * (A.y[1] - A.y[0])); } });
+      if (S.length > 1 && Math.random() < .3) { const a = pzPick(S), b = pzPick(S.filter(x => x !== a)); b.busy = a.busy = Date.now() + 2600; moveTo(b, a.x + 5, a.y); setTimeout(() => { if (!stage.isConnected) return; hop(a); setTimeout(() => hop(b), 200); heart(a, pzPick(['💖', '⚽', '✨', '🤗'])); }, 1700); }
     }, 1900);
     const all = fn => S.forEach((s, i) => fn(s, i));
-    const btn = (t, fn, main) => el('button', { type: 'button', class: 'btn' + (main ? ' main' : ''), onclick: fn }, t);
-    const eat = () => {
-      if (pz5Night) wake();
-      stage.classList.add('eating'); say.textContent = 'ארוחה משפחתית! 🍽️ כולם לשולחן!';
-      all((s, i) => { s.busy = Date.now() + 5000; moveTo(s, 31 + (i % 7) * 5, 6 + Math.floor(i / 7) * 16); });
-      setTimeout(() => { if (!stage.isConnected) return; SFX.munch(); all((s, i) => { setTimeout(() => { s.mood = 'happy'; draw1(s); hop(s); heart(s, '😋'); if (!s.p.ext && typeof feedPet === 'function') feedPet(s.p, { id: 'family', name: 'ארוחה משפחתית', art: '', yum: 3 }); }, i * 120); });
-        setTimeout(() => { all(s => { s.mood = ''; draw1(s); }); stage.classList.remove('eating'); say.textContent = 'יאמי! כולם שבעים ושמחים 💕'; }, 2600); }, 1700);
-    };
+    const pets = () => S.filter(s => !s.p.ext);
+    const prop = (html, cls, x, y, w) => { const n = el('span', { class: 'pz6-prop ' + (cls || ''), html }); n.style.left = x + '%'; n.style.bottom = y + '%'; if (w) n.style.width = w + 'px'; props.append(n); return n; };
+    const clearProps = () => props.replaceChildren();
+    const setMood = (m, ms = 2200) => { all(s => { s.mood = m; draw1(s); }); if (ms) setTimeout(() => all(s => { if (s.n.isConnected && s.mood === m) { s.mood = ''; draw1(s); } }), ms); };
+    const btn = (t, fn, main) => el('button', { type: 'button', class: 'btn' + (main ? ' main' : ''), onclick: () => { if (pz5Night && fn !== wake) wake(true); fn(); } }, t);
+    const picker = (items, onPick, title) => { pickRow.replaceChildren(el('span', { class: 'lbl' }, title), el('div', { class: 'foods pz6-pick' }, ...items.map(it => el('button', { type: 'button', title: it.name, 'aria-label': it.name, html: it.art, onclick: () => { pickRow.replaceChildren(); onPick(it); } })))); };
+    // ---- activities
+    const eat = () => picker(PZ6_FOODS, food => {
+      clearProps(); say.textContent = `ארוחה משפחתית ליד השולחן: ${food.name}! 🍽️`; goArea('kitchen', 5000);
+      prop(food.art, 'pz6-food', 50, 13, 44);
+      setTimeout(() => { if (!stage.isConnected) return; SFX.munch(); all((s, i) => setTimeout(() => { s.mood = 'happy'; draw1(s); hop(s); heart(s, '😋'); if (!s.p.ext && typeof feedPet === 'function') feedPet(s.p, food); }, i * 120));
+        setTimeout(() => { setMood(''); clearProps(); say.textContent = `יאמי! כולם שבעים ושמחים 💕`; }, 2600); }, 1700);
+    }, 'מה אוכלים היום?');
     const sleep = () => {
-      pz5Night = true; stage.classList.add('night'); say.textContent = 'לילה טוב לכולם... 💤';
-      const kids = S.filter(s => (s.p.size || 1) < .9), big = S.filter(s => (s.p.size || 1) >= .9);
-      [...big, ...kids].forEach((s, i) => { s.mood = 'sleepy'; draw1(s); moveTo(s, 76 + (i % 4) * 6 + (i >= 4 ? 3 : 0), 10 + Math.floor(i / 4) * 12); });
+      pz5Night = true; stage.classList.add('night'); clearProps(); say.textContent = 'לילה טוב לכולם... 💤';
+      all((s, i) => { s.mood = 'sleepy'; draw1(s); const bunk = i % 3; moveTo(s, bunk === 2 ? 8 + (i % 4) * 4 : 32 + (i % 5) * 5, bunk === 0 ? 55.6 : bunk === 1 ? 69 : 62); });
       setTimeout(() => { if (!stage.isConnected || !pz5Night) return; all(s => heart(s, '💤')); }, 1800);
       acts.replaceChildren(btn('🌞 בוקר טוב!', wake, true));
     };
-    const wake = () => { pz5Night = false; stage.classList.remove('night'); all(s => { s.mood = 'happy'; draw1(s); moveTo(s, gx - 10 + Math.random() * 20, 6 + Math.random() * 28); }); setTimeout(() => all(s => { s.mood = ''; if (s.n.isConnected) draw1(s); }), 1800); say.textContent = 'בוקר טוב! ☀️'; acts.replaceChildren(...buttons()); };
-    const play = () => {
-      if (pz5Night) wake();
-      say.textContent = 'משחקים ביחד בחצר! ⚽';
-      const ball = el('span', { class: 'pz5-ball', html: stickerHTML('ball') }); fx.append(ball);
-      all((s, i) => { s.busy = Date.now() + 6000; moveTo(s, 5 + (i % 4) * 6, 6 + Math.floor(i / 4) * 16); });
+    const wake = quiet => { pz5Night = false; stage.classList.remove('night'); setMood('happy', 1800); if (!quiet) goArea('kitchen'); say.textContent = 'בוקר טוב! ☀️'; acts.replaceChildren(...buttons()); };
+    const play = () => picker(PZ6_TOYS, toy => {
+      clearProps(); say.textContent = `משחקים ביחד עם ${toy.name} בחדר המשחקים! 🛝`; goArea('play', 7000);
       const t = localToday(); allPets().forEach(p => { p.played = p.played || {}; p.played[t] = (p.played[t] || 0) + 1; }); petzSave(); if (pet) savePet();
-      let k = 0; const step = () => { if (!stage.isConnected || k >= S.length * 2) { ball.remove(); say.textContent = 'איזה כיף לשחק ביחד! 🥳'; return; } const s = S[k % S.length]; ball.style.left = s.x + '%'; ball.style.bottom = (s.y + 60) + 'px'; hop(s); tone(500 + (k % 5) * 90, .08, 'triangle'); k++; setTimeout(step, 380); };
+      const ball = prop(toy.art, 'pz6-toy', 75, 70, 40);
+      let k = 0; const step = () => { if (!stage.isConnected || k >= S.length * 2) { ball.remove(); say.textContent = 'איזה כיף לשחק ביחד! 🥳'; return; } const s = S[k % S.length]; ball.style.left = s.x + '%'; ball.style.bottom = `calc(${s.y}% + 60px)`; hop(s); if (k % 3 === 2) { s.n.classList.add('slide'); setTimeout(() => s.n.classList.remove('slide'), 900); } tone(500 + (k % 5) * 90, .08, 'triangle'); k++; setTimeout(step, 420); };
       setTimeout(step, 1700);
-    };
+    }, 'באיזה צעצוע משחקים?');
     const hug = () => {
-      if (pz5Night) wake();
-      const groups = famGroups().sort((a, b) => b.length - a.length);
-      groups.forEach((g, gi) => { const cx = 12 + ((gi * 29) % 80), cy = 10 + (gi % 2) * 22; g.forEach((s, i) => { s.busy = Date.now() + 4000; moveTo(s, cx + (i - (g.length - 1) / 2) * 5, cy + (i % 2) * 6); }); });
-      setTimeout(() => { if (!stage.isConnected) return; all(s => { s.mood = 'happy'; draw1(s); heart(s, '🤗'); }); SFX.yay(); say.textContent = pz5Fam.length ? 'חיבוק משפחתי גדול! 🤗💞' : 'חיבוק לכולם! 🤗 (אפשר ליצור משפחות בלשונית 👨‍👩‍👧)'; setTimeout(() => all(s => { s.mood = ''; if (s.n.isConnected) draw1(s); }), 2200); }, 1700);
+      clearProps(); goArea('living', 4000);
+      setTimeout(() => { if (!stage.isConnected) return; all(s => { s.n.classList.add('cuddle'); heart(s, '🤗'); }); setMood('happy'); SFX.yay(); say.textContent = 'חיבוק משפחתי גדול! כולם מחזיקים ידיים 🤗💞'; setTimeout(() => all(s => s.n.classList.remove('cuddle')), 2400); }, 1700);
     };
+    const picnic = () => {
+      clearProps(); goArea('garden', 5000); say.textContent = 'פיקניק בגינה ליד הבריכה! 🧺';
+      prop(svg(`<ellipse cx="24" cy="30" rx="22" ry="9" fill="#ff6b6b" ${S}/><path d="M6 27 L42 33 M12 23 L36 37 M24 21 V39" stroke="#fff" stroke-width="2"/>`), 'pz6-blanket', 17, 5, 110);
+      prop(svg(`<path d="M10 22 H38 L34 40 H14 Z" fill="#e8b77a" ${S}/><path d="M16 22 Q24 8 32 22" fill="none" ${S}/><circle cx="20" cy="20" r="4" fill="#ff5a6e" ${S2}/>`), '', 26, 8, 44);
+      setTimeout(() => { if (!stage.isConnected) return; SFX.munch(); all((s, i) => setTimeout(() => { hop(s); heart(s, pzPick(['🍓', '🥪', '🧃', '🍉'])); if (!s.p.ext && typeof feedPet === 'function') feedPet(s.p, PZ6_FOODS[i % PZ6_FOODS.length]); }, i * 150)); setMood('happy'); }, 1800);
+    };
+    const dance = () => {
+      clearProps(); goArea('living', 6000); stage.classList.add('disco'); say.textContent = 'מסיבת ריקודים! 💃🕺';
+      [523, 659, 784, 659, 880, 784, 1047, 880].forEach((f, i) => tone(f, .18, 'triangle', i * .2, .07));
+      setTimeout(() => { if (!stage.isConnected) return; all((s, i) => setTimeout(() => s.n.classList.add('dance'), i * 100)); setMood('happy', 3200); for (let i = 0; i < 10; i++) setTimeout(() => stage.isConnected && heart(pzPick(S), pzPick(['🎵', '🎶', '✨', '💖'])), i * 250); }, 1500);
+      setTimeout(() => { stage.classList.remove('disco'); all(s => s.n.classList.remove('dance')); }, 5200);
+    };
+    const bath = () => {
+      clearProps(); goArea('garden', 6000); say.textContent = 'זמן אמבטיה לכולם בבריכה! 🛁🫧';
+      setTimeout(() => { if (!stage.isConnected) return; for (let i = 0; i < 14; i++) prop('', 'pz6-bubble', 8 + Math.random() * 24, 2 + Math.random() * 10, 10 + Math.random() * 14);
+        all((s, i) => setTimeout(() => { hop(s); heart(s, '🫧'); }, i * 120)); tone(900, .06, 'sine'); tone(1100, .06, 'sine', .1);
+        const t = localToday(); pets().forEach(s => { s.p.bathAt = t; }); petzSave();
+        setTimeout(() => { clearProps(); setMood('happy'); all(s => heart(s, '✨')); say.textContent = 'כולם נקיים וריחניים! ✨'; }, 2400); }, 1700);
+    };
+    const movie = () => {
+      clearProps(); goArea('living', 7000); stage.classList.add('movie'); say.textContent = 'ערב סרט! 🍿 כולם על הספה';
+      prop(svg(`<path d="M12 18 H36 L32 42 H16 Z" fill="#fff" ${S}/><path d="M16 18 L18 42 M24 18 V42 M32 18 L30 42" stroke="#ff5a6e" stroke-width="3"/>${[[16, 14], [22, 10], [28, 12], [34, 15], [20, 17], [30, 17]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4" fill="#fff6c4" ${S2}/>`).join('')}`), '', 66, 5, 40);
+      setTimeout(() => { stage.classList.remove('movie'); clearProps(); say.textContent = 'איזה סרט יפה! 🎬💖'; setMood('happy'); }, 6500);
+    };
+    const birthday = () => {
+      const ps = pets(); if (!ps.length) return;
+      pickRow.replaceChildren(el('span', { class: 'lbl' }, 'למי יש יום הולדת?'), el('div', { class: 'pz6-bdpick' }, ...ps.map(s => el('button', { type: 'button', html: petSVG(Object.assign({}, s.p, { size: 1 })), title: s.p.name, onclick: () => { pickRow.replaceChildren(); party(s); } }))));
+      const party = bs => {
+        clearProps(); goArea('kitchen', 7000); say.textContent = `יום הולדת שמח ל${bs.p.name || 'חיה'}! 🎂🎉`;
+        all(s => { s.wear = { head: 'partyhat' }; draw1(s); });
+        prop(PZ6_FOODS.find(f => f.id === 'cake').art, 'pz6-food', 50, 13, 58);
+        setTimeout(() => { if (!stage.isConnected) return; if (SFX.birthday) SFX.birthday(); confetti($('#houseDlg .confetti-c')); bs.n.classList.add('dance'); hop(bs); all(s => heart(s, '🎉'));
+          if (typeof feedPet === 'function') feedPet(bs.p, PZ6_FOODS.find(f => f.id === 'cake')); }, 1700);
+        setTimeout(() => { all(s => { s.wear = null; draw1(s); }); bs.n.classList.remove('dance'); clearProps(); }, 7500);
+      };
+    };
+    const story = () => {
+      pz5Night = true; stage.classList.add('night'); clearProps(); goArea('bunk', 99999);
+      all(s => { s.mood = 'sleepy'; draw1(s); });
+      const lines = ['פעם, בבית קטן ומלא אהבה...', 'גרו חיות שתמיד היו ביחד 💕', 'יום אחד הן מצאו כוכב קטן שנפל מהשמיים ⭐', 'הן החזירו אותו הביתה, לשמיים...', 'והכוכב אמר: תודה, חברים! ✨', 'ומאז, בכל לילה הוא מנצנץ רק בשבילן. לילה טוב 🌙'];
+      prop(stickerHTML('book'), '', 52, 57, 40);
+      lines.forEach((l, i) => setTimeout(() => { if (stage.isConnected && pz5Night) say.textContent = `📖 ${l}`; }, i * 2200));
+      setTimeout(() => { if (stage.isConnected && pz5Night) all(s => heart(s, '💤')); }, lines.length * 2200);
+      acts.replaceChildren(btn('🌞 בוקר טוב!', wake, true));
+    };
+    const snow = () => {
+      pz6Snow = !pz6Snow; stage.classList.toggle('snow', pz6Snow); clearProps();
+      if (pz6Snow) { goArea('garden', 5000); say.textContent = 'יום שלג! ☃️❄️'; prop(stickerHTML('snowman'), '', 40, 4, 58); setTimeout(() => stage.isConnected && all(s => { hop(s); heart(s, '❄️'); }), 1700); }
+      else say.textContent = 'השלג נמס... ☀️';
+    };
+    // ---- decorating the home
+    const stageClick = e => {
+      if (!pz6DecorTool) return;
+      const r = stage.getBoundingClientRect(), x = Math.round((e.clientX - r.left) / r.width * 600), y = Math.round((e.clientY - r.top) / r.height * 520);
+      if (pz6DecorTool === 'erase') { let best = -1, bd = 1e9; pz6Decor.forEach((d, i) => { const dd = Math.hypot(d.x - x, d.y - y); if (dd < bd) { bd = dd; best = i; } }); if (best >= 0 && bd < 50) { pz6Decor.splice(best, 1); store.set('pz6Decor', pz6Decor); SFX.boop(); drawDecor(); } return; }
+      if (pz6Decor.length >= 60) return;
+      pz6Decor.push({ t: pz6DecorTool, x, y }); store.set('pz6Decor', pz6Decor); tone(900 + Math.random() * 300, .08, 'sine'); drawDecor();
+    };
+    stage.addEventListener('click', e => { if (pz6DecorTool && !e.target.closest('.pz5-hpet')) stageClick(e); });
+    const decoBar = el('div', { class: 'pz6-decobar' });
+    const drawDeco = () => decoBar.replaceChildren(...(pz6DecorTool ? [el('span', { class: 'lbl' }, '👆 בוחרים קישוט ולוחצים בבית כדי לשים אותו'),
+      el('div', { class: 'pz-opts pz6-decopts' }, ...PZ6_DECOR.map(([id, n]) => el('button', { type: 'button', 'aria-pressed': String(pz6DecorTool === id), onclick: () => { pz6DecorTool = id; drawDeco(); } },
+        el('span', { class: 'ic', html: id === 'erase' ? '<span style="font-size:1.8em">🧽</span>' : `<svg viewBox="-40 -50 80 60">${pz6DecorSVG(id, 0, 0)}</svg>` }), n))),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { pz6DecorTool = null; stage.classList.remove('decorating'); drawDeco(); } }, '✔️ סיימתי לקשט'))] : []));
+    const pickRow = el('div', { class: 'row pz6-pickrow' });
     const buttons = () => [btn('🍽️ כולם לאכול', eat, true), btn('💤 כולם לישון', sleep), btn('⚽ לשחק ביחד', play), btn('🤗 חיבוק משפחתי', hug),
+      btn('🧺 פיקניק', picnic), btn('💃 מסיבת ריקודים', dance), btn('🛁 אמבטיה לכולם', bath), btn('🎬 ערב סרט', movie), btn('🎂 יום הולדת', birthday), btn('📖 סיפור לפני השינה', story), btn('☃️ יום שלג', snow),
+      btn('🛋️ לקשט את הבית', () => { pz6DecorTool = 'plant'; stage.classList.add('decorating'); drawDeco(); }),
       btn('🥚 לאמץ עוד חיה', () => { $('#houseDlg').close(); openAdopt(); }), btn('✨ להמציא חיה', () => pz5OpenBuilder())];
-    const acts = el('div', { class: 'chips' }, ...(pz5Night ? [btn('🌞 בוקר טוב!', wake, true)] : buttons()));
-    return el('div', { class: 'row' }, stage, acts);
+    const acts = el('div', { class: 'chips pz6-acts' }, ...(pz5Night ? [btn('🌞 בוקר טוב!', wake, true)] : buttons()));
+    return el('div', { class: 'row' }, stage, pickRow, decoBar, acts);
   }
   // ---------- the corner widget: the active pet with its family (or friends) next to it ----------
   const pz5RenderPet0 = renderPet;
@@ -25155,6 +25401,147 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     add('love', { dancer: ['לרקוד בלט וגם היפ הופ 🩰', 'להמציא ריקודים עם חברות 💃👯'], baker: ['לאפות עוגיות ועוגות 🧁', 'לקשט קאפקייקס בסוכריות 🍭'], explorer: ['לחפש אוצרות ולטפס על עצים 🌳', 'לגלות מקומות חדשים 🗺️'], singer: ['לשיר ולנגן בגיטרה 🎸', 'להופיע על במה 🎤✨'], friendly: ['לעשות מסיבות פיג\'מות 🌙'], smart: ['לפתור חידות 🧩'] });
     add('other', { dancer: ['💃✨', 'איזה קצב! 🎶', 'וואו! 🩰'], baker: ['יאמי! 😋', 'מתוק! 🍬', 'איזה כיף 🧁'], explorer: ['מעניין! 🔍', 'וואו, הרפתקה! 🧭', 'ספרי עוד! 🗺️'], singer: ['🎶🎶', 'לה לה לה 🎵', 'את מוזיקה לאוזניים שלי 🎤'], friendly: ['איזה יופי! 🌸'], funny: ['חחח את הכי 🤣'] });
   } catch (e) { console.warn('fashion6 chat', e); }
+  // ================= pets6: more of everything for the pets and creatures (pets agent, round 6) =================
+  var pz6Ready = false;
+  const pz6Pick = a => a[Math.floor(Math.random() * a.length)];
+  // ---------- 🍎 foods (16) and 🧸 toys (12), drawn small (48×48) ----------
+  const PZ6_FOODS = [
+    ['bone', 'עצם', 2, `<path d="M12 20 a4 4 0 1 1 4 -6 L32 14 a4 4 0 1 1 4 6 a4 4 0 1 1 -4 6 L16 26 a4 4 0 1 1 -4 -6 Z" fill="#fff6e6" ${S}/>`],
+    ['fish', 'דגיג', 3, `<path d="M8 24 Q20 12 32 24 Q20 36 8 24 Z" fill="#7ec8ff" ${S}/><path d="M31 24 L41 17 L41 31 Z" fill="#7ec8ff" ${S}/><circle cx="14" cy="22" r="1.6" fill="${O}"/>`],
+    ['carrot', 'גזר', 2, `<path d="M14 40 L34 16 Q38 18 36 22 Z" fill="#ff9a3c" ${S}/><path d="M34 16 Q36 8 42 8 M34 16 Q40 14 44 16" fill="none" stroke="#4fbf73" stroke-width="3" stroke-linecap="round"/>`],
+    ['cheese', 'גבינה', 2, `<path d="M6 32 L40 18 L42 34 Z" fill="#ffd84d" ${S}/><circle cx="22" cy="29" r="2.4" fill="#ffb020"/><circle cx="34" cy="28" r="1.8" fill="#ffb020"/>`],
+    ['honey', 'צנצנת דבש', 3, `<rect x="12" y="16" width="24" height="24" rx="6" fill="#ffb020" ${S}/><rect x="10" y="10" width="28" height="8" rx="3" fill="#c98f3a" ${S}/><path d="M16 20 q4 6 0 10" stroke="#ffe27a" stroke-width="2.4" fill="none"/>`],
+    ['banana', 'בננה', 2, `<path d="M10 14 Q14 38 38 34 Q40 30 36 30 Q18 30 16 12 Z" fill="#ffe066" ${S}/><path d="M10 14 l-2 -3" ${S}/>`],
+    ['berries', 'פירות יער', 2, `${[[18, 26, '#b58cff'], [28, 24, '#5a6be0'], [23, 33, '#ff5a8a'], [31, 33, '#b58cff']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="6" fill="${c}" ${S2}/>`).join('')}<path d="M22 18 q3 -6 8 -6" stroke="#4fbf73" stroke-width="2.4" fill="none"/>`],
+    ['pancake', 'פנקייק', 3, `<ellipse cx="24" cy="34" rx="16" ry="5" fill="#f2b56b" ${S}/><ellipse cx="24" cy="28" rx="16" ry="5" fill="#f2b56b" ${S}/><ellipse cx="24" cy="22" rx="16" ry="5" fill="#f5c27a" ${S}/><path d="M18 20 q6 4 12 0" stroke="#c98f3a" stroke-width="3" fill="none"/><rect x="21" y="14" width="6" height="5" rx="1" fill="#fff6c4" ${S2}/>`],
+    ['sushi', 'סושי', 2, `<ellipse cx="24" cy="30" rx="15" ry="9" fill="#fff" ${S}/><path d="M11 28 Q24 18 37 28 Q24 32 11 28 Z" fill="#ff8a6b" ${S2}/><rect x="20" y="30" width="8" height="9" fill="#2e4a3a"/>`],
+    ['popsicle', 'ארטיק', 3, `<rect x="16" y="6" width="16" height="26" rx="8" fill="#ff9ad5" ${S}/><path d="M16 18 H32" stroke="#fff" stroke-width="3"/><rect x="22" y="31" width="4" height="12" rx="2" fill="#e8b77a" ${S2}/>`],
+    ['milk', 'בקבוק חלב', 2, `<rect x="16" y="14" width="16" height="28" rx="6" fill="#fff" ${S}/><rect x="19" y="6" width="10" height="9" rx="3" fill="#ff9ad5" ${S2}/><path d="M16 30 H32" stroke="#7ec8ff" stroke-width="2"/>`],
+    ['seeds', 'גרעינים', 1, `<ellipse cx="24" cy="32" rx="16" ry="8" fill="#c98f3a" ${S}/>${[[16, 28], [22, 26], [28, 27], [32, 31], [20, 32], [26, 32]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="2.4" ry="1.4" fill="#fff6e6" ${S2}/>`).join('')}`],
+    ['lettuce', 'חסה', 1, `${pzShape(24, 26, 14, 12, `fill="#9be37a" ${S}`, 1.2)}<path d="M24 16 V36 M18 22 L24 28 M30 22 L24 28" fill="none" stroke="#4fbf73" stroke-width="1.8"/>`],
+    ['cherry', 'דובדבנים', 2, `<path d="M18 30 Q22 14 30 10 Q28 18 30 30" fill="none" stroke="#4fbf73" stroke-width="2.4"/><circle cx="17" cy="33" r="7" fill="#e8304f" ${S}/><circle cx="31" cy="33" r="7" fill="#e8304f" ${S}/>${shine(13, 31)}`],
+    ['cake', 'עוגת יום הולדת', 3, `<rect x="8" y="24" width="32" height="16" rx="3" fill="#ffc2e0" ${S}/><path d="M8 28 q4 4 8 0 t8 0 t8 0 t8 0" fill="#fff" ${S2}/><rect x="22" y="12" width="4" height="12" fill="#7ec8ff" ${S2}/><path d="M24 6 q3 3 0 6 q-3 -3 0 -6 Z" fill="#ffb020"/>`],
+    ['cocoa', 'שוקו חם', 3, `<path d="M10 16 H34 V34 A6 6 0 0 1 28 40 H16 A6 6 0 0 1 10 34 Z" fill="#fff" ${S}/><ellipse cx="22" cy="16" rx="12" ry="3" fill="#8a5a3c" ${S2}/><path d="M34 21 H38 A5 5 0 0 1 38 31 H34" fill="none" ${S}/><circle cx="18" cy="15" r="2.4" fill="#fff"/><circle cx="25" cy="14" r="2.2" fill="#ffd1ec"/>`],
+  ].map(([id, n, yum, art]) => ({ id, name: n, yum, art: svg(art) }));
+  const PZ6_TOYS = [
+    ['ball', 'כדור', stickerHTML('ball')], ['frisbee', 'פריזבי', svg(`<ellipse cx="24" cy="26" rx="18" ry="8" fill="#ff5a8a" ${S}/><ellipse cx="24" cy="24" rx="10" ry="3.6" fill="#ff9ad5"/>`)],
+    ['yarn', 'כדור צמר', svg(`<circle cx="24" cy="26" r="15" fill="#b58cff" ${S}/><path d="M12 20 Q24 30 36 18 M10 28 Q24 36 38 26 M16 14 Q20 26 30 38" fill="none" stroke="#e6d2ff" stroke-width="2"/><path d="M36 34 q6 4 8 10" fill="none" stroke="#b58cff" stroke-width="2.4"/>`)],
+    ['duck', 'ברווז גומי', svg(`<ellipse cx="24" cy="32" rx="16" ry="10" fill="#ffe066" ${S}/><circle cx="18" cy="18" r="9" fill="#ffe066" ${S}/><path d="M8 18 L12 16 L12 21 Z" fill="#ff9a3c" ${S2}/><circle cx="16" cy="16" r="1.6" fill="${O}"/>`)],
+    ['teddy', 'דובי', stickerHTML('bear')], ['kite', 'עפיפון', stickerHTML('kite')],
+    ['blocks', 'קוביות', svg(`<rect x="6" y="26" width="16" height="16" rx="2" fill="#ff6b6b" ${S}/><rect x="24" y="26" width="16" height="16" rx="2" fill="#7ec8ff" ${S}/><rect x="15" y="10" width="16" height="16" rx="2" fill="#ffd84d" ${S}/><path d="M11 30 v8 M27 30 l6 8 M33 30 l-6 8 M20 14 h6 M23 14 v8" stroke="#fff" stroke-width="2"/>`)],
+    ['bubbles', 'בועות סבון', svg(`<circle cx="18" cy="18" r="9" fill="#e6f7ff" stroke="#7ec8ff" stroke-width="2"/><circle cx="32" cy="28" r="7" fill="#e6f7ff" stroke="#7ec8ff" stroke-width="2"/><circle cx="20" cy="36" r="5" fill="#e6f7ff" stroke="#7ec8ff" stroke-width="2"/>${shine(13, 16)}`)],
+    ['squeaky', 'עצם מצפצפת', svg(`<path d="M12 20 a4 4 0 1 1 4 -6 L32 14 a4 4 0 1 1 4 6 a4 4 0 1 1 -4 6 L16 26 a4 4 0 1 1 -4 -6 Z" fill="#ff9ad5" ${S}/><path d="M20 20 h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>`)],
+    ['top', 'סביבון', stickerHTML('dreidel')], ['balloon', 'בלון', stickerHTML('balloon')],
+    ['rope', 'חבל קפיצה', svg(`<path d="M10 14 Q24 50 38 14" fill="none" stroke="#ff9a3c" stroke-width="3"/><rect x="6" y="6" width="8" height="12" rx="3" fill="#7ec8ff" ${S2}/><rect x="34" y="6" width="8" height="12" rx="3" fill="#7ec8ff" ${S2}/>`)],
+  ].map(([id, name, art]) => ({ id, name, art }));
+  // ---------- 👕 15+ more pet clothes (drawn through the crzClothes hook) ----------
+  CRZ_CLOTHES.push(
+    ['overalls', 'אוברול', 'body', 0, ['#7ec8ff', '#ffd84d']], ['leotard', 'בגד בלט', 'body', 0, ['#ffc2e0', '#ffffff']], ['kimono', 'קימונו', 'body', 12, ['#ff9ad5', '#b58cff']],
+    ['hero', 'חליפת גיבורת-על', 'body', 20, ['#7ec8ff', '#ffd84d']], ['sailor', 'שמלת מלחים', 'body', 0, ['#ffffff', '#3d4a8a']], ['wintercoat', 'מעיל חורף', 'body', 0, ['#ff6b6b', '#ffffff']],
+    ['strawberry', 'תחפושת תות', 'body', 18, ['#ff5a6e', '#6fcf7f']], ['bunnysuit', 'תחפושת ארנב', 'body', 18, ['#ffffff', '#ffc2d6']], ['mermaid', 'תחפושת בת ים', 'body', 25, ['#8fe6d0', '#b58cff']],
+    ['headphones', 'אוזניות', 'head', 0, ['#b58cff', '#ffffff']], ['chefhat', 'כובע שף', 'head', 0, ['#ffffff', '#ff5a8a']], ['bunnyband', 'קשת אוזני ארנב', 'head', 0, ['#ffc2d6', '#ffffff']], ['gradcap', 'כובע סיום', 'head', 10, ['#3a3a4a', '#ffd84d']],
+    ['medal', 'מדליה', 'neck', 0, ['#ffd84d', '#ff5a8a']], ['bell', 'קולר פעמון', 'neck', 0, ['#ff5a8a', '#ffe27a']], ['lei', 'שרשרת פרחים', 'neck', 0, ['#ff9ad5', '#ffd84d']],
+    ['rainboots', 'מגפי גשם', 'feet', 0, ['#ffd84d', '#ff9a3c']], ['ballet', 'נעלי בלט', 'feet', 0, ['#ffc2e0', '#ff5a8a']], ['backpack', 'תיק גב', 'back', 0, ['#ff9a3c', '#ffd84d']]);
+  function pz6Cloth(id, c, c2, k) {
+    const { B, H, nk, hx, hy, std, st, top, hem, sleeves, torso } = k;
+    const r = { back: '', main: '', top: '' };
+    const band = (y, h, col) => `<rect x="${B[0] - B[2] - 2}" y="${pzF(y)}" width="${B[2] * 2 + 4}" height="${h}" fill="${col}"/>`;
+    const clipB = s => `<g clip-path="url(#${k.u}b)">${s}</g>`;
+    switch (id) {
+      case 'overalls': r.main = torso(c, hem) .replace(`y="${top}"`, `y="${pzF(B[1] - 1)}"`).replace(/height="[^"]+"/, `height="${pzF(hem - B[1] + 1)}"`) + `<path d="M${B[0] - 3.6} ${pzF(B[1] - 1)} L${B[0] - 4.6} ${pzF(top + 1)} M${B[0] + 3.6} ${pzF(B[1] - 1)} L${B[0] + 4.6} ${pzF(top + 1)}" stroke="${c}" stroke-width="1.8" stroke-linecap="round"/><circle cx="${B[0] - 3.6}" cy="${pzF(B[1] - .6)}" r=".9" fill="${c2}" ${st}/><circle cx="${B[0] + 3.6}" cy="${pzF(B[1] - .6)}" r=".9" fill="${c2}" ${st}/><rect x="${B[0] - 2.4}" y="${pzF(B[1] + 1)}" width="4.8" height="3" rx="1" fill="${pzMix(c, O, .12)}"/>`; break;
+      case 'leotard': r.main = torso(c) + clipB([[-3, -1], [3, 1], [0, 4]].map(([x, y]) => pzSpark(B[0] + x, B[1] + y, 1.1, c2)).join('')) + sleeves(c); break;
+      case 'kimono': r.main = torso(c, hem + 1) + `<path d="M${B[0] - 4} ${pzF(top + 1)} L${B[0]} ${pzF(B[1] - 1)} L${B[0] + 4} ${pzF(top + 1)}" fill="none" stroke="${c2}" stroke-width="1.6"/>` + clipB(band(B[1] + 1, 2.8, c2)) + sleeves(c); break;
+      case 'hero': r.main = torso(c) + `<polygon points="${starPts(B[0], B[1] - 1.4, 3, 1.3)}" fill="${c2}" ${st}/>` + sleeves(c) + clipB(band(hem - 2, 2, c2)); r.back = `<path d="M${nk[0] - 8} ${nk[1]} L${nk[0] + 8} ${nk[1]} L${nk[0] + 13} ${pzF(B[1] + B[3] + 1)} Q${nk[0]} ${pzF(B[1] + B[3] + 3)} ${nk[0] - 13} ${pzF(B[1] + B[3] + 1)} Z" fill="${c2}" ${st}/>`; break;
+      case 'sailor': r.main = torso(c) + `<path d="M${B[0] - 6} ${pzF(top + .6)} L${B[0]} ${pzF(B[1])} L${B[0] + 6} ${pzF(top + .6)} Z" fill="${c2}" ${st}/><path d="M${B[0]} ${pzF(B[1])} l-2 2 h4 Z" fill="#ff5a6e" ${st}/>` + sleeves(c) + clipB(band(hem - 1.6, 1.4, c2)); break;
+      case 'wintercoat': r.main = torso(c, hem + 1) + sleeves(c) + clipB(`${band(hem - 1, 2.6, c2)}`) + `<ellipse cx="${nk[0]}" cy="${nk[1] + 1}" rx="7" ry="2" fill="${c2}" ${st}/>` + [0, 1].map(i => `<circle cx="${B[0]}" cy="${pzF(top + 4 + i * 3)}" r=".9" fill="${pzMix(c, O, .4)}"/>`).join(''); break;
+      case 'strawberry': r.main = torso(c, B[1] + B[3] + 1) + clipB([[-4, -2], [3, -3], [-1, 1], [4, 2], [-3, 4], [1, 5]].map(([x, y]) => `<ellipse cx="${B[0] + x}" cy="${B[1] + y}" rx=".6" ry=".9" fill="#ffe79a"/>`).join('')) + sleeves(c); r.top = `<path d="M${hx - 6} ${hy + 2} L${hx - 3} ${hy - 1.6} L${hx} ${hy + 1.4} L${hx + 3} ${hy - 1.6} L${hx + 6} ${hy + 2} L${hx} ${hy + 3.4} Z" fill="${c2}" ${st}/>`; break;
+      case 'bunnysuit': r.main = torso(c, B[1] + B[3] + 1) + clipB(`<ellipse cx="${B[0]}" cy="${pzF(B[1] + 1.6)}" rx="${pzF(B[2] * .5)}" ry="${pzF(B[3] * .6)}" fill="${c2}"/>`) + sleeves(c); if (std) r.back = `<ellipse cx="${H[0]}" cy="${H[1] + 1}" rx="${H[2] + 2.4}" ry="${H[3] + 2.2}" fill="${c}" ${st}/>` + [-1, 1].map(s => `<ellipse cx="${H[0] + s * 6}" cy="${pzF(H[1] - H[3] - 7)}" rx="3.6" ry="9" transform="rotate(${s * 10} ${H[0] + s * 6} ${pzF(H[1] - H[3] - 7)})" fill="${c}" ${st}/><ellipse cx="${H[0] + s * 6}" cy="${pzF(H[1] - H[3] - 6)}" rx="1.6" ry="6" transform="rotate(${s * 10} ${H[0] + s * 6} ${pzF(H[1] - H[3] - 6)})" fill="${c2}"/>`).join(''); break;
+      case 'mermaid': r.main = clipB(`<rect x="${B[0] - B[2] - 2}" y="${pzF(B[1] - 1)}" width="${B[2] * 2 + 4}" height="${pzF(B[3] + 3)}" fill="${c}"/>` + [0, 1, 2].map(j => [-2, -1, 0, 1, 2].map(i => `<path d="M${pzF(B[0] + i * 3.4 - 1.6 + (j % 2) * 1.7)} ${pzF(B[1] + 1 + j * 2.6)} q1.7 1.8 3.4 0" fill="none" stroke="${pzMix(c, O, .25)}" stroke-width=".7"/>`).join('')).join('')) + `<path d="M${B[0]} ${pzF(B[1] + B[3] - 1)} Q${B[0] - 7} ${pzF(B[1] + B[3] + 5)} ${B[0] - 11} ${pzF(B[1] + B[3] + 2)} Q${B[0] - 5} ${pzF(B[1] + B[3] - 2)} ${B[0]} ${pzF(B[1] + B[3] - 4)} Q${B[0] + 5} ${pzF(B[1] + B[3] - 2)} ${B[0] + 11} ${pzF(B[1] + B[3] + 2)} Q${B[0] + 7} ${pzF(B[1] + B[3] + 5)} ${B[0]} ${pzF(B[1] + B[3] - 1)} Z" fill="${c2}" ${st}/>`; break;
+      case 'headphones': r.main = `<path d="M${hx - 12} ${hy + 12} Q${hx - 12} ${hy - 3} ${hx} ${hy - 3} Q${hx + 12} ${hy - 3} ${hx + 12} ${hy + 12}" fill="none" stroke="${O}" stroke-width="3.4"/><path d="M${hx - 12} ${hy + 12} Q${hx - 12} ${hy - 3} ${hx} ${hy - 3} Q${hx + 12} ${hy - 3} ${hx + 12} ${hy + 12}" fill="none" stroke="${c}" stroke-width="1.8"/>` + [-1, 1].map(s => `<rect x="${hx + s * 13 - 2.6}" y="${hy + 9}" width="5.2" height="7" rx="2.4" fill="${c2}" ${st}/>`).join(''); break;
+      case 'chefhat': r.main = `<rect x="${hx - 6}" y="${hy - 1}" width="12" height="4.4" fill="${c}" ${st}/>` + pzShape(hx, hy - 5, 8.4, 5, `fill="${c}" ${st}`, 1.3) + `<path d="M${hx - 5} ${hy + 1} h10" stroke="${c2}" stroke-width="1.2"/>`; break;
+      case 'bunnyband': r.main = `<path d="M${hx - 11} ${hy + 6} Q${hx} ${hy - 3} ${hx + 11} ${hy + 6}" fill="none" stroke="${O}" stroke-width="2.6"/><path d="M${hx - 11} ${hy + 6} Q${hx} ${hy - 3} ${hx + 11} ${hy + 6}" fill="none" stroke="${c}" stroke-width="1.2"/>` + [-1, 1].map(s => `<ellipse cx="${hx + s * 4}" cy="${hy - 6}" rx="2.6" ry="7" transform="rotate(${s * 12} ${hx + s * 4} ${hy - 6})" fill="${c}" ${st}/><ellipse cx="${hx + s * 4}" cy="${hy - 5.4}" rx="1.1" ry="4.6" transform="rotate(${s * 12} ${hx + s * 4} ${hy - 5.4})" fill="${c2 === c ? '#ffc2d6' : '#ff9ab8'}"/>`).join(''); break;
+      case 'gradcap': r.main = `<path d="M${hx - 6} ${hy + 2} Q${hx} ${hy - 2} ${hx + 6} ${hy + 2} V${hy + 4} H${hx - 6} Z" fill="${c}" ${st}/><path d="M${hx} ${hy - 5} L${hx + 11} ${hy - 1} L${hx} ${hy + 3} L${hx - 11} ${hy - 1} Z" fill="${c}" ${st}/><path d="M${hx} ${hy - 1} L${hx + 8} ${hy + 1} V${hy + 7}" fill="none" stroke="${c2}" stroke-width="1.2"/><circle cx="${hx + 8}" cy="${hy + 7.4}" r="1.2" fill="${c2}"/>`; break;
+      case 'medal': r.main = `<path d="M${nk[0] - 5} ${nk[1] - 1} L${nk[0]} ${nk[1] + 5} L${nk[0] + 5} ${nk[1] - 1}" fill="none" stroke="${c2}" stroke-width="2.2"/><circle cx="${nk[0]}" cy="${nk[1] + 7}" r="3" fill="${c}" ${st}/><polygon points="${starPts(nk[0], nk[1] + 7, 1.8, .8)}" fill="#fff6c4"/>`; break;
+      case 'bell': r.main = `<path d="M${nk[0] - 7.6} ${nk[1] - 1} Q${nk[0]} ${nk[1] + 2.4} ${nk[0] + 7.6} ${nk[1] - 1} L${nk[0] + 7.6} ${nk[1] + 1} Q${nk[0]} ${nk[1] + 4.4} ${nk[0] - 7.6} ${nk[1] + 1} Z" fill="${c}" ${st}/><circle cx="${nk[0]}" cy="${nk[1] + 4.4}" r="2.3" fill="${c2}" ${st}/><path d="M${nk[0] - 1.4} ${nk[1] + 4.6} h2.8" stroke="${O}" stroke-width=".7"/>`; break;
+      case 'lei': r.main = Array.from({ length: 8 }, (_, i) => { const t = i / 7, x = nk[0] - 7.4 + t * 14.8, y = nk[1] + Math.sin(t * Math.PI) * 3.6; return `<circle cx="${pzF(x)}" cy="${pzF(y)}" r="1.9" fill="${i % 2 ? c : pzLight(c, .4)}" ${st}/><circle cx="${pzF(x)}" cy="${pzF(y)}" r=".6" fill="${c2}"/>`; }).join(''); break;
+      case 'rainboots': if (std) r.main = pzBoth(`<path d="M14.4 42.4 h8 v4.6 q0 2 -2 2 h-4 q-2 0 -2 -2 Z" fill="${c}" ${st}/><path d="M14.4 43.4 h8" stroke="${c2}" stroke-width="1.4"/>`); break;
+      case 'ballet': if (std) r.main = pzBoth(`<path d="M14.4 45.4 q4 -2.6 8 0 v1.4 q0 1.8 -1.8 1.8 h-4.4 q-1.8 0 -1.8 -1.8 Z" fill="${c}" ${st}/><path d="M15 45 l3 -3 M21.8 45 l-3 -3" stroke="${c2}" stroke-width=".9"/>`); break;
+      case 'backpack': r.back = [-1, 1].map(s => `<rect x="${pzF(B[0] + s * (B[2] - 1) - 3)}" y="${pzF(B[1] - 5)}" width="6" height="9" rx="2.4" fill="${c}" ${st}/>`).join(''); r.main = `<path d="M${pzF(B[0] - B[2] * .55)} ${pzF(top + .4)} L${pzF(B[0] - B[2] * .62)} ${pzF(B[1] + 2)} M${pzF(B[0] + B[2] * .55)} ${pzF(top + .4)} L${pzF(B[0] + B[2] * .62)} ${pzF(B[1] + 2)}" stroke="${c2}" stroke-width="1.8" stroke-linecap="round"/>`; break;
+    }
+    return r;
+  }
+  // new accessories in the designer's ✨ list (drawn by pz5Acc)
+  PZ5_ACC.push(['clip', '⭐ סיכת כוכב', '#ffd84d'], ['hglasses', '💖 משקפי לבבות', '#ff5a8a'], ['minicrown', '👑 כתר קטנטן', '#ffcf3a'], ['pearls', '🦪 שרשרת פנינים', '#fff6fb'], ['ribbon', '🎀 סרט עם זנבות', '#b58cff']);
+  // ---------- 🥚 12 more rare egg critters ----------
+  CRZ_RARES.push(
+    ['galaxyfox', 'שועל גלקסיה', 3, 'fox', { c1: '#3d3a78', c2: '#c9b2ff', pattern: 'galaxy', tipC: '#ffd84d', eyes: 'star', eyeC: '#ffd84d' }, 'stars'],
+    ['crystalaxolotl', 'אקסולוטל קריסטל', 3, 'axolotl', { c1: '#dff4ff', c2: '#9fdcff', pattern: 'sparkles', glitter: true, eyes: 'anime', eyeC: '#3fa0ff' }, 'crystal'],
+    ['rainbowpenguin', 'פינגווין קשת', 2, 'penguin', { c1: '#b58cff', c2: '#7ec8ff', pattern: 'rainbow', eyes: 'happy' }, 'rainbow'],
+    ['candypig', 'חזרזיר סוכריה', 1, 'pig', { c1: '#ffd1ec', c2: '#7ec8ff', pattern: 'hearts', eyes: 'heart' }, 'candy'],
+    ['moonkoala', 'קואלה הירח', 2, 'koala', { c1: '#c9c2e8', c2: '#fff6c4', eyes: 'sleepy', glitter: true }, 'moon'],
+    ['sakuradeer', 'אייל פריחה', 3, 'deer', { c1: '#ffd1e6', c2: '#ffffff', pattern: 'spots', eyes: 'lashes', x: { fcrown: '#ff9ad5' } }, 'antlers'],
+    ['starseal', 'כלב ים כוכבים', 2, 'seal', { c1: '#3d4a8a', c2: '#ffd84d', pattern: 'stars', eyes: 'shiny' }, 'stars'],
+    ['cloudsheep', 'כבשת ענן', 1, 'sheep', { c1: '#ffffff', c2: '#dfe8f5', eyes: 'happy', x: { wings: '#e6f7ff' } }, 'cloud'],
+    ['goldhamster', 'אוגר הזהב', 3, 'hamster', { c1: '#ffd84d', c2: '#ffb020', glitter: true, eyes: 'star', eyeC: '#ff9a3c' }, 'crown'],
+    ['snowredpanda', 'פנדה אדומה של שלג', 2, 'redpanda', { c1: '#ffffff', c2: '#9fdcff', tipC: '#9fdcff', eyes: 'anime', eyeC: '#3fa0ff' }, 'snow'],
+    ['auroraparrot', 'תוכי זוהר', 3, 'parrot', { c1: '#7ec8ff', c2: '#b58cff', pattern: 'ombre', eyes: 'lashes' }, 'rainbow'],
+    ['lavafrog', 'צפרדע לבה', 2, 'frog', { c1: '#ff6b4a', c2: '#ffd84d', pattern: 'spots', eyes: 'round' }, 'flame']);
+  // ---------- 🦄 horses: more colors + magic tack (glitter coat, tail bow, flower lei, tiny hat) ----------
+  CRZ_HC.push('#ffe0cc', '#d9f5e6', '#fff1b8', '#c9c2e8', '#9aa0ad', '#7a4a2a');
+  CRZ_MC.push('#ffe27a', '#e6d2ff', '#bfeaff', '#ffd1e6', '#6fcf7f', '#3d3a78');
+  function pz6HorseTop(L) {
+    const s2 = `stroke="${O}" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"`;
+    let s = '';
+    if (L.glitter) s += [[38, 50], [52, 47], [44, 60], [60, 56], [33, 58], [80, 20], [74, 30]].map(([x, y], i) => i % 2 ? `<circle cx="${x}" cy="${y}" r=".9" fill="#fff"/>` : pzSpark(x, y, 2, '#fff', .95)).join('');
+    if (L.tailBow) s += `<g transform="translate(26 47) rotate(-20)"><path d="M0 0 C-4 -5 -8 -2 -7 2 C-6 5 -2 2 0 0 Z M0 0 C4 -5 8 -2 7 2 C6 5 2 2 0 0 Z" fill="${L.tailBowC || '#ff5a8a'}" ${s2}/><circle r="1.8" fill="#fff" ${s2}/></g>`;
+    if (L.lei) s += Array.from({ length: 7 }, (_, i) => { const t = i / 6, x = 62 + t * 14, y = 42 + Math.sin(t * Math.PI) * 4 - t * 6; return `<circle cx="${pzF(x)}" cy="${pzF(y)}" r="2.3" fill="${i % 2 ? '#ffd84d' : L.leiC || '#ff9ad5'}" ${s2}/>`; }).join('');
+    if (L.hat) s += `<g transform="translate(78 8) rotate(-12)"><ellipse cx="0" cy="3" rx="8" ry="2.2" fill="${L.hatC || '#b58cff'}" ${s2}/><path d="M-5 3 L-4 -6 H4 L5 3 Z" fill="${L.hatC || '#b58cff'}" ${s2}/><path d="M-4.4 0 H4.4" stroke="#ffd84d" stroke-width="1.6"/></g>`;
+    return s;
+  }
+  // ---------- 🐉 dragons: more fire colors and cave treasures ----------
+  CRZ_FIRE.ice = ['#bfeaff', '#ffffff', '#7ec8ff']; CRZ_FIRE.candy = ['#ff9ad5', '#8fe6d0', '#fff6c4']; CRZ_FIRE.star = ['#ffd84d', '#b58cff', '#ffffff'];
+  CRZ_CAVE_ITEMS.push(['rainbowcrystal', 'קריסטל קשת', '#ffd1ec'], ['bed', 'מיטת דרקון', '#b58cff'], ['moonlamp', 'מנורת ירח', '#fff1b8'], ['flowers', 'עציץ פרחים', '#ff9ad5'], ['toy', 'צעצוע', '#7ec8ff'], ['waterfall', 'מפל קטן', '#7ec8ff']);
+  function pz6CaveItem(t, c, g, s2) {
+    switch (t) {
+      case 'rainbowcrystal': return g(['#ff6f7a', '#ffd84d', '#7ed48a', '#6fb8ff', '#b37bff'].map((col, i) => `<path d="M${-12 + i * 5} 8 L${-11 + i * 5} ${-8 - (i % 2) * 8} L${-8 + i * 5} ${-12 - (i % 2) * 8} L${-6 + i * 5} 8 Z" fill="${col}" fill-opacity=".85" ${s2}/>`).join(''));
+      case 'bed': return g(`<ellipse cx="0" cy="2" rx="28" ry="10" fill="${c}" ${s2}/><ellipse cx="0" cy="-1" rx="21" ry="6" fill="#e6d2ff"/><circle cx="-14" cy="-4" r="5" fill="#fff" ${s2}/>`);
+      case 'moonlamp': return g(`<rect x="-2" y="-4" width="4" height="16" fill="#c9c2e8" ${s2}/><path d="M4 -24 A10 10 0 1 0 6 -6 A7 7 0 1 1 4 -24 Z" fill="${c}" ${s2}/><circle cx="0" cy="-14" r="16" fill="${c}" opacity=".2"/>`);
+      case 'flowers': return g(`<path d="M-8 0 H8 L6 12 H-6 Z" fill="#c98f3a" ${s2}/>${[[-6, -8], [0, -12], [6, -8]].map(([x, y], i) => `<path d="M${x} ${y} V0" stroke="#4fbf73" stroke-width="1.6"/><circle cx="${x}" cy="${y}" r="4" fill="${['#ff9ad5', '#ffd84d', '#b58cff'][i]}" ${s2}/>`).join('')}`);
+      case 'toy': return g(`<circle cx="0" cy="0" r="10" fill="${c}" ${s2}/><path d="M-10 0 H10 M0 -10 V10" stroke="#fff" stroke-width="2"/>`);
+      case 'waterfall': return g(`<path d="M-14 -30 H14 V10 H-14 Z" fill="${c}" opacity=".75"/><path d="M-8 -30 V8 M0 -30 V10 M8 -30 V8" stroke="#fff" stroke-width="1.6" opacity=".8"/><ellipse cx="0" cy="12" rx="20" ry="5" fill="#bfeaff" ${s2}/>`);
+    }
+    return null;
+  }
+  // ---------- 🧚‍♀️ fairies: more wings, wands and colors ----------
+  CRZ_WINGS.push(['star', 'כוכבים'], ['rainbow', 'קשת'], ['lace', 'תחרה'], ['moth', 'עש לילה']);
+  CRZ_WANDS.push(['crystal', 'קריסטל'], ['butterfly', 'פרפר'], ['rainbow', 'קשת']);
+  CRZ_WING_C.push('#ffe6f3', '#e6f7ff', '#f3e8ff', '#d9f5e6', '#ffd84d');
+  // ---------- the house header is always the whole group (no "alone" home) ----------
+  const pz6DrawHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    pz6DrawHouse0(mode, say);
+    const sc = $('#houseScene'); if (!sc || !pet) return;
+    const group = houseTab === 'together' || houseTab === 'family';
+    if (group) { sc.hidden = true; return; }
+    const all = allPets().filter(p => p.onboarded !== false);
+    const strip = el('div', { class: 'pz6-strip' }, ...all.slice(0, 12).map(p => p === pet
+      ? el('button', { type: 'button', class: 'pet-art pz6-me', 'aria-label': `${p.name || 'החיה'} (בעריכה)`, html: petSVG(grownPet(p)), onclick: () => { SFX.pet(p.kind); const a = sc.querySelector('.pet-art'); if (a) { a.classList.remove('jump'); void a.offsetWidth; a.classList.add('jump'); } } })
+      : el('button', { type: 'button', class: 'pz6-other', 'aria-label': `לבחור את ${p.name || 'החיה'}`, title: `לבחור את ${p.name || 'החיה'}`, html: petSVG(p), onclick: () => petzSetActive(p.id) })));
+    sc.replaceChildren(...[...sc.querySelectorAll('.item, .guard, .mer-extra')], strip,
+      el('span', { class: 'say' }, say || (all.length > 1 ? `כולן ביחד! ⭐ ${pet.name || 'החיה'} נבחר/ה — לוחצים על חיה אחרת כדי לבחור אותה` : `${pet.name || 'החיה'} מחכה לחברים 🥚`)));
+    sc.classList.add('pz6-groupscene');
+    const feedAll = () => { const f = pz6Pick(PZ6_FOODS); SFX.munch(); all.forEach((p, i) => setTimeout(() => { if (typeof feedPet === 'function') feedPet(p, f); }, i * 80)); setTimeout(() => drawHouse(null, `כולם אכלו ${f.name}! יאמי 💖`), 500); };
+    const playAll = () => { const t = localToday(); all.forEach(p => { p.played = p.played || {}; p.played[t] = (p.played[t] || 0) + 1; }); petzSave(); savePet(); SFX.boop(); strip.querySelectorAll('button').forEach((b, i) => setTimeout(() => { b.classList.remove('jump'); void b.offsetWidth; b.classList.add('jump'); }, i * 120)); setTimeout(() => { renderPet(); if (typeof afterChange === 'function') afterChange(); }, 900); };
+    $('#houseActions').replaceChildren(
+      el('button', { type: 'button', class: 'btn main', onclick: feedAll }, '🍎 להאכיל את כולם'),
+      el('button', { type: 'button', class: 'btn', onclick: playAll }, '⚽ לשחק עם כולם'),
+      el('button', { type: 'button', class: 'btn', onclick: () => { houseTab = 'together'; drawHouse(); } }, '🏡 לבית של כולם'),
+      el('button', { type: 'button', class: 'btn', onclick: () => openBath(pet) }, `🛁 אמבטיה ל${pet.name || 'חיה'}`));
+    $('#houseFood').replaceChildren();
+  };
+  // vet and bath focus one pet, then everyone is together again
+  ['#petzBathDlg', '#petzVetDlg'].forEach(id => { const d = $(id); if (d) d.addEventListener('close', () => { if ($('#houseDlg').open) drawHouse(); try { renderPet(); } catch {} }); });
+  pz6Ready = true;
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
