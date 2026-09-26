@@ -2483,6 +2483,102 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
 .pz-ba > div { display: grid; justify-items: center; }
 .pz-ba .ic { width: 90px; height: 104px; } .pz-ba .ic svg { width: 100%; height: 100%; }
 .pz-ba b { font-size: 1.6em; font-weight: 400; }
+/* ---------- girls chat ---------- */
+.gch-wrap { display: grid; grid-template-columns: minmax(170px, 250px) 1fr; gap: 12px; height: min(70vh, 640px); }
+.gch-side { display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
+.gch-who, .gch-list { display: flex; flex-direction: column; gap: 6px; }
+.gch-side select { border: 2px solid var(--line); border-radius: 12px; padding: 4px 8px; background: var(--card); }
+.gch-th { display: flex; gap: 8px; align-items: center; text-align: start; border: 2px solid transparent; background: var(--paper); border-radius: 14px; padding: 6px; }
+.gch-th[aria-pressed="true"] { border-color: var(--accent); background: var(--card); }
+.gch-thn { display: grid; min-width: 0; }
+.gch-thn span { color: var(--soft); font-size: .82em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gch-av { width: 38px; height: 38px; flex: none; border-radius: 50%; overflow: hidden; background: #ffe6f0; border: 2px solid var(--card); padding: 0; display: grid; place-items: center; box-shadow: 0 1px 3px rgb(0 0 0 / .15); }
+.gch-av img, .gch-av svg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gch-grp { font-size: 1.4em; }
+.gch-auto { font-size: .9em; margin-top: auto; }
+.gch-main { display: flex; flex-direction: column; min-height: 0; border: 2px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--card); }
+.gch-head { display: flex; gap: 8px; align-items: center; padding: 6px 10px; background: color-mix(in srgb, var(--accent) 14%, var(--card)); }
+.gch-head .gch-clear { margin-inline-start: auto; padding: 2px 10px; }
+.gch-msgs { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 3px; background: linear-gradient(color-mix(in srgb, var(--paper) 70%, transparent), color-mix(in srgb, var(--paper) 70%, transparent)), radial-gradient(var(--line) 1.2px, transparent 1.2px) 0 0 / 18px 18px; }
+.gch-msg { display: flex; gap: 6px; align-items: flex-end; max-width: 82%; }
+.gch-msg.first { margin-top: 6px; }
+.gch-msg.mine { align-self: flex-start; }
+.gch-msg:not(.mine) { align-self: flex-end; flex-direction: row-reverse; }
+.gch-msg .gch-sp { width: 38px; flex: none; }
+.gch-msg.mine .gch-sp { display: none; }
+.gch-bub { position: relative; background: #fff; color: #2b2330; border-radius: 16px; padding: 6px 12px 16px; box-shadow: 0 1px 2px rgb(0 0 0 / .12); min-width: 60px; display: grid; gap: 2px; }
+.gch-msg.mine .gch-bub { background: color-mix(in srgb, var(--accent) 26%, #fff); }
+.gch-msg.first.mine .gch-bub { border-start-start-radius: 4px; }
+.gch-msg.first:not(.mine) .gch-bub { border-start-end-radius: 4px; }
+.gch-bub.stk { background: transparent; box-shadow: none; }
+.gch-stk { width: 72px; height: 72px; }
+.gch-stk svg { width: 100%; height: 100%; }
+.gch-nm { font-size: .8em; color: var(--accent); }
+.gch-tx { white-space: pre-wrap; overflow-wrap: anywhere; }
+.gch-time { position: absolute; bottom: 2px; inset-inline-end: 10px; font-size: .68em; color: #8a8090; font-family: Rubik, sans-serif; }
+.gch-game { justify-self: start; padding: 3px 12px; font-size: .9em; }
+.gch-bub.typing { flex-direction: row; display: flex; gap: 4px; padding: 10px 14px; }
+.gch-bub.typing span { width: 7px; height: 7px; border-radius: 50%; background: #b8aac0; animation: gchDot 1s infinite; }
+.gch-bub.typing span:nth-child(2) { animation-delay: .15s; }
+.gch-bub.typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes gchDot { 0%, 60%, 100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-5px); opacity: 1; } }
+.gch-bar { display: flex; gap: 6px; padding: 8px; border-top: 1.5px solid var(--line); }
+.gch-bar input { flex: 1; min-width: 0; border: 2px solid var(--line); border-radius: 999px; padding: 6px 14px; background: var(--card); }
+.gch-ic { width: 40px; height: 40px; flex: none; border-radius: 50%; border: 2px solid var(--line); background: var(--card); font-size: 1.2em; padding: 0; }
+.gch-ic[aria-pressed="true"] { border-color: var(--accent); }
+.gch-send { flex: none; }
+.gch-pick { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; max-height: 150px; overflow-y: auto; border-top: 1.5px solid var(--line); background: var(--paper); }
+.gch-pick.emo button { font-size: 1.4em; border: none; background: none; padding: 2px 4px; }
+.gch-pick.stk button { width: 46px; height: 46px; border: none; background: var(--card); border-radius: 10px; padding: 3px; }
+.gch-pick.stk svg { width: 100%; height: 100%; }
+.gch-quick { display: flex; gap: 6px; overflow-x: auto; padding: 0 8px 8px; }
+.gch-quick .chip { white-space: nowrap; font-size: .88em; padding: 2px 10px; }
+.gch-card { display: flex; gap: 12px; align-items: center; padding: 10px; margin: 8px; border-radius: 16px; background: linear-gradient(135deg, #fff0f7, #efe6ff); color: #2b2330; }
+.gch-card img { width: 110px; border-radius: 14px; background: #fff; }
+.gch-cn { font-size: 1.3em; }
+.gch-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; vertical-align: middle; border: 1px solid #0003; }
+/* ---------- dance studio ---------- */
+.dnc-top { display: grid; grid-template-columns: minmax(280px, 560px) 1fr; gap: 14px; align-items: start; }
+.dnc-left { display: grid; gap: 10px; min-width: 0; }
+.dnc-stage { position: relative; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; background: #3b1d4f; }
+.dnc-stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dnc-ch { position: absolute; left: 50%; bottom: 6%; height: 74%; aspect-ratio: 1 / 2; transform: translateX(-50%); transform-origin: 50% 100%; }
+.dnc-ch.m { height: 52%; aspect-ratio: 2 / 3; }
+.dnc-ch.p { height: 22%; aspect-ratio: 1; }
+.dnc-in { width: 100%; height: 100%; transform-origin: 50% 100%; transform: rotate(var(--tilt, 0deg)); transition: transform .3s; }
+.dnc-in svg { width: 100%; height: 100%; display: block; }
+.dnc-stage.perform .dnc-ch.p .dnc-in { animation: dncHop .5s ease-in-out infinite alternate; }
+.dnc-in.jump { animation: dncJump var(--dur, 600ms) ease-out; }
+.dnc-in.spin { animation: dncSpin var(--dur, 600ms) ease-in-out; }
+.dnc-in.flip { transform: scaleX(-1) rotate(var(--tilt, 0deg)); }
+@keyframes dncJump { 40% { transform: translateY(-16%) rotate(var(--tilt, 0deg)); } }
+@keyframes dncSpin { 50% { transform: scaleX(-1); } }
+@keyframes dncHop { to { transform: translateY(-20%); } }
+.dnc-cap { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); background: rgb(255 255 255 / .9); color: #3a2b3c; border-radius: 999px; padding: 2px 14px; white-space: nowrap; z-index: 20; }
+.dnc-conf { position: absolute; }
+.dnc-spot { animation: dncSpot 3s ease-in-out infinite alternate; transform-origin: 50% 0; transform-box: fill-box; }
+.dnc-beam { animation: dncBeam 2.4s ease-in-out infinite alternate; }
+.dnc-glint { animation: dncGlint 1.6s ease-in-out infinite; }
+.dnc-tile { animation: dncTile 2s steps(2) infinite; }
+@keyframes dncSpot { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+@keyframes dncBeam { from { transform: rotate(-18deg); } to { transform: rotate(18deg); } }
+@keyframes dncGlint { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes dncTile { 50% { opacity: .55; } }
+.dnc-beats { display: flex; flex-wrap: wrap; gap: 5px; direction: rtl; }
+.dnc-beat { width: 48px; height: 54px; display: grid; justify-items: center; align-content: center; border: 2px solid var(--line); border-radius: 12px; background: var(--card); padding: 0; }
+.dnc-beat.bar { border-inline-start-width: 5px; }
+.dnc-beat[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); transform: translateY(-2px); }
+.dnc-beat .e { font-size: 1.35em; line-height: 1.1; }
+.dnc-beat .n { font-size: .7em; color: var(--soft); font-family: Rubik, sans-serif; }
+.dnc-moves { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 6px; }
+.dnc-moves button { display: grid; justify-items: center; border: 2px solid var(--line); border-radius: 12px; background: var(--card); padding: 3px; font-size: .75em; }
+.dnc-moves button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.dnc-ctl { justify-content: center; }
+.dnc-moves img { width: 52px; height: 92px; object-fit: contain; }
+.dnc-play { font-size: 1.2em; }
+.dnc-gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; }
+@media (max-width: 700px) { .gch-wrap { grid-template-columns: 1fr; height: auto; gap: 8px; } .gch-who { flex-direction: row; align-items: center; } .gch-who select { flex: 1; } .gch-list { flex-direction: row; overflow-x: auto; padding-bottom: 2px; } .gch-th { flex: none; padding: 4px 10px 4px 6px; } .gch-thn span { display: none; } .gch-av { width: 34px; height: 34px; } .gch-msg .gch-sp { width: 34px; } .gch-st { display: none; } .gch-ic { width: 36px; height: 36px; } .gch-bar { gap: 4px; padding: 6px; } .gch-msg { max-width: 92%; } .gch-msgs { height: 50vh; } .dnc-top { grid-template-columns: 1fr; } .gch-card { flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .dnc-in.jump, .dnc-in.spin, .dnc-spot, .dnc-beam, .dnc-glint, .dnc-tile, .gch-bub.typing span, .dnc-stage.perform .dnc-ch.p .dnc-in { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -3422,6 +3518,20 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
   </div>
 </dialog>
 
+
+<!-- Girls chat + dance studio -->
+<dialog id="gchatDlg" aria-labelledby="gchatTitle" style="width:min(980px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head"><h3 id="gchatTitle">💬 הצ'אט של הבנות</h3><button class="x" type="button" data-close aria-label="לסגור">✕</button></div>
+    <div id="gchatBody"></div>
+  </div>
+</dialog>
+<dialog id="danceDlg" aria-labelledby="danceTitle" style="width:min(1040px, calc(100vw - 32px))">
+  <div class="sheet">
+    <div class="sheet-head"><h3 id="danceTitle">💃 סטודיו הריקוד</h3><button class="x" type="button" data-close aria-label="לסגור">✕</button></div>
+    <div class="row" id="danceBody"></div>
+  </div>
+</dialog>
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -6325,12 +6435,14 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
     ['panda', 'כל החיות שלי', () => { houseTab = 'pets'; openHouse(); }],
     ['dog', 'וטרינרית', () => openVet()],
     ['bunny', 'אמבטיה לחיה', () => openBath()],
+    ['heart', 'צ\'אט הבנות', () => openGirlsChat()],
+    ['music', 'סטודיו ריקוד', () => openDance()],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   // the "more" menu, sorted into rooms, with search and favorites
   const MORE_ROOMS = [
     ['fav', '⭐ המועדפים', []],
-    ['fashion', '👗 אופנה ויופי', ['אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
+    ['fashion', '👗 אופנה ויופי', ['צ\'אט', 'ריקוד', 'אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
     ['pets', '🐾 החיות', ['חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
     ['games', '🎮 משחקים', ['משחקים']],
     ['worlds', '🌱 עולמות', ['מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח']],
@@ -9722,7 +9834,7 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
     else {
       const nm = el('input', { type: 'text', id: 'fashName', maxLength: 20, value: g.name || '', placeholder: 'למשל: ' + GIRL_NAMES[0], oninput: e => { g.name = e.target.value; saveGirls(); drawList(); } });
       const age = el('input', { type: 'number', id: 'fashAge', min: 1, max: 120, value: g.age, oninput: e => { const v = Math.round(Number(e.target.value)); if (v >= 1 && v <= 120) { g.age = v; saveGirls(); drawList(); } } });
-      body = [el('div', { class: 'row' }, el('label', { for: 'fashName' }, 'איך קוראים לה?'), nm), el('div', { class: 'row' }, el('label', { for: 'fashAge' }, 'בת כמה היא?'), age), girlDayPicker(g)];
+      body = [el('div', { class: 'row' }, el('label', { for: 'fashName' }, 'איך קוראים לה?'), nm), el('div', { class: 'row' }, el('label', { for: 'fashAge' }, 'בת כמה היא?'), age), girlDayPicker(g), girlsProfileRow(g, upd)];
     }
     $('#fashBody').replaceChildren(...body,
       el('div', { class: 'chips fash-actions' },
@@ -17860,6 +17972,362 @@ svg.pz-hop, .pz-party-pet.hop svg { animation: pzhop .55s ease; }
         el('div', {}, el('span', { class: 'ic', html: artHTML() }), el('small', {}, 'אחרי 😍'))) : null,
       done ? el('div', { class: 'chips' }, keep, el('button', { type: 'button', class: 'btn main', onclick: () => $('#petzBathDlg').close() }, 'סיום 💖'), el('button', { type: 'button', class: 'btn', onclick: () => openBath(p, {}) }, '🛁 עוד פעם')) : null);
   }
+  // ================= girls: chat between the girls + dance studio =================
+  const GCH_PERS = [['friendly', '🤗 חברותית'], ['funny', '😂 מצחיקה'], ['shy', '🙈 ביישנית'], ['sporty', '⚽ ספורטיבית'], ['artist', '🎨 אמנית'], ['dreamer', '🌙 חולמת'], ['smart', '🤓 חכמה'], ['animals', '🐾 אוהבת חיות']];
+  const GCH_FAV = [['#ff5f8f', 'ורוד'], ['#e0314b', 'אדום'], ['#ff9b6e', 'כתום'], ['#ffd45c', 'צהוב'], ['#3f9c6e', 'ירוק'], ['#3fb6c0', 'טורקיז'], ['#3f6fd8', 'כחול'], ['#bda4ff', 'סגול'], ['#2b2b30', 'שחור'], ['#ffffff', 'לבן']];
+  // personality + favourite colour, shown in the studio's ✏️ tab
+  function girlsProfileRow(g, upd) {
+    return el('div', { class: 'row' }, el('span', { class: 'lbl' }, '💬 האופי שלה (לצ\'אט של הבנות)'),
+      el('div', { class: 'chips' }, ...GCH_PERS.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(gchPers(g) === id), onclick: () => upd({ personality: id }) }, n))),
+      el('span', { class: 'lbl' }, '💖 הצבע האהוב עליה'),
+      el('div', { class: 'swatches' }, ...GCH_FAV.map(([c, n]) => { const b = el('button', { type: 'button', class: 'sw3', title: n, 'aria-label': n, 'aria-pressed': String(gchFav(g)[0] === c), onclick: () => upd({ favColor: c }) }); b.style.background = c; return b; })));
+  }
+  const gchHash = s => [...String(s)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7);
+  const gchPers = g => g.personality || GCH_PERS[gchHash(g.id) % GCH_PERS.length][0];
+  const gchFav = g => GCH_FAV.find(x => x[0] === g.favColor) || GCH_FAV[gchHash(g.id + 'c') % GCH_FAV.length];
+  const gchPick = a => a[Math.floor(Math.random() * a.length)];
+
+  // ---------- describing her real outfit ----------
+  const GCH_COLN = [['#ffffff', 'לבן'], ['#f4ece0', 'שמנת'], ['#2b2b30', 'שחור'], ['#1f2a4a', 'כחול כהה'], ['#9aa3ad', 'אפור'], ['#ffb3cf', 'ורוד'], ['#ff5f8f', 'ורוד חזק'], ['#e0314b', 'אדום'], ['#ff9b6e', 'כתום'], ['#ffd45c', 'צהוב'], ['#a8dc8f', 'ירוק בהיר'], ['#3f9c6e', 'ירוק'], ['#9dd8f5', 'תכלת'], ['#3f6fd8', 'כחול'], ['#bda4ff', 'סגול בהיר'], ['#7a4fbf', 'סגול'], ['#c9a27e', 'חום בהיר'], ['#6d8fbd', 'ג\'ינס'], ['#e9c46a', 'זהב']];
+  const gchColor = c => { if (!c || c[0] !== '#' || c.length < 7) return ''; const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); const a = rgb(c); return GCH_COLN.reduce((b, x) => { const q = rgb(x[0]), d = q.reduce((s, v, i) => s + (v - a[i]) ** 2, 0); return d < b[1] ? [x[1], d] : b; }, ['', 1e9])[0]; };
+  const gchName = (list, id) => ((list || []).find(x => x[0] === id) || [0, ''])[1].replace(/^[^֐-׿a-zA-Z]+/, '').trim();
+  function gchOutfit(g) {
+    const F = FASH, parts = [], dress = g.dress && g.dress !== 'none';
+    if (g.mermaid) parts.push(`זנב של בת ים ${g.tailColor === 'rainbow' ? 'בצבעי הקשת' : gchColor(g.tailColor)}`.trim());
+    if (dress) parts.push(`${gchName(F.dresses, g.dress) || 'שמלה'} ${gchColor(g.dressColor)}`.trim());
+    else { parts.push(`${gchName(F.tops, g.top) || 'חולצה'} ${gchColor(g.topColor)}`.trim()); if (!g.mermaid) parts.push(`${gchName(F.bottoms, g.bottom) || 'מכנסיים'} ${gchColor(g.bottomColor)}`.trim()); }
+    if (g.jacket && g.jacket !== 'none') parts.push(`${gchName(F.jackets, g.jacket)} ${gchColor(g.jacketColor)}`.trim());
+    if (!g.mermaid && g.shoes) parts.push(`${gchName(F.shoes, g.shoes)} ${gchColor(g.shoeColor)}`.trim());
+    const acc = Object.keys(g.acc || {}).filter(k => g.acc[k]).map(k => gchName(F.accs, k)).filter(Boolean).slice(0, 2);
+    if (acc.length) parts.push(acc.join(' ו' ));
+    const last = parts.pop();
+    return parts.length ? `${parts.join(', ')} ו${last}` : last || 'משהו נוח';
+  }
+
+  // ---------- replies ----------
+  const GCH_TXT = {
+    hi: { friendly: ['היייי! 🤗 כמה טוב שכתבת!', 'שלום שלום! 💕'], funny: ['היי היי! 😂 מי זאת פה?', 'שלוםםם! 🦄 אני פה!'], shy: ['היי... 🙈', 'שלום 😊'], sporty: ['היי! ⚽ מה קורה אלופה?', 'יו! 🏃‍♀️'], artist: ['היי! 🎨 בדיוק ציירתי', 'שלום! 🌈'], dreamer: ['היי... ✨ חלמתי עלייך', 'שלום 🌙'], smart: ['שלום! 🤓 מה נלמד היום?', 'היי! 📚'], animals: ['היי! 🐱 החתול שלי אומר שלום', 'שלום! 🐶'] },
+    how: { friendly: ['מעולה! ואיתך? 💖', 'טוב מאוד, במיוחד כי כתבת לי 🥰'], funny: ['סבבה לגמרי! עשיתי גלגלון בסלון 😂', 'מצוין! צחקתי כל הבוקר 🤣'], shy: ['טוב... תודה ששאלת 😊', 'בסדר 🙈 ואת?'], sporty: ['מלאת אנרגיה! 💪 רצתי היום', 'מעולה! אחרי אימון ⚽'], artist: ['נהדר! סיימתי ציור חדש 🎨', 'מלאת השראה ✨'], dreamer: ['מרחפת על ענן 🌈', 'חולמת בהקיץ... 💭 טוב!'], smart: ['מצוין! קראתי ספר מעניין 📖', 'טוב, פתרתי חידה 🧩'], animals: ['טוב! שיחקתי עם גור חתולים 🐱', 'מעולה! ראיתי פרפר 🦋'] },
+    thanks: { friendly: ['אוי תודה!!! גם את מהממת 💕', 'את הכי חמודה בעולם 🥰'], funny: ['תודה! אני יודעת 😎 סתם, גם את! 😂', 'וואו תודה! אני מסמיקה כמו עגבנייה 🍅'], shy: ['תודה... 🙈💗', 'אוי... תודה 😊'], sporty: ['תודה אלופה! 🏆', 'יאללה, את הכי! 💪'], artist: ['תודה! גם את יצירת אמנות 🎨', 'איזה כיף לשמוע 🌸'], dreamer: ['תודה... זה כמו חלום ✨', 'את מתוקה כמו ענן 🍭'], smart: ['תודה רבה! מחמאות מחממות את הלב 💖', 'תודה! זה מדעית הוכח שאת נחמדה 🤓'], animals: ['תודה! כמו גור חמוד 🐶', 'אוי תודה! 🐱💕'] },
+    play: { friendly: ['כןןן! בואי נשחק ביחד 🎮', 'איזה רעיון טוב!'], funny: ['יאללה! אני אנצח 😜', 'רק אם מותר לי לרמות... סתם 😂'], shy: ['אם את רוצה... 😊 בשמחה', 'בסדר 🙈'], sporty: ['כן! אני תמיד מוכנה! 🏃‍♀️', 'יאללה תחרות! 🏆'], artist: ['כן! ואחר כך נצייר? 🎨', 'איזה כיף!'], dreamer: ['בואי נשחק בכוכבים ✨', 'כן... 🌙'], smart: ['כן! משחק חשיבה? 🧠', 'בשמחה!'], animals: ['כן! החתול שלי גם רוצה 🐱', 'יאללה! 🐾'] },
+    love: { friendly: ['אני הכי אוהבת לבלות עם חברות 👯', 'לארגן מסיבות! 🎉'], funny: ['לספר בדיחות! למה הדג לא הלך לבית ספר? כי הוא היה בים 😂', 'לעשות פרצופים מצחיקים 🤪'], shy: ['לקרוא ספרים בשקט 📖', 'לכתוב ביומן 🙈'], sporty: ['כדורגל, ריצה ושחייה! ⚽🏊‍♀️', 'לרכוב על אופניים 🚲'], artist: ['לצייר, לפסל ולעצב בגדים 🎨', 'לעשות צמידים 💍'], dreamer: ['להסתכל על הכוכבים 🌟', 'לדמיין עולמות קסומים 🦄'], smart: ['פאזלים ומדע! 🔬', 'לקרוא על חלל 🚀'], animals: ['לשחק עם חיות! 🐶🐱🐰', 'להאכיל ברווזים 🦆'] },
+    other: { friendly: ['איזה כיף לדבר איתך! 💬', 'ספרי עוד! 😊', 'את החברה הכי טובה 💕'], funny: ['חחחח 😂', 'זה הכי מצחיק שיש 🤣', 'אני מתגלגלת מצחוק 🙃'], shy: ['😊', 'אוקיי... 🙈', 'כן 💗'], sporty: ['סחתיין! 👏', 'אלופה! 🏆', 'יאללה! 💪'], artist: ['איזה יופי! 🌈', 'זה נותן לי רעיון לציור 🎨', 'מקסים ✨'], dreamer: ['וואו... ✨', 'כמו בחלום 🌙', 'מממ, קסום 🦋'], smart: ['מעניין מאוד! 🤓', 'ידעת שלתמנון יש שלושה לבבות? 🐙', 'רעיון חכם! 💡'], animals: ['אוי חמוד! 🐱', 'זה מזכיר לי גור כלבים 🐶', 'מיאו! 😺'] },
+  };
+  const GCH_GAMES = [['memory', 'זיכרון'], ['catch', 'תפוס את הכוכב'], ['puzzle', 'פאזל'], ['ttt', 'איקס עיגול'], ['match3', 'שלוש בשורה'], ['fcontest', 'תחרות אופנה'], ['gmemory', 'זיכרון בנות'], ['cake', 'עוגה']];
+  function gchReply(g, text, fromName) {
+    const p = gchPers(g), t = (text || '').replace(/[?!.,]/g, ' '), has = re => re.test(t), L = k => gchPick(GCH_TXT[k][p] || GCH_TXT[k].friendly);
+    if (has(/לובשת|בגדים|שמלה|מה על|תלבושת|לבשת/)) return { text: `היום אני לובשת ${gchOutfit(g)} ${gchPick(['👗', '✨', '💃', '😊'])}` };
+    if (has(/לשחק|נשחק|משחק/)) { const gm = GCH_GAMES.filter(x => typeof GAME_TABS === 'undefined' || GAME_TABS.some(y => y[0] === x[0])); const pick = gchPick(gm.length ? gm : GCH_GAMES); return { text: `${L('play')} מה דעתך על ${pick[1]}?`, game: pick[0] }; }
+    if (has(/בת כמה|גיל/)) return { text: `אני בת ${g.age} ${gchPick(['🎂', '😊', '🌟'])}` };
+    if (has(/איך קוראים|מה השם/)) return { text: `קוראים לי ${g.name || 'בלי שם עדיין'} 😊` };
+    if (has(/צבע אהוב|הצבע האהוב|איזה צבע/)) return { text: `הצבע האהוב עליי הוא ${gchFav(g)[1]}! 💖` };
+    if (has(/שיער|תסרוקת/)) return { text: `יש לי ${gchName(FASH.hairs, g.hair) || 'שיער יפה'} ${g.hairColor === 'galaxy' ? 'בצבע גלקסיה' : gchColor(g.hairColor)} 💇‍♀️`.replace(/\s+/g, ' ') };
+    if (has(/יפה|מהממת|חמודה|מדהימה|מושלמת|אוהבת אותך|הכי טובה|מקסימה|יפהפייה/)) return { text: L('thanks') };
+    if (has(/מה שלומך|מה נשמע|מה קורה|מה המצב|איך את/)) return { text: L('how') };
+    if (has(/מה את אוהבת|תחביב|אוהבת לעשות|מה הכי כיף/)) return { text: L('love') };
+    if (has(/היי|הי |שלום|בוקר טוב|ערב טוב|לילה טוב|אהלן/) || t.trim() === 'הי') return { text: /לילה טוב/.test(t) ? 'לילה טוב, חלומות מתוקים 🌙💤' : L('hi') };
+    if (has(/חג|סוכות|סוכה/)) return { text: gchPick(['חג שמח! 🌿 ישבתי בסוכה עם כל המשפחה', 'חג סוכות שמח! קישטתי את הסוכה בשרשראות 🍋', 'בסוכה שלנו יש המון קישוטים! ✨']) };
+    if (/\?/.test(text || '')) return { text: gchPick(['שאלה טובה! 🤔 אני חושבת שכן', 'אממ... אולי! 😊', 'בטח! 💕', 'צריכה לחשוב על זה 💭']) };
+    return { text: L('other') };
+  }
+
+  // ---------- the chat app ----------
+  let gchData = null, gchWriter = 'me', gchThread = 'group', gchEmoji = false, gchStk = false, gchProfile = null, gchTimers = [], gchTyping = null;
+  const gchSave = () => store.set('girlChats', gchData);
+  const gchAvatar = id => id === 'me' ? '<svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="#ffd1e3"/><text x="20" y="27" text-anchor="middle" font-size="20">⭐</text></svg>' : null;
+  const gchWho = id => id === 'me' ? { id: 'me', name: 'אני' } : girls.find(g => g.id === id);
+  const gchPair = (a, b) => 'p:' + [a, b].sort().join('|');
+  const gchMembers = th => th === 'group' ? ['me', ...girls.map(g => g.id)] : th.slice(2).split('|');
+  function openGirlsChat(girlId) {
+    if (!girls.length) { const n = Object.assign(newGirl(), randomGirl(), { name: GIRL_NAMES[0] }); const m = Object.assign(newGirl(), randomGirl(), { name: GIRL_NAMES[1] }); girls.push(n, m); saveGirls(); }
+    if (girls.length < 2) { girls.push(Object.assign(newGirl(), randomGirl(), { name: GIRL_NAMES.find(x => !girls.some(y => y.name === x)) || 'שירה' })); saveGirls(); }
+    gchData = Object.assign({ threads: {}, auto: true }, store.get('girlChats', {}));
+    if (!gchData.threads.group) gchData.threads.group = [{ from: girls[0].id, text: 'היי כולן! 👋 ברוכות הבאות לצ\'אט של הבנות 💕', ts: Date.now() }];
+    if (girlId) { gchWriter = 'me'; gchThread = gchPair('me', girlId); }
+    if (!gchMembers(gchThread).every(id => id === 'me' || girls.some(g => g.id === id))) gchThread = 'group';
+    gchProfile = null; gchEmoji = gchStk = false;
+    drawGirlsChat();
+    if (!$('#gchatDlg').open) $('#gchatDlg').showModal();
+  }
+  function gchSend(msg) {
+    const th = gchThread, list = gchData.threads[th] = gchData.threads[th] || [];
+    list.push(Object.assign({ from: gchWriter, ts: Date.now() }, msg));
+    while (list.length > 120) list.shift();
+    gchSave(); tone(880, 0.07, 'sine', 0, 0.05);
+    gchEmoji = gchStk = false;
+    drawGirlsChat();
+    if (!gchData.auto) return;
+    const others = gchMembers(th).filter(id => id !== gchWriter && id !== 'me');
+    const who = th === 'group' ? others.sort(() => Math.random() - 0.5).slice(0, Math.min(others.length, Math.random() < 0.5 ? 1 : 2)) : others;
+    const writerName = (gchWho(gchWriter) || {}).name || '';
+    who.forEach((id, i) => {
+      const g = girls.find(x => x.id === id); if (!g) return;
+      gchTimers.push(setTimeout(() => { if (gchThread === th && $('#gchatDlg').open) { gchTyping = id; drawGchMsgs(); } }, 400 + i * 1500));
+      gchTimers.push(setTimeout(() => {
+        const r = msg.stk ? (Math.random() < 0.5 ? { stk: gchPick(['heart', 'star', 'sparkles', 'smiley', 'rainbow', 'bow'].filter(s => STICKERS[s])) } : { text: gchPick(['איזו מדבקה חמודה! 😍', 'אהבתי!! 💖', 'חחח מושלם 😂']) }) : gchReply(g, msg.text, writerName);
+        (gchData.threads[th] = gchData.threads[th] || []).push(Object.assign({ from: id, ts: Date.now() }, r));
+        gchSave(); gchTyping = null; tone(660, 0.08, 'triangle', 0, 0.05); tone(990, 0.08, 'triangle', 0.08, 0.05);
+        if (gchThread === th && $('#gchatDlg').open) drawGirlsChat();
+      }, 1600 + i * 1500 + Math.random() * 600));
+    });
+  }
+  function drawGchMsgs() {
+    const box = $('#gchMsgs'); if (!box) return;
+    const list = gchData.threads[gchThread] || [];
+    const head = id => { const g = gchWho(id); return el('button', { type: 'button', class: 'gch-av', title: g ? g.name || '' : '', onclick: () => { if (id !== 'me') { gchProfile = id; drawGirlsChat(); } }, html: id === 'me' ? gchAvatar('me') : g ? `<img src="${girlImgURL(g, { view: 'head', bg: false })}" alt="">` : '' }); };
+    const nodes = list.map((m, i) => {
+      const mine = m.from === gchWriter, w = gchWho(m.from), prev = list[i - 1], first = !prev || prev.from !== m.from;
+      return el('div', { class: 'gch-msg' + (mine ? ' mine' : '') + (first ? ' first' : '') }, !mine && first ? head(m.from) : el('span', { class: 'gch-sp' }),
+        el('div', { class: 'gch-bub' + (m.stk ? ' stk' : '') }, !mine && first && gchThread === 'group' ? el('span', { class: 'gch-nm' }, w ? w.name || 'בלי שם' : '...') : null,
+          m.stk ? el('span', { class: 'gch-stk', html: stickerHTML(m.stk) }) : el('span', { class: 'gch-tx' }, m.text),
+          m.game ? el('button', { type: 'button', class: 'btn main gch-game', onclick: () => { $('#gchatDlg').close(); openGames(m.game); } }, '🎮 בואי נשחק!') : null,
+          el('span', { class: 'gch-time' }, new Date(m.ts).toTimeString().slice(0, 5))));
+    });
+    if (gchTyping) nodes.push(el('div', { class: 'gch-msg first' }, head(gchTyping), el('div', { class: 'gch-bub typing' }, el('span', {}), el('span', {}), el('span', {}))));
+    box.replaceChildren(...nodes);
+    box.scrollTop = box.scrollHeight;
+  }
+  function drawGirlsChat() {
+    const threads = ['group', ...[...(gchWriter === 'me' ? [] : ['me']), ...girls.map(g => g.id).filter(id => id !== gchWriter)].map(id => gchPair(gchWriter, id))];
+    if (!threads.includes(gchThread)) gchThread = 'group';
+    const lastOf = th => { const l = gchData.threads[th] || []; const m = l[l.length - 1]; return m ? (m.stk ? '⭐ מדבקה' : m.text) : 'עוד אין הודעות'; };
+    const thName = th => th === 'group' ? '👯 כל הבנות' : (gchWho(gchMembers(th).find(id => id !== gchWriter)) || {}).name || 'בלי שם';
+    const thArt = th => { if (th === 'group') return '<span class="gch-grp">👯</span>'; const id = gchMembers(th).find(x => x !== gchWriter), g = gchWho(id); return id === 'me' ? gchAvatar('me') : g ? `<img src="${girlImgURL(g, { view: 'head', bg: false })}" alt="">` : ''; };
+    const side = el('div', { class: 'gch-side' },
+      el('div', { class: 'gch-who' }, el('label', { class: 'lbl', for: 'gchWriter' }, '✍️ מי כותבת עכשיו?'),
+      el('select', { id: 'gchWriter', onchange: e => { gchWriter = e.target.value; gchProfile = null; drawGirlsChat(); } }, el('option', { value: 'me', selected: gchWriter === 'me' }, '⭐ אני'), ...girls.map(g => el('option', { value: g.id, selected: gchWriter === g.id }, g.name || 'בלי שם')))),
+      el('div', { class: 'gch-list' }, ...threads.map(th => el('button', { type: 'button', class: 'gch-th', 'aria-pressed': String(th === gchThread), onclick: () => { gchThread = th; gchProfile = null; gchTyping = null; drawGirlsChat(); } }, el('span', { class: 'gch-av', html: thArt(th) }), el('span', { class: 'gch-thn' }, el('b', {}, thName(th)), el('span', {}, lastOf(th)))))),
+      el('label', { class: 'gch-auto' }, el('input', { type: 'checkbox', checked: gchData.auto, onchange: e => { gchData.auto = e.target.checked; gchSave(); } }), ' 🤖 הבנות עונות לבד'));
+    const inp = el('input', { type: 'text', id: 'gchText', maxLength: 200, placeholder: 'כותבים הודעה...', autocomplete: 'off' });
+    const send = () => { const v = inp.value.trim(); if (!v) { inp.focus(); return; } gchSend({ text: v }); setTimeout(() => { const i = $('#gchText'); if (i) i.focus(); }, 0); };
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); send(); } });
+    const EMO = ['😀', '😂', '🥰', '😍', '😎', '🤩', '🥳', '😜', '🙈', '😴', '🤔', '😇', '💖', '💕', '✨', '🌈', '🦄', '🐱', '🐶', '🌸', '🍕', '🍦', '🎉', '👑', '💃', '👗', '💅', '⚽', '🎨', '📚', '🌙', '⭐', '👍', '👏', '🙏', '🍋'];
+    const picker = gchEmoji ? el('div', { class: 'gch-pick emo' }, ...EMO.map(e => el('button', { type: 'button', onclick: () => { inp.value += e; inp.focus(); } }, e)))
+      : gchStk ? el('div', { class: 'gch-pick stk' }, ...Object.keys(STICKERS).filter(id => !(typeof isRareLocked === 'function' && isRareLocked(id)) && !id.startsWith('my')).slice(0, 60).map(id => el('button', { type: 'button', title: STICKERS[id][0], html: stickerHTML(id), onclick: () => gchSend({ stk: id }) }))) : null;
+    const profile = gchProfile && girls.find(g => g.id === gchProfile);
+    const card = profile ? el('div', { class: 'gch-card' }, el('img', { src: girlImgURL(profile, { view: 'hair' }), alt: '' }), el('div', { class: 'row' },
+      el('b', { class: 'gch-cn' }, profile.name || 'בלי שם'), el('span', {}, `🎂 בת ${profile.age}`), el('span', {}, `💬 ${gchName(GCH_PERS, gchPers(profile))}`),
+      el('span', {}, '💖 הצבע האהוב: ', el('span', { class: 'gch-dot', style: `background:${gchFav(profile)[0]}` }), ' ' + gchFav(profile)[1]), el('span', { class: 'muted' }, `👗 לובשת: ${gchOutfit(profile)}`),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { gchThread = gchPair(gchWriter, profile.id); if (gchWriter === profile.id) { gchWriter = 'me'; gchThread = gchPair('me', profile.id); } gchProfile = null; drawGirlsChat(); } }, '💬 לשלוח לה הודעה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#gchatDlg').close(); fashSel = profile.id; fashTab = 'name'; openFashion(); } }, '✏️ לעצב אותה'), el('button', { type: 'button', class: 'btn', onclick: () => { gchProfile = null; drawGirlsChat(); } }, '✕')))) : null;
+    const main = el('div', { class: 'gch-main' },
+      el('div', { class: 'gch-head' }, el('span', { class: 'gch-av', html: thArt(gchThread) }), el('b', {}, thName(gchThread)), el('span', { class: 'muted' }, gchThread === 'group' ? `${girls.length + 1} חברות` : ''),
+        el('button', { type: 'button', class: 'btn gch-clear', title: 'לנקות את השיחה', onclick: () => { gchData.threads[gchThread] = []; gchSave(); drawGirlsChat(); } }, '🧹')),
+      card, el('div', { class: 'gch-msgs', id: 'gchMsgs' }), picker,
+      el('div', { class: 'gch-bar' }, el('button', { type: 'button', class: 'gch-ic', 'aria-label': 'אימוג\'י', 'aria-pressed': String(gchEmoji), onclick: () => { gchEmoji = !gchEmoji; gchStk = false; drawGirlsChat(); } }, '😀'),
+        el('button', { type: 'button', class: 'gch-ic', 'aria-label': 'מדבקות', 'aria-pressed': String(gchStk), onclick: () => { gchStk = !gchStk; gchEmoji = false; drawGirlsChat(); } }, '⭐'), inp,
+        el('button', { type: 'button', class: 'btn main gch-send', onclick: send, 'aria-label': 'שליחה' }, el('span', { class: 'gch-st' }, 'שליחה '), '➤')),
+      el('div', { class: 'gch-quick' }, ...['היי! 👋', 'מה את לובשת היום?', 'את מהממת! 💖', 'בואי נשחק!', 'מה שלומך?', 'מה את הכי אוהבת לעשות?'].map(q => el('button', { type: 'button', class: 'chip', onclick: () => gchSend({ text: q }) }, q))));
+    $('#gchatBody').replaceChildren(el('div', { class: 'gch-wrap' }, side, main));
+    drawGchMsgs();
+  }
+  $('#gchatDlg').addEventListener('close', () => { gchTimers.forEach(clearTimeout); gchTimers = []; gchTyping = null; });
+
+  // ---------- 💃 dance studio ----------
+  const DNC_MOVES = [
+    ['stand', '🧍', 'עמידה', {}], ['armsup', '🙌', 'ידיים למעלה', { la: 160, ra: 160 }], ['wave', '👋', 'נפנוף', { la: 70, lf: -100 }], ['clap', '👏', 'מחיאות כפיים', { la: -25, lf: 95, ra: -25, rf: 95 }],
+    ['point', '☝️', 'להצביע למעלה', { la: 150, lf: -10, ra: 10, rf: 40, head: -8 }], ['heart', '🫶', 'ידיים של לב', { la: -8, lf: 140, ra: -8, rf: 140, head: 6 }], ['disco', '🕺', 'דיסקו', { la: 150, lf: -20, ra: -30, rf: 30, ll: 10, lk: 20, head: 6 }],
+    ['arabesque', '🩰', 'בלט', { la: 100, ra: 100, lf: -10, rf: -10, ll: 50, head: -6 }], ['hiphop', '🧢', 'היפ הופ', { la: 40, lf: 110, ra: 70, rf: -90, ll: 15, lk: 45, rl: 5, rk: 20 }], ['bow', '🙇‍♀️', 'קידה', { la: -30, lf: 30, ra: -30, rf: 30, head: 18 }],
+    ['twirl', '🌀', 'סיבוב', { la: 150, ra: 150 }, { spin: 1 }], ['jump', '⬆️', 'קפיצה', { la: 140, ra: 140, ll: 15, rl: 15, lk: 40, rk: 40 }, { jump: 1 }], ['starjump', '⭐', 'קפיצת כוכב', { la: 120, ra: 120, ll: 28, rl: 28 }, { jump: 1 }],
+    ['split', '🤸‍♀️', 'פיסוק', { la: 95, ra: 95, ll: 55, rl: 55 }], ['stepL', '⬅️', 'צעד שמאלה', { la: 30, lf: 50, ra: 10, ll: 20, lk: 30, head: -8 }, { shift: -4 }], ['stepR', '➡️', 'צעד ימינה', { ra: 30, rf: 50, la: 10, rl: 20, rk: 30, head: 8 }, { shift: 4 }],
+    ['robot', '🤖', 'רובוט', { la: 90, lf: 90, ra: 90, rf: -90 }], ['sway', '🌊', 'גלים', { la: 40, lf: -30, ra: 40, rf: -30, head: 10 }, { tilt: 6 }], ['hips', '💁‍♀️', 'ידיים על המותניים', { la: 35, lf: 80, ra: 35, rf: 80 }],
+    ['kick', '🦵', 'בעיטה', { ll: 55, la: 90, ra: 90 }], ['tada', '🎉', 'טה־דה!', { la: 130, lf: -20, ra: 130, rf: -20, rl: 15, head: 6 }], ['superstar', '🌟', 'סופרסטאר', { la: 160, lf: -10, ra: -20, rf: 20, ll: 18, head: -6 }],
+    ['flip', '🔄', 'היפוך', { la: 110, lf: -40, ra: 20, rf: 60, ll: 12, head: 6 }, { flip: 1 }], ['shimmy', '✨', 'שימי', { la: 20, lf: 70, ra: 20, rf: 70, ll: 8, rl: 8, lk: 15, rk: 15 }, { tilt: -5 }],
+  ];
+  const DNC_FORM = [['line', '➖ שורה'], ['v', '✌️ חץ'], ['pairs', '👯 זוגות'], ['circle', '⭕ עיגול'], ['solo', '🌟 סולו מקדימה'], ['diamond', '💠 יהלום']];
+  const DNC_SONGS = [['pop', '🎵 פופ שמח', [523, 659, 784, 659, 698, 880, 784, 659], 'square'], ['waltz', '🎻 ואלס', [659, 784, 880, 784, 659, 587, 523, 587], 'triangle'], ['disco', '🪩 דיסקו', [440, 440, 523, 587, 659, 587, 523, 494], 'sawtooth'], ['lullaby', '🌙 שיר חלומות', [523, 587, 659, 523, 784, 659, 587, 523], 'sine']];
+  const DNC_BGS = [['stage', '🎭 במה'], ['disco', '🪩 דיסקו'], ['garden', '🌷 גינה'], ['sunset', '🌅 שקיעה']];
+  const DNC_LIGHTS = [['spots', '🔦 זרקורים'], ['rainbow', '🌈 קשת'], ['ball', '🪩 כדור דיסקו'], ['none', 'בלי']];
+  let dances = store.get('dances', []), dnc = null, dncRun = null;
+  const dncMove = id => DNC_MOVES.find(m => m[0] === id) || DNC_MOVES[0];
+  const dncNew = () => ({ id: null, name: '', dancers: girls.slice(0, 3).map(g => g.id), pet: false, mer: false, beats: Array.from({ length: 8 }, (_, i) => ({ m: ['stand', 'wave', 'clap', 'armsup', 'stepL', 'stepR', 'twirl', 'tada'][i], f: i < 4 ? 'line' : 'v' })), tempo: 100, song: 'pop', bg: 'stage', lights: 'spots', look: 'own' });
+  const DNC_LOOKS = [['own', '👗 הבגדים שלה'], ['tutu', '🩰 טוטו'], ['sport', '👟 ספורט'], ['sparkle', '✨ שמלת במה']];
+  // a dance costume on a copy of the girl (her saved clothes stay the same); long gowns become short so legs can move
+  function dncDress(g, look) {
+    const c = gchFav(g)[0], o = Object.assign({}, g);
+    if (look === 'tutu') Object.assign(o, { dress: 'none', jacket: 'none', top: 'tank', topColor: c, topPat: 'plain', bottom: 'tulle', bottomColor: c, bottomPat: 'plain', legwear: 'tights', legColor: '#ffffff', shoes: 'flats', shoeColor: '#ffc2d8' });
+    else if (look === 'sport') Object.assign(o, { dress: 'none', jacket: 'none', top: 'tshirt', topColor: c, topPat: 'plain', bottom: 'leggings', bottomColor: '#2b2f45', bottomPat: 'plain', legwear: 'none', shoes: 'sneakers', shoeColor: '#ffffff' });
+    else if (look === 'sparkle') Object.assign(o, { dress: 'party', dressColor: c, dressPat: 'plain', jacket: 'none', shoes: 'maryjanes', shoeColor: '#ffd45c' });
+    else if (['ballgown', 'maxi', 'goldgown'].includes(g.dress) || (g.dress && g.dress !== 'none' && !['party', 'sundress', 'skater', 'pinafore'].includes(g.dress))) Object.assign(o, { dress: 'party' });
+    return o;
+  }
+  function dncRandom() {
+    const d = dncNew(), pool = DNC_MOVES.slice(1).map(m => m[0]).filter(m => m !== 'bow');
+    d.dancers = girls.slice().sort(() => Math.random() - 0.5).slice(0, Math.min(4, Math.max(1, girls.length))).map(g => g.id);
+    const n = gchPick([8, 12, 16]), f0 = gchPick(DNC_FORM)[0];
+    d.beats = Array.from({ length: n }, (_, i) => ({ m: i === n - 1 ? 'bow' : i === 0 ? 'stand' : gchPick(pool), f: i % 4 === 0 ? gchPick(DNC_FORM)[0] : f0 }));
+    for (let i = 1; i < n; i++) if (i % 4) d.beats[i].f = d.beats[i - 1].f;
+    Object.assign(d, { tempo: gchPick([80, 100, 120]), song: gchPick(DNC_SONGS)[0], bg: gchPick(DNC_BGS)[0], lights: gchPick(DNC_LIGHTS.slice(0, 3))[0], look: gchPick(DNC_LOOKS)[0], pet: !!pet && Math.random() < 0.5, mer: mermaids.length > 0 && Math.random() < 0.3, name: 'ריקוד הפתעה' });
+    return d;
+  }
+  function openDance() {
+    while (girls.length < 2) { girls.push(Object.assign(newGirl(), randomGirl(), { name: GIRL_NAMES.find(x => !girls.some(y => y.name === x)) || 'שירה' })); saveGirls(); }
+    dncStop();
+    dnc = { d: dncNew(), sel: 0, msg: '' };
+    drawDance();
+    if (!$('#danceDlg').open) $('#danceDlg').showModal();
+  }
+  // where each dancer stands: [x %, depth 0 (front) .. 1 (back)]
+  function dncSpots(f, n) {
+    const L = (k, a = 18, b = 82) => Array.from({ length: k }, (_, i) => a + (k === 1 ? (b - a) / 2 : (b - a) * i / (k - 1)));
+    if (n === 1) return [[50, 0]];
+    if (f === 'v') return L(n).map((x, i) => [x, Math.abs(i - (n - 1) / 2) / ((n - 1) / 2) * 0.8]);
+    if (f === 'pairs') return L(n, 14, 86).map((x, i) => [x + (i % 2 ? -5 : 5), Math.floor(i / 2) % 2 ? 0.7 : 0]);
+    if (f === 'circle') return L(n).map((x, i) => [x, i % 2 ? 0.8 : 0.1]);
+    if (f === 'solo') return [[50, 0], ...L(n - 1, 22, 78).map(x => [x, 0.85])];
+    if (f === 'diamond') return n === 4 ? [[50, 0], [28, 0.5], [72, 0.5], [50, 0.95]] : L(n).map((x, i) => [x, [0, 0.6, 0.2, 0.9][i % 4]]);
+    return L(n).map(x => [x, 0.2]);
+  }
+  const dncMerPose = p => ({ la: p.la, ra: p.ra, lf: p.lf, rf: p.rf, head: p.head, tail: ((p.ll || 0) - (p.rl || 0)) * 0.6 });
+  const dncLerp = (a, b, t) => { const o = {}; ['la', 'ra', 'lf', 'rf', 'll', 'rl', 'lk', 'rk', 'head'].forEach(k => { o[k] = (a[k] || 0) + ((b[k] || 0) - (a[k] || 0)) * t; }); return o; };
+  function dncBg(bg, lights) {
+    const B = {
+      stage: `<rect width="800" height="500" fill="#3b1d4f"/><path d="M0 0 H800 V50 Q600 90 400 50 Q200 90 0 50Z" fill="#c0305a"/><path d="M0 0 V330 Q60 200 44 0Z M800 0 V330 Q740 200 756 0Z" fill="#9a2448"/><rect y="330" width="800" height="170" fill="#b07a4e"/>` + Array.from({ length: 12 }, (_, i) => `<path d="M${i * 70} 500 L${400 + (i - 6) * 30} 330" stroke="#8a5a36" stroke-width="2"/>`).join('') + `<path d="M0 330 H800" stroke="#e9c46a" stroke-width="5"/>`,
+      disco: `<rect width="800" height="500" fill="#140c2a"/>` + Array.from({ length: 40 }, (_, i) => `<circle cx="${(i * 97) % 800}" cy="${(i * 53) % 300}" r="${1 + i % 3}" fill="#fff" opacity=".6"/>`).join('') + Array.from({ length: 32 }, (_, i) => { const x = (i % 8) * 100, y = 330 + Math.floor(i / 8) * 43; return `<rect class="dnc-tile" style="animation-delay:${(i * 0.37) % 2}s" x="${x}" y="${y}" width="100" height="43" fill="${['#ff5fa2', '#5fd0ff', '#ffd45c', '#a86bff', '#3fd6a0'][(i + Math.floor(i / 8)) % 5]}" stroke="#140c2a" stroke-width="3"/>`; }).join(''),
+      garden: `<rect width="800" height="500" fill="#bfe8ff"/><circle cx="680" cy="80" r="44" fill="#fff1a8"/><path d="M0 300 Q200 250 400 290 T800 280 V500 H0Z" fill="#8ccf7e"/><rect y="340" width="800" height="160" fill="#9edb86"/>` + Array.from({ length: 24 }, (_, i) => `<circle cx="${(i * 71) % 800}" cy="${360 + (i * 37) % 130}" r="5" fill="${['#ff9ec4', '#ffd45c', '#fff', '#c3a2ff'][i % 4]}"/>`).join('') + `<path d="M100 340 V180" stroke="#8a5a3c" stroke-width="14"/><circle cx="100" cy="160" r="60" fill="#5aa860"/><path d="M700 340 V200" stroke="#8a5a3c" stroke-width="14"/><circle cx="700" cy="180" r="56" fill="#62b066"/>`,
+      sunset: `<defs><linearGradient id="dss" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#5b3a8e"/><stop offset=".5" stop-color="#ff7a9a"/><stop offset="1" stop-color="#ffc36b"/></linearGradient></defs><rect width="800" height="500" fill="url(#dss)"/><circle cx="400" cy="310" r="90" fill="#fff1a8" opacity=".9"/><rect y="320" width="800" height="180" fill="#f2c890"/><path d="M0 320 H800" stroke="#fff" stroke-width="3" opacity=".6"/>`,
+    }[bg] || '';
+    const Lt = { spots: [150, 400, 650].map((x, i) => `<path class="dnc-spot" style="animation-delay:${i * 0.6}s" d="M${x} -10 L${x - 110} 500 L${x + 110} 500Z" fill="#fff6c4" opacity=".16"/>`).join(''),
+      rainbow: ['#ff5fa2', '#ffd45c', '#5fd0ff', '#a86bff', '#3fd6a0'].map((c, i) => `<path class="dnc-beam" style="animation-delay:${i * 0.4}s;transform-origin:${100 + i * 150}px 0" d="M${100 + i * 150} 0 L${60 + i * 150} 500 L${140 + i * 150} 500Z" fill="${c}" opacity=".22"/>`).join(''),
+      ball: `<path d="M400 0 V40" stroke="#ccc" stroke-width="2"/><circle cx="400" cy="70" r="30" fill="#d0d4e0"/>` + Array.from({ length: 20 }, (_, i) => `<rect x="${378 + (i % 5) * 9}" y="${48 + Math.floor(i / 5) * 11}" width="7" height="8" fill="${i % 3 ? '#fff' : '#9aa3ad'}"/>`).join('') + Array.from({ length: 26 }, (_, i) => `<circle class="dnc-glint" style="animation-delay:${(i * 0.23) % 1.6}s" cx="${(i * 131) % 800}" cy="${60 + (i * 71) % 420}" r="3" fill="#fff"/>`).join(''),
+      none: '' }[lights] || '';
+    return `<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${B}${Lt}</svg>`;
+  }
+  // the dancers on stage for pose index / fraction
+  function dncCast(d) {
+    const cast = d.dancers.map(id => girls.find(g => g.id === id)).filter(Boolean).slice(0, 4).map(g => ({ k: 'g', g: dncDress(g, d.look) }));
+    if (d.mer && mermaids.length) cast.push({ k: 'm', m: mermaids[0] });
+    if (d.pet && pet) cast.push({ k: 'p' });
+    return cast;
+  }
+  function dncStageEl(d) {
+    const st = el('div', { class: 'dnc-stage' + (d.bg === 'disco' ? ' dark' : ''), html: dncBg(d.bg, d.lights) });
+    const cast = dncCast(d);
+    cast.forEach((c, i) => { c.el = el('div', { class: 'dnc-ch ' + c.k }); c.inner = el('div', { class: 'dnc-in' }); c.el.append(c.inner); st.append(c.el); });
+    st.append(el('div', { class: 'dnc-cap', id: 'dncCap' }), el('canvas', { class: 'confetti-c dnc-conf' }));
+    return { st, cast };
+  }
+  function dncPlace(cast, f, beatMs) {
+    const girlsN = cast.filter(c => c.k === 'g').length, spots = dncSpots(f, Math.max(1, girlsN));
+    let gi = 0;
+    cast.forEach((c, i) => {
+      let x, dep;
+      if (c.k === 'g') { [x, dep] = spots[gi++]; } else { x = c.k === 'p' ? 10 : 90; dep = 0.1; }
+      c.x = x; c.dep = dep;
+      c.el.style.transition = beatMs ? `left ${beatMs * 0.7}ms ease-in-out, bottom ${beatMs * 0.7}ms ease-in-out, transform ${beatMs * 0.7}ms ease-in-out` : 'none';
+      c.el.style.left = x + '%'; c.el.style.bottom = (4 + dep * 16) + '%';
+      c.el.style.transform = `translateX(-50%) scale(${1 - dep * 0.25})`; c.el.style.zIndex = String(10 - Math.round(dep * 5));
+    });
+  }
+  function dncDraw(cast, pose, i) {
+    cast.forEach((c, j) => {
+      if (c.k === 'g') c.inner.innerHTML = girlSVG(c.g, 'dn' + j, { bg: false, pose });
+      else if (c.k === 'm') c.inner.innerHTML = mermaidSVG(c.m, 'dm' + j, { pose: dncMerPose(pose) });
+      else if (!c.inner.firstChild) c.inner.innerHTML = petArt();
+    });
+  }
+  // pose preview with a roomier frame so raised arms and buns are not cut off
+  const dncPrevCache = new Map();
+  function dncPrev(g, m) {
+    const k = m[0] + JSON.stringify(g);
+    let v = dncPrevCache.get(k);
+    if (!v) { v = svgData(girlSVG(g, 'dp' + m[0], { bg: false, pose: m[3] }).replace('viewBox="0 0 300 600"', 'viewBox="-40 -50 380 680"')); if (dncPrevCache.size > 150) dncPrevCache.clear(); dncPrevCache.set(k, v); }
+    return v;
+  }
+  function dncStop() { if (dncRun) { cancelAnimationFrame(dncRun.raf); dncRun.timers.forEach(clearTimeout); dncRun = null; } }
+  function dncPerform() {
+    dncStop();
+    const d = dnc.d, beatMs = 60000 / d.tempo, host = $('#dncStageHost');
+    const { st, cast } = dncStageEl(d);
+    host.replaceChildren(st);
+    st.classList.add('perform');
+    const song = DNC_SONGS.find(s => s[0] === d.song) || DNC_SONGS[0];
+    const run = dncRun = { raf: 0, timers: [], t0: performance.now() + 900, last: -1, lastDraw: 0 };
+    dncPlace(cast, d.beats[0].f, 0); dncDraw(cast, dncMove(d.beats[0].m)[3], 0);
+    $('#dncCap').textContent = '🎬 3... 2... 1...';
+    [0, 300, 600].forEach((w, i) => run.timers.push(setTimeout(() => tone(660 + i * 110, 0.12, 'sine', 0, 0.06), w)));
+    const n = d.beats.length;
+    const frame = now => {
+      if (dncRun !== run) return;
+      const t = (now - run.t0) / beatMs;
+      if (t < 0) { run.raf = requestAnimationFrame(frame); return; }
+      const b = Math.floor(t);
+      if (b >= n) { dncFinale(cast); return; }
+      if (b !== run.last) {
+        run.last = b;
+        const mv = dncMove(d.beats[b].m), fx = mv[4] || {};
+        $('#dncCap').textContent = `${mv[1]} ${mv[2]} (${b + 1}/${n})`;
+        dncPlace(cast, d.beats[b].f, beatMs);
+        cast.forEach(c => { c.inner.classList.remove('jump', 'spin', 'flip'); void c.inner.offsetWidth; if (fx.jump) c.inner.classList.add('jump'); if (fx.spin) c.inner.classList.add('spin'); if (fx.flip) c.inner.classList.add('flip'); c.inner.style.setProperty('--dur', beatMs + 'ms'); c.inner.style.setProperty('--tilt', (fx.tilt || 0) + 'deg'); if (fx.shift) c.el.style.left = (c.x + fx.shift) + '%'; });
+        const f = song[2][b % song[2].length], base = [262, 294, 330, 349][Math.floor(b / 4) % 4];
+        tone(f, beatMs / 1000 * 0.8, song[3], 0, song[3] === 'sawtooth' || song[3] === 'square' ? 0.03 : 0.06); tone(base / 2, beatMs / 1000 * 0.5, 'triangle', 0, 0.06);
+        if (d.song !== 'waltz') tone(base, 0.08, 'sine', beatMs / 2000, 0.03);
+      }
+      if (now - run.lastDraw > 85) {
+        run.lastDraw = now;
+        const fr = t - b, a = dncMove(d.beats[b].m)[3], nb = dncMove(d.beats[Math.min(n - 1, b + 1)].m)[3], ease = fr < 0.55 ? 0 : (1 - Math.cos((fr - 0.55) / 0.45 * Math.PI)) / 2;
+        const p0 = b === 0 && fr < 0.5 ? dncLerp({}, a, Math.min(1, fr * 2)) : a;
+        dncDraw(cast, dncLerp(p0, nb, b === n - 1 ? 0 : ease), b);
+      }
+      run.raf = requestAnimationFrame(frame);
+    };
+    run.raf = requestAnimationFrame(frame);
+    drawDanceCtl(true);
+  }
+  function dncFinale(cast) {
+    const d = dnc.d;
+    dncDraw(cast, dncMove('bow')[3]);
+    $('#dncCap').textContent = '👏👏 איזה ריקוד! כל הכבוד! 👏👏';
+    SFX.yay(); for (let i = 0; i < 24; i++) tone(900 + Math.random() * 1500, 0.03, 'square', i * 0.06 + Math.random() * 0.04, 0.025);
+    try { confetti($('#danceDlg .dnc-conf')); } catch {}
+    try { if (typeof addCoins === 'function') addCoins(8, 'ריקוד'); } catch {}
+    dncRun = null; drawDanceCtl(false);
+  }
+  function drawDanceCtl(playing) {
+    const c = $('#dncPlayCtl'); if (!c) return;
+    c.replaceChildren(playing ? el('button', { type: 'button', class: 'btn', onclick: () => { dncStop(); drawDance(); } }, '⏹️ לעצור') : el('button', { type: 'button', class: 'btn main dnc-play', onclick: dncPerform }, '▶️ להופיע!'),
+      playing ? null : el('button', { type: 'button', class: 'btn', onclick: () => { dncStop(); drawDance(); } }, '✏️ חזרה לעריכה'));
+  }
+  function drawDance() {
+    const D = dnc.d, sel = Math.min(dnc.sel, D.beats.length - 1), B = D.beats[sel], upd = () => { dnc.msg = ''; drawDance(); };
+    const { st, cast } = dncStageEl(D);
+    dncPlace(cast, B.f, 0); dncDraw(cast, dncMove(B.m)[3], 0);
+    const mv0 = dncMove(B.m); st.querySelector('#dncCap').textContent = `${mv0[1]} ${mv0[2]} (צעד ${sel + 1})`;
+    const who = el('div', { class: 'chips' }, ...girls.map(g => { const on = D.dancers.includes(g.id); return el('button', { type: 'button', class: 'chip bo-who', 'aria-pressed': String(on), onclick: () => { if (on) D.dancers = D.dancers.filter(x => x !== g.id); else if (D.dancers.length < 4) D.dancers.push(g.id); else { dnc.msg = 'עד 4 רקדניות 🙂'; } drawDance(); } }, el('img', { src: girlImgURL(g, { view: 'head', bg: false }), alt: '' }), g.name || 'בלי שם'); }),
+      pet ? el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!D.pet), onclick: () => { D.pet = !D.pet; upd(); } }, `🐾 ${petNm()}`) : null,
+      mermaids.length ? el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!D.mer), onclick: () => { D.mer = !D.mer; upd(); } }, `🧜‍♀️ ${mermaids[0].name || 'בת הים'}`) : null);
+    const beats = el('div', { class: 'dnc-beats' }, ...D.beats.map((b, i) => { const m = dncMove(b.m); return el('button', { type: 'button', class: 'dnc-beat' + (i % 4 === 0 ? ' bar' : ''), 'aria-pressed': String(i === sel), title: m[2], onclick: () => { dnc.sel = i; drawDance(); } }, el('span', { class: 'e' }, m[1]), el('span', { class: 'n' }, String(i + 1))); }));
+    const g0 = dncDress(girls.find(g => g.id === D.dancers[0]) || girls[0], D.look);
+    const moves = el('div', { class: 'dnc-moves' }, ...DNC_MOVES.map(m => el('button', { type: 'button', 'aria-pressed': String(B.m === m[0]), onclick: () => { B.m = m[0]; tone(700 + Math.random() * 300, 0.06, 'triangle', 0, 0.05); if (dnc.sel < D.beats.length - 1) dnc.sel++; upd(); } },
+      el('img', { src: dncPrev(g0, m), alt: '' }), el('span', {}, `${m[1]} ${m[2]}`))));
+    const nm = el('input', { type: 'text', id: 'dncName', maxLength: 24, value: D.name, placeholder: 'שם לריקוד', oninput: e => { D.name = e.target.value; } });
+    const gal = dances.length ? el('div', { class: 'dnc-gal' }, ...dances.map(x => el('div', { class: 'jw-card' }, el('b', {}, x.name), el('span', { class: 'muted' }, `${x.beats.length} צעדים · ${x.beats.map(b => dncMove(b.m)[1]).slice(0, 6).join('')}`),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { dnc.d = JSON.parse(JSON.stringify(x)); dnc.sel = 0; drawDance(); dncPerform(); } }, '▶️'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { dnc.d = JSON.parse(JSON.stringify(x)); dnc.sel = 0; upd(); } }, '✏️'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { dances = dances.filter(y => y !== x); store.set('dances', dances); upd(); } }, '🗑️'))))) : el('p', { class: 'muted' }, 'עוד אין ריקודים שמורים.');
+    const row = (l, n) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, l), n);
+    const beatsRow = el('div', { class: 'row' }, el('span', { class: 'lbl' }, '🎼 הצעדים (לוחצים על צעד ובוחרים לו תנועה)'), beats,
+      el('div', { class: 'chips' }, ...[8, 12, 16].map(k => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(D.beats.length === k), onclick: () => { while (D.beats.length < k) D.beats.push(Object.assign({}, D.beats[D.beats.length - 1])); D.beats.length = k; upd(); } }, `${k} צעדים`)),
+        el('button', { type: 'button', class: 'btn', onclick: () => { dnc.d = dncRandom(); dnc.sel = 0; SFX.pop(); upd(); } }, '🎲 ריקוד הפתעה')));
+    const chips = (list, cur, f) => el('div', { class: 'chips' }, ...list.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(cur === id), onclick: () => f(id) }, n)));
+    $('#danceBody').replaceChildren(
+      el('div', { class: 'dnc-top' }, el('div', { class: 'dnc-left' }, el('div', { id: 'dncStageHost' }, st), el('div', { class: 'chips dnc-ctl', id: 'dncPlayCtl' }), beatsRow,
+        row(`📍 המבנה בצעד ${sel + 1}`, el('div', { class: 'chips' }, ...DNC_FORM.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(B.f === id), onclick: () => { B.f = id; upd(); } }, n)),
+          el('button', { type: 'button', class: 'btn', onclick: () => { D.beats.forEach(b => { b.f = B.f; }); upd(); } }, 'לכל הצעדים')))), el('div', { class: 'row' },
+        row('👯 מי רוקדת? (עד 4)', who),
+        row('🎵 שיר', chips(DNC_SONGS.map(s => [s[0], s[1]]), D.song, v => { D.song = v; const s = DNC_SONGS.find(x => x[0] === v); s[2].slice(0, 4).forEach((f, i) => tone(f, 0.2, s[3], i * 0.18, 0.04)); upd(); })),
+        el('div', { class: 'row' }, el('label', { for: 'dncTempo', class: 'lbl' }, `⏱️ קצב: ${D.tempo}`), el('input', { type: 'range', id: 'dncTempo', min: 60, max: 150, step: 5, value: D.tempo, onchange: e => { D.tempo = +e.target.value; upd(); } })),
+        row('👗 תלבושת', chips(DNC_LOOKS, D.look || 'own', v => { D.look = v; upd(); })),
+        row('🎭 במה', chips(DNC_BGS, D.bg, v => { D.bg = v; upd(); })), row('💡 אורות', chips(DNC_LIGHTS, D.lights, v => { D.lights = v; upd(); })))),
+      row(`💃 התנועה בצעד ${sel + 1}`, moves),
+      el('div', { class: 'row jw-save' }, el('label', { for: 'dncName' }, '💾 שם לריקוד'), el('div', { class: 'chips' }, nm, el('button', { type: 'button', class: 'btn main', onclick: () => {
+        D.name = D.name.trim() || `הריקוד של ${(girls.find(g => g.id === D.dancers[0]) || {}).name || 'הבנות'}`;
+        if (!D.id) { D.id = 'dn' + Date.now().toString(36); dances.unshift(JSON.parse(JSON.stringify(D))); } else { const i = dances.findIndex(x => x.id === D.id); if (i >= 0) dances[i] = JSON.parse(JSON.stringify(D)); else dances.unshift(JSON.parse(JSON.stringify(D))); }
+        dnc.msg = store.set('dances', dances) ? `✔️ "${D.name}" נשמר!` : 'אין מקום לשמור 😕'; SFX.ding(); drawDance(); } }, 'לשמור'), el('button', { type: 'button', class: 'btn', onclick: () => { dnc.d = dncNew(); dnc.sel = 0; upd(); } }, '🆕 חדש')), el('p', { class: 'muted', role: 'status' }, dnc.msg)),
+      row(`📼 הריקודים שלי (${dances.length})`, gal));
+    drawDanceCtl(false);
+  }
+  $('#danceDlg').addEventListener('close', dncStop);
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
