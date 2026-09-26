@@ -3314,6 +3314,85 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 .wd-scene .gd6-swing { transform-box: fill-box; transform-origin: 50% 0%; animation: gd6swing 2.6s ease-in-out infinite alternate; }
 @keyframes gd6swing { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
 @media (prefers-reduced-motion: reduce) { .wd-scene .gd6-swing { animation: none; } }
+/* ---------- games6 ---------- */
+.gd2-sud.n9 { width: min(100%, 470px); gap: 5px; }
+.gd2-sud.n9 .gd2-boxc { gap: 2px; padding: 2px; }
+.gd2-sud.n9 .gd2-cell { padding: 8%; border-radius: 7px; }
+.gd2-notes.n9 { grid-template-columns: repeat(3, 1fr); }
+.gd2-pal .gd2-brush { min-width: 44px; }
+.g6-mem { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 440px; margin: 0 auto; width: 100%; }
+.g6-card { aspect-ratio: 1; border: none; background: none; padding: 0; perspective: 600px; }
+.g6-card.big { aspect-ratio: 3 / 3.4; }
+.g6-in { display: block; position: relative; width: 100%; height: 100%; transition: transform .4s; transform-style: preserve-3d; }
+.g6-card.open .g6-in { transform: rotateY(180deg); }
+.g6-back, .g6-face { position: absolute; inset: 0; border-radius: 14px; border: 2px solid var(--line); backface-visibility: hidden; overflow: hidden; display: grid; place-items: center; }
+.g6-back { background: var(--accent); color: var(--accent-ink); font-size: 1.8em; background-image: radial-gradient(rgb(255 255 255 / .25) 2px, transparent 2.5px); background-size: 14px 14px; }
+.g6-face { transform: rotateY(180deg); background: var(--card); padding: 10%; }
+.g6-card.big .g6-face { padding: 0; background: linear-gradient(#fff3fa, #e8f6ff); }
+.g6-face svg { width: 100%; height: 100%; display: block; }
+.g6-card.done .g6-face { border-color: #6fcf7f; box-shadow: 0 0 0 2px #6fcf7f; }
+@keyframes g6Flutter { 0% { transform: translate(0, 0) rotate(8deg); } 25% { transform: translate(30vw, var(--y)) rotate(-10deg); } 50% { transform: translate(60vw, 0) rotate(10deg); } 75% { transform: translate(85vw, calc(var(--y) * -1)) rotate(-8deg); } 100% { transform: translate(115vw, 0); } }
+@keyframes g6Shoot { 0% { opacity: 0; transform: translate(0, 0); } 10% { opacity: 1; } 100% { opacity: 0; transform: translate(-60vw, 45vh); } }
+.g6-hero { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 18px; background: linear-gradient(135deg, color-mix(in srgb, #ffd84d 30%, var(--card)), var(--card)); border: 2px solid #ffc83d; }
+.g6-hero > div { display: grid; gap: 2px; flex: 1; }
+.g6-hero b { font-weight: 400; font-size: 1.4em; }
+.g6-cup { font-size: 2.6em; animation: bob 2.4s ease-in-out infinite; }
+.g6-tally { display: flex; gap: 12px; flex-wrap: wrap; font-size: 1.05em; }
+.g6-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.g6-gcard { display: grid; justify-items: center; gap: 3px; text-align: center; border: 2px solid var(--line); border-radius: 16px; padding: 10px 6px; background: var(--card); transition: transform .15s; }
+.g6-gcard:hover { transform: translateY(-3px); border-color: var(--accent); }
+.g6-gcard b { font-weight: 400; }
+.g6-gcard.none { opacity: .6; }
+.g6-tr { font-size: 1.9em; line-height: 1; }
+.g6-st { display: grid; font-size: .78em; color: var(--soft); }
+/* ===== creative corner round 6 ===== */
+.mv-tr-zoom { animation: mv6Zoom .8s cubic-bezier(.2, .9, .3, 1.2); transform-origin: center; }
+.mv-tr-spin { animation: mv6Spin .9s cubic-bezier(.3, .8, .4, 1); transform-origin: center; }
+.mv-tr-wipe { animation: mv6Wipe .8s ease-in-out; }
+.mv-tr-drop { animation: mv6Drop .9s cubic-bezier(.3, 1.5, .5, 1); }
+@keyframes mv6Zoom { from { transform: scale(.15) rotate(-8deg); opacity: 0; } }
+@keyframes mv6Spin { from { transform: rotate(-360deg) scale(0); } }
+@keyframes mv6Wipe { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes mv6Drop { from { transform: translateY(-100%); } }
+.cm6-expr { display: grid; gap: 4px; }
+.ps6-tpls { display: grid; gap: 8px; }
+.ps6-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.ps6-t { border: 2px solid var(--line); border-radius: 14px; background: var(--card); padding: 6px; display: grid; gap: 4px; justify-items: center; font-size: .9em; color: var(--ink); transition: transform .15s; }
+.ps6-t:hover { transform: translateY(-2px) rotate(-1deg); border-color: var(--accent); }
+.ps6-pv { width: 100%; display: block; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgb(40 20 60 / .15); }
+.ps6-pv > svg { width: 100%; height: auto; display: block; }
+/* newspaper: crayon */
+.nw-paper.tpl-crayon { --nw-ink: #2b2a4a; --nw-acc: #ff5a6e; background: #fffdf4 repeating-linear-gradient(transparent 0 27px, #d9ecff 27px 28px); font-family: 'Playpen Sans Hebrew', 'Varela Round', sans-serif; }
+.tpl-crayon .nw-name { font-family: 'Rubik Doodle Shadow', 'Suez One', sans-serif; color: #ff5a6e; }
+.tpl-crayon .nw-mast, .tpl-crayon .nw-extra { border-style: dashed; border-color: #7ec8ff; }
+.tpl-crayon .nw-h { font-family: 'Playpen Sans Hebrew', sans-serif; font-weight: 600; }
+.tpl-crayon .nw-art:not(.nw-lead) { border: 3px dashed #ffd84d; border-radius: 16px; padding: 10px; background: rgb(255 255 255 / .8); }
+.tpl-crayon .nw-cols .nw-art:nth-child(3n+2) { border-color: #7ec8ff; transform: rotate(.6deg); }
+.tpl-crayon .nw-cols .nw-art:nth-child(3n) { border-color: #b58cff; transform: rotate(-.6deg); }
+.tpl-crayon .nw-lead { border: 3px dashed #ff9ad5; border-radius: 18px; padding: 12px; background: rgb(255 255 255 / .85); }
+.tpl-crayon .nw-tag { background: #fff27a; padding: 0 8px; border-radius: 6px; justify-self: start; transform: rotate(-2deg); }
+.tpl-crayon .nw-box { border: 3px dashed #4fbf73; border-radius: 16px; }
+/* newspaper: royal */
+.nw-paper.tpl-royal { --nw-ink: #3b1d5e; --nw-acc: #b8860b; background: linear-gradient(#fdf8ff, #f6ecff); border: 6px double #d4a72c; font-family: 'Rubik', serif; }
+.tpl-royal .nw-name { background: linear-gradient(90deg, #b8860b, #ffd84d, #b8860b); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(1px 1px 0 #6b3fa0); }
+.tpl-royal .nw-name::before { content: "👑 "; -webkit-text-fill-color: initial; }
+.tpl-royal .nw-mast, .tpl-royal .nw-extra { border-color: #d4a72c; }
+.tpl-royal .nw-cols .nw-art { border-inline-start-color: #d4a72c; }
+.tpl-royal .nw-h { color: #6b3fa0; }
+.tpl-royal .nw-box, .tpl-royal .nw-wx, .tpl-royal .nw-price { border: 2px solid #d4a72c; background: #fffaf0; }
+.tpl-royal .nw-tag { color: #b8860b; }
+/* newspaper: night */
+.nw-paper.tpl-night { --nw-ink: #eef0ff; --nw-acc: #ffd84d; background: radial-gradient(circle at 20% 0, #2d3470, #121634 70%); box-shadow: 0 10px 28px rgb(10 10 40 / .45); }
+.tpl-night .nw-name { font-family: 'Rubik Moonrocks', 'Suez One', sans-serif; color: #ffe27a; text-shadow: 0 0 12px rgb(255 226 122 / .6); }
+.tpl-night .nw-mast, .tpl-night .nw-extra, .tpl-night .nw-foot, .tpl-night .nw-dateline, .tpl-night .nw-lead { border-color: #5a63a8; }
+.tpl-night .nw-cols .nw-art { border-inline-start-color: #5a63a8; }
+.tpl-night .nw-box, .tpl-night .nw-wx, .tpl-night .nw-price { background: #1e2452; border-color: #5a63a8; }
+.tpl-night .nw-pic.soft { background: #252c63; border-color: #5a63a8; }
+.tpl-night .nw-grid button { background: #252c63; color: #eef0ff; border-color: #5a63a8; }
+.tpl-night .nw-grid button.on { background: #b58a2a; }
+.tpl-night .nw-grid button.got { background: #2f7a55; }
+.tpl-night .muted { color: #a9b0e0; }
+.tpl-night .nw-in { background: #1e2452; color: #eef0ff; }
 </style>
 </head>
 <body class="bg-dots">
@@ -7785,7 +7864,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   function drawGames() {
     if (catchStop) { catchStop(); catchStop = null; }
     $('#gamesTabs').replaceChildren(...GAME_TABS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gamesTab === id), onclick: () => { gamesTab = id; drawGames(); } }, n)));
-    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame, pnum: paintNumGame, potion: potionGame, escape: escapeGame, frun: fashionRunGame, popstar: popStarGame, golf: golfGame, logic: logicGame }[gamesTab] || memoryGame)();
+    ({ memory: memoryGame, catch: catchGame, maze: mazeGame, puzzle: puzzleGame, color: colorGame, diff: diffGame, pearls: pearlGame, simon: simonGame, ice: iceGame, cake: cakeGame, ttt: tttGame, g2048: g2048Game, match3: match3Game, bubble: bubbleGame, runner: runnerGame, words: wordGame, ladders: laddersGame, jump: jumpGame, pizza: pizzaGame, fcontest: fashionContestGame, sudoku: sudokuGame, gmemory: girlsMemoryGame, hide: hideGame, pnum: paintNumGame, potion: potionGame, escape: escapeGame, frun: fashionRunGame, popstar: popStarGame, golf: golfGame, logic: logicGame, mygames: g6MyGames }[gamesTab] || memoryGame)();
   }
   function memoryGame() {
     const pool = Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
@@ -7879,7 +7958,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   $('#gamesDlg').addEventListener('close', () => { if (catchStop) { catchStop(); catchStop = null; } });
 
   // ================= more games: maze, puzzle, coloring, spot the difference, pearls, sound memory =================
-  const GAME_TABS = [['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים'], ['words', '🔤 חיפוש מילים'], ['ladders', '🐍 סולמות ונחשים'], ['jump', '🐸 קפיצות'], ['pizza', '🍕 מסעדת פיצה'], ['fcontest', '🏆 תחרות אופנה'], ['sudoku', '🧩 סודוקו מדבקות'], ['gmemory', '👯 זיכרון בנות'], ['hide', '🎯 איפה החיה?'], ['frun', '🏃‍♀️ ריצת אופנה'], ['popstar', '🎤 כוכבת פופ'], ['golf', '⛳ מיני גולף'], ['logic', '🧩 חידות היגיון']];
+  const GAME_TABS = [['mygames', '⭐ המשחקים שלי'], ['memory', '🧠 זיכרון'], ['catch', '⭐ תפוס את הכוכב'], ['maze', '🌀 מבוך'], ['puzzle', '🧩 פאזל'], ['color', '🖍️ צביעה'], ['diff', '🔍 איפה ההבדל?'], ['pearls', '🧜‍♀️ פנינים'], ['simon', '🎵 זיכרון צלילים'], ['ice', '🍦 גלידות'], ['cake', '🎂 עוגה'], ['ttt', '❌⭕ איקס עיגול'], ['g2048', '🔢 2048'], ['match3', '🍭 שלוש בשורה'], ['bubble', '🫧 יורים בועות'], ['runner', '🧜‍♀️ מרוץ בת ים'], ['words', '🔤 חיפוש מילים'], ['ladders', '🐍 סולמות ונחשים'], ['jump', '🐸 קפיצות'], ['pizza', '🍕 מסעדת פיצה'], ['fcontest', '🏆 תחרות אופנה'], ['sudoku', '🧩 סודוקו מדבקות'], ['gmemory', '👯 זיכרון בנות'], ['hide', '🎯 איפה החיה?'], ['frun', '🏃‍♀️ ריצת אופנה'], ['popstar', '🎤 כוכבת פופ'], ['golf', '⛳ מיני גולף'], ['logic', '🧩 חידות היגיון']];
   const petArt = () => pet ? petSVG(pet) : stickerHTML('cat');
   const petNm = () => pet ? pet.name || 'החיה' : 'החתול';
   const svgData = s => 'data:image/svg+xml,' + encodeURIComponent(s);
@@ -10848,7 +10927,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     out.push(jacketSVG, accBody, accBag, armsFront);
     out.push(`<path d="M140.5 98 V128 Q150 132 159.5 128 V98Z" fill="${sk}"/><path d="M140.5 98 V128 Q150 132 159.5 128 V98Z" fill="${skinGrad}" opacity=".6"/><path d="M140.5 104 V128 M159.5 104 V128" stroke="${skLine}" stroke-width="1.1"/><ellipse cx="150" cy="113" rx="11" ry="7" fill="${skD}" opacity=".5" filter="${blur}"/>`);
     if (topId === 'turtle' && (!dress || dress === 'pinafore')) out.push(topSVG.slice(topSVG.indexOf('<path d="M139.5 110')));
-    out.push(onHead(face + hairFront + accEar + accFace + accHead));
+    out.push(onHead(face + (opt.expr && opt.expr !== 'none' && typeof girlExprSVG === 'function' ? girlExprSVG(opt.expr, { sk, my, lw, u }) : '') + hairFront + accEar + accFace + accHead));
     // nails: tiny on her hands, and a round close-up of one hand
     if (nl && !PZ) out.splice(out.indexOf(armsAgain) + 1, 0, both(nailsOf));
     const VB = { face: '102 28 96 96', head: '90 -6 120 136', hair: '62 -12 176 272' }[opt.view] || '0 0 300 600';
@@ -12616,7 +12695,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     ['🌈 שמיים', ['sun', 'moon', 'rainbow', 'cloud', 'star', 'planet']],
     ['🐾 חיות', ['cat', 'dog', 'bunny', 'panda', 'owl', 'turtle']],
   ];
-  const gd2Box = n => n === 4 ? [2, 2] : [2, 3]; // rows × cols of one box
+  const gd2Box = n => n === 4 ? [2, 2] : n === 9 ? [3, 3] : [2, 3]; // rows × cols of one box
   // counts the solutions (stops at `limit`)
   function gd2SudCount(grid, n, limit = 2) {
     const g = grid.slice(), [br, bc] = gd2Box(n); let count = 0;
@@ -12643,7 +12722,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const sym = gd2Shuffle([...Array(n).keys()].map(x => x + 1));
     const sol = [];
     for (const r of rows) for (const c of cols) sol.push(sym[(bc * (r % br) + Math.floor(r / br) + c) % n]);
-    const giv = sol.slice(), target = n === 4 ? 6 : 14;
+    const giv = sol.slice(), target = n === 4 ? 6 : n === 9 ? 34 : 14;
     let left = n * n;
     for (const i of gd2Shuffle([...Array(n * n).keys()])) {
       if (left <= target) break;
@@ -12724,7 +12803,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     $('#gamesBody').replaceChildren(
       el('p', { class: 'muted' }, `בוחרים מדבקה למטה ולוחצים על משבצת. בכל שורה, בכל טור ובכל ריבוע מודגש צריכה להיות כל מדבקה פעם אחת בדיוק!`),
       el('div', { class: 'chips', style: 'justify-content:center' },
-        ...[[4, '🐣 קל 4×4'], [6, '🦁 מאתגר 6×6']].map(([k, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(n === k), onclick: () => { S.n = k; newOne(); } }, name)),
+        ...[[4, '🐣 קל 4×4'], [6, '🦁 מאתגר 6×6'], [9, '🏆 אלופה 9×9']].map(([k, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(n === k), onclick: () => { S.n = k; newOne(); } }, name)),
         ...GD2_SETS.map(([name], k) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(S.set === k), onclick: () => { S.set = k; store.set('sudokuSet', k); sudokuGame(); } }, name))),
       info, el('div', { class: 'gd2-sud-wrap' }, grid), pal,
       el('div', { class: 'chips', style: 'justify-content:center' },
@@ -13539,9 +13618,9 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     const pose = it.pose && Object.keys(it.pose).length ? it.pose : null;
     if (it.t === 'girl') {
       const g = girls.find(x => x.id === it.ref); if (!g) return null;
-      const key = 'g' + JSON.stringify(g) + JSON.stringify(pose);
+      const key = 'g' + JSON.stringify(g) + JSON.stringify(pose) + (it.expr || '');
       let v = cmCharCache.get(key);
-      if (!v) { try { v = girlSVG(g, 'cmg' + (cmN++), pose ? { bg: false, pose } : { bg: false }); } catch { return null; } if (cmCharCache.size > 60) cmCharCache.clear(); cmCharCache.set(key, v); }
+      if (!v) { try { v = girlSVG(g, 'cmg' + (cmN++), Object.assign({ bg: false }, pose ? { pose } : {}, it.expr ? { expr: it.expr } : {})); } catch { return null; } if (cmCharCache.size > 60) cmCharCache.clear(); cmCharCache.set(key, v); }
       return v;
     }
     if (it.t === 'mer') {
@@ -13783,6 +13862,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
         B('🗑️', () => removeIt(it), { title: 'למחוק', 'aria-label': 'למחוק' })));
       if (it.t === 'girl' || it.t === 'mer') {
         const can = !!cmJoints(it);
+        if (it.t === 'girl' && typeof cm6ExprRow === 'function') rows.push(cm6ExprRow(it, () => { changed(); reItem(it); drawUI(); drawSide(); }));
         rows.push(el('span', { class: 'lbl' }, '🤸‍♀️ תנוחה'), el('div', { class: 'chips' }, ...CM_POSES[it.t].map(([id, name, p]) => el('button', { type: 'button', class: 'chip', disabled: !can, onclick: () => {
           it.pose = cmCopy(p);
           SFX.pop(); changed(); reItem(it); drawUI();
@@ -20108,6 +20188,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     if (end.r != null) o.r = L(it.r || 0, end.r);
     if (end.sq != null) o.sq = L(it.sq || 0, end.sq);
     if (end.f != null) o.f = k < 0.5 ? it.f : end.f;
+    if (end.expr !== undefined) o.expr = k < 0.5 ? it.expr : end.expr;
     if (end.pose && (it.t === 'girl' || it.t === 'mer')) {
       const base = it.t === 'mer' ? { la: 20, ra: 20 } : {}, p0 = Object.assign({}, base, it.pose), p1 = Object.assign({}, base, end.pose), p = {};
       new Set([...Object.keys(p0), ...Object.keys(p1)]).forEach(q => { p[q] = Math.round(L(+p0[q] || 0, +p1[q] || 0) / 4) * 4; });
@@ -20314,7 +20395,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       const sv = screen.firstElementChild;
       if (s.kind === 'scene') {
         P.nodes = Object.fromEntries([...sv.querySelectorAll('.mv-it')].map(n => [n.dataset.id, n]));
-        s.sc.items.forEach(it => { P.keys[it.id] = JSON.stringify(it.pose || 0) + '|' + Math.round(it.sq || 0); });
+        s.sc.items.forEach(it => { P.keys[it.id] = JSON.stringify(it.pose || 0) + '|' + Math.round(it.sq || 0) + (it.expr || ''); });
         P.cam = sv.querySelector('.mv-cam'); P.fx = sv.querySelector('.mv-fx'); P.shown = {};
         const tr = i === 0 && only == null ? 'fade' : s.sc.trans || 'fade';
         if (tr !== 'none' && !reduceMotion()) { sv.classList.add('mv-tr-' + tr); if (tr === 'sparkle') mvSparkle(P.fx); }
@@ -20332,7 +20413,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
           const n = P.nodes[it.id]; if (!n) return;
           const st = mvState(it, (sc.end || {})[it.id], k);
           n.setAttribute('transform', cmTf(st));
-          const key = JSON.stringify(st.pose || 0) + '|' + Math.round((st.sq || 0));
+          const key = JSON.stringify(st.pose || 0) + '|' + Math.round((st.sq || 0)) + (st.expr || '');
           if (P.keys[it.id] !== key) n.firstElementChild.innerHTML = cmInner(st, 'mi' + it.id);
           P.keys[it.id] = key;
           const r = (sc.show || {})[it.id], vis = !r || t >= r[0] - 0.001;
@@ -20478,7 +20559,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   }
   // ---------- the box drawing (400 x 440) ----------
   function mbSVG(b, u, big) {
-    const c1 = b.c1, c2 = b.c2, dk = fmx(c1, '#2a1030', 0.25), lt = fmx(c1, '#ffffff', 0.35), sh = b.shape;
+    const c1 = b.c1, c2 = b.c2, dk = fmx(c1, '#2a1030', 0.25), lt = fmx(c1, '#ffffff', 0.35), sh = typeof mb6Base === 'function' ? mb6Base(b.shape) : b.shape;
     const defs = [];
     const PAT = { dots: `<circle cx="8" cy="8" r="3.4"/><circle cx="24" cy="24" r="3.4"/>`, stripes: `<rect width="8" height="32"/>`, hearts: `<path d="M16 24 C4 16 5 7 11 6 C14 6 15.5 8 16 10 C16.5 8 18 6 21 6 C27 7 28 16 16 24 Z"/>`,
       stars: `<polygon points="${starPts(16, 16, 8, 3.4)}"/>`, flowers: [0, 72, 144, 216, 288].map(a => `<circle cx="${cmF(16 + 5 * Math.cos(a * Math.PI / 180))}" cy="${cmF(16 + 5 * Math.sin(a * Math.PI / 180))}" r="3.6"/>`).join('') + `<circle cx="16" cy="16" r="2.6" fill="#ffd84d"/>`,
@@ -20529,7 +20610,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       `<path d="${top}" fill="${velvet}" ${S}/><path d="${inner}" fill="#000" opacity=".22"/>${dancer}${feet}` +
       `<path d="${F}" fill="${c1}" ${S}/>${PAT ? `<path d="${F}" fill="url(#${u}p)"/>` : ''}<path d="${F}" fill="url(#${u}sh)"/>${bands}` +
       (sh !== 'chest' ? `<path d="${sh === 'round' ? 'M70 270 A130 26 0 0 0 330 270' : sh === 'heart' ? 'M72 268 H328' : 'M70 268 H330'}" fill="none" stroke="${c2}" stroke-width="5"/>` : '') +
-      `<path d="${F}" fill="none" ${S}/>${gems}${key}${lidClosed}${notes}</svg>`;
+      `<path d="${F}" fill="none" ${S}/>${gems}${typeof mb6Deco === 'function' ? mb6Deco(b, c1, c2) : ''}${key}${lidClosed}${typeof mb6Top === 'function' ? mb6Top(b, c1, c2) : ''}${notes}</svg>`;
   }
   function mbStop(node) {
     mbRun.timers.forEach(clearTimeout); mbRun.timers = []; mbRun.on = false;
@@ -20571,7 +20652,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     else if (mbTab === 'gems') tb = [el('span', { class: 'lbl' }, 'איפה האבנים'), chips(MB_GEMS, 'gems'), el('span', { class: 'lbl' }, 'צבע האבנים'), sw(MB_GEMC, 'gemC')];
     else if (mbTab === 'lid') tb = [el('span', { class: 'lbl' }, 'מה יש בתוך המכסה'), chips(MB_LIDS, 'lid'), el('p', { class: 'muted' }, '💡 רואים את זה כשהמכסה נפתח!'), el('button', { type: 'button', class: 'btn', onclick: () => { const sv = $('#mbStage .mb-svg'); sv.classList.toggle('open'); SFX.pop(); } }, '👀 לפתוח ולסגור את המכסה')];
     else if (mbTab === 'dancer') {
-      const opts = [['ballerina', '🩰 בלרינה'], ['unicorn', '🦄 חד קרן בקרוסלה'], ['swan', '🦢 ברבור'], ['mermaid', '🧜‍♀️ ' + ((mermaids[0] || {}).name || 'בת ים')], ...(pet ? [['pet', '🐾 ' + (pet.name || 'החיה שלי')]] : []), ...girls.slice(0, 12).map(g => ['g:' + g.id, '👧 ' + (g.name || 'בת')])];
+      const opts = [['ballerina', '🩰 בלרינה'], ['unicorn', '🦄 חד קרן בקרוסלה'], ['swan', '🦢 ברבור'], ...(typeof MB6_DANCERS !== 'undefined' ? MB6_DANCERS : []), ['mermaid', '🧜‍♀️ ' + ((mermaids[0] || {}).name || 'בת ים')], ...(pet ? [['pet', '🐾 ' + (pet.name || 'החיה שלי')]] : []), ...girls.slice(0, 12).map(g => ['g:' + g.id, '👧 ' + (g.name || 'בת')])];
       tb = [el('span', { class: 'lbl' }, 'מי רוקדת על הבמה הקטנה?'), chips(opts, 'dancer')];
     } else {
       tb = [el('span', { class: 'lbl' }, '🎼 שירי ערש ומנגינות'), el('div', { class: 'chips' }, ...MB_SONGS.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(b.song === k), onclick: () => upd({ song: k }) }, n))),
@@ -21110,7 +21191,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   // -- 🌷 pipes --
   const LZ_ROT = m => ((m << 1) | (m >> 3)) & 15;
   function lzPipes(stage, bar, i) {
-    const N = [3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6][i], R = lzRng(7919 * (i + 3)), cells = N * N, conn = new Array(cells).fill(0);
+    const N = [3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6][i] || (i < 16 ? 6 : 7), R = lzRng(7919 * (i + 3)), cells = N * N, conn = new Array(cells).fill(0);
     const nb = k => [[k - N, 1, 4], [k % N < N - 1 ? k + 1 : -1, 2, 8], [k + N, 4, 1], [k % N ? k - 1 : -1, 8, 2]].filter(([j]) => j >= 0 && j < cells);
     const src = Math.floor(R() * N) * N + Math.floor(R() * N), seen = new Set([src]), st = [src];
     while (st.length) {
@@ -21154,7 +21235,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 
   // -- 🏮 lanterns (lights out, but light them all) --
   function lzLights(stage, bar, i) {
-    const N = i < 5 ? 3 : 4, K = [1, 2, 2, 3, 4, 2, 3, 4, 5, 5, 6, 7][i], R = lzRng(104729 * (i + 1));
+    const N = i < 5 ? 3 : i < 15 ? 4 : 5, K = [1, 2, 2, 3, 4, 2, 3, 4, 5, 5, 6, 7][i] || i - 6, R = lzRng(104729 * (i + 1));
     const on = new Array(N * N).fill(true), need = new Set();
     const press = (k, arr) => [[0, 0], [-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dr, dc]) => { const r = Math.floor(k / N) + dr, c = k % N + dc; if (r >= 0 && r < N && c >= 0 && c < N) arr[r * N + c] = !arr[r * N + c]; });
     while (need.size < K) need.add(Math.floor(R() * N * N));
@@ -21180,7 +21261,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   const LZ_PSTK = [['heart', 'star', 'moon'], ['apple', 'strawberry', 'watermelon', 'avocado'], ['cat', 'dog', 'bunny', 'panda'], ['flower', 'tulip', 'sunflower', 'leaf'], ['cupcake', 'donut', 'icecream', 'lollipop'], ['sun', 'cloud', 'rainbow', 'snowflake'], ['fish', 'whale', 'turtle', 'shell']];
   function lzPattern(stage, bar, i) {
     const R = lzRng(3571 * (i + 1) + 11), rp = a => a[Math.floor(R() * a.length)];
-    const kinds = [['AB'], ['AAB', 'ABB'], ['ABC'], ['AABB', 'ABBC'], ['rot'], ['ABCD', 'ABAC'], ['size'], ['ABCB', 'AABC'], ['rot2'], ['size2', 'ABCD'], ['AABBC', 'rot'], ['rot2', 'size2', 'ABCB', 'AABBC']][i];
+    const kinds = [['AB'], ['AAB', 'ABB'], ['ABC'], ['AABB', 'ABBC'], ['rot'], ['ABCD', 'ABAC'], ['size'], ['ABCB', 'AABC'], ['rot2'], ['size2', 'ABCD'], ['AABBC', 'rot'], ['rot2', 'size2', 'ABCB', 'AABBC']][i] || ['rot2', 'size2', 'ABCB', 'AABBC', 'ABAC', 'AABC', 'ABCD'];
     const make = () => {
       const kind = rp(kinds), set = rp(LZ_PSTK).slice().sort(() => R() - 0.5);
       let seq;
@@ -21306,7 +21387,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   }
   let wnTpl = null;
   const wnTemplates = () => wnTpl || (wnTpl = Object.entries(WN_SHAPES).flatMap(([id, f]) => {
-    const p = f(), closed = ['circle', 'heart', 'triangle', 'star'].includes(id), vars = [p, p.slice().reverse()];
+    const p = f(), closed = ['circle', 'heart', 'triangle', 'star', 'square', 'cloud', 'house'].includes(id), vars = [p, p.slice().reverse()];
     // closed shapes can start anywhere
     if (closed) { const r = wnResample(p); for (const k of [8, 16, 24, 32, 40, 48, 56]) { const q = r.slice(k).concat(r.slice(1, k + 1)); vars.push(q, q.slice().reverse()); } }
     if (id === 'wave' || id === 'zigzag') vars.push(p.map(([x, y]) => [x, -y]), p.map(([x, y]) => [x, -y]).reverse());
@@ -24063,6 +24144,561 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     `<path d="M14 340 C80 300 140 330 200 318 C260 306 330 330 400 314 C470 300 540 326 586 316 V360 H14 Z" fill="#e0a8c8" opacity=".5"/></g>`;
   const aqBgRow = () => el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'רקע:'),
     ...[['plain', '🌊 מים'], ['reef', '🪸 שונית אלמוגים']].map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((aqData.bg || 'plain') === id), onclick: () => { aqData.bg = id; saveAqua(); SFX.pop(); drawAqua(); } }, name)));
+
+  // ================= games6: more of everything for the games =================
+  const g6Pick = a => a[Math.floor(Math.random() * a.length)];
+
+  const G6_RUSH = [['.MMDD..HHIE.GAAIECGJ..ECKJBB..KFFLL.',9], ['HF.JJIHF.LBIGAALBIGKD...GKDEEE.CCMM.',12], ['JJ.C....ECHHAAEC...FFBBG.II..GDDDKK.',14], ['CC...D..EF.DAAEFKIJLMFKIJLMBB..HH.GG',16], ['GIHH.JGIDMLJAADML.CBBEEFC..NKF...NK.',18], ['LLMMGKCIIJGKCAAJ..DEEJFFD..HHH.BBB..',19], ['..GGD..JJJDB.AA.EB.C..E.ICFHH.I.F...',21], ['NNMMCEJJIICEDAA..ED.LHBB..LHKKFFGG..',21], ['MIIKK.M.FFHHAALD.CJJLD.CEEE.BC..GGB.',22], ['.HHHG.IIELG.AAEL....J.BBDKJCCFDK...F',24]];
+
+  // ---------- ⛳ golf: a second course of 9 holes ----------
+  const GF_C1 = GF_HOLES.slice();
+  const GF_C2 = [
+    { name: 'זיגזג', par: 3, start: [90, 120], cup: [505, 285], shape: gfRect(40, 70, 520, 260), walls: [[165, 70, 165, 250], [290, 330, 290, 150], [415, 70, 415, 250]], wc: '#ff7a9a' },
+    { name: 'גשר לאי', par: 2, start: [90, 200], cup: [372, 200], shape: gfRect(40, 80, 520, 240), water: [{ e: [360, 200, 150, 100] }], bridge: [200, 180, 190, 40], wc: '#3a9bd9' },
+    { name: 'טחנה ושומר', par: 3, start: [90, 200], cup: [505, 200], shape: gfRect(40, 90, 520, 220), walls: [[220, 90, 220, 175], [220, 225, 220, 310], [400, 90, 400, 150], [400, 250, 400, 310]], mill: { cx: 220, cy: 138, len: 78, sp: 0.035 }, sliders: [{ x: 400, amp: 45, sp: 0.04, ph: 1 }], wc: '#b58cff' },
+    { name: 'הקופסה הסודית', par: 3, start: [90, 300], cup: [300, 200], shape: gfRect(40, 60, 520, 290), walls: [[140, 140, 460, 140], [460, 140, 460, 262], [140, 262, 390, 262], [140, 140, 140, 205]], sand: [{ e: [470, 310, 50, 22] }], wc: '#e0a100' },
+    { name: 'המדרון החולי', par: 3, start: [90, 150], cup: [510, 150], shape: gfRect(40, 100, 520, 200), ramps: [{ r: [170, 100, 260, 110], ax: 0, ay: 0.13 }], sand: [{ e: [300, 265, 130, 24] }], wc: '#c98a4a' },
+    { name: 'פורטל כפול', par: 3, start: [90, 120], cup: [505, 280], shape: gfRect(40, 70, 520, 260), walls: [[220, 70, 220, 330], [380, 70, 380, 330]], portals: [{ a: [150, 250], b: [300, 120] }, { a: [300, 285], b: [455, 150] }], wc: '#6a5acd' },
+    { name: 'לולאה ושומרים', par: 3, start: [90, 200], cup: [520, 200], shape: gfRect(40, 100, 520, 200), walls: [[300, 100, 300, 300], [175, 100, 250, 172], [175, 300, 250, 228], [250, 172, 292, 172], [250, 228, 292, 228]], loop: { z: [255, 176, 40, 48], c: [300, 146], r: 48, exit: [330, 200], min: 4.6 }, sliders: [{ x: 430, amp: 55, sp: 0.04, ph: 0 }], wc: '#ff9f1c' },
+    { name: 'אגם הברווזים', par: 3, start: [90, 200], cup: [510, 200], shape: gfRect(40, 60, 520, 280), water: [{ e: [300, 200, 110, 72] }], walls: [[40, 125, 105, 60], [495, 60, 560, 125], [40, 275, 105, 340], [495, 340, 560, 275]], wc: '#4fbf73' },
+    { name: 'הגמר הגדול', par: 5, start: [90, 110], cup: [500, 300], shape: gfRect(40, 60, 520, 290), walls: [[150, 60, 150, 250], [280, 350, 280, 160], [410, 60, 410, 250]], sand: [{ e: [215, 310, 40, 24] }], sliders: [{ x: 215, amp: 50, sp: 0.03, ph: 2 }], portals: [{ a: [345, 300], b: [480, 110] }], water: [{ r: [300, 60, 100, 60] }], wc: '#e0468f' },
+  ];
+  const GF_COURSES = [['🌳 מסלול הגינה', GF_C1], ['🍭 מסלול הממתקים', GF_C2]];
+  let g6Gc = 0;
+  const g6GolfSync = cur => { games['golfBestC' + g6Gc] = games.golfBest || 0; g6Gc = cur; games.golfBest = games['golfBestC' + cur] || 0; store.set('games', games); };
+  const g6GolfOrig = golfGame;
+  golfGame = () => {
+    const c = Math.min(GF_COURSES.length - 1, store.get('golfCourse', 0));
+    g6GolfSync(c);
+    GF_HOLES.splice(0, GF_HOLES.length, ...GF_COURSES[c][1]);
+    g6GolfOrig();
+    const first = $('#gamesBody').firstChild;
+    if (first) first.after(el('div', { class: 'chips', style: 'justify-content:center' }, ...GF_COURSES.map(([name], k) =>
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(k === c), onclick: () => { store.set('golfCourse', k); golfGame(); } }, name + (games['golfBestC' + k] ? ` · 🏆 ${games['golfBestC' + k]}` : '')))));
+  };
+
+  // ---------- 🧩 logic: 10 more levels in every kind ----------
+  LZ_RUSH.push(...G6_RUSH);
+  LZ_NONO.push(
+    ['פרפר', '#b58cff', ['X...X', 'XX.XX', '.XXX.', 'XX.XX', 'X...X']], ['בלון', '#ff5a6e', ['.XXX.', 'XXXXX', '.XXX.', '..X..', '...X.']], ['סירה', '#3a9bd9', ['..X..', '..XX.', '..X..', 'XXXXX', '.XXX.']],
+    ['ירח', '#e9b10a', ['.XXX.', 'XX...', 'X....', 'XX...', '.XXX.']], ['חץ', '#16a085', ['..X..', '.XXX.', 'X.X.X', '..X..', '..X..']], ['פרח בעציץ', '#ff7aa8', ['.X.X.', 'XXXXX', '.XXX.', '..X..', 'XXXXX']],
+    ['רובוט', '#7b8cff', ['XXXXX', 'X.X.X', 'XXXXX', '.X.X.', 'XX.XX']], ['עוגה', '#ff9ad5', ['.X.X.', '.X.X.', 'XXXXX', 'X.X.X', 'XXXXX']], ['שעון חול', '#c98a4a', ['XXXXX', '.XXX.', '..X..', '.XXX.', 'XXXXX']],
+    ['נחש', '#4fbf73', ['XXXXX', '....X', 'XXXXX', 'X....', 'XXXXX']],
+  );
+  LZ_TYPES.forEach(t => { t[3] = t[0] === 'rush' ? LZ_RUSH.length : t[0] === 'nono' ? LZ_NONO.length : 22; });
+
+  // ---------- 🧩 sudoku: a 9×9 mode (needs the small patches), 9 stickers in every set ----------
+  [['cookie', 'cake', 'pizza'], ['flower', 'leaf', 'pumpkin'], ['rocket', 'lightning', 'snowflake'], ['fish', 'whale', 'lion']].forEach((more, i) => { if (GD2_SETS[i] && GD2_SETS[i][1].length < 9) GD2_SETS[i][1].push(...more); });
+
+  // ---------- 🎯 where is the pet: 4 more places ----------
+  Object.assign(GD2_COVERS, {
+    log: () => gd2Blob(`<rect x="6" y="52" width="88" height="36" rx="18"/>`, '#a8744a') + `<ellipse cx="86" cy="70" rx="9" ry="16" fill="#e0b183" stroke="${O}" stroke-width="3"/><ellipse cx="86" cy="70" rx="4" ry="8" fill="none" stroke="#a8744a" stroke-width="2"/><path d="M20 64 h40 M26 76 h34" stroke="${O}" stroke-width="2" opacity=".35"/><path d="M40 52 q4 -12 12 -8" fill="none" stroke="#4fae5a" stroke-width="4" stroke-linecap="round"/>`,
+    bigmush: () => `<path d="M40 60 H60 L64 94 H36 Z" fill="#fff3e0" ${S}/>` + gd2Blob(`<path d="M6 62 Q10 12 50 10 Q90 12 94 62 Z"/>`, '#e8573f') + `<circle cx="30" cy="36" r="7" fill="#fff"/><circle cx="58" cy="26" r="6" fill="#fff"/><circle cx="72" cy="46" r="7" fill="#fff"/><circle cx="46" cy="50" r="5" fill="#fff"/>`,
+    coral: () => gd2Blob(`<path d="M20 94 C14 70 4 60 10 40 C14 30 24 36 22 50 C26 30 30 14 40 16 C50 18 44 40 46 50 C50 30 60 12 70 20 C80 28 66 44 70 56 C76 44 90 42 92 54 C94 70 80 80 80 94 Z"/>`, '#ff8a9a') + `<circle cx="36" cy="40" r="3" fill="#fff" opacity=".7"/><circle cx="66" cy="36" r="3" fill="#fff" opacity=".7"/>`,
+    chest: () => `<rect x="10" y="44" width="80" height="46" rx="6" fill="#c9832e" ${S}/><path d="M10 50 Q10 22 50 22 Q90 22 90 50 Z" fill="#e0a14c" ${S}/><path d="M10 50 H90" stroke="${O}" stroke-width="3"/><rect x="42" y="42" width="16" height="18" rx="3" fill="#ffd84d" ${S2}/><path d="M24 26 V88 M76 26 V88" stroke="#8a5a2b" stroke-width="5"/><circle cx="30" cy="18" r="3" fill="#ffd84d"/><circle cx="70" cy="16" r="2.5" fill="#fff"/>`,
+    cupcake: () => `<path d="M18 56 L28 94 H72 L82 56 Z" fill="#ff9ad5" ${S}/><path d="M34 60 L38 92 M50 60 V92 M66 60 L62 92" stroke="${O}" stroke-width="2" opacity=".35"/>` + gd2Blob(`<circle cx="30" cy="52" r="16"/><circle cx="70" cy="52" r="16"/><circle cx="50" cy="38" r="22"/>`, '#fff3f8') + `<circle cx="50" cy="14" r="8" fill="#ff5a6e" stroke="${O}" stroke-width="2.5"/><path d="M36 40 h4 M58 30 h4 M66 48 h4 M42 54 h4" stroke="#7ec8ff" stroke-width="3" stroke-linecap="round"/>`,
+    crater: () => gd2Blob(`<path d="M4 90 Q10 50 50 46 Q90 50 96 90 Z"/>`, '#b9b4c9') + `<ellipse cx="50" cy="60" rx="24" ry="7" fill="#8d87a3"/><circle cx="22" cy="78" r="5" fill="#a19bb5"/><circle cx="78" cy="80" r="4" fill="#a19bb5"/>`,
+  });
+  Object.assign(GD2_SCENES, {
+    forest: { name: '🌲 ביער', covers: ['log', 'bigmush', 'bush', 'tree', 'rock', 'log'], decor: ['mushroom', 'leaf', 'butterfly', 'ladybug', 'flower', 'owl'],
+      bg: `<rect width="600" height="400" fill="#cfeec6"/><g fill="#6cbf6a" stroke="${O}" stroke-width="3">${[40, 150, 260, 370, 480, 580].map((x, i) => `<path d="M${x} ${150 - (i % 2) * 20} l-45 90 h90z"/><path d="M${x} ${110 - (i % 2) * 20} l-35 70 h70z"/>`).join('')}</g><path d="M0 200 Q200 170 400 195 T600 190 V400 H0Z" fill="#8fd67c" stroke="${O}" stroke-width="3"/><path d="M0 270 Q220 250 380 262 T600 258 V400 H0Z" fill="#7cc86a"/>` },
+    sea: { name: '🐠 מתחת למים', covers: ['coral', 'chest', 'rock', 'coral', 'chest'], decor: ['fish', 'shell', 'starfish', 'whale', 'turtle', 'pearl'],
+      bg: `<defs><linearGradient id="g6sea" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6fd0f5"/><stop offset="1" stop-color="#1f7fbf"/></linearGradient></defs><rect width="600" height="400" fill="url(#g6sea)"/><g fill="#fff" opacity=".35">${Array.from({ length: 18 }, (_, i) => `<circle cx="${(i * 131) % 600}" cy="${(i * 57) % 220 + 20}" r="${3 + i % 5}"/>`).join('')}</g><path d="M0 250 Q150 225 300 245 T600 240 V400 H0Z" fill="#ffe2a0" stroke="${O}" stroke-width="3"/>` },
+    candy: { name: '🍭 בארץ הממתקים', covers: ['cupcake', 'box', 'cupcake', 'bush', 'castle'], decor: ['lollipop', 'donut', 'icecream', 'cookie', 'cupcake', 'strawberry'],
+      bg: `<rect width="600" height="400" fill="#ffe3f1"/><g stroke="${O}" stroke-width="3">${[80, 300, 520].map(x => `<path d="M${x} 190 V70" stroke-width="6"/><circle cx="${x}" cy="60" r="30" fill="#b58cff"/><path d="M${x - 18} 60 a18 18 0 0 1 36 0" fill="none" stroke="#fff" stroke-width="5"/>`).join('')}</g><path d="M0 200 Q150 175 300 200 T600 195 V400 H0Z" fill="#ffc2dc" stroke="${O}" stroke-width="3"/><g fill="#fff">${Array.from({ length: 30 }, (_, i) => `<rect x="${(i * 97) % 600}" y="${220 + (i * 43) % 170}" width="8" height="3" rx="1.5" transform="rotate(${i * 40} ${(i * 97) % 600} ${220 + (i * 43) % 170})" fill="${['#fff', '#7ec8ff', '#ffd84d', '#9be3c9'][i % 4]}"/>`).join('')}</g>` },
+    moon: { name: '🌙 על הירח', covers: ['crater', 'rock', 'crater', 'box', 'rock'], decor: ['star', 'rocket', 'planet', 'ufo', 'moon', 'star'],
+      bg: `<rect width="600" height="400" fill="#1d1a44"/><g fill="#fff">${Array.from({ length: 50 }, (_, i) => `<circle cx="${(i * 131) % 600}" cy="${(i * 71) % 190}" r="${1 + i % 3}" opacity=".8"/>`).join('')}</g><circle cx="480" cy="80" r="40" fill="#5ec8f2" stroke="${O}" stroke-width="3"/><path d="M455 70 q15 -15 30 0 q10 20 -10 25" fill="#4fbf73"/><path d="M0 200 Q150 180 300 200 T600 195 V400 H0Z" fill="#d9d5e8" stroke="${O}" stroke-width="3"/><g fill="#c3bdd8">${Array.from({ length: 12 }, (_, i) => `<ellipse cx="${(i * 113) % 600}" cy="${240 + (i * 47) % 140}" rx="${10 + i % 4 * 4}" ry="4"/>`).join('')}</g>` },
+  });
+
+  // ---------- 🔤 word search: 4 more themes ----------
+  Object.assign(GC_WORDS, {
+    space: ['🚀 חלל', 'חלל ירח שמש כוכב טיל חללית אסטרונאוט מאדים צדק שבתאי נוגה מטאור שביט גלקסיה טלסקופ חייזר מסלול כוכבים נבולה'],
+    sweets: ['🍬 ממתקים', 'סוכרייה מסטיק שוקולד עוגה עוגייה ופל קרמבו ארטיק גלידה סופגנייה מרשמלו קאפקייק דונאט פודינג ממתק קצפת סוכר דבש ריבה לקקן'],
+    sports: ['⚽ ספורט', 'כדורגל כדורסל שחייה ריצה ריקוד התעמלות טניס אופניים סקייט בלט יוגה קפיצה גלגיליות כדור שער מאמן מדליה גביע משחק ניצחון'],
+    home: ['🏠 בבית', 'בית חדר מיטה כרית שמיכה מטבח סלון ספה שולחן כיסא חלון דלת מקרר תנור מנורה שטיח מראה ארון מדף גינה'],
+  });
+
+  // ---------- 🥠 60 more fortunes ----------
+  FC_LINES.push(
+    'היום תגלי שאת יודעת לעשות משהו חדש 🌟', 'מישהו מחכה לחיבוק ממך 🤗', 'הרעיון הבא שלך יהיה גאוני 💡', 'השבוע תצחקי עד שיכאבו הלחיים 😂', 'חבר חדש מחכה לך בקרוב 🤝',
+    'היום מתאים לנסות משהו אמיץ 🦸‍♀️', 'הלב שלך יוביל אותך למקום נפלא 💖', 'כל כוכב בשמיים מנצנץ בשבילך הלילה ✨', 'היום כדאי לשיר בקול 🎤', 'הפתעה שמחה תגיע ממקום לא צפוי 🎁',
+    'המזל שלך היום: פי שתיים 🍀🍀', 'את יכולה להפוך יום רגיל ליום מיוחד 🪄', 'היום תעשי מעשה טוב שיחזור אלייך 💫', 'הצחוק שלך הוא מוזיקה 🎶', 'הסקרנות שלך תגלה לך סוד מעניין 🔍',
+    'מחכה לך יום מלא צבעים 🌈', 'את הכי טובה בלהיות את 👑', 'היום ממש כדאי לאכול משהו טעים 🍓', 'מישהו יגיד לך תודה היום 🙏', 'עוד מעט תקבלי חדשות משמחות 📣',
+    'אם תנסי שוב, תצליחי 💪', 'היום תמצאי משהו יפה בדרך 🌼', 'החלום של הלילה יהיה מתוק במיוחד 🌙', 'הפנטזיה שלך תהפוך לציור מדהים 🖍️', 'יש בך אור שמאיר לאחרים 🔆',
+    'השבוע יביא לך רגע קסום 🦄', 'חיוך אחד שלך שווה מיליון 😊', 'המשפחה שלך גאה בך 🏠', 'היום תלמדי מילה חדשה ומגניבה 📖', 'בקרוב תגיעי לפסגה חדשה 🏔️',
+    'מה שנראה קשה, יהיה פתאום קל 🧩', 'את חברה שכולם רוצים 💞', 'היום כדאי להסתכל על העננים ולמצוא צורות ☁️', 'הרפתקה בחוץ מחכה לך 🌳', 'השמש תחייך אלייך מחר ☀️',
+    'המזל נמצא בכיס הימני שלך 🍀', 'כל צעד קטן שלך נספר 👣', 'היום יום מושלם לרקוד 💃', 'מישהו יזכיר לך כמה את מיוחדת 💌', 'תני לעצמך מחמאה, מגיע לך 🌸',
+    'היום כדאי לחלוק משהו טעים עם חבר 🍪', 'בקרוב תגלי כישרון חדש 🎨', 'הסוד למזל: להאמין בעצמך ✨', 'השבוע תקבלי רעיון למתנה מושלמת 🎀', 'מה שתאחלי בלב, יתקרב אלייך 🌠',
+    'את אמיצה כמו אריה ועדינה כמו פרפר 🦁🦋', 'היום תשמחי מישהו בלי לשים לב 😊', 'המחשבות הטובות שלך יוצרות קסם 💭', 'בקרוב תטעמי משהו חדש ותאהבי 🍦', 'הזמן איתך הוא מתנה 🎁',
+    'היום כדאי לכתוב מכתב קטן למישהו ✉️', 'הכוכבים מסודרים לטובתך ⭐', 'יש לך סבלנות של גיבורה 🏅', 'היום תסיימי משהו שהתחלת ✅', 'העולם צבעוני יותר בזכותך 🎨',
+    'הלילה תחלמי על מקום קסום 🏰', 'אל תשכחי לשתות מים ולחייך 💧😊', 'בסוכה השנה יהיה במיוחד שמח 🌿', 'את והחיות שלך צוות מנצח 🐾', 'השנה הזאת תהיה שנה מתוקה 🍎🍯',
+  );
+
+  // ---------- 🧠 memory with themes ----------
+  const G6_MEM = [
+    ['mix', '🎲 הכל', null], ['animals', '🐾 חיות', ['cat', 'dog', 'bunny', 'bear', 'panda', 'owl', 'fish', 'whale', 'turtle', 'butterfly', 'ladybug', 'dino', 'lion']],
+    ['food', '🍕 אוכל', ['apple', 'strawberry', 'watermelon', 'avocado', 'pizza', 'cookie', 'donut', 'icecream', 'cupcake', 'lollipop', 'cake', 'honey', 'pomegranate']],
+    ['girls', '👗 בנות', 'girls'], ['mermaids', '🧜‍♀️ בנות ים', 'mermaids'],
+  ];
+  let g6MemUid = 0;
+  function g6MemoryGame() {
+    const theme = G6_MEM.find(t => t[0] === store.get('memTheme', 'mix')) || G6_MEM[0], N = 6;
+    let faces;
+    if (theme[2] === 'girls') {
+      const pool = girls.filter(g => g && g.skin).sort(() => Math.random() - 0.5).slice(0, N);
+      while (pool.length < N) pool.push(Object.assign(randomGirl(), { id: 'mg' + pool.length }));
+      faces = pool.map(g => () => girlSVG(g, 'mm' + (g6MemUid++), { view: 'head' }));
+    } else if (theme[2] === 'mermaids') {
+      const pool = mermaids.slice().sort(() => Math.random() - 0.5).slice(0, N);
+      while (pool.length < N) pool.push(Object.assign(newMermaid(), randomMermaid(), { id: 'mm' + pool.length + Date.now().toString(36) }));
+      faces = pool.map(m => () => mermaidSVG(m, 'mq' + (g6MemUid++)).replace('viewBox="0 0 200 300"', 'viewBox="30 -6 140 140"'));
+    } else {
+      const ids = theme[2] || Object.keys(STICKERS).filter(id => !RARE.includes(id) && !id.startsWith('my') && !['bed', 'bowl'].includes(id));
+      faces = ids.slice().sort(() => Math.random() - 0.5).slice(0, N).map(id => () => stickerHTML(id));
+    }
+    const cards = faces.flatMap((f, k) => [{ k, art: f() }, { k, art: f() }]).sort(() => Math.random() - 0.5).map(c => Object.assign(c, { open: false, done: false }));
+    const bestKey = theme[0] === 'mix' ? 'memoryBest' : 'memoryBest_' + theme[0];
+    let first = null, busy = false, moves = 0, found = 0;
+    const info = el('div', { class: 'game-info' }), end = el('div'), big = typeof theme[2] === 'string';
+    const drawInfo = () => info.replaceChildren(el('span', {}, `צעדים: ${moves}`), el('span', {}, `זוגות: ${found}/${N}`), games[bestKey] ? el('span', {}, `🏆 השיא: ${games[bestKey]} צעדים`) : null);
+    const nodes = cards.map((c, i) => el('button', { type: 'button', class: 'g6-card' + (big ? ' big' : ''), 'aria-label': 'קלף סגור', onclick: () => flip(i) },
+      el('span', { class: 'g6-in' }, el('span', { class: 'g6-back' }, '?'), el('span', { class: 'g6-face', html: c.art }))));
+    const show = i => { const c = cards[i]; nodes[i].classList.toggle('open', c.open || c.done); nodes[i].classList.toggle('done', c.done); };
+    const flip = i => {
+      const c = cards[i]; if (busy || c.open || c.done) return;
+      c.open = true; show(i); SFX.boop();
+      if (first == null) { first = i; return; }
+      moves++; const a = cards[first], ai = first; first = null;
+      if (a.k === c.k) {
+        a.done = c.done = true; found++; show(ai); show(i); SFX.ding(); drawInfo();
+        if (found === N) {
+          if (!games[bestKey] || moves < games[bestKey]) games[bestKey] = moves;
+          winGame('memoryWins'); drawInfo(); end.replaceChildren(winLine(`ניצחת ב-${moves} צעדים! 🎉`, memoryGame));
+        }
+      } else { drawInfo(); busy = true; setTimeout(() => { a.open = c.open = false; show(ai); show(i); busy = false; }, 850); }
+    };
+    drawInfo();
+    $('#gamesBody').replaceChildren(el('p', { class: 'muted' }, 'הופכים שני קלפים. אם הם אותו דבר, הם נשארים פתוחים! בוחרים נושא:'),
+      el('div', { class: 'chips', style: 'justify-content:center' }, ...G6_MEM.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(id === theme[0]), onclick: () => { store.set('memTheme', id); memoryGame(); } }, name))),
+      info, el('div', { class: 'g6-mem' }, ...nodes), end,
+      el('div', { class: 'chips', style: 'justify-content:center' }, el('button', { type: 'button', class: 'btn', onclick: memoryGame }, '🔀 משחק חדש')));
+  }
+  memoryGame = g6MemoryGame;
+
+  // ---------- 🪄 wand: 6 more spells ----------
+  Object.assign(WN_SHAPES, {
+    square: () => [[-0.9, -0.9], [0.9, -0.9], [0.9, 0.9], [-0.9, 0.9], [-0.9, -0.9]],
+    infinity: () => Array.from({ length: 81 }, (_, i) => { const t = Math.PI / 2 + i / 80 * Math.PI * 2; return [Math.sin(t), Math.sin(t) * Math.cos(t) * 0.9]; }),
+    check: () => [[-0.9, 0], [-0.3, 0.6], [0.9, -0.9]],
+    scurve: () => [...Array.from({ length: 25 }, (_, i) => { const a = -Math.PI / 6 - i / 24 * (Math.PI * 4 / 3); return [Math.cos(a) * 0.45, -0.45 + Math.sin(a) * 0.45]; }), ...Array.from({ length: 25 }, (_, i) => { const a = -Math.PI / 2 + i / 24 * (Math.PI * 4 / 3); return [Math.cos(a) * 0.45, 0.45 + Math.sin(a) * 0.45]; })],
+    cloud: () => { const pts = []; for (let k = 0; k < 5; k++) for (let j = 0; j <= 12; j++) { const c = -Math.PI + k * Math.PI * 2 / 5, a = c - Math.PI / 2 + j / 12 * Math.PI; pts.push([Math.cos(c) * 0.75 + Math.cos(a) * 0.35, Math.sin(c) * 0.55 + Math.sin(a) * 0.35]); } return pts; },
+    house: () => [[-0.8, 0.9], [-0.8, -0.1], [0, -0.9], [0.8, -0.1], [0.8, 0.9], [-0.8, 0.9]],
+  });
+  WN_SPELLS.push(['square', '⬜ ריבוע', '🍬 גשם של ממתקים', 'candy'], ['infinity', '♾️ אינסוף', '🦋 להקת פרפרים', 'butterflies'], ['check', '✔️ וי', '🎉 מסיבת קונפטי', 'confetti'],
+    ['scurve', '〽️ אס', '🫧 בועות סבון', 'bubbles'], ['cloud', '☁️ ענן', '🌠 כוכבים נופלים', 'shooting'], ['house', '🏠 בית', '🎆 זיקוקים', 'fireworks']);
+  const G6_FX = ['candy', 'butterflies', 'confetti', 'bubbles', 'shooting', 'fireworks'];
+  const g6FxOrig = wnFx;
+  wnFx = kind => {
+    if (!G6_FX.includes(kind)) return g6FxOrig(kind);
+    const box = el('div', { class: 'wn-fx', 'aria-hidden': 'true' }); document.body.append(box);
+    const rnd = (a, b) => a + Math.random() * (b - a), span = (html, css) => { const s = el('span', { html }); s.style.cssText = css; box.append(s); return s; };
+    let life = 8000;
+    if (kind === 'candy') { life = 11000; for (let i = 0; i < 60; i++) span(stickerHTML(g6Pick(['lollipop', 'donut', 'cupcake', 'icecream', 'cookie', 'strawberry'])), `left:${rnd(0, 97)}vw;top:-60px;width:${rnd(30, 52)}px;--sway:${rnd(-70, 70)}px;animation:wnFall ${rnd(4, 8)}s ${rnd(0, 3)}s linear forwards`); }
+    else if (kind === 'butterflies') { life = 9000; for (let i = 0; i < 16; i++) span(stickerHTML('butterfly'), `left:-70px;top:${rnd(5, 85)}vh;width:${rnd(40, 64)}px;--y:${rnd(-30, 30)}vh;animation:g6Flutter ${rnd(5, 8)}s ${rnd(0, 2)}s ease-in-out forwards`); }
+    else if (kind === 'confetti') { life = 3000; const c = $('#confetti'); if (c) confetti(c); SFX.yay(); for (let i = 0; i < 24; i++) { const a = rnd(0, Math.PI * 2), d = rnd(120, 420); span(g6Pick(['🎉', '🎊', '🥳', '🎈']), `left:50%;top:45%;font-size:${rnd(22, 40)}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;animation:wnBurst ${rnd(1.2, 2.2)}s ease-out forwards`); } }
+    else if (kind === 'bubbles') { life = 10000; for (let i = 0; i < 40; i++) span('', `left:${rnd(0, 97)}vw;bottom:-60px;width:${rnd(20, 70)}px;height:auto;aspect-ratio:1;border-radius:50%;border:2px solid rgb(255 255 255 / .9);background:radial-gradient(circle at 30% 30%, #fff 0 12%, rgb(180 220 255 / .35) 13%, rgb(255 180 230 / .25));--sway:${rnd(-60, 60)}px;animation:wnUp ${rnd(4, 8)}s ${rnd(0, 3)}s ease-in forwards`); }
+    else if (kind === 'shooting') { life = 7000; for (let i = 0; i < 12; i++) span('🌠', `left:${rnd(40, 110)}vw;top:${rnd(-10, 30)}vh;font-size:${rnd(28, 50)}px;animation:g6Shoot ${rnd(1.2, 2)}s ${rnd(0, 4)}s ease-in forwards;opacity:0`); }
+    else if (kind === 'fireworks') {
+      life = 7000;
+      for (let b = 0; b < 6; b++) {
+        const x = rnd(15, 85), y = rnd(12, 55), col = g6Pick(['#ff5a8a', '#ffd84d', '#7ec8ff', '#b58cff', '#7fe0bf', '#ffa53d']), delay = b * 0.7;
+        setTimeout(() => { tone(180, 0.25, 'sawtooth', 0, 0.03); tone(900 + b * 90, 0.2, 'sine', 0.05, 0.05); }, delay * 1000);
+        for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2, d = rnd(80, 150); span('', `left:${x}vw;top:${y}vh;width:8px;height:8px;border-radius:50%;background:${col};box-shadow:0 0 8px ${col};opacity:0;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;animation:wnBurst 1.3s ${delay}s ease-out forwards`); }
+      }
+    }
+    if (reduceMotion()) box.querySelectorAll('span').forEach(s => { s.style.animationDuration = '0.01s'; });
+    setTimeout(() => box.remove(), life);
+  };
+
+  // ---------- 🗨️ pet chat: many more topics and lines ----------
+  PC_JOKES.push(
+    'למה הדג לא משחק טניס? כי הוא מפחד מהרשת! 🐟', 'מה אמרה המטרייה לגשם? אני מכסה עלייך! ☔', 'למה הפיל לא משתמש במחשב? כי הוא מפחד מהעכבר! 🐘', 'מה עושה כוכב שמח? מנצנץ מצחוק! ⭐',
+    'למה העוגה הלכה לבית ספר? כדי להיות עוגה חכמה! 🎂', 'איזה חיה הכי טובה בכדורסל? הג׳ירפה, היא לא צריכה לקפוץ 🦒', 'מה אמר השעון המבולבל? אני לא יודע מה השעה! ⏰',
+    'למה הגזר ישב בשמש? כדי להיות גזר זהוב 🥕', 'איך קוראים לדינוזאור שישן? דינו-זזזז 🦕', 'מה אמרה הגלידה הקרה? בררר, אני קפואה! 🍦', 'למה הענן בכה? כי הוא היה מעונן מדי ☁️',
+    'מה אמר הבלון לסיכה? תיזהרי ממני, אני פיצוץ! 🎈', 'למה הצב איחר? כי הוא עצר לנשנש חסה בדרך 🐢', 'מה עושה פינגווין בשמש? נמס מצחוק 🐧', 'למה הפרה קפצה? כי רצתה לתת חלב בטעם שייק! 🐮',
+  );
+  PC_SECRETS.push('סוד: לפעמים אני מדבר/ת עם הפרחים, והם עונים 🌸', 'סוד: אני מתאמנ/ת לעשות גלגלון כבר שבוע 🤸', 'סוד: הכי אני אוהב/ת את הקול שלך 💕', 'סוד: פעם ראיתי קשת בלילה! 🌈',
+    'סוד: אני שומר/ת לך את החתיכה הכי טעימה 🍰', 'סוד: אני יודע/ת לספור עד 100... כמעט 😅', 'סוד: כשאת ישנה אני שומר/ת עלייך 🌙', 'סוד: אני רוצה ללמוד לשרוק 🎶');
+  PC_NICE.push('את יצירתית כמו אמנית אמיתית 🎨', 'יש לך סבלנות של אלופה 🏆', 'את מצחיקה ברמות! 😂', 'את טובה מאוד לחברים שלך 💞', 'הדמיון שלך הכי צבעוני בעולם 🌈',
+    'את שואלת שאלות הכי חכמות 🧠', 'את אמיצה גם כשקצת מפחיד 🦁', 'יש לך סטייל מטורף 👗', 'כשאת שמחה, גם אני שמח/ה 💛', 'את מיוחדת בדיוק כמו שאת ✨');
+  PC_FALLBACK.push('ספרי לי עוד, אני כולי אוזן! 👂', 'איזה מעניין! מה חשבת על זה?', 'אוקיי! ומה עוד קרה? 😊', 'אני אוהב/ת כשאת מספרת לי דברים 💖', 'וואו! אפשר גם לשאול אותי חידה 🧩', 'הממ... בואי נשחק במשהו? 🎮');
+  PC_QUICK.push('ספרי סיפור 📖', 'מה עדיף? 🤔', 'בואי נשיר 🎵', 'כמה זה 7+5?', 'סוכות 🌿', 'מי החברים שלך?');
+  const G6_TALK = [
+    [['סיפור', 'סיפורים'], [
+      'פעם, בענן ורוד, גרה טיפה קטנה שפחדה לרדת לאדמה. יום אחד היא קפצה... ונהייתה חלק מקשת! 🌈 הסוף.', 'היה היה חתלתול שאיבד את הזנב שלו. הוא חיפש בכל הבית, ובסוף גילה... שהוא ישב עליו! 😹 הסוף.',
+      'פעם דג קטן רצה לראות את הירח. הוא קפץ הכי גבוה שיכל, והירח חייך אליו מלמעלה 🌙🐟 הסוף.', 'היה היה עץ שכל עלה בו היה בצבע אחר. כל הילדים באו לראות אותו בסתיו 🍂🍁 הסוף.',
+      'פעם ארנבת קטנה אפתה עוגת גזר ענקית, וכל היער בא למסיבה! 🥕🎂 הסוף.', 'היה היה כוכב שהתבייש לנצנץ. ילדה אחת אמרה לו "אתה יפה!" ומאז הוא הכי מנצנץ בשמיים ⭐ הסוף.',
+      'פעם דרקון קטן לא ידע לירוק אש, רק בועות סבון. וכולם אהבו אותו בגלל זה! 🐉🫧 הסוף.', 'היה היה ענן שאהב לצייר צורות: כבשה, לב, ואפילו אותך! ☁️ הסוף.']],
+    [['מה עדיף'], ['מה עדיף: לעוף כמו ציפור או לנשום מתחת למים כמו דג? 🐦🐟', 'מה עדיף: גלידה לארוחת בוקר או פנקייק לארוחת ערב? 🍦🥞', 'מה עדיף: להיות קטנה כמו נמלה או ענקית כמו ג׳ירפה? 🐜🦒',
+      'מה עדיף: חיה שמדברת או צעצוע שעף? 🐾🪁', 'מה עדיף: שלג בקיץ או חוף ים בחורף? ❄️🏖️', 'מה עדיף: לדעת לצייר הכל או לשיר הכל? 🎨🎤', 'מה עדיף: בית על עץ או בית מתחת למים? 🌳🌊',
+      'מה עדיף: שיהיו לך כנפיים או זנב של בת ים? 🧚‍♀️🧜‍♀️', 'מה עדיף: יום שלם של משחקים או יום שלם של יצירה? 🎮✂️', 'מה עדיף: לבקר בירח או בטירה של נסיכה? 🌙🏰']],
+    [['לשיר', 'נשיר', 'שיר', 'שירים'], ['🎵 לה לה לה... את השמש של הלב שלי ☀️ לה לה!', '🎶 אני חיה קטנה, עם לב גדול, אוהב/ת אותך הכי מכולם! 🎶', '🎵 טרה לה לה, בואי נרקוד ביחד 💃🎵', '🎤 מי-או מי-או, זה השיר שלי ושלך 🎶',
+      '🎵 דו רה מי פה סול... איזה קול יפה יש לך! 🎼', '🎶 ים של כוכבים, שמיים של חלומות, ואת הכי טובה בכל העולמות 🎶']],
+    [['סוכה', 'סוכות', 'לולב', 'אתרוג', 'אושפיזין'], ['חג סוכות שמח! 🌿 בואי נקשט את הסוכה בשרשראות צבעוניות', 'בסוכה הכי כיף לאכול ולספר סיפורים 🍋🌿', 'ידעת? את הלולב מנענעים לכל הכיוונים: קדימה, אחורה, ימינה, שמאלה, למעלה ולמטה!',
+      'אם הייתי מקשט/ת סוכה, הייתי תולה בה המון כוכבים ⭐', 'האתרוג מריח כל כך טוב! 🍋']],
+    [['חלום', 'חלמתי', 'חלומות'], ['ספרי לי על החלום! אפשר גם לכתוב אותו ביומן החלומות 💤', 'אני חלמתי שאני טס/ה על ענן מרשמלו ☁️', 'חלומות הם סרטים שהמוח מקרין לנו בלילה 🎬', 'חלום טוב שווה לזכור! 🌙']],
+    [['חלל', 'אסטרונאוט', 'כוכבי לכת', 'מאדים', 'טיל'], ['בחלל אין אוויר, אז האסטרונאוטים לובשים חליפה מיוחדת 👩‍🚀', 'מאדים הוא כוכב אדום, כי יש עליו חלודה! 🔴', 'על הירח אפשר לקפוץ פי שש יותר גבוה! 🌙', 'בואי נבנה טיל מקופסאות ונטוס לכוכבים 🚀', 'השמש גדולה יותר ממיליון כדורי ארץ ☀️']],
+    [['ריקוד', 'לרקוד', 'נרקוד', 'מוזיקה', 'ריקודים'], ['בואי נרקוד! אני מזיז/ה את הזנב לפי הקצב 💃', 'הריקוד האהוב עליי: קפיצה, סיבוב ומחיאת כפיים 👏', 'מוזיקה עושה את הלב שמח 🎶', 'את רוקדת הכי יפה בעולם! 🩰']],
+    [['לצייר', 'ציור', 'ציורים', 'צביעה', 'לצבוע'], ['מה נצייר? אולי אותי? 🎨', 'אני אוהב/ת את הציורים שלך! אפשר להדביק אותם בלוח 🖼️', 'רעיון לציור: בית על עץ עם מגלשה לחיות 🌳', 'צבעים שמחים עושים ציור שמח 🌈']],
+    [['אופנה', 'בגדים', 'שמלה', 'להתלבש', 'סטייל'], ['הבנות בסטודיו האופנה נראות מהממות! 👗', 'אם הייתי מתלבש/ת, הייתי בוחר/ת כתר ופפיון 👑🎀', 'הצבע הכי אופנתי השנה? הצבע שאת אוהבת! 💖', 'בואי נעשה תצוגת אופנה! 💃']],
+    [['בת ים', 'בנות ים', 'בנות הים', 'גלים'], ['בנות הים שלך הכי יפות באוקיינוס 🧜‍♀️', 'אם הייתי בת ים, הייתי אוספת פנינים 🦪', 'בנות ים שרות לדגים שירי ערש 🎶🐟']],
+    [['אמא', 'אבא', 'אח ', 'אחות', 'סבתא', 'סבא', 'משפחה'], ['משפחה זה הכי חשוב 🏠💖', 'תני חיבוק גדול למשפחה ממני 🤗', 'ספרי לי עוד על המשפחה שלך!', 'אני בטוח/ה שהם אוהבים אותך המון 💞', 'אולי תכיני להם ציור מפתיע? 🎨']],
+    [['ספורט', 'כדורגל', 'כדורסל', 'שחייה', 'ריצה', 'התעמלות', 'אופניים'], ['ספורט עושה את הגוף חזק ושמח 💪', 'אני הכי טוב/ה בריצה אחרי כדור ⚽', 'שחייה זה כמו לעוף במים 🏊‍♀️', 'בואי נעשה תחרות: מי קופצת יותר גבוה? 🤸']],
+    [['לבשל', 'לאפות', 'מתכון', 'אפייה', 'עוגיות'], ['בואי נאפה עוגיות בצורת לב! 🍪💖', 'המתכון הסודי שלי: הרבה אהבה וקצת סוכר 🍰', 'במאפייה של הלוח אפשר לאפות מלא דברים טעימים 🧁', 'אני אטעם/אטעם ראשון/ה! 😋']],
+    [['מה את עושה', 'מה אתה עושה', 'מה עשית', 'במה את עסוקה'], ['עכשיו? מדבר/ת עם החברה הכי טובה שלי! 💖', 'בדיוק התאמנתי על טריק חדש 🤸', 'חיכיתי שתבואי! 🐾', 'ניסיתי לספור את הכוכבים, הגעתי ל-27 ⭐']],
+    [['את אמיתית', 'אתה אמיתי', 'את רובוט', 'אתה רובוט', 'את חיה אמיתית'], ['אני חיה מצוירת, אבל האהבה שלי אמיתית לגמרי 💖', 'אני גר/ה בתוך הלוח שלך, וזה הבית הכי טוב 🏡', 'אני חבר/ה מהדמיון, והדמיון הוא מקום אמיתי מאוד ✨']],
+    [['משפט מהיר', 'לשון', 'טונג'], ['נסי מהר: "שרה שרה שיר שמח, שיר שמח שרה שרה" 😜', 'נסי: "גנן גידל דגן בגן" 🌱', 'נסי שלוש פעמים מהר: "חתול שחור חתול לבן" 🐈', 'נסי: "סבתא סורגת סוודר סגול" 🧶']],
+  ];
+  const G6_SAFE = ['מרביצ', 'הרביצ', 'פוגע', 'נגע בי', 'מאיימ', 'מפחיד', 'חרם', 'מחרימ', 'בריונ', 'לחיות', 'לפגוע', 'עצוב', 'בוכה', 'בכיתי', 'מדוכדכ', 'רע לי', 'לא טוב לי', 'בודד', 'אף אחד', 'התבאס', 'מבואס', 'מבאס', 'כועס', 'עצבני', 'מעצבנ', 'מפחד', 'פוחד', 'חושש', 'לחוצ', 'דואג'];
+  const g6BrainOrig = pcBrain;
+  pcBrain = raw => {
+    const s = ' ' + raw.replace(/[֑-ׇ]/g, '').replace(/[?!.,״"'׳]/g, ' ').replace(/\s+/g, ' ').trim() + ' ';
+    // feelings and riddles always go to the careful original brain first
+    if (pcRiddle || G6_SAFE.some(w => s.includes(w)) || !pet) return g6BrainOrig(raw);
+    const m = raw.match(/(\d+)\s*([+\-*x×:/]|ועוד|פחות|כפול|חלקי)\s*(\d+)/);
+    if (m) {
+      const a = +m[1], b = +m[3], op = m[2], r = /[+]|ועוד/.test(op) ? a + b : /-|פחות/.test(op) ? a - b : /[*x×]|כפול/.test(op) ? a * b : b ? a / b : null;
+      if (r == null) return ['אי אפשר לחלק באפס, אפילו בקסם 😅'];
+      return [`${a} ${op} ${b} = ${Number.isInteger(r) ? r : r.toFixed(2)} 🧮`, g6Pick(['קל! תני לי עוד תרגיל 😎', 'חשבתי עם הכפות 🐾', 'אני אלוף/ה בחשבון!'])];
+    }
+    if (pcHas(s, ['החברים שלך', 'חברים שלך', 'מי החברים', 'החיות האחרות'])) {
+      const others = (typeof allPets === 'function' ? allPets() : []).filter(p => p !== pet).map(p => p.name).filter(Boolean);
+      return others.length ? [`החברים הכי טובים שלי: ${others.join(', ')}! אנחנו תמיד ביחד 🐾💞`, 'וגם את, כמובן! את החברה מספר 1 שלי 💖'] : ['החברה הכי טובה שלי זו את! 💖', 'אולי פעם תאמצי לי עוד חבר/ה? 🐾'];
+    }
+    if (pcHas(s, ['יום הולדת', 'יומולדת'])) {
+      const me = birthdays.find(b => b.me && b.date), nb = me && nextBday(me);
+      return nb ? [nb.days === 0 ? 'היום יום ההולדת שלך!!! מזל טוב!!! 🎂🎉' : `עוד ${nb.days} ימים ליום ההולדת שלך! אני כבר מתרגש/ת 🎂`] : ['מתי יום ההולדת שלך? אפשר להוסיף אותו בלוח ואני אזכור 🎂'];
+    }
+    for (const [keys, lines] of G6_TALK) if (pcHas(s, keys)) return [pcNext('g6' + keys[0], lines)];
+    return g6BrainOrig(raw);
+  };
+
+  // ---------- ⭐ my games: records and trophies ----------
+  // [key, label, kind]: kind 'n' = count, 'best' = high score, 'low' = fewer is better, 'time' = seconds
+  const G6_STATS = {
+    memory: [['memoryWins', 'ניצחונות'], ['memoryBest', 'הכי מעט צעדים', 'low']], catch: [['catchPlays', 'משחקים'], ['catchBest', 'שיא כוכבים', 'best']],
+    maze: [['mazeWins', 'מבוכים']], puzzle: [['puzzleWins', 'פאזלים']], color: [['colored', 'ציורים']], diff: [['diffWins', 'ניצחונות']],
+    pearls: [['pearlPlays', 'משחקים'], ['pearlBest', 'שיא פנינים', 'best']], simon: [['simonBest', 'שיא צלילים', 'best']], ice: [['icePlays', 'משחקים'], ['iceBest', 'שיא מטבעות', 'best']],
+    cake: [['cakeStickers', 'עוגות']], ttt: [['tttWins', 'ניצחונות'], ['tttDraws', 'תיקו']], g2048: [['g2048Wins', 'ניצחונות'], ['g2048Best', 'שיא נקודות', 'best']],
+    match3: [['m3Wins', 'ניצחונות'], ['m3Best', 'שיא', 'best']], bubble: [['bubbleWins', 'ניצחונות'], ['bubbleBest', 'שיא', 'best']], runner: [['runPlays', 'ריצות'], ['runBest', 'שיא', 'best']],
+    words: [['wordWins', 'ניצחונות']], ladders: [['laddersWins', 'ניצחונות']], jump: [['jumpPlays', 'משחקים'], ['jumpBest', 'שיא', 'best']], pizza: [['pizzaPlays', 'משמרות'], ['pizzaBest', 'שיא', 'best']],
+    fcontest: [['fashionPlays', 'תחרויות'], ['fashionBest', 'שיא', 'best']], sudoku: [['sudokuWins', 'ניצחונות'], ['sudokuBest4', 'שיא 4×4', 'time'], ['sudokuBest6', 'שיא 6×6', 'time'], ['sudokuBest9', 'שיא 9×9', 'time']],
+    gmemory: [['gmemWins', 'ניצחונות'], ['gmemBest', 'הכי מעט צעדים', 'low']], hide: [['hidePlays', 'משחקים'], ['hideBest', 'שיא', 'best']], frun: [['frunPlays', 'ריצות'], ['frunBest', 'שיא', 'best']],
+    popstar: [['popPlays', 'הופעות'], ['popBest', 'שיא', 'best']], golf: [['golfWins', 'סיבובים'], ['golfBestC0', 'שיא מסלול 1', 'low'], ['golfBestC1', 'שיא מסלול 2', 'low']], logic: [['logicSolved', 'חידות']],
+    pnum: [['pnumWins', 'ציורים']], escape: [['escapeWins', 'בריחות']],
+  };
+  const G6_TROPHY = [[40, '👑', 'כתר זהב'], [15, '🥇', 'זהב'], [5, '🥈', 'כסף'], [1, '🥉', 'ארד']];
+  function g6MyGames() {
+    games['golfBestC' + g6Gc] = games.golfBest || games['golfBestC' + g6Gc] || 0;
+    const fmt = (v, k) => k === 'time' ? `${Math.floor(v / 60)}:${String(v % 60).padStart(2, '0')}` : String(v);
+    const rows = GAME_TABS.filter(([id]) => id !== 'mygames').map(([id, label]) => {
+      const st = (G6_STATS[id] || []).filter(([k]) => typeof games[k] === 'number' && games[k] > 0);
+      const plays = (G6_STATS[id] || []).filter(([, , k]) => !k).reduce((a, [k]) => a + (typeof games[k] === 'number' ? games[k] : 0), 0) || (st.length ? 1 : 0);
+      const tr = G6_TROPHY.find(t => plays >= t[0]);
+      return { id, label, st, plays, tr };
+    });
+    const count = e => rows.filter(r => r.tr && r.tr[1] === e).length;
+    $('#gamesBody').replaceChildren(
+      el('div', { class: 'g6-hero' }, el('span', { class: 'g6-cup' }, '🏆'), el('div', {},
+        el('b', {}, 'המשחקים שלי'), el('span', { class: 'muted' }, `שיחקת ב-${rows.filter(r => r.plays).length} משחקים מתוך ${rows.length}`),
+        el('div', { class: 'g6-tally' }, ...G6_TROPHY.map(([, e, n]) => el('span', { title: n }, `${e} ${count(e)}`)))),
+        typeof coinChip === 'function' ? coinChip() : null),
+      el('p', { class: 'muted' }, 'כל משחק מקבל גביע לפי כמה שיחקת בו: 🥉 פעם אחת, 🥈 5, 🥇 15, 👑 40. לוחצים על משחק כדי לשחק!'),
+      el('div', { class: 'g6-cards' }, ...rows.sort((a, b) => b.plays - a.plays).map(r => el('button', { type: 'button', class: 'g6-gcard' + (r.tr ? '' : ' none'), onclick: () => { gamesTab = r.id; drawGames(); } },
+        el('span', { class: 'g6-tr' }, r.tr ? r.tr[1] : '🔒'), el('b', {}, r.label),
+        r.st.length ? el('span', { class: 'g6-st' }, ...r.st.map(([k, n, kind]) => el('span', {}, `${n}: `, el('bdi', {}, fmt(games[k], kind))))) : el('span', { class: 'g6-st muted' }, 'עוד לא שיחקת 🎮')))));
+  }
+  // ================= creative corner, round 6: more of everything =================
+  // ---------- +30 scenery pieces ----------
+  const cm6Stk = id => () => `<g transform="translate(-40 -46) scale(1.667)">${stickerInner(id)}</g>`;
+  Object.assign(CM_PIECES, {
+    tent: ['אוהל', () => `<path d="M-52 44 L0 -44 L52 44 Z" fill="#ff9b3d" ${S}/><path d="M-26 44 L0 -44 M26 44 L0 -44" stroke="#e06a1a" stroke-width="3"/><path d="M0 -44 L-15 44 H15 Z" fill="#7a3f14" ${S2}/><path d="M0 -44 V-62" stroke="${O}" stroke-width="2.5"/><path d="M0 -62 L16 -57 L0 -52 Z" fill="#ff5a8a" ${S2}/>`],
+    campfire: ['מדורה', () => `<path d="M-34 44 L30 26 M-30 26 L34 44" stroke="${O}" stroke-width="13" stroke-linecap="round"/><path d="M-34 44 L30 26 M-30 26 L34 44" stroke="#9b6b43" stroke-width="8" stroke-linecap="round"/><path d="M0 30 C-26 22 -24 -4 -8 -18 C-10 -4 0 -2 2 -8 C4 -24 12 -32 10 -46 C30 -26 30 18 0 30 Z" fill="#ff7a2e" ${S}/><path d="M0 26 C-12 20 -12 6 -2 -2 C0 6 6 4 6 -4 C16 8 14 22 0 26 Z" fill="#ffd84d"/>`],
+    lantern: ['פנס נייר', () => `<path d="M0 -52 V-36" stroke="${O}" stroke-width="2"/><rect x="-10" y="-38" width="20" height="6" rx="2" fill="#ffd84d" ${S2}/><ellipse cx="0" cy="-6" rx="26" ry="28" fill="#ff5a6e" ${S}/><path d="M-13 -30 Q-20 -6 -13 18 M0 -34 V22 M13 -30 Q20 -6 13 18" fill="none" stroke="#c2304a" stroke-width="2"/><rect x="-10" y="20" width="20" height="6" rx="2" fill="#ffd84d" ${S2}/><path d="M-4 26 V44 M0 26 V48 M4 26 V44" stroke="#ffd84d" stroke-width="2.5"/><ellipse cx="-10" cy="-14" rx="4" ry="9" fill="#fff" opacity=".35"/>`],
+    chain: ['שרשרת נייר', () => Array.from({ length: 7 }, (_, i) => `<ellipse cx="${-48 + i * 16}" cy="${i % 2 ? 4 : 0}" rx="10" ry="7" fill="none" stroke="${O}" stroke-width="6.5"/><ellipse cx="${-48 + i * 16}" cy="${i % 2 ? 4 : 0}" rx="10" ry="7" fill="none" stroke="${['#ff5a6e', '#ffd84d', '#4fbf73', '#7ec8ff', '#b58cff', '#ff9ad5', '#ffb020'][i]}" stroke-width="3.5"/>`).join('')],
+    bed: ['מיטה', () => `<rect x="-52" y="-30" width="12" height="74" rx="4" fill="#c98f5c" ${S}/><rect x="40" y="-6" width="12" height="50" rx="4" fill="#c98f5c" ${S}/><rect x="-46" y="4" width="92" height="22" rx="6" fill="#fff" ${S}/><path d="M-26 0 H46 V22 Q10 30 -26 22 Z" fill="#ff9ad5" ${S}/><path d="M-10 6 l4 4 M8 8 l4 4 M26 6 l4 4" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><ellipse cx="-30" cy="-2" rx="12" ry="8" fill="#fff" ${S2}/><rect x="-46" y="26" width="92" height="8" fill="#c98f5c" ${S2}/>`],
+    lamp: ['מנורה', () => `<ellipse cx="0" cy="-26" rx="44" ry="30" fill="#ffe27a" opacity=".3"/><path d="M-20 -50 H20 L30 -18 H-30 Z" fill="#ff9ad5" ${S}/><path d="M0 -18 V40" stroke="${O}" stroke-width="5"/><path d="M0 -18 V40" stroke="#ffd84d" stroke-width="2.5"/><ellipse cx="0" cy="44" rx="18" ry="5" fill="#ffd84d" ${S2}/>`],
+    bookshelf: ['מדף ספרים', () => `<rect x="-44" y="-50" width="88" height="100" rx="4" fill="#b07642" ${S}/>${[-46, -14, 18].map((y, r) => Array.from({ length: 7 }, (_, i) => `<rect x="${-38 + i * 11}" y="${y + (i % 3) * 3 + 2}" width="9" height="${26 - (i % 3) * 3}" fill="${['#ff5a6e', '#7ec8ff', '#ffd84d', '#4fbf73', '#b58cff', '#ff9ad5', '#ffb020'][(i + r * 2) % 7]}" stroke="${O}" stroke-width="1.2"/>`).join('') + `<rect x="-44" y="${y + 29}" width="88" height="4" fill="#8a5a2b"/>`).join('')}`],
+    window: ['חלון', () => `<rect x="-36" y="-42" width="72" height="72" fill="#9fe6ff" ${S}/><circle cx="16" cy="-24" r="8" fill="#ffd84d"/><path d="M0 -42 V30 M-36 -6 H36" stroke="${O}" stroke-width="3"/><path d="M-44 -48 Q-34 -6 -44 36 H-36 V-48 Z M44 -48 Q34 -6 44 36 H36 V-48 Z" fill="#ff9ad5" ${S2}/><rect x="-48" y="-52" width="96" height="6" rx="3" fill="#b07642" ${S2}/>`],
+    door: ['דלת', () => `<path d="M-28 50 V-24 A28 28 0 0 1 28 -24 V50 Z" fill="#b58cff" ${S}/><path d="M-18 40 V-18 A18 18 0 0 1 18 -18 V40" fill="none" stroke="#fff" stroke-width="2.5" opacity=".6"/><circle cx="16" cy="12" r="4" fill="#ffd84d" ${S2}/><path d="M0 -44 l3 -6 l3 6 l-3 3 Z" fill="#ffd84d"/>`],
+    table: ['שולחן', () => `<path d="M-40 4 V46 M40 4 V46" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M-40 4 V46 M40 4 V46" stroke="#c98f5c" stroke-width="5" stroke-linecap="round"/><path d="M-54 -4 H54 L50 16 Q30 24 20 14 Q0 24 -20 14 Q-30 24 -50 16 Z" fill="#fff" ${S}/><path d="M-50 -4 H50" stroke="#ff9ad5" stroke-width="4"/>`],
+    chair: ['כיסא', () => `<rect x="-22" y="-44" width="44" height="46" rx="10" fill="#7ec8ff" ${S}/><rect x="-26" y="0" width="52" height="12" rx="5" fill="#7ec8ff" ${S}/><path d="M-20 12 V46 M20 12 V46" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M-20 12 V46 M20 12 V46" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M-10 -30 h20" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>`],
+    mic: ['מיקרופון', () => `<path d="M0 -10 V44 M-20 46 H20" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M0 -10 V44" stroke="#b8b3c7" stroke-width="3"/><ellipse cx="0" cy="-30" rx="13" ry="18" fill="#6f6a80" ${S}/><path d="M-10 -38 H10 M-12 -30 H12 M-10 -22 H10" stroke="#b8b3c7" stroke-width="2"/><path d="M-5 -42 q2 -4 6 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>`],
+    throne: ['כס מלכות', () => `<path d="M-30 50 V-30 Q-30 -56 0 -60 Q30 -56 30 -30 V50 Z" fill="#c8102e" ${S}/><path d="M-22 44 V-26 Q-22 -46 0 -50 Q22 -46 22 -26 V44" fill="none" stroke="#ffd84d" stroke-width="4"/><rect x="-38" y="6" width="76" height="16" rx="6" fill="#ffd84d" ${S}/><path d="M-10 -60 l4 -10 l6 6 l6 -6 l4 10 Z" fill="#ffd84d" ${S2}/><circle cx="0" cy="-30" r="6" fill="#7ec8ff" ${S2}/>`],
+    chandelier: ['נברשת', () => `<path d="M0 -56 V-30" stroke="${O}" stroke-width="2.5"/><path d="M-44 -6 Q0 22 44 -6" fill="none" stroke="#ffd84d" stroke-width="6" stroke-linecap="round"/><path d="M-44 -6 Q0 22 44 -6" fill="none" stroke="${O}" stroke-width="1.5"/><path d="M-30 -30 H30" stroke="#ffd84d" stroke-width="4"/>${[-44, -22, 0, 22, 44].map((x, i) => { const y = i % 4 ? 4 : -8; return `<rect x="${x - 3}" y="${y - 14}" width="6" height="12" fill="#fff" ${S2}/><path d="M${x} ${y - 16} q-4 -6 0 -12 q4 6 0 12 Z" fill="#ffb020"/><circle cx="${x}" cy="${y + 10}" r="3" fill="#9fe6ff"/>`; }).join('')}`],
+    cupcake: ['קאפקייק', cm6Stk('cupcake')], cake: ['עוגה', cm6Stk('cake')], icecream: ['גלידה', cm6Stk('icecream')], gift: ['מתנה', cm6Stk('gift')],
+    pumpkin: ['דלעת', cm6Stk('pumpkin')], sunflower: ['חמנייה', cm6Stk('sunflower')], cactus: ['קקטוס', cm6Stk('cactus')], dog: ['כלב', cm6Stk('dog')],
+    bunny: ['ארנב', cm6Stk('bunny')], bear: ['דובי', cm6Stk('bear')], owl: ['ינשוף', cm6Stk('owl')], ladybug: ['פרת משה רבנו', cm6Stk('ladybug')],
+    kite: ['עפיפון', cm6Stk('kite')], hotair: ['כדור פורח', cm6Stk('hotair')], sailboat: ['סירה', cm6Stk('sailboat')], pomegranate: ['רימון', cm6Stk('pomegranate')],
+  });
+
+  // ---------- +12 backgrounds ----------
+  function cm6Kit(w, h, u, seed) {
+    const defs = [], k = Math.min(h, w * 0.9) / 300;
+    return {
+      k, gy: h * 0.7, rnd: cmRnd(seed * 131 + Math.round(w)),
+      lg: (n, stops, x2 = 0, y2 = 1) => { defs.push(cmGrad(u + n, stops, x2, y2)); return `url(#${u + n})`; },
+      R: (x, y, ww, hh, f, ex = '') => `<rect x="${cmF(x)}" y="${cmF(y)}" width="${cmF(ww)}" height="${cmF(hh)}" fill="${f}" ${ex}/>`,
+      at: (x, y, s, p, f) => cmPiece(p, x, y, s * k, f),
+      hill: (y, c, amp = 18) => `<path d="M0 ${cmF(y)} Q${cmF(w * .25)} ${cmF(y - amp * k)} ${cmF(w * .5)} ${cmF(y)} T${cmF(w)} ${cmF(y)} V${h} H0 Z" fill="${c}"/>`,
+      out: b => (defs.length ? `<defs>${defs.join('')}</defs>` : '') + b,
+    };
+  }
+  const CM6_BG = {
+    sukkah: ['סוכה', (w, h, u) => { const K = cm6Kit(w, h, u, 1), { k, gy, R, at, lg } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#ffe6b8'], [1, '#fff6e6']])) + Array.from({ length: Math.ceil(w / 40) }, (_, i) => R(i * 40, h * 0.18, 20, gy - h * 0.18, i % 2 ? '#ffffff' : '#ffd1dc', 'opacity=".7"')).join('');
+      b += R(0, gy, w, h - gy, '#d9b48a') + Array.from({ length: 5 }, (_, i) => `<path d="M0 ${cmF(gy + (h - gy) * (i + 1) / 6)} H${w}" stroke="#b98f62" stroke-width="2"/>`).join('');
+      b += R(0, 0, w, h * 0.2, '#3f8f4a') + Array.from({ length: Math.ceil(w / (18 * k)) + 1 }, (_, i) => `<ellipse cx="${cmF(i * 18 * k)}" cy="${cmF(h * 0.19 + (i % 3) * 4 * k)}" rx="${cmF(16 * k)}" ry="${cmF(9 * k)}" fill="${['#4fbf73', '#6fcf7f', '#3f9c6e'][i % 3]}" transform="rotate(${(i % 5) * 12 - 24} ${cmF(i * 18 * k)} ${cmF(h * 0.19)})"/>`).join('');
+      b += at(w * 0.5, h * 0.27, 1.1, 'chain') + at(w * 0.16, h * 0.27, 1.1, 'chain') + at(w * 0.84, h * 0.27, 1.1, 'chain');
+      b += [[0.1, 0.36, 'pomegranate'], [0.3, 0.42, 'lantern'], [0.7, 0.4, 'lantern'], [0.9, 0.37, 'pomegranate']].map(([x, y, p]) => `<path d="M${cmF(w * x)} ${cmF(h * 0.2)} V${cmF(h * y - 40 * k * 0.5)}" stroke="${O}" stroke-width="1.5"/>` + at(w * x, h * y, 0.5, p)).join('');
+      b += `<g transform="translate(${cmF(w * 0.5)} ${cmF(gy - 10 * k)}) scale(${cmF(k * 0.7)})"><rect x="-44" y="-8" width="88" height="6" fill="#d9f2ff"/><text x="0" y="-14" font-size="30" text-anchor="middle">🍋🌿</text></g>` + at(w * 0.5, gy + 22 * k, 1.5, 'table');
+      return K.out(b); }],
+    bakery: ['מאפייה', (w, h, u) => { const K = cm6Kit(w, h, u, 2), { k, gy, R, at, lg } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#e8fbf4'], [1, '#d6f4ea']])) + Array.from({ length: Math.ceil(h / 18) }, (_, r) => `<path d="M0 ${r * 18} H${w}" stroke="#fff" stroke-width="2"/>` + Array.from({ length: Math.ceil(w / 36) }, (_, c) => `<path d="M${c * 36 + (r % 2) * 18} ${r * 18} v18" stroke="#fff" stroke-width="2"/>`).join('')).join('');
+      b += `<path d="M0 0 H${w} V${cmF(34 * k)} ${Array.from({ length: Math.ceil(w / (30 * k)) }, (_, i) => `Q${cmF(i * 30 * k + 15 * k)} ${cmF(52 * k)} ${cmF((i + 1) * 30 * k)} ${cmF(34 * k)}`).join(' ')} V0 Z" fill="#ff9ad5" stroke="${O}" stroke-width="2"/>`;
+      b += [0.24, 0.46].map(y => R(w * 0.06, h * y, w * 0.4, 8 * k, '#c98f5c', S2)).join('') + at(w * 0.14, h * 0.24 - 18 * k, 0.4, 'cupcake') + at(w * 0.28, h * 0.24 - 18 * k, 0.4, 'cake') + at(w * 0.4, h * 0.24 - 18 * k, 0.4, 'icecream') +
+        `<g transform="translate(${cmF(w * 0.26)} ${cmF(h * 0.46 - 12 * k)}) scale(${cmF(k)})"><text x="0" y="0" font-size="28" text-anchor="middle">🥐🍩🥖🍪</text></g>`;
+      b += `<g transform="translate(${cmF(w * 0.74)} ${cmF(h * 0.3)}) scale(${cmF(k)})"><rect x="-70" y="-26" width="140" height="52" rx="12" fill="#fff" ${S}/><text x="0" y="10" font-size="30" text-anchor="middle" font-family="'Suez One', Rubik, sans-serif" fill="#ff4f9a">מאפייה</text></g>`;
+      b += R(0, gy - 6 * k, w, h - gy + 6 * k, '#ffc2d4', S2) + R(0, gy - 10 * k, w, 12 * k, '#fff', S2) + Array.from({ length: Math.ceil(w / (60 * k)) }, (_, i) => R(i * 60 * k + 8 * k, gy + 14 * k, 44 * k, h - gy - 24 * k, '#ffd9e5', `stroke="#ff9ad5" stroke-width="2" rx="6"`)).join('');
+      return K.out(b); }],
+    stage: ['במה', (w, h, u) => { const K = cm6Kit(w, h, u, 3), { k, gy, R, lg } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#2a1450'], [1, '#4b2a7a']])) + [0.3, 0.7].map(x => `<path d="M${cmF(w * x)} 0 L${cmF(w * x - 70 * k)} ${cmF(gy)} H${cmF(w * x + 70 * k)} Z" fill="#fff6c2" opacity=".18"/><ellipse cx="${cmF(w * x)}" cy="${cmF(gy + 6 * k)}" rx="${cmF(70 * k)}" ry="${cmF(12 * k)}" fill="#fff6c2" opacity=".3"/>`).join('');
+      const cur = (x0, dir) => Array.from({ length: 5 }, (_, i) => `<path d="M${cmF(x0 + dir * i * 16 * k)} 0 Q${cmF(x0 + dir * (i * 16 + 10) * k)} ${cmF(gy * 0.5)} ${cmF(x0 + dir * i * 12 * k)} ${cmF(gy + 10 * k)}" stroke="${i % 2 ? '#a50d26' : '#d0213d'}" stroke-width="${cmF(18 * k)}" fill="none"/>`).join('');
+      b += cur(0, 1) + cur(w, -1) + R(0, 0, w, 26 * k, '#c8102e', S2) + Array.from({ length: Math.ceil(w / (40 * k)) }, (_, i) => `<circle cx="${cmF(i * 40 * k + 20 * k)}" cy="${cmF(26 * k)}" r="${cmF(14 * k)}" fill="#c8102e"/>`).join('') + R(0, 22 * k, w, 4 * k, '#ffd84d');
+      b += R(0, gy, w, h - gy, '#b07642') + Array.from({ length: Math.ceil(w / (50 * k)) }, (_, i) => `<path d="M${cmF(i * 50 * k)} ${cmF(gy)} V${h}" stroke="#8a5a2b" stroke-width="2"/>`).join('') + R(0, gy, w, 6 * k, '#ffd84d') +
+        Array.from({ length: 8 }, (_, i) => `<ellipse cx="${cmF(w * (i + 0.5) / 8)}" cy="${h}" rx="${cmF(10 * k)}" ry="${cmF(8 * k)}" fill="#ffe27a" stroke="${O}" stroke-width="1.5"/>`).join('');
+      return K.out(b); }],
+    hall: ['אולם בטירה', (w, h, u) => { const K = cm6Kit(w, h, u, 4), { k, gy, R, at, lg } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#d9ccf2'], [1, '#efe8ff']])) + Array.from({ length: Math.ceil(h / 24) }, (_, r) => Array.from({ length: Math.ceil(w / 48) + 1 }, (_, c) => `<rect x="${c * 48 - (r % 2) * 24}" y="${r * 24}" width="48" height="24" fill="none" stroke="#c4b4e6" stroke-width="1.5"/>`).join('')).join('');
+      b += [0.2, 0.8].map(x => `<path d="M${cmF(w * x - 26 * k)} ${cmF(gy - 20 * k)} V${cmF(h * 0.2)} Q${cmF(w * x)} ${cmF(h * 0.06)} ${cmF(w * x + 26 * k)} ${cmF(h * 0.2)} V${cmF(gy - 20 * k)} Z" fill="#9fe6ff" stroke="#8a74b8" stroke-width="${cmF(6 * k)}"/><circle cx="${cmF(w * x + 8 * k)}" cy="${cmF(h * 0.24)}" r="${cmF(6 * k)}" fill="#fff6c2"/>`).join('');
+      b += [0.08, 0.36, 0.64, 0.92].map(x => R(w * x - 12 * k, h * 0.1, 24 * k, gy - h * 0.1, '#f6f0ff', `stroke="#8a74b8" stroke-width="2"`) + R(w * x - 16 * k, h * 0.1, 32 * k, 10 * k, '#e6dcfa', S2)).join('');
+      b += [0.36, 0.64].map(x => `<path d="M${cmF(w * x - 18 * k)} ${cmF(h * 0.2)} H${cmF(w * x + 18 * k)} V${cmF(h * 0.45)} L${cmF(w * x)} ${cmF(h * 0.4)} L${cmF(w * x - 18 * k)} ${cmF(h * 0.45)} Z" fill="#b58cff" ${S2}/><path d="M${cmF(w * x)} ${cmF(h * 0.27)} l3 6 l-3 4 l-3 -4 Z" fill="#ffd84d"/>`).join('');
+      b += R(0, gy, w, h - gy, '#c9b8e8') + `<path d="M${cmF(w * 0.42)} ${h} L${cmF(w * 0.46)} ${cmF(gy)} H${cmF(w * 0.54)} L${cmF(w * 0.58)} ${h} Z" fill="#c8102e"/><path d="M${cmF(w * 0.43)} ${h} L${cmF(w * 0.465)} ${cmF(gy)} M${cmF(w * 0.57)} ${h} L${cmF(w * 0.535)} ${cmF(gy)}" stroke="#ffd84d" stroke-width="3"/>` +
+        at(w * 0.5, gy - 22 * k, 0.9, 'throne') + at(w * 0.5, h * 0.12, 0.9, 'chandelier');
+      return K.out(b); }],
+    rainbowsky: ['שמי קשת', (w, h, u) => { const K = cm6Kit(w, h, u, 5), { k, R, lg, rnd } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#bfe6ff'], [0.6, '#ffe4f3'], [1, '#fff6d6']]));
+      const cx = w / 2, cy = h * 0.95, r0 = Math.min(w * 0.46, h * 0.8);
+      b += ['#ff6b6b', '#ffb020', '#ffd84d', '#4fbf73', '#7ec8ff', '#b58cff'].map((c, i) => `<path d="M${cmF(cx - r0 + i * 14 * k)} ${cmF(cy)} A${cmF(r0 - i * 14 * k)} ${cmF(r0 - i * 14 * k)} 0 0 1 ${cmF(cx + r0 - i * 14 * k)} ${cmF(cy)}" fill="none" stroke="${c}" stroke-width="${cmF(14 * k)}"/>`).join('');
+      b += [[0.12, 0.2, 0.7], [0.82, 0.14, 0.6], [0.1, 0.85, 1.1], [0.9, 0.85, 1.1], [0.5, 0.95, 1.4]].map(([x, y, s]) => cmPiece('cloud', w * x, h * y, s * k)).join('');
+      b += Array.from({ length: 16 }, () => { const x = rnd() * w, y = rnd() * h * 0.6, r = (4 + rnd() * 6) * k; return `<path transform="translate(${cmF(x)} ${cmF(y)})" d="M0 ${cmF(-r)} Q${cmF(r * .15)} ${cmF(-r * .15)} ${cmF(r)} 0 Q${cmF(r * .15)} ${cmF(r * .15)} 0 ${cmF(r)} Q${cmF(-r * .15)} ${cmF(r * .15)} ${cmF(-r)} 0 Q${cmF(-r * .15)} ${cmF(-r * .15)} 0 ${cmF(-r)} Z" fill="#fff"/>`; }).join('') + cmPiece('hotair', w * 0.7, h * 0.36, 0.7 * k);
+      return K.out(b); }],
+    bednight: ['חדר שינה בלילה', (w, h, u) => { const K = cm6Kit(w, h, u, 6), { k, gy, R, at, lg, rnd } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#2c2f6a'], [1, '#3d3f85']])) + Array.from({ length: 14 }, () => `<circle cx="${cmF(rnd() * w)}" cy="${cmF(rnd() * gy)}" r="${cmF(1.5 + rnd() * 2)}" fill="#ffe9a0" opacity=".5"/>`).join('');
+      b += `<rect x="${cmF(w * 0.58)}" y="${cmF(h * 0.12)}" width="${cmF(w * 0.28)}" height="${cmF(h * 0.34)}" fill="#141a44" stroke="#8a7cd6" stroke-width="${cmF(6 * k)}"/>` + cmPiece('moon', w * 0.66, h * 0.24, 0.45 * k) +
+        [[0.78, 0.2], [0.82, 0.36], [0.72, 0.38]].map(([x, y]) => `<polygon points="${starPts(w * x, h * y, 6 * k, 2.5 * k)}" fill="#fff6c2"/>`).join('') + `<path d="M${cmF(w * 0.72)} ${cmF(h * 0.12)} V${cmF(h * 0.46)} M${cmF(w * 0.58)} ${cmF(h * 0.29)} H${cmF(w * 0.86)}" stroke="#8a7cd6" stroke-width="${cmF(4 * k)}"/>`;
+      b += R(0, gy, w, h - gy, '#4a3f7a') + `<ellipse cx="${cmF(w * 0.5)}" cy="${cmF(gy + (h - gy) * 0.55)}" rx="${cmF(w * 0.22)}" ry="${cmF((h - gy) * 0.3)}" fill="#8a74d6"/>`;
+      b += `<ellipse cx="${cmF(w * 0.1)}" cy="${cmF(gy - 40 * k)}" rx="${cmF(60 * k)}" ry="${cmF(60 * k)}" fill="#ffe27a" opacity=".22"/>` + at(w * 0.1, gy - 26 * k, 0.8, 'lamp') + at(w * 0.3, gy + 6 * k, 1.5, 'bed');
+      return K.out(b); }],
+    garden: ['גינת פרחים', (w, h, u) => { const K = cm6Kit(w, h, u, 7), { k, gy, R, at, lg, hill, rnd } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#9ddcff'], [1, '#eaf9ff']])) + at(w * 0.85, h * 0.14, 0.5, 'sun') + at(w * 0.2, h * 0.12, 0.5, 'cloud') + hill(gy - 20 * k, '#a8e39a', 20);
+      b += Array.from({ length: Math.ceil(w / (100 * k)) + 1 }, (_, i) => at(i * 100 * k + 50 * k, gy - 22 * k, 1, 'fence')).join('') + hill(gy, '#7dcf6f', 10);
+      b += Array.from({ length: Math.max(6, Math.round(w / 55)) }, (_, i) => at(w * (i + 0.5) / Math.max(6, Math.round(w / 55)), gy + (10 + rnd() * 50) * k, 0.4 + rnd() * 0.2, ['flower', 'tulips', 'sunflower'][i % 3])).join('') + at(w * 0.3, h * 0.3, 0.35, 'butterfly') + at(w * 0.6, h * 0.24, 0.3, 'butterfly', true) + at(w * 0.5, gy + 40 * k, 0.4, 'ladybug');
+      return K.out(b); }],
+    pool: ['בריכה', (w, h, u) => { const K = cm6Kit(w, h, u, 8), { k, gy, R, at, lg } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#7ecbff'], [1, '#d8f2ff']])) + at(w * 0.85, h * 0.14, 0.5, 'sun') + at(w * 0.3, h * 0.14, 0.4, 'cloud') + at(w * 0.08, gy - 40 * k, 0.9, 'palm');
+      const py = h * 0.5;
+      b += R(0, py - 10 * k, w, h - py + 10 * k, '#f4f0e8') + Array.from({ length: Math.ceil(w / (24 * k)) }, (_, i) => R(i * 24 * k, py - 10 * k, 22 * k, 8 * k, i % 2 ? '#7ec8ff' : '#fff', 'stroke="#c9d8e8" stroke-width="1"')).join('');
+      b += R(w * 0.08, py + 6 * k, w * 0.84, h - py - 20 * k, lg('p', [[0, '#5ad3f0'], [1, '#2a8fd8']]), `rx="${cmF(10 * k)}" stroke="#fff" stroke-width="${cmF(5 * k)}"`) +
+        Array.from({ length: 8 }, (_, i) => `<path d="M${cmF(w * (0.14 + (i % 4) * 0.2))} ${cmF(py + (26 + Math.floor(i / 4) * 44) * k)} q${cmF(8 * k)} ${cmF(-5 * k)} ${cmF(16 * k)} 0 q${cmF(8 * k)} ${cmF(5 * k)} ${cmF(16 * k)} 0" fill="none" stroke="#fff" stroke-width="2.5" opacity=".7" stroke-linecap="round"/>`).join('');
+      b += `<path d="M${cmF(w * 0.86)} ${cmF(py - 30 * k)} V${cmF(py + 50 * k)} M${cmF(w * 0.9)} ${cmF(py - 30 * k)} V${cmF(py + 50 * k)} M${cmF(w * 0.86)} ${cmF(py + 10 * k)} H${cmF(w * 0.9)} M${cmF(w * 0.86)} ${cmF(py + 30 * k)} H${cmF(w * 0.9)}" stroke="#b8b3c7" stroke-width="${cmF(4 * k)}" fill="none" stroke-linecap="round"/>` +
+        `<g transform="translate(${cmF(w * 0.4)} ${cmF(py + 60 * k)}) scale(${cmF(k)})"><ellipse rx="30" ry="12" fill="#ff5a8a" ${S}/><ellipse rx="14" ry="5" fill="#3aa6dc"/><path d="M-22 -6 L-14 6 M22 -6 L14 6" stroke="#fff" stroke-width="6"/></g>`;
+      return K.out(b); }],
+    camp: ['מחנה בטבע', (w, h, u) => { const K = cm6Kit(w, h, u, 9), { k, gy, R, at, lg, hill, rnd } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#2b2e6e'], [0.6, '#8f6bc9'], [1, '#ffb38a']])) + Array.from({ length: 24 }, () => `<circle cx="${cmF(rnd() * w)}" cy="${cmF(rnd() * h * 0.4)}" r="${cmF(0.8 + rnd() * 1.5)}" fill="#fff"/>`).join('') + at(w * 0.8, h * 0.14, 0.4, 'moon');
+      b += `<path d="M0 ${cmF(gy - 30 * k)} L${cmF(w * 0.2)} ${cmF(gy - 120 * k)} L${cmF(w * 0.42)} ${cmF(gy - 40 * k)} L${cmF(w * 0.62)} ${cmF(gy - 140 * k)} L${cmF(w * 0.86)} ${cmF(gy - 50 * k)} L${w} ${cmF(gy - 90 * k)} V${h} H0 Z" fill="#5a4d8f"/>` + hill(gy - 10 * k, '#3f6f5a', 16);
+      b += Array.from({ length: 6 }, (_, i) => at(w * (i < 3 ? i * 0.07 + 0.02 : 0.78 + (i - 3) * 0.08), gy - 30 * k, 0.8, 'pine')).join('').replace(/#3f9c6e/g, '#2f6f4f') + hill(gy + 10 * k, '#4f8a5a', 8);
+      b += at(w * 0.34, gy + 6 * k, 1.1, 'tent') + `<ellipse cx="${cmF(w * 0.62)}" cy="${cmF(gy + 30 * k)}" rx="${cmF(60 * k)}" ry="${cmF(30 * k)}" fill="#ffb020" opacity=".25"/>` + at(w * 0.62, gy + 14 * k, 0.7, 'campfire');
+      return K.out(b); }],
+    farm: ['חווה', (w, h, u) => { const K = cm6Kit(w, h, u, 10), { k, gy, R, at, lg, hill } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#8fd3ff'], [1, '#e6f7ff']])) + at(w * 0.14, h * 0.14, 0.5, 'sun') + at(w * 0.6, h * 0.14, 0.5, 'cloud') + hill(gy - 30 * k, '#b8e39a', 26) + hill(gy, '#8fd07a', 12);
+      b += `<g transform="translate(${cmF(w * 0.7)} ${cmF(gy - 6 * k)}) scale(${cmF(k)})"><path d="M-60 0 V-70 L0 -110 L60 -70 V0 Z" fill="#d9363e" ${S}/><path d="M-66 -66 L0 -114 L66 -66" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round"/><rect x="-24" y="-50" width="48" height="50" fill="#fff" ${S2}/><path d="M-24 -50 L24 0 M24 -50 L-24 0" stroke="#d9363e" stroke-width="5"/><rect x="-12" y="-94" width="24" height="18" fill="#fff" ${S2}/></g>`;
+      b += Array.from({ length: Math.ceil(w * 0.5 / (100 * k)) }, (_, i) => at(i * 100 * k + 50 * k, gy + 10 * k, 1, 'fence')).join('') + at(w * 0.28, gy + 40 * k, 0.6, 'sunflower') +
+        `<g transform="translate(${cmF(w * 0.45)} ${cmF(gy + 30 * k)}) scale(${cmF(k)})"><rect x="-26" y="-20" width="52" height="34" rx="8" fill="#f2d16b" ${S}/><path d="M-20 -10 H20 M-20 0 H20" stroke="#c9a23f" stroke-width="2"/></g>` + at(w * 0.1, gy + 30 * k, 0.5, 'dog');
+      return K.out(b); }],
+    fair: ['לונה פארק', (w, h, u) => { const K = cm6Kit(w, h, u, 11), { k, gy, R, at, lg, hill } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#ffd1ec'], [1, '#fff4d6']])) + at(w * 0.14, h * 0.14, 0.4, 'cloud');
+      const cx = w * 0.3, cy = gy - 90 * k, r = 80 * k;
+      b += `<path d="M${cmF(cx - 40 * k)} ${cmF(gy)} L${cmF(cx)} ${cmF(cy)} L${cmF(cx + 40 * k)} ${cmF(gy)}" fill="none" stroke="${O}" stroke-width="${cmF(6 * k)}"/><circle cx="${cmF(cx)}" cy="${cmF(cy)}" r="${cmF(r)}" fill="none" stroke="#b58cff" stroke-width="${cmF(6 * k)}"/>` +
+        Array.from({ length: 8 }, (_, i) => { const a = i / 8 * Math.PI * 2, x = cx + r * Math.cos(a), y = cy + r * Math.sin(a); return `<path d="M${cmF(cx)} ${cmF(cy)} L${cmF(x)} ${cmF(y)}" stroke="#b58cff" stroke-width="${cmF(3 * k)}"/><rect x="${cmF(x - 9 * k)}" y="${cmF(y)}" width="${cmF(18 * k)}" height="${cmF(14 * k)}" rx="${cmF(4 * k)}" fill="${['#ff5a6e', '#ffd84d', '#4fbf73', '#7ec8ff'][i % 4]}" ${S2}/>`; }).join('') + `<circle cx="${cmF(cx)}" cy="${cmF(cy)}" r="${cmF(8 * k)}" fill="#ffd84d" ${S2}/>`;
+      b += `<g transform="translate(${cmF(w * 0.72)} ${cmF(gy)}) scale(${cmF(k)})"><rect x="-60" y="-70" width="120" height="70" fill="#fff" ${S}/>${Array.from({ length: 6 }, (_, i) => `<rect x="${-60 + i * 20}" y="-70" width="10" height="70" fill="#ff9ad5"/>`).join('')}<path d="M-70 -70 L0 -120 L70 -70 Z" fill="#ff5a6e" ${S}/><path d="M0 -120 V-136" stroke="${O}" stroke-width="2.5"/><path d="M0 -136 L14 -131 L0 -126 Z" fill="#ffd84d"/></g>`;
+      b += hill(gy + 6 * k, '#ffd6a5', 6) + at(w * 0.9, h * 0.34, 0.6, 'balloon') + at(w * 0.52, h * 0.3, 0.5, 'balloon').replace(/#ff5a8a/g, '#7ec8ff');
+      return K.out(b); }],
+    library: ['ספרייה', (w, h, u) => { const K = cm6Kit(w, h, u, 12), { k, gy, R, at, lg } = K;
+      let b = R(0, 0, w, h, lg('s', [[0, '#fbe3c8'], [1, '#f6d3ad']]));
+      b += Array.from({ length: Math.ceil(w / (100 * k)) }, (_, i) => i % 3 === 1 ? '' : at(i * 100 * k + 50 * k, gy - 60 * k, 1.2, 'bookshelf')).join('') + at(w * 0.5, h * 0.28, 0.7, 'window');
+      b += R(0, gy, w, h - gy, '#b07642') + Array.from({ length: 4 }, (_, i) => `<path d="M0 ${cmF(gy + (h - gy) * (i + 1) / 5)} H${w}" stroke="#8a5a2b" stroke-width="2"/>`).join('') +
+        `<ellipse cx="${cmF(w * 0.5)}" cy="${cmF(gy + (h - gy) * 0.5)}" rx="${cmF(w * 0.2)}" ry="${cmF((h - gy) * 0.25)}" fill="#4fbf73" opacity=".85"/>` + at(w * 0.32, gy + 4 * k, 1, 'chair') + at(w * 0.2, gy - 6 * k, 0.8, 'lamp');
+      return K.out(b); }],
+  };
+  CM_BGS.push(...Object.entries(CM6_BG).map(([id, [n]]) => [id, n]));
+  const cm6BgOrig = cmBgPreset;
+  cmBgPreset = function (id, w, h, u) { return CM6_BG[id] ? CM6_BG[id][1](w, h, u) : cm6BgOrig(id, w, h, u); };
+  CM_PANEL_BGS.push('sukkah', 'stage', 'garden', 'fair');
+
+  // ---------- +10 bubble styles, +10 sound words ----------
+  const CM6_BUB = { heart: ['💗 לב', '#ffe0ef'], star: ['⭐ כוכב', '#fff4b8'], flower: ['🌸 פרח', '#fff'], cloud: ['☁️ ענן רך', '#fff'], scroll: ['📜 מגילה', '#fff4dc'],
+    sign: ['🪧 שלט', '#f2c98f'], chat: ['📱 הודעה', '#4fa8ff'], double: ['⭕ כפולה', '#fff'], rainbow: ['🌈 קשת', '#fff'], icy: ['🧊 קרח', '#e6f7ff'] };
+  CM_BUBS.push(...Object.entries(CM6_BUB).map(([k, [n]]) => [k, n]));
+  CM_SFX.push('זבנג!', 'פלופ!', 'מיאו!', 'הב הב!', 'בלופ!', 'יאמי!', 'אאוץ׳!', 'שפלאש!', 'בררר!', 'צ׳יק צ׳אק!');
+  function cm6Bubble(it) {
+    const w = it.w, h = it.h, rx = w / 2, ry = h / 2, k = it.k, fill = it.c || CM6_BUB[k][1];
+    const tx = it.tx || 0, ty = it.ty || 0, ang = Math.atan2(ty / ry, tx / rx), outT = Math.hypot(tx / rx, ty / ry) > 1.05 && k !== 'sign';
+    const ep = (a, f = 1) => [cmF(rx * f * Math.cos(a)), cmF(ry * f * Math.sin(a))];
+    let shapes, extra = '', over = '', iw = w * 0.7, ih = h * 0.62, tc = it.tc || (k === 'chat' ? '#ffffff' : CM_INK);
+    const P = (pts, sc = [1, 1]) => pts.map(([x, y]) => `${cmF(x * rx * sc[0])},${cmF(y * ry * sc[1])}`).join(' ');
+    if (k === 'heart') { shapes = `<path d="M0 ${cmF(ry * 1.05)} C${cmF(-rx * 1.25)} ${cmF(ry * 0.05)} ${cmF(-rx * 1.1)} ${cmF(-ry * 1.15)} ${cmF(-rx * 0.5)} ${cmF(-ry * 1.05)} C${cmF(-rx * 0.2)} ${cmF(-ry)} 0 ${cmF(-ry * 0.72)} 0 ${cmF(-ry * 0.55)} C0 ${cmF(-ry * 0.72)} ${cmF(rx * 0.2)} ${cmF(-ry)} ${cmF(rx * 0.5)} ${cmF(-ry * 1.05)} C${cmF(rx * 1.1)} ${cmF(-ry * 1.15)} ${cmF(rx * 1.25)} ${cmF(ry * 0.05)} 0 ${cmF(ry * 1.05)} Z"/>`; iw = w * 0.62; ih = h * 0.5; }
+    else if (k === 'star') { shapes = `<polygon points="${P(Array.from({ length: 10 }, (_, i) => { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? 0.72 : 1.28; return [Math.cos(a) * r, Math.sin(a) * r + 0.08]; }))}"/>`; iw = w * 0.6; ih = h * 0.5; }
+    else if (k === 'flower') { shapes = `<ellipse rx="${cmF(rx * 0.8)}" ry="${cmF(ry * 0.8)}"/>` + Array.from({ length: 10 }, (_, i) => { const [x, y] = ep(i / 10 * Math.PI * 2, 0.78); return `<ellipse cx="${x}" cy="${y}" rx="${cmF(rx * 0.3)}" ry="${cmF(ry * 0.34)}"/>`; }).join(''); over = Array.from({ length: 10 }, (_, i) => { const [x, y] = ep(i / 10 * Math.PI * 2, 0.98); return `<circle cx="${x}" cy="${y}" r="3" fill="${['#ff9ad5', '#ffd84d', '#b58cff'][i % 3]}"/>`; }).join(''); }
+    else if (k === 'cloud') { const n = Math.max(7, Math.round((w + h) / 38)); shapes = `<ellipse rx="${cmF(rx * .86)}" ry="${cmF(ry * .8)}"/>` + Array.from({ length: n }, (_, i) => { const [x, y] = ep(i / n * Math.PI * 2, 0.78); return `<circle cx="${x}" cy="${y}" r="${cmF(Math.min(rx, ry) * 0.46)}"/>`; }).join(''); }
+    else if (k === 'scroll') { shapes = `<rect x="${cmF(-rx * 0.9)}" y="${cmF(-ry)}" width="${cmF(w * 0.9)}" height="${cmF(h)}"/>`; over = [-1, 1].map(s => `<rect x="${cmF(s > 0 ? rx * 0.82 : -rx)}" y="${cmF(-ry - 6)}" width="${cmF(rx * 0.18)}" height="${cmF(h + 12)}" rx="${cmF(rx * 0.09)}" fill="#e8c890" stroke="${CM_INK}" stroke-width="3"/>`).join(''); iw = w * 0.68; ih = h * 0.8; }
+    else if (k === 'sign') { shapes = `<rect x="${cmF(-rx)}" y="${cmF(-ry)}" width="${cmF(w)}" height="${cmF(h)}" rx="8"/>`; extra = [-0.55, 0.55].map(f => `<rect x="${cmF(rx * f - 5)}" y="${cmF(ry - 4)}" width="10" height="${cmF(ry * 0.9)}" fill="#9b6b43" stroke="${CM_INK}" stroke-width="3"/>`).join(''); over = `<path d="M${cmF(-rx + 6)} ${cmF(-ry * 0.3)} H${cmF(rx - 6)} M${cmF(-rx + 6)} ${cmF(ry * 0.35)} H${cmF(rx - 6)}" stroke="#d4a86a" stroke-width="2" opacity=".7"/>` + [[-1, -1], [1, -1], [-1, 1], [1, 1]].map(([a, b]) => `<circle cx="${cmF(a * (rx - 8))}" cy="${cmF(b * (ry - 8))}" r="2.6" fill="#8a5a2b"/>`).join(''); iw = w * 0.84; ih = h * 0.72; }
+    else if (k === 'chat') { shapes = `<rect x="${cmF(-rx)}" y="${cmF(-ry)}" width="${cmF(w)}" height="${cmF(h)}" rx="${cmF(Math.min(22, ry * 0.8))}"/>`; iw = w * 0.84; ih = h * 0.72; }
+    else if (k === 'icy') { shapes = `<rect x="${cmF(-rx)}" y="${cmF(-ry)}" width="${cmF(w)}" height="${cmF(h)}" rx="14"/>`; const n = Math.max(4, Math.round(w / 26)); over = `<path d="M${cmF(-rx + 4)} ${cmF(-ry + 6)} Q${cmF(-rx * 0.5)} ${cmF(-ry - 6)} 0 ${cmF(-ry + 4)} Q${cmF(rx * 0.5)} ${cmF(-ry - 8)} ${cmF(rx - 4)} ${cmF(-ry + 6)}" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>`; extra = ''; shapes += Array.from({ length: n }, (_, i) => { const x = -rx + 14 + i * (w - 28) / (n - 1), l = 10 + (i % 3) * 7; return `<path d="M${cmF(x - 6)} ${cmF(ry - 2)} L${cmF(x)} ${cmF(ry + l)} L${cmF(x + 6)} ${cmF(ry - 2)} Z"/>`; }).join(''); iw = w * 0.84; ih = h * 0.7; }
+    else shapes = `<ellipse rx="${cmF(rx)}" ry="${cmF(ry)}"/>`;
+    let tail = '';
+    if (outT) { const [ax, ay] = ep(ang - 0.2, 0.8), [bx, by] = ep(ang + 0.2, 0.8), mx = (tx + (+ax + +bx) / 2) / 2, my = (ty + (+ay + +by) / 2) / 2; tail = `<path d="M${ax} ${ay} Q${cmF(mx)} ${cmF(my)} ${cmF(tx)} ${cmF(ty)} Q${cmF(mx + (ty - my) * .08)} ${cmF(my)} ${bx} ${by} Z"/>`; }
+    let body = `<g fill="${CM_INK}" stroke="${CM_INK}" stroke-width="7" stroke-linejoin="round">${shapes}${tail}</g><g fill="${fill}">${shapes}${tail}</g>`;
+    if (k === 'double') body = `<g fill="${CM_INK}" stroke="${CM_INK}" stroke-width="7" stroke-linejoin="round">${shapes}${tail}</g><g fill="${fill}">${shapes}${tail}</g><ellipse rx="${cmF(rx - 7)}" ry="${cmF(ry - 7)}" fill="none" stroke="${CM_INK}" stroke-width="2.5"/>`;
+    if (k === 'rainbow') body = `<g fill="${CM_INK}" stroke="${CM_INK}" stroke-width="9" stroke-linejoin="round">${shapes}${tail}</g><g fill="${fill}">${shapes}${tail}</g>` + ['#ff6b6b', '#ffb020', '#ffd84d', '#4fbf73', '#7ec8ff', '#b58cff'].map((c, i) => `<ellipse rx="${cmF(rx - 2 - i * 2.6)}" ry="${cmF(ry - 2 - i * 2.6)}" fill="none" stroke="${c}" stroke-width="2.8"/>`).join('');
+    if (k === 'scroll') body = `<g fill="${CM_INK}" stroke="${CM_INK}" stroke-width="7" stroke-linejoin="round">${shapes}${tail}</g><g fill="${fill}">${shapes}${tail}</g>`;
+    const css = cmFontCss(it.font || (k === 'scroll' ? 'ktav' : k === 'sign' ? 'fat' : 'round'));
+    let fs = it.fs || 24, lines;
+    for (; fs > 10; fs -= 1) { lines = cmWrap(it.text, css, fs, iw); if (lines.length * fs * 1.18 <= ih && lines.every(l => cmMeasure(l, `${fs}px ${css}`) <= iw * 1.02)) break; }
+    return `${extra}${body}${over}${cmTextEl(lines, css, fs, `fill="${tc}"`)}`;
+  }
+  const cm6BubOrig = cmBubbleSVG;
+  cmBubbleSVG = it => CM6_BUB[it.k] ? cm6Bubble(it) : cm6BubOrig(it);
+
+  // ---------- +13 pose presets ----------
+  CM_POSES.girl.push(
+    ['flex', '💪 שרירים', { la: 90, lf: -100, ra: 90, rf: -100 }], ['think', '🤔 חושבת', { la: 15, lf: 140, head: 8 }], ['starjump', '🌟 כוכב', { la: 125, ra: 125, ll: 30, rl: 30 }],
+    ['kick', '🦵 בעיטה', { la: 60, ra: 60, rl: 55 }], ['ballet', '🩰 בלט', { la: 150, lf: 25, ra: 150, rf: 25, rl: 22, rk: 95 }], ['hug', '🤗 חיבוק', { la: 80, lf: 70, ra: 80, rf: 70 }],
+    ['cheer', '📣 מעודדת', { la: 150, ra: -20, rf: 95, ll: 6, rl: 6 }], ['walk', '🚶‍♀️ הולכת', { la: 14, ra: -10, ll: 10, lk: 20, rl: -6 }], ['skip', '🦘 קפיצה על רגל', { la: 45, lf: -50, ra: 45, rf: -50, ll: 20, lk: 95 }],
+    ['pointup', '☝️ רעיון!', { la: 165, lf: -10, head: -6 }]);
+  CM_POSES.mer.push(['think', '🤔 חושבת', { la: 15, lf: 140, ra: 20, head: 8 }], ['flex', '💪 שרירים', { la: 90, lf: -100, ra: 90, rf: -100, tail: 12 }], ['hug', '🤗 חיבוק', { la: 80, lf: 70, ra: 80, rf: 70, tail: -10 }]);
+
+  // ---------- facial expressions for girls (drawn over her face by girlSVG when opt.expr is set) ----------
+  const CM6_EXPR = [['none', '😐 רגיל'], ['happy', '😀 שמחה'], ['laugh', '😆 צוחקת'], ['wink', '😉 קורצת'], ['surprised', '😮 מופתעת'], ['sad', '😢 עצובה'], ['love', '😍 מאוהבת'], ['sleepy', '😴 ישנונית']];
+  function girlExprSVG(ex, o) {
+    const id = o.u + '-xc', ink = '#3a1a22', mouthC = '#9a2a44';
+    const cover = (x, y, rx, ry) => `<ellipse cx="${x}" cy="${y}" rx="${rx}" ry="${ry}" fill="url(#${id})"/>`;
+    const eyeCover = x => cover(x, 70, 13.5, 10.5);
+    const closed = (x, up) => `<path d="M${x - 8} ${up ? 73 : 69} Q${x} ${up ? 64 : 76} ${x + 8} ${up ? 73 : 69}" fill="none" stroke="${ink}" stroke-width="2.2" stroke-linecap="round"/>` + (up ? '' : `<path d="M${x - 5} 73 l-1 3 M${x} 74 v3 M${x + 5} 73 l1 3" stroke="${ink}" stroke-width="1.2" stroke-linecap="round"/>`);
+    const heart = x => `<path d="M${x} 77 C${x - 11} 70 ${x - 8} 62 ${x - 3.5} 63 C${x - 1.5} 63.3 ${x} 65 ${x} 66 C${x} 65 ${x + 1.5} 63.3 ${x + 3.5} 63 C${x + 8} 62 ${x + 11} 70 ${x} 77 Z" fill="#ff4f7a" stroke="#c2304a" stroke-width=".8"/><ellipse cx="${x - 3}" cy="66" rx="1.6" ry="1" fill="#fff" opacity=".8"/>`;
+    const my = o.my, mouthCover = cover(150, my + 1.5, o.lw + 4.5, 7.5);
+    const smileOpen = (wd, dp) => `<path d="M${150 - wd} ${my - 1} Q150 ${my + dp} ${150 + wd} ${my - 1} Z" fill="${mouthC}" stroke="${ink}" stroke-width="1" stroke-linejoin="round"/><path d="M${150 - wd + 1.5} ${my - 0.6} Q150 ${my + 2.2} ${150 + wd - 1.5} ${my - 0.6} Z" fill="#fff"/><ellipse cx="150" cy="${my + dp * 0.55}" rx="${wd * 0.45}" ry="${dp * 0.18}" fill="#ff8fa6"/>`;
+    const smile = `<path d="M143.5 ${my} Q150 ${my + 5.5} 156.5 ${my}" fill="none" stroke="${mouthC}" stroke-width="2.2" stroke-linecap="round"/>`;
+    const blush = [131, 169].map(x => `<ellipse cx="${x}" cy="84" rx="7" ry="3.6" fill="#ff7a9a" opacity=".45"/>`).join('');
+    const E = { happy: mouthCover + smileOpen(7.5, 8) + blush, laugh: eyeCover(136.6) + eyeCover(163.4) + closed(136.6, true) + closed(163.4, true) + mouthCover + smileOpen(9.5, 12) + blush,
+      wink: eyeCover(163.4) + closed(163.4, true) + mouthCover + smile + `<path d="M176 60 l1.4 3 l3 1.4 l-3 1.4 l-1.4 3 l-1.4 -3 l-3 -1.4 l3 -1.4 Z" fill="#ffd45c"/>`,
+      surprised: mouthCover + `<ellipse cx="150" cy="${my + 1.5}" rx="3.6" ry="4.8" fill="${mouthC}" stroke="${ink}" stroke-width="1"/>` + [136.6, 163.4].map(x => `<path d="M${x - 7} 53.5 Q${x} 49 ${x + 7} 53.5" fill="none" stroke="${ink}" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>`).join(''),
+      sad: mouthCover + `<path d="M144 ${my + 3.5} Q150 ${my - 2} 156 ${my + 3.5}" fill="none" stroke="${mouthC}" stroke-width="2.2" stroke-linecap="round"/><path d="M129 80 q-3 5 0 7 q3 -2 0 -7 Z" fill="#9fe6ff" stroke="#4fa8ff" stroke-width=".6"/>` + [[136.6, 1], [163.4, -1]].map(([x, s]) => `<path d="M${x - 6 * s} 52 L${x + 6 * s} 55.5" stroke="${ink}" stroke-width="1.3" stroke-linecap="round" opacity=".55"/>`).join(''),
+      love: eyeCover(136.6) + eyeCover(163.4) + heart(136.6) + heart(163.4) + mouthCover + smile + blush,
+      sleepy: eyeCover(136.6) + eyeCover(163.4) + closed(136.6, false) + closed(163.4, false) + mouthCover + `<ellipse cx="150" cy="${my + 1.5}" rx="2.4" ry="1.8" fill="${mouthC}"/>` + `<text x="182" y="46" font-size="11" font-family="Rubik, sans-serif" font-weight="700" fill="#7e8ce0">z</text><text x="189" y="36" font-size="14" font-family="Rubik, sans-serif" font-weight="700" fill="#7e8ce0">Z</text>` };
+    if (!E[ex]) return '';
+    return `<defs><radialGradient id="${id}"><stop offset=".55" stop-color="${o.sk}"/><stop offset="1" stop-color="${o.sk}" stop-opacity="0"/></radialGradient></defs>${E[ex]}`;
+  }
+  const cm6ExprRow = (it, redraw) => el('div', { class: 'cm6-expr' }, el('span', { class: 'lbl' }, '😊 הבעת פנים'),
+    el('div', { class: 'chips' }, ...CM6_EXPR.map(([k, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((it.expr || 'none') === k), onclick: () => { if (k === 'none') delete it.expr; else it.expr = k; SFX.pop(); redraw(); } }, n))));
+
+  // ---------- poster: +10 templates ----------
+  const ps6T = (text, font, fs, c, e, x, y, r = 0) => { const it = { id: cmNew('i'), t: 'txt', text, font, fs, c, e, x, y, s: 1, r }; it.s = cmF(Math.min(1, 540 / cmTextBox(it)[0]) * 100) / 100; return it; };
+  const ps6S = (ref, x, y, s, f = false, r = 0) => ({ id: cmNew('i'), t: 'stk', ref, x, y, s, r, f });
+  const ps6E = (e, x, y, s, r = 0) => ({ id: cmNew('i'), t: 'emo', e, x, y, s, r, f: false });
+  const ps6Sh = (k, c, x, y, s, r = 0) => ({ id: cmNew('i'), t: 'shape', k, c, x, y, s, r, f: false });
+  const ps6G = (i, x, y, s, pose, f = false, expr) => { const g = girls[i] || girls[0]; if (!g) return ps6S('star', x, y - 60, 2.4); const it = { id: cmNew('i'), t: 'girl', ref: g.id, x, y, s, r: 0, f }; if (pose) it.pose = pose; if (expr) it.expr = expr; return it; };
+  const ps6M = (x, y, s, pose) => mermaids[0] ? { id: cmNew('i'), t: 'mer', ref: mermaids[0].id, x, y, s, r: 0, f: false, pose } : ps6S('mermaidtail', x, y, 3);
+  const PS6_TPL = [
+    ['bday', '🎂 הזמנה ליום הולדת', () => ({ title: 'הזמנה ליום הולדת', bg: { kind: 'sunburst', c1: '#ffe0ef', c2: '#fff4b8', pat: 'confetti', pc: '#ff5a8a', frame: 'lights', fc: '#ff5a8a' },
+      items: [ps6T('מסיבת יום הולדת!', 'bubbles', 60, '#ff4f9a', 'outline', 300, 110, -3), ps6T('בואו לחגוג איתי 🎉', 'round', 34, '#3f6fd8', 'shadow', 300, 190), ps6S('cake', 300, 420, 3.4), ps6S('balloon', 110, 330, 2.2, false, -10), ps6S('balloon', 490, 330, 2.2, true, 10), ps6S('gift', 140, 600, 1.7), ps6S('gift', 460, 600, 1.7, true), ps6T('מתי: ________   איפה: ________', 'print', 26, '#2b2233', 'plain', 300, 740)] })],
+    ['sukkot', '🌿 חג סוכות שמח', () => ({ title: 'חג סוכות שמח', bg: { kind: 'grad', c1: '#fff1c9', c2: '#c9f2d0', pat: 'none', pc: '#ffffff', frame: 'flowers', fc: '#4fbf73' },
+      items: [ps6T('חג סוכות שמח!', 'bold', 66, '#3f9c6e', 'outline', 300, 120), ps6E('🌿', 170, 330, 2.6, -15), ps6E('🍋', 300, 330, 2.4), ps6E('🍇', 430, 330, 2.4, 10), ps6S('pomegranate', 150, 560, 2), ps6S('pomegranate', 450, 560, 2, true), ps6T('שנשב יחד בסוכה 💚', 'ktav', 40, '#b07642', 'plain', 300, 700)] })],
+    ['door', '🚪 שלט לדלת', () => ({ title: 'שלט לדלת', bg: { kind: 'grad', c1: '#e3d4ff', c2: '#b58cff', pat: 'stars', pc: '#ffffff', frame: 'double', fc: '#ffffff' },
+      items: [ps6S('crown', 300, 120, 2), ps6T(stMe() ? `החדר של ${stMe()}` : 'החדר שלי', 'bubbles', 64, '#ffd84d', 'outline', 300, 260, -2), ps6Sh('ribbon', '#ff5a8a', 300, 460, 5.4), ps6T('נא לדפוק לפני שנכנסים!', 'round', 30, '#ffffff', 'plain', 300, 462), ps6T('🔒 סודי ביותר', 'fat', 36, '#2b2233', 'sticker', 300, 640, -4)] })],
+    ['bff', '👯 חברות הכי טובות', () => ({ title: 'חברות הכי טובות', bg: { kind: 'radial', c1: '#fff0f7', c2: '#ffb3cf', pat: 'hearts', pc: '#ffffff', frame: 'hearts', fc: '#ff4f9a' },
+      items: [ps6T('חברות לנצח', 'doodle', 64, '#ff4f9a', '3d', 300, 110), ps6G(0, 200, 520, 2.4, { la: 80, lf: 70, ra: 20 }, false, 'happy'), ps6G(1, 400, 520, 2.4, { la: 20, ra: 80, rf: 70 }, true, 'happy'), ps6Sh('heart', '#ff4f9a', 300, 320, 0.9), ps6T('BFF 💖', 'bold', 40, '#ffffff', 'glow', 300, 770)] })],
+    ['pets', '🐾 החיות שלי', () => ({ title: 'החיות שלי', bg: { kind: 'grad', c1: '#e0fff4', c2: '#fff4d6', pat: 'dots', pc: '#ffffff', frame: 'scallop', fc: '#4fc3a1' },
+      items: [ps6T('החיות שלי', 'bubbles', 70, '#4fc3a1', 'outline', 300, 120), pet ? { id: cmNew('i'), t: 'pet', x: 300, y: 430, s: 3.4, r: 0, f: false } : ps6S('cat', 300, 430, 4), ps6E('🐾', 110, 640, 1.6, -20), ps6E('🐾', 490, 640, 1.6, 20), ps6S('bone' in STICKERS ? 'bone' : 'heart', 300, 690, 1.4), ps6T('הכי חמודים בעולם', 'round', 34, '#b07642', 'plain', 300, 770)] })],
+    ['concert', '🎤 הופעה!', () => ({ title: 'הופעה', bg: { kind: 'radial', c1: '#5b3a9e', c2: '#141a44', pat: 'sparkle', pc: '#ffd84d', frame: 'lights', fc: '#ffd84d' },
+      items: [ps6T('הופעה הלילה!', 'fat', 66, '#ff9ad5', 'glow', 300, 110), ps6G(0, 300, 530, 2.6, { la: 150, ra: -20, rf: 95 }, false, 'laugh'), ps6E('🎤', 150, 330, 1.8, -15), ps6E('🎶', 460, 300, 1.8), ps6E('🎸', 470, 600, 1.8, 15), ps6T('כרטיס: חיוך אחד', 'round', 30, '#ffd84d', 'plain', 300, 780)] })],
+    ['ocean', '🌊 שומרים על הים', () => ({ title: 'שומרים על הים', bg: { kind: 'grad', c1: '#bff0ff', c2: '#1f6fb8', pat: 'dots', pc: '#ffffff', frame: 'scallop', fc: '#7ec8ff' },
+      items: [ps6T('שומרים על הים!', 'bold', 60, '#ffffff', 'outline', 300, 110), ps6M(300, 470, 2.6, { la: 150, ra: 150, tail: 15 }), ps6S('fish', 120, 330, 1.6), ps6S('turtle', 480, 640, 1.8, true), ps6S('whale', 130, 680, 2), ps6T('לא זורקים זבל לים 💙', 'round', 32, '#ffffff', 'shadow', 300, 790)] })],
+    ['cheer', '💪 את יכולה!', () => ({ title: 'את יכולה', bg: { kind: 'rainbow', c1: '#ffffff', c2: '#ffffff', pat: 'sparkle', pc: '#ffffff', frame: 'line', fc: '#ff5a8a' },
+      items: [ps6T('את יכולה הכל!', 'bold', 66, '#ff5a8a', '3d', 300, 110), ps6G(0, 300, 520, 2.6, { la: 90, lf: -100, ra: 90, rf: -100 }, false, 'happy'), ps6S('trophy', 110, 330, 1.8), ps6S('star', 490, 330, 1.8), ps6T('כל יום קצת יותר טוב ⭐', 'ktav', 38, '#3f6fd8', 'plain', 300, 790)] })],
+    ['space', '🚀 הרפתקה בחלל', () => ({ title: 'הרפתקה בחלל', bg: { kind: 'radial', c1: '#3b2a6e', c2: '#0b0f2e', pat: 'stars', pc: '#fff6c2', frame: 'dashed', fc: '#b58cff' },
+      items: [ps6T('הרפתקה בחלל', 'moon', 64, '#9fe6ff', 'glow', 300, 110), ps6S('rocket', 300, 440, 4, false, 20), ps6S('planet', 120, 300, 2), ps6S('ufo', 480, 620, 2), ps6S('moon', 480, 280, 1.6), ps6T('3... 2... 1... המראה!', 'fat', 36, '#ffd84d', 'plain', 300, 780)] })],
+    ['bake', '🧁 מכירת עוגיות', () => ({ title: 'מכירת עוגיות', bg: { kind: 'grad', c1: '#fff4e0', c2: '#ffd1e4', pat: 'checks', pc: '#ff9ad5', frame: 'dashed', fc: '#ff5a8a' },
+      items: [ps6T('מכירת עוגיות!', 'bubbles', 66, '#b07642', 'outline', 300, 110), ps6S('cookie', 170, 330, 2.4), ps6S('cupcake', 430, 330, 2.4), ps6S('donut', 170, 560, 2.4), ps6S('icecream', 430, 560, 2.4), ps6T('כל עוגייה: חיוך אחד 😊', 'round', 34, '#ff4f9a', 'sticker', 300, 760, -3)] })],
+  ];
+  function ps6Templates() {
+    return el('section', { class: 'ps6-tpls' }, el('h4', { class: 'sec-title' }, '📋 להתחיל מתבנית'),
+      el('div', { class: 'ps6-grid' }, ...PS6_TPL.map(([id, name, make]) => {
+        let prev = ''; try { const p = make(); prev = psSvg(Object.assign({ id: 'pv' + id }, p)); } catch {}
+        return el('button', { type: 'button', class: 'ps6-t', onclick: () => {
+          const p = make(); psCur = Object.assign({ id: cmNew('ps'), at: Date.now() }, p); psView = 'edit'; psEd = null; SFX.pop(); drawPoster();
+        } }, el('span', { class: 'ps6-pv', html: prev }), name);
+      })));
+  }
+  const ps6DrawOrig = drawPoster;
+  drawPoster = function () {
+    ps6DrawOrig();
+    if (psView !== 'list') return;
+    const hero = $('#posterBody .cm-hero');
+    if (hero) hero.after(ps6Templates());
+  };
+
+  // ---------- movie: +4 songs, +4 transitions, expressions as keyframes ----------
+  MV_MUSIC.push(
+    ['morning', '☀️ בוקר טוב', 'xylo', 'G4 C5 E5 G5:2 E5 C5 D5:2 F5 D5 B4 G4:2 A4 B4 C5:2 E5 G5 C6:2 B5 A5 G5:2 F5 E5 D5 G4 C5:3 R', 260],
+    ['fairy', '🧚 ריקוד פיות', 'bells', 'E6 D6 C6 G5:2 C6:.5 D6:.5 E6 D6 C6:3 A5 B5 C6 D6:2 E6 F6 E6 D6:3 R C6 E6 G6:2 F6 E6 D6 C6:2 D6:.5 E6:.5 C6:3 R', 300],
+    ['chase', '🏃‍♀️ מרדף', 'toy', 'A4 C5 A4 C5 D5 E5 D5 C5 A4 C5 A4 C5 E5 D5 C5:2 G4 B4 G4 B4 C5 D5 C5 B4 A4:2 E5 D5 C5 B4 A4:2 R', 160],
+    ['party', '🎉 מסיבה', 'piano', 'C5 E5 G5 A5 G5 E5 F5 A5 G5:2 R E5 G5 C6 B5 A5 G5 F5 D5 C5:2 R', 230]);
+  MV_TRANS.splice(MV_TRANS.length - 1, 0, ['zoom', '🔎 זום'], ['spin', '🌀 סחרחורת'], ['wipe', '🧽 מגב'], ['drop', '⬇️ נפילה']);
+  MV_KF.push('expr');
+
+  // ---------- music box: +4 shapes, +4 dancers ----------
+  MB_SHAPES.push(['cake', 'עוגה'], ['house', 'בית'], ['piano', 'פסנתר'], ['star', 'כוכב']);
+  function mb6Base(s) { return { cake: 'round', house: 'rect', piano: 'rect', star: 'octa' }[s] || s; }
+  function mb6Deco(b, c1, c2) {
+    const s = b.shape;
+    if (s === 'cake') return `<path d="M70 262 V276 ${Array.from({ length: 13 }, (_, i) => `q10 ${i % 2 ? 22 : 12} 20 0`).join(' ')} V262 Z" fill="#fff" stroke="${O}" stroke-width="2"/>` + Array.from({ length: 16 }, (_, i) => `<rect x="${86 + (i * 53) % 230}" y="${310 + (i * 37) % 70}" width="8" height="3" rx="1.5" fill="${['#ff5a6e', '#7ec8ff', '#ffd84d', '#4fbf73'][i % 4]}" transform="rotate(${(i * 47) % 180} ${90 + (i * 53) % 230} ${311 + (i * 37) % 70})"/>`).join('');
+    if (s === 'house') return `<path d="M178 400 V346 A22 22 0 0 1 222 346 V400 Z" fill="${c2}" ${S2}/><circle cx="214" cy="372" r="3" fill="${O}"/>` + [110, 250].map(x => `<rect x="${x}" y="296" width="40" height="36" rx="4" fill="#9fe6ff" ${S2}/><path d="M${x + 20} 296 V332 M${x} 314 H${x + 40}" stroke="${O}" stroke-width="2"/><rect x="${x - 4}" y="332" width="48" height="10" rx="3" fill="#8a5a2b" ${S2}/><circle cx="${x + 10}" cy="330" r="4" fill="#ff5a8a"/><circle cx="${x + 30}" cy="330" r="4" fill="#ffd84d"/>`).join('');
+    if (s === 'piano') return `<rect x="88" y="296" width="224" height="58" rx="4" fill="#fff" ${S}/>` + Array.from({ length: 13 }, (_, i) => `<path d="M${88 + (i + 1) * 16} 296 V354" stroke="${O}" stroke-width="1.5"/>`).join('') + [0, 1, 3, 4, 5, 7, 8, 10, 11].map(i => `<rect x="${100 + i * 16}" y="296" width="9" height="34" rx="2" fill="#2b2233"/>`).join('');
+    if (s === 'star') return `<polygon points="${starPts(200, 330, 46, 20)}" fill="${c2}" ${S}/>${face(200, 334, 1.3)}` + [[108, 296], [292, 296], [120, 374], [280, 374]].map(([x, y]) => `<polygon points="${starPts(x, y, 9, 4)}" fill="#fff" stroke="${O}" stroke-width="1.2"/>`).join('');
+    return '';
+  }
+  function mb6Top(b, c1, c2) {
+    const s = b.shape;
+    if (s === 'cake') return `<g class="mb-lidc">${[160, 200, 240].map((x, i) => `<rect x="${x - 5}" y="${200 + (i % 2) * -8}" width="10" height="${40 + (i % 2) * 8}" rx="3" fill="${['#7ec8ff', '#ff9ad5', '#ffd84d'][i]}" ${S2}/><path d="M${x - 5} ${214 + (i % 2) * -8} l10 -6 M${x - 5} ${226 + (i % 2) * -8} l10 -6" stroke="#fff" stroke-width="2"/><path d="M${x} ${198 + (i % 2) * -8} q-6 -8 0 -16 q6 8 0 16 Z" fill="#ffb020" stroke="${O}" stroke-width="1.2"/>`).join('')}</g>`;
+    if (s === 'house') return `<g class="mb-lidc"><path d="M56 244 L200 150 L344 244 Z" fill="${c2}" ${S}/><path d="M80 236 L200 160 L320 236" fill="none" stroke="#fff" stroke-width="3" opacity=".5"/><rect x="266" y="164" width="26" height="42" fill="${c1}" ${S2}/><circle cx="200" cy="206" r="14" fill="#fff" ${S2}/><path d="M200 196 v20 M190 206 h20" stroke="${O}" stroke-width="2"/></g>`;
+    if (s === 'piano') return `<g class="mb-lidc"><rect x="170" y="186" width="60" height="44" rx="4" fill="#fff" ${S2}/>${[196, 204, 212].map(y => `<path d="M178 ${y} H222" stroke="#b8b3c7" stroke-width="1.2"/>`).join('')}<text x="186" y="216" font-size="16" fill="${O}" font-family="sans-serif">♪♫</text><path d="M200 230 V238" stroke="${O}" stroke-width="3"/></g>`;
+    if (s === 'star') return `<g class="mb-lidc"><polygon points="${starPts(200, 204, 28, 12)}" fill="#ffd84d" ${S}/>${face(200, 207, 0.9)}</g>`;
+    return '';
+  }
+  const MB6_DANCERS = [['fairy', '🧚 פיה'], ['princess', '👸 נסיכה'], ['bunny', '🐰 ארנבת'], ['teddy', '🧸 דובי']];
+  const mb6DancerOrig = mbDancer;
+  mbDancer = function (b, u) {
+    const d = b.dancer;
+    if (d === 'bunny' || d === 'teddy') return `<g transform="translate(-44 -96) scale(1.83)">${stickerInner(d === 'bunny' ? 'bunny' : 'bear')}</g>`;
+    if (d === 'fairy') return `<g opacity=".85"><ellipse cx="-20" cy="-80" rx="20" ry="13" transform="rotate(-30 -20 -80)" fill="#bfe8ff" ${S2}/><ellipse cx="20" cy="-80" rx="20" ry="13" transform="rotate(30 20 -80)" fill="#bfe8ff" ${S2}/><ellipse cx="-14" cy="-62" rx="11" ry="7" transform="rotate(20 -14 -62)" fill="#e6d4ff" ${S2}/><ellipse cx="14" cy="-62" rx="11" ry="7" transform="rotate(-20 14 -62)" fill="#e6d4ff" ${S2}/></g>` +
+      mb6DancerOrig(Object.assign({}, b, { dancer: 'ballerina' }), u).replace(/#ffc2e0/g, '#c9f0ff').replace(/#ff7ab8/g, '#7ec8ff') + `<path d="M12 -112 L24 -128" stroke="${O}" stroke-width="2"/><polygon points="${starPts(25, -130, 7, 3)}" fill="#ffd84d" ${S2}/>`;
+    if (d === 'princess') return mb6DancerOrig(Object.assign({}, b, { dancer: 'ballerina' }), u) + `<path d="M-9 -60 Q-18 -30 -32 0 H32 Q18 -30 9 -60 Z" fill="#b58cff" ${S2}/><path d="M-20 -24 Q0 -18 20 -24 M-26 -10 Q0 -2 26 -10" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/><path d="M-9 -100 L-9 -110 L-4 -104 L0 -113 L4 -104 L9 -110 L9 -100 Z" fill="#ffd84d" ${S2}/>`;
+    return mb6DancerOrig(b, u);
+  };
+
+  // ---------- newspaper: +3 templates ----------
+  NW_TPL.push(['crayon', '🖍️ צבעוני'], ['royal', '👑 מלכותי'], ['night', '🌙 לילה']);
 
   // ================= sticker album =================
   function openAlbum() {
