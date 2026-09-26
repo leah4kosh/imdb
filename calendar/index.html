@@ -7075,7 +7075,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   function drawHouse(mode, say) {
     const un = unlockedSet();
     const xp = xpTotal(), L = petLevel(xp);
-    $('#houseTitle').textContent = `🏠 הבית של ${pet.name || 'החיה שלי'}`;
+    $('#houseTitle').textContent = typeof allPets === 'function' && allPets().length > 1 ? '🏠 הבית של כל החיות' : `🏠 הבית של ${pet.name || 'החיה שלי'}`;
     $('#houseSub').textContent = `רמה ${L} · ${xp} נקודות` + (hungry() ? ' · רעב/ה! 🍽️' : ' · שבע/ה ושמח/ה 😊');
     const items = FIRSTS.filter(f => f[2] === 'item' && un.has(f[3]) && !(pet.house.hidden || []).includes(f[3])).map(f => f[3]);
     const scene = el('div', { class: 'scene bg-' + (pet.house.bg || defaultBg(pet.kind)), id: 'houseScene' },
@@ -23668,11 +23668,15 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
   function pz5Home() {
     clearInterval(pz5HomeTimer);
     const sc = $('#houseScene'); if (sc) sc.hidden = true;
-    const list = allPets().slice(0, 14);
+    // pets + her horses and dragons all live in the same home
+    const ext = [...(typeof crzHorses !== 'undefined' ? crzHorses.list.map(o => ({ ext: 'horse', o, name: o.name, kind: 'horse', size: .9 })) : []),
+      ...(typeof crzDragons !== 'undefined' ? crzDragons.list.map(o => ({ ext: 'dragon', o, name: o.name, kind: 'dino', size: .85 })) : [])].slice(0, 6);
+    const list = [...allPets().slice(0, 14), ...ext];
+    let gx = 50;
     const stage = el('div', { class: 'pz5-home' + (pz5Night ? ' night' : ''), html: pz5HomeBg() }), fx = el('div', { class: 'pz5-hfx' });
-    const say = el('span', { class: 'pz-say' }, list.length > 1 ? `${list.length} חיות גרות פה ביחד 💕` : 'כאן כל החיות גרות ביחד! אפשר לאמץ עוד 🥚');
-    const S = list.map((p, i) => ({ p, x: 8 + ((i * 37) % 84), y: 8 + ((i * 23) % 44), dir: 1, busy: 0, n: null, mood: pz5Night ? 'sleepy' : '' }));
-    const draw1 = s => { s.n.querySelector('.in').innerHTML = petSVG(s.p, { mood: s.mood }); };
+    const say = el('span', { class: 'pz-say' }, list.length > 1 ? `${list.length} חיות גרות פה ביחד, כמו משפחה אחת 💕` : 'כאן כל החיות גרות ביחד! אפשר לאמץ עוד 🥚');
+    const S = list.map((p, i) => ({ p, x: 32 + ((i * 11) % 36), y: 8 + ((i * 13) % 32), dir: 1, busy: 0, n: null, mood: pz5Night ? 'sleepy' : '' }));
+    const draw1 = s => { s.n.querySelector('.in').innerHTML = s.p.ext === 'horse' ? crzHorseSVG(s.p.o) : s.p.ext === 'dragon' ? crzDragonSVG(s.p.o) : petSVG(s.p, { mood: s.mood }); };
     const place = (s, dur = 1.6) => {
       s.n.style.transition = `left ${dur}s ease-in-out, bottom ${dur}s ease-in-out`;
       s.n.style.left = s.x + '%'; s.n.style.bottom = s.y + 'px'; s.n.style.zIndex = String(100 - Math.round(s.y));
@@ -23696,12 +23700,13 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     pz5HomeTimer = setInterval(() => {
       if (!stage.isConnected || !$('#houseDlg').open) { clearInterval(pz5HomeTimer); return; }
       if (pz5Night) return;
+      if (Math.random() < .12) gx = 18 + Math.random() * 64;
       const free = S.filter(s => Date.now() > s.busy);
       free.forEach(s => {
         if (Math.random() > .35) return;
         const f = pz5FamOf(s.p), mates = f ? S.filter(o => o !== s && f.members.some(m => m.pid === o.p.id)) : [];
         if (mates.length && Math.random() < .45) { const o = pzPick(mates); moveTo(s, o.x + (Math.random() < .5 ? -7 : 7), o.y + 4 - Math.random() * 8); }
-        else moveTo(s, 4 + Math.random() * 90, 6 + Math.random() * 50);
+        else moveTo(s, gx - 16 + Math.random() * 32, 6 + Math.random() * 40);
       });
       if (free.length > 1 && Math.random() < .25) {
         const a = pzPick(free), b = pzPick(free.filter(x => x !== a)); if (!b) return;
@@ -23715,7 +23720,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       if (pz5Night) wake();
       stage.classList.add('eating'); say.textContent = 'ארוחה משפחתית! 🍽️ כולם לשולחן!';
       all((s, i) => { s.busy = Date.now() + 5000; moveTo(s, 31 + (i % 7) * 5, 6 + Math.floor(i / 7) * 16); });
-      setTimeout(() => { if (!stage.isConnected) return; SFX.munch(); all((s, i) => { setTimeout(() => { s.mood = 'happy'; draw1(s); hop(s); heart(s, '😋'); if (typeof feedPet === 'function') feedPet(s.p, { id: 'family', name: 'ארוחה משפחתית', art: '', yum: 3 }); }, i * 120); });
+      setTimeout(() => { if (!stage.isConnected) return; SFX.munch(); all((s, i) => { setTimeout(() => { s.mood = 'happy'; draw1(s); hop(s); heart(s, '😋'); if (!s.p.ext && typeof feedPet === 'function') feedPet(s.p, { id: 'family', name: 'ארוחה משפחתית', art: '', yum: 3 }); }, i * 120); });
         setTimeout(() => { all(s => { s.mood = ''; draw1(s); }); stage.classList.remove('eating'); say.textContent = 'יאמי! כולם שבעים ושמחים 💕'; }, 2600); }, 1700);
     };
     const sleep = () => {
@@ -23725,7 +23730,7 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
       setTimeout(() => { if (!stage.isConnected || !pz5Night) return; all(s => heart(s, '💤')); }, 1800);
       acts.replaceChildren(btn('🌞 בוקר טוב!', wake, true));
     };
-    const wake = () => { pz5Night = false; stage.classList.remove('night'); all(s => { s.mood = 'happy'; draw1(s); moveTo(s, 5 + Math.random() * 88, 6 + Math.random() * 50); }); setTimeout(() => all(s => { s.mood = ''; if (s.n.isConnected) draw1(s); }), 1800); say.textContent = 'בוקר טוב! ☀️'; acts.replaceChildren(...buttons()); };
+    const wake = () => { pz5Night = false; stage.classList.remove('night'); all(s => { s.mood = 'happy'; draw1(s); moveTo(s, gx - 16 + Math.random() * 32, 6 + Math.random() * 40); }); setTimeout(() => all(s => { s.mood = ''; if (s.n.isConnected) draw1(s); }), 1800); say.textContent = 'בוקר טוב! ☀️'; acts.replaceChildren(...buttons()); };
     const play = () => {
       if (pz5Night) wake();
       say.textContent = 'משחקים ביחד בחצר! ⚽';
