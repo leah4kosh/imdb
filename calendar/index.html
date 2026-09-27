@@ -5222,6 +5222,281 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
 @media (prefers-reduced-motion: reduce) {
   .a2-flow, .a2-rip, .a2-sun, .a2-cloud, .a2-riverflow, .a2-fall, .a2-tw, .a2-cstar polygon, .a2-wave, .a2-wob, .a2-rise, .a2-flutter, .a2-walker.a2-walking > svg { animation: none; }
 }
+/* ===== 🏘️ pets' neighborhood, 💼 pet jobs, 🏡 shelter (town agent, round 7c) ===== */
+#ptwDlg .sheet { gap: 10px; }
+.ptw-nav { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.ptw-nav .coin-chip { margin-inline-start: auto; }
+.ptw-nav .chip { position: relative; }
+@media (max-width: 620px) { .ptw-nav { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } .ptw-nav > * { flex: none; } }
+.ptw-badge { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; margin-inline-start: 4px; border-radius: 9px; background: #ff5a6e; color: #fff; font-size: 11px; font-weight: 700; line-height: 1; vertical-align: middle; }
+.ptw-badge.soft { background: #b58cff; }
+.ptw-hero { background: linear-gradient(90deg, #ffd84d, #ff9ad5); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 1px 10px; font-size: .9em; white-space: nowrap; box-shadow: 0 2px 0 rgb(0 0 0 / .15); }
+.ptw-wrap { display: grid; gap: 10px; }
+.ptw-empty { font-size: 1.2em; text-align: center; padding: 24px; display: grid; gap: 10px; justify-items: center; }
+.ptw-ok { color: #1f8a4c; font-weight: 700; }
+:root[data-theme="dark"] .ptw-ok { color: #8fe6a0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ptw-ok { color: #8fe6a0; } }
+
+/* stages */
+.ptw-stage, .ptw-map { position: relative; width: 100%; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); background: #bfe6ff; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.ptw-stage { aspect-ratio: 600 / 320; }
+.ptw-map { aspect-ratio: 1000 / 660; background: #a8e08f; }
+.ptw-mapscroll { overflow-x: auto; border-radius: 18px; }
+@media (max-width: 640px) { .ptw-map { width: 640px; } }
+.ptw-carest { aspect-ratio: 600 / 300; border-width: 2px; }
+.ptw-bg, .ptw-bg > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ptw-layer { position: absolute; inset: 0; pointer-events: none; }
+.ptw-layer > * { pointer-events: auto; }
+.ptw-layer > .ptw-banner, .ptw-layer > .ptw-float, .ptw-layer > .ptw-prop, .ptw-layer > .ptw-hook, .ptw-layer > .ptw-tower, .ptw-layer > .ptw-letter, .ptw-layer > .ptw-box, .ptw-layer > .ptw-board, .ptw-layer > .ptw-frisbee { pointer-events: none; }
+.ptw-actor { position: absolute; translate: -50% 0; transition: left 1.1s ease-in-out, bottom 1.1s ease-in-out; z-index: 2; border: none; background: none; padding: 0; cursor: pointer; }
+.ptw-actor > svg { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .18)); }
+.ptw-nm { position: absolute; left: 50%; bottom: -2px; translate: -50% 100%; background: var(--card); color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 0 8px; font-size: clamp(10px, 1.5vw, 14px); white-space: nowrap; line-height: 1.4; pointer-events: none; }
+.ptw-banner { position: absolute; top: 10px; left: 50%; translate: -50% 0; z-index: 30; background: rgb(255 255 255 / .93); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 3px 16px; font-size: clamp(12px, 2vw, 19px); white-space: nowrap; max-width: 94%; overflow: hidden; text-overflow: ellipsis; box-shadow: 0 3px 0 rgb(0 0 0 / .15); }
+.ptw-banner.long { white-space: normal; border-radius: 16px; text-align: center; width: max-content; max-width: 88%; line-height: 1.35; }
+.ptw-say { position: absolute; left: 50%; top: -4%; translate: -50% -100%; background: #fff; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 14px; padding: 2px 10px; white-space: nowrap; font-size: clamp(11px, 1.7vw, 16px); z-index: 40; animation: ptwPopIn .3s ease-out; pointer-events: none; }
+.ptw-say::after { content: ''; position: absolute; left: 50%; bottom: -7px; width: 10px; height: 10px; background: #fff; border: solid #3a2b3c; border-width: 0 2px 2px 0; transform: translateX(-50%) rotate(45deg); }
+.ptw-float { position: absolute; translate: -50% 0; font-size: clamp(16px, 3vw, 30px); z-index: 45; animation: ptwFloatUp 1.2s ease-out forwards; pointer-events: none; }
+.ptw-float.bub { font-size: clamp(14px, 2.4vw, 24px); }
+.ptw-prop { position: absolute; translate: -50% 0; z-index: 3; animation: ptwPopIn .35s ease-out; }
+.ptw-prop > svg { width: 100%; height: auto; display: block; }
+@keyframes ptwFloatUp { from { opacity: 1; transform: translateY(0) scale(.8); } to { opacity: 0; transform: translateY(-70px) scale(1.2); } }
+@keyframes ptwPopIn { from { opacity: 0; transform: scale(.5); } to { opacity: 1; transform: scale(1); } }
+.ptw-idle { animation: ptwIdle 2.6s ease-in-out infinite; }
+@keyframes ptwIdle { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3%) rotate(-2deg); } }
+.ptw-hop { animation: ptwHop .5s ease-out; }
+@keyframes ptwHop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-22%) scale(1.06); } }
+.ptw-flip { animation: ptwFlip .8s ease-in-out; }
+@keyframes ptwFlip { 0% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-40%) rotate(180deg); } 100% { transform: translateY(0) rotate(360deg); } }
+.ptw-shake { animation: ptwShake .4s ease-in-out; }
+@keyframes ptwShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8%); } 75% { transform: translateX(8%); } }
+.ptw-pulse { animation: ptwPulse .3s ease-out; }
+@keyframes ptwPulse { 50% { transform: scale(1.25); } }
+@media (prefers-reduced-motion: reduce) { .ptw-idle, .ptw-bob, .ptw-swing, .ptw-clouds, .ptw-wave, .ptw-smoke, .ptw-smoke2, .ptw-flick, .ptw-bulb, .ptw-spot, .ptw-tw, .ptw-flag, .ptw-duck, .ptw-seesaw, .ptw-flame, .ptw-fly { animation: none !important; } }
+
+/* the map */
+.ptw-mapsvg .ptw-pl { cursor: pointer; transform-box: fill-box; transform-origin: 50% 100%; transition: filter .2s; }
+.ptw-mapsvg .ptw-pl:hover { filter: brightness(1.07) drop-shadow(0 0 6px #fff); }
+.ptw-plhop { animation: ptwPlHop .5s ease-out; }
+@keyframes ptwPlHop { 40% { transform: scale(1.06, .95); } 70% { transform: scale(.98, 1.04); } }
+.ptw-clouds { animation: ptwDrift 30s linear infinite alternate; }
+@keyframes ptwDrift { from { transform: translateX(-40px); } to { transform: translateX(60px); } }
+.ptw-wave { animation: ptwWave 3s ease-in-out infinite alternate; }
+@keyframes ptwWave { from { transform: translateX(-6px); } to { transform: translateX(6px); } }
+.ptw-smoke, .ptw-smoke2 { animation: ptwSmoke 3s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes ptwSmoke { 0%, 100% { transform: translateY(0); opacity: .9; } 50% { transform: translateY(-8px); opacity: .5; } }
+.ptw-swing { animation: ptwSwing 2.4s ease-in-out infinite alternate; }
+.ptw-swing.b { animation-delay: -1.2s; }
+@keyframes ptwSwing { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
+.ptw-seesaw { animation: ptwSaw 3s ease-in-out infinite alternate; }
+@keyframes ptwSaw { from { transform: rotate(-10deg); } to { transform: rotate(10deg); } }
+.ptw-flag { animation: ptwFlagA 1s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 0 50%; }
+@keyframes ptwFlagA { from { transform: scaleX(1); } to { transform: scaleX(.8) skewY(4deg); } }
+.ptw-duck { animation: ptwDuck 6s ease-in-out infinite alternate; }
+@keyframes ptwDuck { from { transform: translateX(0); } to { transform: translateX(-40px); } }
+.ptw-mflag { transform-box: fill-box; transform-origin: 0 100%; }
+.ptw-plabel { position: absolute; translate: -50% -50%; z-index: 120; background: rgb(255 255 255 / .94); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 1px 8px; font: inherit; font-size: clamp(9px, 1.45vw, 14px); line-height: 1.45; white-space: nowrap; cursor: pointer; box-shadow: 0 2px 0 rgb(0 0 0 / .18); }
+.ptw-plabel:hover { background: #fff6c4; }
+.ptw-plabel.home { background: #ffd1e6; font-weight: 700; }
+.ptw-plabel .ptw-badge { min-width: 15px; height: 15px; font-size: 10px; }
+.ptw-walker { transition: left 1s ease-in-out, bottom 1s ease-in-out; }
+.ptw-walker > svg { animation: ptwIdle 2.4s ease-in-out infinite; }
+.ptw-nbact.has-q > svg { filter: drop-shadow(0 0 5px #ffd84d) drop-shadow(0 3px 2px rgb(0 0 0 / .18)); }
+.ptw-qmark { position: absolute; top: -18%; left: 50%; translate: -50% 0; width: 1.4em; height: 1.4em; display: grid; place-items: center; background: #ffd84d; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 50%; font-weight: 900; font-size: clamp(9px, 1.4vw, 14px); animation: ptwBounce 1s ease-in-out infinite; pointer-events: none; }
+@keyframes ptwBounce { 50% { transform: translateY(-25%); } }
+.ptw-say.stay { animation: ptwBounce 1.4s ease-in-out infinite; }
+.ptw-lost { position: absolute; translate: -50% 0; width: 3.4%; z-index: 110; border: none; background: none; padding: 0; cursor: pointer; animation: ptwSparkle 1.4s ease-in-out infinite; }
+.ptw-lost > svg { width: 100%; height: auto; display: block; }
+@keyframes ptwSparkle { 0%, 100% { filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #ffd84d); transform: rotate(-8deg); } 50% { filter: drop-shadow(0 0 7px #fff) drop-shadow(0 0 10px #ffd84d); transform: rotate(8deg) scale(1.1); } }
+.ptw-panel { display: grid; gap: 8px; background: var(--card); border: 2px solid var(--line); border-radius: 16px; padding: 10px; }
+.ptw-qhead { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.ptw-qlist { display: grid; gap: 6px; }
+.ptw-q { display: grid; grid-template-columns: 38px 1fr auto; gap: 8px; align-items: center; padding: 4px 8px; border-radius: 12px; background: color-mix(in srgb, var(--card) 85%, #ffd84d); }
+.ptw-q.done { opacity: .6; background: color-mix(in srgb, var(--card) 88%, #6fcf7f); }
+.ptw-qface, .ptw-mface { width: 38px; height: 38px; display: block; }
+.ptw-qface > svg, .ptw-mface > svg { width: 100%; height: 100%; }
+.ptw-nbcard { display: flex; gap: 12px; align-items: center; }
+.ptw-nbface { width: 92px; flex: none; }
+.ptw-nbface > svg { width: 100%; height: auto; display: block; }
+.ptw-nbtxt { display: grid; gap: 2px; }
+.ptw-nbtxt p { margin: 0; }
+.ptw-req { font-size: 1.08em; background: color-mix(in srgb, var(--card) 80%, #7ec8ff); border-radius: 12px; padding: 4px 10px; }
+.ptw-hrow { letter-spacing: 1px; font-size: .92em; }
+.ptw-food { width: 52px; height: 52px; padding: 4px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); cursor: pointer; }
+.ptw-food > svg, .ptw-food > span > svg { width: 100%; height: 100%; display: block; }
+.ptw-food.big { width: auto; height: auto; display: grid; justify-items: center; gap: 2px; padding: 6px 10px; }
+.ptw-food.big > span { width: 46px; height: 46px; display: block; }
+.ptw-food:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+/* places */
+.ptw-acts { align-items: center; }
+.ptw-swim { clip-path: inset(0 0 38% 0); animation: ptwBob 1.6s ease-in-out infinite; }
+@keyframes ptwBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5%); } }
+.ptw-dive { animation: ptwDive .45s ease-in; }
+@keyframes ptwDive { 50% { transform: translateY(-40%) rotate(-20deg); } 100% { transform: translateY(0) rotate(0); } }
+.ptw-listen > svg { transform: rotate(-6deg); transition: transform .4s; }
+.ptw-slide { animation: ptwSlideA 1.4s ease-in-out; }
+@keyframes ptwSlideA { 0% { transform: translate(0, 0); } 30% { transform: translate(40%, -60%); } 70% { transform: translate(20%, -20%) rotate(-12deg); } 100% { transform: translate(0, 0); } }
+.ptw-swinging { animation: ptwSw2 1s ease-in-out infinite alternate; transform-origin: 50% -80%; }
+@keyframes ptwSw2 { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+.ptw-frisbee { position: absolute; width: 8%; bottom: 40%; z-index: 20; animation: ptwFris 1.9s ease-in-out forwards; }
+.ptw-frisbee > svg { width: 100%; display: block; }
+@keyframes ptwFris { 0% { left: 5%; bottom: 20%; transform: rotate(0); } 50% { left: 50%; bottom: 70%; transform: rotate(540deg); } 100% { left: 90%; bottom: 30%; transform: rotate(1080deg); } }
+.ptw-host > svg { transform: scaleX(-1); }
+.ptw-host .ptw-say { left: auto; right: -6%; translate: 0 -100%; }
+.ptw-host .ptw-say::after { left: auto; right: 14px; }
+
+/* jobs */
+.ptw-bulb { animation: ptwBlink 1s ease-in-out infinite alternate; }
+@keyframes ptwBlink { from { opacity: .45; } to { opacity: 1; } }
+.ptw-payrow { justify-content: center; }
+.ptw-pay { font-size: 1.15em; animation: ptwBounce 1.4s ease-in-out infinite; }
+.ptw-jcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.ptw-jcard { display: grid; grid-template-columns: 76px 1fr; grid-template-rows: auto auto; gap: 4px 10px; align-items: center; padding: 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); }
+.ptw-jcard.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.ptw-jart { grid-row: span 2; width: 76px; }
+.ptw-jart > svg { width: 100%; height: auto; display: block; overflow: visible; }
+.ptw-jinfo { display: grid; gap: 1px; }
+.ptw-stars { color: #ffb020; letter-spacing: 1px; }
+.ptw-jbtns { display: flex; flex-wrap: wrap; gap: 6px; }
+.ptw-jbtns .btn { padding: 4px 10px; white-space: nowrap; font-size: .92em; }
+.ptw-jobst { aspect-ratio: 600 / 290; }
+.ptw-jpick { display: grid; gap: 8px; padding: 10px; border-radius: 16px; border: 2px dashed var(--accent); background: color-mix(in srgb, var(--card) 92%, var(--accent)); }
+.ptw-jgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.ptw-jgrid.small { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+.ptw-jopt { display: grid; justify-items: center; gap: 2px; padding: 8px 6px; border-radius: 16px; border: 2px solid var(--jc, var(--line)); background: color-mix(in srgb, var(--card) 84%, var(--jc, #fff)); color: var(--ink); font: inherit; cursor: pointer; text-align: center; transition: transform .15s; }
+.ptw-jopt:hover { transform: translateY(-3px); }
+.ptw-jopt[aria-pressed="true"] { box-shadow: 0 0 0 3px var(--jc); }
+.ptw-jopt small { font-size: .78em; opacity: .85; line-height: 1.25; }
+.ptw-jopt-art { width: 84px; display: block; }
+.ptw-jopt-art > svg { width: 100%; height: auto; display: block; overflow: visible; }
+.ptw-try summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
+.ptw-jbadge { position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; display: grid; place-items: center; font-size: 13px; line-height: 1; background: var(--jc, #fff); border: 2px solid #3a2b3c; border-radius: 8px; box-shadow: 0 2px 0 rgb(0 0 0 / .2); pointer-events: none; z-index: 3; }
+.ptw-housebar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 2px 0 6px; }
+.ptw-housebar .chip { position: relative; }
+
+/* the shift games */
+.ptw-hud { display: grid; grid-template-columns: 40px auto auto auto 1fr; align-items: center; gap: 4px 10px; font-size: 1.1em; }
+.ptw-hudpet { width: 40px; display: block; }
+.ptw-hudpet > svg { width: 100%; height: auto; display: block; }
+.ptw-time, .ptw-score { background: var(--card); border: 2px solid var(--line); border-radius: 999px; padding: 0 10px; white-space: nowrap; display: inline-block; }
+.ptw-tbar { height: 12px; border-radius: 6px; background: color-mix(in srgb, var(--line) 60%, transparent); overflow: hidden; border: 2px solid var(--ink); min-width: 60px; }
+.ptw-tbar > i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, #ff9ad5, #ffd84d); transition: width .1s linear; }
+.ptw-intro, .ptw-result { position: absolute; inset: 8% 18%; z-index: 60; display: grid; justify-items: center; align-content: center; gap: 6px; background: rgb(255 255 255 / .95); color: #3a2b3c; border: 3px solid #3a2b3c; border-radius: 20px; padding: 10px 14px; text-align: center; box-shadow: 0 6px 0 rgb(0 0 0 / .15); animation: ptwPopIn .35s ease-out; overflow: auto; }
+.ptw-intro p { margin: 0; font-size: clamp(12px, 1.9vw, 17px); }
+.ptw-intro-art { width: clamp(56px, 12vw, 100px); }
+.ptw-intro-art > svg { width: 100%; height: auto; display: block; overflow: visible; }
+.ptw-go { font-size: 1.2em; }
+.ptw-rt { font-size: 1.3em; }
+.ptw-rstars { font-size: clamp(26px, 5vw, 44px); letter-spacing: 4px; color: #d8d8e4; line-height: 1; }
+.ptw-rstars .on { color: #ffcf3a; text-shadow: 0 2px 0 #c98f00; animation: ptwPopIn .5s ease-out; }
+.ptw-result .ptw-ok { color: #1f8a4c; }
+.ptw-worker { z-index: 5; pointer-events: none; }
+.ptw-fly { animation: ptwFlyA 2.4s ease-in-out infinite; }
+@keyframes ptwFlyA { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10%) rotate(3deg); } }
+.ptw-actor > svg.ptw-plane { position: absolute; left: -48%; bottom: -14%; width: 196%; height: auto; z-index: -1; overflow: visible; filter: none; }
+.ptw-sing { animation: ptwSingA .3s ease-in-out; }
+@keyframes ptwSingA { 50% { transform: scale(1.06) rotate(-4deg); } }
+.ptw-tgt { position: absolute; translate: -50% 50%; border: none; background: none; padding: 0; cursor: pointer; z-index: 10; touch-action: manipulation; }
+.ptw-tgt > svg { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .2)); }
+.ptw-popin { animation: ptwPopUp .28s ease-out; }
+@keyframes ptwPopUp { from { transform: scale(.2) translateY(40%); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.ptw-popout { animation: ptwPopOut .26s ease-in forwards; }
+@keyframes ptwPopOut { to { transform: scale(.2) translateY(40%); opacity: 0; } }
+.ptw-tgt.hit { animation: ptwHit .5s ease-out forwards; pointer-events: none; }
+.ptw-tgt.bad.hit { animation: ptwShake .4s ease-in-out; }
+@keyframes ptwHit { 30% { transform: scale(1.25); } 100% { transform: scale(1.1) translateY(-30%); opacity: 0; } }
+.ptw-bob > svg { animation: ptwBob 1.4s ease-in-out infinite; }
+.ptw-flame { animation: ptwFlick .35s ease-in-out infinite alternate; transform-origin: 50% 100%; }
+@keyframes ptwFlick { from { transform: scale(1, 1) skewX(-3deg); } to { transform: scale(.94, 1.08) skewX(3deg); } }
+.ptw-flick { animation: ptwFlick .4s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+.ptw-siren { animation: ptwBlink .4s steps(2) infinite; }
+.ptw-belt { stroke-dasharray: 10 10; }
+.ptw-tw { animation: ptwBlink 1.2s ease-in-out infinite alternate; }
+.ptw-spot { animation: ptwBlink 1.6s ease-in-out infinite alternate; }
+.ptw-board { position: absolute; left: 25%; top: 7.5%; width: 50%; height: 43.75%; display: grid; place-items: center; align-content: center; gap: 2px; color: #fff; font-family: 'Gveret Levin', Rubik, sans-serif; text-align: center; }
+.ptw-board b { font-size: clamp(20px, 5vw, 44px); font-weight: 400; }
+.ptw-bstars { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 6px; max-width: 90%; color: #ffd84d; font-size: clamp(14px, 3.4vw, 30px); line-height: 1; }
+.ptw-bstars i { font-style: normal; }
+.ptw-student { pointer-events: none; }
+.ptw-ans { display: flex; justify-content: center; gap: 14px; }
+.ptw-apple { width: clamp(64px, 14vw, 96px); aspect-ratio: 1; border-radius: 50% 50% 46% 46%; border: 3px solid #3a2b3c; background: radial-gradient(circle at 35% 30%, #ff9a9a, #ff4e5e 60%, #d8303f); color: #fff; font: inherit; font-size: clamp(24px, 5vw, 38px); cursor: pointer; box-shadow: 0 4px 0 rgb(0 0 0 / .2); position: relative; text-shadow: 0 2px 0 rgb(0 0 0 / .25); }
+.ptw-apple::before { content: ''; position: absolute; top: -12px; left: 50%; width: 14px; height: 10px; background: #4fbf73; border: 2px solid #3a2b3c; border-radius: 0 12px 0 12px; }
+.ptw-apple.right { background: radial-gradient(circle at 35% 30%, #b8f0a0, #4fbf73 60%, #2f9a52); }
+.ptw-apple:disabled:not(.right) { opacity: .45; }
+.ptw-mhouse { position: absolute; bottom: 42%; width: 19%; translate: -50% 0; border: none; background: none; padding: 0; cursor: pointer; transition: left .5s ease-in-out; z-index: 4; }
+.ptw-mhouse > svg { width: 100%; display: block; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .2)); }
+.ptw-mhouse:hover > svg { transform: translateY(-3px); }
+.ptw-letter { position: absolute; left: 64%; bottom: 8%; width: 11%; translate: -50% 0; z-index: 8; transition: left .4s ease-in, bottom .4s ease-in, transform .4s; animation: ptwBob 1.4s ease-in-out infinite; }
+.ptw-letter > svg { width: 100%; display: block; }
+.ptw-letter.fly { transform: scale(.5) rotate(-20deg); animation: none; }
+.ptw-tower { position: absolute; inset: 0; transition: transform .3s; }
+.ptw-brick { position: absolute; translate: -50% 0; border: 2px solid #3a2b3c; border-radius: 4px; box-shadow: inset 0 -4px 0 rgb(0 0 0 / .15), inset 0 3px 0 rgb(255 255 255 / .35); transition: bottom .3s; }
+.ptw-brick.mover { z-index: 8; }
+.ptw-fall { animation: ptwFall .5s ease-in forwards; }
+@keyframes ptwFall { to { transform: rotate(40deg); opacity: 0; } }
+.ptw-hook { position: absolute; top: 0; height: 16%; width: 2px; background: #3a2b3c; translate: -50% 0; z-index: 7; }
+.ptw-hook::after { content: ''; position: absolute; bottom: -6px; left: -5px; width: 10px; height: 8px; border: 2px solid #3a2b3c; border-top: none; border-radius: 0 0 6px 6px; }
+.ptw-drop { position: absolute; right: 2%; bottom: 3%; z-index: 20; }
+.ptw-pad { position: absolute; bottom: 3%; width: 14%; aspect-ratio: 1.5; translate: -50% 0; border: 3px solid #3a2b3c; border-radius: 18px; background: color-mix(in srgb, var(--pc) 55%, #3a2b3c); color: #fff; font: inherit; cursor: pointer; display: grid; place-items: center; align-content: center; z-index: 10; transition: transform .1s, background .1s, box-shadow .1s; box-shadow: 0 5px 0 rgb(0 0 0 / .35); }
+.ptw-pad span { font-size: clamp(18px, 4vw, 34px); line-height: 1; }
+.ptw-pad small { font-size: clamp(10px, 1.6vw, 14px); }
+.ptw-pad.on { background: var(--pc); transform: translateY(3px) scale(1.06); box-shadow: 0 0 22px var(--pc), 0 2px 0 rgb(0 0 0 / .35); }
+.ptw-aud { pointer-events: none; z-index: 1; }
+.ptw-gextra:empty { display: none; }
+
+/* shelter */
+.ptw-shpet { transition: transform .2s; }
+.ptw-shpet.sel > svg { filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 10px #ff9ad5); }
+.ptw-shpet.sel::before { content: '▼'; position: absolute; top: -14%; left: 50%; translate: -50% 0; color: #ff5a8a; font-size: clamp(12px, 2vw, 20px); animation: ptwBounce 1s ease-in-out infinite; }
+.ptw-shpet.ready > svg { animation: ptwBob 1.2s ease-in-out infinite; }
+.ptw-new { position: absolute; top: 0; right: -10%; background: #ffd84d; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 0 6px; font-size: clamp(9px, 1.4vw, 12px); transform: rotate(10deg); pointer-events: none; }
+.ptw-carebox { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+@media (max-width: 700px) { .ptw-carebox { grid-template-columns: 1fr; } }
+.ptw-careinfo { display: grid; gap: 6px; }
+.ptw-careinfo p { margin: 0; }
+.ptw-shname { font-size: 1.3em; }
+.ptw-needtag { justify-self: start; background: #ffd1e6; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 0 10px; }
+.ptw-trust { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; }
+.ptw-tm { height: 16px; border-radius: 8px; border: 2px solid var(--ink); background: color-mix(in srgb, var(--line) 50%, transparent); overflow: hidden; }
+.ptw-tm > i { display: block; height: 100%; background: linear-gradient(90deg, #ff9ad5, #ff5a8a); border-radius: 6px; transition: width .6s ease-out; }
+.ptw-care { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.ptw-care .btn { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.ptw-care .btn small { opacity: .7; font-size: .8em; }
+.ptw-care .btn.need { box-shadow: 0 0 0 3px #ffd84d; }
+.ptw-carepet { pointer-events: none; }
+.ptw-box { position: absolute; left: 50%; bottom: 8%; width: 30%; translate: -50% 0; z-index: 5; }
+.ptw-box > svg { width: 100%; display: block; }
+.ptw-ball { animation: ptwBall 1.5s ease-out; }
+@keyframes ptwBall { 0% { transform: translate(0, 0); } 25% { transform: translate(-60%, -120%); } 50% { transform: translate(-120%, 0); } 75% { transform: translate(-160%, -60%); } 100% { transform: translate(-200%, 0); } }
+.ptw-adopt { display: grid; gap: 6px; padding: 10px; border-radius: 16px; border: 3px dashed #ff5a8a; background: color-mix(in srgb, var(--card) 88%, #ff9ad5); }
+.ptw-bigbtn { font-size: 1.15em; }
+.ptw-shfoot { margin: 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ptw-arrive { transition: left 2.2s ease-in-out; z-index: 6; }
+.ptw-arrive > svg { animation: ptwWalk .35s ease-in-out infinite alternate; }
+@keyframes ptwWalk { from { transform: rotate(-4deg) translateY(0); } to { transform: rotate(4deg) translateY(-3%); } }
+
+/* mail + friends */
+.ptw-mail { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+@media (max-width: 700px) { .ptw-mail { grid-template-columns: 1fr; } }
+.ptw-paper { position: relative; display: grid; gap: 6px; justify-items: start; padding: 16px 18px; border-radius: 16px; border: 2px solid #3a2b3c; color: #3a2b3c; background: repeating-linear-gradient(#fffdf5 0 27px, #e6ecff 27px 28px); box-shadow: 0 4px 0 rgb(0 0 0 / .12); font-size: 1.1em; }
+.ptw-paper p { margin: 0; line-height: 1.55; }
+.ptw-pface { width: 84px; justify-self: center; }
+.ptw-pface > svg { width: 100%; height: auto; display: block; }
+.ptw-sign { justify-self: end; font-style: italic; }
+.ptw-mlist { display: grid; gap: 6px; max-height: 420px; overflow: auto; }
+.ptw-mitem { display: grid; grid-template-columns: 38px 1fr auto; gap: 8px; align-items: center; text-align: start; padding: 4px 8px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; }
+.ptw-mitem span { display: grid; }
+.ptw-mitem small { opacity: .75; font-size: .8em; }
+.ptw-mitem.on { border-color: var(--accent); }
+.ptw-mitem.unread { background: color-mix(in srgb, var(--card) 82%, #ff9ad5); font-weight: 700; }
+.ptw-fgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.ptw-fcard { position: relative; display: grid; justify-items: center; gap: 2px; padding: 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; text-align: center; }
+.ptw-fcard.best { border-color: #ff5a8a; background: color-mix(in srgb, var(--card) 85%, #ff9ad5); }
+.ptw-fart { width: 80px; display: block; }
+.ptw-fart > svg { width: 100%; height: auto; display: block; overflow: visible; }
+.ptw-fcard small { font-size: .8em; opacity: .85; line-height: 1.3; }
+.ptw-fcard .ptw-say { top: 0; }
+.ptw-bff { font-size: .85em; color: #ff5a8a; font-weight: 700; }
 </style>
 </head>
 <body class="bg-dots">
@@ -6522,6 +6797,18 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
     </div>
     <div class="tabs" role="tablist" id="adv2Tabs"></div>
     <div id="adv2Body" class="a2-body"></div>
+  </div>
+</dialog>
+
+<!-- Pets' neighborhood, pet jobs and the animal shelter (town agent, round 7c) -->
+<dialog id="ptwDlg" aria-labelledby="ptwTitle" style="width:min(1000px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="ptwTitle">🏘️ השכונה של החיות</h3><div class="sub" id="ptwSub">כל החיות גרות ביחד בשכונה</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="ptwBody"></div>
   </div>
 </dialog>
 
@@ -36052,6 +36339,1067 @@ ${label(900, 520, '🌊 ים האיים')}
       bar.replaceChildren(el('span', { class: 'lbl' }, '🎒 הרפתקאות:'), ...ADV2_SECS.map(([id, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); adv2Open(id); } }, n)));
     } catch {}
   };
+  // ================= 🏘️ pets' neighborhood, 💼 pet jobs, 🏡 animal shelter (town agent, round 7c) =================
+  // all her pets together: jobs with drawn uniforms + tap mini-games + payday, a drawn neighborhood map with neighbors, quests and a mailbox,
+  // and a shelter where she cares for waiting animals until they trust her and come home. Entry: ptwOpen('map' | 'jobs' | 'shelter' | 'mail' | 'friends').
+  const PTW_DEF = { jobs: {}, lvl: {}, best: {}, day: '', cnt: {}, payDay: '', nb: {}, quests: [], qDay: '', mail: [], mailDay: '', shelter: [], shDay: '', care: {}, adopted: 0, hero: false, visit: null, welcome: false };
+  let ptw = Object.assign({}, PTW_DEF, store.get('ptwData', {}) || {});
+  const ptwSave = () => store.set('ptwData', ptw);
+  let ptwTab = 'map', ptwArg = null, ptwTok = 0, ptwTimers = [], ptwRaf = 0, ptwUid = 0;
+  const ptwPets = () => (typeof allPets === 'function' ? allPets() : pet ? [pet] : []).filter(p => p && p.onboarded !== false);
+  const ptwNm = p => (p && p.name) || 'החיה';
+  const ptwPick = a => a[Math.floor(Math.random() * a.length)];
+  const ptwShuf = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+  const ptwLater = (fn, ms) => { const t = ptwTok; const id = setTimeout(() => { if (t === ptwTok) fn(); }, ms); ptwTimers.push(id); return id; };
+  const ptwEvery = (fn, ms) => { const t = ptwTok; const id = setInterval(() => { if (t === ptwTok) fn(); else clearInterval(id); }, ms); ptwTimers.push(id); return id; };
+  function ptwStop() { ptwTok++; ptwTimers.forEach(id => { clearTimeout(id); clearInterval(id); }); ptwTimers = []; cancelAnimationFrame(ptwRaf); }
+  const ptwKinds = () => (typeof PET_KINDS !== 'undefined' ? PET_KINDS.map(k => k[0]) : ['cat', 'dog', 'bunny']).filter(k => typeof PZ_KIND === 'undefined' || PZ_KIND[k]);
+  const ptwHasKind = k => typeof PZ_KIND === 'undefined' || !!PZ_KIND[k];
+  const ptwDaysAgo = n => { const d = new Date(); d.setDate(d.getDate() - n); return iso(d.getFullYear(), d.getMonth(), d.getDate()); };
+  // coins with a small daily cap per activity, so it stays special
+  function ptwCoin(key, n, why, max = 3) {
+    const t = localToday(); if (ptw.day !== t) { ptw.day = t; ptw.cnt = {}; }
+    if ((ptw.cnt[key] || 0) >= max) return 0; ptw.cnt[key] = (ptw.cnt[key] || 0) + 1; ptwSave();
+    if (typeof addCoins === 'function') addCoins(n, why);
+    return n;
+  }
+  const ptwTune = (notes, step = .16, type = 'triangle', vol = .07, at = 0) => notes.forEach((f, i) => { if (f) tone(f, step * .95, type, at + i * step, vol); });
+  const PTW_SND = {
+    pop: () => { tone(620, .07, 'triangle', 0, .06); tone(930, .08, 'triangle', .05, .05); },
+    good: () => { tone(880, .09, 'triangle', 0, .06); tone(1320, .12, 'sine', .07, .05); },
+    bad: () => { tone(220, .14, 'square', 0, .04); tone(170, .16, 'triangle', .08, .06); },
+    splash: () => [0, 1, 2, 3, 4].forEach(i => tone(1400 + Math.random() * 1600, .05, 'sine', i * .03, .03)),
+    siren: () => [0, 1, 2, 3].forEach(i => tone(i % 2 ? 660 : 880, .22, 'triangle', i * .22, .05)),
+    cash: () => [0, 1, 2, 3, 4, 5].forEach(i => tone(1200 + (i % 3) * 300, .07, 'sine', i * .07, .05)),
+    bell: () => { tone(1320, .5, 'sine', 0, .05); tone(990, .6, 'sine', .28, .05); },
+    cheer: () => { for (let i = 0; i < 14; i++) tone(700 + Math.random() * 900, .05, 'triangle', i * .045, .025); },
+    fanfare: () => ptwTune([523, 659, 784, 1047, 0, 784, 1047], .12, 'square', .035),
+    whoosh: () => [0, 1, 2, 3, 4].forEach(i => tone(300 + i * 130, .07, 'sine', i * .03, .03)),
+    paper: () => [0, 1, 2].forEach(i => tone(2400 + Math.random() * 900, .03, 'square', i * .05, .012)),
+    brick: () => { tone(140, .09, 'square', 0, .05); tone(90, .12, 'triangle', .04, .08); },
+    scrub: () => [0, 1, 2, 3, 4, 5].forEach(i => tone(900 + (i % 2) * 400, .05, 'sine', i * .06, .03)),
+    home: () => ptwTune([392, 523, 659, 784, 659, 784, 1047, 0, 988, 1047], .15, 'triangle', .07),
+  };
+  const PTW_NOTES = [523, 587, 659, 784];
+
+  // ================= 💼 jobs: [id, title, emoji, color, game, blurb] =================
+  const PTW_JOBS = [
+    ['baker', 'אופה', '🥐', '#ffb56b', 'belt', 'אופים לחמניות, קרואסונים ועוגות — ותופסים את המאפים הזהובים!'],
+    ['fire', 'כבאי/ת', '🚒', '#ff5a4e', 'pop', 'מכבים שריפות קטנות עם זרנוק מים'],
+    ['doctor', 'רופא/ה', '🩺', '#5fc3e4', 'pop', 'מרפאים חיות חולות במרפאה של השכונה'],
+    ['teacher', 'מורה', '📚', '#b58cff', 'quiz', 'מלמדים את הגורים חשבון וספירה'],
+    ['mail', 'דוור/ית', '✉️', '#ffcf3a', 'match', 'מביאים כל מכתב לבית בצבע הנכון'],
+    ['astro', 'אסטרונאוט/ית', '🚀', '#8fa3c8', 'float', 'אוספים כוכבים בחלל ומתחמקים מאסטרואידים'],
+    ['hair', 'ספר/ית', '💇', '#ff9ad5', 'pop', 'מסדרים תסרוקות מבולגנות ללקוחות'],
+    ['police', 'שוטר/ת', '👮', '#4f6fd8', 'pop', 'מוצאים גורים שהלכו לאיבוד בין השיחים'],
+    ['farmer', 'חקלאי/ת', '🌾', '#6fcf7f', 'pop', 'קוטפים גזרים, עגבניות ודלעות מהערוגות'],
+    ['pilot', 'טייס/ת', '✈️', '#2e3f7a', 'float', 'טסים בשמיים, אוספים בלונים ונזהרים מעננים סוערים'],
+    ['builder', 'בנאי/ת', '🏗️', '#ff9a3c', 'stack', 'בונים מגדל גבוה — לבנה על לבנה!'],
+    ['singer', 'זמר/ת', '🎤', '#e05ab8', 'simon', 'שרים שירים — וחוזרים על המנגינה'],
+  ];
+  const ptwJob = id => PTW_JOBS.find(j => j[0] === id);
+  const ptwStars = pid => Math.min(5, Math.floor((ptw.lvl[pid] || 0) / 2));
+  // the uniforms, drawn on any pet through the clothes hook (p._job, never saved)
+  function ptwUni(job, kind, G, lw) {
+    const a = (typeof ANCHOR !== 'undefined' && (ANCHOR[kind] || ANCHOR.cat)) || { head: [24, 8.6], eyes: [24, 23.8], neck: [24, 35.2] };
+    const std = !['owl', 'turtle', 'fish', 'whale'].includes(kind) && !!G.head;
+    const B = G.body, H = G.head || [24, a.eyes[1] - 2, 15, 13], [hx, hy] = a.head, nk = a.neck, [ex, ey] = a.eyes, ed = G.eyeDX || 5.6, ny = G.noseY || 27;
+    const st = `stroke="${O}" stroke-width="${pzF(lw * .72)}" stroke-linejoin="round" stroke-linecap="round"`, thin = `stroke="${O}" stroke-width=".7"`;
+    const u = 'ptwu' + (++ptwUid), cx = B[0], cy = B[1];
+    const top = std ? B[1] - B[3] - 1 : G.mouthY + 3.5, hem = std ? B[1] + B[3] * .5 : B[1] + B[3] * .9;
+    const C = s => `<g clip-path="url(#${u})">${s}</g>`;
+    const torso = (c, h = hem) => C(`<rect x="${pzF(cx - B[2] - 2)}" y="${pzF(top)}" width="${pzF(B[2] * 2 + 4)}" height="${pzF(h - top)}" fill="${c}" ${st}/>`);
+    const band = (y, h, col) => C(`<rect x="${pzF(cx - B[2] - 2)}" y="${pzF(y)}" width="${pzF(B[2] * 2 + 4)}" height="${h}" fill="${col}"/>`);
+    const sleeves = c => std ? pzBoth(`<ellipse cx="15.3" cy="38.4" rx="3.2" ry="3.2" transform="rotate(28 15.3 38.4)" fill="${c}" ${st}/>`) : '';
+    const cap = (c, band2, visor = O) => `<path d="M${hx - 9} ${hy + 4} Q${hx - 10} ${hy - 4} ${hx} ${hy - 5} Q${hx + 10} ${hy - 4} ${hx + 9} ${hy + 4} Z" fill="${c}" ${st}/><rect x="${hx - 9}" y="${hy + 1.6}" width="18" height="2.6" fill="${band2}"/><path d="M${hx - 8} ${hy + 4} Q${hx} ${hy + 7.4} ${hx + 8} ${hy + 4} Z" fill="${visor}" ${st}/>`;
+    const r = { back: `<clipPath id="${u}"><ellipse cx="${cx}" cy="${cy}" rx="${pzF(B[2] + .8)}" ry="${pzF(B[3] + .8)}"/></clipPath>`, body: '', top: '' };
+    switch (job) {
+      case 'baker':
+        r.body = torso('#ffffff') + C(`<path d="M${pzF(cx - B[2] * .55)} ${pzF(cy - 1)} H${pzF(cx + B[2] * .55)} V${pzF(cy + B[3] + 1)} H${pzF(cx - B[2] * .55)} Z" fill="#ffd1e6" ${st}/><rect x="${pzF(cx - 2.6)}" y="${pzF(cy + 1.4)}" width="5.2" height="3.6" rx="1" fill="#ff9ad5" ${thin}/>`)
+          + `<path d="M${nk[0] - 5} ${nk[1] - .6} L${nk[0]} ${nk[1] + 3.4} L${nk[0] + 5} ${nk[1] - .6} Z" fill="#ff5a6e" ${st}/>` + sleeves('#ffffff');
+        r.top = `<rect x="${hx - 6}" y="${hy - 1}" width="12" height="4.6" rx="1" fill="#fff" ${st}/>` + pzShape(hx, hy - 5.4, 8.6, 5.4, `fill="#fff" ${st}`, 1.3) + `<path d="M${hx - 5} ${hy + 1.2} h10" stroke="#ffd1e6" stroke-width="1.2"/>`;
+        break;
+      case 'fire':
+        r.body = torso('#e8453c') + band(cy + .6, 2.2, '#ffe066') + band(hem - 2.4, 2, '#ffe066') + C(`<path d="M${cx} ${pzF(top)} V${pzF(hem)}" stroke="${O}" stroke-width=".8"/>`) + sleeves('#e8453c');
+        r.top = `<ellipse cx="${hx}" cy="${hy + 4}" rx="13" ry="2.6" fill="#c9302a" ${st}/><path d="M${hx - 9} ${hy + 4} Q${hx - 9} ${hy - 7} ${hx} ${hy - 7} Q${hx + 9} ${hy - 7} ${hx + 9} ${hy + 4} Z" fill="#e8453c" ${st}/><path d="M${hx} ${hy - 7} V${hy + 3}" stroke="#c9302a" stroke-width="1.6"/>`
+          + `<path d="M${hx - 3} ${hy - 3} h6 v4 q-3 2.4 -6 0 Z" fill="#ffd84d" ${st}/><polygon points="${starPts(hx, hy - 1, 1.3, .6)}" fill="#e8453c"/>`;
+        break;
+      case 'doctor':
+        r.body = torso('#ffffff', hem + 1) + C(`<path d="M${pzF(cx - 3.4)} ${pzF(top)} L${cx} ${pzF(cy + 1)} L${pzF(cx + 3.4)} ${pzF(top)}" fill="#8fe0f0" ${thin}/><rect x="${pzF(cx + B[2] * .25)}" y="${pzF(cy + 1)}" width="3.6" height="3" rx=".6" fill="#eaf6ff" ${thin}/><path d="M${pzF(cx + B[2] * .25 + 1.2)} ${pzF(cy + .2)} v2" stroke="#ff5a8a" stroke-width=".9"/>`)
+          + `<path d="M${nk[0] - 6} ${nk[1] - .5} Q${nk[0] - 6} ${nk[1] + 6} ${nk[0] - 1.5} ${nk[1] + 7.5} M${nk[0] + 6} ${nk[1] - .5} Q${nk[0] + 6} ${nk[1] + 4} ${nk[0] + 3} ${nk[1] + 6}" fill="none" stroke="#5b6b8c" stroke-width="1.2"/><circle cx="${nk[0] - 1.2}" cy="${nk[1] + 8}" r="1.6" fill="#dfe3ea" ${st}/>` + sleeves('#ffffff');
+        r.top = `<path d="M${hx - 8} ${hy + 4} Q${hx - 8} ${hy - 3} ${hx} ${hy - 3} Q${hx + 8} ${hy - 3} ${hx + 8} ${hy + 4} Z" fill="#8fe0f0" ${st}/><path d="${pzHeart(hx, hy + .6, 1.7)}" fill="#ff5a8a"/>`;
+        break;
+      case 'teacher':
+        r.body = torso('#b58cff') + C(`<path d="M${pzF(cx - 4)} ${pzF(top)} L${cx} ${pzF(cy - 1)} L${pzF(cx + 4)} ${pzF(top)}" fill="#fff" ${thin}/>` + [0, 1, 2].map(i => `<circle cx="${cx}" cy="${pzF(cy + i * 2.4)}" r=".8" fill="#ffd84d" ${thin}/>`).join(''))
+          + sleeves('#b58cff') + `<rect x="${pzF(cx + B[2] * .3)}" y="${pzF(cy - 1)}" width="2" height="5.5" rx=".5" fill="#ffd84d" ${thin} transform="rotate(12 ${pzF(cx + B[2] * .3)} ${pzF(cy)})"/>`;
+        r.top = std || G.head ? `<circle cx="${pzF(ex - ed)}" cy="${ey}" r="3.7" fill="#fff" fill-opacity=".15" stroke="#7a3fd0" stroke-width="1.1"/><circle cx="${pzF(ex + ed)}" cy="${ey}" r="3.7" fill="#fff" fill-opacity=".15" stroke="#7a3fd0" stroke-width="1.1"/><path d="M${pzF(ex - ed + 3.7)} ${ey} Q${ex} ${ey - 1.5} ${pzF(ex + ed - 3.7)} ${ey}" fill="none" stroke="#7a3fd0" stroke-width="1.1"/>` : '';
+        r.top += `<g transform="translate(${hx + 7} ${hy + 2}) rotate(-20)"><rect x="-1.1" y="-6" width="2.2" height="9" fill="#ffd84d" ${thin}/><path d="M-1.1 3 L0 5.4 L1.1 3 Z" fill="#f7d2b0" ${thin}/><rect x="-1.1" y="-7.4" width="2.2" height="1.6" fill="#ff9ad5" ${thin}/></g>`;
+        break;
+      case 'mail':
+        r.back = r.back + `<rect x="${pzF(cx + B[2] - 3)}" y="${pzF(cy + 1)}" width="8" height="6.4" rx="1.4" fill="#b07a47" ${st}/><path d="M${pzF(cx + B[2] - 3)} ${pzF(cy + 1.2)} h8 l-4 3 Z" fill="#c98f5a" ${thin}/>`;
+        r.body = torso('#4f7fd8') + C(`<path d="M${pzF(cx - B[2])} ${pzF(top)} L${pzF(cx + B[2])} ${pzF(cy + B[3] * .6)}" stroke="#8a5a3c" stroke-width="2.2"/>`) + sleeves('#4f7fd8')
+          + `<g transform="translate(${pzF(cx - B[2] * .45)} ${pzF(cy + 1)})"><rect x="-2.6" y="-1.8" width="5.2" height="3.6" fill="#fff" ${thin}/><path d="M-2.6 -1.8 L0 .4 L2.6 -1.8" fill="none" ${thin}/></g>`;
+        r.top = cap('#4f7fd8', '#ffcf3a', '#2e4a9a') + `<g transform="translate(${hx} ${hy - 1.2})"><rect x="-2.4" y="-1.6" width="4.8" height="3.2" fill="#fff" ${thin}/><path d="M-2.4 -1.6 L0 .3 L2.4 -1.6" fill="none" ${thin}/></g>`;
+        break;
+      case 'astro': {
+        const R = Math.max(H[2], H[3]) + 3.4;
+        r.back = r.back + `<rect x="${pzF(cx - B[2] - 2)}" y="${pzF(cy - B[3] + 1)}" width="${pzF(B[2] * 2 + 4)}" height="${pzF(B[3] * 1.4)}" rx="3" fill="#b8bcc8" ${st}/>`;
+        r.body = torso('#f4f6fb', hem + 2) + C(`<rect x="${pzF(cx - 3.4)}" y="${pzF(cy - 1)}" width="6.8" height="4.6" rx="1" fill="#dfe3ea" ${thin}/><circle cx="${pzF(cx - 1.6)}" cy="${pzF(cy + 1.2)}" r=".8" fill="#ff5a6e"/><circle cx="${pzF(cx + 1.6)}" cy="${pzF(cy + 1.2)}" r=".8" fill="#6fcf7f"/>` + band(hem - 1, 1.6, '#ff9a3c')) + sleeves('#f4f6fb');
+        r.top = `<circle cx="${H[0]}" cy="${pzF(H[1] + .5)}" r="${pzF(R)}" fill="#cfeaff" fill-opacity=".22" stroke="${O}" stroke-width="${pzF(lw * .72)}"/><path d="M${pzF(H[0] - R * .7)} ${pzF(H[1] - R * .35)} Q${pzF(H[0] - R * .55)} ${pzF(H[1] - R * .8)} ${pzF(H[0] - R * .1)} ${pzF(H[1] - R * .9)}" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".9"/>`
+          + `<path d="M${pzF(H[0] + R * .5)} ${pzF(H[1] - R * .82)} l2.4 -4.4" stroke="${O}" stroke-width="1"/><circle cx="${pzF(H[0] + R * .5 + 2.6)}" cy="${pzF(H[1] - R * .82 - 4.8)}" r="1.4" fill="#ff5a6e" ${thin}/>`;
+        break;
+      }
+      case 'hair':
+        r.body = torso('#ff9ad5') + C(`<rect x="${pzF(cx - B[2] * .6)}" y="${pzF(cy + .6)}" width="${pzF(B[2] * 1.2)}" height="4.4" rx="1.2" fill="#ffd1e6" ${thin}/>`) + sleeves('#ff9ad5')
+          + `<g transform="translate(${pzF(cx - 3)} ${pzF(cy + .2)})"><circle cx="-1.2" cy="3" r="1.2" fill="none" stroke="#5b6b8c" stroke-width=".8"/><circle cx="1.2" cy="3" r="1.2" fill="none" stroke="#5b6b8c" stroke-width=".8"/><path d="M-.6 2 L1.6 -2.6 M.6 2 L-1.6 -2.6" stroke="#9aa0ad" stroke-width="1"/></g>`
+          + `<g transform="translate(${pzF(cx + 3)} ${pzF(cy + .4)})"><rect x="-2" y="-2" width="4" height="1.6" rx=".6" fill="#7ec8ff" ${thin}/>${[-1.4, -.5, .4, 1.3].map(x => `<path d="M${x} -.4 v2.2" stroke="#7ec8ff" stroke-width=".6"/>`).join('')}</g>`;
+        r.top = `<path d="M${hx - 10} ${hy + 5} Q${hx} ${hy - 3.4} ${hx + 10} ${hy + 5}" fill="none" stroke="${O}" stroke-width="3"/><path d="M${hx - 10} ${hy + 5} Q${hx} ${hy - 3.4} ${hx + 10} ${hy + 5}" fill="none" stroke="#ffd84d" stroke-width="1.6"/>`
+          + `<g transform="translate(${hx + 7} ${hy + 1.4}) rotate(20)"><path d="M0 0 C-3.4 -4 -6.6 -1.6 -5.8 1.6 C-5 4 -1.8 2 0 0 Z M0 0 C3.4 -4 6.6 -1.6 5.8 1.6 C5 4 1.8 2 0 0 Z" fill="#ff5a8a" ${st}/><circle r="1.4" fill="#ffd1e6" ${thin}/></g>`;
+        break;
+      case 'police':
+        r.body = torso('#3d4a8a') + C(`<path d="M${pzF(cx - 2.6)} ${pzF(top)} L${cx} ${pzF(cy + 3)} L${pzF(cx + 2.6)} ${pzF(top)}" fill="#bfe6ff" ${thin}/><path d="M${cx} ${pzF(cy - 2)} l-1 4 l1 1.2 l1 -1.2 Z" fill="#7ec8ff" ${thin}/>`)
+          + `<polygon points="${starPts(pzF(cx - B[2] * .45), pzF(cy), 2.1, 1)}" fill="#ffcf3a" ${thin}/>` + sleeves('#3d4a8a');
+        r.top = cap('#3d4a8a', '#2a3366') + `<polygon points="${starPts(hx, hy - 1.4, 1.9, .9)}" fill="#ffcf3a" ${thin}/>`;
+        break;
+      case 'farmer':
+        r.body = torso('#ff6b6b') + C(`${[-4, 0, 4].map(x => `<path d="M${pzF(cx + x)} ${pzF(top)} V${pzF(hem)}" stroke="#fff" stroke-width=".7" opacity=".7"/>`).join('')}<path d="M${pzF(cx - B[2] * .62)} ${pzF(cy - 1.4)} H${pzF(cx + B[2] * .62)} V${pzF(cy + B[3] + 1)} H${pzF(cx - B[2] * .62)} Z" fill="#5b8fd8" ${st}/><rect x="${pzF(cx - 2.4)}" y="${pzF(cy)}" width="4.8" height="3.4" rx=".8" fill="#4f7fc8" ${thin}/>`)
+          + `<path d="M${pzF(cx - 3.6)} ${pzF(cy - 1.4)} L${pzF(cx - 4.4)} ${pzF(top + 1)} M${pzF(cx + 3.6)} ${pzF(cy - 1.4)} L${pzF(cx + 4.4)} ${pzF(top + 1)}" stroke="#5b8fd8" stroke-width="1.8" stroke-linecap="round"/><circle cx="${pzF(cx - 3.6)}" cy="${pzF(cy - 1)}" r=".8" fill="#ffd84d"/><circle cx="${pzF(cx + 3.6)}" cy="${pzF(cy - 1)}" r=".8" fill="#ffd84d"/>` + sleeves('#ff6b6b');
+        r.top = `<ellipse cx="${hx}" cy="${hy + 3.4}" rx="15" ry="3.4" fill="#f2d27a" ${st}/><path d="M${hx - 7} ${hy + 3.4} Q${hx - 7} ${hy - 5} ${hx} ${hy - 5} Q${hx + 7} ${hy - 5} ${hx + 7} ${hy + 3.4} Z" fill="#f2d27a" ${st}/><path d="M${hx - 7} ${hy + 1.4} H${hx + 7}" stroke="#ff5a6e" stroke-width="1.8"/>`
+          + `<path d="M${hx + 6} ${hy + 1} l5 -8" stroke="#c9a23a" stroke-width=".9"/>${[0, 1, 2].map(i => `<ellipse cx="${pzF(hx + 7.6 + i * 1.2)}" cy="${pzF(hy - 1.6 - i * 2)}" rx=".8" ry="1.4" fill="#e8b93a" transform="rotate(30 ${pzF(hx + 7.6 + i * 1.2)} ${pzF(hy - 1.6 - i * 2)})"/>`).join('')}`;
+        break;
+      case 'pilot':
+        r.body = torso('#2e3f7a') + C(`<path d="M${pzF(cx - 3.4)} ${pzF(top)} L${cx} ${pzF(cy)} L${pzF(cx + 3.4)} ${pzF(top)}" fill="#fff" ${thin}/>` + [0, 1].map(i => `<circle cx="${pzF(cx - 1.4)}" cy="${pzF(cy + 1.6 + i * 2.2)}" r=".7" fill="#ffcf3a"/><circle cx="${pzF(cx + 1.4)}" cy="${pzF(cy + 1.6 + i * 2.2)}" r=".7" fill="#ffcf3a"/>`).join(''))
+          + `<g transform="translate(${pzF(cx - B[2] * .45)} ${pzF(cy - .4)})"><path d="M0 0 C-2 -1.4 -4 -1 -4.6 0 C-3 0 -1.6 .6 0 1 C1.6 .6 3 0 4.6 0 C4 -1 2 -1.4 0 0 Z" fill="#ffcf3a" ${thin}/></g>` + sleeves('#2e3f7a');
+        r.top = cap('#ffffff', '#2e3f7a', '#1f2a44') + `<g transform="translate(${hx} ${hy - 1.6})"><path d="M0 0 C-2.4 -1.6 -4.6 -1.2 -5.2 0 C-3.4 0 -1.8 .7 0 1.2 C1.8 .7 3.4 0 5.2 0 C4.6 -1.2 2.4 -1.6 0 0 Z" fill="#ffcf3a" ${thin}/></g>`;
+        break;
+      case 'builder':
+        r.body = torso('#ff9a3c') + C(`<path d="M${pzF(cx - 3.6)} ${pzF(top)} V${pzF(hem)} M${pzF(cx + 3.6)} ${pzF(top)} V${pzF(hem)}" stroke="#ffe066" stroke-width="1.8"/>`) + band(cy + 2, 1.8, '#ffe066') + sleeves('#9aa0ad')
+          + `<rect x="${pzF(cx - 1)}" y="${pzF(cy - 3)}" width="2" height="2" fill="#fff" opacity=".7"/>`;
+        r.top = `<ellipse cx="${hx}" cy="${hy + 4}" rx="13" ry="2.4" fill="#ffcf3a" ${st}/><path d="M${hx - 9} ${hy + 4} Q${hx - 9} ${hy - 6.6} ${hx} ${hy - 6.6} Q${hx + 9} ${hy - 6.6} ${hx + 9} ${hy + 4} Z" fill="#ffd84d" ${st}/><path d="M${hx - 3} ${hy - 6} Q${hx} ${hy - 8} ${hx + 3} ${hy - 6} V${hy + 3.6} H${hx - 3} Z" fill="#ffcf3a" ${thin}/><path d="M${hx - 6} ${hy - 3.4} q-1 2 -1 5" stroke="#fff" stroke-width="1.2" fill="none" opacity=".8"/>`;
+        break;
+      case 'singer':
+        r.body = torso('#e05ab8', hem + 1) + C(Array.from({ length: 9 }, (_, i) => `<circle cx="${pzF(cx - B[2] + 2 + (i * 37 % 17) / 17 * (B[2] * 2 - 4))}" cy="${pzF(top + 2 + (i * 23 % 11) / 11 * (hem - top - 3))}" r=".7" fill="${i % 2 ? '#fff' : '#ffd84d'}"/>`).join(''))
+          + `<polygon points="${starPts(pzF(cx - B[2] * .4), pzF(cy - .6), 2, .9)}" fill="#ffd84d" ${thin}/>` + sleeves('#e05ab8');
+        r.top = `<path d="M${hx - 11} ${hy + 9} Q${hx - 11} ${hy - 4} ${hx} ${hy - 4} Q${hx + 11} ${hy - 4} ${hx + 11} ${hy + 9}" fill="none" stroke="${O}" stroke-width="1.8"/><rect x="${hx - 12.6}" y="${hy + 7}" width="3.4" height="5" rx="1.4" fill="#3a3a4a" ${thin}/>`
+          + `<path d="M${hx - 11} ${hy + 11} Q${hx - 9} ${pzF(ny + 3)} ${pzF(24 - 4)} ${pzF(ny + 2.4)}" fill="none" stroke="#3a3a4a" stroke-width=".9"/><circle cx="${pzF(24 - 3.6)}" cy="${pzF(ny + 2.4)}" r="1.3" fill="#3a3a4a"/>` + pzSpark(hx + 9, hy - 3, 1.8, '#ffd84d');
+        break;
+      default: return null;
+    }
+    return r;
+  }
+  if (typeof crzClothes === 'function') {
+    const ptwCz0 = crzClothes;
+    crzClothes = function (p, kind, G, lw) {
+      let r = ptwCz0(p, kind, G, lw);
+      if (!p || !p._job || !G || !G.body) return r;
+      try { const w = ptwUni(p._job, kind, G, lw); if (w) r = { back: ((r && r.back) || '') + w.back, body: ((r && r.body) || '') + w.body, top: ((r && r.top) || '') + w.top }; } catch {}
+      return r;
+    };
+  }
+  // pet art; o.job = uniform, o.mood, o.extra, o.look (for neighbors/visitors)
+  const ptwArt = (p, o = {}) => petSVG(o.job ? Object.assign({}, p, { _job: o.job, clothes: p.clothes && p.clothes.feet ? { feet: p.clothes.feet } : {}, wear: {} }) : p, { mood: o.mood, extra: o.extra || '', look: o.look });
+  function ptwActor(p, x, y, w, o = {}) {
+    const a = el('div', { class: 'ptw-actor ' + (o.cls || ''), html: ptwArt(p, o) });
+    a.style.cssText = `left:${x}%;bottom:${y}%;width:${w}%;` + (o.z ? `z-index:${o.z};` : '');
+    if (o.label) a.append(el('span', { class: 'ptw-nm' }, o.label === true ? ptwNm(p) : o.label));
+    if (p && p.id) a.dataset.pid = p.id;
+    return a;
+  }
+  const ptwBop = (n, cls = 'ptw-hop') => { if (!n) return; n.classList.remove(cls); void n.offsetWidth; n.classList.add(cls); };
+  const ptwSay = (n, text, ms = 1900) => { if (!n) return; n.querySelectorAll(':scope > .ptw-say').forEach(b => b.remove()); const b = el('span', { class: 'ptw-say' }, text); n.append(b); setTimeout(() => b.remove(), ms); };
+  const ptwFloat = (layer, x, y, txt, cls = '') => { const f = el('span', { class: 'ptw-float ' + cls }, txt); f.style.left = x + '%'; f.style.bottom = y + '%'; layer.append(f); setTimeout(() => f.remove(), 1200); };
+  const ptwSVG = (vb, body, cls = '') => `<svg viewBox="${vb}" class="${cls}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">${body}</svg>`;
+  const ptwStage = (bg, cls = '') => el('div', { class: 'ptw-stage ' + cls }, el('div', { class: 'ptw-bg', html: bg }), el('div', { class: 'ptw-layer' }));
+  const ptwCloud = (x, y, s = 1, op = .95) => `<g transform="translate(${x} ${y}) scale(${s})" opacity="${op}"><ellipse cx="0" cy="0" rx="34" ry="12" fill="#fff"/><ellipse cx="16" cy="-9" rx="19" ry="12" fill="#fff"/><ellipse cx="-14" cy="-5" rx="13" ry="9" fill="#fff"/></g>`;
+  const ptwTree = (x, y, s = 1, c = '#6fcf7f') => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="-6" width="8" height="22" rx="3" fill="#b07a47" ${S2}/><circle cx="0" cy="-18" r="18" fill="${c}" ${S2}/><circle cx="-8" cy="-24" r="6" fill="#fff" opacity=".22"/></g>`;
+  const ptwFlower = (x, y, c) => `<g transform="translate(${x} ${y})"><path d="M0 0 V-8" stroke="#4fbf73" stroke-width="2"/>${[0, 72, 144, 216, 288].map(d => `<circle cx="${pzF(3 * Math.cos(d * Math.PI / 180))}" cy="${pzF(-10 + 3 * Math.sin(d * Math.PI / 180))}" r="2.4" fill="${c}"/>`).join('')}<circle cx="0" cy="-10" r="1.8" fill="#ffd84d"/></g>`;
+  // small drawn icons (48x48)
+  const PTW_IC = {
+    coin: `<circle cx="24" cy="24" r="16" fill="#ffcf3a" ${S}/><circle cx="24" cy="24" r="11" fill="#ffe27a" stroke="#e0a800" stroke-width="1.5"/><polygon points="${starPts(24, 24, 6, 2.6)}" fill="#ffb020"/>`,
+    letter: `<rect x="6" y="12" width="36" height="26" rx="3" fill="#fff" ${S}/><path d="M6 14 L24 28 L42 14" fill="none" ${S}/><path d="${pzHeart(24, 31, 4)}" fill="#ff5a8a" ${S2}/>`,
+    heart: `<path d="${pzHeart(24, 26, 13)}" fill="#ff5a8a" ${S}/><ellipse cx="16" cy="18" rx="3.4" ry="2" fill="#fff" opacity=".6" transform="rotate(-30 16 18)"/>`,
+    paw: `<ellipse cx="24" cy="30" rx="10" ry="8" fill="#ff9ad5" ${S}/>${[[12, 18], [20, 12], [28, 12], [36, 18]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4" ry="5" fill="#ff9ad5" ${S2}/>`).join('')}`,
+    brief: `<rect x="8" y="16" width="32" height="24" rx="4" fill="#c98f5a" ${S}/><path d="M18 16 V11 H30 V16" fill="none" ${S}/><rect x="8" y="24" width="32" height="4" fill="#a36b3c"/><rect x="21" y="23" width="6" height="6" rx="1" fill="#ffd84d" ${S2}/>`,
+  };
+
+  // ================= 🏘️ neighbors (original characters, drawn with petSVG) =================
+  const PTW_NB = [
+    { id: 'tsamrit', n: 'דודה צמרית', k: 'sheep', f: 'bunny', size: .95, look: { c1: '#ffffff', c2: '#e6d2ff', eyes: 'happy', x: { glasses: '#b58cff' } }, blurb: 'סבתא של השכונה. סורגת צעיפים לכולם 🧶', line: 'שתו משהו חם, יקירים! ☕' },
+    { id: 'pipi', n: 'פיפי', k: 'hamster', f: 'bear', size: .72, look: { c1: '#ffcf8a', c2: '#fff1e0', eyes: 'star', eyeC: '#ff9a3c' }, blurb: 'האוגר הכי מהיר בשכונה. אוהב גרעינים וריצה 🌻', line: 'רוצים להתחרות מי מגיע ראשון? 🏃' },
+    { id: 'shualy', n: 'מר שועלי', k: 'fox', f: 'dog', size: .95, look: { c1: '#ff9a3c', c2: '#ffffff', x: { glasses: '#3a3a4a', bow: '#3d4a8a' } }, blurb: 'הספרן של השכונה. יש לו סיפור על כל דבר 📚', line: 'ספר טוב הוא חבר טוב 📖' },
+    { id: 'luli', n: 'לולי', k: 'penguin', f: 'owl', size: .85, look: { c1: '#3a3a4a', c2: '#ffffff', x: { bow: '#7ec8ff' } }, blurb: 'המצילה של הבריכה ואלופת קפיצות ראש 🏊', line: 'המים מעולים היום! 💦' },
+    { id: 'koko', n: 'קוקו', k: 'parrot', f: 'owl', size: .8, look: { c1: '#6fcf7f', c2: '#ffd84d', eyes: 'lashes' }, blurb: 'יודעת את כל החדשות של השכונה ושרה כל בוקר 🎶', line: 'שמעתם? שמעתם? יש חדשות! 🦜' },
+    { id: 'kaftsi', n: 'קפצי', k: 'frog', f: 'dino', size: .78, look: { c1: '#8fe06f', c2: '#ffd84d', eyes: 'round' }, blurb: 'קופץ על כל השלוליות. חבר של כולם 🐸', line: 'קפיצה! ועוד קפיצה! 💚' },
+    { id: 'namnemet', n: 'נמנמת', k: 'koala', f: 'bear', size: .88, look: { c1: '#b8bcc8', c2: '#ffffff', eyes: 'sleepy', x: { flower: '#ff9ad5' } }, blurb: 'הגננת של השכונה. אוהבת פרחים ותנומות 🌸', line: 'חחחח... אה, שלום! נרדמתי קצת 😴' },
+    { id: 'vardina', n: 'ורדינה', k: 'pig', f: 'bunny', size: .88, look: { c1: '#ffc2d6', c2: '#ff9ad5', eyes: 'heart', x: { bow: '#ff5a8a' } }, blurb: 'חולמת לפתוח קונדיטוריה. תמיד עם עוגה ביד 🍰', line: 'טעמתם פעם עוגת תות? יאמי! 🍓' },
+    { id: 'shoko', n: 'שוקו', k: 'redpanda', f: 'cat', size: .82, look: { c1: '#e8743a', c2: '#fff1e0', eyes: 'anime', eyeC: '#7a4a2a' }, blurb: 'גולש בסקייטבורד ובונה מבצרים מקופסאות 🛹', line: 'בואו נבנה מבצר! 📦' },
+    { id: 'tsviya', n: 'צביה', k: 'deer', f: 'bunny', size: .9, look: { c1: '#e0a06a', c2: '#ffffff', pattern: 'spots', eyes: 'lashes', x: { flower: '#ffd84d' } }, blurb: 'ציירת ביישנית שמציירת את כל השכונה 🎨', line: 'צ-ציירתי אתכם... רוצים לראות? 🖼️' },
+  ];
+  const ptwNb = id => PTW_NB.find(n => n.id === id);
+  const ptwNbPet = n => ({ kind: ptwHasKind(n.k) ? n.k : n.f, size: n.size, name: n.n, id: 'nb-' + n.id });
+  const ptwNbArt = (n, o = {}) => petSVG(ptwNbPet(n), { look: n.look, mood: o.mood, extra: o.extra || '' });
+  const ptwHearts = id => (ptw.nb[id] && ptw.nb[id].h) || 0;
+  const ptwHeartRow = id => '💖'.repeat(ptwHearts(id)) + '🤍'.repeat(5 - ptwHearts(id));
+  // where each neighbor stands on the map (x, feet y) in 1000x660 map units
+  const PTW_NB_SPOT = [[262, 466], [318, 466], [364, 466], [428, 466], [242, 654], [304, 654], [724, 654], [790, 654], [830, 654], [896, 654]];
+  const PTW_HIDE = [[240, 205], [470, 140], [722, 214], [458, 440], [925, 630], [322, 628], [706, 560], [236, 420]];
+  const PTW_ITEMS = [
+    ['כובע', `<ellipse cx="24" cy="32" rx="18" ry="5" fill="#ff5a8a" ${S}/><path d="M12 32 Q12 14 24 14 Q36 14 36 32 Z" fill="#ff5a8a" ${S}/><rect x="12" y="26" width="24" height="4" fill="#fff"/>`],
+    ['משקפיים', `<circle cx="15" cy="26" r="8" fill="#e6f7ff" stroke="#b58cff" stroke-width="3"/><circle cx="33" cy="26" r="8" fill="#e6f7ff" stroke="#b58cff" stroke-width="3"/><path d="M23 25 Q24 22 25 25" fill="none" stroke="#b58cff" stroke-width="3"/>`],
+    ['כדור', `<circle cx="24" cy="26" r="15" fill="#ff6b6b" ${S}/><path d="M9 26 H39 M24 11 Q16 26 24 41 M24 11 Q32 26 24 41" fill="none" stroke="#fff" stroke-width="2.4"/>`],
+    ['מטרייה', `<path d="M6 24 Q24 2 42 24 Q37 20 33 24 Q28 20 24 24 Q20 20 15 24 Q11 20 6 24 Z" fill="#7ec8ff" ${S}/><path d="M24 24 V38 q0 4 -4 4 q-3 0 -3 -3" fill="none" ${S}/>`],
+    ['מפתח', `<circle cx="16" cy="24" r="8" fill="#ffcf3a" ${S}/><circle cx="16" cy="24" r="3" fill="#fff"/><path d="M24 24 H42 M36 24 V30 M41 24 V29" fill="none" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M24 24 H42 M36 24 V30 M41 24 V29" fill="none" stroke="#ffcf3a" stroke-width="2.6" stroke-linecap="round"/>`],
+    ['צעיף', `<path d="M8 18 Q24 28 40 18 L40 25 Q24 35 8 25 Z" fill="#b58cff" ${S}/><path d="M30 26 L32 42 H38 L35 24 Z" fill="#b58cff" ${S}/><path d="M32 36 h5" stroke="#fff" stroke-width="2"/>`],
+    ['ספר', `<path d="M8 12 H22 Q24 12 24 14 V40 Q24 38 22 38 H8 Z M40 12 H26 Q24 12 24 14 V40 Q24 38 26 38 H40 Z" fill="#ffd1e6" ${S}/><path d="M12 20 H20 M12 26 H20 M28 20 H36 M28 26 H36" stroke="#ff5a8a" stroke-width="2"/>`],
+  ];
+  const PTW_GIFTS = ['העוגה', 'הפרחים', 'המכתב', 'הצנצנת עם הדבש', 'הציור', 'החבילה'];
+  const PTW_PLACE_NM = { park: 'הפארק', pool: 'הבריכה', library: 'הספרייה', play: 'גן השעשועים' };
+  function ptwMakeQuests() {
+    const who = ptwShuf(PTW_NB).slice(0, 4), types = ptwShuf(['find', 'deliver', 'visit', 'snack']).slice(0, 3);
+    return types.map((type, i) => {
+      const q = { id: 'q' + i + Date.now().toString(36), nb: who[i].id, type, done: false };
+      if (type === 'find') { q.item = Math.floor(Math.random() * PTW_ITEMS.length); q.spot = Math.floor(Math.random() * PTW_HIDE.length); }
+      if (type === 'deliver') { q.to = who[3].id; q.gift = ptwPick(PTW_GIFTS); }
+      if (type === 'visit') q.place = ptwPick(Object.keys(PTW_PLACE_NM));
+      return q;
+    });
+  }
+  function ptwQuestText(q) {
+    const n = ptwNb(q.nb), to = q.to && ptwNb(q.to);
+    if (q.type === 'find') return `איבדתי את ה${(PTW_ITEMS[q.item] || PTW_ITEMS[0])[0]} שלי איפשהו בשכונה... תעזרו לי למצוא? 🔍`;
+    if (q.type === 'deliver') return `אפשר להביא את ${q.gift} ל${to ? to.n : 'שכנה'}? מחכים לה שם! 🎁`;
+    if (q.type === 'visit') return `בואו לשחק איתי ב${PTW_PLACE_NM[q.place]}! אני מחכה שם 😊`;
+    if (q.type === 'snack') return 'אני כל כך רעב/ה... יש לכם משהו טעים בשבילי? 🍪';
+    return n.line;
+  }
+  // letters
+  const PTW_LETTERS = [
+    'שלום לכל החיות! אפיתי היום עוגיות וחשבתי עליכם. תבואו לבקר? 🍪', 'בוקר טוב! ראיתי קשת מעל הבריכה. היה כל כך יפה 🌈', 'רציתי להגיד תודה שאתם שכנים כל כך נחמדים 💖',
+    'מחר יש פיקניק בפארק! תביאו כובעים מצחיקים 🎩', 'יש לי חידה: מה יש לו שיניים אבל הוא לא נושך? ...מסרק! 😄', 'ראיתי חיה חדשה במקלט. היא מחכה לבית חם... אולי אצלכם? 🏡',
+    'הפרחים בגינה שלי פרחו! השארתי לכם אחד ליד הדלת 🌷', 'אתמול בלילה ספרתי כוכבים — הגעתי למאה! ⭐', 'צירפתי מטבע קטן, סתם כי אני אוהב/ת אתכם 🪙', 'מי רוצה לבוא לקפוץ איתי בשלוליות? 💦',
+    'למדתי לשרוק! פיייו פיייו! 🎶', 'שמעתי שיש לכם עבודות חדשות — כל הכבוד! 👏', 'ציירתי את השכונה שלנו, ואתם בציור! 🖼️', 'היום ראיתי פרפר בצבע ורוד. בדיוק כמו החלום שלי 🦋'];
+  function ptwMail(from, text, gift = 0) {
+    ptw.mail.unshift({ id: 'm' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), from, text, day: localToday(), read: false, gift, got: false });
+    ptw.mail = ptw.mail.slice(0, 30);
+  }
+  const ptwUnread = () => ptw.mail.filter(m => !m.read).length;
+  // once a day: new requests, a letter, a visitor, and new animals at the shelter
+  function ptwDaily() {
+    const t = localToday(); let ch = false;
+    PTW_NB.forEach(n => { if (!ptw.nb[n.id]) { ptw.nb[n.id] = { h: 0 }; ch = true; } });
+    if (ptw.mailDay !== t) { const n = ptwPick(PTW_NB.slice(1)); ptwMail(n.id, ptwPick(PTW_LETTERS), Math.random() < .35 ? 3 : 0); }
+    if (!ptw.welcome) { ptw.welcome = true; ptwMail('tsamrit', 'ברוכים הבאים לשכונה! אני דודה צמרית מהבית הסגול. כל השכנים שמחים שאתם גרים כאן. בואו להכיר את כולם במפה — ואם מישהו מבקש עזרה, תעזרו לו! 🧶', 5); ch = true; }
+    if (ptw.mailDay !== t) { ptw.mailDay = t; ch = true; }
+    if (ptw.qDay !== t) { ptw.qDay = t; ptw.quests = ptwMakeQuests(); ch = true; }
+    if (!ptw.visit || ptw.visit.day !== t) { ptw.visit = { day: t, nb: ptwPick(PTW_NB).id, done: false }; ch = true; }
+    if (ptw.shDay !== t) { ptwShelterArrive(); ptw.shDay = t; ptw.care = {}; ch = true; }
+    if (ch) ptwSave();
+  }
+  function ptwQuestDone(q, msg) {
+    if (!q || q.done) return;
+    q.done = true;
+    const n = ptwNb(q.nb), rec = ptw.nb[q.nb] = ptw.nb[q.nb] || { h: 0 }, was = rec.h;
+    rec.h = Math.min(5, rec.h + 1);
+    if (q.to) { const r2 = ptw.nb[q.to] = ptw.nb[q.to] || { h: 0 }; r2.h = Math.min(5, r2.h + 1); }
+    ptwMail(q.nb, `תודה רבה רבה על העזרה! אתם השכנים הכי טובים בעולם. ${q.type === 'find' ? `מצאתם את ה${PTW_ITEMS[q.item][0]} שלי! ` : ''}מגיע לכם חיבוק ענק 🤗`, 2);
+    ptwSave(); PTW_SND.fanfare();
+    const got = ptwCoin('quest', 6, `עזרת ל${n.n} 🤝`, 6);
+    toast(svg(PTW_IC.heart), msg || `${n.n}: תודה!! ${ptwHeartRow(q.nb)}${got ? '' : ''}`);
+    if (rec.h === 5 && was < 5) setTimeout(() => { toast(svg(PTW_IC.heart), `${n.n} והחיות שלך — חברים הכי טובים! 💞`); try { confetti($('#ptwDlg .confetti-c')); } catch {} SFX.yay(); }, 900);
+  }
+
+  // ================= the dialog =================
+  const PTW_TABS = [['map', '🏘️ השכונה'], ['jobs', '💼 העבודות'], ['shelter', '🏡 המקלט'], ['mail', '💌 הדואר'], ['friends', '👫 השכנים']];
+  function ptwOpen(tab = 'map', arg = null) {
+    ptwDaily();
+    ptwTab = tab; ptwArg = arg; ptwDraw();
+    const d = $('#ptwDlg'); if (!d.open) d.showModal();
+  }
+  function ptwGo(tab, arg = null) { ptwTab = tab; ptwArg = arg; SFX.pop(); ptwDraw(); try { $('#ptwDlg').scrollTop = 0; $('#ptwDlg .sheet').scrollTop = 0; } catch {} }
+  function ptwDraw() {
+    ptwStop();
+    const T = { map: ['🏘️ השכונה של החיות', 'כל החיות גרות ביחד בבית הוורוד — לוחצים על מקום כדי ללכת לשם!'], jobs: ['💼 העבודות של החיות', 'כל חיה בוחרת עבודה, לובשת מדים ויוצאת למשמרת!'],
+      shelter: ['🏡 המקלט של החיות', 'חיות שמחכות לבית חם. מטפלים בהן עד שהן סומכות עלייך — ואז מאמצים!'], mail: ['💌 תיבת הדואר של החיות', 'מכתבים מהשכנים'], friends: ['👫 השכנים של החיות', 'עוזרים לשכנים והופכים לחברים'],
+      place: ['🏘️ השכונה של החיות', ''], game: ['💼 משמרת עבודה', ''], welcome: ['🏡 ברוכים הבאים הביתה!', ''] }[ptwTab] || ['🏘️ השכונה של החיות', ''];
+    $('#ptwTitle').textContent = T[0]; $('#ptwSub').textContent = T[1];
+    let body;
+    if (!ptwPets().length && ptwTab !== 'shelter') body = el('div', { class: 'ptw-empty' }, el('p', {}, 'עוד אין חיות שגרות בשכונה! 🐾 אפשר לאמץ חיה מהמקלט או בבית.'), el('button', { type: 'button', class: 'btn main', onclick: () => ptwGo('shelter') }, '🏡 למקלט'));
+    else body = ({ map: ptwMap, jobs: ptwJobs, shelter: ptwShelter, mail: ptwMailTab, friends: ptwFriends, place: () => ptwPlace(ptwArg), game: () => ptwGame(ptwArg), welcome: () => ptwWelcome(ptwArg) }[ptwTab] || ptwMap)();
+    const un = ptwUnread();
+    const nav = el('div', { class: 'ptw-nav' }, ...PTW_TABS.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(ptwTab === id), onclick: () => ptwGo(id) }, n, id === 'mail' && un ? el('b', { class: 'ptw-badge' }, String(un)) : null)),
+      ptw.hero ? el('span', { class: 'ptw-hero', title: 'אימצת חיה מהמקלט!' }, '🦸‍♀️ גיבורת החיות') : null, typeof coinChip === 'function' ? coinChip() : null);
+    $('#ptwBody').replaceChildren(nav, body);
+  }
+
+  // ================= the drawn neighborhood map (1000 x 660) =================
+  const PTW_W = 1000, PTW_H = 660;
+  const ptwX = x => pzF(x / PTW_W * 100), ptwY = y => pzF((PTW_H - y) / PTW_H * 100);
+  // [id, name, label x, label y, walk x, walk y]
+  const PTW_PLACES = [
+    ['home', '🏠 הבית של החיות', 645, 350, 645, 470], ['park', '🌳 הפארק', 125, 212, 125, 226], ['school', '🏫 בית הספר', 365, 212, 365, 226], ['library', '📚 הספרייה', 625, 212, 625, 226],
+    ['pool', '🏊 הבריכה', 860, 212, 860, 226], ['play', '🛝 גן השעשועים', 125, 452, 125, 466], ['jobs', '💼 משרד העבודות', 820, 405, 820, 470], ['bakery', '🥐 המאפייה', 937, 452, 937, 466],
+    ['shelter', '🐾 המקלט', 118, 642, 118, 505], ['shop', '🛒 המכולת', 400, 642, 400, 505], ['clinic', '🩺 המרפאה', 615, 642, 615, 505], ['mail', '📮 דואר', 556, 386, 556, 470],
+  ];
+  function ptwHouse(x, y, w, h, wall, roof, o = {}) {
+    const rx = x - 8, rw = w + 16, peak = y - h * .55;
+    return `<g>${o.chim ? `<rect x="${x + w * .7}" y="${peak + 4}" width="12" height="${h * .4}" fill="#c98f5a" ${S2}/>` : ''}<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${wall}" ${S}/><path d="M${rx} ${y + 4} L${x + w / 2} ${peak} L${rx + rw} ${y + 4} Z" fill="${roof}" ${S}/>`
+      + `<rect x="${x + w / 2 - 9}" y="${y + h - 26}" width="18" height="26" rx="8" fill="${o.door || '#9b6b43'}" ${S2}/><circle cx="${x + w / 2 + 4}" cy="${y + h - 12}" r="1.6" fill="#ffd84d"/>`
+      + (o.win !== false ? `<rect x="${x + 8}" y="${y + 12}" width="16" height="15" rx="3" fill="#bfeaff" ${S2}/><rect x="${x + w - 24}" y="${y + 12}" width="16" height="15" rx="3" fill="#bfeaff" ${S2}/><path d="M${x + 16} ${y + 12} v15 M${x + w - 16} ${y + 12} v15" stroke="${O}" stroke-width="1.2"/>` : '')
+      + (o.heart ? `<path d="${pzHeart(x + w / 2, peak + (y - peak) * .62, 6)}" fill="${o.heart}" ${S2}/>` : '') + '</g>';
+  }
+  function ptwMapSVG() {
+    const road = (x, y, w, h, vert) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#c9ccd9"/><path d="${vert ? `M${x + w / 2} ${y + 6} V${y + h - 6}` : `M${x + 6} ${y + h / 2} H${x + w - 6}`}" stroke="#fff" stroke-width="3" stroke-dasharray="14 12"/>`
+      + (vert ? `<path d="M${x} ${y} V${y + h} M${x + w} ${y} V${y + h}" stroke="#f3eee4" stroke-width="5"/>` : `<path d="M${x} ${y} H${x + w} M${x} ${y + h} H${x + w}" stroke="#f3eee4" stroke-width="5"/>`);
+    const cross = (x, y, w, h) => Array.from({ length: 5 }, (_, i) => `<rect x="${x + 3 + i * (w - 6) / 5}" y="${y}" width="${(w - 6) / 10}" height="${h}" fill="#fff" opacity=".9"/>`).join('');
+    const pl = (id, inner) => `<g class="ptw-pl" data-pl="${id}">${inner}</g>`;
+    const nbHouse = (x, y, wall, roof, heart) => ptwHouse(x, y, 74, 64, wall, roof, { heart, door: pzMix(roof, '#3a2b3c', .25) });
+    const swing = (x, c) => `<g class="ptw-swing" style="transform-origin:${x}px 318px"><path d="M${x - 8} 318 V372 M${x + 8} 318 V372" stroke="${O}" stroke-width="1.6"/><rect x="${x - 12}" y="370" width="24" height="6" rx="3" fill="${c}" ${S2}/></g>`;
+    return `<svg viewBox="0 0 ${PTW_W} ${PTW_H}" xmlns="http://www.w3.org/2000/svg" class="ptw-mapsvg" role="img" aria-label="מפת השכונה של החיות">`
+      + `<defs><linearGradient id="ptwGrass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9ec9c"/><stop offset="1" stop-color="#94d98a"/></linearGradient><linearGradient id="ptwWater" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fdcff"/><stop offset="1" stop-color="#4fb4ea"/></linearGradient></defs>`
+      + `<rect width="${PTW_W}" height="${PTW_H}" fill="url(#ptwGrass)"/>`
+      + Array.from({ length: 40 }, (_, i) => `<path d="M${(i * 137) % 1000} ${(i * 89) % 660} q3 -6 6 0" stroke="#7cc873" stroke-width="2" fill="none"/>`).join('')
+      + road(0, 228, 1000, 34) + road(0, 468, 1000, 34) + road(484, 262, 34, 206, 1) + road(484, 502, 34, 158, 1) + cross(484, 228, 34, 34) + cross(484, 468, 34, 34)
+      // park
+      + pl('park', `<ellipse cx="125" cy="130" rx="112" ry="92" fill="#86d17a" ${S2}/><ellipse cx="150" cy="150" rx="46" ry="20" fill="url(#ptwWater)" ${S2}/><path d="M130 150 q8 -4 16 0 M156 156 q8 -4 16 0" stroke="#fff" stroke-width="2" fill="none"/>`
+        + `<g class="ptw-duck"><ellipse cx="170" cy="146" rx="7" ry="4.6" fill="#fff" ${S2}/><circle cx="175" cy="140" r="3.6" fill="#fff" ${S2}/><path d="M178 140 l4 1 l-4 1.4 Z" fill="#ff9a3c"/></g>`
+        + ptwTree(55, 120, 1.1) + ptwTree(95, 80, .9, '#4fbf73') + ptwTree(205, 90, 1, '#7ed48a') + `<rect x="46" y="176" width="48" height="8" rx="3" fill="#c98f5a" ${S2}/><path d="M50 184 v10 M90 184 v10" stroke="${O}" stroke-width="3"/>`
+        + [[30, 200, '#ff9ad5'], [210, 190, '#ffd84d'], [120, 196, '#b58cff'], [226, 150, '#ff6b6b']].map(([x, y, c]) => ptwFlower(x, y, c)).join(''))
+      // school
+      + pl('school', `<rect x="285" y="110" width="160" height="112" fill="#ffe08a" ${S}/><path d="M273 114 L365 58 L457 114 Z" fill="#ff7a6b" ${S}/><circle cx="365" cy="92" r="13" fill="#fff" ${S2}/><path d="M365 84 V92 H371" stroke="${O}" stroke-width="2" fill="none"/>`
+        + [300, 330, 385, 415].map(x => `<rect x="${x}" y="128" width="20" height="18" rx="3" fill="#bfeaff" ${S2}/><rect x="${x}" y="162" width="20" height="18" rx="3" fill="#bfeaff" ${S2}/>`).join('') + `<rect x="351" y="186" width="28" height="36" rx="3" fill="#7ec8ff" ${S2}/><path d="M365 186 V222" stroke="${O}" stroke-width="1.5"/>`
+        + `<path d="M450 60 V110" stroke="${O}" stroke-width="3"/><path class="ptw-flag" d="M450 60 L474 66 L450 74 Z" fill="#7ec8ff" ${S2}/>`)
+      // library
+      + pl('library', `<rect x="553" y="122" width="144" height="100" fill="#efe4ff" ${S}/><path d="M541 124 L625 76 L709 124 Z" fill="#b58cff" ${S}/><rect x="545" y="118" width="160" height="10" fill="#d6c7f2" ${S2}/>`
+        + [562, 592, 648, 678].map(x => `<rect x="${x}" y="130" width="10" height="92" fill="#fff" ${S2}/>`).join('') + `<rect x="611" y="176" width="28" height="46" rx="12" fill="#9b6b43" ${S2}/>`
+        + `<g transform="translate(625 104)"><path d="M-14 -8 H-2 Q0 -8 0 -6 V8 Q0 6 -2 6 H-14 Z M14 -8 H2 Q0 -8 0 -6 V8 Q0 6 2 6 H14 Z" fill="#fff" ${S2}/><path d="M-11 -3 H-4 M-11 1 H-4 M4 -3 H11 M4 1 H11" stroke="#ff5a8a" stroke-width="1.4"/></g>`)
+      // pool
+      + pl('pool', `<rect x="738" y="92" width="244" height="130" rx="16" fill="#f7e6c4" ${S}/><rect x="758" y="110" width="204" height="94" rx="12" fill="url(#ptwWater)" ${S}/>`
+        + `<g class="ptw-wave">${[0, 1, 2].map(i => `<path d="M${772 + i * 12} ${130 + i * 24} q12 -6 24 0 t24 0 t24 0 t24 0 t24 0" stroke="#fff" stroke-width="2.4" fill="none" opacity=".75"/>`).join('')}</g>`
+        + `<circle cx="820" cy="160" r="13" fill="none" stroke="${O}" stroke-width="10"/><circle cx="820" cy="160" r="13" fill="none" stroke="#ff9ad5" stroke-width="7" stroke-dasharray="7 6"/><path d="M944 112 v34 M956 112 v34 M944 122 h12 M944 134 h12" stroke="#9aa0ad" stroke-width="2.6"/>`
+        + `<path d="M760 96 L760 60 M742 64 Q760 40 778 64 Z" fill="#ffd84d" stroke="${O}" stroke-width="2"/>`)
+      // playground
+      + pl('play', `<ellipse cx="125" cy="400" rx="108" ry="62" fill="#f6dfa8" ${S2}/><path d="M60 318 L118 318 M64 318 L56 392 M114 318 L122 392" stroke="#ff9a3c" stroke-width="5" stroke-linecap="round"/>` + swing(78, '#ff5a8a') + swing(102, '#7ec8ff')
+        + `<path d="M148 396 V336 H166 V396 M148 350 H166 M148 364 H166 M148 378 H166" stroke="#b58cff" stroke-width="4" fill="none"/><path d="M166 338 Q206 350 222 400" fill="none" stroke="${O}" stroke-width="12" stroke-linecap="round"/><path d="M166 338 Q206 350 222 400" fill="none" stroke="#ffd84d" stroke-width="7" stroke-linecap="round"/>`
+        + `<g class="ptw-seesaw" style="transform-origin:110px 430px"><rect x="72" y="426" width="76" height="7" rx="3" fill="#6fcf7f" ${S2}/></g><path d="M104 444 L110 430 L116 444 Z" fill="#9aa0ad" ${S2}/>`)
+      // neighbor houses
+      + nbHouse(252, 398, '#e6d2ff', '#b58cff', '#ff9ad5') + nbHouse(356, 398, '#fff1b8', '#ff9a3c', '#ff5a8a') + nbHouse(234, 586, '#d9f5e6', '#4fbf73', '#ffd84d') + nbHouse(718, 586, '#ffe0e6', '#ff6b8b', '#fff') + nbHouse(826, 586, '#dff4ff', '#4f9fe0', '#ffd84d')
+      // the pets' home
+      + pl('home', `<ellipse cx="645" cy="462" rx="120" ry="10" fill="#7cc873"/>` + ptwHouse(548, 356, 196, 110, '#ffd1e6', '#ff7a9a', { chim: 1, heart: '#fff', door: '#b58cff' })
+        + `<g class="ptw-smoke"><circle cx="705" cy="${240}" r="8" fill="#fff" opacity=".8"/><circle cx="715" cy="${224}" r="10" fill="#fff" opacity=".6"/><circle cx="708" cy="${204}" r="12" fill="#fff" opacity=".45"/></g>`
+        + `<rect x="566" y="372" width="30" height="26" rx="4" fill="#fff6c4" ${S2}/><rect x="694" y="372" width="30" height="26" rx="4" fill="#fff6c4" ${S2}/><path d="M581 372 v26 M709 372 v26 M566 385 h30 M694 385 h30" stroke="${O}" stroke-width="1.2"/>`
+        + [[560, 452, '#ff5a8a'], [585, 456, '#ffd84d'], [705, 456, '#b58cff'], [730, 452, '#ff9ad5']].map(([x, y, c]) => ptwFlower(x, y, c)).join('')
+        + `<g transform="translate(645 438) scale(.5)"><ellipse cx="0" cy="4" rx="7" ry="6" fill="#fff"/>${[[-8, -4], [-3, -9], [3, -9], [8, -4]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="#fff"/>`).join('')}</g>`)
+      // jobs office
+      + pl('jobs', `<rect x="778" y="300" width="84" height="166" rx="4" fill="#9fd6ff" ${S}/><rect x="772" y="292" width="96" height="14" rx="4" fill="#4f7fd8" ${S2}/>`
+        + [0, 1, 2, 3].map(r => [0, 1, 2].map(c => `<rect x="${788 + c * 24}" y="${316 + r * 26}" width="16" height="17" rx="2" fill="${(r + c) % 3 ? '#e6f7ff' : '#fff6c4'}" ${S2}/>`).join('')).join('')
+        + `<rect x="808" y="430" width="24" height="36" rx="3" fill="#4f7fd8" ${S2}/><g transform="translate(796 262) scale(1)">${PTW_IC.brief}</g>`)
+      // bakery
+      + pl('bakery', `<rect x="884" y="350" width="104" height="116" fill="#fff4e0" ${S}/><path d="M876 352 L936 312 L996 352 Z" fill="#c98f5a" ${S}/><rect x="960" y="300" width="14" height="30" fill="#c98f5a" ${S2}/>`
+        + `<path d="M880 372 H992 V386 ${Array.from({ length: 7 }, (_, i) => `Q${888 + i * 16} ${396} ${896 + i * 16} 386`).join(' ')} Z" fill="#ff9ad5" ${S2}/>${Array.from({ length: 7 }, (_, i) => `<rect x="${880 + i * 16}" y="372" width="8" height="14" fill="#fff"/>`).join('')}`
+        + `<rect x="896" y="398" width="40" height="30" rx="4" fill="#bfeaff" ${S2}/><ellipse cx="916" cy="422" rx="12" ry="5" fill="#f2b56b" ${S2}/><rect x="946" y="426" width="24" height="40" rx="3" fill="#9b6b43" ${S2}/>`
+        + `<path d="M916 336 q-14 -4 -16 6 q8 6 16 4 q8 2 16 -4 q-2 -10 -16 -6 Z" fill="#f2b56b" ${S2}/><g class="ptw-smoke2"><circle cx="967" cy="290" r="6" fill="#fff" opacity=".8"/><circle cx="974" cy="276" r="8" fill="#fff" opacity=".55"/></g>`)
+      // shelter
+      + pl('shelter', `<rect x="30" y="560" width="176" height="94" fill="#ffe0b0" ${S}/><path d="M18 564 L118 506 L218 564 Z" fill="#c98f5a" ${S}/><rect x="98" y="606" width="40" height="48" rx="16" fill="#ff9ad5" ${S2}/>`
+        + `<rect x="44" y="578" width="36" height="28" rx="4" fill="#bfeaff" ${S2}/><rect x="156" y="578" width="36" height="28" rx="4" fill="#bfeaff" ${S2}/><g transform="translate(94 520) scale(1)">${PTW_IC.paw}</g>`
+        + `<path d="M8 654 V616 M8 624 H26 M8 640 H26 M26 654 V616 M210 654 V616 M210 624 H228 M210 640 H228 M228 654 V616" stroke="#fff" stroke-width="4"/>`)
+      // shop
+      + pl('shop', `<rect x="334" y="560" width="132" height="94" fill="#fff" ${S}/><path d="M326 560 H474 V578 ${Array.from({ length: 9 }, (_, i) => `Q${334 + i * 16.4} 590 ${342 + i * 16.4} 578`).join(' ')} Z" fill="#6fcf7f" ${S2}/>${Array.from({ length: 9 }, (_, i) => `<rect x="${326 + i * 16.4}" y="560" width="8" height="18" fill="#fff" opacity=".9"/>`).join('')}`
+        + `<rect x="342" y="596" width="50" height="30" rx="4" fill="#bfeaff" ${S2}/><rect x="410" y="604" width="40" height="50" rx="3" fill="#4fbf73" ${S2}/><rect x="340" y="630" width="56" height="20" rx="3" fill="#c98f5a" ${S2}/>`
+        + [[350, 628, '#ff6b6b'], [362, 628, '#ffd84d'], [374, 628, '#6fcf7f'], [386, 628, '#ff9a3c']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="6" fill="${c}" ${S2}/>`).join('') + `<rect x="352" y="534" width="96" height="22" rx="8" fill="#fff6c4" ${S2}/>`
+        + `<circle cx="372" cy="545" r="5" fill="#ff6b6b" ${S2}/><circle cx="388" cy="545" r="5" fill="#ffd84d" ${S2}/><circle cx="404" cy="545" r="5" fill="#6fcf7f" ${S2}/><circle cx="420" cy="545" r="5" fill="#ff9a3c" ${S2}/>`)
+      // clinic
+      + pl('clinic', `<rect x="540" y="556" width="150" height="98" fill="#ffffff" ${S}/><path d="M530 560 L615 516 L700 560 Z" fill="#5fc3e4" ${S}/><path d="${pzHeart(615, 542, 9)}" fill="#ff5a8a" ${S2}/><path d="M611 540 h8 M615 536 v8" stroke="#fff" stroke-width="2.6"/>`
+        + `<rect x="554" y="574" width="34" height="28" rx="4" fill="#bfeaff" ${S2}/><rect x="642" y="574" width="34" height="28" rx="4" fill="#bfeaff" ${S2}/><rect x="600" y="608" width="30" height="46" rx="3" fill="#8fe0f0" ${S2}/><path d="M615 608 V654" stroke="${O}" stroke-width="1.4"/>`)
+      // mailbox
+      + pl('mail', `<rect x="552" y="428" width="6" height="38" fill="#9b6b43" ${S2}/><path d="M538 412 H572 V430 H538 Z M538 412 Q538 398 555 398 Q572 398 572 412" fill="#ff6b8b" ${S}/><path d="M572 404 V420" stroke="${O}" stroke-width="2"/><path class="ptw-mflag" d="M574 404 H588 V412 H574" fill="#ffd84d" ${S2}/>`)
+      // trees and flowers around
+      + ptwTree(960, 620, .9) + ptwTree(990, 560, .7, '#4fbf73') + ptwTree(470, 640, .6, '#7ed48a') + ptwTree(990, 300, .7) + ptwTree(20, 290, .6, '#4fbf73')
+      + [[500, 60, '#ff9ad5'], [520, 90, '#ffd84d'], [720, 70, '#b58cff'], [240, 40, '#ff6b6b'], [470, 380, '#ff9ad5'], [870, 280, '#ffd84d'], [520, 640, '#b58cff'], [710, 520, '#ff9ad5']].map(([x, y, c]) => ptwFlower(x, y, c)).join('')
+      + `<g class="ptw-clouds">${ptwCloud(120, 40, .9, .75)}${ptwCloud(520, 30, 1.1, .7)}${ptwCloud(880, 44, .8, .75)}</g>`
+      + '</svg>';
+  }
+  const PTW_MAP_LINES = ['איזה יום יפה בשכונה! ☀️', 'בואו נלך לבריכה! 🏊', 'אני רוצה מאפה מהמאפייה 🥐', 'שלום לכל השכנים! 👋', 'יש מכתבים בתיבה? 📮', 'הבית שלנו הכי יפה 🏠', 'מי בא לגן השעשועים? 🛝'];
+  function ptwMap() {
+    const all = ptwPets(), stage = el('div', { class: 'ptw-map' }, el('div', { class: 'ptw-bg', html: ptwMapSVG() })), L = el('div', { class: 'ptw-layer' });
+    stage.append(L);
+    const panel = el('div', { class: 'ptw-panel' });
+    // place labels (also buttons)
+    const goPlace = id => {
+      const P = PTW_PLACES.find(p => p[0] === id); if (!P) return;
+      walkTo(P[4], P[5]); SFX.pop();
+      const g = stage.querySelector(`[data-pl="${id}"]`); if (g) { g.classList.remove('ptw-plhop'); g.getBoundingClientRect(); g.classList.add('ptw-plhop'); }
+      ptwLater(() => ptwPlaceAction(id), 750);
+    };
+    PTW_PLACES.forEach(([id, n, x, y]) => {
+      const b = el('button', { type: 'button', class: 'ptw-plabel' + (id === 'home' ? ' home' : ''), onclick: () => goPlace(id) }, n, id === 'mail' && ptwUnread() ? el('b', { class: 'ptw-badge' }, String(ptwUnread())) : null, id === 'shelter' && ptw.shelter.length ? el('b', { class: 'ptw-badge soft' }, String(ptw.shelter.length)) : null);
+      b.style.left = ptwX(x) + '%'; b.style.top = pzF(y / PTW_H * 100) + '%'; L.append(b);
+    });
+    stage.querySelector('svg').addEventListener('click', e => { const g = e.target.closest('[data-pl]'); if (g) goPlace(g.dataset.pl); });
+    // her pets, together
+    const n = all.length, w = Math.max(3.6, Math.min(6.4, 34 / Math.max(1, n)));
+    const S3 = all.slice(0, 12).map((p, i) => {
+      const a = ptwActor(p, 0, 0, w, { cls: 'ptw-walker', job: ptw.jobs[p.id] || null });
+      a.style.transitionDelay = (i * .06) + 's';
+      a.addEventListener('click', () => { SFX.pet(p.kind); ptwBop(a); ptwSay(a, `${ptwNm(p)}: ${ptwPick(PTW_MAP_LINES)}`); });
+      L.append(a); return a;
+    });
+    const walkTo = (x, y) => { const span = Math.min(n, 12) * w * 10 * .72; S3.forEach((a, i) => { const xx = x - span / 2 + (i + .5) * span / Math.min(n, 12); a.style.left = ptwX(Math.max(20, Math.min(980, xx))) + '%'; a.style.bottom = ptwY(y + (i % 2) * 5) + '%'; a.style.zIndex = String(200 + i); }); };
+    walkTo(645, 472);
+    // neighbors
+    const visitor = ptw.visit && !ptw.visit.done ? ptw.visit.nb : null;
+    PTW_NB.forEach((nb, i) => {
+      let [x, y] = PTW_NB_SPOT[i];
+      if (nb.id === visitor) { x = 758; y = 470; }
+      const q = ptw.quests.find(q => q.nb === nb.id && !q.done);
+      const a = el('button', { type: 'button', class: 'ptw-actor ptw-nbact' + (q ? ' has-q' : ''), 'aria-label': nb.n, html: ptwNbArt(nb) });
+      a.style.cssText = `left:${ptwX(x)}%;bottom:${ptwY(y)}%;width:4.6%;z-index:${150 + i}`;
+      if (q) a.append(el('span', { class: 'ptw-qmark' }, '!'));
+      if (nb.id === visitor) a.append(el('span', { class: 'ptw-say stay' }, 'דינג דונג! 🔔'));
+      a.addEventListener('click', () => { SFX.pet(ptwNbPet(nb).kind); ptwBop(a); ptwNbTap(nb, a, panel, stage); });
+      a.dataset.nb = nb.id; L.append(a);
+    });
+    // lost items for "find" requests
+    ptw.quests.filter(q => q.type === 'find' && !q.done).forEach(q => {
+      const [x, y] = PTW_HIDE[q.spot], it = PTW_ITEMS[q.item];
+      const b = el('button', { type: 'button', class: 'ptw-lost', 'aria-label': 'משהו נוצץ!', html: svg(it[1]) });
+      b.style.left = ptwX(x) + '%'; b.style.bottom = ptwY(y) + '%';
+      b.addEventListener('click', () => {
+        const owner = stage.querySelector(`[data-nb="${q.nb}"]`); b.disabled = true; walkTo(x, y); PTW_SND.good();
+        if (owner) { const r = owner.getBoundingClientRect(), r0 = b.getBoundingClientRect(); b.style.transition = 'transform .9s ease-in-out'; b.style.transform = `translate(${r.left - r0.left}px, ${r.top - r0.top}px) scale(.6)`; }
+        ptwLater(() => { b.remove(); if (owner) { ptwBop(owner); ptwSay(owner, 'מצאתם!! תודה! 💖'); } ptwQuestDone(q); ptwQuestList(panel, stage); owner && owner.classList.remove('has-q'); owner && owner.querySelector('.ptw-qmark')?.remove(); }, 950);
+      });
+      L.append(b);
+    });
+    // life on the map: someone hops and says hi
+    ptwEvery(() => { if (!stage.isConnected) return; const a = ptwPick(S3); if (!a) return; ptwBop(a); if (Math.random() < .5) ptwSay(a, ptwPick(PTW_MAP_LINES), 1700); }, 4200);
+    ptwQuestList(panel, stage);
+    return el('div', { class: 'ptw-wrap' }, el('div', { class: 'ptw-mapscroll' }, stage), panel);
+  }
+  function ptwQuestList(panel, stage) {
+    const qs = ptw.quests, left = qs.filter(q => !q.done).length;
+    panel.replaceChildren(el('div', { class: 'ptw-qhead' }, el('b', {}, '📋 בקשות מהשכנים היום'), el('span', { class: 'muted' }, left ? `עוד ${left} — לוחצים על שכן/ה עם ❗` : 'עזרתם לכולם היום! 🌟 מחר יהיו בקשות חדשות')),
+      el('div', { class: 'ptw-qlist' }, ...qs.map(q => { const nb = ptwNb(q.nb); return el('div', { class: 'ptw-q' + (q.done ? ' done' : '') }, el('span', { class: 'ptw-qface', html: ptwNbArt(nb) }), el('span', {}, el('b', {}, nb.n + ': '), ptwQuestText(q)), el('span', { class: 'ptw-qst' }, q.done ? '✅' : '⏳')); })));
+  }
+  // tapping a neighbor on the map: a card with her/his request or a visit
+  function ptwNbTap(nb, node, panel, stage) {
+    const q = ptw.quests.find(q => q.nb === nb.id && !q.done);
+    const dq = ptw.quests.find(x => x.type === 'deliver' && !x.done && x.to === nb.id);
+    const isVisitor = ptw.visit && ptw.visit.nb === nb.id && !ptw.visit.done;
+    const card = el('div', { class: 'ptw-nbcard' }, el('div', { class: 'ptw-nbface', html: ptwNbArt(nb, { mood: 'happy' }) }));
+    const txt = el('div', { class: 'ptw-nbtxt' }, el('b', {}, nb.n), el('span', { class: 'ptw-hrow' }, ptwHeartRow(nb.id)), el('p', {}, nb.blurb));
+    const acts = el('div', { class: 'chips' });
+    const done = () => { node.classList.remove('has-q'); node.querySelector('.ptw-qmark')?.remove(); };
+    if (dq) {
+      txt.append(el('p', { class: 'ptw-req' }, `הבאתם לי את ${dq.gift} מ${ptwNb(dq.nb).n}? איזה כיף! 🎁`));
+      ptwQuestDone(dq, `${nb.n} קיבל/ה את ${dq.gift}! ${ptwNb(dq.nb).n} ו${nb.n} שמחים 💞`);
+      ptwSay(node, 'תודה!! 🎁'); ptwQuestList(panel, stage);
+      const g = stage.querySelector(`[data-nb="${dq.nb}"]`); if (g) { g.classList.remove('has-q'); g.querySelector('.ptw-qmark')?.remove(); }
+    } else if (q) {
+      txt.append(el('p', { class: 'ptw-req' }, '💬 ' + ptwQuestText(q)));
+      if (q.type === 'snack') {
+        const foods = (typeof PZ6_FOODS !== 'undefined' ? PZ6_FOODS : []).slice(0, 8);
+        acts.append(el('span', { class: 'lbl' }, 'מה נביא?'), ...(foods.length ? foods : [{ id: 'cookie', name: 'עוגייה', art: stickerHTML('cookie') }]).map(f => el('button', { type: 'button', class: 'ptw-food', title: f.name, 'aria-label': f.name, html: f.art, onclick: () => {
+          SFX.munch(); ptwSay(node, `יאמי! ${f.name}! 😋`); done(); ptwQuestDone(q); ptwQuestList(panel, stage); acts.replaceChildren(el('span', { class: 'ptw-ok' }, `${nb.n} אכל/ה ונהנה/תה מאוד 💖`));
+        } })));
+      } else if (q.type === 'find') acts.append(el('span', { class: 'muted' }, '🔍 חפשו משהו נוצץ על המפה ולחצו עליו!'));
+      else if (q.type === 'deliver') acts.append(el('span', { class: 'muted' }, `👉 עכשיו לוחצים על ${ptwNb(q.to).n} במפה כדי למסור`));
+      else if (q.type === 'visit') acts.append(el('button', { type: 'button', class: 'btn main', onclick: () => ptwGo('place', q.place) }, `ללכת ל${PTW_PLACE_NM[q.place]} ←`));
+      if (q.type === 'deliver') { q.took = true; ptwSay(node, `הנה ${q.gift}! 🎁`); }
+    } else if (isVisitor) {
+      txt.append(el('p', { class: 'ptw-req' }, `💬 באתי לבקר את כל החיות! מה נעשה ביחד?`));
+      acts.append(...[['☕ תה ועוגיות', 'שותים תה ואוכלים עוגיות ביחד ☕🍪'], ['⚽ לשחק בחצר', 'משחקים כדור בחצר! ⚽'], ['🎁 להחליף מתנות', 'מחליפים מתנות קטנות 🎁']].map(([t, m]) => el('button', { type: 'button', class: 'btn', onclick: () => {
+        ptw.visit.done = true; const rec = ptw.nb[nb.id] = ptw.nb[nb.id] || { h: 0 }; rec.h = Math.min(5, rec.h + 1); ptwSave();
+        PTW_SND.cheer(); ptwCoin('visit', 4, `ביקור של ${nb.n} ☕`, 1);
+        stage.querySelectorAll('.ptw-walker').forEach((a, i) => setTimeout(() => ptwBop(a), i * 120));
+        node.querySelector('.stay')?.remove(); ptwSay(node, 'היה כל כך כיף! 💖', 2500);
+        acts.replaceChildren(el('span', { class: 'ptw-ok' }, `${m} — ${nb.n} ${ptwHeartRow(nb.id)}`));
+      } }, t)));
+    } else txt.append(el('p', { class: 'ptw-req' }, '💬 ' + nb.line));
+    card.append(txt);
+    panel.replaceChildren(card, acts, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => ptwQuestList(panel, stage) }, '📋 כל הבקשות')));
+    try { panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch {}
+  }
+  // what happens at each place
+  function ptwPlaceAction(id) {
+    const call = (name, ...a) => { try { const f = { openHouse: typeof openHouse === 'function' && openHouse, openLife: typeof openLife === 'function' && openLife, vetOpen: typeof vetOpen === 'function' && vetOpen, openVet: typeof openVet === 'function' && openVet }[name]; if (f) { f(...a); return true; } } catch {} return false; };
+    if (id === 'home') { if (!call('openHouse')) ptwGo('place', 'park'); return; }
+    if (id === 'jobs') return ptwGo('jobs');
+    if (id === 'shelter') return ptwGo('shelter');
+    if (id === 'mail') return ptwGo('mail');
+    if (id === 'school') { if (!call('openLife', 'school')) ptwGo('place', 'library'); return; }
+    if (id === 'clinic') { if (!call('vetOpen') && !call('openVet')) toast(svg(PTW_IC.heart), 'המרפאה סגורה היום 🩺'); return; }
+    ptwGo('place', id);
+  }
+
+  // ================= small place scenes (600 x 320) =================
+  const ptwSky = (a = '#bfe6ff', b = '#fff0f8') => `<defs><linearGradient id="ptwSk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="600" height="320" fill="url(#ptwSk)"/>`;
+  const ptwShelf = (x, y, w, n, seed = 1) => `<rect x="${x}" y="${y}" width="${w}" height="8" fill="#b07a47" ${S2}/>` + Array.from({ length: n }, (_, i) => { const bw = 9 + ((i * 7 + seed) % 5) * 2, bh = 26 + ((i * 11 + seed) % 4) * 5, bx = x + 4 + i * (w - 8) / n; return `<rect x="${pzF(bx)}" y="${y - bh}" width="${bw}" height="${bh}" rx="1.5" fill="${['#ff6b6b', '#ffd84d', '#7ec8ff', '#b58cff', '#6fcf7f', '#ff9ad5', '#ff9a3c'][(i + seed) % 7]}" ${S2}/>`; }).join('');
+  const PTW_PLACE_BG = {
+    park: () => ptwSky() + ptwCloud(90, 50, 1, .9) + ptwCloud(470, 40, .8, .9) + `<path d="M0 200 Q150 160 300 196 T600 186 V320 H0 Z" fill="#9fe0a0"/><path d="M0 240 Q200 220 400 244 T600 236 V320 H0 Z" fill="#86d17a"/>`
+      + `<ellipse cx="470" cy="266" rx="90" ry="22" fill="#7ec8ff" ${S2}/><path d="M420 264 q10 -5 20 0 t20 0 t20 0" stroke="#fff" stroke-width="2" fill="none"/>` + ptwTree(60, 200, 1.4) + ptwTree(150, 190, 1.1, '#4fbf73') + ptwTree(560, 196, 1.3, '#7ed48a')
+      + `<rect x="250" y="206" width="80" height="10" rx="4" fill="#c98f5a" ${S2}/><path d="M258 216 v18 M322 216 v18" stroke="${O}" stroke-width="4"/>` + [[30, 300, '#ff9ad5'], [110, 290, '#ffd84d'], [370, 300, '#b58cff'], [590, 296, '#ff6b6b'], [220, 306, '#ff9a3c']].map(([x, y, c]) => ptwFlower(x, y, c)).join(''),
+    pool: () => ptwSky('#9fdcff', '#e6f7ff') + ptwCloud(120, 40, .9) + ptwCloud(500, 56, 1.1) + `<rect y="130" width="600" height="80" fill="#f7e6c4"/>${Array.from({ length: 13 }, (_, i) => `<path d="M${i * 50} 130 V210" stroke="#ecd5a8" stroke-width="2"/>`).join('')}`
+      + `<rect y="206" width="600" height="114" fill="url(#ptwPw)"/><defs><linearGradient id="ptwPw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fd6ff"/><stop offset="1" stop-color="#3fa0e0"/></linearGradient></defs><rect y="202" width="600" height="8" fill="#fff" ${S2}/>`
+      + `<g class="ptw-wave">${[0, 1, 2].map(i => `<path d="M${-20 + i * 30} ${236 + i * 28} q20 -8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>`).join('')}</g>`
+      + `<path d="M560 150 v70 M580 150 v70 M560 170 h20 M560 190 h20" stroke="#9aa0ad" stroke-width="4"/><path d="M60 136 V60" stroke="${O}" stroke-width="3"/><path d="M14 70 Q60 20 106 70 Z" fill="#ff9ad5" ${S}/><path d="M40 70 Q60 30 80 70" fill="#fff" opacity=".6"/>`
+      + `<circle cx="420" cy="262" r="20" fill="none" stroke="${O}" stroke-width="13"/><circle cx="420" cy="262" r="20" fill="none" stroke="#ffd84d" stroke-width="9" stroke-dasharray="10 9"/>`,
+    library: () => `<rect width="600" height="320" fill="#fff4e6"/><rect y="250" width="600" height="70" fill="#e8c9a0"/>${Array.from({ length: 12 }, (_, i) => `<path d="M${i * 50} 250 V320" stroke="#d9b98c" stroke-width="2"/>`).join('')}`
+      + ptwShelf(20, 90, 170, 10, 1) + ptwShelf(20, 160, 170, 9, 3) + ptwShelf(20, 230, 170, 10, 5) + ptwShelf(410, 90, 170, 10, 2) + ptwShelf(410, 160, 170, 9, 4) + ptwShelf(410, 230, 170, 10, 6)
+      + `<rect x="232" y="40" width="136" height="100" rx="10" fill="#bfe6ff" ${S}/><path d="M300 40 V140 M232 90 H368" stroke="${O}" stroke-width="3"/>${ptwCloud(270, 70, .5)}<ellipse cx="300" cy="286" rx="150" ry="24" fill="#ff9ad5" opacity=".55"/>`
+      + `<path d="M390 196 V250 M378 250 H402" stroke="${O}" stroke-width="3"/><path d="M372 196 L390 170 L408 196 Z" fill="#ffd84d" ${S2}/>`,
+    play: () => ptwSky() + ptwCloud(420, 44) + `<path d="M0 214 Q300 190 600 214 V320 H0 Z" fill="#9fe0a0"/><ellipse cx="300" cy="286" rx="280" ry="34" fill="#f6dfa8"/>`
+      + `<path d="M40 120 L140 120 M48 120 L34 250 M132 120 L146 250" stroke="#ff9a3c" stroke-width="8" stroke-linecap="round"/><g class="ptw-swing" style="transform-origin:72px 120px"><path d="M62 120 V206 M82 120 V206" stroke="${O}" stroke-width="2"/><rect x="56" y="204" width="32" height="8" rx="4" fill="#ff5a8a" ${S2}/></g><g class="ptw-swing b" style="transform-origin:110px 120px"><path d="M100 120 V206 M120 120 V206" stroke="${O}" stroke-width="2"/><rect x="94" y="204" width="32" height="8" rx="4" fill="#7ec8ff" ${S2}/></g>`
+      + `<path d="M430 256 V120 H462 V256 M430 146 H462 M430 172 H462 M430 198 H462 M430 224 H462" stroke="#b58cff" stroke-width="6" fill="none"/><path d="M462 124 Q540 150 580 262" fill="none" stroke="${O}" stroke-width="22" stroke-linecap="round"/><path d="M462 124 Q540 150 580 262" fill="none" stroke="#ffd84d" stroke-width="15" stroke-linecap="round"/>`
+      + `<rect x="236" y="250" width="120" height="10" rx="4" fill="#6fcf7f" ${S2}/><path d="M288 272 L296 256 L304 272 Z" fill="#9aa0ad" ${S2}/>`,
+    bakery: () => `<rect width="600" height="320" fill="#fff0f6"/>${Array.from({ length: 12 }, (_, i) => `<rect x="${i * 50}" y="0" width="25" height="170" fill="#ffe3ef"/>`).join('')}<rect y="170" width="600" height="150" fill="#f2d9b8"/>`
+      + `<rect x="40" y="30" width="150" height="110" rx="12" fill="#b0b8c8" ${S}/><rect x="56" y="54" width="118" height="70" rx="8" fill="#ffb56b" ${S2}/><path d="M60 70 q20 -12 40 0 t40 0 t30 0" fill="none" stroke="#ff7a3c" stroke-width="4" class="ptw-flick"/>`
+      + `<rect x="230" y="36" width="140" height="84" rx="8" fill="#3a4a3a" ${S}/><text x="300" y="66" text-anchor="middle" font-size="18" fill="#fff" font-family="Rubik, sans-serif">תפריט</text><path d="M252 82 H348 M252 98 H330" stroke="#fff" stroke-width="3" stroke-dasharray="6 5"/>`
+      + `<rect x="10" y="176" width="580" height="40" rx="8" fill="#fff" ${S}/><rect x="10" y="176" width="580" height="12" rx="6" fill="#ff9ad5"/>`
+      + [[80, '#f2b56b'], [170, '#ff9ad5'], [260, '#ffd84d'], [350, '#c98f5a'], [440, '#b58cff'], [530, '#f2b56b']].map(([x, c], i) => i % 2 ? `<path d="M${x - 16} 206 L${x - 12} 190 H${x + 12} L${x + 16} 206 Z" fill="${c}" ${S2}/><path d="M${x - 14} 190 Q${x} 176 ${x + 14} 190 Z" fill="#fff" ${S2}/>` : `<path d="M${x - 20} 204 q-2 -14 20 -16 q22 2 20 16 Z" fill="${c}" ${S2}/><path d="M${x - 10} 196 q10 -6 20 0" stroke="#fff" stroke-width="2" fill="none"/>`).join(''),
+    shop: () => `<rect width="600" height="320" fill="#f0fff4"/><rect y="200" width="600" height="120" fill="#e0e6f0"/>${Array.from({ length: 12 }, (_, i) => `<rect x="${i * 50}" y="200" width="25" height="120" fill="#d6dde8"/>`).join('')}`
+      + [60, 130].map((y, r) => `<rect x="20" y="${y}" width="560" height="8" fill="#b07a47" ${S2}/>` + Array.from({ length: 14 }, (_, i) => { const x = 36 + i * 40, c = ['#ff6b6b', '#ffd84d', '#6fcf7f', '#ff9a3c', '#b58cff', '#7ec8ff', '#ff9ad5'][(i + r * 3) % 7]; return (i + r) % 3 ? `<circle cx="${x}" cy="${y - 13}" r="12" fill="${c}" ${S2}/>` : `<rect x="${x - 11}" y="${y - 34}" width="22" height="34" rx="4" fill="${c}" ${S2}/><rect x="${x - 11}" y="${y - 24}" width="22" height="10" fill="#fff" opacity=".8"/>`; }).join('')).join('')
+      + `<rect x="380" y="150" width="200" height="60" rx="8" fill="#6fcf7f" ${S}/><rect x="400" y="130" width="60" height="30" rx="4" fill="#3a3a4a" ${S2}/><rect x="408" y="136" width="44" height="12" fill="#8fe06f"/>`,
+  };
+  const PTW_STORIES = ['פעם אחת, ענן קטן פחד לרדת גשם. החיות שרו לו שיר — והוא בכה מרוב שמחה, וצמחו פרחים! 🌧️🌸', 'היה היה כוכב שנפל לפארק. כל החיות עזרו לו לחזור לשמיים בעזרת בלונים 🎈⭐',
+    'בספרייה גר עכבר שקרא כל לילה ספר אחד. יום אחד הוא כתב ספר משלו — על החיות שלך! 🐭📖', 'דג קטן בבריכה רצה לעוף. הוא קפץ גבוה גבוה... ונחת על מצוף — ושם גילה שכיף גם לצוף 🐟🛟',
+    'הירח שכח איפה שם את האור שלו. גחליליות השכונה הלוו לו קצת — ומאז הם חברים 🌙✨', 'עוגה אחת ברחה מהמאפייה! כל השכנים רדפו אחריה... והיא עצרה במסיבה של החיות 🎂'];
+  function ptwPlace(id) {
+    if (!PTW_PLACE_BG[id]) id = 'park';
+    const all = ptwPets(), N = Math.min(all.length, 10), w = Math.max(9, Math.min(16, 70 / Math.max(1, N)));
+    const T = { park: ['🌳 הפארק', 'פיקניק, פריזבי והמון כיף על הדשא'], pool: ['🏊 הבריכה', 'קופצים למים ומתיזים!'], library: ['📚 הספרייה', 'מקשיבים לסיפור של מר שועלי'], play: ['🛝 גן השעשועים', 'מגלשה, נדנדות וקפיצות'],
+      bakery: ['🥐 המאפייה', 'בוחרים מאפה — וכל החיות אוכלות ביחד'], shop: ['🛒 המכולת', 'קונים פינוקים לכל החיות'] }[id];
+    $('#ptwTitle').textContent = T[0]; $('#ptwSub').textContent = T[1];
+    const st = ptwStage(ptwSVG('0 0 600 320', PTW_PLACE_BG[id]()), 'ptw-pst ptw-p-' + id), L = st.lastChild;
+    const baseY = { park: 8, pool: 36, library: 8, play: 8, bakery: 4, shop: 6 }[id];
+    const A = all.slice(0, 10).map((p, i) => { const a = ptwActor(p, 50 + (i - (N - 1) / 2) * Math.min(w * .82, 80 / N), baseY + (i % 2) * 2, w, { cls: 'ptw-idle', label: true }); a.style.animationDelay = (i * .2) + 's'; L.append(a); return a; });
+    const say = el('div', { class: 'ptw-banner' }, T[1]); L.append(say);
+    // who is here: a neighbor waiting for a visit, or the one who works here
+    const vq = ptw.quests.find(q => q.type === 'visit' && q.place === id && !q.done);
+    const host = vq ? ptwNb(vq.nb) : ptwNb({ park: 'namnemet', pool: 'luli', library: 'shualy', play: 'shoko', bakery: 'vardina', shop: 'kaftsi' }[id]);
+    const H = el('div', { class: 'ptw-actor ptw-host', html: ptwNbArt(host, { mood: 'happy' }) }); H.style.cssText = `left:${id === 'shop' ? 80 : 90}%;bottom:${id === 'pool' ? 36 : id === 'shop' ? 34 : 10}%;width:${w * .85}%`;
+    H.append(el('span', { class: 'ptw-nm' }, host.n)); L.append(H);
+    ptwLater(() => { ptwSay(H, vq ? 'הגעתם! יששש! 💖' : host.line, 2600); if (vq) { ptwQuestDone(vq, `${host.n} שיחק/ה איתכם ב${PTW_PLACE_NM[id]}! ${ptwHeartRow(host.id)}`); } }, 700);
+    const hearts = (a, em = '💖') => { const r = a.style; ptwFloat(L, parseFloat(r.left), parseFloat(r.bottom) + 22, em); };
+    const tapPet = (a, p) => {
+      SFX.pet(p.kind);
+      if (id === 'pool') { a.classList.toggle('ptw-swim'); a.style.bottom = a.classList.contains('ptw-swim') ? '6%' : baseY + '%'; PTW_SND.splash(); ptwFloat(L, parseFloat(a.style.left), 20, '💦'); return; }
+      if (id === 'library') { ptwSay(a, ptwPick(['אני אוהב/ת ספרים על דרקונים 🐉', 'עוד פרק! עוד פרק! 📖', 'שששש... קוראים 🤫', 'הספר הזה מצחיק! 😂']), 1800); }
+      if (id === 'play') ptwBop(a, 'ptw-flip'); else ptwBop(a);
+      hearts(a, ptwPick(['💖', '✨', '😊', '🎵']));
+    };
+    A.forEach((a, i) => a.addEventListener('click', () => tapPet(a, all[i])));
+    const acts = el('div', { class: 'chips ptw-acts' });
+    const btn = (t, fn, main) => el('button', { type: 'button', class: 'btn' + (main ? ' main' : ''), onclick: fn }, t);
+    const everyone = (fn, gap = 160) => A.forEach((a, i) => ptwLater(() => fn(a, all[i], i), i * gap));
+    const reward = (key, why) => ptwCoin('place-' + key, 2, why, 2);
+    if (id === 'park') acts.append(
+      btn('🥏 פריזבי', () => { const f = el('span', { class: 'ptw-frisbee', html: svg(`<ellipse cx="24" cy="26" rx="18" ry="7" fill="#ff5a8a" ${S}/><ellipse cx="24" cy="24" rx="9" ry="3" fill="#ff9ad5"/>`) }); L.append(f); PTW_SND.whoosh(); everyone((a) => ptwBop(a), 180); ptwLater(() => { f.remove(); say.textContent = 'תפסנו! כולם קופצים משמחה 🥏'; reward('frisbee', 'פריזבי בפארק 🥏'); }, 1900); }, true),
+      btn('🧺 פיקניק', () => { const b = el('span', { class: 'ptw-prop', html: svg(`<ellipse cx="24" cy="30" rx="22" ry="9" fill="#ff6b6b" ${S}/><path d="M6 30 H42 M14 23 L34 37 M34 23 L14 37" stroke="#fff" stroke-width="2"/><circle cx="18" cy="26" r="4" fill="#ffd84d" ${S2}/><circle cx="30" cy="27" r="4" fill="#6fcf7f" ${S2}/>`) }); b.style.cssText = 'left:50%;bottom:0;width:34%;z-index:1'; L.append(b); SFX.munch(); everyone((a, p) => { ptwBop(a); hearts(a, '😋'); if (typeof feedPet === 'function') try { feedPet(p, { id: 'picnic', name: 'פיקניק', yum: 3 }); } catch {} }); say.textContent = 'פיקניק משפחתי על הדשא! 🧺'; reward('picnic', 'פיקניק בפארק 🧺'); ptwLater(() => b.remove(), 4000); }),
+      btn('🎡 ללונה פארק', () => { if (typeof funOpen === 'function') funOpen('park'); else toast(svg(PTW_IC.heart), 'הלונה פארק עוד בבנייה 🎡'); }));
+    if (id === 'pool') acts.append(
+      btn('💦 כולם קופצים למים!', () => { PTW_SND.whoosh(); everyone((a) => { ptwBop(a, 'ptw-dive'); ptwLater(() => { a.classList.add('ptw-swim'); a.style.bottom = '6%'; PTW_SND.splash(); ptwFloat(L, parseFloat(a.style.left), 16, '💦'); }, 420); }, 260); say.textContent = 'ספלאש! כולם בבריכה 💦'; reward('dive', 'קפיצה לבריכה 🏊'); }, true),
+      btn('🏖️ לצאת להתייבש', () => { everyone(a => { a.classList.remove('ptw-swim'); a.style.bottom = baseY + '%'; ptwBop(a); }, 120); say.textContent = 'מתייבשים בשמש ☀️'; }));
+    if (id === 'library') acts.append(
+      btn('📖 לשמוע סיפור', () => { const s = ptwPick(PTW_STORIES); say.textContent = '📖 ' + s; say.classList.add('long'); ptwSay(H, 'היה היה...', 2000); PTW_SND.paper(); everyone(a => { a.classList.add('ptw-listen'); }, 90); ptwLater(() => A.forEach(a => { a.classList.remove('ptw-listen'); ptwBop(a); }), 5200); reward('story', 'סיפור בספרייה 📚'); }, true),
+      typeof openStory === 'function' ? btn('✏️ לכתוב סיפור משלי', () => openStory()) : null);
+    if (id === 'play') acts.append(
+      btn('🛝 מגלשה!', () => { everyone((a) => { a.classList.add('ptw-slide'); PTW_SND.whoosh(); ptwLater(() => a.classList.remove('ptw-slide'), 1500); }, 700); say.textContent = 'ווווי! כולם במגלשה 🛝'; reward('slide', 'מגלשה בגן השעשועים 🛝'); }, true),
+      btn('🎠 נדנדה', () => { everyone(a => a.classList.add('ptw-swinging'), 100); ptwLater(() => A.forEach(a => a.classList.remove('ptw-swinging')), 4200); say.textContent = 'מתנדנדים גבוה גבוה! 🎠'; ptwTune([523, 659, 784, 659, 523], .25, 'sine'); }),
+      btn('🤸 קפיצות', () => everyone(a => ptwBop(a, 'ptw-flip'), 120)));
+    if (id === 'bakery' || id === 'shop') {
+      const menu = id === 'bakery'
+        ? [['croissant', 'קרואסון', 0, `<path d="M6 30 Q10 14 24 12 Q38 14 42 30 Q34 26 30 30 Q24 22 18 30 Q14 26 6 30 Z" fill="#f2b56b" ${S}/><path d="M18 20 l4 8 M26 18 l0 8 M32 20 l-3 8" stroke="#c98f3a" stroke-width="2"/>`], ['cupcake', 'קאפקייק', 0, ptwStk('cupcake')],
+          ['donut', 'סופגנייה', 0, ptwStk('donut')], ['cookie', 'עוגייה', 0, ptwStk('cookie')], ['challah', 'חלה', 0, `<path d="M8 30 Q8 18 18 18 Q24 12 30 18 Q40 18 40 30 Z" fill="#e8a44a" ${S}/><path d="M16 20 Q20 26 18 30 M24 16 Q28 24 26 30 M32 20 Q34 26 32 30" stroke="#c98f3a" stroke-width="2" fill="none"/>`]]
+        : [['apple', 'תפוחים', 2, ptwStk('apple')], ['watermelon', 'אבטיח', 3, ptwStk('watermelon')], ['icecream', 'גלידה', 4, ptwStk('icecream')], ['lollipop', 'סוכריה', 2, ptwStk('lollipop')], ['strawberry', 'תותים', 3, ptwStk('strawberry')]];
+      acts.append(el('span', { class: 'lbl' }, id === 'bakery' ? 'מה אוכלים? (על חשבון ורדינה!)' : 'מה קונים לכולם?'), ...menu.map(([fid, name, price, art]) => el('button', { type: 'button', class: 'ptw-food big', title: name, onclick: () => {
+        if (price && typeof spendCoins === 'function' && !spendCoins(price, `${name} מהמכולת`)) { SFX.boop(); ptwSay(H, `זה עולה ${price} 🪙 — אפשר להרוויח בעבודה!`); return; }
+        const plate = el('span', { class: 'ptw-prop', html: svg(art) }); plate.style.cssText = 'left:50%;bottom:30%;width:12%'; L.append(plate); SFX.munch();
+        everyone((a, p) => { ptwBop(a); hearts(a, '😋'); if (typeof feedPet === 'function') try { feedPet(p, { id: fid, name, art: svg(art), yum: 3 }); } catch {} }, 140);
+        say.textContent = `כולם אוכלים ${name}! יאמי 😋`; ptwSay(H, 'בתיאבון! 💖'); if (!price) reward('bakery', 'ארוחה במאפייה 🥐'); ptwLater(() => plate.remove(), 2200);
+      } }, el('span', { html: svg(art) }), el('small', {}, price ? `${name} · ${price}🪙` : name))));
+      if (id === 'bakery' && typeof openBakery === 'function') acts.append(btn('🧁 לאפות במאפייה הגדולה', () => openBakery()));
+      if (id === 'shop' && typeof trpOpen === 'function') acts.append(btn('🎨 דוכן היצירות של החיות', () => trpOpen('shop')));
+    }
+    return el('div', { class: 'ptw-wrap' }, st, acts, el('div', { class: 'chips' }, btn('🗺️ חזרה למפה', () => ptwGo('map'))));
+  }
+  function ptwStk(id) { try { return typeof stickerInner === 'function' ? stickerInner(id) : ''; } catch { return ''; } }
+
+  // ================= 💼 the jobs tab =================
+  let ptwPickFor = null;
+  function ptwJobsBg() {
+    const booth = (x, col, icon) => `<g transform="translate(${x} 96)"><rect x="-38" y="10" width="76" height="80" rx="6" fill="#fff" ${S2}/><path d="M-44 10 H44 V24 ${[0, 1, 2, 3].map(i => `Q${-33 + i * 22} 34 ${-22 + i * 22} 24`).join(' ')} Z" fill="${col}" ${S2}/>${[0, 1, 2, 3].map(i => `<rect x="${-44 + i * 22}" y="10" width="11" height="14" fill="#fff" opacity=".85"/>`).join('')}<g transform="translate(-16 36) scale(.68)">${icon}</g></g>`;
+    const IC = [`<path d="M6 30 Q10 14 24 12 Q38 14 42 30 Q34 26 30 30 Q24 22 18 30 Q14 26 6 30 Z" fill="#f2b56b" ${S}/>`, `<path d="M24 4 C30 14 40 18 38 32 C36 42 12 42 10 32 C8 22 18 18 24 4 Z" fill="#ff7a3c" ${S}/><path d="M24 18 C28 24 32 28 30 34 C28 40 20 40 18 34 C16 28 22 26 24 18 Z" fill="#ffd84d"/>`,
+      `<path d="${pzHeart(24, 24, 16)}" fill="#ff5a8a" ${S}/><path d="M18 22 h12 M24 16 v12" stroke="#fff" stroke-width="4"/>`, `<rect x="6" y="8" width="36" height="28" rx="3" fill="#2f5a45" stroke="#b07a47" stroke-width="4"/><path d="M14 18 h8 M18 14 v8 M28 18 h8" stroke="#fff" stroke-width="2.4"/>`,
+      PTW_IC.letter, `<path d="M24 2 Q36 14 34 34 H14 Q12 14 24 2 Z" fill="#f4f6fb" ${S}/><circle cx="24" cy="20" r="5" fill="#7ec8ff" ${S2}/><path d="M14 34 L8 44 H18 Z M34 34 L40 44 H30 Z" fill="#ff5a6e" ${S2}/>`];
+    return `<rect width="600" height="320" fill="#fff4e0"/>${Array.from({ length: 12 }, (_, i) => `<rect x="${i * 50}" width="25" height="226" fill="#ffecd0"/>`).join('')}<rect y="226" width="600" height="94" fill="#f2d9b8"/>${Array.from({ length: 12 }, (_, i) => `<path d="M${i * 50} 226 V320" stroke="#e8c9a0" stroke-width="2"/>`).join('')}`
+      + Array.from({ length: 11 }, (_, i) => `<path d="M${i * 60} 0 L${i * 60 + 30} 22 L${i * 60 + 60} 0" fill="${['#ff9ad5', '#ffd84d', '#7ec8ff', '#b58cff', '#6fcf7f'][i % 5]}" ${S2}/>`).join('')
+      + `<rect x="170" y="32" width="260" height="46" rx="23" fill="#4f7fd8" ${S}/><text x="300" y="64" text-anchor="middle" font-size="24" fill="#fff" font-family="Rubik, sans-serif">משרד העבודות</text>`
+      + [0, 1].map(k => Array.from({ length: 6 }, (_, i) => `<circle cx="${k ? 440 + i * 26 : 30 + i * 26}" cy="55" r="6" fill="${['#ffd84d', '#ff9ad5', '#fff'][i % 3]}" class="ptw-bulb" style="animation-delay:${(i % 4) * .25}s"/>`).join('')).join('')
+      + [60, 156, 252, 348, 444, 540].map((x, i) => booth(x, ['#ffb56b', '#ff5a4e', '#5fc3e4', '#b58cff', '#ffcf3a', '#8fa3c8'][i], IC[i])).join('')
+      + `<rect x="30" y="226" width="540" height="14" rx="6" fill="#c98f5a" ${S2}/><ellipse cx="300" cy="286" rx="250" ry="22" fill="#ff9ad5" opacity=".35"/>`;
+  }
+  function ptwJobs() {
+    const all = ptwPets(), t = localToday(), N = Math.min(all.length, 10);
+    const st = ptwStage(ptwSVG('0 0 600 320', ptwJobsBg()), 'ptw-jobst'), L = st.lastChild, w = Math.max(9, Math.min(15, 74 / Math.max(1, N)));
+    const A = all.slice(0, 10).map((p, i) => {
+      const j = ptwJob(ptw.jobs[p.id]);
+      const a = ptwActor(p, 50 + (i - (N - 1) / 2) * Math.min(w * .9, 84 / N), 16, w, { job: j && j[0], cls: 'ptw-idle', label: j ? `${j[2]} ${ptwNm(p)}` : `❔ ${ptwNm(p)}` });
+      a.style.animationDelay = (i * .17) + 's';
+      a.addEventListener('click', () => { SFX.pet(p.kind); ptwBop(a); ptwSay(a, j ? `אני ${j[1]}! ${j[2]}` : 'איזו עבודה אבחר? 🤔'); });
+      L.append(a); return a;
+    });
+    const emp = all.filter(p => ptw.jobs[p.id]);
+    const banner = el('div', { class: 'ptw-banner' }, emp.length ? `${emp.length} חיות עובדות בשכונה 💼` : 'בוחרים לכל חיה עבודה! 👇'); L.append(banner);
+    // payday
+    const pay = Math.min(30, emp.reduce((s, p) => s + 3 + ptwStars(p.id), 0));
+    const payBtn = ptw.payDay !== t && emp.length
+      ? el('button', { type: 'button', class: 'btn main ptw-pay', onclick: () => {
+        ptw.payDay = t; ptwSave(); PTW_SND.cash();
+        if (typeof addCoins === 'function') addCoins(pay, 'יום משכורת לחיות 💼');
+        A.forEach((a, i) => { const p = all[i]; if (!ptw.jobs[p.id]) return; ptwLater(() => { ptwBop(a); ptwFloat(L, parseFloat(a.style.left), 62, '🪙'); SFX.pet(p.kind); }, i * 180); });
+        banner.textContent = `יום משכורת! קיבלתן ${pay} מטבעות 🪙🎉`; try { confetti($('#ptwDlg .confetti-c')); } catch {}
+        payBtn.replaceWith(el('span', { class: 'ptw-ok' }, `💰 קיבלת ${pay} מטבעות! המשכורת הבאה — מחר`));
+      } }, `💰 יום משכורת! לקבל ${pay} 🪙`)
+      : el('span', { class: 'muted' }, emp.length ? '💰 המשכורת של היום כבר התקבלה — מחר יש עוד! (כל משמרת מעלה דרגה ⭐ ומשכורת)' : '💰 כל חיה עם עבודה מקבלת משכורת כל יום');
+    // cards
+    const cards = el('div', { class: 'ptw-jcards' }, ...all.map(p => {
+      const j = ptwJob(ptw.jobs[p.id]), sN = ptwStars(p.id);
+      return el('div', { class: 'ptw-jcard' + (ptwPickFor === p.id ? ' on' : '') },
+        el('div', { class: 'ptw-jart', html: ptwArt(p, { job: j && j[0], mood: 'happy' }) }),
+        el('div', { class: 'ptw-jinfo' }, el('b', {}, ptwNm(p)), el('span', {}, j ? `${j[2]} ${j[1]}` : 'עוד בלי עבודה'), el('span', { class: 'ptw-stars', title: `${ptw.lvl[p.id] || 0} משמרות` }, '⭐'.repeat(sN) + '☆'.repeat(5 - sN))),
+        el('div', { class: 'ptw-jbtns' },
+          el('button', { type: 'button', class: 'btn' + (j ? '' : ' main'), onclick: () => { ptwPickFor = ptwPickFor === p.id ? null : p.id; SFX.pop(); ptwDraw(); ptwLater(() => { try { $('#ptwDlg .ptw-jpick').scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch {} }, 60); } }, j ? '🔁 להחליף' : '💼 לבחור עבודה'),
+          j ? el('button', { type: 'button', class: 'btn main', onclick: () => ptwGo('game', { job: j[0], pid: p.id }) }, '▶️ למשמרת') : null));
+    }));
+    const pf = ptwPickFor && all.find(p => p.id === ptwPickFor);
+    const picker = pf ? el('div', { class: 'ptw-jpick' }, el('b', {}, `איזו עבודה מתאימה ל${ptwNm(pf)}?`),
+      el('div', { class: 'ptw-jgrid' }, ...PTW_JOBS.map(([id, n, em, col, , blurb]) => el('button', { type: 'button', class: 'ptw-jopt', 'aria-pressed': String(ptw.jobs[pf.id] === id), style: `--jc:${col}`, title: blurb, onclick: () => {
+        ptw.jobs[pf.id] = id; ptwPickFor = null; ptwSave(); SFX.yay(); SFX.pet(pf.kind);
+        toast(svg(PTW_IC.brief), `${ptwNm(pf)} עכשיו ${n}! ${em}`); ptwDraw();
+      } }, el('span', { class: 'ptw-jopt-art', html: ptwArt(pf, { job: id }) }), el('b', {}, `${em} ${n}`), el('small', {}, blurb))))) : null;
+    const tryAll = el('details', { class: 'ptw-try' }, el('summary', {}, '🎮 לנסות את כל המשחקים של העבודות'),
+      el('div', { class: 'ptw-jgrid small' }, ...PTW_JOBS.map(([id, n, em, col]) => el('button', { type: 'button', class: 'ptw-jopt', style: `--jc:${col}`, onclick: () => { const p = all.find(q => ptw.jobs[q.id] === id) || pet || all[0]; ptwGo('game', { job: id, pid: p && p.id }); } }, el('b', {}, `${em} ${n}`), el('small', {}, ptw.best[id] ? `שיא: ${ptw.best[id]}` : 'עוד לא שיחקת')))));
+    return el('div', { class: 'ptw-wrap' }, st, el('div', { class: 'chips ptw-payrow' }, payBtn), picker, cards, tryAll);
+  }
+
+  // ================= 💼 the shift mini-games (20–40 seconds of tapping) =================
+  const ptwVisitors = n => Array.from({ length: n }, () => { const kind = ptwPick(ptwKinds()); return Object.assign({ kind, size: .9, name: 'אורח/ת' }, typeof petzRandomLook === 'function' ? { look: petzRandomLook(kind) } : { color: Math.floor(Math.random() * 360) }); });
+  const PTW_GBG = {
+    fire: () => ptwSky('#ffd8b0', '#fff0e0') + `<rect x="150" y="30" width="300" height="250" fill="#ffc2a8" ${S}/><path d="M140 34 H460" stroke="${O}" stroke-width="10" stroke-linecap="round"/>`
+      + [210, 300, 390].map(x => [90, 190].map(y => `<rect x="${x - 34}" y="${y - 32}" width="68" height="62" rx="6" fill="#fff6c4" ${S2}/><path d="M${x} ${y - 32} V${y + 30} M${x - 34} ${y} H${x + 34}" stroke="${O}" stroke-width="2"/><rect x="${x - 40}" y="${y + 30}" width="80" height="8" rx="3" fill="#c98f5a" ${S2}/>`).join('')).join('')
+      + `<rect y="280" width="600" height="40" fill="#9aa0ad"/><rect x="470" y="222" width="120" height="62" rx="10" fill="#e8453c" ${S}/><rect x="540" y="200" width="44" height="30" rx="6" fill="#bfeaff" ${S2}/><circle cx="496" cy="288" r="14" fill="#3a3a4a" ${S2}/><circle cx="566" cy="288" r="14" fill="#3a3a4a" ${S2}/><path d="M470 226 L420 150" stroke="#9aa0ad" stroke-width="8"/><rect x="552" y="190" width="18" height="10" rx="3" fill="#7ec8ff" class="ptw-siren"/>`,
+    doctor: () => `<rect width="600" height="320" fill="#e6fbff"/><rect y="250" width="600" height="70" fill="#bfe6ef"/><rect x="40" y="36" width="90" height="70" rx="8" fill="#fff" ${S}/><path d="${pzHeart(85, 72, 16)}" fill="#ff5a8a" ${S2}/><path d="M78 70 h14 M85 63 v14" stroke="#fff" stroke-width="4"/>`
+      + `<circle cx="520" cy="70" r="30" fill="#fff" ${S}/><path d="M520 50 V70 H536" stroke="${O}" stroke-width="3" fill="none"/>` + [140, 230, 320, 410, 500].map(x => `<rect x="${x - 34}" y="236" width="68" height="14" rx="6" fill="#5fc3e4" ${S2}/><rect x="${x - 34}" y="186" width="10" height="50" rx="4" fill="#5fc3e4" ${S2}/><path d="M${x - 26} 250 v26 M${x + 26} 250 v26" stroke="${O}" stroke-width="3"/>`).join(''),
+    hair: () => `<rect width="600" height="320" fill="#ffe9f3"/>${Array.from({ length: 12 }, (_, i) => `<rect x="${i * 50}" width="25" height="320" fill="#ffdbeb"/>`).join('')}<rect y="262" width="600" height="58" fill="#f2d9b8"/>`
+      + [150, 260, 370, 480].map(x => `<ellipse cx="${x}" cy="110" rx="42" ry="56" fill="#dff4ff" stroke="#ffcf3a" stroke-width="6"/><ellipse cx="${x - 14}" cy="90" rx="8" ry="20" fill="#fff" opacity=".7"/><rect x="${x - 30}" y="232" width="60" height="16" rx="6" fill="#b58cff" ${S2}/><path d="M${x} 248 V282 M${x - 18} 284 H${x + 18}" stroke="${O}" stroke-width="4"/>`).join(''),
+    police: () => ptwSky() + ptwCloud(100, 46) + ptwCloud(480, 36, .9) + `<path d="M0 150 Q300 120 600 150 V320 H0 Z" fill="#9fe0a0"/>` + ptwTree(40, 150, 1.1) + ptwTree(575, 146, 1.2, '#4fbf73')
+      + [[140, 184], [300, 184], [460, 184], [220, 282], [380, 282], [540, 282]].map(([x, y]) => `<g>${[[-26, 0, 26], [0, -14, 30], [26, 0, 26]].map(([dx, dy, r]) => `<circle cx="${x + dx}" cy="${y + dy}" r="${r}" fill="#4fbf73" ${S2}/>`).join('')}<path d="M${x - 50} ${y + 12} H${x + 50}" stroke="#4fbf73" stroke-width="16"/><circle cx="${x - 12}" cy="${y - 20}" r="4" fill="#ff9ad5"/><circle cx="${x + 18}" cy="${y - 8}" r="4" fill="#ffd84d"/></g>`).join(''),
+    farmer: () => ptwSky('#bfe6ff', '#fff8e0') + `<circle cx="540" cy="50" r="28" fill="#ffe066" ${S2}/><path d="M0 110 Q300 90 600 110 V320 H0 Z" fill="#9fe0a0"/>`
+      + [150, 210, 270].map(y => `<rect x="80" y="${y - 20}" width="460" height="40" rx="20" fill="#a8743f" ${S2}/>` + [150, 260, 370, 480].map(x => `<ellipse cx="${x}" cy="${y}" rx="24" ry="8" fill="#7a4f2a"/>`).join('')).join('')
+      + `<path d="M40 110 V60 M20 76 H60" stroke="#c98f5a" stroke-width="5"/><circle cx="40" cy="52" r="10" fill="#f2d27a" ${S2}/>`,
+    astro: () => `<defs><radialGradient id="ptwSp" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#3d3a78"/><stop offset="1" stop-color="#140f33"/></radialGradient></defs><rect width="600" height="320" fill="url(#ptwSp)"/>`
+      + Array.from({ length: 50 }, (_, i) => `<circle cx="${(i * 131) % 600}" cy="${(i * 71) % 320}" r="${1 + (i % 3) * .6}" fill="#fff" opacity="${.4 + (i % 4) * .15}" class="${i % 5 ? '' : 'ptw-tw'}"/>`).join('')
+      + `<circle cx="500" cy="250" r="50" fill="#ff9ad5" ${S}/><ellipse cx="500" cy="250" rx="80" ry="14" fill="none" stroke="#ffd84d" stroke-width="5" transform="rotate(-14 500 250)"/><circle cx="110" cy="60" r="20" fill="#7ec8ff" ${S2}/>`,
+    pilot: () => ptwSky('#7ec8ff', '#e6f7ff') + ptwCloud(420, 260, 1.4, .8) + ptwCloud(260, 300, 1.2, .8) + ptwCloud(560, 120, .8, .6),
+    baker: () => `<rect width="600" height="320" fill="#fff4e6"/><rect y="250" width="600" height="70" fill="#f2d9b8"/><rect x="480" y="40" width="120" height="150" rx="10" fill="#b0b8c8" ${S}/><rect x="494" y="120" width="100" height="56" rx="8" fill="#ff9a3c" ${S2}/><path d="M500 136 q16 -10 32 0 t32 0 t24 0" stroke="#ffd84d" stroke-width="4" fill="none" class="ptw-flick"/>`
+      + `<rect x="0" y="182" width="560" height="26" fill="#5b6b8c" ${S}/>${Array.from({ length: 14 }, (_, i) => `<circle cx="${20 + i * 40}" cy="214" r="9" fill="#9aa0ad" ${S2}/>`).join('')}<rect x="0" y="178" width="560" height="8" fill="#3a3a4a" class="ptw-belt"/>`
+      + `<rect x="120" y="30" width="200" height="60" rx="30" fill="#ff9ad5" ${S}/><text x="220" y="70" text-anchor="middle" font-size="26" fill="#fff" font-family="Rubik, sans-serif">מאפייה</text>`,
+    teacher: () => `<rect width="600" height="320" fill="#fff8e6"/><rect y="250" width="600" height="70" fill="#e8c9a0"/><rect x="150" y="24" width="300" height="140" rx="10" fill="#2f5a45" stroke="#b07a47" stroke-width="10"/><rect x="190" y="166" width="220" height="8" rx="3" fill="#b07a47"/>`
+      + `<circle cx="520" cy="60" r="26" fill="#fff" ${S}/><path d="M520 44 V60 H532" stroke="${O}" stroke-width="3" fill="none"/>` + [120, 240, 360, 480].map(x => `<rect x="${x - 44}" y="262" width="88" height="14" rx="4" fill="#ffcf8a" ${S2}/><path d="M${x - 36} 276 v30 M${x + 36} 276 v30" stroke="${O}" stroke-width="3"/>`).join(''),
+    mail: () => ptwSky() + ptwCloud(90, 30, .8) + ptwCloud(500, 26, .7) + `<rect y="190" width="600" height="130" fill="#9fe0a0"/><rect y="226" width="600" height="40" fill="#c9ccd9"/><path d="M10 246 H590" stroke="#fff" stroke-width="3" stroke-dasharray="16 12"/>`,
+    builder: () => ptwSky('#bfe6ff', '#fff4d6') + ptwCloud(120, 50) + `<rect y="280" width="600" height="40" fill="#e8b77a"/><path d="M500 280 V40 H330 M500 40 L560 40 M520 280 V40" stroke="#ffb020" stroke-width="10" fill="none"/><path d="M500 60 L520 80 L500 100 L520 120 L500 140 L520 160 L500 180 L520 200 L500 220 L520 240 L500 260" stroke="#ffb020" stroke-width="4" fill="none"/>`
+      + `<path d="M380 40 V70" stroke="${O}" stroke-width="2"/><rect x="560" y="30" width="30" height="24" fill="#9aa0ad" ${S2}/>` + [[40, 280], [80, 280]].map(([x, y]) => `<path d="M${x - 12} ${y} L${x} ${y - 30} L${x + 12} ${y} Z" fill="#ff9a3c" ${S2}/><path d="M${x - 6} ${y - 12} H${x + 6}" stroke="#fff" stroke-width="3"/>`).join(''),
+    singer: () => `<rect width="600" height="320" fill="#2a1f4a"/><path d="M0 0 Q60 160 0 320 Z M600 0 Q540 160 600 320 Z" fill="#b0306a"/><path d="M0 0 H600 V36 Q300 60 0 36 Z" fill="#c93a7a" ${S2}/>`
+      + [150, 300, 450].map((x, i) => `<path d="M${x} 0 L${x - 70} 250 H${x + 70} Z" fill="${['#ffd84d', '#ff9ad5', '#7ec8ff'][i]}" opacity=".16" class="ptw-spot" style="animation-delay:${i * .4}s"/>`).join('') + `<ellipse cx="300" cy="250" rx="240" ry="30" fill="#5b3a8a" ${S2}/>`,
+  };
+  const PTW_WHACK = {
+    fire: { slots: [[35, 72], [50, 72], [65, 72], [35, 40], [50, 40], [65, 40]], size: 10, hint: 'לוחצים על הלהבות כדי לכבות אותן במים! 💦', hit: '💦', snd: 'splash', life: [1500, 2300],
+      good: () => `<svg viewBox="0 0 48 48" class="ptw-flame"><path d="M24 4 C30 14 40 18 38 32 C36 42 12 42 10 32 C8 22 18 18 24 4 Z" fill="#ff7a3c" ${S}/><path d="M24 18 C28 24 32 28 30 34 C28 40 20 40 18 34 C16 28 22 26 24 18 Z" fill="#ffd84d"/></svg>`,
+      hitArt: () => svg(`<g opacity=".8"><circle cx="18" cy="26" r="10" fill="#dfe3ea"/><circle cx="30" cy="22" r="12" fill="#eef1f6"/><circle cx="26" cy="32" r="9" fill="#dfe3ea"/></g>`) },
+    doctor: { slots: [[23.3, 32], [38.3, 32], [53.3, 32], [68.3, 32], [83.3, 32]], size: 12, hint: 'לוחצים על החיות החולות כדי לרפא אותן 🩺', hit: '💖', snd: 'good', life: [1800, 2600], vis: 1,
+      good: v => petSVG(v, { mood: 'sick', extra: `<g transform="translate(34 24) rotate(-35)"><rect x="-1.4" y="-8" width="2.8" height="12" rx="1.4" fill="#fff" ${S2}/><circle cx="0" cy="5" r="2.2" fill="#ff5a6e" ${S2}/></g>` }),
+      hitArt: v => petSVG(v, { mood: 'happy', extra: `<rect x="26" y="8" width="10" height="4" rx="2" fill="#ffe0b0" stroke="${O}" stroke-width=".8" transform="rotate(-25 31 10)"/>` + pzSpark(8, 4, 3, '#ffd84d') }) },
+    hair: { slots: [[25, 32], [43.3, 32], [61.6, 32], [80, 32]], size: 13, hint: 'לוחצים על הלקוחות עם השיער המבולגן — צ׳יק צ׳ק ✂️', hit: '✂️', snd: 'scrub', life: [1900, 2700], vis: 1,
+      good: v => petSVG(v, { mood: 'sad', extra: `<g fill="none" stroke="#8a5a3c" stroke-width="2.2" stroke-linecap="round"><path d="M10 2 q2 -9 6 -2 q3 -10 7 -1 q3 -10 7 0 q4 -9 7 1 q5 -6 5 4"/><path d="M8 8 q-6 -2 -4 -8 M40 8 q6 -2 4 -8 M18 -2 q-2 -8 3 -10 M30 -2 q3 -8 -2 -10"/></g>` }),
+      hitArt: v => petSVG(v, { mood: 'happy', extra: `<g transform="translate(34 2) rotate(15)"><path d="M0 0 C-4 -5 -8 -2 -7 2 C-6 5 -2 2 0 0 Z M0 0 C4 -5 8 -2 7 2 C6 5 2 2 0 0 Z" fill="#ff5a8a" ${S2}/></g>` + pzSpark(10, 0, 3.4, '#ffd84d') + pzSpark(42, 16, 2.4, '#fff') }) },
+    police: { slots: [[23.3, 51], [50, 51], [76.6, 51], [36.6, 20], [63.3, 20], [90, 20]], size: 10, hint: 'גורים הלכו לאיבוד בין השיחים! לוחצים עליהם כדי להחזיר אותם הביתה 🔍', hit: '🏠', snd: 'good', life: [1500, 2200], vis: 1,
+      good: v => petSVG(Object.assign({}, v, { size: .75 }), { mood: 'sad' }), hitArt: v => petSVG(Object.assign({}, v, { size: .75 }), { mood: 'happy', extra: `<path d="${pzHeart(40, 2, 4)}" fill="#ff5a8a" ${S2}/>` }) },
+    farmer: { slots: [150, 260, 370, 480].flatMap(x => [150, 210, 270].map(y => [x / 6, (320 - y) / 3.2 + 6])), size: 9, hint: 'קוטפים את הירקות שקופצים מהאדמה! 🥕', hit: '🧺', snd: 'pop', life: [1300, 2000],
+      good: () => ptwPick([svg(`<path d="M24 44 L16 14 H32 Z" fill="#ff9a3c" ${S}/><path d="M24 14 L18 2 M24 14 L24 0 M24 14 L30 2" stroke="#4fbf73" stroke-width="4" stroke-linecap="round"/><path d="M19 22 h6 M20 30 h5" stroke="#e07a20" stroke-width="2"/>`),
+        svg(`<circle cx="24" cy="28" r="15" fill="#ff5a4e" ${S}/><path d="M16 14 L24 18 L32 14 L28 20 L24 16 L20 20 Z" fill="#4fbf73" ${S2}/><ellipse cx="18" cy="24" rx="4" ry="3" fill="#fff" opacity=".5"/>`),
+        svg(`<ellipse cx="24" cy="30" rx="18" ry="13" fill="#ff9a3c" ${S}/><path d="M16 18 Q14 30 16 42 M32 18 Q34 30 32 42 M24 17 V43" fill="none" stroke="#e07a20" stroke-width="2"/><path d="M24 17 q0 -6 5 -8" stroke="#4fbf73" stroke-width="4" fill="none" stroke-linecap="round"/>`)]) },
+    astro: { float: [18, 86], size: 9, speed: [3600, 5200], hint: 'אוספים כוכבים ⭐ — אבל לא נוגעים באסטרואידים! ☄️', hit: '✨', snd: 'good', bad: .3,
+      good: () => svg(`<polygon points="${starPts(24, 24, 18, 8)}" fill="#ffd84d" ${S}/><circle cx="19" cy="21" r="2" fill="${O}"/><circle cx="29" cy="21" r="2" fill="${O}"/><path d="M20 28 q4 3 8 0" stroke="${O}" stroke-width="1.6" fill="none"/>`),
+      badArt: () => svg(`<path d="M10 20 Q12 8 24 8 Q38 8 40 22 Q42 36 28 40 Q12 42 10 30 Z" fill="#9aa0ad" ${S}/><circle cx="20" cy="20" r="4" fill="#7a808d"/><circle cx="30" cy="30" r="5" fill="#7a808d"/><circle cx="18" cy="32" r="2.4" fill="#7a808d"/>`) },
+    pilot: { float: [26, 88], size: 9, speed: [3400, 5000], hint: 'טסים ואוספים בלונים 🎈 — נזהרים מהעננים הסוערים! ⛈️', hit: '🎈', snd: 'pop', bad: .28,
+      good: () => { const c = ptwPick(['#ff5a8a', '#ffd84d', '#7ec8ff', '#b58cff', '#6fcf7f']); return svg(`<ellipse cx="24" cy="18" rx="12" ry="15" fill="${c}" ${S}/><path d="M24 33 l-2 4 h4 Z" fill="${c}" ${S2}/><path d="M24 37 q-4 6 0 10" stroke="${O}" stroke-width="1.2" fill="none"/><ellipse cx="19" cy="12" rx="3" ry="5" fill="#fff" opacity=".55"/>`); },
+      badArt: () => svg(`<ellipse cx="24" cy="20" rx="18" ry="10" fill="#6a7185" ${S}/><ellipse cx="16" cy="14" rx="9" ry="7" fill="#6a7185"/><ellipse cx="30" cy="12" rx="10" ry="8" fill="#6a7185"/><path d="M22 28 L18 38 H24 L20 46" stroke="#ffd84d" stroke-width="3" fill="none" stroke-linejoin="round"/>`) },
+    baker: { belt: 43, size: 10, speed: [4200, 5600], hint: 'תופסים מהמסוע את המאפים הזהובים 🥐 — לא את השרופים! 🖤', hit: '😋', snd: 'good', bad: .28,
+      good: () => ptwPick([svg(`<path d="M6 32 Q10 14 24 12 Q38 14 42 32 Q34 28 30 32 Q24 24 18 32 Q14 28 6 32 Z" fill="#f2b56b" ${S}/><path d="M18 20 l4 8 M26 18 l0 8 M32 20 l-3 8" stroke="#c98f3a" stroke-width="2"/>`),
+        svg(`<path d="M10 28 H38 L34 44 H14 Z" fill="#ff9ad5" ${S}/><path d="M8 28 Q10 14 24 12 Q38 14 40 28 Z" fill="#fff6fb" ${S}/><circle cx="24" cy="10" r="4" fill="#ff5a6e" ${S2}/>`),
+        svg(`<ellipse cx="24" cy="30" rx="18" ry="10" fill="#e8a44a" ${S}/><path d="M12 26 q4 -6 8 0 M22 24 q4 -6 8 0 M32 26 q2 -4 4 0" stroke="#c98f3a" stroke-width="2" fill="none"/>`)]),
+      badArt: () => svg(`<ellipse cx="24" cy="30" rx="18" ry="10" fill="#3a3030" ${S}/><path d="M14 20 q2 -8 6 -4 M26 18 q3 -8 6 -3" stroke="#9aa0ad" stroke-width="2" fill="none"/>`) },
+  };
+  const PTW_THR = { pop: [6, 12, 18], float: [6, 12, 18], belt: [6, 12, 18], quiz: [3, 6, 9], match: [4, 8, 12], stack: [4, 8, 12], simon: [2, 4, 6] };
+  const PTW_DUR = { pop: 25, float: 25, belt: 25, quiz: 30, match: 25, stack: 30, simon: 40 };
+  function ptwGame(arg) {
+    const all = ptwPets(), J = ptwJob(arg && arg.job) || PTW_JOBS[0], type = J[4];
+    const p = all.find(q => q.id === (arg && arg.pid)) || all[0];
+    $('#ptwTitle').textContent = `${J[2]} משמרת: ${J[1]}`; $('#ptwSub').textContent = `${ptwNm(p)} בעבודה! ${J[5]}`;
+    const st = ptwStage(ptwSVG('0 0 600 320', PTW_GBG[J[0]]()), 'ptw-gst ptw-g-' + J[0]), L = st.lastChild;
+    const G = { score: 0, on: false, tok: 0 };
+    const time = el('span', { class: 'ptw-time' }, `⏱️ ${PTW_DUR[type]}`), score = el('span', { class: 'ptw-score' }, '⭐ 0'), bar = el('div', { class: 'ptw-tbar' }, el('i'));
+    const hud = el('div', { class: 'ptw-hud' }, el('span', { class: 'ptw-hudpet', html: ptwArt(p, { job: J[0] }) }), el('b', {}, ptwNm(p)), time, score, bar);
+    const wx = { mail: 50, teacher: 13, singer: 50, pilot: 13, astro: 13 }[J[0]] || 9, wy = { mail: 2, singer: 30, pilot: 44, astro: 40, teacher: 6, baker: 4 }[J[0]] || 3;
+    const worker = ptwActor(p, wx, wy, { singer: 17, mail: 13 }[J[0]] || 14, { job: J[0], cls: 'ptw-worker' + (['pilot', 'astro'].includes(J[0]) ? ' ptw-fly' : '') });
+    if (J[0] === 'pilot') worker.insertAdjacentHTML('afterbegin', `<svg viewBox="0 0 120 60" class="ptw-plane"><path d="M8 34 Q10 22 30 22 H96 Q116 24 116 34 Q116 44 96 46 H30 Q10 46 8 34 Z" fill="#fff" ${S}/><path d="M50 30 L30 4 H44 L72 30 Z M54 40 L36 60 H50 L76 40 Z" fill="#7ec8ff" ${S}/><path d="M8 34 L2 16 H14 L22 26" fill="#ff5a8a" ${S}/><circle cx="104" cy="32" r="4" fill="#bfeaff" ${S2}/></svg>`);
+    if (J[0] === 'astro') worker.insertAdjacentHTML('afterbegin', `<svg viewBox="0 0 120 60" class="ptw-plane"><path d="M10 30 Q40 6 96 20 Q116 30 96 40 Q40 54 10 30 Z" fill="#f4f6fb" ${S}/><path d="M40 16 L28 0 H44 L58 14 Z M40 44 L28 60 H44 L58 46 Z" fill="#ff5a6e" ${S}/><path d="M10 30 L-2 24 Q-6 30 -2 36 Z" fill="#ffd84d" class="ptw-flick" ${S2}/></svg>`);
+    L.append(worker);
+    const cheer = (txt, em) => { ptwBop(worker); if (txt) ptwSay(worker, txt, 1200); if (em) ptwFloat(L, wx, wy + 30, em); };
+    const add = n => { G.score = Math.max(0, G.score + n); score.textContent = `⭐ ${G.score}`; ptwBop(score, 'ptw-pulse'); if (n > 0 && G.score % 5 === 0) cheer(ptwPick(['יש! 💪', 'מעולה! ⭐', 'איזה כיף! 🎉', 'אני הכי טוב/ה בזה!']), '💖'); };
+    const ctx = { L, st, add, cheer, J, p, G, worker };
+    const intro = el('div', { class: 'ptw-intro' }, el('div', { class: 'ptw-intro-art', html: ptwArt(p, { job: J[0], mood: 'happy' }) }), el('b', {}, `${J[2]} ${ptwNm(p)} מתחיל/ה משמרת!`),
+      el('p', {}, ({ quiz: 'עונים על כמה שיותר שאלות — לוחצים על התשובה הנכונה! 🍎', match: 'לוחצים על הבית שעל הדלת שלו מצויר אותו סימן כמו על המכתב! ✉️', stack: 'לוחצים כשהלבנה בדיוק מעל המגדל — ובונים הכי גבוה! 🧱', simon: 'מקשיבים למנגינה, ואז לוחצים על אותם תווים באותו סדר 🎵' }[type] || (PTW_WHACK[J[0]] || {}).hint || '')),
+      el('button', { type: 'button', class: 'btn main ptw-go', onclick: () => { intro.remove(); start(); } }, '▶️ מתחילים!'));
+    L.append(intro);
+    const extra = el('div', { class: 'ptw-gextra' });
+    function start() {
+      G.on = true; const dur = PTW_DUR[type], t0 = performance.now(); PTW_SND.bell();
+      ptwEvery(() => { if (!G.on) return; const left = dur - (performance.now() - t0) / 1000; bar.firstChild.style.width = Math.max(0, left / dur * 100) + '%'; time.textContent = `⏱️ ${Math.max(0, Math.ceil(left))}`; if (left <= 0) end(); }, 100);
+      ({ pop: ptwWhackRun, float: ptwWhackRun, belt: ptwWhackRun, quiz: ptwQuizRun, match: ptwMatchRun, stack: ptwStackRun, simon: ptwSimonRun }[type])(ctx, extra);
+    }
+    function end() {
+      if (!G.on) return; G.on = false;
+      L.querySelectorAll('.ptw-tgt, .ptw-drop, .ptw-pad, .ptw-mhouse, .ptw-letter, .ptw-hook, .ptw-brick.mover, .ptw-board').forEach(n => n.remove()); cancelAnimationFrame(ptwRaf); extra.replaceChildren();
+      const thr = PTW_THR[type], stars = thr.filter(x => G.score >= x).length, before = ptwStars(p.id);
+      ptw.lvl[p.id] = (ptw.lvl[p.id] || 0) + 1; const best = G.score > (ptw.best[J[0]] || 0); if (best) ptw.best[J[0]] = G.score; ptwSave();
+      const coins = ptwCoin('shift', 3 + stars * 2, `משמרת ${J[1]} ${J[2]}`, 5), up = ptwStars(p.id) > before;
+      stars ? PTW_SND.fanfare() : SFX.pop(); if (stars === 3) try { confetti($('#ptwDlg .confetti-c')); } catch {}
+      const card = el('div', { class: 'ptw-result' }, el('div', { class: 'ptw-intro-art', html: ptwArt(p, { job: J[0], mood: 'happy' }) }), el('b', { class: 'ptw-rt' }, 'המשמרת נגמרה! 🎉'),
+        el('div', { class: 'ptw-rstars' }, ...[0, 1, 2].map(i => el('span', { class: i < stars ? 'on' : '' }, '★'))), el('span', {}, `ניקוד: ${G.score}${best ? ' · שיא חדש! 🏆' : ''}`),
+        coins ? el('span', { class: 'ptw-ok' }, `+${coins} 🪙 על המשמרת`) : el('span', { class: 'muted' }, 'היום כבר הרווחת מספיק ממשמרות — מחר עוד! 💤'),
+        up ? el('span', { class: 'ptw-ok' }, `⭐ ${ptwNm(p)} עלה/תה דרגה! המשכורת גדלה`) : null,
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => ptwGo('game', { job: J[0], pid: p.id }) }, '🔁 עוד משמרת'), el('button', { type: 'button', class: 'btn', onclick: () => ptwGo('jobs') }, '💼 לעבודות'), el('button', { type: 'button', class: 'btn', onclick: () => ptwGo('map') }, '🗺️ למפה')));
+      L.append(card); SFX.pet(p.kind);
+    }
+    return el('div', { class: 'ptw-wrap' }, hud, st, extra, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => ptwGo('jobs') }, '→ חזרה לעבודות')));
+  }
+  // pop-up / floating targets
+  function ptwWhackRun(ctx) {
+    const { L, add, cheer, J, G } = ctx, cfg = PTW_WHACK[J[0]], vis = cfg.vis ? ptwVisitors(6) : null, t0 = performance.now(), busy = new Set();
+    const art = (fn, v) => { const s = fn(v); return s.startsWith('<svg') ? s : svg(s); };
+    const spawn = () => {
+      if (!G.on || !L.isConnected) return;
+      const prog = Math.min(1, (performance.now() - t0) / 25000), bad = cfg.bad && Math.random() < cfg.bad, v = vis && ptwPick(vis);
+      const n = el('button', { type: 'button', class: 'ptw-tgt' + (bad ? ' bad' : ''), html: bad ? cfg.badArt() : art(cfg.good, v) });
+      n.style.width = cfg.size + '%';
+      let life;
+      if (cfg.slots) {
+        const free = cfg.slots.map((s, i) => i).filter(i => !busy.has(i)); if (!free.length) return;
+        const si = ptwPick(free); busy.add(si); n.dataset.slot = si;
+        n.style.left = cfg.slots[si][0] + '%'; n.style.bottom = cfg.slots[si][1] + '%'; n.classList.add('ptw-popin');
+        life = cfg.life[1] - (cfg.life[1] - cfg.life[0]) * prog;
+        n._t = setTimeout(() => { n.classList.add('ptw-popout'); setTimeout(() => { n.remove(); busy.delete(si); }, 260); }, life);
+      } else {
+        const y = cfg.belt != null ? cfg.belt : cfg.float[0] + Math.random() * (cfg.float[1] - cfg.float[0]);
+        n.style.bottom = y + '%'; n.style.left = '108%'; if (cfg.float) n.classList.add('ptw-bob');
+        const d = cfg.speed[1] - (cfg.speed[1] - cfg.speed[0]) * prog;
+        const an = n.animate([{ left: '108%' }, { left: '-12%' }], { duration: d, easing: 'linear' }); an.onfinish = () => n.remove(); n._an = an;
+      }
+      n.addEventListener('pointerdown', e => {
+        e.preventDefault(); if (n.classList.contains('hit') || !G.on) return; n.classList.add('hit'); clearTimeout(n._t);
+        if (n._an) { const r = n.getBoundingClientRect(), pr = L.getBoundingClientRect(); n._an.cancel(); n.style.left = ((r.left + r.width / 2 - pr.left) / pr.width * 100) + '%'; }
+        if (bad) { add(-1); PTW_SND.bad(); n.classList.add('ptw-shake'); cheer('אוי! 😵'); }
+        else { add(1); (PTW_SND[cfg.snd] || PTW_SND.good)(); if (cfg.hitArt) n.innerHTML = art(cfg.hitArt, v); ptwFloat(L, parseFloat(n.style.left), parseFloat(n.style.bottom) + 6, cfg.hit); }
+        setTimeout(() => { n.remove(); if (n.dataset.slot != null) busy.delete(+n.dataset.slot); }, bad ? 420 : 520);
+      });
+      L.append(n);
+    };
+    const loop = () => { if (!G.on) return; spawn(); if (Math.random() < .35) setTimeout(spawn, 180); const prog = Math.min(1, (performance.now() - t0) / 25000); ptwLater(loop, 820 - 360 * prog); };
+    loop();
+  }
+  // 📚 teacher: quick math for the pups
+  function ptwQuizRun(ctx, extra) {
+    const { L, add, cheer, G } = ctx;
+    const board = el('div', { class: 'ptw-board' }); L.append(board);
+    const kids = ptwVisitors(4).map((v, i) => { const a = el('div', { class: 'ptw-actor ptw-student', html: petSVG(Object.assign({}, v, { size: .75 })) }); a.style.cssText = `left:${20 + i * 20}%;bottom:12%;width:11%`; L.append(a); return a; });
+    const next = () => {
+      if (!G.on) return;
+      const k = ptwPick(['add', 'add', 'sub', 'count']); let q, ans;
+      if (k === 'add') { const a = 1 + Math.floor(Math.random() * 8), b = 1 + Math.floor(Math.random() * (10 - a)); q = `${a} + ${b} = ?`; ans = a + b; }
+      else if (k === 'sub') { const a = 3 + Math.floor(Math.random() * 8), b = 1 + Math.floor(Math.random() * (a - 1)); q = `${a} − ${b} = ?`; ans = a - b; }
+      else { ans = 3 + Math.floor(Math.random() * 7); q = ''; }
+      board.replaceChildren(k === 'count' ? el('span', { class: 'ptw-bstars', html: Array.from({ length: ans }, () => '<i>★</i>').join('') }) : null, el('b', { dir: 'ltr' }, k === 'count' ? 'כמה כוכבים?' : q));
+      const opts = new Set([ans]); while (opts.size < 3) { const o = ans + ptwPick([-3, -2, -1, 1, 2, 3]); if (o >= 0) opts.add(o); }
+      extra.replaceChildren(el('div', { class: 'ptw-ans' }, ...ptwShuf([...opts]).map(o => el('button', { type: 'button', class: 'ptw-apple', onclick: e => {
+        if (!G.on) return;
+        if (o === ans) { add(1); PTW_SND.good(); kids.forEach((a, i) => setTimeout(() => ptwBop(a), i * 70)); cheer(ptwPick(['נכון! 🍎', 'כל הכבוד לכיתה! 👏', 'מצוין!']), '🍎'); extra.querySelectorAll('button').forEach(b => { b.disabled = true; }); e.currentTarget.classList.add('right'); setTimeout(next, 550); }
+        else { PTW_SND.bad(); e.currentTarget.disabled = true; e.currentTarget.classList.add('ptw-shake'); ptwSay(ptwPick(kids), 'המממ... 🤔', 900); }
+      } }, String(o)))));
+    };
+    next();
+  }
+  // ✉️ mail carrier: bring each letter to the house with the same sign
+  const PTW_SIGNS = [['#ff9ad5', (x, y, s) => `<path d="${pzHeart(x, y, s)}" fill="#ff5a8a" ${S2}/>`], ['#7ec8ff', (x, y, s) => `<polygon points="${starPts(x, y, s * 1.2, s * .5)}" fill="#ffcf3a" ${S2}/>`],
+    ['#ffd84d', (x, y, s) => `<path d="M${x + s * .3} ${y - s} a${s} ${s} 0 1 0 ${s * .7} ${s * 1.7} a${s * .8} ${s * .8} 0 1 1 ${-s * .7} ${-s * 1.7} Z" fill="#7a5ad8" ${S2}/>`], ['#8fe06f', (x, y, s) => `${[0, 72, 144, 216, 288].map(d => `<circle cx="${pzF(x + s * .55 * Math.cos(d * Math.PI / 180))}" cy="${pzF(y + s * .55 * Math.sin(d * Math.PI / 180))}" r="${pzF(s * .45)}" fill="#ff6b6b"/>`).join('')}<circle cx="${x}" cy="${y}" r="${pzF(s * .35)}" fill="#ffd84d"/>`]];
+  function ptwMatchRun(ctx) {
+    const { L, add, cheer, G, worker } = ctx;
+    let order = [0, 1, 2, 3], cur = 0, n = 0;
+    const houses = PTW_SIGNS.map(([col, sign], i) => {
+      const h = el('button', { type: 'button', class: 'ptw-mhouse', 'aria-label': 'בית', html: `<svg viewBox="0 0 120 120"><path d="M8 52 L60 10 L112 52 Z" fill="${pzMix(col, '#3a2b3c', .15)}" ${S}/><rect x="18" y="48" width="84" height="66" fill="${pzLight(col, .45)}" ${S}/><rect x="46" y="72" width="28" height="42" rx="12" fill="#fff" ${S2}/>${sign(60, 90, 9)}<rect x="24" y="58" width="16" height="14" rx="3" fill="#bfeaff" ${S2}/><rect x="80" y="58" width="16" height="14" rx="3" fill="#bfeaff" ${S2}/><rect x="96" y="84" width="14" height="10" rx="3" fill="#ff6b8b" ${S2}/><path d="M103 94 v20" stroke="${O}" stroke-width="2"/></svg>` });
+      h.addEventListener('click', () => deliver(i, h)); L.append(h); return h;
+    });
+    const place = () => order.forEach((hi, pos) => { houses[hi].style.left = (14 + pos * 24) + '%'; });
+    place();
+    const letter = el('div', { class: 'ptw-letter' }); L.append(letter);
+    const newLetter = () => { cur = Math.floor(Math.random() * 4); letter.innerHTML = `<svg viewBox="0 0 60 44"><rect x="3" y="3" width="54" height="38" rx="4" fill="#fff" ${S}/><path d="M3 5 L30 24 L57 5" fill="none" ${S2}/><rect x="40" y="8" width="13" height="13" rx="2" fill="${PTW_SIGNS[cur][0]}" ${S2}/>${PTW_SIGNS[cur][1](46.5, 14.5, 4.6)}</svg>`; letter.classList.remove('fly'); letter.style.left = ''; letter.style.bottom = ''; };
+    newLetter();
+    function deliver(i, h) {
+      if (!G.on || letter.classList.contains('fly')) return;
+      if (i !== cur) { PTW_SND.bad(); ptwBop(h, 'ptw-shake'); ptwSay(worker, 'לא, זה לא הבית הזה! 🤔', 900); return; }
+      add(1); PTW_SND.paper(); letter.classList.add('fly'); letter.style.left = h.style.left; letter.style.bottom = '58%';
+      setTimeout(() => { PTW_SND.good(); ptwBop(h); ptwFloat(L, parseFloat(h.style.left), 70, '💌'); n++; if (n >= 5) { order = ptwShuf(order); place(); } newLetter(); }, 420);
+      if (n % 4 === 3) cheer('עוד מכתב! 📬');
+    }
+  }
+  // 🧱 builder: tap to drop bricks and build the tallest tower
+  function ptwStackRun(ctx) {
+    const { L, add, cheer, G } = ctx, BW = 20, BH = 7.5, COLS = ['#ff6b6b', '#ffd84d', '#7ec8ff', '#b58cff', '#6fcf7f', '#ff9a3c', '#ff9ad5'];
+    const tower = el('div', { class: 'ptw-tower' }); L.append(tower);
+    const bricks = [{ x: 50 }]; let shift = 0, mv = null, dir = 1, x = 20, spd = 26, last = performance.now();
+    const brick = (bx, lv, ci, cls = '') => { const b = el('span', { class: 'ptw-brick ' + cls }); b.style.cssText = `left:${bx}%;bottom:${12.5 + lv * BH}%;width:${BW}%;height:${BH}%;background:${COLS[ci % COLS.length]}`; return b; };
+    tower.append(brick(50, 0, 0));
+    const hook = el('div', { class: 'ptw-hook' }); L.append(hook);
+    const newMover = () => { mv = brick(x, 0, bricks.length, 'mover'); mv.style.bottom = '84%'; L.append(mv); hook.style.left = x + '%'; };
+    newMover();
+    const step = t => {
+      if (!G.on || !L.isConnected) return;
+      const dt = Math.min(.05, (t - last) / 1000); last = t;
+      if (mv) { x += dir * spd * dt; if (x > 80) { x = 80; dir = -1; } if (x < 20) { x = 20; dir = 1; } mv.style.left = x + '%'; hook.style.left = x + '%'; }
+      ptwRaf = requestAnimationFrame(step);
+    };
+    ptwRaf = requestAnimationFrame(step);
+    const drop = () => {
+      if (!G.on || !mv) return;
+      const top = bricks[bricks.length - 1], i = bricks.length, m = mv; mv = null;
+      const ok = Math.abs(x - top.x) < BW * .62, yTo = 12.5 + (i - shift) * BH;
+      m.style.transition = 'bottom .32s ease-in'; m.style.bottom = (ok ? yTo : -20) + '%';
+      setTimeout(() => {
+        if (!G.on) return;
+        if (ok) {
+          m.remove(); bricks.push({ x }); tower.append(brick(x, i - shift, i)); PTW_SND.brick(); add(1); spd = Math.min(64, spd + 3.2);
+          if (Math.abs(x - top.x) < 2.5) { ptwFloat(L, x, yTo + 10, 'מושלם! ✨'); PTW_SND.good(); }
+          if (i - shift > 7) { shift++; tower.querySelectorAll('.ptw-brick').forEach(b => { b.style.bottom = (parseFloat(b.style.bottom) - BH) + '%'; }); }
+          if (bricks.length % 5 === 0) cheer('איזה מגדל! 🏗️');
+        } else { m.classList.add('ptw-fall'); PTW_SND.bad(); cheer('אופס! 🙈'); setTimeout(() => m.remove(), 500); }
+        x = dir > 0 ? 20 : 80; newMover();
+      }, 340);
+    };
+    L.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; drop(); });
+    const tapBtn = el('button', { type: 'button', class: 'btn main ptw-drop', onclick: drop }, '⬇️ להפיל לבנה'); L.append(tapBtn);
+  }
+  // 🎤 singer: repeat the melody
+  function ptwSimonRun(ctx) {
+    const { L, add, cheer, G, worker, p } = ctx, COLS = ['#ff5a8a', '#ffcf3a', '#6fcf7f', '#7ec8ff'], NAMES = ['דו', 'רה', 'מי', 'סול'];
+    const aud = ptwShuf(PTW_NB).slice(0, 5).map((nb, i) => { const a = el('div', { class: 'ptw-actor ptw-aud', html: ptwNbArt(nb) }); a.style.cssText = `left:${[5, 14, 86, 95, 23][i]}%;bottom:${[30, 24, 24, 30, 36][i]}%;width:8%`; L.append(a); return a; });
+    let seq = [], k = 0, len = 2, busy = true;
+    const pads = COLS.map((c, i) => { const b = el('button', { type: 'button', class: 'ptw-pad', style: `--pc:${c}` }, el('span', {}, '♪'), el('small', {}, NAMES[i])); b.style.left = (23 + i * 18) + '%'; b.addEventListener('pointerdown', e => { e.preventDefault(); tap(i); }); L.append(b); return b; });
+    const glow = (i, ms = 380) => { pads[i].classList.add('on'); tone(PTW_NOTES[i], ms / 1000 * .9, 'triangle', 0, .09); setTimeout(() => pads[i].classList.remove('on'), ms); ptwBop(worker, 'ptw-sing'); };
+    const play = () => { busy = true; k = 0; seq.forEach((n, j) => ptwLater(() => glow(n), 300 + j * 520)); ptwLater(() => { busy = false; ptwSay(worker, 'עכשיו את! 🎤', 1000); }, 300 + seq.length * 520); };
+    const round = () => { if (!G.on) return; seq = Array.from({ length: len }, () => Math.floor(Math.random() * 4)); ptwSay(worker, `לה לה לה~ 🎶`, 900); play(); };
+    function tap(i) {
+      if (!G.on || busy) return; glow(i, 260);
+      if (i !== seq[k]) { busy = true; PTW_SND.bad(); cheer('אופס, עוד פעם! 🎵'); ptwLater(play, 900); return; }
+      k++;
+      if (k >= seq.length) { busy = true; add(1); PTW_SND.cheer(); aud.forEach((a, j) => setTimeout(() => ptwBop(a), j * 80)); ptwFloat(L, 50, 70, '👏'); len = Math.min(8, len + 1); ptwLater(round, 900); }
+    }
+    ptwLater(round, 400);
+  }
+
+  // ================= 🏡 the shelter: care → trust → adopt =================
+  const PTW_SH_NAMES = ['שוקולד', 'פתית', 'דבשי', 'כוכבית', 'מוקה', 'ניצן', 'פופקורן', 'לימוני', 'ענני', 'גומי', 'קינמון', 'צימוקי', 'בוטן', 'טופי', 'מרשמלו', 'תותי', 'פרפרית', 'שקדי', 'נוצה', 'פיסטוק'];
+  const PTW_NEEDS = {
+    shy: ['🙈 ביישן/ית', 'play', ['נמצא/ה מתחבא/ת מתחת לספסל בפארק. קצת מפחד/ת מרעשים — צריך סבלנות ומשחק עדין 💕', 'הגיע/ה למקלט בתוך קופסת קרטון, ועדיין לא מעז/ה לצאת ממנה. אולי משחק עדין יעזור? 📦']],
+    hungry: ['🍽️ רעב/ה', 'feed', ['הגיע/ה אחרי מסע ארוך ברחובות, והבטן מקרקרת! ארוחה טובה תעשה פלאים 🍎', 'נמצא/ה ליד המאפייה מריח/ה עוגיות. ממש ממש רעב/ה 🥐']],
+    dirty: ['🛁 צריך/ה אמבטיה', 'wash', ['נמצא/ה משחק/ת בשלולית בוץ ענקית! צריך/ה אמבטיה עם הרבה בועות 🫧', 'התגלגל/ה בגינה אחרי הגשם ועכשיו מלא/ה בוץ מהאוזניים ועד הזנב 🌧️']],
+    lonely: ['💔 מתגעגע/ת לחברים', 'hug', ['גר/ה לבד הרבה זמן ומתגעגע/ת לחברים. ממש צריך/ה חיבוקים 🤗', 'הלך/ה לאיבוד בטיול ולא מצא/ה את הדרך. חיבוק חם ישמח את הלב 💗']],
+  };
+  const PTW_CARE = [['feed', '🍎 להאכיל'], ['wash', '🛁 לרחוץ'], ['play', '⚽ לשחק'], ['hug', '🤗 לחבק']];
+  let ptwShSel = null;
+  function ptwNewShelterPet() {
+    const kinds = ptwKinds().filter(k => !['fish', 'whale'].includes(k)), kind = ptwPick(kinds.length ? kinds : ['cat', 'dog']);
+    const need = ptwPick(Object.keys(PTW_NEEDS)), used = new Set([...ptw.shelter.map(a => a.name), ...ptwPets().map(p => p.name)]);
+    const name = ptwPick(PTW_SH_NAMES.filter(n => !used.has(n))) || ptwPick(PTW_SH_NAMES), age = ptwPick([5, 7, 9, 14, 20, 30]);
+    return { id: 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), kind, look: typeof petzRandomLook === 'function' ? petzRandomLook(kind) : null, color: Math.floor(Math.random() * 360),
+      name, need, story: ptwPick(PTW_NEEDS[need][2]), trust: 0, size: age < 11 ? .82 : .95, born: ptwDaysAgo(age), arrived: localToday(), fed: false, washed: need !== 'dirty' };
+  }
+  function ptwShelterArrive() {
+    const n = ptw.shelter.length ? (ptw.shelter.length < 4 ? 1 : 0) : 3;
+    for (let i = 0; i < n; i++) ptw.shelter.push(ptwNewShelterPet());
+  }
+  const ptwShPet = a => ({ kind: a.kind, look: a.look || undefined, color: a.color, size: a.size, name: a.name, id: a.id });
+  const PTW_MUD = `<g fill="#8a5a3c" opacity=".8"><ellipse cx="15" cy="40" rx="4.4" ry="3"/><ellipse cx="31" cy="44" rx="3.6" ry="2.4"/><ellipse cx="30" cy="16" rx="3" ry="2.2"/><ellipse cx="14" cy="18" rx="2.4" ry="1.8"/><circle cx="23" cy="37" r="2"/><path d="M18 46 q2 3 4 0" stroke="#6b4226" stroke-width="1.6" fill="none"/></g>`;
+  const ptwShArt = (a, mood) => petSVG(ptwShPet(a), { mood: mood || (a.trust >= 60 ? 'happy' : a.trust < 25 && a.need === 'lonely' ? 'sad' : a.trust < 25 && a.need === 'shy' ? 'sleepy' : undefined), extra: a.washed ? '' : PTW_MUD });
+  function ptwShelterBg() {
+    return `<rect width="600" height="320" fill="#fff1e0"/>${Array.from({ length: 12 }, (_, i) => `<rect x="${i * 50}" width="25" height="210" fill="#ffe6cc"/>`).join('')}<rect y="210" width="600" height="110" fill="#e8c9a0"/>`
+      + `<rect x="230" y="30" width="140" height="90" rx="10" fill="#bfe6ff" ${S}/><path d="M300 30 V120 M230 75 H370" stroke="${O}" stroke-width="3"/>${ptwCloud(268, 60, .45)}`
+      + `<rect x="40" y="40" width="130" height="50" rx="10" fill="#fff" ${S}/><text x="105" y="72" text-anchor="middle" font-size="18" fill="#ff5a8a" font-family="Rubik, sans-serif">מחכים לבית 💕</text>`
+      + `<g transform="translate(470 40)">${PTW_IC.paw}</g><g transform="translate(520 70) scale(.7)">${PTW_IC.paw}</g>`
+      + [75, 225, 375, 525].map(x => `<ellipse cx="${x}" cy="292" rx="62" ry="18" fill="#c98f5a" ${S}/><ellipse cx="${x}" cy="286" rx="50" ry="11" fill="#ffd1e6"/>`).join('');
+  }
+  function ptwShelter() {
+    const sh = ptw.shelter;
+    if (!sh.length) ptwShelterArrive(), ptwSave();
+    if (!sh.find(a => a.id === ptwShSel)) ptwShSel = sh[0] && sh[0].id;
+    const room = ptwStage(ptwSVG('0 0 600 320', ptwShelterBg()), 'ptw-shst'), L = room.lastChild;
+    sh.slice(0, 4).forEach((a, i) => {
+      const n = el('button', { type: 'button', class: 'ptw-actor ptw-shpet' + (a.id === ptwShSel ? ' sel' : '') + (a.trust >= 100 ? ' ready' : ''), 'aria-label': a.name, html: ptwShArt(a) });
+      n.style.cssText = `left:${12.5 + i * 25}%;bottom:7%;width:15%`;
+      n.append(el('span', { class: 'ptw-nm' }, `${a.name}${a.trust >= 100 ? ' 💖' : ''}`));
+      if (a.arrived === localToday()) n.append(el('span', { class: 'ptw-new' }, 'חדש/ה!'));
+      n.addEventListener('click', () => { ptwShSel = a.id; SFX.pet(a.kind); ptwDraw(); });
+      L.append(n);
+    });
+    L.append(el('div', { class: 'ptw-banner' }, sh.length ? `${sh.length} חיות מחכות לבית חם 🏡` : 'כל החיות מצאו בית! מחר יגיעו חדשות 💖'));
+    const a = sh.find(x => x.id === ptwShSel);
+    return el('div', { class: 'ptw-wrap' }, room, a ? ptwCare(a) : null,
+      el('p', { class: 'muted ptw-shfoot' }, `🐾 אימצת ${ptw.adopted || 0} חיות מהמקלט · כל יום מגיעה חיה חדשה שמחכה לבית`, ptw.hero ? el('span', { class: 'ptw-hero' }, '🦸‍♀️ גיבורת החיות') : null));
+  }
+  function ptwCare(a) {
+    const N = PTW_NEEDS[a.need], t = localToday(), used = k => (ptw.care[a.id + k] || 0);
+    const cst = ptwStage(ptwSVG('0 0 600 300', `<rect width="600" height="300" fill="#fff6fb"/><rect y="220" width="600" height="80" fill="#ffd9ec"/><ellipse cx="300" cy="240" rx="170" ry="22" fill="#ffc2dd"/>` + Array.from({ length: 8 }, (_, i) => `<path d="${pzHeart(40 + i * 74, 40 + (i % 2) * 30, 6)}" fill="#ffc2dd"/>`).join('')), 'ptw-carest'), L = cst.lastChild;
+    const big = el('div', { class: 'ptw-actor ptw-carepet', html: ptwShArt(a) }); big.style.cssText = 'left:50%;bottom:14%;width:26%'; L.append(big);
+    const box = a.need === 'shy' && a.trust < 30 ? el('div', { class: 'ptw-box', html: svg(`<path d="M4 18 H44 V46 H4 Z" fill="#d9a066" ${S}/><path d="M4 18 L0 8 L20 12 L24 18 M44 18 L48 8 L28 12 L24 18" fill="#e8b77a" ${S2}/><path d="M14 30 h20" stroke="#b07a47" stroke-width="2"/>`) }) : null;
+    if (box) L.append(box);
+    const meter = el('div', { class: 'ptw-trust' }, el('span', {}, '💗 אמון'), el('div', { class: 'ptw-tm' }, el('i')), el('b', {}, `${a.trust}%`));
+    meter.querySelector('i').style.width = a.trust + '%';
+    const say = t2 => ptwSay(big, t2, 2000);
+    ptwLater(() => say(a.trust >= 100 ? 'אני מוכן/ה ללכת הביתה איתך! 🏡' : a.trust >= 60 ? 'אני כבר ממש אוהב/ת אותך 💖' : a.need === 'shy' && a.trust < 30 ? '...(מציץ/ה מהקופסה) 👀' : ptwPick(['שלום... 🥺', 'את תהיי החברה שלי? 🐾', 'תודה שבאת 💕'])), 400);
+    const care = k => {
+      if (a.trust >= 100) return;
+      if (used(k) >= 2) { SFX.boop(); say(`מספיק ${({ feed: 'אוכל', wash: 'אמבטיות', play: 'משחקים', hug: 'חיבוקים' })[k]} להיום — מחר עוד! 😴`); return; }
+      ptw.care[a.id + k] = used(k) + 1;
+      let g = k === N[1] ? 22 : 12, msg = '';
+      if (!a.washed && k !== 'wash') { g = 6; msg = 'קודם אמבטיה... אני מלא/ה בוץ! 🛁'; }
+      else if (a.need === 'hungry' && !a.fed && k !== 'feed') { g = 6; msg = 'הבטן מקרקרת... אולי קודם אוכל? 🍽️'; }
+      else if (a.need === 'shy' && a.trust < 30 && k === 'hug') { g = 4; msg = 'עוד מתבייש/ת... אולי קודם נשחק בעדינות? 🙈'; }
+      if (k === 'wash') a.washed = true; if (k === 'feed') a.fed = true;
+      a.trust = Math.min(100, a.trust + g); ptwSave();
+      const fx = { feed: () => { SFX.munch(); const b = el('span', { class: 'ptw-prop', html: stickerHTML(ptwPick(['apple', 'cookie', 'watermelon', 'strawberry'])) }); b.style.cssText = 'left:34%;bottom:12%;width:10%'; L.append(b); setTimeout(() => b.remove(), 1600); },
+        wash: () => { PTW_SND.scrub(); for (let i = 0; i < 10; i++) setTimeout(() => ptwFloat(L, 38 + Math.random() * 24, 20 + Math.random() * 40, '🫧', 'bub'), i * 90); },
+        play: () => { PTW_SND.pop(); const b = el('span', { class: 'ptw-prop ptw-ball', html: stickerHTML('ball') }); b.style.cssText = 'left:66%;bottom:14%;width:8%'; L.append(b); setTimeout(() => b.remove(), 1600); },
+        hug: () => { for (let i = 0; i < 6; i++) setTimeout(() => ptwFloat(L, 42 + Math.random() * 16, 50 + Math.random() * 20, '💗'), i * 120); } };
+      fx[k](); SFX.pet(a.kind); ptwBop(big);
+      ptwLater(() => ptwDraw(), 1250);
+      toast(svg(PTW_IC.heart), msg || `${a.name}: ${g >= 20 ? 'בדיוק מה שהייתי צריך/ה!! 💖' : 'תודה! 😊'} (+${g} אמון)`);
+      if (a.trust >= 100) { ptwCoin('trust', 5, `${a.name} סומך/ת עלייך 💗`, 3); ptwLater(() => { try { confetti($('#ptwDlg .confetti-c')); } catch {} SFX.yay(); }, 300); }
+    };
+    const acts = el('div', { class: 'ptw-care' }, ...PTW_CARE.map(([k, n]) => el('button', { type: 'button', class: 'btn' + (k === N[1] ? ' need' : ''), disabled: a.trust >= 100, onclick: () => care(k) }, n, el('small', {}, used(k) >= 2 ? 'מחר' : `${2 - used(k)}/2`))));
+    const adopt = a.trust >= 100 ? ptwAdoptBox(a) : null;
+    return el('div', { class: 'ptw-carebox' }, cst,
+      el('div', { class: 'ptw-careinfo' }, el('b', { class: 'ptw-shname' }, `${a.name} · ${typeof petzKindName === 'function' ? petzKindName(a.kind) : ''}`), el('span', { class: 'ptw-needtag' }, N[0]),
+        el('p', {}, `${a.name} ${a.story}`), meter, adopt || acts, adopt ? null : el('p', { class: 'muted', style: 'margin:0' }, `💡 מה ש${a.name} הכי צריך/ה: ${PTW_CARE.find(c => c[0] === N[1])[1]}`)));
+  }
+  function ptwAdoptBox(a) {
+    const inp = el('input', { type: 'text', id: 'ptwAdoptName', maxLength: 20, value: a.name, 'aria-label': 'שם' });
+    const go = () => {
+      const nm = inp.value.trim() || a.name, t = localToday();
+      const np = { v: 2, kind: a.kind, color: a.look ? 0 : a.color, size: a.size, look: a.look ? Object.assign({}, a.look, { v: 1 }) : undefined, name: nm, wear: {}, house: { bg: typeof defaultBg === 'function' ? defaultBg(a.kind) : 'room', hidden: [] },
+        fed: { [t]: 1 }, played: {}, onboarded: true, born: a.born, fromShelter: t };
+      if (!np.look) delete np.look;
+      try {
+        const newId = typeof petzId === 'function' ? petzId() : 'p' + Date.now().toString(36);
+        if (!pet || !pet.onboarded) { np.id = newId; pet = np; savePet(); if (typeof petzSave === 'function') petzSave(); }
+        else { if (typeof petzSync === 'function') petzSync(); np.id = newId; petzList.push(np); store.set('pets', petzList); }
+      } catch (e) { toast(svg(PTW_IC.heart), 'אופס, משהו השתבש באימוץ'); return; }
+      ptw.shelter = ptw.shelter.filter(x => x.id !== a.id); ptw.adopted = (ptw.adopted || 0) + 1;
+      const firstHero = !ptw.hero; ptw.hero = true; ptwShSel = null; ptwSave();
+      ptwCoin('adopt', 15, `אימצת את ${nm} מהמקלט 🏡`, 2);
+      if (firstHero) setTimeout(() => toast(svg(PTW_IC.heart), 'קיבלת תג: 🦸‍♀️ גיבורת החיות!'), 2600);
+      try { renderPet(); if (typeof afterChange === 'function') afterChange(); } catch {}
+      ptwGo('welcome', np.id);
+    };
+    return el('div', { class: 'ptw-adopt' }, el('b', {}, `💖 ${a.name} סומך/ת עלייך לגמרי!`), el('label', { for: 'ptwAdoptName' }, 'איך יקראו לו/ה בבית? (אפשר להשאיר)'), inp,
+      el('button', { type: 'button', class: 'btn main ptw-bigbtn', onclick: go }, `🏡 לאמץ את ${a.name} הביתה!`));
+  }
+  function ptwWelcome(id) {
+    const all = ptwPets(), np = all.find(p => p.id === id); if (!np) return ptwShelter();
+    const others = all.filter(p => p.id !== id).slice(0, 10), N = others.length;
+    $('#ptwTitle').textContent = `🏡 ברוכ/ה הבא/ה הביתה, ${ptwNm(np)}!`; $('#ptwSub').textContent = 'כל המשפחה מחכה ליד הדלת';
+    const bg = ptwSky('#ffe0f0', '#fff8e6') + ptwCloud(100, 50) + ptwCloud(500, 40, .9) + `<rect y="250" width="600" height="70" fill="#9fe0a0"/>` + ptwHouse(200, 110, 200, 150, '#ffd1e6', '#ff7a9a', { chim: 1, heart: '#fff', door: '#b58cff' })
+      + Array.from({ length: 9 }, (_, i) => `<path d="M${i * 70} 0 L${i * 70 + 35} 30 L${i * 70 + 70} 0" fill="${['#ff9ad5', '#ffd84d', '#7ec8ff', '#b58cff', '#6fcf7f'][i % 5]}" ${S2}/>`).join('')
+      + `<rect x="210" y="84" width="180" height="30" rx="15" fill="#fff" ${S}/><text x="300" y="106" text-anchor="middle" font-size="18" fill="#ff5a8a" font-family="Rubik, sans-serif">ברוכ/ה הבא/ה! 💕</text>`
+      + [[40, 300, '#ff9ad5'], [120, 296, '#ffd84d'], [480, 300, '#b58cff'], [560, 296, '#ff6b6b']].map(([x, y, c]) => ptwFlower(x, y, c)).join('');
+    const st = ptwStage(ptwSVG('0 0 600 320', bg), 'ptw-welst'), L = st.lastChild, w = Math.max(8, Math.min(13, 60 / Math.max(1, N + 1)));
+    const A = others.map((p, i) => { const left = i % 2 === 0; const k = Math.floor(i / 2); const a = ptwActor(p, left ? 30 - k * w * .8 : 70 + k * w * .8, 4 + (k % 2) * 3, w, { mood: 'happy' }); L.append(a); return a; });
+    const hero = ptwActor(np, 112, 4, w * 1.25, { label: true, cls: 'ptw-arrive' }); L.append(hero);
+    const banner = el('div', { class: 'ptw-banner' }, `${ptwNm(np)} מגיע/ה הביתה... 🐾`); L.append(banner);
+    requestAnimationFrame(() => requestAnimationFrame(() => { hero.style.left = '50%'; }));
+    SFX.pet(np.kind);
+    ptwLater(() => {
+      PTW_SND.home(); banner.textContent = all.length > 1 ? `${ptwNm(np)} הצטרף/ה למשפחה! עכשיו יש ${all.length} חיות בבית 💖` : `${ptwNm(np)} בבית! המשפחה שלך התחילה 💖`;
+      try { confetti($('#ptwDlg .confetti-c')); } catch {}
+      ptwBop(hero); ptwSay(hero, 'יש לי בית!! 🏡💖', 3000);
+      A.forEach((a, i) => ptwLater(() => { ptwBop(a); ptwFloat(L, parseFloat(a.style.left), 30, ptwPick(['💖', '🎉', '🥳', '✨'])); SFX.pet(others[i].kind); }, 200 + i * 150));
+    }, 2300);
+    return el('div', { class: 'ptw-wrap' }, st, el('div', { class: 'chips' },
+      el('button', { type: 'button', class: 'btn main', onclick: () => { if (typeof openHouse === 'function') openHouse(); } }, '🏠 לבית של כל החיות'),
+      el('button', { type: 'button', class: 'btn', onclick: () => { ptwPickFor = np.id; ptwGo('jobs'); } }, `💼 לבחור ל${ptwNm(np)} עבודה`),
+      el('button', { type: 'button', class: 'btn', onclick: () => ptwGo('shelter') }, '🐾 חזרה למקלט')));
+  }
+
+  // ================= 💌 mailbox and 👫 neighbors =================
+  let ptwMailOpen = null;
+  function ptwMailTab() {
+    const list = ptw.mail;
+    if (!list.length) return el('p', { class: 'ptw-empty' }, 'התיבה ריקה... מחר יגיע מכתב! 📭');
+    const m = list.find(x => x.id === ptwMailOpen) || list.find(x => !x.read) || list[0];
+    if (!m.read) { m.read = true; ptwSave(); PTW_SND.paper(); }
+    ptwMailOpen = m.id;
+    const nb = ptwNb(m.from) || PTW_NB[0];
+    const paper = el('div', { class: 'ptw-paper' }, el('div', { class: 'ptw-pface', html: ptwNbArt(nb, { mood: 'happy' }) }), el('b', {}, `מכתב מ${nb.n}`), el('p', {}, m.text), el('span', { class: 'ptw-sign' }, `באהבה, ${nb.n} 💌`),
+      m.gift && !m.got ? el('button', { type: 'button', class: 'btn main', onclick: e => { m.got = true; ptwSave(); PTW_SND.cash(); if (typeof addCoins === 'function') addCoins(m.gift, `מתנה במכתב מ${nb.n} 💌`); e.currentTarget.replaceWith(el('span', { class: 'ptw-ok' }, `+${m.gift} 🪙 תודה ${nb.n}!`)); } }, `🎁 יש מתנה במעטפה! (${m.gift} 🪙)`) : null);
+    const side = el('div', { class: 'ptw-mlist' }, ...list.map(x => { const n = ptwNb(x.from) || PTW_NB[0]; return el('button', { type: 'button', class: 'ptw-mitem' + (x.id === m.id ? ' on' : '') + (x.read ? '' : ' unread'), onclick: () => { ptwMailOpen = x.id; ptwDraw(); } },
+      el('span', { class: 'ptw-mface', html: ptwNbArt(n) }), el('span', {}, el('b', {}, n.n), el('small', {}, x.text.slice(0, 34) + '…')), x.gift && !x.got ? el('span', {}, '🎁') : null); }));
+    return el('div', { class: 'ptw-mail' }, paper, side);
+  }
+  function ptwFriends() {
+    return el('div', { class: 'ptw-wrap' }, el('p', { class: 'muted', style: 'margin:0' }, 'עוזרים לשכנים (הבקשות במפה ❗), מקבלים אותם לביקור ומכירים — 5 לבבות = חברים הכי טובים!'),
+      el('div', { class: 'ptw-fgrid' }, ...PTW_NB.map(nb => {
+        const h = ptwHearts(nb.id), c = el('button', { type: 'button', class: 'ptw-fcard' + (h >= 5 ? ' best' : '') },
+          el('span', { class: 'ptw-fart', html: ptwNbArt(nb, { mood: h >= 3 ? 'happy' : undefined }) }), el('b', {}, nb.n), el('span', { class: 'ptw-hrow' }, ptwHeartRow(nb.id)), el('small', {}, nb.blurb), h >= 5 ? el('span', { class: 'ptw-bff' }, '💞 חברים הכי טובים') : null);
+        c.addEventListener('click', () => { SFX.pet(ptwNbPet(nb).kind); ptwBop(c.firstChild); ptwSay(c, nb.line, 1800); });
+        return c;
+      })));
+  }
+
+  // ---------- hooks: the house (a row of buttons + job badges on every pet in the home), MORE tiles, closing ----------
+  const PTW_HBTNS = [['🏘️ השכונה', 'map'], ['💼 עבודות', 'jobs'], ['🐾 מקלט', 'shelter'], ['💌 דואר', 'mail']];
+  const ptwHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    ptwHouse0(mode, say);
+    try {
+      const tabs = $('#houseTabs'); if (!tabs) return;
+      let bar = $('#ptwHouseBar');
+      if (!bar) { bar = el('div', { id: 'ptwHouseBar', class: 'ptw-housebar' }); tabs.before(bar); }
+      const un = ptwUnread();
+      bar.replaceChildren(el('span', { class: 'lbl' }, '🏘️ בשכונה:'), ...PTW_HBTNS.map(([n, id]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); ptwOpen(id); } }, n, id === 'mail' && un ? el('b', { class: 'ptw-badge' }, String(un)) : null)));
+    } catch {}
+  };
+  if (typeof pz5Home === 'function') {
+    const ptwHome0 = pz5Home;
+    pz5Home = function () {
+      const box = ptwHome0.apply(this, arguments);
+      try {
+        const nodes = box && box.querySelectorAll ? [...box.querySelectorAll('.pz5-hpet')] : [], list = allPets().slice(0, 14);
+        nodes.forEach((n, i) => { const p = list[i], j = p && ptwJob(ptw.jobs[p.id]); if (!j) return; n.append(el('span', { class: 'ptw-jbadge', title: `${ptwNm(p)} — ${j[1]}`, style: `--jc:${j[3]}` }, j[2])); });
+      } catch {}
+      return box;
+    };
+  }
+  { const d = $('#ptwDlg'); if (d) d.addEventListener('close', () => { ptwStop(); try { if ($('#houseDlg').open) drawHouse(); renderPet(); } catch {} }); }
+  [['backpack', 'העבודות של החיות 💼', () => ptwOpen('jobs')], ['tree', 'השכונה של החיות 🏘️', () => ptwOpen('map')], ['rainbowheart', 'המקלט של החיות 🐾', () => ptwOpen('shelter')], ['gift', 'השכנים של החיות 💌', () => ptwOpen('friends')]]
+    .forEach(t => { if (!MORE.some(m => m[1] === t[1])) MORE.push(t); });
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
