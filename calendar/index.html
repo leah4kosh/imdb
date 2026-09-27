@@ -4355,6 +4355,223 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
 @media (prefers-reduced-motion: reduce) {
   .dmv-mile.got, .dmv-pin.sel, .dcin-kern, .dkar-beam, .dcin-hall.play .dcin-star, .dkar-stage.on .dkar-d { animation: none !important; }
 }
+/* ===== School for Good & Evil (gschool) ===== */
+#gsDlg { --gs-good: #ff5f9e; --gs-evil: #7a4fbf; --gs-gl: #fff0f6; --gs-el: #f1eaff; }
+.gs-body { display: grid; gap: 10px; }
+.gs-pane { display: grid; gap: 10px; min-width: 0; }
+.gs-tabs button { font-weight: 600; }
+.gs-score { display: flex; align-items: center; justify-content: center; gap: 10px; font-size: .95em; }
+.gs-pill { border-radius: 999px; padding: 2px 14px; font-weight: 700; color: #fff; min-width: 64px; text-align: center; }
+.gs-pill.gs-good { background: linear-gradient(135deg, #ff8fbd, #ff5f9e); }
+.gs-pill.gs-evil { background: linear-gradient(135deg, #9b6be0, #5a3a8a); }
+.gs-vs { color: var(--soft); font-size: .85em; }
+.gs-scene { border-radius: 18px; overflow: hidden; border: 3px solid #3a2b3c; box-shadow: 0 6px 20px rgba(90, 40, 120, .18); touch-action: none; user-select: none; background: #2d2060; }
+.gs-scene > svg { display: block; width: 100%; height: auto; }
+.gs-it { cursor: grab; }
+.gs-it.sel { filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px #ff5f9e); }
+.gs-castle { cursor: pointer; }
+.gs-flag { animation: gs-flap 2.4s ease-in-out infinite; transform-box: view-box; }
+@keyframes gs-flap { 50% { transform: skewY(-6deg); } }
+.gs-float { animation: gs-float 3s ease-in-out infinite; }
+@keyframes gs-float { 50% { transform: translateY(-6px); } }
+.gs-twinkle { animation: gs-tw 1.8s ease-in-out infinite; }
+@keyframes gs-tw { 50% { opacity: .25; } }
+.gs-tools { min-height: 40px; align-items: center; }
+.gs-hint { color: var(--soft); font-size: .9em; }
+.gs-lbl { font-weight: 600; font-size: .92em; }
+.gs-pal { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 6px; max-height: 176px; overflow-y: auto; padding: 2px; }
+.gs-pal button { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 4px 2px; display: grid; justify-items: center; gap: 1px; font-size: .74em; line-height: 1.15; touch-action: pan-y; color: inherit; }
+.gs-pal button[aria-pressed="true"] { border-color: var(--gs-good); background: var(--gs-gl); box-shadow: 0 0 0 2px var(--gs-good) inset; }
+.gs-pal .ic { width: 40px; height: 40px; display: grid; place-items: center; font-size: 26px; }
+.gs-pal .ic > svg { width: 100%; height: 100%; overflow: visible; }
+.gs-ghost { position: fixed; width: 64px; height: 64px; margin: -32px 0 0 -32px; pointer-events: none; z-index: 99; filter: drop-shadow(0 4px 6px rgba(0,0,0,.3)); }
+.gs-ghost > svg { width: 100%; height: 100%; overflow: visible; }
+.gs-box { border: 2px dashed var(--line); border-radius: 16px; padding: 8px 10px; display: grid; gap: 6px; background: var(--card); }
+.gs-box > summary { font-weight: 700; cursor: pointer; }
+.gs-row { align-items: center; gap: 5px; }
+.gs-row .lbl { font-weight: 600; min-width: 5.5em; font-size: .9em; }
+.gs-row .chip { font-size: .86em; }
+.gs-sw { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(0,0,0,.25); padding: 0; cursor: pointer; }
+.gs-sw[aria-pressed="true"] { outline: 3px solid var(--gs-good); outline-offset: 2px; }
+.gs-sides { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.gs-sides .lbl { font-weight: 700; }
+.gs-side { border: 2px solid var(--line); border-radius: 999px; padding: 5px 16px; font-weight: 700; background: var(--card); color: inherit; }
+.gs-side.gs-good[aria-pressed="true"] { background: linear-gradient(135deg, #ffd1e3, #ffe9a8); border-color: var(--gs-good); color: #8a1f4f; }
+.gs-side.gs-evil[aria-pressed="true"] { background: linear-gradient(135deg, #5a3a8a, #2e2340); border-color: #b98cff; color: #fff; }
+.gs-uni { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 12px; align-items: start; }
+.gs-uni-stage { display: grid; grid-template-columns: 1fr 76px; gap: 8px; align-items: start; }
+.gs-uni-big { border-radius: 18px; border: 3px solid #3a2b3c; aspect-ratio: 1 / 2; overflow: hidden; }
+.gs-uni-big.gs-good { background: radial-gradient(circle at 50% 30%, #fff 0, #ffe0ec 55%, #ffc2d9 100%); }
+.gs-uni-big.gs-evil { background: radial-gradient(circle at 50% 30%, #8a6cc0 0, #4a3570 60%, #2e2340 100%); }
+.gs-uni-big > svg, .gs-uni-mini > svg { width: 100%; height: 100%; display: block; }
+.gs-uni-other { display: grid; gap: 4px; font-size: .78em; color: var(--soft); text-align: center; }
+.gs-uni-mini { aspect-ratio: 1 / 2; border-radius: 12px; background: var(--gs-el); border: 2px solid var(--line); }
+.gs-girls { display: flex; gap: 6px; overflow-x: auto; padding: 2px; align-items: center; }
+.gs-girls .lbl { font-weight: 700; white-space: nowrap; }
+.gs-gbtn { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 3px; display: grid; justify-items: center; min-width: 62px; font-size: .75em; color: inherit; }
+.gs-gbtn[aria-pressed="true"] { border-color: var(--gs-good); box-shadow: 0 0 0 2px var(--gs-good) inset; }
+.gs-gbtn.gs-in-evil[aria-pressed="true"] { border-color: var(--gs-evil); box-shadow: 0 0 0 2px var(--gs-evil) inset; }
+.gs-face { width: 50px; height: 50px; display: block; }
+.gs-face > svg { width: 100%; height: 100%; }
+/* sorting ceremony */
+.gs-cer-top { display: flex; align-items: center; gap: 10px; }
+.gs-owl { width: 86px; flex: none; animation: gs-float 3s ease-in-out infinite; }
+.gs-owl.sm { width: 60px; display: inline-block; }
+.gs-owl > svg { width: 100%; display: block; }
+.gs-bubble { position: relative; background: var(--card); border: 2px solid #3a2b3c; border-radius: 18px; padding: 8px 14px; display: grid; gap: 2px; flex: 1; box-shadow: 0 3px 0 rgba(58,43,60,.15); }
+.gs-bubble b { font-size: 1.12em; }
+.gs-bubble small { color: var(--soft); }
+.gs-cand { width: 96px; height: 96px; flex: none; border-radius: 50%; background: linear-gradient(135deg, #ffd1e3, #d7b8ff); border: 3px solid #3a2b3c; overflow: hidden; display: grid; place-items: center; }
+.gs-cand > svg { width: 100%; height: 100%; }
+.gs-cer { display: grid; gap: 12px; }
+.gs-answers { display: grid; gap: 8px; }
+.gs-ans { font-size: 1.05em; padding: 10px 14px; text-align: start; border-radius: 16px; }
+.gs-ans:hover { background: linear-gradient(90deg, var(--gs-gl), var(--gs-el)); }
+.gs-dots { display: flex; gap: 6px; justify-content: center; }
+.gs-dots span { width: 12px; height: 12px; border-radius: 50%; background: var(--line); }
+.gs-dots span.on { background: linear-gradient(135deg, var(--gs-good), var(--gs-evil)); }
+.gs-swirl-stage { position: relative; min-height: 300px; place-items: center; border-radius: 20px; background: radial-gradient(circle, #fff 0, #ffd1e3 35%, #6b4aa8 100%); overflow: hidden; }
+.gs-swirl { position: absolute; width: 300px; height: 300px; left: 50%; top: 50%; margin: -150px 0 0 -150px; animation: gs-spin 1.2s linear infinite; }
+.gs-swirl > svg { width: 100%; height: 100%; }
+.gs-spin { position: relative; width: 130px; height: 130px; animation: gs-wob 2.6s ease-in-out; z-index: 1; }
+@keyframes gs-spin { to { transform: rotate(360deg); } }
+@keyframes gs-wob { 0% { transform: scale(1) rotate(0); } 40% { transform: scale(.8) rotate(540deg); } 80% { transform: scale(1.1) rotate(1080deg); } 100% { transform: scale(1) rotate(1080deg); } }
+.gs-think { position: relative; z-index: 1; color: #fff; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,.4); align-self: end; margin: 0; }
+.gs-result { grid-template-columns: 150px 1fr; align-items: center; border-radius: 20px; padding: 12px; animation: gs-pop .5s ease-out; }
+.gs-result.gs-good { background: linear-gradient(135deg, #fff0f6, #ffe9a8); }
+.gs-result.gs-evil { background: linear-gradient(135deg, #4a3570, #2e2340); color: #fff; }
+.gs-result.gs-both { background: linear-gradient(135deg, #ffd1e3, #c9a6ff); }
+.gs-result h3 { margin: 4px 0; }
+.gs-result .btn:not(.main), .gs-ball ~ .chips .btn:not(.main) { color: var(--ink); background: var(--card); }
+.gs-res-art { aspect-ratio: 1 / 2; max-height: 300px; }
+.gs-res-art > svg { width: 100%; height: 100%; }
+@keyframes gs-pop { from { transform: scale(.7); opacity: 0; } }
+.gs-stus { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.gs-stu { border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 6px; display: grid; justify-items: center; gap: 1px; color: inherit; }
+.gs-stu .gs-face { width: 64px; height: 64px; }
+.gs-stu small { color: var(--soft); font-size: .72em; }
+.gs-stu.gs-in-good { border-color: #ff8fbd; background: var(--gs-gl); }
+.gs-stu.gs-in-evil { border-color: #9b6be0; background: var(--gs-el); }
+.gs-stu.gs-in-both { border-color: #c98fe0; background: linear-gradient(135deg, var(--gs-gl), var(--gs-el)); }
+.gs-h { margin: 6px 0 0; }
+.gs-roster { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.gs-col { border-radius: 16px; padding: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-content: flex-start; min-height: 110px; }
+.gs-col h4 { width: 100%; margin: 0 0 2px; text-align: center; }
+.gs-col.gs-good { background: linear-gradient(180deg, #ffe0ec, #fff4d6); }
+.gs-col.gs-evil { background: linear-gradient(180deg, #4a3570, #2e2340); color: #fff; }
+.gs-col.gs-both { background: linear-gradient(180deg, #ffd1e3, #d7b8ff); }
+.gs-rost { display: grid; justify-items: center; width: 72px; font-size: .78em; }
+.gs-rart { width: 66px; height: 90px; display: block; }
+.gs-rart > svg { width: 100%; height: 100%; }
+/* classes */
+.gs-classes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.gs-cls { border: 3px solid #3a2b3c; border-radius: 18px; padding: 12px 8px; display: grid; justify-items: center; gap: 2px; color: #3a2b3c; box-shadow: 0 4px 0 rgba(58,43,60,.2); transition: transform .15s; }
+.gs-cls:hover { transform: translateY(-2px) rotate(-1deg); }
+.gs-cls.gs-good { background: linear-gradient(135deg, #ffe0ec, #fff1c2); }
+.gs-cls.gs-evil { background: linear-gradient(135deg, #5a3a8a, #2e2340); color: #fff; }
+.gs-cls.gs-both { background: linear-gradient(135deg, #ffd1e3, #d7b8ff); }
+.gs-cls-ic { font-size: 2.2em; }
+.gs-cls small { opacity: .8; }
+.gs-lesson-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.gs-lesson-head h4 { margin: 0; font-size: 1.2em; }
+.gs-lesson { display: grid; gap: 10px; }
+.gs-charm { position: relative; height: 280px; border-radius: 20px; background: radial-gradient(circle at 50% 60%, #fff 0, #ffd1e3 50%, #ffb3cf 100%); border: 3px solid #3a2b3c; overflow: hidden; touch-action: none; }
+.gs-charm-who { position: absolute; left: 50%; top: 50%; width: 150px; height: 208px; transform: translate(-50%, -50%); }
+.gs-charm-who > svg, .gs-laugh-who > svg { width: 100%; height: 100%; }
+.gs-sp { position: absolute; width: 46px; height: 46px; margin: -23px; border: 0; background: none; padding: 0; animation: gs-spin 2s linear infinite, gs-in .3s ease-out; cursor: pointer; }
+.gs-sp > svg { width: 100%; height: 100%; filter: drop-shadow(0 0 4px #fff); }
+.gs-sp.pop { animation: gs-out .25s forwards; }
+@keyframes gs-in { from { transform: scale(0); } }
+@keyframes gs-out { to { transform: scale(2); opacity: 0; } }
+.gs-laugh { display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #4a3570, #2e2340); border-radius: 20px; padding: 10px; }
+.gs-laugh-who { width: 120px; height: 166px; flex: none; }
+.gs-laugh-who.shake { animation: gs-shake .5s 3; }
+@keyframes gs-shake { 25% { transform: rotate(-6deg) translateY(-4px); } 75% { transform: rotate(6deg) translateY(-4px); } }
+.gs-evil-b { font-size: 1.4em; font-weight: 800; color: #5a3a8a; word-break: break-word; }
+.gs-meter { font-weight: 700; }
+.gs-sy .btn { font-size: 1.2em; min-width: 64px; }
+.gs-potion { display: grid; grid-template-columns: 220px 1fr; gap: 12px; align-items: center; }
+.gs-pot > svg { width: 100%; display: block; }
+.gs-pot.poof { animation: gs-shake .4s 2; }
+.gs-bub { animation: gs-rise 1.4s ease-in infinite; }
+@keyframes gs-rise { to { transform: translateY(-16px); opacity: 0; } }
+.gs-recipe { background: #fff8e6; border: 2px solid #c9a27e; border-radius: 14px; padding: 10px 14px; display: grid; gap: 6px; color: #5a3a20; }
+.gs-steps { display: grid; gap: 4px; }
+.gs-steps span.done { text-decoration: line-through; opacity: .55; }
+.gs-steps span.done::after { content: ' ✔️'; }
+.gs-ings { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; }
+.gs-ing { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 6px 2px; display: grid; justify-items: center; color: inherit; }
+.gs-ing-e { font-size: 1.8em; }
+.gs-ing small { font-size: .76em; }
+.gs-animal { display: flex; align-items: center; gap: 12px; }
+.gs-petart { position: relative; width: 130px; height: 150px; flex: none; display: block; }
+.gs-petart > svg { width: 100%; height: 100%; }
+.gs-hop { animation: gs-hop .5s 2; }
+@keyframes gs-hop { 50% { transform: translateY(-14px); } }
+.gs-hearts { position: absolute; top: -8px; left: 0; right: 0; text-align: center; animation: gs-rise 1s forwards; }
+.gs-pets-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; }
+.gs-pets-row .gs-petart { width: 90px; height: 100px; }
+.gs-done { display: grid; gap: 10px; justify-items: center; text-align: center; }
+.gs-wand { display: grid; grid-template-columns: 220px 1fr; gap: 12px; align-items: start; }
+.gs-wand-prev { border-radius: 20px; background: radial-gradient(circle, #fff 0, #e9dcff 60%, #c9a6ff 100%); border: 3px solid #3a2b3c; }
+.gs-wand-prev > svg { width: 100%; display: block; }
+.gs-wand-prev.wave > svg > g:first-of-type { animation: gs-wave .9s ease-in-out; transform-origin: 50% 90%; transform-box: view-box; }
+.gs-wand-prev.wave .gs-wand-sp { animation: gs-burst .9s ease-out; transform-origin: center; transform-box: fill-box; }
+@keyframes gs-wave { 30% { transform: rotate(-25deg); } 65% { transform: rotate(18deg); } }
+@keyframes gs-burst { 0% { transform: scale(.3); opacity: 0; } 50% { transform: scale(1.5); opacity: 1; } }
+.gs-wands { display: flex; flex-wrap: wrap; gap: 6px; }
+.gs-wand-mini { width: 64px; height: 64px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); padding: 2px; }
+.gs-wand-mini > svg { width: 100%; height: 100%; }
+.gs-scroll { background: linear-gradient(#fff8e6, #fbeccb); border: 2px solid #c9a27e; border-radius: 6px 22px 6px 22px; padding: 12px 16px; color: #5a3a20; box-shadow: inset 0 0 20px rgba(160, 110, 40, .15); }
+.gs-tale-txt { margin: 0; font-size: 1.08em; line-height: 1.6; }
+.gs-tale-more { width: 100%; box-sizing: border-box; border-radius: 12px; border: 2px solid var(--line); padding: 8px; font: inherit; background: var(--card); color: inherit; }
+.gs-tales { display: grid; gap: 6px; }
+.gs-tale { border: 2px solid var(--line); border-radius: 12px; padding: 6px 10px; background: var(--card); }
+.gs-tale summary { cursor: pointer; font-weight: 600; }
+/* points & ball */
+.gs-jars { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: end; }
+.gs-jar { display: grid; justify-items: center; gap: 2px; }
+.gs-jar span { width: 120px; display: block; }
+.gs-jar span > svg { width: 100%; display: block; }
+.gs-jar b { font-size: 1.4em; }
+.gs-lead { text-align: center; display: grid; gap: 4px; align-self: center; }
+.gs-lead b { font-size: 1.15em; }
+.gs-ballbtn { font-size: 1.25em; padding: 10px 26px; animation: gs-float 1.6s ease-in-out infinite; }
+.gs-shelf { display: flex; flex-wrap: wrap; gap: 12px; padding: 10px 12px 6px; border-radius: 14px 14px 6px 6px; background: linear-gradient(#fff8ef, #f3e3cc); border-bottom: 12px solid #b8835a; color: #5a3a20; }
+.gs-tro { display: grid; justify-items: center; font-size: .75em; }
+.gs-tro span { width: 60px; display: block; }
+.gs-tro span > svg { width: 100%; }
+.gs-log { margin: 0; padding-inline-start: 18px; display: grid; gap: 3px; font-size: .92em; }
+.gs-log .gs-good { color: #d63a7e; }
+.gs-log .gs-evil { color: #7a4fbf; }
+.gs-log .gs-both { color: #a24fb8; }
+.gs-ball { position: relative; border-radius: 22px; overflow: hidden; padding: 70px 12px 16px; display: grid; justify-items: center; gap: 6px; color: #fff; text-align: center;
+  background: radial-gradient(ellipse at 50% 100%, #ff8fbd55 0, transparent 60%), linear-gradient(180deg, #1c1440, #4a2f7a 60%, #8a4fa8); border: 3px solid #3a2b3c; }
+.gs-ball h3 { margin: 0; font-size: 1.6em; text-shadow: 0 2px 8px #ff5f9e; }
+.gs-ball-lights { position: absolute; top: 0; left: 0; right: 0; height: 90px; }
+.gs-ball-lights > svg { width: 100%; height: 100%; }
+.gs-ball-tro { width: 110px; animation: gs-float 2s ease-in-out infinite; }
+.gs-ball-tro > svg { width: 100%; }
+.gs-ball-msg { font-size: 1.2em; }
+.gs-ball-floor { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 4px; padding: 10px; width: 100%; box-sizing: border-box; border-radius: 50% 50% 16px 16px / 20px 20px 16px 16px; background: repeating-linear-gradient(90deg, #ffffff22 0 30px, #ffffff08 30px 60px); }
+.gs-dancer { width: 90px; height: 180px; display: block; animation: gs-dance .9s ease-in-out infinite alternate; transform-origin: 50% 100%; }
+.gs-dancer.pet { width: 80px; height: 86px; }
+.gs-dancer > svg { width: 100%; height: 100%; }
+@keyframes gs-dance { from { transform: rotate(-6deg) translateY(0); } to { transform: rotate(6deg) translateY(-8px); } }
+.gs-plus { position: fixed; left: 50%; top: 40%; transform: translate(-50%, 0); z-index: 100; font-size: 2em; font-weight: 800; pointer-events: none; animation: gs-plus 1.6s ease-out forwards; text-shadow: 0 2px 0 #fff, 0 0 12px #fff; }
+.gs-plus.gs-good { color: #ff3f8e; } .gs-plus.gs-evil { color: #6b3fb0; } .gs-plus.gs-both { color: #a24fb8; }
+@keyframes gs-plus { 0% { opacity: 0; transform: translate(-50%, 20px) scale(.6); } 20% { opacity: 1; transform: translate(-50%, 0) scale(1.1); } 100% { opacity: 0; transform: translate(-50%, -60px) scale(1); } }
+@media (max-width: 640px) {
+  .gs-uni, .gs-potion, .gs-wand { grid-template-columns: 1fr; }
+  .gs-uni-stage { max-width: 320px; margin: 0 auto; }
+  .gs-roster { grid-template-columns: 1fr; }
+  .gs-result { grid-template-columns: 100px 1fr; }
+  .gs-owl { width: 64px; } .gs-cand { width: 72px; height: 72px; }
+  .gs-jar span { width: 90px; }
+  .gs-potion .gs-pot { max-width: 170px; margin: 0 auto; }
+  .gs-wand-prev { max-width: 220px; margin: 0 auto; }
+}
+@media (prefers-reduced-motion: reduce) { #gsDlg *, .gs-plus { animation: none !important; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -5600,6 +5817,19 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="dkarBody"></div>
+  </div>
+</dialog>
+
+
+<!-- School for Good & Evil (gschool) -->
+<dialog id="gsDlg" aria-labelledby="gsTitle" style="width:min(960px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="gsTitle">🏰 בית הספר לטוב ולרע</h3><div class="sub">מעצבים טירות, מדים וחדרים, ממיינים את הבנות והחיות, לומדים קסמים ואוספים נקודות לבית!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="gsBody" class="gs-body"></div>
   </div>
 </dialog>
 
@@ -8859,6 +9089,8 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
     ['panda', 'המשפחות של החיות', () => { houseTab = 'family'; openHouse(); }],
     ['cat', 'לעצב חיה משלי', () => pz5OpenBuilder()],
     ['heart', 'כל החיות ביחד בבית', () => { houseTab = 'together'; openHouse(); }],
+    ['castle', 'בית הספר לטוב ולרע', () => openGSchool()],
+    ['trophy', 'טקס המיון לטוב ולרע', () => openGSchool('sort')],
         ['egg', 'גורים של החיות', () => openLife('babies')],
         ['smiley', 'איך החיות מרגישות', () => openLife('ages')],
         ['magicmoon', 'מה החיות חולמות', () => openLife('dreams')],
@@ -8877,7 +9109,7 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
     ['fashion', '👗 אופנה ויופי', ['צ\'אט', 'ריקוד', 'אופנה', 'ציפורניים', 'צילום', 'בובות', 'מספרה', 'ספא', 'תכשיטים', 'נשף', 'חנות', 'מלכות']],
     ['pets', '🐾 החיות', ['דרקונים', 'פיות', 'חיה', 'חיית', 'החיות', 'בנות הים', 'וטרינר', 'אמבטיה']],
     ['games', '🎮 משחקים', ['משחקים']],
-    ['worlds', '🌱 עולמות', ['בית הקפה', 'מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום']],
+    ['worlds', '🌱 עולמות', ['בית הקפה', 'מתחת למים', 'גינה', 'פרפרים', 'חדרים', 'עיר', 'חלל', 'ממתקים', 'קרח', 'פארק', 'אקווריום', 'לטוב ולרע']],
     ['create', '✏️ ליצור', ['סרט', 'תיבת נגינה', 'עיתון', 'מדבקה משלי', 'קומיקס', 'סיפור', 'זזות', 'פוסטר', 'פסנתר', 'מאפייה', 'שיקויים']],
     ['magic', '✨ הפתעות וקסם', ['סוכה', 'מסיבת', 'הפתעה', 'עוגיית', 'אוצרות', 'משאלות', 'מכתב לעתיד', 'אלבום', 'חלומות', 'אתגר', 'לוח הפתעות', 'השנה שלי', 'שרביט']],
     ['board', '📅 הלוח שלי', ['ימי הולדת', 'חגים', 'מערכת', 'בוקר', 'הרגלים', 'מדליות', 'היומן שלי', 'ספירות', 'הספרים', 'המנעול', 'גיבוי', 'להדפסה']],
@@ -30077,6 +30309,830 @@ ${label(900, 520, '🌊 ים האיים')}
   $('#dkarDlg').addEventListener('close', () => { dkarStop(); dkarMicOff(); });
   // a "movies & songs" room in the MORE menu (before the create room so "סרט" tiles of ours land here)
   try { if (!MORE_ROOMS.some(r => r[0] === 'movies')) MORE_ROOMS.splice(Math.max(1, MORE_ROOMS.findIndex(r => r[0] === 'create')), 0, ['movies', '🎬 סרטים ושירים', ['מפת הסרטים', 'קולנוע', 'קריוקי']]); } catch {}
+  // ================= gschool: the School for Good & Evil (her own design, original art) =================
+  // two castles across a lake, uniforms, a sorting ceremony, classes, dorm rooms, house points and an end-of-year ball
+  const GS_H = { good: ['💗', 'הטוב', '#ff5f9e'], evil: ['💜', 'הרע', '#7a4fbf'], both: ['💗💜', 'גם וגם', '#b85fc8'] };
+  const GS_HEART = 'M0 6C-9 0-10-6-5.5-8.5C-3-10 0-8 0-6C0-8 3-10 5.5-8.5C10-6 9 0 0 6Z';
+  const GS_MOON = 'M2-10A10 10 0 1 0 2 10A13 13 0 0 1 2-10Z';
+  const gsBat = (c = '#4a3570') => `<path d="M0-2C-5-8-13-9-18-4C-15-3-14 0-14 2C-12 0-9 1-8 3C-6 1-3 1 0 3C3 1 6 1 8 3C9 1 12 0 14 2C14 0 15-3 18-4C13-9 5-8 0-2Z" fill="${c}" ${S2}/><path d="M-4-5L-5-10L-1-6M4-5L5-10L1-6" fill="${c}" ${S2}/><circle cy="-2" r="5" fill="${c}" ${S2}/><circle cx="-2" cy="-3" r="1.5" fill="#fff"/><circle cx="2" cy="-3" r="1.5" fill="#fff"/><circle cx="-1.8" cy="-2.8" r=".7" fill="${O}"/><circle cx="2.2" cy="-2.8" r=".7" fill="${O}"/><path d="M-1.5 0.5Q0 1.8 1.5 .5" fill="none" stroke="#fff" stroke-width=".9"/><circle cx="-3.4" cy="-.2" r="1" fill="#ff9ad5" opacity=".8"/><circle cx="3.4" cy="-.2" r="1" fill="#ff9ad5" opacity=".8"/>`;
+  const gsSpark = (x, y, r, c = '#fff') => `<path d="M${x} ${y - r}Q${x + r * .18} ${y - r * .18} ${x + r} ${y}Q${x + r * .18} ${y + r * .18} ${x} ${y + r}Q${x - r * .18} ${y + r * .18} ${x - r} ${y}Q${x - r * .18} ${y - r * .18} ${x} ${y - r}Z" fill="${c}"/>`;
+  const gsFlower = (x, y, r, c) => [0, 72, 144, 216, 288].map(a => `<circle cx="${(x + Math.cos(a * Math.PI / 180) * r).toFixed(1)}" cy="${(y + Math.sin(a * Math.PI / 180) * r).toFixed(1)}" r="${r * .75}" fill="${c}" stroke="${O}" stroke-width=".8"/>`).join('') + `<circle cx="${x}" cy="${y}" r="${r * .6}" fill="#ffd45c" stroke="${O}" stroke-width=".8"/>`;
+
+  // ---------- things to put in the gardens and in the dorm rooms ([name, scale, art]) ----------
+  const GS_ITEMS = {
+    flower: ['פרח', 1, () => `<path d="M0 18V0" stroke="#3f9c6e" stroke-width="3"/><path d="M0 11q7-7 11-2q-6 5-11 2z" fill="#7ccf7a" ${S2}/>${gsFlower(0, -4, 6, '#ff8fbd')}`],
+    rose: ['שיח ורדים', 1, () => `<ellipse cy="6" rx="20" ry="13" fill="#5fb56a" ${S2}/><path d="M-12 4q4-3 7 1M4 8q4-4 8 0" fill="none" stroke="#2f7a4a" stroke-width="1.4"/>${[[-9, 0], [7, -2], [0, 9], [13, 8], [-14, 10]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.6" fill="#ff5f8f" stroke="${O}" stroke-width="1"/><path d="M${x - 2} ${y}a2 2 0 1 1 2 2" fill="none" stroke="#b8235a" stroke-width="1"/>`).join('')}`],
+    swan: ['ברבור', 1, () => `<ellipse cy="15" rx="21" ry="3.5" fill="#fff" opacity=".45"/><path d="M-17 6C-17-2-7-4 3 2C5-6 1-11 3-16C5-21 11-20 11-15C11-12 8-12 8-9C8-4 15 0 15 6C15 13 6 15-2 15C-10 15-17 13-17 6Z" fill="#fff" ${S2}/><path d="M11-16L17-14L11-12Z" fill="#ff9b3d" ${S2}/><circle cx="7.6" cy="-15.6" r="1.2" fill="${O}"/><circle cx="6.8" cy="-12.6" r="1.4" fill="#ff9ad5" opacity=".8"/><path d="M-11 5Q-3 0 5 7Q-3 11-11 5Z" fill="#f4ecff" ${S2}/><path d="M4-19l1.5-4 1.5 2.5 1.8-2.8 1.2 4.3Z" fill="#ffd45c" stroke="${O}" stroke-width="1"/>`],
+    fountain: ['מזרקה', 1, () => `<path d="M-2-20Q-16-22-18 0M2-20Q16-22 18 0M0-22V-8" fill="none" stroke="#7ec8ff" stroke-width="3" stroke-linecap="round"/><ellipse cy="4" rx="22" ry="7" fill="#f4ece0" ${S2}/><ellipse cy="3" rx="17" ry="4.5" fill="#9dd8f5"/><path d="M-12 6L-9 18H9L12 6" fill="#e8dccb" ${S2}/><circle cy="-24" r="3" fill="#bfe8ff" ${S2}/>`],
+    tree: ['עץ פורח', 1.2, () => `<path d="M-3 22L-2 2Q-8-2-10-6M2 2L3 22M-1 0Q4-4 8-8" fill="#b8835a" ${S2}/><path d="M-3 22H3V4H-3Z" fill="#b8835a" ${S2}/>${[[-12, -8, 11], [10, -9, 11], [0, -18, 13], [-4, -4, 10], [8, 0, 8]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#ffb3cf" ${S2}/>`).join('')}${[[-10, -12], [6, -16], [2, -6], [12, -4], [-4, -20]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.2" fill="#fff" opacity=".85"/>`).join('')}`],
+    butterfly: ['פרפר', .8, () => `<path d="M0 0C-6-14-20-12-16 0C-20 10-8 14 0 2C8 14 20 10 16 0C20-12 6-14 0 0Z" fill="#bda4ff" ${S2}/><circle cx="-10" cy="-4" r="3" fill="#ffd45c"/><circle cx="10" cy="-4" r="3" fill="#ffd45c"/><rect x="-1.6" y="-8" width="3.2" height="16" rx="1.6" fill="${O}"/><path d="M-1-8Q-4-14-6-14M1-8Q4-14 6-14" fill="none" stroke="${O}" stroke-width="1.2"/>`],
+    hedge: ['שיח לב', 1.2, () => `<path d="M-2 22V10H2V22" fill="#b8835a" ${S2}/><g transform="translate(0 -2) scale(2.3)"><path d="${GS_HEART}" fill="#5fb56a" stroke="${O}" stroke-width=".8"/></g><circle cx="-8" cy="-8" r="2" fill="#ff8fbd"/><circle cx="6" cy="-4" r="2" fill="#fff"/><circle cx="0" cy="4" r="2" fill="#ff8fbd"/>`],
+    lamp: ['פנס גן', 1, () => `<path d="M0 22V-8" stroke="${O}" stroke-width="3"/><path d="M-6 22H6" stroke="${O}" stroke-width="4" stroke-linecap="round"/><circle cy="-16" r="11" fill="#fff4a8" opacity=".5"/><path d="M-6-10H6L4-22H-4Z" fill="#fff4a8" ${S2}/><path d="M-7-22H7L0-28Z" fill="#ffcf4d" ${S2}/>`],
+    boat: ['סירת ברבור', 1.1, () => `<ellipse cy="12" rx="24" ry="3.5" fill="#fff" opacity=".4"/><path d="M-22 0H20Q18 12 0 12Q-18 12-22 0Z" fill="#ff8fbd" ${S2}/><path d="M-22 0Q-26-10-20-14Q-16-16-15-11Q-18-10-17-4" fill="#fff" ${S2}/><path d="M-20-14l-4 1 3 2" fill="#ff9b3d" stroke="${O}" stroke-width="1"/><path d="M4 0V-26L18-6Z" fill="#fff" ${S2}/><path d="M-14 4H14" stroke="#ffd45c" stroke-width="2"/>`],
+    frog: ['צפרדע עם כתר', .9, () => `<ellipse cy="8" rx="16" ry="11" fill="#7ccf7a" ${S2}/><circle cx="-7" cy="-4" r="6" fill="#7ccf7a" ${S2}/><circle cx="7" cy="-4" r="6" fill="#7ccf7a" ${S2}/><circle cx="-7" cy="-4" r="3" fill="#fff"/><circle cx="7" cy="-4" r="3" fill="#fff"/><circle cx="-6.5" cy="-3.6" r="1.6" fill="${O}"/><circle cx="7.5" cy="-3.6" r="1.6" fill="${O}"/><path d="M-6 6Q0 11 6 6" fill="none" stroke="${O}" stroke-width="1.5" stroke-linecap="round"/><path d="M-5-10L-6-17L-2-13L0-18L2-13L6-17L5-10Z" fill="#ffd45c" ${S2}/><circle cx="-10" cy="6" r="2" fill="#ff9ad5" opacity=".7"/><circle cx="10" cy="6" r="2" fill="#ff9ad5" opacity=".7"/>`],
+    star: ['כוכב נוצץ', .8, () => `<polygon points="${starPts(0, 0, 16, 7)}" fill="#ffd45c" ${S2}/><path d="M-4-3Q-2-6 1-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>${gsSpark(14, -12, 4, '#fff6b8')}`],
+    bat: ['עטלף חמוד', 1.2, () => gsBat()],
+    thorn: ['שיח קוצים', 1, () => `<path d="M-18 16C-20 2-10-8-2-4C4-14 18-10 18 2C22 8 20 16 14 16Z" fill="#4a3570" ${S2}/>${[[-16, 2, -22, -2], [-6, -6, -8, -13], [8, -10, 12, -16], [18, 0, 24, -3], [0, 6, -2, 0]].map(([x, y, a, b]) => `<path d="M${x} ${y}L${a} ${b}L${x + 3} ${y + 2}Z" fill="#6b4fa0" stroke="${O}" stroke-width="1"/>`).join('')}<circle cx="4" cy="2" r="5" fill="#b98cff" stroke="${O}" stroke-width="1"/><path d="M2 2a2 2 0 1 1 2 2" fill="none" stroke="#6b3fb0" stroke-width="1"/>`],
+    pumpkin: ['דלעת', 1, () => `<path d="M0-12Q2-18 6-18" fill="none" stroke="#3f9c6e" stroke-width="3" stroke-linecap="round"/><ellipse cx="-8" cy="2" rx="9" ry="12" fill="#ff9b3d" ${S2}/><ellipse cx="8" cy="2" rx="9" ry="12" fill="#ff9b3d" ${S2}/><ellipse cy="2" rx="8" ry="13" fill="#ffae55" ${S2}/><circle cx="-4" cy="0" r="1.5" fill="${O}"/><circle cx="4" cy="0" r="1.5" fill="${O}"/><path d="M-4 5Q0 8 4 5" fill="none" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/>`],
+    mushroom: ['פטרייה זוהרת', 1, () => `<ellipse cy="-2" rx="22" ry="16" fill="#e2b8ff" opacity=".35"/><path d="M-5 16Q-6 4-4 0H4Q6 4 5 16Z" fill="#fff1dc" ${S2}/><path d="M-18 0Q-18-18 0-18Q18-18 18 0Z" fill="#9b6be0" ${S2}/><circle cx="-8" cy="-8" r="3" fill="#fff"/><circle cx="6" cy="-11" r="2.4" fill="#fff"/><circle cx="10" cy="-4" r="2" fill="#fff"/><circle cx="-1" cy="9" r="1" fill="${O}"/><circle cx="2" cy="9" r="1" fill="${O}"/>`],
+    cauldron: ['קלחת', 1, () => `<circle cx="-5" cy="-18" r="3" fill="#a8f08f" ${S2}/><circle cx="4" cy="-24" r="2" fill="#a8f08f" ${S2}/><path d="M-18-6H18Q20 16 0 16Q-20 16-18-6Z" fill="#3a2e4a" ${S2}/><ellipse cy="-6" rx="19" ry="5" fill="#7ee06a" ${S2}/><path d="M-12 16L-14 21M12 16L14 21" stroke="${O}" stroke-width="3" stroke-linecap="round"/><path d="M-10 4Q-6 1-2 4" fill="none" stroke="#fff" stroke-width="1.5" opacity=".4"/>`],
+    spooky: ['עץ מסתורי', 1.3, () => `<path d="M-4 22Q-2 6-6-4Q-14-8-16-16M-5-2Q-8-14-2-22M-2-8Q6-12 10-20M0 0Q10 0 16-6M4 22Q2 8 4-2" fill="none" stroke="#5a4478" stroke-width="5" stroke-linecap="round"/><path d="M-6 22H6" stroke="#5a4478" stroke-width="6" stroke-linecap="round"/><circle cx="-2" cy="6" r="1.4" fill="#ffe27a"/><circle cx="2" cy="6" r="1.4" fill="#ffe27a"/><circle cx="10" cy="-20" r="3.5" fill="#b98cff" ${S2}/><circle cx="-16" cy="-17" r="3" fill="#ff8fbd" ${S2}/>`],
+    crystal: ['גבישים', 1, () => `<path d="M-14 16L-12 0L-8-6L-5 16Z" fill="#b98cff" ${S2}/><path d="M-6 16L-4-12L0-20L4-12L6 16Z" fill="#d7b8ff" ${S2}/><path d="M5 16L8-2L12 4L15 16Z" fill="#9b6be0" ${S2}/><path d="M-1-12V10" stroke="#fff" stroke-width="1.5" opacity=".7"/>${gsSpark(10, -12, 4, '#fff')}`],
+    cat: ['חתול שחור', .9, () => `<path d="M8 14Q22 12 18 0" fill="none" stroke="#2b2b30" stroke-width="4" stroke-linecap="round"/><ellipse cy="6" rx="12" ry="11" fill="#2b2b30" ${S2}/><circle cy="-8" r="10" fill="#2b2b30" ${S2}/><path d="M-9-12L-8-21L-2-16M9-12L8-21L2-16" fill="#2b2b30" ${S2}/><ellipse cx="-4" cy="-9" rx="2.6" ry="3.2" fill="#c9ff6a"/><ellipse cx="4" cy="-9" rx="2.6" ry="3.2" fill="#c9ff6a"/><ellipse cx="-4" cy="-9" rx=".9" ry="2.4" fill="${O}"/><ellipse cx="4" cy="-9" rx=".9" ry="2.4" fill="${O}"/><path d="M-1-4.5H1L0-3.4Z" fill="#ff9ad5"/><circle cx="-6.5" cy="-4" r="1.5" fill="#ff9ad5" opacity=".6"/><circle cx="6.5" cy="-4" r="1.5" fill="#ff9ad5" opacity=".6"/><path d="M-5 0H5" stroke="#b98cff" stroke-width="2.4"/><circle cy="1.6" r="1.6" fill="#ffd45c"/>`],
+    ghost: ['רוח חמודה', 1, () => `<path d="M-13 14V-4A13 13 0 0 1 13-4V14L8 10L4 14L0 10L-4 14L-8 10Z" fill="#fff" ${S2}/><ellipse cx="-4.5" cy="-3" rx="2" ry="2.8" fill="${O}"/><ellipse cx="4.5" cy="-3" rx="2" ry="2.8" fill="${O}"/><circle cx="-4" cy="-4" r=".8" fill="#fff"/><circle cx="5" cy="-4" r=".8" fill="#fff"/><path d="M-2 2Q0 4 2 2" fill="none" stroke="${O}" stroke-width="1.3" stroke-linecap="round"/><circle cx="-8" cy="1" r="2" fill="#ff9ad5" opacity=".6"/><circle cx="8" cy="1" r="2" fill="#ff9ad5" opacity=".6"/>`],
+    candle: ['נרות', .9, () => `<ellipse cx="-6" cy="-16" rx="4" ry="7" fill="#ffe27a" opacity=".5"/><path d="M-6-12Q-9-17-6-22Q-3-17-6-12Z" fill="#ffcf4d" ${S2}/><rect x="-10" y="-12" width="8" height="28" rx="2" fill="#f4ecff" ${S2}/><path d="M6-2Q3-7 6-12Q9-7 6-2Z" fill="#ffcf4d" ${S2}/><rect x="2" y="-2" width="8" height="18" rx="2" fill="#d7b8ff" ${S2}/><ellipse cy="17" rx="15" ry="3" fill="#9b6be0" ${S2}/>`],
+    // room things
+    teddy: ['דובי', .9, () => `<circle cx="-9" cy="-14" r="5" fill="#c9a27e" ${S2}/><circle cx="9" cy="-14" r="5" fill="#c9a27e" ${S2}/><ellipse cy="8" rx="13" ry="11" fill="#c9a27e" ${S2}/><circle cy="-7" r="11" fill="#c9a27e" ${S2}/><ellipse cy="-3" rx="5" ry="3.6" fill="#f1dcc3"/><circle cy="-4.6" r="1.5" fill="${O}"/><circle cx="-4" cy="-9" r="1.4" fill="${O}"/><circle cx="4" cy="-9" r="1.4" fill="${O}"/><path d="M-4 4L0 1L4 4L0 7Z" fill="#ff8fbd" stroke="${O}" stroke-width="1"/>`],
+    plant: ['עציץ', 1, () => `<path d="M0 0Q-14-8-14-22Q-2-16 0 0Q2-18 12-26Q14-10 0 0Q10-6 18-6Q12 4 0 0" fill="#7ccf7a" ${S2}/><path d="M-10 0H10L7 18H-7Z" fill="#ff9b6e" ${S2}/><path d="M-11 0H11" stroke="${O}" stroke-width="2.4" stroke-linecap="round"/>`],
+    books: ['מדף ספרים', 1.3, () => `<rect x="-24" y="-22" width="48" height="40" rx="3" fill="#b8835a" ${S2}/><path d="M-22-2H22" stroke="${O}" stroke-width="2"/>${[['#ff8fbd', -20, -20], ['#9dd8f5', -14, -18], ['#ffd45c', -8, -20], ['#b98cff', 0, -17], ['#7ccf7a', 8, -20], ['#ff9b6e', 14, -19]].map(([c, x, y]) => `<rect x="${x}" y="${y}" width="5.5" height="${-2 - y}" fill="${c}" stroke="${O}" stroke-width="1"/>`).join('')}${[['#bda4ff', -20, 1], ['#ff5f8f', -14, 3], ['#fff', 4, 2], ['#3f9c6e', 10, 1]].map(([c, x, y]) => `<rect x="${x}" y="${y}" width="5.5" height="${16 - y}" fill="${c}" stroke="${O}" stroke-width="1"/>`).join('')}<circle cx="-3" cy="12" r="4" fill="#9dd8f5" ${S2}/>`],
+    mirror: ['מראה', 1.2, () => `<ellipse cy="-6" rx="14" ry="19" fill="#ffd45c" ${S2}/><ellipse cy="-6" rx="10" ry="15" fill="#dff4ff" ${S2}/><path d="M-5-14Q-2-18 2-18M-6-9L2-17" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M-3 13L-6 22M3 13L6 22" stroke="${O}" stroke-width="2.4" stroke-linecap="round"/><path d="M0-25l2-5 2 5z" fill="#ff8fbd" stroke="${O}" stroke-width="1"/>`],
+    ball: ['כדור בדולח', 1, () => `<circle cy="-6" r="15" fill="#d7b8ff" opacity=".85" ${S2}/><circle cx="-5" cy="-11" r="4" fill="#fff" opacity=".8"/>${gsSpark(4, -4, 4, '#fff')}<path d="M-13 8H13L10 16H-10Z" fill="#6b4fa0" ${S2}/>`],
+    desk: ['שולחן כתיבה', 1.4, () => `<rect x="-24" y="-6" width="48" height="6" rx="2" fill="#f4ecff" ${S2}/><path d="M-21 0V20M21 0V20" stroke="${O}" stroke-width="3" stroke-linecap="round"/><rect x="4" y="0" width="16" height="10" fill="#e8dccb" ${S2}/><path d="M-14-6L-10-18L-4-6" fill="#ffd45c" ${S2}/><rect x="-2" y="-14" width="10" height="8" fill="#fff" ${S2}/><path d="M12-6V-16" stroke="#ff8fbd" stroke-width="2"/>`],
+    chest: ['תיבת אוצר', 1, () => `<rect x="-18" y="-4" width="36" height="20" rx="3" fill="#b8835a" ${S2}/><path d="M-18-4Q-18-18 0-18Q18-18 18-4Z" fill="#c9965f" ${S2}/><path d="M-18-4H18M-10-16V16M10-16V16" stroke="#ffd45c" stroke-width="2.5"/><rect x="-3.5" y="-7" width="7" height="8" rx="1.5" fill="#ffd45c" ${S2}/>`],
+    petbed: ['מיטה לחיה', 1.1, () => `<ellipse cy="6" rx="24" ry="11" fill="#ff8fbd" ${S2}/><ellipse cy="3" rx="17" ry="6" fill="#fff0f6" ${S2}/><g transform="translate(0 3) scale(.5)"><path d="${GS_HEART}" fill="#ff5f8f"/></g>`],
+    poster_swan: ['פוסטר ברבור', 1, () => `<rect x="-16" y="-20" width="32" height="40" rx="2" fill="#fff4f8" ${S2}/><rect x="-12" y="-16" width="24" height="32" fill="#ffd1e3"/><g transform="translate(0 2) scale(.6)">${GS_ITEMS.swan[2]()}</g>`],
+    poster_bat: ['פוסטר עטלף', 1, () => `<rect x="-16" y="-20" width="32" height="40" rx="2" fill="#2e2340" ${S2}/><rect x="-12" y="-16" width="24" height="32" fill="#4a3570"/><path d="M4-12A6 6 0 1 0 4 0A8 8 0 0 1 4-12Z" fill="#ffe27a"/><g transform="translate(-2 8) scale(.6)">${gsBat('#b98cff')}</g>`],
+    poster_castle: ['פוסטר טירה', 1, () => `<rect x="-16" y="-20" width="32" height="40" rx="2" fill="#fff" ${S2}/><g transform="translate(-13 -16) scale(.55)">${stickerInner('castle')}</g>`],
+    poster_heart: ['פוסטר לב', 1, () => `<rect x="-16" y="-20" width="32" height="40" rx="2" fill="#ffe89e" ${S2}/><g transform="translate(0 2) scale(1.4)"><path d="${GS_HEART}" fill="#ff5f8f" stroke="${O}" stroke-width="1"/></g>${gsSpark(-8, -12, 3, '#fff')}`],
+    poster_moon: ['פוסטר ירח', 1, () => `<rect x="-16" y="-20" width="32" height="40" rx="2" fill="#1f2a4a" ${S2}/><g transform="translate(0 0) scale(1.1)"><path d="${GS_MOON}" fill="#ffe27a"/></g>${gsSpark(-8, -12, 2.5, '#fff')}${gsSpark(9, 11, 2, '#fff')}`],
+  };
+  const GS_GARDEN = ['flower', 'rose', 'swan', 'boat', 'fountain', 'tree', 'hedge', 'butterfly', 'lamp', 'frog', 'star', 'bat', 'thorn', 'pumpkin', 'mushroom', 'cauldron', 'spooky', 'crystal', 'cat', 'ghost'];
+  const GS_ROOMI = ['poster_swan', 'poster_bat', 'poster_castle', 'poster_heart', 'poster_moon', 'teddy', 'plant', 'books', 'mirror', 'desk', 'chest', 'petbed', 'lamp', 'candle', 'ball', 'cauldron', 'crystal', 'cat', 'ghost', 'frog', 'flower', 'star', 'bat', 'butterfly'];
+
+  // ---------- design options ----------
+  const GS_TOWERS = { classic: [[-86, 40, 150], [86, 40, 150], [0, 48, 205]], tall: [[-80, 32, 190], [80, 32, 190], [0, 38, 240]], many: [[-106, 30, 122], [-54, 34, 166], [54, 34, 166], [106, 30, 122], [0, 42, 212]], fat: [[-84, 56, 138], [84, 56, 138], [0, 62, 186]] };
+  const GS_OPT = {
+    tower: [['classic', 'קלאסי'], ['tall', 'מגדלים גבוהים'], ['many', 'הרבה מגדלים'], ['fat', 'מגדלים שמנמנים']],
+    roof: [['cone', '🔺 חרוט'], ['witch', '🧙‍♀️ כובע עקום'], ['dome', '⚪ כיפה'], ['onion', '🧅 בצל'], ['crown', '👑 חומות']],
+    win: [['arch', 'קשת'], ['round', 'עגול'], ['heart', '💗 לב'], ['star', '⭐ כוכב'], ['pointy', 'מחודד'], ['moon', '🌙 ירח']],
+    flag: [['pennant', 'דגלון'], ['heart', '💗 לב'], ['star', '⭐ כוכב'], ['banner', 'סרט'], ['bat', '🦇 עטלף'], ['none', 'בלי']],
+    deco: [['flowers', '🌸 פרחים מטפסים'], ['bunting', '🎏 שרשרת דגלונים'], ['hearts', '💗 לבבות'], ['sparkles', '✨ נצנצים'], ['rainbow', '🌈 קשת'], ['thorns', '🥀 קוצים'], ['bats', '🦇 עטלפים'], ['moon', '🌕 ירח גדול']],
+  };
+  const GS_WALLS = ['#ffd6e6', '#fff4f8', '#ffe8b8', '#f4ece0', '#e3d4ff', '#8a6cc0', '#5d4a86', '#3a2e4a', '#bfe8ff', '#c9f0c0', '#ffb3cf', '#9aa3ad'];
+  const GS_ROOFS = ['#ff8fbd', '#ff5f8f', '#ffcf4d', '#ffffff', '#9dd8f5', '#b98cff', '#7a4fbf', '#2e2340', '#1f2a4a', '#3f9c6e', '#e0314b', '#2b2b30'];
+  const gsDefCastle = side => side === 'good'
+    ? { tower: 'classic', roof: 'cone', win: 'heart', flag: 'heart', wall: '#ffd6e6', roofC: '#ff8fbd', trim: '#ffcf4d', flagC: '#ffcf4d', deco: ['flowers', 'bunting', 'sparkles'] }
+    : { tower: 'classic', roof: 'witch', win: 'moon', flag: 'bat', wall: '#8a6cc0', roofC: '#2e2340', trim: '#c9a6ff', flagC: '#b98cff', deco: ['thorns', 'bats'] };
+  const gsDefUni = side => side === 'good'
+    ? { style: 'skirt', top: 'blouse', color: '#ff8fbd', color2: '#ffffff', accent: '#ffcf4d', pat: 'plain', collar: 'round', cape: 'short', capeC: '#ffb3cf', badge: 'swan', legs: 'white', shoeC: '#ffffff' }
+    : { style: 'dress', top: 'turtle', color: '#2b2b30', color2: '#7a4fbf', accent: '#bda4ff', pat: 'stars', collar: 'pointy', cape: 'high', capeC: '#5a3a8a', badge: 'bat', legs: 'black', shoeC: '#2b2b30' };
+  const gsDefRoom = side => side === 'good'
+    ? { wall: '#ffe0ec', wp: 'hearts', floor: '#f3d2b3', bed: 'canopy', bedC: '#ff8fbd', rug: 'heart', rugC: '#ffd45c', items: [{ id: 'r1', t: 'poster_swan', x: 150, y: 90, s: 1.2, f: false }, { id: 'r2', t: 'teddy', x: 470, y: 300, s: 1, f: false }] }
+    : { wall: '#5d4a86', wp: 'stars', floor: '#3d3150', bed: 'four', bedC: '#9b6be0', rug: 'star', rugC: '#9b6be0', items: [{ id: 'r1', t: 'poster_moon', x: 150, y: 90, s: 1.2, f: false }, { id: 'r2', t: 'candle', x: 470, y: 300, s: 1, f: false }] };
+  const GS_GARDEN0 = [['swan', 300, 318, 1], ['swan', 350, 350, .9], ['flower', 440, 300, 1], ['flower', 610, 330, 1], ['rose', 575, 300, .9], ['tree', 600, 250, 1.1], ['bat', 70, 70, 1], ['bat', 220, 40, .8], ['thorn', 60, 320, 1], ['mushroom', 205, 300, .9], ['pumpkin', 25, 290, .8]]
+    .map(([t, x, y, s], i) => ({ id: 'g' + i, t, x, y, s, f: false }));
+  let gs = (() => {
+    const s = store.get('gsch', {}) || {}, two = (o, d) => ({ good: Object.assign(d('good'), (o || {}).good), evil: Object.assign(d('evil'), (o || {}).evil) });
+    return { castle: two(s.castle, gsDefCastle), uni: two(s.uni, gsDefUni), room: two(s.room, gsDefRoom), garden: Array.isArray(s.garden) ? s.garden : GS_GARDEN0,
+      sorted: s.sorted || {}, pts: Object.assign({ good: 0, evil: 0 }, s.pts), log: s.log || [], wands: s.wands || [], tales: s.tales || [], trophies: s.trophies || [], year: s.year || 1 };
+  })();
+  const gsSave = () => store.set('gsch', gs);
+  let gsTab = 'castle', gsSide = 'good', gsTool = null, gsSel = null, gsUid = 0, gsTimers = [], gsSort = null, gsWho = null, gsClass = null, gsGirlSel = null, gsBall = false, gsConfirm = false;
+  const gsClear = () => { gsTimers.forEach(t => { clearTimeout(t); clearInterval(t); }); gsTimers = []; };
+  const gsLater = (fn, ms) => { const t = setTimeout(fn, ms); gsTimers.push(t); return t; };
+  const gsR = a => a[Math.floor(Math.random() * a.length)];
+  const gsShuffle = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+
+  // ---------- one castle, drawn around (0,0) = the middle of its bottom ----------
+  function gsCastleSVG(c, side) {
+    const T = GS_TOWERS[c.tower] || GS_TOWERS.classic, wide = c.tower === 'many' || c.tower === 'fat' ? 80 : 70, night = side === 'evil';
+    const wallD = fmx(c.wall, '#2a1030', .22), wallL = fmx(c.wall, '#ffffff', .35), glow = night ? '#ffe27a' : '#fff6c8', deco = c.deco || [];
+    const winArt = (x, y, s) => {
+      const g = inner => `<g transform="translate(${x} ${y}) scale(${s})">${inner}</g>`, F = `fill="${glow}" ${S2}`;
+      return g({
+        arch: `<path d="M-6 8V-2A6 6 0 0 1 6-2V8Z" ${F}/><path d="M0-8V8M-6 1H6" stroke="${O}" stroke-width="1.2"/>`,
+        round: `<circle r="6.5" ${F}/><path d="M0-6.5V6.5M-6.5 0H6.5" stroke="${O}" stroke-width="1.2"/>`,
+        heart: `<g transform="scale(.95)"><path d="${GS_HEART}" ${F}/></g>`,
+        star: `<polygon points="${starPts(0, 0, 8.5, 3.8)}" ${F}/>`,
+        pointy: `<path d="M-6 8V0Q-6-6 0-11Q6-6 6 0V8Z" ${F}/><path d="M0-10V8" stroke="${O}" stroke-width="1.2"/>`,
+        moon: `<circle r="7" fill="${fmx(c.wall, '#1a0a20', .45)}" ${S2}/><path d="M1.5-5.5A5.5 5.5 0 1 0 1.5 5.5A7 7 0 0 1 1.5-5.5Z" fill="${glow}"/>`,
+      }[c.win] || '') + (night ? `<circle cx="${x}" cy="${y}" r="${9 * s}" fill="#ffe27a" opacity=".18"/>` : '');
+    };
+    const flagArt = (x, y) => {
+      if (c.flag === 'none') return '';
+      const fc = c.flagC, pole = `<path d="M${x} ${y}V${y - 24}" stroke="${O}" stroke-width="1.8"/>`, W = `class="gs-flag" style="transform-origin:${x}px ${y - 18}px"`;
+      return pole + `<g ${W}>` + ({
+        pennant: `<path d="M${x} ${y - 24}L${x + 19} ${y - 19}L${x} ${y - 14}Z" fill="${fc}" ${S2}/>`,
+        heart: `<g transform="translate(${x + 8} ${y - 19}) scale(.72)"><path d="${GS_HEART}" fill="${fc}" ${S2}/></g>`,
+        star: `<polygon points="${starPts(x + 8, y - 20, 8, 3.6)}" fill="${fc}" ${S2}/>`,
+        banner: `<path d="M${x} ${y - 24}H${x + 21}L${x + 16} ${y - 19}L${x + 21} ${y - 14}H${x}Z" fill="${fc}" ${S2}/>`,
+        bat: `<g transform="translate(${x} ${y - 26}) scale(.62)">${gsBat(fc)}</g>`,
+      }[c.flag] || '') + '</g>';
+    };
+    const roofArt = (x, top, w) => {
+      const R = `fill="${c.roofC}" ${S2}`, hl = fmx(c.roofC, '#fff', .35);
+      switch (c.roof) {
+        case 'witch': return [`<path d="M${x - w / 2 - 7} ${top}L${x + w / 2 + 7} ${top}Q${x + w * .15} ${top - w * .8} ${x + w * .5} ${top - w * 1.4}Q${x - w * .25} ${top - w * .75} ${x - w / 2 - 7} ${top}Z" ${R}/><path d="M${x - w * .25} ${top - 4}Q${x - w * .05} ${top - w * .6} ${x + w * .35} ${top - w * 1.2}" fill="none" stroke="${hl}" stroke-width="2" stroke-linecap="round" opacity=".7"/><rect x="${x - w / 2 - 7}" y="${top - 5}" width="${w + 14}" height="6" rx="2" fill="${c.trim}" ${S2}/>`, x + w * .5, top - w * 1.4];
+        case 'dome': { const r = w / 2 + 5; return [`<path d="M${x - r} ${top}A${r} ${r * 1.05} 0 0 1 ${x + r} ${top}Z" ${R}/><path d="M${x - r * .55} ${top - r * .5}Q${x - r * .2} ${top - r * .9} ${x + r * .2} ${top - r * .95}" fill="none" stroke="${hl}" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><path d="M${x} ${top - r}V${top - r - 10}" stroke="${O}" stroke-width="2"/><circle cx="${x}" cy="${top - r - 10}" r="3.4" fill="${c.trim}" ${S2}/><rect x="${x - r}" y="${top - 5}" width="${2 * r}" height="6" rx="2" fill="${c.trim}" ${S2}/>`, x, top - r - 12]; }
+        case 'onion': return [`<path d="M${x - w / 2} ${top}C${x - w / 2 - 12} ${top - w * .45} ${x - 5} ${top - w * .75} ${x} ${top - w * 1.15}C${x + 5} ${top - w * .75} ${x + w / 2 + 12} ${top - w * .45} ${x + w / 2} ${top}Z" ${R}/><path d="M${x - w * .28} ${top - w * .3}Q${x - w * .1} ${top - w * .7} ${x - 1} ${top - w * 1}" fill="none" stroke="${hl}" stroke-width="2.2" stroke-linecap="round" opacity=".7"/><rect x="${x - w / 2 - 3}" y="${top - 5}" width="${w + 6}" height="6" rx="2" fill="${c.trim}" ${S2}/>`, x, top - w * 1.15];
+        case 'crown': { const n = w > 44 ? 5 : 4, cw = (w + 8) / (2 * n - 1); let s = `<rect x="${x - w / 2 - 4}" y="${top - 6}" width="${w + 8}" height="8" fill="${c.roofC}" ${S2}/>`; for (let i = 0; i < n; i++) s += `<rect x="${x - w / 2 - 4 + i * 2 * cw}" y="${top - 14}" width="${cw}" height="9" fill="${c.roofC}" ${S2}/>`; return [s, x, top - 14]; }
+        default: return [`<path d="M${x - w / 2 - 7} ${top}L${x + w / 2 + 7} ${top}L${x} ${top - w * 1.35}Z" ${R}/><path d="M${x - 4} ${top - 6}L${x - 1} ${top - w * 1.2}" stroke="${hl}" stroke-width="2.5" stroke-linecap="round" opacity=".7"/><rect x="${x - w / 2 - 7}" y="${top - 5}" width="${w + 14}" height="6" rx="2" fill="${c.trim}" ${S2}/>`, x, top - w * 1.35];
+      }
+    };
+    const tower = ([x, w, h]) => {
+      let s = `<rect x="${x - w / 2}" y="${-h}" width="${w}" height="${h}" fill="${c.wall}" ${S2}/><rect x="${x + w / 2 - w * .28}" y="${-h + 2}" width="${w * .26}" height="${h - 3}" fill="${wallD}" opacity=".35"/><rect x="${x - w / 2 + 3}" y="${-h + 2}" width="${w * .14}" height="${h - 3}" fill="${wallL}" opacity=".5"/>`;
+      for (let y = -h + 32, i = 0; y < -36 && i < 4; y += 50, i++) s += winArt(x, y, Math.min(1.15, w / 40));
+      const [r, tx, ty] = roofArt(x, -h, w);
+      return s + r + flagArt(tx, ty);
+    };
+    let out = '';
+    if (deco.includes('moon')) out += `<circle cx="-10" cy="-200" r="46" fill="#fff6c8" opacity=".25"/><circle cx="-10" cy="-200" r="34" fill="#fff3b0" ${S2}/><circle cx="-22" cy="-208" r="6" fill="#f0e090"/><circle cx="2" cy="-188" r="4" fill="#f0e090"/><circle cx="-24" cy="-196" r="1.8" fill="${O}"/><circle cx="-4" cy="-196" r="1.8" fill="${O}"/><path d="M-19-188Q-14-184-9-188" fill="none" stroke="${O}" stroke-width="1.5"/>`;
+    if (deco.includes('rainbow')) out += ['#ff6b6b', '#ffb35c', '#ffe27a', '#8fe08a', '#7ec8ff', '#b58cff'].map((col, i) => `<path d="M${-150 + i * 9} -20A${150 - i * 9} ${170 - i * 9} 0 0 1 ${150 - i * 9} -20" fill="none" stroke="${col}" stroke-width="9" opacity=".75"/>`).join('');
+    out += tower(T[T.length - 1]);
+    // the main hall with its door
+    out += `<rect x="${-wide}" y="-104" width="${2 * wide}" height="104" fill="${c.wall}" ${S2}/><rect x="${-wide}" y="-104" width="${2 * wide}" height="12" fill="${wallD}" opacity=".25"/>`;
+    for (let x = -wide, i = 0; x < wide - 4; x += 20, i++) out += `<rect x="${x}" y="-116" width="12" height="13" fill="${c.wall}" ${S2}/>`;
+    [-wide + 30, wide - 30].forEach(x => { out += winArt(x, -64, 1.1); });
+    out += `<path d="M-19 0V-34A19 19 0 0 1 19-34V0Z" fill="${fmx(c.roofC, '#3a2010', .35)}" ${S2}/><path d="M0-52V0" stroke="${O}" stroke-width="1.5"/><circle cx="-5" cy="-20" r="1.8" fill="${c.trim}" ${S2}/><circle cx="5" cy="-20" r="1.8" fill="${c.trim}" ${S2}/><path d="M-25-52A25 25 0 0 1 25-52" fill="none" stroke="${c.trim}" stroke-width="4"/>`;
+    out += `<path d="M-30 0H30L36 8H-36Z" fill="${fmx(c.wall, '#9aa3ad', .4)}" ${S2}/>`;
+    T.slice(0, -1).forEach(t => { out += tower(t); });
+    const sides = T.slice(0, -1);
+    if (deco.includes('bunting') && sides.length >= 2) {
+      const a = sides[0], b = sides[sides.length - 1], y0 = -Math.min(a[2], b[2]) + 16, x0 = a[0] + a[1] / 2, x1 = b[0] - b[1] / 2, sag = 30;
+      out += `<path d="M${x0} ${y0}Q0 ${y0 + sag * 2} ${x1} ${y0}" fill="none" stroke="${O}" stroke-width="1.3"/>`;
+      for (let i = 1; i < 12; i++) { const t = i / 12, x = (1 - t) * (1 - t) * x0 + 2 * t * (1 - t) * 0 + t * t * x1, y = (1 - t) * (1 - t) * y0 + 2 * t * (1 - t) * (y0 + sag * 2) + t * t * y0; out += `<path d="M${(x - 5).toFixed(1)} ${y.toFixed(1)}H${(x + 5).toFixed(1)}L${x.toFixed(1)} ${(y + 10).toFixed(1)}Z" fill="${i % 2 ? c.trim : c.roofC}" stroke="${O}" stroke-width="1"/>`; }
+    }
+    if (deco.includes('flowers')) [-wide, wide].forEach(x => {
+      out += `<path d="M${x} 0Q${x - 8} -30 ${x} -55Q${x + 8} -80 ${x} -100" fill="none" stroke="#3f9c6e" stroke-width="3"/>`;
+      [[0, -12], [-5, -32], [4, -50], [-4, -70], [3, -90]].forEach(([dx, y], i) => { out += gsFlower(x + dx, y, 3.6, i % 2 ? '#ff8fbd' : '#fff'); });
+    });
+    if (deco.includes('thorns')) sides.forEach(([x, w, h]) => {
+      const L = x - w / 2, H = Math.min(h - 20, 110);
+      out += `<path d="M${L} 0Q${L + w * .8} ${-H * .25} ${L + 2} ${-H * .5}Q${L + w * .9} ${-H * .75} ${L + w * .3} ${-H}" fill="none" stroke="#3a2450" stroke-width="3.2"/>`;
+      [.12, .3, .5, .66, .85].forEach((t, i) => { const y = -H * t, xx = L + (i % 2 ? w * .6 : w * .2); out += `<path d="M${xx} ${y}l${i % 2 ? 6 : -6} -4 l${i % 2 ? -2 : 2} 6Z" fill="#3a2450"/>`; });
+      out += `<circle cx="${L + w * .3}" cy="${-H}" r="4.5" fill="#b98cff" stroke="${O}" stroke-width="1"/>`;
+    });
+    if (deco.includes('hearts')) [[-120, -180, 1], [110, -200, .8], [-40, -250, .7], [60, -150, .6], [140, -110, .7]].forEach(([x, y, s], i) => { out += `<g class="gs-float" style="animation-delay:${i * .4}s"><g transform="translate(${x} ${y}) scale(${s})"><path d="${GS_HEART}" fill="${i % 2 ? '#ff8fbd' : '#ff5f8f'}" ${S2}/></g></g>`; });
+    if (deco.includes('sparkles')) [[-130, -140], [120, -170], [-60, -210], [30, -260], [140, -60], [-150, -60], [80, -230], [-100, -240]].forEach(([x, y], i) => { out += `<g class="gs-twinkle" style="animation-delay:${i * .3}s">${gsSpark(x, y, 6 + (i % 3) * 2, i % 2 ? '#fff' : '#ffe27a')}</g>`; });
+    if (deco.includes('bats')) [[-120, -200, .9], [110, -230, .75], [0, -280, .7], [150, -140, .6]].forEach(([x, y, s], i) => { out += `<g class="gs-float" style="animation-delay:${i * .5}s"><g transform="translate(${x} ${y}) scale(${s * 1.4})">${gsBat()}</g></g>`; });
+    return out;
+  }
+
+  // ---------- the whole valley: two castles, the lake and the bridge ----------
+  const gsItemSVG = it => `<g class="gs-it${it.id === gsSel ? ' sel' : ''}" data-id="${it.id}" transform="translate(${it.x.toFixed(1)} ${it.y.toFixed(1)}) scale(${(it.f ? -1 : 1) * it.s} ${it.s})">${(GS_ITEMS[it.t] || GS_ITEMS.star)[2]()}</g>`;
+  const gsSortItems = arr => arr.slice().sort((a, b) => a.y - b.y);
+  function gsValley() {
+    const u = 'gsv' + (gsUid++), rnd = i => Math.abs(Math.sin(i * 12.9898 + 4.1) * 43758.5453) % 1, stars = Array.from({ length: 30 }, (_, i) => `<circle cx="${(rnd(i) * 290 + 6).toFixed(1)}" cy="${(rnd(i + 50) * 170 + 6).toFixed(1)}" r="${i % 4 ? 1.1 : 1.9}" fill="#fff" opacity="${.5 + (i % 3) * .2}"/>`).join('');
+    return `<svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" class="gs-svg"><defs>
+      <linearGradient id="${u}s" x1="0" x2="1"><stop offset="0" stop-color="#2d2060"/><stop offset=".38" stop-color="#6b4aa8"/><stop offset=".62" stop-color="#ffb8d6"/><stop offset="1" stop-color="#ffe3c4"/></linearGradient>
+      <linearGradient id="${u}h" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".35"/></linearGradient>
+      <linearGradient id="${u}w" x1="0" x2="1"><stop offset="0" stop-color="#6d5ab8"/><stop offset=".5" stop-color="#9fb8f0"/><stop offset="1" stop-color="#9fdcf5"/></linearGradient>
+      <linearGradient id="${u}b" x1="0" x2="1"><stop offset="0" stop-color="${gs.castle.evil.trim}"/><stop offset="1" stop-color="${gs.castle.good.trim}"/></linearGradient></defs>
+      <rect width="640" height="380" fill="url(#${u}s)"/><rect width="640" height="260" fill="url(#${u}h)"/>${stars}
+      <path d="M50 36A16 16 0 1 0 50 68A21 21 0 0 1 50 36Z" fill="#fff3b0"/>
+      <circle cx="590" cy="52" r="30" fill="#fff4b0" opacity=".45"/><circle cx="590" cy="52" r="20" fill="#ffe27a"/>
+      <g fill="#fff" opacity=".9"><ellipse cx="470" cy="60" rx="30" ry="11"/><ellipse cx="490" cy="52" rx="18" ry="11"/><ellipse cx="400" cy="100" rx="24" ry="8"/></g>
+      <path d="M0 250Q80 200 170 236Q250 210 330 240Q420 205 520 232Q590 210 640 236V300H0Z" fill="#fff" opacity=".22"/>
+      <rect x="150" y="250" width="340" height="130" fill="url(#${u}w)"/>
+      <g stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"><path d="M240 300h24M300 330h30M370 310h22M280 360h26M390 350h20M220 340h14"/></g>
+      <path d="M0 246Q140 228 236 258Q206 318 170 380H0Z" fill="#6a5a98" ${S2}/><path d="M0 262Q120 248 200 272" fill="none" stroke="#8a7ab8" stroke-width="6" opacity=".5"/>
+      <path d="M640 246Q500 228 404 258Q434 318 470 380H640Z" fill="#9edc8e" ${S2}/><path d="M640 262Q520 248 440 272" fill="none" stroke="#c4f0b4" stroke-width="6" opacity=".6"/>
+      <g class="gs-castle" data-side="evil" transform="translate(128 268) scale(.8)">${gsCastleSVG(gs.castle.evil, 'evil')}</g>
+      <g class="gs-castle" data-side="good" transform="translate(512 268) scale(.8)">${gsCastleSVG(gs.castle.good, 'good')}</g>
+      <path d="M214 292Q320 236 426 292L426 304Q320 252 214 304Z" fill="url(#${u}b)" ${S2}/>
+      <path d="M232 296Q320 250 408 296" fill="none" stroke="${O}" stroke-width="1.2" opacity=".4"/>
+      ${[0.12, 0.28, 0.44, 0.56, 0.72, 0.88].map(t => { const x = 214 + t * 212, y = (1 - t) * (1 - t) * 292 + 2 * t * (1 - t) * 236 + t * t * 292; return `<path d="M${x.toFixed(1)} ${y.toFixed(1)}v-16" stroke="${O}" stroke-width="2.2"/><circle cx="${x.toFixed(1)}" cy="${(y - 18).toFixed(1)}" r="3" fill="${t < .5 ? '#b98cff' : '#ffcf4d'}" ${S2}/>`; }).join('')}
+      <path d="M218 276Q320 222 422 276" fill="none" stroke="${O}" stroke-width="2.2"/>
+      <path d="M232 312Q320 270 408 312" fill="none" stroke="#fff" stroke-width="1.5" opacity=".35"/>
+      <g class="gs-items">${gsSortItems(gs.garden).map(gsItemSVG).join('')}</g></svg>`;
+  }
+
+  // ---------- a small drag-and-place editor, shared by the valley and the dorm rooms ----------
+  function gsEditor(svgHost, arr, box, save, onChange) {
+    const svgEl = svgHost.querySelector('svg'), layer = svgEl.querySelector('.gs-items');
+    const toSvg = (x, y) => { const p = svgEl.createSVGPoint(); p.x = x; p.y = y; return p.matrixTransform(svgEl.getScreenCTM().inverse()); };
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+    const nodeOf = id => layer.querySelector(`.gs-it[data-id="${id}"]`);
+    const setTf = it => { const n = nodeOf(it.id); if (n) n.setAttribute('transform', `translate(${it.x.toFixed(1)} ${it.y.toFixed(1)}) scale(${(it.f ? -1 : 1) * it.s} ${it.s})`); };
+    const select = id => { gsSel = id; layer.querySelectorAll('.gs-it').forEach(n => n.classList.toggle('sel', n.dataset.id === id)); onChange(); };
+    const add = (t, x, y) => {
+      if (arr.length >= 70) { toast(stickerHTML('castle'), 'כבר מלא פה! אפשר למחוק משהו עם המחק'); return; }
+      const it = { id: 'i' + Date.now().toString(36) + (gsUid++), t, x: clamp(x, box[0], box[2]), y: clamp(y, box[1], box[3]), s: GS_ITEMS[t][1], f: false };
+      arr.push(it); save(); SFX.pop();
+      const after = [...layer.children].find(c => (arr.find(i => i.id === c.dataset.id) || {}).y > it.y);
+      const tmp = document.createElementNS('http://www.w3.org/2000/svg', 'g'); tmp.innerHTML = gsItemSVG(it);
+      layer.insertBefore(tmp.firstChild, after || null); select(it.id);
+    };
+    const remove = it => { const i = arr.indexOf(it); if (i >= 0) arr.splice(i, 1); const n = nodeOf(it.id); if (n) n.remove(); save(); SFX.boop(); if (gsSel === it.id) select(null); };
+    let drag = null;
+    svgEl.addEventListener('pointerdown', e => {
+      const p = toSvg(e.clientX, e.clientY), hit = e.target.closest('.gs-it');
+      if (hit) {
+        const it = arr.find(i => i.id === hit.dataset.id); if (!it) return;
+        if (gsTool === 'erase') { remove(it); e.preventDefault(); return; }
+        select(it.id); drag = { it, dx: it.x - p.x, dy: it.y - p.y, moved: false };
+        svgEl.setPointerCapture(e.pointerId); e.preventDefault(); return;
+      }
+      if (gsTool && gsTool !== 'erase') { add(gsTool, p.x, p.y); return; }
+      const cs = e.target.closest('.gs-castle');
+      if (cs && !gsTool && gsSide !== cs.dataset.side) { gsSide = cs.dataset.side; gsSel = null; SFX.pop(); gsDraw(); return; }
+      select(null);
+    });
+    svgEl.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const p = toSvg(e.clientX, e.clientY);
+      drag.it.x = clamp(p.x + drag.dx, box[0], box[2]); drag.it.y = clamp(p.y + drag.dy, box[1], box[3]); drag.moved = true; setTf(drag.it);
+    });
+    const end = () => {
+      if (!drag) return;
+      if (drag.moved) { save(); const n = nodeOf(drag.it.id), after = [...layer.children].find(c => c !== n && (arr.find(i => i.id === c.dataset.id) || {}).y > drag.it.y); if (after !== n.nextElementSibling) layer.insertBefore(n, after || null); }
+      drag = null;
+    };
+    svgEl.addEventListener('pointerup', end); svgEl.addEventListener('pointercancel', end);
+    // the palette: tap an item then tap the picture, or drag it straight in
+    const palette = ids => {
+      const wrap = el('div', { class: 'gs-pal', role: 'group', 'aria-label': 'קישוטים' });
+      const mark = () => wrap.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.t || null) === gsTool)));
+      const btn = (t, ic, name, extra = {}) => el('button', Object.assign({ type: 'button', 'data-t': t || '', title: name }, extra), ic, el('small', {}, name));
+      wrap.append(
+        btn(null, el('span', { class: 'ic hand' }, '✋'), 'להזיז', { onclick: () => { gsTool = null; mark(); onChange(); } }),
+        btn('erase', el('span', { class: 'ic', html: `<svg viewBox="-28 -30 56 56" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-30)"><rect x="-18" y="-9" width="36" height="18" rx="4" fill="#ff8fbd" ${S2}/><rect x="4" y="-9" width="14" height="18" rx="3" fill="#9dd8f5" ${S2}/></g><path d="M-20 20H20" stroke="#bbb" stroke-width="2" stroke-dasharray="4 3"/></svg>` }), 'מחק', { onclick: () => { gsTool = 'erase'; gsSel = null; select(null); mark(); SFX.boop(); } }),
+        ...ids.map(t => {
+          const b = btn(t, el('span', { class: 'ic', html: `<svg viewBox="-28 -30 56 56" xmlns="http://www.w3.org/2000/svg">${GS_ITEMS[t][2]()}</svg>` }), GS_ITEMS[t][0]);
+          b.addEventListener('pointerdown', e => {
+            if (e.button) return;
+            const x0 = e.clientX, y0 = e.clientY; let ghost = null;
+            const mv = ev => {
+              if (!ghost && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 10) { ghost = el('div', { class: 'gs-ghost', html: `<svg viewBox="-28 -30 56 56" xmlns="http://www.w3.org/2000/svg">${GS_ITEMS[t][2]()}</svg>` }); document.body.append(ghost); try { b.releasePointerCapture(ev.pointerId); } catch {} }
+              if (ghost) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; ev.preventDefault(); }
+            };
+            const up = ev => {
+              document.removeEventListener('pointermove', mv); document.removeEventListener('pointerup', up); document.removeEventListener('pointercancel', up);
+              if (!ghost) return; ghost.remove();
+              const r = svgEl.getBoundingClientRect();
+              gsTool = null; mark();
+              if (ev.type === 'pointerup' && ev.clientX > r.left && ev.clientX < r.right && ev.clientY > r.top && ev.clientY < r.bottom) { const p = toSvg(ev.clientX, ev.clientY); add(t, p.x, p.y); } else onChange();
+            };
+            document.addEventListener('pointermove', mv, { passive: false }); document.addEventListener('pointerup', up); document.addEventListener('pointercancel', up);
+          });
+          b.addEventListener('click', () => { gsTool = gsTool === t ? null : t; gsSel = null; select(null); mark(); SFX.pop(); });
+          return b;
+        }));
+      mark();
+      return wrap;
+    };
+    const tools = () => {
+      const it = arr.find(i => i.id === gsSel), dis = !it;
+      const b = (label, fn, extra = {}) => el('button', Object.assign({ type: 'button', class: 'btn', disabled: dis, onclick: fn }, extra), label);
+      return el('div', { class: 'chips gs-tools' },
+        b('➖', () => { it.s = Math.max(.4, +(it.s - .15).toFixed(2)); setTf(it); save(); SFX.boop(); }, { 'aria-label': 'להקטין' }),
+        b('➕', () => { it.s = Math.min(2.6, +(it.s + .15).toFixed(2)); setTf(it); save(); SFX.pop(); }, { 'aria-label': 'להגדיל' }),
+        b('↔️', () => { it.f = !it.f; setTf(it); save(); SFX.pop(); }, { 'aria-label': 'להפוך' }),
+        b('🗑️', () => remove(it), { 'aria-label': 'למחוק' }),
+        el('span', { class: 'gs-hint' }, gsTool === 'erase' ? '🩷 מצב מחק: לוחצים על קישוט כדי להעלים אותו' : it ? `✋ ${GS_ITEMS[it.t][0]}: גוררים כדי להזיז` : gsTool ? `👆 לוחצים על התמונה (או גוררים לשם) כדי לשים ${GS_ITEMS[gsTool][0]}` : '👆 בוחרים קישוט למטה, או גוררים קישוט שכבר בתמונה'));
+    };
+    return { palette, tools };
+  }
+
+  // ---------- small UI helpers ----------
+  const gsChips = (label, list, cur, pick) => el('div', { class: 'chips gs-row' }, el('span', { class: 'lbl' }, label),
+    ...list.map(([id, name]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(Array.isArray(cur) ? cur.includes(id) : cur === id), onclick: () => { pick(id); SFX.pop(); } }, name)));
+  const gsSwatches = (label, list, cur, pick) => el('div', { class: 'chips gs-row' }, el('span', { class: 'lbl' }, label),
+    ...list.map(c => el('button', { type: 'button', class: 'gs-sw', style: `background:${c}`, 'aria-label': c, 'aria-pressed': String(cur === c), onclick: () => { pick(c); SFX.pop(); } })));
+  const gsSideSwitch = (label, fn) => el('div', { class: 'gs-sides' }, el('span', { class: 'lbl' }, label),
+    ...['good', 'evil'].map(s => el('button', { type: 'button', class: 'gs-side gs-' + s, 'aria-pressed': String(gsSide === s), onclick: () => { gsSide = s; gsSel = null; gsTool = null; SFX.pop(); (fn || gsDraw)(); } }, `${GS_H[s][0]} ${s === 'good' ? 'טירת הטוב' : 'טירת הרע'}`)));
+
+  // ---------- uniforms ----------
+  const GS_UNI = {
+    style: [['skirt', 'חולצה וחצאית קפלים'], ['tutu', 'חצאית טוטו'], ['pants', 'מכנסיים'], ['dress', 'שמלה'], ['pinafore', 'סרפן'], ['gown', 'שמלת נשף']],
+    top: [['blouse', 'חולצה מכופתרת'], ['ruffle', 'מלמלה'], ['sweater', 'סוודר'], ['turtle', 'גולף'], ['longsleeve', 'שרוול ארוך']],
+    pat: [['plain', 'חלק'], ['dots', 'נקודות'], ['stripes', 'פסים'], ['hearts', 'לבבות'], ['stars', 'כוכבים'], ['flowers', 'פרחים'], ['checks', 'משבצות'], ['plaid', 'סקוטי']],
+    collar: [['none', 'בלי'], ['round', 'עגול'], ['pointy', 'מחודד'], ['ruffle', 'מלמלה'], ['bow', 'פפיון'], ['tie', 'עניבה']],
+    cape: [['none', 'בלי'], ['short', 'קצרה'], ['long', 'ארוכה'], ['high', 'צווארון גבוה']],
+    badge: [['swan', '🦢'], ['heart', '💗'], ['crown', '👑'], ['star', '⭐'], ['flower', '🌸'], ['bat', '🦇'], ['moon', '🌙'], ['crystal', '💎'], ['ghost', '👻'], ['cat', '🐈‍⬛']],
+    legs: [['bare', 'בלי גרביונים'], ['white', 'גרביונים לבנים'], ['black', 'גרביונים שחורים'], ['accent', 'גרבי ברך']],
+  };
+  const GS_CLOTH = [...FASH.colors, '#5a3a8a', '#2e2340', '#ff8fbd', '#ffcf4d'].filter((c, i, a) => a.indexOf(c) === i);
+  function gsUniGirl(g, side) {
+    const u = gs.uni[side], o = Object.assign({}, g, { jacket: 'none', hat: 'none', scene: 'plain', mermaid: false, acc: Object.assign({}, g.acc || {}) });
+    ['bag', 'scarf', 'watch', 'necklace', 'pearls', 'ribbon', 'pins'].forEach(k => delete o.acc[k]);
+    if (['skirt', 'tutu', 'pants'].includes(u.style)) Object.assign(o, { dress: 'none', top: u.top, topColor: u.color2, topPat: 'plain', bottom: { skirt: 'pleated', tutu: 'tulle', pants: 'wide' }[u.style], bottomColor: u.color, bottomPat: u.pat });
+    else Object.assign(o, { dress: { gown: 'ballgown', pinafore: 'pinafore' }[u.style] || 'skater', dressColor: u.color, dressPat: u.pat, top: u.top, topColor: u.color2, topPat: 'plain' });
+    o.legwear = { white: 'tights', black: 'tights', accent: 'knee' }[u.legs] || 'bare';
+    o.legColor = { white: '#ffffff', black: '#2b2b30', accent: u.accent }[u.legs] || '#ffffff';
+    o.shoes = u.style === 'pants' ? 'boots' : 'maryjanes'; o.shoeColor = u.shoeC;
+    return o;
+  }
+  function gsBadgeArt(id, x, y, ring) {
+    const icon = {
+      swan: `<g transform="scale(.42)">${GS_ITEMS.swan[2]()}</g>`, heart: `<g transform="translate(0 1) scale(.8)"><path d="${GS_HEART}" fill="#ff5f8f"/></g>`,
+      crown: `<path d="M-7 4L-8-4L-4 0L0-6L4 0L8-4L7 4Z" fill="#ffcf4d" stroke="${O}" stroke-width=".9"/>`, star: `<polygon points="${starPts(0, 0, 7, 3)}" fill="#ffcf4d" stroke="${O}" stroke-width=".9"/>`,
+      flower: gsFlower(0, 0, 3, '#ff8fbd'), bat: `<g transform="scale(.38)">${gsBat()}</g>`, moon: `<g transform="scale(.7)"><path d="${GS_MOON}" fill="#ffcf4d" stroke="${O}" stroke-width="1"/></g>`,
+      crystal: `<g transform="scale(.38)">${GS_ITEMS.crystal[2]()}</g>`, ghost: `<g transform="scale(.42)">${GS_ITEMS.ghost[2]()}</g>`, cat: `<g transform="translate(0 1) scale(.38)">${GS_ITEMS.cat[2]()}</g>`,
+    }[id] || '';
+    return `<g transform="translate(${x} ${y})"><path d="M-12-11H12V2Q12 12 0 16Q-12 12-12 2Z" fill="${ring}" ${S2}/><path d="M-9-8H9V2Q9 9.5 0 12.5Q-9 9.5-9 2Z" fill="#fff"/>${icon}</g>`;
+  }
+  // a girl in a uniform: side = good | evil | both (good clothes, evil cape and badge)
+  const gsUniCache = new Map();
+  function gsUniArt(g, side, view) {
+    const both = side === 'both', U = gs.uni[both ? 'good' : side], C = gs.uni[both ? 'evil' : side];
+    const k = side + (view || '') + JSON.stringify([g, U, C]);
+    if (gsUniCache.has(k)) return gsUniCache.get(k);
+    const body = girlSVG(gsUniGirl(g, both ? 'good' : side), 'gsu' + (gsUid++), { bg: false });
+    const cc = C.capeC, cd = fmx(cc, '#1a0a20', .3), lin = C.accent;
+    const capeB = {
+      short: `<path d="M110 142Q150 126 190 142L218 262Q150 282 82 262Z" fill="${cc}" ${S2}/><path d="M90 256Q150 274 210 256" fill="none" stroke="${lin}" stroke-width="4"/>`,
+      long: `<path d="M110 142Q150 126 190 142L236 476Q150 500 64 476Z" fill="${cc}" ${S2}/><path d="M92 300Q96 400 84 470M208 300Q204 400 216 470" fill="none" stroke="${cd}" stroke-width="2" opacity=".5"/><path d="M68 470Q150 494 232 470" fill="none" stroke="${lin}" stroke-width="5"/>`,
+      high: `<path d="M108 150L82 64Q112 96 150 102Q188 96 218 64L192 150Z" fill="${lin}" ${S2}/><path d="M114 146L94 84Q120 104 150 108Q180 104 206 84L186 146Z" fill="${cc}" opacity=".5"/><path d="M110 142Q150 126 190 142L236 476Q150 500 64 476Z" fill="${cc}" ${S2}/><path d="M92 300Q96 400 84 470M208 300Q204 400 216 470" fill="none" stroke="${cd}" stroke-width="2" opacity=".5"/><path d="M68 470Q150 494 232 470" fill="none" stroke="${lin}" stroke-width="5"/>`,
+    }[C.cape] || '';
+    const capeF = C.cape === 'none' ? '' : `<path d="M150 134Q128 134 112 146L106 168Q122 150 146 142Z" fill="${cc}" ${S2}/><path d="M150 134Q172 134 188 146L194 168Q178 150 154 142Z" fill="${cc}" ${S2}/><circle cx="150" cy="140" r="5" fill="${lin}" ${S2}/>`;
+    const a = U.accent, col = {
+      round: `<path d="M150 132Q136 128 124 136Q126 152 150 142Z" fill="${a}" ${S2}/><path d="M150 132Q164 128 176 136Q174 152 150 142Z" fill="${a}" ${S2}/>`,
+      pointy: `<path d="M150 132L126 131L136 154Z" fill="${a}" ${S2}/><path d="M150 132L174 131L164 154Z" fill="${a}" ${S2}/>`,
+      ruffle: `<path d="M124 134${[0, 1, 2, 3, 4, 5, 6, 7].map(i => `q3.2 ${i % 2 ? -5 : 5} 6.5 ${i < 4 ? 1 : -1}`).join('')}q-26 12-52 0Z" fill="#fff" ${S2}/>`,
+      bow: `<path d="M150 142L136 134V150ZM150 142L164 134V150Z" fill="${a}" ${S2}/><circle cx="150" cy="142" r="3.6" fill="${fmx(a, '#000', .15)}" ${S2}/>`,
+      tie: `<path d="M146 136H154L156 142L152 178L150 184L148 178L144 142Z" fill="${a}" ${S2}/><path d="M146 136H154L152 144H148Z" fill="${fmx(a, '#000', .15)}" ${S2}/>`,
+    }[U.collar] || '';
+    const badge = C.badge ? gsBadgeArt(C.badge, 170, 196, C.accent) : '';
+    const VB = view === 'bust' ? '80 8 140 190' : '0 0 300 600';
+    const s = `<svg viewBox="${VB}" xmlns="http://www.w3.org/2000/svg">${capeB}${placeSvg(body, 0, 0, 300, 600)}${capeF}${col}${badge}</svg>`;
+    if (gsUniCache.size > 60) gsUniCache.clear();
+    gsUniCache.set(k, s); return s;
+  }
+
+  // ---------- students: her girls and her pets ----------
+  const gsGirls = () => { try { return typeof girls !== 'undefined' ? girls : []; } catch { return []; } };
+  const gsPets = () => { try { return typeof allPets === 'function' ? allPets() : pet ? [pet] : []; } catch { return []; } };
+  const gsHeadCache = new Map();
+  const gsHead = g => { const k = JSON.stringify(g); if (!gsHeadCache.has(k)) { if (gsHeadCache.size > 60) gsHeadCache.clear(); gsHeadCache.set(k, girlSVG(g, 'gsh' + (gsUid++), { view: 'head', bg: false })); } return gsHeadCache.get(k); };
+  function gsStudents() {
+    return [...gsGirls().map(g => ({ k: 'g:' + g.id, name: g.name || 'הבובה שלי', g, art: () => gsHead(g) })),
+      ...gsPets().filter(p => p && p.id).map(p => ({ k: 'p:' + p.id, name: p.name || 'חיה', p, art: () => petSVG(p) }))];
+  }
+  const gsHouseOf = k => gs.sorted[k] || null;
+  const gsStudentCard = (s, extra = {}) => el('button', Object.assign({ type: 'button', class: 'gs-stu' + (gsHouseOf(s.k) ? ' gs-in-' + gsHouseOf(s.k) : '') }, extra),
+    el('span', { class: 'gs-face', html: s.art() }), el('b', {}, s.name), el('small', {}, gsHouseOf(s.k) ? GS_H[gsHouseOf(s.k)][0] + ' ' + GS_H[gsHouseOf(s.k)][1] : '✨ עוד לא מוינה'));
+  const gsFull = s => s.g ? gsUniArt(s.g, gsHouseOf(s.k) || 'good') : s.p ? petSVG(s.p) : '';
+
+  // ---------- house points ----------
+  function gsAward(house, n, why) {
+    if (!n) return;
+    const add = (h, v) => { gs.pts[h] = (gs.pts[h] || 0) + v; };
+    if (house === 'both') { add('good', Math.ceil(n / 2)); add('evil', Math.floor(n / 2)); } else add(house === 'evil' ? 'evil' : 'good', n);
+    gs.log.unshift({ h: house, n, w: why, t: localToday() }); gs.log = gs.log.slice(0, 40); gsSave();
+    const fl = el('div', { class: 'gs-plus gs-' + (house || 'good') }, `+${n} ${GS_H[house || 'good'][0]}`);
+    document.body.append(fl); setTimeout(() => fl.remove(), 1600);
+    const sb = $('#gsScore'); if (sb) sb.replaceWith(gsScoreBar());
+  }
+  const gsScoreBar = () => el('div', { class: 'gs-score', id: 'gsScore' },
+    el('span', { class: 'gs-pill gs-good' }, `💗 ${gs.pts.good}`), el('span', { class: 'gs-vs' }, 'נקודות הבית'), el('span', { class: 'gs-pill gs-evil' }, `💜 ${gs.pts.evil}`));
+
+  // ================= the dialog =================
+  function openGSchool(tab) {
+    if (tab) gsTab = tab;
+    gsSel = null; gsTool = null; gsConfirm = false; gsBall = false;
+    gsDraw();
+    if (!$('#gsDlg').open) $('#gsDlg').showModal();
+  }
+  const GS_TABS = [['castle', '🏰 הטירות'], ['uni', '👗 מדים'], ['sort', '🦉 טקס המיון'], ['class', '📚 שיעורים'], ['room', '🛏️ חדרים'], ['points', '🏆 נקודות ונשף']];
+  function gsDraw() {
+    gsClear();
+    const body = $('#gsBody');
+    const tabs = el('div', { class: 'tabs gs-tabs', role: 'tablist' }, ...GS_TABS.map(([id, name]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(gsTab === id),
+      onclick: () => { gsTab = id; gsSel = null; gsTool = null; gsClass = null; gsSort = null; gsBall = false; gsConfirm = false; SFX.pop(); gsDraw(); } }, name)));
+    const pane = el('div', { class: 'gs-pane gs-pane-' + gsTab });
+    body.replaceChildren(tabs, gsScoreBar(), pane);
+    ({ castle: gsDrawCastle, uni: gsDrawUni, sort: gsDrawSort, class: gsDrawClass, room: gsDrawRoom, points: gsDrawPoints }[gsTab] || gsDrawCastle)(pane);
+  }
+
+  // ---------- tab: castles ----------
+  function gsDrawCastle(pane) {
+    const c = gs.castle[gsSide], set = (k, v) => { c[k] = v; gsSave(); gsDraw(); };
+    const scene = el('div', { class: 'gs-scene', html: gsValley() });
+    const toolsBox = el('div');
+    const ed = gsEditor(scene, gs.garden, [8, 20, 632, 372], gsSave, () => toolsBox.replaceChildren(ed.tools()));
+    toolsBox.replaceChildren(ed.tools());
+    const design = el('details', { class: 'gs-box', open: true },
+      el('summary', {}, `🎨 לעצב את ${gsSide === 'good' ? 'טירת הטוב 💗' : 'טירת הרע 💜'}`),
+      gsChips('מגדלים:', GS_OPT.tower, c.tower, v => set('tower', v)),
+      gsChips('גגות:', GS_OPT.roof, c.roof, v => set('roof', v)),
+      gsChips('חלונות:', GS_OPT.win, c.win, v => set('win', v)),
+      gsChips('דגלים:', GS_OPT.flag, c.flag, v => set('flag', v)),
+      gsSwatches('קירות:', GS_WALLS, c.wall, v => set('wall', v)),
+      gsSwatches('גגות:', GS_ROOFS, c.roofC, v => set('roofC', v)),
+      gsSwatches('קישוטי זהב:', ['#ffcf4d', '#ffffff', '#c9a6ff', '#ff8fbd', '#9dd8f5', '#2b2b30', '#7ccf7a'], c.trim, v => set('trim', v)),
+      gsSwatches('דגל:', ['#ffcf4d', '#ff5f8f', '#ffffff', '#b98cff', '#7a4fbf', '#2b2b30', '#7ec8ff', '#7ccf7a'], c.flagC, v => set('flagC', v)),
+      gsChips('קישוטים:', GS_OPT.deco, c.deco, v => set('deco', c.deco.includes(v) ? c.deco.filter(x => x !== v) : [...c.deco, v])),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { gs.castle[gsSide] = gsDefCastle(gsSide); gsSave(); gsDraw(); } }, '↩️ לחזור להתחלה')));
+    pane.replaceChildren(gsSideSwitch('מה מעצבים?'), scene, toolsBox, el('div', { class: 'gs-lbl' }, '🌷 לגינות ולאגם (לוחצים ואז לוחצים על התמונה, או גוררים):'), ed.palette(GS_GARDEN), design,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => gsPhoto(scene.querySelector('svg'), 'הטירות שלי') }, '📸 לצלם למדבקה'),
+        gsConfirm ? el('span', { class: 'chips' }, 'לנקות את כל הגינה?', el('button', { type: 'button', class: 'btn', onclick: () => { gs.garden = []; gsConfirm = false; gsSave(); gsDraw(); } }, 'כן'), el('button', { type: 'button', class: 'btn', onclick: () => { gsConfirm = false; gsDraw(); } }, 'לא'))
+          : el('button', { type: 'button', class: 'btn', disabled: !gs.garden.length, onclick: () => { gsConfirm = true; gsDraw(); } }, '🧹 לנקות את הגינה')));
+  }
+  function gsPhoto(svgEl, label) {
+    try {
+      const clone = svgEl.cloneNode(true); clone.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+      const vb = (svgEl.getAttribute('viewBox') || '0 0 640 380').split(' ').map(Number), w = 480, h = Math.round(w * vb[3] / vb[2]);
+      const photo = `<svg viewBox="0 0 520 ${h + 70}" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-2 260 ${(h + 70) / 2})"><rect x="12" y="12" width="496" height="${h + 46}" rx="10" fill="#fffdf5" stroke="${O}" stroke-width="5"/>${placeSvg(clone.outerHTML, 32, 30, w - 24, h - 16)}</g></svg>`;
+      const c = { id: 'my' + Date.now().toString(36), url: svgData(photo) };
+      customStk.push(c);
+      if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('camera'), 'אין מספיק מקום לשמור את הצילום 😢'); return; }
+      registerCustom(c); tone(1800, .05, 'square', 0, .05); SFX.ding();
+      toast(stickerHTML(c.id), `📸 ${label} - נשמר כמדבקה באלבום!`);
+      if (typeof afterChange === 'function') afterChange();
+    } catch { toast(stickerHTML('castle'), 'לא הצלחתי לצלם 🙈'); }
+  }
+
+  // ---------- tab: uniforms ----------
+  function gsDrawUni(pane) {
+    const u = gs.uni[gsSide], set = (k, v) => { u[k] = v; gsSave(); gsDraw(); }, gl = gsGirls();
+    if (gl.length && !gl.find(g => g.id === gsGirlSel)) gsGirlSel = gl[0].id;
+    const g = gl.find(x => x.id === gsGirlSel);
+    const stage = el('div', { class: 'gs-uni-stage' },
+      g ? el('div', { class: 'gs-uni-big gs-' + gsSide, html: gsUniArt(g, gsSide) }) : el('p', { class: 'muted' }, '👗 עוד אין לך בנות! מעצבים בנות בסטודיו האופנה והן יבואו ללמוד פה.'),
+      g ? el('div', { class: 'gs-uni-other' }, el('small', {}, gsSide === 'good' ? 'ובמדים של הרע:' : 'ובמדים של הטוב:'), el('div', { class: 'gs-uni-mini', html: gsUniArt(g, gsSide === 'good' ? 'evil' : 'good') }),
+        el('small', {}, 'ומי שמוינה "גם וגם":'), el('div', { class: 'gs-uni-mini', html: gsUniArt(g, 'both') })) : null);
+    const who = gl.length > 1 ? el('div', { class: 'gs-girls' }, ...gl.map(x => el('button', { type: 'button', class: 'gs-gbtn', 'aria-pressed': String(x.id === gsGirlSel), title: x.name, onclick: () => { gsGirlSel = x.id; SFX.pop(); gsDraw(); } },
+      el('span', { class: 'gs-face', html: gsHead(x) }), el('small', {}, x.name || '')))) : null;
+    const opts = el('div', { class: 'gs-box' },
+      gsChips('הבגד:', GS_UNI.style, u.style, v => set('style', v)),
+      gsChips('חולצה:', GS_UNI.top, u.top, v => set('top', v)),
+      gsSwatches('צבע ראשי:', GS_CLOTH, u.color, v => set('color', v)),
+      gsSwatches('צבע החולצה:', GS_CLOTH, u.color2, v => set('color2', v)),
+      gsChips('דוגמה:', GS_UNI.pat, u.pat, v => set('pat', v)),
+      gsChips('צווארון:', GS_UNI.collar, u.collar, v => set('collar', v)),
+      gsSwatches('צבע קישוט:', GS_CLOTH, u.accent, v => set('accent', v)),
+      gsChips('גלימה:', GS_UNI.cape, u.cape, v => set('cape', v)),
+      u.cape !== 'none' ? gsSwatches('צבע הגלימה:', GS_CLOTH, u.capeC, v => set('capeC', v)) : null,
+      gsChips('סמל הבית:', GS_UNI.badge, u.badge, v => set('badge', v)),
+      gsChips('רגליים:', GS_UNI.legs, u.legs, v => set('legs', v)),
+      gsSwatches('נעליים:', ['#ffffff', '#2b2b30', '#ff8fbd', '#7a4fbf', '#ffcf4d', '#c9a27e', '#e0314b'], u.shoeC, v => set('shoeC', v)),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { gs.uni[gsSide] = gsDefUni(gsSide); gsSave(); gsDraw(); } }, '↩️ לחזור להתחלה')));
+    pane.replaceChildren(gsSideSwitch('מדים של:'), who, el('div', { class: 'gs-uni' }, stage, opts),
+      el('p', { class: 'muted' }, '✨ כל בת שממיינים בטקס המיון לובשת את המדים של הבית שלה, ורואים אותן ברשימת התלמידות, בחדרים ובנשף!'));
+  }
+
+  // ---------- tab: the sorting ceremony ----------
+  const GS_QS = [
+    ['שרביט קסמים ביד של {n}! מה עושים איתו?', ['להפוך את הגשם לסוכריות 🍬', 'g'], ['להפוך את המורה לצפרדע ליום אחד 🐸', 'e'], ['לקסום עוגה ענקית לכולם 🎂', 'b']],
+    ['איזה צבע הכי מתאים ל{n}?', ['ורוד וזהב 💗', 'g'], ['סגול ושחור 💜', 'e'], ['כל צבעי הקשת 🌈', 'b']],
+    ['איזו חיה תגור עם {n} בטירה?', ['ברבור לבן 🦢', 'g'], ['עטלף חמוד 🦇', 'e'], ['חתול שהוא קצת מכל דבר 🐈', 'b']],
+    ['מה {n} אוהבת לעשות בלילה?', ['לישון עם חלומות ורודים 😴', 'g'], ['להתגנב למטבח לנשנש 🌙', 'e'], ['לספור כוכבים ⭐', 'b']],
+    ['במסיבה, מה הכי כיף?', ['לרקוד עם כולם 💃', 'g'], ['להכין הפתעה מצחיקה 🎭', 'e'], ['לבחור את המוזיקה 🎧', 'b']],
+    ['איזה שיקוי לבשל?', ['שיקוי חיוכים 😊', 'g'], ['שיקוי צחוק מרושע (אבל מצחיק) 😈', 'e'], ['שיקוי שמחליף צבע כל דקה 🎨', 'b']],
+    ['מה לשתול בגינה?', ['פרחים ורודים 🌸', 'g'], ['שיחי קוצים ודלעות 🎃', 'e'], ['פטריות זוהרות 🍄', 'b']],
+    ['מישהו לקח את הכרית של {n}!', ['לחייך ולמצוא כרית אחרת 🙂', 'g'], ['לתכנן נקמה מתוקה 😏', 'e'], ['להציע לחלוק בכרית 🤝', 'b']],
+    ['איזה כובע הכי יפה?', ['נזר נוצץ 👑', 'g'], ['כובע מכשפה מחודד 🧙‍♀️', 'e'], ['זר פרחים 🌼', 'b']],
+    ['איזה צליל הכי נעים?', ['שירת ציפורים 🐦', 'g'], ['רעמים וברקים ⛈️', 'e'], ['פעמונים קטנים 🔔', 'b']],
+    ['מה הכי כיף בחורף?', ['שוקו חם עם מרשמלו ☕', 'g'], ['סערה בחוץ ושמיכה בפנים 🌩️', 'e'], ['מלחמת כדורי שלג 😄', 'b']],
+    ['איזה קסם הכי מגניב?', ['להחזיר פרח שנבל לחיים 🌷', 'g'], ['להיעלם בענן סגול 💨', 'e'], ['לדבר עם חיות 🐾', 'b']],
+    ['איזה חטיף לוקחים לטיול?', ['תותים עם שוקולד 🍓', 'g'], ['סוכריות חמוצות-חמוצות 🍬', 'e'], ['פופקורן צבעוני 🍿', 'b']],
+  ];
+  const gsOwl = () => `<svg viewBox="-40 -46 80 92" xmlns="http://www.w3.org/2000/svg"><path d="M-26 30Q-34 0-22-24L-14-36L-8-26H8L14-36L22-24Q34 0 26 30Q0 44-26 30Z" fill="#ff8fbd" ${S}/><path d="M0-26H8L14-36L22-24Q34 0 26 30Q12 38 0 38Z" fill="#9b6be0" ${S}/>
+    <circle cx="-11" cy="-10" r="11" fill="#fff" ${S2}/><circle cx="11" cy="-10" r="11" fill="#fff" ${S2}/><circle class="gs-owl-eye" cx="-10" cy="-9" r="5.5" fill="${O}"/><circle class="gs-owl-eye" cx="12" cy="-9" r="5.5" fill="${O}"/><circle cx="-8" cy="-11" r="2" fill="#fff"/><circle cx="14" cy="-11" r="2" fill="#fff"/>
+    <path d="M-4 2L0 9L4 2Z" fill="#ffcf4d" ${S2}/><path d="M-12 14Q0 22 12 14M-10 22Q0 28 10 22" fill="none" stroke="${O}" stroke-width="1.5" opacity=".35"/>
+    <path d="M-18-38H18L0-46Z" fill="#2b2b30" ${S2}/><path d="M16-38V-28" stroke="#ffcf4d" stroke-width="2"/><circle cx="16" cy="-27" r="2.4" fill="#ffcf4d"/>
+    <circle cx="-20" cy="4" r="3" fill="#fff" opacity=".45"/><circle cx="20" cy="4" r="3" fill="#fff" opacity=".35"/></svg>`;
+  function gsDrawSort(pane) {
+    const st = gsStudents();
+    if (!st.length) { pane.replaceChildren(el('p', { class: 'muted' }, '🦉 עוד אין תלמידים! מעצבים בנות בסטודיו האופנה או מאמצים חיה, ואז חוזרים לטקס המיון.')); return; }
+    const S = gsSort, s = S && st.find(x => x.k === S.k);
+    if (S && s && S.phase === 'quiz') {
+      const q = GS_QS[S.qs[S.i]], nm = s.name;
+      pane.replaceChildren(el('div', { class: 'gs-cer' },
+        el('div', { class: 'gs-cer-top' }, el('span', { class: 'gs-owl', html: gsOwl() }), el('div', { class: 'gs-bubble' }, el('small', {}, `🦉 ינשופית המיון · שאלה ${S.i + 1} מתוך ${S.qs.length}`), el('b', {}, q[0].replace(/\{n\}/g, nm))),
+          el('span', { class: 'gs-cand', html: s.art() })),
+        el('div', { class: 'gs-answers' }, ...gsShuffle(q.slice(1)).map(([t, h]) => el('button', { type: 'button', class: 'btn gs-ans', onclick: () => {
+          S[h]++; S.i++; SFX.pop();
+          if (S.i >= S.qs.length) { S.phase = 'swirl'; } gsDrawSort(pane);
+        } }, t))),
+        el('div', { class: 'gs-dots' }, ...S.qs.map((_, i) => el('span', { class: i < S.i ? 'on' : '' })))));
+      return;
+    }
+    if (S && s && S.phase === 'swirl') {
+      pane.replaceChildren(el('div', { class: 'gs-cer gs-swirl-stage' },
+        el('div', { class: 'gs-swirl', html: `<svg viewBox="-100 -100 200 200" xmlns="http://www.w3.org/2000/svg">${[0, 1, 2, 3, 4, 5].map(i => `<path d="M0 0C20-10 40 10 36 40S-10 80-50 50" fill="none" stroke="${i % 2 ? '#b98cff' : '#ff8fbd'}" stroke-width="${8 - i}" stroke-linecap="round" transform="rotate(${i * 60})" opacity=".85"/>`).join('')}${[0, 1, 2, 3, 4, 5, 6, 7].map(i => gsSpark(Math.cos(i * .8) * 80, Math.sin(i * .8) * 80, 6, i % 2 ? '#fff' : '#ffe27a')).join('')}</svg>` }),
+        el('span', { class: 'gs-cand gs-spin', html: s.art() }),
+        el('p', { class: 'gs-think' }, '🦉 הממממ... הינשופית חושבת... ✨')));
+      [523, 659, 784, 988, 1175, 1319].forEach((f, i) => tone(f, .2, 'sine', i * .18, .08));
+      gsLater(() => {
+        const res = S.b >= 3 || Math.abs(S.g - S.e) <= 0 ? 'both' : S.g > S.e ? 'good' : 'evil';
+        const first = !gs.sorted[S.k];
+        gs.sorted[S.k] = res; gsSave(); S.phase = 'done'; S.res = res;
+        gsDrawSort(pane);
+        try { confetti($('#gsDlg .confetti-c')); } catch {}
+        SFX.yay();
+        if (first) { gsAward(res, 5, `${s.name} הצטרפה לבית הספר`); if (typeof addCoins === 'function') addCoins(5, 'טקס המיון 🦉'); }
+      }, 2600);
+      return;
+    }
+    if (S && s && S.phase === 'done') {
+      const h = S.res, msg = { good: `${s.name} בבית של הטוב! 💗🦢`, evil: `${s.name} בבית של הרע! 💜🦇 (אבל רק רשעות חמודה!)`, both: `וואו! ${s.name} גם טובה וגם רעה! 💗💜 שני הבתים!` }[h];
+      pane.replaceChildren(el('div', { class: 'gs-cer gs-result gs-' + h },
+        el('div', { class: 'gs-res-art', html: gsFull(s) }),
+        el('div', {}, el('span', { class: 'gs-owl sm', html: gsOwl() }), el('h3', {}, msg), el('p', {}, h === 'both' ? 'היא לובשת את המדים של הטוב עם הגלימה והסמל של הרע!' : 'ברוכים הבאים לבית! 🎉'),
+          el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { gsSort = null; gsDrawSort(pane); } }, '🦉 למיין עוד מישהו'),
+            el('button', { type: 'button', class: 'btn', onclick: () => { gsWho = s.k; gsTab = 'class'; gsSort = null; gsDraw(); } }, '📚 לשיעור!')))));
+      return;
+    }
+    gsSort = null;
+    const start = x => { gsSort = { k: x.k, qs: gsShuffle(GS_QS.map((_, i) => i)).slice(0, 5), i: 0, g: 0, e: 0, b: 0, phase: 'quiz' }; SFX.ding(); gsDrawSort(pane); };
+    const col = h => el('div', { class: 'gs-col gs-' + h }, el('h4', {}, `${GS_H[h][0]} ${h === 'both' ? 'גם וגם' : 'בית ' + GS_H[h][1]}`),
+      ...st.filter(x => gs.sorted[x.k] === h).map(x => el('div', { class: 'gs-rost' }, el('span', { class: 'gs-rart', html: x.g ? gsUniArt(x.g, h, 'bust') : x.art() }), el('small', {}, x.name))));
+    pane.replaceChildren(el('div', { class: 'gs-cer-top' }, el('span', { class: 'gs-owl', html: gsOwl() }), el('div', { class: 'gs-bubble' }, el('b', {}, 'שלום! אני ינשופית המיון 🦉'), el('span', {}, 'בוחרים בת או חיה, עונים על 5 שאלות, ואני אגיד לאיזה בית היא שייכת!'))),
+      el('div', { class: 'gs-stus' }, ...st.map(x => gsStudentCard(x, { onclick: () => start(x) }))),
+      el('h4', { class: 'gs-h' }, '📜 רשימת התלמידים'),
+      el('div', { class: 'gs-roster' }, col('good'), col('both'), col('evil')));
+  }
+
+  // ---------- tab: classes ----------
+  const GS_CLASSES = [
+    ['charm', '✨', 'חן ויופי', 'good', 'תופסים נצנצים!'], ['laugh', '😈', 'צחוק של נבלית', 'evil', 'בונים צחוק מרושע'], ['potion', '🧪', 'שיקויים', 'both', 'מבשלים לפי מתכון'],
+    ['animal', '🐾', 'לחישה לחיות', 'good', 'מבינים מה החיות רוצות'], ['wand', '🪄', 'עיצוב שרביט', 'both', 'מעצבים ומנפנפים'], ['tale', '📜', 'כתיבת אגדות', 'both', 'כותבים אגדה'],
+  ];
+  function gsDrawClass(pane) {
+    const st = gsStudents().filter(x => gs.sorted[x.k]);
+    if (!st.find(x => x.k === gsWho)) gsWho = st.length ? st[0].k : null;
+    const who = st.find(x => x.k === gsWho), house = who ? gs.sorted[who.k] : gsSide;
+    const award = (n, why) => { gsAward(house, n, `${who ? who.name + ': ' : ''}${why}`); };
+    const coin = n => { if (typeof addCoins === 'function') addCoins(n, 'שיעור בבית הספר לטוב ולרע'); };
+    const whoRow = st.length ? el('div', { class: 'gs-girls' }, el('span', { class: 'lbl' }, 'מי בשיעור?'), ...st.map(x => el('button', { type: 'button', class: 'gs-gbtn gs-in-' + gs.sorted[x.k], 'aria-pressed': String(x.k === gsWho), title: x.name, onclick: () => { gsWho = x.k; SFX.pop(); gsDraw(); } },
+      el('span', { class: 'gs-face', html: x.art() }), el('small', {}, x.name))))
+      : el('div', {}, el('p', { class: 'muted' }, '🦉 עוד אף אחד לא מוין! אפשר ללמוד בשביל בית:'), gsSideSwitch('הנקודות הולכות ל:'));
+    if (!gsClass) {
+      pane.replaceChildren(whoRow, el('div', { class: 'gs-classes' }, ...GS_CLASSES.map(([id, ic, name, h, sub]) => el('button', { type: 'button', class: 'gs-cls gs-' + h, onclick: () => { gsClass = id; SFX.ding(); gsDraw(); } },
+        el('span', { class: 'gs-cls-ic' }, ic), el('b', {}, name), el('small', {}, sub)))));
+      return;
+    }
+    const [, ic, name] = GS_CLASSES.find(c => c[0] === gsClass);
+    const box = el('div', { class: 'gs-lesson' });
+    pane.replaceChildren(whoRow, el('div', { class: 'gs-lesson-head' }, el('button', { type: 'button', class: 'btn', onclick: () => { gsClass = null; gsDraw(); } }, '→ לכל השיעורים'), el('h4', {}, `${ic} שיעור ${name}`)), box);
+    const portrait = () => who ? (who.g ? gsUniArt(who.g, house, 'bust') : who.art()) : `<svg viewBox="-40 -46 80 92" xmlns="http://www.w3.org/2000/svg">${gsOwl().replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg>`;
+    ({ charm: gsCharm, laugh: gsLaugh, potion: gsPotion, animal: gsAnimal, wand: gsWand, tale: gsTale }[gsClass])(box, { who, house, award, coin, portrait });
+  }
+  function gsCharm(box, { award, coin, portrait }) {
+    const stage = el('div', { class: 'gs-charm' }, el('span', { class: 'gs-charm-who', html: portrait() }));
+    const info = el('p', { class: 'gs-hint' }, 'בשיעור חן ויופי תופסים נצנצים! יש 15 שניות ✨');
+    let hits = 0, on = false;
+    const go = el('button', { type: 'button', class: 'btn main', onclick: () => {
+      if (on) return; on = true; hits = 0; go.disabled = true; const t0 = Date.now();
+      const spawn = () => {
+        if (!$('#gsDlg').open || !stage.isConnected) return;
+        const left = 15 - Math.floor((Date.now() - t0) / 1000);
+        info.textContent = `⏱️ ${Math.max(0, left)} · ✨ ${hits}`;
+        if (left <= 0) {
+          on = false; go.disabled = false; stage.querySelectorAll('.gs-sp').forEach(n => n.remove());
+          const pts = Math.min(15, hits); info.textContent = `כל הכבוד! תפסת ${hits} נצנצים 💖 (+${pts} נקודות לבית)`;
+          if (pts) { award(pts, 'שיעור חן ויופי'); coin(5); SFX.yay(); } return;
+        }
+        const sp = el('button', { type: 'button', class: 'gs-sp', 'aria-label': 'נצנץ', style: `left:${8 + Math.random() * 80}%;top:${8 + Math.random() * 76}%`, html: `<svg viewBox="-12 -12 24 24">${gsSpark(0, 0, 11, gsR(['#ffe27a', '#ff8fbd', '#fff', '#b98cff']))}</svg>` });
+        sp.addEventListener('pointerdown', e => { e.preventDefault(); hits++; tone(900 + hits * 30, .08, 'sine'); sp.classList.add('pop'); setTimeout(() => sp.remove(), 250); });
+        stage.append(sp); gsLater(() => sp.remove(), 1500);
+        gsLater(spawn, 550);
+      };
+      spawn();
+    } }, '✨ מתחילים!');
+    box.replaceChildren(info, stage, el('div', { class: 'chips' }, go));
+  }
+  function gsLaugh(box, { award, coin, portrait }) {
+    const SY = [['מוּ', 196], ['הָה', 262], ['חָה', 330], ['הִי', 523], ['הוֹ', 175], ['קְחִי', 440], ['אַהַ', 294], ['פְּפְף', 392]];
+    let built = [], last = '';
+    const who = el('span', { class: 'gs-laugh-who', html: portrait() }), bubble = el('div', { class: 'gs-bubble gs-evil-b' }, '...');
+    const meter = el('div', { class: 'gs-meter' });
+    const show = () => { bubble.textContent = built.length ? built.map(i => SY[i][0]).join('') + '!!' : 'לוחצים על הברות ובונים צחוק 😈'; const u = new Set(built).size; meter.textContent = 'רמת רשעות: ' + (built.length ? '😈'.repeat(Math.min(5, Math.ceil((u + built.length / 2) / 1.6))) : '—'); };
+    const pads = el('div', { class: 'chips gs-sy' }, ...SY.map(([t, f], i) => el('button', { type: 'button', class: 'btn', onclick: () => { if (built.length >= 8) return; built.push(i); tone(f, .18, 'triangle'); show(); } }, t)));
+    box.replaceChildren(el('div', { class: 'gs-laugh' }, who, bubble), meter, pads, el('div', { class: 'chips' },
+      el('button', { type: 'button', class: 'btn', onclick: () => { built.pop(); show(); } }, '⌫'),
+      el('button', { type: 'button', class: 'btn main', onclick: () => {
+        if (!built.length) return;
+        built.forEach((i, k) => { tone(SY[i][1], .2, 'sawtooth', k * .2, .06); tone(SY[i][1] * 1.5, .15, 'triangle', k * .2 + .05, .05); });
+        who.classList.remove('shake'); void who.offsetWidth; who.classList.add('shake');
+        const key = built.join(',');
+        if (key !== last && built.length >= 3) { last = key; const pts = Math.min(10, 2 + new Set(built).size + Math.floor(built.length / 2)); award(pts, 'צחוק של נבלית'); coin(3); }
+        else if (built.length < 3) toast(stickerHTML('magicmoon'), 'צחוק של נבלית צריך לפחות 3 הברות! 😈');
+      } }, '😈 לצחוק!'),
+      el('button', { type: 'button', class: 'btn', onclick: () => { built = []; show(); } }, '🧹 חדש')));
+    show();
+  }
+  function gsPotion(box, { award, coin }) {
+    const ING = [['rose', '🌹', 'עלה ורד', '#ff6fa8'], ['star', '⭐', 'אבקת כוכבים', '#ffd84d'], ['bat', '🦇', 'נוצת עטלף', '#6b4fa0'], ['mush', '🍄', 'פטרייה', '#e0314b'],
+      ['dew', '💧', 'טיפת טל', '#7ec8ff'], ['frog', '🐸', 'ריר צפרדע', '#7ccf7a'], ['honey', '🍯', 'דבש', '#ffb43d'], ['moon', '🌙', 'אור ירח', '#d7b8ff']];
+    const NAMES = ['שיקוי חיוכים', 'שיקוי שיער סגול', 'שיקוי קפיצות', 'שיקוי היעלמות', 'שיקוי ריחוף', 'שיקוי קול של ברבור', 'שיקוי צחוק מרושע', 'שיקוי נצנצים', 'שיקוי דיבור עם חתולים'];
+    let recipe, pot, made = 0;
+    const cauldron = el('div', { class: 'gs-pot' }), card = el('div', { class: 'gs-recipe' }), msg = el('p', { class: 'gs-hint' });
+    const potSVG = (col, bubbles) => `<svg viewBox="-60 -70 120 110" xmlns="http://www.w3.org/2000/svg">${bubbles ? [[-14, -40, 6], [8, -52, 4], [18, -34, 5], [-4, -60, 3]].map(([x, y, r], i) => `<circle class="gs-bub" style="animation-delay:${i * .3}s" cx="${x}" cy="${y}" r="${r}" fill="${col}" ${S2}/>`).join('') : ''}<path d="M-40-20H40Q46 30 0 32Q-46 30-40-20Z" fill="#3a2e4a" ${S}/><ellipse cy="-20" rx="42" ry="10" fill="${col}" ${S}/><ellipse cx="-12" cy="-22" rx="10" ry="3" fill="#fff" opacity=".4"/><path d="M-26 30L-30 38M26 30L30 38" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M-50 36H50" stroke="#ff9b3d" stroke-width="4" stroke-linecap="round" opacity=".8"/><path d="M-30 36Q-24 26-18 36Q-10 24-2 36Q6 26 12 36Q20 24 28 36" fill="#ffcf4d" opacity=".9"/></svg>`;
+    const mix = () => pot.length ? pot.map(i => ING[i][3]).reduce((a, c, i) => fmx(a, c, 1 / (i + 1))) : '#7ee06a';
+    const draw = () => { cauldron.innerHTML = potSVG(mix(), pot.length > 0); card.replaceChildren(el('b', {}, `📜 ${recipe.name}`), el('div', { class: 'gs-steps' }, ...recipe.ing.map((i, k) => el('span', { class: k < pot.length ? 'done' : '' }, `${k + 1}. ${ING[i][1]} ${ING[i][2]}`)))); };
+    const newRecipe = () => { recipe = { name: gsR(NAMES), ing: gsShuffle(ING.map((_, i) => i)).slice(0, 3) }; pot = []; msg.textContent = 'מוסיפים לקלחת בדיוק לפי הסדר במתכון!'; draw(); };
+    const shelf = el('div', { class: 'gs-ings' }, ...ING.map(([, e, n], i) => el('button', { type: 'button', class: 'gs-ing', onclick: () => {
+      if (pot.length >= 3) return;
+      if (recipe.ing[pot.length] !== i) { pot = []; msg.textContent = `פוף! 💨 ${n} לא היה במקום הזה במתכון. מתחילים מחדש!`; tone(160, .3, 'sawtooth', 0, .06); cauldron.classList.remove('poof'); void cauldron.offsetWidth; cauldron.classList.add('poof'); draw(); return; }
+      pot.push(i); tone(400 + pot.length * 160, .12, 'sine'); draw();
+      if (pot.length === 3) {
+        made++; msg.textContent = `✨ יצא ${recipe.name}! (+5 נקודות לבית) · הכנת ${made} שיקויים`; SFX.yay(); award(5, recipe.name);
+        if (made % 3 === 0) { coin(5); try { confetti($('#gsDlg .confetti-c')); } catch {} }
+        gsLater(newRecipe, 1800);
+      }
+    } }, el('span', { class: 'gs-ing-e' }, e), el('small', {}, n))));
+    box.replaceChildren(el('div', { class: 'gs-potion' }, cauldron, card), msg, shelf);
+    newRecipe();
+  }
+  function gsAnimal(box, { award, coin }) {
+    const pets = gsPets();
+    if (!pets.length) { box.replaceChildren(el('p', { class: 'muted' }, '🐾 צריך חיות לשיעור הזה! מאמצים חיה ואז חוזרים.')); return; }
+    const NEEDS = [['hungry', 'הבטן עושה גררר... 🍽️', 'אוכל 🍖'], ['sleepy', 'העיניים נעצמות... 💤', 'כרית רכה 🛏️'], ['bored', 'קופצים במקום ומחכים... ⚡', 'כדור 🎾'],
+      ['sad', 'האוזניים למטה... 💧', 'חיבוק 🤗'], ['dirty', 'יש בוץ על הפרווה! 🟤', 'אמבטיה 🛁'], ['cold', 'רועדים קצת... 🥶', 'שמיכה חמה 🧣']];
+    let round = 0, good = 0;
+    const next = () => {
+      if (round >= 5) {
+        box.replaceChildren(el('div', { class: 'gs-done' }, el('div', { class: 'gs-pets-row' }, ...pets.slice(0, 5).map(p => el('span', { class: 'gs-petart gs-hop', html: petSVG(p) }))),
+          el('b', {}, `הבנת ${good} מתוך 5! ${good >= 4 ? 'את לוחשת לחיות אמיתית 🐾💗' : 'עוד קצת תרגול 🐾'}`),
+          el('button', { type: 'button', class: 'btn main', onclick: () => { round = 0; good = 0; next(); } }, 'עוד שיעור')));
+        award(good * 2, 'לחישה לחיות'); if (good) coin(5); return;
+      }
+      const p = gsR(pets), need = gsR(NEEDS), opts = gsShuffle([need, ...gsShuffle(NEEDS.filter(n => n !== need)).slice(0, 3)]);
+      const art = el('span', { class: 'gs-petart', html: petSVG(p) });
+      box.replaceChildren(el('p', { class: 'gs-hint' }, `🐾 סיבוב ${round + 1} מתוך 5 · מקשיבים ל${p.name || 'חיה'}...`),
+        el('div', { class: 'gs-animal' }, art, el('div', { class: 'gs-bubble' }, el('b', {}, `${p.name || 'החיה'} לוחש/ת:`), el('span', {}, need[1]))),
+        el('div', { class: 'gs-answers' }, ...opts.map(o => el('button', { type: 'button', class: 'btn gs-ans', onclick: () => {
+          round++;
+          if (o === need) {
+            good++; try { SFX.pet(p.kind); } catch {} art.classList.add('gs-hop'); art.append(el('span', { class: 'gs-hearts' }, '💗💗💗'));
+            if (need[0] === 'hungry' && typeof feedPet === 'function') { try { feedPet(p, { id: 'gs_snack', name: 'חטיף קסמים', art: `<svg viewBox="-20 -20 40 40" xmlns="http://www.w3.org/2000/svg"><polygon points="${starPts(0, 0, 16, 7)}" fill="#ffd45c" ${S2}/></svg>`, yum: 2 }); } catch {} }
+          } else { SFX.boop(); toast(stickerHTML('heart'), `${p.name || 'החיה'} בעצם רצה ${need[2]}`); }
+          gsLater(next, 1100);
+        } }, o[2]))));
+    };
+    next();
+  }
+  const GS_TIPS = [['star', '⭐ כוכב'], ['heart', '💗 לב'], ['moon', '🌙 ירח'], ['crystal', '💎 גביש'], ['bat', '🦇 עטלף'], ['flower', '🌸 פרח']];
+  let gsWandCur = { stick: '#c9a27e', tip: 'star', tipC: '#ffcf4d', ribbon: '#ff8fbd', spark: '#ffe27a' };
+  function gsWandSVG(w, big) {
+    const tip = { star: `<polygon points="${starPts(0, 0, 18, 8)}" fill="${w.tipC}" ${S}/>`, heart: `<g transform="scale(2.2)"><path d="${GS_HEART}" fill="${w.tipC}" stroke="${O}" stroke-width="1.1"/></g>`,
+      moon: `<g transform="scale(1.9)"><path d="${GS_MOON}" fill="${w.tipC}" stroke="${O}" stroke-width="1.2"/></g>`, crystal: `<path d="M0-22L10-6L6 12H-6L-10-6Z" fill="${w.tipC}" ${S}/><path d="M0-22V12M-10-6H10" stroke="#fff" stroke-width="1.5" opacity=".6"/>`,
+      bat: `<g transform="scale(1.3)">${gsBat(w.tipC)}</g>`, flower: gsFlower(0, 0, 8, w.tipC) }[w.tip] || '';
+    return `<svg viewBox="-70 -70 140 140" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(35)"><rect x="-4" y="-10" width="8" height="74" rx="4" fill="${w.stick}" ${S}/><rect x="-5" y="44" width="10" height="16" rx="3" fill="${fmx(w.stick, '#000', .25)}" ${S2}/>
+      <path d="M-4 0Q-18 8-12 22M4 0Q18 10 12 24" fill="none" stroke="${w.ribbon}" stroke-width="4" stroke-linecap="round"/><g transform="translate(0 -28)">${tip}</g></g>
+      ${big ? `<g class="gs-wand-sp">${[[-40, -50], [-50, -20], [-20, -60], [-58, -48], [-30, -30]].map(([x, y], i) => gsSpark(x, y, 5 + i % 3 * 2, w.spark)).join('')}</g>` : ''}</svg>`;
+  }
+  function gsWand(box, { award, coin }) {
+    const w = gsWandCur, prev = el('div', { class: 'gs-wand-prev', html: gsWandSVG(w, true) });
+    const set = (k, v) => { w[k] = v; prev.innerHTML = gsWandSVG(w, true); redraw(); };
+    const redraw = () => box.replaceChildren(el('div', { class: 'gs-wand' }, prev, el('div', { class: 'gs-box' },
+      gsSwatches('מקל:', ['#c9a27e', '#8a5a3c', '#ffffff', '#2b2b30', '#ffcf4d', '#ff8fbd', '#b98cff', '#9dd8f5'], w.stick, v => set('stick', v)),
+      gsChips('קצה:', GS_TIPS, w.tip, v => set('tip', v)),
+      gsSwatches('צבע הקצה:', ['#ffcf4d', '#ff5f8f', '#ffffff', '#b98cff', '#7a4fbf', '#9dd8f5', '#7ccf7a', '#2b2b30'], w.tipC, v => set('tipC', v)),
+      gsSwatches('סרט:', ['#ff8fbd', '#ffcf4d', '#b98cff', '#9dd8f5', '#ffffff', '#2b2b30', '#e0314b'], w.ribbon, v => set('ribbon', v)),
+      gsSwatches('נצנצים:', ['#ffe27a', '#ffffff', '#ff8fbd', '#b98cff', '#7ec8ff', '#a8f08f'], w.spark, v => set('spark', v)),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+        prev.classList.remove('wave'); void prev.offsetWidth; prev.classList.add('wave');
+        [784, 988, 1175, 1568].forEach((f, i) => tone(f, .15, 'sine', i * .07, .07));
+        const k = JSON.stringify(w);
+        if (!gs.wands.includes(k)) { gs.wands.unshift(k); gs.wands = gs.wands.slice(0, 12); gsSave(); award(5, 'שרביט חדש'); coin(3); redraw(); }
+      } }, '✨ לנפנף!')))),
+      gs.wands.length ? el('div', {}, el('h4', { class: 'gs-h' }, '🪄 השרביטים שעיצבתי'), el('div', { class: 'gs-wands' }, ...gs.wands.map(k => { const x = JSON.parse(k); return el('button', { type: 'button', class: 'gs-wand-mini', html: gsWandSVG(x), 'aria-label': 'שרביט', onclick: () => { Object.assign(w, x); prev.innerHTML = gsWandSVG(w, true); redraw(); } }); }))) : null);
+    redraw();
+  }
+  function gsTale(box, { award, coin, who }) {
+    const names = [...gsGirls().map(g => g.name).filter(Boolean), ...gsPets().map(p => p.name).filter(Boolean)];
+    const P = {
+      hero: ['הגיבורה', [...new Set([...(who ? [who.name] : []), ...names])].slice(0, 6).concat(['נסיכה אמיצה', 'מכשפה קטנה ונחמדה'])],
+      place: ['איפה?', ['בטירה הוורודה', 'בטירה הסגולה', 'על הגשר מעל האגם', 'ביער המכושף', 'במגדל הכי גבוה']],
+      thing: ['חפץ קסום', ['שרביט נוצץ', 'מראה מדברת', 'מפתח זהב', 'ביצת דרקון', 'ספר לחשים', 'נעל שמרחפת']],
+      trouble: ['הבעיה', ['ענן אפור גנב את כל הצבעים', 'הגשר נעלם בלילה', 'הנשף עומד להתבטל', 'דרקון קטן הלך לאיבוד', 'כל הברבורים התחילו לצחוק כמו נבלים']],
+      friend: ['חבר/ה', ['ברבור מדבר', 'עטלף חמוד', 'ינשופית המיון', ...names.slice(0, 3)]],
+      end: ['הסוף', ['וכולם רקדו בנשף עד הבוקר', 'ומאז הטוב והרע הם חברים הכי טובים', 'והיא קיבלה כתר של כוכבים', 'וכולם אכלו עוגה ענקית']],
+    };
+    const pick = Object.fromEntries(Object.entries(P).map(([k, [, l]]) => [k, l[0]]));
+    const text = el('p', { class: 'gs-tale-txt' }), extra = el('textarea', { class: 'gs-tale-more', rows: 3, maxLength: 600, placeholder: '✏️ אפשר להוסיף עוד משפטים משלך...' });
+    const story = () => `פעם, ${pick.place}, חיה ${pick.hero}. יום אחד היא מצאה ${pick.thing}. אבל אז... ${pick.trouble}! ${pick.hero} לא פחדה. יחד עם ${pick.friend} היא השתמשה ב${pick.thing.split(' ')[0]} וסידרה הכל, ${pick.end}. הסוף! ✨`;
+    const upd = () => { text.textContent = story(); };
+    const rows = Object.entries(P).map(([k, [lbl, l]]) => {
+      const row = el('div', { class: 'chips gs-row' }, el('span', { class: 'lbl' }, lbl + ':'));
+      const paint = () => row.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', String(b.textContent === pick[k])));
+      l.forEach(v => row.append(el('button', { type: 'button', class: 'chip', onclick: () => { pick[k] = v; paint(); upd(); SFX.pop(); } }, v)));
+      paint(); return row;
+    });
+    const list = el('div', { class: 'gs-tales' });
+    const drawList = () => list.replaceChildren(...gs.tales.map((t, i) => el('details', { class: 'gs-tale' }, el('summary', {}, `📖 אגדה ${gs.tales.length - i} · ${t.d}`), el('p', {}, t.t),
+      el('button', { type: 'button', class: 'btn', onclick: () => { gs.tales.splice(i, 1); gsSave(); drawList(); } }, '🗑️'))));
+    box.replaceChildren(el('div', { class: 'gs-box' }, ...rows), el('div', { class: 'gs-scroll' }, text), extra,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+        const t = story() + (extra.value.trim() ? ' ' + extra.value.trim() : '');
+        if (gs.tales.some(x => x.t === t)) { toast(stickerHTML('book'), 'האגדה הזאת כבר שמורה! משנים משהו 😊'); return; }
+        gs.tales.unshift({ t, d: localToday() }); gs.tales = gs.tales.slice(0, 20); gsSave(); award(8, 'כתיבת אגדה'); coin(5); SFX.yay(); extra.value = ''; drawList();
+      } }, '💾 לשמור את האגדה'), el('button', { type: 'button', class: 'btn', onclick: () => {
+        Object.entries(P).forEach(([k, [, l]]) => { pick[k] = gsR(l); }); gsTale.redo(); } }, '🎲 אגדה אקראית')),
+      list);
+    gsTale.redo = () => { rows.forEach((r, i) => { const k = Object.keys(P)[i]; r.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', String(b.textContent === pick[k]))); }); upd(); SFX.pop(); };
+    upd(); drawList();
+  }
+
+  // ---------- tab: dorm rooms ----------
+  const GS_ROOM = {
+    wp: [['plain', 'חלק'], ['stripes', 'פסים'], ['dots', 'נקודות'], ['hearts', '💗 לבבות'], ['stars', '⭐ כוכבים'], ['bats', '🦇 עטלפים'], ['diamonds', '💎 יהלומים']],
+    bed: [['canopy', 'מיטת חופה'], ['four', 'מיטת עמודים'], ['heart', 'מיטת לב'], ['cloud', 'מיטת ענן'], ['bunk', 'מיטת קומותיים']],
+    rug: [['heart', '💗 לב'], ['star', '⭐ כוכב'], ['round', 'עגול'], ['moon', '🌙 ירח'], ['none', 'בלי']],
+  };
+  function gsRoomSVG(side) {
+    const R = gs.room[side], u = 'gsr' + (gsUid++), wl = R.wall, wd = fmx(wl, '#1a0a20', .14), wlL = fmx(wl, '#fff', .45), night = side === 'evil';
+    const pat = {
+      stripes: `<rect width="30" height="30" fill="${wl}"/><rect width="12" height="30" fill="${wd}" opacity=".5"/>`,
+      dots: `<rect width="30" height="30" fill="${wl}"/><circle cx="8" cy="8" r="3" fill="${wlL}"/><circle cx="23" cy="23" r="3" fill="${wlL}"/>`,
+      hearts: `<rect width="30" height="30" fill="${wl}"/><g transform="translate(9 10) scale(.5)"><path d="${GS_HEART}" fill="${wd}"/></g><g transform="translate(24 25) scale(.4)"><path d="${GS_HEART}" fill="${wlL}"/></g>`,
+      stars: `<rect width="30" height="30" fill="${wl}"/><polygon points="${starPts(9, 9, 4, 1.8)}" fill="${wlL}"/><polygon points="${starPts(24, 23, 3, 1.3)}" fill="#ffe27a" opacity=".7"/>`,
+      bats: `<rect width="30" height="30" fill="${wl}"/><g transform="translate(15 15) scale(.35)"><path d="M0-2C-5-8-13-9-18-4C-15-3-14 0-14 2C-12 0-9 1-8 3C-6 1-3 1 0 3C3 1 6 1 8 3C9 1 12 0 14 2C14 0 15-3 18-4C13-9 5-8 0-2Z" fill="${wd}"/></g>`,
+      diamonds: `<rect width="30" height="30" fill="${wl}"/><path d="M15 3L25 15L15 27L5 15Z" fill="none" stroke="${wlL}" stroke-width="2"/>`,
+    }[R.wp];
+    const bc = R.bedC, bd = fmx(bc, '#1a0a20', .25), frame = night ? '#3d2a55' : '#fff4e0', pil = '#fff';
+    const bed = {
+      canopy: `<path d="M40 110H250" stroke="${frame}" stroke-width="7" stroke-linecap="round"/><path d="M40 110Q30 180 52 250M250 110Q260 180 238 250" fill="${bc}" opacity=".5" stroke="${bd}" stroke-width="2"/><path d="M40 110Q145 150 250 110Q145 124 40 110Z" fill="${bc}" ${S2}/><path d="M44 112V300M246 112V300" stroke="${frame}" stroke-width="6" stroke-linecap="round"/><path d="M60 170Q145 140 230 170V230H60Z" fill="${frame}" ${S2}/>`,
+      four: `<path d="M50 120V300M240 120V300" stroke="${frame}" stroke-width="9" stroke-linecap="round"/><path d="M50 120l-7-14h14ZM240 120l-7-14h14Z" fill="#b98cff" ${S2}/><path d="M60 170Q145 120 230 170V230H60Z" fill="${frame}" ${S2}/><circle cx="145" cy="160" r="12" fill="#ffe27a" ${S2}/><path d="M149 152A8 8 0 1 0 149 168A6 6 0 1 1 149 152Z" fill="${frame}"/>`,
+      heart: `<g transform="translate(145 190) scale(8)"><path d="${GS_HEART}" fill="${frame}" stroke="${O}" stroke-width=".3"/></g>`,
+      cloud: `${[[80, 196, 34], [120, 176, 40], [170, 176, 40], [210, 196, 34]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" ${S2}/>`).join('')}<rect x="60" y="190" width="170" height="40" fill="#fff"/>`,
+      bunk: `<path d="M52 110V300M238 110V300" stroke="${frame}" stroke-width="8" stroke-linecap="round"/><rect x="56" y="150" width="178" height="22" rx="6" fill="${bc}" ${S2}/><rect x="64" y="136" width="44" height="16" rx="7" fill="${pil}" ${S2}/><path d="M220 150V300M200 150V300M200 180H220M200 210H220M200 240H220M200 270H220" stroke="${frame}" stroke-width="4"/>`,
+    }[R.bed] || '';
+    const mattress = `<rect x="56" y="226" width="178" height="40" rx="10" fill="#fff" ${S2}/><rect x="56" y="236" width="178" height="56" rx="10" fill="${bc}" ${S2}/><path d="M56 252H234" stroke="${bd}" stroke-width="2" opacity=".5"/><rect x="66" y="212" width="54" height="24" rx="11" fill="${pil}" ${S2}/><rect x="124" y="214" width="46" height="20" rx="10" fill="${fmx(bc, '#fff', .6)}" ${S2}/><path d="M60 296V310M230 296V310" stroke="${night ? '#3d2a55' : '#c9a27e'}" stroke-width="6" stroke-linecap="round"/>`;
+    const rc = R.rugC, rug = {
+      heart: `<g transform="translate(390 335) scale(5.2 2.4)"><path d="${GS_HEART}" fill="${rc}" stroke="${O}" stroke-width=".5"/></g>`,
+      star: `<g transform="translate(390 332) scale(1 .42)"><polygon points="${starPts(0, 0, 80, 38)}" fill="${rc}" ${S}/></g>`,
+      round: `<ellipse cx="390" cy="332" rx="84" ry="30" fill="${rc}" ${S2}/><ellipse cx="390" cy="332" rx="62" ry="20" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/>`,
+      moon: `<g transform="translate(390 330) scale(7 3)"><path d="${GS_MOON}" fill="${rc}" stroke="${O}" stroke-width=".4"/></g>`,
+    }[R.rug] || '';
+    const view = night
+      ? `<rect x="320" y="46" width="130" height="120" fill="#241a4a"/><path d="M432 56A14 14 0 1 0 432 84A18 18 0 0 1 432 56Z" fill="#ffe27a"/>${[[340, 70], [430, 120], [350, 140], [420, 60], [380, 150]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.6" fill="#fff"/>`).join('')}<g transform="translate(355 110) scale(.7)">${gsBat('#8a6cc0')}</g>`
+      : `<rect x="320" y="46" width="130" height="120" fill="#bfe8ff"/><circle cx="420" cy="74" r="14" fill="#ffe27a"/><ellipse cx="352" cy="80" rx="18" ry="7" fill="#fff"/><path d="M320 150Q360 130 400 146Q430 136 450 144V166H320Z" fill="#9edc8e"/><g transform="translate(360 150) scale(.35)">${GS_ITEMS.swan[2]()}</g>`;
+    // her students who live in this house
+    const st = gsStudents().filter(s => gs.sorted[s.k] === side || gs.sorted[s.k] === 'both');
+    const gl = st.filter(s => s.g).slice(0, 2), pl = st.filter(s => s.p).slice(0, 2);
+    const mates = gl.map((s, i) => placeSvg(gsUniArt(s.g, gs.sorted[s.k]), 488 + i * 50, 150 - i * 4, 90, 180)).join('') + pl.map((s, i) => placeSvg(petSVG(s.p), 345 + i * 62, 272, 64, 64)).join('');
+    return `<svg viewBox="0 0 600 380" xmlns="http://www.w3.org/2000/svg" class="gs-svg"><defs><pattern id="${u}p" width="30" height="30" patternUnits="userSpaceOnUse">${pat || `<rect width="30" height="30" fill="${wl}"/>`}</pattern>
+      <linearGradient id="${u}f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${fmx(R.floor, '#000', .12)}"/><stop offset="1" stop-color="${R.floor}"/></linearGradient></defs>
+      <rect width="600" height="280" fill="url(#${u}p)"/><rect width="600" height="280" fill="#fff" opacity="${night ? 0 : .12}"/><rect y="270" width="600" height="110" fill="url(#${u}f)"/>
+      ${[300, 320, 345, 375].map(y => `<path d="M0 ${y}H600" stroke="${fmx(R.floor, '#000', .18)}" stroke-width="1.2" opacity=".6"/>`).join('')}
+      <rect y="262" width="600" height="12" fill="${fmx(wl, '#fff', .6)}" ${S2}/>
+      <rect x="312" y="38" width="146" height="136" rx="8" fill="${frame}" ${S2}/>${view}<path d="M385 46V166M320 106H450" stroke="${frame}" stroke-width="5"/><rect x="320" y="46" width="130" height="120" fill="none" stroke="${O}" stroke-width="1.8"/>
+      <path d="M300 30Q318 110 306 190H326Q334 110 320 30Z" fill="${bc}" ${S2}/><path d="M470 30Q452 110 464 190H444Q436 110 450 30Z" fill="${bc}" ${S2}/><path d="M296 30H474" stroke="${O}" stroke-width="3" stroke-linecap="round"/>
+      ${bed}${mattress}
+      ${rug}${mates}
+      <g class="gs-items">${gsSortItems(R.items).map(gsItemSVG).join('')}</g></svg>`;
+  }
+  function gsDrawRoom(pane) {
+    const R = gs.room[gsSide], set = (k, v) => { R[k] = v; gsSave(); gsDraw(); };
+    const scene = el('div', { class: 'gs-scene gs-room', html: gsRoomSVG(gsSide) });
+    const toolsBox = el('div');
+    const ed = gsEditor(scene, R.items, [10, 10, 590, 372], gsSave, () => toolsBox.replaceChildren(ed.tools()));
+    toolsBox.replaceChildren(ed.tools());
+    pane.replaceChildren(gsSideSwitch('איזה חדר?'), scene, toolsBox, el('div', { class: 'gs-lbl' }, '🧸 דברים לחדר (לוחצים ואז לוחצים בחדר, או גוררים):'), ed.palette(GS_ROOMI),
+      el('details', { class: 'gs-box', open: true }, el('summary', {}, `🎨 לעצב את חדר ה${gsSide === 'good' ? 'טוב 💗' : 'רע 💜'}`),
+        gsSwatches('קירות:', GS_WALLS, R.wall, v => set('wall', v)),
+        gsChips('טפט:', GS_ROOM.wp, R.wp, v => set('wp', v)),
+        gsSwatches('רצפה:', ['#f3d2b3', '#c9a27e', '#8a5a3c', '#f4ece0', '#3d3150', '#2b2b30', '#ffd6e6', '#bfe8ff'], R.floor, v => set('floor', v)),
+        gsChips('מיטה:', GS_ROOM.bed, R.bed, v => set('bed', v)),
+        gsSwatches('צבע המצעים:', GS_CLOTH, R.bedC, v => set('bedC', v)),
+        gsChips('שטיח:', GS_ROOM.rug, R.rug, v => set('rug', v)),
+        gsSwatches('צבע השטיח:', ['#ffd45c', '#ff8fbd', '#ffffff', '#b98cff', '#2b2140', '#9dd8f5', '#7ccf7a', '#e0314b'], R.rugC, v => set('rugC', v))),
+      el('p', { class: 'muted' }, '💤 הבנות והחיות שמוינו לבית הזה גרות בחדר!'),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => gsPhoto(scene.querySelector('svg'), 'החדר שלי') }, '📸 לצלם למדבקה')));
+  }
+
+  // ---------- tab: points, trophies and the end-of-year ball ----------
+  const gsTrophy = (h, big) => { const c = h === 'good' ? '#ff8fbd' : h === 'evil' ? '#9b6be0' : '#ffcf4d', c2 = h === 'both' ? '#ff8fbd' : '#ffcf4d';
+    return `<svg viewBox="-40 -46 80 92" xmlns="http://www.w3.org/2000/svg">${big ? `<circle r="42" fill="${c}" opacity=".18"/>` : ''}<path d="M-22-30H22Q24 4 0 10Q-24 4-22-30Z" fill="${c}" ${S}/><path d="M-22-24Q-36-24-32-10Q-28 0-16 0M22-24Q36-24 32-10Q28 0 16 0" fill="none" stroke="${c2}" stroke-width="4"/><rect x="-5" y="9" width="10" height="14" fill="${c2}" ${S2}/><rect x="-18" y="22" width="36" height="10" rx="3" fill="#8a5a3c" ${S2}/><path d="M-12-24Q-12-6 0-2" fill="none" stroke="#fff" stroke-width="3" opacity=".5" stroke-linecap="round"/><text y="-8" text-anchor="middle" font-size="14">${h === 'good' ? '💗' : h === 'evil' ? '💜' : '💗'}</text>${gsSpark(24, -36, 5, '#fff')}</svg>`; };
+  function gsJar(h, max) {
+    const v = gs.pts[h], lvl = Math.min(1, v / max), H = 150, top = 30 + H * (1 - lvl), col = h === 'good' ? '#ff8fbd' : '#9b6be0', gem = h === 'good' ? '#ffcf4d' : '#d7b8ff';
+    const gems = Array.from({ length: Math.floor(lvl * 16) }, (_, i) => `<path d="M${-22 + (i * 17) % 44} ${176 - Math.floor(i / 3) * 9}l5-5 5 5-5 5z" fill="${gem}" stroke="${O}" stroke-width=".8"/>`).join('');
+    return `<svg viewBox="-50 0 100 210" xmlns="http://www.w3.org/2000/svg"><path d="M-30 24H30V180Q30 196 0 196Q-30 196-30 180Z" fill="#fff" opacity=".5" ${S}/><clipPath id="gsj${h}"><path d="M-30 24H30V180Q30 196 0 196Q-30 196-30 180Z"/></clipPath><g clip-path="url(#gsj${h})" opacity="${v ? 1 : 0}"><rect x="-32" y="${top}" width="64" height="${200 - top}" fill="${col}"/><path d="M-32 ${top}Q-16 ${top - 6} 0 ${top}T32 ${top}" fill="${fmx(col, '#fff', .4)}"/>${gems}</g><path d="M-30 24H30V180Q30 196 0 196Q-30 196-30 180Z" fill="none" ${S}/><rect x="-34" y="14" width="68" height="12" rx="4" fill="${h === 'good' ? '#ffcf4d' : '#2e2340'}" ${S2}/><path d="M-20 40V160" stroke="#fff" stroke-width="4" opacity=".5" stroke-linecap="round"/></svg>`;
+  }
+  function gsDrawPoints(pane) {
+    const P = gs.pts, tot = P.good + P.evil, max = Math.max(100, P.good, P.evil), NEED = 60;
+    if (gsBall) { gsDrawBall(pane); return; }
+    const lead = P.good === P.evil ? (tot ? 'תיקו! 😮' : 'עוד אין נקודות. לומדים בשיעורים וממיינים תלמידים!') : P.good > P.evil ? 'בית הטוב מוביל! 💗' : 'בית הרע מוביל! 💜';
+    pane.replaceChildren(
+      el('div', { class: 'gs-jars' }, el('div', { class: 'gs-jar' }, el('span', { html: gsJar('good', max) }), el('b', {}, `💗 ${P.good}`), el('small', {}, 'בית הטוב')),
+        el('div', { class: 'gs-lead' }, el('b', {}, lead), el('small', {}, `שנת הלימודים ה-${gs.year}`)),
+        el('div', { class: 'gs-jar' }, el('span', { html: gsJar('evil', max) }), el('b', {}, `💜 ${P.evil}`), el('small', {}, 'בית הרע'))),
+      el('div', { class: 'chips', style: 'justify-content:center' }, tot >= NEED
+        ? el('button', { type: 'button', class: 'btn main gs-ballbtn', onclick: () => { gsBall = true; SFX.birthday(); gsDraw(); } }, '💃 לנשף סוף השנה!')
+        : el('span', { class: 'gs-hint' }, `💃 הנשף של סוף השנה נפתח ב-${NEED} נקודות. חסרות עוד ${NEED - tot}!`)),
+      gs.trophies.length ? el('div', {}, el('h4', { class: 'gs-h' }, '🏆 מדף הגביעים'), el('div', { class: 'gs-shelf' }, ...gs.trophies.map(t => el('div', { class: 'gs-tro' }, el('span', { html: gsTrophy(t.w) }), el('small', {}, `שנה ${t.y}`), el('small', {}, `💗${t.g} · 💜${t.e}`))))) : null,
+      el('h4', { class: 'gs-h' }, '📜 מאיפה הגיעו הנקודות'),
+      gs.log.length ? el('ul', { class: 'gs-log' }, ...gs.log.slice(0, 12).map(l => el('li', {}, el('b', { class: 'gs-' + l.h }, `+${l.n} ${GS_H[l.h] ? GS_H[l.h][0] : ''}`), ' ', l.w))) : el('p', { class: 'muted' }, 'עוד אין נקודות.'));
+  }
+  function gsDrawBall(pane) {
+    const P = gs.pts, win = P.good === P.evil ? 'both' : P.good > P.evil ? 'good' : 'evil';
+    const st = gsStudents().filter(s => gs.sorted[s.k]);
+    const floor = el('div', { class: 'gs-ball-floor' }, ...st.slice(0, 10).map((s, i) => el('span', { class: 'gs-dancer' + (s.p ? ' pet' : ''), style: `animation-delay:${(i % 4) * .18}s`, html: gsFull(s) })));
+    const lights = `<svg viewBox="0 0 600 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">${Array.from({ length: 13 }, (_, i) => `<path d="M${i * 50} 0Q${i * 50 + 25} 30 ${i * 50 + 50} 0" fill="none" stroke="#ffe27a" stroke-width="1.5"/><circle cx="${i * 50 + 25}" cy="15" r="5" fill="${i % 2 ? '#ff8fbd' : '#b98cff'}" class="gs-twinkle" style="animation-delay:${i * .15}s"/>`).join('')}<g transform="translate(300 40)"><path d="M-40 0H40L30 16H-30Z" fill="#ffcf4d" ${S2}/>${[-30, -15, 0, 15, 30].map(x => `<path d="M${x} 16V30" stroke="#fff" stroke-width="2"/><circle cx="${x}" cy="32" r="3" fill="#bfe8ff"/>`).join('')}</g></svg>`;
+    const msg = { good: 'בית הטוב זכה בגביע השנה! 💗🏆', evil: 'בית הרע זכה בגביע השנה! 💜🏆', both: 'תיקו! שני הבתים זוכים ביחד! 💗💜🏆' }[win];
+    pane.replaceChildren(el('div', { class: 'gs-ball gs-win-' + win },
+      el('div', { class: 'gs-ball-lights', html: lights }),
+      el('h3', {}, '💃 נשף סוף השנה 🕺'),
+      el('div', { class: 'gs-ball-tro', html: gsTrophy(win, true) }),
+      el('b', { class: 'gs-ball-msg' }, msg),
+      st.length ? floor : el('p', {}, 'אף אחד עוד לא מוין... אבל המוזיקה מתנגנת! 🎶')),
+      el('div', { class: 'chips', style: 'justify-content:center' },
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          gs.trophies.unshift({ y: gs.year, w: win, g: P.good, e: P.evil, d: localToday() }); gs.trophies = gs.trophies.slice(0, 20);
+          gs.year++; gs.pts = { good: 0, evil: 0 }; gs.log = []; gsSave(); gsBall = false;
+          if (typeof addCoins === 'function') addCoins(25, 'הנשף של בית הספר לטוב ולרע 🏆');
+          try { confetti($('#gsDlg .confetti-c')); } catch {} SFX.yay(); gsDraw();
+          toast(stickerHTML('trophy'), 'הגביע על המדף! מתחילה שנת לימודים חדשה ✨');
+        } }, '🏆 לשים את הגביע על המדף ולהתחיל שנה חדשה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { gsBall = false; gsDraw(); } }, 'עוד לא')));
+    try { confetti($('#gsDlg .confetti-c')); } catch {}
+  }
+  $('#gsDlg').addEventListener('close', () => { gsClear(); gsTool = null; gsSel = null; });
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
