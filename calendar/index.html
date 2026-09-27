@@ -4953,6 +4953,68 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
 .lb-namecard .ic { grid-row: span 2; width: 90px; height: 100px; } .lb-namecard .ic > svg { width: 100%; height: 100%; overflow: visible; }
 .lb-namecard input { font-size: 1.2em; }
 @media (max-width: 560px) { .lb-stage { height: 320px; } .lb-baby { width: 96px; } .lb-baby .in { height: 110px; } .lb-parents .ic { width: 56px; height: 64px; } }
+/* 🏥 pets clinic (vet agent, round 7) */
+.vet7-head { display: flex; align-items: center; gap: 10px; background: linear-gradient(90deg, #e8f6ff, #ffeef6); color: #1f2a44; border: 2px solid var(--line); border-radius: 16px; padding: 6px 10px; }
+.vet7-badge { width: 46px; height: 56px; flex: none; } .vet7-badge svg { width: 100%; height: 100%; display: block; }
+.vet7-lv { flex: 1; display: grid; gap: 3px; min-width: 0; } .vet7-lv b { font-weight: 400; font-size: 1.1em; } .vet7-lv small { color: #5b6b8c; }
+.vet7-bar { display: block; height: 10px; border-radius: 6px; background: #fff; border: 1.5px solid #3a2b3c; overflow: hidden; }
+.vet7-bar i { display: block; height: 100%; background: linear-gradient(90deg, #7ed48a, #ffd84d); border-radius: 6px; transition: width .6s; }
+.vet7-warn { border-radius: 14px; padding: 8px 12px; background: #fff4d6; color: #1f2a44; border: 2px solid #ffc94d; text-align: center; }
+.vet7-warn.hot { background: #ffe3e8; border-color: #ff5a6e; animation: vet7pulse 1.4s ease-in-out infinite; }
+.vet7-warn.ok { background: #eafbef; border-color: #7ed48a; }
+@keyframes vet7pulse { 50% { box-shadow: 0 0 0 5px rgb(255 90 110 / .25); } }
+.vet7-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.vet7-pcard { display: grid; justify-items: center; gap: 2px; padding: 8px; border: 2px solid var(--line); border-radius: 16px; background: var(--card); text-align: center; }
+.vet7-pcard.hot { border-color: #ff5a6e; background: linear-gradient(#fff0f3, var(--card)); }
+.vet7-part { width: 96px; height: 110px; } .vet7-part svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.vet7-pcard .btn { margin-top: 4px; }
+.vet7-recbox { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 6px 10px; border-radius: 14px; background: #f3edff; color: #1f2a44; border: 2px dashed #c9b2ff; }
+.vet7-recp { display: inline-flex; align-items: center; gap: 4px; } .vet7-recp .ic { width: 34px; height: 38px; } .vet7-recp .ic svg { width: 100%; height: 100%; }
+.vet7-mini { display: flex; flex-wrap: wrap; gap: 6px; }
+.vet7-minib { width: 58px; height: 64px; padding: 2px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); cursor: pointer; position: relative; }
+.vet7-minib svg { width: 100%; height: 100%; display: block; }
+.vet7-minib.done::after { content: '✔️'; position: absolute; top: -6px; left: -6px; font-size: .8em; }
+.vet7-room { position: relative; min-height: 300px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); background: linear-gradient(#e8f6ff 0 64%, #cfe9df 64%); display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; padding: 12px; gap: 10px; }
+.vet7-room::before { content: '✚'; position: absolute; top: 10px; right: 14px; font-size: 2.2em; color: #ff6b8b; opacity: .35; }
+.vet7-pet { position: relative; width: 200px; height: 228px; justify-self: center; }
+.vet7-pet > svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.vet7-pet.healed > svg { animation: pzhop .7s ease 2; }
+.vet7-fx { position: absolute; width: 64px; height: 64px; opacity: 0; pointer-events: none; z-index: 2; }
+.vet7-fx svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 4px rgb(0 0 0 / .2)); }
+.vet7-fx.on { animation: vet7tool 1.25s ease both; }
+.vet7-fx.mouth { left: 52%; top: 42%; } .vet7-fx.ear { left: 6%; top: 8%; } .vet7-fx.belly { left: 40%; top: 58%; } .vet7-fx.body { left: 55%; top: 50%; } .vet7-fx.foot { left: 18%; top: 72%; } .vet7-fx.head { left: 36%; top: 4%; }
+@keyframes vet7tool { 0% { opacity: 0; transform: translate(60px, -40px) rotate(20deg) scale(.6); } 25% { opacity: 1; transform: none; } 40% { transform: rotate(-8deg); } 55% { transform: rotate(8deg); } 70% { transform: rotate(-4deg); opacity: 1; } 100% { opacity: 0; transform: translateY(-10px); } }
+.pz-say.vet7-say { position: static; transform: none; grid-column: 1 / -1; justify-self: center; max-width: 94%; }
+.vet7-side { display: grid; gap: 8px; align-self: stretch; align-content: center; }
+.vet7-chart, .vet7-diag { background: #fff; color: #1f2a44; border: 2px solid #3a2b3c; border-radius: 16px; padding: 8px 10px; display: grid; gap: 3px; box-shadow: 3px 4px 0 rgb(0 0 0 / .08); }
+.vet7-chart b, .vet7-diag b { font-weight: 400; } .vet7-chart .muted, .vet7-diag .muted { color: #5b6b8c; }
+.vet7-row { display: flex; align-items: center; gap: 6px; font-size: .88em; color: #9aa6bd; }
+.vet7-row.ok { color: #1f2a44; } .vet7-row .ic { width: 22px; height: 22px; flex: none; opacity: .45; } .vet7-row.ok .ic { opacity: 1; } .vet7-row .ic svg { width: 100%; height: 100%; }
+.vet7-diag { background: #fffbe0; border-color: #e8a400; animation: vet7in .45s ease; } .vet7-diag.done { background: #eafbef; border-color: #4fbf73; }
+@keyframes vet7in { from { transform: scale(.85); opacity: 0; } }
+.vet7-h { margin: 4px 0 0; font-weight: 400; font-size: 1em; } .vet7-h.off { color: var(--soft); }
+.vet7-tools .pz-tool { position: relative; }
+.pz-tool.vet7-done { border-color: #4fbf73; background: #eafbef; color: #1f2a44; }
+.pz-tool.vet7-tried { opacity: .5; }
+.vet7-cardsrow { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.vet7-gw { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 999px; background: #fff0f7; color: #1f2a44; border: 2px solid #ff9ad5; animation: vet7in .5s ease both; }
+.vet7-gw:nth-child(2) { animation-delay: .3s; } .vet7-gw:nth-child(3) { animation-delay: .6s; }
+.vet7-gw .ic { width: 32px; height: 34px; } .vet7-gw .ic svg { width: 100%; height: 100%; }
+/* the recovery bed in the shared home */
+.vet7-bed { position: absolute; bottom: 2%; width: 150px; height: 108px; border: none; background: none; padding: 0; cursor: pointer; z-index: 60; }
+.vet7-bed > span { position: absolute; pointer-events: none; }
+.vet7-bed .b0, .vet7-bed .b1 { inset: 0; } .vet7-bed .b0 svg, .vet7-bed .b1 svg { width: 100%; height: 100%; display: block; }
+.vet7-bed .bp { left: 30%; bottom: 30%; width: 44%; height: 70%; } .vet7-bed .bp svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.vet7-zz { top: -4px; right: 18%; font-size: 1.1em; animation: vet7zz 2.4s ease-in-out infinite; }
+@keyframes vet7zz { 50% { transform: translate(-4px, -8px); opacity: .5; } }
+.vet7-gift { width: 34px; height: 36px; } .vet7-gift svg { width: 100%; height: 100%; }
+.vet7-gift.g0 { left: -10px; bottom: 0; } .vet7-gift.g1 { right: -12px; bottom: 2px; } .vet7-gift.g2 { right: 6%; top: 4px; }
+.vet7-bub { position: absolute; top: -18px; right: -6px; font-size: 1.15em; background: #fff; border: 2px solid #3a2b3c; border-radius: 12px 12px 12px 2px; padding: 0 4px; line-height: 1.4; cursor: pointer; z-index: 5; animation: vet7bob 1.8s ease-in-out infinite; }
+.vet7-bub.hot { border-color: #ff5a6e; background: #ffe3e8; }
+@keyframes vet7bob { 50% { transform: translateY(-4px); } }
+.pill.vet7-pill { border-color: #ffb020; } .pill.vet7-pill.hot { border-color: #ff5a6e; background: #ffe3e8; color: #1f2a44; animation: vet7pulse 1.4s ease-in-out infinite; }
+@media (max-width: 560px) { .vet7-room { grid-template-columns: 1fr; } .vet7-pet { width: 160px; height: 182px; } }
+@media (prefers-reduced-motion: reduce) { .vet7-warn.hot, .pill.vet7-pill.hot, .vet7-bub, .vet7-zz { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -6240,6 +6302,8 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
   </div>
 </dialog>
 
+
+<!-- vet7: no new dialogs — the clinic reuses #petzVetDlg -->
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -34398,6 +34462,436 @@ ${label(900, 520, '🌊 ים האיים')}
         ready ? (e.egg ? '🐣 הביצה בוקעת! בואי מהר!' : '👶 הגור נולד! בואי מהר!') : (e.egg ? '🥚 יש ביצה בקן! לחמם אותה' : '💞 גור בדרך!')));
     } catch {}
   };
+  // ================= 🏥 the pets clinic: sickness, exams, she chooses the treatment, recovery bed (vet agent, round 7) =================
+  // store 'petVet7' = { sick: { pid: { s, d, warnDay, warnN } }, rec: { pid: { d, cards: [[fromPid, item]] } }, lastTick, lastNew, heals, first, checked: { pid: day }, kinds: { s: n } }
+  let vetS = Object.assign({ v: 1, sick: {}, rec: {}, lastTick: '', lastNew: '', heals: 0, first: 0, saved: 0, checked: {}, kinds: {}, lv: 0 }, store.get('petVet7', {}));
+  const vetSave = () => store.set('petVet7', vetS);
+  const vetPick = a => a[Math.floor(Math.random() * a.length)];
+  const vetNm = p => (p && p.name) || 'החיה';
+  const vetCoins = (n, why) => { try { if (typeof addCoins === 'function') addCoins(n, why); } catch {} };
+  const vetStage = p => { try { return typeof petAge === 'function' ? petAge(p).stage : 'adult'; } catch { return 'adult'; } };
+  const vetBaby = p => vetStage(p) === 'baby';
+  const vetNoDeath = () => { try { return !!lifeS.noDeath; } catch { return true; } };
+  const vetF = n => Math.round(n * 10) / 10;
+  // ---------- 12 sicknesses: [what the pet says, exam clues, the right treatment, close ones, the hint] ----------
+  const VET_EX = [['steth', 'סטטוסקופ', 'להקשיב ללב'], ['thermo', 'מדחום', 'למדוד חום'], ['ears', 'פנס אוזניים', 'להסתכל באוזניים'], ['mouth', 'מקל לפה', 'להסתכל בפה'], ['look', 'זכוכית מגדלת', 'לבדוק את הגוף']];
+  const VET_NORMAL = { steth: 'בּוּם־בּוּם — הלב נשמע חזק ובריא ❤️', thermo: '36.8° — אין חום ✔️', ears: 'האוזניים נקיות ✔️', mouth: 'השיניים והלשון בסדר ✔️', look: 'לא רואים שום דבר מיוחד ✔️' };
+  const VET_TR = [['syrup', 'סירופ תרופה'], ['pill', 'כדור בתוך חטיף'], ['bandage', 'תחבושת'], ['ointment', 'משחה'], ['tea', 'תה חם ושמיכה'], ['drops', 'טיפות אוזניים'],
+    ['brush', 'צחצוח שיניים'], ['cuddle', 'חיבוקים ומשחק'], ['rest', 'מנוחה במיטה'], ['vitamins', 'ויטמינים'], ['ice', 'שקית קרח'], ['spray', 'תרסיס לאף']];
+  const VET_SICK = {
+    cold: { n: 'הצטננות', e: '🤧', mild: 1, say: 'אַפְּצִ\'י! האף שלי סתום ונוזל...', ex: { thermo: '37.8° — חום קטן 🌡️', steth: 'שיעול קטן: כְּחְח כְּחְח', look: 'האף אדום ונוזל 🤧' }, ok: 'tea', close: ['syrup', 'rest', 'vitamins'], hint: 'כשמצוננים, משהו חם ונעים עוזר הכי הרבה ☕' },
+    tummy: { n: 'כאב בטן', e: '🌀', mild: 1, say: 'הבטן שלי עושה בלוּבּ בלוּבּ...', ex: { steth: 'בבטן שומעים גרגורים: גררר 🌀', look: 'הבטן קצת נפוחה', mouth: 'הלשון קצת לבנה' }, ok: 'syrup', close: ['tea', 'rest'], hint: 'לבטן כואבת יש תרופה מתוקה שנותנים בכפית 🥄' },
+    fever: { n: 'חום גבוה', e: '🔥', say: 'חם לי מאוד... והראש כבד', ex: { thermo: '39.4° — חום גבוה! 🔥', steth: 'הלב דופק מהר מהר', look: 'הלחיים אדומות ולוהטות' }, ok: 'pill', close: ['syrup', 'ice', 'rest'], hint: 'לחום גבוה נותנים כדור נגד חום — ואפשר להחביא אותו בחטיף טעים 🍪' },
+    itchy: { n: 'פרווה מגרדת', e: '🔴', mild: 1, say: 'מגרד לי! מגרד לי בכל מקום!', ex: { look: 'יש נקודות אדומות על העור 🔴', ears: 'באוזניים קצת מגרד' }, ok: 'ointment', close: ['ice', 'vitamins'], hint: 'על עור מגרד מורחים משהו רך ומרגיע 🧴' },
+    paw: { n: 'נקע בכף הרגל', e: '🐾', say: 'איי! נפלתי כשקפצתי, והרגל כואבת', ex: { look: 'כף הרגל נפוחה קצת 🐾', steth: 'הלב בסדר, רק קצת מבוהל' }, ok: 'bandage', close: ['ice', 'rest'], hint: 'רגל נקועה עוטפים חזק כדי שתהיה יציבה 🩹' },
+    lonely: { n: 'עצב ובדידות', e: '💔', mild: 1, say: 'אני עצוב/ה... הרגשתי קצת לבד', ex: { steth: 'הלב בסדר — אבל נשמע קצת עצוב 💔', look: 'העיניים עצובות והזנב למטה' }, ok: 'cuddle', close: ['tea', 'vitamins'], hint: 'לפעמים התרופה הכי טובה היא אהבה ומשחק 💖' },
+    ear: { n: 'דלקת אוזניים', e: '👂', say: 'האוזן שלי כואבת ועושה פִּיפּ פִּיפּ', ex: { ears: 'האוזן אדומה מבפנים! 👂', thermo: '38.2° — קצת חום' }, ok: 'drops', close: ['pill', 'syrup'], hint: 'לאוזן כואבת מטפטפים תרופה ישר לתוכה 💧' },
+    allergy: { n: 'אלרגיה ועיטושים', e: '🌼', mild: 1, say: 'אפצ\'י! אפצ\'י! הפרחים מדגדגים לי באף!', ex: { look: 'העיניים דומעות והאף מגרד 🌼', thermo: 'אין חום — 36.9° ✔️', mouth: 'הגרון קצת מגרד' }, ok: 'spray', close: ['pill'], hint: 'כשהאף מגרד מאבקת פרחים — מתיזים משהו לתוך האף 👃' },
+    tooth: { n: 'כאב שיניים', e: '🦷', mild: 1, say: 'השן כואבת... אכלתי המון סוכריות 🍬', ex: { mouth: 'יש חור קטן בשן! 🦷', look: 'הלחי קצת נפוחה' }, ok: 'brush', close: ['ice'], hint: 'שן עם חור צריכה ניקוי טוב (ופחות סוכריות!) 🪥' },
+    flu: { n: 'שפעת עייפה', e: '😴', say: 'אני כל כך עייף/ה... אין לי כוח לכלום', ex: { thermo: '38.6° — חום 🌡️', steth: 'הנשימה כבדה', look: 'העיניים עייפות מאוד 😴' }, ok: 'rest', close: ['tea', 'vitamins', 'syrup'], hint: 'בשפעת הגוף צריך הרבה שינה ומנוחה 🛏️' },
+    bump: { n: 'מכה בראש', e: '🤕', mild: 1, say: 'בּוּם! נתקלתי בשולחן... יש לי בליטה', ex: { look: 'יש בליטה קטנה על הראש 🤕', ears: 'האוזניים בסדר, רק מצלצל קצת' }, ok: 'ice', close: ['bandage', 'ointment'], hint: 'על בליטה שמים משהו קר קר ❄️' },
+    weak: { n: 'חולשה', e: '🔋', mild: 1, say: 'אין לי תיאבון... אני קצת חלש/ה', ex: { look: 'הפרווה פחות מבריקה', steth: 'הלב בסדר, קצת חלש', mouth: 'הלשון חיוורת' }, ok: 'vitamins', close: ['syrup', 'cuddle'], hint: 'כדי לחזור להיות חזקים לוקחים משהו מחזק כל יום 💪' },
+  };
+  const VET_LV = [[0, 'רופאה מתלמדת', '🩺'], [3, 'רופאת חיות', '👩‍⚕️'], [8, 'רופאה מומחית', '🏅'], [15, 'מנהלת המרפאה', '🏥'], [30, 'רופאת חיות אגדית', '👑']];
+  const vetLevel = () => { let i = 0; VET_LV.forEach((l, k) => { if (vetS.heals >= l[0]) i = k; }); return i; };
+  // ---------- care: the last day she fed / played / hugged / bathed / treated this pet ----------
+  const vetIso = ts => { const d = new Date(ts); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+  function vetLastCare(p) {
+    const ds = [];
+    [p.fed, p.played].forEach(o => o && Object.keys(o).forEach(k => { if (o[k] && /^\d{4}-\d\d-\d\d$/.test(k)) ds.push(k); }));
+    try { if (lifeS.hugs && lifeS.hugs[p.id]) ds.push(lifeS.hugs[p.id]); } catch {}
+    [p.vetAt, p.bathAt].forEach(x => { if (typeof x === 'string') ds.push(x.slice(0, 10)); });
+    if (p.happyAt) try { ds.push(vetIso(p.happyAt)); } catch {}
+    return ds.sort().pop() || null;
+  }
+  function vetNeglect(p) {
+    const l = vetLastCare(p), t = localToday();
+    if (l) return Math.max(0, daysBetween(l, t));
+    let age = 2; try { age = petAge(p).days; } catch {}
+    return Math.min(2, age);
+  }
+  // severity: 1 = a little sick, 2 = sick, 3 = very sick (untreated 3+ days). Babies only ever get a little sick.
+  function vetSev(p, r) {
+    if (!r) return 0;
+    const d = Math.max(0, daysBetween(r.d, localToday()));
+    const s = d >= 3 ? 3 : d >= 1 ? 2 : 1;
+    return vetBaby(p) ? Math.min(2, s) : s;
+  }
+  const vetSickOf = p => p && p.id && vetS.sick[p.id] && VET_SICK[vetS.sick[p.id].s] ? vetS.sick[p.id] : null;
+  const vetSickList = () => allPets().filter(p => vetSickOf(p));
+  const vetRecovering = p => p && p.id && vetS.rec[p.id] && vetS.rec[p.id].d === localToday();
+  // ---------- the daily tick: maybe one new sickness, warnings, and (rarely, only when neglected) a goodbye ----------
+  let vetNews = null;
+  function vetDaily() {
+    const t = localToday();
+    if (vetS.lastTick === t) return;
+    vetS.lastTick = t;
+    const pets = allPets(), ids = new Set(pets.map(p => p.id));
+    Object.keys(vetS.sick).forEach(k => { if (!ids.has(k)) delete vetS.sick[k]; });
+    Object.keys(vetS.rec).forEach(k => { if (!ids.has(k) || vetS.rec[k].d < addDays(t, -7)) delete vetS.rec[k]; });
+    Object.keys(vetS.checked).forEach(k => { if (vetS.checked[k] !== t) delete vetS.checked[k]; });
+    // warnings: count the days she saw the "very sick" warning
+    let gone = null;
+    pets.forEach(p => {
+      const r = vetSickOf(p); if (!r) return;
+      if (vetSev(p, r) === 3) {
+        if (r.warnDay !== t) { r.warnDay = t; r.warnN = (r.warnN || 0) + 1; }
+        vetNews = vetNews || { p, hot: true };
+        // only a very sick, neglected (3+ days with no care), not-a-baby pet, after two earlier warning days, never the last pet, never with "pets don't die"
+        if (!gone && (r.warnN || 0) >= 3 && vetNeglect(p) >= 3 && !vetBaby(p) && allPets().length > 1 && !vetNoDeath() && Math.random() < 0.35) gone = p;
+      }
+    });
+    if (gone) vetPass(gone);
+    // a new sickness: at most one a day, rarer for pets she takes care of
+    const sickN = Object.keys(vetS.sick).length;
+    if (vetS.lastNew !== t && sickN < 3 && !gone) {
+      const cand = allPets().filter(p => !vetSickOf(p) && !(p.vetAt && daysBetween(p.vetAt, t) < 3) && !(p.born === t)).sort(() => Math.random() - .5);
+      for (const p of cand) {
+        const nd = vetNeglect(p), ch = nd <= 1 ? .02 : nd === 2 ? .06 : nd <= 4 ? .15 : .25;
+        if (Math.random() < ch) {
+          const pool = Object.keys(VET_SICK).filter(k => !vetBaby(p) || VET_SICK[k].mild);
+          vetS.sick[p.id] = { s: vetPick(pool), d: t, warnN: 0 }; vetS.lastNew = t;
+          vetNews = vetNews || { p, hot: false };
+          break;
+        }
+      }
+    }
+    vetSave();
+  }
+  // the gentle goodbye of the life chunk (lifePass → memorial garden, the strip pill and lifeBye scene)
+  function vetPass(p) {
+    const r = vetSickOf(p);
+    let ok = false;
+    try { ok = typeof lifePass === 'function' && lifePass(p); } catch {}
+    delete vetS.sick[p.id]; vetSave();
+    if (!ok) return false;
+    try {
+      const m = lifeS.memorial[lifeS.memorial.length - 1];
+      if (m && m.id === p.id) { m.cause = 'sick'; m.sick = r ? VET_SICK[r.s].n : ''; if (petAge(p).stage !== 'old') m.elder = '💗'; lifeSave(); }
+    } catch {}
+    return true;
+  }
+  // ---------- drawings ----------
+  const vetSvg = b => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${b}</svg>`;
+  const VET_ART = {
+    ears: `<rect x="6" y="26" width="22" height="9" rx="4.5" fill="#6f7fa0" ${S} transform="rotate(-30 17 30)"/><path d="M26 16 L40 8 L42 14 L30 22 Z" fill="#cfd6e0" ${S}/><circle cx="41.5" cy="10.5" r="3.4" fill="#fff6a8" ${S2}/><path d="M44 4 l3 -3 M46 10 h2 M44 16 l3 2" stroke="#ffb020" stroke-width="1.8" stroke-linecap="round"/>`,
+    mouth: `<rect x="8" y="20" width="34" height="8" rx="4" fill="#f2d3a0" ${S} transform="rotate(-25 25 24)"/><path d="M14 30 L36 20" stroke="#d8b47a" stroke-width="1.2" opacity=".6"/><circle cx="10" cy="12" r="5" fill="#fff6a8" ${S2}/><path d="M3 6 l3 3 M10 2 v3 M17 6 l-3 3" stroke="#ffb020" stroke-width="1.6" stroke-linecap="round"/>`,
+    look: `<circle cx="20" cy="19" r="12" fill="#dff4ff" ${S}/><circle cx="20" cy="19" r="8" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/><path d="M29 28 L42 41" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M29 28 L42 41" stroke="#b58cff" stroke-width="4" stroke-linecap="round"/><path d="M14 14 q3 -4 7 -3" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>`,
+    pill: `<path d="M6 30 Q6 16 24 16 Q42 16 42 30 Q42 40 24 40 Q6 40 6 30 Z" fill="#e8b36a" ${S}/><circle cx="14" cy="26" r="1.6" fill="#9b6b43"/><circle cx="33" cy="25" r="1.6" fill="#9b6b43"/><circle cx="20" cy="34" r="1.6" fill="#9b6b43"/><rect x="19" y="8" width="14" height="8" rx="4" fill="#fff" ${S2} transform="rotate(-20 26 12)"/><path d="M26 7 v9" stroke="#ff6b8b" stroke-width="7" transform="rotate(-20 26 12)" opacity=".85" stroke-linecap="butt"/><rect x="19" y="8" width="14" height="8" rx="4" fill="none" ${S2} transform="rotate(-20 26 12)"/>`,
+    ointment: `<path d="M8 30 L30 14 L38 24 L16 40 Q10 42 7 38 Q5 34 8 30 Z" fill="#9fe0c8" ${S}/><path d="M30 14 L34 10 L42 20 L38 24 Z" fill="#fff" ${S2}/><path d="M14 30 L28 20" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/><path d="M42 8 q4 -1 3 4" fill="none" stroke="#9fe0c8" stroke-width="3" stroke-linecap="round"/>`,
+    drops: `<path d="M20 4 H28 V10 H20 Z" fill="#ff9ad5" ${S2}/><path d="M18 10 H30 V30 Q30 34 24 38 Q18 34 18 30 Z" fill="#e6f5ff" ${S}/><rect x="20" y="16" width="8" height="10" rx="2" fill="#7ec8ff" opacity=".8"/><path d="M24 40 q-3 4 0 6 q3 -2 0 -6 Z" fill="#7ec8ff" ${S2}/>`,
+    rest: `<rect x="4" y="20" width="40" height="14" rx="3" fill="#ffd1e6" ${S}/><rect x="6" y="14" width="14" height="9" rx="4.5" fill="#fff" ${S2}/><path d="M4 12 V40 M44 22 V40" stroke="${O}" stroke-width="3" stroke-linecap="round"/><path d="M18 22 Q30 18 44 22 V32 H18 Z" fill="#b58cff" ${S2}/><text x="30" y="12" font-size="10" font-family="Rubik, sans-serif" fill="#7a6aa8">z</text><text x="36" y="7" font-size="7" font-family="Rubik, sans-serif" fill="#7a6aa8">z</text>`,
+    vitamins: `<rect x="12" y="14" width="24" height="28" rx="6" fill="#ffd84d" ${S}/><rect x="14" y="6" width="20" height="9" rx="3" fill="#ff9a3c" ${S2}/><circle cx="20" cy="28" r="3.4" fill="#ff6b8b" ${S2}/><circle cx="28" cy="25" r="3.4" fill="#7ec8ff" ${S2}/><circle cx="26" cy="34" r="3.4" fill="#8fd08a" ${S2}/>`,
+    spray: `<rect x="14" y="18" width="18" height="24" rx="6" fill="#a8e6ff" ${S}/><rect x="18" y="10" width="10" height="9" rx="2" fill="#fff" ${S2}/><path d="M28 12 H34" ${S2}/><circle cx="38" cy="8" r="1.4" fill="#7ec8ff"/><circle cx="42" cy="12" r="1.4" fill="#7ec8ff"/><circle cx="40" cy="4" r="1.2" fill="#7ec8ff"/><path d="${pzHeart(23, 30, 3.4)}" fill="#fff"/>`,
+    cuddle: `<path d="${pzHeart(24, 24, 13)}" fill="#ff6b8b" ${S}/><path d="${pzHeart(17, 16, 3)}" fill="#fff" opacity=".6"/><circle cx="37" cy="38" r="6" fill="#ffd84d" ${S2}/><path d="M33 36 q4 3 8 0" stroke="${O}" stroke-width="1.2" fill="none"/>`,
+  };
+  const vetToolSVG = id => VET_ART[id] ? vetSvg(VET_ART[id]) : pzToolSVG({ syrup: 'medicine' }[id] || id);
+  const vetBadgeSVG = (lv = vetLevel()) => `<svg viewBox="0 0 60 72" xmlns="http://www.w3.org/2000/svg"><path d="M18 2 L30 24 L22 30 L8 6 Z" fill="#7ec8ff" ${S}/><path d="M42 2 L30 24 L38 30 L52 6 Z" fill="#ff7a9a" ${S}/><circle cx="30" cy="44" r="22" fill="${['#e6eef8', '#ffe27a', '#ffd84d', '#ffb3d9', '#c9b2ff'][lv]}" ${S}/><circle cx="30" cy="44" r="16" fill="#fff" ${S2}/><path d="M26 34 h8 v6 h6 v8 h-6 v6 h-8 v-6 h-6 v-8 h6 Z" fill="#ff5a6e" ${S2}/>${lv >= 4 ? `<path d="M20 20 l4 -8 l6 6 l6 -6 l4 8 Z" fill="#ffd84d" ${S2}/>` : ''}</svg>`;
+  // symptoms drawn on the pet (petSVG's 48×48 space), for every kind, designer and magic ones too
+  function vetSym(p, s, sev) {
+    let g; try { g = styGeo(p); } catch { return ''; }
+    const G = Object.assign({}, g.G), std = !g.PB && !['owl', 'turtle', 'fish', 'whale'].includes(g.kind);
+    if (std && vetBaby(p) && typeof LIFEB_GEO !== 'undefined') Object.assign(G, LIFEB_GEO);
+    const H = G.V || G.head || g.H, hy = H[1], hw = H[2], hh = H[3], ey = G.eyeY, ny = G.noseY, my = G.mouthY, cy = G.cheekY, cdx = G.cheekDX, B = G.body, bl = G.belly || [24, B[1] + 2, B[2] * .6, B[3] * .6];
+    const top = vetF(hy - hh), ft = g.feet && g.feet.length ? g.feet[0] : [vetF(24 - B[2] * .7), vetF(B[1] + B[3] * .5)];
+    const nose = `<circle cx="24" cy="${ny}" r="2.6" fill="#ff4d6a" opacity=".72"/>`;
+    const drip = `<path d="M26.4 ${vetF(ny + 1)} q1.6 2.6 0 3.8 q-1.6 -1.2 0 -3.8 Z" fill="#9fdcff" stroke="#4f9fe0" stroke-width=".6"/>`;
+    const blush = (c = '#ff5a6e', o = .45) => `<ellipse cx="${vetF(24 - cdx)}" cy="${cy}" rx="3.4" ry="2.2" fill="${c}" opacity="${o}"/><ellipse cx="${vetF(24 + cdx)}" cy="${cy}" rx="3.4" ry="2.2" fill="${c}" opacity="${o}"/>`;
+    const thermo = `<g transform="rotate(24 26 ${my})"><rect x="25" y="${vetF(my - 1.1)}" width="11" height="2.4" rx="1.2" fill="#fff" stroke="${O}" stroke-width=".8"/><circle cx="36" cy="${vetF(my + .1)}" r="1.7" fill="#ff5a6e" stroke="${O}" stroke-width=".8"/><rect x="29" y="${vetF(my - .5)}" width="6" height="1.1" fill="#ff5a6e"/></g>`;
+    const sweat = `<path d="M${vetF(24 + hw * .8)} ${vetF(ey - 6)} q1.8 2.8 0 4 q-1.8 -1.2 0 -4 Z" fill="#9fdcff" stroke="#4f9fe0" stroke-width=".6"/>`;
+    const ice = `<rect x="${vetF(24 - 5)}" y="${vetF(top + 1)}" width="10" height="6" rx="2.2" fill="#bfeaff" stroke="${O}" stroke-width=".8"/><rect x="21" y="${vetF(top + 2.4)}" width="2.4" height="2.4" rx=".6" fill="#fff"/><rect x="25" y="${vetF(top + 3)}" width="2.4" height="2.4" rx=".6" fill="#fff"/>`;
+    let o = '';
+    if (s === 'cold') o = nose + drip + (sev >= 2 ? `<path d="M${vetF(24 + hw + 1)} ${vetF(ey - 4)} q2 -2 4 0 M${vetF(24 + hw + 2)} ${vetF(ey)} q2 -2 4 0" stroke="#9aa6bd" stroke-width=".8" fill="none"/>` : '');
+    if (s === 'tummy') o = `<path d="M${vetF(bl[0] - 1)} ${vetF(bl[1])} a1.6 1.6 0 1 1 1.6 1.6 a3 3 0 1 1 -3 -3" fill="none" stroke="#6fbf4a" stroke-width="1.1" stroke-linecap="round"/>` + blush('#9fdc7a', .35);
+    if (s === 'fever') o = thermo + blush('#ff3b5c', .55) + sweat + (sev >= 2 ? `<path d="M${vetF(24 - hw - 3)} ${vetF(top + 4)} q1.5 -2 0 -4 M${vetF(24 - hw - .5)} ${vetF(top + 2)} q1.5 -2 0 -4" stroke="#ff7a3c" stroke-width=".9" fill="none" stroke-linecap="round"/>` : '');
+    if (s === 'itchy') o = [[B[0] - B[2] * .5, B[1] - 1], [B[0] + B[2] * .45, B[1] + 2], [B[0] - B[2] * .1, B[1] + B[3] * .5], [24 - hw * .55, hy - hh * .25], [24 + hw * .5, hy + hh * .3]].map(([x, y]) => `<circle cx="${vetF(x)}" cy="${vetF(y)}" r="1.2" fill="#ff4d6a" opacity=".85"/>`).join('') + `<path d="M${vetF(B[0] + B[2] + 1)} ${vetF(B[1] - 3)} l2 1 l-2 1 l2 1" stroke="${O}" stroke-width=".7" fill="none"/>`;
+    if (s === 'paw') o = `<g transform="rotate(-12 ${ft[0]} ${ft[1]})"><rect x="${vetF(ft[0] - 3.6)}" y="${vetF(ft[1] - 3.4)}" width="7.2" height="4.4" rx="1.6" fill="#fff" stroke="${O}" stroke-width=".7"/><path d="M${vetF(ft[0] - 3.4)} ${vetF(ft[1] - 2)} h6.8 M${vetF(ft[0] - 3.4)} ${vetF(ft[1] - .6)} h6.8" stroke="#e0e6f0" stroke-width=".6"/></g><path d="M${vetF(ft[0] - 6)} ${vetF(ft[1] - 5)} l-1.4 -1.4 M${vetF(ft[0] + 5.6)} ${vetF(ft[1] - 5)} l1.4 -1.4" stroke="#ff4d6a" stroke-width=".8" stroke-linecap="round"/>`;
+    if (s === 'lonely') o = `<g opacity=".95">${[[-4, 0, 3], [0, -1.6, 3.6], [4, 0, 3]].map(([dx, dy, r]) => `<circle cx="${vetF(24 + 11 + dx)}" cy="${vetF(top - 4 + dy)}" r="${r}" fill="#b8c2d6" stroke="${O}" stroke-width=".6"/>`).join('')}<path d="M32 ${vetF(top)} v2 M35 ${vetF(top + .6)} v2 M38 ${vetF(top)} v2" stroke="#4f9fe0" stroke-width=".8" stroke-linecap="round"/></g><path d="M${vetF(24 - G.eyeDX)} ${vetF(ey + 2)} q-1 2 0 3 q1 -1 0 -3 Z" fill="#9fdcff" stroke="#4f9fe0" stroke-width=".5"/>`;
+    if (s === 'ear') o = `<circle cx="${vetF(24 - hw * .82)}" cy="${vetF(hy - hh * .62)}" r="3.4" fill="#ff4d6a" opacity=".45"/><path d="M${vetF(24 - hw - 3)} ${vetF(hy - hh * .9)} l-2 -1 M${vetF(24 - hw - 3.4)} ${vetF(hy - hh * .6)} h-2.4 M${vetF(24 - hw - 2.6)} ${vetF(hy - hh * .3)} l-2 1" stroke="#ff4d6a" stroke-width=".9" stroke-linecap="round"/>`;
+    if (s === 'allergy') o = nose + `<g transform="translate(${vetF(24 + hw * .95)} ${vetF(ny - 2)})"><circle r="1.6" fill="#fff" stroke="${O}" stroke-width=".5"/><circle cx="2.6" cy="-1.6" r="1.1" fill="#fff" stroke="${O}" stroke-width=".5"/><circle cx="3.2" cy="1.4" r=".9" fill="#fff" stroke="${O}" stroke-width=".5"/></g>` + [[-hw - 2, top + 4], [-hw + 1, top - 1], [hw - 2, top - 2]].map(([dx, y]) => `<circle cx="${vetF(24 + dx)}" cy="${vetF(y)}" r=".9" fill="#ffd84d" stroke="#e8a400" stroke-width=".4"/>`).join('') + `<g transform="translate(${vetF(24 + hw * .4)} ${vetF(top - 2)}) scale(.5)">${[0, 72, 144, 216, 288].map(a => `<circle cx="${vetF(3 * Math.cos(a * Math.PI / 180))}" cy="${vetF(3 * Math.sin(a * Math.PI / 180))}" r="2.2" fill="#fff" stroke="${O}" stroke-width=".8"/>`).join('')}<circle r="1.6" fill="#ffd84d"/></g>`;
+    if (s === 'tooth') o = `<ellipse cx="${vetF(24 + cdx)}" cy="${cy}" rx="4.2" ry="3.4" fill="#ff8fab" opacity=".65"/><path d="M${vetF(24 + cdx + 5)} ${vetF(cy - 5)} l-1.6 2.4 h2 l-1.6 2.6" stroke="#ffb020" stroke-width=".9" fill="none" stroke-linejoin="round"/>` + `<path d="M${vetF(24 - hw * .9)} ${vetF(cy - 1)} Q24 ${vetF(my + 7)} ${vetF(24 + hw * .9)} ${vetF(cy - 1)}" fill="none" stroke="#fff" stroke-width="2.2" opacity=".95"/><path d="M${vetF(24 - hw * .9)} ${vetF(cy - 1)} Q24 ${vetF(my + 7)} ${vetF(24 + hw * .9)} ${vetF(cy - 1)}" fill="none" stroke="${O}" stroke-width=".5" opacity=".5"/>`;
+    if (s === 'flu') o = ice + thermo + `<text x="${vetF(24 + hw + .5)}" y="${vetF(top + 3)}" font-size="5" font-family="Rubik, sans-serif" fill="#7a6aa8">z</text><text x="${vetF(24 + hw + 3.6)}" y="${vetF(top - .6)}" font-size="3.6" font-family="Rubik, sans-serif" fill="#7a6aa8">z</text>`;
+    if (s === 'bump') o = `<ellipse cx="${vetF(24 + 3)}" cy="${vetF(top + 1.4)}" rx="3" ry="2.4" fill="#ff8fab" stroke="${O}" stroke-width=".6"/><g transform="rotate(-20 ${vetF(24 + 3)} ${vetF(top + 1.4)})"><rect x="${vetF(24 - 1)}" y="${vetF(top + .5)}" width="8" height="2" rx=".8" fill="#ffd8b0" stroke="${O}" stroke-width=".5"/></g>` + [[-6, -4], [0, -6.4], [6, -4]].map(([dx, dy], i) => `<polygon points="${starPts(vetF(24 + 3 + dx), vetF(top + dy), 1.6, .7)}" fill="${i % 2 ? '#ffd84d' : '#fff08a'}" stroke="#e8a400" stroke-width=".3"/>`).join('');
+    if (s === 'weak') o = `<g transform="translate(${vetF(24 + hw * .55)} ${vetF(top - 5)})"><rect width="8" height="4.2" rx="1" fill="#fff" stroke="${O}" stroke-width=".7"/><rect x="8" y="1.2" width="1" height="1.8" fill="${O}"/><rect x=".9" y=".9" width="1.8" height="2.4" fill="#ff4d6a"/></g>` + blush('#b8e0a0', .4);
+    if (sev >= 3) o += `<ellipse cx="24" cy="${vetF(hy + hh * .2)}" rx="${vetF(hw * .8)}" ry="${vetF(hh * .6)}" fill="#9fdc7a" opacity=".18"/>` + sweat;
+    return o;
+  }
+  // every pet everywhere shows its sickness (the clinic draws its own)
+  const vetPetSVG0 = petSVG;
+  petSVG = function (p, opts = {}) {
+    let r = null; try { r = !opts.noSick && vetSickOf(p); } catch {}
+    if (!r) return vetPetSVG0(p, opts);
+    try { const sev = vetSev(p, r); return vetPetSVG0(p, Object.assign({}, opts, { over: vetSym(p, r.s, sev) + (opts.over || ''), mood: opts.mood || (sev >= 2 ? 'sick' : opts.mood) })); } catch { return vetPetSVG0(p, opts); }
+  };
+  // ---------- 🏥 the clinic ----------
+  let vetV = null;
+  const vetDlg = () => $('#petzVetDlg');
+  function vetHead() {
+    const lv = vetLevel(), L = VET_LV[lv], nx = VET_LV[lv + 1];
+    const bar = el('span', { class: 'vet7-bar' }, el('i')); bar.firstChild.style.width = nx ? `${Math.round((vetS.heals - L[0]) / (nx[0] - L[0]) * 100)}%` : '100%';
+    return el('div', { class: 'vet7-head' }, el('span', { class: 'vet7-badge', html: vetBadgeSVG(lv) }),
+      el('div', { class: 'vet7-lv' }, el('b', {}, `${L[2]} ${L[1]}`), bar, el('small', {}, nx ? `ריפאת ${vetS.heals} חיות · עוד ${nx[0] - vetS.heals} עד "${nx[1]}"` : `ריפאת ${vetS.heals} חיות! את הכי טובה 👑`)),
+      typeof coinChip === 'function' ? coinChip() : null);
+  }
+  function vetOpen(arg) {
+    try { vetDaily(); } catch {}
+    const t = $('#petzVetTitle'); if (t) t.textContent = '🏥 מרפאת החיות';
+    const sub = vetDlg() && vetDlg().querySelector('.sub'); if (sub) sub.textContent = 'את הרופאה! בודקים, מחליטים איך לרפא — ומרפאים 👩‍⚕️';
+    const p = typeof arg === 'string' ? allPets().find(q => q.id === arg) : null;
+    if (p) vetStart(p); else vetLobby();
+    if (!vetDlg().open) vetDlg().showModal();
+  }
+  function vetLobby() {
+    vetV = null;
+    const all = allPets(), sick = all.filter(p => vetSickOf(p)).sort((a, b) => vetSev(b, vetSickOf(b)) - vetSev(a, vetSickOf(a))), rec = all.filter(vetRecovering), t = localToday();
+    const card = p => {
+      const r = vetSickOf(p), sev = vetSev(p, r), S0 = VET_SICK[r.s], days = Math.max(0, daysBetween(r.d, t));
+      return el('div', { class: 'vet7-pcard' + (sev === 3 ? ' hot' : '') },
+        el('span', { class: 'vet7-part', html: petSVG(p) }),
+        el('b', {}, vetNm(p)), el('small', {}, sev === 3 ? '🚨 חולה מאוד!' : sev === 2 ? '🤒 חולה' : '🤧 קצת חולה'),
+        el('small', { class: 'muted' }, days === 0 ? 'התחיל היום' : days === 1 ? 'כבר יום אחד' : `כבר ${days} ימים`),
+        el('button', { type: 'button', class: 'btn main', onclick: () => vetStart(p) }, '🩺 לטפל'));
+    };
+    const quiet = all.filter(p => !vetSickOf(p) && !vetRecovering(p));
+    $('#petzVetBody').replaceChildren(vetHead(),
+      sick.length ? el('div', { class: 'vet7-warn' + (sick.some(p => vetSev(p, vetSickOf(p)) === 3) ? ' hot' : '') }, sick.some(p => vetSev(p, vetSickOf(p)) === 3) ? `🚨 ${vetNm(sick[0])} חולה מאוד! צריך לטפל בה/בו מהר!` : `🤒 ${sick.length === 1 ? vetNm(sick[0]) + ' מחכה' : sick.length + ' חיות מחכות'} בחדר ההמתנה`) : el('div', { class: 'vet7-warn ok' }, all.length ? '🎉 כל החיות שלך בריאות! אפשר לעשות בדיקה שגרתית או לטפל במטופלים אורחים' : 'עוד אין לך חיות — אבל יש מטופלים אורחים!'),
+      sick.length ? el('div', { class: 'vet7-cards' }, ...sick.map(card)) : null,
+      rec.length ? el('div', { class: 'vet7-recbox' }, el('b', {}, '🛏️ בחדר ההחלמה'), ...rec.map(p => el('span', { class: 'vet7-recp', title: vetNm(p) }, el('span', { class: 'ic', html: petSVG(p, { mood: 'sleepy' }) }), vetNm(p), ` · ${(vetS.rec[p.id].cards || []).length} 💌`))) : null,
+      quiet.length ? el('div', { class: 'row', style: 'gap:6px' }, el('small', { class: 'muted' }, '🩺 בדיקה שגרתית (לחיות בריאות):'),
+        el('div', { class: 'vet7-mini' }, ...quiet.slice(0, 16).map(p => el('button', { type: 'button', class: 'vet7-minib' + (vetS.checked[p.id] === t ? ' done' : ''), title: `בדיקה ל${vetNm(p)}`, 'aria-label': `בדיקה ל${vetNm(p)}`, onclick: () => vetStart(p, true), html: petSVG(p) })))) : null,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => vetStart(null) }, '🚑 מטופל/ת אורח/ת'),
+        el('span', { class: 'pill' }, `💡 חיות שמאכילים, משחקים ומחבקים כמעט לא חולות`)));
+  }
+  // start an exam: own sick pet, own healthy pet (checkup) or a visitor with a random sickness
+  function vetStart(p, checkup) {
+    let s = null, visitor = false;
+    if (!p) {
+      const kind = pzPick(PET_KINDS)[0];
+      p = { kind, name: pzPick(PZ_VISITORS), size: 0.85 + Math.random() * 0.25, look: petzRandomLook(kind), wear: {}, visitor: true };
+      s = vetPick(Object.keys(VET_SICK)); visitor = true;
+    } else { const r = vetSickOf(p); s = r ? r.s : null; }
+    vetV = { p, s, visitor, checkup: !s, ex: {}, tried: [], fails: 0, healed: false, fx: null, say: s ? `${vetNm(p)}: ${VET_SICK[s].say}` : `${vetNm(p)}: באתי לבדיקה שגרתית! 🩺` };
+    setTimeout(() => { try { SFX.pet(p.kind); } catch {} }, 150);
+    vetDraw();
+  }
+  const vetRelevant = V => V.s ? Object.keys(VET_EX.reduce((a, [k]) => (VET_SICK[V.s].ex[k] ? Object.assign(a, { [k]: 1 }) : a), {})) : [];
+  const vetDiag = V => { const n = Object.keys(V.ex).length; return V.s ? n >= 2 && vetRelevant(V).some(k => V.ex[k]) : n >= 2; };
+  function vetArt(V) {
+    const { p } = V, sev = V.visitor ? 2 : vetSev(p, vetSickOf(p));
+    if (V.healed) return petSVG(p, { mood: 'happy', noSick: true, over: [[8, 10], [40, 8], [4, 34], [44, 32], [24, 0]].map(([x, y], i) => pzSpark(x, y, i % 2 ? 2.4 : 3.2, i % 2 ? '#ffd84d' : '#fff', .95)).join('') });
+    const mood = V.fx === 'mouth' ? '' : V.s ? (sev >= 2 ? 'sick' : 'sad') : '';
+    return petSVG(p, { noSick: true, mood, look: V.fx === 'mouth' ? { mouth: 'open' } : undefined, over: V.s ? vetSym(p, V.s, sev) : '' });
+  }
+  function vetDraw(line) {
+    const V = vetV; if (!V) return vetLobby();
+    const P = V.s ? VET_SICK[V.s] : null, nm = vetNm(V.p), diag = vetDiag(V);
+    const art = el('div', { class: 'vet7-pet' + (V.healed ? ' healed' : ''), html: vetArt(V) });
+    const fx = el('span', { class: 'vet7-fx' }); art.append(fx);
+    const say = el('span', { class: 'pz-say vet7-say' }, line || V.say);
+    // the chart: exam results
+    const chart = el('div', { class: 'vet7-chart' }, el('b', {}, `📋 ${nm} ${V.visitor ? '(מטופל/ת אורח/ת)' : '(שלך 💖)'}`),
+      el('small', { class: 'muted' }, V.healed ? '✔️ הטיפול הצליח!' : diag ? 'הבדיקות הסתיימו — עכשיו את מחליטה איך לרפא' : 'בודקים בכלים לפחות 2 בדיקות'),
+      ...VET_EX.map(([k, n]) => el('div', { class: 'vet7-row' + (V.ex[k] ? ' ok' : '') }, el('span', { class: 'ic', html: vetToolSVG(k) }), el('span', {}, V.ex[k] ? V.ex[k] : `${n} — ?`))));
+    const dcard = diag ? el('div', { class: 'vet7-diag' + (V.healed ? ' done' : '') },
+      P ? el('b', {}, `🔎 האבחנה: ${P.e} ${P.n}`) : el('b', {}, '🔎 האבחנה: בריא/ה לגמרי! 💪'),
+      P ? el('span', {}, `💡 ${P.hint}`) : el('span', {}, 'אפשר לתת ויטמינים או חיבוק — ולשלוח הביתה 🏡'),
+      V.tried.length && !V.healed ? el('small', { class: 'muted' }, `ניסינו: ${V.tried.map(k => VET_TR.find(x => x[0] === k)[1]).join(', ')}`) : null) : null;
+    const room = el('div', { class: 'vet7-room' }, say, art, el('div', { class: 'vet7-side' }, chart, dcard));
+    const exBtns = el('div', { class: 'pz-tools vet7-tools' }, ...VET_EX.map(([k, n, what]) => {
+      const b = el('button', { type: 'button', class: 'pz-tool' + (V.ex[k] ? ' vet7-done' : '') + (!diag && V.s && Object.keys(V.ex).length >= 2 && VET_SICK[V.s].ex[k] && !V.ex[k] ? ' hint' : ''), title: what }, el('span', { class: 'ic', html: vetToolSVG(k) }), n);
+      petzDragTool(b, () => art, () => vetExam(k, art, fx)); return b;
+    }));
+    const trBtns = el('div', { class: 'pz-tools vet7-tools' }, ...VET_TR.map(([k, n]) => {
+      const hint = V.s && !V.healed && V.fails >= 2 && k === P.ok;
+      const b = el('button', { type: 'button', class: 'pz-tool' + (hint ? ' hint' : '') + (V.tried.includes(k) ? ' vet7-tried' : ''), title: n }, el('span', { class: 'ic', html: vetToolSVG(k) }), n);
+      petzDragTool(b, () => art, () => vetTreat(k, art, fx)); return b;
+    }));
+    const acts = el('div', { class: 'chips' },
+      V.healed ? el('button', { type: 'button', class: 'btn main', onclick: vetLobby }, '🐾 חזרה לחדר ההמתנה') : el('button', { type: 'button', class: 'btn', onclick: vetLobby }, '↩️ לחדר ההמתנה'),
+      V.healed && !V.visitor && !V.checkup && typeof openHouse === 'function' ? el('button', { type: 'button', class: 'btn', onclick: () => { vetDlg().close(); houseTab = 'together'; openHouse(); } }, '🛏️ לראות אותה/אותו במיטת ההחלמה') : null,
+      V.healed && V.visitor ? el('button', { type: 'button', class: 'btn', onclick: () => vetStart(null) }, '🚑 המטופל/ת הבא/ה') : null);
+    $('#petzVetBody').replaceChildren(vetHead(), room,
+      V.healed ? (V.cards && V.cards.length ? el('div', { class: 'vet7-cardsrow' }, ...V.cards.map(([q, it]) => el('span', { class: 'vet7-gw' }, el('span', { class: 'ic', html: petSVG(q, { mood: 'happy' }) }), el('span', { class: 'ic', html: vetGiftSVG(it) }), `${vetNm(q)} הביא/ה ${VET_GIFTS[it][0]}`))) : null)
+        : el('div', { class: 'row', style: 'gap:6px' },
+          el('h4', { class: 'vet7-h' }, '1️⃣ בדיקות — לוחצים על כלי או גוררים אותו אל החיה'), exBtns,
+          el('h4', { class: 'vet7-h' + (diag ? '' : ' off') }, diag ? '2️⃣ את בוחרת: איזה טיפול יעזור?' : '2️⃣ הטיפולים ייפתחו אחרי הבדיקות 🔒'), diag ? trBtns : null),
+      acts);
+  }
+  function vetFx(fx, id, where) {
+    fx.innerHTML = vetToolSVG(id); fx.className = 'vet7-fx on ' + where;
+    setTimeout(() => { if (fx.isConnected) fx.className = 'vet7-fx'; }, 1300);
+  }
+  function vetExam(k, art, fx) {
+    const V = vetV; if (!V || V.healed) return;
+    const P = V.s ? VET_SICK[V.s] : null;
+    const res = (P && P.ex[k]) || VET_NORMAL[k];
+    const where = { steth: 'belly', thermo: 'mouth', ears: 'ear', mouth: 'mouth', look: 'body' }[k];
+    if (k === 'mouth') { V.fx = 'mouth'; }
+    const had = !!V.ex[k];
+    V.ex[k] = res;
+    const talk = { steth: 'בּוּם־בּוּם... מקשיבים 🩺', thermo: 'מודדים חום... 🌡️', ears: 'מסתכלים באוזן עם הפנס 🔦', mouth: `${vetNm(V.p)}: אֶההההה! 👄`, look: 'בודקים מקרוב... 🔍' }[k];
+    if (k === 'steth') { tone(90, 0.12, 'sine', 0, 0.2); tone(90, 0.12, 'sine', 0.25, 0.2); tone(90, 0.12, 'sine', .7, 0.2); tone(90, 0.12, 'sine', .95, 0.2); }
+    else if (k === 'thermo') [0, .15, .3, .45].forEach((w, i) => tone(700 + i * 90, .08, 'sine', w, .06));
+    else SFX.pop();
+    vetDraw(talk);
+    const art2 = $('#petzVetBody .vet7-pet'), fx2 = art2 && art2.querySelector('.vet7-fx');
+    if (fx2) vetFx(fx2, k, where);
+    setTimeout(() => {
+      if (vetV !== V) return;
+      V.fx = null;
+      const found = P && P.ex[k];
+      const n = Object.keys(V.ex).length;
+      let line = `${VET_EX.find(x => x[0] === k)[1]}: ${res}`;
+      if (!had && vetDiag(V)) { SFX.ding(); line += ' — יש אבחנה! 🔎'; }
+      else if (n >= 2 && V.s && !vetDiag(V)) line += ' · הממ, בואי ננסה כלי אחר 🤔';
+      else if (!found && V.s && n < 2) line += ' · נבדוק עוד משהו';
+      vetDraw(line);
+    }, 1100);
+  }
+  function vetTreat(k, art, fx) {
+    const V = vetV; if (!V || V.healed) return;
+    const nm = vetNm(V.p), T = VET_TR.find(x => x[0] === k)[1];
+    const say = { syrup: 'כפית של סירופ בטעם תות 🍓', pill: `${nm} אכל/ה את החטיף... ולא שם/ה לב לכדור! 😉`, bandage: 'עוטפים בעדינות 🩹', ointment: 'מורחים משחה קרירה 🧴', tea: 'לגימה של תה חם, ושמיכה רכה 🍵', drops: 'טיפ... טיפ... 💧',
+      brush: 'צחצוח צחצוח! ✨', cuddle: 'חיבוק ענק ומשחק! 🤗', rest: 'לישון קצת במיטה החמה 😴', vitamins: 'ויטמין צבעוני! 💊', ice: 'קר קר! ❄️', spray: 'פְּשְׁשְׁשְׁ! 👃' }[k];
+    const where = { syrup: 'mouth', pill: 'mouth', bandage: 'foot', ointment: 'body', tea: 'mouth', drops: 'ear', brush: 'mouth', cuddle: 'body', rest: 'body', vitamins: 'mouth', ice: 'head', spray: 'mouth' }[k];
+    const fx2 = art.querySelector('.vet7-fx') || fx; vetFx(fx2, k, where); SFX.pop();
+    const say0 = $('#petzVetBody .vet7-say'); if (say0) say0.textContent = say;
+    setTimeout(() => {
+      if (vetV !== V) return;
+      if (!V.s) { // checkup: everything is fine
+        vetHeal(V, `${say} ${nm} בריא/ה וחזק/ה! 💪`); return;
+      }
+      const P = VET_SICK[V.s];
+      if (V.tried.includes(k) && k !== P.ok) { SFX.boop(); vetDraw(`כבר ניסינו ${T}... נסי משהו אחר 🤔`); return; }
+      if (k === P.ok || (P.close.includes(k) && Math.random() < .75)) { vetHeal(V, k === P.ok ? `${say} זה בדיוק מה שהיה צריך!` : `${say} וזה עזר!`, k === P.ok && !V.fails); return; }
+      V.tried.push(k); V.fails++; SFX.boop();
+      const near = P.close.includes(k);
+      const oops = !near && Math.random() < .1;
+      vetDraw(near ? `${nm}: זה עזר קצת... אבל עוד לא לגמרי. נסי משהו אחר! 🤏` : oops ? `${nm}: אופס, זה קצת דגדג 😣 — לא נורא! לא עזר, נסי משהו אחר` : `${nm}: הממ... לא עזר, נסי משהו אחר 🤔${V.fails >= 2 ? ' (הכלי הזוהר יעזור! ✨)' : ''}`);
+    }, 1000);
+  }
+  const VET_GIFTS = { card: ['כרטיס "תרגיש/י טוב"', '#ffe0ef'], flower: ['פרח', '#ff9ad5'], balloon: ['בלון', '#7ec8ff'], teddy: ['דובון', '#c98f3a'], cookie: ['עוגייה', '#e8b36a'] };
+  const vetGiftSVG = it => {
+    if (it === 'card') return vetSvg(`<rect x="8" y="10" width="32" height="28" rx="3" fill="#fff4c9" ${S} transform="rotate(-6 24 24)"/><path d="${pzHeart(24, 22, 6)}" fill="#ff5a8a" ${S2}/><path d="M14 32 h20" stroke="#b58cff" stroke-width="2" stroke-linecap="round" transform="rotate(-6 24 24)"/>`);
+    if (it === 'flower') return vetSvg(`<path d="M24 46 V24 M24 36 q-8 -2 -10 -8 q8 0 10 8" stroke="#3fbf73" stroke-width="3" fill="#8fd08a" stroke-linecap="round"/>${[0, 72, 144, 216, 288].map(a => `<circle cx="${vetF(24 + 7 * Math.cos(a * Math.PI / 180))}" cy="${vetF(16 + 7 * Math.sin(a * Math.PI / 180))}" r="6" fill="#ff9ad5" ${S2}/>`).join('')}<circle cx="24" cy="16" r="4.5" fill="#ffe27a" ${S2}/>`);
+    if (it === 'balloon') return vetSvg(`<path d="M24 34 q-4 6 2 12" stroke="${O}" stroke-width="1.2" fill="none"/><ellipse cx="24" cy="18" rx="12" ry="14" fill="#7ec8ff" ${S}/><path d="M22 32 h4 l-2 3 Z" fill="#7ec8ff" ${S2}/><ellipse cx="19" cy="12" rx="3" ry="5" fill="#fff" opacity=".6"/>`);
+    if (it === 'teddy') return vetSvg(`<circle cx="14" cy="12" r="5" fill="#c98f3a" ${S2}/><circle cx="34" cy="12" r="5" fill="#c98f3a" ${S2}/><ellipse cx="24" cy="36" rx="12" ry="10" fill="#c98f3a" ${S}/><circle cx="24" cy="20" r="11" fill="#c98f3a" ${S}/><ellipse cx="24" cy="24" rx="5" ry="3.6" fill="#f2d3a0"/><circle cx="20" cy="18" r="1.4" fill="${O}"/><circle cx="28" cy="18" r="1.4" fill="${O}"/><path d="${pzHeart(24, 36, 4)}" fill="#ff6b8b"/>`);
+    return vetSvg(`<circle cx="24" cy="26" r="16" fill="#e8b36a" ${S}/>${[[18, 20], [30, 22], [22, 32], [31, 32], [24, 26]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.2" fill="#6b4226"/>`).join('')}`);
+  };
+  function vetHeal(V, line, first) {
+    V.healed = true;
+    const own = !V.visitor, p = V.p, t = localToday(), nm = vetNm(p);
+    const lv0 = vetLevel();
+    let saved = false;
+    if (own && V.s) {
+      const r = vetSickOf(p); saved = r && vetSev(p, r) === 3;
+      delete vetS.sick[p.id];
+      const others = allPets().filter(q => q.id !== p.id).sort(() => Math.random() - .5).slice(0, 3);
+      V.cards = others.map(q => [q, vetPick(Object.keys(VET_GIFTS))]);
+      vetS.rec[p.id] = { d: t, cards: V.cards.map(([q, it]) => [q.id, it]) };
+      const real = petzList.find(x => x.id === p.id); if (real) { real.vetAt = t; real.happyAt = Date.now(); petzSave(); }
+    }
+    if (V.s) { vetS.heals++; vetS.kinds[V.s] = (vetS.kinds[V.s] || 0) + 1; if (first) vetS.first++; if (saved) vetS.saved++; }
+    if (V.checkup && own) { if (vetS.checked[p.id] !== t) { vetS.checked[p.id] = t; vetCoins(3, `בדיקה שגרתית ל${nm} 🩺`); } }
+    vetSave();
+    try { const g = petzGames(); if (g && V.s) { g.vetHealed = (g.vetHealed || 0) + 1; store.set('games', g); } } catch {}
+    if (V.s) vetCoins((own ? 15 : 8) + (first ? 5 : 0) + (saved ? 10 : 0), saved ? `הצלת את ${nm}! 🏥` : `ריפאת את ${nm} במרפאה 🏥`);
+    SFX.yay(); try { SFX.pet(p.kind); } catch {}
+    try { confetti(vetDlg().querySelector('.confetti-c')); } catch {}
+    const lv = vetLevel();
+    vetDraw(`${line} ${saved ? `הצלת את ${nm}! 💖` : V.s ? `${nm} מרגיש/ה הרבה יותר טוב! 💖` : ''}${own && V.s ? ' עכשיו קצת מנוחה במיטת ההחלמה 🛏️' : ''}`);
+    if (lv > lv0) setTimeout(() => {
+      vetS.lv = lv; vetSave(); vetCoins(20, `דרגה חדשה: ${VET_LV[lv][1]}!`);
+      toast(vetBadgeSVG(lv), `🏅 קיבלת תג חדש: ${VET_LV[lv][2]} ${VET_LV[lv][1]}!`);
+      try { confetti(vetDlg().querySelector('.confetti-c')); } catch {}
+    }, 1600);
+    try { renderStrip(); } catch {}
+  }
+  // ---------- 🛏️ the recovery bed + get-well gifts in the shared home; a bubble over sick pets ----------
+  const VET_BED = (c = '#ffd1e6') => `<svg viewBox="0 0 140 100" xmlns="http://www.w3.org/2000/svg"><path d="M12 30 Q12 14 28 14 H34 Q40 14 40 26 V70 H12 Z" fill="#b58cff" ${S}/><circle cx="26" cy="24" r="4" fill="#ffd84d" ${S2}/><rect x="10" y="60" width="122" height="18" rx="6" fill="#c98f3a" ${S}/><path d="M14 78 V92 M128 78 V92" stroke="${O}" stroke-width="5" stroke-linecap="round"/><rect x="14" y="54" width="116" height="12" rx="6" fill="#fff" ${S}/><ellipse cx="44" cy="50" rx="20" ry="9" fill="#fff" ${S}/><path d="M36 48 q8 -3 16 0" stroke="${c}" stroke-width="2" fill="none"/></svg>`;
+  const VET_BLANKET = (c = '#ffb3d9') => `<svg viewBox="0 0 140 100" xmlns="http://www.w3.org/2000/svg"><path d="M52 56 Q90 44 132 54 L130 74 Q90 80 50 74 Z" fill="${c}" ${S}/><path d="M60 60 Q92 52 126 58" stroke="#fff" stroke-width="3" fill="none" opacity=".75"/>${[[74, 66], [96, 62], [116, 66]].map(([x, y]) => `<path d="${pzHeart(x, y, 3.2)}" fill="#fff" opacity=".9"/>`).join('')}</svg>`;
+  function vetBed(p, i, onSay) {
+    const r = vetS.rec[p.id], cards = (r && r.cards) || [];
+    const bed = el('button', { type: 'button', class: 'vet7-bed', 'aria-label': `${vetNm(p)} במיטת ההחלמה`, onclick: e => {
+      e.stopPropagation(); try { SFX.pet(p.kind); } catch {}
+      const g = cards.length ? cards[Math.floor(Math.random() * cards.length)] : null, q = g && allPets().find(x => x.id === g[0]);
+      onSay(q ? `${vetNm(p)}: ${vetNm(q)} הביא/ה לי ${VET_GIFTS[g[1]][0]}! אני כבר מרגיש/ה יותר טוב 💖` : `${vetNm(p)}: אני נח/ה קצת במיטה... מחר אהיה כמו חדש/ה! 💤`);
+    } },
+    el('span', { class: 'b0', html: VET_BED() }), el('span', { class: 'bp', html: petSVG(p, { mood: 'sleepy' }) }), el('span', { class: 'b1', html: VET_BLANKET(['#ffb3d9', '#9fdcff', '#c9b2ff'][i % 3]) }),
+    el('span', { class: 'vet7-zz' }, '💤'),
+    ...cards.slice(0, 3).map(([, it], k) => el('span', { class: 'vet7-gift g' + k, html: vetGiftSVG(it) })));
+    bed.style.left = (3 + i * 22) + '%';
+    return bed;
+  }
+  const vetHome0 = pz5Home;
+  pz5Home = function () {
+    const box = vetHome0();
+    try {
+      const stage = box.querySelector('.pz5-home'); if (!stage) return box;
+      const list = allPets().slice(0, 14), nodes = [...stage.querySelectorAll('.pz5-hpet')], say = stage.querySelector('.pz-say');
+      const setSay = x => { if (say) say.textContent = x; };
+      let beds = 0;
+      list.forEach((p, i) => {
+        const n = nodes[i]; if (!n) return;
+        const r = vetSickOf(p);
+        if (r) {
+          const hot = vetSev(p, r) === 3;
+          const b = el('span', { class: 'vet7-bub' + (hot ? ' hot' : ''), role: 'button', tabindex: '0', title: `${vetNm(p)} לא מרגיש/ה טוב — למרפאה`, onclick: e => { e.stopPropagation(); openVet(p.id); } }, hot ? '🚨' : VET_SICK[r.s].e === '🤧' ? '🤧' : '🤒');
+          const lm = n.querySelector('.life-mood'); if (lm) lm.remove();
+          n.append(b);
+        } else if (vetRecovering(p) && beds < 2) {
+          n.style.display = 'none';
+          stage.append(vetBed(p, beds++, setSay));
+        }
+      });
+      const sick = list.filter(p => vetSickOf(p)), hot = sick.find(p => vetSev(p, vetSickOf(p)) === 3), rec = list.filter(vetRecovering);
+      if (hot) setSay(`🚨 ${vetNm(hot)} חולה מאוד! צריך לקחת לוטרינרית מהר!`);
+      else if (sick.length) setSay(`🤒 ${vetNm(sick[0])} לא מרגיש/ה טוב... כולם דואגים ומחכים שתטפלי 💗`);
+      else if (rec.length) setSay(`🛏️ ${vetNm(rec[0])} נח/ה במיטת ההחלמה, והחברים הביאו כרטיסים ופרחים 💌`);
+      const btn = el('button', { type: 'button', class: 'btn' + (sick.length ? ' main' : ''), onclick: () => openVet(hot ? hot.id : sick.length ? sick[0].id : undefined) }, sick.length ? `🏥 למרפאה (${sick.length} 🤒)` : '🏥 מרפאת החיות');
+      const bar = box.querySelector('.life-homebar'); if (bar) bar.prepend(btn); else box.append(el('div', { class: 'chips' }, btn));
+    } catch {}
+    return box;
+  };
+  openVet = vetOpen;
+  // ---------- the board: a pill, the corner, the house button ----------
+  const vetStrip0 = renderStrip;
+  renderStrip = function () {
+    vetStrip0();
+    try {
+      const s = $('#strip'); if (!s) return;
+      const sick = vetSickList(); if (!sick.length) return;
+      const hot = sick.find(p => vetSev(p, vetSickOf(p)) === 3), p = hot || sick[0];
+      s.prepend(el('button', { type: 'button', class: 'pill vet7-pill' + (hot ? ' hot' : ''), onclick: () => openVet(p.id) }, el('span', { class: 'ic', html: petSVG(p) }),
+        hot ? `🚨 ${vetNm(p)} חולה מאוד! צריך לקחת לוטרינרית מהר!` : `🤒 ${vetNm(p)} לא מרגיש/ה טוב${sick.length > 1 ? ` (ועוד ${sick.length - 1})` : ''}`));
+    } catch {}
+  };
+  const vetRenderPet0 = renderPet;
+  renderPet = function () {
+    vetRenderPet0();
+    try {
+      const box = $('#pet'); if (!box || !pet || !pet.onboarded) return;
+      const r = vetSickOf(pet); if (!r) return;
+      const old = box.querySelector('.say'); if (old && !old.classList.contains('life-miss')) old.remove(); else if (old) return;
+      box.prepend(el('span', { class: 'say vet7-csay' }, vetSev(pet, r) === 3 ? `🚨 אני חולה מאוד... למרפאה?` : `🤒 אני לא מרגיש/ה טוב...`));
+    } catch {}
+  };
+  const vetDrawHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    vetDrawHouse0(mode, say);
+    try {
+      vetDaily();
+      const a = $('#houseActions'); if (!a || a.hidden || a.querySelector('.vet7-hbtn')) return;
+      const n = vetSickList().length;
+      a.append(el('button', { type: 'button', class: 'btn vet7-hbtn' + (n ? ' main' : ''), onclick: () => openVet() }, n ? `🏥 מרפאת החיות (${n} 🤒)` : '🏥 מרפאת החיות'));
+    } catch {}
+  };
+  // the MORE tile: the old "וטרינרית" tile becomes the clinic
+  { const i = MORE.findIndex(m => m[1] === 'וטרינרית'); const tile = ['dog', 'מרפאת החיות', () => openVet()]; if (i >= 0) MORE[i] = tile; else if (!MORE.some(m => m[1] === tile[1])) MORE.push(tile); }
+  try {
+    vetDaily();
+    if (vetNews) setTimeout(() => { try { const { p, hot } = vetNews; if (!allPets().some(q => q.id === p.id)) return; toast(petSVG(p), hot ? `🚨 ${vetNm(p)} חולה מאוד! צריך לקחת לוטרינרית מהר!` : `🤒 ${vetNm(p)} לא מרגיש/ה טוב... כדאי לקפוץ למרפאת החיות 🏥`); } catch {} }, 1800);
+  } catch (e) { console.error('vetDaily', e); }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
