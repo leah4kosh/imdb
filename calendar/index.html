@@ -4883,6 +4883,76 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
   .dw-hub { grid-template-columns: 1fr 1fr; gap: 10px; }
   .dw-card b { font-size: 1.05em; }
 }
+/* ===== 🐣 life b (round 7b): quick eggs, the big hatch, baby gifts ===== */
+.lb-picwrap { position: relative; width: 90px; justify-self: center; }
+.lb-picwrap > button { border: none; background: none; padding: 0; cursor: pointer; }
+.lb-egg.lb-big { transform: scale(1.14); }
+.lb-ring { position: absolute; top: -8px; left: -10px; width: 44px; height: 44px; pointer-events: none; filter: drop-shadow(0 2px 3px rgb(0 0 0 / .18)); }
+.lb-ring > svg { width: 100%; height: 100%; display: block; }
+.lb-wob { animation: lbwob .45s ease !important; }
+@keyframes lbwob { 25% { transform: rotate(-12deg) scale(1.06); } 60% { transform: rotate(10deg) scale(1.04); } }
+.lb-float { position: absolute; top: 20%; font-size: 1.5em; pointer-events: none; animation: floatup .8s ease-out forwards; z-index: 5; }
+.lb-twins { color: #8e5bd6 !important; }
+.life-pend.ready .lb-picwrap > button { animation: lifewob .6s ease-in-out infinite; }
+.lb-belly .life-belly-h { letter-spacing: -4px; }
+/* home: nest + mom rings */
+.life-nest.lb-nest.lb-big { width: 52px; }
+.life-nest .lb-ring-s { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; }
+.life-nest.ready > svg + svg { animation: lifewob .5s ease-in-out infinite; }
+.lb-momring { bottom: 6%; height: 30px; }
+.lb-beat { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); font-size: 18px; animation: lifebeat 1s ease-in-out infinite; white-space: nowrap; }
+/* the hatch dialog */
+dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
+.lb-stage { position: relative; height: 360px; border-radius: 22px; overflow: hidden; border: 2px solid var(--line); background: radial-gradient(circle at 50% 60%, #fff 0 22%, #fff1f8 50%, #e6dcff); color: #1f2a44; }
+.lb-rainbow { position: absolute; left: 0; right: 0; bottom: 30px; opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
+.lb-rainbow > svg { width: 100%; display: block; }
+.lb-stage.lb-joy .lb-rainbow { opacity: .85; }
+.lb-parents { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 12px; pointer-events: none; }
+.lb-parents .ic { width: 78px; height: 88px; } .lb-parents .ic > svg { width: 100%; height: 100%; overflow: visible; }
+.lb-bigegg { position: absolute; left: 50%; top: 50%; width: 150px; height: 176px; transform: translate(-50%, -50%); border: none; background: none; padding: 0; cursor: pointer; transition: opacity .3s, transform .3s; }
+.lb-bigegg.lb-big { width: 176px; height: 206px; }
+.lb-bigegg > svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 6px 10px rgb(0 0 0 / .18)); }
+.lb-bigegg:not(.lb-gone) > svg { animation: lifewob 1.8s ease-in-out infinite; transform-origin: 50% 90%; }
+.lb-bigegg.lb-shake > svg { animation: lbshake .5s ease !important; }
+@keyframes lbshake { 20% { transform: rotate(-14deg) scale(1.06); } 45% { transform: rotate(12deg) scale(1.08); } 70% { transform: rotate(-6deg); } }
+.lb-bigegg.lb-gone { opacity: 0; transform: translate(-50%, -50%) scale(1.3); pointer-events: none; }
+.lb-shell { top: 42% !important; left: calc(50% - 45px); width: 90px !important; height: 105px !important; }
+.lb-babies { position: absolute; left: 0; right: 0; bottom: 34px; display: flex; justify-content: center; align-items: flex-end; gap: 6px; pointer-events: none; }
+.lb-baby { position: relative; width: 170px; animation: lbpop .9s cubic-bezier(.3, 1.7, .5, 1) both; }
+.lb-baby .in { display: block; width: 100%; height: 194px; transform-origin: 50% 100%; }
+.lb-baby .in > svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 4px 6px rgb(0 0 0 / .18)); }
+.lb-baby.lb-stretch .in { animation: lbstretch 1.1s ease-in-out; }
+.lb-stage.lb-joy .lb-baby .in { animation: lbbounce 1.2s ease-in-out .2s infinite; }
+@keyframes lbpop { from { transform: translateY(40px) scale(.1); opacity: 0; } }
+@keyframes lbstretch { 30% { transform: scale(.9, 1.2); } 55% { transform: scale(1.08, .92); } 80% { transform: scale(.98, 1.04); } }
+@keyframes lbbounce { 50% { transform: translateY(-8px) scale(1.02, .98); } }
+.lb-bubble { position: absolute; top: -6px; left: 50%; transform: translateX(-50%) scale(0); background: #fff; border: 2px solid #3a2b3c; border-radius: 16px 16px 16px 4px; padding: 2px 10px; font-size: 1.05em; white-space: nowrap; z-index: 3; transition: transform .4s cubic-bezier(.3, 1.8, .5, 1); }
+.lb-bubble.on { transform: translateX(-50%) translateY(-18px) scale(1); }
+.lb-fx { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; z-index: 6; }
+.lb-spark { position: absolute; left: 0; top: 0; font-size: 1.4em; transform: translate(-50%, -50%); animation: lbspark 1.2s ease-out forwards; }
+@keyframes lbspark { from { opacity: 1; transform: translate(-50%, -50%) scale(.4); } to { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2); } }
+.lb-coins { position: absolute; inset: 0; pointer-events: none; z-index: 7; overflow: hidden; }
+.lb-coin { position: absolute; top: -40px; width: 30px; height: 30px; animation: lbcoin 1.8s ease-in forwards; }
+.lb-coin > svg { width: 100%; height: 100%; display: block; }
+@keyframes lbcoin { to { transform: translateY(420px) rotateY(720deg); } }
+.lb-say { margin: 0; text-align: center; font-size: 1.2em; }
+.lb-acts { justify-content: center; min-height: 44px; }
+.lb-pulse { animation: lifebeat2 1.1s ease-in-out infinite; }
+.lb-giftstage { display: grid; justify-items: center; gap: 10px; padding: 14px; border-radius: 22px; background: radial-gradient(circle, #fff, #fff1f8 60%, #e6dcff); border: 2px solid var(--line); color: #1f2a44; position: relative; overflow: hidden; }
+.lb-gift { width: 150px; height: 150px; border: none; background: none; padding: 0; cursor: pointer; animation: lbwob 1.4s ease-in-out infinite; }
+.lb-gift > svg { width: 100%; height: 100%; overflow: visible; }
+.lb-gift .lb-lid { transition: transform .7s cubic-bezier(.3, 1.4, .5, 1); transform-box: fill-box; transform-origin: center; }
+.lb-gift.open { animation: none; } .lb-gift.open .lb-lid { transform: translate(40px, -60px) rotate(30deg); }
+.lb-items { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.lb-item { position: relative; display: grid; justify-items: center; gap: 2px; width: 150px; padding: 10px; border-radius: 18px; background: #fff; border: 2px solid #ffc2e0; text-align: center; animation: lbpop .8s cubic-bezier(.3, 1.7, .5, 1) both; }
+.lb-item .ic { width: 70px; height: 70px; } .lb-item .ic > svg { width: 100%; height: 100%; }
+.lb-item b { font-weight: 400; } .lb-item small { color: #5b6b8c; font-size: .78em; }
+.lb-new { position: absolute; top: -10px; inset-inline-end: -6px; background: #ff5a8a; color: #fff; border-radius: 99px; padding: 0 8px; font-size: .8em; transform: rotate(8deg); }
+.lb-names { display: grid; gap: 10px; }
+.lb-namecard { display: grid; grid-template-columns: 90px 1fr; gap: 4px 12px; align-items: center; padding: 10px; border-radius: 18px; border: 2px solid var(--line); background: var(--card); }
+.lb-namecard .ic { grid-row: span 2; width: 90px; height: 100px; } .lb-namecard .ic > svg { width: 100%; height: 100%; overflow: visible; }
+.lb-namecard input { font-size: 1.2em; }
+@media (max-width: 560px) { .lb-stage { height: 320px; } .lb-baby { width: 96px; } .lb-baby .in { height: 110px; } .lb-parents .ic { width: 56px; height: 64px; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -34023,6 +34093,311 @@ ${label(900, 520, '🌊 ים האיים')}
   }
   { const i = MORE.findIndex(m => m[1] === 'להדפסה'); MORE.splice(i < 0 ? MORE.length : i, 0, ['castle', 'עולמות הקסם', () => openDWorlds()]); }
   { const r = MORE_ROOMS.find(x => x[0] === 'worlds'); if (r && !r[2].includes('עולמות הקסם')) r[2].unshift('עולמות הקסם'); }
+  // ================= 🐣 life b (life agent, round 7b): quick eggs (~3 min), twins & triplets, the big hatch party, baby gifts (14 new items), naming, extra-cute babies =================
+  const LIFEB_WAIT = 180e3, LIFEB_TAP = 20e3, LIFEB_MIN = 60e3;
+  const LIFEB_NAMES = ['פיצי', 'בובי', 'מוצי', 'לולי', 'צ׳יקי', 'טופי', 'נונו', 'פופי', 'מימי', 'שוקו', 'דבשי', 'קוקי', 'פלאפי', 'סוכריה', 'מותק', 'ביסלי', 'גומי', 'ננה', 'פנפן', 'כפתור', 'זהבי', 'חמודי', 'קשתי', 'נצנץ', 'טוטו', 'מיקי', 'ג׳לי', 'מרשמלו', 'דובדבן', 'פתית', 'בוּבָּלֶה', 'צִיפִּי'];
+  const lifebN = e => e.n || (e.twins ? 2 : 1);
+  const lifebLeft = e => Math.max(0, e.ready - Date.now());
+  const lifebPct = e => Math.min(1, (Date.now() - e.t0) / Math.max(1, e.ready - e.t0));
+  const lifebTime = ms => { const s = Math.ceil(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+  lifeS.items = lifeS.items || [];
+  lifeS.pend.forEach(e => { if (!e.n) e.n = e.twins ? 2 : 1; if (e.ready - Date.now() > LIFEB_WAIT) { e.t0 = Date.now(); e.ready = Date.now() + LIFEB_WAIT; } });
+  lifeSave();
+  // ---------- 🎁 14 new baby items: 6 to wear (pet clothes), 8 for the home (decor) ----------
+  const LIFEB_ITEMS = [
+    ['bbonnet', 'כובע תינוק', 'head', ['#ffc2e0', '#ffffff']], ['bbib', 'סינר תינוק', 'neck', ['#bfeaff', '#ff9ad5']], ['bonesie', 'בגד גוף', 'body', ['#fff1b8', '#ff9ad5']],
+    ['bdiaper', 'חיתול', 'body', ['#ffffff', '#7ec8ff']], ['bbooties', 'נעלי תינוק סרוגות', 'feet', ['#e6d2ff', '#ffffff']], ['bblanket', 'שמיכת תינוק', 'back', ['#bfeaff', '#ffffff']],
+    ['bcrib', 'עריסה', 'home'], ['bstroller', 'עגלת תינוק', 'home'], ['bbottle', 'בקבוק תינוק', 'home'], ['brattle', 'רעשן', 'home'], ['bduck', 'ברווזון גומי', 'home'], ['bmobile', 'מובייל כוכבים', 'home'], ['bblocks', 'קוביות א-ב-ג', 'home'], ['bbath', 'אמבטיית תינוק', 'home'],
+  ];
+  const lifebItem = id => LIFEB_ITEMS.find(x => x[0] === id);
+  function lifebIcon(id) {
+    const s = S, s2 = S2;
+    switch (id) {
+      case 'bbonnet': return `<path d="M8 31 Q7 9 24 9 Q41 9 40 31 Q24 25 8 31 Z" fill="#ffc2e0" ${s}/>${[10, 16, 22, 28, 34, 39].map((x, i) => `<circle cx="${x}" cy="${30 - Math.sin(i / 5 * Math.PI) * 4}" r="3" fill="#fff" ${s2}/>`).join('')}<path d="M11 32 l-3 10 M37 32 l3 10" stroke="#ff5a8a" stroke-width="2.6" stroke-linecap="round"/><path d="M24 9 q-6 -6 -8 0 q2 4 8 0 q6 -6 8 0 q-2 4 -8 0" fill="#ff5a8a" ${s2}/>`;
+      case 'bbib': return `<path d="M11 11 Q24 21 37 11 Q42 30 24 41 Q6 30 11 11 Z" fill="#bfeaff" ${s}/><path d="M15 12 Q24 18 33 12" fill="none" ${s2}/><path d="${pzHeart(24, 28, 5.5)}" fill="#ff9ad5" ${s2}/>`;
+      case 'bonesie': return `<path d="M14 10 L20 8 Q24 12 28 8 L34 10 L41 18 L35 22 L34 30 Q34 41 28 41 L26 37 H22 L20 41 Q14 41 14 30 L13 22 L7 18 Z" fill="#fff1b8" ${s}/><polygon points="${starPts(24, 22, 5, 2.2)}" fill="#ff9ad5" ${s2}/>${[30, 34].map(y => `<circle cx="24" cy="${y}" r="1.4" fill="#ff9ad5"/>`).join('')}`;
+      case 'bdiaper': return `<path d="M7 15 H41 Q41 34 29 39 Q24 31 19 39 Q7 34 7 15 Z" fill="#fff" ${s}/><path d="M7 20 H41" stroke="#7ec8ff" stroke-width="3"/><circle cx="11" cy="20" r="2.4" fill="#ffd84d" ${s2}/><circle cx="37" cy="20" r="2.4" fill="#ffd84d" ${s2}/>`;
+      case 'bbooties': return [8, 26].map(x => `<path d="M${x} 18 h11 v12 q6 0 7 5 q0 5 -6 5 h-12 Z" fill="#e6d2ff" ${s}/><path d="M${x} 22 h11" stroke="#fff" stroke-width="2.4"/><circle cx="${x + 5.5}" cy="16" r="3" fill="#ff9ad5" ${s2}/>`).join('');
+      case 'bblanket': return `<path d="M8 12 H40 V38 Q40 42 36 42 H12 Q8 42 8 38 Z" fill="#bfeaff" ${s}/><path d="M11 15 H37 V39 H11 Z" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="3 2"/>${[[16, 21], [28, 21], [22, 28], [16, 34], [30, 33]].map(([x, y], i) => i % 2 ? `<polygon points="${starPts(x, y, 3, 1.3)}" fill="#ffd84d"/>` : `<path d="${pzHeart(x, y, 2.4)}" fill="#ff9ad5"/>`).join('')}<path d="M40 38 L30 42 L40 30 Z" fill="#9fd6ff" ${s2}/>`;
+      case 'bcrib': return `<rect x="6" y="18" width="36" height="18" rx="3" fill="#fff6e6" ${s}/>${[11, 16, 21, 26, 31, 36].map(x => `<path d="M${x} 18 V36" stroke="#c98f3a" stroke-width="2"/>`).join('')}<path d="M6 18 V42 M42 18 V42" stroke="#c98f3a" stroke-width="3.4" stroke-linecap="round"/><path d="M6 18 Q24 8 42 18" fill="none" stroke="#c98f3a" stroke-width="3"/><ellipse cx="24" cy="30" rx="14" ry="3" fill="#ffc2e0"/><circle cx="14" cy="27" r="3.5" fill="#fff" ${s2}/>`;
+      case 'bstroller': return `<path d="M8 20 H38 Q38 34 24 34 Q8 34 8 20 Z" fill="#ff9ad5" ${s}/><path d="M8 20 Q8 6 24 6 L24 20 Z" fill="#ffc2e0" ${s}/><path d="M38 20 L44 12" ${s}/><circle cx="14" cy="40" r="4.4" fill="#fff" ${s}/><circle cx="32" cy="40" r="4.4" fill="#fff" ${s}/><path d="M14 34 v2 M32 34 v2" ${s2}/>`;
+      case 'bbottle': return `<rect x="16" y="16" width="16" height="26" rx="5" fill="#eaf6ff" ${s}/><rect x="17.5" y="26" width="13" height="14.5" rx="4" fill="#fff" opacity=".95"/><rect x="14" y="12" width="20" height="6" rx="2" fill="#7ec8ff" ${s}/><path d="M19 12 Q19 4 24 4 Q29 4 29 12 Z" fill="#ffd1a8" ${s}/>${[22, 28, 34].map(y => `<path d="M16 ${y} h3" ${s2}/>`).join('')}`;
+      case 'brattle': return `<path d="M26 28 L38 42" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M26 28 L38 42" stroke="#7ec8ff" stroke-width="3.4" stroke-linecap="round"/><circle cx="20" cy="20" r="12" fill="#ffd84d" ${s}/>${[[15, 16, '#ff5a8a'], [24, 14, '#7ec8ff'], [20, 25, '#6fcf7f']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="2.6" fill="${c}"/>`).join('')}<circle cx="38" cy="42" r="3.4" fill="#ff9ad5" ${s2}/>`;
+      case 'bduck': return `<path d="M8 30 Q8 42 24 42 Q40 42 40 30 Q40 24 30 26 Q34 10 22 10 Q12 10 14 22 Q8 22 8 30 Z" fill="#ffd84d" ${s}/><path d="M13 20 Q6 21 7 18 Q9 15 14 17 Z" fill="#ff9a3c" ${s2}/><circle cx="19" cy="16.5" r="1.8" fill="${O}"/><path d="M24 32 Q30 30 33 34" fill="none" ${s2}/>`;
+      case 'bmobile': return `<path d="M24 2 V10 M8 12 H40" ${s}/>${[[10, 26, 's', '#ffd84d'], [24, 22, 'm', '#fff6c4'], [38, 28, 'h', '#ff9ad5']].map(([x, y, t, c]) => `<path d="M${x} 12 V${y - 6}" stroke="${O}" stroke-width="1.2"/>` + (t === 's' ? `<polygon points="${starPts(x, y, 6, 2.6)}" fill="${c}" ${s2}/>` : t === 'm' ? `<path d="M${x + 2} ${y - 7} A7 7 0 1 0 ${x + 3} ${y + 6} A5 5 0 1 1 ${x + 2} ${y - 7} Z" fill="${c}" ${s2}/>` : `<path d="${pzHeart(x, y, 5)}" fill="${c}" ${s2}/>`)).join('')}`;
+      case 'bblocks': return [[6, 24, '#ff9ad5', 'א'], [26, 24, '#7ec8ff', 'ב'], [16, 6, '#ffd84d', 'ג']].map(([x, y, c, l]) => `<rect x="${x}" y="${y}" width="17" height="17" rx="3" fill="${c}" ${s}/><text x="${x + 8.5}" y="${y + 13}" text-anchor="middle" font-size="12" font-family="Rubik, sans-serif" fill="#fff" stroke="${O}" stroke-width=".6">${l}</text>`).join('');
+      case 'bbath': return `<path d="M5 22 H43 Q42 38 30 40 H18 Q6 38 5 22 Z" fill="#fff" ${s}/><path d="M6 22 H42" stroke="#7ec8ff" stroke-width="3"/><path d="M14 40 l-2 5 M34 40 l2 5" ${s}/>${[[12, 18, 4], [20, 15, 5], [29, 17, 4], [36, 14, 3], [25, 9, 2.6]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#eaf6ff" stroke="#9fd6ff" stroke-width="1.2"/>`).join('')}<path d="M34 24 q2 -4 5 0" fill="none" stroke="#ffd84d" stroke-width="3"/>`;
+    }
+    return '';
+  }
+  const lifebIconSVG = id => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${lifebIcon(id)}</svg>`;
+  // wearables: registered as pet clothes (owned once unlocked), drawn through the pz6Cloth hook
+  LIFEB_ITEMS.filter(x => x[2] !== 'home').forEach(([id, n, slot, cols]) => { if (!CRZ_CLOTHES.some(c => c[0] === id)) CRZ_CLOTHES.push([id, `🍼 ${n}`, slot, 150, cols]); });
+  const lifebCloth0 = pz6Cloth;
+  pz6Cloth = function (id, c, c2, k) {
+    if (!lifebItem(id) || lifebItem(id)[2] === 'home') return lifebCloth0(id, c, c2, k);
+    const { B, H, nk, hx, hy, std, st, top, hem, sleeves, torso } = k, r = { back: '', main: '', top: '' };
+    if (id === 'bbonnet') r.main = `<path d="M${hx - 12} ${hy + 8} Q${hx - 12} ${hy - 6} ${hx} ${hy - 6} Q${hx + 12} ${hy - 6} ${hx + 12} ${hy + 8} Q${hx} ${hy + 3} ${hx - 12} ${hy + 8} Z" fill="${c}" ${st}/>` + [-10, -6, -2, 2, 6, 10].map(dx => `<circle cx="${hx + dx}" cy="${pzF(hy + 7 - Math.cos(dx / 12 * Math.PI / 2) * 3.4)}" r="1.7" fill="${c2}" ${st}/>`).join('') + `<path d="M${hx} ${hy - 6} q-3.4 -3.4 -4.6 0 q1.2 2.4 4.6 0 q3.4 -3.4 4.6 0 q-1.2 2.4 -4.6 0" fill="#ff5a8a" ${st}/>`;
+    else if (id === 'bbib') r.main = `<path d="M${nk[0] - 6.4} ${nk[1] - .6} Q${nk[0]} ${nk[1] + 2.4} ${nk[0] + 6.4} ${nk[1] - .6} Q${nk[0] + 6.8} ${nk[1] + 7.6} ${nk[0]} ${nk[1] + 9.4} Q${nk[0] - 6.8} ${nk[1] + 7.6} ${nk[0] - 6.4} ${nk[1] - .6} Z" fill="${c}" ${st}/><path d="${pzHeart(nk[0], nk[1] + 5, 2)}" fill="${c2}"/>`;
+    else if (id === 'bonesie') r.main = torso(c) + `<polygon points="${starPts(B[0], B[1] - .5, 2.4, 1)}" fill="${c2}"/>` + [0, 1].map(i => `<circle cx="${B[0]}" cy="${pzF(B[1] + 3 + i * 2.4)}" r=".7" fill="${c2}"/>`).join('') + sleeves(c);
+    else if (id === 'bdiaper') r.main = `<path d="M${pzF(B[0] - B[2] - .4)} ${pzF(B[1] + 1)} H${pzF(B[0] + B[2] + .4)} Q${pzF(B[0] + B[2])} ${pzF(B[1] + B[3] + 1.4)} ${B[0]} ${pzF(B[1] + B[3] + 1.8)} Q${pzF(B[0] - B[2])} ${pzF(B[1] + B[3] + 1.4)} ${pzF(B[0] - B[2] - .4)} ${pzF(B[1] + 1)} Z" fill="${c}" ${st}/><path d="M${pzF(B[0] - B[2] + 1)} ${pzF(B[1] + 2.4)} H${pzF(B[0] + B[2] - 1)}" stroke="${c2}" stroke-width="1.2"/>`;
+    else if (id === 'bbooties') { if (std) r.main = pzBoth(`<path d="M14.2 44.2 q4.2 -2.8 8.4 0 v2.6 q0 1.8 -1.8 1.8 h-4.8 q-1.8 0 -1.8 -1.8 Z" fill="${c}" ${st}/><circle cx="18.4" cy="43.6" r="1.1" fill="${c2}" ${st}/>`); }
+    else if (id === 'bblanket') r.back = `<path d="M${nk[0] - 12} ${nk[1] - 1} Q${nk[0]} ${nk[1] - 4} ${nk[0] + 12} ${nk[1] - 1} L${pzF(B[0] + B[2] + 5)} ${pzF(B[1] + B[3] + 1)} Q${B[0]} ${pzF(B[1] + B[3] + 3.5)} ${pzF(B[0] - B[2] - 5)} ${pzF(B[1] + B[3] + 1)} Z" fill="${c}" ${st}/>` + [[-8, 6], [8, 6], [-10, 12], [10, 12]].map(([dx, dy]) => `<path d="${pzHeart(nk[0] + dx, nk[1] + dy, 1.4)}" fill="${c2}"/>`).join('');
+    return r;
+  };
+  // home items: unlocked ones join the decor tools of the family home
+  const lifebDecor0 = pz6DecorSVG;
+  pz6DecorSVG = function (t, x, y) { const it = lifebItem(t); return it && it[2] === 'home' ? `<svg x="${x - 22}" y="${y - 44}" width="44" height="44" viewBox="0 0 48 48">${lifebIcon(t)}</svg>` : lifebDecor0(t, x, y); };
+  function lifebApplyItems() {
+    lifeS.items.forEach(id => {
+      const it = lifebItem(id); if (!it) return;
+      if (it[2] === 'home') { if (!PZ6_DECOR.some(d => d[0] === id)) { const i = PZ6_DECOR.findIndex(d => d[0] === 'erase'); PZ6_DECOR.splice(i < 0 ? PZ6_DECOR.length : i, 0, [id, `🍼 ${it[1]}`]); } }
+      else if (!crzOwned.includes(id)) { crzOwned.push(id); store.set('crzOwned', crzOwned); }
+    });
+  }
+  function lifebUnlock(k) {
+    const locked = LIFEB_ITEMS.filter(x => !lifeS.items.includes(x[0])).sort(() => Math.random() - .5).slice(0, k).map(x => x[0]);
+    lifeS.items.push(...locked); lifeSave(); lifebApplyItems();
+    return locked;
+  }
+  try { lifebApplyItems(); } catch {}
+  // ---------- 🍼 babies are extra cute everywhere: bigger head, big eyes, blush ----------
+  const LIFEB_GEO = { head: [24, 22.3, 17.2, 15.2], eyeY: 24.4, eyeDX: 6.9, eyeS: 1.34, cheekY: 29.6, cheekDX: 11.4, noseY: 28, mouthY: 29.4 };
+  const lifebPetSVG0 = petSVG;
+  petSVG = function (p, opts = {}) {
+    let baby = false;
+    try { baby = !!(p && p.born && !opts.noBaby && petAge(p).stage === 'baby'); } catch {}
+    if (!baby) return lifebPetSVG0(p, opts);
+    const kind = p.kind, custom = !!PB_SPECIES[kind], g = custom ? null : PZ_GEO[['owl', 'turtle', 'fish', 'whale'].includes(kind) ? kind : 'std'], save = g && Object.assign({}, g);
+    try {
+      if (g) { if (g === PZ_GEO.std) Object.assign(g, LIFEB_GEO); else g.eyeS = save.eyeS * 1.22; }
+      return lifebPetSVG0(p, Object.assign({}, opts, { look: Object.assign({ cheeks: true, cheekC: '#ff8fab' }, opts.look || {}) }));
+    } catch (e) { return lifebPetSVG0(p, opts); } finally { if (g) Object.assign(g, save); }
+  };
+  // ---------- ⏳ the countdown ring + warming taps ----------
+  function lifebRing(e) {
+    const p = lifebPct(e), r = 20, C = 2 * Math.PI * r, ready = !lifebLeft(e);
+    return `<svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><circle cx="25" cy="25" r="${r}" fill="#fff" stroke="#f3e0ff" stroke-width="5"/><circle cx="25" cy="25" r="${r}" fill="none" stroke="${ready ? '#ffc400' : '#ff7ab8'}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${(C * p).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 25 25)"/><text x="25" y="${ready ? 31 : 29}" text-anchor="middle" font-size="${ready ? 17 : 11.5}" font-family="Rubik, sans-serif" fill="#3a2b3c">${ready ? '🐣' : lifebTime(lifebLeft(e))}</text></svg>`;
+  }
+  function lifebWarm(e, node, fxBox) {
+    if (!lifebLeft(e)) return false;
+    e.ready = Math.max(e.ready - LIFEB_TAP, e.t0 + LIFEB_MIN, Date.now());
+    lifeSave(); tone(520 + Math.random() * 300, .1, 'sine'); tone(880, .12, 'triangle', .08);
+    if (node) { node.classList.remove('lb-wob'); void node.offsetWidth; node.classList.add('lb-wob'); }
+    const box = fxBox || (node && node.parentNode);
+    if (box) { const h = el('span', { class: 'life-float lb-float' }, e.egg ? pzPick(['🔥', '✨', '💛']) : pzPick(['💗', '💓', '✨'])); h.style.left = (30 + Math.random() * 40) + '%'; box.append(h); setTimeout(() => h.remove(), 800); }
+    return true;
+  }
+  // ---------- 🥚 the babies panel (replaces the round-7 one: 3 minutes, taps, surprise twins) ----------
+  let lifebSel = [];
+  lifeBabyBox = function (f, redraw) {
+    const box = el('div', { class: 'life-babybox' });
+    let tick = 0;
+    const draw = () => {
+      clearInterval(tick);
+      const all = allPets(), adults = all.filter(isAdult);
+      lifeS.pend = lifeS.pend.filter(e => lifeFind(e.a) || lifeFind(e.b));
+      lifebSel = lifebSel.filter(id => adults.some(p => p.id === id));
+      if (f && !lifebSel.length) try { lifebSel = pz5Members(f).filter(x => ['mom', 'dad'].includes(x.m.role) && isAdult(x.p)).map(x => x.p.id).slice(0, 2); } catch {}
+      const [a, b] = lifebSel.map(lifeFind), busy = p => lifeS.pend.some(e => e.a === p.id || e.b === p.id);
+      const cards = lifeS.pend.map(e => {
+        const A = lifeFind(e.a), B = lifeFind(e.b), n = lifebN(e);
+        const ring = el('span', { class: 'lb-ring', html: lifebRing(e) });
+        const pic = e.egg ? el('button', { type: 'button', class: 'life-egg lb-egg' + (n > 1 ? ' lb-big' : ''), 'aria-label': 'לחמם את הביצה', html: lifeEggSVG(e.c1, e.c2, lifebPct(e) * .8) })
+          : el('button', { type: 'button', class: 'life-belly lb-belly', 'aria-label': `לפנק את ${lifeNm(A)}` }, el('span', { class: 'ic', html: A ? petSVG(A, { mood: 'happy' }) : '' }), el('span', { class: 'life-belly-h' }, '💞'.repeat(Math.min(3, n))));
+        const btn = el('button', { type: 'button', class: 'btn main' });
+        const hint = el('small', {});
+        const card = el('div', { class: 'life-pend' }, el('div', { class: 'lb-picwrap' }, pic, ring),
+          el('div', { class: 'row', style: 'gap:6px' }, el('b', {}, e.egg ? `🥚 הביצה של ${lifeNm(A || B)}${A && B ? ` ו${lifeNm(B)}` : ''}` : `💞 ${lifeNm(A || B)} מחכה לגור!`),
+            n > 1 ? el('small', { class: 'lb-twins' }, e.egg ? `הביצה ממש גדולה... אולי ${n > 2 ? 'שלישייה' : 'תאומים'}? 👀` : `שומעים ${n > 2 ? 'שלושה' : 'שני'} דופקים קטנים... אולי ${n > 2 ? 'שלישייה' : 'תאומים'}? 👀`) : null, hint, el('div', { class: 'chips' }, btn)));
+        const upd = () => {
+          const left = lifebLeft(e); ring.innerHTML = lifebRing(e);
+          card.classList.toggle('ready', !left); pic.classList.toggle('ready', !left); pic.classList.toggle('wob', !!left && lifebPct(e) > .6);
+          btn.textContent = !left ? (e.egg ? '🐣 לבקוע!' : '👶 הגור נולד!') : e.egg ? '🔥 לחמם (−20 שניות)' : `💗 לפנק את ${lifeNm(A)} (−20 שניות)`;
+          hint.textContent = !left ? (e.egg ? 'הביצה זזה! משהו עומד לבקוע... 🐣' : 'הגור מוכן להיוולד! 👶') : `עוד ${lifebTime(left)} — כל לחיצה מקצרת את ההמתנה!`;
+        };
+        const act = () => { if (!lifebLeft(e)) { lifeBirth(e); return; } lifebWarm(e, pic, card); upd(); };
+        btn.onclick = act; pic.onclick = act; card._upd = upd; upd();
+        return card;
+      });
+      box.replaceChildren(
+        cards.length ? el('div', { class: 'life-pends' }, ...cards) : null,
+        el('b', {}, '💞 גור חדש! בוחרים שני הורים בוגרים'),
+        adults.length < 2 ? el('p', { class: 'muted', style: 'margin:0' }, all.length < 2 ? 'כדי שיהיו גורים צריך לפחות שתי חיות בוגרות — אפשר לאמץ עוד!' : 'כדי שיהיו גורים צריך שתי חיות בוגרות (⭐). הקטנים עוד צריכים לגדול 🍼') : null,
+        el('div', { class: 'pz5-pick life-pick' }, ...all.map(p => { const ok = isAdult(p) && !busy(p), A = petAge(p);
+          return el('button', { type: 'button', class: 'pz5-pickpet', disabled: !ok, title: ok ? '' : !isAdult(p) ? 'עוד קטן/ה מדי 🍼' : 'כבר מחכה לגור', 'aria-pressed': String(lifebSel.includes(p.id)), onclick: () => { lifebSel = lifebSel.includes(p.id) ? lifebSel.filter(x => x !== p.id) : [...lifebSel, p.id].slice(-2); SFX.pop(); draw(); } },
+            el('span', { class: 'ic', html: petSVG(Object.assign({}, p, { size: 1 })) }), el('small', {}, `${A.emoji} ${lifeNm(p)}`)); })),
+        a && b ? el('div', { class: 'pz5-parents' }, el('span', { class: 'ic', html: petSVG(a) }), el('span', { class: 'pz5-plus' }, '💞'), el('span', { class: 'ic', html: petSVG(b) }),
+          el('small', {}, `${lifeLaysEggs(a) ? `🥚 ${lifeNm(a)} תטיל ביצה, ובעוד 3 דקות היא תבקע!` : `👶 ${lifeNm(a)} תחכה לגור, ובעוד 3 דקות הוא ייוולד!`} ${a.kind === b.kind ? '' : 'סוגים שונים — אולי ייצא סוג חדש! 🤩'}`)) : null,
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', disabled: !(a && b), onclick: () => {
+          const egg = lifeLaysEggs(a), La = petzLook(a), Lb = petzLook(b), r = Math.random(), n = r < .05 ? 3 : r < .35 ? 2 : 1;
+          lifeS.pend.push({ id: 'lp' + Date.now().toString(36), a: a.id, b: b.id, egg, n, t0: Date.now(), ready: Date.now() + LIFEB_WAIT, c1: pzLight(La.c1 || '#ffe6f3', .55), c2: Lb.c1 || '#b58cff', warm: {} });
+          lifeSave(); lifebSel = []; SFX.yay(); lifeConf();
+          toast(egg ? lifeEggSVG() : petSVG(a, { mood: 'happy' }), egg ? `🥚 ${lifeNm(a)} הטילה ביצה! מחממים אותה — עוד 3 דקות היא בוקעת` : `💞 ${lifeNm(a)} מחכה לגור! עוד 3 דקות...`);
+          draw();
+        } }, a && lifeLaysEggs(a) ? '🥚 להטיל ביצה' : '💞 לחכות לגור')),
+        el('p', { class: 'muted', style: 'margin:0' }, 'ציפורים, ינשופים, דינוזאורים, צבים, דגים וחיות עם מקור מטילים ביצים 🥚. כל השאר יולדים גורים 👶. כל גור מביא מטבעות ומתנה חדשה! 🎁'));
+      if (cards.length) tick = setInterval(() => { if (!box.isConnected) { clearInterval(tick); return; } cards.forEach(c => c._upd()); }, 1000);
+    };
+    draw();
+    return box;
+  };
+  // the nests and moms in the family home get a live countdown ring; tapping warms / pampers, and hatches when ready
+  const lifebDecorate0 = lifeDecorateHome;
+  lifeDecorateHome = function (box) {
+    lifebDecorate0(box);
+    const stage = box.querySelector('.pz5-home'); if (!stage) return;
+    stage.querySelectorAll('.life-nest').forEach(n => n.remove());
+    const ups = [];
+    lifeS.pend.slice(0, 3).forEach((e, i) => {
+      const n = lifebN(e), ring = el('span', { class: 'lb-ring lb-ring-s', html: lifebRing(e) });
+      let node;
+      if (e.egg) {
+        node = el('button', { type: 'button', class: 'life-nest lb-nest' + (n > 1 ? ' lb-big' : ''), title: 'ביצה בקן! לוחצים כדי לחמם 🔥', 'aria-label': 'ביצה בקן', html: `<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><ellipse cx="30" cy="40" rx="26" ry="9" fill="#c98f3a" stroke="${O}" stroke-width="2"/><path d="M6 38 q6 -4 12 0 q6 -4 12 0 q6 -4 12 0 q6 -4 12 0" fill="none" stroke="#9b6b43" stroke-width="2"/></svg>` + lifeEggSVG(e.c1, e.c2, lifebPct(e) * .8) });
+        node.style.left = (44 + i * 8) + '%';
+      } else {
+        node = el('button', { type: 'button', class: 'life-nest lb-momring', title: 'לוחצים כדי לפנק 💗', 'aria-label': 'לפנק את האמא' }, el('span', { class: 'lb-beat' }, '💓'.repeat(Math.min(3, n))));
+        node.style.left = (54 + i * 8) + '%';
+      }
+      node.append(ring);
+      node.addEventListener('click', ev => { ev.stopPropagation(); if (!lifebLeft(e)) { lifeBirth(e); return; } lifebWarm(e, node, stage); ring.innerHTML = lifebRing(e); });
+      stage.append(node); ups.push(() => { ring.innerHTML = lifebRing(e); node.classList.toggle('ready', !lifebLeft(e)); });
+    });
+    if (ups.length) { const t = setInterval(() => { if (!stage.isConnected) { clearInterval(t); return; } ups.forEach(f => f()); }, 1000); }
+  };
+  // ---------- 👶 the babies: the first mixes both parents, brothers and sisters get small differences ----------
+  function lifebMakeBabies(A, B, n) {
+    const r = pz5HaveBaby(A, B, false), first = r.babies[0], out = [first], LA = petzLook(A), LB = petzLook(B), pk = (a, b) => Math.random() < .5 ? a : b;
+    const used = () => allPets().map(p => p.name);
+    first.name = LIFEB_NAMES.filter(x => !used().includes(x))[Math.floor(Math.random() * 10)] || first.name;
+    for (let i = 1; i < n; i++) {
+      const L = Object.assign({}, first.look, { x: {} });
+      L.c1 = pzMix(first.look.c1 || LA.c1, pk(LA.c1, LB.c1), .2 + Math.random() * .25);
+      if (Math.random() < .6) L.c2 = pk(LA.c2, LB.c2); if (Math.random() < .5) L.pattern = pk(LA.pattern, LB.pattern); if (Math.random() < .5) L.eyeC = pk(LA.eyeC, LB.eyeC);
+      L.paciC = ['#8fd3ff', '#ff9ad5', '#ffd84d'][i % 3]; L.paci = true;
+      const b = pz5AddPet(first.kind, LIFEB_NAMES.filter(x => !used().includes(x))[0] || 'בובו', L);
+      Object.assign(b, { size: .68, parents: [A.id, B.id], twin: true, born: localToday(), lifeGrow: 'baby' });
+      if (r.family) r.family.members.push({ pid: b.id, role: 'baby' });
+      out.push(b);
+    }
+    if (n > 1) first.twin = true;
+    // newborns wear a baby item she already has
+    const wear = LIFEB_ITEMS.filter(x => x[2] !== 'home' && lifeS.items.includes(x[0]) && ['head', 'neck'].includes(x[2]));
+    out.forEach(b => { if (wear.length && Math.random() < .7) { const w = pzPick(wear); b.clothes = Object.assign({}, b.clothes, { [w[2]]: { id: w[0], c: w[3][0], c2: w[3][1] } }); } });
+    try { petzSave(); pz5SaveFam(); } catch {}
+    return { babies: out, family: r.family, mixName: r.mixName };
+  }
+  // ---------- 🎉 the big hatch: tap 3 times → sparkles → yawn & stretch → "מאמא!" → hearts, rainbow, coins, a gift, names ----------
+  function lifebDlg() {
+    let d = $('#lifeHatchDlg');
+    if (!d) {
+      d = el('dialog', { id: 'lifeHatchDlg', class: 'life-dlg lb-dlg', 'aria-labelledby': 'lifeHatchTitle' }, el('canvas', { class: 'confetti-c', 'aria-hidden': 'true' }),
+        el('div', { class: 'sheet' }, el('div', { class: 'sheet-head' }, el('div', {}, el('h3', { id: 'lifeHatchTitle' }, '🐣 גור חדש!')), el('button', { type: 'button', class: 'x', 'aria-label': 'לסגור', onclick: () => d.close() }, '✕')),
+          el('div', { id: 'lifeHatchBody', class: 'row' })));
+      d.addEventListener('close', () => { try { if ($('#lifeDlg').open) lifeDraw(); if ($('#houseDlg').open) drawHouse(); renderPet(); renderStrip(); } catch {} });
+      document.body.append(d);
+    }
+    return d;
+  }
+  const lifebCoin = () => `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="17" fill="#ffd84d" stroke="#c98f00" stroke-width="3"/><circle cx="20" cy="20" r="11" fill="none" stroke="#fff3a8" stroke-width="2"/><text x="20" y="26" text-anchor="middle" font-size="16" font-family="Rubik, sans-serif" fill="#c98f00">★</text></svg>`;
+  const lifebBundle = k => `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="108" rx="44" ry="8" fill="#e6d2ff"/><path d="M14 70 Q14 104 60 106 Q106 104 106 70 Z" fill="#e8b77a" ${S}/><path d="M18 76 H102 M20 88 H100" stroke="#c98f3a" stroke-width="2"/><path d="M${20 - k * 6} 70 Q${26 - k * 10} ${30 - k * 6} 60 ${28 - k * 4} Q${94 + k * 10} ${30 - k * 6} ${100 + k * 6} 70 Z" fill="#ffc2e0" ${S}/>${[[40, 50], [60, 42], [80, 52], [52, 62], [72, 64]].map(([x, y], i) => `<path d="${pzHeart(x, y, 4)}" fill="${i % 2 ? '#ff9ad5' : '#fff'}"/>`).join('')}<path d="M60 ${28 - k * 4} q-9 -10 -14 0 q5 6 14 0 q9 -10 14 0 q-5 6 -14 0" fill="#ff5a8a" ${S2}/></svg>`;
+  lifeBirth = function (e) { // replaces the round-7 birth
+    const A = lifeFind(e.a) || lifeFind(e.b), B = lifeFind(e.b) || A;
+    if (!A) { lifeS.pend = lifeS.pend.filter(x => x !== e); lifeSave(); return; }
+    const n = lifebN(e), dlg = lifebDlg(), body = $('#lifeHatchBody');
+    let taps = 0, res = null;
+    $('#lifeHatchTitle').textContent = e.egg ? '🥚 הביצה בוקעת!' : '💞 גור חדש בדרך!';
+    const fx = el('div', { class: 'lb-fx' }), coins = el('div', { class: 'lb-coins' });
+    const rainbow = el('span', { class: 'lb-rainbow', html: `<svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">${lifeRainbow(300, 300, 280, 16)}${lifeCloud(40, 290, 1.8)}${lifeCloud(560, 290, 1.8)}</svg>` });
+    const egg = el('button', { type: 'button', class: 'lb-bigegg' + (n > 1 ? ' lb-big' : ''), 'aria-label': e.egg ? 'ללחוץ על הביצה' : 'ללחוץ על השמיכה', html: e.egg ? lifeEggSVG(e.c1, e.c2, 0) : lifebBundle(0) });
+    const babies = el('div', { class: 'lb-babies' });
+    const say = el('p', { class: 'lb-say' }, e.egg ? '👆 לוחצים על הביצה 3 פעמים!' : '👆 לוחצים 3 פעמים על השמיכה!');
+    const parents = el('div', { class: 'lb-parents' }, ...[A, B !== A ? B : null].filter(Boolean).map(p => el('span', { class: 'ic', html: petSVG(p, { mood: 'happy' }) })));
+    const stage = el('div', { class: 'lb-stage' }, rainbow, parents, egg, babies, fx, coins);
+    const acts = el('div', { class: 'chips lb-acts' });
+    const burst = (em, k = 8, spread = 120) => { if (reduceMotion()) return; for (let i = 0; i < k; i++) { const s = el('span', { class: 'lb-spark' }, typeof em === 'function' ? em(i) : em); const a = i / k * Math.PI * 2 + Math.random() * .4; s.style.setProperty('--dx', `${Math.round(Math.cos(a) * spread)}px`); s.style.setProperty('--dy', `${Math.round(Math.sin(a) * spread * .8)}px`); fx.append(s); setTimeout(() => s.remove(), 1300); } };
+    const tap = () => {
+      if (taps >= 3) return;
+      taps++; egg.classList.remove('lb-shake'); void egg.offsetWidth; egg.classList.add('lb-shake');
+      tone(500 + taps * 180, .16, 'triangle'); tone(1000 + taps * 200, .12, 'sine', .08);
+      burst(i => ['✨', '⭐', '💫', '🌟'][i % 4], 6 + taps * 2, 70 + taps * 25);
+      if (taps < 3) { egg.innerHTML = e.egg ? lifeEggSVG(e.c1, e.c2, taps === 1 ? .6 : .9) : lifebBundle(taps * .5); say.textContent = taps === 1 ? (e.egg ? 'קראק! עוד! 🥚✨' : 'משהו זז מתחת לשמיכה! עוד! 💞') : 'עוד פעם אחת!!! 🤩'; return; }
+      pop();
+    };
+    egg.onclick = tap;
+    const pop = () => {
+      try { res = lifebMakeBabies(A, B, n); } catch (err) { res = null; }
+      lifeS.pend = lifeS.pend.filter(x => x !== e); lifeS.hatched = (lifeS.hatched || 0) + n; lifeSave();
+      if (!res) { dlg.close(); return; }
+      const got = lifebUnlock(n > 1 || Math.random() < .5 ? 2 : 1);
+      egg.classList.add('lb-gone');
+      if (e.egg) stage.append(el('span', { class: 'life-shell l lb-shell', html: lifeEggSVG(e.c1, e.c2) }), el('span', { class: 'life-shell r lb-shell', html: lifeEggSVG(e.c1, e.c2) }));
+      burst('✨', 14, 170);
+      const big = b => Object.assign({}, b, { size: Math.min(b.size || .68, .8) + (n > 2 ? 0 : .12) }), nodes = res.babies.map((b, i) => {
+        const bub = el('span', { class: 'lb-bubble' }, pzPick(['מאמא!', 'מָאמָא!', 'אבא?', 'מאמא! 💕']));
+        const art = el('span', { class: 'in', html: petSVG(big(b), { mood: "sleepy", look: { mouth: "open", paci: false } }) });
+        const w = el('div', { class: 'lb-baby' }, bub, art); w.style.animationDelay = `${i * .18}s`; babies.append(w); return { b, w, art, bub };
+      });
+      say.textContent = n === 3 ? '🤯 שלישייה!!! שלושה גורים מתוקים!' : n === 2 ? '😍 תאומים!!! שני גורים מתוקים!' : '🥹 איזה גור מתוק!';
+      [523, 659, 784, 1047, 880, 1047, 1319].forEach((f, i) => tone(f, .22, 'triangle', .2 + i * .14, .08));
+      setTimeout(() => { if (!dlg.open) return; say.textContent = '🥱 פיהוק... ומתיחה גדולה!'; nodes.forEach(x => x.w.classList.add('lb-stretch')); tone(330, .5, 'sine', 0, .06); tone(262, .6, 'sine', .35, .06); }, 1100);
+      setTimeout(() => {
+        if (!dlg.open) return;
+        nodes.forEach((x, i) => { x.art.innerHTML = petSVG(big(x.b), { look: { mouth: 'smile', paci: false } }); setTimeout(() => { x.bub.classList.add('on'); try { SFX.pet(x.b.kind); } catch {} }, i * 350); });
+        burst('💖', 12, 130); stage.classList.add('lb-joy'); try { confetti(dlg.querySelector('.confetti-c')); } catch {}
+        [784, 988, 1175, 1568].forEach((f, i) => tone(f, .16, 'sine', i * .09, .07));
+        const base = 40 * n, bonus = n === 3 ? 150 : n === 2 ? 80 : 0;
+        say.textContent = `${res.babies.map(lifeNm).join(' ו')} ${n > 1 ? 'נולדו' : 'נולד/ה'}! 🎉 +${base + bonus} מטבעות!`;
+        if (!reduceMotion()) for (let i = 0; i < 16 + n * 6; i++) { const c = el('span', { class: 'lb-coin', html: lifebCoin() }); c.style.left = `${4 + Math.random() * 92}%`; c.style.animationDelay = `${Math.random() * 1.2}s`; coins.append(c); setTimeout(() => c.remove(), 3200); }
+        lifeCoins(base, n > 1 ? `${n} גורים נולדו! 🐣` : 'גור נולד! 🐣');
+        if (bonus) setTimeout(() => lifeCoins(bonus, n === 3 ? 'בונוס שלישייה! 🤯' : 'בונוס תאומים! 👯'), 1400);
+        try { renderPet(); } catch {}
+        acts.replaceChildren(el('button', { type: 'button', class: 'btn main lb-pulse', onclick: () => gift(got) }, '🎁 יש מתנה! לפתוח'));
+      }, 2300);
+    };
+    const gift = got => {
+      $('#lifeHatchTitle').textContent = '🎁 מתנה לגור החדש!';
+      const box = el('button', { type: 'button', class: 'lb-gift', 'aria-label': 'לפתוח את המתנה', html: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="52" width="84" height="58" rx="6" fill="#ff9ad5" ${S}/><rect x="54" y="52" width="12" height="58" fill="#ffd84d" ${S2}/><g class="lb-lid"><rect x="12" y="36" width="96" height="20" rx="5" fill="#ff6fae" ${S}/><rect x="54" y="36" width="12" height="20" fill="#ffd84d" ${S2}/><path d="M60 36 q-22 -26 -26 -6 q4 8 26 6 q22 -26 26 -6 q-4 8 -26 6" fill="#ffd84d" ${S}/></g></svg>` });
+      const shelf = el('div', { class: 'lb-items' });
+      box.onclick = () => {
+        if (box.classList.contains('open')) return;
+        box.classList.add('open'); SFX.yay(); burst(i => ['🎀', '✨', '🎉'][i % 3], 12, 150);
+        shelf.replaceChildren(...(got.length ? got.map((id, i) => { const it = lifebItem(id), c = el('div', { class: 'lb-item' }, el('span', { class: 'ic', html: lifebIconSVG(id) }), el('b', {}, it[1]), el('small', {}, it[2] === 'home' ? '🏡 לקשט את הבית של כולם' : '👕 אפשר להלביש (בגדים לחיה)'), el('span', { class: 'lb-new' }, 'חדש!')); c.style.animationDelay = `${.2 + i * .25}s`; return c; })
+          : [el('div', { class: 'lb-item' }, el('span', { class: 'ic', html: lifebCoin() }), el('b', {}, 'כבר יש לך את כל הפריטים!'), el('small', {}, '+30 מטבעות במקום 🪙'))]));
+        if (!got.length) lifeCoins(30, 'מתנה לגור החדש 🎁');
+        acts.replaceChildren(el('button', { type: 'button', class: 'btn main', onclick: names }, `✏️ לתת ${n > 1 ? 'שמות' : 'שם'}!`));
+      };
+      body.replaceChildren(el('div', { class: 'lb-giftstage' }, el('p', { class: 'lb-say' }, '👆 לוחצים על המתנה!'), box, shelf), acts);
+      acts.replaceChildren();
+    };
+    const names = () => {
+      $('#lifeHatchTitle').textContent = n > 1 ? '✏️ איך קוראים להם?' : '✏️ איך קוראים לגור?';
+      const cards = res.babies.map(b => {
+        const inp = el('input', { type: 'text', maxLength: 16, value: b.name, 'aria-label': 'שם הגור', oninput: ev => { b.name = ev.target.value; } });
+        const sug = LIFEB_NAMES.filter(x => !allPets().some(p => p.name === x)).sort(() => Math.random() - .5).slice(0, 6);
+        return el('div', { class: 'lb-namecard' }, el('span', { class: 'ic', html: petSVG(b, { mood: 'happy' }) }), inp,
+          el('div', { class: 'chips' }, ...sug.map(x => el('button', { type: 'button', class: 'chip', onclick: () => { inp.value = x; b.name = x; SFX.pop(); } }, x)), el('button', { type: 'button', class: 'chip', 'aria-label': 'שם אקראי', onclick: () => { const x = pzPick(LIFEB_NAMES); inp.value = x; b.name = x; SFX.pop(); } }, '🎲')));
+      });
+      body.replaceChildren(el('p', { class: 'muted', style: 'margin:0' }, 'בוחרים שם מהרעיונות, או כותבים שם משלך 💕'), el('div', { class: 'lb-names' }, ...cards),
+        el('div', { class: 'chips', style: 'justify-content:center' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+          res.babies.forEach(b => { b.name = (b.name || '').trim() || pzPick(LIFEB_NAMES); }); try { petzSave(); } catch {}
+          SFX.yay(); toast(petSVG(res.babies[0], { mood: 'happy' }), `ברוכים הבאים, ${res.babies.map(lifeNm).join(' ו')}! 🍼💖`); dlg.close();
+        } }, '💖 סיום!')));
+    };
+    body.replaceChildren(stage, say, acts);
+    if (!dlg.open) dlg.showModal();
+  };
+  // ---------- the strip: an egg in the nest ----------
+  const lifebStrip0 = renderStrip;
+  renderStrip = function () {
+    lifebStrip0();
+    try {
+      const e = lifeS.pend[0], s = $('#strip'); if (!e || !s) return;
+      const ready = !lifebLeft(e);
+      s.prepend(el('button', { type: 'button', class: 'pill life-pill', onclick: () => ready ? lifeBirth(e) : openLife('babies') }, el('span', { class: 'ic', html: e.egg ? lifeEggSVG(e.c1, e.c2) : lifebBundle(0) }),
+        ready ? (e.egg ? '🐣 הביצה בוקעת! בואי מהר!' : '👶 הגור נולד! בואי מהר!') : (e.egg ? '🥚 יש ביצה בקן! לחמם אותה' : '💞 גור בדרך!')));
+    } catch {}
+  };
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
