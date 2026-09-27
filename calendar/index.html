@@ -4116,6 +4116,245 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
 @media (prefers-reduced-motion: reduce) {
   .trp-body *, .trp-scene * { animation: none !important; }
 }
+/* ===== 🗺️ movie map / 🎬 home cinema / 🎤 karaoke (movies agent) ===== */
+#dmvDlg .sheet, #dcinDlg .sheet, #dkarDlg .sheet { gap: 10px; }
+.dmv-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.dmv-prog { flex: 1; min-width: 240px; display: grid; gap: 4px; }
+.dmv-prog > b { font-size: 1.2em; font-weight: 400; }
+.dmv-bar { height: 14px; border-radius: 99px; background: var(--paper); border: 2px solid var(--line); overflow: hidden; }
+.dmv-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ffd84d, #ff9ad5, #b58cff); border-radius: 99px; transition: width .5s; }
+.dmv-miles { display: flex; gap: 6px; flex-wrap: wrap; }
+.dmv-mile { position: relative; width: 38px; height: 38px; filter: grayscale(1) opacity(.35); }
+.dmv-mile.got { filter: none; animation: dmvWig 2.5s ease-in-out infinite; }
+.dmv-mile svg { width: 100%; height: 100%; }
+.dmv-mile small { position: absolute; bottom: -4px; left: -4px; background: var(--card); border: 1.5px solid var(--line); border-radius: 99px; font-size: .62em; padding: 0 4px; line-height: 1.3; }
+@keyframes dmvWig { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+.dmv-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.dmv-tools input[type=search] { flex: 1 1 180px; min-width: 150px; font: inherit; padding: 5px 12px; border-radius: 99px; border: 2px solid var(--line); background: var(--card); color: var(--ink); }
+.dmv-wrap { position: relative; }
+.dmv-scroll { overflow: auto; background: #3fa6d8; border-radius: 18px; border: 3px solid #b08a52; box-shadow: 0 4px 0 rgb(0 0 0 / .12); max-height: calc(100vh - 290px); min-height: 260px; background: #3fa6d8; }
+.dmv-map { position: relative; margin: 0 auto; width: max(860px, min(100%, calc((100vh - 300px) * 1.47))); aspect-ratio: 1000 / 680; }
+.dmv-art, .dmv-art svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; font-family: var(--font); }
+.dmv-pin { position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px; padding: 3px; border-radius: 50% 50% 50% 8px; transform: rotate(-45deg); background: #fff; border: 3px solid var(--rc); box-shadow: 0 3px 0 rgb(0 0 0 / .25); cursor: pointer; transition: transform .15s, opacity .2s, filter .2s; z-index: 2; }
+.dmv-pin .dmv-pic { display: block; width: 100%; height: 100%; transform: rotate(45deg); }
+.dmv-pin .dmv-pic svg { width: 100%; height: 100%; display: block; }
+.dmv-pin:hover, .dmv-pin:focus-visible { transform: rotate(-45deg) scale(1.25); z-index: 4; }
+.dmv-pin.seen { background: #eaffea; }
+.dmv-pin.dim { opacity: .28; filter: grayscale(.8); }
+.dmv-pin.sel { transform: rotate(-45deg) scale(1.35); z-index: 5; box-shadow: 0 0 0 5px rgb(255 255 255 / .8), 0 0 18px 6px #fff58a; animation: dmvPulse 1.2s ease-in-out infinite; }
+@keyframes dmvPulse { 50% { box-shadow: 0 0 0 8px rgb(255 255 255 / .5), 0 0 26px 10px #fff58a; } }
+.dmv-ok, .dmv-hrt { position: absolute; transform: rotate(45deg); font-size: 12px; line-height: 1; }
+.dmv-ok { top: -8px; left: -8px; background: #3fae5a; color: #fff; border-radius: 50%; width: 17px; height: 17px; display: grid; place-items: center; border: 2px solid #fff; font-weight: bold; }
+.dmv-hrt { bottom: -8px; right: -8px; font-size: 14px; }
+.dmv-card { position: absolute; top: 10px; inset-inline-start: 10px; width: min(380px, calc(100% - 20px)); max-height: calc(100% - 20px); overflow: auto; z-index: 10; background: var(--card); border-radius: 22px; border: 3px solid var(--rc); box-shadow: 0 10px 30px rgb(30 20 60 / .35); padding: 14px 16px; display: grid; gap: 8px; animation: dmvIn .25s ease-out; }
+@keyframes dmvIn { from { transform: translateY(12px) scale(.96); opacity: 0; } }
+.dmv-card.left { inset-inline-start: auto; inset-inline-end: 10px; }
+.dmv-seen[aria-pressed="true"] { background: #3fae5a; border-color: #2a8a45; color: #fff; }
+.dmv-fav[aria-pressed="true"] { background: #ffe0ea; border-color: #ff7a9a; }
+.dmv-cx { position: absolute; top: 6px; inset-inline-end: 6px; }
+.dmv-ch { display: flex; gap: 12px; align-items: center; padding-inline-end: 26px; }
+.dmv-big { flex: none; width: 72px; height: 72px; border-radius: 20px; padding: 6px; background: color-mix(in srgb, var(--rc) 22%, #fff); border: 2px solid var(--rc); }
+.dmv-big svg { width: 100%; height: 100%; display: block; }
+.dmv-ch h4 { margin: 0; font-family: var(--title-font); font-weight: 400; font-size: 1.5em; line-height: 1.1; }
+.dmv-meta { display: flex; gap: 8px; flex-wrap: wrap; color: var(--soft); font-size: .9em; margin-top: 3px; }
+.dmv-yr { background: var(--paper); border-radius: 99px; padding: 0 8px; }
+.dmv-sum { margin: 0; line-height: 1.5; }
+.dmv-where { margin: 0; font-size: .92em; color: var(--soft); }
+.dmv-where b { color: var(--ink); font-weight: 400; }
+.dmv-acts { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.dmv-stars { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+.dmv-star { border: none; background: none; font-size: 1.7em; line-height: 1; padding: 0 2px; color: #d9d2e6; cursor: pointer; transition: transform .12s; }
+.dmv-star.on { color: #ffc233; text-shadow: 0 2px 0 #e0a000; }
+.dmv-star:hover { transform: scale(1.2); }
+.dmv-stars.big .dmv-star { font-size: 2.4em; }
+.dmv-note { font: inherit; width: 100%; border-radius: 14px; border: 2px solid var(--line); padding: 6px 10px; resize: vertical; background: var(--paper); color: var(--ink); }
+.dmv-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; max-height: calc(100vh - 290px); overflow: auto; padding: 2px; }
+.dmv-row { display: flex; align-items: center; gap: 10px; text-align: start; padding: 6px 10px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; }
+.dmv-row.seen { background: color-mix(in srgb, #7bd389 14%, var(--card)); }
+.dmv-row .dmv-pic, .dcin-mv .dmv-pic, .dcin-chosen .dmv-pic, .dcin-entry > .dmv-pic { flex: none; width: 44px; height: 44px; border-radius: 12px; padding: 3px; background: color-mix(in srgb, var(--rc) 20%, #fff); border: 2px solid var(--rc); display: block; }
+.dmv-pic svg { width: 100%; height: 100%; display: block; }
+.dmv-rt { flex: 1; display: grid; line-height: 1.2; }
+.dmv-rt b { font-weight: 400; }
+.dmv-rt small { color: var(--soft); }
+.dmv-rs { display: grid; justify-items: center; font-size: .9em; }
+.dmv-st { color: #ffb020; }
+@media (max-width: 640px) {
+  .dmv-card { position: fixed; inset: auto 8px 8px 8px; width: auto; max-height: 70vh; }
+  .dmv-scroll { max-height: 58vh; }
+}
+
+/* 🎬 cinema */
+.dcin-tabs { align-items: center; }
+.dcin-tabs .coin-chip { margin-inline-start: auto; }
+.dcin-hero { background: linear-gradient(135deg, #3b1d4f, #8a2448); color: #fff; border-color: #ffd45c; }
+.dcin-hero .muted { color: #ffe6f0; }
+.dcin-chosen { display: flex; align-items: center; gap: 8px; background: rgb(255 255 255 / .15); border-radius: 16px; padding: 6px 12px; }
+.dcin-chosen b { font-size: 1.1em !important; }
+.dcin-srow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.dcin-srow input { flex: 1 1 180px; font: inherit; padding: 5px 12px; border-radius: 99px; border: 2px solid var(--line); background: var(--card); color: var(--ink); }
+.dcin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 8px; max-height: 300px; overflow: auto; padding: 4px; }
+.dcin-mv { display: grid; justify-items: center; gap: 2px; padding: 8px 4px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); color: var(--ink); font: inherit; cursor: pointer; text-align: center; transition: transform .12s; }
+.dcin-mv:hover { transform: translateY(-2px); }
+.dcin-mv[aria-pressed="true"] { border-color: #ff4d6d; background: color-mix(in srgb, #ffd84d 25%, var(--card)); box-shadow: 0 0 0 3px #ffd84d; }
+.dcin-mt { font-size: .88em; line-height: 1.15; }
+.dcin-mv small { color: var(--soft); font-size: .75em; }
+.dcin-who .chip { display: inline-flex; align-items: center; gap: 6px; padding: 2px 12px 2px 6px; }
+.dcin-who .chip[aria-pressed="false"] { opacity: .55; }
+.dcin-who img, .dcin-who .dcin-pet { width: 34px; height: 34px; display: block; object-fit: contain; }
+.dcin-who .dcin-pet svg { width: 100%; height: 100%; }
+.dcin-plan { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.dcin-plan input { font: inherit; padding: 4px 10px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); color: var(--ink); }
+.dcin-go { display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.dcin-big { font-size: 1.2em; padding: 10px 26px; }
+.dcin-big:disabled { opacity: .55; }
+/* popcorn */
+.dcin-stove { display: flex; gap: 16px; align-items: flex-end; justify-content: center; flex-wrap: wrap; padding: 10px; border-radius: 22px; background: repeating-linear-gradient(45deg, #fff4e0 0 18px, #ffe9c8 18px 36px); border: 2px solid #f0c890; }
+.dcin-pot { position: relative; width: min(360px, 90vw); aspect-ratio: 220 / 140; }
+.dcin-potart, .dcin-potart svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dcin-kern { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50% 50% 45% 45%; border: 2.5px solid #3a2b3c; background: radial-gradient(circle at 35% 35%, #fff3a0, #ffc233 60%, #e08a00); cursor: pointer; animation: dcinJig .35s ease-in-out infinite alternate; padding: 0; }
+.dcin-kern:hover { transform: scale(1.2); }
+@keyframes dcinJig { from { transform: translate(-2px, 1px) rotate(-10deg); } to { transform: translate(2px, -3px) rotate(10deg); } }
+.dcin-puff { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; pointer-events: none; animation: dcinUp .75s ease-out forwards; }
+.dcin-puff svg { width: 100%; height: 100%; overflow: visible; }
+@keyframes dcinUp { 0% { transform: scale(.3); } 35% { transform: scale(1.4) translateY(-20px); } 100% { transform: translate(-160px, -110px) scale(.6); opacity: 0; } }
+.dcin-bcol { display: grid; justify-items: center; gap: 4px; }
+.dcin-bucket { width: 140px; height: 170px; }
+.dcin-bucket svg { width: 100%; height: 100%; overflow: visible; }
+.dcin-bucket.bump { animation: dcinBump .3s ease-out; }
+@keyframes dcinBump { 40% { transform: scale(1.08, .94); } }
+.dcin-cnt { font-size: 1.4em; font-weight: 400; background: #fff; border-radius: 99px; padding: 0 14px; border: 2px solid #f0c890; color: #3a2b3c; }
+/* hall */
+.dcin-showw { display: grid; gap: 10px; }
+.dcin-hall { position: relative; width: min(100%, calc((100vh - 250px) * 1.6)); margin: 0 auto; aspect-ratio: 16 / 10; border-radius: 20px; overflow: hidden; border: 3px solid #3a2b3c; background: #2e0f2e; }
+.dcin-walls, .dcin-walls svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.dcin-dark { position: absolute; inset: 0; background: #08041a; opacity: 0; transition: opacity 1.2s; pointer-events: none; z-index: 1; }
+.dcin-hall.dim .dcin-dark { opacity: .72; }
+.dcin-hall.end .dcin-dark { opacity: .45; }
+.dcin-screen { position: absolute; left: 14.75%; right: 14.75%; top: 4.8%; height: 54%; z-index: 2; overflow: hidden; background: #111; }
+.dcin-film { position: absolute; inset: 0; opacity: 0; transition: opacity .6s; }
+.dcin-hall.open .dcin-film { opacity: 1; }
+.dcin-hall.dim.open .dcin-screen { box-shadow: 0 0 60px 20px rgb(160 200 255 / .35); }
+.dcin-bg, .dcin-bg svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.dcin-star { position: absolute; width: 24%; aspect-ratio: 1; left: 38%; top: 16%; opacity: 0; filter: drop-shadow(0 4px 10px rgb(0 0 0 / .4)); }
+.dcin-star svg { width: 100%; height: 100%; }
+.dcin-hall.play .dcin-star { opacity: 1; animation: dcinFly 9s ease-in-out infinite; }
+@keyframes dcinFly { 0% { transform: translate(-90%, 10%) rotate(-10deg) scale(.8); } 25% { transform: translate(-20%, -12%) rotate(6deg) scale(1.05); } 50% { transform: translate(60%, 6%) rotate(-4deg) scale(.95); } 75% { transform: translate(10%, -16%) rotate(8deg) scale(1.1); } 100% { transform: translate(-90%, 10%) rotate(-10deg) scale(.8); } }
+.dcin-ttl { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; gap: 4px; background: radial-gradient(circle, rgb(20 10 40 / .55), rgb(20 10 40 / .85)); color: #fff; opacity: 0; transition: opacity .6s; }
+.dcin-ttl b { font-family: var(--title-font); font-weight: 400; font-size: clamp(1.4em, 4.5vw, 2.8em); color: #ffe27a; text-shadow: 0 3px 0 #b0306a; line-height: 1.05; padding: 0 10px; }
+.dcin-ttl small { font-size: clamp(.7em, 1.8vw, 1em); opacity: .85; }
+.dcin-hall.ttl .dcin-ttl { opacity: 1; }
+.dcin-sub { position: absolute; left: 4%; right: 4%; bottom: 5%; text-align: center; color: #fff; font-size: clamp(.72em, 1.9vw, 1.05em); line-height: 1.3; background: rgb(0 0 0 / .55); border-radius: 12px; padding: 4px 10px; opacity: 0; }
+.dcin-sub:empty { display: none; }
+.dcin-sub.in { animation: dcinSub .5s ease-out forwards; }
+@keyframes dcinSub { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+.dcin-end { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--title-font); font-size: clamp(1.6em, 5vw, 3em); color: #fff; text-shadow: 0 3px 0 #b0306a; background: rgb(20 10 40 / .6); opacity: 0; transition: opacity .6s; }
+.dcin-hall.end .dcin-end { opacity: 1; }
+.dcin-hall.end .dcin-sub { display: none; }
+.dcin-curt { position: absolute; top: 0; bottom: 0; width: 51%; z-index: 3; background: repeating-linear-gradient(90deg, #b0183e 0 16px, #d8325a 16px 26px, #9a1234 26px 36px); box-shadow: inset 0 -20px 30px rgb(0 0 0 / .3); transition: transform 1.4s cubic-bezier(.6, 0, .3, 1); }
+.dcin-curt.l { left: 0; transform-origin: left center; border-right: 3px solid #ffd45c; }
+.dcin-curt.r { right: 0; transform-origin: right center; border-left: 3px solid #ffd45c; }
+.dcin-hall.open .dcin-curt.l { transform: translateX(-88%) scaleX(.35); }
+.dcin-hall.open .dcin-curt.r { transform: translateX(88%) scaleX(.35); }
+.dcin-val { position: absolute; top: 0; left: 0; right: 0; height: 11%; z-index: 4; background: radial-gradient(ellipse at 50% -40%, #ffd45c 0 30%, transparent 31%), repeating-radial-gradient(circle at 50% -200%, #c0204a 0 20px, #9a1234 20px 30px); border-bottom: 4px solid #ffd45c; border-radius: 0 0 40% 40% / 0 0 30% 30%; }
+.dcin-row { position: absolute; left: 3%; right: 3%; bottom: 0; height: 40%; z-index: 5; display: flex; justify-content: center; align-items: flex-end; gap: 1%; }
+.dcin-hall.after { width: min(100%, calc((100vh - 420px) * 1.6)); min-width: min(100%, 300px); }
+.dcin-hall.dim .dcin-row { filter: brightness(.82) saturate(.95); }
+.dcin-hall.after .dcin-row { filter: none; }
+.dcin-seat { position: relative; flex: 0 1 12%; max-width: 110px; height: 100%; }
+.dcin-sback { position: absolute; left: 4%; right: 4%; bottom: 14%; height: 58%; border-radius: 40% 40% 12% 12%; background: linear-gradient(#d8325a, #9a1234); border: 3px solid #3a2b3c; }
+.dcin-sitter { position: absolute; left: 0; right: 0; bottom: 22%; height: 72%; display: grid; place-items: end center; }
+.dcin-sitter img, .dcin-sitter .dcin-pet { width: 100%; height: 100%; object-fit: contain; object-position: bottom; display: block; }
+.dcin-sitter .dcin-pet svg { width: 100%; height: 100%; }
+.dcin-sitter.p .dcin-pet { transform: translateY(12%); }
+.dcin-sfront { position: absolute; left: -2%; right: -2%; bottom: 0; height: 26%; border-radius: 10px 10px 4px 4px; background: linear-gradient(#b0183e, #6a0e26); border: 3px solid #3a2b3c; }
+.dcin-mini { position: absolute; bottom: 12%; right: -6%; width: 34%; z-index: 2; }
+.dcin-mini svg { width: 100%; display: block; }
+.dcin-emo { position: absolute; top: -4%; left: 50%; font-size: clamp(16px, 3vw, 28px); opacity: 0; pointer-events: none; }
+.dcin-emo.go { animation: dcinEmo 1.6s ease-out; }
+@keyframes dcinEmo { 0% { opacity: 0; transform: translate(-50%, 10px) scale(.5); } 20% { opacity: 1; transform: translate(-50%, -8px) scale(1.2); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -30px); } }
+.dcin-seat.hop .dcin-sitter { animation: dcinHop .5s ease-out; }
+.dcin-seat.cheer .dcin-sitter { animation: dcinHop .45s ease-out 4 alternate; }
+@keyframes dcinHop { 40% { transform: translateY(-14%) rotate(-4deg); } }
+.dcin-glow { animation: dcinGl 3s ease-in-out infinite; }
+@keyframes dcinGl { 50% { opacity: .45; } }
+.dcin-rate { display: flex; justify-content: center; text-align: center; }
+.dcin-rate > div { display: grid; gap: 8px; justify-items: center; padding: 12px 18px; border-radius: 20px; background: color-mix(in srgb, #ffd84d 16%, var(--card)); border: 2px dashed #ffb020; }
+.dcin-rate b { font-size: 1.25em; font-weight: 400; }
+.dcin-rate input { font: inherit; width: min(360px, 80vw); padding: 5px 12px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); color: var(--ink); }
+/* diary */
+.dcin-diary { display: grid; gap: 8px; }
+.dcin-entry { display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 18px; border: 2px solid var(--line); background: linear-gradient(90deg, color-mix(in srgb, var(--rc) 12%, var(--card)), var(--card)); }
+.dcin-entry > .dmv-pic { width: 56px; height: 56px; }
+.dcin-et { flex: 1; display: grid; gap: 2px; }
+.dcin-et b { font-size: 1.15em; font-weight: 400; }
+.dcin-et small { color: var(--soft); }
+.dcin-es { color: #ffb020; font-size: 1.2em; letter-spacing: 2px; }
+.dcin-en { font-style: italic; }
+
+/* 🎤 karaoke */
+.dkar-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.dkar-song { display: grid; gap: 4px; justify-items: start; text-align: start; padding: 12px 14px; border-radius: 20px; border: 3px solid var(--sc); background: linear-gradient(135deg, color-mix(in srgb, var(--sc) 22%, var(--card)), var(--card)); color: var(--ink); font: inherit; cursor: pointer; transition: transform .15s; }
+.dkar-song:hover { transform: translateY(-3px) rotate(-1deg); }
+.dkar-em { font-size: 2em; line-height: 1; }
+.dkar-song b { font-size: 1.25em; font-weight: 400; }
+.dkar-song small { color: var(--soft); font-size: .82em; }
+.dkar-best { font-size: .85em; color: var(--soft); }
+.dkar-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: space-between; }
+.dkar-head > b { font-size: 1.4em; font-weight: 400; }
+.dkar-wrap { display: flex; gap: 8px; align-items: stretch; }
+.dkar-stage { position: relative; flex: 1; aspect-ratio: 800 / 340; border-radius: 20px; overflow: hidden; border: 3px solid #3a2b3c; background: #140c2a; }
+.dkar-stage > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dkar-beam { animation: dkarBeam 3s ease-in-out infinite alternate; }
+@keyframes dkarBeam { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+.dkar-d { position: absolute; bottom: 6%; left: var(--x); width: 13%; height: 36%; transform: translateX(-50%); display: grid; place-items: end center; z-index: 2; }
+.dkar-d > svg, .dkar-d > img { width: 100%; height: 100%; object-fit: contain; object-position: bottom; display: block; }
+.dkar-d.girl2 { width: 12%; height: 72%; bottom: 8%; z-index: 1; }
+.dkar-d.singer { width: 16%; height: 84%; bottom: 8%; z-index: 3; }
+.dkar-d.singer img { width: 100%; height: 100%; }
+.dkar-mic { position: absolute; width: 30%; top: 17%; right: 8%; transform: rotate(-25deg); filter: drop-shadow(0 2px 3px rgb(0 0 0 / .4)); }
+.dkar-mic.big { position: static; width: 60%; transform: none; }
+.dkar-mic svg { width: 100%; display: block; }
+.dkar-stage.on .dkar-d.pet { animation: dkarBop var(--beat) ease-in-out infinite alternate; animation-delay: var(--dl); }
+.dkar-stage.on .dkar-d.girl2 { animation: dkarSway calc(var(--beat) * 2) ease-in-out infinite alternate; animation-delay: var(--dl); }
+.dkar-stage.on .dkar-d.singer { animation: dkarSway calc(var(--beat) * 2) ease-in-out infinite alternate; }
+.dkar-stage.cheer .dkar-d { animation: dkarJump .4s ease-out 5 alternate !important; }
+@keyframes dkarBop { from { transform: translateX(-50%) translateY(0) rotate(-8deg); } to { transform: translateX(-50%) translateY(-22%) rotate(8deg); } }
+@keyframes dkarSway { from { transform: translateX(-50%) rotate(-4deg); } to { transform: translateX(-50%) rotate(4deg); } }
+@keyframes dkarJump { to { transform: translateX(-50%) translateY(-20%); } }
+.dkar-notes { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+.dkar-fly { position: absolute; bottom: 40%; font-size: 26px; animation: dkarFly 1.4s ease-out forwards; }
+@keyframes dkarFly { from { transform: translateY(0) scale(.6); opacity: 1; } to { transform: translateY(-120px) scale(1.4); opacity: 0; } }
+.dkar-meter { position: relative; width: 34px; border-radius: 99px; border: 3px solid #3a2b3c; background: #f1ecff; overflow: hidden; display: flex; align-items: flex-end; }
+.dkar-meter i { display: block; width: 100%; background: linear-gradient(0deg, #ff5fa2, #ffd45c, #3fd6a0); transition: height .3s; }
+.dkar-meter span { position: absolute; top: 4px; left: 0; right: 0; text-align: center; font-size: 18px; }
+.dkar-lyr { position: relative; display: grid; gap: 6px; padding: 12px 10px; border-radius: 20px; background: linear-gradient(135deg, #2a1a45, #4a2a7a); text-align: center; min-height: 110px; }
+.dkar-lyr[data-count]::after { content: attr(data-count); position: absolute; inset: 0; display: grid; place-items: center; font-size: 3em; color: #ffd45c; background: rgb(42 26 69 / .85); border-radius: 20px; }
+.dkar-line { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 10px; }
+.dkar-line.cur { font-size: clamp(1.35em, 3.6vw, 2em); }
+.dkar-line.next { font-size: 1.05em; opacity: .55; color: #fff; }
+.dkar-w { font: inherit; border: none; background: none; color: #fff; padding: 2px 6px; border-radius: 12px; cursor: pointer; position: relative; transition: transform .15s, color .15s; }
+.dkar-line.next .dkar-w { color: #fff; }
+.dkar-w.sung { color: #ffd45c; }
+.dkar-w.on { color: #2a1a45; background: #ffd45c; transform: scale(1.18); box-shadow: 0 0 18px #ffd45c; }
+.dkar-w.on::before { content: '●'; position: absolute; top: -.8em; left: 50%; font-size: .5em; color: #ff5fa2; animation: dkarBall .3s ease-in-out infinite alternate; }
+.dkar-w.hit { color: #3fd6a0; }
+.dkar-w.on.hit { background: #3fd6a0; color: #fff; box-shadow: 0 0 22px #3fd6a0; }
+@keyframes dkarBall { from { transform: translate(-50%, 0); } to { transform: translate(-50%, -6px); } }
+.dkar-lvl { display: flex; align-items: center; gap: 8px; }
+.dkar-lvl > div { flex: 1; height: 10px; border-radius: 99px; background: var(--paper); overflow: hidden; border: 2px solid var(--line); }
+.dkar-lvl i { display: block; height: 100%; width: 0; background: #3fd6a0; transition: width .08s; }
+.dkar-res { display: grid; justify-items: center; gap: 4px; text-align: center; padding: 10px; border-radius: 20px; background: color-mix(in srgb, #ffd84d 18%, var(--card)); border: 2px dashed #ffb020; }
+.dkar-res b { font-size: 1.3em; font-weight: 400; }
+.dkar-rs span { font-size: 2.4em; display: inline-block; filter: grayscale(1) opacity(.3); }
+.dkar-rs span.on { filter: none; animation: dkarStar .6s ease-out backwards; }
+@keyframes dkarStar { from { transform: scale(0) rotate(-90deg); } 70% { transform: scale(1.3); } }
+@media (max-width: 640px) {
+  .dkar-d.singer { width: 22%; } .dkar-d.girl2 { width: 16%; } .dkar-d { width: 16%; }
+  .dcin-seat { flex-basis: 14%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dmv-mile.got, .dmv-pin.sel, .dcin-kern, .dkar-beam, .dcin-hall.play .dcin-star, .dkar-stage.on .dkar-d { animation: none !important; }
+}
 </style>
 </head>
 <body class="bg-dots">
@@ -5325,6 +5564,42 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
     </div>
     <div class="tabs" role="tablist" id="trpTabs"></div>
     <div id="trpBody" class="trp-body"></div>
+  </div>
+</dialog>
+
+
+<!-- 🗺️ movie map -->
+<dialog id="dmvDlg" aria-labelledby="dmvTitle" style="width:min(1120px, calc(100vw - 20px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="dmvTitle">🗺️ מפת הסרטים</h3><div class="sub">לוחצים על סיכה במפה, ומגלים על מה הסרט!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="dmvBody"></div>
+  </div>
+</dialog>
+
+<!-- 🎬 home cinema -->
+<dialog id="dcinDlg" aria-labelledby="dcinTitle" style="width:min(1000px, calc(100vw - 20px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="dcinTitle">🎬 קולנוע הלוח</h3><div class="sub">ערב סרט עם כל החיות והבנות, פופקורן ויומן סרטים</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="dcinBody"></div>
+  </div>
+</dialog>
+
+<!-- 🎤 karaoke -->
+<dialog id="dkarDlg" aria-labelledby="dkarTitle" style="width:min(960px, calc(100vw - 20px))">
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="dkarTitle">🎤 קריוקי</h3><div class="sub">שרים שירים קטנים, והחיות רוקדות!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="dkarBody"></div>
   </div>
 </dialog>
 
@@ -8591,6 +8866,9 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
         ['owl', 'בית הספר של החיות', () => openLife('school')],
         ['cake', 'ימי הולדת של החיות', () => openLife('bdays')],
         ['rainbow', 'גן הזיכרון של החיות', () => openLife('garden')],
+    ['dmvMap', 'מפת הסרטים', () => openMovieMap()],
+    ['dmvPop', 'קולנוע הלוח', () => openCinema()],
+    ['dmvMic', 'קריוקי', () => openKaraoke()],
     ['pencil', 'להדפסה', () => { try { window.print(); } catch {} }],
   ];
   // the "more" menu, sorted into rooms, with search and favorites
@@ -29118,6 +29396,687 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
     if (!bar) { bar = el('div', { id: 'trpHouseBar', class: 'trp-housebar' }); tabs.before(bar); }
     bar.replaceChildren(el('span', { class: 'lbl' }, '🌈 יוצאים ביחד:'), ...TRP_SECS.map(([id, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); trpOpen(id); } }, n)));
   };
+  // ================= 🗺️ movie map, 🎬 home cinema, 🎤 karaoke (movies agent, round 7b) =================
+  // the regions of the drawn map: [emoji, name, pin ring color]
+  const DMV_REG = {
+    snow: ['❄️', 'הרי השלג', '#7ec8ff'], castle: ['🏰', 'ממלכת הטירות', '#ff9ad5'], jungle: ['🌴', 'הג\'ונגל', '#3fae5a'],
+    desert: ['🏜️', 'המדבר והרים רחוקים', '#f0a53a'], savanna: ['🦁', 'הסוואנה', '#e8892b'], city: ['🏙️', 'העיר הגדולה', '#8a7bff'],
+    sea: ['🌊', 'ים האיים', '#2ea5d8'], sky: ['☁️', 'ארץ העננים', '#b58cff'],
+  };
+  // every film: id, title (as known in Israel), year, region, pin x/y on a 1000x680 map, icon, icon color, where, summary (our own words)
+  const DMV = [
+    ['snowwhite', 'שלגיה ושבעת הגמדים', 1937, 'castle', 335, 88, 'apple', '#ff5a6e', 'ממלכה עם יער גדול ובקתה קטנה', 'נסיכה טובת לב בורחת אל היער ומוצאת בית אצל שבעה גמדים חרוצים ומצחיקים. היא מבשלת, שרה ומנקה איתם, ולומדת שחברות אמיתית שווה יותר מכל ארמון.'],
+    ['cinderella', 'סינדרלה', 1950, 'castle', 425, 72, 'slipper', '#a8e4ff', 'בית גדול ליד ארמון המלך', 'נערה חרוצה שעובדת קשה בבית חולמת ללכת לנשף המלכותי. בעזרת קצת קסם, שמלה נוצצת ונעל עדינה, החלום שלה מתחיל להתגשם. סרט על תקווה ועל לב טוב.'],
+    ['alice', 'עליסה בארץ הפלאות', 1951, 'castle', 305, 245, 'clock', '#ffd45c', 'ארץ הפלאות, בתחתית מחילה של ארנב', 'ילדה סקרנית רודפת אחרי ארנב ממהר עם שעון, ונופלת לעולם משוגע ומצחיק. שם היא גדלה וקטנה, שותה תה עם חברים מוזרים ופוגשת חתול שמחייך. הכול הפוך ומבולבל, וזה הכיף!'],
+    ['peterpan', 'פיטר פן', 1953, 'sea', 952, 360, 'moon', '#ffe27a', 'לונדון ואז אי קסום באמצע הים', 'שלושה אחים עפים בלילה מחלון החדר שלהם אל אי קסום, שבו אף אחד לא מתבגר לעולם. יש שם פיה קטנה, בת ים, פיראטים ותנין שמתקתק. הרפתקה על הדמיון ועל כמה טוב לחזור הביתה.'],
+    ['sleeping', 'היפהפייה הנרדמת', 1959, 'castle', 515, 92, 'crown', '#ffcf3a', 'ממלכה ישנה עם טירה ויער', 'נסיכה גדלה ביער אצל שלוש פיות טובות ומבולבלות שמנסות לשמור עליה מכישוף. יש שם שמלה שמשנה צבעים, נסיך אמיץ ודרקון גדול. בסוף האהבה והחברות מנצחות.'],
+    ['dalmatians', '101 הדלמטים', 1961, 'city', 470, 452, 'paw', '#3a2b3c', 'לונדון, אנגליה', 'זוג כלבים דלמטיים מקבל המון גורים מנוקדים, אבל גברת אחת רוצה לקחת אותם לעצמה. הכלבים של כל העיר עוזרים זה לזה במבצע הצלה נועז ומצחיק בשלג.'],
+    ['mermaid', 'בת הים הקטנה', 1989, 'sea', 800, 632, 'shell', '#ff9ec4', 'ממלכה מתחת לים, וחוף ליד ארמון', 'בת ים סקרנית שאוספת חפצים מעולם בני האדם חולמת לחיות ביבשה. היא עושה עסקה מסוכנת עם מכשפת ים, ולומדת כמה חשוב לדבר עם המשפחה. יש בו שירים שמחים מתחת למים!'],
+    ['beauty', 'היפה והחיה', 1991, 'castle', 362, 168, 'rose', '#ff5a7a', 'כפר קטן בצרפת וטירה מכושפת', 'נערה שאוהבת ספרים מגיעה לטירה מכושפת, שבה גר נסיך שהפך לחיה והחפצים מדברים. לאט לאט היא רואה שמתחת לכעס שלו יש לב טוב. סרט על לראות את מה שבפנים.'],
+    ['aladdin', 'אלאדין', 1992, 'desert', 382, 300, 'lamp', '#ffc233', 'עיר במדבר עם ארמון ושוק צבעוני', 'נער עני ונחמד מוצא מנורה עתיקה, ובתוכה ג\'יני מצחיק שמגשים שלוש משאלות. הוא עף על שטיח מעופף עם נסיכה אמיצה, ולומד שהכי טוב זה פשוט להיות אתה.'],
+    ['lionking', 'מלך האריות', 1994, 'savanna', 150, 520, 'sun', '#ffb020', 'הסוואנה של אפריקה', 'גור אריה שמח מתכונן להיות מלך, אבל אחרי יום קשה הוא בורח רחוק מהבית. הוא מוצא חברים מצחיקים שמלמדים אותו לא לדאוג, ובסוף אוזר אומץ לחזור ולעזור לכולם.'],
+    ['pocahontas', 'פוקהונטס', 1995, 'jungle', 72, 432, 'feather', '#e8892b', 'יער ונהר בצפון אמריקה, לפני הרבה שנים', 'בת של מנהיג שבט אוהבת את הנהר, את הרוח ואת היער. כשמגיעים אנשים חדשים באונייה, היא מנסה ללמד את כולם להקשיב זה לזה ולשמור על הטבע.'],
+    ['toystory', 'צעצוע של סיפור', 1995, 'city', 612, 520, 'block', '#5fb3ff', 'חדר של ילד, בבית רגיל', 'מה עושים הצעצועים כשאף אחד לא מסתכל? הם חיים! קאובוי צעצוע מקנא בצעצוע חדש ונוצץ של איש חלל, אבל אחרי הרפתקה גדולה הם הופכים לחברים הכי טובים.'],
+    ['hercules', 'הרקולס', 1997, 'sky', 782, 170, 'column', '#f4f0e0', 'יוון העתיקה והר האולימפוס בעננים', 'נער חזק במיוחד מרגיש שהוא לא שייך, ויוצא למסע כדי להפוך לגיבור אמיתי. עם מאמן מצחיק וסוס עם כנפיים הוא מגלה שגיבור אמיתי נמדד בגודל הלב, לא בשרירים.'],
+    ['mulan', 'מולאן', 1998, 'desert', 648, 300, 'fan', '#ff6b6b', 'סין העתיקה, בין הרים וחומה ארוכה', 'נערה אמיצה מתחפשת לחייל כדי להגן על אבא שלה. עם דרקון קטן ופטפטן וצרצר למזל היא מתאמנת, חושבת חכם ומצילה את כל הארץ. סרט על אומץ ועל להיות נאמנה לעצמך.'],
+    ['toystory2', 'צעצוע של סיפור 2', 1999, 'city', 668, 560, 'hat', '#c07a3a', 'חדר ילדים, חנות צעצועים ושדה תעופה', 'הקאובוי הצעצוע נחטף על ידי אספן צעצועים, והחברים שלו יוצאים למבצע הצלה מטורף בעיר. בדרך הוא פוגש חברים חדשים ומבין מה הכי חשוב לצעצוע: שמשחקים איתו.'],
+    ['tarzan', 'טרזן', 1999, 'jungle', 100, 300, 'leaf', '#3fae5a', 'ג\'ונגל ירוק באפריקה', 'תינוק גדל בג\'ונגל אצל משפחה של גורילות ולומד להתנדנד על ליאנות. כשהוא פוגש לראשונה בני אדם, הוא צריך להבין לאן הוא שייך. סרט על משפחה שבוחרת לאהוב.'],
+    ['monsters', 'מפלצות בע"מ', 2001, 'city', 482, 540, 'door', '#7ee0a8', 'עיר של מפלצות, מאחורי דלתות הארון', 'בעיר המפלצות מפחידים ילדים כדי לייצר חשמל. אבל כשילדה קטנה ואמיצה נכנסת בטעות לעולם שלהן, שתי מפלצות חמודות מגלות שצחוק של ילדים חזק הרבה יותר מפחד!'],
+    ['lilo', 'לילו וסטיץ\'', 2002, 'sea', 902, 442, 'flower', '#ff7ab8', 'אי בהוואי, עם חופים וגלים', 'ילדה קטנה ומיוחדת מאמצת "כלב" כחול ושובב שהוא בעצם יצור מהחלל. יחד הם גולשים, עושים שטויות ולומדים שמשפחה פירושה שאף אחד לא נשאר מאחור.'],
+    ['nemo', 'מוצאים את נמו', 2003, 'sea', 705, 652, 'fish', '#ff8a3d', 'שונית אלמוגים באוקיינוס ועד סידני', 'דג ליצן קטן נלקח רחוק מהבית, ואבא שלו החששן יוצא למסע ענק באוקיינוס כדי למצוא אותו. בדרך מצטרפת דגה כחולה ושכחנית, והם פוגשים צבים, כרישים נחמדים ועוד.'],
+    ['cars', 'מכוניות', 2006, 'desert', 472, 368, 'flag', '#ff3b3b', 'עיירה קטנה על כביש ישן במדבר', 'מכונית מרוץ מהירה ורברבנית נתקעת בעיירה קטנה ושקטה. שם היא מוצאת חברים אמיתיים, ולומדת שיש דברים חשובים יותר מלנצח: חברות, עזרה והנאה מהדרך.'],
+    ['ratatouille', 'רטטוי', 2007, 'city', 398, 470, 'chef', '#ffffff', 'פריז, צרפת', 'עכבר קטן שאוהב לבשל חולם להיות שף במסעדה מפורסמת בפריז. הוא מתחבא מתחת לכובע של בחור צעיר ומכוון אותו לבשל מנות מדהימות. כל אחד יכול לבשל!'],
+    ['walle', 'וול-E', 2008, 'sky', 955, 40, 'sprout', '#6fcf5f', 'כדור הארץ בעתיד, ואז חללית ענקית', 'רובוט קטן ובודד מנקה את כדור הארץ ואוסף אוצרות. הוא מתאהב ברובוטית לבנה ומבריקה ועף אחריה לחלל. בזכות צמח קטן אחד כולם נזכרים לשמור על כדור הארץ.'],
+    ['up', 'למעלה', 2009, 'sky', 700, 60, 'balloons', '#ff9ad5', 'עיר, ואז מפלים רחוקים בדרום אמריקה', 'איש מבוגר ורטנוני קושר אלפי בלונים צבעוניים לבית שלו ועף איתו להגשים חלום ישן. בטעות מצטרף אליו צופה קטן ונלהב, ויחד הם פוגשים ציפור צבעונית וכלב מדבר.'],
+    ['toystory3', 'צעצוע של סיפור 3', 2010, 'city', 598, 610, 'box', '#ffcf3a', 'גן ילדים ובית של ילדה חדשה', 'הילד של הצעצועים גדל ונוסע ללימודים, והצעצועים מגיעים בטעות לגן ילדים סוער. אחרי בריחה גדולה הם מוצאים ילדה חדשה ומתוקה שתשחק איתם.'],
+    ['tangled', 'פלונטר', 2010, 'castle', 452, 158, 'lantern', '#ffb020', 'מגדל גבוה ביער וממלכה עם פנסים', 'נערה עם שיער זהוב ארוך במיוחד גרה כל חייה במגדל, וחולמת לראות את הפנסים שעולים לשמיים ביום ההולדת שלה. היא יוצאת להרפתקה עם גנב מצחיק וסוס חכם.'],
+    ['brave', 'אמיצה', 2012, 'castle', 570, 175, 'target', '#ff6b6b', 'הרי סקוטלנד ויערות ערפל', 'נסיכה עם שיער מתולתל אדום אוהבת לרכוב ולירות בחץ וקשת, ולא רוצה שיחליטו בשבילה. משאלה אחת משנה את אמא שלה, ושתיהן לומדות להקשיב אחת לשנייה.'],
+    ['ralph', 'ראלף ההורס', 2012, 'city', 556, 552, 'candy', '#ff7ab8', 'בתוך משחקי מחשב בארקייד', 'דמות "רעה" ממשחק מחשב רוצה סוף סוף להיות גיבור. הוא קופץ בין משחקים ומגיע לעולם ממתקים מתוק, שם הוא פוגש ילדה קטנה ונחושה שמלמדת אותו מה זה חבר.'],
+    ['frozen', 'לשבור את הקרח', 2013, 'snow', 150, 118, 'snowflake', '#7ec8ff', 'ממלכה מושלגת בצפון, בין פיורדים והרים', 'לאחות הגדולה יש כוח קסום להפוך הכול לקרח ושלג, והיא מסתתרת כדי לא לפגוע באף אחד. האחות הקטנה יוצאת למסע בשלג כדי להחזיר אותה. סרט על אהבה בין אחיות.'],
+    ['bighero', '6 גיבורים', 2014, 'city', 560, 470, 'gear', '#9aa3ad', 'סן פרנסוקיו, עיר של המצאות', 'ילד גאון שאוהב לבנות רובוטים מקים צוות גיבורים עם חברים ממציאים. איתם יש רובוט רפואי רך ומתנפח שכל מה שהוא רוצה זה לעזור ולחבק.'],
+    ['insideout', 'הקול בראש', 2015, 'sky', 808, 88, 'orb', '#ffe45c', 'בתוך הראש של ילדה בת 11', 'בתוך הראש של ילדה גרים חמישה רגשות: שמחה, עצב, פחד, כעס וגועל. כשהמשפחה עוברת לעיר חדשה הכול מתבלבל, ושמחה לומדת שגם לעצב יש תפקיד חשוב.'],
+    ['zootopia', 'זוטופיה', 2016, 'savanna', 272, 482, 'carrot', '#ff8a3d', 'עיר גדולה שבה חיות מכל הסוגים גרות יחד', 'ארנבת קטנה ונחושה הופכת לשוטרת הראשונה מסוגה בעיר של החיות. יחד עם שועל ערמומי היא פותרת תעלומה, ושניהם לומדים לא לשפוט אחרים לפי איך שהם נראים.'],
+    ['moana', 'מואנה', 2016, 'sea', 822, 560, 'canoe', '#2ea5d8', 'אי טרופי באוקיינוס השקט', 'בת של ראש שבט באי שומעת את הים קורא לה. היא מפליגה לבד בסירה עם תרנגול מבולבל, פוגשת חצי-אל ענק וגאוותן, ומצילה את האי שלה בזכות האומץ והלב.'],
+    ['dory', 'מוצאים את דורי', 2016, 'sea', 962, 522, 'fish', '#3b82f6', 'האוקיינוס ומכון ים בקליפורניה', 'דגה כחולה ושכחנית נזכרת פתאום במשפחה שלה, ויוצאת לחפש אותם. בדרך היא פוגשת תמנון ערמומי, לוויתן שלא רואה טוב ועוד חברים, ומגלה שהיא מסוגלת ליותר ממה שחשבה.'],
+    ['coco', 'קוקו', 2017, 'jungle', 122, 378, 'guitar', '#e8892b', 'כפר צבעוני במקסיקו, בחג מיוחד', 'ילד שחולם להיות מוזיקאי מגיע בטעות לעולם צבעוני וזוהר של הסבים והסבתות מלפני הרבה שנים. הוא לומד את סיפור המשפחה שלו ומגלה כמה חשוב לזכור את מי שאוהבים.'],
+    ['toystory4', 'צעצוע של סיפור 4', 2019, 'city', 690, 506, 'ferris', '#ff9ad5', 'טיול משפחתי, חנות עתיקות ולונה פארק', 'הילדה של הצעצועים מכינה צעצוע חדש ומבולבל מכלי אוכל, והוא בורח בטיול. הקאובוי יוצא להחזיר אותו, פוגש חברה ישנה ואמיצה, ומגלה דרך חדשה להיות צעצוע.'],
+    ['frozen2', 'לשבור את הקרח 2', 2019, 'snow', 238, 192, 'leaf', '#f0a53a', 'יער קסום ומכושף מעבר להרים', 'המלכה שומעת קול מסתורי שקורא לה מעבר להרים. האחיות וחבריהן יוצאים ליער קסום עם רוחות של אוויר, מים, אש ואדמה, ומגלים סוד ישן על המשפחה.'],
+    ['raya', 'ראיה והדרקון האחרון', 2021, 'jungle', 232, 362, 'gem', '#8a7bff', 'ארץ קומנדרה, עם נהרות ומדבר', 'לוחמת צעירה ואמיצה מחפשת את הדרקון האחרון כדי לאחד את הארץ השבורה שלה. היא אוספת חברים מכל המקומות ולומדת את הדבר הכי קשה והכי חשוב: לסמוך על אחרים.'],
+    ['luca', 'לוקה', 2021, 'sea', 742, 418, 'wave', '#2ea5d8', 'עיירת חוף קטנה באיטליה', 'ילד שהוא בעצם מפלצת ים הופך לילד רגיל כשהוא יוצא מהמים. עם חבר חדש הוא מגלה גלידה, אופנוע קטנוע וקיץ שלם של הרפתקאות, ולומד לא להתבייש במי שהוא.'],
+    ['turningred', 'טרנינג רד (להיות אדומה)', 2022, 'city', 642, 450, 'paw', '#ff5a3d', 'טורונטו, קנדה', 'נערה בת 13 מגלה שכשהיא מתרגשת מדי היא הופכת לפנדה אדומה ענקית ורכה! עם החברות הכי טובות שלה היא לומדת להכיר את עצמה, ולומדת שאפשר גם להיות שונה מאמא.'],
+    ['encanto', 'אנקנטו', 2021, 'jungle', 182, 282, 'candle', '#ffcf3a', 'בית קסום בהרים של קולומביה', 'במשפחה שבה לכל אחד יש כוח קסום, רק לנערה אחת אין. כשהבית הקסום מתחיל להיסדק, דווקא היא מצילה את המשפחה, ומזכירה לכולם שכל אחד מיוחד כמו שהוא.'],
+    ['elemental', 'אלמנטל', 2023, 'city', 402, 562, 'flame', '#ff7a3a', 'עיר של אש, מים, אוויר ואדמה', 'בעיר שבה גרים יסודות, נערה עשויה מאש פוגשת בחור עשוי ממים. כולם בטוחים שאש ומים לא מסתדרים, אבל הם מגלים כמה הם דומים ויוצרים משהו יפה יחד.'],
+    ['wish', 'משאלה', 2023, 'sea', 800, 318, 'star', '#ffd84d', 'ממלכה על אי בים', 'בממלכה שבה המלך שומר את כל המשאלות של האנשים, נערה אמיצה שולחת משאלה לכוכבים. כוכב קטן ונוצץ יורד לעזור לה, ויחד הם מזכירים לכולם שהמשאלות שייכות לכל אחד.'],
+    ['insideout2', 'הקול בראש 2', 2024, 'sky', 882, 76, 'orb', '#ff9a3d', 'בתוך הראש של נערה בת 13', 'הילדה גדלה, ופתאום מגיעים לראש שלה רגשות חדשים, כמו חרדה, קנאה ושעמום. שמחה והחברים צריכים ללמוד שכל הרגשות יחד בונים את מי שאנחנו.'],
+    ['moana2', 'מואנה 2', 2024, 'sea', 932, 606, 'compass', '#3fd6a0', 'האוקיינוס הגדול, רחוק מעבר לאופק', 'מואנה מקבלת קריאה מהאבות הקדמונים ויוצאת להפלגה חדשה ומסוכנת עם צוות חדש ומצחיק, כדי לחבר מחדש את כל העמים של הים.'],
+    ['zootopia2', 'זוטופיה 2', 2025, 'savanna', 302, 568, 'badge', '#ffcf3a', 'העיר של החיות, ושכונות חדשות ומפתיעות', 'השוטרת הארנבת והשועל חוזרים לחקירה חדשה ומסתורית בעיר. הפעם העקבות מובילים לזוחלים, והם צריכים לעבוד יחד כצוות, גם כשזה לא קל.'],
+  ].map(([id, t, yr, reg, x, y, ic, col, w, s]) => ({ id, t, yr, reg, x, y, ic, col, w, s }));
+  DMV.sort((a, b) => a.yr - b.yr);
+  // our own drawn icons (objects, never characters), 48x48
+  function dmvIcon(ic, c = '#ffd84d') {
+    const I = {
+      apple: `<path d="M24 15 C15 8 5 15 8 27 C10 38 18 44 24 40 C30 44 38 38 40 27 C43 15 33 8 24 15Z" fill="${c}" ${S}/><path d="M24 15 Q24 9 28 5" fill="none" ${S}/><path d="M26 10 Q33 3 38 8 Q31 13 26 10Z" fill="#7bd389" ${S2}/>${shine(13, 22)}`,
+      slipper: `<path d="M5 33 Q7 25 17 26 Q27 25 33 16 Q39 11 42 17 V31 Q31 35 24 31 Q15 36 5 33Z" fill="${c}" ${S}/><path d="M37 30 L39 42 H43 L41 29" fill="${c}" ${S2}/><path d="M11 29 Q20 27 27 23" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="34" cy="17" r="2.5" fill="#fff"/>`,
+      clock: `<path d="M20 7 H28 M24 7 V11" fill="none" ${S}/><circle cx="24" cy="7" r="3" fill="${c}" ${S2}/><circle cx="24" cy="27" r="16" fill="${c}" ${S}/><circle cx="24" cy="27" r="12" fill="#fffbe8" ${S2}/><path d="M24 27 V19 M24 27 L30 30" fill="none" ${S}/>${Array.from({ length: 12 }, (_, i) => `<circle cx="${(24 + 10 * Math.cos(i * Math.PI / 6)).toFixed(1)}" cy="${(27 + 10 * Math.sin(i * Math.PI / 6)).toFixed(1)}" r=".9" fill="${O}"/>`).join('')}`,
+      moon: `<path d="M26 6 A18 18 0 1 0 42 32 A14 14 0 1 1 26 6Z" fill="${c}" ${S}/><polygon points="${starPts(38, 12, 6, 2.6)}" fill="#fff" ${S2}/><circle cx="12" cy="10" r="1.6" fill="#fff"/>`,
+      crown: `<path d="M7 36 L5 14 L15 23 L24 9 L33 23 L43 14 L41 36Z" fill="${c}" ${S}/><rect x="7" y="35" width="34" height="6" rx="2" fill="${c}" ${S}/><circle cx="24" cy="27" r="3.2" fill="#ff5a7a" ${S2}/><circle cx="15" cy="29" r="2.4" fill="#7ec8ff" ${S2}/><circle cx="33" cy="29" r="2.4" fill="#7bd389" ${S2}/>`,
+      paw: `<ellipse cx="24" cy="31" rx="10" ry="8.5" fill="${c}" ${S}/><ellipse cx="11" cy="20" rx="4.2" ry="5.2" fill="${c}" ${S}/><ellipse cx="19" cy="12" rx="4.2" ry="5.2" fill="${c}" ${S}/><ellipse cx="29" cy="12" rx="4.2" ry="5.2" fill="${c}" ${S}/><ellipse cx="37" cy="20" rx="4.2" ry="5.2" fill="${c}" ${S}/>`,
+      shell: `<path d="M24 42 L8 20 Q10 7 24 6 Q38 7 40 20Z" fill="${c}" ${S}/><path d="M24 42 L15 10 M24 42 V6 M24 42 L33 10 M24 42 L9 19 M24 42 L39 19" fill="none" ${S2}/><path d="M18 42 H30 L27 38 H21Z" fill="${c}" ${S2}/>`,
+      rose: `<path d="M24 26 V44" fill="none" stroke="#3fae5a" stroke-width="3.5" stroke-linecap="round"/><path d="M24 36 Q31 30 36 34 Q30 39 24 36Z M24 39 Q17 33 12 37 Q18 42 24 39Z" fill="#7bd389" ${S2}/><path d="M24 28 C12 28 10 14 16 9 Q20 13 24 8 Q28 13 32 9 C38 14 36 28 24 28Z" fill="${c}" ${S}/><path d="M19 17 Q24 12 29 17 Q26 22 22 19" fill="none" ${S2}/>`,
+      lamp: `<path d="M8 32 Q10 24 22 24 H32 Q38 24 44 18 L42 26 Q38 32 30 33 Z" fill="${c}" ${S}/><path d="M18 33 H30 L28 38 H20Z" fill="${c}" ${S2}/><path d="M10 29 Q2 28 5 22 Q8 18 12 25" fill="none" ${S}/><path d="M20 24 Q24 17 28 24" fill="${c}" ${S2}/><circle cx="24" cy="17" r="2" fill="${c}" ${S2}/><path d="M42 13 Q40 7 44 4 M38 12 Q37 9 39 7" fill="none" stroke="#b58cff" stroke-width="2" stroke-linecap="round"/>`,
+      sun: `${rays(24, 21, 11, 18, 10, 4.6, O)}${rays(24, 21, 11, 18, 10, 2.4, c)}<circle cx="24" cy="21" r="9.5" fill="${c}" ${S}/><path d="M3 45 L12 33 L19 36 L28 27 L36 34 L45 45Z" fill="#c07a3a" ${S}/><path d="M28 27 L31 31" fill="none" ${S2}/>`,
+      feather: `<path d="M12 42 Q10 20 30 6 Q42 4 38 16 Q32 34 12 42Z" fill="${c}" ${S}/><path d="M12 42 Q22 26 34 11" fill="none" ${S2}/><path d="M20 30 L28 30 M24 22 L32 22 M18 36 L22 38" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>`,
+      block: `<path d="M8 16 L24 8 L40 16 L24 24Z" fill="#ffd84d" ${S}/><path d="M8 16 V34 L24 42 V24Z" fill="${c}" ${S}/><path d="M40 16 V34 L24 42 V24Z" fill="#ff7a9a" ${S}/><text x="16" y="36" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold">א</text><text x="32" y="36" font-size="11" text-anchor="middle" fill="#fff" font-weight="bold">ב</text>`,
+      hat: `<path d="M4 30 Q24 40 44 30 Q42 36 24 38 Q6 36 4 30Z" fill="${c}" ${S}/><path d="M13 31 Q12 16 18 14 Q24 18 30 14 Q36 16 35 31 Q24 35 13 31Z" fill="${c}" ${S}/><path d="M13.5 27 Q24 31 34.5 27" fill="none" stroke="#ff5a6e" stroke-width="3"/>`,
+      box: `<rect x="7" y="20" width="34" height="22" rx="3" fill="${c}" ${S}/><path d="M5 14 H43 V21 H5Z" fill="#ff7a9a" ${S}/><polygon points="${starPts(17, 31, 5, 2.2)}" fill="#fff"/><circle cx="30" cy="31" r="4" fill="#7ec8ff"/><path d="M14 14 Q16 4 22 8 M34 14 Q34 6 28 8" fill="none" ${S2}/>`,
+      ferris: `<path d="M24 24 L14 44 M24 24 L34 44 M10 44 H38" fill="none" ${S}/><circle cx="24" cy="22" r="15" fill="none" stroke="${c}" stroke-width="4"/><circle cx="24" cy="22" r="15" fill="none" ${S2}/>${rays(24, 22, 3, 15, 8, 1.6, O)}${Array.from({ length: 8 }, (_, i) => `<circle cx="${(24 + 15 * Math.cos(i * Math.PI / 4)).toFixed(1)}" cy="${(22 + 15 * Math.sin(i * Math.PI / 4)).toFixed(1)}" r="3.2" fill="${['#ffd84d', '#7ec8ff', '#7bd389', '#ff7a9a'][i % 4]}" ${S2}/>`).join('')}<circle cx="24" cy="22" r="3" fill="#fff" ${S2}/>`,
+      column: `<path d="M8 12 H40 L36 7 H12Z" fill="${c}" ${S}/><rect x="13" y="12" width="22" height="26" fill="${c}" ${S}/><path d="M19 14 V36 M24 14 V36 M29 14 V36" fill="none" ${S2}/><rect x="9" y="38" width="30" height="5" fill="${c}" ${S}/><path d="M4 12 Q10 4 16 10 M32 10 Q38 4 44 12" fill="none" stroke="#7bd389" stroke-width="2.4" stroke-linecap="round"/>`,
+      fan: `<path d="M24 40 L5 22 A26 26 0 0 1 43 22Z" fill="${c}" ${S}/><path d="M24 40 L10 16 M24 40 L17 11 M24 40 V10 M24 40 L31 11 M24 40 L38 16" fill="none" ${S2}/><path d="M13 22 Q18 18 22 22 Q18 26 13 22Z M28 18 Q33 15 36 19" fill="#fff" opacity=".8"/><circle cx="24" cy="40" r="3" fill="#ffd84d" ${S2}/>`,
+      leaf: `<path d="M8 40 Q6 12 38 6 Q44 34 8 40Z" fill="${c}" ${S}/><path d="M8 40 Q22 24 36 10 M16 30 L14 20 M22 24 L22 14 M26 20 L32 22 M20 28 L28 30" fill="none" ${S2}/>`,
+      door: `<rect x="11" y="5" width="26" height="38" rx="3" fill="${c}" ${S}/><rect x="15" y="10" width="18" height="12" rx="2" fill="#fff" opacity=".45" ${S2}/><rect x="15" y="26" width="18" height="12" rx="2" fill="#fff" opacity=".45" ${S2}/><circle cx="33" cy="25" r="2" fill="#ffd84d" ${S2}/><path d="M6 43 H42" fill="none" ${S}/><polygon points="${starPts(40, 8, 4, 1.8)}" fill="#ffd84d"/>`,
+      flower: `${[0, 1, 2, 3, 4].map(i => `<ellipse cx="24" cy="13" rx="8" ry="11" fill="${c}" ${S} transform="rotate(${i * 72} 24 24)"/>`).join('')}<circle cx="24" cy="24" r="5" fill="#ffd84d" ${S}/><path d="M24 24 L33 15" fill="none" stroke="#ffd84d" stroke-width="2.5" stroke-linecap="round"/>`,
+      fish: `<path d="M36 24 L46 15 V33Z" fill="${c}" ${S}/><ellipse cx="23" cy="24" rx="16" ry="11" fill="${c}" ${S}/><path d="M20 13.5 Q17 24 20 34.5 M28 14.5 Q25 24 28 33.5" fill="none" stroke="#fff" stroke-width="3.5"/><circle cx="13" cy="21" r="2.2" fill="${O}"/><path d="M18 10 Q24 5 28 13" fill="${c}" ${S2}/>`,
+      flag: `<path d="M10 44 V6" fill="none" ${S}/><path d="M10 7 Q24 3 40 8 V28 Q24 23 10 28Z" fill="#fff" ${S}/>${[0, 1, 2, 3].map(r => [0, 1, 2, 3, 4].map(k => (r + k) % 2 ? '' : `<rect x="${10 + k * 6}" y="${8 + r * 5}" width="6" height="5" fill="${O}" opacity=".85"/>`).join('')).join('')}<circle cx="10" cy="6" r="3" fill="${c}" ${S2}/>`,
+      chef: `<path d="M13 30 C4 28 5 14 15 15 C16 5 32 5 33 15 C43 14 44 28 35 30Z" fill="${c}" ${S}/><rect x="13" y="29" width="22" height="11" rx="2" fill="${c}" ${S}/><path d="M19 30 V39 M24 30 V39 M29 30 V39" fill="none" ${S2}/>`,
+      sprout: `<path d="M13 30 H35 L32 44 H16Z" fill="#c07a3a" ${S}/><path d="M24 30 V18" fill="none" stroke="#3fae5a" stroke-width="3"/><path d="M24 20 Q14 22 11 12 Q21 9 24 20Z" fill="${c}" ${S2}/><path d="M24 17 Q30 6 39 9 Q36 19 24 17Z" fill="${c}" ${S2}/>`,
+      balloons: `<path d="M24 44 L14 22 M24 44 L24 18 M24 44 L34 22" fill="none" stroke="${O}" stroke-width="1.4"/><circle cx="14" cy="16" r="8" fill="#ff7a9a" ${S2}/><circle cx="34" cy="16" r="8" fill="#7ec8ff" ${S2}/><circle cx="24" cy="11" r="8.5" fill="#ffd84d" ${S2}/><circle cx="19" cy="24" r="6" fill="#7bd389" ${S2}/><circle cx="30" cy="25" r="6" fill="#b58cff" ${S2}/><path d="M18 42 L24 36 L30 42 V46 H18Z" fill="#fff" ${S2}/>`,
+      lantern: `<circle cx="24" cy="24" r="20" fill="${c}" opacity=".25"/><path d="M14 10 H34 L31 36 H17Z" fill="${c}" ${S}/><path d="M17 36 H31 L29 40 H19Z" fill="#c07a3a" ${S2}/><path d="M24 26 C20 22 22 18 24 16 C26 18 28 22 24 26Z" fill="#fff4c2"/><polygon points="${starPts(24, 21, 3, 1.3, 5)}" fill="#ff7a3a" opacity=".7"/>`,
+      target: `<circle cx="22" cy="26" r="17" fill="#fff" ${S}/><circle cx="22" cy="26" r="12" fill="${c}" ${S2}/><circle cx="22" cy="26" r="7" fill="#fff" ${S2}/><circle cx="22" cy="26" r="3" fill="${c}"/><path d="M22 26 L44 6" fill="none" stroke="#c07a3a" stroke-width="3" stroke-linecap="round"/><path d="M44 6 L38 6 M44 6 L44 12" fill="none" ${S}/><path d="M26 22 L32 22 L32 20 Z" fill="${O}"/>`,
+      candy: `<path d="M13 24 L3 16 V32Z M35 24 L45 16 V32Z" fill="${c}" ${S}/><ellipse cx="24" cy="24" rx="12" ry="10" fill="${c}" ${S}/><path d="M16 17 Q24 27 20 33 M24 14 Q32 24 28 34" fill="none" stroke="#fff" stroke-width="2.4"/>`,
+      snowflake: `${rays(24, 24, 0, 20, 6, 6.5, O, Math.PI / 6)}${rays(24, 24, 0, 20, 6, 3.4, c, Math.PI / 6)}${Array.from({ length: 6 }, (_, i) => { const a = Math.PI / 6 + i * Math.PI / 3, x = 24 + 13 * Math.cos(a), y = 24 + 13 * Math.sin(a); return `<path d="M${(x + 5 * Math.cos(a + 2.3)).toFixed(1)} ${(y + 5 * Math.sin(a + 2.3)).toFixed(1)} L${x.toFixed(1)} ${y.toFixed(1)} L${(x + 5 * Math.cos(a - 2.3)).toFixed(1)} ${(y + 5 * Math.sin(a - 2.3)).toFixed(1)}" fill="none" stroke="${c}" stroke-width="2.6" stroke-linecap="round"/>`; }).join('')}<circle cx="24" cy="24" r="4.5" fill="#fff" ${S2}/>`,
+      gear: `${rays(24, 24, 10, 19, 8, 8, O)}${rays(24, 24, 10, 18, 8, 5, c)}<circle cx="24" cy="24" r="13" fill="${c}" ${S}/><circle cx="24" cy="24" r="5" fill="#fff" ${S2}/><path d="M17 17 Q20 14 24 14" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`,
+      carrot: `<path d="M20 14 Q34 12 32 20 L12 44 Q8 44 10 40Z" fill="${c}" ${S}/><path d="M16 26 L20 28 M13 33 L17 35 M22 20 L26 22" fill="none" ${S2}/><path d="M28 15 Q30 4 36 5 Q34 10 31 15 M30 16 Q40 8 44 12 Q38 16 32 18" fill="#7bd389" ${S2}/>`,
+      canoe: `<path d="M4 32 H44 Q38 42 24 42 Q10 42 4 32Z" fill="#c07a3a" ${S}/><path d="M22 32 V6" fill="none" ${S}/><path d="M23 7 Q40 14 36 30 H23Z" fill="${c}" ${S}/><path d="M26 14 Q30 18 29 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M2 44 Q8 40 14 44 T26 44 T38 44 T48 44" fill="none" stroke="#7ec8ff" stroke-width="2.6" stroke-linecap="round"/>`,
+      compass: `<circle cx="24" cy="24" r="19" fill="#fffbe8" ${S}/><circle cx="24" cy="24" r="15" fill="none" stroke="${c}" stroke-width="3"/><polygon points="24,7 28,24 24,41 20,24" fill="${c}" ${S2}/><polygon points="7,24 24,20 41,24 24,28" fill="#ffd84d" ${S2}/><circle cx="24" cy="24" r="2.8" fill="#fff" ${S2}/>`,
+      orb: `<circle cx="24" cy="24" r="21" fill="${c}" opacity=".25"/><circle cx="24" cy="24" r="16" fill="${c}" ${S}/><circle cx="24" cy="24" r="10" fill="#fff" opacity=".35"/><path d="M14 18 Q17 12 23 11" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="31" cy="30" r="2" fill="#fff" opacity=".8"/>`,
+      guitar: `<path d="M30 16 L42 4 L45 7 L33 19" fill="#c07a3a" ${S2}/><path d="M26 14 C20 12 18 18 20 21 C14 19 6 24 9 34 C12 44 24 43 28 36 C31 30 29 28 28 27 C32 29 36 21 26 14Z" fill="${c}" ${S}/><circle cx="21" cy="28" r="4" fill="${O}"/><path d="M14 36 L32 18" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="12" cy="20" r="2" fill="#ff7a9a"/><circle cx="36" cy="30" r="2" fill="#ffd84d"/>`,
+      gem: `<polygon points="14,9 34,9 43,20 24,42 5,20" fill="${c}" ${S}/><path d="M5 20 H43 M14 9 L19 20 L24 9 L29 20 L34 9 M19 20 L24 42 L29 20" fill="none" ${S2}/>${shine(10, 17)}<circle cx="41" cy="7" r="2" fill="#ffd84d"/><circle cx="6" cy="37" r="1.6" fill="#ffd84d"/>`,
+      wave: `<path d="M4 40 Q4 14 26 10 Q44 10 42 26 Q38 20 30 22 Q24 26 28 32 Q32 36 38 34 Q32 44 18 42Z" fill="${c}" ${S}/><path d="M12 36 Q12 22 26 18" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="40" cy="12" r="2.4" fill="#fff" ${S2}/><circle cx="44" cy="19" r="1.6" fill="#fff" ${S2}/>`,
+      candle: `<rect x="17" y="20" width="14" height="22" rx="2" fill="#fff4e0" ${S}/><path d="M17 26 Q24 30 31 26" fill="none" stroke="#ffd84d" stroke-width="2"/><path d="M24 20 V16" fill="none" ${S2}/><path d="M24 4 C30 10 29 16 24 16 C19 16 18 10 24 4Z" fill="${c}" ${S2}/><path d="M36 10 Q40 6 42 10 Q40 12 36 10Z M36 10 Q39 14 36 16" fill="#ff7ab8" ${S2}/><path d="M10 14 Q6 10 5 14 Q7 16 10 14Z" fill="#7ec8ff" ${S2}/>`,
+      flame: `<path d="M24 44 C10 44 8 30 14 22 C16 28 19 28 19 24 C19 16 24 12 26 4 C34 12 42 22 38 34 C36 40 32 44 24 44Z" fill="${c}" ${S}/><path d="M24 42 C18 42 17 36 20 32 C22 34 24 32 24 28 C30 32 32 42 24 42Z" fill="#ffd84d"/>`,
+      star: `<polygon points="${starPts(24, 25, 20, 9)}" fill="${c}" ${S}/>${shine(16, 20)}<circle cx="42" cy="8" r="2" fill="#7ec8ff"/><circle cx="6" cy="10" r="1.6" fill="#ff9ad5"/>`,
+      badge: `<polygon points="${starPts(24, 24, 20, 13, 6)}" fill="${c}" ${S}/><circle cx="24" cy="24" r="10" fill="#fff4c2" ${S2}/><polygon points="${starPts(24, 24, 6, 2.6)}" fill="#5b8cff"/>`,
+    };
+    return I[ic] || I.star;
+  }
+  const dmvIconSVG = (ic, c) => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${dmvIcon(ic, c)}</svg>`;
+  // calendar stickers: 3 everyday ones + 6 special ones earned on the movie map / karaoke
+  const svgM = b => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${b}</svg>`;
+  Object.assign(STICKERS, {
+    dmvMap: ['מפה', svgM(`<path d="M5 12 L17 7 L31 12 L43 7 V36 L31 41 L17 36 L5 41Z" fill="#fff1c2" ${S}/><path d="M17 7 V36 M31 12 V41" fill="none" ${S2}/><path d="M9 30 Q14 20 21 26 T35 20" fill="none" stroke="#ff7a9a" stroke-width="2" stroke-dasharray="3 3"/><path d="M36 15 L40 19 M40 15 L36 19" stroke="#ff3b5c" stroke-width="2.6" stroke-linecap="round"/><circle cx="10" cy="31" r="2.4" fill="#7bd389" ${S2}/>`)],
+    dmvPop: ['פופקורן', svgM(`<circle cx="15" cy="17" r="6" fill="#fff4c2" ${S2}/><circle cx="24" cy="12" r="7" fill="#fff" ${S2}/><circle cx="33" cy="17" r="6" fill="#fff4c2" ${S2}/><circle cx="20" cy="19" r="5" fill="#fff" ${S2}/><circle cx="29" cy="20" r="5" fill="#fff" ${S2}/><path d="M10 20 H38 L34 44 H14Z" fill="#fff" ${S}/><path d="M16 20 L18 44 M24 20 V44 M32 20 L30 44" stroke="#ff4d6d" stroke-width="4"/><path d="M10 20 H38 L34 44 H14Z" fill="none" ${S}/>`)],
+    dmvMic: ['מיקרופון', svgM(`<path d="M24 30 V42 M16 43 H32" fill="none" ${S}/><path d="M14 22 Q14 32 24 32 Q34 32 34 22" fill="none" ${S}/><rect x="17" y="4" width="14" height="24" rx="7" fill="#b58cff" ${S}/><path d="M17 12 H31 M17 17 H31" stroke="#fff" stroke-width="1.6" opacity=".7"/>${shine(20, 9)}<path d="M38 8 Q42 6 42 10 M40 16 L45 15" fill="none" stroke="#ff9ad5" stroke-width="2" stroke-linecap="round"/>`)],
+    dmvTicket: ['כרטיס לסרט', svgM(`<path d="M4 14 H44 V20 A4 4 0 0 0 44 28 V34 H4 V28 A4 4 0 0 0 4 20Z" fill="#ffcf3a" ${S} transform="rotate(-8 24 24)"/><g transform="rotate(-8 24 24)"><path d="M14 16 V32" stroke="${O}" stroke-width="1.6" stroke-dasharray="2 2"/><polygon points="${starPts(29, 24, 7, 3)}" fill="#ff7a9a" ${S2}/></g>`)],
+    dmvClap: ['קלאפר', svgM(`<rect x="6" y="18" width="36" height="24" rx="2" fill="#3a2b3c" ${S}/><path d="M6 18 L40 9 L42 15 L8 24Z" fill="#fff" ${S}/><path d="M13 16 L17 22 M21 14 L25 20 M29 12 L33 18" stroke="${O}" stroke-width="3"/><path d="M11 29 H37 M11 35 H29" stroke="#fff" stroke-width="2" stroke-linecap="round"/>`)],
+    dmvReel: ['סליל סרט', svgM(`<circle cx="24" cy="24" r="18" fill="#9aa3ad" ${S}/><circle cx="24" cy="24" r="4" fill="#fff" ${S2}/>${[0, 1, 2, 3, 4].map(i => `<circle cx="${(24 + 10 * Math.cos(i * 1.2566 - 1.57)).toFixed(1)}" cy="${(24 + 10 * Math.sin(i * 1.2566 - 1.57)).toFixed(1)}" r="4.2" fill="#3a2b3c"/>`).join('')}<path d="M40 32 Q46 40 36 45" fill="none" stroke="#3a2b3c" stroke-width="4"/>`)],
+    dmvGold: ['כוכב הוליווד', svgM(`<rect x="4" y="4" width="40" height="40" rx="6" fill="#ff9ec4" ${S}/><polygon points="${starPts(24, 24, 16, 7)}" fill="#ffd84d" ${S}/><circle cx="24" cy="24" r="4" fill="#fff" opacity=".6"/>`)],
+    dmvCrown: ['פסלון של אלופה', svgM(`<rect x="14" y="38" width="20" height="6" rx="1.5" fill="#8a5a3c" ${S2}/><rect x="18" y="33" width="12" height="6" fill="#ffcf3a" ${S2}/><path d="M20 33 Q18 22 21 18 Q20 12 24 10 Q28 12 27 18 Q30 22 28 33Z" fill="#ffcf3a" ${S}/><circle cx="24" cy="10" r="4.5" fill="#ffcf3a" ${S2}/>${shine(21, 22)}<polygon points="${starPts(39, 10, 5, 2)}" fill="#ffd84d"/><polygon points="${starPts(9, 14, 4, 1.7)}" fill="#ffd84d"/>`)],
+    dmvGlasses: ['משקפי תלת-ממד', svgM(`<path d="M4 18 H44 L42 22 H6Z" fill="#fff" ${S}/><rect x="6" y="20" width="16" height="13" rx="4" fill="#ff5a6e" ${S}/><rect x="26" y="20" width="16" height="13" rx="4" fill="#5fb3ff" ${S}/><path d="M22 25 Q24 22 26 25" fill="none" ${S2}/>${shine(9, 24)}${shine(29, 24)}`)],
+    dmvDisc: ['תקליט זהב', svgM(`<circle cx="24" cy="24" r="19" fill="#ffcf3a" ${S}/><circle cx="24" cy="24" r="14" fill="none" stroke="#e0a800" stroke-width="1.4"/><circle cx="24" cy="24" r="10" fill="none" stroke="#e0a800" stroke-width="1.4"/><circle cx="24" cy="24" r="5" fill="#ff7a9a" ${S2}/><circle cx="24" cy="24" r="1.4" fill="${O}"/>${shine(12, 16)}`)],
+  });
+  const DMV_SPECIAL = ['dmvTicket', 'dmvClap', 'dmvReel', 'dmvGold', 'dmvGlasses', 'dmvCrown', 'dmvDisc'];
+  DMV_SPECIAL.forEach(id => { if (!RARE.includes(id)) RARE.push(id); });
+  // unlock a special sticker (it then shows in the sticker picker for days)
+  const dmvUnlock = id => { try { if (!surprise.rare.includes(id)) { surprise.rare.push(id); store.set('surprise', surprise); if (typeof afterChange === 'function') afterChange(); } } catch {} };
+  // ---------- the drawn fantasy map (1000 x 680) ----------
+  const dmvRnd = seed => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  let dmvMapCache = '';
+  function dmvMapSVG() {
+    if (dmvMapCache) return dmvMapCache;
+    const r = dmvRnd(7), P = (n, f) => Array.from({ length: n }, (_, i) => f(i)).join('');
+    const land = 'M60 72 C120 30 260 44 340 50 C430 30 560 40 640 70 C700 92 720 150 700 220 C742 262 764 330 744 400 C772 462 744 540 702 582 C642 632 522 642 422 628 C322 644 200 640 120 622 C60 602 38 542 50 472 C30 402 52 332 40 262 C28 192 30 112 60 72Z';
+    const tree = (x, y, s = 1, c = '#3f9a52') => `<path d="M${x} ${y} V${y + 12 * s}" stroke="#7a4f2e" stroke-width="${3 * s}"/><circle cx="${x}" cy="${y}" r="${9 * s}" fill="${c}" stroke="#2b6b3a" stroke-width="1.2"/>`;
+    const palm = (x, y, s = 1) => `<path d="M${x} ${y + 22 * s} Q${x - 3 * s} ${y + 10 * s} ${x} ${y}" stroke="#8a5a3c" stroke-width="${3 * s}" fill="none"/>` + [-60, -20, 20, 60, 180].map(a => `<path d="M${x} ${y} q${(12 * s * Math.cos(a * Math.PI / 180 - 1.2)).toFixed(1)} ${(-6 * s).toFixed(1)} ${(16 * s * Math.cos(a * Math.PI / 180)).toFixed(1)} ${(6 * s * Math.abs(Math.sin(a * Math.PI / 180)) + 3 * s).toFixed(1)}" stroke="#3fae5a" stroke-width="${3.4 * s}" fill="none" stroke-linecap="round"/>`).join('');
+    const castle = (x, y, s = 1, roof = '#ff7ab8', wall = '#fff5fb') => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-16" y="-14" width="32" height="22" fill="${wall}" stroke="${O}" stroke-width="1.4"/><rect x="-22" y="-26" width="9" height="34" fill="${wall}" stroke="${O}" stroke-width="1.4"/><rect x="13" y="-26" width="9" height="34" fill="${wall}" stroke="${O}" stroke-width="1.4"/><rect x="-5" y="-34" width="10" height="22" fill="${wall}" stroke="${O}" stroke-width="1.4"/><path d="M-24 -26 L-17.5 -40 L-11 -26Z M11 -26 L17.5 -40 L24 -26Z M-7 -34 L0 -50 L7 -34Z" fill="${roof}" stroke="${O}" stroke-width="1.4"/><path d="M-4 8 V0 Q0 -5 4 0 V8Z" fill="#8a5a3c"/><path d="M0 -50 V-56 L6 -54 L0 -52" fill="#ffd84d" stroke="${O}" stroke-width=".8"/></g>`;
+    const mtn = (x, y, w, h, snow = true) => `<path d="M${x - w} ${y} L${x} ${y - h} L${x + w} ${y}Z" fill="#b9cbe6" stroke="#6d84a8" stroke-width="1.4"/><path d="M${x} ${y - h} L${x + w} ${y} H${x + w * 0.2}Z" fill="#96abcf"/>` + (snow ? `<path d="M${x - w * 0.36} ${y - h * 0.64} L${x} ${y - h} L${x + w * 0.36} ${y - h * 0.64} L${x + w * 0.16} ${y - h * 0.56} L${x} ${y - h * 0.66} L${x - w * 0.16} ${y - h * 0.56}Z" fill="#fff"/>` : '');
+    const acacia = (x, y) => `<path d="M${x} ${y} V${y - 18} M${x} ${y - 12} L${x - 8} ${y - 20} M${x} ${y - 14} L${x + 7} ${y - 21}" stroke="#7a4f2e" stroke-width="2.6"/><ellipse cx="${x}" cy="${y - 22}" rx="22" ry="6" fill="#8fb34a" stroke="#5f7d2e" stroke-width="1.2"/>`;
+    const cloud = (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-40 10 H40 A14 14 0 0 0 36 -12 A20 20 0 0 0 0 -20 A18 18 0 0 0 -34 -8 A14 14 0 0 0 -40 10Z" fill="#fff" stroke="#c8c2ef" stroke-width="2"/></g>`;
+    const bld = (x, y, w, h, c) => `<rect x="${x}" y="${y - h}" width="${w}" height="${h}" fill="${c}" stroke="${O}" stroke-width="1.2"/>` + P(Math.floor(h / 12), i => P(Math.floor(w / 9), j => `<rect x="${x + 3 + j * 9}" y="${y - h + 4 + i * 12}" width="4" height="5" fill="#fff6b0" opacity="${r() > .3 ? .9 : .25}"/>`));
+    const label = (x, y, t, rot = 0) => `<g transform="translate(${x} ${y}) rotate(${rot})"><text text-anchor="middle" font-size="19" fill="#fff" stroke="#fff" stroke-width="6" stroke-linejoin="round" opacity=".85">${t}</text><text text-anchor="middle" font-size="19" fill="#5a3d6a">${t}</text></g>`;
+    const out = `<svg class="dmv-svg" viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+<defs><linearGradient id="dmvSea" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fdcf5"/><stop offset="1" stop-color="#3fa6d8"/></linearGradient>
+<radialGradient id="dmvSpace" cx="1" cy="0" r="1"><stop offset="0" stop-color="#1d1850"/><stop offset=".7" stop-color="#3a2f8a"/><stop offset="1" stop-color="#3a2f8a" stop-opacity="0"/></radialGradient>
+<clipPath id="dmvLand"><path d="${land}"/></clipPath>
+<pattern id="dmvPaper" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="8" cy="10" r="1" fill="#fff" opacity=".25"/><circle cx="30" cy="28" r="1.3" fill="#fff" opacity=".2"/></pattern></defs>
+<rect width="1000" height="680" fill="url(#dmvSea)"/><rect width="1000" height="680" fill="url(#dmvPaper)"/>
+${P(46, () => { const x = r() * 1000, y = r() * 680; return `<path d="M${x.toFixed(0)} ${y.toFixed(0)} q6 -5 12 0 t12 0" fill="none" stroke="#fff" stroke-width="2" opacity=".45" stroke-linecap="round"/>`; })}
+<path d="${land}" fill="#e9c98f" stroke="#fff" stroke-width="10" stroke-opacity=".6"/>
+<g clip-path="url(#dmvLand)">
+<rect width="1000" height="680" fill="#a6dc8e"/>
+<path d="M0 0 H300 C292 118 272 220 205 252 C122 276 42 252 0 244Z" fill="#eef6ff"/>
+${mtn(90, 150, 42, 70)}${mtn(165, 110, 50, 86)}${mtn(248, 150, 40, 64)}${mtn(70, 222, 36, 52)}${mtn(200, 230, 30, 46)}
+${P(26, () => `<circle cx="${(r() * 280).toFixed(0)}" cy="${(40 + r() * 200).toFixed(0)}" r="${(1 + r() * 2).toFixed(1)}" fill="#fff"/>`)}
+<path d="M290 0 H720 V262 C610 282 462 252 382 272 C322 282 292 252 280 232Z" fill="#b8e6a0"/>
+<path d="M300 130 Q400 100 520 130 T720 120" fill="none" stroke="#9fd488" stroke-width="18" opacity=".6"/>
+${castle(360, 118, 1.05, '#ff7ab8')}${castle(470, 60, .8, '#7ec8ff')}${castle(548, 125, .95, '#b58cff')}${castle(410, 205, .75, '#ffcf3a')}${castle(615, 215, .7, '#3fae5a', '#e8e2d0')}
+${P(10, i => tree(300 + r() * 330, 150 + r() * 100, .7, i % 2 ? '#5fb56a' : '#4aa35c'))}
+<path d="M0 244 C80 256 200 262 292 240 C302 322 302 402 322 442 C222 452 102 442 0 452Z" fill="#4fae5f"/>
+${P(34, i => tree(10 + r() * 290, 262 + r() * 180, .9 + r() * .5, ['#2f8f45', '#3fa052', '#2a7d3d'][i % 3]))}
+<path d="M40 250 Q90 320 60 380 T150 450" fill="none" stroke="#5fc0ea" stroke-width="9" stroke-linecap="round"/>
+<path d="M292 240 C360 262 460 250 580 268 C600 330 600 400 560 432 C480 420 400 440 322 442 C302 402 302 322 292 240Z" fill="#f4d68b"/>
+${P(8, () => { const x = 320 + r() * 230, y = 290 + r() * 130; return `<path d="M${x.toFixed(0)} ${y.toFixed(0)} q18 -12 36 0" fill="none" stroke="#e0b25e" stroke-width="3"/>`; })}
+<path d="M330 408 C400 390 440 350 520 360 S600 340 620 330" fill="none" stroke="#8d8d9a" stroke-width="11" stroke-linecap="round"/><path d="M330 408 C400 390 440 350 520 360 S600 340 620 330" fill="none" stroke="#fff" stroke-width="1.6" stroke-dasharray="8 8"/>
+<g transform="translate(350 336)"><rect x="-18" y="-14" width="36" height="18" fill="#fff4e0" stroke="${O}" stroke-width="1.2"/><path d="M-12 -14 Q0 -36 12 -14Z" fill="#ffcf3a" stroke="${O}" stroke-width="1.2"/><path d="M-22 4 V-24 M22 4 V-24" stroke="#fff4e0" stroke-width="5"/><circle cx="-22" cy="-27" r="4" fill="#ffcf3a"/><circle cx="22" cy="-27" r="4" fill="#ffcf3a"/></g>
+<path d="M578 262 C640 240 700 230 760 250 V430 C700 440 620 430 560 432 C600 400 600 330 578 262Z" fill="#c8dca0"/>
+${mtn(620, 290, 30, 48, false)}${mtn(700, 270, 36, 60, false)}${mtn(690, 360, 28, 40, false)}
+<path d="M590 330 l10 -6 l10 6 l10 -6 l10 6 l10 -6 l10 6 l10 -6 l10 6 l10 -6 l10 6 l10 -6 l10 6" fill="none" stroke="#b07a4e" stroke-width="5" stroke-linejoin="round"/>
+<g transform="translate(606 386)"><path d="M-16 0 H16 L12 -8 H-12Z M-11 -8 H11 V-16 H-11Z M-18 -16 H18 L10 -24 H-10Z" fill="#ff6b6b" stroke="${O}" stroke-width="1.2"/></g>
+${P(6, () => `<circle cx="${(600 + r() * 140).toFixed(0)}" cy="${(260 + r() * 150).toFixed(0)}" r="5" fill="#ffc2d6"/>`)}
+<path d="M0 452 C102 442 222 452 322 442 C340 520 336 600 330 680 H0Z" fill="#f2c66d"/>
+<path d="M60 560 Q100 520 150 532 Q186 540 196 560Z" fill="#b8865a" stroke="#8a5a3c" stroke-width="1.4"/>
+${acacia(60, 500)}${acacia(230, 520)}${acacia(90, 610)}${acacia(210, 630)}${acacia(270, 600)}
+${P(18, () => { const x = 10 + r() * 300, y = 470 + r() * 180; return `<path d="M${x.toFixed(0)} ${y.toFixed(0)} l3 -7 l3 7" fill="none" stroke="#c99a3d" stroke-width="1.6"/>`; })}
+<path d="M322 442 C400 440 480 420 560 432 C620 430 700 440 760 430 V680 H330 C336 600 340 520 322 442Z" fill="#d7d9ee"/>
+${P(8, i => `<path d="M${330 + i * 55} 450 V680" stroke="#fff" stroke-width="5" opacity=".6"/>`)}<path d="M330 520 H760 M330 590 H760" stroke="#fff" stroke-width="5" opacity=".6"/>
+${bld(352, 512, 26, 50, '#ffb3c7')}${bld(420, 500, 22, 38, '#b3d4ff')}${bld(505, 512, 30, 60, '#c9b3ff')}${bld(590, 505, 24, 44, '#ffe19a')}${bld(700, 480, 26, 40, '#a8e6c5')}
+${bld(440, 590, 24, 36, '#ffd0a8')}${bld(520, 585, 30, 30, '#ffb3c7')}${bld(360, 610, 22, 30, '#b3d4ff')}${bld(640, 600, 26, 34, '#c9b3ff')}
+<path d="M420 450 L428 410 L436 450 M424 432 H432" fill="none" stroke="#7a6a9a" stroke-width="2.6"/>
+${label(150, 42, '❄️ הרי השלג')}${label(520, 30, '🏰 ממלכת הטירות')}${label(150, 262, '🌴 הג\'ונגל')}${label(470, 272, '🏜️ המדבר')}${label(680, 250, '⛰️ ההרים הרחוקים')}${label(170, 470, '🦁 הסוואנה')}${label(540, 668, '🏙️ העיר הגדולה')}
+</g>
+<path d="${land}" fill="none" stroke="#b08a52" stroke-width="3"/>
+<rect x="760" y="0" width="240" height="210" fill="url(#dmvSpace)" opacity=".9"/>
+${P(22, () => `<circle cx="${(840 + r() * 160).toFixed(0)}" cy="${(r() * 110).toFixed(0)}" r="${(0.8 + r() * 1.6).toFixed(1)}" fill="#fff"/>`)}
+<circle cx="900" cy="22" r="10" fill="#ffb86b" stroke="#fff" stroke-width="1.5"/><ellipse cx="900" cy="22" rx="17" ry="4" fill="none" stroke="#fff" stroke-width="1.5"/>
+${cloud(700, 64, 1.1)}${cloud(812, 94, 1.15)}${cloud(884, 82, 1)}${cloud(782, 176, 1.2)}
+<g transform="translate(700 40)"><path d="M0 24 L-10 4 M0 24 L0 0 M0 24 L10 4" stroke="${O}" stroke-width="1"/><circle cx="-10" cy="0" r="6" fill="#ff7a9a"/><circle cx="0" cy="-5" r="6" fill="#ffd84d"/><circle cx="10" cy="0" r="6" fill="#7ec8ff"/></g>
+${label(840, 140, '☁️ ארץ העננים')}
+<g><path d="M790 330 Q800 300 830 305 Q860 310 850 340 Q830 360 800 350Z" fill="#e9c98f" stroke="#fff" stroke-width="4" stroke-opacity=".7"/>${castle(824, 320, .55, '#ffd84d')}</g>
+<g><path d="M932 380 Q940 344 975 350 Q1004 360 996 392 Q970 410 940 400Z" fill="#7cc86a" stroke="#fff" stroke-width="4" stroke-opacity=".7"/>${palm(975, 360, .8)}</g>
+<g><path d="M872 452 Q880 420 915 424 Q940 430 934 458 Q910 474 882 466Z" fill="#e9d59a" stroke="#fff" stroke-width="4" stroke-opacity=".7"/>${palm(916, 432, .9)}</g>
+<g><path d="M790 572 Q796 536 836 540 Q866 548 858 578 Q830 596 800 588Z" fill="#8ccf6f" stroke="#fff" stroke-width="4" stroke-opacity=".7"/><path d="M816 560 L830 540 L846 560Z" fill="#9a7a5a" stroke="${O}" stroke-width="1"/><path d="M826 544 L830 540 L834 544" fill="#ff7a3a"/>${palm(806, 556, .7)}</g>
+<g transform="translate(930 606)"><path d="M-22 6 H22 Q16 16 0 16 Q-16 16 -22 6Z" fill="#c07a3a" stroke="${O}" stroke-width="1.2"/><path d="M0 6 V-22 L16 2Z" fill="#fff" stroke="${O}" stroke-width="1.2"/></g>
+${P(6, i => `<path d="M${680 + i * 22} 680 q-6 -18 0 -30 q6 -12 0 -24" fill="none" stroke="${['#ff7a9a', '#ffb86b', '#3fae5a'][i % 3]}" stroke-width="4" stroke-linecap="round"/>`)}
+${P(5, () => `<circle cx="${(770 + r() * 60).toFixed(0)}" cy="${(600 + r() * 60).toFixed(0)}" r="${(2 + r() * 3).toFixed(1)}" fill="none" stroke="#fff" stroke-width="1.4"/>`)}
+<g transform="translate(965 240)"><circle r="22" fill="#fff8e6" stroke="#b08a52" stroke-width="2"/><polygon points="0,-20 5,0 0,20 -5,0" fill="#ff6b6b" stroke="${O}" stroke-width="1"/><polygon points="-20,0 0,-5 20,0 0,5" fill="#7ec8ff" stroke="${O}" stroke-width="1"/><text y="-25" text-anchor="middle" font-size="12" fill="#5a3d6a">צ</text></g>
+<g transform="translate(870 300)"><path d="M0 0 q12 -14 24 0 q-12 8 -24 0Z" fill="#7ec8ff" stroke="${O}" stroke-width="1"/><path d="M24 0 l8 -6 v12z" fill="#7ec8ff" stroke="${O}" stroke-width="1"/></g>
+${label(900, 520, '🌊 ים האיים')}
+</svg>`;
+    return (dmvMapCache = out);
+  }
+
+  // ---------- state ----------
+  let dmvData = store.get('dmvData', {});
+  let dmvDiary = store.get('dmvDiary', []);
+  const dmvSave = () => store.set('dmvData', dmvData);
+  const dmvRec = id => dmvData[id] || (dmvData[id] = {});
+  const dmvById = id => DMV.find(m => m.id === id);
+  const dmvSeenN = () => DMV.filter(m => dmvData[m.id] && dmvData[m.id].seen).length;
+  const DMV_MILES = [[1, 'dmvTicket', 5, 'הסרט הראשון במפה!'], [5, 'dmvClap', 10, '5 סרטים!'], [10, 'dmvReel', 15, '10 סרטים!'], [20, 'dmvGold', 20, '20 סרטים! צופה אמיתית'], [30, 'dmvGlasses', 25, '30 סרטים! אלופת הקולנוע'], [DMV.length, 'dmvCrown', 50, 'ראית את כל המפה!!']];
+  function dmvCheckMiles() {
+    const n = dmvSeenN(), got = store.get('dmvMiles', []);
+    const fresh = DMV_MILES.filter(([k, id]) => n >= k && !got.includes(id));
+    if (!fresh.length) return;
+    store.set('dmvMiles', [...got, ...fresh.map(f => f[1])]);
+    const [k, id, coins, msg] = fresh[fresh.length - 1];
+    fresh.forEach(f => { if (DMV_SPECIAL.includes(f[1])) dmvUnlock(f[1]); });
+    setTimeout(() => {
+      toast(stickerHTML(id), `🏅 ${msg} קיבלת מדבקה: ${STICKERS[id][0]}`);
+      try { if (typeof addCoins === 'function') addCoins(fresh.reduce((a, f) => a + f[2], 0), 'מפת הסרטים'); } catch {}
+      try { confetti($('#dmvDlg[open] .confetti-c') || undefined); } catch {}
+      SFX.yay();
+    }, 250);
+  }
+  function dmvSetSeen(m, on) {
+    const rec = dmvRec(m.id);
+    if (on && !rec.seen) { rec.seen = localToday(); SFX.yay(); try { if (typeof addCoins === 'function') addCoins(2, 'ראיתי סרט'); } catch {} }
+    if (!on) delete rec.seen;
+    dmvSave(); if (on) dmvCheckMiles();
+  }
+
+  // ---------- 🗺️ the map dialog ----------
+  let dmvF = { f: 'all', q: '', view: 'map', sel: null };
+  function openMovieMap(id) {
+    if (id) dmvF.sel = id;
+    drawMovieMap();
+    if (!$('#dmvDlg').open) $('#dmvDlg').showModal();
+    if (id) setTimeout(() => { const p = $(`#dmvDlg .dmv-pin[data-id="${id}"]`); if (p) p.scrollIntoView({ block: 'center', inline: 'center' }); }, 60);
+  }
+  const dmvMatch = m => {
+    const d = dmvData[m.id] || {}, q = dmvF.q.trim();
+    if (dmvF.f === 'seen' && !d.seen) return false;
+    if (dmvF.f === 'not' && d.seen) return false;
+    if (dmvF.f === 'fav' && !d.fav) return false;
+    return !q || m.t.includes(q) || String(m.yr).includes(q) || DMV_REG[m.reg][1].includes(q) || m.w.includes(q);
+  };
+  const dmvStarsTxt = n => '★'.repeat(n || 0) + '☆'.repeat(5 - (n || 0));
+  function drawMovieMap() {
+    const body = $('#dmvBody'), n = dmvSeenN(), got = store.get('dmvMiles', []);
+    const scrollBox = body.querySelector('.dmv-scroll'), keep = scrollBox ? [scrollBox.scrollLeft, scrollBox.scrollTop] : null;
+    const search = el('input', { type: 'search', id: 'dmvSearch', value: dmvF.q, placeholder: '🔍 לחפש סרט...', 'aria-label': 'לחפש סרט' });
+    search.addEventListener('input', e => { dmvF.q = e.target.value; const pos = e.target.selectionStart; drawMovieMap(); const s = $('#dmvSearch'); s.focus(); s.setSelectionRange(pos, pos); });
+    const chip = (f, t) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dmvF.f === f), onclick: () => { dmvF.f = f; SFX.pop(); drawMovieMap(); } }, t);
+    const list = DMV.filter(dmvMatch);
+    const pins = DMV.map(m => {
+      const d = dmvData[m.id] || {}, on = dmvMatch(m);
+      return el('button', { type: 'button', class: 'dmv-pin' + (d.seen ? ' seen' : '') + (on ? '' : ' dim') + (dmvF.sel === m.id ? ' sel' : ''), 'data-id': m.id, 'aria-label': `${m.t} (${m.yr})`, title: `${m.t} (${m.yr})`,
+        style: `left:${m.x / 10}%;top:${m.y / 6.8}%;--rc:${DMV_REG[m.reg][2]}`, onclick: () => { dmvF.sel = m.id; SFX.pop(); drawMovieMap(); } },
+        el('span', { class: 'dmv-pic', html: dmvIconSVG(m.ic, m.col) }), d.seen ? el('span', { class: 'dmv-ok' }, '✓') : null, d.fav ? el('span', { class: 'dmv-hrt' }, '❤️') : null);
+    });
+    const map = el('div', { class: 'dmv-map' }, el('div', { class: 'dmv-art', html: dmvMapSVG() }), ...pins);
+    const cardM = dmvF.sel && dmvById(dmvF.sel);
+    const view = dmvF.view === 'map'
+      ? el('div', { class: 'dmv-wrap' }, el('div', { class: 'dmv-scroll' }, map), cardM ? dmvCard(cardM) : null)
+      : el('div', { class: 'dmv-wrap' }, el('div', { class: 'dmv-list' }, ...list.map(m => {
+        const d = dmvData[m.id] || {};
+        return el('button', { type: 'button', class: 'dmv-row' + (d.seen ? ' seen' : ''), onclick: () => { dmvF.sel = m.id; SFX.pop(); drawMovieMap(); } },
+          el('span', { class: 'dmv-pic', style: `--rc:${DMV_REG[m.reg][2]}`, html: dmvIconSVG(m.ic, m.col) }),
+          el('span', { class: 'dmv-rt' }, el('b', {}, m.t), el('small', {}, `${m.yr} · ${DMV_REG[m.reg][0]} ${DMV_REG[m.reg][1]}`)),
+          el('span', { class: 'dmv-rs' }, d.fav ? '❤️' : '', d.seen ? '✅' : '', d.r ? el('small', { class: 'dmv-st' }, '★'.repeat(d.r)) : null));
+      }), list.length ? null : el('p', { class: 'muted' }, 'לא מצאתי סרט כזה 🙈')), cardM ? dmvCard(cardM) : null);
+    body.replaceChildren(
+      el('div', { class: 'dmv-top' },
+        el('div', { class: 'dmv-prog' }, el('b', {}, `🎬 ראית ${n} מתוך ${DMV.length}`), el('div', { class: 'dmv-bar' }, el('i', { style: `width:${n / DMV.length * 100}%` })),
+          el('div', { class: 'dmv-miles' }, ...DMV_MILES.map(([k, id]) => el('span', { class: 'dmv-mile' + (got.includes(id) ? ' got' : ''), title: got.includes(id) ? STICKERS[id][0] : `עוד ${k - n} סרטים`, html: stickerHTML(id) + `<small>${k}</small>` })))),
+        typeof coinChip === 'function' ? coinChip() : null),
+      el('div', { class: 'dmv-tools' }, search,
+        el('div', { class: 'chips' }, chip('all', '🌈 הכל'), chip('seen', '✅ ראיתי'), chip('not', '👀 עוד לא'), chip('fav', '❤️ אהובים')),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dmvF.view === 'map'), onclick: () => { dmvF.view = 'map'; drawMovieMap(); } }, '🗺️ מפה'),
+          el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dmvF.view === 'list'), onclick: () => { dmvF.view = 'list'; drawMovieMap(); } }, '📋 רשימה'),
+          el('button', { type: 'button', class: 'chip', onclick: () => { const pool = DMV.filter(m => !(dmvData[m.id] || {}).seen); const m = (pool.length ? pool : DMV)[Math.floor(Math.random() * (pool.length || DMV.length))]; dmvF.sel = m.id; dmvF.q = ''; dmvF.f = 'all'; SFX.ding(); drawMovieMap(); const p = $(`#dmvDlg .dmv-pin[data-id="${m.id}"]`); if (p) p.scrollIntoView({ block: 'nearest', inline: 'center' }); } }, '🎲 סרט הפתעה'))),
+      view);
+    const sb = body.querySelector('.dmv-scroll'); if (sb && keep) { sb.scrollLeft = keep[0]; sb.scrollTop = keep[1]; }
+  }
+  function dmvCard(m) {
+    const d = dmvData[m.id] || {}, R = DMV_REG[m.reg];
+    const note = el('textarea', { class: 'dmv-note', rows: 2, maxLength: 240, placeholder: '✏️ מה אני חושבת על הסרט? מה הכי אהבתי?', value: d.note || '' });
+    note.addEventListener('input', () => { dmvRec(m.id).note = note.value; dmvSave(); });
+    const diaryN = dmvDiary.filter(x => x.id === m.id).length;
+    return el('div', { class: 'dmv-card' + (m.x > 520 ? ' left' : ''), role: 'dialog', 'aria-label': m.t, style: `--rc:${R[2]}` },
+      el('button', { type: 'button', class: 'x dmv-cx', 'aria-label': 'לסגור את הכרטיס', onclick: () => { dmvF.sel = null; drawMovieMap(); } }, '✕'),
+      el('div', { class: 'dmv-ch' },
+        el('span', { class: 'dmv-big', html: dmvIconSVG(m.ic, m.col) }),
+        el('div', {}, el('h4', {}, m.t), el('div', { class: 'dmv-meta' }, el('span', { class: 'dmv-yr' }, `📅 ${m.yr}`), el('span', {}, `${R[0]} ${R[1]}`)))),
+      el('p', { class: 'dmv-sum' }, m.s),
+      el('p', { class: 'dmv-where' }, el('b', {}, '📍 איפה זה קורה? '), m.w),
+      el('div', { class: 'dmv-acts' },
+        el('button', { type: 'button', class: 'btn dmv-seen', 'aria-pressed': String(!!d.seen), onclick: () => { dmvSetSeen(m, !d.seen); drawMovieMap(); } }, d.seen ? '✅ ראיתי!' : '☐ ראיתי'),
+        el('button', { type: 'button', class: 'btn dmv-fav', 'aria-pressed': String(!!d.fav), onclick: () => { dmvRec(m.id).fav = !d.fav; dmvSave(); SFX.pop(); drawMovieMap(); } }, d.fav ? '❤️ אהוב' : '🤍 אהוב')),
+      el('div', { class: 'dmv-stars', role: 'group', 'aria-label': 'הדירוג שלי' }, el('span', {}, 'הדירוג שלי: '),
+        ...[1, 2, 3, 4, 5].map(k => el('button', { type: 'button', class: 'dmv-star' + (k <= (d.r || 0) ? ' on' : ''), 'aria-label': `${k} כוכבים`, onclick: () => { const rec = dmvRec(m.id); rec.r = rec.r === k ? 0 : k; if (rec.r && !rec.seen) dmvSetSeen(m, true); dmvSave(); tone(500 + k * 120, 0.12, 'triangle'); drawMovieMap(); } }, '★'))),
+      note,
+      el('div', { class: 'dmv-acts' },
+        el('button', { type: 'button', class: 'btn main', onclick: () => { $('#dmvDlg').close(); openCinema(m.id); } }, '🍿 לצפות בקולנוע הלוח'),
+        diaryN ? el('span', { class: 'muted' }, `📔 ביומן הסרטים: ${diaryN} ${diaryN === 1 ? 'פעם' : 'פעמים'}`) : null));
+  }
+
+  // ---------- 🎬 home cinema ----------
+  const DCIN_FL = [['butter', '🧈 חמאה', '#fff1b0'], ['caramel', '🍯 קרמל', '#eaa656'], ['choco', '🍫 שוקולד', '#b77a4c'], ['straw', '🍓 תות', '#ffb3cf'], ['rainbow', '🌈 קשת', ''], ['salt', '🧂 מלוח', '#ffffff']];
+  const DCIN_PASTEL = ['#ffb3cf', '#b3d4ff', '#c9f0b0', '#ffe19a', '#d9c2ff', '#ffc9a8'];
+  const dcinFlCol = (fl, i = 0) => { const f = DCIN_FL.find(x => x[0] === fl) || DCIN_FL[0]; return f[2] || DCIN_PASTEL[i % DCIN_PASTEL.length]; };
+  let dcin = { tab: 'watch', step: 'pick', id: null, fl: 'butter', popped: 0, q: '', r: 0, note: '', saved: false, del: null };
+  let dcinRun = { timers: [], iv: 0 };
+  const dcinStop = () => { dcinRun.timers.forEach(clearTimeout); clearInterval(dcinRun.iv); dcinRun = { timers: [], iv: 0 }; };
+  const dcinT = (ms, f) => dcinRun.timers.push(setTimeout(f, ms));
+  const dcinPets = () => { try { return typeof allPets === 'function' ? allPets() : pet ? [pet] : []; } catch { return pet ? [pet] : []; } };
+  const dcinPetKey = (p, i) => p.id || 'p' + i;
+  function dcinGuests() {
+    const pets = dcinPets(), gs = (typeof girls !== 'undefined' ? girls : []) || [];
+    let sel = store.get('dcinGuests', null);
+    if (!sel) sel = { p: pets.slice(0, 4).map(dcinPetKey), g: gs.slice(0, 3).map(g => g.id) };
+    const P = pets.map((p, i) => ({ k: 'p', key: dcinPetKey(p, i), p, on: sel.p.includes(dcinPetKey(p, i)), name: p.name || 'החיה' }));
+    const G = gs.map(g => ({ k: 'g', key: g.id, g, on: sel.g.includes(g.id), name: g.name || 'חברה' }));
+    return { sel, all: [...P, ...G], seated: [...G.filter(x => x.on).slice(0, 4), ...P.filter(x => x.on).slice(0, 4)] };
+  }
+  const dcinWhoArt = x => x.k === 'p' ? el('span', { class: 'dcin-pet', html: petSVG(x.p) }) : el('img', { class: 'dcin-girl', src: girlImgURL(x.g, { view: 'head', bg: false }), alt: '' });
+  function dmvAddEvent(m, key, time) {
+    try {
+      const list = events[key] || (events[key] = []);
+      list.push({ time: time || '', text: `🎬 ערב סרט: ${m.t}`.slice(0, 60), color: (typeof EV_COLORS !== 'undefined' && EV_COLORS[4]) || '#e5d6ff', test: false });
+      list.sort((a, b) => (a.time || '99').localeCompare(b.time || '99'));
+      store.set('events', events);
+      try { renderCalendar(); renderStrip(); afterChange(); } catch {}
+      const { d, m: mo } = fromIso(key);
+      toast(stickerHTML('dmvPop'), `📅 ערב סרט נוסף ללוח: ${d} ב${MONTHS[mo]}${time ? ' בשעה ' + time : ''}`);
+      SFX.ding(); return true;
+    } catch { return false; }
+  }
+  function openCinema(id) {
+    dcinStop();
+    Object.assign(dcin, { tab: 'watch', step: 'pick', popped: 0, r: 0, note: '', saved: false, del: null });
+    if (id) dcin.id = id;
+    drawCinema();
+    if (!$('#dcinDlg').open) $('#dcinDlg').showModal();
+  }
+  function drawCinema() {
+    const body = $('#dcinBody');
+    const tabs = el('div', { class: 'tabs dcin-tabs', role: 'tablist' },
+      ...[['watch', '🎬 לצפות'], ['diary', `📔 יומן סרטים (${dmvDiary.length})`]].map(([t, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(dcin.tab === t), onclick: () => { if (dcin.step === 'show') return; dcin.tab = t; SFX.pop(); drawCinema(); } }, n)),
+      typeof coinChip === 'function' ? coinChip() : null);
+    const inner = dcin.tab === 'diary' ? dcinDiaryView() : dcin.step === 'pick' ? dcinPick() : dcin.step === 'pop' ? dcinPop() : dcinHallView();
+    body.replaceChildren(tabs, inner);
+  }
+  function dcinPick() {
+    const m = dcin.id && dmvById(dcin.id), q = dcin.q.trim();
+    const search = el('input', { type: 'search', id: 'dcinSearch', value: dcin.q, placeholder: '🔍 לחפש סרט...', 'aria-label': 'לחפש סרט' });
+    search.addEventListener('input', e => { dcin.q = e.target.value; const pos = e.target.selectionStart; drawCinema(); const s = $('#dcinSearch'); s.focus(); s.setSelectionRange(pos, pos); });
+    const shown = DMV.filter(x => !q || x.t.includes(q) || String(x.yr).includes(q));
+    const G = dcinGuests();
+    const toggle = x => { const s = G.sel, arr = x.k === 'p' ? s.p : s.g, i = arr.indexOf(x.key); if (i >= 0) arr.splice(i, 1); else arr.push(x.key); store.set('dcinGuests', s); SFX.pop(); drawCinema(); };
+    const date = el('input', { type: 'date', value: localToday(), 'aria-label': 'תאריך' }), time = el('input', { type: 'time', value: '19:00', 'aria-label': 'שעה' });
+    return el('div', { class: 'dcin-pick' },
+      el('div', { class: 'cm-hero dcin-hero' }, el('div', {}, el('b', {}, '🍿 מה רואים הערב?'), el('p', { class: 'muted' }, 'בוחרים סרט מהמפה, מזמינים את החיות והבנות, מכינים פופקורן... והאורות נכבים!')),
+        m ? el('div', { class: 'dcin-chosen' }, el('span', { class: 'dmv-pic', style: `--rc:${DMV_REG[m.reg][2]}`, html: dmvIconSVG(m.ic, m.col) }), el('b', {}, m.t)) : null),
+      el('h4', { class: 'sec-title' }, '1. בוחרים סרט'),
+      el('div', { class: 'dcin-srow' }, search, el('button', { type: 'button', class: 'chip', onclick: () => { const pool = DMV.filter(x => !(dmvData[x.id] || {}).seen); const p = pool.length ? pool : DMV; dcin.id = p[Math.floor(Math.random() * p.length)].id; SFX.ding(); drawCinema(); } }, '🎲 הפתעה'),
+        el('button', { type: 'button', class: 'chip', onclick: () => { $('#dcinDlg').close(); openMovieMap(dcin.id); } }, '🗺️ למפת הסרטים')),
+      el('div', { class: 'dcin-grid' }, ...shown.map(x => el('button', { type: 'button', class: 'dcin-mv', 'aria-pressed': String(dcin.id === x.id), onclick: () => { dcin.id = x.id; SFX.pop(); drawCinema(); } },
+        el('span', { class: 'dmv-pic', style: `--rc:${DMV_REG[x.reg][2]}`, html: dmvIconSVG(x.ic, x.col) }), el('span', { class: 'dcin-mt' }, x.t), el('small', {}, `${x.yr}${(dmvData[x.id] || {}).seen ? ' · ✅' : ''}`)))),
+      el('h4', { class: 'sec-title' }, '2. מי בא לקולנוע?'),
+      G.all.length ? el('div', { class: 'chips dcin-who' }, ...G.all.map(x => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(x.on), onclick: () => toggle(x) }, dcinWhoArt(x), x.name))) : el('p', { class: 'muted' }, 'עוד אין חיות או בנות... אפשר לעצב אותן בסטודיו!'),
+      el('p', { class: 'muted' }, 'עד 4 בנות ו-4 חיות יושבות בשורה הראשונה 💺'),
+      el('h4', { class: 'sec-title' }, '📅 רוצה לתכנן ערב סרט בלוח?'),
+      el('div', { class: 'dcin-plan' }, date, time, el('button', { type: 'button', class: 'btn', disabled: !m, onclick: () => { if (m && date.value) dmvAddEvent(m, date.value, time.value); } }, '📅 להוסיף ללוח')),
+      el('div', { class: 'dcin-go' }, el('button', { type: 'button', class: 'btn main dcin-big', disabled: !m, onclick: () => { dcin.step = 'pop'; dcin.popped = 0; SFX.yay(); drawCinema(); } }, m ? `🍿 מכינים פופקורן ל"${m.t}"!` : '👆 קודם בוחרים סרט')));
+  }
+  // ---- popcorn mini game ----
+  const DCIN_POP_N = 12;
+  const dcinPuff = (x, y, r, c) => `<g><circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="${O}" stroke-width="1.2"/><circle cx="${x - r * .7}" cy="${y + r * .3}" r="${r * .7}" fill="${c}" stroke="${O}" stroke-width="1.2"/><circle cx="${x + r * .7}" cy="${y + r * .35}" r="${r * .65}" fill="${c}" stroke="${O}" stroke-width="1.2"/><circle cx="${x - r * .3}" cy="${y - r * .3}" r="${r * .3}" fill="#fff" opacity=".7"/></g>`;
+  function dcinBucketSVG(n, fl) {
+    const rr = dmvRnd(11), pile = Array.from({ length: Math.round(n * 2.5) }, (_, i) => { const row = Math.floor(i / 6); return dcinPuff(40 + (i % 6) * 16 + rr() * 6 - (row % 2) * 6, 70 - row * 9 - rr() * 4, 8, dcinFlCol(fl, i)); }).join('');
+    return `<svg viewBox="0 0 140 170" xmlns="http://www.w3.org/2000/svg">${pile}<path d="M22 66 H118 L104 162 H36Z" fill="#fff" stroke="${O}" stroke-width="2.5" stroke-linejoin="round"/>${[0, 1, 2, 3].map(i => `<path d="M${32 + i * 24} 66 L${42 + i * 17.5} 162 L${50 + i * 17.5} 162 L${44 + i * 24} 66Z" fill="#ff4d6d"/>`).join('')}<path d="M22 66 H118 L104 162 H36Z" fill="none" stroke="${O}" stroke-width="2.5" stroke-linejoin="round"/><rect x="44" y="96" width="52" height="30" rx="8" fill="#ffd84d" stroke="${O}" stroke-width="2"/><text x="70" y="118" text-anchor="middle" font-size="16" fill="${O}">🍿</text></svg>`;
+  }
+  function dcinPop() {
+    const m = dmvById(dcin.id), done = dcin.popped >= DCIN_POP_N;
+    const bucket = el('div', { class: 'dcin-bucket', html: dcinBucketSVG(dcin.popped, dcin.fl) });
+    const pot = el('div', { class: 'dcin-pot' + (done ? ' done' : '') }, el('div', { class: 'dcin-potart', html: `<svg viewBox="0 0 220 140" xmlns="http://www.w3.org/2000/svg"><path d="M10 40 H210" stroke="${O}" stroke-width="3" stroke-linecap="round"/><path d="M20 40 H200 V110 Q200 130 180 130 H40 Q20 130 20 110Z" fill="#9aa3ad" stroke="${O}" stroke-width="2.5"/><path d="M28 48 H192" stroke="#fff" stroke-width="3" opacity=".5"/><path d="M0 60 H20 M200 60 H220" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M50 138 Q60 128 70 138 Q80 128 90 138 Q100 128 110 138 Q120 128 130 138 Q140 128 150 138 Q160 128 170 138" fill="#ff8a3d" stroke="#ff5a3d" stroke-width="2"/></svg>` }));
+    const counter = el('b', { class: 'dcin-cnt' }, `${dcin.popped}/${DCIN_POP_N}`);
+    const rr = dmvRnd(5 + dcin.popped);
+    const left = DCIN_POP_N - dcin.popped;
+    for (let i = 0; i < left; i++) {
+      const k = el('button', { type: 'button', class: 'dcin-kern', 'aria-label': 'גרעין', style: `left:${14 + rr() * 68}%;top:${40 + rr() * 34}%;animation-delay:${(rr() * .6).toFixed(2)}s` });
+      k.addEventListener('click', e => {
+        e.currentTarget.disabled = true;
+        const kx = k.style.left, ky = k.style.top;
+        const puff = el('span', { class: 'dcin-puff', style: `left:${kx};top:${ky}`, html: `<svg viewBox="-12 -12 24 24">${dcinPuff(0, 0, 7, dcinFlCol(dcin.fl, dcin.popped))}</svg>` });
+        pot.append(puff); k.remove();
+        tone(600 + Math.random() * 500, 0.05, 'square', 0, 0.05); tone(1300, 0.04, 'triangle', 0.03, 0.05);
+        dcin.popped++;
+        counter.textContent = `${dcin.popped}/${DCIN_POP_N}`;
+        bucket.innerHTML = dcinBucketSVG(dcin.popped, dcin.fl);
+        bucket.classList.remove('bump'); void bucket.offsetWidth; bucket.classList.add('bump');
+        if (dcin.popped >= DCIN_POP_N) setTimeout(() => { SFX.yay(); try { confetti($('#dcinDlg .confetti-c')); } catch {} try { if (typeof addCoins === 'function') addCoins(3, 'פופקורן'); } catch {} drawCinema(); }, 600);
+      });
+      pot.append(k);
+    }
+    return el('div', { class: 'dcin-kitchen' },
+      el('div', { class: 'cm-hero' }, el('div', {}, el('b', {}, '🍿 מטבח הפופקורן'), el('p', { class: 'muted' }, done ? 'הדלי מלא! אפשר להיכנס לאולם 🎬' : 'בוחרים טעם ולוחצים על הגרעינים הקופצים בסיר!')), el('span', { class: 'muted' }, m ? `הסרט: ${m.t}` : '')),
+      el('div', { class: 'chips' }, ...DCIN_FL.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dcin.fl === id), onclick: () => { dcin.fl = id; SFX.pop(); bucket.innerHTML = dcinBucketSVG(dcin.popped, dcin.fl); drawCinema(); } }, n))),
+      el('div', { class: 'dcin-stove' }, pot, el('div', { class: 'dcin-bcol' }, bucket, counter)),
+      el('div', { class: 'dcin-go' },
+        el('button', { type: 'button', class: 'chip', onclick: () => { dcin.step = 'pick'; drawCinema(); } }, '→ חזרה'),
+        done ? el('button', { type: 'button', class: 'btn main dcin-big', onclick: () => { dcin.step = 'show'; drawCinema(); dcinPlay(); } }, '🎬 לאולם! האורות נכבים...')
+          : el('button', { type: 'button', class: 'chip', onclick: () => { dcin.popped = DCIN_POP_N; drawCinema(); } }, 'לדלג ⏩')));
+  }
+  // ---- the film on the screen: an original little scene per map region ----
+  function dcinSceneSVG(reg) {
+    const r = dmvRnd(reg.length * 97), P = (n, f) => Array.from({ length: n }, (_, i) => f(i)).join('');
+    const tw = (n, y0 = 0, y1 = 180) => P(n, i => `<circle cx="${(r() * 500).toFixed(0)}" cy="${(y0 + r() * (y1 - y0)).toFixed(0)}" r="${(0.8 + r() * 1.6).toFixed(1)}" fill="#fff"><animate attributeName="opacity" values="1;.2;1" dur="${(1.5 + r() * 2).toFixed(1)}s" repeatCount="indefinite"/></circle>`);
+    const S = {
+      snow: `<defs><linearGradient id="dcS1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16235a"/><stop offset="1" stop-color="#5a7fd0"/></linearGradient></defs><rect width="500" height="280" fill="url(#dcS1)"/>${tw(30, 0, 120)}<path d="M0 90 Q120 40 250 80 T500 60" fill="none" stroke="#7bffc8" stroke-width="22" opacity=".35"><animate attributeName="d" values="M0 90 Q120 40 250 80 T500 60;M0 70 Q140 100 260 60 T500 90;M0 90 Q120 40 250 80 T500 60" dur="7s" repeatCount="indefinite"/></path><path d="M0 110 Q150 70 260 100 T500 80" fill="none" stroke="#ff9ad5" stroke-width="12" opacity=".3"/><path d="M0 280 V200 L80 130 L150 190 L240 110 L330 200 L420 140 L500 190 V280Z" fill="#eef6ff"/><path d="M0 280 V240 Q250 200 500 240 V280Z" fill="#fff"/>${P(28, () => { const x = r() * 500, d = 4 + r() * 5; return `<circle cx="${x.toFixed(0)}" r="${(1.5 + r() * 2.5).toFixed(1)}" fill="#fff"><animate attributeName="cy" from="-10" to="290" dur="${d.toFixed(1)}s" begin="-${(r() * d).toFixed(1)}s" repeatCount="indefinite"/></circle>`; })}`,
+      castle: `<defs><linearGradient id="dcS2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2466"/><stop offset=".6" stop-color="#ff7a9a"/><stop offset="1" stop-color="#ffc36b"/></linearGradient></defs><rect width="500" height="280" fill="url(#dcS2)"/>${tw(20, 0, 90)}${P(6, i => { const x = 60 + r() * 380, y = 30 + r() * 70, c = ['#ffd84d', '#7ec8ff', '#ff9ad5', '#7bffc8'][i % 4], b = (r() * 3).toFixed(1); return `<g>${P(10, k => `<line x1="${x.toFixed(0)}" y1="${y.toFixed(0)}" x2="${(x + 26 * Math.cos(k * .628)).toFixed(0)}" y2="${(y + 26 * Math.sin(k * .628)).toFixed(0)}" stroke="${c}" stroke-width="3" stroke-linecap="round"/>`)}<animate attributeName="opacity" values="0;1;0;0" keyTimes="0;.15;.5;1" dur="3s" begin="${b}s" repeatCount="indefinite"/></g>`; })}<path d="M140 280 V170 H170 V140 L185 110 L200 140 V170 H230 V120 L250 80 L270 120 V170 H300 V140 L315 110 L330 140 V170 H360 V280Z" fill="#2a1a45"/>${P(9, i => `<rect x="${160 + i * 20}" y="${190 + (i % 3) * 22}" width="7" height="10" rx="3" fill="#ffe27a"/>`)}<path d="M0 280 V250 Q250 225 500 250 V280Z" fill="#1d1233"/>`,
+      jungle: `<rect width="500" height="280" fill="#1f5a3a"/><rect width="500" height="280" fill="#2f7d4a" opacity=".6"/><path d="M230 0 H270 V280 H230Z" fill="#8fdcf5" opacity=".7"><animate attributeName="opacity" values=".7;.5;.7" dur="1.2s" repeatCount="indefinite"/></path><ellipse cx="250" cy="275" rx="80" ry="14" fill="#fff" opacity=".6"/>${P(10, i => `<path d="M${i < 5 ? 0 : 500} ${i % 5 * 60} q${i < 5 ? 90 : -90} ${-10 + r() * 20} ${i < 5 ? 130 : -130} ${40 + r() * 20} q${i < 5 ? -70 : 70} 10 ${i < 5 ? -130 : 130} ${-40}Z" fill="${['#3fae5a', '#2a8a45', '#5fc06a'][i % 3]}"/>`)}${P(24, () => `<circle cx="${(r() * 500).toFixed(0)}" cy="${(r() * 260).toFixed(0)}" r="3" fill="#fff38a"><animate attributeName="opacity" values="0;1;0" dur="${(1 + r() * 2).toFixed(1)}s" begin="-${(r() * 2).toFixed(1)}s" repeatCount="indefinite"/></circle>`)}`,
+      desert: `<rect width="500" height="280" fill="#1a1f4a"/>${tw(50, 0, 170)}<circle cx="390" cy="70" r="36" fill="#fff4c2"/><circle cx="378" cy="62" r="36" fill="#1a1f4a" opacity=".0"/><path d="M0 280 V210 Q120 160 240 210 T500 200 V280Z" fill="#c98f4a"/><path d="M0 280 V240 Q150 200 300 240 T500 235 V280Z" fill="#e0a95e"/><path d="M90 205 V160 H100 V140 Q110 120 120 140 V160 H130 V205Z" fill="#8a5a3c" opacity=".7"/>`,
+      savanna: `<defs><linearGradient id="dcS5" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a5a"/><stop offset="1" stop-color="#ffe08a"/></linearGradient></defs><rect width="500" height="280" fill="url(#dcS5)"/><circle cx="250" r="60" fill="#fff1a8"><animate attributeName="cy" values="250;150" dur="8s" fill="freeze"/></circle><path d="M0 280 V200 Q250 180 500 205 V280Z" fill="#d98a3a"/><path d="M40 200 V160 M40 168 L28 150 M40 164 L52 150" stroke="#4a2a1a" stroke-width="5"/><ellipse cx="40" cy="146" rx="42" ry="10" fill="#4a3a1a"/><path d="M420 205 V150 M420 160 L408 140 M420 156 L434 142" stroke="#4a2a1a" stroke-width="5"/><ellipse cx="420" cy="136" rx="46" ry="11" fill="#4a3a1a"/>${P(4, i => `<path d="M0 0 q6 -6 12 0 q6 -6 12 0" fill="none" stroke="#4a2a1a" stroke-width="2.4"><animateTransform attributeName="transform" type="translate" from="${-40 - i * 50} ${50 + i * 15}" to="${540} ${30 + i * 12}" dur="${9 + i}s" repeatCount="indefinite"/></path>`)}`,
+      city: `<rect width="500" height="280" fill="#2a1f5a"/>${tw(24, 0, 100)}<circle cx="80" cy="60" r="24" fill="#fff4c2"/>${P(12, i => { const w = 30 + r() * 20, h = 60 + r() * 120, x = i * 42 - 4; return `<rect x="${x.toFixed(0)}" y="${(280 - h).toFixed(0)}" width="${w.toFixed(0)}" height="${h.toFixed(0)}" fill="${['#4a3a8a', '#5a4aa0', '#3a2f70'][i % 3]}"/>` + P(Math.floor(h / 22), k => `<rect x="${(x + 6).toFixed(0)}" y="${(280 - h + 8 + k * 22).toFixed(0)}" width="8" height="10" fill="#ffe27a"><animate attributeName="opacity" values="1;.2;1" dur="${(2 + r() * 4).toFixed(1)}s" begin="-${(r() * 3).toFixed(1)}s" repeatCount="indefinite"/></rect><rect x="${(x + 18).toFixed(0)}" y="${(280 - h + 8 + k * 22).toFixed(0)}" width="8" height="10" fill="#ffb3c7" opacity=".8"/>`); })}`,
+      sea: `<defs><linearGradient id="dcS7" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fd0ff"/><stop offset="1" stop-color="#1a5aa0"/></linearGradient></defs><rect width="500" height="280" fill="url(#dcS7)"/>${P(6, i => `<path d="M0 ${20 + i * 8} Q60 ${10 + i * 8} 120 ${20 + i * 8}" stroke="#fff" stroke-width="3" opacity=".3" fill="none"/>`)}<path d="M0 280 V250 Q250 230 500 250 V280Z" fill="#f2d49a"/>${P(8, i => `<path d="M${30 + i * 62} 280 q-10 -30 0 -60 q10 -30 0 -60" fill="none" stroke="${['#3fae5a', '#ff7a9a', '#2a8a45'][i % 3]}" stroke-width="7" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" values="-4 ${30 + i * 62} 280;4 ${30 + i * 62} 280;-4 ${30 + i * 62} 280" dur="${3 + i % 3}s" repeatCount="indefinite"/></path>`)}${P(4, i => `<g><ellipse rx="14" ry="8" fill="${['#ffb86b', '#ff9ad5', '#ffd84d', '#b58cff'][i]}"/><path d="M12 0 l10 -7 v14z" fill="${['#ffb86b', '#ff9ad5', '#ffd84d', '#b58cff'][i]}"/><circle cx="-7" cy="-2" r="1.6" fill="#333"/><animateTransform attributeName="transform" type="translate" from="${540} ${70 + i * 40}" to="${-40} ${80 + i * 38}" dur="${7 + i * 2}s" begin="-${i * 2}s" repeatCount="indefinite"/></g>`)}${P(16, () => { const x = r() * 500, d = 3 + r() * 4; return `<circle cx="${x.toFixed(0)}" r="${(2 + r() * 4).toFixed(1)}" fill="none" stroke="#fff" stroke-width="1.5" opacity=".7"><animate attributeName="cy" from="290" to="-10" dur="${d.toFixed(1)}s" begin="-${(r() * d).toFixed(1)}s" repeatCount="indefinite"/></circle>`; })}`,
+      sky: `<defs><linearGradient id="dcS8" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ec8ff"/><stop offset="1" stop-color="#e6f5ff"/></linearGradient></defs><rect width="500" height="280" fill="url(#dcS8)"/>${P(5, i => `<g><path d="M-40 10 H40 A14 14 0 0 0 36 -12 A20 20 0 0 0 0 -20 A18 18 0 0 0 -34 -8 A14 14 0 0 0 -40 10Z" fill="#fff"/><animateTransform attributeName="transform" type="translate" from="${-60} ${40 + i * 50}" to="${560} ${40 + i * 50}" dur="${14 + i * 3}s" begin="-${i * 4}s" repeatCount="indefinite"/></g>`)}${P(7, i => `<g><path d="M0 12 V36" stroke="#555" stroke-width="1"/><ellipse rx="9" ry="11" fill="${DCIN_PASTEL[i % 6]}" stroke="#fff" stroke-width="1"/><animateTransform attributeName="transform" type="translate" from="${40 + i * 65} 300" to="${60 + i * 60} -40" dur="${6 + i % 3 * 2}s" begin="-${i}s" repeatCount="indefinite"/></g>`)}`,
+    };
+    return `<svg viewBox="0 0 500 280" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${S[reg] || S.sky}</svg>`;
+  }
+  // drawn hall: back wall, lamps, stage frame (the screen and curtains are html layers on top)
+  const DCIN_HALL = `<svg viewBox="0 0 800 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="dcW" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a1f4a"/><stop offset="1" stop-color="#2e0f2e"/></linearGradient><linearGradient id="dcF" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a2a3a"/><stop offset="1" stop-color="#4a1528"/></linearGradient></defs><rect width="800" height="500" fill="url(#dcW)"/>${Array.from({ length: 9 }, (_, i) => `<path d="M${i * 100} 0 V330" stroke="#6d2a5c" stroke-width="16" opacity=".5"/>`).join('')}${[60, 740].map(x => `<g><path d="M${x - 14} 150 H${x + 14} L${x + 8} 176 H${x - 8}Z" fill="#ffd84d" stroke="#8a5a3c" stroke-width="2"/><ellipse class="dcin-glow" cx="${x}" cy="160" rx="40" ry="46" fill="#fff4c2" opacity=".25"/></g>`).join('')}<rect x="110" y="16" width="580" height="286" rx="8" fill="#e0a800" stroke="#8a5a00" stroke-width="3"/><rect x="118" y="24" width="564" height="270" fill="#111"/><rect y="300" width="800" height="200" fill="url(#dcF)"/>${Array.from({ length: 3 }, (_, r) => Array.from({ length: 12 - r }, (_, i) => `<rect x="${(i + r / 2) * 68 + 2}" y="${318 + r * 16}" width="60" height="30" rx="10" fill="#9a2448" opacity="${0.5 + r * .15}"/>`).join('')).join('')}</svg>`;
+  function dcinHallView() {
+    const m = dmvById(dcin.id) || DMV[0], G = dcinGuests();
+    const seats = G.seated.map((x, i) => el('div', { class: 'dcin-seat', style: `--i:${i}` },
+      el('div', { class: 'dcin-sback' }), el('div', { class: 'dcin-sitter ' + x.k }, dcinWhoArt(x)),
+      el('div', { class: 'dcin-sfront' }), i % 2 === 0 ? el('span', { class: 'dcin-mini', html: dcinBucketSVG(6, dcin.fl) }) : null, el('span', { class: 'dcin-emo' })));
+    if (!seats.length) seats.push(el('div', { class: 'dcin-seat' }, el('div', { class: 'dcin-sback' }), el('div', { class: 'dcin-sitter' }, el('span', { class: 'dcin-pet', html: stickerHTML('dmvPop') })), el('div', { class: 'dcin-sfront' })));
+    const hall = el('div', { class: 'dcin-hall' + (dcin.step === 'rate' ? ' after' : '') },
+      el('div', { class: 'dcin-walls', html: DCIN_HALL }),
+      el('div', { class: 'dcin-dark' }),
+      el('div', { class: 'dcin-screen' },
+        el('div', { class: 'dcin-film' },
+          el('div', { class: 'dcin-bg', html: dcinSceneSVG(m.reg) }),
+          el('div', { class: 'dcin-star', html: dmvIconSVG(m.ic, m.col) }),
+          el('div', { class: 'dcin-ttl' }, el('small', {}, '🎬 קולנוע הלוח מציג'), el('b', {}, m.t), el('small', {}, String(m.yr))),
+          el('div', { class: 'dcin-sub' }),
+          el('div', { class: 'dcin-end' }, '✨ הסוף ✨')),
+        el('div', { class: 'dcin-curt l' }), el('div', { class: 'dcin-curt r' }), el('div', { class: 'dcin-val' })),
+      el('div', { class: 'dcin-row' }, ...seats));
+    if (dcin.step === 'show') return el('div', { class: 'dcin-showw' }, hall, el('div', { class: 'dcin-go' }, el('button', { type: 'button', class: 'chip', onclick: () => dcinFinish() }, '⏩ לדלג לסוף')));
+    // after the film: rate it and keep it in the movie diary
+    const note = el('input', { type: 'text', maxLength: 120, placeholder: 'מה הכי אהבתי?', value: dcin.note, 'aria-label': 'מה הכי אהבתי' });
+    note.addEventListener('input', () => { dcin.note = note.value; });
+    return el('div', { class: 'dcin-showw' }, hall,
+      el('div', { class: 'dcin-rate' },
+        dcin.saved ? el('div', { class: 'dcin-saved' }, el('b', {}, '📔 נשמר ביומן הסרטים!'),
+          el('div', { class: 'chips' },
+            el('button', { type: 'button', class: 'btn', onclick: e => { e.currentTarget.disabled = true; dmvAddEvent(m, localToday(), new Date().toTimeString().slice(0, 5)); } }, '📅 לשים בלוח: היה היום ערב סרט'),
+            el('button', { type: 'button', class: 'btn', onclick: () => { dcin.tab = 'diary'; drawCinema(); } }, '📔 ליומן'),
+            el('button', { type: 'button', class: 'btn main', onclick: () => openCinema() }, '🎬 עוד סרט')))
+          : el('div', {}, el('b', {}, `איך היה "${m.t}"?`),
+            el('div', { class: 'dmv-stars big', role: 'group', 'aria-label': 'דירוג' }, ...[1, 2, 3, 4, 5].map(k => el('button', { type: 'button', class: 'dmv-star' + (k <= dcin.r ? ' on' : ''), 'aria-label': `${k} כוכבים`, onclick: () => { dcin.r = k; tone(500 + k * 120, 0.12, 'triangle'); drawCinema(); } }, '★'))),
+            note,
+            el('button', { type: 'button', class: 'btn main', disabled: !dcin.r, onclick: () => dcinSaveDiary(m) }, '💾 לשמור ביומן הסרטים'))));
+  }
+  function dcinSaveDiary(m) {
+    const G = dcinGuests();
+    dmvDiary.unshift({ id: m.id, d: localToday(), r: dcin.r, note: dcin.note.trim(), fl: dcin.fl, g: G.seated.map(x => x.name).slice(0, 8) });
+    dmvDiary = dmvDiary.slice(0, 300); store.set('dmvDiary', dmvDiary);
+    const rec = dmvRec(m.id); rec.r = dcin.r; dmvSave();
+    if (!rec.seen) dmvSetSeen(m, true);
+    dcin.saved = true; SFX.yay();
+    try { if (typeof addCoins === 'function') addCoins(5, 'ערב סרט'); } catch {}
+    drawCinema();
+  }
+  function dcinPlay() {
+    dcinStop();
+    const m = dmvById(dcin.id) || DMV[0], hall = $('#dcinBody .dcin-hall');
+    const lines = m.s.split(/(?<=[.!?])\s+/).filter(Boolean);
+    const seats = [...hall.querySelectorAll('.dcin-seat')];
+    const react = () => { const s = seats[Math.floor(Math.random() * seats.length)]; if (!s) return; const e = s.querySelector('.dcin-emo'); if (e) { e.textContent = ['😮', '😂', '😍', '🤩', '😲', '🥰'][Math.floor(Math.random() * 6)]; e.classList.remove('go'); void e.offsetWidth; e.classList.add('go'); } s.classList.remove('hop'); void s.offsetWidth; s.classList.add('hop'); };
+    hall.classList.add('dim'); [520, 440, 360].forEach((f, i) => tone(f, 0.3, 'sine', i * 0.25, 0.05));
+    dcinT(1300, () => { hall.classList.add('open'); SFX.yay(); });
+    dcinT(1400, () => hall.classList.add('ttl'));
+    const scale = { snow: [523, 587, 659, 784, 880], castle: [392, 440, 494, 587, 659], jungle: [440, 523, 587, 659, 784], desert: [440, 466, 554, 587, 659], savanna: [392, 440, 523, 587, 698], city: [523, 622, 698, 784, 932], sea: [349, 392, 440, 523, 587], sky: [587, 659, 784, 880, 988] }[m.reg] || [523, 587, 659, 784, 880];
+    let beat = 0;
+    dcinT(1400, () => { dcinRun.iv = setInterval(() => { const n = [0, 2, 4, 2, 1, 3, 4, 3][beat % 8]; tone(scale[n], 0.35, 'triangle', 0, 0.035); if (beat % 4 === 0) tone(scale[0] / 2, 0.5, 'sine', 0, 0.04); beat++; }, 420); });
+    const t0 = 4200, per = 3600;
+    dcinT(t0, () => { hall.classList.remove('ttl'); hall.classList.add('play'); });
+    lines.forEach((ln, i) => dcinT(t0 + i * per, () => { const sub = hall.querySelector('.dcin-sub'); sub.textContent = ln; sub.classList.remove('in'); void sub.offsetWidth; sub.classList.add('in'); react(); if (i % 2) dcinT(1500, react); }));
+    dcinT(t0 + lines.length * per, () => dcinFinish());
+  }
+  function dcinFinish() {
+    dcinStop();
+    const hall = $('#dcinBody .dcin-hall'); if (!hall) return;
+    hall.classList.add('dim', 'open', 'play', 'end'); hall.classList.remove('ttl');
+    hall.querySelectorAll('.dcin-seat').forEach((s, i) => setTimeout(() => s.classList.add('cheer'), i * 90));
+    for (let i = 0; i < 26; i++) tone(900 + Math.random() * 1400, 0.03, 'square', i * 0.07 + Math.random() * 0.05, 0.02);
+    dcinT(2300, () => hall.classList.remove('open'));
+    dcinT(3400, () => { dcin.step = 'rate'; drawCinema(); });
+  }
+  function dcinDiaryView() {
+    if (!dmvDiary.length) return el('div', { class: 'cm-hero' }, el('div', {}, el('b', {}, '📔 יומן הסרטים ריק'), el('p', { class: 'muted' }, 'אחרי כל סרט בקולנוע הלוח, הדירוג והמחשבות שלך נשמרים כאן עם התאריך.')), el('button', { type: 'button', class: 'btn main', onclick: () => { dcin.tab = 'watch'; drawCinema(); } }, '🎬 לסרט הראשון'));
+    const avg = (dmvDiary.reduce((a, x) => a + (x.r || 0), 0) / dmvDiary.length).toFixed(1);
+    return el('div', { class: 'dcin-diary' },
+      el('p', { class: 'muted' }, `ראית ${dmvDiary.length} ${dmvDiary.length === 1 ? 'סרט' : 'סרטים'} בקולנוע הלוח · ממוצע כוכבים: ${avg} ⭐`),
+      ...dmvDiary.map((x, i) => {
+        const m = dmvById(x.id); if (!m) return null;
+        const { y, m: mo, d } = fromIso(x.d), fl = DCIN_FL.find(f => f[0] === x.fl);
+        return el('div', { class: 'dcin-entry', style: `--rc:${DMV_REG[m.reg][2]}` },
+          el('span', { class: 'dmv-pic', html: dmvIconSVG(m.ic, m.col) }),
+          el('div', { class: 'dcin-et' }, el('b', {}, m.t), el('small', {}, `📅 ${d} ב${MONTHS[mo]} ${y}${fl ? ' · ' + fl[1] : ''}`),
+            el('span', { class: 'dcin-es' }, '★'.repeat(x.r || 0) + '☆'.repeat(5 - (x.r || 0))),
+            x.note ? el('span', { class: 'dcin-en' }, `"${x.note}"`) : null,
+            x.g && x.g.length ? el('small', { class: 'muted' }, `💺 צפו איתי: ${x.g.join(', ')}`) : null),
+          dcin.del === i ? el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => { dmvDiary.splice(i, 1); store.set('dmvDiary', dmvDiary); dcin.del = null; SFX.boop(); drawCinema(); } }, 'למחוק'), el('button', { type: 'button', class: 'chip', onclick: () => { dcin.del = null; drawCinema(); } }, 'לא'))
+            : el('button', { type: 'button', class: 'x', 'aria-label': 'למחוק', onclick: () => { dcin.del = i; drawCinema(); } }, '🗑️'));
+      }));
+  }
+
+  // ---------- 🎤 karaoke: our own short songs ----------
+  // each line: [words, notes]; notes C..B = 4th octave, c d e f g = 5th; a word gets one note (cycled if needed), the last word of a line is long
+  const DKAR_SONGS = [
+    ['pets', '🐾', 'ריקוד החיות', 112, '#ff9ad5', [
+      ['כלב קופץ וחתול מסתובב', 'C E G E'], ['ארנב מקפץ כי הוא כל כך אוהב', 'D F A A G F E'], ['כולם בעיגול כף ביד', 'E G c c'], ['רוקדים עד שהירח ירד', 'B A G C'],
+      ['לה לה לה הופ הופ הופ', 'c c c G G G'], ['החיות שלי רוקדות בלי סוף!', 'A G F D C']]],
+    ['popcorn', '🍿', 'שיר הפופקורן', 120, '#ffcf3a', [
+      ['גרעין קטן בסיר חם', 'E E G E'], ['מחכה ומחכה ולא נרדם', 'D D F D'], ['פתאום - פופ! הוא קופץ למעלה', 'G c G E G'], ['פופקורן לבן, איזו מסיבה!', 'A G E C'],
+      ['פופ פופ פופ, קופצים בסיר', 'c c c A G'], ['הערב סרט וכולם פה בשיר!', 'F E D E C']]],
+    ['star', '🌟', 'כוכב קטן בחלון', 88, '#b58cff', [
+      ['כוכב קטן בחלון שלי', 'G E F D'], ['מנצנץ ושר רק בשבילי', 'E C D G'], ['עוצמת עיניים, סופרת עד עשר', 'G E F D C'], ['ומחר בבוקר - יום חדש ומאושר', 'E G A G C']]],
+    ['sea', '🌊', 'גלים של ים', 104, '#2ea5d8', [
+      ['גל גדול וגל קטן', 'C G C G'], ['מתגלגלים אל החוף כאן', 'A F E D'], ['צדף ורוד בתוך החול', 'E G A c'], ['הים שר לי: אפשר הכול!', 'B A G D C'],
+      ['שש שש שש, הגל לוחש', 'G G G E C'], ['בואי לשחק, הים מחכה', 'D E F E C']]],
+    ['snow', '❄️', 'איש שלג חמוד', 100, '#7ec8ff', [
+      ['פתית שלג על האף שלי נח', 'E G G E G c'], ['מסתובב, מחייך ולא בורח', 'A G F E'], ['בונים איש שלג גבוה וחמוד', 'D E F A G'], ['עם גזר לאף וצעיף אדום מאוד', 'E D C D E C']]],
+    ['friends', '💖', 'החברות שלי', 108, '#ff7a9a', [
+      ['יש לי חברות הכי טובות בעולם', 'C C E G G E'], ['צוחקות ביחד, שרות לכולם', 'F A G E'], ['אם עצוב לי הן באות מהר', 'D D F A G F'], ['וחיבוק גדול - הכול כבר עובר!', 'E G c G C']]],
+    ['map', '🗺️', 'הרפתקה במפה', 116, '#3fae5a', [
+      ['יש לי מפה עם המון סרטים', 'G G A G E C'], ['איים, ארמונות והרים לבנים', 'A c B G'], ['נוגעת בסיכה - ואני שם', 'F E D G'], ['מסע קסום מסביב לעולם!', 'E D D C']]],
+  ].map(([id, em, t, bpm, col, lines]) => ({ id, em, t, bpm, col, lines: lines.map(([txt, n]) => { const words = txt.split(' '), notes = n.split(' '); return words.map((w, j) => ({ w, n: notes[j % notes.length] })); }) }));
+  const DKAR_F = { C: 262, D: 294, E: 330, F: 349, G: 392, A: 440, B: 494, c: 523, d: 587, e: 659, f: 698, g: 784 };
+  let dkar = { song: null, on: false, li: -1, wi: -1, pts: 0, scored: new Set(), mic: false, slow: false, done: null, lvl: 0 };
+  let dkarRun = { timers: [], raf: 0 }, dkarMic = null;
+  const dkarBest = () => store.get('dkarBest', {});
+  function dkarStop() { dkarRun.timers.forEach(clearTimeout); cancelAnimationFrame(dkarRun.raf); dkarRun = { timers: [], raf: 0 }; dkar.on = false; }
+  function dkarMicOff() { try { if (dkarMic) { dkarMic.stream.getTracks().forEach(t => t.stop()); dkarMic.ctx.close(); } } catch {} dkarMic = null; dkar.mic = false; }
+  async function dkarMicOn() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const ctx = new (window.AudioContext || window.webkitAudioContext)(), an = ctx.createAnalyser(); an.fftSize = 512;
+      ctx.createMediaStreamSource(stream).connect(an);
+      dkarMic = { stream, ctx, an, buf: new Uint8Array(an.fftSize) }; dkar.mic = true; SFX.ding();
+    } catch { dkar.mic = false; toast(stickerHTML('dmvMic'), 'המיקרופון לא נפתח... אפשר לשיר וללחוץ על המילים שנדלקות! 🎶'); }
+    drawKaraoke();
+  }
+  const dkarLevel = () => { if (!dkarMic) return 0; dkarMic.an.getByteTimeDomainData(dkarMic.buf); let s = 0; for (const v of dkarMic.buf) s += ((v - 128) / 128) ** 2; return Math.sqrt(s / dkarMic.buf.length); };
+  function openKaraoke(id) {
+    dkarStop();
+    dkar.song = id ? DKAR_SONGS.find(s => s.id === id) || null : null; dkar.done = null;
+    drawKaraoke();
+    if (!$('#dkarDlg').open) $('#dkarDlg').showModal();
+  }
+  function dkarStageEl(s) {
+    const pets = dcinPets().slice(0, 5), g = (typeof girls !== 'undefined' && girls[0]) || null, g2 = (typeof girls !== 'undefined' && girls.slice(1, 3)) || [];
+    const beat = 60 / s.bpm * (dkar.slow ? 1.35 : 1);
+    const lights = ['#ff5fa2', '#ffd45c', '#5fd0ff', '#a86bff', '#3fd6a0'];
+    const bg = `<svg viewBox="0 0 800 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="dkG" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#4a2a7a"/><stop offset="1" stop-color="#140c2a"/></radialGradient></defs><rect width="800" height="340" fill="url(#dkG)"/>${Array.from({ length: 30 }, (_, i) => `<circle cx="${(i * 131) % 800}" cy="${(i * 67) % 200}" r="${1 + i % 3}" fill="#fff" opacity=".5"/>`).join('')}<path d="M0 0 H800 V36 Q600 70 400 36 Q200 70 0 36Z" fill="#c0305a"/><path d="M0 0 V260 Q50 160 36 0Z M800 0 V260 Q750 160 764 0Z" fill="#9a2448"/>${lights.map((c, i) => `<path class="dkar-beam" style="animation-delay:${i * 0.35}s;transform-origin:${100 + i * 150}px 0" d="M${100 + i * 150} 0 L${50 + i * 150} 340 L${150 + i * 150} 340Z" fill="${c}" opacity=".18"/>`).join('')}<rect y="270" width="800" height="70" fill="#2a1a45"/><path d="M0 270 H800" stroke="#ffd45c" stroke-width="4"/>${Array.from({ length: 16 }, (_, i) => `<circle cx="${25 + i * 50}" cy="276" r="4" fill="${lights[i % 5]}"/>`).join('')}<circle cx="400" cy="-5" r="0"/></svg>`;
+    const st = el('div', { class: 'dkar-stage' + (dkar.on ? ' on' : ''), style: `--beat:${beat.toFixed(3)}s;--sc:${s.col}`, html: bg });
+    const dancers = [];
+    pets.forEach((p, i) => dancers.push(el('div', { class: 'dkar-d pet', style: `--x:${i % 2 ? 50 + 14 + Math.floor(i / 2) * 12 : 50 - 14 - Math.floor(i / 2) * 12}%;--dl:${(i * 0.13).toFixed(2)}s`, html: petSVG(p) })));
+    g2.forEach((x, i) => dancers.push(el('div', { class: 'dkar-d girl2', style: `--x:${i ? 88 : 12}%;--dl:${(i * 0.2).toFixed(2)}s` }, el('img', { src: girlImgURL(x, { view: 'full', bg: false }), alt: '' }))));
+    if (g) dancers.push(el('div', { class: 'dkar-d singer', style: '--x:50%' }, el('img', { src: girlImgURL(g, { view: 'full', bg: false }), alt: '' }), el('span', { class: 'dkar-mic', html: stickerHTML('dmvMic') })));
+    else dancers.push(el('div', { class: 'dkar-d singer', style: '--x:50%' }, el('span', { class: 'dkar-mic big', html: stickerHTML('dmvMic') })));
+    st.append(...dancers, el('div', { class: 'dkar-notes' }), el('canvas', { class: 'confetti-c dkar-conf' }));
+    return st;
+  }
+  function drawKaraoke() {
+    const body = $('#dkarBody'), best = dkarBest();
+    if (!dkar.song) {
+      body.replaceChildren(
+        el('div', { class: 'cm-hero' }, el('div', {}, el('b', {}, '🎤 ערב קריוקי!'), el('p', { class: 'muted' }, 'שירים קטנים שכתבנו במיוחד בשבילך. המילים נדלקות אחת אחת: שרים (עם מיקרופון) או לוחצים על המילה שנדלקת, והחיות רוקדות!')), typeof coinChip === 'function' ? coinChip() : null),
+        el('div', { class: 'dkar-list' }, ...DKAR_SONGS.map(s => el('button', { type: 'button', class: 'dkar-song', style: `--sc:${s.col}`, onclick: () => { dkar.song = s; dkar.done = null; SFX.pop(); drawKaraoke(); } },
+          el('span', { class: 'dkar-em' }, s.em), el('b', {}, s.t), el('small', {}, s.lines[0].map(x => x.w).join(' ') + '...'),
+          el('span', { class: 'dkar-best' }, best[s.id] ? '⭐'.repeat(best[s.id]) : 'עוד לא שרתי')))));
+      return;
+    }
+    const s = dkar.song;
+    const lyr = el('div', { class: 'dkar-lyr', id: 'dkarLyr' });
+    const meter = el('div', { class: 'dkar-meter', title: 'מד מחיאות כפיים' }, el('i', { id: 'dkarFill', style: `height:${dkarPct()}%` }), el('span', {}, '👏'));
+    const stage = el('div', { class: 'dkar-wrap' }, dkarStageEl(s), meter);
+    body.replaceChildren(
+      el('div', { class: 'dkar-head' }, el('button', { type: 'button', class: 'chip', onclick: () => { dkarStop(); dkar.song = null; drawKaraoke(); } }, '→ כל השירים'), el('b', {}, `${s.em} ${s.t}`),
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dkar.mic), onclick: () => { if (dkar.mic) { dkarMicOff(); drawKaraoke(); } else dkarMicOn(); } }, dkar.mic ? '🎤 מיקרופון פועל' : '🎤 להפעיל מיקרופון'),
+          el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dkar.slow), disabled: dkar.on, onclick: () => { dkar.slow = !dkar.slow; drawKaraoke(); } }, '🐢 לאט'))),
+      stage, lyr,
+      dkar.mic ? el('div', { class: 'dkar-lvl' }, el('span', {}, '🎙️'), el('div', {}, el('i', { id: 'dkarLvl' }))) : null,
+      el('div', { class: 'dcin-go' }, dkar.on ? el('button', { type: 'button', class: 'btn', onclick: () => { dkarStop(); dkar.li = -1; drawKaraoke(); } }, '⏹️ לעצור')
+        : el('button', { type: 'button', class: 'btn main dcin-big', onclick: () => dkarPlay() }, dkar.done ? '🔁 לשיר שוב' : '▶️ להתחיל לשיר!')),
+      dkar.done ? dkarResult() : null);
+    dkarLyrics();
+  }
+  const dkarTotal = s => s.lines.reduce((a, l) => a + l.length, 0);
+  const dkarPct = () => dkar.song ? Math.min(100, Math.round(dkar.pts / dkarTotal(dkar.song) * 100)) : 0;
+  function dkarLyrics() {
+    const box = $('#dkarLyr'); if (!box || !dkar.song) return;
+    const s = dkar.song, li = Math.max(0, dkar.li);
+    const line = (l, k, cur) => el('div', { class: 'dkar-line' + (cur ? ' cur' : ' next') }, ...s.lines[l].map((x, j) => {
+      const key = l + ':' + j, on = cur && j === dkar.wi && dkar.on;
+      return el('button', { type: 'button', class: 'dkar-w' + (on ? ' on' : '') + (cur && (j < dkar.wi || !dkar.on && dkar.li > l) ? ' sung' : '') + (dkar.scored.has(key) ? ' hit' : ''), onclick: () => dkarHit(l, j) }, x.w);
+    }));
+    box.replaceChildren(line(li, 0, true), li + 1 < s.lines.length ? line(li + 1, 1, false) : el('div', { class: 'dkar-line next' }, '🎶'));
+  }
+  function dkarHit(l, j, byMic) {
+    if (!dkar.on || l !== dkar.li || j !== dkar.wi) return;
+    const key = l + ':' + j; if (dkar.scored.has(key)) return;
+    dkar.scored.add(key); dkar.pts++;
+    const f = $('#dkarFill'); if (f) f.style.height = dkarPct() + '%';
+    if (!byMic) tone(1400, 0.05, 'sine', 0, 0.04);
+    const nb = document.querySelector('#dkarDlg .dkar-notes');
+    if (nb) { const n = el('span', { class: 'dkar-fly', style: `left:${20 + Math.random() * 60}%` }, ['🎵', '🎶', '⭐', '💖', '✨'][Math.floor(Math.random() * 5)]); nb.append(n); setTimeout(() => n.remove(), 1400); }
+    const w = document.querySelector('#dkarLyr .dkar-w.on'); if (w) w.classList.add('hit');
+  }
+  function dkarPlay() {
+    dkarStop();
+    const s = dkar.song, beat = 60000 / s.bpm * (dkar.slow ? 1.35 : 1);
+    Object.assign(dkar, { on: true, li: 0, wi: -1, pts: 0, scored: new Set(), done: null });
+    drawKaraoke();
+    const st = $('#dkarDlg .dkar-stage'); st.classList.add('on');
+    const T = (ms, f) => dkarRun.timers.push(setTimeout(f, ms));
+    [0, 1, 2].forEach(i => T(i * beat, () => { tone(660, 0.1, 'sine', 0, 0.06); const c = $('#dkarLyr'); if (c && i < 3) c.setAttribute('data-count', String(3 - i)); }));
+    let t = 3 * beat;
+    s.lines.forEach((line, l) => {
+      line.forEach((x, j) => {
+        const len = j === line.length - 1 ? 2 : 1;
+        T(t, () => {
+          dkar.li = l; dkar.wi = j; const c = $('#dkarLyr'); if (c) c.removeAttribute('data-count');
+          dkarLyrics();
+          tone(DKAR_F[x.n] || 392, beat / 1000 * len * 0.9, 'triangle', 0, 0.09);
+          tone((DKAR_F[line[0].n] || 262) / 2, beat / 1000 * 0.6, 'sine', 0, 0.06);
+          if (len === 2) tone((DKAR_F[line[0].n] || 262) / 2 * 1.5, beat / 1000 * 0.6, 'sine', beat / 1000, 0.05);
+        });
+        t += len * beat;
+      });
+      T(t, () => { dkar.wi = line.length; dkarLyrics(); tone(196, 0.2, 'sine', 0, 0.05); tone(294, 0.2, 'sine', beat / 2000, 0.04); });
+      t += beat;
+    });
+    T(t, () => dkarEnd());
+    // the microphone: singing loudly enough while a word is lit counts that word
+    const loop = () => {
+      if (!dkar.on) return;
+      if (dkarMic) { const v = dkarLevel(), b = $('#dkarLvl'); if (b) b.style.width = Math.min(100, v * 400) + '%'; if (v > 0.06 && dkar.wi >= 0) dkarHit(dkar.li, dkar.wi, true); }
+      dkarRun.raf = requestAnimationFrame(loop);
+    };
+    dkarRun.raf = requestAnimationFrame(loop);
+  }
+  function dkarEnd() {
+    const s = dkar.song, pct = dkarPct(), stars = pct >= 75 ? 3 : pct >= 40 ? 2 : 1;
+    dkarStop(); dkar.li = s.lines.length - 1; dkar.wi = 99;
+    dkar.done = { stars, pct };
+    const best = dkarBest(), first3 = stars === 3 && !Object.values(best).some(v => v >= 3);
+    if (!best[s.id] || stars > best[s.id]) { best[s.id] = stars; store.set('dkarBest', best); }
+    drawKaraoke();
+    const st = $('#dkarDlg .dkar-stage'); if (st) st.classList.add('cheer');
+    SFX.yay(); for (let i = 0; i < 30; i++) tone(900 + Math.random() * 1500, 0.03, 'square', 0.3 + i * 0.06 + Math.random() * 0.04, 0.025);
+    try { confetti($('#dkarDlg .dkar-conf')); } catch {}
+    try { if (typeof addCoins === 'function') addCoins(stars * 4, 'קריוקי'); } catch {}
+    if (first3 || !store.get('dmvMiles', []).includes('dmvDisc') && stars === 3) { const got = store.get('dmvMiles', []); if (!got.includes('dmvDisc')) { store.set('dmvMiles', [...got, 'dmvDisc']); dmvUnlock('dmvDisc'); setTimeout(() => toast(stickerHTML('dmvDisc'), '🏅 3 כוכבים בקריוקי! קיבלת מדבקה: תקליט זהב'), 1200); } }
+  }
+  function dkarResult() {
+    const d = dkar.done;
+    return el('div', { class: 'dkar-res' }, el('div', { class: 'dkar-rs' }, ...[1, 2, 3].map(k => el('span', { class: k <= d.stars ? 'on' : '', style: `animation-delay:${k * 0.25}s` }, '⭐'))),
+      el('b', {}, d.stars === 3 ? 'וואו! כוכבת קריוקי אמיתית! 🎉' : d.stars === 2 ? 'איזה יופי של שירה! 👏' : 'כל הכבוד על השירה! בפעם הבאה עוד יותר 💪'),
+      el('span', { class: 'muted' }, `מד מחיאות הכפיים: ${d.pct}%`));
+  }
+
+  // ---------- wiring ----------
+  $('#dmvDlg').addEventListener('close', () => { dmvF.sel = null; });
+  $('#dcinDlg').addEventListener('close', () => { dcinStop(); });
+  $('#dkarDlg').addEventListener('close', () => { dkarStop(); dkarMicOff(); });
+  // a "movies & songs" room in the MORE menu (before the create room so "סרט" tiles of ours land here)
+  try { if (!MORE_ROOMS.some(r => r[0] === 'movies')) MORE_ROOMS.splice(Math.max(1, MORE_ROOMS.findIndex(r => r[0] === 'create')), 0, ['movies', '🎬 סרטים ושירים', ['מפת הסרטים', 'קולנוע', 'קריוקי']]); } catch {}
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
