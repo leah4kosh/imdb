@@ -3618,6 +3618,106 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
 .fun-rank .ic { width: 44px; height: 48px; }
 .fun-rank b { font-weight: 400; }
 @media (prefers-reduced-motion: reduce) { .fun-idle, .fun-judge, .fun-dance, .fun-tw, .fun-bulb, .fun-beam { animation: none; } }
+/* ===== pets salon · pets album · magic creatures (style agent) ===== */
+.sty-stage { position: relative; width: 100%; aspect-ratio: 5 / 3; border: 3px solid #3a2b3c; border-radius: 20px; overflow: hidden; background: #ffe6f2; touch-action: none; user-select: none; -webkit-user-select: none; }
+.sty-salon-bg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sty-stage.rub { cursor: none; }
+.sty-chairpet { position: absolute; left: 61.7%; bottom: 27%; width: 30%; transform: translateX(-50%); pointer-events: none; z-index: 2; }
+.sty-chairpet .in { width: 100%; aspect-ratio: 56 / 64; }
+.sty-chairpet svg, .sty-wait svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.sty-chairpet.blow .in { animation: styblow .28s ease-in-out infinite alternate; transform-origin: 50% 90%; }
+@keyframes styblow { from { transform: rotate(-2.5deg) scale(1.02, .99); } to { transform: rotate(2.5deg) scale(.99, 1.03); } }
+.sty-bench { position: absolute; left: 1%; width: 37%; bottom: 25%; display: flex; align-items: flex-end; justify-content: center; z-index: 2; }
+.sty-wait { position: relative; flex: 0 1 36%; min-width: 0; margin: 0 -4%; border: none; background: none; padding: 0; cursor: pointer; }
+.sty-wait .in { display: block; width: 100%; aspect-ratio: 56 / 64; }
+.sty-wait.hop .in { animation: styhop .5s ease-out; }
+@keyframes styhop { 40% { transform: translateY(-16%); } }
+.sty-ok { position: absolute; top: 4%; right: 8%; font-size: 1.1em; }
+.sty-more { align-self: center; background: #fff; border: 2px solid #3a2b3c; border-radius: 99px; padding: 0 8px; font-size: .9em; color: #3a2b3c; }
+.sty-fx { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.sty-say { top: 8px; max-width: 70%; }
+@media (max-width: 560px) { .sty-say { font-size: .74em; padding: 2px 8px; } }
+.sty-bub { position: absolute; width: calc(24px * var(--s, 1)); height: calc(24px * var(--s, 1)); transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle at 32% 30%, #fff 0 18%, #ffffffd0 36%, #e8d9ffc0 72%); border: 1.5px solid #b9a4ff; animation: stybubin .25s ease-out; }
+.sty-bub.pop { animation: stypop .3s ease-out forwards; }
+@keyframes stybubin { from { transform: translate(-50%, -50%) scale(.2); } }
+@keyframes stypop { to { transform: translate(-50%, -50%) scale(1.6); opacity: 0; } }
+.sty-drop { position: absolute; width: 7px; height: 11px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; background: #7ec8ff; border: 1px solid #3f8fd0; animation: stydrop .7s ease-in forwards; }
+@keyframes stydrop { to { transform: translateY(70px); opacity: 0; } }
+.sty-air { position: absolute; width: 34px; height: 12px; border-top: 3px solid #9fdcff; border-radius: 50%; transform: translate(-50%, -50%); animation: styair .6s ease-out forwards; }
+@keyframes styair { to { transform: translate(-50%, 30px) scale(1.5); opacity: 0; } }
+.sty-cursor { position: absolute; width: 58px; height: 58px; transform: translate(-30%, -60%); pointer-events: none; z-index: 4; filter: drop-shadow(0 3px 3px rgb(0 0 0 / .2)); }
+.sty-cursor svg { width: 100%; height: 100%; }
+.sty-steps { position: static; }
+.sty-steps button.past { background: color-mix(in srgb, var(--accent) 16%, var(--card)); }
+.sty-bar { height: 16px; }
+.sty-help { margin: 0; }
+.sty-opts { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
+.sty-opts .ic { width: 70px; height: 70px; }
+.sty-homeacts { margin-top: 4px; padding-top: 8px; border-top: 2px dashed var(--line); }
+/* album */
+.sty-camwrap { position: relative; width: min(560px, 100%); margin: 0 auto; }
+.sty-view { width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 22px rgb(0 0 0 / .18); touch-action: none; background: #fff; }
+.sty-view > svg { width: 100%; height: 100%; display: block; }
+.sty-flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; border-radius: 12px; }
+.sty-flash.go { animation: styflash .6s ease-out; }
+@keyframes styflash { 0% { opacity: 1; } 100% { opacity: 0; } }
+.sty-count { position: absolute; inset: 0; display: grid; place-items: center; font-size: 6em; color: #fff; text-shadow: 0 0 0 #3a2b3c, 3px 3px 0 #ff5a8a; pointer-events: none; font-family: var(--title-font); }
+.sty-count.go { animation: stycount .6s ease-out; }
+@keyframes stycount { from { transform: scale(1.8); opacity: 0; } 40% { opacity: 1; } }
+.sty-snap { font-size: 1.15em; }
+.sty-selrow { min-height: 34px; justify-content: center; }
+.sty-petchips .sty-pchip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 10px 2px 4px; }
+.sty-pchip .ic { width: 34px; height: 38px; }
+.sty-pchip .ic svg { width: 100%; height: 100%; }
+.sty-pchip[aria-pressed="false"] { opacity: .5; }
+.sty-stk { justify-content: flex-start; }
+.sty-stk button { width: 48px; height: 48px; padding: 4px; }
+.sty-book { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 18px; border-radius: 18px; background: linear-gradient(90deg, #ffe3ef 0 49.6%, #e8b7cf 49.6% 50.4%, #fff0f6 50.4%); border: 3px solid #c2185b33; box-shadow: inset 0 0 0 8px #fff8, 0 10px 24px rgb(0 0 0 / .12); }
+.sty-book.empty { grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 8px; }
+.sty-book.empty h4 { margin: 0; font-family: var(--title-font); font-size: 1.8em; font-weight: 400; color: #c2185b; }
+.sty-cover { width: 90px; height: 90px; }
+.sty-cover svg { width: 100%; height: 100%; }
+.sty-page { padding: 8px 12px; display: grid; place-items: center; min-height: 260px; }
+.sty-page.blank { color: var(--soft); text-align: center; }
+.sty-card { position: relative; margin: 0; width: 100%; background: #fffdf8; padding: 10px 10px 8px; border-radius: 6px; box-shadow: 0 6px 14px rgb(0 0 0 / .16); transform: rotate(var(--r, 0deg)); display: grid; gap: 6px; color: #3a2b3c; }
+.sty-tape { position: absolute; top: -10px; left: 50%; width: 70px; height: 20px; transform: translateX(-50%) rotate(-4deg); background: #ffd84dcc; border-radius: 3px; }
+.sty-ph { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 4px; }
+.sty-ph > svg { width: 100%; height: 100%; display: block; }
+.sty-card figcaption { display: grid; gap: 2px; }
+.sty-card figcaption input { border: none; border-bottom: 2px dashed #e8b7cf; background: transparent; font: inherit; font-size: 1.1em; text-align: center; color: #3a2b3c; padding: 2px; width: 100%; }
+.sty-card small { color: #8a6a8a; text-align: center; }
+.sty-card .chips { justify-content: center; }
+.sty-card .chip { color: #3a2b3c; background: #fff; }
+.sty-nav { justify-content: center; align-items: center; }
+@media (max-width: 620px) { .sty-book { grid-template-columns: 1fr; background: #fff0f6; } .sty-page { min-height: 0; } .sty-page.blank { display: none; } }
+/* magic creatures */
+.sty-mggrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 6px; }
+.sty-mggrid button { border: 2px solid var(--line); background: var(--card); border-radius: 16px; padding: 4px; display: grid; justify-items: center; font-size: .88em; }
+.sty-mggrid button[aria-pressed="true"] { border-color: var(--accent); background: linear-gradient(#fff6fb, #efe6ff); color: #3a2b3c; }
+.sty-mggrid .ic { width: 76px; height: 80px; }
+.sty-mggrid .ic svg, .sty-pals .ic svg, .sty-mgbig svg, .sty-hatchpet svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.sty-mgpick { display: grid; grid-template-columns: minmax(150px, 230px) 1fr; gap: 14px; align-items: start; padding: 12px; border-radius: 20px; background: radial-gradient(circle at 30% 30%, #fff 0, #f3e8ff 60%, #ffe6f3); border: 2px solid var(--line); color: #3a2b3c; }
+.sty-mgpick .muted { color: #6a5a7a; margin: 0; }
+.sty-mgbig { width: 100%; aspect-ratio: 56 / 64; animation: styfloat 2.4s ease-in-out infinite; }
+@keyframes styfloat { 50% { transform: translateY(-6px); } }
+.sty-mgname { margin: 0; font-family: var(--title-font); font-weight: 400; font-size: 1.8em; color: #8e5bd6; }
+.sty-pals { display: flex; flex-wrap: wrap; gap: 6px; }
+.sty-pals button { border: 2px solid #e6d2ff; background: #fff; border-radius: 14px; padding: 2px 4px 4px; display: grid; justify-items: center; }
+.sty-pals button[aria-pressed="true"] { border-color: #8e5bd6; outline: 3px solid #ff9ad5; }
+.sty-pals .ic { width: 50px; height: 56px; }
+.sty-pals .dots { display: flex; gap: 2px; }
+.sty-pals .dots i { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #3a2b3c55; }
+.sty-shake { animation: styshake .45s; }
+@keyframes styshake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.sty-hatch { position: relative; height: 300px; border-radius: 20px; background: radial-gradient(circle at 50% 60%, #fff 0, #f3e8ff 50%, #ffd9ec); border: 2px solid var(--line); overflow: hidden; }
+.sty-egg-shell { position: absolute; left: 50%; bottom: 14px; width: 150px; height: 150px; transform: translateX(-50%); animation: styegg .35s ease-in-out infinite alternate; }
+.sty-hatch.done .sty-egg-shell { animation: none; bottom: 0; }
+.sty-egg-shell svg { width: 100%; height: 100%; }
+@keyframes styegg { from { transform: translateX(-50%) rotate(-7deg); } to { transform: translateX(-50%) rotate(7deg); } }
+.sty-hatchpet { position: absolute; left: 50%; bottom: 60px; width: 170px; aspect-ratio: 56 / 64; transform: translateX(-50%); animation: styhatch .7s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes styhatch { from { transform: translateX(-50%) translateY(60px) scale(.3); opacity: 0; } }
+@media (max-width: 560px) { .sty-mgpick { grid-template-columns: 1fr; justify-items: center; } .sty-mgbig { width: 170px; } }
+@media (prefers-reduced-motion: reduce) { .sty-mgbig, .sty-egg-shell, .sty-chairpet.blow .in { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -4759,6 +4859,40 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     <div class="row" id="funBody"></div>
   </div>
 </dialog>
+
+<!-- Pets: salon, album, magic creatures (style agent) -->
+<dialog id="stySalonDlg" aria-labelledby="stySalonTitle" style="width:min(860px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="stySalonTitle">💇 מספרה לחיות</h3><div class="sub" id="stySalonSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="stySalonBody"></div>
+  </div>
+</dialog>
+<dialog id="styAlbumDlg" aria-labelledby="styAlbumTitle" style="width:min(860px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="styAlbumTitle">📸 אלבום החיות</h3><div class="sub" id="styAlbumSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="tabs" role="tablist" id="styAlbumTabs"></div>
+    <div class="row" id="styAlbumBody"></div>
+  </div>
+</dialog>
+<dialog id="styMagicDlg" aria-labelledby="styMagicTitle" style="width:min(860px, calc(100vw - 32px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="styMagicTitle">🦄 חיות קסם לאימוץ</h3><div class="sub" id="styMagicSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="styMagicBody"></div>
+  </div>
+</dialog>
+
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -26403,6 +26537,586 @@ svg.crz-horse.run .crz-lb, svg.crz-horse.run .crz-lf2 { transform-box: fill-box;
     $('#houseActions').hidden = true; $('#houseFood').hidden = true;
     $('#houseTab').replaceChildren(el('div', { class: 'fun-housepanel' }, el('p', { class: 'muted', style: 'margin:0' }, 'כל החיות ביחד — בוחרים הרפתקה! 🎉'), funTiles(id => funOpen(id))));
   };
+  // ================= 💇 pets salon · 📸 pets album · 🦄 magic creatures (style agent, round 7) =================
+  // p.salon = { cut, dye, glit, claws, clip, clipC, day } is drawn by petSVG everywhere (wrapped below).
+  // magic creatures are mix-and-match kinds (pbRegister) + their own drawn pieces; p.look.mgA = the creature's magic accent color.
+  const styPets = () => (typeof allPets === 'function' ? allPets() : pet ? [pet] : []).filter(p => p && p.onboarded !== false);
+  const styCoin = (n, why) => { if (typeof addCoins === 'function') try { addCoins(n, why); } catch {} };
+  const stySave = p => { if (p === pet) savePet(); if (typeof petzSave === 'function') petzSave(); else if (p === pet) savePet(); try { renderPet(); } catch {} };
+  const styDaily = (key, max) => { const t = localToday(), d = store.get('styDaily', {}); if (d.t !== t) { d.t = t; d.n = {}; } d.n[key] = (d.n[key] || 0) + 1; store.set('styDaily', d); return d.n[key] <= max; };
+  const styNm = p => (p && p.name) || 'החיה';
+  const STY_ST = `stroke="${O}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"`, STY_ST2 = `stroke="${O}" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round"`;
+  const STY_RB = ['#ff6f7a', '#ffb35c', '#ffe066', '#7ed48a', '#6fb8ff', '#b37bff'];
+
+  // ---------- geometry of any pet (head top, head ellipse, body, feet) ----------
+  function styGeo(p, look) {
+    const kind = PZ_KIND[p.kind] ? p.kind : 'cat', L = Object.assign(petzLook(p), look || {});
+    const PB = PB_SPECIES[kind] ? Object.assign({}, PB_SPECIES[kind], Object.fromEntries(PB_PART_KEYS.filter(k => L[k] != null).map(k => [k, L[k]]))) : null;
+    const G = PB ? pbGeo(PB) : pzGeo(['owl', 'turtle', 'fish', 'whale'].includes(kind) ? kind : 'std');
+    const a = PB ? pbAnchor(G) : (ANCHOR[kind] || ANCHOR.cat);
+    const H = G.V || G.head || [24, G.eyeY - 1, G.body[2] * .9, G.body[3] * .72];
+    const B = G.body;
+    let feet;
+    if (PB) { const ft = L.feet || PB.feet; feet = ['none', 'cloud', 'tentacles'].includes(ft) ? [] : (() => { const fy = Math.min(46.4, B[1] + B[3] - 1.3), fx = B[2] * (G.one ? .42 : .53); return [[24 - fx, fy], [24 + fx, fy]]; })(); }
+    else feet = kind === 'owl' ? [[19.2, 46.8], [28.8, 46.8]] : ['fish', 'whale'].includes(kind) ? [] : kind === 'turtle' ? [[16.8, 46.2], [31.2, 46.2]] : [[18.4, 46.2], [29.6, 46.2]];
+    return { kind, L, PB, G, a, H, B, feet, hx: a.head[0], hy: a.head[1], hw: H[2], hcy: H[1], ey: G.eyeY };
+  }
+
+  // ---------- 💇 salon options ----------
+  const STY_CUTS = [['none', 'רגיל'], ['fluffy', 'ענן פרוותי'], ['poodle', 'פונפוני פודל'], ['mohawk', 'מוהוק'], ['curls', 'תלתלים'], ['braids', 'צמות'], ['pigtails', 'קוקיות'], ['bun', 'גולגול'],
+    ['bangs', 'פוני'], ['bob', 'קארה'], ['long', 'ארוך וגולש'], ['mane', 'רעמה מלכותית'], ['swirl', 'סלסול'], ['spiky', 'קוצים'], ['heart', 'לב מגולח']];
+  const STY_DYES = [['none', 'בלי צבע', null], ['pink', 'ורוד', { c1: '#ffb3d9', c2: '#ff6fae' }], ['lilac', 'סגלגל', { c1: '#dcc6ff', c2: '#9b6bff' }], ['mint', 'מנטה', { c1: '#bff2dc', c2: '#3fbf95' }],
+    ['sky', 'תכלת', { c1: '#c4e8ff', c2: '#5aa8ff' }], ['lemon', 'לימון', { c1: '#fff1a0', c2: '#ffc02e' }], ['peach', 'אפרסק', { c1: '#ffd2b8', c2: '#ff8f6b' }], ['berry', 'פטל', { c1: '#ff7aa8', c2: '#c2185b' }],
+    ['cotton', 'צמר גפן מתוק', { pattern: 'ombre', c1: '#ffc2e0', c2: '#9fd6ff' }], ['sunset', 'שקיעה', { pattern: 'ombre', c1: '#ffe066', c2: '#ff6fae' }], ['mermaid', 'בת ים', { pattern: 'ombre', c1: '#8fe6d0', c2: '#b58cff' }],
+    ['rainbow', 'קשת', { pattern: 'rainbow', c1: '#ffffff' }], ['galaxy', 'גלקסיה', { pattern: 'galaxy', c1: '#7b6be0', c2: '#ff9ad5' }], ['candy', 'לבבות', { pattern: 'hearts', c1: '#fff0f6', c2: '#ff7aa8' }]];
+  const STY_CLAWS = [['none', 'בלי', ''], ['pink', 'ורוד', '#ff5a8a'], ['bubble', 'מסטיק', '#ff9ad5'], ['purple', 'סגול', '#a86bff'], ['blue', 'כחול', '#4fa3ff'], ['mint', 'מנטה', '#5fd6a8'],
+    ['yellow', 'צהוב', '#ffd23f'], ['red', 'אדום', '#ff4a4a'], ['white', 'לבן', '#ffffff'], ['black', 'שחור', '#3a3a4a'], ['rainbow', 'קשת', 'rb'], ['gold', 'נצנצי זהב', 'gold']];
+  const STY_CLIPS = [['none', 'בלי'], ['bow', 'פפיון'], ['heart', 'לב'], ['star', 'כוכב'], ['flower', 'פרח'], ['butterfly', 'פרפר'], ['crown', 'כתר'], ['cherry', 'דובדבנים'], ['pearls', 'פנינים'], ['rainbow', 'קשת'], ['scrunchie', 'גומייה']];
+  const STY_CLIPC = ['#ff5a8a', '#ff9ad5', '#b58cff', '#7ec8ff', '#6fcf7f', '#ffd84d', '#ff9a3c', '#ffffff'];
+  const styDyeLook = s => { const d = s && STY_DYES.find(x => x[0] === s.dye); const L = Object.assign({}, d && d[2] || {}); if (s && s.glit) L.glitter = true; if (s && s.cut === 'fluffy') L.fluff = true; return L; };
+
+  function styCut(id, g, hc, tie) {
+    const { hx, hy, hw, hcy, ey, B, H, feet, L } = g, st = STY_ST, st2 = STY_ST2, hl = pzLight(hc, .5), dk = pzMix(hc, O, .16), F = pzF;
+    const top = Math.max(hy, hcy - H[3]);
+    switch (id) {
+      case 'fluffy': return { f: pzShape(hx, F(top + 1.2), 7.6, 3.8, `fill="${hc}" ${st2}`, 1.6) + pzShape(F(hx - 2), F(top + .4), 2.8, 1.2, `fill="${hl}"`, 1) };
+      case 'poodle': return { f: pzShape(hx, F(top - 2.6), 7, 5.6, `fill="${hc}" ${st2}`, 1.8) + `<ellipse cx="${F(hx - 2.4)}" cy="${F(top - 4.6)}" rx="2.2" ry="1.3" fill="#fff" opacity=".6"/>`
+        + feet.map(([x, y]) => pzShape(F(x), F(y - 3.4), 4.2, 2.9, `fill="${hc}" ${st2}`, 1.7)).join('') };
+      case 'mohawk': {
+        const mc = L.c2 && L.c2 !== hc ? L.c2 : pzMix(hc, '#ff5a8a', .5), n = 5, x0 = hx - 6.2, w = 12.4 / n;
+        let d = `M${F(x0)} ${F(top + 3.6)}`;
+        for (let k = 0; k < n; k++) d += ` L${F(x0 + (k + .5) * w)} ${F(top - 5.4 - (2 - Math.abs(k - 2)) * 1.5)} L${F(x0 + (k + 1) * w)} ${F(top + (k === n - 1 ? 3.6 : .6))}`;
+        return { f: `<path d="${d} Z" fill="${mc}" ${st2}/><path d="M${F(hx - 3)} ${F(top - 1)} l1 -3.4 M${F(hx + .6)} ${F(top - 2)} l.6 -4" stroke="#fff" stroke-width=".8" opacity=".6" stroke-linecap="round"/>` };
+      }
+      case 'curls': return { f: [200, 222, 245, 270, 295, 318, 340].map(t => { const r = t * Math.PI / 180, x = F(hx + hw * .82 * Math.cos(r)), y = F(hcy + H[3] * 1.0 * Math.sin(r) + 1.2);
+        return `<circle cx="${x}" cy="${y}" r="2.8" fill="${hc}" ${st2}/><path d="M${F(x - 1.1)} ${y} a1.1 1.1 0 1 1 1.1 1.1" fill="none" stroke="${dk}" stroke-width=".7" stroke-linecap="round"/>`; }).join('') };
+      case 'braids': {
+        const side = s => { const x0 = 24 + s * hw * .9, y0 = hcy + 3; let b = ''; for (let i = 0; i < 5; i++) { const x = F(x0 + s * i * .3), y = F(y0 + i * 3.2); b += `<ellipse cx="${x}" cy="${y}" rx="2.7" ry="2.1" transform="rotate(${(i % 2 ? 1 : -1) * 28} ${x} ${y})" fill="${hc}" ${st2}/>`; }
+          const ex = F(x0 + s * 1.5), eyy = F(y0 + 15.6); return b + `<path d="M${F(ex - 1.8)} ${F(eyy + .6)} L${ex} ${F(eyy + 5)} L${F(ex + 1.8)} ${F(eyy + .6)} Z" fill="${hc}" ${st2}/><circle cx="${ex}" cy="${F(eyy)}" r="1.7" fill="${tie}" ${st2}/>`; };
+        return { f: side(-1) + side(1) + `<path d="M${hx} ${F(top + .6)} v3.4" stroke="${dk}" stroke-width=".9" stroke-linecap="round" opacity=".7"/>` };
+      }
+      case 'pigtails': return {
+        b: [-1, 1].map(s => pzShape(F(24 + s * hw * .86), F(top + 3.2), 3.9, 6.6, `fill="${hc}" ${st2}`, 1.2, s * 42) + pzShape(F(24 + s * hw * .92), F(top + 1.4), 1.2, 3, `fill="${hl}" opacity=".7"`, 0, s * 42)).join(''),
+        f: [-1, 1].map(s => `<circle cx="${F(24 + s * hw * .62)}" cy="${F(top + 5.6)}" r="1.9" fill="${tie}" ${st2}/><circle cx="${F(24 + s * hw * .62 - .6)}" cy="${F(top + 5)}" r=".6" fill="#fff" opacity=".8"/>`).join('') };
+      case 'bun': return { f: pzShape(hx, F(top - 2.8), 5.4, 4.6, `fill="${hc}" ${st2}`, 1.3) + `<path d="M${F(hx - 2.6)} ${F(top - 4)} q2.4 -1.6 4.6 .2" fill="none" stroke="${hl}" stroke-width="1" stroke-linecap="round"/>`
+        + pzShape(hx, F(top + 1.4), 4.8, 1.6, `fill="${tie}" ${st2}`, 1.2) };
+      case 'bangs': case 'bob': {
+        const y0 = top + .4, y1 = Math.min(ey - 4.6, top + 8.4), xl = hx - hw * .66, xr = hx + hw * .66;
+        let d = `M${F(xl)} ${F(y1)} Q${F(xl - .6)} ${F(y0 - 1)} ${hx} ${F(y0 - 1.6)} Q${F(xr + .6)} ${F(y0 - 1)} ${F(xr)} ${F(y1)}`;
+        if (id === 'bangs') { const n = 4, w = (xr - xl) / n; for (let k = n - 1; k >= 0; k--) d += ` Q${F(xl + (k + .5) * w)} ${F(y1 + 2.4)} ${F(xl + k * w)} ${F(y1)}`; }
+        else d += ` L${F(xl)} ${F(y1)}`;
+        const fr = `<path d="${d} Z" fill="${hc}" ${st2}/><path d="M${F(hx - hw * .35)} ${F(y0 + 1.2)} q2 -1.2 4.4 -1" fill="none" stroke="${hl}" stroke-width="1" stroke-linecap="round"/>`;
+        if (id === 'bangs') return { f: fr };
+        const R = hw + 2.2;
+        return { b: `<path d="M${F(24 - R)} ${F(hcy + 9)} L${F(24 - R)} ${F(hcy - 2)} Q${F(24 - R)} ${F(top - 2.8)} 24 ${F(top - 2.8)} Q${F(24 + R)} ${F(top - 2.8)} ${F(24 + R)} ${F(hcy - 2)} L${F(24 + R)} ${F(hcy + 9)} Q${F(24 + R - 2)} ${F(hcy + 10.5)} ${F(24 + R - 4)} ${F(hcy + 9)} L${F(24 - R + 4)} ${F(hcy + 9)} Q${F(24 - R + 2)} ${F(hcy + 10.5)} ${F(24 - R)} ${F(hcy + 9)} Z" fill="${hc}" ${st2}/>`, f: fr };
+      }
+      case 'long': {
+        const lock = `<path d="M${F(24 - hw * .15)} ${F(top + .4)} C${F(24 - hw * 1.08)} ${F(top - .8)} ${F(24 - hw * 1.32)} ${F(hcy + 2)} ${F(24 - hw * 1.16)} ${F(hcy + 13)} Q${F(24 - hw * 1.08)} ${F(hcy + 21)} ${F(24 - hw * .98)} ${F(hcy + 22.5)} Q${F(24 - hw * .84)} ${F(hcy + 20)} ${F(24 - hw * .74)} ${F(hcy + 22)} Q${F(24 - hw * .58)} ${F(hcy + 18.5)} ${F(24 - hw * .56)} ${F(hcy + 13)} L${F(24 - hw * .4)} ${F(hcy)} Z" fill="${hc}" ${st2}/>`
+          + `<path d="M${F(24 - hw * 1.08)} ${F(hcy + 4)} Q${F(24 - hw * 1.14)} ${F(hcy + 12)} ${F(24 - hw * .98)} ${F(hcy + 18)}" fill="none" stroke="${hl}" stroke-width="1.1" stroke-linecap="round"/>`;
+        return { b: pzBoth(lock), f: `<path d="M${F(hx - hw * .74)} ${F(top + 5.2)} Q${F(hx - hw * .2)} ${F(top - 2.6)} ${F(hx + hw * .55)} ${F(top + 3)} Q${F(hx)} ${F(top + 1.6)} ${F(hx - hw * .74)} ${F(top + 5.2)} Z" fill="${hc}" ${st2}/>` };
+      }
+      case 'mane': return { b: pzShape(24, F(hcy + 1.2), F(hw + 4.4), F(H[3] + 4.2), `fill="${dk}" ${st}`, 1.5) + pzShape(24, F(hcy + 1.2), F(hw + 2), F(H[3] + 2), `fill="${hc}"`, 1.2) };
+      case 'swirl': { const d = `M${hx} ${F(top + 2.4)} C${F(hx - 4.5)} ${F(top - 3.6)} ${F(hx + 3.6)} ${F(top - 9.6)} ${F(hx + 4.6)} ${F(top - 4.6)} C${F(hx + 5.2)} ${F(top - 1.6)} ${F(hx + 1.2)} ${F(top - 1.6)} ${F(hx + 1.8)} ${F(top - 3.8)}`;
+        return { f: pzTube(d, 3.4, hc, 1.05) + `<path d="${d}" fill="none" stroke="${hl}" stroke-width="1" stroke-linecap="round" opacity=".9"/>` }; }
+      case 'spiky': return { f: [-3, 3, -2, 2, -1, 1, 0].map(i => `<path d="M-2.3 1 L0 -7.4 L2.3 1 Z" transform="translate(${hx} ${F(top + 3.4)}) rotate(${i * 21})" fill="${i % 2 ? hc : dk}" ${st2}/>`).join('') };
+      case 'heart': { const r = Math.min(B[2], B[3]) * .5; return { f: `<path d="${pzHeart(24, F(B[1] - .4), F(r))}" fill="${pzLight(pzMix(hc, '#ff5a8a', .55), .3)}" stroke="#fff" stroke-width="1" stroke-dasharray="1.4 1"/>` }; }
+    }
+    return {};
+  }
+  function styClip(id, c, x, y, s = 1) {
+    const st2 = STY_ST2, g = b => `<g transform="translate(${pzF(x)} ${pzF(y)}) rotate(16) scale(${s})">${b}</g>`, lc = pzLight(c, .4);
+    switch (id) {
+      case 'bow': return g(`<path d="M0 0 C-3.5 -4.5 -7.5 -2 -6.5 1.8 C-5.5 4.5 -2 2.5 0 0 Z M0 0 C3.5 -4.5 7.5 -2 6.5 1.8 C5.5 4.5 2 2.5 0 0 Z" fill="${c}" ${st2}/><circle r="1.7" fill="${lc}" ${st2}/><circle cx="-4.2" cy="-.6" r=".7" fill="#fff" opacity=".8"/>`);
+      case 'heart': return g(`<path d="${pzHeart(0, 0, 3.4)}" fill="${c}" ${st2}/><circle cx="-1.4" cy="-1.2" r=".8" fill="#fff" opacity=".8"/>`);
+      case 'star': return g(`<polygon points="${starPts(0, 0, 4.2, 1.9)}" fill="${c}" ${st2}/><polygon points="${starPts(4.4, 3.4, 2, .9)}" fill="${lc}" ${st2}/>`);
+      case 'flower': return g([0, 72, 144, 216, 288].map(d => { const r = d * Math.PI / 180; return `<circle cx="${pzF(2.4 * Math.cos(r))}" cy="${pzF(2.4 * Math.sin(r))}" r="2.1" fill="${c}" ${st2}/>`; }).join('') + `<circle r="1.5" fill="#ffd84d" ${st2}/>`);
+      case 'butterfly': return g(`<path d="M0 0 C-2 -5 -7 -5 -6 -1 C-5.6 .6 -2 .8 0 0 Z M0 0 C2 -5 7 -5 6 -1 C5.6 .6 2 .8 0 0 Z" fill="${c}" ${st2}/><path d="M0 0 C-2 3.6 -5.4 3.4 -4.6 1 Z M0 0 C2 3.6 5.4 3.4 4.6 1 Z" fill="${lc}" ${st2}/><path d="M0 -2.4 V2" stroke="${O}" stroke-width="1.3" stroke-linecap="round"/>`);
+      case 'crown': return g(`<path d="M-5 2 L-5.6 -3.2 L-2.4 -.8 L0 -4.8 L2.4 -.8 L5.6 -3.2 L5 2 Z" fill="#ffd23f" ${st2}/><circle cy="-.2" r="1" fill="${c}"/><circle cx="-3.3" cy=".7" r=".6" fill="${c}"/><circle cx="3.3" cy=".7" r=".6" fill="${c}"/>`);
+      case 'cherry': return g(`<path d="M-2.2 1.4 Q-1 -3.4 1.6 -5 M2.4 1.8 Q2 -2.6 1.6 -5" fill="none" stroke="#3f9a4f" stroke-width="1.1" stroke-linecap="round"/><path d="M1.6 -5 q2.4 -1.4 3.6 .4 q-2 .8 -3.6 -.4 Z" fill="#6fcf7f" ${st2}/><circle cx="-2.2" cy="2.4" r="2.3" fill="#ff4a5a" ${st2}/><circle cx="2.6" cy="2.8" r="2.3" fill="#ff4a5a" ${st2}/><circle cx="-2.9" cy="1.7" r=".6" fill="#fff"/>`);
+      case 'pearls': return g(`<rect x="-6.4" y="-1.6" width="12.8" height="3.2" rx="1.6" fill="${c}" ${st2}/>` + [-4.4, -1.5, 1.5, 4.4].map(dx => `<circle cx="${dx}" cy="0" r="1.25" fill="#fffaf2" stroke="#c9b2d6" stroke-width=".4"/>`).join(''));
+      case 'rainbow': return g(['#ff6f7a', '#ffd84d', '#7ed48a', '#6fb8ff'].map((col, i) => `<path d="M${-6 + i * 1.3} 2 A${6 - i * 1.3} ${6 - i * 1.3} 0 0 1 ${6 - i * 1.3} 2" fill="none" stroke="${col}" stroke-width="1.4"/>`).join('') + `<circle cx="-5.8" cy="2.4" r="1.6" fill="#fff" ${st2}/><circle cx="5.8" cy="2.4" r="1.6" fill="#fff" ${st2}/>`);
+      case 'scrunchie': return g(pzShape(0, 0, 4.2, 2.6, `fill="${c}" ${st2}`, 1.6) + `<ellipse rx="2" ry=".9" fill="${pzMix(c, O, .25)}"/>`);
+    }
+    return '';
+  }
+  function styClaws(col, feet) {
+    if (!col || !feet.length) return '';
+    return feet.map(([x, y]) => [-1.9, 0, 1.9].map((dx, i) => {
+      const c = col === 'rb' ? ['#ff6f7a', '#ffe066', '#6fb8ff'][i] : col === 'gold' ? '#ffd23f' : col;
+      return `<ellipse cx="${pzF(x + dx)}" cy="${pzF(y + 1.35)}" rx=".95" ry=".72" fill="${c}" stroke="${O}" stroke-width=".4"/><circle cx="${pzF(x + dx - .3)}" cy="${pzF(y + 1.1)}" r=".26" fill="#fff"/>`
+        + (col === 'gold' && i === 1 ? pzSpark(x + dx + 1.4, y - .4, 1.1, '#fff6c4') : '');
+    }).join('')).join('');
+  }
+  function stySalonLayers(p, g, s) {
+    let b = '', f = '';
+    const hc = g.L.c1, tie = s.clipC || '#ff5a8a';
+    if (s.cut && s.cut !== 'none') { const c = styCut(s.cut, g, hc, tie); b += c.b || ''; f += c.f || ''; }
+    if (s.claws && s.claws !== 'none') { const c = STY_CLAWS.find(x => x[0] === s.claws); if (c) f += styClaws(c[2], g.feet); }
+    if (s.clip && s.clip !== 'none') { const top = Math.max(g.hy, g.hcy - g.H[3]); f += styClip(s.clip, s.clipC || STY_CLIPC[0], g.hx + g.hw * .6, top + (['bun', 'pigtails'].includes(s.cut) ? 7.2 : 4.6), 1.2); }
+    if (s.day === localToday()) f += [[5, 8, 2.4], [43, 14, 1.8], [41, 34, 2]].map(([x, y, r], i) => pzSpark(x, y, r, i % 2 ? '#fff6a8' : '#ffffff', .95)).join('');
+    return { b, f };
+  }
+
+  // ---------- 🦄 magic creatures ----------
+  function styWing(col, col2, x, y, s = 1, rot = 0) {
+    const w = `<g transform="translate(${pzF(x)} ${pzF(y)}) rotate(${rot}) scale(${s})"><path d="M1.4 1.4 C-1.6 -9.6 -8.6 -17.6 -18 -17.4 Q-16.4 -13.4 -14.6 -12.2 Q-17.4 -9.2 -13.8 -6.6 Q-15.4 -3 -10.2 -2.2 Q-9.4 1.8 -4.6 1.8 Q-2 3.6 1.4 1.4 Z" fill="${col}" ${STY_ST}/>`
+      + `<path d="M.6 .6 C-1.6 -6.4 -6.4 -12 -11.6 -12.6 Q-10.4 -9 -8.8 -8 Q-9.8 -4.4 -6 -3.8 Q-5 -1 -1.4 -.2 Z" fill="${col2}" ${STY_ST2}/><path d="M-15.4 -13.6 Q-11 -9.4 -8 -5.4 M-12.2 -6.2 Q-8.6 -3.6 -5.2 -1.2" fill="none" stroke="#fff" stroke-width=".8" stroke-linecap="round" opacity=".75"/></g>`;
+    return pzBoth(w);
+  }
+  const styFlame = (x, y, s, c1, c2, rot = 0) => `<g transform="translate(${pzF(x)} ${pzF(y)}) rotate(${rot}) scale(${s})"><path d="M0 0 C-4.6 -1 -4.6 -6 -1.6 -9 C-1.2 -7 0 -6.4 .6 -6.2 C.2 -9 1.6 -11.6 3.4 -12.6 C2.8 -10 5.6 -7.6 5 -3.6 C4.6 -1 2.6 .2 0 0 Z" fill="${c1}" ${STY_ST2}/><path d="M.8 -1.3 C-1.3 -1.7 -1.5 -4 -.2 -5.4 C.2 -4.4 1 -4.2 1.6 -4.6 C1.8 -3 3 -2.4 2.6 -1.7 C2.2 -1.1 1.5 -1.1 .8 -1.3 Z" fill="${c2}"/></g>`;
+  const styFlake = (x, y, r, c) => `<path d="M${pzF(x - r)} ${pzF(y)} h${pzF(2 * r)} M${pzF(x - r / 2)} ${pzF(y - r * .87)} l${pzF(r)} ${pzF(r * 1.74)} M${pzF(x + r / 2)} ${pzF(y - r * .87)} l${pzF(-r)} ${pzF(r * 1.74)}" stroke="${c}" stroke-width=".9" stroke-linecap="round"/>`;
+  // [id, name, voice, parts, look, palettes [c1, c2, accent, belly], blurb, draw(g, L) → { b, f }]
+  const STY_MG_LIST = [
+    ['mg_phoenix', 'עוף החול', 880, { body: 'round', head: 'round', ears: 'none', nose: 'beak', face: 'none', top: 'none', tail: 'none', feet: 'bird' },
+      { c1: '#ffb347', c2: '#ff5a5a', bellyC: '#fff1b8', mouth: 'none', padC: '#ffb020', mgA: '#ffe066', cheekC: '#ff7a7a' },
+      [['#ffb347', '#ff5a5a', '#ffe066', '#fff1b8'], ['#a8dcff', '#5a7bff', '#d9f4ff', '#eef8ff'], ['#ffb3d9', '#ff5a8a', '#ffe066', '#fff0f6'], ['#d9b3ff', '#8e5bd6', '#ffd1f0', '#f6eeff'], ['#ffe27a', '#ffb020', '#fff6c4', '#fffbe6']],
+      'ציפור של אש שמחה, נוצות שזוהרות כמו שקיעה 🔥', (g, L) => {
+        const { B, hx, hy, H } = g, A = L.mgA, top = Math.max(hy, g.hcy - H[3]), ax = 24 + B[2] * .72, ay = B[1] + B[3] * .35;
+        const plume = (dx, dy, k) => pzTube(`M${pzF(ax)} ${pzF(ay)} C${pzF(ax + 6)} ${pzF(ay + 1)} ${pzF(ax + dx - 2)} ${pzF(ay + dy + 4)} ${pzF(ax + dx)} ${pzF(ay + dy)}`, 2.6, k ? L.c2 : L.c1, 1.3) + styFlame(ax + dx - .6, ay + dy + .6, .62, A, '#fff', 30 + k * 10);
+        return { b: `<circle cx="24" cy="${pzF(B[1] - 8)}" r="23" fill="${A}" opacity=".2"/>` + plume(10, -12, 0) + plume(13, -5, 1) + plume(11, 2, 0) + styWing(L.c2, L.c1, 24 - B[2] * .55, B[1] - B[3] * .3, 1, -8) + pzBoth(styFlame(24 - B[2] * .55 - 20.4, B[1] - B[3] * .3 - 14.6, .62, A, '#fff', -50)),
+          f: styFlame(hx - 3.4, top + 3.2, .62, L.c2, A, -24) + styFlame(hx + 3.4, top + 3.2, .62, L.c2, A, 24) + styFlame(hx - .6, top + 2.4, .82, A, '#fff') };
+      }],
+    ['mg_griffin', 'גריפון', 420, { body: 'round', head: 'round', ears: 'none', nose: 'hooked', face: 'penguin', top: 'none', tail: 'lion', feet: 'paws' },
+      { c1: '#e8b86b', c2: '#8a5a3c', bellyC: '#ffffff', mouth: 'none', mgA: '#fff6e6', tipC: '#8a5a3c', cheekC: '#ffb3a0' },
+      [['#e8b86b', '#8a5a3c', '#fff6e6', '#ffffff'], ['#f3f0ff', '#9aa8c0', '#ffffff', '#ffffff'], ['#c9a7ff', '#6b4fb8', '#ffe6f3', '#fff6fb'], ['#9fd6ff', '#3f6fb8', '#ffffff', '#ffffff'], ['#ffcf9a', '#c2185b', '#fff1b8', '#fffaf0']],
+      'חצי נשר וחצי אריה — אמיץ, נאמן ורך 🦅', (g, L) => {
+        const { B, hx, hw, hcy } = g, A = L.mgA;
+        return { b: styWing(L.c2, A, 24 - B[2] * .55, B[1] - B[3] * .3, 1.02, -8),
+          f: pzBoth(`<path d="M${pzF(24 - hw * .78)} ${pzF(hcy - 5)} Q${pzF(24 - hw * 1.2)} ${pzF(hcy - 15)} ${pzF(24 - hw * .44)} ${pzF(hcy - 12)} Q${pzF(24 - hw * .5)} ${pzF(hcy - 9)} ${pzF(24 - hw * .42)} ${pzF(hcy - 7.6)} Z" fill="${L.c2}" ${STY_ST2}/>`)
+            + `<path d="M${pzF(hx - 4)} ${pzF(B[1] - B[3] * .45)} q2 2.2 4 0 q2 2.2 4 0 M${pzF(hx - 2)} ${pzF(B[1] - B[3] * .1)} q2 2.2 4 0" fill="none" stroke="#fff" stroke-width="1.1" stroke-linecap="round" opacity=".9"/>` };
+      }],
+    ['mg_wingcat', 'חתול מכונף', 760, { body: 'round', head: 'round', ears: 'cat', nose: 'pink', face: 'none', top: 'none', tail: 'long', feet: 'paws', whiskers: true },
+      { c1: '#e6d2ff', c2: '#b58cff', bellyC: '#fff6fb', mouth: 'cat', mgA: '#ffffff', tipC: '#ffd84d' },
+      [['#e6d2ff', '#b58cff', '#ffffff', '#fff6fb'], ['#ffd1e6', '#ff7aa8', '#fff6c4', '#fff0f6'], ['#ffffff', '#9fd6ff', '#e6f7ff', '#ffffff'], ['#ffcf9a', '#ff8f3a', '#ffffff', '#fff6ea'], ['#4a4a5a', '#2a2a3a', '#d9c7ff', '#8a8aa0']],
+      'חתלתול עם כנפי מלאך שעף לישון על עננים ☁️', (g, L) => {
+        const { B } = g;
+        return { b: styWing(L.mgA, pzLight(L.c2, .45), 24 - B[2] * .55, B[1] - B[3] * .3, .98, -8), f: pzSpark(6, 14, 2.2, '#fff6a8') + pzSpark(42, 24, 1.8, '#ffffff') };
+      }],
+    ['mg_pegasus', 'פגסוס', 520, { body: 'round', head: 'oval', ears: 'cat', nose: 'muzzle', face: 'none', top: 'none', tail: 'none', feet: 'hooves' },
+      { c1: '#ffffff', c2: '#ff9ad5', bellyC: '#fff0f6', mouth: 'smile', mgA: '#bfe6ff', padC: '#b58cff' },
+      [['#ffffff', '#ff9ad5', '#bfe6ff', '#fff0f6'], ['#e6d2ff', '#7ec8ff', '#ffffff', '#f6f0ff'], ['#cfe8ff', '#b58cff', '#fff6c4', '#eef8ff'], ['#ffe0cc', '#ffb020', '#ffffff', '#fff6ea'], ['#5b5fb8', '#ffe27a', '#d9c7ff', '#8a8fd8']],
+      'סוס קטן עם כנפיים ורעמה צבעונית, דוהר בשמיים 🌈', (g, L) => {
+        const { B, hx, hy, hw, hcy, H } = g, top = Math.max(hy, hcy - H[3]), m = L.c2, ml = pzLight(m, .45), tx = 24 + B[2] * .72, ty = B[1] + B[3] * .1;
+        const locks = pzBoth(pzShape(pzF(24 - hw * .86), pzF(hcy - 3), 3.8, 4.4, `fill="${m}" ${STY_ST2}`, 1) + pzShape(pzF(24 - hw * .98), pzF(hcy + 3.2), 3.4, 4, `fill="${m}" ${STY_ST2}`, 1) + pzShape(pzF(24 - hw * .86), pzF(hcy + 8.6), 3, 3.4, `fill="${ml}" ${STY_ST2}`, 1));
+        return { b: pzTube(`M${pzF(tx)} ${pzF(ty)} C${pzF(tx + 9)} ${pzF(ty - 3)} ${pzF(tx + 11)} ${pzF(ty + 5)} ${pzF(tx + 8)} ${pzF(ty + 11)}`, 4.6, m, 1.4) + `<path d="M${pzF(tx + 2)} ${pzF(ty - .6)} C${pzF(tx + 8)} ${pzF(ty - 2)} ${pzF(tx + 9)} ${pzF(ty + 5)} ${pzF(tx + 7.2)} ${pzF(ty + 9)}" fill="none" stroke="${ml}" stroke-width="1.4" stroke-linecap="round"/>`
+            + styWing(L.mgA, '#ffffff', 24 - B[2] * .55, B[1] - B[3] * .3, .98, -8) + locks,
+          f: pzTube(`M${pzF(hx + 1)} ${pzF(top + .6)} C${pzF(hx - 5)} ${pzF(top - 1)} ${pzF(hx - 6.4)} ${pzF(top + 5)} ${pzF(hx - 2.6)} ${pzF(top + 5.6)}`, 3.2, m, 1.05) + pzTube(`M${pzF(hx + 1.4)} ${pzF(top + .8)} C${pzF(hx + 4.6)} ${pzF(top + 1)} ${pzF(hx + 5)} ${pzF(top + 4.4)} ${pzF(hx + 2.8)} ${pzF(top + 4.8)}`, 2.4, ml, 1.05) };
+      }],
+    ['mg_kirin', 'קירין', 600, { body: 'round', head: 'round', ears: 'deer', nose: 'muzzle', face: 'none', top: 'none', tail: 'lion', feet: 'hooves' },
+      { c1: '#a8ead0', c2: '#ff9a3c', bellyC: '#fff6d8', mouth: 'smile', mgA: '#ffd84d', tipC: '#ff9a3c', padC: '#6b8f7a' },
+      [['#a8ead0', '#ff9a3c', '#ffd84d', '#fff6d8'], ['#ffd1e6', '#b58cff', '#ffe27a', '#fff6fb'], ['#bfe6ff', '#ff6fae', '#fff1b8', '#f2fbff'], ['#ffe98a', '#ff5a5a', '#ffffff', '#fffbe6'], ['#d9c7ff', '#4fbf9f', '#fff6c4', '#f6f0ff']],
+      'יצור אגדות עם קרניים של זהב ורעמה של להבות, מביא מזל ✨', (g, L) => {
+        const { B, hx, hy, hw, hcy, H, feet } = g, top = Math.max(hy, hcy - H[3]), A = L.mgA, m = L.c2;
+        const mane = [-58, -34, -12, 12, 34, 58].map((d, i) => { const r = (d - 90) * Math.PI / 180, x = 24 + (hw + 1.2) * Math.cos(r), y = hcy + (H[3] + 1) * Math.sin(r) + 3; return styFlame(x - 1, y + 3, .7, i % 2 ? m : pzLight(m, .25), A, d); }).join('')
+          + pzBoth(styFlame(24 - hw - .6, hcy + 3, .72, m, A, -76));
+        const ant = pzBoth(`<path d="M${pzF(hx - 3.2)} ${pzF(top + 2.4)} L${pzF(hx - 5.4)} ${pzF(top - 5.6)} M${pzF(hx - 4.6)} ${pzF(top - 2.2)} L${pzF(hx - 7.6)} ${pzF(top - 3.8)}" fill="none" stroke="${O}" stroke-width="3.2" stroke-linecap="round"/><path d="M${pzF(hx - 3.2)} ${pzF(top + 2.4)} L${pzF(hx - 5.4)} ${pzF(top - 5.6)} M${pzF(hx - 4.6)} ${pzF(top - 2.2)} L${pzF(hx - 7.6)} ${pzF(top - 3.8)}" fill="none" stroke="${A}" stroke-width="1.6" stroke-linecap="round"/>`);
+        const scales = [[-4, -1], [0, -1], [4, -1], [-2, 2.4], [2, 2.4]].map(([dx, dy]) => `<path d="M${pzF(24 + dx - 2)} ${pzF(B[1] + dy)} q2 2.4 4 0" fill="none" stroke="${m}" stroke-width=".9" stroke-linecap="round" opacity=".75"/>`).join('');
+        return { b: mane, f: ant + scales + feet.map(([x, y]) => pzShape(pzF(x), pzF(y + 1.6), 4.8, 1.9, `fill="#ffffff" ${STY_ST2}`, 1.5)).join('') };
+      }],
+    ['mg_yeti', 'יטי קטן', 260, { body: 'cloud', head: 'round', ears: 'small', nose: 'big', face: 'monkey', top: 'none', tail: 'puff', feet: 'paws' },
+      { c1: '#ffffff', c2: '#cfe8ff', bellyC: '#cfe6ff', fluff: true, mouth: 'open', mgA: '#8fd0ff', noseC: '#6b7bb8', cheekC: '#ff9ec0' },
+      [['#ffffff', '#cfe8ff', '#8fd0ff', '#cfe6ff'], ['#fff0f6', '#ffc2e0', '#ff9ad5', '#ffd9ea'], ['#f0fff8', '#b8f0d8', '#5fd6a8', '#cff5e6'], ['#f6f0ff', '#d9c7ff', '#b58cff', '#e6dcff'], ['#fffbe6', '#ffe98a', '#ffc02e', '#fff1c4']],
+      'גור שלג פרוותי וענק־חיבוקים מההרים הקפואים ❄️', (g, L) => {
+        const { hx, hy, hcy, H } = g, top = Math.max(hy, hcy - H[3]), A = L.mgA;
+        return { f: pzBoth(`<path d="M${pzF(hx - 6.4)} ${pzF(top + 3.4)} Q${pzF(hx - 9.4)} ${pzF(top - 2.6)} ${pzF(hx - 6.8)} ${pzF(top - 4.4)} Q${pzF(hx - 6.2)} ${pzF(top - .6)} ${pzF(hx - 3.8)} ${pzF(top + 2.4)} Z" fill="#fff6d8" ${STY_ST2}/>`)
+          + pzShape(hx, pzF(top + 1), 5, 2.6, `fill="${L.c1}" ${STY_ST2}`, 1.6) + styFlake(4, 12, 2.4, A) + styFlake(44, 20, 2, A) + styFlake(42, 3, 1.6, A) };
+      }],
+    ['mg_cloudsheep', 'כבשת ענן', 340, { body: 'cloud', head: 'round', ears: 'side', nose: 'pink', face: 'sheep', top: 'wool', tail: 'puff', feet: 'cloud' },
+      { c1: '#ffffff', c2: '#efe6ff', bellyC: '#ffffff', fluff: true, mouth: 'cat', mgA: '#ffe066', cheekC: '#ff9ec0' },
+      [['#ffffff', '#efe6ff', '#ffe066', '#ffffff'], ['#ffe6f3', '#fff6fb', '#ff9ad5', '#fff6fb'], ['#e6f7ff', '#ffffff', '#7ec8ff', '#ffffff'], ['#fff6c4', '#fffdf0', '#ffb020', '#ffffff'], ['#e6dcff', '#f7f2ff', '#b58cff', '#ffffff']],
+      'כבשה רכה כמו ענן, ישנה על קשת ומריחה כמו גשם 🌈', (g, L) => {
+        const { B } = g, cy = B[1] + 4;
+        return { b: STY_RB.map((c, i) => `<path d="M${pzF(24 - 21 + i * 1.9)} ${pzF(cy)} A${pzF(21 - i * 1.9)} ${pzF(21 - i * 1.9)} 0 0 1 ${pzF(24 + 21 - i * 1.9)} ${pzF(cy)}" fill="none" stroke="${c}" stroke-width="2" opacity=".85"/>`).join(''),
+          f: pzShape(6, 6, 4, 2.2, `fill="#fff" ${STY_ST2}`, 1.4) + pzShape(42, 30, 3.4, 1.9, `fill="#fff" ${STY_ST2}`, 1.4) + pzSpark(41, 8, 2, L.mgA) + `<path d="M5.6 11.6 q-.9 1.6 0 2.3 q.9 -.7 0 -2.3 Z" fill="#8fd3ff"/>` };
+      }],
+    ['mg_starbunny', 'ארנב כוכבים', 900, { body: 'round', head: 'round', ears: 'bunny', nose: 'star', face: 'stars', top: 'none', tail: 'star', feet: 'paws' },
+      { c1: '#cdbcff', c2: '#ffd84d', bellyC: '#f3ecff', mouth: 'cat', mgA: '#ffd84d', pattern: 'stars', tipC: '#ffd84d' },
+      [['#cdbcff', '#ffd84d', '#ffd84d', '#f3ecff'], ['#3d3a78', '#ffd84d', '#fff1a0', '#6b68b8'], ['#ffc2e0', '#fff1a0', '#ffe066', '#fff0f6'], ['#bff2dc', '#ffffff', '#fff1a0', '#effff8'], ['#bfe6ff', '#ffd84d', '#ffffff', '#eef8ff']],
+      'ארנבונת שנפלה מהשמיים בלילה של כוכבים נופלים ⭐', (g, L) => {
+        const { hx, hy, hcy, H, B } = g, top = Math.max(hy, hcy - H[3]), A = L.mgA;
+        return { b: `<circle cx="24" cy="${pzF(B[1] - 10)}" r="22" fill="${A}" opacity=".16"/>`,
+          f: `<polygon points="${starPts(hx, pzF(top + 3.6), 2.6, 1.15)}" fill="${A}" ${STY_ST2}/>` + pzSpark(5, 18, 2.2, A) + pzSpark(43, 12, 1.8, '#fff') + pzSpark(42, 36, 2, A) + `<circle cx="7" cy="30" r=".8" fill="#fff"/><circle cx="40" cy="4" r=".7" fill="#fff"/>` };
+      }],
+    ['mg_jellyfairy', 'מדוזה פיה', 1000, { body: 'tiny', head: 'big', ears: 'none', nose: 'none', face: 'none', top: 'none', tail: 'none', feet: 'none' },
+      { c1: '#ffc2e0', c2: '#b58cff', bellyC: '#fff0f6', belly: false, mouth: 'smile', mgA: '#bfeaff' },
+      [['#ffc2e0', '#b58cff', '#bfeaff', '#fff0f6'], ['#bfeaff', '#7ec8ff', '#e6d2ff', '#eef8ff'], ['#e6d2ff', '#ff9ad5', '#bff2dc', '#f6f0ff'], ['#ffd6b8', '#ff8f6b', '#fff1a0', '#fff6ea'], ['#c9f5e6', '#4fc9a0', '#ffc2e0', '#effff8']],
+      'מדוזה קטנה עם כנפי פיה שמרחפת וזוהרת בחושך 🫧', (g, L) => {
+        const { hw, hcy, H } = g, bot = hcy + H[3] * .64, c2 = L.c2, A = L.mgA;
+        const tent = [-2, -1, 0, 1, 2].map(k => { const x = 24 + k * hw * .46, d = `M${pzF(x)} ${pzF(bot - 1)} q${k % 2 ? 2 : -2} 3 ${pzF(k * .8)} 5.6 q${k % 2 ? -2 : 2} 3 ${pzF(k * .6)} 5.6 q${k % 2 ? 1.6 : -1.6} 2.4 ${pzF(k * .4)} 4.4`; return pzTube(d, k % 2 ? 1.8 : 2.6, k % 2 ? A : c2, 1); }).join('');
+        const wing = `<path d="M${pzF(24 - hw * .74)} ${pzF(hcy - 1)} C${pzF(24 - hw * 1.3)} ${pzF(hcy - 13)} ${pzF(24 - hw * 1.62)} ${pzF(hcy - 5)} ${pzF(24 - hw * 1.3)} ${pzF(hcy + 1)} C${pzF(24 - hw * 1.56)} ${pzF(hcy + 6)} ${pzF(24 - hw * 1.12)} ${pzF(hcy + 9)} ${pzF(24 - hw * .8)} ${pzF(hcy + 4)} Z" fill="${A}" fill-opacity=".8" ${STY_ST2}/><path d="M${pzF(24 - hw * .9)} ${pzF(hcy - 1)} Q${pzF(24 - hw * 1.2)} ${pzF(hcy - 6)} ${pzF(24 - hw * 1.36)} ${pzF(hcy - 6.4)}" fill="none" stroke="#fff" stroke-width=".9" opacity=".8" stroke-linecap="round"/>`;
+        const n = 7, x0 = 24 - hw * .98, w = hw * 1.96 / n;
+        let fr = `M${pzF(x0)} ${pzF(bot - 2.4)} Q24 ${pzF(bot + .6)} ${pzF(x0 + n * w)} ${pzF(bot - 2.4)}`;
+        for (let k = n - 1; k >= 0; k--) fr += ` Q${pzF(x0 + (k + .5) * w)} ${pzF(bot + 3.2 - Math.abs(k - 3) * .5)} ${pzF(x0 + k * w)} ${pzF(bot - 2.4 + (k === 0 ? 0 : .2))}`;
+        return { b: tent + pzBoth(wing),
+          f: `<path d="${fr} Z" fill="${pzLight(c2, .35)}" ${STY_ST2}/><path d="M${pzF(24 - hw * .62)} ${pzF(hcy - H[3] * .42)} Q${pzF(24 - hw * .3)} ${pzF(hcy - H[3] * .92)} ${pzF(24 + hw * .18)} ${pzF(hcy - H[3] * .86)}" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".75"/>`
+            + [[.42, -.62, 1.3], [.62, -.3, .9], [-.2, -.78, .8]].map(([dx, dy, r]) => `<circle cx="${pzF(24 + dx * hw)}" cy="${pzF(hcy + dy * H[3])}" r="${r}" fill="#fff" opacity=".7"/>`).join('')
+            + `<polygon points="${starPts(24, pzF(hcy - H[3] - .6), 2.2, 1)}" fill="#ffe27a" ${STY_ST2}/>` };
+      }],
+    ['mg_moonowl', 'ינשוף ירח', 360, { body: 'round', head: 'one', ears: 'cat', nose: 'beak', face: 'none', top: 'none', tail: 'feathers', feet: 'bird' },
+      { c1: '#7f84e0', c2: '#3d3a78', bellyC: '#dfe6ff', mouth: 'none', mgA: '#ffe27a', padC: '#ffb020', cheekC: '#ff9ad5' },
+      [['#7f84e0', '#3d3a78', '#ffe27a', '#dfe6ff'], ['#c4b4ff', '#6b5bd6', '#fff6c4', '#f3eeff'], ['#f3f4ff', '#9aa8c0', '#ffe27a', '#ffffff'], ['#ffc2e0', '#8e5bd6', '#fff1a0', '#fff0f6'], ['#5aa0c8', '#1f3f6b', '#bfeaff', '#d9f0ff']],
+      'ינשופה חכמה שיודעת את כל הסיפורים של הלילה 🌙', (g, L) => {
+        const { B, hx, hy, hcy, H } = g, A = L.mgA, top = Math.max(hy, hcy - H[3]), cx = hx, cy = top + 5.4;
+        const wing = `<path d="M${pzF(24 - B[2] * .98)} ${pzF(B[1] - 3)} C${pzF(24 - B[2] * 1.22)} ${pzF(B[1] + 4)} ${pzF(24 - B[2] * 1.02)} ${pzF(B[1] + 11)} ${pzF(24 - B[2] * .62)} ${pzF(B[1] + 13)} C${pzF(24 - B[2] * .74)} ${pzF(B[1] + 6)} ${pzF(24 - B[2] * .76)} ${pzF(B[1] + 1)} ${pzF(24 - B[2] * .98)} ${pzF(B[1] - 3)} Z" fill="${L.c2}" ${STY_ST2}/>`
+          + `<circle cx="${pzF(24 - B[2] * .92)}" cy="${pzF(B[1] + 4)}" r=".7" fill="${A}"/><circle cx="${pzF(24 - B[2] * .84)}" cy="${pzF(B[1] + 8.4)}" r=".55" fill="#fff"/>`;
+        return { b: `<path d="M9 -9 a9 9 0 1 0 11.2 12.2 a6.8 6.8 0 1 1 -11.2 -12.2 Z" fill="${A}" ${STY_ST2}/>`,
+          f: pzBoth(wing) + `<path d="M${pzF(cx - .6)} ${pzF(cy - 2.8)} a2.8 2.8 0 1 0 2.6 4.2 a2.1 2.1 0 1 1 -2.6 -4.2 Z" fill="${A}" ${STY_ST2}/>` + pzSpark(42, 4, 2, A) + pzSpark(45, 20, 1.3, '#fff') };
+      }],
+  ];
+  const STY_MG = {};
+  STY_MG_LIST.forEach(([id, name, voice, parts, look, pals, blurb, draw]) => {
+    STY_MG[id] = { id, name, look, pals, blurb, draw };
+    try { pbRegister(id, name, voice, parts, look); } catch {}
+  });
+
+  // ---------- petSVG: salon looks + creature pieces, for every pet everywhere ----------
+  const styPetSVG0 = petSVG;
+  petSVG = function (p, opts = {}) {
+    const s = p && p.salon, mg = p && STY_MG[p.kind];
+    if (!s && !mg) return styPetSVG0(p, opts);
+    try {
+      if (mg) p = Object.assign({}, p, { look: Object.assign({}, mg.look, p.look) });
+      const dl = s ? styDyeLook(s) : {}, o2 = Object.keys(dl).length ? Object.assign({}, opts, { look: Object.assign({}, dl, opts.look) }) : opts;
+      const g = styGeo(p, o2.look);
+      let b = '', f = '';
+      if (mg) { const m = mg.draw(g, g.L) || {}; b += m.b || ''; f += m.f || ''; }
+      if (s) { const m = stySalonLayers(p, g, s); b += m.b; f += m.f; }
+      let out = styPetSVG0(p, f ? Object.assign({}, o2, { over: f + (o2.over || '') }) : o2);
+      if (b) out = out.replace('translate(-24 -47)">', m => m + b);
+      return out;
+    } catch (e) { return styPetSVG0(p, opts); }
+  };
+
+  // ================= 💇 the salon =================
+  const STY_STEPS = [['wash', '🫧 חפיפה'], ['rinse', '🚿 שטיפה'], ['dry', '💨 פן'], ['cut', '✂️ תספורת'], ['dye', '🎨 צבע'], ['claws', '💅 ציפורניים'], ['clip', '🎀 סיכות']];
+  const STY_WATCH = ['וואו! 😍', 'גם אני רוצה!', 'איזה יופי!', 'את נראית מהמם/ת!', 'עוד מעט תורי! 🥺', 'חחח בועות! 🫧', 'איזה צבע מדליק!', 'זה ממש מתאים לך 💖'];
+  let styS = null;
+  const styBg = () => `<svg class="sty-salon-bg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">`
+    + `<rect width="600" height="360" fill="#ffe6f2"/>${Array.from({ length: 16 }, (_, i) => `<rect x="${i * 40}" width="20" height="270" fill="#fff2f8"/>`).join('')}`
+    + `<path d="M0 34 Q30 52 60 34 T120 34 T180 34 T240 34 T300 34 T360 34 T420 34 T480 34 T540 34 T600 34 V0 H0 Z" fill="#ffb3d1" stroke="${O}" stroke-width="2.5"/>`
+    + `<rect y="262" width="600" height="98" fill="#fff"/>${Array.from({ length: 30 }, (_, i) => `<rect x="${(i % 15) * 40 + (i >= 15 ? 20 : 0)}" y="${262 + (i >= 15 ? 49 : 0)}" width="20" height="49" fill="#ffd1e6"/>`).join('')}${Array.from({ length: 30 }, (_, i) => `<rect x="${(i % 15) * 40 + (i >= 15 ? 0 : 20)}" y="${262 + (i >= 15 ? 49 : 0)}" width="20" height="49" fill="#ffc2dc" opacity=".35"/>`).join('')}<path d="M0 262 H600" stroke="${O}" stroke-width="3"/>`
+    + `<ellipse cx="370" cy="140" rx="92" ry="104" fill="#ffd84d" stroke="${O}" stroke-width="3"/><ellipse cx="370" cy="140" rx="78" ry="90" fill="#dff3ff" stroke="${O}" stroke-width="2.5"/><path d="M322 90 l40 -30 M318 120 l60 -46" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".8"/>`
+    + Array.from({ length: 9 }, (_, i) => { const a = (i / 8) * Math.PI * 1.2 - Math.PI * 1.1; return `<circle cx="${(370 + 92 * Math.cos(a)).toFixed(1)}" cy="${(140 + 104 * Math.sin(a)).toFixed(1)}" r="7" fill="#fff9d6" stroke="${O}" stroke-width="2"/>`; }).join('')
+    + `<rect x="492" y="120" width="96" height="10" rx="4" fill="#c98f3a" stroke="${O}" stroke-width="2.5"/>${[['#ff9ad5', 500], ['#7ec8ff', 522], ['#b58cff', 544], ['#6fcf7f', 566]].map(([c, x], i) => `<rect x="${x}" y="${88 + (i % 2) * 8}" width="16" height="${32 - (i % 2) * 8}" rx="5" fill="${c}" stroke="${O}" stroke-width="2"/><rect x="${x + 5}" y="${80 + (i % 2) * 8}" width="6" height="9" rx="2" fill="#fff" stroke="${O}" stroke-width="2"/>`).join('')}`
+    + `<rect x="492" y="190" width="96" height="10" rx="4" fill="#c98f3a" stroke="${O}" stroke-width="2.5"/><path d="M506 190 v-26 h20 v26 M546 190 q0 -30 14 -30 q14 0 14 30" fill="#fff1b8" stroke="${O}" stroke-width="2.5"/><text x="560" y="182" font-size="16" text-anchor="middle">🧴</text>`
+    + `<rect x="18" y="58" width="150" height="46" rx="16" fill="#fff" stroke="${O}" stroke-width="3"/><text x="93" y="89" font-size="22" text-anchor="middle" font-family="Rubik, sans-serif" fill="#e0457b">מספרה לחיות</text>`
+    + `<rect x="14" y="246" width="206" height="20" rx="8" fill="#b58cff" stroke="${O}" stroke-width="3"/><rect x="24" y="264" width="10" height="36" fill="#9b6b43" stroke="${O}" stroke-width="2.5"/><rect x="196" y="264" width="10" height="36" fill="#9b6b43" stroke="${O}" stroke-width="2.5"/><text x="115" y="261" font-size="12" text-anchor="middle" font-family="Rubik, sans-serif" fill="#fff">✨ מחכים בתור ✨</text>`
+    + `<rect x="358" y="276" width="24" height="40" fill="#c9c2e8" stroke="${O}" stroke-width="3"/><ellipse cx="370" cy="320" rx="46" ry="10" fill="#b8bcc8" stroke="${O}" stroke-width="3"/><path d="M300 212 Q298 280 318 282 H422 Q442 280 440 212 Q440 198 426 198 Q418 198 418 214 V250 H322 V214 Q322 198 314 198 Q300 198 300 212 Z" fill="#ff7aa8" stroke="${O}" stroke-width="3"/><rect x="316" y="246" width="108" height="30" rx="12" fill="#ff9ec4" stroke="${O}" stroke-width="3"/>`
+    + `</svg>`;
+  const styToolSVG = t => t === 'wash' ? svg(`<rect x="8" y="14" width="32" height="22" rx="8" fill="#ffe066" ${S}/><circle cx="16" cy="22" r="2" fill="#ffc02e"/><circle cx="28" cy="28" r="2.4" fill="#ffc02e"/><circle cx="34" cy="10" r="4" fill="#fff" fill-opacity=".8" ${S2}/><circle cx="41" cy="16" r="2.6" fill="#fff" fill-opacity=".8" ${S2}/>`)
+    : t === 'rinse' ? svg(`<path d="M30 4 Q42 4 42 16 V20" fill="none" stroke="${O}" stroke-width="6" stroke-linecap="round"/><path d="M30 4 Q42 4 42 16 V20" fill="none" stroke="#c9d6ea" stroke-width="3" stroke-linecap="round"/><path d="M18 20 H44 L40 28 H22 Z" fill="#9fd6ff" ${S}/><path d="M24 32 l-2 6 M31 32 v7 M38 32 l2 6" stroke="#4fa3ff" stroke-width="2.4" stroke-linecap="round"/>`)
+    : svg(`<path d="M8 12 H30 Q38 12 38 20 Q38 28 30 28 H8 Z" fill="#ff9ad5" ${S}/><circle cx="12" cy="20" r="4" fill="#fff" ${S2}/><path d="M22 28 L20 44 H28 L30 28" fill="#b58cff" ${S}/><path d="M3 16 h-2 M4 20 h-3 M3 24 h-2" stroke="#7ec8ff" stroke-width="2" stroke-linecap="round"/>`);
+  function openSalon(start) {
+    const list = styPets();
+    if (!list.length) { if (typeof openAdopt === 'function') openAdopt(); return; }
+    const first = start && list.includes(start) ? start : list[0];
+    styS = { q: [first.id, ...list.filter(p => p !== first).map(p => p.id)], i: 0, step: 'wash', prog: 0, bub: [], done: [], line: '' };
+    styDrawSalon();
+    if (!$('#stySalonDlg').open) $('#stySalonDlg').showModal();
+    SFX.pet(first.kind);
+  }
+  const styCur = () => { const L = styPets(); return L.find(p => p.id === styS.q[styS.i]) || L[0]; };
+  function styDrawSalon(line) {
+    const S0 = styS, all = styPets(), p = styCur(); if (!p) return;
+    p.salon = p.salon || {};
+    const waiting = S0.q.filter((id, i) => i !== S0.i).map(id => all.find(x => x.id === id)).filter(Boolean);
+    $('#stySalonSub').textContent = `${styNm(p)} בכיסא 💺 · ${waiting.length ? `${waiting.length} מחכים בתור` : 'אין תור, רק את/ה!'}`;
+    const rub = ['wash', 'rinse', 'dry'].includes(S0.step), stepIdx = STY_STEPS.findIndex(s => s[0] === S0.step);
+    const mood = S0.step === 'wash' ? 'happy' : S0.step === 'rinse' ? 'surprised' : S0.step === 'dry' ? (S0.prog > .5 ? 'happy' : 'silly') : 'love';
+    const chair = el('div', { class: 'sty-chairpet' + (S0.step === 'dry' && S0.drying ? ' blow' : '') }, el('div', { class: 'in', html: petSVG(p, { mood }) }));
+    const fx = el('div', { class: 'sty-fx' });
+    const bench = el('div', { class: 'sty-bench' }, ...waiting.slice(0, 5).map((w, i) => el('button', { type: 'button', class: 'sty-wait' + (S0.done.includes(w.id) ? ' done' : ''), title: `${styNm(w)} — לחיצה: עכשיו תורו/ה!`, 'aria-label': `להושיב את ${styNm(w)} בכיסא`,
+      onclick: () => { S0.i = S0.q.indexOf(w.id); S0.step = 'wash'; S0.prog = 0; S0.bub = []; SFX.pet(w.kind); styDrawSalon(`${styNm(w)} קפץ/ה לכיסא! 💺`); } },
+      el('span', { class: 'in', html: petSVG(w, { mood: S0.watch && S0.watch[i] || (S0.done.includes(w.id) ? 'happy' : '') }) }), S0.done.includes(w.id) ? el('span', { class: 'sty-ok' }, '✨') : null)),
+      waiting.length > 5 ? el('span', { class: 'sty-more' }, `+${waiting.length - 5}`) : null);
+    const say = el('span', { class: 'pz-say sty-say' }, line || S0.line || ({ wash: `משפשפים את ${styNm(p)} עם הספוג — הרבה בועות! 🫧`, rinse: 'שוטפים את כל הבועות עם המקלחת 🚿', dry: 'מייבשים עם הפן — פרווה רכה ונפוחה! 💨' }[S0.step] || `מה נעשה ל${styNm(p)}? ✨`));
+    S0.line = '';
+    const cursor = el('span', { class: 'sty-cursor', html: rub ? styToolSVG(S0.step) : '' }); cursor.hidden = true;
+    const stage = el('div', { class: 'sty-stage' + (rub ? ' rub tool-' + S0.step : ''), html: styBg() }, bench, chair, fx, say, cursor);
+    const bar = el('div', { class: 'xpbar sty-bar' }, el('i')); bar.firstChild.style.width = Math.round(Math.min(1, S0.prog) * 100) + '%';
+    // bubbles that stay until rinsed
+    const addBub = (x, y) => { const b = el('span', { class: 'sty-bub' }); b.style.left = x + '%'; b.style.top = y + '%'; b.style.setProperty('--s', (0.6 + Math.random() * .9).toFixed(2)); fx.append(b); return b; };
+    if (['wash', 'rinse'].includes(S0.step)) S0.bub.forEach(([x, y]) => addBub(x, y));
+    const react = () => { S0.watch = waiting.map(() => pzPick(['love', 'surprised', 'happy'])); bench.querySelectorAll('.sty-wait').forEach((b, i) => { b.classList.remove('hop'); void b.offsetWidth; b.classList.add('hop'); const w = waiting[i]; if (w) b.querySelector('.in').innerHTML = petSVG(w, { mood: S0.watch[i] }); }); };
+    const nextStep = msg => { SFX.yay(); react(); S0.prog = 0; if (S0.step === 'rinse') S0.bub = []; S0.step = STY_STEPS[Math.min(STY_STEPS.length - 1, stepIdx + 1)][0]; const w = waiting.length ? `${styNm(pzPick(waiting))}: ${pzPick(STY_WATCH)}` : ''; styDrawSalon(msg + (w ? ' · ' + w : '')); };
+    const rel = e => { const r = stage.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 100, (e.clientY - r.top) / r.height * 100]; };
+    const onPet = (x, y) => x > 47 && x < 77 && y > 18 && y < 80;
+    let down = false, last = null;
+    const work = (x, y, amt) => {
+      if (!onPet(x, y)) return;
+      S0.prog = Math.min(1, S0.prog + amt);
+      bar.firstChild.style.width = Math.round(S0.prog * 100) + '%';
+      if (S0.step === 'wash') { if (Math.random() < .55 || amt > .05) { S0.bub.push([x, y]); addBub(x, y); tone(700 + Math.random() * 500, .05, 'sine', 0, .04); } }
+      if (S0.step === 'rinse') { const d = el('span', { class: 'sty-drop' }); d.style.left = (x + (Math.random() - .5) * 6) + '%'; d.style.top = (y - 8) + '%'; fx.append(d); setTimeout(() => d.remove(), 700);
+        const bs = fx.querySelectorAll('.sty-bub'); const keep = Math.round(S0.bub.length * (1 - S0.prog)); [...bs].slice(keep).forEach(b => { b.classList.add('pop'); setTimeout(() => b.remove(), 300); }); }
+      if (S0.step === 'dry') { chair.classList.add('blow'); const a = el('span', { class: 'sty-air' }); a.style.left = x + '%'; a.style.top = y + '%'; fx.append(a); setTimeout(() => a.remove(), 600); if (Math.random() < .3) tone(180 + Math.random() * 60, .08, 'sawtooth', 0, .02); }
+      if (S0.prog >= 1) { down = false; nextStep({ wash: 'כל כך הרבה בועות! עכשיו שוטפים 🚿', rinse: 'נקי ונוצץ! עכשיו פן 💨', dry: `וואו, ${styNm(p)} רכה ונפוחה כמו ענן! ✂️ בוחרים תספורת` }[S0.step]); }
+    };
+    if (rub) {
+      stage.addEventListener('pointerdown', e => { down = true; last = rel(e); work(...last, .06); });
+      stage.addEventListener('pointermove', e => { const [x, y] = rel(e); cursor.hidden = false; cursor.style.left = x + '%'; cursor.style.top = y + '%'; if (!down) return; const dd = last ? Math.hypot(x - last[0], y - last[1]) : 0; last = [x, y]; work(x, y, Math.min(.05, dd / 160)); });
+      ['pointerup', 'pointerleave', 'pointercancel'].forEach(t => stage.addEventListener(t, () => { down = false; if (S0.step === 'dry') setTimeout(() => chair.classList.remove('blow'), 200); }));
+      stage.addEventListener('pointerleave', () => { cursor.hidden = true; });
+    }
+    const steps = el('div', { class: 'tabs sty-steps', role: 'tablist' }, ...STY_STEPS.map(([id, n], i) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(S0.step === id), class: i < stepIdx ? 'past' : '', onclick: () => { S0.step = id; S0.prog = 0; styDrawSalon(); } }, n)));
+    const set = (k, v, msg) => { p.salon = Object.assign({}, p.salon, { [k]: v }); stySave(p); SFX.pop(); react(); styDrawSalon(msg); };
+    const prevOf = patch => petSVG(Object.assign({}, p, { salon: Object.assign({}, p.salon, patch, { day: '' }) }));
+    let panel;
+    if (rub) panel = el('div', { class: 'row' }, bar, el('p', { class: 'muted sty-help' }, S0.step === 'wash' ? '👆 משפשפים על החיה (או לוחצים עליה הרבה פעמים) עד שהפס מתמלא' : S0.step === 'rinse' ? '👆 מעבירים את המקלחת מעל החיה עד שכל הבועות נעלמות' : '👆 מחזיקים ומזיזים את הפן מעל החיה'),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { S0.prog = 1; nextStep('דילגנו ⏩'); } }, 'לדלג ⏩')));
+    else if (S0.step === 'cut') panel = el('div', { class: 'pz-opts sty-opts' }, ...STY_CUTS.map(([id, n]) => el('button', { type: 'button', 'aria-pressed': String((p.salon.cut || 'none') === id), onclick: () => { tone(1200, .04, 'square', 0, .03); tone(1400, .04, 'square', .07, .03); set('cut', id, id === 'none' ? 'חזרנו למראה הרגיל 🙂' : `✂️ סניפ סניפ! ${n}!`); } },
+      el('span', { class: 'ic', html: prevOf({ cut: id }) }), n)));
+    else if (S0.step === 'dye') panel = el('div', { class: 'row' }, el('div', { class: 'pz-opts sty-opts' }, ...STY_DYES.map(([id, n, lk]) => el('button', { type: 'button', 'aria-pressed': String((p.salon.dye || 'none') === id), onclick: () => set('dye', id, id === 'none' ? 'בלי צבע — הפרווה הטבעית 🐾' : `🎨 צבענו ב${n}!`) },
+      el('span', { class: 'ic', html: prevOf({ dye: id }) }), n))),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!p.salon.glit), onclick: () => set('glit', !p.salon.glit, p.salon.glit ? 'בלי נצנצים' : '✨ נצנצים על כל הפרווה!') }, '✨ נצנצים בפרווה')));
+    else if (S0.step === 'claws') panel = el('div', { class: 'row' }, el('span', { class: 'lbl' }, 'לק לציפורניים של הכפות 💅'),
+      el('div', { class: 'pz-sw' }, ...STY_CLAWS.map(([id, n, c]) => { const b = el('button', { type: 'button', class: 'pz-swb', title: n, 'aria-label': n, 'aria-pressed': String((p.salon.claws || 'none') === id), onclick: () => set('claws', id, id === 'none' ? 'בלי לק' : `💅 לק ${n}!`) }, id === 'none' ? '✕' : '');
+        b.style.setProperty('--c', c === 'rb' ? 'conic-gradient(#ff6f7a 0 33%, #ffe066 0 66%, #6fb8ff 0)' : c === 'gold' ? 'radial-gradient(circle at 35% 35%, #fff6c4, #ffc02e)' : c || '#fff'); return b; })),
+      g0(p).feet.length ? null : el('p', { class: 'muted' }, `ל${styNm(p)} אין כפות... אבל הלק שמור לפעם הבאה 😉`));
+    else panel = el('div', { class: 'row' }, el('div', { class: 'pz-opts sty-opts' }, ...STY_CLIPS.map(([id, n]) => el('button', { type: 'button', 'aria-pressed': String((p.salon.clip || 'none') === id), onclick: () => set('clip', id, id === 'none' ? 'בלי סיכה' : `🎀 ${n} מתוק/ה!`) },
+      el('span', { class: 'ic', html: id === 'none' ? prevOf({ clip: 'none' }) : `<svg viewBox="-9 -9 18 18">${styClip(id, p.salon.clipC || STY_CLIPC[0], 0, 0, 1.2)}</svg>` }), n))),
+      el('span', { class: 'lbl' }, 'צבע לסיכה ולגומיות'),
+      el('div', { class: 'pz-sw' }, ...STY_CLIPC.map(c => { const b = el('button', { type: 'button', class: 'pz-swb', 'aria-label': 'צבע', 'aria-pressed': String((p.salon.clipC || STY_CLIPC[0]) === c), onclick: () => set('clipC', c) }); b.style.setProperty('--c', c); return b; })));
+    const finish = () => {
+      p.salon = Object.assign({}, p.salon, { day: localToday() }); stySave(p);
+      if (!S0.done.includes(p.id)) S0.done.push(p.id);
+      confetti($('#stySalonDlg .confetti-c')); SFX.yay(); SFX.pet(p.kind);
+      if (styDaily('salon', 5)) styCoin(6, `${styNm(p)} יצא/ה מהמספרה מהמם/ת 💇`);
+      const nextI = S0.q.findIndex((id, i) => i !== S0.i && !S0.done.includes(id));
+      if (nextI >= 0) { const n = all.find(x => x.id === S0.q[nextI]); S0.i = nextI; S0.step = 'wash'; S0.prog = 0; S0.bub = []; S0.watch = null; styDrawSalon(`${styNm(p)} מהמם/ת! ✨ עכשיו התור של ${styNm(n)} 💺`); }
+      else { S0.step = 'cut'; styDrawSalon(`כולם יפים ומטופחים! 💖 אפשר ללכת להצטלם 📸`); }
+    };
+    $('#stySalonBody').replaceChildren(stage, steps, panel,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: finish }, waiting.some(w => !S0.done.includes(w.id)) ? '✨ סיימתי! הבא/ה בתור ←' : '✨ סיימתי!'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { $('#stySalonDlg').close(); openPetAlbum('cam'); } }, '📸 להצטלם ביחד')));
+  }
+  const g0 = p => styGeo(p);
+
+  // ================= 📸 the pets album =================
+  let styAlbum = store.get('styAlbum', []);
+  const styAlbumSave = () => { if (!store.set('styAlbum', styAlbum)) { styAlbum.shift(); store.set('styAlbum', styAlbum); } };
+  const STY_BGS = [['studio', '📸 סטודיו'], ['home', '🏡 בבית'], ['garden', '🌷 גינה'], ['beach', '🏖️ ים'], ['rainbow', '🌈 קשת'], ['night', '🌙 לילה'], ['party', '🎉 מסיבה'], ['snow', '❄️ שלג'], ['sukkah', '🌿 סוכה'], ['space', '🪐 חלל']];
+  const STY_FRAMES = [['polaroid', 'פולארויד'], ['none', 'בלי'], ['hearts', 'לבבות'], ['gold', 'זהב'], ['flowers', 'פרחים'], ['stars', 'כוכבים'], ['rainbow', 'קשת'], ['film', 'סרט צילום']];
+  const STY_MOODS = [['', '🙂 רגיל'], ['happy', '😄 חיוך'], ['love', '😍 אהבה'], ['silly', '😜 מצחיק'], ['surprised', '😮 הפתעה'], ['sleepy', '😴 ישנוני']];
+  const STY_STK = ['heart', 'star', 'sparkles', 'rainbow', 'crown', 'balloon', 'bow', 'cake', 'gift', 'flower', 'butterfly', 'sun', 'cloud', 'moon', 'icecream', 'lollipop', 'gem', 'music', 'cupcake', 'unicorn'].filter(id => STICKERS[id]);
+  function styPhotoBg(bg, u) {
+    const s = `stroke="${O}" stroke-width="3" stroke-linejoin="round"`, s2 = `stroke="${O}" stroke-width="2"`;
+    const sky = (a, b) => `<defs><linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="480" height="360" fill="url(#${u}s)"/>`;
+    switch (bg) {
+      case 'home': return `<rect width="480" height="360" fill="#ffe9f3"/>${Array.from({ length: 12 }, (_, i) => `<rect x="${i * 40}" width="20" height="270" fill="#fff3f8"/>`).join('')}<rect x="300" y="40" width="130" height="100" rx="8" fill="#bfe6ff" ${s}/><path d="M365 40 V140 M300 90 H430" ${s2}/><circle cx="400" cy="66" r="12" fill="#fff3a8"/>`
+        + `<rect x="40" y="50" width="70" height="56" rx="4" fill="#fff6e6" stroke="#c98f3a" stroke-width="6"/><path d="M50 98 L68 74 L80 88 L90 80 L102 98 Z" fill="#6fcf7f"/><rect y="270" width="480" height="90" fill="#f2d9b8"/><path d="M0 270 H480" ${s}/><ellipse cx="240" cy="318" rx="200" ry="30" fill="#b58cff" opacity=".45"/>`;
+      case 'garden': return sky('#9fdcff', '#e6f7ff') + `<circle cx="410" cy="60" r="30" fill="#ffe066" ${s}/><path d="M60 70 q14 -18 30 0 q16 -10 22 6 q10 12 -8 14 h-40 q-16 -6 -4 -20 Z" fill="#fff" ${s2}/>`
+        + `<path d="M0 240 Q120 200 240 236 T480 226 V360 H0 Z" fill="#8fd08a" ${s}/>` + [30, 80, 150, 330, 400, 452].map((x, i) => `<path d="M${x} 300 v-34" stroke="#3f9a4f" stroke-width="4"/><circle cx="${x}" cy="262" r="10" fill="${['#ff9ad5', '#ffd84d', '#b58cff', '#ff6b6b', '#7ec8ff', '#ff9a3c'][i]}" ${s2}/><circle cx="${x}" cy="262" r="4" fill="#fff6c4"/>`).join('');
+      case 'beach': return sky('#8fd3ff', '#fff3d6') + `<circle cx="90" cy="70" r="30" fill="#ffd84d" ${s}/><path d="M0 200 Q120 186 240 200 T480 196 V250 H0 Z" fill="#4fb3f0" ${s2}/><path d="M30 214 q14 -8 28 0 M200 222 q14 -8 28 0 M380 212 q14 -8 28 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`
+        + `<path d="M0 240 Q240 226 480 244 V360 H0 Z" fill="#f7dca0" ${s}/><path d="M396 250 L380 120" stroke="${O}" stroke-width="4"/><path d="M320 132 Q380 80 440 108 Z" fill="#ff6b8b" ${s}/><path d="M346 118 L380 120 L404 100" fill="none" stroke="#fff" stroke-width="3"/><g transform="translate(60 300) scale(1.1)">${stickerInner('shell') || ''}</g>`;
+      case 'rainbow': return sky('#ffe6f3', '#e6f0ff') + STY_RB.map((c, i) => `<path d="M${40 + i * 16} 300 A${200 - i * 16} ${200 - i * 16} 0 0 1 ${440 - i * 16} 300" fill="none" stroke="${c}" stroke-width="16"/>`).join('')
+        + [[60, 290], [420, 290], [240, 60]].map(([x, y]) => pzShape(x, y, 56, 26, `fill="#fff" ${s2}`, 1.4)).join('') + `<rect y="300" width="480" height="60" fill="#fff" opacity=".7"/>`;
+      case 'night': return sky('#1f2466', '#4b3f8f') + Array.from({ length: 34 }, (_, i) => `<circle cx="${(i * 97) % 480}" cy="${(i * 53) % 230}" r="${1 + (i % 3) * .7}" fill="#fff" opacity="${.5 + (i % 4) * .12}"/>`).join('')
+        + `<path d="M380 34 a40 40 0 1 0 44 58 a32 32 0 1 1 -44 -58 Z" fill="#fff3a8" ${s2}/><path d="M0 280 Q240 250 480 280 V360 H0 Z" fill="#2c3a6b" ${s2}/>` + [[70, 70], [180, 40], [300, 110]].map(([x, y]) => `<polygon points="${starPts(x, y, 9, 4)}" fill="#ffe27a"/>`).join('');
+      case 'party': return `<rect width="480" height="360" fill="#e9dcff"/>${Array.from({ length: 8 }, (_, i) => `<path d="M${i * 60} 0 L${i * 60 + 30} 34 L${i * 60 + 60} 0 Z" fill="${STY_RB[i % 6]}" ${s2}/>`).join('')}<path d="M0 0 H480" ${s}/>`
+        + [[50, 120, '#ff5a8a'], [100, 90, '#ffd84d'], [410, 110, '#7ec8ff'], [440, 150, '#6fcf7f']].map(([x, y, c]) => `<path d="M${x} ${y + 30} q-6 40 4 80" fill="none" stroke="${O}" stroke-width="1.6"/><ellipse cx="${x}" cy="${y}" rx="22" ry="28" fill="${c}" ${s}/><ellipse cx="${x - 8}" cy="${y - 10}" rx="5" ry="8" fill="#fff" opacity=".6"/>`).join('')
+        + Array.from({ length: 30 }, (_, i) => `<rect x="${(i * 71) % 480}" y="${40 + (i * 37) % 240}" width="6" height="10" rx="2" fill="${STY_RB[i % 6]}" transform="rotate(${i * 33} ${(i * 71) % 480} ${40 + (i * 37) % 240})"/>`).join('') + `<rect y="290" width="480" height="70" fill="#c9b2f0"/>`;
+      case 'snow': return sky('#cfe8ff', '#f4fbff') + `<path d="M0 150 L80 70 L150 140 L230 50 L320 150 L400 80 L480 150 V260 H0 Z" fill="#e6f0ff" ${s2}/><path d="M60 90 L80 70 L100 90 Z M210 70 L230 50 L250 70 Z M380 100 L400 80 L420 100 Z" fill="#fff"/>`
+        + `<path d="M0 250 Q240 226 480 252 V360 H0 Z" fill="#fff" ${s}/>` + Array.from({ length: 26 }, (_, i) => styFlake((i * 83) % 480, (i * 47) % 240 + 10, 5 + (i % 3) * 2, '#fff')).join('') + `<g transform="translate(40 190) scale(2)">${stickerInner('snowman') || ''}</g>`;
+      case 'sukkah': return `<rect width="480" height="360" fill="#fff4dc"/><rect x="0" y="0" width="480" height="40" fill="#6fbf73"/>${Array.from({ length: 24 }, (_, i) => `<path d="M${i * 22 - 6} 44 q12 -30 30 -44" fill="none" stroke="${i % 2 ? '#3f9a4f' : '#8fd08a'}" stroke-width="7" stroke-linecap="round"/>`).join('')}`
+        + `<path d="M0 44 H480" stroke="#9b6b43" stroke-width="8"/><path d="M20 44 V270 M460 44 V270" stroke="#9b6b43" stroke-width="10"/>` + [[70, '#ff6b6b'], [140, '#ffd84d'], [210, '#ff9a3c'], [280, '#b58cff'], [350, '#6fcf7f'], [420, '#ff9ad5']].map(([x, c], i) => `<path d="M${x} 44 v${22 + (i % 2) * 14}" stroke="${O}" stroke-width="1.5"/><circle cx="${x}" cy="${72 + (i % 2) * 14}" r="10" fill="${c}" ${s2}/>`).join('')
+        + `<path d="M40 110 Q240 150 440 110" fill="none" stroke="#ffd84d" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/><text x="240" y="200" font-size="28" text-anchor="middle" font-family="Rubik, sans-serif" fill="#c98f3a" opacity=".55">חג סוכות שמח</text><rect y="270" width="480" height="90" fill="#e8c890"/><path d="M0 270 H480" ${s}/>`;
+      case 'space': return `<rect width="480" height="360" fill="#221a4f"/>` + Array.from({ length: 40 }, (_, i) => `<circle cx="${(i * 89) % 480}" cy="${(i * 61) % 360}" r="${1 + (i % 3) * .6}" fill="#fff" opacity=".8"/>`).join('')
+        + `<circle cx="400" cy="80" r="40" fill="#ff9ad5" ${s}/><ellipse cx="400" cy="80" rx="66" ry="14" fill="none" stroke="#ffd84d" stroke-width="6" transform="rotate(-18 400 80)"/><circle cx="70" cy="90" r="20" fill="#7ec8ff" ${s2}/><path d="M0 300 Q240 270 480 300 V360 H0 Z" fill="#b8bcc8" ${s}/><circle cx="120" cy="320" r="10" fill="#9aa0ad"/><circle cx="360" cy="330" r="14" fill="#9aa0ad"/>`;
+    }
+    return `<defs><radialGradient id="${u}r" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ffc9e2"/></radialGradient></defs><rect width="480" height="360" fill="url(#${u}r)"/><ellipse cx="240" cy="320" rx="220" ry="34" fill="#ffb3d1" opacity=".6"/>`
+      + [[40, 40], [440, 50], [60, 250], [430, 240]].map(([x, y], i) => pzSpark(x, y, 10, i % 2 ? '#fff' : '#ffe27a', .9)).join('');
+  }
+  function styFrame(fr) {
+    const s2 = `stroke="${O}" stroke-width="2"`;
+    switch (fr) {
+      case 'polaroid': return `<path d="M0 0 H480 V360 H0 Z M16 16 V300 H464 V16 Z" fill="#fffdf5" fill-rule="evenodd" stroke="${O}" stroke-width="3"/>`;
+      case 'hearts': return `<path d="M0 0 H480 V360 H0 Z M18 18 V342 H462 V18 Z" fill="#ff9ec4" fill-rule="evenodd"/>` + Array.from({ length: 28 }, (_, i) => { const t = i / 28, per = 2 * (444 + 324), d = t * per; let x, y; if (d < 444) { x = 18 + d; y = 9; } else if (d < 444 + 324) { x = 471; y = 18 + d - 444; } else if (d < 888 + 324) { x = 462 - (d - 768); y = 351; } else { x = 9; y = 342 - (d - 1212); } return `<path d="${pzHeart(x, y, 5)}" fill="#fff"/>`; }).join('');
+      case 'gold': return `<path d="M0 0 H480 V360 H0 Z M20 20 V340 H460 V20 Z" fill="#ffd23f" fill-rule="evenodd" stroke="${O}" stroke-width="3"/><rect x="8" y="8" width="464" height="344" fill="none" stroke="#fff6c4" stroke-width="3"/><rect x="20" y="20" width="440" height="320" fill="none" stroke="#c98f3a" stroke-width="3"/>` + [[20, 20], [460, 20], [20, 340], [460, 340]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="12" fill="#ffd23f" ${s2}/><circle cx="${x}" cy="${y}" r="5" fill="#ff5a8a"/>`).join('');
+      case 'flowers': return [[18, 18], [462, 18], [18, 342], [462, 342], [240, 12], [240, 348]].map(([x, y], j) => [0, 72, 144, 216, 288].map(d => { const r = d * Math.PI / 180; return `<circle cx="${pzF(x + 11 * Math.cos(r))}" cy="${pzF(y + 11 * Math.sin(r))}" r="9" fill="${['#ff9ad5', '#ffd84d', '#b58cff'][j % 3]}" ${s2}/>`; }).join('') + `<circle cx="${x}" cy="${y}" r="7" fill="#fff6c4" ${s2}/>`).join('') + `<rect x="3" y="3" width="474" height="354" rx="14" fill="none" stroke="#6fcf7f" stroke-width="6" stroke-dasharray="18 10"/>`;
+      case 'stars': return `<rect x="6" y="6" width="468" height="348" rx="18" fill="none" stroke="#4b3f8f" stroke-width="12"/>` + Array.from({ length: 22 }, (_, i) => { const a = i / 22 * Math.PI * 2, x = 240 + 234 * Math.max(-1, Math.min(1, Math.cos(a) * 1.5)), y = 180 + 174 * Math.max(-1, Math.min(1, Math.sin(a) * 1.5)); return `<polygon points="${starPts(pzF(x), pzF(y), 9, 4)}" fill="#ffe27a" ${s2}/>`; }).join('');
+      case 'rainbow': return STY_RB.map((c, i) => `<rect x="${i * 3 + 1.5}" y="${i * 3 + 1.5}" width="${477 - i * 6}" height="${357 - i * 6}" rx="${20 - i * 2}" fill="none" stroke="${c}" stroke-width="3.2"/>`).join('');
+      case 'film': return `<path d="M0 0 H480 V360 H0 Z M0 34 V326 H480 V34 Z" fill="#2a2a3a" fill-rule="evenodd"/>` + Array.from({ length: 16 }, (_, i) => `<rect x="${10 + i * 30}" y="10" width="16" height="14" rx="3" fill="#fff"/><rect x="${10 + i * 30}" y="336" width="16" height="14" rx="3" fill="#fff"/>`).join('');
+    }
+    return '';
+  }
+  // compact snapshot of a pet (so photos remember how everyone looked that day)
+  const stySnap = p => { const o = { id: p.id, kind: p.kind, name: p.name || '', size: p.size || 1 }; ['look', 'salon', 'wear', 'color', 'clothes', 'outfit'].forEach(k => { if (p[k] != null && (typeof p[k] !== 'object' || Object.keys(p[k]).length)) o[k] = p[k]; }); return JSON.parse(JSON.stringify(o)); };
+  let styPhotoUid = 0;
+  function styPhotoSVG(ph, full = true) {
+    const u = 'sph' + (++styPhotoUid), pets = ph.pets || [], n = pets.length;
+    const inner = styPhotoInner(ph, u);
+    return `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg"${full ? ' width="480" height="360"' : ''}>${inner}</svg>`;
+  }
+  function styPhotoLayout(n, fr) {
+    const floor = fr === 'polaroid' ? 296 : fr === 'film' ? 322 : 338, rows = n <= 5 ? [n] : [Math.floor(n / 2), n - Math.floor(n / 2)], out = [];
+    rows.forEach((cnt, r) => {
+      const back = rows.length === 2 && r === 0, maxW = back ? 118 : n <= 1 ? 190 : n === 2 ? 170 : n <= 3 ? 150 : 128, w = Math.min(maxW, 460 / Math.max(1, cnt) * 1.16) * (back ? .86 : 1);
+      const step = cnt > 1 ? Math.min(w * .84, (440 - w) / (cnt - 1)) : 0, x0 = 240 - (step * (cnt - 1) + w) / 2, base = back ? floor - 72 : floor;
+      for (let i = 0; i < cnt; i++) out.push([x0 + i * step, base - w * 64 / 56 * .96, w]);
+    });
+    return out;
+  }
+  function styPhotoInner(ph, u) {
+    const pets = ph.pets || [], pos = styPhotoLayout(pets.length, ph.fr);
+    const petsSvg = pets.map((p, i) => { const [x, y, w] = pos[i]; return placeSvg(petSVG(p, { mood: ph.mood || undefined }), x, y, w, w * 64 / 56); }).join('');
+    const st = (ph.st || []).map(([id, x, y, sz], i) => STICKERS[id] ? `<g class="sty-pst" data-i="${i}">${placeSvg(stickerHTML(id), x - sz / 2, y - sz / 2, sz, sz)}</g>` : '').join('');
+    return `<g>${styPhotoBg(ph.bg, u)}</g><g>${petsSvg}</g><g>${st}</g>${styFrame(ph.fr)}`
+      + (ph.fr === 'polaroid' && ph.cap ? `<text x="240" y="336" font-size="24" text-anchor="middle" font-family="Rubik, sans-serif" fill="#5a4a6a">${String(ph.cap).replace(/[<&>"]/g, '').slice(0, 34)}</text>` : '');
+  }
+  const styDateHeb = t => { try { const f = fromIso(t); return `${f.d} ב${MONTHS[f.m]} ${f.y}`; } catch { return t; } };
+  let styCam = null, styAlbumTab = 'cam', styAlbumPage = 0;
+  function openPetAlbum(tab) {
+    const list = styPets();
+    if (!styCam || !styCam.ids.every(id => list.some(p => p.id === id))) styCam = { ids: list.slice(0, 11).map(p => p.id), bg: 'studio', fr: 'polaroid', mood: 'happy', st: [['heart', 60, 60, 54], ['sparkles', 420, 70, 50]], cap: 'כולנו ביחד 💕', sel: -1 };
+    styAlbumTab = tab || (styAlbum.length && !list.length ? 'book' : tab || 'cam');
+    styDrawAlbum();
+    if (!$('#styAlbumDlg').open) $('#styAlbumDlg').showModal();
+  }
+  function styDrawAlbum(msg) {
+    $('#styAlbumSub').textContent = `${styAlbum.length} תמונות באלבום` + (msg ? ' · ' + msg : '');
+    $('#styAlbumTabs').replaceChildren(...[['cam', '📸 מצלמה'], ['book', '📖 האלבום']].map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(styAlbumTab === id), onclick: () => { styAlbumTab = id; styDrawAlbum(); } }, n)));
+    $('#styAlbumBody').replaceChildren(...(styAlbumTab === 'cam' ? styCamUI() : styBookUI()));
+  }
+  function styCamUI() {
+    const C = styCam, all = styPets(), chosen = () => C.ids.map(id => all.find(p => p.id === id)).filter(Boolean);
+    const ph = () => ({ bg: C.bg, fr: C.fr, mood: C.mood, st: C.st, cap: C.cap, pets: chosen() });
+    const view = el('div', { class: 'sty-view' });
+    const draw = () => { view.innerHTML = `<svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">${styPhotoInner(ph(), 'cam' + (++styPhotoUid))}</svg>`; const s = C.st[C.sel]; if (s) view.firstChild.insertAdjacentHTML('beforeend', `<circle cx="${s[1]}" cy="${s[2]}" r="${s[3] * .62}" fill="none" stroke="#ff5a8a" stroke-width="3" stroke-dasharray="6 5"/>`); selBar(); };
+    // drag stickers inside the photo
+    const pt = e => { const s = view.querySelector('svg'), r = s.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 480, (e.clientY - r.top) / r.height * 360]; };
+    let drag = -1, moved = false;
+    view.addEventListener('pointerdown', e => { const [x, y] = pt(e); drag = -1; for (let i = C.st.length - 1; i >= 0; i--) { const s = C.st[i]; if (Math.hypot(x - s[1], y - s[2]) < s[3] * .55) { drag = i; break; } } C.sel = drag; moved = false; if (drag >= 0) { view.setPointerCapture(e.pointerId); e.preventDefault(); } draw(); });
+    view.addEventListener('pointermove', e => { if (drag < 0) return; const [x, y] = pt(e); const s = C.st[drag]; s[1] = Math.round(Math.max(0, Math.min(480, x))); s[2] = Math.round(Math.max(0, Math.min(360, y))); moved = true; draw(); });
+    view.addEventListener('pointerup', () => { drag = -1; });
+    const selRow = el('div', { class: 'chips sty-selrow' });
+    const selBar = () => selRow.replaceChildren(...(C.st[C.sel] ? [el('span', { class: 'lbl' }, 'המדבקה שבחרת:'),
+      el('button', { type: 'button', class: 'chip', onclick: () => { C.st[C.sel][3] = Math.min(120, C.st[C.sel][3] + 10); draw(); } }, '➕ גדול'),
+      el('button', { type: 'button', class: 'chip', onclick: () => { C.st[C.sel][3] = Math.max(24, C.st[C.sel][3] - 10); draw(); } }, '➖ קטן'),
+      el('button', { type: 'button', class: 'chip', onclick: () => { C.st.splice(C.sel, 1); C.sel = -1; SFX.boop(); draw(); } }, '🗑️ להוריד')] : [el('span', { class: 'muted' }, '👆 אפשר לגרור מדבקות בתמונה')]));
+    const petChips = el('div', { class: 'chips sty-petchips' }, ...all.map(p => el('button', { type: 'button', class: 'chip sty-pchip', 'aria-pressed': String(C.ids.includes(p.id)), onclick: e => {
+      C.ids = C.ids.includes(p.id) ? C.ids.filter(x => x !== p.id) : [...C.ids, p.id]; if (!C.ids.includes(p.id)) SFX.boop(); else SFX.pet(p.kind); e.currentTarget.setAttribute('aria-pressed', String(C.ids.includes(p.id))); draw(); } },
+      el('span', { class: 'ic', html: petSVG(p) }), styNm(p))));
+    const chipRow = (items, key, after) => el('div', { class: 'chips' }, ...items.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(C[key] === id), onclick: e => { C[key] = id; SFX.pop(); e.currentTarget.parentNode.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); draw(); if (after) after(); } }, n)));
+    const stkRow = el('div', { class: 'foods sty-stk' }, ...STY_STK.map(id => el('button', { type: 'button', 'aria-label': STICKERS[id][0], title: STICKERS[id][0], html: stickerHTML(id), onclick: () => { if (C.st.length >= 16) return; C.st.push([id, 60 + Math.round(Math.random() * 360), 40 + Math.round(Math.random() * 90), 50]); C.sel = C.st.length - 1; SFX.pop(); draw(); } })));
+    const cap = el('input', { type: 'text', id: 'styCap', maxLength: 34, value: C.cap, placeholder: 'כיתוב לתמונה', oninput: e => { C.cap = e.target.value; draw(); } });
+    const wrap = el('div', { class: 'sty-camwrap' }, view, el('div', { class: 'sty-flash' }), el('div', { class: 'sty-count' }));
+    const snap = () => {
+      const pets = chosen(); if (!pets.length) { draw(); toast(stickerHTML('camera'), 'צריך לבחור לפחות חיה אחת לתמונה 🐾'); return; }
+      const cnt = wrap.querySelector('.sty-count'); let k = 3; C.sel = -1; draw();
+      const tick = () => {
+        if (k > 0) { cnt.textContent = k; cnt.classList.remove('go'); void cnt.offsetWidth; cnt.classList.add('go'); tone(660, .1, 'triangle'); k--; setTimeout(tick, 650); return; }
+        cnt.textContent = '';
+        const f = wrap.querySelector('.sty-flash'); f.classList.remove('go'); void f.offsetWidth; f.classList.add('go'); tone(1800, .05, 'square', 0, .05); tone(900, .08, 'square', .06, .04);
+        const rec = { id: 'ph' + Date.now().toString(36), t: localToday(), bg: C.bg, fr: C.fr, mood: C.mood, cap: (C.cap || '').trim(), st: C.st.map(s => s.slice()), pets: pets.map(stySnap) };
+        styAlbum.push(rec); if (styAlbum.length > 60) styAlbum.shift(); styAlbumSave();
+        pets.forEach(p => { if (typeof SFX.pet === 'function') setTimeout(() => SFX.pet(p.kind), 200 + Math.random() * 400); });
+        if (styDaily('photo', 3)) styCoin(5, 'תמונה משפחתית חדשה באלבום 📸');
+        setTimeout(() => { styAlbumPage = Math.floor((styAlbum.length - 1) / 2); styAlbumTab = 'book'; styDrawAlbum('📸 התמונה נשמרה!'); confetti($('#styAlbumDlg .confetti-c')); }, 900);
+      };
+      tick();
+    };
+    draw();
+    return [wrap, selRow,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main sty-snap', onclick: snap }, '📸 צ׳יז! לצלם'), el('button', { type: 'button', class: 'btn', onclick: () => { C.ids = [...C.ids].sort(() => Math.random() - .5); SFX.boop(); draw(); } }, '🔀 לסדר אחרת')),
+      el('span', { class: 'lbl' }, 'מי בתמונה?'), petChips,
+      el('span', { class: 'lbl' }, 'פרצוף לתמונה'), chipRow(STY_MOODS, 'mood'),
+      el('span', { class: 'lbl' }, 'רקע'), chipRow(STY_BGS, 'bg'),
+      el('span', { class: 'lbl' }, 'מסגרת'), chipRow(STY_FRAMES, 'fr'),
+      el('span', { class: 'lbl' }, 'מדבקות (לוחצים כדי להוסיף)'), stkRow,
+      el('label', { for: 'styCap' }, 'כיתוב'), cap];
+  }
+  function styBookUI() {
+    if (!styAlbum.length) return [el('div', { class: 'sty-book empty' }, el('div', { class: 'sty-cover', html: `<svg viewBox="0 0 48 48">${stickerInner('camera')}</svg>` }), el('h4', {}, 'אלבום החיות'), el('p', { class: 'muted' }, 'האלבום עוד ריק... בואי נצלם את כל החיות ביחד! 📸'),
+      el('button', { type: 'button', class: 'btn main', onclick: () => { styAlbumTab = 'cam'; styDrawAlbum(); } }, '📸 למצלמה'))];
+    const pages = Math.ceil(styAlbum.length / 2); styAlbumPage = Math.max(0, Math.min(pages - 1, styAlbumPage));
+    const card = (ph, idx) => {
+      const del = el('button', { type: 'button', class: 'chip', onclick: e => { if (e.currentTarget.dataset.sure) { styAlbum.splice(idx, 1); styAlbumSave(); SFX.boop(); styDrawAlbum('התמונה נמחקה'); } else { e.currentTarget.dataset.sure = '1'; e.currentTarget.textContent = '🗑️ בטוח? ללחוץ שוב'; } } }, '🗑️');
+      return el('figure', { class: 'sty-card', style: `--r:${idx % 2 ? 1.6 : -1.8}deg` },
+        el('span', { class: 'sty-tape' }),
+        el('div', { class: 'sty-ph', html: styPhotoSVG(ph, false) }),
+        el('figcaption', {}, el('input', { type: 'text', value: ph.cap || '', maxLength: 34, placeholder: 'לכתוב כיתוב...', 'aria-label': 'כיתוב', onchange: e => { ph.cap = e.target.value.trim(); styAlbumSave(); SFX.pop(); styDrawAlbum(); } }),
+          el('small', {}, `📅 ${styDateHeb(ph.t)} · ${(ph.pets || []).map(p => p.name).filter(Boolean).slice(0, 5).join(', ')}${(ph.pets || []).length > 5 ? '...' : ''}`)),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => stySetBg(ph) }, '🖼️ לרקע של הלוח'), del));
+    };
+    const i0 = styAlbumPage * 2;
+    return [el('div', { class: 'sty-book' }, el('div', { class: 'sty-page' }, card(styAlbum[i0], i0)), styAlbum[i0 + 1] ? el('div', { class: 'sty-page' }, card(styAlbum[i0 + 1], i0 + 1)) : el('div', { class: 'sty-page blank' }, el('p', { class: 'muted' }, 'המקום הזה מחכה לתמונה הבאה ✨'))),
+      el('div', { class: 'chips sty-nav' },
+        el('button', { type: 'button', class: 'btn', disabled: styAlbumPage >= pages - 1, onclick: () => { styAlbumPage++; tone(500, .06, 'triangle'); styDrawAlbum(); } }, '→ לעמוד הבא'),
+        el('span', { class: 'lbl' }, `עמוד ${styAlbumPage + 1} מתוך ${pages}`),
+        el('button', { type: 'button', class: 'btn', disabled: styAlbumPage <= 0, onclick: () => { styAlbumPage--; tone(500, .06, 'triangle'); styDrawAlbum(); } }, 'לעמוד הקודם ←'))];
+  }
+  function stySetBg(ph) {
+    try {
+      photo = svgData(styPhotoSVG(ph, true));
+      const ok = store.set('photo', photo);
+      design.bg = 'photo'; applyDesign();
+      SFX.yay(); toast(stickerHTML('camera'), ok ? 'התמונה של החיות עכשיו ברקע של הלוח! 🖼️💖' : 'התמונה ברקע, אבל אין מקום לשמור אותה לפעם הבאה');
+    } catch { toast(stickerHTML('camera'), 'לא הצלחתי לשים את התמונה ברקע 😢'); }
+  }
+
+  // ================= 🦄 adopt a magic creature =================
+  let styMg = null;
+  function openMagicAdopt() {
+    styMg = { kind: STY_MG_LIST[0][0], pal: 0, name: '', hatched: null };
+    styDrawMagic();
+    if (!$('#styMagicDlg').open) $('#styMagicDlg').showModal();
+  }
+  const styMgPet = (kind, pal) => { const m = STY_MG[kind], c = m.pals[pal] || m.pals[0]; return { kind, name: '', size: 1, wear: {}, look: Object.assign({}, m.look, { c1: c[0], c2: c[1], mgA: c[2], bellyC: c[3] }) }; };
+  function styDrawMagic() {
+    const M = styMg, m = STY_MG[M.kind], have = styPets().filter(p => STY_MG[p.kind]).length;
+    $('#styMagicSub').textContent = `${STY_MG_LIST.length} יצורי קסם מחכים לבית · ${have ? `כבר יש לך ${have} 💖` : 'בחרי אחד והוא יבקע מביצת קסם!'}`;
+    if (M.hatched) {
+      const p = M.hatched;
+      $('#styMagicBody').replaceChildren(el('div', { class: 'sty-hatch done' }, el('div', { class: 'sty-egg-shell', html: styEggSVG(true) }), el('div', { class: 'sty-hatchpet', html: petSVG(p, { mood: 'happy' }) }), el('span', { class: 'pz-say' }, `${styNm(p)} בקע/ה! ברוכים הבאים לבית של כולם 🏡✨`)),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { $('#styMagicDlg').close(); if (typeof houseTab !== 'undefined') houseTab = 'together'; openHouse(); } }, '🏡 לבית של כולם'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { M.hatched = null; M.name = ''; styDrawMagic(); } }, '🥚 לאמץ עוד אחד'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { $('#styMagicDlg').close(); openSalon(p); } }, '💇 למספרה')));
+      return;
+    }
+    const prev = styMgPet(M.kind, M.pal);
+    const grid = el('div', { class: 'sty-mggrid' }, ...STY_MG_LIST.map(([id, n]) => el('button', { type: 'button', 'aria-pressed': String(M.kind === id), onclick: () => { M.kind = id; M.pal = 0; SFX.pet(id); styDrawMagic(); } },
+      el('span', { class: 'ic', html: petSVG(styMgPet(id, 0)) }), n)));
+    const pals = el('div', { class: 'sty-pals' }, ...m.pals.map((c, i) => el('button', { type: 'button', 'aria-pressed': String(M.pal === i), 'aria-label': `צבעים ${i + 1}`, onclick: () => { M.pal = i; SFX.pop(); styDrawMagic(); } },
+      el('span', { class: 'ic', html: petSVG(styMgPet(M.kind, i)) }), el('span', { class: 'dots' }, ...c.slice(0, 3).map(x => { const d = el('i'); d.style.background = x; return d; })))));
+    const inp = el('input', { type: 'text', id: 'styMgName', maxLength: 20, placeholder: `למשל: ${pzPick(['ניצוץ', 'שמיימי', 'קשתית', 'פנינה', 'כוכבי', 'לונה', 'זוהר'])}`, value: M.name, oninput: e => { M.name = e.target.value; } });
+    const go = () => {
+      const nm = (M.name || '').trim(); if (!nm) { inp.focus(); inp.classList.add('sty-shake'); setTimeout(() => inp.classList.remove('sty-shake'), 500); return; }
+      const np = Object.assign(styMgPet(M.kind, M.pal), { v: 2, color: 0, name: nm, house: { bg: 'clouds', hidden: [] }, fed: { [localToday()]: 1 }, played: {}, onboarded: true, born: localToday() });
+      const first = !pet || !pet.onboarded;
+      if (first) { np.id = typeof petzId === 'function' ? petzId() : 'p' + Date.now().toString(36); pet = np; savePet(); if (typeof petzSave === 'function') petzSave(); }
+      else { if (typeof petzSync === 'function') petzSync(); np.id = typeof petzId === 'function' ? petzId() : 'p' + Date.now().toString(36); petzList.push(np); store.set('pets', petzList); }
+      M.hatched = np;
+      const box = el('div', { class: 'sty-hatch' }, el('div', { class: 'sty-egg-shell', html: styEggSVG(false) }));
+      $('#styMagicBody').replaceChildren(box, el('p', { class: 'muted', style: 'text-align:center' }, 'הביצה זזה... משהו קסום בוקע! ✨'));
+      [0, 400, 800].forEach((t, i) => setTimeout(() => tone(500 + i * 160, .12, 'triangle'), t));
+      setTimeout(() => { SFX.yay(); SFX.pet(np.kind); styDrawMagic(); confetti($('#styMagicDlg .confetti-c')); try { renderPet(); if (typeof afterChange === 'function') afterChange(); } catch {} }, 1500);
+    };
+    $('#styMagicBody').replaceChildren(grid,
+      el('div', { class: 'sty-mgpick' }, el('div', { class: 'sty-mgbig', html: petSVG(prev, { mood: 'happy' }) }),
+        el('div', { class: 'row' }, el('h4', { class: 'sty-mgname' }, m.name), el('p', { class: 'muted' }, m.blurb), el('span', { class: 'lbl' }, 'בוחרים צבעים:'), pals,
+          el('label', { for: 'styMgName' }, 'איך יקראו לו/ה?'), inp,
+          el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: go }, `🥚 לאמץ את ה${m.name}!`)))));
+  }
+  const styEggSVG = cracked => svg(cracked
+    ? `<path d="M8 30 Q8 44 24 44 Q40 44 40 30 L35 26 L30 31 L24 25 L18 31 L13 26 Z" fill="#fff6fb" ${S}/>${[[14, 38, '#ff9ad5'], [26, 40, '#7ec8ff'], [34, 34, '#ffd84d']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="2" fill="${c}"/>`).join('')}`
+    : `<path d="M24 4 C12 4 8 22 8 30 Q8 44 24 44 Q40 44 40 30 C40 22 36 4 24 4 Z" fill="#fff6fb" ${S}/>${[[16, 20, '#ff9ad5'], [30, 16, '#7ec8ff'], [22, 32, '#ffd84d'], [33, 33, '#b58cff'], [14, 34, '#6fcf7f']].map(([x, y, c]) => `<polygon points="${starPts(x, y, 3, 1.3)}" fill="${c}"/>`).join('')}<path d="M16 12 q-2 4 -2 8" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>`);
+
+  // ---------- buttons in the pets house (together tab + other tabs) and MORE tiles ----------
+  const styBtns = () => [['💇 מספרה לחיות', () => openSalon(pet)], ['📸 צילום קבוצתי', () => openPetAlbum('cam')], ['📖 אלבום החיות', () => openPetAlbum('book')], ['🦄 לאמץ חיית קסם', () => openMagicAdopt()]]
+    .map(([t, fn]) => el('button', { type: 'button', class: 'btn sty-hbtn', onclick: fn }, t));
+  if (typeof pz5Home === 'function') {
+    const styHome0 = pz5Home;
+    pz5Home = function () { const r = styHome0.apply(this, arguments); try { if (r && r.append) r.append(el('div', { class: 'chips sty-homeacts' }, ...styBtns())); } catch {} return r; };
+  }
+  const styDrawHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    styDrawHouse0(mode, say);
+    try { const a = $('#houseActions'); if (a && !a.hidden && !a.querySelector('.sty-hbtn')) a.append(...styBtns()); } catch {}
+  };
+  ['#stySalonDlg', '#styMagicDlg', '#styAlbumDlg'].forEach(id => { const d = $(id); if (d) d.addEventListener('close', () => { try { if ($('#houseDlg').open) drawHouse(); renderPet(); } catch {} }); });
+  [['bow', 'סלון היופי של החיות 💇', () => openSalon(pet)], ['camera', 'אלבום החיות 📸', () => openPetAlbum()], ['unicorn', 'לאמץ חיית קסם 🦄', () => openMagicAdopt()]]
+    .forEach(t => { if (!MORE.some(m => m[1] === t[1])) MORE.push(t); });
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
