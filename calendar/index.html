@@ -3912,6 +3912,210 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
   .life-party-star { width: 80px; height: 90px; }
 }
 @media (prefers-reduced-motion: reduce) { .life-bye-cloud, .life-bye-rainbow, .life-bye-dusk, .life-bye-star { transition-duration: .01s !important; transition-delay: 0s !important; } }
+/* ===== trips7: trips, camping, holidays, garden, shop with all the pets ===== */
+.trp-headr { display: flex; align-items: center; gap: 8px; }
+.trp-body { display: grid; gap: 10px; }
+.trp-lead { margin: 0; font-size: 1.08em; }
+.trp-center { text-align: center; justify-content: center; }
+.trp-h { margin: 6px 0 0; font-size: 1.1em; }
+.trp-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.trp-row .btn.main { margin-inline-start: auto; }
+.trp-where { font-size: 1.2em; }
+.trp-big { font-size: 1.15em; padding: 8px 22px; }
+.trp-emo { font-size: 1.6em; display: grid; place-items: center; }
+/* destinations / holidays cards */
+.trp-dests, .trp-hols { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.trp-dest, .trp-hol { display: grid; gap: 4px; justify-items: center; padding: 6px 6px 8px; border: 2px solid var(--line); border-radius: 18px; background: var(--card); cursor: pointer; transition: transform .15s; font: inherit; color: inherit; }
+.trp-dest:hover, .trp-hol:hover { transform: translateY(-3px) rotate(-1deg); border-color: var(--accent); }
+.trp-dest-art { width: 100%; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; display: block; }
+.trp-dest-art svg { width: 100%; height: 100%; display: block; }
+.trp-dest small, .trp-hol small { color: var(--soft); }
+.trp-hol-ic { width: 76px; height: 76px; } .trp-hol-ic svg { width: 100%; height: 100%; }
+.trp-hol.now { border-color: #ffb020; background: radial-gradient(circle at 50% 30%, #fff6c4, var(--card) 70%); box-shadow: 0 0 0 4px #ffe27a88; }
+.trp-hol.first { grid-column: span 2; grid-template-columns: auto 1fr; justify-items: start; align-items: center; text-align: start; }
+.trp-hol.first .trp-hol-ic { grid-row: span 2; width: 96px; height: 96px; }
+.trp-hol.first b { font-size: 1.3em; }
+/* the scene */
+.trp-scene { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; border: 3px solid #3a2b3c; background: #fff; user-select: none; -webkit-user-select: none; }
+.trp-scene > svg.trp-bg, .trp-scene > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.trp-layer { position: absolute; inset: 0; }
+.trp-hot { position: absolute; aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer; display: block; transform-origin: 50% 90%; transition: transform .15s; }
+.trp-hot > svg { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 3px 0 rgb(0 0 0 / .12)); }
+.trp-hot:hover { transform: scale(1.06); }
+.trp-hot.pop { animation: trpPop .45s cubic-bezier(.3, 1.8, .5, 1); }
+.trp-tag { position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); white-space: nowrap; font-size: clamp(9px, 1.5vw, 13px); background: #fff; border: 2px solid #3a2b3c; border-radius: 999px; padding: 0 7px; color: #3a2b3c; box-shadow: 0 2px 0 rgb(0 0 0 / .15); pointer-events: none; }
+.trp-hot:not(.done) .trp-tag { animation: trpNudge 2.4s ease-in-out infinite; }
+.trp-hot.done .trp-tag { background: #e2f8c9; }
+.trp-spot:not(.found) { animation: trpWiggle 2s ease-in-out infinite; }
+.trp-spot.found { cursor: default; }
+.trp-pets { position: absolute; left: 2%; right: 2%; bottom: 1%; display: flex; justify-content: center; align-items: flex-end; gap: 1%; pointer-events: none; }
+.trp-pet { pointer-events: auto; position: relative; width: 15%; max-width: 110px; aspect-ratio: 56 / 64; padding: 0; border: 0; background: none; cursor: pointer; animation: trpIdle 2.6s ease-in-out infinite; animation-delay: var(--d, 0s); transform-origin: 50% 100%; }
+.trp-pets.many .trp-pet { width: 12%; }
+.trp-pet > svg { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0 4px 0 rgb(0 0 0 / .14)); }
+.trp-pet.jump { animation: trpJump .6s cubic-bezier(.3, 1.6, .5, 1); }
+.trp-pet.trp-star::after { content: '👑'; position: absolute; top: -18%; left: 50%; transform: translateX(-50%); font-size: clamp(14px, 3vw, 26px); }
+.trp-hat { position: absolute; top: -16%; left: 34%; width: 32%; pointer-events: none; transform: rotate(-10deg); }
+.trp-hat svg { width: 100%; display: block; }
+.trp-bubble { position: absolute; top: 4%; width: 180px; background: #fff; border: 2.5px solid #3a2b3c; border-radius: 16px; padding: 6px 10px; font-size: .98em; line-height: 1.25; text-align: center; box-shadow: 0 3px 0 rgb(0 0 0 / .15); z-index: 3; pointer-events: none; color: #3a2b3c; }
+.trp-bubble.in { animation: trpPop .4s cubic-bezier(.3, 1.8, .5, 1); }
+.trp-guest { position: absolute; bottom: 30%; left: 70%; width: 12%; animation: trpArrive .8s ease-out both; }
+.trp-guest svg { width: 100%; display: block; }
+/* suitcase */
+.trp-packrow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.trp-bag { position: relative; width: 170px; }
+.trp-bag-art svg { width: 170px; display: block; }
+.trp-bag-in { position: absolute; left: 12%; right: 12%; top: 38%; display: flex; flex-wrap: wrap; gap: 2px; justify-content: center; }
+.trp-mini { width: 30px; height: 30px; animation: trpPop .45s cubic-bezier(.3, 1.8, .5, 1); } .trp-mini svg { width: 100%; height: 100%; }
+.trp-petsmall { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.trp-pm { width: 64px; animation: trpIdle 2.6s ease-in-out infinite; } .trp-pm svg { width: 100%; display: block; }
+.trp-items, .trp-basket, .trp-decor { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+.trp-item { display: grid; justify-items: center; gap: 2px; padding: 6px 4px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); color: inherit; font: inherit; font-size: .92em; cursor: pointer; transition: transform .12s; }
+.trp-item:hover:not(:disabled) { transform: translateY(-2px); border-color: var(--accent); }
+.trp-item .ic { width: 52px; height: 52px; } .trp-item .ic svg { width: 100%; height: 100%; }
+.trp-item small { color: var(--soft); }
+.trp-item.in { background: #e2f8c9; border-color: #6fcf7f; opacity: .75; }
+.trp-item.on { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.trp-item.no { animation: trpShake .4s; }
+/* road */
+.trp-road { position: relative; height: 200px; border-radius: 18px; overflow: hidden; border: 3px solid #3a2b3c; background: #8fd694; }
+.trp-road-bg { position: absolute; inset: 0; opacity: .55; filter: blur(1px); } .trp-road-bg svg { width: 100%; height: 100%; }
+.trp-road::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 46px; background: repeating-linear-gradient(90deg, #6a6a7a 0 40px, #6a6a7a 40px 80px), #6a6a7a; border-top: 3px solid #3a2b3c; }
+.trp-road::before { content: ''; position: absolute; left: 0; right: 0; bottom: 20px; height: 4px; background: repeating-linear-gradient(90deg, #fff 0 24px, transparent 24px 48px); z-index: 1; animation: trpRoad .4s linear infinite; }
+.trp-car { position: absolute; bottom: 22px; width: 240px; z-index: 2; animation: trpDrive 2.3s ease-in-out forwards; transform: scaleX(-1); }
+.trp-car-art { position: relative; display: block; } .trp-car-art svg { width: 240px; display: block; }
+.trp-car-pets { position: absolute; left: 10%; width: 62%; bottom: 44%; display: flex; justify-content: center; align-items: flex-end; transform: scaleX(-1); }
+.trp-car-pets span { width: 38%; margin: 0 -7%; animation: trpIdle .5s ease-in-out infinite; } .trp-car-pets svg { width: 100%; display: block; }
+.trp-road { height: 230px; }
+/* souvenirs + album */
+.trp-shelf { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px; border-radius: 16px; background: linear-gradient(#fff8ec, #f5e1c4); border-bottom: 8px solid #c98f5a; }
+.trp-souv { display: grid; justify-items: center; width: 84px; font-size: .8em; text-align: center; }
+.trp-souv svg { width: 54px; height: 54px; }
+.trp-souv.locked svg { filter: grayscale(1) brightness(1.6); opacity: .45; }
+.trp-album { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.trp-polaroid { background: #fff; padding: 10px 10px 8px; border-radius: 6px; box-shadow: 0 6px 20px rgb(0 0 0 / .25); display: grid; gap: 6px; text-align: center; color: #3a2b3c; transform: rotate(-2deg); }
+.trp-polaroid.small { transform: rotate(0); } .trp-polaroid.small:nth-child(odd) { transform: rotate(-1.5deg); } .trp-polaroid.small:nth-child(even) { transform: rotate(1.5deg); }
+.trp-polaroid .trp-scene { border-width: 2px; border-radius: 4px; }
+.trp-shot .trp-hot { pointer-events: none; } .trp-shot .trp-pet { pointer-events: none; animation: none; }
+.trp-photo-ov { position: fixed; inset: 0; z-index: 20; display: grid; place-content: center; justify-items: center; gap: 14px; background: rgb(20 20 40 / .55); animation: trpFade .3s; padding: 16px; }
+.trp-photo-ov .trp-polaroid { width: min(560px, 90vw); animation: trpDrop .6s cubic-bezier(.3, 1.4, .5, 1); }
+.trp-flash { position: absolute; inset: 0; background: #fff; z-index: 9; animation: trpFlash .6s ease-out forwards; pointer-events: none; }
+/* camping */
+.trp-scene.night { border-color: #1d2257; }
+.trp-firefly { position: absolute; width: 22px; height: 22px; padding: 0; border: 0; border-radius: 50%; background: radial-gradient(circle, #fffbb0 0 25%, #fff36b88 40%, transparent 70%); cursor: pointer; animation: trpFly 6s ease-in-out infinite alternate; z-index: 2; }
+.trp-firefly::after { content: ''; position: absolute; inset: -8px; }
+.trp-jar { position: absolute; right: 2%; top: 42%; width: 9%; aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer; z-index: 2; }
+.trp-jar svg { width: 100%; height: 100%; }
+.trp-panel { display: grid; gap: 8px; padding: 10px; border-radius: 18px; background: color-mix(in srgb, var(--accent) 7%, var(--card)); border: 2px dashed var(--line); }
+.trp-subtabs { position: static; justify-content: center; }
+.trp-mm { display: flex; justify-content: center; align-items: flex-end; gap: 0; }
+.trp-mm-pet { width: 110px; } .trp-mm-pet svg { width: 100%; display: block; }
+.trp-mm-art { width: 180px; } .trp-mm-art svg { width: 100%; display: block; }
+.trp-meter { position: relative; height: 20px; width: min(420px, 90%); margin: 0 auto; border-radius: 999px; border: 2.5px solid #3a2b3c; background: linear-gradient(90deg, #ffffff 0%, #fff4d6 20%, #ffd98a 42%, #e8a64a 56%, #b0682a 72%, #5a3a2a 84%, #2a2020 100%); direction: ltr; }
+.trp-meter .gold { position: absolute; left: 46%; width: 22%; top: -6px; bottom: -6px; border: 3px solid #ffb020; border-radius: 8px; box-shadow: 0 0 10px #ffd84d; }
+.trp-meter .needle { position: absolute; top: -10px; bottom: -10px; width: 4px; margin-left: -2px; background: #ff3b6b; border-radius: 2px; left: 0; }
+.trp-sky { width: min(520px, 100%); margin: 0 auto; border-radius: 16px; overflow: hidden; border: 3px solid #1d2257; }
+.trp-sky svg { width: 100%; display: block; }
+.trp-cstar { cursor: pointer; }
+.trp-cstar.next polygon { animation: trpTwinkle 1s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.trp-glowshape { animation: trpFade 1s; }
+/* holidays */
+.trp-costumes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.trp-cst { display: grid; justify-items: center; gap: 4px; padding: 8px; border-radius: 14px; background: var(--card); border: 2px solid var(--line); }
+.trp-cst-art { width: 90px; } .trp-cst-art svg { width: 100%; display: block; }
+.trp-cst .chips { justify-content: center; gap: 4px; } .trp-cst .chip { font-size: .85em; padding: 2px 8px; }
+.trp-petchip { display: inline-flex; align-items: center; gap: 4px; }
+.trp-petchip .ic { width: 34px; height: 38px; } .trp-petchip .ic svg { width: 100%; height: 100%; }
+.trp-housebar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 16px; background: linear-gradient(90deg, #fff1f8, #eef7ff); border: 2px dashed #ffb3d6; }
+.trp-housebar .lbl { font-weight: 700; }
+/* garden */
+.trp-garden { position: relative; width: 100%; border-radius: 18px; overflow: hidden; border: 3px solid #3a2b3c; padding: 16% 2% 3%; }
+.trp-garden > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.trp-plots { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.trp-plot { display: grid; justify-items: center; padding: 2px 2px 4px; border: 2px solid #8a5a3c33; border-radius: 14px; background: rgb(255 255 255 / .35); cursor: pointer; color: #3a2b3c; font: inherit; transition: transform .12s; }
+.trp-plot:hover { transform: translateY(-2px); background: rgb(255 255 255 / .6); }
+.trp-plot svg { width: 100%; aspect-ratio: 1; display: block; }
+.trp-plot small { font-size: clamp(9px, 1.4vw, 12px); line-height: 1.1; text-align: center; }
+.trp-plot.ripe { background: rgb(255 246 196 / .75); border-color: #ffb020; animation: trpWiggle 2s ease-in-out infinite; }
+.trp-plot.sel { border-color: var(--accent); background: #fff; }
+.trp-plot.water { animation: trpWater .7s; }
+.trp-ghelp { display: flex; justify-content: center; gap: 6px; margin-top: -6px; }
+.trp-gpet { width: 60px; animation: trpWalk 3s ease-in-out infinite; animation-delay: var(--d); } .trp-gpet svg { width: 100%; display: block; }
+/* shop */
+.trp-shop .trp-staff { position: absolute; left: 24%; right: 24%; bottom: 42%; display: flex; justify-content: center; align-items: flex-end; }
+.trp-shop .trp-staff .trp-pet { width: 19%; }
+.trp-shop .trp-staff.many .trp-pet { width: 15%; margin: 0 -1%; }
+.trp-cust { position: absolute; left: 1%; bottom: 3%; width: 22%; display: grid; justify-items: center; }
+.trp-cust.arrive { animation: trpArrive .9s cubic-bezier(.3, 1.3, .5, 1); }
+.trp-cust.leave { animation: trpLeave .7s ease-in forwards; }
+.trp-cust-art { width: 100%; } .trp-cust-art svg { width: 100%; display: block; }
+.trp-cust-say { position: absolute; bottom: 98%; left: 0; width: 210%; max-width: 230px; display: grid; justify-items: center; gap: 2px; background: #fff; border: 2.5px solid #3a2b3c; border-radius: 16px; padding: 6px 8px; font-size: .92em; line-height: 1.25; text-align: center; color: #3a2b3c; box-shadow: 0 3px 0 rgb(0 0 0 / .15); }
+.trp-want { width: 56px; height: 56px; } .trp-want svg { width: 100%; height: 100%; }
+.trp-bench { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; }
+.trp-bench-art { width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, #fff, #ffe6f3); border: 3px dashed #ffb3d6; padding: 8px; }
+.trp-bench-art svg { width: 100%; height: 100%; }
+.trp-bench-art.baking { animation: trpSpinPop 1.2s ease-in-out; }
+.trp-bench-opts { display: grid; gap: 6px; }
+.trp-opt { display: inline-flex; align-items: center; gap: 4px; }
+.trp-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--c); border: 2px solid #3a2b3c; display: inline-block; }
+.trp-shp { width: 18px; height: 18px; display: inline-block; } .trp-shp svg { width: 100%; height: 100%; }
+/* svg animations */
+.trp-spin-slow { animation: trpSpin 30s linear infinite; }
+.trp-drift { animation: trpDrift 9s ease-in-out infinite alternate; }
+.trp-waves { animation: trpWaves 3s linear infinite; } .trp-waves.rev { animation-direction: reverse; animation-duration: 4s; }
+.trp-flake { animation: trpSnow 6s linear infinite; }
+.trp-fall { animation: trpFall .6s linear infinite; }
+.trp-twinkle { animation: trpTwinkle 2.4s ease-in-out infinite; }
+.trp-bob { animation: trpBob 1.6s ease-in-out infinite; }
+.trp-peek { animation: trpPeek .5s ease-out; }
+.trp-flutter { animation: trpFlutter .35s ease-in-out infinite alternate; }
+.trp-steam { animation: trpSteam 2s ease-in-out infinite; }
+.trp-swing { animation: trpSwing 1.4s ease-in-out infinite alternate; }
+.trp-flame { animation: trpFlame .35s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+.trp-glow { animation: trpTwinkle 1.2s ease-in-out infinite; }
+.trp-dspin { animation: trpDreidel 1s cubic-bezier(.2, .8, .4, 1); }
+.trp-wave { animation: trpCatWave .8s ease-in-out infinite alternate; }
+@keyframes trpPop { 0% { transform: scale(.7); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes trpNudge { 0%, 80%, 100% { transform: translateX(-50%) rotate(0); } 85% { transform: translateX(-50%) rotate(-4deg); } 90% { transform: translateX(-50%) rotate(4deg); } }
+@keyframes trpWiggle { 0%, 80%, 100% { transform: rotate(0); } 85% { transform: rotate(-5deg) scale(1.05); } 90% { transform: rotate(5deg) scale(1.05); } }
+@keyframes trpIdle { 0%, 100% { transform: translateY(0) scale(1, 1); } 50% { transform: translateY(-3%) scale(1.02, .98); } }
+@keyframes trpJump { 0% { transform: translateY(0); } 40% { transform: translateY(-28%) rotate(-6deg); } 70% { transform: translateY(0) scale(1.08, .92); } 100% { transform: none; } }
+@keyframes trpArrive { from { transform: translateX(-120%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes trpLeave { to { transform: translateX(-140%); opacity: 0; } }
+@keyframes trpShake { 25% { transform: translateX(-5px) rotate(-3deg); } 75% { transform: translateX(5px) rotate(3deg); } }
+@keyframes trpRoad { to { background-position: -48px 0; } }
+@keyframes trpDrive { 0% { right: -200px; } 100% { right: 110%; } }
+@keyframes trpFade { from { opacity: 0; } }
+@keyframes trpDrop { from { transform: translateY(-60px) rotate(8deg); opacity: 0; } }
+@keyframes trpFlash { from { opacity: .95; } to { opacity: 0; } }
+@keyframes trpFly { 0% { transform: translate(0, 0); } 25% { transform: translate(40px, -20px); } 50% { transform: translate(-20px, -40px); } 75% { transform: translate(30px, 10px); } 100% { transform: translate(-30px, 20px); } }
+@keyframes trpSpin { to { transform: rotate(360deg); } }
+@keyframes trpDrift { to { transform: translateX(26px); } }
+@keyframes trpWaves { to { transform: translateX(40px); } }
+@keyframes trpSnow { from { transform: translateY(-20px); } to { transform: translateY(270px); } }
+@keyframes trpFall { to { transform: translateY(10px); } }
+@keyframes trpTwinkle { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes trpBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@keyframes trpPeek { from { transform: translateY(14px); opacity: 0; } }
+@keyframes trpFlutter { to { transform: scaleX(.6); } }
+@keyframes trpSteam { 0% { opacity: 0; transform: translateY(6px); } 50% { opacity: .9; } 100% { opacity: 0; transform: translateY(-8px); } }
+@keyframes trpSwing { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+@keyframes trpFlame { from { transform: scale(1, 1); } to { transform: scale(.9, 1.1); } }
+@keyframes trpDreidel { from { transform: rotate(0) translateY(-6px); } to { transform: rotate(1440deg); } }
+@keyframes trpCatWave { from { transform: rotate(-20deg); } to { transform: rotate(20deg); } }
+@keyframes trpWater { 0% { background: rgb(126 200 255 / .8); } 100% { background: rgb(255 255 255 / .35); } }
+@keyframes trpWalk { 0%, 100% { transform: translateX(0) rotate(-3deg); } 50% { transform: translateX(8px) rotate(3deg); } }
+@keyframes trpSpinPop { 0% { transform: scale(1) rotate(0); } 50% { transform: scale(.85) rotate(180deg); } 100% { transform: scale(1) rotate(360deg); } }
+@media (max-width: 560px) {
+  .trp-hol.first { grid-column: auto; grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .trp-plots { grid-template-columns: repeat(4, 1fr); }
+  .trp-bubble { width: 150px; font-size: .85em; }
+  .trp-cust-say { font-size: .7em; padding: 3px 5px; border-radius: 10px; }
+  .trp-want { width: 30px; height: 30px; }
+  .trp-tag { padding: 0 4px; border-width: 1.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .trp-body *, .trp-scene * { animation: none !important; }
+}
 </style>
 </head>
 <body class="bg-dots">
@@ -5107,6 +5311,20 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div id="lifeByeBody" class="row"></div>
+  </div>
+</dialog>
+
+
+<!-- Trips, camping, holidays, garden, shop — with all the pets (trips7) -->
+<dialog id="trpDlg" aria-labelledby="trpTitle" style="width:min(900px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="trpTitle">🏖️ טיול עם החיות</h3></div>
+      <div class="trp-headr"><span id="trpCoins"></span><button class="x" type="button" data-close aria-label="לסגור">✕</button></div>
+    </div>
+    <div class="tabs" role="tablist" id="trpTabs"></div>
+    <div id="trpBody" class="trp-body"></div>
   </div>
 </dialog>
 
@@ -28073,6 +28291,833 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
     } catch {}
   };
   try { lifeTick(); } catch (e) { console.error("lifeTick", e); }
+  // ================= 🏖️ trips, ⛺ camping, 🎃 holidays, 🥕 garden, 🏪 shop — all the pets together (trips agent) =================
+  let trpData = Object.assign({ souv: [], photos: [], trips: {}, camp: { n: 0, stars: [] }, suk: [], cost: {}, garden: null, basket: {}, shop: { decor: [], sold: 0, shelf: [] }, dreidel: {} }, store.get('trpData', {}));
+  const trpSave = () => store.set('trpData', trpData);
+  const trpTry = (f, d) => { try { return f(); } catch { return d; } };
+  const trpPick = a => a[Math.floor(Math.random() * a.length)];
+  const trpCoins = (n, why) => trpTry(() => { if (typeof addCoins === 'function') addCoins(n, why); });
+  const trpPets = () => trpTry(() => (typeof allPets === 'function' ? allPets() : [pet]).filter(p => p && p.kind && p.onboarded !== false), []).slice(0, 7);
+  const trpNm = p => (p && p.name) || 'החיה';
+  const TRP_S = `stroke="${O}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"`, TRP_S2 = `stroke="${O}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"`;
+  const trpSvg = (inner, vb = '0 0 100 100', cls = '') => `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg"${cls ? ` class="${cls}"` : ''} preserveAspectRatio="xMidYMid meet">${inner}</svg>`;
+  const trpBgSvg = inner => `<svg class="trp-bg" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+  let trpUid = 0;
+  const trpGrad = (id, a, b, vert = true) => `<linearGradient id="${id}" x1="0" y1="0" x2="${vert ? 0 : 1}" y2="${vert ? 1 : 0}"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`;
+  const trpStar = (x, y, r, c = '#ffd84d', st = TRP_S2) => `<polygon points="${starPts(x, y, r, r * .45)}" fill="${c}" ${st}/>`;
+  const trpHeart = (x, y, s, c = '#ff5a8a') => `<path d="M${x} ${y + s * .9} C${x - s * 1.6} ${y - s * .2} ${x - s * .8} ${y - s * 1.3} ${x} ${y - s * .4} C${x + s * .8} ${y - s * 1.3} ${x + s * 1.6} ${y - s * .2} ${x} ${y + s * .9} Z" fill="${c}" ${TRP_S2}/>`;
+  const trpSparkle = (x, y, r = 5, c = '#fff') => `<path d="M${x} ${y - r} Q${x + r * .2} ${y - r * .2} ${x + r} ${y} Q${x + r * .2} ${y + r * .2} ${x} ${y + r} Q${x - r * .2} ${y + r * .2} ${x - r} ${y} Q${x - r * .2} ${y - r * .2} ${x} ${y - r} Z" fill="${c}"/>`;
+  // little tunes (made with tone)
+  const trpTune = (notes, step = .12, type = 'triangle', vol = .08) => notes.forEach((f, i) => f && tone(f, step * 1.3, type, i * step, vol));
+  const TRP_SND = {
+    splash: () => { [900, 700, 520, 400].forEach((f, i) => tone(f, .09, 'sine', i * .04, .06)); tone(200, .25, 'triangle', .1, .05); },
+    wave: () => [180, 220, 260, 220, 180].forEach((f, i) => tone(f, .35, 'sine', i * .12, .04)),
+    chirp: () => [2200, 2600, 2200, 2800].forEach((f, i) => tone(f, .06, 'sine', i * .08, .05)),
+    sparkle: () => trpTune([1568, 2093, 2637, 3136], .07, 'sine', .05),
+    thud: () => tone(140, .12, 'triangle', 0, .1),
+    whoosh: () => [300, 500, 800, 1200].forEach((f, i) => tone(f, .1, 'sine', i * .05, .04)),
+    crunch: () => [0, .08, .16].forEach(w => tone(220 + Math.random() * 80, .05, 'square', w, .03)),
+    bell: () => { tone(1760, .5, 'sine', 0, .07); tone(2637, .4, 'sine', .02, .04); },
+    owl: () => { tone(420, .25, 'sine', 0, .1); tone(380, .45, 'sine', .3, .1); },
+    frog: () => [0, .18].forEach(w => { tone(140, .09, 'square', w, .05); tone(110, .09, 'square', w + .08, .05); }),
+    cricket: () => Array.from({ length: 10 }, (_, i) => tone(4200, .025, 'square', i * .045, .02)),
+    wind: () => [260, 300, 340, 300, 260, 220].forEach((f, i) => tone(f, .4, 'sine', i * .18, .025)),
+    fire: () => Array.from({ length: 8 }, (_, i) => tone(90 + Math.random() * 400, .03, 'square', i * .06 + Math.random() * .04, .02)),
+    pop: () => { tone(900, .05, 'square', 0, .05); tone(300, .08, 'triangle', .03, .06); },
+    echo: () => [0, .45, .9].forEach((w, i) => { tone(660, .18, 'triangle', w, .09 / (i + 1)); tone(880, .22, 'triangle', w + .16, .09 / (i + 1)); }),
+    camera: () => { tone(2400, .03, 'square', 0, .05); tone(1200, .06, 'square', .05, .05); },
+    shofar: kind => kind === 0 ? tone(233, 1.6, 'sawtooth', 0, .05) : kind === 1 ? [0, .5, 1].forEach(w => tone(233, .4, 'sawtooth', w, .05)) : Array.from({ length: 9 }, (_, i) => tone(233, .1, 'sawtooth', i * .13, .05)),
+    grogger: () => Array.from({ length: 14 }, (_, i) => tone(160 + (i % 2) * 90, .04, 'square', i * .045, .04)),
+    parrot: () => trpTune([988, 1319, 1175, 1568, 1319, 1760], .1, 'square', .04),
+    cash: () => { trpTune([1319, 1568, 2093], .07, 'square', .04); },
+    drive: () => [120, 130, 140, 150, 160, 170].forEach((f, i) => tone(f, .2, 'sawtooth', i * .18, .025)),
+  };
+  // ---------- one dialog, 5 worlds ----------
+  const TRP_SECS = [['trips', '🏖️ טיולים', 'טיול עם החיות'], ['camp', '⛺ קמפינג', 'קמפינג עם החיות'], ['hol', '🎃 חגים', 'חגים עם החיות'], ['garden', '🥕 גינה', 'הגינה של החיות'], ['shop', '🏪 חנות', 'החנות של החיות']];
+  let trpSec = 'trips', trpStops = [];
+  const trpStopAll = () => { trpStops.forEach(f => trpTry(f)); trpStops = []; };
+  function trpOpen(sec) {
+    if (sec) trpSec = sec;
+    trpStopAll(); trpView = null;
+    trpDraw();
+    const d = $('#trpDlg'); if (!d.open) d.showModal();
+  }
+  let trpView = null; // sub-view inside a section (a destination, a holiday...)
+  function trpDraw() {
+    trpStopAll();
+    const sec = TRP_SECS.find(s => s[0] === trpSec) || TRP_SECS[0];
+    $('#trpTitle').textContent = sec[1].split(' ')[0] + ' ' + sec[2];
+    const chip = trpTry(() => typeof coinChip === 'function' ? coinChip() : null);
+    $('#trpCoins').replaceChildren(...(chip ? [chip] : []));
+    $('#trpTabs').replaceChildren(...TRP_SECS.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(trpSec === id), onclick: () => { trpSec = id; trpView = null; SFX.pop(); trpDraw(); } }, n)));
+    const body = $('#trpBody');
+    body.replaceChildren();
+    const f = { trips: trpDrawTrips, camp: trpDrawCamp, hol: trpDrawHol, garden: trpDrawGarden, shop: trpDrawShop }[trpSec];
+    try { f(body); } catch (e) { console.warn(e); body.replaceChildren(el('p', { class: 'muted' }, 'אופס, משהו השתבש 🙈')); }
+  }
+  const trpAdd = (box, ...kids) => box.append(...kids.filter(k => k != null && k !== false));
+  const trpConfetti = () => trpTry(() => confetti($('#trpDlg .confetti-c')));
+  const trpBack = (label, fn) => el('button', { type: 'button', class: 'btn trp-back', onclick: () => { SFX.pop(); fn(); } }, label);
+
+  // ---------- the scene engine: a drawn background + tap-able surprises + all the pets together ----------
+  // act = { n, x, y, w, taps, art(stage, act) → svg inner (0..100 box), snd, say:[...], done, spots:[[x,y]...], spotArt(found, i), hide, onTap(ctx, stage), onDone(ctx), repeat }
+  function trpScene({ bg, acts = [], pets = trpPets(), petOpts = () => ({}), onAllDone, cls = '', state = {}, deco = '' }) {
+    const root = el('div', { class: 'trp-scene ' + cls });
+    root.innerHTML = bg;
+    const layer = el('div', { class: 'trp-layer' }); root.append(layer);
+    if (deco) layer.insertAdjacentHTML('beforeend', deco);
+    const bubble = el('div', { class: 'trp-bubble', hidden: true });
+    const row = el('div', { class: 'trp-pets' + (pets.length > 4 ? ' many' : '') });
+    let bubT = 0;
+    const petBtns = pets.map((p, i) => {
+      const b = el('button', { type: 'button', class: 'trp-pet', 'aria-label': trpNm(p), style: `--d:${(i * .37) % 1.3}s`, html: petSVG(p, petOpts(p, i)) });
+      b.addEventListener('click', () => { SFX.pet(p.kind); ctx.jump(i); ctx.say(trpPick(ctx.petLines || [`${trpNm(p)}: איזה כיף פה! 💖`, `${trpNm(p)}: ${(typeof PZ_SAYS !== 'undefined' && PZ_SAYS[p.kind]) || 'יאיי'}! 🥰`, `${trpNm(p)}: עוד! עוד!`]), i); });
+      row.append(b); return b;
+    });
+    root.append(row, bubble);
+    const ctx = {
+      root, layer, pets, petBtns, state,
+      say(text, i) {
+        bubble.textContent = text; bubble.hidden = false;
+        const b = petBtns[i == null ? Math.floor(Math.random() * petBtns.length) : i];
+        if (b) { const r = root.getBoundingClientRect(), q = b.getBoundingClientRect(); if (r.width) bubble.style.left = Math.max(4, Math.min(r.width - 190, q.left - r.left + q.width / 2 - 90)) + 'px'; }
+        bubble.classList.remove('in'); void bubble.offsetWidth; bubble.classList.add('in');
+        clearTimeout(bubT); bubT = setTimeout(() => { bubble.hidden = true; }, 3200);
+      },
+      jump(i) { const b = petBtns[i]; if (!b) return; b.classList.remove('jump'); void b.offsetWidth; b.classList.add('jump'); },
+      jumpAll() { petBtns.forEach((b, i) => setTimeout(() => ctx.jump(i), i * 110)); },
+      redrawPets(opt) { pets.forEach((p, i) => { petBtns[i].innerHTML = petSVG(p, (opt || petOpts)(p, i)); }); },
+      feedAll(food) { SFX.munch(); let line = ''; pets.forEach((p, i) => setTimeout(() => { const r = trpTry(() => typeof feedPet === 'function' ? feedPet(p, food) : ''); if (i === 0) { line = r; ctx.say(r || `יאמי! ${food.name} 😋`, 0); } ctx.jump(i); }, i * 140)); },
+      doneCount: 0,
+    };
+    const all = acts.length;
+    const finish = a => {
+      if (a._done) return; a._done = true; ctx.doneCount++;
+      if (a.done) setTimeout(() => ctx.say(a.done), 250);
+      if (a.onDone) trpTry(() => a.onDone(ctx));
+      if (!a.noCoins) trpCoins(2, a.n);
+      if (ctx.doneCount === all && onAllDone) setTimeout(() => onAllDone(ctx), 900);
+    };
+    acts.forEach(a => {
+      a._done = !!(state.done && state.done[a.id || a.n]);
+      if (a._done) ctx.doneCount++;
+      const mark = () => { state.done = state.done || {}; state.done[a.id || a.n] = 1; };
+      if (a.spots) {
+        a._found = a._found || new Set(a._done ? a.spots.map((_, i) => i) : []);
+        const hid = a.hide ? Math.floor(Math.random() * a.spots.length) : -1;
+        a.spots.forEach(([x, y, w = 9], i) => {
+          const b = el('button', { type: 'button', class: 'trp-hot trp-spot' + (a._found.has(i) ? ' found' : ''), 'aria-label': a.n, style: `left:${x}%;top:${y}%;width:${w}%`, html: trpSvg(a.spotArt(a._found.has(i), i, i === hid)) });
+          b.addEventListener('click', () => {
+            if (a._found.has(i)) { if (a.repeat && a.snd) a.snd(i); return; }
+            a._found.add(i); b.classList.add('found', 'pop'); b.innerHTML = trpSvg(a.spotArt(true, i, i === hid));
+            if (a.snd) a.snd(i); else SFX.ding();
+            if (a.hide) { if (i === hid) { a.spots.forEach((_, k) => a._found.add(k)); mark(); finish(a); ctx.jumpAll(); } else ctx.say(trpPick(['לא כאן... 🙈', 'גם לא פה! 🤔', 'אולי במקום אחר? 👀'])); return; }
+            if (a.onTap) trpTry(() => a.onTap(ctx, a._found.size, i));
+            else if (a.say) ctx.say(trpPick(a.say) + ` (${a._found.size}/${a.spots.length})`);
+            ctx.jump(Math.floor(Math.random() * petBtns.length));
+            if (a._found.size === a.spots.length) { mark(); finish(a); }
+          });
+          layer.append(b);
+        });
+        return;
+      }
+      let stage = a._done ? a.taps : 0;
+      const b = el('button', { type: 'button', class: 'trp-hot' + (a._done ? ' done' : ''), 'aria-label': a.n, style: `left:${a.x}%;top:${a.y}%;width:${a.w || 18}%` });
+      const draw = () => { b.innerHTML = trpSvg(a.art(stage, a)) + (a.label === false ? '' : `<span class="trp-tag">${a._done ? '✔ ' : '✨ '}${a.n}</span>`); };
+      draw();
+      b.addEventListener('click', () => {
+        if (stage >= a.taps && !a.repeat) { if (a.snd) a.snd(stage); ctx.jump(Math.floor(Math.random() * petBtns.length)); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); if (a.again) ctx.say(trpPick(a.again)); return; }
+        stage = a.repeat && stage >= a.taps ? 1 : stage + 1;
+        if (a.onTap) trpTry(() => a.onTap(ctx, stage, a));
+        else if (a.say && stage < a.taps) ctx.say(trpPick(a.say));
+        draw(); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+        if (a.snd) a.snd(stage); else SFX.pop();
+        ctx.jump(Math.floor(Math.random() * petBtns.length));
+        if (stage >= a.taps && !a._done) { mark(); finish(a); b.classList.add('done'); draw(); }
+      });
+      layer.append(b);
+    });
+    return ctx;
+  }
+  const trpFood = (id, name, art, yum = 3) => ({ id: 'trp-' + id, name, art: trpSvg(art), yum });
+  // ---------- 🏖️ trips ----------
+  const trpSun = (x, y, r = 22) => `<g class="trp-spin-slow" style="transform-origin:${x}px ${y}px">${Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI / 6; return `<path d="M${x + Math.cos(a) * (r + 5)} ${y + Math.sin(a) * (r + 5)} L${x + Math.cos(a) * (r + 13)} ${y + Math.sin(a) * (r + 13)}" stroke="#ffc53d" stroke-width="4" stroke-linecap="round"/>`; }).join('')}</g><circle cx="${x}" cy="${y}" r="${r}" fill="#ffe066" ${TRP_S}/><circle cx="${x - 7}" cy="${y - 2}" r="2" fill="${O}"/><circle cx="${x + 7}" cy="${y - 2}" r="2" fill="${O}"/><path d="M${x - 6} ${y + 6} Q${x} ${y + 11} ${x + 6} ${y + 6}" fill="none" ${TRP_S2}/><circle cx="${x - 12}" cy="${y + 5}" r="3" fill="#ff9aa2" opacity=".7"/><circle cx="${x + 12}" cy="${y + 5}" r="3" fill="#ff9aa2" opacity=".7"/>`;
+  const trpCloud = (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})" class="trp-drift"><path d="M-30 8 Q-32 -6 -18 -6 Q-14 -18 0 -16 Q12 -22 20 -10 Q34 -10 32 4 Q34 12 22 12 H-22 Q-32 12 -30 8 Z" fill="#fff" ${TRP_S2}/></g>`;
+  const trpPalm = (x, y, s = 1, flip = false) => `<g transform="translate(${x} ${y}) scale(${flip ? -s : s} ${s})"><path d="M0 0 Q-4 -40 6 -78" fill="none" stroke="${O}" stroke-width="11" stroke-linecap="round"/><path d="M0 0 Q-4 -40 6 -78" fill="none" stroke="#c98f5a" stroke-width="7" stroke-linecap="round"/>${[-20, -45, -62].map(t => `<path d="M${-3 + (t + 78) * .08} ${t} h7" stroke="#9b6b43" stroke-width="1.6"/>`).join('')}${[[-38, -70], [-30, -96], [8, -104], [40, -90], [42, -66]].map(([a, b]) => `<path d="M6 -78 Q${(a + 6) / 2} ${b - 16} ${a} ${b} Q${(a + 6) / 2 + 4} ${(b - 78) / 2 - 30} 6 -78 Z" fill="#4fbf73" ${TRP_S2}/>`).join('')}<circle cx="2" cy="-74" r="5" fill="#8a5a3c" ${TRP_S2}/><circle cx="10" cy="-72" r="5" fill="#8a5a3c" ${TRP_S2}/></g>`;
+  const trpPine = (x, y, s = 1, c = '#3f9c5a', snow = false) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="-8" width="8" height="12" fill="#8a5a3c" ${TRP_S2}/><path d="M0 -62 L18 -36 H10 L24 -14 H14 L28 4 H-28 L-14 -14 H-24 L-10 -36 H-18 Z" fill="${c}" ${TRP_S2}/>${snow ? `<path d="M0 -62 L9 -49 Q0 -45 -9 -49 Z M-10 -36 Q0 -31 10 -36 L14 -30 Q0 -25 -14 -30 Z M-14 -14 Q0 -9 14 -14 L18 -8 Q0 -3 -18 -8 Z" fill="#fff"/>` : ''}</g>`;
+  const trpTree = (x, y, s = 1, c = '#6fcf7f') => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-5 0 L-3 -30 H3 L5 0 Z" fill="#9b6b43" ${TRP_S2}/><circle cx="0" cy="-42" r="20" fill="${c}" ${TRP_S2}/><circle cx="-14" cy="-32" r="12" fill="${c}" ${TRP_S2}/><circle cx="14" cy="-32" r="12" fill="${c}" ${TRP_S2}/><path d="M-8 -50 q5 -6 12 -3" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".6"/></g>`;
+  const trpFlakes = n => Array.from({ length: n }, (_, i) => `<circle cx="${(i * 53) % 400}" cy="${(i * 37) % 180}" r="${1.5 + (i % 3)}" fill="#fff" class="trp-flake" style="animation-delay:${-(i * .7) % 6}s;animation-duration:${5 + i % 4}s"/>`).join('');
+  const trpGrass = (y, c = '#8fd694', c2 = '#6fc27a') => `<path d="M0 ${y} Q100 ${y - 14} 200 ${y} T400 ${y} V250 H0 Z" fill="${c}" ${TRP_S2}/><path d="M0 ${y + 30} Q120 ${y + 18} 240 ${y + 32} T400 ${y + 26} V250 H0 Z" fill="${c2}" opacity=".7"/>`;
+  const TRP_BG = {
+    beach: () => { const u = 'tb' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u + 's', '#7fd3ff', '#dff6ff')}${trpGrad(u + 'w', '#3fb6e8', '#1f8fd0')}</defs><rect width="400" height="250" fill="url(#${u}s)"/>${trpSun(60, 44)}${trpCloud(190, 36)}${trpCloud(320, 56, .8)}
+      <path d="M0 110 H400 V170 H0 Z" fill="url(#${u}w)"/><path class="trp-waves" d="M-40 118 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="#fff" stroke-width="2.5" opacity=".7"/><path class="trp-waves rev" d="M-40 142 q10 -6 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="#bfeaff" stroke-width="2.5"/>
+      <path d="M340 110 l6 -12 h14 l6 12 Z" fill="#fff" ${TRP_S2}/><path d="M353 98 V80 L372 96 Z" fill="#ff6b6b" ${TRP_S2}/>
+      <path d="M0 160 Q60 150 130 162 T260 160 T400 158 V250 H0 Z" fill="#ffe2a8" ${TRP_S}/><path d="M0 164 Q60 156 130 166 T260 164 T400 162" fill="none" stroke="#fff" stroke-width="5" opacity=".7"/>${trpPalm(376, 240, 1.1, true)}
+      <g transform="translate(150 196) rotate(-6)"><rect x="-30" y="-8" width="60" height="16" rx="3" fill="#7ec8ff" ${TRP_S2}/><path d="M-30 -2 H30 M-30 4 H30" stroke="#fff" stroke-width="2.5"/></g>`); },
+    forest: () => { const u = 'tb' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u + 's', '#b8ecc8', '#f2fff0')}</defs><rect width="400" height="250" fill="url(#${u}s)"/>${trpSun(350, 36, 16)}
+      ${[20, 70, 130, 270, 330, 390].map((x, i) => trpPine(x, 150, 1.4 + (i % 2) * .3, i % 2 ? '#5fb36d' : '#4a9e5c')).join('')}${[45, 100, 300, 360].map((x, i) => trpTree(x, 170, 1.1, i % 2 ? '#7fd08a' : '#9be07a')).join('')}
+      ${trpGrass(160, '#9be07a', '#7ccf6a')}<path d="M170 250 Q190 200 200 160 Q210 200 240 250 Z" fill="#e8c89a" ${TRP_S2}/>${[[60, 190], [340, 200], [120, 225]].map(([x, y]) => `<g transform="translate(${x} ${y})"><path d="M-5 0 V-8 M0 0 V-10 M5 0 V-8" stroke="#4a9e5c" stroke-width="2"/><circle cx="-5" cy="-10" r="3.5" fill="#ff9ad5" ${TRP_S2}/><circle cx="5" cy="-10" r="3.5" fill="#ffd84d" ${TRP_S2}/><circle cx="0" cy="-12" r="3.5" fill="#b58cff" ${TRP_S2}/></g>`).join('')}`); },
+    mountains: () => { const u = 'tb' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u + 's', '#a8d8ff', '#fff4e6')}</defs><rect width="400" height="250" fill="url(#${u}s)"/>${trpCloud(80, 40)}${trpCloud(300, 30, .9)}
+      <path d="M-20 170 L70 60 L130 130 L200 30 L280 120 L330 70 L420 170 Z" fill="#9aa7d8" ${TRP_S}/><path d="M70 60 L52 82 L62 78 L70 86 L80 76 L88 82 Z M200 30 L176 60 L190 56 L200 66 L212 56 L224 62 Z M330 70 L314 90 L324 86 L332 94 L340 86 L348 92 Z" fill="#fff" ${TRP_S2}/>
+      <path d="M-20 175 L90 110 L170 160 L260 100 L420 175 Z" fill="#7c8cc8" ${TRP_S2} opacity=".9"/>${trpGrass(170, '#a8e08a', '#8cd07a')}${[[40, 205], [150, 230], [260, 210], [360, 228]].map(([x, y]) => `<g transform="translate(${x} ${y})">${[0, 72, 144, 216, 288].map(d => `<circle cx="${Math.cos(d * Math.PI / 180) * 3.5}" cy="${Math.sin(d * Math.PI / 180) * 3.5}" r="2.6" fill="#fff" ${TRP_S2}/>`).join('')}<circle r="2" fill="#ffd84d"/></g>`).join('')}`); },
+    snow: () => { const u = 'tb' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u + 's', '#bcd8ff', '#f3f8ff')}</defs><rect width="400" height="250" fill="url(#${u}s)"/>${trpCloud(90, 36, .9)}${trpCloud(290, 50)}
+      <path d="M-20 150 Q80 90 190 140 Q290 70 420 130 V250 H-20 Z" fill="#fff" ${TRP_S}/><path d="M-20 170 Q100 140 200 175 T420 165 V250 H-20 Z" fill="#eef5ff" ${TRP_S2}/>${[[30, 150, 1.2], [70, 140, 1], [330, 125, 1.1], [375, 135, 1.3], [250, 150, .8]].map(([x, y, s]) => trpPine(x, y, s, '#3f8f6a', true)).join('')}
+      <g transform="translate(300 176)"><rect x="-26" y="-22" width="52" height="30" fill="#c98f5a" ${TRP_S2}/><path d="M-32 -20 L0 -44 L32 -20 Z" fill="#fff" ${TRP_S2}/><rect x="-7" y="-10" width="14" height="18" fill="#8a5a3c" ${TRP_S2}/><rect x="10" y="-16" width="10" height="9" fill="#ffe27a" ${TRP_S2}/><rect x="14" y="-54" width="7" height="14" fill="#b07642" ${TRP_S2}/></g>${trpFlakes(28)}`); },
+    oasis: () => { const u = 'tb' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u + 's', '#ffb86b', '#fff1c9')}${trpGrad(u + 'w', '#5fd0e0', '#2fa0c8')}</defs><rect width="400" height="250" fill="url(#${u}s)"/>${trpSun(320, 50, 26)}
+      <path d="M-20 150 Q60 100 150 140 Q240 90 330 130 Q380 110 420 130 V250 H-20 Z" fill="#f2c27a" ${TRP_S}/><path d="M-20 180 Q90 150 200 180 T420 170 V250 H-20 Z" fill="#ffd89a" ${TRP_S2}/>
+      <ellipse cx="190" cy="200" rx="95" ry="22" fill="url(#${u}w)" ${TRP_S}/><path d="M130 196 q10 -4 20 0 M200 206 q10 -4 20 0 M240 194 q8 -3 16 0" stroke="#fff" stroke-width="2" fill="none" opacity=".8"/>${trpPalm(120, 200, 1)}${trpPalm(290, 200, 1.05, true)}
+      <g transform="translate(40 150)"><path d="M0 0 V-34 M0 -18 H-10 V-28 M0 -22 H10 V-30" fill="none" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M0 0 V-34 M0 -18 H-10 V-28 M0 -22 H10 V-30" fill="none" stroke="#6fbf6a" stroke-width="5.5" stroke-linecap="round"/></g>`); },
+    jungle: () => { const u = 'tb' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u + 's', '#8fdcb0', '#e4fff0')}${trpGrad(u + 'f', '#bff0ff', '#6fd0f0')}</defs><rect width="400" height="250" fill="url(#${u}s)"/>
+      <path d="M150 0 H260 V60 Q250 80 240 80 H170 Q160 80 150 60 Z" fill="#7a8a9a" ${TRP_S2}/><path d="M168 60 H242 V190 H168 Z" fill="url(#${u}f)" ${TRP_S2}/><g class="trp-fall">${[176, 190, 204, 218, 232].map((x, i) => `<path d="M${x} ${60 + i * 7} v26 M${x + 4} ${110 + i * 5} v22" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".85"/>`).join('')}</g>
+      <path d="M-10 60 Q20 0 90 10 Q60 40 60 90 Q30 60 -10 60 Z M410 60 Q380 0 310 10 Q340 40 340 90 Q370 60 410 60 Z" fill="#3f9c5a" ${TRP_S2}/>${trpGrass(180, '#6fcf7f', '#4fbf73')}<ellipse cx="205" cy="198" rx="70" ry="16" fill="#6fd0f0" ${TRP_S2}/><path d="M160 196 q8 -5 16 0 t16 0 t16 0 t16 0 t16 0" stroke="#fff" stroke-width="2" fill="none"/>
+      ${[[30, 250, -20], [380, 250, 20], [110, 250, -8]].map(([x, y, r]) => `<path transform="translate(${x} ${y}) rotate(${r})" d="M0 0 Q-30 -40 0 -80 Q30 -40 0 0 Z" fill="#2f8f4a" ${TRP_S2}/>`).join('')}<path d="M110 0 Q116 60 104 110" fill="none" stroke="#3f8f3a" stroke-width="4"/><path d="M300 0 Q292 50 304 90" fill="none" stroke="#3f8f3a" stroke-width="4"/>`); },
+  };
+  const trpDest = (id, name, emoji, need, souv, acts) => ({ id, name, emoji, need, souv, acts });
+  // activity art helpers (in a 100×100 box)
+  const trpShell = (c = '#ffb3c7') => `<path d="M50 78 L22 50 Q30 22 50 20 Q70 22 78 50 Z" fill="${c}" ${TRP_S}/><path d="M50 78 L36 32 M50 78 L50 24 M50 78 L64 32 M50 78 L28 46 M50 78 L72 46" stroke="${O}" stroke-width="1.6"/><path d="M42 80 h16" ${TRP_S}/>`;
+  const TRP_DESTS = [
+    trpDest('beach', 'החוף', '🏖️', ['sunscreen', 'swim', 'towel'], 'shell', [
+      { n: 'ארמון חול', x: 34, y: 38, w: 22, taps: 3, snd: () => TRP_SND.thud(), say: ['עוד קצת חול! 🏖️', 'מגדל ועוד מגדל!'], done: 'וואו! ארמון חול מושלם! 🏰',
+        art: s => `<path d="M8 88 Q50 ${s ? 80 : 60} 92 88 Z" fill="#f2c27a" ${TRP_S}/>` + (s >= 1 ? `<rect x="26" y="56" width="48" height="30" fill="#ffd89a" ${TRP_S}/><path d="M26 56 v-6 h8 v6 h8 v-6 h8 v6 h8 v-6 h8 v6 h8 v-6" fill="none" ${TRP_S2}/><path d="M44 86 v-12 a6 6 0 0 1 12 0 v12" fill="#c98f5a" ${TRP_S2}/>` : `<path d="M70 70 l6 -18 h14 l4 18 Z" fill="#ff6b6b" ${TRP_S2}/>`) + (s >= 2 ? `<rect x="18" y="38" width="16" height="48" fill="#ffd89a" ${TRP_S2}/><rect x="66" y="38" width="16" height="48" fill="#ffd89a" ${TRP_S2}/><path d="M18 38 l8 -12 l8 12 M66 38 l8 -12 l8 12" fill="#f2c27a" ${TRP_S2}/>` : '') + (s >= 3 ? `<path d="M74 26 V8 L88 13 L74 18" fill="#ff5a8a" ${TRP_S2}/><circle cx="36" cy="70" r="3" fill="#ffb3c7" ${TRP_S2}/><circle cx="62" cy="68" r="3" fill="#7ec8ff" ${TRP_S2}/>` : '') },
+      { n: 'למצוא צדפים', spots: [[10, 70, 7], [62, 72, 7], [88, 64, 7], [30, 60, 6], [76, 56, 6]], say: ['מצאתי צדף! 🐚', 'עוד צדף יפה!', 'איזה נוצץ! ✨'], done: 'אספנו את כל הצדפים! 🐚',
+        spotArt: (f, i) => f ? trpShell(['#ffb3c7', '#ffd84d', '#b58cff', '#7ec8ff', '#ff9a3c'][i]) : `<ellipse cx="50" cy="70" rx="34" ry="14" fill="#f2c27a" ${TRP_S2}/>${trpSparkle(52, 44, 14, '#fff8c9')}`, snd: () => TRP_SND.sparkle() },
+      { n: 'לקפוץ בגלים', x: 60, y: 25, w: 20, taps: 3, snd: () => TRP_SND.splash(), onTap: ctx => { ctx.jumpAll(); ctx.say(trpPick(['שפלאש! 💦', 'עוד גל! 🌊', 'היייי! 🤸'])); }, done: 'איזה כיף בים! 🌊',
+        art: s => `<path d="M6 80 Q20 ${60 - s * 8} 40 ${54 - s * 6} Q60 ${46 - s * 8} 70 ${62 - s * 4} Q60 60 58 74 Q74 70 94 80 Z" fill="#3fb6e8" ${TRP_S}/><path d="M40 ${54 - s * 6} Q58 ${44 - s * 8} 70 ${62 - s * 4}" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>${s ? `<circle cx="30" cy="${34 - s * 4}" r="3" fill="#bfeaff" ${TRP_S2}/><circle cx="76" cy="${40 - s * 4}" r="2.5" fill="#bfeaff" ${TRP_S2}/><circle cx="50" cy="${24 - s * 4}" r="3.5" fill="#bfeaff" ${TRP_S2}/>` : ''}` },
+      { n: 'גלידה לכולם', x: 76, y: 30, w: 17, taps: 1, snd: () => TRP_SND.bell(), onDone: ctx => ctx.feedAll(trpFood('icecream', 'גלידה', `<path d="M36 50 L50 92 L64 50 Z" fill="#f2b56b" ${TRP_S}/><circle cx="42" cy="44" r="12" fill="#ff9ad5" ${TRP_S}/><circle cx="58" cy="44" r="12" fill="#bfeaff" ${TRP_S}/><circle cx="50" cy="32" r="12" fill="#fff6c4" ${TRP_S}/>`)),
+        art: s => `<rect x="14" y="44" width="72" height="34" rx="6" fill="#fff" ${TRP_S}/><path d="M10 44 Q50 18 90 44 Z" fill="#ff9ad5" ${TRP_S}/><path d="M24 44 Q30 34 36 44 M48 44 Q54 32 60 44 M70 44 Q74 36 80 44" fill="#fff" ${TRP_S2}/><circle cx="28" cy="84" r="7" fill="#8a8a9a" ${TRP_S}/><circle cx="72" cy="84" r="7" fill="#8a8a9a" ${TRP_S}/>${s ? `<g class="trp-bob"><path d="M44 20 L50 36 L56 20 Z" fill="#f2b56b" ${TRP_S2}/><circle cx="50" cy="16" r="7" fill="#ff9ad5" ${TRP_S2}/></g>` : `<text x="50" y="66" text-anchor="middle" font-size="14">🍦</text>`}` },
+      { n: 'מי מתחבא בסלע?', x: 6, y: 34, w: 17, taps: 2, snd: s => s === 1 ? TRP_SND.pop() : TRP_SND.chirp(), say: ['מישהו מציץ... 👀'], done: 'סרטן חמוד אומר שלום! 🦀',
+        art: s => `<path d="M8 86 Q10 50 40 46 Q60 36 80 52 Q96 62 92 86 Z" fill="#a8a3b8" ${TRP_S}/><path d="M30 60 q8 -6 16 -2" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>` + (s >= 1 ? `<g class="trp-bob"><ellipse cx="${s >= 2 ? 50 : 70}" cy="${s >= 2 ? 30 : 48}" rx="16" ry="11" fill="#ff6b6b" ${TRP_S}/><path d="M${s >= 2 ? 34 : 54} ${s >= 2 ? 26 : 44} l-10 -10 m4 -4 l6 8 M${s >= 2 ? 66 : 86} ${s >= 2 ? 26 : 44} l10 -12" fill="none" ${TRP_S}/><circle cx="${s >= 2 ? 44 : 64}" cy="${s >= 2 ? 22 : 40}" r="3.5" fill="#fff" ${TRP_S2}/><circle cx="${s >= 2 ? 56 : 76}" cy="${s >= 2 ? 22 : 40}" r="3.5" fill="#fff" ${TRP_S2}/><path d="M${s >= 2 ? 45 : 65} ${s >= 2 ? 32 : 50} q5 4 10 0" fill="none" ${TRP_S2}/></g>` : '') },
+    ]),
+    trpDest('forest', 'היער', '🌲', ['boots', 'flashlight', 'snacks'], 'pinecone', [
+      { n: 'לקטוף פירות יער', spots: [[8, 44, 8], [26, 52, 8], [70, 48, 8], [86, 42, 8]], say: ['יאמי! פירות יער! 🫐', 'עוד אחד!'], done: 'סל מלא פירות יער! 🧺', snd: () => TRP_SND.pop(),
+        onTap: (ctx, n) => { if (n === 4) ctx.feedAll(trpFood('berries', 'פירות יער', `${[[40, 50, '#5a6be0'], [58, 46, '#b58cff'], [50, 64, '#ff5a8a']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="12" fill="${c}" ${TRP_S}/>`).join('')}`, 2)); else ctx.say('מצאתי! 🫐'); },
+        spotArt: (f, i) => `<path d="M10 86 Q8 44 50 40 Q92 44 90 86 Z" fill="#4fbf73" ${TRP_S}/>` + (f ? `<path d="M30 70 q8 -4 12 2" stroke="#fff" stroke-width="3" fill="none" opacity=".5"/>` : [[30, 58], [52, 52], [70, 62], [44, 72], [62, 76]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="${['#5a6be0', '#ff5a8a', '#b58cff'][i % 3]}" ${TRP_S2}/>`).join('')) },
+      { n: 'מי גר בעץ?', x: 40, y: 8, w: 18, taps: 2, snd: s => s === 2 ? TRP_SND.chirp() : TRP_SND.pop(), say: ['טוק טוק... מי שם?'], done: 'סנאי קטן עם בלוט! 🐿️',
+        art: s => `<rect x="30" y="0" width="40" height="100" fill="#9b6b43" ${TRP_S}/><path d="M36 20 q4 10 0 20 M62 50 q-4 10 0 20" stroke="#6b4226" stroke-width="2" fill="none"/><ellipse cx="50" cy="50" rx="12" ry="15" fill="#3a2b2a" ${TRP_S2}/>` + (s >= 1 ? `<g class="trp-peek"><ellipse cx="50" cy="${s >= 2 ? 44 : 56}" rx="11" ry="10" fill="#e8893a" ${TRP_S}/><path d="M42 ${s >= 2 ? 36 : 48} l-2 -8 l6 4 M58 ${s >= 2 ? 36 : 48} l2 -8 l-6 4" fill="#e8893a" ${TRP_S2}/><circle cx="46" cy="${s >= 2 ? 43 : 55}" r="2" fill="${O}"/><circle cx="54" cy="${s >= 2 ? 43 : 55}" r="2" fill="${O}"/><ellipse cx="50" cy="${s >= 2 ? 48 : 60}" rx="3" ry="2" fill="#fff6e6"/></g>` : '') + (s >= 2 ? `<g transform="translate(60 56)"><ellipse cx="0" cy="4" rx="6" ry="7" fill="#c98f3a" ${TRP_S2}/><path d="M-7 -1 Q0 -8 7 -1 Z" fill="#8a5a3c" ${TRP_S2}/></g>` : '') },
+      { n: 'פרפרים', x: 72, y: 12, w: 18, taps: 3, snd: () => TRP_SND.sparkle(), say: ['עוד פרפר! 🦋', 'הם רוקדים!'], done: 'ריקוד פרפרים! 🦋🦋🦋',
+        art: s => `<path d="M50 96 V60" stroke="#4a9e5c" stroke-width="4"/><path d="M50 74 q-12 -8 -16 -2 q8 6 16 2 M50 80 q12 -8 16 -2 q-8 6 -16 2" fill="#6fcf7f" ${TRP_S2}/>${[0, 72, 144, 216, 288].map(d => `<circle cx="${50 + Math.cos(d * Math.PI / 180) * 9}" cy="${52 + Math.sin(d * Math.PI / 180) * 9}" r="7" fill="#ff9ad5" ${TRP_S2}/>`).join('')}<circle cx="50" cy="52" r="5" fill="#ffd84d" ${TRP_S2}/>` +
+          [[24, 24, '#b58cff'], [72, 20, '#7ec8ff'], [48, 10, '#ffb020']].slice(0, s).map(([x, y, c], i) => `<g class="trp-flutter" style="animation-delay:${i * .2}s;transform-origin:${x}px ${y}px"><path d="M${x} ${y} q-10 -10 -12 0 q4 6 12 0 q10 -10 12 0 q-4 6 -12 0" fill="${c}" ${TRP_S2}/></g>`).join('') },
+      { n: 'בול עץ חלול', x: 10, y: 20, w: 18, taps: 2, snd: s => s === 2 ? TRP_SND.chirp() : TRP_SND.thud(), say: ['שומעים משהו בפנים... 🤔'], done: 'קיפוד קטנטן! 🦔',
+        art: s => `<rect x="8" y="50" width="84" height="36" rx="18" fill="#b07642" ${TRP_S}/><ellipse cx="86" cy="68" rx="10" ry="18" fill="#3a2b2a" ${TRP_S2}/><ellipse cx="86" cy="68" rx="6" ry="12" fill="#6b4226"/><path d="M20 60 h30 M26 74 h40" stroke="#8a5a3c" stroke-width="2"/><path d="M30 50 q4 -12 12 -10" stroke="#4fbf73" stroke-width="3" fill="none"/>` +
+          (s >= 1 ? `<g class="trp-peek"><path d="M${s >= 2 ? 60 : 80} 70 Q${s >= 2 ? 58 : 78} 50 ${s >= 2 ? 76 : 90} 50 Q${s >= 2 ? 96 : 104} 56 ${s >= 2 ? 90 : 100} 74 Z" fill="#8a6a4a" ${TRP_S2}/><circle cx="${s >= 2 ? 64 : 82}" cy="64" r="7" fill="#f2d2a8" ${TRP_S2}/><circle cx="${s >= 2 ? 62 : 80}" cy="62" r="1.8" fill="${O}"/><circle cx="${s >= 2 ? 57 : 75}" cy="66" r="2" fill="${O}"/></g>` : '') },
+    ]),
+    trpDest('mountains', 'ההרים', '⛰️', ['boots', 'water', 'coat'], 'crystal', [
+      { n: 'לטפס לפסגה', x: 38, y: 4, w: 22, taps: 3, snd: s => trpTune([392, 494, 587, 784].slice(0, s + 1), .1), say: ['עוד קצת למעלה! 🧗', 'כמעט שם!'], done: 'הגענו לפסגה! 🚩',
+        art: s => `<path d="M6 94 L50 16 L94 94 Z" fill="#9aa7d8" ${TRP_S}/><path d="M50 16 L40 34 L47 31 L50 37 L55 31 L60 34 Z" fill="#fff" ${TRP_S2}/><path d="M28 70 L36 64 M60 50 L68 58" stroke="#fff" stroke-width="2"/>` + (() => { const y = [86, 66, 44, 16][s], x = [30, 38, 44, 50][s]; return `<path d="M${x} ${y} V${y - 22}" ${TRP_S}/><path d="M${x} ${y - 22} L${x + 16} ${y - 17} L${x} ${y - 12} Z" fill="${s >= 3 ? '#ff5a8a' : '#ffd84d'}" ${TRP_S2}/>`; })() },
+      { n: 'לצעוק הד!', x: 70, y: 16, w: 20, taps: 3, snd: () => TRP_SND.echo(), onTap: ctx => ctx.say('הלו... הלו... הלו... 🗣️'), done: 'ההר ענה לנו! 🏔️',
+        art: s => `<path d="M10 70 Q10 30 50 30 Q90 30 90 70 Q90 88 60 86 L44 96 L46 86 Q10 88 10 70 Z" fill="#fff" ${TRP_S}/><text x="50" y="${s ? 62 : 66}" text-anchor="middle" font-size="${18 - s * 2}" font-weight="700" fill="${O}">${['!הלו', '!הלו', '...הלו', '...לו'][s]}</text>` },
+      { n: 'קן על הצוק', x: 4, y: 12, w: 18, taps: 2, snd: s => s === 2 ? trpTune([1319, 1047, 1319, 1568], .1, 'sine') : TRP_SND.pop(), say: ['ציוץ ציוץ! 🐣'], done: 'גוזל קטן לומד לעוף! 🐦',
+        art: s => `<path d="M10 60 L90 56 L94 96 H6 Z" fill="#8f86a8" ${TRP_S}/><ellipse cx="50" cy="56" rx="28" ry="10" fill="#b07642" ${TRP_S}/><path d="M26 54 l10 4 m6 -6 l10 6 m6 -6 l10 6" stroke="#6b4226" stroke-width="2"/>` +
+          (s === 0 ? `<ellipse cx="44" cy="48" rx="6" ry="8" fill="#fff" ${TRP_S2}/><ellipse cx="56" cy="48" rx="6" ry="8" fill="#bfeaff" ${TRP_S2}/>` : `<g class="trp-bob"><circle cx="50" cy="${s >= 2 ? 20 : 42}" r="10" fill="#ffd84d" ${TRP_S}/><circle cx="46" cy="${s >= 2 ? 18 : 40}" r="1.8" fill="${O}"/><circle cx="54" cy="${s >= 2 ? 18 : 40}" r="1.8" fill="${O}"/><path d="M48 ${s >= 2 ? 23 : 45} l2 3 l2 -3 Z" fill="#ff9a3c" ${TRP_S2}/>${s >= 2 ? `<path d="M40 20 q-12 -8 -14 2 M60 20 q12 -8 14 2" fill="#ffe27a" ${TRP_S2}/>` : ''}</g>`) },
+      { n: 'פיקניק על ההר', x: 44, y: 44, w: 16, taps: 1, snd: () => SFX.munch(), onDone: ctx => ctx.feedAll(trpFood('sandwich', 'כריך פיקניק', `<path d="M16 60 L50 30 L84 60 Z" fill="#ffe2a8" ${TRP_S}/><path d="M18 60 H82 L78 68 H22 Z" fill="#6fcf7f" ${TRP_S2}/><path d="M20 68 H80 L50 44" fill="#ffe2a8" ${TRP_S}/>`, 2)),
+        art: s => `<path d="M6 70 L50 54 L94 70 L50 90 Z" fill="#ff6b6b" ${TRP_S}/><path d="M28 62 L72 78 M72 62 L28 78 M17 66 L61 82 M39 58 L83 74" stroke="#fff" stroke-width="3"/><rect x="34" y="${s ? 30 : 40}" width="32" height="24" rx="4" fill="#d9a066" ${TRP_S}/><path d="M38 ${s ? 30 : 40} Q50 ${s ? 14 : 24} 62 ${s ? 30 : 40}" fill="none" ${TRP_S}/>${s ? `<circle cx="42" cy="26" r="6" fill="#ff5a6e" ${TRP_S2}/><path d="M54 30 l6 -12 l6 12 Z" fill="#ffe2a8" ${TRP_S2}/>` : ''}` },
+    ]),
+    trpDest('snow', 'השלג', '❄️', ['coat', 'mittens', 'beanie'], 'snowglobe', [
+      { n: 'מגלשת מזחלת', x: 6, y: 8, w: 24, taps: 3, snd: () => TRP_SND.whoosh(), onTap: ctx => { ctx.jumpAll(); ctx.say(trpPick(['ווווווי! 🛷', 'עוד פעם! עוד פעם!', 'מהר יותר! ❄️'])); }, done: 'הכי כיף במזחלת! 🛷',
+        art: s => `<path d="M0 30 Q40 40 60 70 Q76 90 100 92 V100 H0 Z" fill="#fff"/><path d="M0 30 Q40 40 60 70 Q76 90 100 92" fill="none" ${TRP_S}/><path d="M10 40 Q40 50 56 74" stroke="#cfe2ff" stroke-width="3" fill="none"/>` + (() => { const p = [[16, 30], [38, 44], [60, 70], [84, 88]][s]; const r = [8, 20, 34, 12][s]; return `<g transform="translate(${p[0]} ${p[1]}) rotate(${r})"><rect x="-14" y="-10" width="28" height="7" rx="3" fill="#ff5a6e" ${TRP_S2}/><path d="M-16 0 H14 Q20 0 18 -6" fill="none" ${TRP_S2}/><path d="M-10 -3 v3 M10 -3 v3" ${TRP_S2}/></g>`; })() },
+      { n: 'איש שלג', x: 44, y: 16, w: 18, taps: 3, snd: () => TRP_SND.thud(), say: ['מגלגלים כדור! ⛄', 'עוד כדור!'], done: 'איש שלג חמוד! ⛄',
+        art: s => `<ellipse cx="50" cy="92" rx="40" ry="6" fill="#dfeaff"/><circle cx="50" cy="74" r="20" fill="#fff" ${TRP_S}/>` + (s >= 2 ? `<circle cx="50" cy="44" r="15" fill="#fff" ${TRP_S}/><circle cx="50" cy="40" r="1.8" fill="${O}"/><circle cx="50" cy="48" r="1.8" fill="${O}"/><path d="M36 42 L22 32 M64 42 L78 30" stroke="#8a5a3c" stroke-width="3" stroke-linecap="round"/>` : '') + (s >= 3 ? `<circle cx="50" cy="20" r="12" fill="#fff" ${TRP_S}/><circle cx="46" cy="18" r="1.8" fill="${O}"/><circle cx="54" cy="18" r="1.8" fill="${O}"/><path d="M50 21 L62 24 L50 25 Z" fill="#ff9a3c" ${TRP_S2}/><path d="M38 30 Q50 36 62 30 L62 34 Q50 40 38 34 Z M58 33 l4 10 l5 -2 l-3 -9" fill="#ff5a6e" ${TRP_S2}/><rect x="40" y="2" width="20" height="8" fill="#3a3a4a" ${TRP_S2}/><rect x="36" y="9" width="28" height="3" fill="#3a3a4a" ${TRP_S2}/>` : '') },
+      { n: 'מלאך שלג', x: 70, y: 36, w: 16, taps: 1, snd: () => TRP_SND.sparkle(), done: 'מלאכי שלג לכולם! 😇',
+        art: s => `<ellipse cx="50" cy="60" rx="44" ry="30" fill="#fff" ${TRP_S2}/>` + (s ? `<path d="M50 38 a8 8 0 1 1 0.1 0 M50 46 V74 M50 52 Q30 36 22 50 Q34 56 50 60 Q66 56 78 50 Q70 36 50 52 M50 74 L36 86 M50 74 L64 86" fill="#e2ecff" stroke="#9fb8e8" stroke-width="3" stroke-linecap="round"/>${trpSparkle(24, 30, 6, '#ffd84d')}${trpSparkle(78, 32, 5, '#ffd84d')}` : `${trpSparkle(50, 56, 12, '#dfeaff')}`) },
+      { n: 'שוקו חם', x: 80, y: 10, w: 16, taps: 1, snd: () => TRP_SND.bell(), onDone: ctx => ctx.feedAll(trpFood('cocoa', 'שוקו חם', `<path d="M24 36 H76 L70 86 Q50 94 30 86 Z" fill="#ff9ad5" ${TRP_S}/><ellipse cx="50" cy="36" rx="26" ry="7" fill="#8a5a3c" ${TRP_S2}/><circle cx="42" cy="34" r="5" fill="#fff" ${TRP_S2}/><circle cx="56" cy="33" r="5" fill="#fff" ${TRP_S2}/>`)),
+        art: s => `<path d="M24 40 H76 L70 88 Q50 96 30 88 Z" fill="#7ec8ff" ${TRP_S}/><path d="M76 50 q16 2 12 18 q-4 10 -14 8" fill="none" ${TRP_S}/><ellipse cx="50" cy="40" rx="26" ry="7" fill="#8a5a3c" ${TRP_S2}/>${s ? `<circle cx="42" cy="38" r="5" fill="#fff" ${TRP_S2}/><circle cx="56" cy="37" r="5" fill="#ffd1e6" ${TRP_S2}/>` : ''}<path class="trp-steam" d="M40 26 q-6 -8 0 -16 M52 26 q-6 -8 0 -16 M64 26 q-6 -8 0 -16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>` },
+      { n: 'פינגווין מחליק', x: 24, y: 40, w: 14, taps: 2, snd: s => s === 2 ? TRP_SND.whoosh() : TRP_SND.chirp(), say: ['פינגווין! 🐧'], done: 'הפינגווין מחליק על הבטן! 🐧',
+        art: s => `<ellipse cx="50" cy="88" rx="40" ry="8" fill="#cfe2ff" ${TRP_S2}/>` + `<g transform="translate(50 ${s >= 2 ? 76 : 58}) rotate(${s >= 2 ? -80 : 0})"><ellipse cx="0" cy="0" rx="16" ry="22" fill="#3a3a4a" ${TRP_S}/><ellipse cx="0" cy="4" rx="10" ry="16" fill="#fff"/><circle cx="-5" cy="-10" r="2" fill="${O}"/><circle cx="5" cy="-10" r="2" fill="${O}"/><path d="M-4 -5 L0 0 L4 -5 Z" fill="#ffb020" ${TRP_S2}/><path d="M-16 0 q-8 8 -4 14 M16 0 q8 8 4 14" fill="#3a3a4a" ${TRP_S2}/></g>` },
+    ]),
+    trpDest('oasis', 'נווה המדבר', '🌴', ['water', 'sunhat', 'sunscreen'], 'hourglass', [
+      { n: 'רכיבה על גמל', x: 1, y: 16, w: 21, taps: 2, snd: s => trpTune([330, 392, 330, 262], .14), onTap: (ctx, s) => { ctx.jumpAll(); ctx.say(s === 1 ? 'עולים על הגמל! 🐪' : 'גמל גמל, לאט לאט! 🐫'); }, done: 'איזה גמל נחמד! 🐪',
+        art: s => `<g transform="translate(${s >= 2 ? 6 : 0} 0)"><path d="M20 90 V64 M30 90 V66 M66 90 V66 M76 90 V64" ${TRP_S} stroke-width="5"/><path d="M16 62 Q16 40 32 40 Q40 22 50 40 Q58 26 68 40 Q80 44 80 60 Q60 72 16 62 Z" fill="#e8b36a" ${TRP_S}/><path d="M78 50 Q86 30 88 16 Q94 10 98 18 L96 26 Q90 34 86 56" fill="#e8b36a" ${TRP_S}/><circle cx="92" cy="17" r="1.8" fill="${O}"/>${s ? `<path d="M36 40 Q50 28 64 40" fill="#ff5a8a" ${TRP_S2}/><path d="M34 42 h32" stroke="#ffd84d" stroke-width="3"/>` : ''}</g>` },
+      { n: 'לקטוף תמרים', spots: [[27, 36, 7], [32, 43, 6], [64, 36, 7], [69, 43, 6]], say: ['תמר מתוק! 🌴', 'עוד תמר!'], done: 'יאמי, תמרים מתוקים! 🍯', snd: () => TRP_SND.pop(),
+        onTap: (ctx, n) => { if (n === 4) ctx.feedAll(trpFood('dates', 'תמרים', `${[[36, 50], [52, 42], [60, 60]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="9" ry="14" fill="#8a4a2a" ${TRP_S}/>`).join('')}`, 3)); else ctx.say('תמר! 😋'); },
+        spotArt: f => f ? `<ellipse cx="50" cy="56" rx="14" ry="22" fill="#8a4a2a" ${TRP_S}/><path d="M44 42 q4 -4 8 0" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>${trpSparkle(78, 26, 10, '#ffd84d')}` : `${[[40, 40], [58, 44], [48, 62], [64, 64], [34, 60]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="8" ry="12" fill="#c9702a" ${TRP_S2}/>`).join('')}` },
+      { n: 'לשחות באגם', x: 40, y: 50, w: 20, taps: 2, snd: () => TRP_SND.splash(), onTap: ctx => { ctx.jumpAll(); ctx.say('המים קרירים ונעימים! 💦'); }, done: 'שחייה במדבר! 🏊',
+        art: s => `<ellipse cx="50" cy="66" rx="44" ry="16" fill="#5fd0e0" ${TRP_S}/><ellipse cx="50" cy="${66 - s * 2}" rx="${10 + s * 10}" ry="${4 + s * 3}" fill="none" stroke="#fff" stroke-width="3"/><path d="M34 70 q8 -4 16 0 t16 0" stroke="#fff" stroke-width="2" fill="none"/>${s ? `<g class="trp-bob"><circle cx="50" cy="50" r="10" fill="#ff9ad5" ${TRP_S}/><circle cx="50" cy="50" r="5" fill="#5fd0e0" ${TRP_S2}/></g>` : ''}` },
+      { n: 'פרח קקטוס', x: 82, y: 24, w: 15, taps: 3, snd: () => TRP_SND.sparkle(), say: ['משהו צומח! 🌵', 'עוד רגע...'], done: 'הקקטוס פרח! 🌸',
+        art: s => `<path d="M50 94 V30 M50 66 H30 V46 M50 58 H70 V40" fill="none" stroke="${O}" stroke-width="16" stroke-linecap="round"/><path d="M50 94 V30 M50 66 H30 V46 M50 58 H70 V40" fill="none" stroke="#6fbf6a" stroke-width="11" stroke-linecap="round"/><path d="M46 44 l-4 -2 M54 52 l4 -2 M46 78 l-4 -2" stroke="${O}" stroke-width="1.5"/>` + [[50, 22], [30, 40], [70, 34]].slice(0, s).map(([x, y]) => `${[0, 72, 144, 216, 288].map(d => `<circle cx="${x + Math.cos(d * Math.PI / 180) * 5}" cy="${y + Math.sin(d * Math.PI / 180) * 5}" r="4.5" fill="#ff5a8a" ${TRP_S2}/>`).join('')}<circle cx="${x}" cy="${y}" r="3" fill="#ffd84d"/>`).join('') },
+    ]),
+    trpDest('jungle', 'הג׳ונגל והמפל', '🌿', ['umbrella', 'binoculars', 'water'], 'feather', [
+      { n: 'לשחק במפל', x: 40, y: 22, w: 20, taps: 3, snd: () => TRP_SND.splash(), onTap: ctx => { ctx.jumpAll(); ctx.say(trpPick(['שפריץ! 💦', 'קר! הההה! 🥶', 'עוד מים! 💧'])); }, done: 'קשת בענן במפל! 🌈',
+        art: s => `${s >= 3 ? `<path d="M10 70 A40 40 0 0 1 90 70" fill="none" stroke="#ff6b6b" stroke-width="5"/><path d="M16 70 A34 34 0 0 1 84 70" fill="none" stroke="#ffd84d" stroke-width="5"/><path d="M22 70 A28 28 0 0 1 78 70" fill="none" stroke="#6fcf7f" stroke-width="5"/><path d="M28 70 A22 22 0 0 1 72 70" fill="none" stroke="#7ec8ff" stroke-width="5"/>` : ''}${Array.from({ length: s * 3 + 2 }, (_, i) => `<circle cx="${20 + (i * 23) % 60}" cy="${40 + (i * 17) % 40}" r="${2 + i % 3}" fill="#bfeaff" ${TRP_S2}/>`).join('')}` },
+      { n: 'תוכי שר', x: 8, y: 10, w: 16, taps: 2, snd: () => TRP_SND.parrot(), say: ['🎵 טרה-לה-לה!'], done: 'התוכי לימד אותנו שיר! 🦜',
+        art: s => `<path d="M0 70 H100" stroke="#8a5a3c" stroke-width="6" stroke-linecap="round"/><g transform="translate(50 46) rotate(${s % 2 ? -8 : 6})"><ellipse cx="0" cy="0" rx="14" ry="20" fill="#ff5a5a" ${TRP_S}/><circle cx="0" cy="-18" r="12" fill="#ff5a5a" ${TRP_S}/><path d="M6 -18 Q18 -16 12 -6 Q8 -12 4 -12 Z" fill="#ffd84d" ${TRP_S2}/><circle cx="-2" cy="-20" r="2" fill="${O}"/><path d="M-12 -2 Q-24 14 -8 20 Z" fill="#4f9fe0" ${TRP_S2}/><path d="M-4 18 L-8 34 L2 20 L6 34 L6 18" fill="#ffd84d" ${TRP_S2}/></g>${s ? `<text x="78" y="26" font-size="16">🎵</text>` : ''}` },
+      { n: 'נדנדת ליאנה', x: 22, y: 0, w: 16, taps: 2, snd: () => TRP_SND.whoosh(), onTap: ctx => { ctx.jumpAll(); ctx.say('אה-אה-אה! 🌿'); }, done: 'נדנדנו כמו קופים! 🐒',
+        art: s => `<g class="${s ? 'trp-swing' : ''}" style="transform-origin:50px 0"><path d="M50 0 Q46 40 50 74" fill="none" stroke="${O}" stroke-width="6"/><path d="M50 0 Q46 40 50 74" fill="none" stroke="#4f9f3a" stroke-width="3.5"/>${[20, 40, 60].map(y => `<path d="M49 ${y} q-10 -6 -14 2 q8 4 14 -2" fill="#6fcf7f" ${TRP_S2}/>`).join('')}<circle cx="50" cy="80" r="8" fill="#b07642" ${TRP_S2}/></g>` },
+      { n: 'קוף עם בננות', x: 64, y: 8, w: 16, taps: 2, snd: s => trpTune([659, 784, 659], .1, 'square', .05), say: ['או-או-אה-אה! 🐒'], done: 'הקוף נתן לכולם בננה! 🍌',
+        onDone: ctx => ctx.feedAll(trpFood('banana', 'בננה', `<path d="M20 30 Q24 80 80 70 Q84 62 76 62 Q36 62 32 26 Z" fill="#ffe066" ${TRP_S}/>`, 2)),
+        art: s => `<path d="M0 20 H100" stroke="#8a5a3c" stroke-width="7" stroke-linecap="round"/><g transform="translate(50 ${s ? 50 : 42})"><path d="M-14 -24 Q-8 -30 -4 -22" fill="none" stroke="#8a5a3c" stroke-width="5"/><ellipse cx="0" cy="8" rx="14" ry="16" fill="#9b6b43" ${TRP_S}/><circle cx="0" cy="-14" r="13" fill="#9b6b43" ${TRP_S}/><circle cx="-13" cy="-14" r="5" fill="#f2d2a8" ${TRP_S2}/><circle cx="13" cy="-14" r="5" fill="#f2d2a8" ${TRP_S2}/><ellipse cx="0" cy="-10" rx="9" ry="8" fill="#f2d2a8" ${TRP_S2}/><circle cx="-4" cy="-14" r="1.8" fill="${O}"/><circle cx="4" cy="-14" r="1.8" fill="${O}"/><path d="M-3 -7 q3 3 6 0" fill="none" ${TRP_S2}/>${s ? `<path d="M10 4 Q14 24 30 20 Q30 16 28 16 Q16 16 16 2 Z" fill="#ffe066" ${TRP_S2}/>` : ''}</g>` },
+      { n: 'פרח ענק', x: 80, y: 40, w: 16, taps: 3, snd: () => TRP_SND.sparkle(), say: ['הוא נפתח! 🌺'], done: 'פרח ענק ריחני! 🌺',
+        art: s => `<path d="M50 96 V60" stroke="#3f8f3a" stroke-width="5"/>${Array.from({ length: 6 }, (_, i) => { const a = i * 60 * Math.PI / 180, r = 6 + s * 7; return `<ellipse cx="${50 + Math.cos(a) * r}" cy="${52 + Math.sin(a) * r}" rx="${6 + s * 3}" ry="${4 + s * 2}" transform="rotate(${i * 60} ${50 + Math.cos(a) * r} ${52 + Math.sin(a) * r})" fill="${['#ff5a8a', '#ff9ad5', '#ff7a5a', '#b58cff'][s]}" ${TRP_S2}/>`; }).join('')}<circle cx="50" cy="52" r="${4 + s * 2}" fill="#ffd84d" ${TRP_S2}/>` },
+    ]),
+  ];
+  // suitcase items
+  const TRP_PACK = {
+    sunscreen: ['קרם הגנה', `<rect x="34" y="24" width="32" height="60" rx="10" fill="#ffb020" ${TRP_S}/><rect x="40" y="12" width="20" height="14" rx="3" fill="#ff5a8a" ${TRP_S2}/><circle cx="50" cy="54" r="10" fill="#ffe066" ${TRP_S2}/>`],
+    swim: ['בגד ים', `<path d="M24 24 H40 Q50 40 60 24 H76 L72 50 Q76 76 62 82 Q50 72 38 82 Q24 76 28 50 Z" fill="#ff9ad5" ${TRP_S}/><circle cx="42" cy="56" r="4" fill="#fff"/><circle cx="58" cy="62" r="4" fill="#fff"/>`],
+    towel: ['מגבת', `<rect x="20" y="30" width="60" height="44" rx="8" fill="#7ec8ff" ${TRP_S}/><path d="M20 44 H80 M20 60 H80" stroke="#fff" stroke-width="5"/>`],
+    boots: ['מגפיים', `<path d="M24 20 H44 V64 H62 Q72 64 72 76 V82 H24 Z" fill="#ffd84d" ${TRP_S}/><path d="M24 30 H44" stroke="#ff9a3c" stroke-width="4"/>`],
+    flashlight: ['פנס', `<rect x="20" y="42" width="40" height="18" rx="4" fill="#4f9fe0" ${TRP_S}/><path d="M60 38 L74 30 V72 L60 64 Z" fill="#ffe066" ${TRP_S}/><path d="M80 36 L94 30 M80 50 H96 M80 64 L94 70" stroke="#ffd84d" stroke-width="4" stroke-linecap="round"/>`],
+    snacks: ['חטיפים', `<path d="M28 20 H72 L68 84 H32 Z" fill="#ff6b6b" ${TRP_S}/><path d="M28 20 L34 12 L40 20 L46 12 L52 20 L58 12 L64 20 L70 12 L72 20" fill="#ff6b6b" ${TRP_S2}/><circle cx="50" cy="52" r="12" fill="#ffe2a8" ${TRP_S2}/>`],
+    water: ['בקבוק מים', `<rect x="34" y="28" width="32" height="58" rx="10" fill="#bfeaff" ${TRP_S}/><rect x="40" y="14" width="20" height="14" rx="3" fill="#4f9fe0" ${TRP_S2}/><path d="M34 52 Q50 46 66 52 V76 Q66 86 56 86 H44 Q34 86 34 76 Z" fill="#7ec8ff"/>`],
+    coat: ['מעיל חם', `<path d="M30 20 L20 32 L14 70 H26 L28 50 V86 H72 V50 L74 70 H86 L80 32 L70 20 Q50 30 30 20 Z" fill="#ff6b6b" ${TRP_S}/><path d="M50 28 V86" ${TRP_S2}/><circle cx="56" cy="44" r="2.5" fill="${O}"/><circle cx="56" cy="60" r="2.5" fill="${O}"/>`],
+    mittens: ['כפפות', `<path d="M20 80 V46 Q20 30 34 30 Q46 30 46 46 V52 L52 46 Q58 44 58 52 L46 68 V80 Z" fill="#b58cff" ${TRP_S}/><path d="M20 72 H46" stroke="#fff" stroke-width="4"/><path d="M54 80 V46 Q54 30 68 30 Q80 30 80 46 V80 Z" fill="#ff9ad5" ${TRP_S}/>`],
+    beanie: ['כובע צמר', `<path d="M20 70 Q20 30 50 30 Q80 30 80 70 Z" fill="#7ec8ff" ${TRP_S}/><rect x="16" y="64" width="68" height="14" rx="5" fill="#ffffff" ${TRP_S}/><circle cx="50" cy="24" r="9" fill="#ff9ad5" ${TRP_S}/>`],
+    sunhat: ['כובע שמש', `<ellipse cx="50" cy="64" rx="40" ry="12" fill="#ffe08a" ${TRP_S}/><path d="M30 62 Q30 34 50 34 Q70 34 70 62" fill="#ffe08a" ${TRP_S}/><path d="M31 56 H69" stroke="#ff5a8a" stroke-width="5"/>`],
+    umbrella: ['מטרייה', `<path d="M10 50 Q50 0 90 50 Q80 42 70 50 Q60 42 50 50 Q40 42 30 50 Q20 42 10 50 Z" fill="#b58cff" ${TRP_S}/><path d="M50 50 V80 Q50 88 42 86" fill="none" ${TRP_S}/>`],
+    binoculars: ['משקפת', `<rect x="20" y="36" width="24" height="38" rx="10" fill="#4a4a5a" ${TRP_S}/><rect x="56" y="36" width="24" height="38" rx="10" fill="#4a4a5a" ${TRP_S}/><rect x="42" y="44" width="16" height="12" fill="#6a6a7a" ${TRP_S2}/><circle cx="32" cy="70" r="7" fill="#7ec8ff" ${TRP_S2}/><circle cx="68" cy="70" r="7" fill="#7ec8ff" ${TRP_S2}/>`],
+    teddy: ['דובי לשינה', `<circle cx="32" cy="28" r="9" fill="#c68b59" ${TRP_S}/><circle cx="68" cy="28" r="9" fill="#c68b59" ${TRP_S}/><circle cx="50" cy="42" r="20" fill="#c68b59" ${TRP_S}/><ellipse cx="50" cy="76" rx="22" ry="16" fill="#c68b59" ${TRP_S}/><circle cx="43" cy="40" r="2.2" fill="${O}"/><circle cx="57" cy="40" r="2.2" fill="${O}"/><ellipse cx="50" cy="48" rx="6" ry="4" fill="#f1d3b3" ${TRP_S2}/>`],
+  };
+  const TRP_SOUV = {
+    shell: ['צדף ורוד מהחוף', trpShell('#ffb3c7')],
+    pinecone: ['אצטרובל מהיער', `<ellipse cx="50" cy="56" rx="22" ry="32" fill="#9b6b43" ${TRP_S}/>${[34, 46, 58, 70].map(y => `<path d="M32 ${y} Q50 ${y + 8} 68 ${y}" fill="none" stroke="#6b4226" stroke-width="2"/>`).join('')}<path d="M50 24 V12 M50 16 q8 -8 14 -4" stroke="#4fbf73" stroke-width="3" fill="none"/>`],
+    crystal: ['קריסטל מההרים', `<path d="M30 80 L24 40 L40 20 L50 44 Z" fill="#c9b3ff" ${TRP_S}/><path d="M50 84 L40 30 L58 10 L70 36 Z" fill="#b58cff" ${TRP_S}/><path d="M66 82 L62 46 L76 32 L84 56 Z" fill="#e0d0ff" ${TRP_S}/>${trpSparkle(70, 20, 7)}`],
+    snowglobe: ['כדור שלג', `<rect x="26" y="70" width="48" height="16" rx="4" fill="#c98f5a" ${TRP_S}/><circle cx="50" cy="46" r="28" fill="#dff3ff" ${TRP_S}/>${trpPine(50, 64, .5, '#3f8f6a', true)}<circle cx="38" cy="32" r="2" fill="#fff"/><circle cx="62" cy="40" r="2" fill="#fff"/>`],
+    hourglass: ['שעון חול מהמדבר', `<rect x="26" y="10" width="48" height="8" rx="3" fill="#b07642" ${TRP_S}/><rect x="26" y="82" width="48" height="8" rx="3" fill="#b07642" ${TRP_S}/><path d="M32 18 H68 Q66 40 52 50 Q66 60 68 82 H32 Q34 60 48 50 Q34 40 32 18 Z" fill="#e8f7ff" ${TRP_S}/><path d="M38 30 H62 Q58 42 50 47 Q42 42 38 30 Z M36 82 Q40 66 50 62 Q60 66 64 82 Z" fill="#f2c27a"/>`],
+    feather: ['נוצת תוכי', `<path d="M24 88 Q40 40 76 12 Q84 40 60 70 Q44 84 24 88 Z" fill="#ff5a5a" ${TRP_S}/><path d="M60 40 Q70 30 76 12 Q80 36 68 54 Z" fill="#4f9fe0"/><path d="M24 88 Q50 50 72 20" fill="none" ${TRP_S2}/>`],
+  };
+  function trpDrawTrips(body) {
+    if (trpView && trpView.k === 'pack') return trpPackView(body, trpView.d);
+    if (trpView && trpView.k === 'go') return trpTripView(body, trpView.d);
+    if (trpView && trpView.k === 'album') return trpAlbumView(body);
+    const pets = trpPets();
+    trpAdd(body, 
+      el('p', { class: 'trp-lead' }, pets.length > 1 ? `לאן ${pets.map(trpNm).slice(0, 3).join(', ')}${pets.length > 3 ? ' וכל החברים' : ''} נוסעים היום? 🧳` : `לאן נוסעים היום? 🧳`),
+      el('div', { class: 'trp-dests' }, ...TRP_DESTS.map(d => el('button', { type: 'button', class: 'trp-dest', onclick: () => { SFX.pop(); trpView = { k: 'pack', d: d.id, packed: [] }; trpDraw(); } },
+        el('span', { class: 'trp-dest-art', html: TRP_BG[d.id]() }), el('b', {}, `${d.emoji} ${d.name}`),
+        trpData.trips[d.id] ? el('small', {}, `ביקרנו ${trpData.trips[d.id]} ${trpData.trips[d.id] > 1 ? 'פעמים' : 'פעם'} ✔`) : el('small', {}, 'עוד לא ביקרנו')))),
+      el('h4', { class: 'trp-h' }, '🎁 מזכרות מהטיולים'),
+      el('div', { class: 'trp-shelf' }, ...Object.entries(TRP_SOUV).map(([id, [n, art]]) => el('span', { class: 'trp-souv' + (trpData.souv.includes(id) ? '' : ' locked'), title: trpData.souv.includes(id) ? n : '???', html: trpSvg(art) + `<small>${trpData.souv.includes(id) ? n : '???'}</small>` }))),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { trpView = { k: 'album' }; trpDraw(); } }, `📷 אלבום הטיולים (${trpData.photos.length})`)));
+  }
+  function trpPackView(body, did) {
+    const d = TRP_DESTS.find(x => x.id === did), v = trpView, pets = trpPets();
+    const packed = v.packed, need = d.need, got = need.filter(n => packed.includes(n)).length;
+    const bag = el('div', { class: 'trp-bag' }, el('span', { class: 'trp-bag-art', html: trpSvg(`<rect x="10" y="30" width="80" height="60" rx="10" fill="#ff9ad5" ${TRP_S}/><path d="M36 30 V20 Q36 14 42 14 H58 Q64 14 64 20 V30" fill="none" ${TRP_S}/><path d="M10 50 H90" ${TRP_S2}/><rect x="44" y="46" width="12" height="9" rx="2" fill="#ffd84d" ${TRP_S2}/>${trpHeart(26, 72, 5)}${trpStar(74, 72, 6)}`) }),
+      el('div', { class: 'trp-bag-in' }, ...packed.map(id => el('span', { class: 'trp-mini', html: trpSvg(TRP_PACK[id][1]) }))));
+    const items = Object.keys(TRP_PACK).sort((a, b) => (a.charCodeAt(1) * 7 + did.length) % 5 - (b.charCodeAt(1) * 7 + did.length) % 5);
+    trpAdd(body, 
+      el('div', { class: 'trp-row' }, trpBack('→ חזרה', () => { trpView = null; trpDraw(); }), el('b', { class: 'trp-where' }, `${d.emoji} נוסעים ל${d.name}!`)),
+      el('p', { class: 'trp-lead' }, `קודם אורזים מזוודה! מה צריך לקחת ל${d.name}? (${got}/${need.length}) ` + need.map(n => packed.includes(n) ? '✅' : '❓').join('')),
+      el('div', { class: 'trp-packrow' }, bag, el('div', { class: 'trp-petsmall' }, ...pets.map(p => el('span', { class: 'trp-pm', html: petSVG(p, { mood: got === need.length ? 'happy' : undefined }) })))),
+      el('div', { class: 'trp-items' }, ...items.map(id => el('button', { type: 'button', class: 'trp-item' + (packed.includes(id) ? ' in' : ''), disabled: packed.includes(id), onclick: e => {
+        if (need.includes(id)) { packed.push(id); TRP_SND.pop(); SFX.ding(); trpDraw(); if (need.every(n => packed.includes(n))) { SFX.yay(); } }
+        else { SFX.boop(); const b = e.currentTarget; b.classList.remove('no'); void b.offsetWidth; b.classList.add('no'); toast(trpSvg(TRP_PACK[id][1]), `${TRP_PACK[id][0]}? לא צריך את זה ב${d.name} 🙈`); }
+      } }, el('span', { class: 'ic', html: trpSvg(TRP_PACK[id][1]) }), TRP_PACK[id][0]))),
+      got === need.length ? el('div', { class: 'chips trp-center' }, el('button', { type: 'button', class: 'btn main trp-big', onclick: () => trpDrive(body, d) }, '🚗 יוצאים לדרך!')) : null);
+  }
+  function trpCar(pets) {
+    return el('div', { class: 'trp-car' }, el('div', { class: 'trp-car-pets' }, ...pets.slice(0, 5).map(p => el('span', { html: petSVG(p, { mood: 'happy' }) }))),
+      el('span', { class: 'trp-car-art', html: trpSvg(`<path d="M8 64 Q8 46 26 44 H70 L76 30 H80 L78 44 Q98 46 100 62 V72 H8 Z" fill="#ff6b6b" ${TRP_S}/><path d="M76 30 L70 44" stroke="#bfeaff" stroke-width="4"/><path d="M14 54 H94" stroke="#fff" stroke-width="3" opacity=".6"/><circle cx="28" cy="72" r="11" fill="#4a4a5a" ${TRP_S}/><circle cx="28" cy="72" r="4" fill="#ddd"/><circle cx="80" cy="72" r="11" fill="#4a4a5a" ${TRP_S}/><circle cx="80" cy="72" r="4" fill="#ddd"/><rect x="92" y="52" width="8" height="6" rx="2" fill="#ffe066" ${TRP_S2}/>${trpHeart(50, 60, 4, '#fff')}`, '0 0 110 90') }));
+  }
+  function trpDrive(body, d) {
+    TRP_SND.drive();
+    const road = el('div', { class: 'trp-road' }, el('div', { class: 'trp-road-bg', html: TRP_BG[d.id]() }), trpCar(trpPets()));
+    body.replaceChildren(road, el('p', { class: 'trp-lead trp-center' }, `בדרך ל${d.name}... 🎶`));
+    const t = setTimeout(() => { trpView = { k: 'go', d: d.id, state: {} }; trpDraw(); }, 2300);
+    trpStops.push(() => clearTimeout(t));
+  }
+  function trpTripView(body, did) {
+    const d = TRP_DESTS.find(x => x.id === did), v = trpView;
+    const ctx = trpScene({ bg: TRP_BG[d.id](), acts: d.acts.map(a => Object.assign({}, a)), state: v.state, cls: 'dest-' + d.id,
+      onAllDone: c => {
+        if (v.finished) return; v.finished = true;
+        trpData.trips[d.id] = (trpData.trips[d.id] || 0) + 1;
+        const newS = !trpData.souv.includes(d.souv); if (newS) trpData.souv.push(d.souv);
+        trpSave(); trpCoins(10, `טיול ל${d.name}`); trpConfetti(); SFX.yay(); c.jumpAll();
+        toast(trpSvg(TRP_SOUV[d.souv][1]), newS ? `מזכרת חדשה: ${TRP_SOUV[d.souv][0]}! 🎁` : `עוד טיול מושלם ל${d.name}! 🎉`);
+        c.say(`איזה טיול! קיבלנו מזכרת: ${TRP_SOUV[d.souv][0]} 🎁`);
+      } });
+    trpAdd(body, 
+      el('div', { class: 'trp-row' }, trpBack('🏠 הביתה', () => { trpView = null; trpDraw(); }), el('b', { class: 'trp-where' }, `${d.emoji} ${d.name}`), el('span', { class: 'muted' }, 'לוחצים על ה-✨ ועל החיות!'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => trpPhoto(ctx, `טיול ל${d.name}`, d.id) }, '📸 תמונת טיול')),
+      ctx.root);
+    setTimeout(() => ctx.say(`הגענו ל${d.name}! ${d.emoji} בואו נגלה הפתעות!`, 0), 300);
+  }
+  // a polaroid photo of the scene with all the pets
+  function trpPhoto(ctx, cap, dest) {
+    TRP_SND.camera();
+    const flash = el('div', { class: 'trp-flash' }); ctx.root.append(flash); setTimeout(() => flash.remove(), 600);
+    ctx.redrawPets(() => ({ mood: 'happy' })); ctx.jumpAll();
+    const shot = ctx.root.cloneNode(true); shot.querySelectorAll('.trp-bubble, .trp-tag, .trp-flash').forEach(n => n.remove()); shot.classList.add('trp-shot');
+    const date = new Date().toLocaleDateString('he-IL');
+    if (dest) { trpData.photos.unshift({ d: dest, t: localToday(), c: cap, ids: ctx.pets.map(p => p.id).filter(Boolean) }); trpData.photos = trpData.photos.slice(0, 30); trpSave(); }
+    const pol = el('div', { class: 'trp-polaroid' }, shot, el('b', {}, `${cap} · ${date}`));
+    const ov = el('div', { class: 'trp-photo-ov', onclick: e => { if (e.target === ov) ov.remove(); } }, pol, el('button', { type: 'button', class: 'btn main', onclick: () => ov.remove() }, '💖 שמרתי באלבום!'));
+    setTimeout(() => $('#trpDlg .sheet').append(ov), 350);
+    trpCoins(1, 'תמונה');
+  }
+  function trpAlbumView(body) {
+    const pets = trpPets(), byId = Object.fromEntries(pets.map(p => [p.id, p]));
+    trpAdd(body, el('div', { class: 'trp-row' }, trpBack('→ חזרה', () => { trpView = null; trpDraw(); }), el('b', { class: 'trp-where' }, '📷 אלבום הטיולים')),
+      trpData.photos.length ? el('div', { class: 'trp-album' }, ...trpData.photos.map(ph => {
+        const ps = (ph.ids || []).map(id => byId[id]).filter(Boolean);
+        const k = String(ph.d || '').replace(/^hol:/, ''), bg = (TRP_BG[k] || TRP_HOLBG[k] || TRP_BG.beach)();
+        return el('div', { class: 'trp-polaroid small' }, el('div', { class: 'trp-scene trp-shot', html: bg }, el('div', { class: 'trp-pets' + (ps.length > 4 ? ' many' : '') }, ...(ps.length ? ps : pets).map(p => el('span', { class: 'trp-pet', html: petSVG(p, { mood: 'happy' }) })))),
+          el('b', {}, `${ph.c} · ${ph.t.split('-').reverse().join('.')}`));
+      })) : el('p', { class: 'muted' }, 'עוד אין תמונות. יוצאים לטיול ולוחצים על 📸!'));
+  }
+  // ---------- ⛺ camping ----------
+  const trpCampBg = night => { const u = 'tc' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u + 's', night ? '#1d2257' : '#ff9a6b', night ? '#4a3f8f' : '#ffe0a8')}<radialGradient id="${u}m"><stop offset="0" stop-color="#fffbe0"/><stop offset="1" stop-color="#fffbe0" stop-opacity="0"/></radialGradient></defs><rect width="400" height="250" fill="url(#${u}s)"/>
+    ${night ? `${Array.from({ length: 40 }, (_, i) => `<circle cx="${(i * 97) % 400}" cy="${(i * 41) % 120}" r="${.8 + (i % 3) * .5}" fill="#fff" class="trp-twinkle" style="animation-delay:${-(i % 7) * .4}s"/>`).join('')}<circle cx="340" cy="40" r="34" fill="url(#${u}m)"/><path d="M340 20 a20 20 0 1 0 14 34 a16 16 0 1 1 -14 -34 Z" fill="#fff4b0" ${TRP_S2}/>` : `<circle cx="320" cy="120" r="30" fill="#ffd05a" opacity=".9"/>${trpCloud(90, 40, .8)}`}
+    <path d="M-20 140 Q80 90 170 130 Q260 80 420 130 V250 H-20 Z" fill="${night ? '#2e3f6a' : '#8f7fc8'}" ${TRP_S2}/>${[[30, 150, 1.3], [80, 140, 1], [350, 140, 1.2], [385, 150, 1.4]].map(([x, y, s]) => trpPine(x, y, s, night ? '#1f4a4a' : '#3f8f6a')).join('')}
+    <path d="M0 160 Q100 146 200 160 T400 156 V250 H0 Z" fill="${night ? '#2f5a4a' : '#7ccf6a'}" ${TRP_S}/><ellipse cx="330" cy="200" rx="46" ry="11" fill="${night ? '#35507a' : '#6fd0f0'}" ${TRP_S2}/>${night ? '<ellipse cx="330" cy="198" rx="30" ry="4" fill="#fff4b0" opacity=".25"/>' : ''}`); };
+  const trpTent = s => `<path d="M6 92 H94" ${TRP_S}/>` + (s >= 1 ? `<path d="M50 14 V92 M50 14 L14 92 M50 14 L86 92" stroke="#8a5a3c" stroke-width="3"/>` : `<path d="M20 90 L80 80 M30 92 L70 70" stroke="#8a5a3c" stroke-width="4" stroke-linecap="round"/>`) + (s >= 2 ? `<path d="M50 14 L10 92 H90 Z" fill="#ff9a3c" ${TRP_S}/><path d="M50 14 L36 92 H64 Z" fill="#ffd84d" ${TRP_S2}/><path d="M50 40 L42 92 H58 Z" fill="#8a4a2a" opacity=".6"/>` : '') + (s >= 3 ? `<path d="M50 14 V2 L64 6 L50 10" fill="#ff5a8a" ${TRP_S2}/><path d="M18 70 L82 70" stroke="#fff" stroke-width="2" stroke-dasharray="4 4" opacity=".7"/>` : '');
+  const trpFire = s => `<ellipse cx="50" cy="86" rx="34" ry="8" fill="#6a6a7a" ${TRP_S2}/>${[[30, 84], [42, 88], [58, 88], [70, 84]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="6" fill="#9a9aaa" ${TRP_S2}/>`).join('')}` + (s >= 1 ? `<path d="M26 82 L74 70 M26 70 L74 82" stroke="${O}" stroke-width="10" stroke-linecap="round"/><path d="M26 82 L74 70 M26 70 L74 82" stroke="#b07642" stroke-width="7" stroke-linecap="round"/>` : '') +
+    (s === 2 ? `${trpSparkle(44, 60, 6, '#ffd84d')}${trpSparkle(58, 54, 4, '#ff9a3c')}` : '') + (s >= 3 ? `<g class="trp-flame"><path d="M50 18 Q70 40 66 60 Q64 76 50 78 Q36 76 34 60 Q32 44 50 18 Z" fill="#ff6b3c" ${TRP_S2}/><path d="M50 36 Q62 52 58 64 Q56 72 50 72 Q44 72 42 64 Q40 54 50 36 Z" fill="#ffd84d"/><path d="M38 44 Q30 56 36 68 M62 44 Q70 56 64 68" fill="none" stroke="#ff9a3c" stroke-width="3" stroke-linecap="round"/></g>` : '');
+  // constellations shaped like animals (star points in a 100×70 box; lines follow the order, plus extra edges)
+  const TRP_CONST = [
+    ['החתולה הגדולה', [[30, 62], [28, 36], [26, 14], [34, 24], [44, 24], [50, 12], [48, 36], [54, 62], [74, 62], [86, 46]], [[0, 7]]],
+    ['הדג הנוצץ', [[10, 36], [26, 20], [50, 16], [70, 26], [88, 14], [86, 56], [70, 46], [50, 56], [26, 52]], [[8, 0]]],
+    ['הארנבת הקופצת', [[36, 64], [32, 40], [28, 10], [38, 8], [40, 32], [50, 32], [54, 8], [64, 10], [58, 40], [56, 64]], [[9, 0]]],
+    ['הלווייתן', [[8, 40], [24, 26], [54, 22], [74, 30], [86, 18], [94, 28], [86, 40], [90, 54], [78, 46], [60, 54], [30, 56]], [[10, 0]]],
+    ['הצב החכם', [[16, 54], [28, 32], [50, 22], [72, 32], [82, 50], [92, 44], [96, 52], [84, 56], [16, 54]], [[1, 4]]],
+    ['הכלבלב', [[20, 60], [22, 36], [14, 28], [18, 14], [32, 22], [46, 20], [58, 30], [60, 44], [84, 44], [88, 30], [86, 60]], [[0, 10]]],
+  ];
+  const TRP_MM = [['#ffffff', 0], ['#fff4d6', .25], ['#ffd98a', .5], ['#e8a64a', .68], ['#b0682a', .85], ['#5a3a2a', 1], ['#2a2020', 1.15]];
+  const trpMMColor = p => { let a = TRP_MM[0], b = TRP_MM[TRP_MM.length - 1]; for (let i = 0; i < TRP_MM.length - 1; i++) if (p >= TRP_MM[i][1] && p <= TRP_MM[i + 1][1]) { a = TRP_MM[i]; b = TRP_MM[i + 1]; break; } const t = b[1] === a[1] ? 0 : Math.max(0, Math.min(1, (p - a[1]) / (b[1] - a[1]))); const h = c => [1, 3, 5].map(k => parseInt(c.slice(k, k + 2), 16)); const A = h(a[0]), B = h(b[0]); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+  let trpCampPanel = null;
+  function trpDrawCamp(body) {
+    const v = trpView && trpView.k === 'camp' ? trpView : (trpView = { k: 'camp', state: {}, night: false, caught: 0, mmi: 0, ci: 0, cDone: [] });
+    const pets = trpPets();
+    const dayActs = [
+      { id: 'tent', n: 'להקים אוהל', x: 6, y: 18, w: 26, taps: 3, snd: s => s === 3 ? SFX.yay() : TRP_SND.thud(), say: ['מותחים את החבלים! 🪢', 'עוד יתד אחת!'], done: 'האוהל מוכן! ⛺', art: trpTent },
+      { id: 'fire', n: 'להדליק מדורה', x: 40, y: 22, w: 20, taps: 3, snd: s => s === 3 ? TRP_SND.fire() : TRP_SND.thud(), say: ['מביאים עצים 🪵', 'ניצוץ! ✨'], done: 'מדורה חמימה! 🔥', art: trpFire, again: ['איזה חמים 🔥'] },
+      { id: 'bags', n: 'שקי שינה', x: 68, y: 26, w: 20, taps: 1, snd: () => TRP_SND.pop(), done: 'שק שינה לכל חיה! 🛌',
+        art: s => s ? `${['#ff9ad5', '#7ec8ff', '#b58cff'].map((c, i) => `<rect x="${8 + i * 30}" y="${34 + i * 4}" width="26" height="56" rx="12" fill="${c}" ${TRP_S2}/><rect x="${12 + i * 30}" y="${38 + i * 4}" width="18" height="12" rx="5" fill="#fff" ${TRP_S2}/>`).join('')}` : `<rect x="24" y="40" width="52" height="40" rx="16" fill="#7ec8ff" ${TRP_S}/><path d="M24 54 H76 M24 66 H76" stroke="#fff" stroke-width="3"/>` },
+    ];
+    const nightActs = [
+      { id: 'tent', n: 'אוהל', x: 6, y: 18, w: 26, taps: 3, art: trpTent, label: false, snd: () => TRP_SND.pop() },
+      { id: 'fire', n: 'מדורה', x: 40, y: 22, w: 20, taps: 3, art: trpFire, label: false, snd: () => TRP_SND.fire() },
+      { id: 'owl', n: 'ינשוף', x: 84, y: 8, w: 13, taps: 1, repeat: true, noCoins: true, snd: () => TRP_SND.owl(), onTap: c => c.say('הוּ-הוּ! 🦉'), art: s => `<path d="M0 80 H100" stroke="#6b4226" stroke-width="7"/><ellipse cx="50" cy="52" rx="22" ry="28" fill="#9b6b43" ${TRP_S}/><path d="M30 28 L36 40 L42 30 M58 30 L64 40 L70 28" fill="#9b6b43" ${TRP_S2}/><circle cx="40" cy="44" r="9" fill="#fff" ${TRP_S2}/><circle cx="60" cy="44" r="9" fill="#fff" ${TRP_S2}/><circle cx="40" cy="44" r="${s ? 5 : 1.5}" fill="${O}"/><circle cx="60" cy="44" r="${s ? 5 : 1.5}" fill="${O}"/><path d="M46 54 L50 60 L54 54 Z" fill="#ffb020" ${TRP_S2}/><ellipse cx="50" cy="68" rx="12" ry="10" fill="#f1d3b3"/>` },
+      { id: 'frog', n: 'צפרדע', x: 76, y: 60, w: 12, taps: 1, repeat: true, noCoins: true, snd: () => TRP_SND.frog(), onTap: c => c.say('קוואק קוואק! 🐸'), art: s => `<ellipse cx="50" cy="72" rx="34" ry="10" fill="#4fbf73" ${TRP_S2}/><ellipse cx="50" cy="58" rx="22" ry="${s ? 14 : 12}" fill="#6fcf7f" ${TRP_S}/><circle cx="38" cy="44" r="8" fill="#6fcf7f" ${TRP_S2}/><circle cx="62" cy="44" r="8" fill="#6fcf7f" ${TRP_S2}/><circle cx="38" cy="44" r="3" fill="${O}"/><circle cx="62" cy="44" r="3" fill="${O}"/><path d="M40 60 Q50 ${s ? 68 : 64} 60 60" fill="none" ${TRP_S2}/>` },
+      { id: 'cricket', n: 'צרצר', x: 30, y: 60, w: 10, taps: 1, repeat: true, noCoins: true, snd: () => TRP_SND.cricket(), onTap: c => c.say('צרצר-צרצר... 🦗'), art: () => `<path d="M10 90 Q20 50 24 30 M30 90 Q34 60 44 40 M70 90 Q66 56 58 36 M90 90 Q80 60 76 44" stroke="#4fbf73" stroke-width="5" fill="none" stroke-linecap="round"/><ellipse cx="50" cy="66" rx="14" ry="8" fill="#8fcf5a" ${TRP_S2}/><circle cx="38" cy="62" r="6" fill="#8fcf5a" ${TRP_S2}/><path d="M34 56 Q28 40 20 38 M38 56 Q36 40 30 34" fill="none" ${TRP_S2}/>` },
+    ];
+    const ctx = trpScene({ bg: trpCampBg(v.night), acts: v.night ? nightActs : dayActs, state: v.state, cls: v.night ? 'night' : '',
+      petOpts: () => v.sleep ? { mood: 'sleepy' } : {},
+      onAllDone: c => { if (!v.night) { v.allDay = true; trpDraw(); } } });
+    if (v.night && !v.sleep) {
+      const n = 9;
+      for (let i = 0; i < n; i++) {
+        if (v.caught > i) continue;
+        const f = el('button', { type: 'button', class: 'trp-firefly', 'aria-label': 'גחלילית', style: `left:${8 + (i * 37) % 84}%;top:${10 + (i * 23) % 48}%;animation-delay:${-i * .7}s;animation-duration:${5 + i % 3}s` });
+        f.addEventListener('click', () => { v.caught++; f.remove(); TRP_SND.sparkle(); jar.innerHTML = trpJar(v.caught); ctx.jump(i % pets.length); if (v.caught >= n) { ctx.say('תפסנו את כל הגחליליות! עכשיו משחררים אותן ✨'); trpCoins(3, 'גחליליות'); } else ctx.say(`גחלילית! ✨ (${v.caught}/${n})`); });
+        ctx.layer.append(f);
+      }
+    }
+    const jar = el('button', { type: 'button', class: 'trp-jar', 'aria-label': 'צנצנת גחליליות', html: trpJar(v.caught), onclick: () => { if (!v.caught) return ctx.say('צריך לתפוס גחליליות! ✨'); v.caught = 0; TRP_SND.whoosh(); trpDraw(); } });
+    if (v.night) ctx.root.append(jar);
+    const ready = v.state.done && v.state.done.tent && v.state.done.fire;
+    trpCampPanel = el('div', { class: 'trp-panel' });
+    trpAdd(body, 
+      el('div', { class: 'trp-row' }, el('b', { class: 'trp-where' }, v.night ? (v.sleep ? '😴 לילה טוב, חיות' : '🌙 לילה במחנה') : '⛺ יוצאים לקמפינג!'), el('span', { class: 'muted' }, v.night ? 'תופסים גחליליות ✨, מקשיבים לקולות הלילה 🦉' : 'מקימים אוהל ומדליקים מדורה'),
+        ready && !v.night ? el('button', { type: 'button', class: 'btn main', onclick: () => { v.night = true; TRP_SND.owl(); trpDraw(); } }, '🌙 מחכים ללילה') : null,
+        v.night ? el('button', { type: 'button', class: 'btn', onclick: () => { v.sleep = !v.sleep; if (v.sleep) { trpTune([523, 440, 392, 330, 262], .3, 'sine', .06); trpData.camp.n++; trpSave(); } trpDraw(); } }, v.sleep ? '☀️ בוקר טוב!' : '😴 לילה טוב') : null,
+        v.night ? el('button', { type: 'button', class: 'btn', onclick: () => trpPhoto(ctx, 'לילה בקמפינג') }, '📸') : null),
+      ctx.root,
+      ready ? el('div', { class: 'tabs trp-subtabs' }, ...[['mm', '🍡 מרשמלו על האש'], ['stars', '🔭 כוכבים בצורת חיות']].map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String((v.panel || 'mm') === id), onclick: () => { v.panel = id; SFX.pop(); trpDraw(); } }, n))) : el('p', { class: 'muted trp-center' }, 'כשהאוהל והמדורה מוכנים — יהיו מרשמלו וכוכבים! 🍡🔭'),
+      ready ? trpCampPanel : null);
+    if (ready) (v.panel === 'stars' ? trpStarsPanel : trpMMPanel)(trpCampPanel, v, ctx);
+    if (!v.night && !v.saidHi) { v.saidHi = true; setTimeout(() => ctx.say('יוצאים לקמפינג! ⛺ קודם אוהל ומדורה', 0), 300); }
+    else if (!v.night && v.allDay && !v.saidReady) { v.saidReady = true; setTimeout(() => ctx.say('הכול מוכן! מרשמלו על האש, ואז מחכים ללילה 🌙', 0), 300); }
+  }
+  const trpJar = n => trpSvg(`<rect x="26" y="10" width="48" height="10" rx="3" fill="#c98f5a" ${TRP_S}/><path d="M24 22 H76 Q82 22 82 30 V84 Q82 94 72 94 H28 Q18 94 18 84 V30 Q18 22 24 22 Z" fill="#dff3ff" fill-opacity=".55" ${TRP_S}/>${Array.from({ length: n }, (_, i) => `<circle cx="${30 + (i * 29) % 42}" cy="${40 + (i * 17) % 44}" r="4" fill="#fff36b" class="trp-glow" style="animation-delay:${-i * .3}s"/>`).join('')}${n ? `<rect x="18" y="22" width="64" height="72" rx="10" fill="#fff36b" opacity="${Math.min(.35, n * .04)}"/>` : ''}`);
+  function trpMMPanel(box, v, ctx) {
+    const pets = ctx.pets, p = pets[v.mmi % pets.length];
+    let prog = 0, raf = 0, on = false, last = 0;
+    const art = el('div', { class: 'trp-mm-art' }), meter = el('div', { class: 'trp-meter' }, el('span', { class: 'gold' }), el('i', { class: 'needle' })), msg = el('p', { class: 'trp-lead trp-center' }, `המרשמלו בשביל ${trpNm(p)}! שמים על האש ומוציאים כשהוא זהוב 🌟`);
+    const draw = () => { art.innerHTML = trpSvg(`<path d="M6 94 L70 40" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M6 94 L70 40" stroke="#c98f5a" stroke-width="4" stroke-linecap="round"/><g transform="translate(76 34) rotate(-40)"><rect x="-13" y="-11" width="26" height="22" rx="8" fill="${trpMMColor(prog)}" ${TRP_S}/>${prog > 1 ? '<path d="M-6 -12 q2 -8 6 -4 q2 -8 6 0" fill="#9a9aaa" opacity=".7"/>' : ''}</g>${`<g class="${on ? 'trp-flame' : ''}" transform="translate(${on ? 46 : 52} ${on ? 40 : 56}) scale(${on ? .6 : .42})"><path d="M50 30 Q74 56 68 76 Q64 92 50 94 Q36 92 32 76 Q28 56 50 30 Z" fill="#ff6b3c" ${TRP_S2}/><path d="M50 52 Q60 64 58 76 Q56 86 50 86 Q44 86 42 76 Q40 64 50 52 Z" fill="#ffd84d"/></g>`}`, '0 0 100 100'); meter.querySelector('.needle').style.left = `${Math.min(100, prog / 1.2 * 100)}%`; };
+    const stop = () => { on = false; cancelAnimationFrame(raf); };
+    const tick = t => { if (!on) return; if (last) prog += (t - last) / 3200; last = t; if (prog >= 1.2) { prog = 1.2; pull(); return; } draw(); raf = requestAnimationFrame(tick); };
+    const pull = () => {
+      if (!on) return; stop(); draw();
+      const q = prog < .4 ? 0 : prog < .56 ? 1 : prog <= .82 ? 3 : prog < 1 ? 2 : -1;
+      const txt = { 0: 'עוד לבן לגמרי... 😅', 1: 'קצת חם, טעים!', 3: 'מושלם! זהוב וטעים! 🌟', 2: 'שחום וקראנצ׳י! 😋', '-1': 'אוי! נשרף 🔥 ננסה שוב' }[q];
+      if (q > 0) { const r = trpTry(() => typeof feedPet === 'function' ? feedPet(p, trpFood('marshmallow', 'מרשמלו קלוי', `<g transform="translate(50 50) rotate(-20)"><rect x="-20" y="-16" width="40" height="32" rx="12" fill="${trpMMColor(prog)}" ${TRP_S}/></g>`, q === 3 ? 3 : 2)) : ''); ctx.say(r || txt, v.mmi % pets.length); ctx.jump(v.mmi % pets.length); v.mmi++; }
+      else ctx.say(txt);
+      if (q === 3) { SFX.yay(); trpCoins(3, 'מרשמלו מושלם'); } else if (q < 0) SFX.boop(); else SFX.ding();
+      msg.textContent = txt + (q > 0 ? ` · עכשיו בשביל ${trpNm(pets[v.mmi % pets.length])}` : '');
+      btn.textContent = '🔥 לשים על האש'; prog = 0; setTimeout(draw, 1400);
+    };
+    const btn = el('button', { type: 'button', class: 'btn main trp-big', onclick: () => { if (on) return pull(); prog = 0; last = 0; on = true; btn.textContent = '✋ להוציא!'; TRP_SND.fire(); raf = requestAnimationFrame(tick); } }, '🔥 לשים על האש');
+    trpStops.push(stop);
+    draw();
+    box.replaceChildren(el('div', { class: 'trp-mm' }, el('span', { class: 'trp-mm-pet', html: petSVG(p, { mood: 'happy' }) }), art), meter, el('div', { class: 'chips trp-center' }, btn), msg);
+  }
+  function trpStarsPanel(box, v, ctx) {
+    const [name, pts, extra] = TRP_CONST[v.ci % TRP_CONST.length];
+    let k = 0;
+    const done = v.cDone.includes(v.ci % TRP_CONST.length);
+    const sky = el('div', { class: 'trp-sky' });
+    const draw = () => {
+      const all = k >= pts.length || done;
+      const lines = pts.slice(0, all ? pts.length : k).map((q, i, a) => i ? `<path d="M${a[i - 1][0]} ${a[i - 1][1]} L${q[0]} ${q[1]}" stroke="#fff6a8" stroke-width="1.1" stroke-linecap="round"/>` : '').join('') + (all ? extra.map(([a, b]) => `<path d="M${pts[a][0]} ${pts[a][1]} L${pts[b][0]} ${pts[b][1]}" stroke="#fff6a8" stroke-width="1.1"/>`).join('') : '');
+      sky.innerHTML = trpSvg(`<rect x="-10" y="-10" width="120" height="90" fill="#1d2257"/>${Array.from({ length: 30 }, (_, i) => `<circle cx="${(i * 37) % 100}" cy="${(i * 23) % 70}" r=".35" fill="#fff" opacity=".7"/>`).join('')}${all ? `<g opacity=".35" class="trp-glowshape" style="filter:blur(1.5px)">${lines.replace(/stroke-width="1.1"/g, 'stroke-width="3.5"')}</g>` : ''}${lines}` +
+        pts.map((q, i) => `<g class="trp-cstar${i < k || all ? ' lit' : ''}${i === k && !all ? ' next' : ''}" data-i="${i}"><circle cx="${q[0]}" cy="${q[1]}" r="5" fill="transparent"/>${trpStar(q[0], q[1], i < k || all ? 2.6 : 2, i < k || all ? '#fff36b' : '#ffffff', 'stroke="none"')}${!all ? `<text x="${q[0]}" y="${q[1] - 3.6}" font-size="3.2" fill="#bcd0ff" text-anchor="middle">${i + 1}</text>` : ''}</g>`).join('') +
+        (all ? `<text x="50" y="76" font-size="6" fill="#fff6a8" text-anchor="middle" font-weight="700">✨ ${name} ✨</text>` : ''), '-5 -5 110 85');
+      sky.querySelectorAll('.trp-cstar').forEach(g => g.addEventListener('click', () => {
+        const i = +g.dataset.i; if (done || k >= pts.length) return;
+        if (i !== k) { SFX.boop(); return; }
+        tone(520 + k * 60, .15, 'sine', 0, .07); k++; draw();
+        if (k >= pts.length) { v.cDone.push(v.ci % TRP_CONST.length); trpTune([784, 988, 1175, 1568], .12, 'sine'); ctx.say(`מצאנו את ${name}! 🌟`); ctx.jumpAll(); trpCoins(3, 'קבוצת כוכבים'); if (!trpData.camp.stars.includes(name)) { trpData.camp.stars.push(name); trpSave(); } setTimeout(() => trpStarsPanel(box, v, ctx), 1400); }
+      }));
+    };
+    draw();
+    box.replaceChildren(el('p', { class: 'trp-lead trp-center' }, done ? `זו ${name}! ✨` : `מחברים את הכוכבים לפי המספרים ומגלים חיה בשמיים! (${v.cDone.length}/${TRP_CONST.length})`), sky,
+      el('div', { class: 'chips trp-center' }, el('button', { type: 'button', class: 'btn', onclick: () => { v.ci = (v.ci + 1) % TRP_CONST.length; SFX.pop(); trpStarsPanel(box, v, ctx); } }, '➡️ עוד קבוצת כוכבים'), el('span', { class: 'muted' }, `גילית ${trpData.camp.stars.length} מתוך ${TRP_CONST.length} 🌟`)));
+  }
+  // ---------- 🎃 holidays with the pets ----------
+  const trpBunting = (y, cols = ['#ff5a8a', '#ffd84d', '#7ec8ff', '#6fcf7f', '#b58cff']) => `<path d="M0 ${y} Q200 ${y + 26} 400 ${y}" fill="none" stroke="${O}" stroke-width="1.6"/>${Array.from({ length: 13 }, (_, i) => { const x = 16 + i * 30, yy = y + Math.sin(i / 12 * Math.PI) * 13; return `<path d="M${x - 9} ${yy} L${x + 9} ${yy} L${x} ${yy + 16} Z" fill="${cols[i % cols.length]}" ${TRP_S2}/>`; }).join('')}`;
+  const trpRoom = (wall, floor, extra = '') => { const u = 'th' + (++trpUid); return `<defs>${trpGrad(u + 'w', wall[0], wall[1])}</defs><rect width="400" height="250" fill="url(#${u}w)"/><path d="M0 170 H400 V250 H0 Z" fill="${floor}" ${TRP_S2}/><path d="M0 170 H400" stroke="#fff" stroke-width="3" opacity=".5"/>${extra}`; };
+  const trpWindow = (x, y, night) => `<rect x="${x}" y="${y}" width="70" height="60" rx="6" fill="${night ? '#2a2f6a' : '#bfeaff'}" ${TRP_S}/><path d="M${x + 35} ${y} V${y + 60} M${x} ${y + 30} H${x + 70}" ${TRP_S2}/>${night ? `${trpStar(x + 16, y + 14, 3.5, '#fff36b')}${trpStar(x + 54, y + 44, 3, '#fff36b')}<path d="M${x + 52} ${y + 8} a8 8 0 1 0 6 13 a6 6 0 1 1 -6 -13 Z" fill="#fff4b0"/>` : `${trpCloud(x + 20, y + 16, .35)}`}`;
+  const trpTable = (y = 168, c = '#fff', c2 = '#ff9ad5') => `<rect x="70" y="${y}" width="260" height="14" rx="4" fill="${c}" ${TRP_S}/><path d="M70 ${y + 14} Q200 ${y + 26} 330 ${y + 14}" fill="${c2}" ${TRP_S2}/><path d="M90 ${y + 20} V250 M310 ${y + 20} V250" stroke="${O}" stroke-width="5"/><path d="M90 ${y + 20} V250 M310 ${y + 20} V250" stroke="#b07642" stroke-width="3"/>`;
+  // sukkah decorations (hanging from the schach)
+  const TRP_SUKDECO = [
+    ['chain', 'שרשרת נייר', (x, y) => Array.from({ length: 4 }, (_, i) => `<ellipse cx="${x}" cy="${y + 6 + i * 11}" rx="5" ry="7" fill="none" stroke="${['#ff5a8a', '#ffd84d', '#7ec8ff', '#6fcf7f'][i]}" stroke-width="3.5"/>`).join('')],
+    ['pom', 'רימון', (x, y) => `<path d="M${x} ${y} V${y + 16}" stroke="${O}" stroke-width="1.2"/><circle cx="${x}" cy="${y + 26}" r="10" fill="#e8364f" ${TRP_S2}/><path d="M${x - 4} ${y + 16} l2 -4 l2 3 l2 -3 l2 4 Z" fill="#e8364f" ${TRP_S2}/><path d="M${x - 5} ${y + 22} q3 -3 5 0" stroke="#fff" stroke-width="1.6" fill="none" opacity=".7"/>`],
+    ['lemon', 'אתרוג', (x, y) => `<path d="M${x} ${y} V${y + 16}" stroke="${O}" stroke-width="1.2"/><ellipse cx="${x}" cy="${y + 26}" rx="8" ry="11" fill="#ffe066" ${TRP_S2}/><path d="M${x} ${y + 15} l0 -2" ${TRP_S2}/>`],
+    ['grapes', 'ענבים', (x, y) => `<path d="M${x} ${y} V${y + 12}" stroke="${O}" stroke-width="1.2"/>${[[0, 16], [-5, 22], [5, 22], [-5, 30], [5, 30], [0, 26], [0, 36]].map(([dx, dy]) => `<circle cx="${x + dx}" cy="${y + dy}" r="4.2" fill="#8e5bd6" ${TRP_S2}/>`).join('')}<path d="M${x} ${y + 12} q6 -4 10 0 q-4 4 -10 0" fill="#6fcf7f" ${TRP_S2}/>`],
+    ['lantern', 'פנס', (x, y) => `<path d="M${x} ${y} V${y + 10}" stroke="${O}" stroke-width="1.2"/><rect x="${x - 8}" y="${y + 10}" width="16" height="4" fill="#b07642" ${TRP_S2}/><path d="M${x - 9} ${y + 14} Q${x - 12} ${y + 26} ${x - 7} ${y + 36} H${x + 7} Q${x + 12} ${y + 26} ${x + 9} ${y + 14} Z" fill="#ff9a3c" ${TRP_S2}/><ellipse cx="${x}" cy="${y + 25}" rx="4" ry="7" fill="#fff36b" class="trp-glow"/>`],
+    ['star', 'כוכב', (x, y) => `<path d="M${x} ${y} V${y + 14}" stroke="${O}" stroke-width="1.2"/>${trpStar(x, y + 24, 11, '#ffd84d')}`],
+    ['heart', 'לב', (x, y) => `<path d="M${x} ${y} V${y + 14}" stroke="${O}" stroke-width="1.2"/>${trpHeart(x, y + 24, 9)}`],
+    ['flag', 'דגלונים', (x, y) => `${[0, 1, 2].map(i => `<path d="M${x - 14 + i * 10} ${y + 2} l10 0 l-5 12 Z" fill="${['#7ec8ff', '#ffffff', '#7ec8ff'][i]}" ${TRP_S2}/>`).join('')}`],
+  ];
+  const TRP_SUK_SPOTS = [[40, 46], [80, 50], [120, 44], [160, 52], [200, 46], [240, 52], [280, 44], [320, 50], [360, 46], [60, 70], [140, 72], [260, 72], [340, 70], [100, 64], [220, 66], [300, 64]];
+  const TRP_HOLBG = {
+    sukkot: () => trpBgSvg(`<rect width="400" height="250" fill="#fdf6df"/><path d="M0 0 H22 V250 H0 Z M378 0 H400 V250 H378 Z" fill="#fff" ${TRP_S2}/>${[0, 1, 2, 3].map(i => `<path d="M0 ${40 + i * 50} H22 M378 ${40 + i * 50} H400" stroke="#6fcf7f" stroke-width="5"/>`).join('')}
+      <path d="M22 30 H378 V170 H22 Z" fill="#fff8e6"/><path d="M22 30 H378" stroke="#b07642" stroke-width="7"/><path d="M22 30 H378" stroke="${O}" stroke-width="1.6"/>${Array.from({ length: 34 }, (_, i) => `<path d="M${i * 12 - 4} ${4 + (i % 3) * 5} Q${i * 12 + 12} ${22 + (i % 2) * 8} ${i * 12 + 30} ${10 + (i % 4) * 4}" fill="none" stroke="${['#3f9c5a', '#5fb36d', '#2f8f4a'][i % 3]}" stroke-width="7" stroke-linecap="round"/>`).join('')}
+      ${Array.from({ length: 20 }, (_, i) => `<path d="M${10 + i * 20} ${14 + (i % 3) * 6} q6 -6 12 0 q-6 5 -12 0" fill="#6fcf7f" ${TRP_S2}/>`).join('')}<rect x="130" y="80" width="140" height="70" rx="6" fill="#fff" ${TRP_S2}/><text x="200" y="112" text-anchor="middle" font-size="18" fill="#3f8f3a" font-weight="700">חג סוכות שמח</text><text x="200" y="136" text-anchor="middle" font-size="12" fill="#b07642">ברוכים הבאים לסוכה 🌿</text>
+      ${(trpData.suk || []).map((d, i) => { const D = TRP_SUKDECO.find(x => x[0] === d), p = TRP_SUK_SPOTS[i]; return D && p ? D[2](p[0], p[1] - 20) : ''; }).join('')}${trpTable(170, '#fff', '#6fcf7f')}`),
+    hanukkah: () => trpBgSvg(trpRoom(['#2b3c8f', '#5a6fd0'], '#8a6a4a', `${trpWindow(30, 40, true)}${trpWindow(300, 40, true)}<path d="M120 20 Q200 50 280 20" fill="none" stroke="#ffd84d" stroke-width="2"/>${[140, 170, 200, 230, 260].map((x, i) => trpStar(x, 32 + (i % 2) * 8, 6, i % 2 ? '#fff' : '#7ec8ff')).join('')}${trpTable(170, '#eef3ff', '#7ec8ff')}`)),
+    purim: () => trpBgSvg(trpRoom(['#ffd6f0', '#ffeef8'], '#c9a0ff', `${trpBunting(18)}${trpBunting(46, ['#b58cff', '#7ec8ff', '#ffd84d'])}${[[40, 110, '#ff5a8a'], [360, 100, '#7ec8ff'], [320, 130, '#ffd84d']].map(([x, y, c]) => `<path d="M${x} ${y + 24} Q${x - 4} ${y + 50} ${x + 4} ${y + 70}" fill="none" stroke="${O}" stroke-width="1.2"/><ellipse cx="${x}" cy="${y}" rx="14" ry="18" fill="${c}" ${TRP_S2}/>`).join('')}<g transform="translate(250 112) scale(.7)"><path d="M-40 0 Q-40 -20 -20 -20 Q0 -12 0 -4 Q0 -12 20 -20 Q40 -20 40 0 Q40 20 20 18 Q6 16 0 8 Q-6 16 -20 18 Q-40 20 -40 0 Z" fill="#b58cff" ${TRP_S}/><ellipse cx="-18" cy="0" rx="8" ry="6" fill="#fff" ${TRP_S2}/><ellipse cx="18" cy="0" rx="8" ry="6" fill="#fff" ${TRP_S2}/>${trpSparkle(-30, -16, 5, '#ffd84d')}${trpSparkle(32, -16, 5, '#ffd84d')}</g>${Array.from({ length: 30 }, (_, i) => `<rect x="${(i * 43) % 400}" y="${60 + (i * 29) % 110}" width="4" height="7" fill="${['#ff5a8a', '#ffd84d', '#7ec8ff', '#6fcf7f'][i % 4]}" transform="rotate(${i * 33} ${(i * 43) % 400} ${60 + (i * 29) % 110})"/>`).join('')}`)),
+    pesach: () => trpBgSvg(trpRoom(['#e6f6ff', '#fffbe6'], '#e8c89a', `${trpWindow(40, 40)}${trpWindow(290, 40)}${[[75, 100], [325, 100]].map(([x, y]) => `<path d="M${x - 30} ${y} q10 -10 20 0 M${x + 10} ${y} q10 -10 20 0" fill="none" stroke="#6fcf7f" stroke-width="3"/>`).join('')}<text x="200" y="62" text-anchor="middle" font-size="20" fill="#4f7fd0" font-weight="700">חג פסח שמח</text><ellipse cx="200" cy="124" rx="112" ry="30" fill="#fff" ${TRP_S}/><ellipse cx="200" cy="124" rx="98" ry="22" fill="none" stroke="#7ec8ff" stroke-width="3"/>${trpTable(170, '#fff', '#7ec8ff')}`)),
+    rh: () => trpBgSvg(trpRoom(['#ffcf9a', '#fff1d6'], '#c98f5a', `${trpWindow(40, 40)}${trpWindow(290, 40)}<text x="205" y="58" text-anchor="middle" font-size="19" fill="#c9364f" font-weight="700">שנה טובה ומתוקה!</text>${[[130, 100], [270, 100]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="12" fill="#e8364f" ${TRP_S2}/><path d="M${x - 4} ${y - 12} l2 -4 l2 3 l2 -3 l2 4" fill="#e8364f" ${TRP_S2}/>`).join('')}${trpTable(170, '#fff', '#ffd84d')}`)),
+    tubshvat: () => { const u = 'tt' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u, '#bfe8ff', '#f4fff0')}</defs><rect width="400" height="250" fill="url(#${u})"/>${trpSun(350, 40, 18)}${[[128, 160, 1.2], [330, 165, 1.1]].map(([x, y, s]) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-4 0 L-2 -34 H2 L4 0 Z M0 -26 L-14 -40 M0 -30 L14 -44" stroke="${O}" stroke-width="1.6" fill="#8a5a3c"/>${Array.from({ length: 14 }, (_, i) => `<circle cx="${Math.cos(i) * (10 + i % 3 * 6)}" cy="${-44 + Math.sin(i * 1.7) * 12}" r="5" fill="${i % 3 ? '#ffd1e6' : '#fff'}" ${TRP_S2}/>`).join('')}</g>`).join('')}${trpGrass(160, '#9be07a', '#7ccf6a')}`); },
+    birthday: () => trpBgSvg(trpRoom(['#fff0f8', '#fff9e6'], '#ffd6a8', `${trpBunting(20)}${[[40, 70, '#ff5a8a'], [80, 50, '#7ec8ff'], [320, 60, '#ffd84d'], [360, 80, '#b58cff']].map(([x, y, c]) => `<path d="M${x} ${y + 22} Q${x - 4} ${y + 50} ${x + 4} ${y + 80}" fill="none" stroke="${O}" stroke-width="1.2"/><ellipse cx="${x}" cy="${y}" rx="15" ry="19" fill="${c}" ${TRP_S2}/><path d="M${x - 6} ${y - 8} q3 -5 8 -4" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/>`).join('')}<text x="200" y="76" text-anchor="middle" font-size="24" fill="#ff5a8a" font-weight="700">יום הולדת שמח!</text>${trpTable(170, '#fff', '#ff9ad5')}`)),
+  };
+  const trpMenorah = n => `<path d="M50 94 V60 M36 94 H64" ${TRP_S} stroke-width="4"/><path d="M50 94 V60 M36 94 H64" stroke="#ffd84d" stroke-width="2.4"/>${[-4, -3, -2, -1, 1, 2, 3, 4].map(k => `<path d="M${50 + k * 10.5} 40 Q${50 + k * 10.5} 64 50 64" fill="none" stroke="${O}" stroke-width="3.6"/><path d="M${50 + k * 10.5} 40 Q${50 + k * 10.5} 64 50 64" fill="none" stroke="#ffd84d" stroke-width="2"/>`).join('')}
+    <path d="M50 64 V30" stroke="${O}" stroke-width="3.6"/><path d="M50 64 V30" stroke="#ffd84d" stroke-width="2"/>${[-4, -3, -2, -1, 1, 2, 3, 4, 0].map((k, i) => { const x = 50 + k * 10.5, top = k === 0 ? 18 : 28, lit = k === 0 ? n >= 1 : n >= 2 + (4 - k) - (k < 0 ? 1 : 0) && false; return `<rect x="${x - 2.4}" y="${top}" width="4.8" height="${k === 0 ? 12 : 12}" fill="${['#7ec8ff', '#ff9ad5', '#ffffff', '#b58cff'][i % 4]}" ${TRP_S2}/>`; }).join('')}
+    ${[0, 4, 3, 2, 1, -1, -2, -3, -4].slice(0, n).map(k => { const x = 50 + k * 10.5, top = k === 0 ? 18 : 28; return `<g class="trp-flame" style="transform-origin:${x}px ${top}px"><path d="M${x} ${top - 10} Q${x + 4} ${top - 4} ${x} ${top} Q${x - 4} ${top - 4} ${x} ${top - 10} Z" fill="#ffb020"/><path d="M${x} ${top - 6} Q${x + 2} ${top - 3} ${x} ${top - 1} Q${x - 2} ${top - 3} ${x} ${top - 6} Z" fill="#fff36b"/></g>`; }).join('')}`;
+  const trpDreidelArt = (l, spin) => `<g class="${spin ? 'trp-dspin' : ''}" style="transform-origin:50px 55px"><rect x="46" y="8" width="8" height="18" rx="3" fill="#b58cff" ${TRP_S2}/><path d="M26 26 H74 V60 L50 92 L26 60 Z" fill="#7ec8ff" ${TRP_S}/><path d="M26 26 H74" stroke="#fff" stroke-width="2"/><text x="50" y="56" text-anchor="middle" font-size="26" font-weight="700" fill="#fff" stroke="${O}" stroke-width="1">${l}</text></g>`;
+  const TRP_COSTUMES = [['bee', 'דבורה'], ['unicorn', 'חד-קרן'], ['dino', 'דינוזאור'], ['strawberry', 'תות'], ['bunnysuit', 'ארנב'], ['mermaid', 'בת ים'], ['hero', 'גיבורת-על', 'starcape'], ['gown', 'נסיכה', null, 'tiara'], ['pumpkin', 'דלעת'], ['pajamas', 'קוסמת', 'starcape', 'witch'], ['kimono', 'יפנית'], ['leotard', 'בלרינה', null, 'bigbow']];
+  const trpCostumeOk = c => trpTry(() => CRZ_CLOTHES.some(x => x[0] === c[0]), false);
+  const trpCostumeOf = p => { const c = trpData.cost[p.id]; return c != null ? TRP_COSTUMES[c] : null; };
+  const trpInCostume = p => { const c = trpCostumeOf(p); if (!c || !trpCostumeOk(c)) return p; const cl = { body: { id: c[0] } }; if (c[2]) cl.back = { id: c[2] }; if (c[3]) cl.head = { id: c[3] }; return Object.assign({}, p, { clothes: cl }); };
+  const TRP_HOLS = [
+    { id: 'sukkot', name: 'סוכות', emoji: '🌿', ids: ['sukkot1', 'sukkot2', 'cholsukkot', 'hoshana'], greet: 'חג סוכות שמח! בואו נקשט את הסוכה ונאכל בה ביחד 🌿',
+      icon: `<path d="M14 40 H86 V88 H14 Z" fill="#fff8e6" ${TRP_S}/><path d="M8 40 H92" stroke="#3f9c5a" stroke-width="10" stroke-linecap="round"/><path d="M14 40 V88 M86 40 V88" ${TRP_S}/><circle cx="34" cy="56" r="7" fill="#e8364f" ${TRP_S2}/><ellipse cx="62" cy="58" rx="6" ry="8" fill="#ffe066" ${TRP_S2}/>`,
+      acts: () => [
+        { n: 'ארבעת המינים', x: 4, y: 28, w: 14, taps: 6, snd: s => tone(500 + s * 60, .12, 'triangle', 0, .07), say: ['קדימה! ⬆️', 'ימינה! ➡️', 'אחורה! ⬇️', 'שמאלה! ⬅️', 'למעלה! 🔝', 'למטה!'], done: 'נענענו לכל הכיוונים! 🌿',
+          art: s => `<g transform="rotate(${[0, -18, 18, -10, 10, -24, 0][s]} 50 90)"><path d="M50 92 V10" stroke="#3f9c5a" stroke-width="8" stroke-linecap="round"/><path d="M50 92 V10" stroke="#8fd694" stroke-width="3" stroke-linecap="round"/><path d="M44 70 q-16 -10 -18 -30 M56 70 q16 -10 18 -30 M46 60 q-10 -8 -8 -24 M54 60 q10 -8 8 -24" fill="none" stroke="#4fbf73" stroke-width="4" stroke-linecap="round"/></g><ellipse cx="80" cy="80" rx="12" ry="15" fill="#ffe066" ${TRP_S}/>` },
+        { n: 'ארוחה בסוכה', x: 42, y: 50, w: 16, taps: 1, snd: () => SFX.munch(), done: 'איזו ארוחת חג טעימה בסוכה! 🍲', onDone: c => c.feedAll(trpFood('holmeal', 'ארוחת חג', `<ellipse cx="50" cy="66" rx="40" ry="14" fill="#fff" ${TRP_S}/><ellipse cx="50" cy="60" rx="26" ry="10" fill="#ffb020" ${TRP_S2}/><circle cx="42" cy="56" r="5" fill="#6fcf7f"/><circle cx="58" cy="58" r="5" fill="#ff5a6e"/>`)),
+          art: s => `<ellipse cx="50" cy="74" rx="44" ry="14" fill="#fff" ${TRP_S}/>${s ? `<ellipse cx="50" cy="68" rx="30" ry="10" fill="#ffb020" ${TRP_S2}/><circle cx="40" cy="64" r="6" fill="#6fcf7f"/><circle cx="58" cy="66" r="6" fill="#ff5a6e"/><path class="trp-steam" d="M40 50 q-5 -8 0 -16 M56 50 q-5 -8 0 -16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>` : `<path d="M22 70 Q50 30 78 70" fill="#c0c8d8" ${TRP_S}/><circle cx="50" cy="40" r="4" fill="#c0c8d8" ${TRP_S2}/>`}` },
+        { n: 'אושפיזין', x: 82, y: 30, w: 14, taps: 1, snd: () => TRP_SND.bell(), done: 'אורח/ת חמוד/ה הגיע/ה לסוכה! 🎉', onDone: c => { const g = trpGuest(); const s = el('span', { class: 'trp-guest', html: petSVG(g, { mood: 'happy' }) }); c.layer.append(s); SFX.pet(g.kind); },
+          art: s => `<rect x="24" y="14" width="52" height="80" rx="4" fill="#b07642" ${TRP_S}/><circle cx="66" cy="56" r="3.5" fill="#ffd84d" ${TRP_S2}/>${s ? '' : `<text x="50" y="12" text-anchor="middle" font-size="14">🔔</text>`}` },
+      ],
+      panel: box => {
+        box.replaceChildren(el('p', { class: 'trp-lead trp-center' }, `מקשטים את הסוכה! (${trpData.suk.length}/${TRP_SUK_SPOTS.length}) לוחצים על קישוט והוא נתלה מהסכך`),
+          el('div', { class: 'trp-items' }, ...TRP_SUKDECO.map(([id, n, f]) => el('button', { type: 'button', class: 'trp-item', onclick: () => { if (trpData.suk.length >= TRP_SUK_SPOTS.length) { SFX.boop(); toast(trpSvg(f(50, 20), '0 0 100 100'), 'הסוכה כבר מלאה בקישוטים! 🌿'); return; } trpData.suk.push(id); trpSave(); SFX.ding(); if (trpData.suk.length === 6) trpCoins(5, 'קישוט הסוכה'); trpDraw(); } },
+            el('span', { class: 'ic', html: trpSvg(f(50, 20), '20 10 60 60') }), n)),
+            el('button', { type: 'button', class: 'trp-item', onclick: () => { trpData.suk.pop(); trpSave(); SFX.pop(); trpDraw(); } }, el('span', { class: 'ic trp-emo' }, '↩️'), 'להוריד')));
+      } },
+    { id: 'hanukkah', name: 'חנוכה', emoji: '🕎', ids: ['hanukkah'], greet: 'חנוכה שמח! בואו נדליק נרות 🕎',
+      icon: trpMenorah(5),
+      acts: () => [
+        { n: 'להדליק נרות', x: 38, y: 12, w: 24, taps: 9, snd: s => tone(392 * Math.pow(2, (s - 1) / 12 * 2), .25, 'triangle', 0, .08), say: ['עוד נר! 🕯️', 'איזה אור!'], done: 'כל הנרות דולקים! נס גדול היה פה 🕎', art: trpMenorah },
+        { n: 'סופגניות', x: 6, y: 34, w: 16, taps: 3, snd: s => s === 3 ? SFX.munch() : TRP_SND.pop(), say: ['ממלאים ריבה! 🍓', 'אבקת סוכר! ❄️'], done: 'סופגניות לכולם! 🍩', onDone: c => c.feedAll(trpFood('sufgania', 'סופגנייה', `<ellipse cx="50" cy="58" rx="32" ry="24" fill="#e8a64a" ${TRP_S}/><ellipse cx="50" cy="46" rx="22" ry="8" fill="#fff"/><circle cx="50" cy="44" r="6" fill="#e8364f" ${TRP_S2}/>`)),
+          art: s => `<ellipse cx="50" cy="62" rx="36" ry="26" fill="#e8a64a" ${TRP_S}/>${s >= 1 ? `<circle cx="50" cy="44" r="7" fill="#e8364f" ${TRP_S2}/>` : ''}${s >= 2 ? `<path d="M22 50 Q50 34 78 50 Q64 46 50 48 Q36 46 22 50 Z" fill="#fff"/>${[30, 40, 60, 70].map(x => `<circle cx="${x}" cy="${48 + (x % 3)}" r="1.5" fill="#fff"/>`).join('')}` : ''}${s >= 3 ? trpSparkle(80, 24, 8, '#ffd84d') : ''}` },
+        { n: 'לביבות', x: 80, y: 36, w: 16, taps: 2, snd: s => s === 2 ? SFX.munch() : TRP_SND.fire(), say: ['צ׳ששש... מטגנים! 🍳'], done: 'לביבות פריכות! 😋', onDone: c => c.feedAll(trpFood('latke', 'לביבה', `<ellipse cx="50" cy="56" rx="34" ry="18" fill="#e8b36a" ${TRP_S}/><path d="M28 52 q6 -4 12 0 M50 58 q6 -4 12 0" stroke="#b0682a" stroke-width="2" fill="none"/>`, 2)),
+          art: s => `<ellipse cx="50" cy="66" rx="40" ry="16" fill="#4a4a5a" ${TRP_S}/><path d="M90 64 H100" ${TRP_S} stroke-width="5"/>${[[34, 60], [58, 62]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="12" ry="6" fill="${s ? '#e8b36a' : '#fff4c9'}" ${TRP_S2}/>`).join('')}` },
+        { n: 'סביבון', x: 82, y: 6, w: 13, taps: 1, repeat: true, noCoins: true, snd: () => TRP_SND.whoosh(), art: (s, a) => trpDreidelArt(a.L || 'נ', a.spin),
+          onTap: (c, s, a) => { const L = trpPick(['נ', 'ג', 'ה', 'ש']); a.L = L; a.spin = true; const t = localToday(); if (!trpData.dreidel[t]) trpData.dreidel = { [t]: 0 };
+            setTimeout(() => { a.spin = false; const msg = { 'נ': 'נ — נס! לא קרה כלום 😄', 'ג': 'ג — גדול! זכית! 🎉', 'ה': 'ה — היה! חצי! 😊', 'ש': 'ש — שם! ננסה שוב 🙃' }[L]; c.say(msg); if (L === 'ג') { SFX.yay(); if (trpData.dreidel[t] < 3) { trpData.dreidel[t]++; trpSave(); trpCoins(4, 'סביבון'); } c.jumpAll(); } }, 1100); } },
+      ] },
+    { id: 'purim', name: 'פורים', emoji: '🎭', ids: ['purim', 'shushan'], greet: 'פורים שמח! בואו נתחפש 🎭',
+      icon: `<path d="M10 44 Q10 24 30 24 Q50 32 50 40 Q50 32 70 24 Q90 24 90 44 Q90 64 70 62 Q56 60 50 52 Q44 60 30 62 Q10 64 10 44 Z" fill="#b58cff" ${TRP_S}/><ellipse cx="32" cy="44" rx="8" ry="6" fill="#fff" ${TRP_S2}/><ellipse cx="68" cy="44" rx="8" ry="6" fill="#fff" ${TRP_S2}/>${trpSparkle(20, 22, 6, '#ffd84d')}`,
+      petOpts: p => ({}), dress: true,
+      acts: () => [
+        { n: 'רעשן', x: 4, y: 20, w: 14, taps: 1, repeat: true, noCoins: true, snd: () => TRP_SND.grogger(), onTap: c => { c.say('רעש רעש! 🎉'); c.jumpAll(); }, art: s => `<g transform="rotate(${s % 2 ? 20 : -10} 50 70)"><path d="M50 96 V56" stroke="#b07642" stroke-width="7" stroke-linecap="round"/><rect x="30" y="16" width="40" height="40" rx="6" fill="#ff5a8a" ${TRP_S}/><path d="M36 24 h28 M36 36 h28 M36 48 h28" stroke="#ffd84d" stroke-width="3"/></g>` },
+        { n: 'משלוח מנות', x: 28, y: 44, w: 19, taps: 3, snd: s => s === 3 ? SFX.yay() : TRP_SND.pop(), say: ['עוד ממתק לסלסלה! 🍬', 'ועוד אחד! 🍭'], done: 'משלוח מנות לכל החיות! 🎁', onDone: c => c.feedAll(trpFood('mishloach', 'משלוח מנות', `<path d="M16 46 H84 L76 86 H24 Z" fill="#ffd84d" ${TRP_S}/><circle cx="36" cy="40" r="9" fill="#ff5a8a" ${TRP_S2}/><circle cx="60" cy="38" r="9" fill="#7ec8ff" ${TRP_S2}/>`)),
+          art: s => `<path d="M26 40 Q50 0 74 40" fill="none" stroke="#b07642" stroke-width="5"/>${s >= 1 ? `<circle cx="36" cy="40" r="10" fill="#ff5a8a" ${TRP_S2}/>` : ''}${s >= 2 ? `<path d="M56 44 L66 20 L76 44 Z" fill="#e8b36a" ${TRP_S2}/><circle cx="66" cy="36" r="4" fill="#8e5bd6"/>` : ''}${s >= 3 ? `<circle cx="50" cy="34" r="9" fill="#7ec8ff" ${TRP_S2}/><path d="M50 43 V56" stroke="#fff" stroke-width="3"/>` : ''}<path d="M14 44 H86 L78 90 H22 Z" fill="#ffd84d" ${TRP_S}/><path d="M18 58 H82 M20 72 H80" stroke="#e8a64a" stroke-width="3"/>` },
+        { n: 'אוזני המן', x: 82, y: 38, w: 14, taps: 1, snd: () => SFX.munch(), done: 'אוזני המן מתוקות! 🍪', onDone: c => c.feedAll(trpFood('hamantash', 'אוזן המן', `<path d="M50 16 L86 80 H14 Z" fill="#e8b36a" ${TRP_S}/><path d="M50 40 L66 70 H34 Z" fill="#8e5bd6" ${TRP_S2}/>`)),
+          art: s => `<ellipse cx="50" cy="80" rx="42" ry="10" fill="#fff" ${TRP_S2}/>${[[30, 66], [70, 66], [50, 46]].map(([x, y]) => `<path d="M${x} ${y - 16} L${x + 16} ${y + 10} H${x - 16} Z" fill="#e8b36a" ${TRP_S2}/><path d="M${x} ${y - 5} L${x + 6} ${y + 5} H${x - 6} Z" fill="#8e5bd6"/>`).join('')}` },
+        { n: 'תחרות תחפושות', x: 84, y: 6, w: 13, taps: 1, repeat: true, noCoins: true, snd: () => SFX.yay(), art: () => `<path d="M30 30 H70 V50 Q70 66 50 66 Q30 66 30 50 Z" fill="#ffd84d" ${TRP_S}/><path d="M30 36 Q14 36 16 48 Q20 56 32 54 M70 36 Q86 36 84 48 Q80 56 68 54" fill="none" ${TRP_S}/><rect x="44" y="66" width="12" height="14" fill="#ffd84d" ${TRP_S2}/><rect x="34" y="80" width="32" height="10" rx="3" fill="#b07642" ${TRP_S2}/>${trpStar(50, 46, 7, '#fff')}`,
+          onTap: c => { const i = Math.floor(Math.random() * c.pets.length), p = c.pets[i], cst = trpCostumeOf(p); c.say(`🏆 ${trpNm(p)} ניצח/ה בתחרות${cst ? ' בתחפושת ' + cst[1] : ''}!`, i); c.jump(i); trpConfetti(); if (!c.state.won) { c.state.won = 1; trpCoins(5, 'תחרות תחפושות'); } } },
+      ],
+      panel: (box, redraw) => {
+        const pets = trpPets(), ok = TRP_COSTUMES.filter(trpCostumeOk);
+        box.replaceChildren(el('p', { class: 'trp-lead trp-center' }, 'בוחרים תחפושת לכל חיה! 🎭 (לוחצים כדי להחליף)'),
+          el('div', { class: 'trp-costumes' }, ...pets.map(p => {
+            const c = trpCostumeOf(p);
+            return el('div', { class: 'trp-cst' }, el('span', { class: 'trp-cst-art', html: petSVG(trpInCostume(p)) }), el('b', {}, trpNm(p)),
+              el('div', { class: 'chips' }, ...[null, ...ok].map(o => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((c || null) === o), onclick: () => { if (o) trpData.cost[p.id] = TRP_COSTUMES.indexOf(o); else delete trpData.cost[p.id]; trpSave(); SFX.pop(); redraw(); } }, o ? o[1] : 'בלי'))));
+          })));
+      } },
+    { id: 'pesach', name: 'פסח', emoji: '🍷', ids: ['pesach1', 'pesach2', 'cholpesach', 'pesach7', 'pesach8'], greet: 'חג פסח שמח! ליל סדר עם כל החיות 🍷',
+      icon: `<rect x="14" y="30" width="72" height="44" rx="4" fill="#f5deb3" ${TRP_S}/>${[22, 34, 46, 58, 70].map(x => `<path d="M${x} 34 V70" stroke="#c9a06a" stroke-width="2" stroke-dasharray="2 4"/>`).join('')}`,
+      acts: () => [
+        { n: 'קערת הסדר', spots: [[26, 44, 7], [34, 38, 7], [42, 44, 7], [50, 38, 7], [58, 44, 7], [66, 38, 7]], snd: () => SFX.ding(), done: 'מכירים את כל קערת הסדר! 🍽️',
+          onTap: (c, n, i) => c.say(['זרוע 🍖 — זוכרים את קורבן הפסח', 'ביצה 🥚 — סימן לחג', 'מרור 🥬 — מר! זוכרים את העבדות', 'חרוסת 🍎 — מתוקה כמו טיט', 'כרפס 🥔 — טובלים במי מלח', 'חזרת 🌿 — עוד ירק מר'][i]),
+          spotArt: (f, i) => `<circle cx="50" cy="50" r="42" fill="#fff" ${TRP_S}/>` + [`<path d="M36 62 L64 38 M58 34 a6 6 0 1 1 8 8 M30 58 a6 6 0 1 0 8 8" fill="#fff6e6" ${TRP_S}/>`, `<ellipse cx="50" cy="52" rx="16" ry="20" fill="#fff6e6" ${TRP_S}/>`, `<path d="M30 64 Q30 34 50 30 Q70 34 70 64 Z" fill="#8fd694" ${TRP_S}/><path d="M50 30 V64" ${TRP_S2}/>`, `<ellipse cx="50" cy="56" rx="22" ry="14" fill="#b0682a" ${TRP_S}/>`, `<ellipse cx="50" cy="56" rx="18" ry="14" fill="#e8c89a" ${TRP_S}/><path d="M50 42 q-6 -10 2 -14" stroke="#4fbf73" stroke-width="3" fill="none"/>`, `<path d="M36 64 L40 36 L50 30 L60 36 L64 64 Z" fill="#fff" ${TRP_S}/><path d="M42 30 q8 -12 16 0" stroke="#4fbf73" stroke-width="3" fill="none"/>`][i] + (f ? '' : trpSparkle(80, 18, 9, '#ffd84d')) },
+        { n: 'ארבע כוסות', x: 74, y: 30, w: 18, taps: 4, snd: s => tone(440 + s * 80, .2, 'sine', 0, .07), say: ['כוס ראשונה! 🍇', 'כוס שנייה!', 'כוס שלישית!'], done: 'ארבע כוסות מיץ ענבים! 🍇',
+          art: s => [16, 38, 60, 82].map((x, i) => `<path d="M${x - 9} 34 H${x + 9} L${x + 6} 60 H${x - 6} Z" fill="#dff3ff" ${TRP_S2}/>${i < s ? `<path d="M${x - 8} 40 H${x + 8} L${x + 6} 60 H${x - 6} Z" fill="#8e3b8f"/>` : ''}<path d="M${x} 60 V74 M${x - 7} 74 H${x + 7}" ${TRP_S2}/>`).join('') },
+        { n: 'מצה לכולם', x: 4, y: 30, w: 16, taps: 1, snd: () => TRP_SND.crunch(), done: 'קראנץ׳! מצה פריכה 😋', onDone: c => c.feedAll(trpFood('matza', 'מצה', `<rect x="18" y="24" width="64" height="52" rx="4" fill="#f5deb3" ${TRP_S}/>${[30, 42, 54, 66].map(x => `<path d="M${x} 28 V72" stroke="#c9a06a" stroke-width="2" stroke-dasharray="2 4"/>`).join('')}`, 2)),
+          art: () => `<rect x="12" y="30" width="76" height="52" rx="4" fill="#f5deb3" ${TRP_S}/>${[24, 36, 48, 60, 72].map(x => `<path d="M${x} 34 V78" stroke="#c9a06a" stroke-width="2" stroke-dasharray="2 4"/>`).join('')}` },
+        { n: 'לחפש את האפיקומן', hide: true, spots: [[2, 3, 10], [26, 2, 9], [64, 2, 9], [86, 3, 10]], noCoins: true, done: 'מצאנו את האפיקומן! 🎁', onDone: () => trpCoins(8, 'אפיקומן'),
+          spotArt: (f, i, it) => f && it ? `<rect x="18" y="30" width="64" height="44" rx="6" fill="#fff" ${TRP_S}/><rect x="24" y="36" width="52" height="32" rx="3" fill="#f5deb3" ${TRP_S2}/>${trpSparkle(82, 20, 10, '#ffd84d')}` : f ? `<circle cx="50" cy="50" r="30" fill="#fff" opacity=".6"/><text x="50" y="60" text-anchor="middle" font-size="30">🙈</text>` : [`<rect x="16" y="30" width="68" height="40" rx="16" fill="#ff9ad5" ${TRP_S}/>`, `<path d="M30 90 L40 30 H60 L70 90 Z" fill="#7ec8ff" ${TRP_S}/><path d="M40 30 Q30 10 50 12 Q70 10 60 30" fill="#6fcf7f" ${TRP_S2}/>`, `<path d="M20 10 Q30 60 20 92 H40 Q48 60 40 10 Z" fill="#b58cff" ${TRP_S}/>`, `<rect x="20" y="30" width="60" height="50" rx="4" fill="#c98f5a" ${TRP_S}/><path d="M20 50 H80" ${TRP_S2}/>`, `<ellipse cx="50" cy="60" rx="36" ry="20" fill="#ffd84d" ${TRP_S}/>`][i] },
+      ] },
+    { id: 'rh', name: 'ראש השנה', emoji: '🍎', ids: ['rh1', 'rh2'], greet: 'שנה טובה ומתוקה! תפוח בדבש לכולם 🍎🍯',
+      icon: `<circle cx="42" cy="56" r="24" fill="#e8364f" ${TRP_S}/><path d="M42 32 q2 -10 10 -12" stroke="#6b4226" stroke-width="3" fill="none"/><path d="M60 50 H86 V84 Q86 90 80 90 H66 Q60 90 60 84 Z" fill="#ffb020" ${TRP_S}/>`,
+      acts: () => [
+        { n: 'תפוח בדבש', x: 40, y: 44, w: 18, taps: 2, snd: s => s === 2 ? SFX.munch() : TRP_SND.pop(), say: ['חותכים תפוח! 🍎'], done: 'שנה טובה ומתוקה! 🍯', onDone: c => c.feedAll(trpFood('applehoney', 'תפוח בדבש', `<path d="M20 60 Q50 20 80 60 Q50 76 20 60 Z" fill="#fff6e6" ${TRP_S}/><path d="M20 60 Q50 76 80 60" fill="none" stroke="#e8364f" stroke-width="5"/><path d="M40 44 Q50 36 60 44" stroke="#ffb020" stroke-width="6" stroke-linecap="round"/>`)),
+          art: s => `<path d="M58 44 H90 V86 Q90 94 82 94 H66 Q58 94 58 86 Z" fill="#ffb020" ${TRP_S}/><path d="M58 52 H90" stroke="#fff6c4" stroke-width="3"/>${s === 0 ? `<circle cx="30" cy="62" r="22" fill="#e8364f" ${TRP_S}/><path d="M30 40 q2 -10 10 -12" stroke="#6b4226" stroke-width="3" fill="none"/>` : `<path d="M8 70 Q30 40 52 70 Q30 80 8 70 Z" fill="#fff6e6" ${TRP_S}/><path d="M8 70 Q30 80 52 70" fill="none" stroke="#e8364f" stroke-width="4"/>${s >= 2 ? `<path d="M20 60 Q30 54 40 60" stroke="#ffb020" stroke-width="5" stroke-linecap="round"/>` : ''}`}` },
+        { n: 'לתקוע בשופר', x: 4, y: 20, w: 20, taps: 3, snd: s => TRP_SND.shofar(s - 1), onTap: (c, s) => c.say(['תקיעה! 📯', 'שברים! 📯📯📯', 'תרועה! 📯📯📯📯'][s - 1]), done: 'תקיעה גדולה! 📯',
+          art: s => `<path d="M10 70 Q30 80 60 60 Q80 44 84 20 Q92 22 94 30 Q90 60 64 76 Q36 94 12 80 Z" fill="#e8c89a" ${TRP_S}/><path d="M30 76 q4 -6 8 -8 M46 70 q4 -6 8 -10" stroke="#c9a06a" stroke-width="2" fill="none"/>${s ? `<path d="M96 12 l4 -4 M98 22 h4 M92 6 l0 -5" stroke="#ffb020" stroke-width="3" stroke-linecap="round"/>` : ''}` },
+        { n: 'רימון', x: 80, y: 36, w: 15, taps: 2, snd: () => TRP_SND.pop(), say: ['פותחים! 😮'], done: 'יש בו המון גרגרים — כמו הרבה מצוות! ❤️',
+          art: s => s < 2 ? `<circle cx="50" cy="56" r="30" fill="#e8364f" ${TRP_S}/><path d="M42 26 l3 -8 l5 6 l5 -6 l3 8 Z" fill="#e8364f" ${TRP_S2}/>${s ? `<path d="M50 30 V84" stroke="#fff6e6" stroke-width="3"/>` : ''}` : `<path d="M14 56 A26 26 0 0 0 46 80 V30 A26 26 0 0 0 14 56 Z M86 56 A26 26 0 0 1 54 80 V30 A26 26 0 0 1 86 56 Z" fill="#fff0e0" stroke="#e8364f" stroke-width="5"/>${Array.from({ length: 16 }, (_, i) => `<circle cx="${(i % 2 ? 62 : 24) + (i * 7) % 16}" cy="${40 + (i * 11) % 32}" r="3" fill="#e8364f"/>`).join('')}` },
+        { n: 'כרטיס ברכה', x: 82, y: 6, w: 14, taps: 1, snd: () => TRP_SND.sparkle(), done: 'שנה טובה לכל החיות! 💌',
+          art: s => `<rect x="14" y="20" width="72" height="60" rx="4" fill="#fff" ${TRP_S}/>${s ? `<text x="50" y="46" text-anchor="middle" font-size="12" fill="#c9364f" font-weight="700">שנה</text><text x="50" y="62" text-anchor="middle" font-size="12" fill="#c9364f" font-weight="700">טובה!</text>${trpHeart(76, 30, 5)}` : `<path d="M14 20 L50 52 L86 20" fill="none" ${TRP_S}/>`}` },
+      ] },
+    { id: 'tubshvat', name: 'ט״ו בשבט', emoji: '🌳', ids: ['tubshvat'], greet: 'חג לאילנות שמח! נוטעים עץ ביחד 🌳',
+      icon: trpTree(50, 92, 1.1, '#8fd694'),
+      acts: () => [
+        { n: 'לשתול עץ', x: 40, y: 4, w: 22, taps: 4, snd: s => trpTune([392, 494, 587, 784].slice(0, s), .1), say: ['חופרים בור! ⛏️', 'שותלים שתיל 🌱', 'משקים! 💧'], done: 'שתלנו עץ חדש! 🌳',
+          art: s => `<ellipse cx="50" cy="90" rx="36" ry="8" fill="#8a5a3c" ${TRP_S2}/>` + (s >= 1 ? `<ellipse cx="50" cy="88" rx="14" ry="4" fill="#4a2f1f"/>` : '') + (s === 2 ? `<path d="M50 88 V70 M50 76 q-8 -6 -10 -2 q4 4 10 2 M50 72 q8 -6 10 -2 q-4 4 -10 2" fill="#6fcf7f" stroke="#3f8f3a" stroke-width="2"/>` : '') + (s === 3 ? `<path d="M50 88 V60" stroke="#8a5a3c" stroke-width="3"/><circle cx="50" cy="56" r="10" fill="#8fd694" ${TRP_S2}/>${[30, 40, 60].map(x => `<path d="M${x} 20 q-3 6 0 10" stroke="#7ec8ff" stroke-width="3" fill="none"/>`).join('')}` : '') + (s >= 4 ? trpTree(50, 92, 1.3, '#6fcf7f') + [[36, 42], [60, 36], [48, 30], [64, 52]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3" fill="#ffd1e6" ${TRP_S2}/>`).join('') : '') },
+        { n: 'פירות יבשים', x: 6, y: 42, w: 17, taps: 1, snd: () => SFX.munch(), done: 'תאנים, תמרים וצימוקים! 😋', onDone: c => c.feedAll(trpFood('driedfruit', 'פירות יבשים', `<ellipse cx="50" cy="66" rx="40" ry="14" fill="#fff" ${TRP_S}/><ellipse cx="36" cy="58" rx="8" ry="11" fill="#8a4a2a" ${TRP_S2}/><circle cx="58" cy="58" r="9" fill="#b58c5a" ${TRP_S2}/><circle cx="70" cy="62" r="4" fill="#4a2a2a"/>`, 2)),
+          art: () => `<ellipse cx="50" cy="70" rx="42" ry="16" fill="#fff" ${TRP_S}/><ellipse cx="32" cy="62" rx="9" ry="12" fill="#8a4a2a" ${TRP_S2}/><circle cx="56" cy="60" r="10" fill="#b58c5a" ${TRP_S2}/><circle cx="72" cy="66" r="5" fill="#4a2a2a" ${TRP_S2}/><circle cx="44" cy="70" r="5" fill="#ff9a3c" ${TRP_S2}/>` },
+        { n: 'ציפורים בשקדייה', x: 6, y: 6, w: 16, taps: 2, snd: () => TRP_SND.chirp(), say: ['ציוץ! 🐦'], done: 'הציפורים שרות לעץ החדש! 🎶',
+          art: s => `<path d="M0 60 H100" stroke="#8a5a3c" stroke-width="5"/>${[30, 66].slice(0, s).map((x, i) => `<g class="trp-bob" style="animation-delay:${i * .3}s"><ellipse cx="${x}" cy="46" rx="12" ry="10" fill="${i ? '#7ec8ff' : '#ffd84d'}" ${TRP_S2}/><circle cx="${x + 4}" cy="42" r="1.8" fill="${O}"/><path d="M${x + 11} 44 l6 2 l-6 2 Z" fill="#ff9a3c" ${TRP_S2}/></g>`).join('')}${[[20, 52], [50, 50], [84, 54]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4" fill="#ffd1e6" ${TRP_S2}/>`).join('')}` },
+      ] },
+    { id: 'birthday', name: 'יום הולדת לחיה', emoji: '🎂', ids: [], greet: 'יום הולדת שמח! 🎂 היום חוגגים!',
+      icon: `<rect x="20" y="50" width="60" height="36" rx="6" fill="#ff9ad5" ${TRP_S}/><path d="M20 62 Q35 70 50 62 Q65 70 80 62" fill="none" stroke="#fff" stroke-width="3"/>${[36, 50, 64].map(x => `<rect x="${x - 2}" y="34" width="4" height="16" fill="#7ec8ff" ${TRP_S2}/><path d="M${x} 24 q4 5 0 9 q-4 -4 0 -9" fill="#ffb020"/>`).join('')}`,
+      party: true,
+      acts: () => [
+        { n: 'לכבות נרות', x: 40, y: 40, w: 20, taps: 5, snd: s => s === 1 ? SFX.birthday() : TRP_SND.whoosh(), say: ['פוּוּ! 🌬️', 'עוד נר!'], done: 'יום הולדת שמח!!! 🎉', onDone: c => { trpConfetti(); c.jumpAll(); c.feedAll(trpFood('cake', 'עוגת יום הולדת', `<rect x="20" y="44" width="60" height="40" rx="6" fill="#ff9ad5" ${TRP_S}/><path d="M20 56 Q35 64 50 56 Q65 64 80 56" fill="none" stroke="#fff" stroke-width="3"/><circle cx="50" cy="38" r="6" fill="#e8364f" ${TRP_S2}/>`)); },
+          art: s => `<ellipse cx="50" cy="90" rx="42" ry="6" fill="#fff" ${TRP_S2}/><rect x="14" y="54" width="72" height="34" rx="6" fill="#ff9ad5" ${TRP_S}/><path d="M14 66 Q32 74 50 66 Q68 74 86 66" fill="none" stroke="#fff" stroke-width="3"/>${[24, 37, 50, 63, 76].map((x, i) => `<rect x="${x - 2}" y="38" width="4" height="16" fill="${['#7ec8ff', '#ffd84d', '#b58cff', '#6fcf7f', '#ff6b6b'][i]}" ${TRP_S2}/>${i >= s - 1 && s < 5 || s === 0 ? `<path class="trp-flame" style="transform-origin:${x}px 36px" d="M${x} 26 q5 6 0 11 q-5 -5 0 -11" fill="#ffb020"/>` : `<path d="M${x} 34 q-3 -4 0 -8" stroke="#bbb" stroke-width="1.5" fill="none"/>`}`).join('')}` },
+        { n: 'מתנות', spots: [[5, 48, 11], [18, 52, 10], [82, 48, 11]], snd: () => TRP_SND.sparkle(), done: 'איזה מתנות! 🎁',
+          onTap: (c, n, i) => c.say(['כדור חדש! ⚽', 'דובי רך! 🧸', 'עצם ענקית! 🦴'][i]),
+          spotArt: (f, i) => f ? [`<circle cx="50" cy="56" r="26" fill="#fff"/><path d="M50 30 A26 26 0 0 1 76 56 H50 Z" fill="#ff5a8a"/><path d="M24 56 A26 26 0 0 0 50 82 V56 Z" fill="#7ec8ff"/><path d="M50 30 A26 26 0 0 0 24 56 H50 Z" fill="#ffd84d"/><circle cx="50" cy="56" r="26" fill="none" ${TRP_S}/>`, TRP_PACK.teddy[1], `<path d="M16 56 a8 8 0 1 1 8 -12 L76 44 a8 8 0 1 1 8 12 a8 8 0 1 1 -8 12 L24 68 a8 8 0 1 1 -8 -12 Z" fill="#fff6e6" ${TRP_S}/>`][i] : `<rect x="14" y="40" width="72" height="50" rx="4" fill="${['#7ec8ff', '#b58cff', '#6fcf7f'][i]}" ${TRP_S}/><rect x="10" y="30" width="80" height="14" rx="3" fill="${['#5fb0f0', '#9b70f0', '#4fbf73'][i]}" ${TRP_S}/><path d="M50 30 V90" stroke="#ffd84d" stroke-width="7"/><path d="M50 30 Q36 12 30 24 Q34 30 50 30 Q64 12 70 24 Q66 30 50 30" fill="#ffd84d" ${TRP_S2}/>` },
+        { n: 'לפוצץ בלונים', spots: [[30, 4, 7], [62, 6, 7], [46, 2, 7]], snd: () => TRP_SND.pop(), done: 'פוף! פוף! פוף! 🎈',
+          spotArt: (f, i) => f ? `${[0, 60, 120, 180, 240, 300].map(d => `<path d="M${50 + Math.cos(d * Math.PI / 180) * 16} ${46 + Math.sin(d * Math.PI / 180) * 16} l${Math.cos(d * Math.PI / 180) * 12} ${Math.sin(d * Math.PI / 180) * 12}" stroke="${['#ff5a8a', '#7ec8ff', '#ffd84d'][i]}" stroke-width="4" stroke-linecap="round"/>`).join('')}` : `<ellipse cx="50" cy="40" rx="24" ry="30" fill="${['#ff5a8a', '#7ec8ff', '#ffd84d'][i]}" ${TRP_S}/><path d="M50 70 Q46 84 52 96" fill="none" ${TRP_S2}/><path d="M38 26 q4 -8 12 -8" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>` },
+      ] },
+  ];
+  const trpGuest = () => { const kinds = trpTry(() => PET_KINDS.map(k => k[0]).filter(k => !['fish', 'whale'].includes(k)), ['cat', 'dog', 'bunny']); const kind = trpPick(kinds); return { kind, look: trpTry(() => petzRandomLook(kind), undefined), size: .8, wear: {}, fed: {}, played: {} }; };
+  // when is each holiday? → current first, then the next ones
+  function trpHolWhen(h) {
+    if (!h.ids.length) return { d: 400, now: false, iso: '' };
+    const today = localToday(), y = +today.slice(0, 4);
+    for (const yy of [y, y + 1]) {
+      const map = trpTry(() => holidaysOfYear(yy), {});
+      const keys = Object.keys(map).sort().filter(k => (map[k] || []).some(x => h.ids.includes(x.id)));
+      for (const k of keys) { if (k === today) return { d: 0, now: true, iso: k }; if (k > today) { const prev = addDays(k, -1); return { d: daysBetween(today, k), now: false, iso: k, prev }; } }
+    }
+    return { d: 999, now: false, iso: '' };
+  }
+  function trpDrawHol(body) {
+    if (trpView && trpView.k === 'hol') return trpHolView(body, trpView);
+    const list = TRP_HOLS.map(h => Object.assign({ h }, trpHolWhen(h))).sort((a, b) => a.d - b.d);
+    const first = list[0];
+    trpAdd(body, el('p', { class: 'trp-lead' }, first.now ? `🎉 היום ${first.h.name}! בואו נחגוג עם כל החיות` : `החג הבא: ${first.h.name} — בעוד ${first.d} ימים!`),
+      el('div', { class: 'trp-hols' }, ...list.map(({ h, d, now }, i) => el('button', { type: 'button', class: 'trp-hol' + (now ? ' now' : '') + (i === 0 ? ' first' : ''), onclick: () => { SFX.pop(); trpView = { k: 'hol', id: h.id, state: {} }; trpDraw(); } },
+        el('span', { class: 'trp-hol-ic', html: trpSvg(h.icon) }), el('b', {}, `${h.emoji} ${h.name}`),
+        el('small', {}, now ? '✨ עכשיו!' : !h.ids.length ? 'בכל יום שבוחרים 🎈' : d === 1 ? 'מחר!' : d < 400 ? `בעוד ${d} ימים` : '')))));
+  }
+  function trpHolView(body, v) {
+    const h = TRP_HOLS.find(x => x.id === v.id), pets = trpPets();
+    if (h.party && v.bday == null) v.bday = 0;
+    const petsIn = h.dress ? pets.map(trpInCostume) : pets;
+    const ctx = trpScene({ bg: TRP_HOLBG[h.id](), acts: h.acts(), state: v.state, pets: petsIn, cls: 'hol-' + h.id,
+      petOpts: (p, i) => h.party && i === v.bday ? { mood: 'happy' } : {},
+      onAllDone: c => { if (v.fin) return; v.fin = true; trpCoins(8, h.name + ' עם החיות'); trpConfetti(); SFX.yay(); c.say(`${h.name} שמח לכל החיות! 🎉`); } });
+    if (h.party) ctx.petBtns.forEach((b, i) => { b.append(el('span', { class: 'trp-hat', html: trpSvg(`<path d="M50 6 L78 90 H22 Z" fill="${['#ff5a8a', '#7ec8ff', '#ffd84d', '#b58cff', '#6fcf7f'][i % 5]}" ${TRP_S}/><path d="M36 48 L64 48 M30 70 H70" stroke="#fff" stroke-width="5"/><circle cx="50" cy="8" r="8" fill="#fff" ${TRP_S2}/>`) })); if (i === v.bday) b.classList.add('trp-star'); });
+    const panel = el('div', { class: 'trp-panel' });
+    trpAdd(body, el('div', { class: 'trp-row' }, trpBack('→ כל החגים', () => { trpView = null; trpDraw(); }), el('b', { class: 'trp-where' }, `${h.emoji} ${h.name} עם החיות`),
+      el('button', { type: 'button', class: 'btn main', onclick: () => trpPhoto(ctx, `${h.name} עם החיות`, 'hol:' + h.id) }, '📸 תמונת חג')), ctx.root);
+    if (h.party) trpAdd(body, el('div', { class: 'trp-panel' }, el('p', { class: 'trp-lead trp-center' }, 'למי יום הולדת היום? 🎂'), el('div', { class: 'chips trp-center' }, ...pets.map((p, i) => el('button', { type: 'button', class: 'chip trp-petchip', 'aria-pressed': String(v.bday === i), onclick: () => { v.bday = i; SFX.pop(); trpDraw(); } }, el('span', { class: 'ic', html: petSVG(p) }), trpNm(p))))));
+    if (h.panel) { h.panel(panel, () => trpDraw()); trpAdd(body, panel); }
+    setTimeout(() => ctx.say(h.party ? `יום הולדת שמח ל${trpNm(pets[v.bday] || pets[0])}! 🎂` : h.greet, h.party ? v.bday : 0), 300);
+  }
+  // ---------- 🥕 the pets' garden (plants grow in real time) ----------
+  // [id, name, minutes to grow, yield, yum, ripe art (100×100, plant sits on y≈80), food art]
+  const trpLeaf = (x, y, r, c = '#6fcf7f') => `<path d="M${x} ${y} q${-r} ${-r * .6} ${-r * 1.2} ${-r * 1.5} q${r * 1.1} ${r * .1} ${r * 1.2} ${r * 1.5} Z M${x} ${y} q${r} ${-r * .6} ${r * 1.2} ${-r * 1.5} q${-r * 1.1} ${r * .1} ${-r * 1.2} ${r * 1.5} Z" fill="${c}" ${TRP_S2}/>`;
+  const trpFruitTree = (fc, shape = 'c') => `<path d="M46 80 L48 44 H52 L54 80 Z" fill="#9b6b43" ${TRP_S2}/><circle cx="50" cy="34" r="24" fill="#6fcf7f" ${TRP_S2}/><circle cx="32" cy="44" r="12" fill="#6fcf7f" ${TRP_S2}/><circle cx="68" cy="44" r="12" fill="#6fcf7f" ${TRP_S2}/>${[[40, 28], [60, 30], [50, 44], [34, 46], [66, 46], [50, 18]].map(([x, y]) => shape === 'c' ? `<circle cx="${x}" cy="${y}" r="5.5" fill="${fc}" ${TRP_S2}/>` : `<path d="M${x - 3} ${y - 6} Q${x} ${y - 10} ${x + 3} ${y - 6}" stroke="#3f8f3a" stroke-width="1.4" fill="none"/><circle cx="${x - 3}" cy="${y}" r="4" fill="${fc}" ${TRP_S2}/><circle cx="${x + 3}" cy="${y + 1}" r="4" fill="${fc}" ${TRP_S2}/>`).join('')}`;
+  const TRP_PLANTS = [
+    ['lettuce', 'חסה', 2, 2, 2, `${[-18, -9, 0, 9, 18].map((d, i) => `<ellipse cx="${50 + d}" cy="${66 - (i % 2) * 4}" rx="14" ry="16" fill="${i % 2 ? '#9be07a' : '#7ccf6a'}" ${TRP_S2}/>`).join('')}`, `<circle cx="50" cy="56" r="28" fill="#9be07a" ${TRP_S}/><path d="M34 56 Q50 30 66 56 M40 66 Q50 44 60 66" fill="none" stroke="#5fb36d" stroke-width="2.5"/>`],
+    ['carrot', 'גזר', 4, 2, 2, `<path d="M50 80 V56 M50 64 q-12 -14 -16 -12 M50 64 q12 -14 16 -12 M50 60 q-4 -18 0 -20" fill="none" stroke="#4fbf73" stroke-width="5" stroke-linecap="round"/><path d="M40 80 Q50 72 60 80 L54 92 H46 Z" fill="#ff9a3c" ${TRP_S2}/>`, `<path d="M30 80 L66 36 Q74 40 70 46 Z" fill="#ff9a3c" ${TRP_S}/><path d="M66 36 Q70 20 80 20 M68 38 Q80 32 88 36" fill="none" stroke="#4fbf73" stroke-width="5" stroke-linecap="round"/>`],
+    ['pea', 'אפונה', 6, 3, 1, `<path d="M50 80 Q40 60 52 40 Q60 26 50 14" fill="none" stroke="#4fbf73" stroke-width="4"/>${trpLeaf(50, 60, 10)}${[[36, 48], [64, 40], [40, 28]].map(([x, y]) => `<path d="M${x - 8} ${y} Q${x} ${y - 8} ${x + 10} ${y} Q${x} ${y + 8} ${x - 8} ${y} Z" fill="#9be07a" ${TRP_S2}/>`).join('')}`, `<path d="M16 56 Q50 20 84 56 Q50 76 16 56 Z" fill="#9be07a" ${TRP_S}/>${[32, 46, 60, 72].map(x => `<circle cx="${x}" cy="54" r="6" fill="#6fcf7f" ${TRP_S2}/>`).join('')}`],
+    ['strawberry', 'תות', 8, 3, 3, `${trpLeaf(50, 72, 14)}${[[34, 70], [62, 74], [48, 60]].map(([x, y]) => `<path d="M${x - 8} ${y} Q${x} ${y - 5} ${x + 8} ${y} Q${x + 6} ${y + 14} ${x} ${y + 16} Q${x - 6} ${y + 14} ${x - 8} ${y} Z" fill="#ff5a6e" ${TRP_S2}/><path d="M${x - 5} ${y} l5 -4 l5 4" fill="#4fbf73" ${TRP_S2}/>`).join('')}`, `<path d="M22 36 Q50 22 78 36 Q74 76 50 88 Q26 76 22 36 Z" fill="#ff5a6e" ${TRP_S}/><path d="M30 34 L40 20 L50 32 L60 20 L70 34" fill="#4fbf73" ${TRP_S2}/>${[[38, 50], [58, 50], [48, 64], [36, 70], [62, 70]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.6" ry="2.4" fill="#ffe27a"/>`).join('')}`],
+    ['tomato', 'עגבנייה', 10, 3, 2, `<path d="M50 80 V26" stroke="#3f8f3a" stroke-width="4"/>${trpLeaf(50, 60, 10)}${trpLeaf(50, 40, 8)}${[[36, 50], [64, 44], [40, 30], [62, 66]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="8" fill="#ff5a4a" ${TRP_S2}/><path d="M${x - 3} ${y - 8} l3 2 l3 -2" stroke="#3f8f3a" stroke-width="2" fill="none"/>`).join('')}`, `<circle cx="50" cy="56" r="30" fill="#ff5a4a" ${TRP_S}/><path d="M38 28 L50 34 L62 28 L56 38 H44 Z" fill="#4fbf73" ${TRP_S2}/><path d="M34 46 q6 -8 14 -8" stroke="#fff" stroke-width="4" fill="none" opacity=".6" stroke-linecap="round"/>`],
+    ['sunflower', 'חמנייה', 15, 2, 1, `<path d="M50 80 V34" stroke="#3f8f3a" stroke-width="5"/>${trpLeaf(50, 66, 12)}${Array.from({ length: 12 }, (_, i) => { const a = i * 30 * Math.PI / 180; return `<ellipse cx="${50 + Math.cos(a) * 16}" cy="${26 + Math.sin(a) * 16}" rx="8" ry="4" transform="rotate(${i * 30} ${50 + Math.cos(a) * 16} ${26 + Math.sin(a) * 16})" fill="#ffd84d" ${TRP_S2}/>`; }).join('')}<circle cx="50" cy="26" r="11" fill="#8a5a3c" ${TRP_S2}/><circle cx="46" cy="24" r="1.6" fill="${O}"/><circle cx="54" cy="24" r="1.6" fill="${O}"/><path d="M46 29 q4 3 8 0" fill="none" stroke="${O}" stroke-width="1.4"/>`, `<ellipse cx="50" cy="60" rx="34" ry="16" fill="#c98f3a" ${TRP_S}/>${[[36, 56], [48, 52], [60, 55], [42, 64], [56, 64], [68, 60]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4" ry="2.4" fill="#fff6e6" ${TRP_S2}/>`).join('')}`],
+    ['corn', 'תירס', 20, 2, 2, `<path d="M50 80 V14" stroke="#4fbf73" stroke-width="5"/>${[70, 54, 38].map((y, i) => `<path d="M50 ${y} Q${i % 2 ? 76 : 24} ${y - 10} ${i % 2 ? 84 : 16} ${y + 8}" fill="none" stroke="#6fcf7f" stroke-width="6" stroke-linecap="round"/>`).join('')}<ellipse cx="60" cy="42" rx="7" ry="15" fill="#ffd84d" ${TRP_S2}/><path d="M56 30 Q60 50 66 56 Q70 40 64 28" fill="#8fd694" ${TRP_S2}/>`, `<ellipse cx="50" cy="50" rx="16" ry="34" fill="#ffd84d" ${TRP_S}/>${[30, 40, 50, 60, 70].map(y => `<path d="M38 ${y} H62" stroke="#e8b020" stroke-width="2"/>`).join('')}<path d="M34 60 Q30 86 50 90 Q40 70 44 50 Z M66 60 Q70 86 50 90 Q60 70 56 50 Z" fill="#8fd694" ${TRP_S2}/>`],
+    ['blueberry', 'אוכמניות', 25, 4, 2, `${[[36, 60, 18], [62, 58, 18], [50, 44, 16]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#5fb36d" ${TRP_S2}/>`).join('')}${[[30, 56], [40, 64], [58, 52], [68, 64], [50, 40], [46, 54]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.6" fill="#5a6be0" ${TRP_S2}/>`).join('')}`, `${[[36, 50], [60, 46], [48, 64], [66, 66], [32, 70]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="12" fill="#5a6be0" ${TRP_S}/><path d="M${x - 3} ${y - 6} l3 3 l3 -3" stroke="#2a3b8a" stroke-width="2" fill="none"/>`).join('')}`],
+    ['watermelon', 'אבטיח', 40, 1, 3, `<path d="M10 80 Q30 60 50 70 T90 64" fill="none" stroke="#4fbf73" stroke-width="3"/>${trpLeaf(24, 70, 8)}${trpLeaf(80, 66, 8)}<ellipse cx="54" cy="68" rx="26" ry="16" fill="#3f9c5a" ${TRP_S}/><path d="M32 64 Q54 56 76 64 M34 72 Q54 66 74 72" stroke="#8fd694" stroke-width="3" fill="none"/>`, `<path d="M10 40 A40 40 0 0 0 90 40 Z" fill="#ff5a6e" ${TRP_S}/><path d="M10 40 A40 40 0 0 0 90 40" fill="none" stroke="#3f9c5a" stroke-width="7"/>${[[30, 50], [50, 56], [70, 50], [40, 64], [60, 64]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="2" ry="3.4" fill="${O}"/>`).join('')}`],
+    ['pumpkin', 'דלעת', 60, 1, 2, `<path d="M20 80 Q40 60 60 74" fill="none" stroke="#4fbf73" stroke-width="3"/>${trpLeaf(22, 72, 9)}<ellipse cx="56" cy="64" rx="28" ry="20" fill="#ff9a3c" ${TRP_S}/><path d="M56 44 V84 M42 46 Q36 64 42 82 M70 46 Q76 64 70 82" stroke="#e8792a" stroke-width="3" fill="none"/><path d="M56 44 q2 -10 8 -12" stroke="#6b4226" stroke-width="4" fill="none"/>`, `<ellipse cx="50" cy="58" rx="36" ry="26" fill="#ff9a3c" ${TRP_S}/><path d="M50 32 V84 M32 36 Q24 58 32 80 M68 36 Q76 58 68 80" stroke="#e8792a" stroke-width="3" fill="none"/><path d="M50 32 q2 -12 10 -14" stroke="#6b4226" stroke-width="5" fill="none"/>`],
+    ['cherry', 'עץ דובדבנים', 90, 4, 3, trpFruitTree('#e8364f', 'p'), `<path d="M36 70 Q44 30 60 20 Q58 40 66 66" fill="none" stroke="#3f8f3a" stroke-width="4"/><circle cx="36" cy="72" r="14" fill="#e8364f" ${TRP_S}/><circle cx="66" cy="68" r="14" fill="#e8364f" ${TRP_S}/><path d="M60 20 q10 -4 16 4 q-10 4 -16 -4" fill="#6fcf7f" ${TRP_S2}/>`],
+    ['apple', 'עץ תפוחים', 120, 4, 3, trpFruitTree('#ff4a5a'), `<circle cx="50" cy="58" r="30" fill="#ff4a5a" ${TRP_S}/><path d="M50 28 q2 -12 12 -14" stroke="#6b4226" stroke-width="4" fill="none"/><path d="M52 24 q12 -10 20 -2 q-12 6 -20 2" fill="#6fcf7f" ${TRP_S2}/><path d="M34 48 q4 -8 12 -10" stroke="#fff" stroke-width="4" fill="none" opacity=".6" stroke-linecap="round"/>`],
+  ];
+  const TRP_G_N = 12;
+  const trpG = () => { if (!trpData.garden || !Array.isArray(trpData.garden.plots)) trpData.garden = { plots: Array.from({ length: TRP_G_N }, () => null) }; return trpData.garden; };
+  const trpPlant = id => TRP_PLANTS.find(p => p[0] === id);
+  const trpGrowMs = P => P[2] * 60000;
+  // move a plot forward in time: it grows only while the soil is wet
+  function trpTick(pl, now = Date.now()) {
+    if (!pl) return pl;
+    const P = trpPlant(pl.p); if (!P) return null;
+    const until = Math.min(now, pl.wet || 0);
+    if (until > pl.t) pl.g = Math.min(trpGrowMs(P), (pl.g || 0) + (until - pl.t));
+    pl.t = now; return pl;
+  }
+  const trpStage = pl => { const P = trpPlant(pl.p); const f = (pl.g || 0) / trpGrowMs(P); return f >= 1 ? 4 : f >= .66 ? 3 : f >= .33 ? 2 : f > 0 ? 1 : 0; };
+  const trpLeft = pl => { const P = trpPlant(pl.p), ms = trpGrowMs(P) - (pl.g || 0), m = Math.ceil(ms / 60000); return m >= 60 ? `${Math.floor(m / 60)} שע׳ ${m % 60 ? (m % 60) + ' דק׳' : ''}` : `${m} דק׳`; };
+  function trpPlotArt(pl) {
+    const soil = w => `<ellipse cx="50" cy="84" rx="40" ry="12" fill="${w ? '#6b4226' : '#b08050'}" ${TRP_S}/><path d="M22 82 q6 -3 12 0 M58 86 q6 -3 12 0" stroke="${w ? '#4a2f1f' : '#8a5a3c'}" stroke-width="2" fill="none"/>`;
+    if (!pl) return soil(false) + `<path d="M50 60 v14 M43 67 h14" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".8"/>`;
+    const P = trpPlant(pl.p), st = trpStage(pl), wet = (pl.wet || 0) > Date.now();
+    const grow = [
+      `<ellipse cx="50" cy="78" rx="4" ry="3" fill="#c98f3a" ${TRP_S2}/>`,
+      `<path d="M50 80 V66" stroke="#4fbf73" stroke-width="3"/>${trpLeaf(50, 68, 6)}`,
+      `<path d="M50 80 V50" stroke="#4fbf73" stroke-width="3.5"/>${trpLeaf(50, 70, 9)}${trpLeaf(50, 56, 7)}`,
+      `<g transform="translate(50 80) scale(.7) translate(-50 -80)" opacity=".95">${P[5]}</g>`,
+      P[5],
+    ][st];
+    return soil(wet) + grow + (st === 4 ? `${trpSparkle(84, 22, 7, '#ffd84d')}${trpSparkle(16, 36, 5, '#fff')}` : !wet ? `<g class="trp-bob"><path d="M82 14 Q90 26 90 32 A8 8 0 0 1 74 32 Q74 26 82 14 Z" fill="#7ec8ff" ${TRP_S2}/></g>` : '');
+  }
+  let trpGSel = null, trpGFeed = null;
+  function trpDrawGarden(body) {
+    const g = trpG(), now = Date.now(), pets = trpPets();
+    g.plots = g.plots.map(pl => trpTick(pl, now)); trpSave();
+    const wrap = el('div', { class: 'trp-garden' });
+    wrap.innerHTML = (() => { const u = 'tg' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u, '#aee3ff', '#f0fff0')}</defs><rect width="400" height="250" fill="url(#${u})"/>${trpSun(40, 34, 16)}${trpCloud(200, 30, .8)}${trpCloud(330, 44, .7)}<path d="M0 70 Q100 56 200 70 T400 66 V250 H0 Z" fill="#9be07a" ${TRP_S2}/>${Array.from({ length: 21 }, (_, i) => `<path d="M${i * 20 + 4} 78 V58 L${i * 20 + 10} 52 L${i * 20 + 16} 58 V78 Z" fill="#fff" ${TRP_S2}/>`).join('')}<path d="M0 64 H400 M0 74 H400" stroke="#fff" stroke-width="4"/>`); })();
+    const grid = el('div', { class: 'trp-plots' });
+    g.plots.forEach((pl, i) => {
+      const st = pl ? trpStage(pl) : -1, P = pl && trpPlant(pl.p), wet = pl && (pl.wet || 0) > now;
+      const b = el('button', { type: 'button', class: 'trp-plot' + (trpGSel === i ? ' sel' : '') + (st === 4 ? ' ripe' : ''), 'aria-label': pl ? P[1] : 'ערוגה ריקה', html: trpSvg(trpPlotArt(pl)) },
+        el('small', {}, !pl ? 'לשתול 🌱' : st === 4 ? `${P[1]} מוכן/ה! 🧺` : !wet ? `${P[1]} · צמא! 💧` : `${P[1]} · עוד ${trpLeft(pl)}`));
+      b.addEventListener('click', () => {
+        if (!pl) { trpGSel = i; SFX.pop(); trpDraw(); return; }
+        if (st === 4) { // harvest
+          trpData.basket[P[0]] = (trpData.basket[P[0]] || 0) + P[3];
+          if (P[0] === 'apple' || P[0] === 'cherry') { pl.g = trpGrowMs(P) * .5; pl.wet = 0; } else g.plots[i] = null;
+          trpSave(); TRP_SND.pop(); SFX.yay(); trpCoins(Math.max(1, Math.round(P[2] / 10)), 'קטיף בגינה'); toast(trpSvg(P[6]), `קטפנו ${P[3]} ${P[1]}! לסל 🧺`); trpDraw(); return;
+        }
+        if (!wet) { pl.wet = now + Math.max(90000, trpGrowMs(P) * .55); pl.t = now; trpSave(); TRP_SND.splash(); b.classList.add('water'); setTimeout(() => trpDraw(), 700); return; }
+        SFX.boop(); toast(trpSvg(P[5]), `${P[1]} גדל/ה... עוד ${trpLeft(pl)} ⏳`);
+      });
+      grid.append(b);
+    });
+    wrap.append(grid);
+    const helpers = el('div', { class: 'trp-ghelp' }, ...pets.map((p, i) => el('span', { class: 'trp-gpet', style: `--d:${i * .4}s`, html: petSVG(p) })));
+    const seeds = trpGSel != null && !g.plots[trpGSel] ? el('div', { class: 'trp-panel' }, el('p', { class: 'trp-lead trp-center' }, 'מה שותלים? 🌱 (צריך להשקות כדי שיגדל!)'),
+      el('div', { class: 'trp-items' }, ...TRP_PLANTS.map(P => el('button', { type: 'button', class: 'trp-item', onclick: () => { g.plots[trpGSel] = { p: P[0], g: 0, t: Date.now(), wet: 0, at: Date.now() }; trpGSel = null; trpSave(); TRP_SND.thud(); SFX.ding(); trpDraw(); } },
+        el('span', { class: 'ic', html: trpSvg(P[5]) }), P[1], el('small', {}, P[2] >= 60 ? `${P[2] / 60} שע׳` : `${P[2]} דק׳`)))),
+      el('div', { class: 'chips trp-center' }, el('button', { type: 'button', class: 'btn', onclick: () => { trpGSel = null; trpDraw(); } }, 'ביטול'))) : null;
+    const basket = Object.entries(trpData.basket).filter(([, n]) => n > 0);
+    const fp = trpGFeed && trpData.basket[trpGFeed] > 0 ? trpPlant(trpGFeed) : null;
+    const food = P => ({ id: 'trp-' + P[0], name: P[1], art: trpSvg(P[6]), yum: P[4] });
+    const give = (p, i) => { if (!(trpData.basket[fp[0]] > 0)) return; trpData.basket[fp[0]]--; trpSave(); const r = trpTry(() => typeof feedPet === 'function' ? feedPet(p, food(fp)) : ''); toast(petSVG(p, { mood: 'happy' }), r || `${trpNm(p)}: יאמי! 😋`); if (!(trpData.basket[fp[0]] > 0)) trpGFeed = null; trpDraw(); };
+    trpAdd(body, 
+      el('p', { class: 'trp-lead' }, 'שותלים, משקים 💧 ומחכים — הצמחים גדלים באמת, גם כשהלוח סגור! כשמוכן לוחצים לקטוף 🧺'),
+      wrap, helpers, seeds,
+      el('h4', { class: 'trp-h' }, '🧺 סל האוכל של החיות'),
+      basket.length ? el('div', { class: 'trp-basket' }, ...basket.map(([id, n]) => { const P = trpPlant(id); return P ? el('button', { type: 'button', class: 'trp-item' + (trpGFeed === id ? ' on' : ''), onclick: () => { trpGFeed = trpGFeed === id ? null : id; SFX.pop(); trpDraw(); } }, el('span', { class: 'ic', html: trpSvg(P[6]) }), `${P[1]} ×${n}`) : null; })) : el('p', { class: 'muted' }, 'הסל עוד ריק. שותלים משהו! 🌱'),
+      fp ? el('div', { class: 'trp-panel' }, el('p', { class: 'trp-lead trp-center' }, `למי לתת ${fp[1]}? 😋`), el('div', { class: 'chips trp-center' }, ...pets.map((p, i) => el('button', { type: 'button', class: 'chip trp-petchip', onclick: () => give(p, i) }, el('span', { class: 'ic', html: petSVG(p) }), trpNm(p))),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { pets.forEach((p, i) => { if (trpData.basket[fp[0]] > 0) { trpData.basket[fp[0]]--; trpTry(() => feedPet(p, food(fp))); } }); trpSave(); SFX.yay(); toast(trpSvg(fp[6]), `כולם אכלו ${fp[1]}! 💖`); trpGFeed = null; trpDraw(); } }, '🍽️ לכולם'))) : null);
+    const iv = setInterval(() => { if (!$('#trpDlg').open || trpSec !== 'garden') return; const n2 = Date.now(); if (g.plots.some(pl => pl && ((pl.wet || 0) > n2 - 11000))) trpDraw(); }, 10000);
+    trpStops.push(() => clearInterval(iv));
+  }
+  // ---------- 🏪 the pets' shop: make things, sell to cute customers ----------
+  const TRP_COL = [['pink', 'ורוד', '#ff9ad5'], ['blue', 'תכלת', '#7ec8ff'], ['yellow', 'צהוב', '#ffd84d'], ['purple', 'סגול', '#b58cff'], ['green', 'ירוק', '#6fcf7f']];
+  const trpC = id => (TRP_COL.find(c => c[0] === id) || TRP_COL[0])[2];
+  const trpCn = id => (TRP_COL.find(c => c[0] === id) || TRP_COL[0])[1];
+  const TRP_SHAPES = [['heart', 'לב'], ['star', 'כוכב'], ['circle', 'עיגול'], ['flower', 'פרח']];
+  const trpShapePath = (s, x, y, r) => s === 'heart' ? `<path d="M${x} ${y + r * .9} C${x - r * 1.5} ${y - r * .1} ${x - r * .9} ${y - r * 1.2} ${x} ${y - r * .45} C${x + r * .9} ${y - r * 1.2} ${x + r * 1.5} ${y - r * .1} ${x} ${y + r * .9} Z"` : s === 'star' ? `<polygon points="${starPts(x, y, r * 1.1, r * .5)}"` : s === 'flower' ? `<path d="${[0, 72, 144, 216, 288].map(d => { const a = d * Math.PI / 180, cx = x + Math.cos(a) * r * .55, cy = y + Math.sin(a) * r * .55; return `M${cx + r * .5} ${cy} a${r * .5} ${r * .5} 0 1 0 ${-r} 0 a${r * .5} ${r * .5} 0 1 0 ${r} 0`; }).join(' ')}"` : `<circle cx="${x}" cy="${y}" r="${r}"`;
+  const TRP_CRAFTS = {
+    cookie: { n: 'עוגייה', emoji: '🍪', keys: [['shape', 'צורה', TRP_SHAPES], ['col', 'ציפוי', TRP_COL.map(c => [c[0], c[1]])]],
+      art: o => `${trpShapePath(o.shape || 'circle', 50, 52, 34)} fill="#e8b36a" ${TRP_S}/>${o.col ? `${trpShapePath(o.shape || 'circle', 50, 50, 26)} fill="${trpC(o.col)}" ${TRP_S2}/>` : ''}${o.col ? [[42, 44, '#fff'], [56, 42, '#ffd84d'], [48, 58, '#7ec8ff'], [60, 56, '#fff']].map(([x, y, c]) => `<rect x="${x}" y="${y}" width="5" height="2.4" rx="1" fill="${c}" transform="rotate(${x * 7} ${x} ${y})"/>`).join('') : ''}`,
+      say: o => `עוגייה בצורת ${TRP_SHAPES.find(s => s[0] === o.shape)[1]} עם ציפוי ${trpCn(o.col)}` },
+    bracelet: { n: 'צמיד', emoji: '📿', keys: [['col', 'חרוזים', TRP_COL.map(c => [c[0], c[1]])], ['shape', 'קמע', TRP_SHAPES]],
+      art: o => `<ellipse cx="50" cy="54" rx="34" ry="26" fill="none" stroke="#d8c8a8" stroke-width="2"/>${Array.from({ length: 12 }, (_, i) => { const a = i * 30 * Math.PI / 180; return `<circle cx="${50 + Math.cos(a) * 34}" cy="${54 + Math.sin(a) * 26}" r="6" fill="${o.col ? (i % 3 ? trpC(o.col) : '#fff') : '#eee'}" ${TRP_S2}/>`; }).join('')}${o.shape ? `${trpShapePath(o.shape, 50, 88, 9)} fill="#ffd84d" ${TRP_S2}/>` : ''}`,
+      say: o => `צמיד ${trpCn(o.col)} עם קמע ${TRP_SHAPES.find(s => s[0] === o.shape)[1]}` },
+    pot: { n: 'עציץ מצויר', emoji: '🪴', keys: [['col', 'צבע העציץ', TRP_COL.map(c => [c[0], c[1]])], ['shape', 'ציור', TRP_SHAPES]],
+      art: o => `<path d="M50 50 V30" stroke="#4fbf73" stroke-width="4"/>${trpLeaf(50, 44, 8)}${[0, 72, 144, 216, 288].map(d => `<circle cx="${50 + Math.cos(d * Math.PI / 180) * 7}" cy="${22 + Math.sin(d * Math.PI / 180) * 7}" r="6" fill="#ff5a8a" ${TRP_S2}/>`).join('')}<circle cx="50" cy="22" r="4" fill="#ffd84d"/><path d="M22 50 H78 L70 92 H30 Z" fill="${o.col ? trpC(o.col) : '#d9a066'}" ${TRP_S}/><rect x="18" y="46" width="64" height="10" rx="3" fill="${o.col ? trpC(o.col) : '#d9a066'}" ${TRP_S}/>${o.shape ? `${trpShapePath(o.shape, 50, 72, 9)} fill="#fff" ${TRP_S2}/>` : ''}`,
+      say: o => `עציץ ${trpCn(o.col)} עם ציור של ${TRP_SHAPES.find(s => s[0] === o.shape)[1]}` },
+  };
+  const TRP_DECOR = [
+    ['balloons', 'בלונים', 10], ['flowers', 'עציצי פרחים', 15], ['bell', 'פעמון בדלת', 10], ['lights', 'שרשרת אורות', 25], ['rug', 'שטיח לבבות', 20], ['sign', 'שלט מוזהב', 30], ['awning', 'גגון קשת', 35], ['cat', 'חתול מזל מנפנף', 40],
+  ];
+  const TRP_CUST_NAMES = ['גברת פרפרית', 'מר עוגי', 'דודה שמשית', 'פיפי', 'לולו', 'בובי', 'נונה', 'צ׳יקו', 'מימי', 'טוטו', 'דודו', 'קוקי'];
+  const trpShopBg = () => { const d = trpData.shop.decor || [], has = k => d.includes(k), u = 'ts' + (++trpUid); return trpBgSvg(`<defs>${trpGrad(u, '#fff4e0', '#ffe6f0')}</defs><rect width="400" height="250" fill="url(#${u})"/><path d="M0 0 H400 V14 H0 Z" fill="#fff" ${TRP_S2}/>
+    ${has('awning') ? Array.from({ length: 10 }, (_, i) => `<path d="M${i * 40} 14 H${i * 40 + 40} V34 Q${i * 40 + 20} 48 ${i * 40} 34 Z" fill="${['#ff6b6b', '#ffd84d', '#6fcf7f', '#7ec8ff', '#b58cff'][i % 5]}" ${TRP_S2}/>`).join('') : Array.from({ length: 10 }, (_, i) => `<path d="M${i * 40} 14 H${i * 40 + 40} V30 Q${i * 40 + 20} 42 ${i * 40} 30 Z" fill="${i % 2 ? '#fff' : '#ff9ad5'}" ${TRP_S2}/>`).join('')}
+    <rect x="130" y="52" width="140" height="26" rx="8" fill="${has('sign') ? '#ffd84d' : '#fff'}" ${TRP_S}/><text x="200" y="71" text-anchor="middle" font-size="15" font-weight="700" fill="${has('sign') ? '#8a5a1a' : '#ff5a8a'}">החנות של החיות</text>${has('sign') ? `${trpSparkle(128, 52, 7)}${trpSparkle(272, 76, 6)}` : ''}
+    ${[92, 128].map(y => `<rect x="20" y="${y}" width="100" height="6" rx="2" fill="#c98f5a" ${TRP_S2}/><rect x="280" y="${y}" width="100" height="6" rx="2" fill="#c98f5a" ${TRP_S2}/>`).join('')}
+    ${(trpData.shop.shelf || []).slice(0, 8).map((it, i) => { const C = TRP_CRAFTS[it.t]; if (!C) return ''; const x = (i % 4 < 2 ? 28 + (i % 2) * 48 : 288 + (i % 2) * 48), y = i < 4 ? 62 : 98; return `<g transform="translate(${x} ${y}) scale(.34)">${C.art(it)}</g>`; }).join('')}
+    ${has('lights') ? `<path d="M0 44 Q100 60 200 44 T400 44" fill="none" stroke="${O}" stroke-width="1.2"/>${Array.from({ length: 16 }, (_, i) => `<circle cx="${12 + i * 25}" cy="${46 + Math.sin(i) * 6}" r="3.4" fill="${['#ffd84d', '#ff5a8a', '#7ec8ff', '#6fcf7f'][i % 4]}" class="trp-twinkle" style="animation-delay:${-i * .2}s" ${TRP_S2}/>`).join('')}` : ''}
+    ${has('balloons') ? [[150, 110, '#ff5a8a'], [250, 104, '#7ec8ff']].map(([x, y, c]) => `<path d="M${x} ${y + 16} Q${x - 4} ${y + 40} ${x} ${y + 56}" fill="none" stroke="${O}" stroke-width="1.2"/><ellipse cx="${x}" cy="${y}" rx="12" ry="15" fill="${c}" ${TRP_S2}/>`).join('') : ''}
+    ${has('bell') ? `<g transform="translate(372 64)"><path d="M0 -14 V-8" ${TRP_S2}/><path d="M-9 6 Q-9 -10 0 -10 Q9 -10 9 6 Z" fill="#ffd84d" ${TRP_S2}/><circle cy="8" r="2.5" fill="#b07642"/></g>` : ''}
+    ${has('cat') ? `<g transform="translate(40 150)"><circle cx="0" cy="-10" r="12" fill="#fff" ${TRP_S2}/><path d="M-10 -18 l2 -10 l6 6 M10 -18 l-2 -10 l-6 6" fill="#fff" ${TRP_S2}/><circle cx="-4" cy="-11" r="1.6" fill="${O}"/><circle cx="4" cy="-11" r="1.6" fill="${O}"/><rect x="-11" y="0" width="22" height="18" rx="6" fill="#fff" ${TRP_S2}/><circle cy="4" r="4" fill="#ffd84d" ${TRP_S2}/><g class="trp-wave" style="transform-origin:10px 0"><path d="M10 2 Q20 -6 18 -16" stroke="${O}" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M10 2 Q20 -6 18 -16" stroke="#fff" stroke-width="3.6" stroke-linecap="round" fill="none"/></g></g>` : ''}
+    <path d="M0 180 H400 V250 H0 Z" fill="${has('rug') ? '#ffd1e6' : '#e8c89a'}" ${TRP_S2}/>${has('rug') ? Array.from({ length: 8 }, (_, i) => trpHeart(30 + i * 48, 214 + (i % 2) * 10, 6, '#ff9ad5')).join('') : ''}
+    <rect x="90" y="150" width="220" height="44" rx="6" fill="#ffb3cf" ${TRP_S}/><rect x="84" y="142" width="232" height="12" rx="4" fill="#fff" ${TRP_S}/>${[120, 170, 230, 280].map(x => trpHeart(x, 172, 5, '#fff')).join('')}
+    <g transform="translate(290 118)"><rect x="-18" y="0" width="36" height="24" rx="4" fill="${has('sign') ? '#ffd84d' : '#7ec8ff'}" ${TRP_S2}/><rect x="-12" y="4" width="24" height="8" fill="#fff" ${TRP_S2}/><text x="0" y="11" text-anchor="middle" font-size="6" fill="${O}">₪🪙</text></g>
+    ${has('flowers') ? [[16, 176], [384, 176]].map(([x, y]) => `<g transform="translate(${x} ${y})"><path d="M-8 0 L-6 16 H6 L8 0 Z" fill="#ff9a3c" ${TRP_S2}/>${[[-5, -8, '#ff5a8a'], [4, -12, '#ffd84d'], [0, -4, '#b58cff']].map(([a, b, c]) => `<circle cx="${a}" cy="${b}" r="4.5" fill="${c}" ${TRP_S2}/>`).join('')}</g>`).join('') : ''}`); };
+  let trpCust = null, trpMaking = null;
+  function trpNewCustomer() {
+    const types = Object.keys(TRP_CRAFTS), t = trpPick(types), C = TRP_CRAFTS[t];
+    const want = { t }; C.keys.forEach(([k, , opts]) => { want[k] = trpPick(opts)[0]; });
+    const g = trpGuest(); g.name = trpPick(TRP_CUST_NAMES);
+    return { g, want };
+  }
+  function trpDrawShop(body) {
+    const sh = trpData.shop, pets = trpPets();
+    if (!trpCust) trpCust = trpNewCustomer();
+    const c = trpCust, C = TRP_CRAFTS[c.want.t];
+    const scene = el('div', { class: 'trp-scene trp-shop', html: trpShopBg() });
+    const staff = el('div', { class: 'trp-staff' + (pets.length > 4 ? ' many' : '') }, ...pets.map((p, i) => el('button', { type: 'button', class: 'trp-pet', style: `--d:${i * .3}s`, 'aria-label': trpNm(p), html: petSVG(p, trpMaking ? { mood: 'happy' } : {}), onclick: e => { SFX.pet(p.kind); const b = e.currentTarget; b.classList.remove('jump'); void b.offsetWidth; b.classList.add('jump'); } })));
+    const cust = el('div', { class: 'trp-cust' + (c.left ? ' leave' : ' arrive') }, el('span', { class: 'trp-cust-art', html: petSVG(c.g, { mood: c.happy ? 'happy' : undefined }) }),
+      el('div', { class: 'trp-cust-say' }, el('b', {}, c.g.name), c.happy ? el('span', {}, c.happy) : el('span', {}, `שלום! אפשר ${C.say(c.want)}? `), c.happy ? null : el('span', { class: 'trp-want', html: trpSvg(C.art(c.want)) })));
+    scene.append(staff, cust);
+    const panel = el('div', { class: 'trp-panel' });
+    if (c.happy) panel.append(el('div', { class: 'chips trp-center' }, el('button', { type: 'button', class: 'btn main trp-big', onclick: () => { c.left = true; trpDraw(); setTimeout(() => { trpCust = trpNewCustomer(); TRP_SND.bell(); trpDraw(); }, 700); } }, '🔔 הלקוח/ה הבא/ה!')));
+    else if (!trpMaking) panel.append(el('p', { class: 'trp-lead trp-center' }, `החיות מכינות: ${C.emoji} ${C.n}`), el('div', { class: 'chips trp-center' }, el('button', { type: 'button', class: 'btn main trp-big', onclick: () => { trpMaking = { t: c.want.t }; SFX.pop(); trpDraw(); } }, `🛠️ להכין ${C.n}`)));
+    else {
+      const M = trpMaking, MC = TRP_CRAFTS[M.t], ready = MC.keys.every(([k]) => M[k]);
+      const bench = el('div', { class: 'trp-bench' }, el('span', { class: 'trp-bench-art' + (M.baking ? ' baking' : ''), html: trpSvg(MC.art(M)) }),
+        el('div', { class: 'trp-bench-opts' }, ...MC.keys.map(([k, label, opts]) => el('div', { class: 'row' }, el('span', { class: 'lbl' }, label),
+          el('div', { class: 'chips' }, ...opts.map(([id, n]) => el('button', { type: 'button', class: 'chip trp-opt', 'aria-pressed': String(M[k] === id), style: k === 'col' ? `--c:${trpC(id)}` : '', onclick: () => { M[k] = id; TRP_SND.pop(); trpDraw(); } },
+            k === 'col' ? el('i', { class: 'trp-dot' }) : el('span', { class: 'trp-shp', html: trpSvg(`${trpShapePath(id, 50, 50, 36)} fill="#ffd84d" ${TRP_S}/>`) }), n)))))));
+      panel.append(bench, el('div', { class: 'chips trp-center' },
+        el('button', { type: 'button', class: 'btn main trp-big', disabled: !ready || M.baking, onclick: () => {
+          M.baking = true; trpDraw(); TRP_SND.sparkle();
+          setTimeout(() => {
+            const match = MC.keys.filter(([k]) => M[k] === c.want[k]).length, all = MC.keys.length, same = M.t === c.want.t;
+            const pay = same && match === all ? 12 : same && match ? 8 : 5;
+            sh.sold = (sh.sold || 0) + 1; sh.shelf = [Object.assign({}, M, { baking: false }), ...(sh.shelf || [])].slice(0, 8); trpSave();
+            c.happy = same && match === all ? `וואו! בדיוק מה שרציתי! 😍 הנה ${pay} מטבעות + טיפ!` : `אוו, זה לא בדיוק מה שביקשתי... אבל זה ממש יפה! 🥰 הנה ${pay} מטבעות`;
+            TRP_SND.cash(); if (pay === 12) { SFX.yay(); trpConfetti(); } trpCoins(pay, 'מכירה בחנות של החיות'); SFX.pet(c.g.kind);
+            trpMaking = null; trpDraw();
+          }, 1200);
+        } }, M.baking ? '✨ מכינים...' : '🎁 מוכן! לתת ללקוח/ה'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { trpMaking = null; trpDraw(); } }, 'ביטול')));
+    }
+    const decor = el('div', { class: 'trp-decor' }, ...TRP_DECOR.map(([id, n, price]) => { const own = (sh.decor || []).includes(id); return el('button', { type: 'button', class: 'trp-item' + (own ? ' in' : ''), disabled: own, onclick: () => {
+      if (typeof spendCoins === 'function' && spendCoins(price, 'קישוט לחנות: ' + n)) { sh.decor = [...(sh.decor || []), id]; trpSave(); SFX.yay(); trpConfetti(); trpDraw(); }
+      else { SFX.boop(); toast(trpSvg(`<circle cx="50" cy="50" r="34" fill="#ffd23f" ${TRP_S}/>`), `צריך ${price} מטבעות 🪙 — מוכרים עוד בחנות!`); } } }, own ? '✅ ' + n : n, own ? null : el('small', {}, `🪙 ${price}`)); }));
+    trpAdd(body, el('div', { class: 'trp-row' }, el('b', { class: 'trp-where' }, '🏪 החנות של החיות'), el('span', { class: 'muted' }, `מכרנו ${sh.sold || 0} דברים · רמה ${1 + (sh.decor || []).length}`)), scene, panel,
+      el('h4', { class: 'trp-h' }, '✨ לשדרג את החנות'), decor);
+  }
+  // ---------- doors: MORE tiles + a row of adventure buttons in the pets' house ----------
+  $('#trpDlg').addEventListener('close', () => { trpStopAll(); trpMaking = null; $('#trpDlg').querySelectorAll('.trp-photo-ov').forEach(n => n.remove()); });
+  {
+    const tiles = [['sailboat', 'טיול עם החיות', () => trpOpen('trips')], ['shootingstar', 'קמפינג עם החיות', () => trpOpen('camp')], ['menorah', 'חגים עם החיות', () => trpOpen('hol')],
+      ['sunflower', 'הגינה של החיות', () => trpOpen('garden')], ['cupcake', 'דוכן היצירות של החיות', () => trpOpen('shop')]];
+    const at = MORE.findIndex(m => m[1] === 'להדפסה');
+    MORE.splice(at < 0 ? MORE.length : at, 0, ...tiles.filter(t => !MORE.some(m => m[1] === t[1])));
+  }
+  const trpDrawHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    trpDrawHouse0(mode, say);
+    const tabs = $('#houseTabs'); if (!tabs) return;
+    let bar = $('#trpHouseBar');
+    if (!bar) { bar = el('div', { id: 'trpHouseBar', class: 'trp-housebar' }); tabs.before(bar); }
+    bar.replaceChildren(el('span', { class: 'lbl' }, '🌈 יוצאים ביחד:'), ...TRP_SECS.map(([id, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); trpOpen(id); } }, n)));
+  };
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
