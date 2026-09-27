@@ -4572,6 +4572,186 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
   .gs-wand-prev { max-width: 220px; margin: 0 auto; }
 }
 @media (prefers-reduced-motion: reduce) { #gsDlg *, .gs-plus { animation: none !important; } }
+/* ---------- 🏰 dmagic: six magic places ---------- */
+#dmDlg { width: min(980px, calc(100vw - 24px)); }
+#dmBody { display: grid; gap: 10px; }
+.dm-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.dm-sp { flex: 1; }
+.dm-wsw { display: flex; gap: 4px; flex-wrap: wrap; }
+.dm-wsw button { font-size: 1.35em; line-height: 1; border-radius: 12px; border: 2px solid var(--line); background: var(--card); padding: 5px 7px; }
+.dm-wsw button[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); transform: scale(1.08); }
+.dm-stage { position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden; border: 2.5px solid var(--ink); background: #2a2466; user-select: none; -webkit-user-select: none; }
+.dm-stage.dm-drag-ok { touch-action: none; }
+.dm-host, .dm-host > svg { width: 100%; height: 100%; display: block; }
+.dm-svg text { font-family: var(--font); }
+.dm-ctl { display: grid; gap: 10px; }
+.dm-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.dm-lbl { font-weight: 700; min-width: 4.5em; }
+.dm-sw { width: 30px; height: 30px; border-radius: 50%; border: 2.5px solid var(--line); padding: 0; box-shadow: inset 0 0 0 2px #fff; }
+.dm-sw[aria-pressed="true"] { border-color: var(--ink); transform: scale(1.15); }
+.dm-big { font-size: 1.15em; padding-inline: 18px; }
+.dm-hint { margin: 0; }
+.dm-card { border: 2px dashed var(--accent); border-radius: 16px; padding: 10px 14px; display: grid; gap: 6px; background: var(--paper); }
+.dm-card p { margin: 0; }
+.dm-card.dm-win { border-style: solid; animation: dmPopIn .5s cubic-bezier(.3,1.6,.5,1); }
+.dm-found { font-size: 1.3em; letter-spacing: 2px; }
+.dm-found-big { font-size: 1.6em; text-align: center; }
+.dm-tabs { position: static; }
+.dm-shop summary { cursor: pointer; font-weight: 700; padding: 4px 0; }
+.dm-shop-g { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; margin-top: 6px; }
+.dm-item { display: grid; justify-items: center; gap: 2px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); padding: 6px; color: var(--ink); }
+.dm-item[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.dm-item span { width: 70px; height: 70px; display: block; }
+.dm-item span svg { width: 100%; height: 100%; }
+.dm-item small { text-align: center; line-height: 1.15; }
+.dm-guests-p { border: 2px solid var(--line); border-radius: 16px; padding: 10px; display: grid; gap: 6px; background: var(--paper); }
+.dm-av-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.dm-av { display: grid; justify-items: center; border: 2.5px solid var(--line); border-radius: 14px; background: var(--card); padding: 4px; width: 72px; color: var(--ink); }
+.dm-av[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.dm-av img { width: 56px; height: 56px; object-fit: contain; }
+.dm-av-x { font-size: 2em; line-height: 56px; }
+.dm-av small { font-size: .75em; white-space: nowrap; overflow: hidden; max-width: 64px; }
+/* bubbles and bursts on the stage */
+.dm-bub { position: absolute; transform: translate(-50%, -100%); background: #fff; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 16px; padding: 4px 10px; font-size: clamp(11px, 1.9vw, 16px); white-space: nowrap; pointer-events: none; animation: dmBub 2.6s ease both; z-index: 3; box-shadow: 0 3px 0 rgb(0 0 0 / .15); }
+.dm-bub.l { transform: translate(-20%, -100%); } .dm-bub.r { transform: translate(-80%, -100%); }
+.dm-bub::after { content: ''; position: absolute; bottom: -8px; left: 50%; width: 12px; height: 12px; background: #fff; border: 2px solid #3a2b3c; border-top: 0; border-left: 0; transform: translateX(-50%) rotate(45deg); }
+@keyframes dmBub { 0% { opacity: 0; margin-top: 8px; } 10%, 85% { opacity: 1; margin-top: 0; } 100% { opacity: 0; } }
+.dm-burst { position: absolute; width: 0; height: 0; pointer-events: none; z-index: 3; }
+.dm-burst span { position: absolute; left: -10px; top: -12px; font-size: 20px; animation: dmBurst 1s ease-out forwards; }
+@keyframes dmBurst { from { transform: translate(0, 0) scale(.3); opacity: 1; } to { transform: translate(var(--dx), var(--dy)) scale(1.2); opacity: 0; } }
+@keyframes dmPopIn { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.dm-svg .dm-tw { animation: dmTw 2.6s ease-in-out infinite; }
+@keyframes dmTw { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+.dm-svg .dm-pop { transform-box: fill-box; transform-origin: 50% 100%; animation: dmPopIn .7s cubic-bezier(.3,1.6,.5,1); }
+.dm-svg .dm-bob { animation: dmBob 3s ease-in-out infinite; }
+@keyframes dmBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+/* 🧸 toy room */
+.dm-toyroom .dm-toy { cursor: grab; }
+.dm-toyroom .dm-toy.dm-dragging { cursor: grabbing; transition: none !important; }
+.dm-toyroom .dm-a, .dm-item .dm-s { display: none; }
+.dm-toyroom.dm-awake .dm-a { display: inline; } .dm-toyroom.dm-awake .dm-s { display: none; }
+.dm-toyroom .dm-dark { opacity: 0; transition: opacity .8s; }
+.dm-toyroom.dm-awake .dm-dark { opacity: 1; }
+.dm-toyroom .dm-frz { transition: transform .15s; }
+.dm-toyroom.dm-awake .dm-tw2 { animation: dmHop .55s ease-in-out infinite alternate; }
+@keyframes dmHop { from { transform: translateY(0) rotate(-4deg); } to { transform: translateY(-12px) rotate(4deg); } }
+.dm-toyroom .dm-arm-l, .dm-toyroom .dm-arm-r { transform-box: fill-box; }
+.dm-toyroom .dm-arm-l { transform-origin: 100% 0; } .dm-toyroom .dm-arm-r { transform-origin: 0 0; }
+.dm-toyroom.dm-awake .dm-arm-l { animation: dmWaveL .5s ease-in-out infinite alternate; }
+.dm-toyroom.dm-awake .dm-arm-r { animation: dmWaveR .5s ease-in-out infinite alternate; }
+@keyframes dmWaveL { to { transform: rotate(40deg); } } @keyframes dmWaveR { to { transform: rotate(-40deg); } }
+.dm-toyroom.dm-awake .dm-ant { animation: dmTw .4s infinite; fill: #ffd84d; }
+.dm-toyroom.dm-awake .dm-coin { animation: dmBob .6s ease-in-out infinite; }
+.dm-toyroom .dm-coin { opacity: 0; } .dm-toyroom.dm-awake .dm-coin { opacity: 1; }
+.dm-flame { animation: dmFlick .15s infinite alternate; transform-box: fill-box; transform-origin: 50% 0; }
+@keyframes dmFlick { to { transform: scaleY(1.35); } }
+.dm-toyroom.dm-awake .dm-spin { animation: dmSpinX 1.2s linear infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes dmSpinX { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
+.dm-toyroom.dm-awake .dm-spring { animation: dmSpring .5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes dmSpring { to { transform: scaleY(.8); } }
+.dm-toyroom .dm-wiggle { animation: dmWig .4s; }
+.dm-toyroom .dm-wiggle .dm-frz { animation: dmWig2 .4s; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes dmWig2 { 25% { rotate: -6deg; } 75% { rotate: 6deg; } }
+.dm-toyroom.dm-awake .dm-pet { animation: dmBob 1s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .dm-svg *, .dm-bub, .dm-burst span { animation: none !important; transition: none !important; } }
+.dm-prop { position: absolute; transform: translate(-50%, -50%); font-size: clamp(24px, 5vw, 46px); pointer-events: none; z-index: 2; animation: dmProp 2.6s ease both; filter: drop-shadow(0 0 8px #fff8); }
+@keyframes dmProp { 0% { opacity: 0; transform: translate(-50%, -30%) scale(.3); } 15% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); } 25%, 80% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -80%) scale(.9); } }
+/* 🏮 lantern tower */
+.dm-tower .dm-shim { animation: dmShim 2.4s ease-in-out infinite; }
+@keyframes dmShim { 0%, 100% { opacity: .15; transform: translateX(0); } 50% { opacity: .7; transform: translateX(6px); } }
+.dm-ffly { animation: dmFfly 4s ease-in-out infinite; }
+@keyframes dmFfly { 0%, 100% { transform: translate(0, 0); opacity: .2; } 50% { transform: translate(14px, -18px); opacity: 1; } }
+.dm-flag { transform-box: fill-box; transform-origin: 0 50%; animation: dmFlag 1.4s ease-in-out infinite alternate; }
+@keyframes dmFlag { to { transform: scaleX(.8) skewY(6deg); } }
+.dm-sway { animation: dmSway 3s ease-in-out infinite alternate; }
+@keyframes dmSway { from { transform: translateX(-4px) rotate(-4deg); } to { transform: translateX(4px) rotate(4deg); } }
+.dm-rise { animation: dmRise 10s linear both; opacity: 0; }
+@keyframes dmRise { 0% { transform: translate(0, 0) scale(.6); opacity: 0; } 8% { opacity: 1; } 85% { opacity: .95; } 100% { transform: translate(var(--sx), -620px) scale(.35); opacity: 0; } }
+.dm-glowtxt { animation: dmTw 2s ease-in-out infinite; paint-order: stroke; }
+.dm-tower .dm-hit { cursor: pointer; }
+.dm-lanrow { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.dm-lanprev { width: 96px; height: 96px; flex: none; }
+.dm-lanprev svg { width: 100%; height: 100%; }
+/* 🪄 fairy godmother */
+.dm-fairy .dm-hit { cursor: pointer; }
+.dm-wandstar { transform-box: fill-box; transform-origin: 50% 50%; animation: dmSpin 3s linear infinite; }
+@keyframes dmSpin { to { transform: rotate(360deg); } }
+.dm-sparkle { filter: drop-shadow(0 0 6px #fff6a8); }
+.dm-dance { animation: dmDance 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes dmDance { 0%, 100% { transform: rotate(-3deg) translateX(-10px); } 50% { transform: rotate(3deg) translateX(10px); } }
+.dm-dance2 { animation: dmHop .5s ease-in-out infinite alternate; }
+.dm-falls { position: absolute; inset: 0; overflow: hidden; }
+.dm-fall { position: absolute; top: -12%; font-size: clamp(26px, 5vw, 44px); border: 0; background: none; padding: 6px; cursor: pointer; animation: dmFall 4s linear forwards; filter: drop-shadow(0 0 6px #fff); touch-action: manipulation; }
+.dm-fall.got { animation: dmGot .3s ease-out forwards; }
+@keyframes dmFall { from { transform: translateY(0) rotate(0); } to { transform: translateY(640%) rotate(200deg); } }
+@keyframes dmGot { to { transform: scale(2.2); opacity: 0; } }
+.dm-bar { height: 14px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.dm-bar i { display: block; height: 100%; background: linear-gradient(90deg, #ff5f8f, #ffd84d); border-radius: 99px; transition: width .2s linear; }
+.dm-gowns { display: flex; flex-wrap: wrap; gap: 6px; }
+.dm-gown { display: grid; justify-items: center; width: 78px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); padding: 4px; color: var(--ink); }
+.dm-gown[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); }
+.dm-gown:disabled { opacity: .55; }
+.dm-gown span { width: 40px; height: 44px; } .dm-gown small { font-size: .72em; text-align: center; }
+/* 🌺 island voyage */
+.dm-isle .dm-hit { cursor: pointer; }
+.dm-wv1 { animation: dmWave 6s linear infinite; } .dm-wv2 { animation: dmWave 4.5s linear infinite reverse; } .dm-wv3 { animation: dmWave 3.2s linear infinite; }
+@keyframes dmWave { to { transform: translateX(-100px); } }
+.dm-pushing .dm-wv1, .dm-pushing .dm-wv2, .dm-pushing .dm-wv3 { animation-duration: .7s; }
+.dm-boat { animation: dmRock 3s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 90%; }
+@keyframes dmRock { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(6px); } }
+.dm-helper { transform: translate(-60px, 200px); transition: transform .8s cubic-bezier(.3,1.4,.5,1); }
+.dm-pushing .dm-helper { transform: translate(40px, 0); }
+.dm-boatmove { transition: transform 1s ease-in-out; }
+.dm-pushing .dm-boatmove { transform: translateX(90px); }
+.dm-cloud { animation: dmCloud 26s linear infinite; }
+@keyframes dmCloud { from { transform: translateX(-60px); } 50% { transform: translateX(60px); } to { transform: translateX(-60px); } }
+.dm-sun { transform-box: fill-box; transform-origin: 50% 50%; animation: dmSpin 30s linear infinite; }
+.dm-chick { transform-box: fill-box; transform-origin: 50% 100%; }
+.dm-chick.jump { animation: dmChJump .8s ease-out; } .dm-chick.spin { animation: dmChSpin .8s ease-in-out; } .dm-chick.flap .dm-wing { animation: dmFlap .12s 6 alternate; transform-box: fill-box; transform-origin: 0 50%; }
+@keyframes dmChJump { 40% { transform: translateY(-60px) rotate(-20deg); } 70% { transform: translateY(-10px); } }
+@keyframes dmChSpin { 50% { transform: translateY(-24px) scaleX(-1); } }
+@keyframes dmFlap { to { transform: rotate(-50deg); } }
+.dm-isle .dm-goog { animation: dmGoog 1.7s steps(1) infinite; }
+@keyframes dmGoog { 50% { transform: translate(2px, 2px); } }
+.dm-run { animation: dmRun 9s ease-in-out infinite; }
+@keyframes dmRun { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-120px); } }
+.dm-cstar { cursor: pointer; } .dm-cstar polygon { animation: dmTw 2s ease-in-out infinite; } .dm-cstar.on polygon { animation: none; filter: drop-shadow(0 0 4px #fff27a); }
+.dm-cline { stroke-dasharray: 200; animation: dmDraw 1s ease-out both; }
+@keyframes dmDraw { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
+.dm-shake { animation: dmShake .4s; } @keyframes dmShake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.dm-shellb { animation: dmShellB 1.6s ease-in-out infinite; } @keyframes dmShellB { 50% { transform: translateY(-3px); } }
+.dm-puff { animation: dmPuff 4s ease-in-out infinite; } @keyframes dmPuff { 50% { transform: translateY(-10px); opacity: .7; } }
+.dm-locked { opacity: .5; filter: grayscale(1); }
+/* 🎆 castle of the board */
+.dm-fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.dm-castle .dm-sky { cursor: crosshair; }
+.dm-castle.dm-flash { animation: dmFlash .5s ease-out; }
+@keyframes dmFlash { 0% { filter: brightness(1.35); } 100% { filter: brightness(1); } }
+.dm-castle.dm-showing .dm-win { animation: dmTw .6s ease-in-out infinite; }
+.dm-spray { animation: dmSpray 1s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes dmSpray { to { transform: scaleY(.85) scaleX(1.1); } }
+.dm-rainbow { background: conic-gradient(#ff5f8f, #ffd84d, #a8e063, #7ec8ff, #c77dff, #ff5f8f) !important; }
+.dm-tl { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; border-radius: 14px; background: #1c2260; }
+.dm-tlb { display: grid; justify-items: center; border: 3px solid #fff; border-radius: 12px; background: #2d2a72; color: #fff; padding: 2px 6px; font-size: 1.1em; line-height: 1.1; }
+.dm-tlb small { font-size: .6em; opacity: .85; }
+/* 🎠 magic park */
+.dm-park .dm-hit { cursor: pointer; }
+.dm-fw { transform-box: view-box; animation: dmSpin 22s linear infinite; }
+.dm-fwc { transform-box: view-box; animation: dmSpin 22s linear infinite reverse; }
+.dm-fw.fast, .dm-fwc.fast { animation-duration: 6s; }
+.dm-cbob { animation: dmBob 1.6s ease-in-out infinite; } .dm-cbob.fast { animation-duration: .6s; }
+.dm-cup { transform-box: view-box; animation: dmCup 3s ease-in-out infinite; } .dm-cup.fast { animation-duration: .8s; }
+@keyframes dmCup { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(-1); } }
+.dm-float { animation: dmParade 22s linear both; transform: translateX(1000px); }
+@keyframes dmParade { from { transform: translateX(1000px); } to { transform: translateX(-220px); } }
+.dm-fbob { animation: dmBob 1.2s ease-in-out infinite; }
+.dm-flapw { transform-box: fill-box; transform-origin: 100% 100%; animation: dmFlapW .35s ease-in-out infinite alternate; }
+@keyframes dmFlapW { to { transform: rotate(-20deg); } }
+.dm-bub2 { animation: dmBub2 2s ease-in infinite; } @keyframes dmBub2 { from { transform: translate(0, 0); opacity: 1; } to { transform: translate(-14px, -34px); opacity: 0; } }
+.dm-waveh { transform-box: fill-box; transform-origin: 0 100%; animation: dmFlapW .5s ease-in-out infinite alternate; }
+.dm-stamp { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 2.5px dashed var(--line); font-size: 1.3em; filter: grayscale(1); opacity: .5; line-height: 1; }
+.dm-stamp.on { border-style: solid; border-color: var(--accent); filter: none; opacity: 1; background: var(--paper); }
+.dm-stamp small { font-size: .5em; }
 </style>
 </head>
 <body class="bg-dots">
@@ -5830,6 +6010,19 @@ dialog.life-dlg { width: min(760px, calc(100vw - 24px)); }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div id="gsBody" class="gs-body"></div>
+  </div>
+</dialog>
+
+
+<!-- 🏰 dmagic: six magic places (toy room, lantern tower, fairy godmother, island voyage, castle of the board, magic park) -->
+<dialog id="dmDlg" aria-labelledby="dmTitle">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="dmTitle">🏰 עולמות הקסם</h3><div class="sub" id="dmSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="dmBody"></div>
   </div>
 </dialog>
 
@@ -31133,6 +31326,1194 @@ ${label(900, 520, '🌊 ים האיים')}
     try { confetti($('#gsDlg .confetti-c')); } catch {}
   }
   $('#gsDlg').addEventListener('close', () => { gsClear(); gsTool = null; gsSel = null; });
+  // ================= 🏰 dmagic: six magic places (original worlds "in the spirit of" fairy-tale films) =================
+  // 🧸 toy room · 🏮 lantern tower · 🪄 fairy godmother · 🌺 island voyage · 🎆 castle of the board · 🎠 magic park
+  // every character here is original; her girls (girls/girlSVG) and pets (allPets/petSVG) come along as guests
+  const dmTry = (f, d) => { try { return f(); } catch { return d; } };
+  const dmDef = () => ({
+    guests: { set: false, girl: null, pets: [] }, coin: { day: '', n: 0 },
+    toy: { owned: ['rag', 'robot', 'dino', 'cowgirl', 'piggy', 'rocket'], pos: {}, found: [], advs: 0 },
+    tower: { hair: '#f7c948', len: 2, style: 'braid', flowers: [], wall: '#eadcc6', paints: [], lan: { shape: 'round', color: '#ffae42', pat: 'sun' }, released: 0, bday: '' },
+    fairy: { gowns: ['rose'], gown: 'rose', coach: 0, mane: 0, balls: 0, slippers: 0 },
+    isle: { hull: '#ff8fb8', sail: '#ffffff', sail2: '#7ec8ff', pat: 'stripes', flag: '#ffd84d', shells: {}, visited: [], trips: 0 },
+    castle: { wall: '#ffc6de', roof: '#a98bff', flag: '#ffd84d', decor: { bunting: true, garden: true }, bought: [], show: [], shows: 0, night: '' },
+    park: { ears: { shape: 'round', color: '#a98bff', inner: '#ffd6ec', band: '#ffffff', bow: 'heart', bowColor: '#ff5f8f', spark: 'stars' }, rides: {}, parades: 0 },
+  });
+  let dm = (() => { const d = dmDef(), s = store.get('dmagic', {}) || {}; for (const k of Object.keys(d)) if (s[k] && typeof s[k] === 'object' && !Array.isArray(s[k])) d[k] = Object.assign(d[k], s[k]); return d; })();
+  const dmSave = () => store.set('dmagic', dm);
+  const DM = {}; // the six places: id → { icon, name, sub, enter, draw, stop }
+  let dmCur = 'toy', dmTimers = [], dmRun = 0, dmGuestOpen = false, dmUid = 0;
+  const dmStop = () => { dmTimers.forEach(clearTimeout); dmTimers = []; dmRun++; const w = DM[dmCur]; if (w && w.stop) dmTry(() => w.stop()); };
+  const dmLater = (f, ms) => { const r = dmRun; dmTimers.push(setTimeout(() => { if (r === dmRun && $('#dmDlg').open) f(); }, ms)); };
+  const dmR = s => { const x = Math.sin(s * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+  const dmPick = a => a[Math.floor(Math.random() * a.length)];
+  const dmF = n => Math.round(n * 10) / 10;
+  const dmEsc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const dmChime = () => [1319, 1568, 2093, 2637].forEach((f, i) => tone(f, 0.35, 'sine', i * 0.07, 0.05));
+  const dmToday = () => localToday();
+  // coins for fun actions (a gentle daily cap so it stays a game, not a coin farm)
+  const dmCoins = (n, why) => {
+    if (typeof addCoins !== 'function') return;
+    const t = dmToday(); if (dm.coin.day !== t) dm.coin = { day: t, n: 0 };
+    const give = Math.min(n, 120 - dm.coin.n); if (give <= 0) return;
+    dm.coin.n += give; dmSave(); dmTry(() => addCoins(give, why));
+  };
+  // ---------- guests: her girl + pets ----------
+  const dmGirls = () => dmTry(() => girls.slice(), []);
+  const dmAllPets = () => dmTry(() => (typeof allPets === 'function' ? allPets() : pet && pet.onboarded ? [pet] : []).filter(p => p && p.kind), []);
+  const dmGirl = () => { const gs = dmGirls(); if (dm.guests.girl === 'none') return null; return gs.find(g => g.id === dm.guests.girl) || gs[gs.length - 1] || null; };
+  const dmPets = () => { const ps = dmAllPets(); return dm.guests.set ? ps.filter(p => dm.guests.pets.includes(p.id)).slice(0, 3) : ps.slice(0, 2); };
+  const dmPetCache = new Map();
+  const dmPetURL = p => { const k = dmTry(() => JSON.stringify([p.kind, p.color, p.wear, p.look, p.name, p.design, p.v]), Math.random()); let v = dmPetCache.get(k); if (!v) { v = svgData(dmTry(() => petSVG(p), stickerHTML('cat'))); if (dmPetCache.size > 60) dmPetCache.clear(); dmPetCache.set(k, v); } return v; };
+  // a girl standing with her feet at (x, y), h tall; drawn in her own 300x600 space so extras (ears) can sit on her head
+  const dmGirlAt = (g, x, y, h, opt = {}, extra = '', cls = '') => g ? `<g class="dm-guest ${cls}" transform="translate(${dmF(x - h / 4)} ${dmF(y - h * 0.98)}) scale(${(h / 600).toFixed(4)})"><image href="${girlImgURL(g, Object.assign({ bg: false }, opt))}" width="300" height="600"/>${extra}</g>` : '';
+  const dmPetAt = (p, x, y, h, cls = '', flip = false) => `<g class="dm-guest ${cls}" data-pet="${dmEsc(p.id || '')}"><image href="${dmPetURL(p)}" x="${dmF(x - h * 28 / 64)}" y="${dmF(y - h)}" width="${dmF(h * 56 / 64)}" height="${dmF(h)}"${flip ? ` transform="translate(${dmF(2 * x)} 0) scale(-1 1)"` : ''}/></g>`;
+  const dmNames = () => { const g = dmGirl(), ps = dmPets(); return [g && (g.name || 'הבובה שלי'), ...ps.map(p => p.name || 'החיה')].filter(Boolean); };
+  function dmGuestPanel() {
+    if (!dmGuestOpen) return null;
+    const gs = dmGirls(), ps = dmAllPets(), g = dmGirl(), sel = dmPets().map(p => p.id);
+    const setG = id => { dm.guests = { set: true, girl: id, pets: dm.guests.set ? dm.guests.pets : sel }; dmSave(); SFX.pop(); dmDraw(); };
+    const togP = id => { let l = dm.guests.set ? dm.guests.pets.slice() : sel.slice(); l = l.includes(id) ? l.filter(x => x !== id) : [...l, id].slice(-3); dm.guests = { set: true, girl: g ? g.id : 'none', pets: l }; dmSave(); SFX.pop(); dmDraw(); };
+    return el('div', { class: 'dm-guests-p' },
+      el('b', {}, '👭 מי באה איתי?'),
+      el('div', { class: 'dm-av-row' },
+        el('button', { type: 'button', class: 'dm-av', 'aria-pressed': String(!g), onclick: () => setG('none') }, el('span', { class: 'dm-av-x' }, '🙅‍♀️'), el('small', {}, 'בלי בובה')),
+        ...gs.map(x => el('button', { type: 'button', class: 'dm-av', 'aria-pressed': String(!!g && g.id === x.id), onclick: () => setG(x.id) }, el('img', { src: girlImgURL(x, { view: 'head', bg: false }), alt: '' }), el('small', {}, x.name || 'בובה'))),
+        gs.length ? null : el('button', { type: 'button', class: 'btn', onclick: () => { dmTry(() => bEnsureGirl()); dmDraw(); } }, '✨ ליצור בובה')),
+      ps.length ? el('div', { class: 'dm-av-row' }, ...ps.map(p => el('button', { type: 'button', class: 'dm-av', 'aria-pressed': String(sel.includes(p.id)), onclick: () => togP(p.id) }, el('img', { src: dmPetURL(p), alt: '' }), el('small', {}, p.name || 'חיה'))))
+        : el('p', { class: 'muted' }, 'כשיהיו לך חיות, הן יוכלו לבוא לכאן איתך 🐾'),
+      el('small', { class: 'muted' }, 'אפשר לבחור בובה אחת ועד 3 חיות.'));
+  }
+  // ---------- the dialog ----------
+  function dmOpen(id) {
+    dmStop(); dmCur = DM[id] ? id : 'toy'; dmGuestOpen = false;
+    const w = DM[dmCur];
+    $('#dmTitle').textContent = `${w.icon} ${w.name}`; $('#dmSub').textContent = w.sub; $('#dmDlg').dataset.w = dmCur;
+    if (w.enter) dmTry(() => w.enter());
+    dmDraw();
+    if (!$('#dmDlg').open) $('#dmDlg').showModal();
+  }
+  let dmStageEl = null, dmCtlEl = null;
+  function dmDraw() {
+    const w = DM[dmCur];
+    const head = el('div', { class: 'dm-head' },
+      el('div', { class: 'dm-wsw', role: 'group', 'aria-label': 'עולמות הקסם' }, ...Object.entries(DM).map(([id, x]) => el('button', { type: 'button', title: x.name, 'aria-label': x.name, 'aria-pressed': String(id === dmCur), onclick: () => { if (id !== dmCur) { SFX.pop(); dmOpen(id); } } }, x.icon))),
+      el('span', { class: 'dm-sp' }),
+      el('button', { type: 'button', class: 'chip', 'aria-pressed': String(dmGuestOpen), onclick: () => { dmGuestOpen = !dmGuestOpen; SFX.pop(); dmDraw(); } }, '👭 מי באה?'),
+      dmTry(() => coinChip(), null));
+    dmStageEl = el('div', { class: 'dm-stage' }); dmCtlEl = el('div', { class: 'dm-ctl' });
+    $('#dmBody').replaceChildren(head, dmGuestPanel(), dmStageEl, dmCtlEl);
+    dmTry(() => w.draw(), null);
+  }
+  // put a scene (svg string) into the stage, keeping overlays
+  const dmSvg = (body, defs = '', cls = '') => `<svg class="dm-svg ${cls}" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img"><defs>${defs}</defs>${body}</svg>`;
+  const dmSetScene = s => { if (!dmStageEl) return null; let h = dmStageEl.querySelector('.dm-host'); if (!h) { h = el('div', { class: 'dm-host' }); dmStageEl.prepend(h); } h.innerHTML = s; return h.firstElementChild; };
+  const dmSvgEl = () => dmStageEl && dmStageEl.querySelector('.dm-svg');
+  const dmCtl = (...kids) => { if (dmCtlEl) dmCtlEl.replaceChildren(...kids.flat().filter(Boolean)); };
+  // svg coords from a pointer event
+  const dmPt = e => { const s = dmSvgEl(); if (!s) return [0, 0]; const r = s.getBoundingClientRect(); return [(e.clientX - r.left) * 800 / r.width, (e.clientY - r.top) * 450 / r.height]; };
+  // a speech bubble / a sparkle burst on the stage (svg coords)
+  function dmSay(text, x, y, ms = 2600) {
+    if (!dmStageEl) return;
+    const b = el('div', { class: 'dm-bub' + (x > 560 ? ' r' : x < 240 ? ' l' : '') }, text);
+    b.style.left = (x / 8) + '%'; b.style.top = (y / 4.5) + '%';
+    dmStageEl.append(b); setTimeout(() => b.remove(), ms);
+  }
+  function dmBurst(x, y, em = ['✨', '⭐', '💫', '✨', '🌟', '✨', '💖', '✨']) {
+    if (!dmStageEl) return;
+    const b = el('div', { class: 'dm-burst', 'aria-hidden': 'true' }, ...em.map((e, i) => { const a = i / em.length * Math.PI * 2, s = el('span', {}, e); s.style.setProperty('--dx', Math.cos(a) * 60 + 'px'); s.style.setProperty('--dy', Math.sin(a) * 60 + 'px'); return s; }));
+    b.style.left = (x / 8) + '%'; b.style.top = (y / 4.5) + '%';
+    dmStageEl.append(b); setTimeout(() => b.remove(), 1100);
+  }
+  function dmProp(em, x, y, ms = 2600) {
+    if (!dmStageEl) return;
+    const b = el('div', { class: 'dm-prop', 'aria-hidden': 'true' }, em);
+    b.style.left = (x / 8) + '%'; b.style.top = (y / 4.5) + '%';
+    dmStageEl.append(b); setTimeout(() => b.remove(), ms);
+  }
+  const dmBtn = (label, fn, cls = 'btn') => el('button', { type: 'button', class: cls, onclick: fn }, label);
+  const dmChip = (label, on, fn) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!!on), onclick: fn }, label);
+  const dmSw = (col, on, fn, label = 'צבע') => { const b = el('button', { type: 'button', class: 'dm-sw', 'aria-label': label, 'aria-pressed': String(!!on), onclick: fn }); b.style.background = col; return b; };
+  const dmRow = (label, ...kids) => el('div', { class: 'dm-row' }, label ? el('span', { class: 'dm-lbl' }, label) : null, ...kids);
+  const dmTabs = (cur, list, fn) => el('div', { class: 'tabs dm-tabs', role: 'tablist' }, ...list.map(([id, nm]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(cur === id), onclick: () => { SFX.pop(); fn(id); } }, nm)));
+  const DM_COLORS = ['#ff5f8f', '#ff9ad5', '#ffb3cf', '#ff7a5c', '#ffae42', '#ffd84d', '#a8e063', '#4fc3a1', '#7ec8ff', '#5b8cff', '#a98bff', '#c77dff', '#ffffff', '#2e2a3a'];
+  // shared drawings
+  const dmStars = (n, seed, y1 = 300, big = 1) => Array.from({ length: n }, (_, i) => { const x = dmR(seed + i) * 800, y = dmR(seed + i + 50) * y1, r = (0.6 + dmR(seed + i + 90) * 1.4) * big; return `<circle class="dm-tw" style="animation-delay:-${dmF(dmR(i + seed) * 3)}s" cx="${dmF(x)}" cy="${dmF(y)}" r="${dmF(r)}" fill="#fff"/>`; }).join('');
+  const dmMoon = (x, y, r, id) => `<circle cx="${x}" cy="${y}" r="${r * 2.6}" fill="url(#${id})"/><circle cx="${x}" cy="${y}" r="${r}" fill="#fff6d6"/><circle cx="${x - r * 0.3}" cy="${y - r * 0.2}" r="${r * 0.18}" fill="#f1e2b0"/><circle cx="${x + r * 0.35}" cy="${y + r * 0.3}" r="${r * 0.12}" fill="#f1e2b0"/>`;
+  const dmGlow = (id, c) => `<radialGradient id="${id}"><stop offset="0" stop-color="${c}" stop-opacity=".55"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`;
+  const dmFlower = (x, y, r, pc, cc = '#ffd84d', n = 5) => Array.from({ length: n }, (_, i) => { const a = i / n * Math.PI * 2; return `<circle cx="${dmF(x + Math.cos(a) * r * 0.62)}" cy="${dmF(y + Math.sin(a) * r * 0.62)}" r="${dmF(r * 0.52)}" fill="${pc}" stroke="${O}" stroke-width="1.2"/>`; }).join('') + `<circle cx="${x}" cy="${y}" r="${dmF(r * 0.42)}" fill="${cc}" stroke="${O}" stroke-width="1.2"/>`;
+  const dmHeart = (x, y, s, c, extra = '') => `<path d="M${x} ${y + 7 * s} C${x - 11 * s} ${y} ${x - 8 * s} ${y - 9 * s} ${x} ${y - 4 * s} C${x + 8 * s} ${y - 9 * s} ${x + 11 * s} ${y} ${x} ${y + 7 * s} Z" fill="${c}" ${extra}/>`;
+  $('#dmDlg').addEventListener('close', () => dmStop());
+  // ---------- 🧸 the toy room that comes alive ----------
+  // eyes: '.dm-s' parts show while the toys pretend (she is looking), '.dm-a' parts while they are awake
+  const dmEyes = (x1, x2, y, r = 3.2) => `<g class="dm-s"><path d="M${x1 - r} ${y} h${2 * r} M${x2 - r} ${y} h${2 * r}" stroke="${O}" stroke-width="2" stroke-linecap="round"/></g><g class="dm-a"><circle cx="${x1}" cy="${y}" r="${r}" fill="${O}"/><circle cx="${x2}" cy="${y}" r="${r}" fill="${O}"/><circle cx="${x1 + 1}" cy="${y - 1.2}" r="1.1" fill="#fff"/><circle cx="${x2 + 1}" cy="${y - 1.2}" r="1.1" fill="#fff"/></g>`;
+  const dmCheeks = (x1, x2, y) => `<circle cx="${x1}" cy="${y}" r="3.4" fill="#ff8fab" opacity=".55"/><circle cx="${x2}" cy="${y}" r="3.4" fill="#ff8fab" opacity=".55"/>`;
+  const dmMouth = (x, y, w = 4) => `<path class="dm-s" d="M${x - w} ${y} Q${x} ${y + w * 0.8} ${x + w} ${y}" fill="none" stroke="${O}" stroke-width="1.8" stroke-linecap="round"/><path class="dm-a" d="M${x - w} ${y - 1} Q${x} ${y + w * 1.6} ${x + w} ${y - 1} Z" fill="#c2415f" stroke="${O}" stroke-width="1.6" stroke-linejoin="round"/>`;
+  const DM_TOYS = {
+    rag: ['מילי בובת הסמרטוטים', 0, () =>
+      `<path d="M-9 -24 V-3 M9 -24 V-3" stroke="${O}" stroke-width="10" stroke-linecap="round"/><path d="M-9 -24 V-3 M9 -24 V-3" stroke="#fff" stroke-width="6.5" stroke-linecap="round"/>` +
+      `<path d="M-12 -18 h6 M-12 -11 h6 M6 -18 h6 M6 -11 h6" stroke="#ff5f8f" stroke-width="3"/><ellipse cx="-10" cy="-2" rx="7" ry="4" fill="#c2415f" ${S2}/><ellipse cx="10" cy="-2" rx="7" ry="4" fill="#c2415f" ${S2}/>` +
+      `<g class="dm-arm-l"><path d="M-14 -48 Q-28 -38 -26 -26" fill="none" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M-14 -48 Q-28 -38 -26 -26" fill="none" stroke="#ffe1c8" stroke-width="5.5" stroke-linecap="round"/></g>` +
+      `<g class="dm-arm-r"><path d="M14 -48 Q28 -38 26 -26" fill="none" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M14 -48 Q28 -38 26 -26" fill="none" stroke="#ffe1c8" stroke-width="5.5" stroke-linecap="round"/></g>` +
+      `<path d="M-14 -52 H14 L22 -20 H-22 Z" fill="#7ec8ff" ${S}/><path d="M-22 -20 q5.5 5 11 0 q5.5 5 11 0 q5.5 5 11 0 q5.5 5 11 0" fill="#7ec8ff" ${S2}/><rect x="4" y="-38" width="10" height="10" fill="#ffd84d" ${S2} transform="rotate(8 9 -33)"/><path d="M5 -37 l8 1 M5 -30 l8 1" stroke="${O}" stroke-width="1" stroke-dasharray="1.5 1.5"/><rect x="-14" y="-32" width="9" height="9" fill="#ff9ad5" ${S2} transform="rotate(-6 -9 -27)"/>` +
+      `<circle cx="0" cy="-68" r="17" fill="#ffe1c8" ${S}/>` + Array.from({ length: 11 }, (_, i) => { const a = Math.PI * (1.05 + i * 0.09); return `<circle cx="${dmF(Math.cos(a) * 17)}" cy="${dmF(-68 + Math.sin(a) * 17)}" r="6" fill="#ff7a3c" ${S2}/>`; }).join('') +
+      `<circle cx="-20" cy="-60" r="6" fill="#ff7a3c" ${S2}/><circle cx="-22" cy="-51" r="5" fill="#ff7a3c" ${S2}/><circle cx="20" cy="-60" r="6" fill="#ff7a3c" ${S2}/><circle cx="22" cy="-51" r="5" fill="#ff7a3c" ${S2}/>` +
+      `<g class="dm-s"><circle cx="-6" cy="-67" r="3.6" fill="#3a2b3c"/><circle cx="6" cy="-67" r="3.6" fill="#3a2b3c"/><circle cx="-7" cy="-68" r=".8" fill="#fff"/><circle cx="-5" cy="-66" r=".8" fill="#fff"/><circle cx="5" cy="-68" r=".8" fill="#fff"/><circle cx="7" cy="-66" r=".8" fill="#fff"/></g>` +
+      `<g class="dm-a"><circle cx="-6" cy="-67" r="4.6" fill="#fff" ${S2}/><circle cx="6" cy="-67" r="4.6" fill="#fff" ${S2}/><circle cx="-5.4" cy="-66.4" r="2.4" fill="${O}"/><circle cx="6.6" cy="-66.4" r="2.4" fill="${O}"/></g>` +
+      dmCheeks(-10, 10, -61) + `<path class="dm-s" d="M-6 -59 Q0 -55 6 -59" fill="none" stroke="#c2415f" stroke-width="1.6" stroke-dasharray="2 1.6"/>` + dmMouth(0, -59, 4)],
+    robot: ['בורגי הרובוט', 0, () =>
+      `<rect x="-17" y="-10" width="12" height="10" rx="3" fill="#6f7f99" ${S2}/><rect x="5" y="-10" width="12" height="10" rx="3" fill="#6f7f99" ${S2}/>` +
+      `<g class="dm-arm-l"><path d="M-22 -42 L-31 -26" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M-22 -42 L-31 -26" stroke="#b9c7dc" stroke-width="4" stroke-linecap="round"/><path d="M-36 -24 a5 5 0 1 0 10 0" fill="none" stroke="${O}" stroke-width="3"/></g>` +
+      `<g class="dm-arm-r"><path d="M22 -42 L31 -26" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M22 -42 L31 -26" stroke="#b9c7dc" stroke-width="4" stroke-linecap="round"/><path d="M26 -24 a5 5 0 1 0 10 0" fill="none" stroke="${O}" stroke-width="3"/></g>` +
+      `<rect x="-22" y="-50" width="44" height="42" rx="8" fill="#9fb4d6" ${S}/><rect x="-13" y="-42" width="26" height="18" rx="4" fill="#e9f1ff" ${S2}/><circle cx="-6" cy="-33" r="3" fill="#ff5f8f"/><circle cx="1" cy="-33" r="3" fill="#ffd84d"/><circle cx="8" cy="-33" r="3" fill="#4fc3a1"/><path d="M-12 -16 h24" stroke="${O}" stroke-width="2" stroke-dasharray="3 3"/>` +
+      `<rect x="-6" y="-56" width="12" height="7" fill="#6f7f99" ${S2}/><rect x="-20" y="-88" width="40" height="33" rx="9" fill="#b9c7dc" ${S}/><circle cx="-22" cy="-72" r="4" fill="#6f7f99" ${S2}/><circle cx="22" cy="-72" r="4" fill="#6f7f99" ${S2}/>` +
+      `<path d="M0 -88 V-98" stroke="${O}" stroke-width="2.5"/><circle class="dm-ant" cx="0" cy="-101" r="4.5" fill="#ff5f8f" ${S2}/>` +
+      `<rect x="-15" y="-82" width="30" height="16" rx="6" fill="#2e3a55"/><g class="dm-s"><path d="M-10 -74 h6 M4 -74 h6" stroke="#7ee8ff" stroke-width="2.5" stroke-linecap="round"/></g><g class="dm-a"><circle cx="-7" cy="-74" r="4" fill="#7ee8ff"/><circle cx="7" cy="-74" r="4" fill="#7ee8ff"/><circle cx="-6" cy="-75.5" r="1.3" fill="#fff"/><circle cx="8" cy="-75.5" r="1.3" fill="#fff"/></g>` +
+      `<path class="dm-s" d="M-6 -61 h12" stroke="${O}" stroke-width="2" stroke-linecap="round"/><path class="dm-a" d="M-7 -62 q7 6 14 0" fill="none" stroke="${O}" stroke-width="2.2" stroke-linecap="round"/>` + dmCheeks(-14, 14, -63)],
+    dino: ['דינו-דן הדינוזאור', 0, () =>
+      `<path d="M18 -14 Q42 -10 46 -30 Q40 -18 22 -24" fill="#7fd36b" ${S}/>` + [[-4, -58], [6, -52], [15, -42], [22, -31]].map(([x, y], i) => `<path d="M${x - 6} ${y + 3} L${x} ${y - 7} L${x + 6} ${y + 3} Z" fill="#ffae42" ${S2} transform="rotate(${20 + i * 15} ${x} ${y})"/>`).join('') +
+      `<ellipse cx="0" cy="-26" rx="24" ry="26" fill="#7fd36b" ${S}/><ellipse cx="-4" cy="-20" rx="14" ry="17" fill="#d6f5b8"/><path d="M-10 -24 h12 M-11 -17 h14 M-9 -10 h11" stroke="#a6d98a" stroke-width="2"/>` +
+      `<ellipse cx="-14" cy="-3" rx="9" ry="5" fill="#7fd36b" ${S2}/><ellipse cx="12" cy="-3" rx="9" ry="5" fill="#7fd36b" ${S2}/>` +
+      `<g class="dm-arm-l"><path d="M-20 -34 q-9 3 -8 9" fill="none" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M-20 -34 q-9 3 -8 9" fill="none" stroke="#7fd36b" stroke-width="4" stroke-linecap="round"/></g>` +
+      `<path d="M-8 -48 Q-34 -50 -36 -68 Q-34 -90 -12 -88 Q6 -86 6 -68 Q6 -52 -8 -48 Z" fill="#7fd36b" ${S}/><circle cx="-31" cy="-66" r="1.5" fill="${O}"/>` + dmEyes(-20, -6, -74, 3) + dmCheeks(-27, 1, -65) + dmMouth(-17, -59, 5)],
+    cowgirl: ['לולה הבוקרת', 0, () =>
+      `<path d="M-8 -22 V-4 M8 -22 V-4" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="M-8 -22 V-4 M8 -22 V-4" stroke="#ffe1c8" stroke-width="5.5" stroke-linecap="round"/><path d="M-15 -12 h11 v10 q-4 3 -12 1 Z M4 -12 h11 l2 9 q-6 3 -13 1 Z" fill="#b5651d" ${S2}/><path d="M-12 -9 l3 3 M8 -9 l3 3" stroke="#ffd84d" stroke-width="1.5"/>` +
+      `<g class="dm-arm-l"><path d="M-12 -50 Q-24 -42 -25 -30" fill="none" stroke="${O}" stroke-width="8" stroke-linecap="round"/><path d="M-12 -50 Q-24 -42 -25 -30" fill="none" stroke="#ffe1c8" stroke-width="5" stroke-linecap="round"/></g>` +
+      `<g class="dm-arm-r"><path d="M12 -50 Q24 -44 26 -34" fill="none" stroke="${O}" stroke-width="8" stroke-linecap="round"/><path d="M12 -50 Q24 -44 26 -34" fill="none" stroke="#ffe1c8" stroke-width="5" stroke-linecap="round"/><ellipse cx="32" cy="-34" rx="8" ry="6" fill="none" stroke="#c98a4b" stroke-width="2.5"/></g>` +
+      `<path d="M-13 -54 H13 L19 -22 H-19 Z" fill="#ff9ad5" ${S}/><path d="M-19 -22 v4 M-14 -22 v5 M-9 -22 v4 M-4 -22 v5 M1 -22 v4 M6 -22 v5 M11 -22 v4 M16 -22 v5" stroke="#c2415f" stroke-width="1.8"/><path d="M-13 -54 L-6 -30 H-14 Z M13 -54 L6 -30 H14 Z" fill="#c98a4b" ${S2}/><polygon points="${starPts(7, -44, 5, 2.2)}" fill="#ffd84d" ${S2}/>` +
+      `<path d="M-16 -66 Q-24 -52 -18 -40" fill="none" stroke="#8b4513" stroke-width="6" stroke-linecap="round"/><path d="M16 -66 Q24 -52 18 -40" fill="none" stroke="#8b4513" stroke-width="6" stroke-linecap="round"/><circle cx="-18" cy="-40" r="3" fill="#ff5f8f"/><circle cx="18" cy="-40" r="3" fill="#ff5f8f"/>` +
+      `<circle cx="0" cy="-68" r="15" fill="#ffe1c8" ${S}/><path d="M-14 -72 Q0 -80 14 -72 Q12 -84 0 -84 Q-12 -84 -14 -72 Z" fill="#8b4513"/>` + dmEyes(-5.5, 5.5, -67, 2.8) + dmCheeks(-9, 9, -62) + dmMouth(0, -60, 3.5) +
+      `<ellipse cx="0" cy="-80" rx="26" ry="6" fill="#ff5f8f" ${S}/><path d="M-13 -80 Q-14 -98 0 -96 Q14 -98 13 -80 Z" fill="#ff5f8f" ${S}/><path d="M-13 -84 H13" stroke="#fff" stroke-width="2.5"/><polygon points="${starPts(0, -90, 4, 1.8)}" fill="#ffd84d"/>`],
+    piggy: ['פיגי קופת החיסכון', 0, () =>
+      `<g class="dm-coin"><circle cx="0" cy="-66" r="7" fill="#ffd84d" ${S2}/><text x="0" y="-62.5" text-anchor="middle" font-size="9" font-weight="700" fill="#b58300">₪</text></g>` +
+      `<rect x="-22" y="-14" width="9" height="13" rx="3" fill="#ff9ec4" ${S2}/><rect x="-8" y="-12" width="9" height="12" rx="3" fill="#ff9ec4" ${S2}/><rect x="6" y="-12" width="9" height="12" rx="3" fill="#ff9ec4" ${S2}/><rect x="17" y="-14" width="9" height="13" rx="3" fill="#ff9ec4" ${S2}/>` +
+      `<path d="M30 -30 q10 -6 6 -12 q-4 -4 -6 2" fill="none" stroke="${O}" stroke-width="2.2"/>` +
+      `<ellipse cx="0" cy="-30" rx="32" ry="24" fill="#ffb3cf" ${S}/><rect x="-7" y="-55" width="14" height="4" rx="2" fill="${O}"/><path d="M-14 -50 L-22 -62 L-6 -54 Z" fill="#ff9ec4" ${S2}/><path d="M10 -52 L20 -62 L20 -48 Z" fill="#ff9ec4" ${S2}/>` +
+      `<ellipse cx="-26" cy="-28" rx="9" ry="7" fill="#ff9ec4" ${S2}/><circle cx="-29" cy="-28" r="1.7" fill="${O}"/><circle cx="-23" cy="-28" r="1.7" fill="${O}"/>` + dmEyes(-18, -4, -38, 2.8) + dmCheeks(-14, 4, -30) + `<path d="M6 -20 q4 4 10 2" fill="none" stroke="#ff8fab" stroke-width="2"/>` + shine(8, -46)],
+    rocket: ['טילון', 0, () =>
+      `<g class="dm-a dm-flame"><path d="M-8 -8 Q0 16 8 -8 Z" fill="#ffae42"/><path d="M-4 -8 Q0 6 4 -8 Z" fill="#ffd84d"/></g>` +
+      `<path d="M-14 -30 L-26 -6 L-12 -10 Z M14 -30 L26 -6 L12 -10 Z" fill="#4fc3a1" ${S}/><path d="M-14 -8 Q-16 -60 0 -86 Q16 -60 14 -8 Z" fill="#fff4e6" ${S}/><path d="M-9 -70 Q0 -82 0 -86 Q0 -82 9 -70 Q0 -73 -9 -70 Z" fill="#ff5f8f" ${S2}/>` +
+      `<path d="M-14 -16 H14" stroke="#ff5f8f" stroke-width="4"/><circle cx="0" cy="-48" r="10" fill="#7ec8ff" ${S}/>` + dmEyes(-3.5, 3.5, -49, 1.8) + `<path class="dm-a" d="M-2.5 -44.5 q2.5 2.5 5 0" fill="none" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/>` + shine(-9, -60) +
+      `<path d="M0 -10 V-4" stroke="#4fc3a1" stroke-width="6" stroke-linecap="round"/>`],
+    teddy: ['דובי פוך', 25, () =>
+      `<ellipse cx="-12" cy="-6" rx="10" ry="7" fill="#c98a5b" ${S2}/><ellipse cx="12" cy="-6" rx="10" ry="7" fill="#c98a5b" ${S2}/><ellipse cx="-12" cy="-6" rx="5" ry="3.5" fill="#f3d2b0"/><ellipse cx="12" cy="-6" rx="5" ry="3.5" fill="#f3d2b0"/>` +
+      `<ellipse cx="0" cy="-28" rx="20" ry="22" fill="#c98a5b" ${S}/><ellipse cx="0" cy="-24" rx="11" ry="13" fill="#f3d2b0"/><rect x="5" y="-40" width="8" height="8" fill="#ff9ad5" ${S2} transform="rotate(12 9 -36)"/>` +
+      `<g class="dm-arm-l"><ellipse cx="-20" cy="-32" rx="6" ry="11" fill="#c98a5b" ${S2} transform="rotate(25 -20 -32)"/></g><g class="dm-arm-r"><ellipse cx="20" cy="-32" rx="6" ry="11" fill="#c98a5b" ${S2} transform="rotate(-25 20 -32)"/></g>` +
+      `<circle cx="-15" cy="-80" r="8" fill="#c98a5b" ${S}/><circle cx="15" cy="-80" r="8" fill="#c98a5b" ${S}/><circle cx="-15" cy="-80" r="4" fill="#f3d2b0"/><circle cx="15" cy="-80" r="4" fill="#f3d2b0"/><circle cx="0" cy="-66" r="18" fill="#c98a5b" ${S}/><ellipse cx="0" cy="-60" rx="8" ry="6" fill="#f3d2b0" ${S2}/><ellipse cx="0" cy="-62" rx="3" ry="2" fill="${O}"/>` +
+      dmEyes(-7, 7, -69, 2.6) + dmCheeks(-11, 11, -60) + dmMouth(0, -57, 2.5) + `<path d="M-10 -48 L0 -44 L10 -48 L10 -40 L0 -44 L-10 -40 Z" fill="#7ec8ff" ${S2}/>`],
+    dancer: ['רקדנית הקופסה', 30, () =>
+      `<rect x="-24" y="-18" width="48" height="18" rx="4" fill="#a98bff" ${S}/><path d="M-24 -9 h48" stroke="#ffd84d" stroke-width="2"/><circle cx="0" cy="-9" r="3" fill="#ffd84d" ${S2}/><ellipse cx="0" cy="-18" rx="16" ry="3.5" fill="#fff" ${S2}/>` +
+      `<g class="dm-spin"><path d="M-2 -18 V-34 M2 -34 L8 -22" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M-2 -18 V-34 M2 -34 L8 -22" stroke="#ffe1c8" stroke-width="3" stroke-linecap="round"/>` +
+      `<path d="M-16 -36 Q0 -28 16 -36 Q12 -42 0 -42 Q-12 -42 -16 -36 Z" fill="#ffb3cf" ${S2}/><path d="M-5 -42 L-4 -54 H4 L5 -42 Z" fill="#ff9ad5" ${S2}/>` +
+      `<g class="dm-arm-l"><path d="M-4 -52 Q-14 -62 -6 -70" fill="none" stroke="${O}" stroke-width="4.5" stroke-linecap="round"/><path d="M-4 -52 Q-14 -62 -6 -70" fill="none" stroke="#ffe1c8" stroke-width="2.5" stroke-linecap="round"/></g><g class="dm-arm-r"><path d="M4 -52 Q14 -62 6 -70" fill="none" stroke="${O}" stroke-width="4.5" stroke-linecap="round"/><path d="M4 -52 Q14 -62 6 -70" fill="none" stroke="#ffe1c8" stroke-width="2.5" stroke-linecap="round"/></g>` +
+      `<circle cx="0" cy="-62" r="8" fill="#ffe1c8" ${S2}/><circle cx="0" cy="-72" r="5" fill="#6b4226" ${S2}/><path d="M-8 -64 Q0 -74 8 -64" fill="#6b4226"/>` + dmEyes(-3, 3, -61, 1.5) + `</g>`],
+    train: ['רכבת צ\'ופצ\'ופ', 25, () =>
+      `<g class="dm-a dm-steam"><circle cx="16" cy="-72" r="6" fill="#fff" opacity=".9"/><circle cx="24" cy="-80" r="8" fill="#fff" opacity=".7"/></g>` +
+      `<rect x="-30" y="-44" width="30" height="32" rx="4" fill="#ff5f8f" ${S}/><rect x="-25" y="-38" width="20" height="14" rx="3" fill="#bfe8ff" ${S2}/><path d="M-34 -48 H4 V-44 H-34 Z" fill="#a98bff" ${S2}/>` +
+      `<rect x="0" y="-34" width="32" height="22" rx="10" fill="#7ec8ff" ${S}/><rect x="12" y="-52" width="9" height="18" fill="#5b8cff" ${S2}/><path d="M9 -56 h15 l-2 4 h-11 Z" fill="#2e2a3a"/>` +
+      `<circle cx="32" cy="-23" r="9" fill="#ffe7a8" ${S2}/>` + dmEyes(29, 35, -25, 1.6) + `<path d="M29 -20 q3 2.5 6 0" fill="none" stroke="${O}" stroke-width="1.4" stroke-linecap="round"/>` +
+      [-20, -2, 20].map(x => `<circle cx="${x}" cy="-8" r="8" fill="#ffd84d" ${S}/><circle cx="${x}" cy="-8" r="2.5" fill="${O}"/>`).join('')],
+    jack: ['קפצונת בקופסה', 20, () =>
+      `<g class="dm-spring"><path d="M0 -26 q-8 -4 0 -8 q8 -4 0 -8 q-8 -4 0 -8 q8 -4 0 -8" fill="none" stroke="#9aa7bd" stroke-width="3"/>` +
+      `<polygon points="${starPts(0, -72, 17, 8)}" fill="#ffd84d" ${S}/>` + dmEyes(-4, 4, -73, 2) + dmCheeks(-7, 7, -69) + dmMouth(0, -68, 2.5) + `<path d="M-6 -58 l6 4 l6 -4" fill="#ff5f8f" ${S2}/></g>` +
+      `<rect x="-20" y="-28" width="40" height="28" rx="3" fill="#4fc3a1" ${S}/><path d="M-20 -28 L-26 -40 L14 -40 L20 -28" fill="#a8e063" ${S2}/><polygon points="${starPts(-6, -14, 6, 2.6)}" fill="#fff"/>${dmHeart(9, -14, 0.6, '#ff5f8f')}`],
+    unicorn: ['פוכית החד-קרן', 30, () =>
+      `<ellipse cx="0" cy="-22" rx="24" ry="18" fill="#fff" ${S}/>` + [-16, -6, 6, 16].map(x => `<rect x="${x - 4}" y="-12" width="8" height="12" rx="3" fill="#fff" ${S2}/><rect x="${x - 4}" y="-4" width="8" height="4" rx="2" fill="#c77dff"/>`).join('') +
+      `<path d="M22 -26 q14 -2 12 12 q-6 -6 -10 -2" fill="#ff9ad5" ${S2}/>` +
+      `<path d="M-14 -34 Q-18 -54 -30 -58 Q-42 -60 -42 -48 Q-40 -38 -26 -38 Z" fill="#fff" ${S}/><path d="M-30 -58 L-30 -78 L-22 -60 Z" fill="#ffd84d" ${S2}/><path d="M-29 -64 l5 -2 M-29 -70 l3 -1" stroke="#e0a800" stroke-width="1.4"/>` +
+      `<path d="M-22 -56 Q-10 -60 -8 -44 Q-12 -48 -16 -44 Q-16 -52 -22 -50 Z" fill="#a98bff" ${S2}/><path d="M-18 -40 Q-8 -46 -6 -32" fill="none" stroke="#7ec8ff" stroke-width="5" stroke-linecap="round"/>` +
+      dmEyes(-34, -26, -50, 2) + `<circle cx="-38" cy="-43" r="3" fill="#ff8fab" opacity=".55"/>`],
+  };
+  const DM_TOY_HOME = { rag: [300, 422], robot: [385, 432], dino: [478, 438], cowgirl: [560, 426], piggy: [236, 446], rocket: [650, 186], teddy: [705, 186], dancer: [592, 186], train: [440, 448], jack: [620, 442], unicorn: [340, 452] };
+  const DM_FOUND = [['🔵', 'גולה כחולה'], ['🟡', 'כפתור זהב'], ['🧩', 'חלק פאזל אבוד'], ['🗝️', 'מפתח קטנטן'], ['🪶', 'נוצה ורודה'], ['⭐', 'מדבקת כוכב'], ['🔔', 'פעמון קטן'], ['💗', 'חרוז לב'], ['🐚', 'צדף קטן'], ['🍬', 'סוכריה עטופה'], ['💍', 'טבעת פלסטיק'], ['🎈', 'בלון קטנטן']];
+  const DM_ADV = {
+    bed: ['🛏️ מתחת למיטה', [150, 432], [
+      ['מתחת למיטה חשוך לגמרי! איך נראה משהו?', [['🚀 טילון מדליק את האש שלו', 'פוף! אור כתום וחם מאיר את כל המערה של המיטה.'], ['🤖 בורגי מדליק עיני-פנס', 'ביפ-בופ! שתי קרני אור כחולות מאירות את הדרך.']]],
+      ['אוי! מפלצת אבק ענקית ופרוותית!', [['🧹 מלטפים אותה בעדינות', 'היא בכלל ארנבון אבק ביישן שרצה חברים! היא מגרגרת מאושר.'], ['🤧 אפצ\'י!', 'האבק עף לכל הכיוונים, וארנבון האבק צוחק: "עוד פעם! עוד פעם!"']]],
+      ['משהו נוצץ בפינה הכי רחוקה...', [['🤲 זוחלים לשם יחד', 'כולם זוחלים בשורה, מחזיקים ידיים... והנה זה!'], ['🦖 דינו-דן מושיט את הזנב', 'דינו-דן מסובב את הזנב הארוך ומגלגל את זה החוצה!']]]]],
+    shelf: ['📚 המדף הגבוה', [650, 186], [
+      ['המדף כל כך גבוה! איך מטפסים?', [['🧶 מילי זורקת חבל צמר', 'חבל הצמר הכתום נתפס בפינת המדף. מטפסים!'], ['🦖 סולם-זנב של דינו', 'דינו-דן נעמד על קצות האצבעות והזנב שלו הופך לסולם.']]],
+      ['הספרים מתנדנדים כמו גשר רועד!', [['🤫 הולכים על קצות האצבעות', 'צעד... צעד... אף ספר לא נפל!'], ['🐷 פיגי מחזיקה אותם', 'פיגי נשענת על הספרים בכל הכוח. אחת, שתיים, עוברים!']]],
+      ['בקצה המדף יש קופסה ישנה עם סרט.', [['🎀 פותחים את הסרט', 'הסרט נפתח לאט, וקולות של פעמונים עולים מהקופסה...'], ['👂 מקשיבים קודם', 'מבפנים נשמע שיר קטן. זה בטח משהו מקסים!']]]]],
+    window: ['🪟 אדן החלון', [400, 214], [
+      ['הירח מציץ בחלון ומחייך!', [['👋 מנופפים לירח', 'הירח קורץ חזרה ושולח קרן אור כסופה.'], ['🌟 סופרים כוכבים', 'אחת, שתיים, מאה ושבע! לולה ספרה הכי הרבה.']]],
+      ['עש קטנטן איבד את הדרך הביתה.', [['💡 מראים לו את מנורת הלילה', 'העש מתחמם באור הרך ואומר תודה בזמזום.'], ['🤠 לולה מלווה אותו', 'לולה מסובבת את הלאסו ומראה לו את הדרך אל הגינה.']]],
+      ['רוח קלה מביאה משהו מהחוץ!', [['🙌 תופסים את זה!', 'כולם קופצים ביחד... תפסנו!'], ['🚀 טילון טס להביא', 'טילון מסתובב סיבוב באוויר ונוחת עם המציאה.']]]]],
+    chest: ['🧺 ארגז הצעצועים', [715, 440], [
+      ['המכסה של הארגז כבד מאוד!', [['💪 כולם דוחפים יחד', 'אחת, שתיים, שלוש... חריק! המכסה נפתח.'], ['🤖 בורגי מפעיל מנוף', 'בורגי מושיט זרוע ארוכה ארוכה ומרים את המכסה.']]],
+      ['בפנים יש מבוך של קוביות צבעוניות.', [['🟥 ימינה ליד הקוביה האדומה', 'מבוך ימינה, שמאלה, ושוב ימינה... איזה כיף!'], ['⚽ שמאלה ליד הכדור', 'הכדור מתגלגל ומראה להם את הדרך.']]],
+      ['בתחתית הארגז מחכה הפתעה!', [['🎶 שרים לה שיר', 'משהו קטן ונוצץ מתחיל לזרוח בזמן השיר...'], ['🔦 מאירים פנימה', 'טילון מאיר, ושם, בין הקוביות...']]]]],
+  };
+  [['bed', ['🔦', '🐰', '✨']], ['shelf', ['🧶', '📚', '🎁']], ['window', ['🌙', '🦋', '🍃']], ['chest', ['📦', '🧱', '🎵']]].forEach(([k, p]) => DM_ADV[k].push(p));
+  const dmToyLines = ['יש! היא עצמה עיניים!', 'בואו נשחק!', 'שששש... בשקט!', 'מי רוצה לרקוד?', 'אני הכי מהיר!', 'איזה כיף להיות ער!', 'לולה, תסובבי את הלאסו!', 'ביפ בופ!', 'רוארררר (בקטנה)', 'קלינג קלינג!'];
+  let dmT = { awake: false, adv: null, step: 0, said: '', frozen: {} };
+  const dmToyPos = id => dm.toy.pos[id] || DM_TOY_HOME[id] || [400, 440];
+  const dmToyG = id => `<g class="dm-toy" data-toy="${id}" style="transform:translate(${dmToyPos(id)[0]}px,${dmToyPos(id)[1]}px)"><g class="dm-tw2" style="animation-delay:-${dmF(dmR(id.length * 7) * 0.8)}s"><g class="dm-frz" style="transform:rotate(${(dmT.frozen[id] || [0])[0]}deg) translateY(${(dmT.frozen[id] || [0, 0])[1]}px)">${DM_TOYS[id][2]()}</g></g></g>`;
+  function dmToyScene() {
+    const u = 'dmt' + (dmUid++), g = dmGirl(), ps = dmPets();
+    const defs = `<pattern id="${u}w" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#ffe3ef"/><rect width="20" height="40" fill="#ffd6e8"/>${dmHeart(30, 12, 0.35, '#ffb3cf')}<circle cx="10" cy="30" r="2" fill="#fff"/></pattern>` +
+      `<linearGradient id="${u}n" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2466"/><stop offset="1" stop-color="#5a4fa8"/></linearGradient>${dmGlow(u + 'g', '#fff6c8')}${dmGlow(u + 'l', '#ffd27a')}`;
+    let s = `<rect width="800" height="340" fill="url(#${u}w)"/>`;
+    // bunting on the wall
+    s += `<path d="M0 22 Q200 58 400 24 Q600 58 800 22" fill="none" stroke="${O}" stroke-width="1.5"/>` + Array.from({ length: 16 }, (_, i) => { const x = 20 + i * 50, y = 24 + 16 * Math.sin(Math.PI * ((x % 400) / 400)); return `<path d="M${x - 11} ${dmF(y)} L${x + 11} ${dmF(y)} L${x} ${dmF(y + 22)} Z" fill="${DM_COLORS[i % 12]}" ${S2}/>`; }).join('');
+    // window with the night sky and the moon
+    s += `<rect x="316" y="70" width="168" height="150" rx="12" fill="url(#${u}n)" stroke="${O}" stroke-width="3"/>${dmStars(14, 3, 1).replace(/cx="([\d.]+)" cy="([\d.]+)"/g, (m, x, y) => `cx="${dmF(322 + (+x) * 0.195)}" cy="${dmF(76 + (+y) * 0.45)}"`)}` +
+      `<circle cx="440" cy="110" r="46" fill="url(#${u}g)"/><path d="M448 92 A22 22 0 1 0 462 124 A17 17 0 1 1 448 92 Z" fill="#fff3b8"/>` +
+      `<path d="M400 70 V220 M316 145 H484" stroke="#fff" stroke-width="7"/><path d="M400 70 V220 M316 145 H484" stroke="${O}" stroke-width="1.3"/><rect x="306" y="216" width="188" height="12" rx="4" fill="#fff" stroke="${O}" stroke-width="2.5"/>` +
+      `<path d="M300 60 Q322 150 296 236 L286 236 Q300 150 282 60 Z" fill="#ff9ad5" ${S}/><path d="M500 60 Q478 150 504 236 L514 236 Q500 150 518 60 Z" fill="#ff9ad5" ${S}/><rect x="272" y="54" width="256" height="10" rx="5" fill="#c98a4b" ${S2}/>`;
+    // shelf
+    s += `<rect x="560" y="186" width="200" height="12" rx="3" fill="#c98a4b" ${S}/><path d="M580 198 l10 18 M740 198 l-10 18" stroke="${O}" stroke-width="4"/>` +
+      [[740, '#5b8cff', 34], [752, '#ff5f8f', 30]].map(([x, c, h]) => `<rect x="${x - 6}" y="${186 - h}" width="11" height="${h}" fill="${c}" ${S2}/>`).join('') +
+      `<path d="M720 186 v-12 h14 v12" fill="#e0764a" ${S2}/><path d="M727 174 q-8 -14 -2 -20 M727 174 q6 -14 12 -16" fill="none" stroke="#4fbf73" stroke-width="3"/>`;
+    // bed on the left, rug, toy chest on the right
+    s += `<rect x="0" y="330" width="800" height="12" fill="#fff" stroke="${O}" stroke-width="2"/><rect x="0" y="342" width="800" height="108" fill="#e9b98c"/>` + Array.from({ length: 6 }, (_, i) => `<path d="M0 ${360 + i * 18} H800" stroke="#d9a473" stroke-width="2"/>`).join('') +
+      `<path d="M10 210 Q10 170 60 170 H190 Q240 170 240 210 V350 H10 Z" fill="#a98bff" ${S}/><circle cx="125" cy="200" r="14" fill="#ffd84d" ${S2}/>${dmHeart(125, 200, 0.7, '#ff5f8f')}` +
+      `<rect x="10" y="300" width="250" height="60" rx="14" fill="#fff" ${S}/><path d="M60 300 Q140 286 260 304 V370 Q140 386 60 370 Z" fill="#7ec8ff" ${S}/>` + Array.from({ length: 4 }, (_, i) => `<circle cx="${100 + i * 44}" cy="${332 + (i % 2) * 10}" r="6" fill="#fff" opacity=".8"/>`).join('') +
+      `<ellipse cx="80" cy="298" rx="36" ry="14" fill="#fff" ${S}/><path d="M260 330 V440" stroke="${O}" stroke-width="7" stroke-linecap="round"/>` +
+      `<ellipse cx="440" cy="416" rx="210" ry="30" fill="#ff9ad5" ${S}/><ellipse cx="440" cy="416" rx="170" ry="23" fill="#ffd84d"/><ellipse cx="440" cy="416" rx="128" ry="16" fill="#7ec8ff"/><ellipse cx="440" cy="416" rx="84" ry="10" fill="#a8e063"/>` +
+      `<rect x="668" y="352" width="126" height="80" rx="8" fill="#ffae42" ${S}/><path d="M662 352 Q731 326 800 352 Z" fill="#ff7a5c" ${S}/><polygon points="${starPts(706, 392, 13, 6)}" fill="#fff" ${S2}/>${dmHeart(760, 392, 1, '#ff5f8f', S2)}`;
+    // the night: a blue veil, a moonbeam and a night-light glow (only while her eyes are closed)
+    s += `<g class="dm-dark" pointer-events="none"><rect width="800" height="450" fill="#141a52" opacity=".42"/><path d="M330 220 L470 220 L620 450 L200 450 Z" fill="#fff6c8" opacity=".14"/><circle cx="560" cy="330" r="80" fill="url(#${u}l)"/></g>`;
+    // guests: her girl by the bed, pets on the rug
+    s += dmGirlAt(g, 612, 448, 250, {}, '', 'dm-girl');
+    const pp = [[680, 452], [764, 452], [110, 452]];
+    s += ps.map((p, i) => dmPetAt(p, pp[i][0], pp[i][1], 78, 'dm-pet', i === 1)).join('');
+    s += `<g class="dm-toys">${dm.toy.owned.filter(id => DM_TOYS[id]).sort((a, b) => dmToyPos(a)[1] - dmToyPos(b)[1]).map(dmToyG).join('')}</g>`;
+    return dmSvg(s, defs, 'dm-toyroom' + (dmT.awake ? ' dm-awake' : ''));
+  }
+  function dmToyDraw() {
+    const svgEl = dmSetScene(dmToyScene());
+    dmStageEl.classList.add('dm-drag-ok');
+    let drag = null;
+    svgEl.addEventListener('pointerdown', e => {
+      const t = e.target.closest('.dm-toy'); if (!t) { const p = e.target.closest('[data-pet]'); if (p) { const pt = dmPt(e); dmSay(dmT.awake ? '😮 ' + dmPick(['הם זזים!', 'וואו!', 'גם אני רוצה לשחק!']) : '💗', pt[0], pt[1] - 60); SFX.pet && SFX.pet('cat'); } return; }
+      const id = t.dataset.toy, [x0, y0] = dmToyPos(id), p0 = dmPt(e);
+      drag = { id, t, x0, y0, p0, moved: false }; t.classList.add('dm-dragging'); svgEl.setPointerCapture(e.pointerId);
+    });
+    svgEl.addEventListener('pointermove', e => {
+      if (!drag) return; const p = dmPt(e), dx = p[0] - drag.p0[0], dy = p[1] - drag.p0[1];
+      if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true;
+      if (!drag.moved || dmT.awake) return;
+      const x = Math.max(20, Math.min(780, drag.x0 + dx)), y = Math.max(90, Math.min(450, drag.y0 + dy));
+      drag.t.style.transform = `translate(${x}px,${y}px)`; drag.pos = [Math.round(x), Math.round(y)];
+    });
+    const up = () => {
+      if (!drag) return; const d = drag; drag = null; d.t.classList.remove('dm-dragging');
+      if (d.moved && d.pos && !dmT.awake) { dm.toy.pos[d.id] = d.pos; dmSave(); SFX.pop(); const g = d.t.parentNode; [...g.children].sort((a, b) => dmToyPos(a.dataset.toy)[1] - dmToyPos(b.dataset.toy)[1]).forEach(n => g.append(n)); return; }
+      const [x, y] = dmToyPos(d.id);
+      if (dmT.awake) { dmSay('😄 ' + dmPick(dmToyLines), x, y - 100); tone(700 + Math.random() * 300, 0.12, 'triangle'); }
+      else { d.t.classList.remove('dm-wiggle'); void d.t.getBBox(); d.t.classList.add('dm-wiggle'); tone(900, 0.08, 'square', 0, 0.04); dmSay(dmPick(['...', '(הצעצוע לא זז. או שכן? 😉)', '(נדמה לי שהוא קרץ!)', '(שקט... רק צעצוע רגיל)']), x, y - 100, 2000); }
+    };
+    svgEl.addEventListener('pointerup', up); svgEl.addEventListener('pointercancel', up);
+    dmToyCtl();
+  }
+  function dmToyMoveAll(fn, ms = 1200) {
+    const svgEl = dmSvgEl(); if (!svgEl) return;
+    svgEl.querySelectorAll('.dm-toy').forEach(t => { const id = t.dataset.toy, p = fn(id); if (!p) return; t.style.transition = `transform ${ms}ms ease-in-out`; t.style.transform = `translate(${p[0]}px,${p[1]}px)`; t.dataset.x = p[0]; t.dataset.y = p[1]; });
+  }
+  function dmToyWander() {
+    if (!dmT.awake || dmT.adv) return;
+    dmToyMoveAll(id => { const [x, y] = dmToyPos(id), a = Math.random() * 6.28; return [Math.round(Math.max(40, Math.min(760, x + Math.cos(a) * 70))), Math.round(Math.max(380, Math.min(448, (y < 300 ? 430 : y) + Math.sin(a) * 18)))]; }, 1500);
+    if (Math.random() < 0.7) { const ids = dm.toy.owned, id = dmPick(ids), t = dmSvgEl().querySelector(`[data-toy="${id}"]`); if (t) dmSay(dmPick(dmToyLines), +t.dataset.x || 400, (+t.dataset.y || 400) - 105, 1600); }
+    dmLater(dmToyWander, 1700);
+  }
+  function dmToyClose() {
+    if (dmT.awake) return; dmT.awake = true; dmT.frozen = {};
+    const s = dmSvgEl(); s.classList.add('dm-awake'); s.querySelectorAll('.dm-frz').forEach(f => { f.style.transform = ''; });
+    [392, 523, 659, 784].forEach((f, i) => tone(f, 0.3, 'sine', i * 0.12, 0.06));
+    dmSay('😌 העיניים עצומות...', 612, 190, 1800);
+    dmLater(() => { dmSay('🧸 ' + dmPick(dmToyLines), 400, 300); }, 900);
+    if (dmT.adv) dmLater(dmToyAdvGo, 800); else dmLater(dmToyWander, 1200);
+    dmToyCtl();
+  }
+  function dmToyOpen() {
+    if (!dmT.awake) return; dmT.awake = false; dmT.done = null; dmStop();
+    const s = dmSvgEl();
+    // everybody freezes exactly where they are, in a funny pose
+    s.querySelectorAll('.dm-toy').forEach(t => {
+      const id = t.dataset.toy, x = +t.dataset.x || dmToyPos(id)[0], y = +t.dataset.y || dmToyPos(id)[1];
+      t.style.transition = 'none'; t.style.transform = `translate(${x}px,${y}px)`; dm.toy.pos[id] = [x, y];
+      dmT.frozen[id] = [Math.round((Math.random() - 0.5) * 40), Math.random() < 0.3 ? -14 : 0];
+      const f = t.querySelector('.dm-frz'); f.style.transform = `rotate(${dmT.frozen[id][0]}deg) translateY(${dmT.frozen[id][1]}px)`;
+    });
+    dmSave(); s.classList.remove('dm-awake'); tone(1200, 0.06, 'square', 0, 0.05); tone(300, 0.2, 'triangle', 0.06, 0.06);
+    dmSay(dmT.adv ? '🤭 הם קפאו באמצע ההרפתקה!' : dmPick(['🤭 קפאו!', '😳 כמעט תפסתי אותם!', '🙊 אף אחד לא זז...']), 400, 250, 2200);
+    dmToyCtl();
+  }
+  function dmToyAdvGo() {
+    const a = DM_ADV[dmT.adv]; if (!a) return; dmProp(a[3][dmT.step] || '✨', a[1][0], a[1][1] - 150);
+    const [x, y] = a[1], ids = dm.toy.owned;
+    dmToyMoveAll(id => { const i = ids.indexOf(id); return [Math.round(x + (i - ids.length / 2) * 34), Math.round(y + (i % 2) * 6)]; }, 1600);
+    dmToyCtl();
+  }
+  function dmToyChoose(opt) {
+    const a = DM_ADV[dmT.adv], st = a[2][dmT.step];
+    dmT.said = st[1][opt][1]; SFX.pop();
+    dmSay('✨ ' + st[1][opt][0].replace(/^\S+\s/, ''), a[1][0], a[1][1] - 120, 2000);
+    if (dmT.step < 2) { dmT.step++; dmLater(() => dmProp(a[3][dmT.step], a[1][0], a[1][1] - 150), 700); dmToyCtl(); return; }
+    // the end: they found something!
+    const f = DM_FOUND[(dm.toy.advs * 5 + Object.keys(DM_ADV).indexOf(dmT.adv) * 3 + Math.floor(Math.random() * 3)) % DM_FOUND.length];
+    dm.toy.found.push(f[0]); dm.toy.advs++; dmSave(); dmCoins(10, 'הרפתקה בחדר הצעצועים');
+    dmT.done = f; dmT.doneTxt = dmT.said; dmT.adv = null; dmT.step = 0; dmT.said = ''; SFX.yay(); dmBurst(a[1][0], a[1][1] - 60, [f[0], '✨', f[0], '⭐', f[0], '✨']);
+    dmToyCtl();
+    dmLater(() => { dmT.done = null; dmToyMoveAll(id => dmToyPos(id)[1] < 300 ? [dmToyPos(id)[0], 430] : dmToyPos(id), 1500); dmToyWander(); dmToyCtl(); }, 3600);
+  }
+  function dmToyCtl() {
+    const own = dm.toy.owned, shop = Object.keys(DM_TOYS).filter(id => !own.includes(id));
+    const eyes = dmT.awake ? dmBtn('👀 לפתוח עיניים!', dmToyOpen, 'btn main dm-big') : dmBtn('😌 לעצום עיניים', dmToyClose, 'btn main dm-big');
+    let card = null;
+    if (dmT.done) card = el('div', { class: 'dm-card dm-win' }, el('b', {}, '🎉 מצאו!'), el('p', {}, dmT.doneTxt), el('p', { class: 'dm-found-big' }, `${dmT.done[0]} ${dmT.done[1]}`));
+    else if (dmT.adv) {
+      const a = DM_ADV[dmT.adv];
+      if (!dmT.awake) card = el('div', { class: 'dm-card' }, el('b', {}, `${a[0]}`), el('p', {}, 'הצעצועים קפאו באמצע ההרפתקה! עוצמים עיניים כדי שימשיכו 😌'));
+      else { const st = a[2][dmT.step]; card = el('div', { class: 'dm-card' }, el('b', {}, `${a[0]} • שלב ${dmT.step + 1} מתוך 3`), dmT.said ? el('p', { class: 'muted' }, dmT.said) : null, el('p', {}, st[0]), el('div', { class: 'chips' }, ...st[1].map((o, i) => dmBtn(o[0], () => dmToyChoose(i), 'btn')))); }
+    } else if (dmT.awake) card = el('div', { class: 'dm-card' }, el('b', {}, '🗺️ לאן יוצאים להרפתקה?'), el('div', { class: 'chips' }, ...Object.entries(DM_ADV).map(([id, a]) => dmBtn(a[0], () => { dmT.adv = id; dmT.step = 0; dmT.said = ''; dmStop(); SFX.pop(); dmToyAdvGo(); }))));
+    else card = el('p', { class: 'muted dm-hint' }, 'כשעוצמים עיניים, הצעצועים מתעוררים! 🤫 כשהעיניים פתוחות אפשר לגרור צעצועים ולסדר את החדר.');
+    const found = dm.toy.found.length ? el('div', { class: 'dm-row' }, el('span', { class: 'dm-lbl' }, `🎒 מציאות (${dm.toy.found.length}):`), el('span', { class: 'dm-found' }, dm.toy.found.slice(-24).join(' '))) : null;
+    dmCtl(el('div', { class: 'dm-row' }, eyes, dmT.awake ? null : dmBtn('🧹 לסדר את החדר', () => { dm.toy.pos = {}; dmT.frozen = {}; dmSave(); SFX.pop(); dmToyDraw(); })), card, found,
+      shop.length && !dmT.awake ? el('details', { class: 'dm-shop' }, el('summary', {}, '🛍️ חנות צעצועים'), el('div', { class: 'dm-shop-g' }, ...shop.map(id => el('button', { type: 'button', class: 'dm-item', onclick: () => {
+        const [nm, price] = DM_TOYS[id];
+        if (typeof spendCoins === 'function' && !spendCoins(price, 'צעצוע: ' + nm)) { toast(stickerHTML('gift'), `צריך ${price} מטבעות בשביל ${nm} 🪙`); return; }
+        own.push(id); dmSave(); SFX.yay(); dmToyDraw(); const [x, y] = dmToyPos(id); dmBurst(x, y - 40); dmSay(`היי! אני ${nm}!`, x, y - 100);
+      } }, el('span', { html: `<svg viewBox="-45 -105 90 110" xmlns="http://www.w3.org/2000/svg" class="dm-awake">${DM_TOYS[id][2]()}</svg>` }), el('small', {}, DM_TOYS[id][0]), el('b', {}, `${DM_TOYS[id][1]} 🪙`))))) : null);
+  }
+  DM.toy = { icon: '🧸', name: 'חדר הצעצועים', sub: 'עוצמים עיניים... והצעצועים מתעוררים! פותחים עיניים — וכולם קופאים 🤭', enter: () => { dmT = { awake: false, adv: null, step: 0, said: '', frozen: {} }; }, draw: dmToyDraw };
+  // ---------- 🏮 the tower of a thousand lanterns ----------
+  const dmMix = (a, b, t) => { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); const A = p(a), B = p(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+  const dmPath = pts => { let d = `M${dmF(pts[0][0])} ${dmF(pts[0][1])}`; for (let i = 1; i < pts.length - 1; i++) d += ` Q${dmF(pts[i][0])} ${dmF(pts[i][1])} ${dmF((pts[i][0] + pts[i + 1][0]) / 2)} ${dmF((pts[i][1] + pts[i + 1][1]) / 2)}`; const l = pts[pts.length - 1]; return d + ` L${dmF(l[0])} ${dmF(l[1])}`; };
+  const DM_HAIRC = ['#f7c948', '#e8a33d', '#c46a2b', '#6b4226', '#2e2320', '#f4ece0', '#ff9ad5', '#a98bff', '#7ec8ff'];
+  const DM_FLW = { daisy: ['🌼', 'חיננית'], rose: ['🌹', 'ורד'], forget: ['💠', 'זכריני'], sun: ['🌻', 'חמנייה'], lav: ['💜', 'לבנדר'] };
+  const dmFlw = (k, x, y, s = 1) => k === 'rose' ? `<circle cx="${x}" cy="${y}" r="${7 * s}" fill="#ff5f8f" ${S2}/><path d="M${x - 4 * s} ${y} a4 4 0 1 1 ${8 * s} 0 a3 3 0 1 1 -${6 * s} 0" fill="none" stroke="#c2415f" stroke-width="1.4"/>`
+    : k === 'forget' ? dmFlower(x, y, 6 * s, '#7ec8ff', '#fff27a') : k === 'sun' ? dmFlower(x, y, 8 * s, '#ffd84d', '#8b5a2b', 8)
+    : k === 'lav' ? [0, 1, 2, 3].map(i => `<ellipse cx="${x}" cy="${y - 7 * s + i * 4.5 * s}" rx="${3.4 * s}" ry="${2.8 * s}" fill="#a98bff" stroke="${O}" stroke-width="1"/>`).join('') : dmFlower(x, y, 7 * s, '#fff', '#ffd84d', 7);
+  const dmHairPts = len => {
+    const pts = [], N = 36, drop = len === 1 ? 118 : 220;
+    for (let i = 0; i <= N; i++) { const t = i / N; pts.push([150 + 30 * Math.sin(t * Math.PI * 2.3) * Math.min(1, t * 3), 212 + t * drop]); }
+    if (len === 3) { const e = pts[N]; for (let i = 1; i <= 20; i++) { const t = i / 20; pts.push([e[0] + t * 250, 434 - 6 * Math.sin(t * 8)]); } }
+    return pts;
+  };
+  const DM_STAMPS = { flower: '🌸', sun: '☀️', heart: '💗', star: '⭐', butterfly: '🦋', swirl: '🌀', leaf: '🍃' };
+  const dmStamp = (k, x, y, c) => {
+    const s = `stroke="${O}" stroke-width="1.3" stroke-linejoin="round"`;
+    if (k === 'flower') return dmFlower(x, y, 10, c, '#fff27a');
+    if (k === 'sun') return rays(x, y, 9, 15, 10, 2.5, c) + `<circle cx="${x}" cy="${y}" r="8" fill="${c}" ${s}/>`;
+    if (k === 'heart') return dmHeart(x, y, 1.3, c, s);
+    if (k === 'star') return `<polygon points="${starPts(x, y, 12, 5.5)}" fill="${c}" ${s}/>`;
+    if (k === 'butterfly') return `<ellipse cx="${x - 7}" cy="${y - 4}" rx="7" ry="8" fill="${c}" ${s}/><ellipse cx="${x + 7}" cy="${y - 4}" rx="7" ry="8" fill="${c}" ${s}/><ellipse cx="${x - 5}" cy="${y + 6}" rx="5" ry="5" fill="${c}" ${s}/><ellipse cx="${x + 5}" cy="${y + 6}" rx="5" ry="5" fill="${c}" ${s}/><path d="M${x} ${y - 8} V${y + 9}" stroke="${O}" stroke-width="2.4" stroke-linecap="round"/>`;
+    if (k === 'leaf') return `<path d="M${x - 10} ${y + 8} Q${x - 10} ${y - 10} ${x + 10} ${y - 10} Q${x + 10} ${y + 8} ${x - 10} ${y + 8} Z" fill="${c}" ${s}/><path d="M${x - 8} ${y + 6} L${x + 7} ${y - 7}" stroke="${O}" stroke-width="1"/>`;
+    return `<path d="M${x} ${y} a2 2 0 0 1 4 0 a5 5 0 0 1 -10 0 a8 8 0 0 1 16 0 a11 11 0 0 1 -22 0" fill="none" stroke="${c}" stroke-width="3.2" stroke-linecap="round"/>`;
+  };
+  const DM_LSH = { round: 'עגול', tall: 'גבוה', heart: 'לב', star: 'כוכב' };
+  const DM_LPAT = { sun: '☀️', heart: '💗', star: '⭐', flower: '🌸', moon: '🌙', none: '⬜' };
+  // a lantern centered at (0,0), about 40 tall
+  const dmLantern = (l, glowId) => {
+    const c = l.color, dk = dmMix(c, '#3a2b3c', 0.35), lt = dmMix(c, '#fff8d6', 0.55), s = `stroke="${dk}" stroke-width="1.6" stroke-linejoin="round"`;
+    const body = l.shape === 'tall' ? `<rect x="-11" y="-18" width="22" height="36" rx="7" fill="${c}" ${s}/><rect x="-6" y="-14" width="12" height="28" rx="5" fill="${lt}" opacity=".75"/>`
+      : l.shape === 'heart' ? `<path d="M0 18 C-30 0 -20 -26 0 -11 C20 -26 30 0 0 18 Z" fill="${c}" ${s}/><path d="M0 9 C-13 1 -10 -12 0 -5 C10 -12 13 1 0 9 Z" fill="${lt}" opacity=".75"/>`
+      : l.shape === 'star' ? `<polygon points="${starPts(0, 1, 19, 9)}" fill="${c}" ${s}/><circle cx="0" cy="1" r="7" fill="${lt}" opacity=".8"/>`
+      : `<ellipse cx="0" cy="0" rx="15" ry="17" fill="${c}" ${s}/><ellipse cx="0" cy="0" rx="9" ry="12" fill="${lt}" opacity=".75"/><path d="M-15 0 Q0 5 15 0 M-13 -8 Q0 -4 13 -8 M-13 8 Q0 12 13 8" fill="none" stroke="${dk}" stroke-width=".9" opacity=".6"/>`;
+    const pat = l.pat === 'none' ? '' : l.pat === 'heart' ? dmHeart(0, 0, 0.55, dk) : l.pat === 'star' ? `<polygon points="${starPts(0, 1, 6, 2.6)}" fill="${dk}"/>` : l.pat === 'flower' ? dmFlower(0, 1, 5, dk, lt) : l.pat === 'moon' ? `<path d="M2 -6 A6 6 0 1 0 5 5 A4.5 4.5 0 1 1 2 -6 Z" fill="${dk}"/>` : `<circle cx="0" cy="1" r="3.5" fill="${dk}"/>` + rays(0, 1, 5, 7.5, 8, 1.4, dk);
+    const ty = l.shape === 'tall' ? 18 : 17;
+    return (glowId ? `<circle cx="0" cy="0" r="34" fill="url(#${glowId})"/>` : '') + `<rect x="-6" y="-${ty + 4}" width="12" height="5" rx="1.5" fill="${dk}"/>${body}${pat}<rect x="-5" y="${ty - 1}" width="10" height="4" rx="1.5" fill="${dk}"/><circle cx="0" cy="${ty + 5}" r="2" fill="#ffd84d" class="dm-tw"/>`;
+  };
+  let dmTw = { tab: 'hair', flw: 'daisy', stamp: 'flower', paint: '#ff5f8f', rel: 0 };
+  const dmMeBday = () => dmTry(() => { const me = birthdays.find(b => b.me && b.date); if (!me) return null; const n = nextBday(me); return n ? { days: n.days, age: n.age, name: me.name || '' } : null; }, null);
+  function dmTowerScene() {
+    const T = dm.tower, u = 'dmw' + (dmUid++), g = dmGirl(), ps = dmPets(), wall = T.wall, hc = T.hair, hd = dmMix(hc, '#3a2b3c', 0.35), hl = dmMix(hc, '#ffffff', 0.45);
+    const defs = `<linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d1238"/><stop offset=".45" stop-color="#2a2466"/><stop offset=".8" stop-color="#6a3f8f"/><stop offset="1" stop-color="#d77aa0"/></linearGradient>` +
+      `<linearGradient id="${u}l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a4d9a"/><stop offset="1" stop-color="#1c2260"/></linearGradient>${dmGlow(u + 'm', '#fff3c4')}${dmGlow(u + 'g', '#ffd27a')}${dmGlow(u + 'w', '#ffcf7a')}` +
+      `<pattern id="${u}b" width="36" height="22" patternUnits="userSpaceOnUse"><path d="M0 0.5 H36 M0 11.5 H36 M18 0 V11 M0 11 V22 M36 11 V22" stroke="${dmMix(wall, '#3a2b3c', 0.28)}" stroke-width="1.6" fill="none"/></pattern><clipPath id="${u}c"><rect x="74" y="122" width="152" height="318"/></clipPath>`;
+    let s = `<rect width="800" height="450" fill="url(#${u}s)"/>${dmStars(80, 11, 300)}${dmMoon(660, 74, 30, u + 'm')}`;
+    // far hills, the lake, trees
+    s += `<path d="M230 330 Q330 250 430 300 Q520 240 620 290 Q720 250 800 280 V340 H230 Z" fill="#3b3470"/><path d="M230 340 Q360 290 480 322 Q600 286 800 316 V345 H230 Z" fill="#2c2a5c"/>` +
+      `<rect x="230" y="338" width="570" height="80" fill="url(#${u}l)"/>` + Array.from({ length: 9 }, (_, i) => `<path class="dm-shim" style="animation-delay:-${i * 0.4}s" d="M${640 - 30 + (i % 3) * 12} ${346 + i * 7} h${50 - Math.abs(4 - i) * 8}" stroke="#fff3c4" stroke-width="2" stroke-linecap="round" opacity=".5"/>`).join('') +
+      [[260, 350], [290, 345], [770, 340], [742, 352]].map(([x, y], i) => `<path d="M${x} ${y} l-14 0 l14 -34 l14 34 Z M${x} ${y - 18} l-11 0 l11 -26 l11 26 Z" fill="${i % 2 ? '#1f3d38' : '#24463f'}"/>`).join('');
+    // the rowboat with her pets, watching
+    s += `<g class="dm-bob">${ps.map((p, i) => dmPetAt(p, 540 + i * 36, 380, 56, '', i % 2 === 1)).join('')}<path d="M500 376 H640 Q630 398 604 400 H534 Q510 398 500 376 Z" fill="#b5651d" ${S}/><path d="M506 384 H634" stroke="#8b4513" stroke-width="2"/></g>`;
+    // the meadow
+    s += `<path d="M0 398 Q200 380 400 398 Q600 414 800 396 V450 H0 Z" fill="#2f5d4a"/><path d="M0 420 Q220 404 420 420 Q620 436 800 418 V450 H0 Z" fill="#3a7058"/>` +
+      Array.from({ length: 22 }, (_, i) => { const x = 20 + dmR(i + 40) * 760, y = 412 + dmR(i + 80) * 32; return `<circle cx="${dmF(x)}" cy="${dmF(y)}" r="2.6" fill="${['#ff9ad5', '#fff', '#ffd84d', '#a98bff'][i % 4]}"/>`; }).join('') +
+      Array.from({ length: 10 }, (_, i) => `<circle class="dm-ffly" style="animation-delay:-${dmF(dmR(i + 5) * 4)}s" cx="${dmF(260 + dmR(i + 9) * 520)}" cy="${dmF(330 + dmR(i + 19) * 90)}" r="2.2" fill="#fff27a"/>`).join('');
+    // the tower
+    s += `<path d="M62 440 L74 122 H226 L238 440 Z" fill="${wall}" ${S}/><path d="M62 440 L74 122 H226 L238 440 Z" fill="url(#${u}b)"/>` +
+      `<g clip-path="url(#${u}c)">${T.paints.map(p => dmStamp(p.k, p.x, p.y, p.c)).join('')}</g>` +
+      `<path d="M226 150 C250 190 206 230 232 270 C256 310 212 350 236 400" fill="none" stroke="#3f8f3a" stroke-width="3"/>` + [[236, 180], [220, 236], [240, 300], [226, 360]].map(([x, y], i) => `<ellipse cx="${x}" cy="${y}" rx="8" ry="5" transform="rotate(${i % 2 ? 30 : -30} ${x} ${y})" fill="#5cb85c" ${S2}/>`).join('') +
+      `<path d="M128 440 V392 A22 22 0 0 1 172 392 V440 Z" fill="#8b5a2b" ${S}/><circle cx="162" cy="418" r="2.6" fill="#ffd84d"/>` +
+      `<path d="M52 128 L150 14 L248 128 Z" fill="#8f6fd8" ${S}/>` + [0, 1, 2, 3].map(r => { const y = 44 + r * 22, w = 22 + r * 22; return Array.from({ length: r + 2 }, (_, i) => `<path d="M${dmF(150 - w + i * (2 * w / (r + 1)) - 11)} ${y} q11 12 22 0" fill="none" stroke="#6b4fb8" stroke-width="2"/>`).join(''); }).join('') +
+      `<path d="M150 14 V-2" stroke="${O}" stroke-width="2"/><path class="dm-flag" d="M150 -2 L178 5 L150 12 Z" fill="#ff9ad5" ${S2}/>` +
+      `<circle cx="150" cy="172" r="60" fill="url(#${u}w)"/><path d="M110 214 V160 A40 40 0 0 1 190 160 V214 Z" fill="#ffcf7a" ${S}/>` +
+      (g ? `<image href="${girlImgURL(g, { view: 'head', bg: false })}" x="112" y="128" width="76" height="86"/>` : '') +
+      `<path d="M110 160 A40 40 0 0 1 190 160" fill="none" stroke="${O}" stroke-width="3"/><path d="M100 212 H200 V222 H100 Z" fill="${dmMix(wall, '#3a2b3c', 0.15)}" ${S}/>` +
+      dmFlw('rose', 112, 208, 0.8) + dmFlw('daisy', 124, 206, 0.7) + dmFlw('forget', 178, 207, 0.8) + dmFlw('lav', 190, 207, 0.8);
+    s += `<rect class="dm-hit" data-hit="tower" x="74" y="228" width="152" height="160" fill="transparent"/>`;
+    // the super-long hair, pouring out of the window
+    const pts = dmHairPts(T.len), d = dmPath(pts), n = pts.length;
+    s += `<g class="dm-hair"><path d="${d}" fill="none" stroke="${O}" stroke-width="31" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${hc}" stroke-width="26" stroke-linecap="round"/>`;
+    if (T.style === 'braid') s += pts.filter((_, i) => i % 2 === 0 && i < n - 1).map((p, j) => { const q = pts[Math.min(n - 1, j * 2 + 1)], a = Math.atan2(q[1] - p[1], q[0] - p[0]) * 180 / Math.PI; return `<ellipse cx="${dmF(p[0])}" cy="${dmF(p[1])}" rx="11" ry="7.5" transform="rotate(${dmF(a + (j % 2 ? 40 : -40))} ${dmF(p[0])} ${dmF(p[1])})" fill="${hc}" stroke="${hd}" stroke-width="2"/><path d="M${dmF(p[0] - 4)} ${dmF(p[1] - 2)} q3 -2 7 -1" stroke="${hl}" stroke-width="2" fill="none" transform="rotate(${dmF(a + (j % 2 ? 40 : -40))} ${dmF(p[0])} ${dmF(p[1])})"/>`; }).join('');
+    else s += `<path d="${d}" fill="none" stroke="${hl}" stroke-width="5" stroke-dasharray="26 18" opacity=".6"/><path d="${d}" fill="none" stroke="${hd}" stroke-width="1.6" transform="translate(6 0)" opacity=".55"/><path d="${d}" fill="none" stroke="${hd}" stroke-width="1.6" transform="translate(-6 0)" opacity=".55"/>`;
+    const e = pts[n - 1];
+    s += T.style === 'braid' ? `<path d="M${dmF(e[0])} ${dmF(e[1])} q${T.len === 3 ? '14 -10 26 -2 q-6 10 -26 2' : '-12 16 -2 28 q10 -8 2 -28'}" fill="${hc}" stroke="${hd}" stroke-width="1.8"/>${dmHeart(e[0], e[1], 0.9, '#ff5f8f', S2)}` : '';
+    s += T.flowers.map(f => { const p = pts[Math.round(f.t * (n - 1))] || pts[0]; return dmFlw(f.k, dmF(p[0] + (f.o || 0)), dmF(p[1]), 1); }).join('');
+    s += `<path class="dm-hit" data-hit="hair" d="${d}" fill="none" stroke="transparent" stroke-width="44" stroke-linecap="round" pointer-events="stroke"/></g>`;
+    // her lantern design flying already (a few, always), + birthday banner
+    const bd = dmMeBday();
+    if (bd && bd.days === 0) s += `<text x="520" y="150" text-anchor="middle" font-size="34" fill="#ffd84d" stroke="#3a2b3c" stroke-width="1" class="dm-glowtxt">🎂 יום הולדת שמח${bd.name ? ', ' + dmEsc(bd.name) : ''}!</text>`;
+    s += `<g class="dm-lans"></g><g class="dm-fixlans">${[[330, 120], [470, 70], [560, 200], [740, 150]].slice(0, Math.min(4, Math.ceil(T.released / 20))).map(([x, y], i) => `<g transform="translate(${x} ${y}) scale(.5)"><g class="dm-sway" style="animation-delay:-${i}s">${dmLantern(T.lan, u + 'g')}</g></g>`).join('')}</g>`;
+    return dmSvg(s, defs, 'dm-tower');
+  }
+  function dmTowerRelease(bday) {
+    const svgEl = dmSvgEl(); if (!svgEl) return;
+    const T = dm.tower, bd = dmMeBday(), n = bday && bd && bd.age ? Math.min(40, Math.max(12, bd.age * 2)) : 32, gid = svgEl.querySelector('radialGradient[id$="g"]').id;
+    const warm = { shape: 'round', color: '#ffae42', pat: 'sun' };
+    const box = svgEl.querySelector('.dm-lans');
+    box.innerHTML = Array.from({ length: n }, (_, i) => {
+      const x = 250 + Math.random() * 540, y = 380 + Math.random() * 60, sc = 0.7 + Math.random() * 0.6, dur = 7 + Math.random() * 6, del = i * 0.28 + Math.random() * 0.5;
+      return `<g transform="translate(${dmF(x)} ${dmF(y)}) scale(${dmF(sc)})"><g class="dm-rise" style="--sx:${dmF((Math.random() - 0.5) * 160)}px;animation-duration:${dmF(dur)}s;animation-delay:${dmF(del)}s"><g class="dm-sway" style="animation-delay:-${dmF(Math.random() * 3)}s">${dmLantern(i % 4 === 3 ? warm : T.lan, gid)}</g></g></g>`;
+    }).join('');
+    T.released += n; dmSave(); dmCoins(8, 'שחררת פנסים 🏮');
+    [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, 0.5, 'sine', i * 0.28, 0.05));
+    dmLater(() => dmSay(dmPick(['וואו... כמה יפה! ✨', 'הפנסים שלי עפים!', 'כמו אלף כוכבים חדשים!']), 150, 120, 3000), 1600);
+    dmLater(() => { const b = svgEl.querySelector('.dm-lans'); if (b) b.innerHTML = ''; dmTowerCtl(); }, 18000);
+    dmTowerCtl();
+  }
+  function dmTowerDraw(keepCtl) {
+    const svgEl = dmSetScene(dmTowerScene());
+    svgEl.addEventListener('click', e => {
+      const h = e.target.closest('[data-hit]'); if (!h) return; const [x, y] = dmPt(e), T = dm.tower;
+      if (h.dataset.hit === 'hair') {
+        if (dmTw.tab !== 'hair') { dmSay('💇‍♀️ בוחרים "שיער" כדי לשזור פרחים', x, y - 20); return; }
+        const pts = dmHairPts(T.len); let bi = 0, bd = 1e9; pts.forEach((p, i) => { const q = (p[0] - x) ** 2 + (p[1] - y) ** 2; if (q < bd) { bd = q; bi = i; } });
+        T.flowers.push({ t: bi / (pts.length - 1), k: dmTw.flw, o: Math.round(Math.max(-8, Math.min(8, x - pts[bi][0]))) }); T.flowers = T.flowers.slice(-40); dmSave(); SFX.pop(); dmTowerDraw();
+      } else if (h.dataset.hit === 'tower' || dmTw.tab === 'paint') {
+        if (dmTw.tab !== 'paint') { dmTw.tab = 'paint'; dmTowerCtl(); }
+        T.paints.push({ k: dmTw.stamp, x: Math.round(x), y: Math.round(y), c: dmTw.paint }); T.paints = T.paints.slice(-60); dmSave(); tone(600 + Math.random() * 400, 0.1, 'triangle'); dmTowerDraw(true);
+      }
+    });
+    if (!keepCtl) dmTowerCtl();
+  }
+  function dmTowerCtl() {
+    const T = dm.tower, tab = dmTw.tab, bd = dmMeBday();
+    const tabs = dmTabs(tab, [['hair', '💇‍♀️ שיער ארוך ארוך'], ['paint', '🎨 לצייר על המגדל'], ['lan', '🏮 פנסים']], id => { dmTw.tab = id; dmTowerCtl(); });
+    const redraw = () => { dmSave(); SFX.pop(); dmTowerDraw(true); dmTowerCtl(); };
+    let body;
+    if (tab === 'hair') body = [
+      dmRow('אורך:', ...[[1, 'ארוך'], [2, 'עד הרצפה'], [3, 'ארוך בטירוף!']].map(([v, n]) => dmChip(n, T.len === v, () => { T.len = v; redraw(); }))),
+      dmRow('תסרוקת:', dmChip('〰️ פזור', T.style !== 'braid', () => { T.style = 'loose'; redraw(); }), dmChip('🪢 צמה', T.style === 'braid', () => { T.style = 'braid'; redraw(); })),
+      dmRow('צבע:', ...DM_HAIRC.map(c => dmSw(c, T.hair === c, () => { T.hair = c; redraw(); }, 'צבע שיער'))),
+      dmRow('פרח:', ...Object.entries(DM_FLW).map(([k, [e, n]]) => dmChip(`${e} ${n}`, dmTw.flw === k, () => { dmTw.flw = k; dmTowerCtl(); }))),
+      el('p', { class: 'muted dm-hint' }, '👆 לוחצים על השיער כדי לשזור בו פרח'),
+      dmRow('', dmBtn('🌸 לפזר פרחים', () => { const ks = Object.keys(DM_FLW); for (let i = 0; i < 8; i++) T.flowers.push({ t: 0.08 + Math.random() * 0.9, k: dmPick(ks), o: Math.round((Math.random() - 0.5) * 12) }); T.flowers = T.flowers.slice(-40); redraw(); dmCoins(2, 'פרחים בשיער'); }),
+        dmBtn('✨ להבריש', () => { const pts = dmHairPts(T.len); [0.2, 0.45, 0.7, 0.95].forEach((t, i) => dmLater(() => { const p = pts[Math.round(t * (pts.length - 1))]; dmBurst(p[0], p[1], ['✨', '💫', '✨', '⭐']); tone(1200 + i * 200, 0.15, 'sine', 0, 0.05); }, i * 220)); dmLater(() => dmSay('השיער שלי מבריק! 💖', 150, 120), 900); }),
+        T.flowers.length ? dmBtn('🧽 להוריד פרחים', () => { T.flowers = []; redraw(); }) : null)];
+    else if (tab === 'paint') body = [
+      dmRow('קיר:', ...['#eadcc6', '#f7cfdc', '#cfe3f7', '#e2d4f7', '#d8f0d0', '#fff1b8', '#f4f0ea'].map(c => dmSw(c, T.wall === c, () => { T.wall = c; redraw(); }, 'צבע קיר'))),
+      dmRow('ציור:', ...Object.entries(DM_STAMPS).map(([k, e]) => dmChip(e, dmTw.stamp === k, () => { dmTw.stamp = k; dmTowerCtl(); }))),
+      dmRow('צבע:', ...DM_COLORS.slice(0, 12).map(c => dmSw(c, dmTw.paint === c, () => { dmTw.paint = c; dmTowerCtl(); }))),
+      el('p', { class: 'muted dm-hint' }, '👆 לוחצים על קירות המגדל כדי לצייר'),
+      T.paints.length ? dmRow('', dmBtn('🧽 לנקות את הציורים', () => { T.paints = []; redraw(); })) : null];
+    else {
+      const prev = el('span', { class: 'dm-lanprev', html: `<svg viewBox="-40 -40 80 80" xmlns="http://www.w3.org/2000/svg"><defs>${dmGlow('dmlpg', '#ffd27a')}</defs><rect x="-40" y="-40" width="80" height="80" rx="14" fill="#1c2260"/>${dmLantern(T.lan, 'dmlpg')}</svg>` });
+      body = [el('div', { class: 'dm-lanrow' }, prev, el('div', { class: 'dm-ctl' },
+        dmRow('צורה:', ...Object.entries(DM_LSH).map(([k, n]) => dmChip(n, T.lan.shape === k, () => { T.lan = Object.assign({}, T.lan, { shape: k }); redraw(); }))),
+        dmRow('צבע:', ...['#ffae42', '#ffd84d', '#ff7a5c', '#ff5f8f', '#ff9ad5', '#c77dff', '#7ec8ff', '#a8e063', '#fff4e0'].map(c => dmSw(c, T.lan.color === c, () => { T.lan = Object.assign({}, T.lan, { color: c }); redraw(); }))),
+        dmRow('ציור:', ...Object.entries(DM_LPAT).map(([k, e]) => dmChip(e, T.lan.pat === k, () => { T.lan = Object.assign({}, T.lan, { pat: k }); redraw(); }))))),
+      dmRow('', dmBtn('🏮 לשחרר פנסים!', () => dmTowerRelease(false), 'btn main dm-big'), el('span', { class: 'muted' }, `עד עכשיו שחררת ${T.released} פנסים`)),
+      el('p', { class: 'muted dm-hint' }, bd ? (bd.days === 0 ? '🎂 היום יום ההולדת שלך! הפנסים עפים לכבודך!' : `🎂 עוד ${bd.days} ימים ליום ההולדת שלך — ואז הפנסים יעופו לבד, לכבודך!`) : '🎂 כשמוסיפים את יום ההולדת שלך בלוח, הפנסים עפים לבד ביום ההולדת!')];
+    }
+    dmCtl(tabs, body);
+  }
+  DM.tower = {
+    icon: '🏮', name: 'מגדל הפנסים', sub: 'שיער ארוך-ארוך, מגדל לצייר עליו, ואלף פנסים שעפים לשמיים בלילה 🌙',
+    enter: () => { dmTw.tab = dmTw.tab || 'hair'; },
+    draw: () => {
+      dmTowerDraw();
+      const bd = dmMeBday(), t = dmToday();
+      if (bd && bd.days === 0 && dm.tower.bday !== t) { dm.tower.bday = t; dmSave(); dmTw.tab = 'lan'; dmTowerCtl(); dmLater(() => { dmTowerRelease(true); if (SFX.birthday) SFX.birthday(); }, 900); }
+    },
+  };
+  // ---------- 🪄 the fairy godmother (an original fairy: "דודה נצנצה") ----------
+  const DM_GOWNS = [['rose', 'שמלת ורד', '#ff8fb8', 'plain'], ['sky', 'שמלת שמיים', '#9fd3ff', 'stars'], ['moon', 'שמלת אור ירח', '#d8c8ff', 'stars'], ['peach', 'שמלת אפרסק', '#ffc39a', 'flowers'], ['mint', 'שמלת מנטה', '#a8ecd0', 'hearts'], ['gold', 'שמלת זהב', '#ffd45c', 'dots'], ['berry', 'שמלת פטל', '#d0508a', 'plain']];
+  const DM_COACH = [['🎃 כרכרת דלעת', '#ffae42', '#ffd84d'], ['💎 כרכרת בדולח', '#bfe8ff', '#ffffff'], ['🌹 כרכרת ורדים', '#ff9ad5', '#ffd84d']];
+  const DM_MANE = ['#ff9ad5', '#c77dff', '#ffd84d', '#7ec8ff'];
+  const DM_WORDS = ['נצנץ-נצנץ-פוף! ✨', 'קוקי-קוקי-קסם! 🪄', 'אבקת כוכבים, תעשי את שלך! ⭐', 'אחת, שתיים, זיקוקי-זום! 💫', 'שימי-שמימי-ורוד! 💖'];
+  let dmFg = { pumpkin: 0, mouse: 0, lizard: 0, rags: 0, crown: {}, phase: 'garden', got: 0, left: 0 };
+  const dmGown = id => DM_GOWNS.find(x => x[0] === id) || DM_GOWNS[0];
+  const dmFairyGirl = () => {
+    const g = dmGirl(); if (!g) return null;
+    const base = { jacket: 'none', hat: 'none', glasses: 'none', mermaid: false, legwear: 'bare' };
+    if (!dmFg.rags) return Object.assign({}, g, base, { dress: 'pinafore', dressColor: '#a3907a', dressPat: 'checks', topColor: '#d9ccb6', topPat: 'plain', shoes: 'flats', shoeColor: '#8b6b4a', acc: {} });
+    const [, , c, p] = dmGown(dm.fairy.gown);
+    return Object.assign({}, g, base, { dress: 'ballgown', dressColor: c, dressPat: p, shoes: 'flats', shoeColor: '#e3f6ff', acc: Object.assign({}, g.acc || {}, { tiara: true }), accColor: '#ffd84d' });
+  };
+  // the fairy: plump, lilac hooded cloak, silver curls, tiny wings, a star wand
+  const dmFairyArt = () => `<g class="dm-bob"><ellipse cx="-30" cy="-70" rx="26" ry="16" fill="#e8f6ff" opacity=".8" ${S2} transform="rotate(-30 -30 -70)"/><ellipse cx="30" cy="-70" rx="26" ry="16" fill="#e8f6ff" opacity=".8" ${S2} transform="rotate(30 30 -70)"/>` +
+    `<path d="M-34 0 Q-40 -50 -20 -72 H20 Q40 -50 34 0 Q0 10 -34 0 Z" fill="#b89cff" ${S}/><path d="M-10 -66 Q0 -30 -6 0 M10 -66 Q2 -30 8 0" stroke="#9b7fe6" stroke-width="2" fill="none"/><path d="M-22 -40 Q0 -34 22 -40" stroke="#ff9ad5" stroke-width="5" fill="none"/>` +
+    `<path d="M-26 -84 Q-30 -118 0 -120 Q30 -118 26 -84 Q26 -66 0 -64 Q-26 -66 -26 -84 Z" fill="#9b7fe6" ${S}/><circle cx="0" cy="-88" r="18" fill="#ffe1c8" ${S}/>` +
+    `<circle cx="-14" cy="-100" r="6" fill="#f4f0ff" ${S2}/><circle cx="-4" cy="-104" r="6" fill="#f4f0ff" ${S2}/><circle cx="8" cy="-103" r="6" fill="#f4f0ff" ${S2}/><circle cx="16" cy="-97" r="5" fill="#f4f0ff" ${S2}/>` + face(0, -87, 1) + `<circle cx="0" cy="-84" r="2" fill="#f5b59a"/>` +
+    `<path d="M22 -50 Q40 -60 48 -76" stroke="${O}" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M22 -50 Q40 -60 48 -76" stroke="#b89cff" stroke-width="5" stroke-linecap="round" fill="none"/><circle cx="49" cy="-78" r="5" fill="#ffe1c8" ${S2}/>` +
+    `<path d="M50 -80 L70 -108" stroke="${O}" stroke-width="3.5" stroke-linecap="round"/><path d="M50 -80 L70 -108" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><polygon class="dm-wandstar" points="${starPts(72, -112, 10, 4.5)}" fill="#ffd84d" ${S2}/>` +
+    [[84, -124], [62, -126], [86, -100]].map(([x, y], i) => `<circle class="dm-tw" style="animation-delay:-${i * 0.5}s" cx="${x}" cy="${y}" r="2.4" fill="#fff6a8"/>`).join('') + `</g>`;
+  const dmPumpkin = () => `<path d="M0 -104 q4 -14 14 -16" stroke="#3f8f3a" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M8 -112 q20 -8 28 4 q-16 6 -28 -4 Z" fill="#5cb85c" ${S2}/>` +
+    [-44, -22, 22, 44].map(x => `<ellipse cx="${x}" cy="-50" rx="${Math.abs(x) > 30 ? 26 : 30}" ry="50" fill="#ff9a2e" ${S}/>`).join('') + `<ellipse cx="0" cy="-52" rx="32" ry="52" fill="#ffae42" ${S}/>` + shine(-20, -80);
+  const dmMouse = () => `<path d="M14 -6 q20 4 22 -10" stroke="#ff9ec4" stroke-width="2.4" fill="none"/><ellipse cx="0" cy="-10" rx="16" ry="11" fill="#b9b3c9" ${S2}/><circle cx="-16" cy="-17" r="9" fill="#b9b3c9" ${S2}/><circle cx="-14" cy="-28" r="7" fill="#ffc2d6" ${S2}/><circle cx="-22" cy="-26" r="6" fill="#ffc2d6" ${S2}/><circle cx="-20" cy="-18" r="1.6" fill="${O}"/><circle cx="-25" cy="-14" r="1.8" fill="#ff7a9a"/>`;
+  const dmLizard = () => `<path d="M-40 0 Q-40 -18 -12 -18 Q20 -20 40 0 Z" fill="#a7a1b6" ${S}/><path d="M26 -20 q22 -2 26 12 q-12 -8 -24 -4" fill="#7fd36b" ${S2}/><ellipse cx="4" cy="-24" rx="22" ry="8" fill="#7fd36b" ${S2}/><circle cx="-18" cy="-27" r="8" fill="#7fd36b" ${S2}/><circle cx="-20" cy="-30" r="2" fill="${O}"/><path d="M-8 -17 l-4 6 M14 -17 l4 6" stroke="#5a9e48" stroke-width="3" stroke-linecap="round"/>`;
+  const dmCoachArt = v => {
+    const [, c, t] = DM_COACH[v], dk = dmMix(c, '#3a2b3c', 0.3), glass = v === 1;
+    const wheel = (x, r) => `<circle cx="${x}" cy="${-r}" r="${r}" fill="none" stroke="${O}" stroke-width="6"/><circle cx="${x}" cy="${-r}" r="${r}" fill="${glass ? '#e8f6ff55' : 'none'}" stroke="${t}" stroke-width="3.5"/>` + rays(x, -r, 3, r - 2, 8, 2, t) + `<circle cx="${x}" cy="${-r}" r="4" fill="${t}" ${S2}/>`;
+    return `<path d="M-70 -34 Q-82 -40 -86 -30 M70 -34 Q82 -40 86 -30" stroke="${t}" stroke-width="4" fill="none"/><path d="M-60 -30 H60" stroke="${O}" stroke-width="7"/><path d="M-60 -30 H60" stroke="${t}" stroke-width="4"/>` +
+      `<path d="M-72 -58 Q-80 -150 0 -154 Q80 -150 72 -58 Q60 -36 0 -38 Q-60 -36 -72 -58 Z" fill="${c}" ${glass ? 'fill-opacity=".75"' : ''} ${S}/>` +
+      (v === 2 ? [-40, -14, 14, 40].map(x => `<path d="M${x - 16} -120 Q${x} -150 ${x + 16} -120 Q${x} -106 ${x - 16} -120 Z" fill="#ff5f8f" ${S2}/>`).join('') : [-36, 0, 36].map(x => `<path d="M${x} -150 Q${x + (x ? x / 3 : 0)} -96 ${x} -40" stroke="${dk}" stroke-width="2.5" fill="none" opacity=".6"/>`).join('')) +
+      `<path d="M-28 -70 Q-28 -110 0 -112 Q28 -110 28 -70 Z" fill="#fff6d6" ${S}/><path d="M0 -112 V-70 M-28 -88 H28" stroke="${t}" stroke-width="3"/>` +
+      `<path d="M-72 -58 Q-90 -64 -94 -80 M72 -58 Q90 -64 94 -80" stroke="${t}" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="-94" cy="-82" r="4" fill="${t}"/><circle cx="94" cy="-82" r="4" fill="${t}"/>` +
+      `<path d="M-14 -154 L-12 -170 L-5 -162 L0 -174 L5 -162 L12 -170 L14 -154 Z" fill="#ffd84d" ${S2}/>` + (glass ? [[-50, -120], [40, -60], [52, -130], [-40, -60]].map(([x, y]) => `<polygon class="dm-tw" points="${starPts(x, y, 6, 2)}" fill="#fff"/>`).join('') : shine(-50, -120)) +
+      wheel(-52, 26) + wheel(56, 30);
+  };
+  const dmHorseArt = m => `<path d="M-40 -58 Q-66 -50 -62 -20 Q-56 -40 -44 -46" fill="${m}" ${S}/>` +
+    [[-30, 0], [-16, 2], [22, 2], [34, 0]].map(([x, d], i) => `<rect x="${x - 5}" y="-44" width="10" height="${44 - d}" rx="4" fill="${i % 2 ? '#f4f0ff' : '#fff'}" ${S2}/><rect x="${x - 6}" y="${-8 - d}" width="12" height="8" rx="3" fill="#ffd84d" ${S2}/>`).join('') +
+    `<ellipse cx="0" cy="-58" rx="46" ry="24" fill="#fff" ${S}/><path d="M26 -70 Q34 -104 48 -112 L62 -96 Q52 -80 44 -56 Z" fill="#fff" ${S}/><path d="M44 -114 Q70 -118 76 -96 Q76 -84 62 -86 Q52 -90 46 -100 Z" fill="#fff" ${S}/>` +
+    `<path d="M44 -114 L42 -126 L52 -116 Z" fill="#fff" ${S2}/><circle cx="60" cy="-104" r="2.6" fill="${O}"/><circle cx="61" cy="-105" r=".9" fill="#fff"/><circle cx="70" cy="-92" r="1.6" fill="${O}"/><circle cx="58" cy="-94" r="3.4" fill="#ff8fab" opacity=".55"/>` +
+    `<path d="M40 -116 Q20 -104 22 -86 Q16 -80 24 -70 Q18 -62 28 -58" fill="none" stroke="${m}" stroke-width="10" stroke-linecap="round"/><path d="M46 -118 q-6 -20 6 -26 q2 12 -2 24" fill="#ff5f8f" ${S2}/>` +
+    `<path d="M14 -72 Q34 -60 48 -86" fill="none" stroke="#ff5f8f" stroke-width="4"/><circle cx="30" cy="-68" r="3.5" fill="#ffd84d" ${S2}/>`;
+  const dmCoachman = () => `<path d="M-10 -4 V-26 M10 -4 V-26" stroke="${O}" stroke-width="8" stroke-linecap="round"/><ellipse cx="-12" cy="-3" rx="8" ry="4" fill="${O}"/><ellipse cx="12" cy="-3" rx="8" ry="4" fill="${O}"/>` +
+    `<path d="M-22 -24 Q-26 -62 0 -64 Q26 -62 22 -24 Q0 -18 -22 -24 Z" fill="#4fa36b" ${S}/><path d="M0 -62 V-22" stroke="#2f7a4a" stroke-width="2"/>` + [-52, -42, -32].map(y => `<circle cx="-5" cy="${y}" r="2.4" fill="#ffd84d" ${S2}/>`).join('') +
+    `<path d="M22 -52 Q34 -44 34 -30" stroke="${O}" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M22 -52 Q34 -44 34 -30" stroke="#4fa36b" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M30 -30 v6 h10 v-10 h-10 Z" fill="#ffd84d" ${S2}/><circle cx="35" cy="-24" r="8" fill="#fff6a8" opacity=".5"/>` +
+    `<circle cx="0" cy="-78" r="15" fill="#ffe1c8" ${S}/>` + face(0, -78, 0.9) + `<path d="M-9 -71 q4 3 9 0 q5 3 9 0" stroke="#8b5a2b" stroke-width="3" fill="none" stroke-linecap="round"/>` +
+    `<ellipse cx="0" cy="-91" rx="20" ry="4" fill="#2e2a3a" ${S2}/><rect x="-11" y="-114" width="22" height="23" rx="2" fill="#2e2a3a" ${S2}/><path d="M-11 -96 H11" stroke="#ff5f8f" stroke-width="3"/>`;
+  function dmFairyScene() {
+    const u = 'dmf' + (dmUid++), g = dmFairyGirl(), ps = dmPets(), F = dmFg;
+    const defs = `<linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#171d57"/><stop offset=".6" stop-color="#4a3a8a"/><stop offset="1" stop-color="#9a78c4"/></linearGradient>${dmGlow(u + 'm', '#fff3c4')}${dmGlow(u + 'p', '#ffe89a')}`;
+    let s = `<rect width="800" height="450" fill="url(#${u}s)"/>${dmStars(60, 23, 240)}${dmMoon(460, 64, 24, u + 'm')}`;
+    // the palace on the hill, with its clock
+    s += `<path d="M470 290 Q600 170 800 200 V300 Z" fill="#6f5aa8"/><path d="M540 210 L560 150 L580 210 Z M700 205 L716 140 L732 205 Z" fill="#c9b8f0" ${S2}/>` +
+      `<rect x="560" y="168" width="150" height="70" fill="#e2d4ff" ${S2}/><rect x="610" y="118" width="50" height="80" fill="#e2d4ff" ${S2}/><path d="M604 120 L635 78 L666 120 Z" fill="#a98bff" ${S2}/><circle cx="635" cy="146" r="16" fill="#fff" ${S2}/><path d="M635 146 V134 M635 146 L643 142" stroke="${O}" stroke-width="2" stroke-linecap="round"/>` +
+      [[572, 190], [592, 190], [680, 190], [698, 190], [626, 180], [644, 180]].map(([x, y]) => `<rect x="${x}" y="${y}" width="10" height="16" rx="5" fill="#ffd84d"/>`).join('') + `<circle cx="635" cy="200" r="90" fill="url(#${u}p)" opacity=".5"/>`;
+    // garden: hedge, lawn, stone path
+    s += `<path d="M0 300 ${Array.from({ length: 17 }, (_, i) => `Q${i * 50 + 25} ${270 + (i % 2) * 10} ${i * 50 + 50} 300`).join(' ')} V330 H0 Z" fill="#2f6b4f" ${S2}/>` +
+      Array.from({ length: 9 }, (_, i) => dmFlower(40 + i * 92, 296 + (i % 2) * 8, 6, i % 2 ? '#ff9ad5' : '#fff', '#ffd84d')).join('') +
+      `<rect y="326" width="800" height="124" fill="#4e8f63"/><path d="M300 450 Q380 380 470 360 Q560 340 640 330 L700 330 Q600 360 540 400 Q470 440 460 450 Z" fill="#d8c8e8" opacity=".85"/>` +
+      Array.from({ length: 14 }, (_, i) => `<ellipse cx="${dmF(340 + i * 26 - i * i * 0.6)}" cy="${dmF(444 - i * 8)}" rx="${dmF(11 - i * 0.5)}" ry="${dmF(5 - i * 0.2)}" fill="#c3b0d8"/>`).join('') +
+      Array.from({ length: 16 }, (_, i) => `<circle class="dm-ffly" style="animation-delay:-${dmF(dmR(i + 3) * 4)}s" cx="${dmF(dmR(i + 30) * 800)}" cy="${dmF(290 + dmR(i + 60) * 150)}" r="2" fill="#fff6a8"/>`).join('');
+    // the fairy
+    s += `<g class="dm-hit" data-hit="fairy" transform="translate(110 240)">${dmFairyArt()}</g>`;
+    // the lizard / coachman
+    s += `<g class="dm-hit ${F.lizard ? 'dm-pop' : ''}" data-hit="lizard" transform="translate(420 438)">${F.lizard ? dmCoachman() : dmLizard()}</g>`;
+    // pumpkin / carriage, mouse / horse
+    s += `<g class="dm-hit ${F.pumpkin ? 'dm-pop' : ''}" data-hit="pumpkin" transform="translate(${F.pumpkin ? 560 : 560} 420)">${F.pumpkin ? dmCoachArt(dm.fairy.coach % 3) : dmPumpkin()}</g>`;
+    s += `<g class="dm-hit ${F.mouse ? 'dm-pop' : ''}" data-hit="mouse" transform="translate(${F.mouse ? 705 : 720} ${F.mouse ? 424 : 432})">${F.mouse ? dmHorseArt(DM_MANE[dm.fairy.mane % 4]) : dmMouse()}</g>`;
+    // guests
+    s += ps.map((p, i) => { const x = [200, 150, 250][i], y = [448, 444, 450][i]; return dmPetAt(p, x, y, 70, 'dm-hit' + (F.crown[p.id] ? ' dm-crowned' : ''), false) + (F.crown[p.id] ? `<path transform="translate(${x - 12} ${y - 76})" d="M0 12 L2 0 L8 7 L12 -2 L16 7 L22 0 L24 12 Z" fill="#ffd84d" ${S2}/>` : ''); }).join('');
+    s += g ? `<g class="dm-hit ${F.rags ? 'dm-pop dm-sparkle' : ''}" data-hit="girl">${dmGirlAt(g, 310, 448, 270)}</g>` : '';
+    return dmSvg(s, defs, 'dm-fairy');
+  }
+  function dmBallScene() {
+    const u = 'dmb' + (dmUid++), g = dmFairyGirl(), ps = dmPets();
+    const defs = `<linearGradient id="${u}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4e9ff"/><stop offset="1" stop-color="#d9c5f5"/></linearGradient>${dmGlow(u + 'c', '#fff3b0')}`;
+    let s = `<rect width="800" height="450" fill="#e9dcff"/>` + [80, 260, 540, 720].map(x => `<path d="M${x - 50} 300 V120 A50 50 0 0 1 ${x + 50} 120 V300 Z" fill="#232a6b" ${S}/>${dmStars(6, x, 1).replace(/cx="([\d.]+)" cy="([\d.]+)"/g, (m, a, b) => `cx="${dmF(x - 40 + (+a) / 10)}" cy="${dmF(100 + (+b) * 0.6)}"`)}<path d="M${x} 70 V300 M${x - 50} 190 H${x + 50}" stroke="#e9dcff" stroke-width="5"/>`).join('') +
+      `<path d="M0 300 H800 L800 450 H0 Z" fill="url(#${u}f)"/>` + [322, 350, 386, 430].map(y => `<path d="M0 ${y} H800" stroke="#c6b0ee" stroke-width="2"/>`).join('') + Array.from({ length: 21 }, (_, i) => `<path d="M${400 + (i - 10) * 50} 300 L${400 + (i - 10) * 150} 450" stroke="#c6b0ee" stroke-width="2"/>`).join('') +
+      `<path d="M0 300 H800" stroke="${O}" stroke-width="2.5"/>`;
+    // drapes and a garland
+    s += `<path d="M0 0 H800 V18 ${Array.from({ length: 8 }, (_, i) => `Q${800 - i * 100 - 50} 70 ${800 - (i + 1) * 100} 18`).join(' ')} Z" fill="#ff9ad5" ${S}/>` + Array.from({ length: 9 }, (_, i) => `<circle cx="${i * 100}" cy="20" r="7" fill="#ffd84d" ${S2}/>`).join('') +
+      `<path d="M0 0 H60 Q40 160 70 300 H0 Z M800 0 H740 Q760 160 730 300 H800 Z" fill="#c2417a" ${S}/><path d="M60 0 Q40 160 70 300" fill="none" stroke="#ffd84d" stroke-width="3"/><path d="M740 0 Q760 160 730 300" fill="none" stroke="#ffd84d" stroke-width="3"/>` +
+      `<path d="M330 450 L370 300 H430 L470 450 Z" fill="#e0314b" opacity=".85"/><path d="M340 450 L376 300 M460 450 L424 300" stroke="#ffd84d" stroke-width="3"/>`;
+    // the big clock
+    s += `<circle cx="400" cy="92" r="70" fill="url(#${u}c)"/><circle cx="400" cy="92" r="52" fill="#fffaf0" stroke="#c9a227" stroke-width="7"/><circle cx="400" cy="92" r="52" fill="none" stroke="${O}" stroke-width="2"/>` +
+      Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI / 6; return `<circle cx="${dmF(400 + Math.sin(a) * 42)}" cy="${dmF(92 - Math.cos(a) * 42)}" r="${i % 3 ? 2 : 3.6}" fill="${O}"/>`; }).join('') +
+      `<path class="dm-hand-h" d="M400 92 L400 58" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path class="dm-hand-m" d="M400 92 L400 48" stroke="#c2415f" stroke-width="3" stroke-linecap="round" transform="rotate(270 400 92)"/><circle cx="400" cy="92" r="4" fill="#c9a227"/>`;
+    // chandeliers
+    s += [180, 620].map(x => `<path d="M${x} 0 V36" stroke="#c9a227" stroke-width="2"/><path d="M${x - 44} 50 Q${x} 76 ${x + 44} 50" stroke="#c9a227" stroke-width="4" fill="none"/>` + [-44, -22, 0, 22, 44].map(d => `<rect x="${x + d - 3}" y="${36 + Math.abs(d) / 3}" width="6" height="14" fill="#fff"/><path class="dm-flame" d="M${x + d} ${30 + Math.abs(d) / 3} q-4 -6 0 -12 q4 6 0 12 Z" fill="#ffae42"/>`).join('') + `<circle cx="${x}" cy="44" r="40" fill="url(#${u}c)"/>`).join('');
+    s += ps.map((p, i) => `<g class="dm-dance2" style="animation-delay:-${i * 0.4}s">${dmPetAt(p, [230, 570, 150][i], 430, 80)}</g>`).join('');
+    s += g ? `<g class="dm-dance">${dmGirlAt(g, 400, 440, 300)}</g>` : '';
+    return dmSvg(s, defs, 'dm-fairy dm-ball');
+  }
+  function dmFairyDraw() {
+    if (dmFg.phase === 'ball') return dmBallStart();
+    const svgEl = dmSetScene(dmFairyScene());
+    svgEl.addEventListener('click', e => {
+      const h = e.target.closest('.dm-hit'); if (!h) return; const [x, y] = dmPt(e), F = dmFg, k = h.dataset.hit || (h.dataset.pet != null ? 'pet' : '');
+      const magic = (msg) => { dmBurst(x, y); dmChime(); dmLater(() => dmSay(msg, x, Math.max(60, y - 110)), 150); dmFairyDraw(); };
+      if (k === 'fairy') { dmSay(dmPick(DM_WORDS), 150, 90); dmChime(); return; }
+      if (k === 'pumpkin') { if (!F.pumpkin) { F.pumpkin = 1; magic('🎃➡️ כרכרה!'); } else { dm.fairy.coach = (dm.fairy.coach + 1) % 3; dmSave(); magic(DM_COACH[dm.fairy.coach][0]); } }
+      else if (k === 'mouse') { if (!F.mouse) { F.mouse = 1; magic('🐭➡️ סוס לבן ואציל!'); } else { dm.fairy.mane = (dm.fairy.mane + 1) % 4; dmSave(); magic('רעמה חדשה! 🐴'); } }
+      else if (k === 'lizard') { if (!F.lizard) { F.lizard = 1; magic('🦎➡️ עגלון! "לשירותך, גבירתי!"'); } else { dmSay('🎩 "הכרכרה מוכנה!"', 420, 300); tone(500, 0.1, 'triangle'); } }
+      else if (k === 'girl') { if (!F.rags) { F.rags = 1; magic('👗 וואו! שמלת נשף!'); } else { const own = dm.fairy.gowns, i = own.indexOf(dm.fairy.gown); dm.fairy.gown = own[(i + 1) % own.length]; dmSave(); magic('✨ ' + dmGown(dm.fairy.gown)[1]); } }
+      else if (k === 'pet') { const id = h.dataset.pet; F.crown[id] = !F.crown[id]; magic(F.crown[id] ? '👑 נסיכה!' : '💖'); }
+      else return;
+      if (F.pumpkin && F.mouse && F.lizard && F.rags && !F.readySaid) { F.readySaid = 1; dmLater(() => { dmSay('🕛 מהר, לנשף! הקסם נגמר בחצות!', 150, 90, 3200); dmFairyCtl(); }, 900); }
+      dmFairyCtl(); dmCoins(1, 'קסם של הסנדקית');
+    });
+    dmFairyCtl();
+  }
+  function dmFairyCtl() {
+    const F = dmFg, done = [F.pumpkin, F.mouse, F.lizard, F.rags].filter(Boolean).length;
+    if (F.phase === 'ball') {
+      const pct = Math.max(0, F.left / 25);
+      return dmCtl(el('div', { class: 'dm-card' }, el('b', {}, `✨ אוספים ניצוצות קסם לפני חצות! ${F.got} / 12`), el('div', { class: 'dm-bar' }, el('i', { style: `width:${Math.round(pct * 100)}%` })), el('p', { class: 'muted' }, 'לוחצים על הניצוצות שנופלים. אם אוספים 12 לפני שהשעון מצלצל — הקסם נשאר!')));
+    }
+    const gw = el('div', { class: 'dm-gowns' }, ...DM_GOWNS.map(([id, nm, c]) => { const has = dm.fairy.gowns.includes(id); const b = el('button', { type: 'button', class: 'dm-gown', 'aria-pressed': String(dm.fairy.gown === id), disabled: !has, title: nm, onclick: () => { dm.fairy.gown = id; F.rags = 1; dmSave(); dmChime(); dmFairyDraw(); } }, el('span', { html: `<svg viewBox="0 0 40 44" xmlns="http://www.w3.org/2000/svg"><path d="M14 4 H26 L24 16 Q36 34 38 42 H2 Q4 34 16 16 Z" fill="${has ? c : '#ddd'}" ${S2}/><path d="M16 16 H24" stroke="#fff" stroke-width="2"/>${has ? '' : `<text x="20" y="34" text-anchor="middle" font-size="14">🔒</text>`}</svg>` }), el('small', {}, nm)); return b; }));
+    dmCtl(el('p', { class: 'muted dm-hint' }, `🪄 לוחצים עם השרביט על הדלעת, על העכבר, על הלטאה ועל הבגדים הבלויים! (${done}/4)`),
+      done === 4 ? dmRow('', dmBtn('🏰 לנשף לפני חצות!', () => { dmFg.phase = 'ball'; SFX.yay(); dmFairyDraw(); }, 'btn main dm-big')) : dmRow('', dmBtn('🪄 קסם על הכל!', () => { Object.assign(F, { pumpkin: 1, mouse: 1, lizard: 1, rags: 1 }); dmBurst(400, 300); dmBurst(560, 330); dmChime(); dmFairyDraw(); dmSay(dmPick(DM_WORDS), 150, 90); })),
+      done ? dmRow('', dmBtn('🎃 להחזיר הכל לקדמותו', () => { Object.assign(F, { pumpkin: 0, mouse: 0, lizard: 0, rags: 0, readySaid: 0 }); tone(300, 0.3, 'triangle'); dmFairyDraw(); })) : null,
+      el('b', {}, '👗 ארון השמלות'), gw,
+      el('p', { class: 'muted dm-hint' }, `כל נשף מוצלח פותח שמלה חדשה • נשפים: ${dm.fairy.balls} • נעליים נוצצות שנשארו אחרי חצות: ${dm.fairy.slippers}`));
+  }
+  function dmBallStart() {
+    const F = dmFg; F.got = 0; F.left = 25;
+    dmSetScene(dmBallScene()); dmFairyCtl();
+    const run = dmRun, t0 = Date.now();
+    const layer = el('div', { class: 'dm-falls' }); dmStageEl.append(layer);
+    const tick = () => {
+      if (run !== dmRun || F.phase !== 'ball') return;
+      F.left = Math.max(0, 25 - (Date.now() - t0) / 1000);
+      const m = dmSvgEl() && dmSvgEl().querySelector('.dm-hand-m'); if (m) m.setAttribute('transform', `rotate(${dmF(270 + (25 - F.left) / 25 * 90)} 400 92)`);
+      const bar = dmCtlEl.querySelector('.dm-bar i'); if (bar) bar.style.width = Math.round(F.left / 25 * 100) + '%';
+      if (F.got >= 12) return dmBallEnd(true);
+      if (F.left <= 0) return dmBallEnd(false);
+      dmLater(tick, 200);
+    };
+    const spawn = () => {
+      if (run !== dmRun || F.phase !== 'ball') return;
+      const b = el('button', { type: 'button', class: 'dm-fall', 'aria-label': 'ניצוץ קסם' }, dmPick(['✨', '⭐', '💎', '💖', '🌟', '✨']));
+      b.style.left = (4 + Math.random() * 88) + '%'; b.style.animationDuration = (3.2 + Math.random() * 1.6) + 's';
+      b.addEventListener('pointerdown', e => { e.preventDefault(); if (b.dataset.got) return; b.dataset.got = 1; b.classList.add('got'); F.got++; tone(900 + F.got * 60, 0.12, 'sine', 0, 0.06); const c = dmCtlEl.querySelector('.dm-card b'); if (c) c.textContent = `✨ אוספים ניצוצות קסם לפני חצות! ${F.got} / 12`; setTimeout(() => b.remove(), 300); });
+      b.addEventListener('animationend', () => b.remove());
+      layer.append(b); dmLater(spawn, 520 + Math.random() * 300);
+    };
+    dmLater(tick, 200); dmLater(spawn, 400);
+    dmLater(() => dmSay('🎶 רוקדים בנשף!', 400, 150), 300);
+  }
+  function dmBallEnd(win) {
+    const F = dmFg; F.phase = 'end'; dmStop();
+    dmStageEl.querySelectorAll('.dm-falls').forEach(n => n.remove());
+    // twelve bongs
+    for (let i = 0; i < 12; i++) tone(win ? 523 : 262, 0.5, 'sine', i * 0.28, 0.07);
+    let msg;
+    if (win) {
+      const next = DM_GOWNS.find(x => !dm.fairy.gowns.includes(x[0]));
+      if (next) { dm.fairy.gowns.push(next[0]); dm.fairy.gown = next[0]; }
+      dm.fairy.balls++; dmSave(); dmCoins(15, 'נשף מוצלח 👑'); dmTry(() => confetti($('#dmDlg .confetti-c')));
+      msg = el('div', { class: 'dm-card dm-win' }, el('b', {}, '🎉 הקסם נשאר גם אחרי חצות!'), el('p', {}, next ? `קיבלת שמלה חדשה: ${next[1]}! היא מחכה בארון השמלות.` : 'כל השמלות כבר שלך! את מלכת הנשף 👑'));
+    } else {
+      dm.fairy.slippers++; dmSave(); dmCoins(3, 'ניסיון בנשף');
+      msg = el('div', { class: 'dm-card' }, el('b', {}, '🕛 דינג-דונג... חצות!'), el('p', {}, 'הקסם נגמר והכל חזר להיות דלעת ועכבר... אבל נשארה נעל נוצצת אחת 👠 אפשר לנסות שוב!'));
+    }
+    dmCtl(msg, dmRow('', dmBtn('🪄 בחזרה לגינה', () => { F.phase = 'garden'; if (!win) Object.assign(F, { pumpkin: 0, mouse: 0, lizard: 0, rags: 0, readySaid: 0 }); dmFairyDraw(); }, 'btn main')));
+    dmSay(win ? '💖 הקסם נשאר!' : '🎃 אוי, חצות!', 400, 190, 3000);
+  }
+  DM.fairy = {
+    icon: '🪄', name: 'הסנדקית הקסומה', sub: 'דודה נצנצה מנופפת בשרביט: דלעת הופכת לכרכרה, עכבר לסוס, ובגדים בלויים לשמלת נשף ✨',
+    enter: () => { dmTry(() => { if (!dmGirls().length) bEnsureGirl(); }); dmFg = { pumpkin: 0, mouse: 0, lizard: 0, rags: 0, crown: {}, phase: 'garden', got: 0, left: 0 }; },
+    draw: dmFairyDraw,
+  };
+  // ---------- 🌺 island voyage: a boat she designs, helpful waves, a silly chicken, stars to navigate by ----------
+  const DM_ISLES = {
+    turtle: ['אי הצבים', '🐢', [[30, 60], [60, 30], [100, 30], [125, 60], [100, 88], [60, 88], [150, 46]], [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0], [3, 6]], '#f6dfa4'],
+    flower: ['אי הפרחים', '🌺', [[80, 55], [80, 14], [120, 42], [104, 92], [56, 92], [40, 42]], [[0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [1, 2], [2, 3], [3, 4], [4, 5], [5, 1]], '#fbe3b8'],
+    volcano: ['אי ההר המנמנם', '🌋', [[12, 100], [58, 40], [102, 40], [148, 100], [80, 8]], [[0, 1], [1, 2], [2, 3], [1, 4], [2, 4]], '#ecd5a8'],
+    palm: ['אי הקוקוסים', '🥥', [[80, 106], [78, 70], [76, 36], [34, 22], [118, 16], [26, 56], [128, 50]], [[0, 1], [1, 2], [2, 3], [2, 4], [2, 5], [2, 6]], '#f3dca0'],
+    rainbow: ['אי הקשת', '🌈', [[10, 100], [28, 52], [80, 24], [132, 52], [150, 100], [80, 62]], [[0, 1], [1, 2], [2, 3], [3, 4], [1, 5], [5, 3]], '#fce6c0'],
+  };
+  const DM_SHELLS = {
+    scallop: ['צדפת מניפה', s => `<path d="M0 10 L-12 -6 Q0 -16 12 -6 Z" fill="#ffb3cf" ${s}/><path d="M0 10 L-7 -10 M0 10 L0 -12 M0 10 L7 -10" stroke="#e07aa0" stroke-width="1.4"/><rect x="-4" y="8" width="8" height="4" rx="1" fill="#ffb3cf" ${s}/>`],
+    conch: ['קונכיית חצוצרה', s => `<path d="M-12 8 Q-14 -6 0 -12 Q14 -12 12 0 Q10 8 -12 8 Z" fill="#ffd9b0" ${s}/><path d="M-6 -8 Q2 -4 -2 4 M2 -11 Q10 -4 4 5" stroke="#e0a070" stroke-width="1.4" fill="none"/><path d="M12 0 l6 -4 l-2 7 Z" fill="#ffd9b0" ${s}/>`],
+    snail: ['שבלול ספירלה', s => `<circle cx="0" cy="0" r="11" fill="#e6c7ff" ${s}/><path d="M0 0 a3 3 0 0 1 5 1 a6 6 0 0 1 -9 3 a9 9 0 0 1 12 -9" fill="none" stroke="#9b7fe6" stroke-width="1.6"/>`],
+    star: ['כוכב ים', s => `<polygon points="${starPts(0, 0, 13, 6)}" fill="#ff9a5c" ${s}/><circle cx="0" cy="0" r="2" fill="#ffd0a8"/><circle cx="0" cy="-7" r="1" fill="#ffd0a8"/><circle cx="6" cy="2" r="1" fill="#ffd0a8"/>`],
+    dollar: ['דולר חול', s => `<circle cx="0" cy="0" r="11" fill="#f4ead2" ${s}/>` + Array.from({ length: 5 }, (_, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / 5; return `<ellipse cx="${dmF(Math.cos(a) * 5)}" cy="${dmF(Math.sin(a) * 5)}" rx="1.4" ry="3" fill="#c9b48a" transform="rotate(${dmF(a * 180 / Math.PI + 90)} ${dmF(Math.cos(a) * 5)} ${dmF(Math.sin(a) * 5)})"/>`; }).join('')],
+    cowrie: ['קאורי מנומר', s => `<ellipse cx="0" cy="0" rx="12" ry="8" fill="#e8b27a" ${s}/><circle cx="-5" cy="-3" r="1.6" fill="#8b5a2b"/><circle cx="2" cy="-4" r="1.3" fill="#8b5a2b"/><circle cx="6" cy="1" r="1.5" fill="#8b5a2b"/><circle cx="-2" cy="2" r="1.2" fill="#8b5a2b"/>`],
+    coral: ['ענף אלמוג', s => `<path d="M0 12 V0 M0 4 L-8 -6 M0 0 L7 -10 M-8 -6 L-11 -12 M-8 -6 L-3 -12 M7 -10 L12 -13" stroke="${O}" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M0 12 V0 M0 4 L-8 -6 M0 0 L7 -10 M-8 -6 L-11 -12 M-8 -6 L-3 -12 M7 -10 L12 -13" stroke="#ff7a9a" stroke-width="3" stroke-linecap="round" fill="none"/>`],
+    pearl: ['צדפה עם פנינה ✨', s => `<path d="M-13 2 Q0 12 13 2 Z" fill="#c9d8ff" ${s}/><path d="M-13 2 Q-12 -12 0 -12 Q12 -12 13 2" fill="#dfe8ff" ${s}/><circle cx="0" cy="1" r="4.5" fill="#fff" ${s}/><circle cx="-1.4" cy="-.4" r="1.3" fill="#fff" opacity=".9"/>`],
+  };
+  const dmShell = (k, x, y, sc = 1) => `<g transform="translate(${dmF(x)} ${dmF(y)}) scale(${sc})">${DM_SHELLS[k][1](`stroke="${O}" stroke-width="1.5" stroke-linejoin="round"`)}</g>`;
+  const DM_SAILPAT = { plain: 'חלק', stripes: 'פסים', dots: 'נקודות', hearts: 'לבבות', stars: 'כוכבים', waves: 'גלים' };
+  let dmSea = { mode: 'sail', target: null, prog: 0, lit: [], beach: [], tab: 'sail', trio: [] };
+  const dmChicken = () => `<g class="dm-chick"><path d="M-6 0 V8 M6 0 V8 M-9 8 h6 M3 8 h6" stroke="#ffae42" stroke-width="2.6" stroke-linecap="round"/>` +
+    `<ellipse cx="0" cy="-16" rx="18" ry="17" fill="#fff" ${S}/><path d="M-18 -16 q-10 -8 -6 6 q4 -2 6 -2" fill="#fff" ${S2}/><path class="dm-wing" d="M6 -18 q12 -2 12 8 q-8 4 -14 -2 Z" fill="#f2eee6" ${S2}/>` +
+    `<path d="M-16 -8 Q0 4 16 -8 L14 0 Q0 10 -14 0 Z" fill="#ff8a3d" ${S2}/><path d="M-6 -30 q-2 -10 5 -8 q2 -8 7 -2 q6 -4 5 6" fill="#ff4d5e" ${S2}/>` +
+    `<circle cx="-4" cy="-22" r="6" fill="#fff" ${S2}/><circle cx="8" cy="-22" r="6" fill="#fff" ${S2}/><circle class="dm-goog" cx="-2" cy="-20" r="2.6" fill="${O}"/><circle class="dm-goog" cx="10" cy="-24" r="2.6" fill="${O}"/>` +
+    `<path d="M14 -16 L24 -13 L14 -10 Z" fill="#ffae42" ${S2}/><path d="M14 -9 q2 5 -2 7 q-3 -3 2 -7 Z" fill="#ff4d5e"/></g>`;
+  const dmSailDefs = (u, I) => {
+    const c2 = I.sail2, pats = {
+      stripes: `<rect width="20" height="20" fill="${I.sail}"/><rect y="10" width="20" height="10" fill="${c2}"/>`,
+      dots: `<rect width="20" height="20" fill="${I.sail}"/><circle cx="5" cy="5" r="3" fill="${c2}"/><circle cx="15" cy="15" r="3" fill="${c2}"/>`,
+      hearts: `<rect width="20" height="20" fill="${I.sail}"/>${dmHeart(10, 10, 0.5, c2)}`,
+      stars: `<rect width="20" height="20" fill="${I.sail}"/><polygon points="${starPts(10, 10, 5, 2.2)}" fill="${c2}"/>`,
+      waves: `<rect width="20" height="20" fill="${I.sail}"/><path d="M0 10 q5 -6 10 0 t10 0" stroke="${c2}" stroke-width="3" fill="none"/>`,
+    };
+    return pats[I.pat] ? `<pattern id="${u}sp" width="20" height="20" patternUnits="userSpaceOnUse">${pats[I.pat]}</pattern>` : '';
+  };
+  const dmBoatArt = (u, I, withGuests) => {
+    const sf = I.pat === 'plain' ? I.sail : `url(#${u}sp)`, g = dmGirl(), ps = dmPets(), hd = dmMix(I.hull, '#3a2b3c', 0.3);
+    let s = `<path d="M0 -24 V-236" stroke="${O}" stroke-width="7" stroke-linecap="round"/><path d="M0 -24 V-236" stroke="#c98a4b" stroke-width="4" stroke-linecap="round"/>` +
+      `<path class="dm-flag" d="M0 -236 L34 -228 L0 -218 Z" fill="${I.flag}" ${S2}/>` +
+      `<path d="M6 -222 Q70 -150 112 -44 H6 Z" fill="${sf}" ${S}/><path d="M-6 -212 Q-50 -140 -96 -48 H-6 Z" fill="${sf}" ${S}/>` +
+      `<path d="M6 -222 Q70 -150 112 -44" fill="none" stroke="#fff" stroke-width="2" opacity=".5" transform="translate(-8 4)"/>`;
+    if (withGuests) {
+      s += g ? dmGirlAt(g, -44, -22, 150) : '';
+      s += ps.map((p, i) => dmPetAt(p, [40, 74, 8][i], -27, 52, '', i === 1)).join('');
+      s += `<g class="dm-hit" data-hit="chick" transform="translate(108 -36)">${dmChicken()}</g>`;
+    }
+    s += `<path d="M-132 -30 H132 Q124 10 92 26 H-92 Q-124 10 -132 -30 Z" fill="${I.hull}" ${S}/><path d="M-128 -18 H128" stroke="#fff" stroke-width="4" opacity=".8"/><path d="M-120 -4 H120" stroke="${hd}" stroke-width="2"/>` +
+      [-70, -10, 50].map(x => `<circle cx="${x}" cy="4" r="7" fill="#bfe8ff" ${S2}/>`).join('') + `<path d="M-132 -30 H132" stroke="${O}" stroke-width="3"/>` +
+      `<circle cx="-112" cy="-2" r="10" fill="none" stroke="#fff" stroke-width="5"/><circle cx="-112" cy="-2" r="10" fill="none" stroke="#ff5f8f" stroke-width="5" stroke-dasharray="7.8 7.8"/>`;
+    return s;
+  };
+  const dmSky = (u, night) => night ? `<linearGradient id="${u}k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1034"/><stop offset=".7" stop-color="#27306e"/><stop offset="1" stop-color="#4a4f9a"/></linearGradient>`
+    : `<linearGradient id="${u}k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fcaff"/><stop offset="1" stop-color="#d9f4ff"/></linearGradient>`;
+  const dmOcean = (u, night, y0 = 222) => `<linearGradient id="${u}o" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? '#1f3f86' : '#46c6ea'}"/><stop offset="1" stop-color="${night ? '#0e1f52' : '#1a72bd'}"/></linearGradient>`;
+  const dmWaves = (night, y0) => [[y0 + 26, 0.35, 'dm-wv1', 18], [y0 + 90, 0.5, 'dm-wv2', 22], [y0 + 170, 0.75, 'dm-wv3', 26]].map(([y, op, c, a]) =>
+    `<g class="${c}"><path d="M-200 ${y} ${Array.from({ length: 12 }, () => `q25 -${a / 2} 50 0 t50 0`).join(' ')} V460 H-200 Z" fill="${night ? '#2a4f9c' : '#5fd0f0'}" opacity="${op}"/><path d="M-200 ${y} ${Array.from({ length: 12 }, () => `q25 -${a / 2} 50 0 t50 0`).join(' ')}" fill="none" stroke="#fff" stroke-width="3" opacity="${op + 0.2}" stroke-dasharray="40 60"/></g>`);
+  const dmIsleArt = (k, big) => {
+    const I = DM_ISLES[k], sand = I[4], palm = (x, y, sc = 1, f = 1) => `<g transform="translate(${x} ${y}) scale(${sc * f} ${sc})"><path d="M0 0 Q6 -50 -6 -100" stroke="${O}" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M0 0 Q6 -50 -6 -100" stroke="#b5793f" stroke-width="7" fill="none" stroke-linecap="round"/>` +
+      [[-50, -90], [-40, -120], [30, -122], [44, -92], [0, -130]].map(([dx, dy]) => `<path d="M-6 -100 Q${dx / 2} ${dy - 10} ${dx} ${dy} Q${dx / 2} ${dy + 6} -6 -100 Z" fill="#4fbf73" ${S2}/>`).join('') + `<circle cx="-10" cy="-96" r="6" fill="#8b5a2b" ${S2}/><circle cx="0" cy="-94" r="6" fill="#8b5a2b" ${S2}/></g>`;
+    let s = `<path d="M-240 0 Q-200 -70 -60 -84 Q60 -96 180 -70 Q250 -50 260 0 Z" fill="${sand}" ${S}/><path d="M-250 0 Q0 16 270 0" stroke="#fff" stroke-width="6" fill="none" opacity=".8"/>` +
+      `<path d="M-150 -60 Q-60 -150 40 -120 Q140 -110 170 -60 Q20 -70 -150 -60 Z" fill="#6cc46a" ${S}/>`;
+    if (k === 'volcano') s += `<path d="M-40 -110 L-10 -200 H40 L80 -110 Z" fill="#a0785a" ${S}/><path d="M-10 -200 H40 L32 -186 Q15 -180 -2 -186 Z" fill="#ff9a5c"/><circle cx="4" cy="-150" r="2.6" fill="${O}"/><circle cx="30" cy="-150" r="2.6" fill="${O}"/><path d="M8 -138 q9 6 18 0" fill="none" stroke="${O}" stroke-width="2"/><path d="M-2 -154 q4 -4 8 0 M26 -154 q4 -4 8 0" fill="none" stroke="${O}" stroke-width="1.6"/>` +
+      `<g class="dm-puff"><circle cx="16" cy="-224" r="14" fill="#fff" ${S2}/><circle cx="34" cy="-240" r="11" fill="#fff" ${S2}/><circle cx="4" cy="-246" r="9" fill="#fff" ${S2}/></g>`;
+    if (k === 'rainbow') s += [['#ff7a7a', 150], ['#ffd84d', 138], ['#a8e063', 126], ['#7ec8ff', 114], ['#c77dff', 102]].map(([c, r]) => `<path d="M${-r} -70 A${r} ${r * 0.9} 0 0 1 ${r} -70" fill="none" stroke="${c}" stroke-width="12" opacity=".9"/>`).join('');
+    s += palm(-90, -90, 0.9) + palm(110, -80, 0.8, -1);
+    if (k === 'palm') s += palm(10, -104, 1.05) + palm(-150, -52, 0.6, -1);
+    if (k === 'flower') s += [[-80, -100], [-30, -118], [30, -112], [80, -96], [-120, -70]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="16" fill="#3f9c5a" ${S2}/>` + dmFlower(x - 4, y - 4, 7, ['#ff5f8f', '#ff9ad5', '#ffae42', '#c77dff', '#ff7a5c'][i], '#ffd84d')).join('');
+    if (k === 'turtle') s += [[-40, -20, 1], [60, -30, -1]].map(([x, y, f]) => `<g transform="translate(${x} ${y}) scale(${f} 1)"><ellipse cx="0" cy="0" rx="22" ry="13" fill="#6cc46a" ${S}/><path d="M-12 -6 L0 -12 L12 -6 L8 6 H-8 Z" fill="#4f9e4f" ${S2}/><ellipse cx="26" cy="-2" rx="9" ry="7" fill="#9be08a" ${S2}/><circle cx="29" cy="-4" r="1.6" fill="${O}"/><path d="M-16 10 l-4 5 M14 10 l4 5" stroke="${O}" stroke-width="4" stroke-linecap="round"/></g>`).join('');
+    return s;
+  };
+  function dmIsleScene() {
+    const u = 'dmi' + (dmUid++), I = dm.isle, M = dmSea, night = M.mode === 'stars', ps = dmPets(), g = dmGirl();
+    const defs = dmSky(u, night) + dmOcean(u, night) + dmSailDefs(u, I) + dmGlow(u + 'm', '#fff3c4') + dmGlow(u + 'u', '#fff27a');
+    let s = `<rect width="800" height="450" fill="url(#${u}k)"/>`;
+    if (M.mode === 'island') {
+      s += `<circle cx="120" cy="70" r="70" fill="url(#${u}u)"/><circle cx="120" cy="70" r="30" fill="#ffe45c" ${S2}/>` + [[520, 60, 1], [260, 100, 0.8]].map(([x, y, k], i) => `<g class="dm-cloud" style="animation-delay:-${i * 9}s"><g transform="translate(${x} ${y}) scale(${k})"><path d="M0 20 H90 A20 20 0 0 0 80 -10 A28 28 0 0 0 30 -14 A22 22 0 0 0 0 20 Z" fill="#fff"/></g></g>`).join('');
+      s += `<rect y="222" width="800" height="228" fill="url(#${u}o)"/>${dmWaves(false, 222).join('')}`;
+      s += `<g transform="translate(130 330) scale(.5)"><g class="dm-bob">${dmBoatArt(u, I, false)}</g></g>`;
+      s += `<g transform="translate(560 372)">${dmIsleArt(M.target, true)}</g><path d="M280 450 Q380 380 560 380 Q740 380 820 420 V450 Z" fill="${DM_ISLES[M.target][4]}" ${S}/>`;
+      s += M.beach.map((b, i) => b.got ? '' : `<g class="dm-hit dm-shellb" data-hit="shell" data-i="${i}" style="animation-delay:-${i * 0.3}s">${dmShell(b.k, b.x, b.y, 1.5)}</g>`).join('');
+      s += g ? dmGirlAt(g, 420, 444, 190) : '';
+      s += ps.map((p, i) => dmPetAt(p, [500, 360, 470][i], 446, 60, '', i === 1)).join('');
+      s += `<g class="dm-hit" data-hit="chick"><g class="dm-run"><g transform="translate(700 430)">${dmChicken()}</g></g></g>`;
+      return dmSvg(s, defs, 'dm-isle');
+    }
+    if (night) {
+      s += dmStars(90, 71, 230) + dmMoon(90, 60, 20, u + 'm');
+      const trio = M.trio, spots = [[40, 40], [320, 24], [600, 40]];
+      trio.forEach((k, ti) => {
+        const C = DM_ISLES[k], [ox, oy] = spots[ti], tgt = k === M.target;
+        if (tgt && M.lit.length === C[2].length) s += C[3].map(([a, b]) => `<path class="dm-cline" d="M${ox + C[2][a][0]} ${oy + C[2][a][1]} L${ox + C[2][b][0]} ${oy + C[2][b][1]}" stroke="#fff6a8" stroke-width="2.4" stroke-linecap="round"/>`).join('');
+        s += C[2].map(([x, y], i) => { const on = tgt && M.lit.includes(i); return `<g class="dm-hit dm-cstar${on ? ' on' : ''}" data-hit="star" data-k="${k}" data-i="${i}"><circle cx="${ox + x}" cy="${oy + y}" r="16" fill="transparent"/><polygon points="${starPts(ox + x, oy + y, on ? 9 : 6, on ? 4 : 2.6)}" fill="${on ? '#fff27a' : '#fff'}"/></g>`; }).join('');
+      });
+    } else {
+      s += `<g class="dm-sun"><circle cx="680" cy="74" r="80" fill="url(#${u}u)"/>${rays(680, 74, 36, 52, 12, 4, '#ffd84d')}<circle cx="680" cy="74" r="30" fill="#ffe45c" ${S2}/></g>` + face(680, 74, 1.1) +
+        [[120, 70, 1], [400, 44, 0.8], [260, 120, 0.6]].map(([x, y, k], i) => `<g class="dm-cloud" style="animation-delay:-${i * 7}s"><g transform="translate(${x} ${y}) scale(${k})"><path d="M0 20 H90 A20 20 0 0 0 80 -10 A28 28 0 0 0 30 -14 A22 22 0 0 0 0 20 Z" fill="#fff"/></g></g>`).join('') +
+        `<path d="M520 120 q8 -8 16 0 q8 -8 16 0 M560 150 q6 -6 12 0 q6 -6 12 0" fill="none" stroke="${O}" stroke-width="2.2" stroke-linecap="round"/>`;
+      if (M.target) { const sc = 0.18 + 0.5 * M.prog / 100; s += `<g transform="translate(600 226) scale(${dmF(sc * 10) / 10})">${dmIsleArt(M.target)}</g>`; }
+    }
+    s += `<rect y="222" width="800" height="228" fill="url(#${u}o)"/><path d="M0 222 H800" stroke="#fff" stroke-width="2" opacity=".6"/>`;
+    s += `<g class="dm-helper"><path d="M40 470 Q20 330 150 300 Q250 290 260 360 Q240 330 200 336 Q170 344 180 380 Q190 420 300 470 Z" fill="${night ? '#3a64b8' : '#5fd0f0'}" ${S}/><path d="M150 300 Q250 290 260 360" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>` +
+      `<circle cx="120" cy="370" r="6" fill="${O}"/><circle cx="150" cy="364" r="6" fill="${O}"/><circle cx="122" cy="368" r="2" fill="#fff"/><circle cx="152" cy="362" r="2" fill="#fff"/><path d="M120 392 q18 14 34 -4" fill="none" stroke="${O}" stroke-width="3" stroke-linecap="round"/><circle cx="104" cy="386" r="6" fill="#ff8fab" opacity=".6"/><circle cx="172" cy="378" r="6" fill="#ff8fab" opacity=".6"/></g>`;
+    const wv = dmWaves(night, 222); s += wv[0] + wv[1];
+    s += `<g class="dm-boatmove"><g transform="translate(400 356)"><g class="dm-boat">${dmBoatArt(u, I, true)}</g></g></g>`;
+    s += wv[2];
+    return dmSvg(s, defs, 'dm-isle' + (night ? ' dm-night' : ''));
+  }
+  const dmChickLines = ['קוקוריקו! רגע... אני תרנגולת 🐔', 'בוק-בוק? בוק!', 'אני הקברניטית! 🫡', 'ראיתי דג! הוא ראה אותי!', 'מישהו אמר תירס?', 'בלופ! 💦 אני בסדר!', 'הטלתי ביצה! 🥚 אוי, זו אבן.', 'Zzz... 😴'];
+  function dmIsleDraw() {
+    const svgEl = dmSetScene(dmIsleScene()), M = dmSea;
+    svgEl.addEventListener('click', e => {
+      const h = e.target.closest('.dm-hit'); if (!h) return; const [x, y] = dmPt(e);
+      if (h.dataset.hit === 'chick') {
+        const c = h.querySelector('.dm-chick'), act = dmPick(['jump', 'spin', 'flap', 'jump']);
+        c.classList.remove('jump', 'spin', 'flap'); void c.getBBox(); c.classList.add(act);
+        dmSay(dmPick(dmChickLines), x, y - 50); [880, 660, 990].forEach((f, i) => tone(f, 0.08, 'square', i * 0.09, 0.04));
+      } else if (h.dataset.hit === 'star') {
+        const k = h.dataset.k, i = +h.dataset.i;
+        if (k !== M.target) { h.classList.remove('dm-shake'); void h.getBBox(); h.classList.add('dm-shake'); dmSay('זה כוכב של קבוצה אחרת 🙂', x, y + 60); tone(220, 0.15, 'triangle'); return; }
+        if (!M.lit.includes(i)) { M.lit.push(i); tone(700 + M.lit.length * 90, 0.2, 'sine', 0, 0.07); }
+        if (M.lit.length === DM_ISLES[k][2].length) { dmIsleDraw(); dmChime(); dmSay(`✨ הכוכבים מראים את הדרך אל ${DM_ISLES[k][0]}!`, 400, 200, 3200); dmLater(() => { M.mode = 'sail'; M.prog = 10; dmIsleDraw(); dmSay('⛵ יוצאים לדרך! הגלים יעזרו לנו', 400, 120); }, 2600); }
+        else dmIsleDraw();
+      } else if (h.dataset.hit === 'shell') {
+        const b = M.beach[+h.dataset.i]; if (!b || b.got) return;
+        b.got = 1; const I = dm.isle, first = !I.shells[b.k]; I.shells[b.k] = (I.shells[b.k] || 0) + 1; dmSave();
+        dmBurst(b.x, b.y, ['✨', '🐚', '✨', '💫']); tone(first ? 1320 : 990, 0.2, 'sine', 0, 0.07);
+        dmSay(first ? `חדש באוסף: ${DM_SHELLS[b.k][0]}! 🎉` : DM_SHELLS[b.k][0], b.x, b.y - 30);
+        if (first) dmCoins(5, 'צדף חדש באוסף');
+        dmIsleDraw();
+        if (M.beach.every(z => z.got)) { dmCoins(6, 'אספת את כל הצדפים'); dmLater(() => dmSay('🧺 אספנו את כל הצדפים!', 420, 200), 600); }
+      }
+    });
+    dmIsleCtl();
+  }
+  function dmIslePush() {
+    const M = dmSea, s = dmSvgEl(); if (!s || s.classList.contains('dm-pushing')) return;
+    s.classList.add('dm-pushing'); [196, 262, 330, 392].forEach((f, i) => tone(f, 0.4, 'sine', i * 0.12, 0.06));
+    dmLater(() => dmSay(dmPick(['🌊 "אני אעזור לך, חברה!"', '🌊 "וּוּוּש! קדימה!"', '🌊 "הגלים איתך!"']), 200, 290, 2200), 300);
+    dmLater(() => {
+      s.classList.remove('dm-pushing'); M.prog = Math.min(100, M.prog + 30);
+      if (M.prog >= 100) { dmIsleArrive(); return; }
+      dmIsleDraw();
+    }, 2300);
+  }
+  function dmIsleArrive() {
+    const M = dmSea, I = dm.isle, ks = Object.keys(DM_SHELLS);
+    M.mode = 'island'; M.prog = 0;
+    M.beach = Array.from({ length: 6 }, (_, i) => ({ k: Math.random() < 0.1 ? 'pearl' : dmPick(ks.filter(k => k !== 'pearl')), x: 330 + i * 72 + Math.random() * 20, y: 404 + (i % 2) * 22 + Math.random() * 6 }));
+    if (!I.visited.includes(M.target)) { I.visited.push(M.target); dmCoins(10, 'גילית אי חדש 🏝️'); }
+    I.trips++; dmSave(); SFX.yay(); dmIsleDraw();
+    dmLater(() => dmSay(`🏝️ הגענו ל${DM_ISLES[M.target][0]}!`, 420, 190, 3000), 300);
+  }
+  function dmIsleCtl() {
+    const M = dmSea, I = dm.isle;
+    const tabs = dmTabs(M.tab, [['sail', '⛵ להפליג'], ['boat', '🛠️ לבנות סירה'], ['shells', `🐚 אוסף צדפים (${Object.keys(I.shells).length}/8)`]], id => { M.tab = id; dmIsleCtl(); });
+    let body;
+    if (M.tab === 'boat') {
+      const redraw = () => { dmSave(); SFX.pop(); dmIsleDraw(); };
+      body = [dmRow('גוף:', ...['#ff8fb8', '#ff5f8f', '#ffae42', '#ffd84d', '#4fc3a1', '#7ec8ff', '#5b8cff', '#a98bff', '#ffffff', '#c98a4b'].map(c => dmSw(c, I.hull === c, () => { I.hull = c; redraw(); }))),
+        dmRow('מפרש:', ...['#ffffff', '#fff4e0', '#ffd6e8', '#e3f3ff', '#fff27a', '#e2d4ff'].map(c => dmSw(c, I.sail === c, () => { I.sail = c; redraw(); }))),
+        dmRow('דוגמה:', ...Object.entries(DM_SAILPAT).map(([k, n]) => dmChip(n, I.pat === k, () => { I.pat = k; redraw(); }))),
+        dmRow('צבע דוגמה:', ...DM_COLORS.slice(0, 12).map(c => dmSw(c, I.sail2 === c, () => { I.sail2 = c; redraw(); }))),
+        dmRow('דגל:', ...['#ffd84d', '#ff5f8f', '#7ec8ff', '#a8e063', '#c77dff', '#ff7a5c'].map(c => dmSw(c, I.flag === c, () => { I.flag = c; redraw(); })))];
+    } else if (M.tab === 'shells') {
+      body = [el('div', { class: 'dm-shop-g' }, ...Object.entries(DM_SHELLS).map(([k, [nm]]) => el('div', { class: 'dm-item' + (I.shells[k] ? '' : ' dm-locked') }, el('span', { html: `<svg viewBox="-18 -18 36 36" xmlns="http://www.w3.org/2000/svg">${dmShell(k, 0, 0, 1.1)}</svg>` }), el('small', {}, I.shells[k] ? nm : '???'), el('b', {}, I.shells[k] ? `× ${I.shells[k]}` : '')))),
+        el('p', { class: 'muted dm-hint' }, `איים שביקרת בהם: ${I.visited.map(k => DM_ISLES[k][1] + ' ' + DM_ISLES[k][0]).join(' • ') || 'עוד לא... יוצאים להפלגה!'}`)];
+    } else if (M.mode === 'island') {
+      const left = M.beach.filter(b => !b.got).length;
+      body = [el('p', { class: 'dm-hint' }, left ? `🐚 לוחצים על הצדפים שעל החוף! נשארו ${left}` : '🧺 כל הצדפים נאספו!'),
+        dmRow('', dmBtn('🌙 לנווט לאי הבא', () => dmIsleNav(), left ? 'btn' : 'btn main'), dmBtn('🐔 קוקי!', () => { const c = dmSvgEl().querySelector('[data-hit="chick"]'); if (c) c.dispatchEvent(new MouseEvent('click', { bubbles: true })); }))];
+    } else if (M.mode === 'stars') {
+      const C = DM_ISLES[M.target];
+      body = [el('div', { class: 'dm-card' }, el('div', { class: 'dm-lanrow' }, el('span', { class: 'dm-lanprev', html: `<svg viewBox="-10 -10 180 130" xmlns="http://www.w3.org/2000/svg"><rect x="-10" y="-10" width="180" height="130" rx="16" fill="#1c2260"/>${C[3].map(([a, b]) => `<path d="M${C[2][a][0]} ${C[2][a][1]} L${C[2][b][0]} ${C[2][b][1]}" stroke="#fff6a8" stroke-width="3" opacity=".7"/>`).join('')}${C[2].map(([x, y]) => `<polygon points="${starPts(x, y, 8, 3.5)}" fill="#fff"/>`).join('')}</svg>` }),
+        el('div', {}, el('b', {}, `🧭 מחפשים בשמיים את קבוצת הכוכבים "${C[0].replace('אי ', '')}"`), el('p', {}, `לוחצים על כל הכוכבים שלה (${M.lit.length}/${C[2].length}) — והם יראו את הדרך אל ${C[0]} ${C[1]}`))))];
+    } else {
+      body = [M.target ? el('div', { class: 'dm-card' }, el('b', {}, `⛵ מפליגים אל ${DM_ISLES[M.target][0]} ${DM_ISLES[M.target][1]}`), el('div', { class: 'dm-bar' }, el('i', { style: `width:${M.prog}%` })))
+        : el('p', { class: 'dm-hint' }, '🌙 כדי לדעת לאן להפליג — מנווטים לפי הכוכבים!'),
+        dmRow('', M.target ? dmBtn('🌊 לבקש עזרה מהגלים', dmIslePush, 'btn main dm-big') : dmBtn('🌙 לנווט לפי הכוכבים', () => dmIsleNav(), 'btn main dm-big'),
+          dmBtn('🐔 קוקי!', () => { const c = dmSvgEl().querySelector('[data-hit="chick"]'); if (c) c.dispatchEvent(new MouseEvent('click', { bubbles: true })); }))];
+    }
+    dmCtl(tabs, body);
+  }
+  function dmIsleNav() {
+    const M = dmSea, ks = Object.keys(DM_ISLES), I = dm.isle;
+    const fresh = ks.filter(k => !I.visited.includes(k) && k !== M.target), tgt = dmPick(fresh.length ? fresh : ks.filter(k => k !== M.target));
+    M.target = tgt; M.mode = 'stars'; M.lit = []; M.tab = 'sail';
+    M.trio = [tgt, ...ks.filter(k => k !== tgt).sort(() => Math.random() - 0.5).slice(0, 2)].sort(() => Math.random() - 0.5);
+    tone(392, 0.3, 'sine'); tone(523, 0.4, 'sine', 0.15); dmIsleDraw();
+  }
+  DM.isle = { icon: '🌺', name: 'שייט לאי', sub: 'בונים סירה, מנווטים לפי הכוכבים, הגלים עוזרים — ותרנגולת מצחיקה בשם קוקי באה איתנו 🐔', enter: () => { dmSea = Object.assign(dmSea, { tab: 'sail' }); if (dmSea.mode === 'stars' && !dmSea.trio.length) dmSea.mode = 'sail'; }, draw: dmIsleDraw };
+  // ---------- 🎆 castle of the board: a pink castle she decorates + a fireworks show she composes ----------
+  const DM_DECOR = [['bunting', '🎏 דגלונים', 0], ['garden', '🌷 גינת פרחים', 0], ['hearts', '💗 חלונות לב', 0], ['lights', '💡 שרשרת אורות', 10], ['balloons', '🎈 בלונים', 10], ['banners', '🎗️ כרזות', 10], ['moat', '🌊 תעלה וגשר', 15], ['fountain', '⛲ מזרקה', 15], ['rainbow', '🌈 קשת', 20]];
+  const DM_FW = { peony: '💮 כדור', ring: '⭕ טבעת', heart: '💖 לב', willow: '🌿 ערבה', star: '⭐ כוכב', crackle: '✨ נצנוצים', smile: '😊 סמיילי' };
+  const DM_FWC = ['#ff5f8f', '#ff9ad5', '#ffd84d', '#ffae42', '#a8e063', '#4fe0c8', '#7ec8ff', '#c77dff', '#ffffff', 'rainbow'];
+  let dmCs = { tab: 'fw', k: 'heart', c: '#ff5f8f', gap: 0.8, playing: false };
+  const dmCastleNight = () => dmCs.tab === 'fw' || new Date().getHours() >= 19 || new Date().getHours() < 5;
+  function dmCastleScene() {
+    const C = dm.castle, D = C.decor, u = 'dmc' + (dmUid++), night = dmCastleNight(), g = dmGirl(), ps = dmPets(), wall = C.wall, dk = dmMix(wall, '#3a2b3c', 0.2), roof = C.roof, rdk = dmMix(roof, '#3a2b3c', 0.25);
+    const defs = `<linearGradient id="${u}k" x1="0" y1="0" x2="0" y2="1">${night ? '<stop offset="0" stop-color="#0c1140"/><stop offset=".75" stop-color="#2d2a72"/><stop offset="1" stop-color="#5b3f8f"/>' : '<stop offset="0" stop-color="#9fdcff"/><stop offset="1" stop-color="#ffe3f1"/>'}</linearGradient>${dmGlow(u + 'm', '#fff3c4')}${dmGlow(u + 'w', '#ffd27a')}`;
+    let s = `<rect width="800" height="450" fill="url(#${u}k)"/>` + (night ? dmStars(70, 91, 260) + dmMoon(700, 60, 22, u + 'm') : `<circle cx="690" cy="70" r="28" fill="#ffe45c" ${S2}/>` + [[110, 80], [560, 120]].map(([x, y]) => `<g class="dm-cloud"><path transform="translate(${x} ${y})" d="M0 20 H90 A20 20 0 0 0 80 -10 A28 28 0 0 0 30 -14 A22 22 0 0 0 0 20 Z" fill="#fff"/></g>`).join(''));
+    if (D.rainbow) s += [['#ff7a7a', 300], ['#ffd84d', 284], ['#a8e063', 268], ['#7ec8ff', 252], ['#c77dff', 236]].map(([c, r]) => `<path d="M${400 - r} 380 A${r} ${r * 0.95} 0 0 1 ${400 + r} 380" fill="none" stroke="${c}" stroke-width="16" opacity="${night ? 0.5 : 0.85}"/>`).join('');
+    s += `<path d="M0 360 Q200 320 400 340 Q600 320 800 356 V450 H0 Z" fill="${night ? '#2f5d4a' : '#8fd67a'}"/><path d="M0 396 Q220 370 420 392 Q620 410 800 388 V450 H0 Z" fill="${night ? '#3a7058' : '#a8e28f'}"/>`;
+    // castle parts
+    const win = (x, y, w = 16, h = 24) => D.hearts ? dmHeart(x, y + 4, 1.1, night ? '#ffd84d' : '#ff9ad5', `class="dm-win" ${S2}`) : `<path class="dm-win" d="M${x - w / 2} ${y + h / 2} V${y - h / 2 + w / 2} A${w / 2} ${w / 2} 0 0 1 ${x + w / 2} ${y - h / 2 + w / 2} V${y + h / 2} Z" fill="${night ? '#ffd84d' : '#bfe8ff'}" ${S2}/>`;
+    const crenel = (x1, x2, y) => { let d = `M${x1} ${y}`; for (let x = x1; x < x2; x += 20) d += ` v-12 h10 v12 h10`; return `<path d="${d} V${y + 8} H${x1} Z" fill="${wall}" ${S}/>`; };
+    const cone = (x1, x2, yb, ya) => `<path d="M${x1 - 8} ${yb} L${(x1 + x2) / 2} ${ya} L${x2 + 8} ${yb} Z" fill="${roof}" ${S}/><path d="M${(x1 + x2) / 2} ${ya} L${x1 + 6} ${yb}" stroke="${rdk}" stroke-width="3" opacity=".5"/>` +
+      `<path d="M${(x1 + x2) / 2} ${ya} V${ya - 22}" stroke="${O}" stroke-width="2"/><path class="dm-flag" d="M${(x1 + x2) / 2} ${ya - 22} L${(x1 + x2) / 2 + 24} ${ya - 16} L${(x1 + x2) / 2} ${ya - 10} Z" fill="${C.flag}" ${S2}/>`;
+    if (night) s += `<circle cx="400" cy="270" r="200" fill="url(#${u}w)" opacity=".5"/>`;
+    s += `<rect x="228" y="160" width="64" height="222" fill="${wall}" ${S}/><rect x="508" y="160" width="64" height="222" fill="${wall}" ${S}/>` + cone(228, 292, 164, 70) + cone(508, 572, 164, 70) +
+      `<rect x="290" y="226" width="220" height="156" fill="${wall}" ${S}/>` + crenel(290, 510, 226) +
+      `<rect x="364" y="112" width="72" height="116" fill="${wall}" ${S}/>` + cone(364, 436, 116, 14) +
+      [[260, 210], [260, 290], [540, 210], [540, 290], [400, 160], [330, 272], [470, 272]].map(([x, y]) => win(x, y)).join('') +
+      `<path d="M370 382 V330 A30 30 0 0 1 430 330 V382 Z" fill="#c98a5b" ${S}/><path d="M400 300 V382 M370 346 H430" stroke="#8b5a2b" stroke-width="2"/>${dmHeart(400, 318, 0.9, '#ff5f8f', S2)}<circle cx="410" cy="360" r="3" fill="#ffd84d"/>` +
+      [[300, 250], [480, 320], [240, 340], [556, 250]].map(([x, y]) => `<path d="M${x} ${y} h14 M${x + 4} ${y + 10} h14" stroke="${dk}" stroke-width="2" opacity=".6"/>`).join('');
+    if (D.banners) s += [322, 478].map(x => `<path d="M${x - 12} 240 H${x + 12} V296 L${x} 286 L${x - 12} 296 Z" fill="${C.flag}" ${S2}/><polygon points="${starPts(x, 258, 7, 3)}" fill="#fff"/>`).join('');
+    if (D.bunting) s += [[292, 508]].map(() => `<path d="M292 184 Q400 214 508 184" fill="none" stroke="${O}" stroke-width="1.5"/>` + Array.from({ length: 9 }, (_, i) => { const x = 304 + i * 24, y = 184 + 30 * Math.sin(Math.PI * (x - 292) / 216) * 0.9; return `<path d="M${x - 8} ${dmF(y - 1)} L${x + 8} ${dmF(y - 1)} L${x} ${dmF(y + 15)} Z" fill="${DM_COLORS[i % 12]}" ${S2}/>`; }).join('')).join('');
+    if (D.lights) s += `<path d="M228 160 Q260 176 292 160 M292 226 Q400 250 510 226 M508 160 Q540 176 572 160" fill="none" stroke="#3f8f3a" stroke-width="1.6"/>` + [...Array.from({ length: 11 }, (_, i) => [300 + i * 20, 226 + 22 * Math.sin(Math.PI * i / 10)]), ...[236, 252, 268, 284].map((x, i) => [x, 162 + 8 * Math.sin(Math.PI * i / 3)]), ...[516, 532, 548, 564].map((x, i) => [x, 162 + 8 * Math.sin(Math.PI * i / 3)])].map(([x, y], i) => `<circle class="dm-tw" style="animation-delay:-${(i % 5) * 0.3}s" cx="${dmF(x)}" cy="${dmF(y + 5)}" r="4" fill="${DM_FWC[i % 8]}" ${S2}/>`).join('');
+    if (D.balloons) s += [[210, 150, '#ff5f8f'], [196, 130, '#ffd84d'], [222, 124, '#7ec8ff'], [590, 150, '#a8e063'], [604, 128, '#c77dff'], [578, 124, '#ff9ad5']].map(([x, y, c], i) => `<path d="M${x} ${y + 18} Q${x + 4} ${y + 40} ${i < 3 ? 228 : 572} 200" fill="none" stroke="${O}" stroke-width="1"/><g class="dm-bob" style="animation-delay:-${i * 0.4}s"><ellipse cx="${x}" cy="${y}" rx="12" ry="15" fill="${c}" ${S2}/>${shine(x - 7, y - 4)}</g>`).join('');
+    if (D.moat) s += `<path d="M180 398 Q400 430 620 398 L640 418 Q400 452 160 418 Z" fill="${night ? '#3a64b8' : '#7ec8ff'}" ${S2}/><path d="M370 382 L360 432 H440 L430 382 Z" fill="#c98a5b" ${S2}/><path d="M366 400 H434 M364 416 H436" stroke="#8b5a2b" stroke-width="2"/>`;
+    if (D.garden) s += [[250, 392], [300, 398], [500, 398], [550, 392], [200, 400], [600, 400]].map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="15" fill="#4fa36b" ${S2}/>` + dmFlower(x - 5, y - 6, 5, DM_COLORS[(i * 3) % 12], '#ffd84d') + dmFlower(x + 6, y + 2, 4, '#fff', '#ffd84d')).join('');
+    if (D.fountain) s += `<g transform="translate(120 410)"><ellipse cx="0" cy="0" rx="46" ry="12" fill="#bfe8ff" ${S}/><rect x="-6" y="-44" width="12" height="44" fill="#e8e8f2" ${S2}/><ellipse cx="0" cy="-44" rx="22" ry="6" fill="#bfe8ff" ${S2}/><path class="dm-spray" d="M0 -48 q-14 -30 -30 4 M0 -48 q14 -30 30 4 M0 -48 V-80" fill="none" stroke="#7ec8ff" stroke-width="3" stroke-linecap="round"/></g>`;
+    // guests watching
+    s += g ? dmGirlAt(g, D.fountain ? 190 : 150, 446, 210) : '';
+    s += ps.map((p, i) => dmPetAt(p, [660, 720, 610][i], 448, 70, 'dm-hit', i === 0)).join('');
+    s += `<rect class="dm-sky" data-hit="sky" width="800" height="${night ? 300 : 0}" fill="transparent"/>`;
+    return dmSvg(s, defs, 'dm-castle' + (night ? ' dm-night' : ''));
+  }
+  // ---- the fireworks engine (a canvas over the scene) ----
+  let dmFx = null;
+  function dmFxEnsure() {
+    if (!dmStageEl) return null;
+    let cv = dmStageEl.querySelector('.dm-fx');
+    if (!cv) { cv = el('canvas', { class: 'dm-fx', 'aria-hidden': 'true' }); dmStageEl.append(cv); }
+    const r = dmStageEl.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    if (cv.width !== Math.round(r.width * dpr)) { cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); }
+    if (!dmFx || dmFx.cv !== cv) dmFx = { cv, ctx: cv.getContext('2d'), parts: [], rockets: [], on: false, run: dmRun };
+    dmFx.run = dmRun;
+    return dmFx;
+  }
+  const dmHue = c => c === 'rainbow' ? `hsl(${Math.floor(Math.random() * 360)} 95% 65%)` : c;
+  function dmBoom(sh) {
+    const F = dmFx; if (!F) return;
+    const P = (vx, vy, o = {}) => F.parts.push(Object.assign({ x: sh.x, y: sh.y, vx, vy, life: 0, max: 70 + Math.random() * 30, c: dmHue(sh.c), r: 2.2, g: 0.035, fl: false }, o));
+    const k = sh.k, sp = 2.6;
+    if (k === 'ring') for (let i = 0; i < 48; i++) { const a = i / 48 * Math.PI * 2; P(Math.cos(a) * sp, Math.sin(a) * sp * 0.9); }
+    else if (k === 'heart') for (let i = 0; i < 64; i++) { const t = i / 64 * Math.PI * 2, x = 16 * Math.sin(t) ** 3, y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)); P(x / 16 * sp * 1.1, y / 16 * sp * 1.1, { g: 0.02 }); }
+    else if (k === 'star') { const pts = starPts(0, 0, 1, 0.42).split(' ').map(p => p.split(',').map(Number)); for (let e = 0; e < 10; e++) { const [a, b] = [pts[e], pts[(e + 1) % 10]]; for (let j = 0; j < 7; j++) { const t = j / 7; P((a[0] + (b[0] - a[0]) * t) * sp * 1.3, (a[1] + (b[1] - a[1]) * t) * sp * 1.3, { g: 0.02 }); } } }
+    else if (k === 'willow') for (let i = 0; i < 70; i++) { const a = Math.random() * Math.PI * 2, v = 0.8 + Math.random() * 1.6; P(Math.cos(a) * v, Math.sin(a) * v - 0.5, { g: 0.03, max: 150 + Math.random() * 40, c: sh.c === 'rainbow' ? '#ffd27a' : sh.c, r: 1.8, tr: true }); }
+    else if (k === 'crackle') for (let i = 0; i < 70; i++) { const a = Math.random() * Math.PI * 2, v = 0.4 + Math.random() * 2.8; P(Math.cos(a) * v, Math.sin(a) * v, { fl: true, r: 1.6, c: i % 3 ? dmHue(sh.c) : '#fff', max: 60 + Math.random() * 50 }); }
+    else if (k === 'smile') { for (let i = 0; i < 40; i++) { const a = i / 40 * Math.PI * 2; P(Math.cos(a) * sp, Math.sin(a) * sp, { g: 0.012 }); } [[-0.9, -0.8], [0.9, -0.8]].forEach(([x, y]) => { for (let i = 0; i < 5; i++) P(x * sp * 0.6 + (Math.random() - 0.5) * 0.15, y * sp * 0.6 + (Math.random() - 0.5) * 0.15, { g: 0.012 }); }); for (let i = 0; i <= 14; i++) { const a = Math.PI * (0.2 + 0.6 * i / 14); P(Math.cos(a) * sp * 0.6, Math.sin(a) * sp * 0.6, { g: 0.012 }); } }
+    else for (let i = 0; i < 80; i++) { const a = Math.random() * Math.PI * 2, v = sp * (0.35 + Math.random() * 0.75); P(Math.cos(a) * v, Math.sin(a) * v); }
+    tone(70 + Math.random() * 40, 0.45, 'triangle', 0, 0.12); tone(140, 0.2, 'sawtooth', 0.02, 0.02);
+    if (k === 'crackle') for (let i = 0; i < 6; i++) tone(2000 + Math.random() * 1500, 0.04, 'square', 0.3 + i * 0.08, 0.02);
+    const svgEl = dmSvgEl(); if (svgEl) { svgEl.classList.remove('dm-flash'); void svgEl.getBBox(); svgEl.classList.add('dm-flash'); }
+  }
+  function dmFxLoop() {
+    const F = dmFx; if (!F || F.on) return; F.on = true;
+    const step = () => {
+      if (F.run !== dmRun || !F.cv.isConnected) { F.on = false; F.parts = []; F.rockets = []; return; }
+      const { ctx, cv } = F; ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = 'rgba(0,0,0,.22)'; ctx.fillRect(0, 0, cv.width, cv.height);
+      ctx.setTransform(cv.width / 800, 0, 0, cv.height / 450, 0, 0); ctx.globalCompositeOperation = 'lighter';
+      for (const r of F.rockets) {
+        r.t += 1 / 42; const e = 1 - (1 - Math.min(1, r.t)) ** 2; r.x = r.sh.x + Math.sin(r.t * 12) * 2; r.y = 450 - (450 - r.sh.y) * e;
+        ctx.fillStyle = '#fff3c4'; ctx.beginPath(); ctx.arc(r.x, r.y, 2.4, 0, 7); ctx.fill();
+        ctx.fillStyle = 'rgba(255,200,120,.5)'; ctx.beginPath(); ctx.arc(r.x, r.y + 6, 1.6, 0, 7); ctx.fill();
+        if (r.t >= 1) { r.done = true; dmBoom(r.sh); }
+      }
+      F.rockets = F.rockets.filter(r => !r.done);
+      for (const p of F.parts) {
+        p.life++; p.vx *= 0.985; p.vy = p.vy * 0.985 + p.g; p.x += p.vx; p.y += p.vy;
+        const a = Math.max(0, 1 - p.life / p.max) * (p.fl ? (Math.random() < 0.5 ? 1 : 0.2) : 1);
+        ctx.globalAlpha = a; ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 7); ctx.fill();
+      }
+      ctx.globalAlpha = 1; F.parts = F.parts.filter(p => p.life < p.max);
+      if (F.parts.length || F.rockets.length || F.keep) requestAnimationFrame(step);
+      else { F.on = false; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height); }
+    };
+    requestAnimationFrame(step);
+  }
+  const dmLaunch = sh => { const F = dmFxEnsure(); if (!F) return; F.rockets.push({ sh, t: 0 }); tone(300, 0.5, 'sine', 0, 0.02); dmFxLoop(); };
+  function dmShowPlay(list) {
+    const shots = (list || dm.castle.show).slice().sort((a, b) => a.t - b.t); if (!shots.length) return;
+    dmStop(); dmCs.playing = true; const F = dmFxEnsure(); F.keep = true;
+    const svgEl = dmSvgEl(); if (svgEl) svgEl.classList.add('dm-showing');
+    dmSay('🎆 המופע מתחיל!', 400, 380, 1500);
+    shots.forEach(sh => dmLater(() => dmLaunch(sh), 1200 + sh.t * 1000));
+    const end = 1200 + shots[shots.length - 1].t * 1000 + 2600;
+    dmLater(() => { if (dmFx) dmFx.keep = false; dmCs.playing = false; if (svgEl) svgEl.classList.remove('dm-showing'); dm.castle.shows++; dmSave(); dmCoins(8, 'מופע זיקוקים 🎆'); dmSay(dmPick(['👏👏👏 איזה מופע!', '🤩 וואו! עוד פעם!', '💖 הכי יפה שראיתי!']), 170, 220, 3000); [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.3, 'triangle', i * 0.1, 0.06)); dmCastleCtl(); }, end);
+    dmCastleCtl();
+  }
+  const dmSurprise = () => { const ks = Object.keys(DM_FW); return Array.from({ length: 12 }, (_, i) => ({ x: 90 + Math.random() * 620, y: 60 + Math.random() * 150, k: dmPick(ks), c: dmPick(DM_FWC), t: dmF(i * 0.7 + (i > 9 ? -0.6 : 0) + (i === 11 ? -0.1 : 0)) })); };
+  function dmCastleDraw() {
+    const svgEl = dmSetScene(dmCastleScene());
+    svgEl.addEventListener('click', e => {
+      const h = e.target.closest('[data-hit], [data-pet]'); if (!h) return; const [x, y] = dmPt(e);
+      if (h.dataset.pet != null) { dmSay(dmPick(['💖', '🎆 וואו!', '✨']), x, y - 70); return; }
+      if (h.dataset.hit !== 'sky' || dmCs.playing) return;
+      const C = dm.castle; if (C.show.length >= 24) { dmSay('המופע מלא! אפשר למחוק זיקוק 🙂', x, y); return; }
+      const last = C.show.length ? Math.max(...C.show.map(s => s.t)) : -dmCs.gap;
+      const sh = { x: Math.round(x), y: Math.round(Math.min(250, y)), k: dmCs.k, c: dmCs.c, t: dmF(Math.max(0, last + dmCs.gap)) };
+      C.show.push(sh); dmSave(); dmLaunch(sh); dmCastleCtl();
+    });
+    dmCastleCtl();
+  }
+  function dmCastleCtl() {
+    const C = dm.castle, tab = dmCs.tab;
+    const tabs = dmTabs(tab, [['fw', '🎆 מופע זיקוקים'], ['deco', '🏰 לקשט את הטירה']], id => { dmStop(); dmCs.tab = id; dmCastleDraw(); });
+    let body;
+    if (tab === 'deco') {
+      const redraw = () => { dmSave(); SFX.pop(); dmCastleDraw(); };
+      body = [dmRow('קירות:', ...['#ffc6de', '#ffb3cf', '#ffe0ef', '#f3dcff', '#d9ecff', '#fff1c9', '#ffffff'].map(c => dmSw(c, C.wall === c, () => { C.wall = c; redraw(); }))),
+        dmRow('גגות:', ...['#a98bff', '#ff5f8f', '#ff9ad5', '#7ec8ff', '#4fc3a1', '#ffae42', '#5b8cff'].map(c => dmSw(c, C.roof === c, () => { C.roof = c; redraw(); }))),
+        dmRow('דגלים:', ...['#ffd84d', '#ff5f8f', '#7ec8ff', '#a8e063', '#c77dff', '#ffffff'].map(c => dmSw(c, C.flag === c, () => { C.flag = c; redraw(); }))),
+        dmRow('קישוטים:', ...DM_DECOR.map(([id, nm, price]) => dmChip(price && !C.bought.includes(id) ? `${nm} • ${price}🪙` : nm, C.decor[id], () => {
+          if (!C.decor[id] && price && !C.bought.includes(id)) { if (typeof spendCoins === 'function' && !spendCoins(price, 'טירה: ' + nm)) { toast(stickerHTML('gift'), `צריך ${price} מטבעות 🪙`); return; } C.bought.push(id); SFX.yay(); }
+          C.decor = Object.assign({}, C.decor, { [id]: !C.decor[id] }); redraw();
+        })))];
+    } else {
+      const tl = C.show.slice().sort((a, b) => a.t - b.t);
+      body = [el('p', { class: 'dm-hint' }, dmCs.playing ? '🎆 המופע רץ... תהני!' : '👆 בוחרים זיקוק וצבע ולוחצים על השמיים — כל לחיצה מוסיפה זיקוק למופע!'),
+        dmRow('זיקוק:', ...Object.entries(DM_FW).map(([k, n]) => dmChip(n, dmCs.k === k, () => { dmCs.k = k; dmCastleCtl(); }))),
+        dmRow('צבע:', ...DM_FWC.map(c => c === 'rainbow' ? el('button', { type: 'button', class: 'dm-sw dm-rainbow', 'aria-label': 'קשת', 'aria-pressed': String(dmCs.c === c), onclick: () => { dmCs.c = c; dmCastleCtl(); } }) : dmSw(c, dmCs.c === c, () => { dmCs.c = c; dmCastleCtl(); }))),
+        dmRow('קצב:', ...[[0, 'ביחד!'], [0.4, 'מהר'], [0.8, 'רגיל'], [1.4, 'לאט']].map(([v, n]) => dmChip(n, dmCs.gap === v, () => { dmCs.gap = v; dmCastleCtl(); }))),
+        tl.length ? el('div', { class: 'dm-tl' }, ...tl.map(sh => { const b = el('button', { type: 'button', class: 'dm-tlb', title: 'למחוק', onclick: () => { C.show = C.show.filter(z => z !== sh); dmSave(); SFX.pop(); dmCastleCtl(); } }, DM_FW[sh.k].split(' ')[0], el('small', {}, `${sh.t}ש׳`)); b.style.borderColor = sh.c === 'rainbow' ? '#c77dff' : sh.c; return b; })) : el('p', { class: 'muted dm-hint' }, 'המופע עוד ריק — לוחצים על השמיים!'),
+        dmRow('', dmBtn('▶️ להפעיל את המופע!', () => { if (!C.show.length) { dmSay('קודם מוסיפים זיקוקים 🙂', 400, 200); return; } dmShowPlay(); }, 'btn main dm-big'),
+          dmBtn('🎲 מופע מפתיע', () => { C.show = dmSurprise(); dmSave(); dmShowPlay(); }),
+          C.show.length ? dmBtn('🗑️ לנקות', () => { C.show = []; dmSave(); dmCastleCtl(); }) : null,
+          el('span', { class: 'muted' }, `מופעים: ${C.shows}`))];
+    }
+    dmCtl(tabs, body);
+  }
+  DM.castle = {
+    icon: '🎆', name: 'טירת הלוח', sub: 'טירה ורודה שמקשטים כמו שרוצים — ובלילה מופע זיקוקים שאת מלחינה! 🏰',
+    enter: () => { dmCs.playing = false; },
+    draw: () => {
+      dmCastleDraw();
+      const h = new Date().getHours(), t = dmToday();
+      if ((h >= 19 || h < 5) && dm.castle.night !== t) { dm.castle.night = t; dmSave(); dmCs.tab = 'fw'; dmCastleDraw(); dmLater(() => { dmSay('🌙 הגיע הלילה... הגיע זמן המופע!', 400, 200, 2400); dmLater(() => dmShowPlay(dm.castle.show.length ? null : dmSurprise()), 1800); }, 600); }
+    },
+    stop: () => { dmCs.playing = false; if (dmFx) { dmFx.keep = false; dmFx.parts = []; dmFx.rockets = []; } },
+  };
+  // ---------- 🎠 the magic theme park: rides, a parade of original characters, and her own ears headband ----------
+  const DM_EARS = { round: 'עגולות', cat: 'חתולה', bunny: 'ארנבת', bear: 'דובונת', unicorn: 'חד-קרן' };
+  const DM_BOWS = { none: 'בלי', solid: 'חלק', dots: 'נקודות', stripes: 'פסים', heart: 'לב' };
+  const DM_SPARK = { none: 'בלי', sequins: 'פאייטים', stars: 'כוכבים', glitter: 'נצנצים' };
+  const DM_RIDES = { wheel: ['🎡', 'גלגל ענק'], carousel: ['🎠', 'קרוסלה'], cups: ['☕', 'ספלים מסתובבים'], coaster: ['🎢', 'רכבת הרים'] };
+  let dmPk = { tab: 'park', ride: null, parade: false, popped: {} };
+  // her ears headband, drawn in a girl's own 300x600 space (her head is around x=150, y=20..125)
+  const dmEars = (E, uid = 'e') => {
+    const s = `stroke="${O}" stroke-width="2.2" stroke-linejoin="round"`, c = E.color, inn = E.inner;
+    let r = '';
+    const earsXY = { round: [[112, 24], [188, 24]], bear: [[114, 34], [186, 34]] };
+    if (E.shape === 'cat' || E.shape === 'unicorn') r += [[1, 118], [-1, 182]].map(([f, x]) => `<path d="M${x - 20 * f} 40 L${x - 6 * f} ${E.shape === 'unicorn' ? 8 : -4} L${x + 16 * f} 32 Z" fill="${c}" ${s}/><path d="M${x - 12 * f} 36 L${x - 5 * f} ${E.shape === 'unicorn' ? 16 : 6} L${x + 8 * f} 32 Z" fill="${inn}"/>`).join('');
+    else if (E.shape === 'bunny') r += [[128, -12], [172, -12]].map(([x, y], i) => `<ellipse cx="${x}" cy="${y}" rx="13" ry="38" fill="${c}" ${s} transform="rotate(${i ? 12 : -12} ${x} ${y + 30})"/><ellipse cx="${x}" cy="${y + 2}" rx="6.5" ry="28" fill="${inn}" transform="rotate(${i ? 12 : -12} ${x} ${y + 30})"/>`).join('');
+    else { const [R, ri] = E.shape === 'bear' ? [18, 10] : [24, 14]; r += earsXY[E.shape === 'bear' ? 'bear' : 'round'].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="${R}" fill="${c}" ${s}/><circle cx="${x}" cy="${y + 2}" r="${ri}" fill="${inn}"/>`).join(''); }
+    if (E.shape === 'unicorn') r += `<path d="M140 30 L150 -34 L160 30 Z" fill="#ffe27a" ${s}/><path d="M142 18 L158 12 M144 4 L156 -2 M146 -10 L154 -14" stroke="#e0a800" stroke-width="2"/>`;
+    r += `<path d="M106 62 Q108 22 150 19 Q192 22 194 62" fill="none" stroke="${O}" stroke-width="10" stroke-linecap="round"/><path d="M106 62 Q108 22 150 19 Q192 22 194 62" fill="none" stroke="${E.band}" stroke-width="6" stroke-linecap="round"/>`;
+    const sp = { sequins: (x, y, i) => `<circle cx="${x}" cy="${y}" r="2.6" fill="${i % 2 ? '#fff' : '#e3e8ff'}" stroke="#b9c2e8" stroke-width=".6"/>`, stars: (x, y) => `<polygon points="${starPts(x, y, 4.2, 1.8)}" fill="#fff6a8" stroke="#e0a800" stroke-width=".6"/>`, glitter: (x, y, i) => `<circle cx="${x}" cy="${y}" r="1.4" fill="${['#ffd84d', '#fff', '#ff9ad5'][i % 3]}"/>` }[E.spark];
+    if (sp) { const n = E.spark === 'glitter' ? 26 : 12; r += Array.from({ length: n }, (_, i) => { const L = i % 2 ? 1 : -1, bx = E.shape === 'bunny' ? (L < 0 ? 128 : 172) : (L < 0 ? 112 : 188), by = E.shape === 'bunny' ? -14 : 26, sc = E.shape === 'bunny' ? [9, 30] : [16, 16]; return sp(dmF(bx + (dmR(i + 3) - 0.5) * sc[0] * 1.6), dmF(by + (dmR(i + 17) - 0.5) * sc[1] * 1.6), i); }).join(''); }
+    if (E.bow !== 'none') {
+      const bc = E.bowColor, bf = E.bow === 'solid' || E.bow === 'heart' ? bc : `url(#${uid}bw)`;
+      const pat = E.bow === 'dots' ? `<pattern id="${uid}bw" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="${bc}"/><circle cx="4" cy="4" r="1.8" fill="#fff"/></pattern>` : E.bow === 'stripes' ? `<pattern id="${uid}bw" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="${bc}"/><rect width="4" height="8" fill="#fff"/></pattern>` : '';
+      r += `<defs>${pat}</defs><g transform="translate(150 16)">` + (E.bow === 'heart' ? dmHeart(-14, 0, 1.3, bf, s) + dmHeart(14, 0, 1.3, bf, s) : `<path d="M0 0 C-10 -16 -30 -14 -28 0 C-30 14 -10 16 0 0 Z" fill="${bf}" ${s}/><path d="M0 0 C10 -16 30 -14 28 0 C30 14 10 16 0 0 Z" fill="${bf}" ${s}/>`) + `<circle cx="0" cy="0" r="6" fill="${bc}" ${s}/></g>`;
+    }
+    return r;
+  };
+  const dmFloatBase = (col, label) => `<rect x="-86" y="-34" width="172" height="26" rx="10" fill="${col}" ${S}/><path d="M-86 -12 ${Array.from({ length: 9 }, () => 'q9.5 12 19 0').join(' ')}" fill="${dmMix(col, '#ffffff', 0.4)}" ${S2}/>` +
+    [-56, 0, 56].map(x => `<circle cx="${x}" cy="-4" r="8" fill="#fff" ${S2}/><circle cx="${x}" cy="-4" r="3" fill="${col}"/>`).join('') + `<text x="0" y="-16" text-anchor="middle" font-size="14" font-weight="700" fill="#fff" stroke="${O}" stroke-width=".8" paint-order="stroke">${label}</text>`;
+  const DM_FLOATS = [
+    ['#ff9ad5', 'עוגונת', () => `<g class="dm-fbob"><path d="M-34 -40 L-28 -90 H28 L34 -40 Z" fill="#ffd9b0" ${S}/><path d="M-20 -88 V-42 M0 -90 V-40 M20 -88 V-42" stroke="#e0a070" stroke-width="2"/><path d="M-40 -90 Q-46 -118 -20 -122 Q-10 -150 12 -140 Q34 -142 34 -120 Q50 -110 40 -90 Z" fill="#ffb3cf" ${S}/><circle cx="6" cy="-148" r="8" fill="#ff4d5e" ${S2}/><path d="M6 -156 q4 -8 10 -8" stroke="#3f8f3a" stroke-width="2" fill="none"/>` + face(0, -112, 1.3) + [[-30, -120], [20, -128], [28, -104]].map(([x, y]) => `<rect x="${x}" y="${y}" width="6" height="2.4" rx="1" fill="${['#7ec8ff', '#ffd84d', '#a8e063'][Math.abs(x) % 3]}" transform="rotate(30 ${x} ${y})"/>`).join('') + `<path class="dm-waveh" d="M34 -80 q18 -10 20 -30" stroke="${O}" stroke-width="5" fill="none" stroke-linecap="round"/></g>`],
+    ['#ffd84d', 'כוכבית', () => `<g class="dm-fbob"><polygon points="${starPts(0, -96, 56, 26)}" fill="#ffe45c" ${S}/>${face(0, -94, 1.6)}<g transform="translate(26 -140) rotate(20)"><path d="M0 0 C-8 -12 -22 -10 -20 0 C-22 10 -8 12 0 0 Z M0 0 C8 -12 22 -10 20 0 C22 10 8 12 0 0 Z" fill="#ff5f8f" ${S2}/><circle r="4" fill="#ff5f8f" ${S2}/></g>${shine(-24, -118)}</g>`],
+    ['#c77dff', 'פופי הדרקונית', () => `<g class="dm-fbob"><path class="dm-flapw" d="M-10 -96 Q-50 -140 -40 -96 Q-30 -106 -10 -86 Z" fill="#ffb3cf" ${S2}/><ellipse cx="0" cy="-70" rx="34" ry="32" fill="#c9a6ff" ${S}/><ellipse cx="-4" cy="-62" rx="18" ry="20" fill="#f0e2ff"/><path d="M26 -52 q30 6 26 -20" stroke="${O}" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M26 -52 q30 6 26 -20" stroke="#c9a6ff" stroke-width="7" fill="none" stroke-linecap="round"/>` +
+      `<circle cx="-12" cy="-118" r="26" fill="#c9a6ff" ${S}/><path d="M-26 -140 l-4 -14 l10 8 Z M0 -142 l4 -14 l4 12 Z" fill="#ffd84d" ${S2}/>${face(-12, -116, 1.2)}` + [[-52, -128, 7], [-66, -146, 5], [-76, -164, 4]].map(([x, y, r], i) => `<circle class="dm-bub2" style="animation-delay:-${i * 0.5}s" cx="${x}" cy="${y}" r="${r}" fill="#e8f6ff" fill-opacity=".6" stroke="#7ec8ff" stroke-width="1.4"/>`).join('') + `</g>`],
+    ['#7ec8ff', 'ענני הכבשה', () => `<g class="dm-fbob">${[['#ff7a7a', 64], ['#ffd84d', 56], ['#a8e063', 48], ['#7ec8ff', 40]].map(([c, r]) => `<path d="M${-r} -40 A${r} ${r} 0 0 1 ${r} -40" fill="none" stroke="${c}" stroke-width="8"/>`).join('')}<path d="M-14 -40 V-56 M14 -40 V-56" stroke="${O}" stroke-width="6" stroke-linecap="round"/>` +
+      `<path d="M-40 -60 a14 14 0 0 1 10 -26 a18 18 0 0 1 32 -8 a16 16 0 0 1 28 12 a14 14 0 0 1 -2 26 Z" fill="#fff" ${S}/><ellipse cx="34" cy="-86" rx="14" ry="12" fill="#ffe1c8" ${S2}/><path d="M24 -96 q-8 -8 -12 2 M44 -96 q8 -8 12 2" fill="#ffe1c8" ${S2}/>${face(34, -86, 0.7)}</g>`],
+  ];
+  function dmParkScene() {
+    const u = 'dmp' + (dmUid++), g = dmGirl(), ps = dmPets(), E = dm.park.ears, R = dmPk.ride, P = dmPk.parade;
+    const head = g ? `<g transform="scale(.5)"><image href="${girlImgURL(g, { view: 'head', bg: false })}" x="90" y="-6" width="120" height="136"/>${dmEars(E, u + 'h')}</g>` : '';
+    const headAt = (x, y) => head ? `<g transform="translate(${dmF(x - 46.5)} ${dmF(y)}) scale(.62)">${head}</g>` : '';
+    const defs = `<linearGradient id="${u}k" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fdcff"/><stop offset="1" stop-color="#fff0f8"/></linearGradient>`;
+    let s = `<rect width="800" height="450" fill="url(#${u}k)"/><circle cx="720" cy="60" r="26" fill="#ffe45c" ${S2}/>` +
+      [[80, 60, 0.8], [470, 40, 0.7]].map(([x, y, k], i) => `<g class="dm-cloud" style="animation-delay:-${i * 8}s"><path transform="translate(${x} ${y}) scale(${k})" d="M0 20 H90 A20 20 0 0 0 80 -10 A28 28 0 0 0 30 -14 A22 22 0 0 0 0 20 Z" fill="#fff"/></g>`).join('');
+    // roller coaster at the back
+    const track = 'M300 250 C330 150 380 90 430 150 C470 200 500 90 560 80 C620 72 640 170 700 150 C740 136 760 90 810 100';
+    s += [330, 400, 470, 530, 600, 680, 760].map(x => `<path d="M${x} 330 V${x < 450 ? 170 : 120}" stroke="#c9b8f0" stroke-width="4"/>`).join('') +
+      `<path d="${track}" fill="none" stroke="${O}" stroke-width="9"/><path d="${track}" fill="none" stroke="#ff5f8f" stroke-width="5"/><path d="${track}" fill="none" stroke="#fff" stroke-width="2" stroke-dasharray="4 10"/>` +
+      `<g class="dm-hit" data-hit="coaster"><path d="${track}" fill="none" stroke="transparent" stroke-width="30"/><g><animateMotion dur="${R === 'coaster' ? 3 : 9}s" repeatCount="indefinite" rotate="auto" path="${track}"/><rect x="-18" y="-20" width="36" height="16" rx="6" fill="#ffd84d" ${S2}/><circle cx="-10" cy="-3" r="4" fill="${O}"/><circle cx="10" cy="-3" r="4" fill="${O}"/>${R === 'coaster' && g ? headAt(0, -56) : `<circle cx="0" cy="-24" r="7" fill="#ffe1c8" ${S2}/>`}</g></g>`;
+    // the gate in the back
+    s += `<g transform="translate(400 330)"><path d="M-70 0 V-110 Q-70 -170 0 -176 Q70 -170 70 -110 V0 H44 V-104 Q44 -146 0 -148 Q-44 -146 -44 -104 V0 Z" fill="#ffd6ec" ${S}/>` + Array.from({ length: 7 }, (_, i) => `<path d="M${-70 + i * 4} ${-110 - i * 9} h4" stroke="#ff9ad5" stroke-width="3"/>`).join('') +
+      `<rect x="-58" y="-200" width="116" height="30" rx="14" fill="#a98bff" ${S}/><text x="0" y="-179" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">פארק הקסם</text><polygon class="dm-wandstar" points="${starPts(0, -216, 14, 6)}" fill="#ffd84d" ${S2}/>` +
+      [-70, 70].map(x => `<path d="M${x - 14} -110 L${x} -150 L${x + 14} -110 Z" fill="#7ec8ff" ${S2}/><circle cx="${x}" cy="-154" r="4" fill="#ffd84d" ${S2}/>`).join('') + `</g>`;
+    // ground
+    s += `<path d="M0 320 Q400 300 800 320 V450 H0 Z" fill="#a8e28f"/><path d="M0 372 Q400 350 800 372 V450 H0 Z" fill="#f7e2c4"/><path d="M0 372 Q400 350 800 372" stroke="#e8c9a0" stroke-width="3" fill="none"/>` +
+      Array.from({ length: 16 }, (_, i) => `<circle cx="${25 + i * 50}" cy="${410 + (i % 2) * 18}" r="4" fill="#efd3ad"/>`).join('');
+    // ferris wheel
+    const cx = 140, cy = 180, rr = 100, ang = i => i * Math.PI / 4;
+    s += `<path d="M${cx - 60} 330 L${cx} ${cy} L${cx + 60} 330" fill="none" stroke="${O}" stroke-width="9" stroke-linejoin="round"/><path d="M${cx - 60} 330 L${cx} ${cy} L${cx + 60} 330" fill="none" stroke="#7ec8ff" stroke-width="5" stroke-linejoin="round"/>` +
+      `<g class="dm-hit" data-hit="wheel"><g class="dm-fw${R === 'wheel' ? ' fast' : ''}" style="transform-origin:${cx}px ${cy}px"><circle cx="${cx}" cy="${cy}" r="${rr}" fill="none" stroke="${O}" stroke-width="7"/><circle cx="${cx}" cy="${cy}" r="${rr}" fill="none" stroke="#ff9ad5" stroke-width="4"/><circle cx="${cx}" cy="${cy}" r="${rr * 0.55}" fill="none" stroke="#ffd84d" stroke-width="3"/>` +
+      Array.from({ length: 8 }, (_, i) => `<path d="M${cx} ${cy} L${dmF(cx + Math.cos(ang(i)) * rr)} ${dmF(cy + Math.sin(ang(i)) * rr)}" stroke="#fff" stroke-width="3"/>`).join('') +
+      Array.from({ length: 8 }, (_, i) => { const x = dmF(cx + Math.cos(ang(i)) * rr), y = dmF(cy + Math.sin(ang(i)) * rr), col = DM_COLORS[(i * 2) % 12]; return `<g class="dm-fwc${R === 'wheel' ? ' fast' : ''}" style="transform-origin:${x}px ${y}px"><path d="M${x} ${y} V${y + 8}" stroke="${O}" stroke-width="2"/><path d="M${x - 16} ${y + 8} H${x + 16} V${y + 22} Q${x} ${y + 34} ${x - 16} ${y + 22} Z" fill="${col}" ${S2}/>${R === 'wheel' && g && i === 6 ? headAt(+x, +y - 16) : ''}</g>`; }).join('') +
+      `</g><circle cx="${cx}" cy="${cy}" r="10" fill="#ffd84d" ${S2}/></g>`;
+    // carousel
+    const kx = 650;
+    s += `<g class="dm-hit" data-hit="carousel"><ellipse cx="${kx}" cy="372" rx="110" ry="20" fill="#ff9ad5" ${S}/><rect x="${kx - 110}" y="360" width="220" height="12" fill="#ff9ad5"/><ellipse cx="${kx}" cy="360" rx="110" ry="20" fill="#ffd6ec" ${S}/>` +
+      [-70, 0, 70].map((d, i) => `<path d="M${kx + d} 238 V360" stroke="#ffd84d" stroke-width="5"/><g class="dm-cbob${R === 'carousel' ? ' fast' : ''}" style="animation-delay:-${i * 0.5}s"><g transform="translate(${kx + d} ${i === 1 ? 342 : 332}) scale(${i === 1 ? 0.5 : 0.42}) translate(0 20)">${i === 1 && R === 'carousel' && g ? `<g transform="translate(-40 -186) scale(.3)">${dmGirlAt(g, 150, 590, 600, {}, dmEars(E, u + 'c'))}</g>` : ''}${dmHorseArt(DM_MANE[i])}</g></g>`).join('') +
+      `<path d="M${kx - 124} 240 L${kx} 170 L${kx + 124} 240 Z" fill="#fff" ${S}/>` + Array.from({ length: 6 }, (_, i) => `<path d="M${kx} 170 L${kx - 124 + i * 41.3} 240 L${kx - 124 + (i + 0.5) * 41.3} 240 Z" fill="#ff5f8f"/>`).join('') + `<path d="M${kx - 124} 240 L${kx} 170 L${kx + 124} 240" fill="none" ${S}/>` +
+      `<path d="M${kx - 124} 240 ${Array.from({ length: 8 }, () => 'q15.5 16 31 0').join(' ')}" fill="#ffd84d" ${S2}/>` + Array.from({ length: 8 }, (_, i) => `<circle class="dm-tw" style="animation-delay:-${i * 0.2}s" cx="${kx - 108 + i * 31}" cy="251" r="3" fill="#fff"/>`).join('') + `<path d="M${kx} 170 V150" stroke="${O}" stroke-width="2"/><path class="dm-flag" d="M${kx} 150 L${kx + 20} 156 L${kx} 162 Z" fill="#a98bff" ${S2}/></g>`;
+    // teacups
+    s += `<g class="dm-hit" data-hit="cups"><ellipse cx="400" cy="398" rx="96" ry="18" fill="#c9e8ff" ${S}/>` + [[340, 392, '#ff9ad5'], [400, 402, '#ffd84d'], [460, 392, '#a8e063']].map(([x, y, c], i) => `<g class="dm-cup${R === 'cups' ? ' fast' : ''}" style="transform-origin:${x}px ${y}px;animation-delay:-${i * 0.6}s">${i === 1 && R === 'cups' && g ? headAt(x, y - 64) : ''}<path d="M${x - 24} ${y - 28} H${x + 24} Q${x + 22} ${y} ${x} ${y} Q${x - 22} ${y} ${x - 24} ${y - 28} Z" fill="${c}" ${S2}/><path d="M${x + 22} ${y - 22} q12 2 6 14" fill="none" ${S2}/><ellipse cx="${x}" cy="${y - 28}" rx="24" ry="6" fill="${dmMix(c, '#ffffff', 0.4)}" ${S2}/>${dmHeart(x, y - 14, 0.5, '#fff')}</g>`).join('') + `</g>`;
+    // cotton candy cart
+    s += `<g class="dm-hit" data-hit="candy" transform="translate(560 430)"><rect x="-30" y="-44" width="60" height="36" rx="6" fill="#fff" ${S}/><path d="M-30 -32 H30" stroke="#ff9ad5" stroke-width="6"/><circle cx="-18" cy="-4" r="8" fill="#7ec8ff" ${S2}/><circle cx="18" cy="-4" r="8" fill="#7ec8ff" ${S2}/><path d="M-6 -44 V-60 M8 -44 V-64" stroke="${O}" stroke-width="2"/><circle cx="-6" cy="-68" r="11" fill="#ffb3cf" ${S2}/><circle cx="8" cy="-72" r="11" fill="#c9a6ff" ${S2}/></g>`;
+    // balloons to pop
+    s += [[40, 300, '#ff5f8f'], [62, 284, '#ffd84d'], [84, 300, '#7ec8ff'], [770, 290, '#a8e063'], [748, 276, '#c77dff']].map(([x, y, c], i) => dmPk.popped[i] ? '' : `<g class="dm-hit" data-hit="balloon" data-i="${i}"><path d="M${x} ${y + 18} Q${x + 4} ${y + 50} ${x < 400 ? 62 : 760} 350" fill="none" stroke="${O}" stroke-width="1"/><g class="dm-bob" style="animation-delay:-${i * 0.5}s"><ellipse cx="${x}" cy="${y}" rx="13" ry="16" fill="${c}" ${S2}/>${shine(x - 8, y - 5)}</g></g>`).join('');
+    // guests (hidden while riding / in the parade)
+    if (!P) {
+      if (!R && g) s += dmGirlAt(g, 240, 446, 200, {}, dmEars(E, u + 'g'));
+      s += ps.map((p, i) => dmPetAt(p, [300, 180, 340][i], 448, 64, '', i === 1)).join('');
+    }
+    // the parade
+    if (P) {
+      const gs = [g, ...dmGirls().filter(x => !g || x.id !== g.id)].filter(Boolean).slice(0, 3);
+      const floats = [...DM_FLOATS.map(([c, n, art]) => dmFloatBase(c, n) + art()),
+        ps.length ? dmFloatBase('#4fc3a1', 'החיות שלי') + `<path d="M-80 -34 Q0 -150 80 -34" fill="none" stroke="#ff9ad5" stroke-width="8"/>` + Array.from({ length: 7 }, (_, i) => { const t = i / 6, x = -80 + 160 * t, y = -34 - 116 * 4 * t * (1 - t) * 0.9; return dmFlower(dmF(x), dmF(y), 7, DM_COLORS[i * 2 % 12], '#ffd84d'); }).join('') + `<g class="dm-fbob">${ps.map((p, i) => dmPetAt(p, [-44, 0, 44][i], -34, 64)).join('')}</g>` : null,
+        gs.length ? dmFloatBase('#ff5f8f', 'הבנות שלי') + `<g class="dm-fbob">${gs.map((x, i) => dmGirlAt(x, [0, -52, 52][i], -34, 150, {}, dmEars(E, u + 'p' + i))).join('')}</g>` + [-70, 70].map(x => dmHeart(x, -130, 1.4, '#ff9ad5', S2)).join('') : null].filter(Boolean);
+      s += floats.map((f, i) => `<g class="dm-float" style="animation-delay:${i * 3.4}s"><g transform="translate(0 440)">${f}</g></g>`).join('');
+    }
+    return dmSvg(s, defs, 'dm-park' + (R ? ' dm-riding' : ''));
+  }
+  function dmParkRide(id) {
+    if (dmPk.ride || dmPk.parade) return;
+    dmPk.ride = id; SFX.yay(); dmParkDraw(true);
+    const [em, nm] = DM_RIDES[id];
+    dmLater(() => dmSay(dmPick(['וויייי! 🤩', 'עוד פעם! עוד פעם!', 'איזה כיף!!']), id === 'wheel' ? 140 : id === 'carousel' ? 650 : id === 'cups' ? 400 : 560, id === 'wheel' ? 60 : id === 'coaster' ? 60 : 230), 800);
+    if (id === 'carousel') [523, 659, 784, 659, 523, 659, 784, 1047].forEach((f, i) => tone(f, 0.25, 'triangle', i * 0.3, 0.05));
+    dmLater(() => {
+      dmPk.ride = null; const r = dm.park.rides; r[id] = (r[id] || 0) + 1; dmSave(); dmCoins(3, `${em} ${nm}`);
+      if (Object.keys(DM_RIDES).every(k => r[k]) && !dm.park.allStamp) { dm.park.allStamp = 1; dmSave(); dmCoins(15, 'כרטיסיית מתקנים מלאה! 🎟️'); dmTry(() => confetti($('#dmDlg .confetti-c'))); }
+      dmParkDraw(true); dmParkCtl();
+    }, 6500);
+    dmParkCtl();
+  }
+  function dmParkParade() {
+    if (dmPk.parade) return;
+    dmPk.ride = null; dmPk.parade = true; dmParkDraw(true); dmParkCtl();
+    const tune = [523, 587, 659, 784, 659, 784, 880, 784, 659, 587, 523, 587, 659, 523];
+    for (let b = 0; b < 6; b++) dmLater(() => tune.forEach((f, i) => tone(f, 0.18, 'triangle', i * 0.2, 0.045)), b * 3000);
+    dmLater(() => dmSay('🎉 המצעד מתחיל!', 400, 150, 2000), 200);
+    dmLater(() => { dmPk.parade = false; dm.park.parades++; dmSave(); dmCoins(6, 'מצעד בפארק 🎉'); dmParkDraw(true); dmParkCtl(); dmSay('👏 איזה מצעד!', 240, 200); }, 3400 * 6 + 16000);
+  }
+  function dmParkDraw(keepCtl) {
+    const svgEl = dmSetScene(dmParkScene());
+    svgEl.addEventListener('click', e => {
+      const h = e.target.closest('.dm-hit'); if (!h) return; const [x, y] = dmPt(e), k = h.dataset.hit;
+      if (DM_RIDES[k]) return dmParkRide(k);
+      if (k === 'balloon') { const i = +h.dataset.i; dmPk.popped[i] = 1; tone(1400, 0.05, 'square', 0, 0.08); tone(200, 0.1, 'triangle', 0.03); dmBurst(x, y, ['💥', '✨', '🎈', '✨']); dmParkDraw(true); dmLater(() => { dmPk.popped = {}; if (!dmPk.parade) dmParkDraw(true); }, 7000); return; }
+      if (k === 'candy') {
+        const ps = dmPets(), food = { id: 'cottoncandy', name: 'צמר גפן מתוק', art: `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 26 V44" stroke="${O}" stroke-width="2.5"/><circle cx="18" cy="18" r="11" fill="#ffb3cf" ${S2}/><circle cx="30" cy="16" r="11" fill="#c9a6ff" ${S2}/><circle cx="24" cy="24" r="9" fill="#ff9ad5" ${S2}/></svg>`, yum: 3 };
+        const p = ps[Math.floor(Math.random() * ps.length)];
+        const line = p && typeof feedPet === 'function' ? dmTry(() => feedPet(p, food), '') : '';
+        dmSay(p ? `🍭 ${p.name || 'החיה'}: ${line || 'יאמי! צמר גפן מתוק!'}`.slice(0, 60) : '🍭 צמר גפן מתוק! יאמי!', 560, 330, 3000); SFX.munch && SFX.munch();
+      }
+    });
+    if (!keepCtl) dmParkCtl();
+  }
+  function dmParkCtl() {
+    const E = dm.park.ears, tab = dmPk.tab;
+    const tabs = dmTabs(tab, [['park', '🎠 בפארק'], ['ears', '🎀 לעצב אוזניים']], id => { dmPk.tab = id; if (id === 'ears') dmEarsDraw(); else dmParkDraw(); });
+    if (tab === 'ears') {
+      const set = (k, v) => { dm.park.ears = Object.assign({}, E, { [k]: v }); dmSave(); SFX.pop(); dmEarsDraw(); };
+      return dmCtl(tabs,
+        dmRow('צורה:', ...Object.entries(DM_EARS).map(([k, n]) => dmChip(n, E.shape === k, () => set('shape', k)))),
+        dmRow('אוזניים:', ...['#2e2a3a', '#ff5f8f', '#ff9ad5', '#a98bff', '#7ec8ff', '#4fc3a1', '#ffd84d', '#ffffff', '#c98a5b'].map(c => dmSw(c, E.color === c, () => set('color', c)))),
+        dmRow('בפנים:', ...['#ffb3cf', '#ffffff', '#ffd84d', '#c9a6ff', '#bfe8ff', '#2e2a3a'].map(c => dmSw(c, E.inner === c, () => set('inner', c)))),
+        dmRow('קשת:', ...['#2e2a3a', '#ff5f8f', '#ffd84d', '#a98bff', '#7ec8ff', '#ffffff'].map(c => dmSw(c, E.band === c, () => set('band', c)))),
+        dmRow('פפיון:', ...Object.entries(DM_BOWS).map(([k, n]) => dmChip(n, E.bow === k, () => set('bow', k)))),
+        E.bow !== 'none' ? dmRow('צבע פפיון:', ...['#ff4f8b', '#e0314b', '#ffd84d', '#a98bff', '#4fc3a1', '#5b8cff', '#ff9ad5'].map(c => dmSw(c, E.bowColor === c, () => set('bowColor', c)))) : null,
+        dmRow('ניצוץ:', ...Object.entries(DM_SPARK).map(([k, n]) => dmChip(n, E.spark === k, () => set('spark', k)))),
+        dmRow('', dmBtn('🎲 הפתעה', () => { dm.park.ears = { shape: dmPick(Object.keys(DM_EARS)), color: dmPick(DM_COLORS), inner: dmPick(['#ffb3cf', '#ffffff', '#ffd84d', '#c9a6ff']), band: dmPick(['#2e2a3a', '#ff5f8f', '#ffd84d', '#ffffff']), bow: dmPick(Object.keys(DM_BOWS)), bowColor: dmPick(['#ff4f8b', '#ffd84d', '#a98bff', '#4fc3a1']), spark: dmPick(Object.keys(DM_SPARK)) }; dmSave(); SFX.pop(); dmEarsDraw(); }),
+          dmBtn('🎠 ללכת לפארק עם האוזניים!', () => { dmPk.tab = 'park'; dmCoins(3, 'אוזניים חדשות 🎀'); dmParkDraw(); }, 'btn main')));
+    }
+    const r = dm.park.rides;
+    dmCtl(tabs, el('p', { class: 'dm-hint' }, dmPk.parade ? '🎉 המצעד עובר! תסתכלי מי על העגלות...' : dmPk.ride ? `${DM_RIDES[dmPk.ride][0]} בנסיעה!` : '👆 לוחצים על מתקן כדי לעלות עליו • על הבלונים • ועל צמר הגפן המתוק 🍭'),
+      dmRow('', ...Object.entries(DM_RIDES).map(([id, [em, nm]]) => dmBtn(`${em} ${nm}`, () => dmParkRide(id), 'btn')), dmBtn('🎉 מצעד!', dmParkParade, 'btn main')),
+      dmRow('🎟️ כרטיסייה:', ...Object.entries(DM_RIDES).map(([id, [em]]) => el('span', { class: 'dm-stamp' + (r[id] ? ' on' : '') }, em, r[id] ? el('small', {}, `×${r[id]}`) : null)), el('span', { class: 'muted' }, `מצעדים: ${dm.park.parades}`)));
+  }
+  function dmEarsDraw() {
+    const g = dmGirl(), E = dm.park.ears, u = 'dme' + (dmUid++);
+    const s = `<rect x="-400" y="-200" width="1400" height="900" fill="#ffe3f1"/>` + Array.from({ length: 30 }, (_, i) => `<circle cx="${dmF(dmR(i) * 800 - 250)}" cy="${dmF(dmR(i + 40) * 450 - 100)}" r="${dmF(3 + dmR(i + 9) * 6)}" fill="${DM_COLORS[i % 12]}" opacity=".35"/>`).join('') +
+      (g ? `<image href="${girlImgURL(g, { view: 'head', bg: false })}" x="90" y="-6" width="120" height="136"/>` : `<circle cx="150" cy="80" r="48" fill="#ffe1c8" ${S}/>${face(150, 84, 2)}`) + dmEars(E, u);
+    dmSetScene(`<svg class="dm-svg dm-earsv" viewBox="-40 -60 380 214" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="האוזניים שלי">${s}</svg>`);
+    dmParkCtl();
+  }
+  DM.park = { icon: '🎠', name: 'פארק הקסם', sub: 'מתקנים, מצעד של דמויות מקסימות (וגם החיות והבנות שלך!) ואוזניים שאת מעצבת 🎀', enter: () => { dmPk = { tab: 'park', ride: null, parade: false, popped: {} }; }, draw: () => dmParkDraw() };
+  // ---------- 🏰 register the six places: MORE tiles (the 'worlds' room) + the hub's DWORLDS list ----------
+  const DM_ORDER = ['toy', 'tower', 'fairy', 'isle', 'castle', 'park'].filter(id => DM[id]);
+  const dmOpenX = id => () => dmOpen(id);
+  const openToyRoom = dmOpenX('toy'), openLanternTower = dmOpenX('tower'), openFairyGodmother = dmOpenX('fairy'), openIslandVoyage = dmOpenX('isle'), openBoardCastle = dmOpenX('castle'), openMagicPark = dmOpenX('park');
+  dmTry(() => {
+    const wr = MORE_ROOMS.find(r => r[0] === 'worlds');
+    if (wr) ['צעצועים', 'פנסים', 'סנדקית', 'שייט', 'טירת', 'פארק', 'עולם'].forEach(k => { if (!wr[2].includes(k)) wr[2].push(k); });
+    const i = MORE.findIndex(m => m[1] === 'להדפסה');
+    const STK = { toy: 'bear', tower: 'magicmoon', fairy: 'pumpkin', isle: 'sailboat', castle: 'castle', park: 'unicorn' };
+    MORE.splice(i < 0 ? MORE.length : i, 0, ...DM_ORDER.map(id => STICKERS[STK[id]] ? [STK[id], DM[id].name, dmOpenX(id)] : [DM[id].icon, DM[id].name, dmOpenX(id), true]));
+  });
+  const dmWorldList = () => DM_ORDER.map(id => ({ id: 'dm-' + id, name: DM[id].name, icon: DM[id].icon, sub: DM[id].sub, open: dmOpenX(id) }));
+  // the hub reads window.DWORLDS (never name a bare DWORLDS here: the hub's own const may not be initialized yet)
+  dmTry(() => { const L = (window.DWORLDS = window.DWORLDS || []); for (const w of dmWorldList()) if (!L.some(x => x && x.id === w.id)) L.push(w); });
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
