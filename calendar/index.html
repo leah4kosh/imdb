@@ -5497,6 +5497,254 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
 .ptw-fcard small { font-size: .8em; opacity: .85; line-height: 1.3; }
 .ptw-fcard .ptw-say { top: 0; }
 .ptw-bff { font-size: .85em; color: #ff5a8a; font-weight: 700; }
+/* ===== 🎭 theater · 🎨 paintings · 🎪 circus with all the pets (arts agent, round 7c) ===== */
+#art7Dlg .sheet { gap: 10px; }
+.art7-nav { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.art7-nav .coin-chip { margin-inline-start: auto; }
+@media (max-width: 620px) { .art7-nav { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } .art7-nav > * { flex: none; } }
+.art7-wrap { display: grid; gap: 10px; }
+.art7-empty { font-size: 1.25em; text-align: center; padding: 26px; }
+.art7-tip { margin: 0; font-size: 1em; }
+.art7-h { margin: 4px 0 0; font-weight: 400; font-size: 1.15em; }
+.art7-cta { justify-content: center; align-items: center; }
+.art7-big { font-size: 1.15em; padding: 8px 20px; box-shadow: 0 3px 0 rgb(0 0 0 / .2); }
+.art7-bravo { font-weight: 400; font-size: 1.15em; }
+.art7-stage { position: relative; width: 100%; aspect-ratio: 600 / 320; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); background: #3a1630; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.art7-bg, .art7-bg > svg, .art7-gsvg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.art7-layer { position: absolute; inset: 0; pointer-events: none; }
+.art7-layer > * { pointer-events: auto; }
+.art7-layer > .art7-banner, .art7-layer > .art7-throw, .art7-layer > .art7-ticket, .art7-layer > .art7-ghud, .art7-layer > .art7-res { pointer-events: none; }
+.art7-actor { position: absolute; translate: -50% 0; transition: left 1.2s ease-in-out, bottom 1.2s ease-in-out, width 1.2s ease-in-out; z-index: 2; }
+.art7-body { transform-origin: 50% 100%; }
+.art7-body > svg { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .2)); }
+.art7-nm { position: absolute; left: 50%; bottom: -2px; translate: -50% 100%; background: #fff; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 0 8px; font-size: clamp(10px, 1.5vw, 14px); white-space: nowrap; line-height: 1.4; z-index: 3; }
+.art7-say { position: absolute; left: 50%; bottom: 102%; translate: -50% 0; width: max-content; max-width: min(250px, 42vw); background: #fff; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 16px; padding: 3px 10px; font-size: clamp(12px, 1.8vw, 17px); line-height: 1.3; text-align: center; z-index: 12; animation: art7Pop .3s ease-out; pointer-events: none; }
+.art7-say::after { content: ''; position: absolute; left: 50%; bottom: -8px; width: 12px; height: 12px; translate: -50% 0; rotate: 45deg; background: #fff; border-right: 2px solid #3a2b3c; border-bottom: 2px solid #3a2b3c; }
+.art7-say.l { translate: -18% 0; } .art7-say.l::after { left: 18%; }
+.art7-say.r { translate: -82% 0; } .art7-say.r::after { left: 82%; }
+.art7-zz { background: none; border: 0; font-size: clamp(16px, 2.6vw, 26px); animation: art7Zz 1.6s ease-in-out infinite; }
+.art7-zz::after { display: none; }
+.art7-say-rm { background: #fff8e0; border-color: #b8860b; }
+.art7-banner { position: absolute; top: 10px; left: 50%; translate: -50% 0; z-index: 8; background: rgb(255 255 255 / .92); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 3px 16px; font-size: clamp(13px, 2.2vw, 20px); white-space: nowrap; }
+.art7-idle { animation: art7Idle 2.4s ease-in-out infinite; }
+@keyframes art7Idle { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4%) rotate(-2deg); } }
+@keyframes art7Pop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes art7Zz { 0%, 100% { transform: translate(0, 0); opacity: .6; } 50% { transform: translate(10px, -10px); opacity: 1; } }
+/* acting */
+.art7-a-talk { animation: art7Talk .35s ease-in-out 3; }
+@keyframes art7Talk { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05, .95); } }
+.art7-a-jump { animation: art7Jump .55s ease-out 2; }
+@keyframes art7Jump { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-28%) scale(1.04); } 80% { transform: translateY(0) scale(1.08, .92); } }
+.art7-a-spin { animation: art7Spin 1s ease-in-out; }
+@keyframes art7Spin { 0% { transform: rotateY(0); } 50% { transform: rotateY(180deg) translateY(-12%); } 100% { transform: rotateY(360deg); } }
+.art7-a-dance { animation: art7Dance .4s ease-in-out 6 alternate; }
+@keyframes art7Dance { from { transform: rotate(-12deg) translateY(0); } to { transform: rotate(12deg) translateY(-12%); } }
+.art7-a-walk { animation: art7Walk .3s ease-in-out 4 alternate; }
+@keyframes art7Walk { from { transform: rotate(-5deg); } to { transform: rotate(5deg) translateY(-5%); } }
+.art7-a-bow { animation: art7Bow 1.2s ease-in-out; }
+@keyframes art7Bow { 0%, 100% { transform: rotate(0); } 40%, 60% { transform: rotate(-24deg) translateY(4%); } }
+.art7-a-shake { animation: art7Shake .12s linear 8; }
+@keyframes art7Shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4%) rotate(-3deg); } 75% { transform: translateX(4%) rotate(3deg); } }
+.art7-a-laugh { animation: art7Laugh .22s ease-in-out 8 alternate; }
+@keyframes art7Laugh { from { transform: rotate(-4deg) scale(1); } to { transform: rotate(4deg) scale(1.04, .96); } }
+.art7-a-sleep { animation: art7Sleep 2s ease-in-out forwards; }
+@keyframes art7Sleep { to { transform: rotate(-10deg) translateY(2%); } }
+.art7-a-love { animation: art7Love .5s ease-in-out 4 alternate; }
+@keyframes art7Love { from { transform: scale(1); } to { transform: scale(1.08) translateY(-4%); } }
+.art7-a-paint { animation: art7Paint .25s ease-in-out 4 alternate; }
+@keyframes art7Paint { from { transform: rotate(-6deg); } to { transform: rotate(6deg) translateY(-3%); } }
+.art7-heart { position: absolute; bottom: 70%; font-size: clamp(12px, 2vw, 20px); animation: art7Heart 1.6s ease-out forwards; pointer-events: none; }
+@keyframes art7Heart { from { transform: translateY(0) scale(.5); opacity: 1; } to { transform: translateY(-120%) scale(1.2); opacity: 0; } }
+.art7-talking::before { content: ''; position: absolute; left: -30%; right: -30%; bottom: -6%; height: 22%; background: radial-gradient(ellipse, rgb(255 249 196 / .7), transparent 70%); z-index: -1; }
+.art7-tw { animation: art7Tw 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes art7Tw { 0%, 100% { opacity: .35; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.1); } }
+.art7-bub { animation: art7Bub 4s ease-in infinite; }
+@keyframes art7Bub { from { transform: translateY(0); opacity: .8; } to { transform: translateY(-140px); opacity: 0; } }
+.art7-snow { animation: art7Snow 5s linear infinite; }
+@keyframes art7Snow { from { transform: translateY(-20px); } to { transform: translateY(120px); } }
+.art7-fly { animation: art7Fly 3s ease-in-out infinite alternate; }
+@keyframes art7Fly { from { transform: translate(0, 0); opacity: .3; } to { transform: translate(14px, -18px); opacity: 1; } }
+.art7-fan { animation: art7Fan 1.4s ease-in-out infinite; }
+@keyframes art7Fan { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+/* theater: curtains, audience, flowers */
+.art7-cur { position: absolute; top: 0; bottom: 0; width: 51%; z-index: 10; background: linear-gradient(90deg, rgb(0 0 0 / .18), transparent 30%, rgb(255 255 255 / .08) 50%, transparent 70%, rgb(0 0 0 / .18)) 0 0 / 34px 100%, #c8102e; transition: transform 1s ease-in-out; box-shadow: inset 0 -8px 0 #ffcf3a; pointer-events: none; }
+.art7-cur.l { left: 0; transform: translateX(-90%); border-right: 3px solid #7a0a1c; }
+.art7-cur.r { right: 0; transform: translateX(90%); border-left: 3px solid #7a0a1c; }
+.art7-closed .art7-cur { transform: none; }
+.art7-val { position: absolute; top: 0; left: 0; right: 0; height: 13%; z-index: 11; pointer-events: none; background: radial-gradient(ellipse 50% 100% at 50% 0, #a50d26 96%, transparent 100%) 0 100% / 60px 42% repeat-x, linear-gradient(#a50d26, #a50d26) 0 0 / 100% 60% no-repeat; filter: drop-shadow(0 3px 0 #ffcf3a); }
+.art7-marq { position: absolute; top: 40%; left: 50%; translate: -50% -50%; z-index: 12; background: #fff8e0; color: #7a0a1c; border: 3px solid #ffcf3a; border-radius: 14px; padding: 6px 18px; font-size: clamp(15px, 3vw, 28px); white-space: nowrap; box-shadow: 0 0 0 3px #7a0a1c, 0 6px 16px rgb(0 0 0 / .35); transition: opacity .5s; pointer-events: none; }
+.art7-stage:not(.art7-closed) .art7-marq { opacity: 0; }
+.art7-prev .art7-marq { display: none; }
+.art7-narr { position: absolute; top: 15%; left: 50%; translate: -50% 0; z-index: 9; max-width: 80%; background: #fff8e0; color: #3a2b3c; border: 2px solid #b8860b; border-radius: 12px; padding: 4px 14px; font-size: clamp(13px, 2vw, 19px); text-align: center; animation: art7Pop .3s ease-out; pointer-events: none; }
+.art7-live { cursor: pointer; border-radius: 18px 18px 0 0; }
+.art7-hall { display: grid; }
+.art7-aud { display: flex; justify-content: space-around; height: clamp(46px, 9vw, 80px); background: linear-gradient(#3a1630, #1f0a18); border: 3px solid var(--ink); border-top: 0; border-radius: 0 0 18px 18px; overflow: hidden; padding: 0 2%; }
+.art7-seat { position: relative; width: 10.5%; }
+.art7-seat-a { position: absolute; left: 14%; right: 14%; top: -14%; }
+.art7-seat-a svg { width: 100%; height: auto; display: block; }
+.art7-seat::after { content: ''; position: absolute; left: -4%; right: -4%; bottom: 0; height: 28%; background: linear-gradient(#d61a45, #9a0e30); border: 2px solid #3a2b3c; border-bottom: 0; border-radius: 12px 12px 0 0; }
+.art7-clap .art7-seat-a { animation: art7Clap .3s ease-in-out infinite alternate; }
+.art7-clap .art7-seat:nth-child(2n) .art7-seat-a { animation-delay: .15s; }
+@keyframes art7Clap { from { transform: translateY(0); } to { transform: translateY(-14%) rotate(3deg); } }
+.art7-throw { position: absolute; width: 3.4%; left: var(--x0); bottom: -12%; z-index: 7; animation: art7Throw 1.2s ease-out forwards; }
+.art7-throw svg { width: 100%; height: auto; display: block; }
+@keyframes art7Throw { 0% { left: var(--x0); bottom: -14%; rotate: 0deg; } 50% { bottom: 38%; } 100% { left: var(--x1); bottom: var(--y1); rotate: var(--r); } }
+/* theater menus + editor */
+.art7-tpls { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 10px; }
+.art7-tpl, .art7-play { display: grid; gap: 3px; padding: 6px; border: 2px solid var(--ink); border-radius: 16px; background: linear-gradient(160deg, #fff6fb, #ffe6f2); color: #3a2b3c; text-align: center; cursor: pointer; box-shadow: 0 3px 0 rgb(0 0 0 / .12); transition: transform .15s; }
+.art7-play { cursor: default; background: linear-gradient(160deg, #f5f0ff, #e6dcff); }
+.art7-tpl:hover { transform: translateY(-3px) rotate(-1deg); }
+.art7-tpl b, .art7-play b { font-weight: 400; font-size: 1.05em; }
+.art7-tpl small, .art7-play small { color: #5b4b6c; font-size: .8em; line-height: 1.25; }
+.art7-tpl-bg, .art7-play-bg { display: block; aspect-ratio: 600 / 320; border-radius: 10px; overflow: hidden; border: 2px solid #3a2b3c; }
+.art7-tpl-bg svg, .art7-play-bg svg, .art7-bgb span svg { width: 100%; height: 100%; display: block; }
+.art7-plays { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.art7-play .chips { justify-content: center; }
+.art7-title-in { flex: 1; min-width: 160px; font-size: 1.1em; }
+.art7-cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.art7-castcard { border: 2px solid #e6c7da; border-radius: 14px; padding: 6px; background: #fffafd; display: grid; gap: 4px; color: #3a2b3c; }
+.art7-castcard.on { border-color: #ff5a8a; background: #fff0f7; }
+.art7-castpet { display: flex; align-items: center; gap: 8px; width: 100%; background: none; border: 0; cursor: pointer; color: inherit; font: inherit; text-align: start; padding: 2px; }
+.art7-castpet .ic { width: 50px; flex: none; }
+.art7-castpet .ic svg { width: 100%; height: auto; display: block; }
+.art7-castpet b { font-weight: 400; font-size: 1.05em; }
+.art7-castpet small { margin-inline-start: auto; color: #7a5b8c; }
+.art7-castfields { display: grid; gap: 4px; }
+.art7-sel { display: grid; grid-template-columns: 84px 1fr; align-items: center; gap: 4px; font-size: .9em; }
+.art7-sel select, .art7-sel input { width: 100%; min-width: 0; }
+.art7-sctabs { flex-wrap: wrap; }
+.art7-scbox { border: 2px dashed #e6c7da; border-radius: 14px; padding: 8px; display: grid; gap: 8px; }
+.art7-scbox > b { font-weight: 400; }
+.art7-bgs { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+.art7-bgb { display: grid; gap: 2px; padding: 3px; border: 2px solid #d8c8e0; border-radius: 10px; background: #fff; cursor: pointer; color: #3a2b3c; font: inherit; }
+.art7-bgb span { display: block; aspect-ratio: 600 / 320; border-radius: 7px; overflow: hidden; }
+.art7-bgb small { font-size: .78em; }
+.art7-bgb[aria-pressed="true"] { border-color: #ff5a8a; box-shadow: 0 0 0 3px #ffd1e6; }
+.art7-lines { margin: 0; padding-inline-start: 22px; display: grid; gap: 6px; }
+.art7-lines li { display: grid; grid-template-columns: minmax(110px, 170px) minmax(100px, 130px) 1fr auto; gap: 4px; align-items: center; }
+.art7-lines select, .art7-lines input { min-width: 0; width: 100%; }
+@media (max-width: 620px) { .art7-lines li { grid-template-columns: 1fr 1fr auto; } .art7-lines li input { grid-column: 1 / 3; grid-row: 2; } }
+/* tiles */
+.art7-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.art7-tile { position: relative; display: grid; justify-items: center; gap: 2px; padding: 12px 8px; border: 2px solid var(--ink); border-radius: 18px; background: linear-gradient(160deg, #fff6fb, #ffe0f0); color: #3a2b3c; text-align: center; cursor: pointer; transition: transform .15s; box-shadow: 0 4px 0 rgb(0 0 0 / .12); font: inherit; }
+.art7-tile:hover { transform: translateY(-3px) rotate(-1deg); }
+.art7-tile b { font-weight: 400; font-size: 1.15em; }
+.art7-tile small { color: #5b4b6c; font-size: .82em; line-height: 1.25; }
+.art7-ti { font-size: 2.6em; line-height: 1.1; filter: drop-shadow(0 2px 0 rgb(0 0 0 / .15)); }
+.art7-t-theater { background: linear-gradient(160deg, #ffe6ea, #ffc2cf); }
+.art7-t-paint { background: linear-gradient(160deg, #fff6d6, #ffe3a8); }
+.art7-t-circus { background: linear-gradient(160deg, #e9f4ff, #cfe4ff); }
+.art7-ctiles .art7-tile:nth-child(3n+1) { background: linear-gradient(160deg, #fff0e0, #ffd6b0); }
+.art7-ctiles .art7-tile:nth-child(3n+2) { background: linear-gradient(160deg, #ffe6f2, #ffc9e2); }
+.art7-ctiles .art7-tile:nth-child(3n) { background: linear-gradient(160deg, #efe8ff, #d9ccff); }
+.art7-best { position: absolute; top: 6px; inset-inline-start: 8px; font-size: .72em; }
+/* paint studio */
+.art7-studio { position: relative; width: 100%; aspect-ratio: 600 / 340; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); background: #fff4dc; user-select: none; -webkit-user-select: none; }
+.art7-easel { position: absolute; left: 50%; translate: -50% 0; top: 2.5%; width: 46%; z-index: 1; }
+.art7-legs { position: absolute; left: -6%; width: 112%; top: 2%; height: 140%; }
+.art7-legs svg { width: 100%; height: 100%; display: block; }
+.art7-cvwrap { position: relative; border: 6px solid #8a5a3c; border-radius: 6px; box-shadow: 0 0 0 2px #3a2b3c, 0 8px 0 rgb(0 0 0 / .18); background: #fff; }
+.art7-cv { display: block; width: 100%; height: auto; touch-action: none; cursor: crosshair; }
+.art7-painter { z-index: 6; }
+.art7-actor.art7-idle, .art7-studio .art7-actor { cursor: pointer; }
+.art7-who { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.art7-whob { display: grid; justify-items: center; gap: 0; padding: 4px 8px; min-width: 76px; border: 2px solid #d8c8e0; border-radius: 14px; background: #fff; color: #3a2b3c; cursor: pointer; font: inherit; }
+.art7-whob .ic { width: 46px; height: 52px; display: grid; place-items: center; }
+.art7-whob .ic svg { width: 100%; height: auto; }
+.art7-whob b { font-weight: 400; }
+.art7-whob small { font-size: .74em; color: #7a5b8c; }
+.art7-whob[aria-pressed="true"] { border-color: #ff5a8a; background: #fff0f7; box-shadow: 0 0 0 3px #ffd1e6; }
+.art7-me-ic { font-size: 2.2em; }
+.art7-pal { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+.art7-sw { width: 32px; height: 32px; border-radius: 50%; background: var(--c); border: 2px solid #3a2b3c; cursor: pointer; font: 700 13px/1 sans-serif; color: #3a2b3c; text-shadow: 0 0 3px #fff, 0 0 3px #fff; padding: 0; transition: transform .12s; }
+.art7-sw.on { box-shadow: 0 0 0 3px #fff, 0 0 0 5px #3a2b3c; }
+.art7-sw.cur { transform: scale(1.2); }
+.art7-paper { width: 26px; height: 26px; border-radius: 6px; }
+/* frames + gallery */
+.art7-fr { padding: 9%; border-radius: 4px; box-shadow: 0 6px 10px rgb(0 0 0 / .28); border: 2px solid #3a2b3c; }
+.art7-fr img { display: block; width: 100%; height: auto; border: 4px solid #fffaf0; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .2); background: #fff; }
+.art7-fr-gold { background: linear-gradient(135deg, #fff1a8, #d4a017 28%, #fff3b0 50%, #b8860b 74%, #ffe27a); }
+.art7-fr-wood { background: repeating-linear-gradient(45deg, #b77a45 0 6px, #a0683a 6px 12px); }
+.art7-fr-pink { background: radial-gradient(#fff 22%, transparent 25%) 0 0 / 12px 12px, #ff8fc8; }
+.art7-fr-rainbow { background: linear-gradient(90deg, #ff6f7a, #ffb35c, #ffe066, #7ed48a, #6fb8ff, #b37bff); }
+.art7-fr-stars { background: radial-gradient(#ffd84d 18%, transparent 21%) 0 0 / 14px 14px, #2e2a66; }
+.art7-fr-white { background: #fff; padding: 7%; }
+.art7-fr-flowers { background: radial-gradient(#ff9ad5 24%, transparent 27%) 0 0 / 16px 16px, radial-gradient(#ffe066 18%, transparent 21%) 8px 8px / 16px 16px, #7ed48a; }
+.art7-frprev { display: grid; justify-items: center; gap: 10px; padding: 16px; border-radius: 18px; background: repeating-linear-gradient(90deg, #fbeef6 0 26px, #f6e2ef 26px 52px); border: 3px solid var(--ink); }
+.art7-big-fr { width: min(440px, 86%); padding: 6%; }
+.art7-plaque { background: #fff8e0; color: #3a2b3c; border: 2px solid #b8860b; border-radius: 8px; padding: 3px 14px; text-align: center; display: grid; }
+.art7-plaque b { font-weight: 400; font-size: 1.1em; }
+.art7-plaque small { color: #7a5b3c; }
+.art7-wall { position: relative; border: 3px solid var(--ink); border-radius: 18px; overflow: hidden; background: repeating-linear-gradient(90deg, #fbeef6 0 26px, #f6e2ef 26px 52px); padding: 12px 10px 0; display: grid; transition: background .6s; }
+.art7-wall-t { justify-self: center; background: linear-gradient(135deg, #fff1a8, #d4a017, #fff3b0); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 10px; padding: 3px 18px; font-size: clamp(15px, 2.4vw, 22px); box-shadow: 0 3px 0 rgb(0 0 0 / .2); }
+.art7-hang { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px 20px; padding: 34px 6px 16px; }
+.art7-pic { position: relative; width: clamp(112px, 21%, 190px); rotate: var(--tilt); background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: #3a2b3c; isolation: isolate; transition: transform .2s; }
+.art7-pic:hover { transform: scale(1.04); }
+.art7-pic::before { content: ''; position: absolute; left: 50%; top: -20px; width: 34%; aspect-ratio: 1; translate: -50% 0; rotate: 45deg; border-top: 2px solid #6b4a2a; border-left: 2px solid #6b4a2a; transform-origin: center; z-index: -1; }
+.art7-plq { display: grid; margin: 6px auto 0; width: max-content; max-width: 100%; background: #fff8e0; border: 1.5px solid #b8860b; border-radius: 6px; padding: 0 8px; font-size: .8em; line-height: 1.3; }
+.art7-plq b { font-weight: 400; }
+.art7-plq small { font-size: .85em; color: #7a5b3c; }
+.art7-new .art7-fr { animation: art7Hang 1s ease-out; }
+@keyframes art7Hang { 0% { transform: translateY(-40px) rotate(-8deg); opacity: 0; } 60% { transform: translateY(4px) rotate(3deg); opacity: 1; } 100% { transform: none; } }
+.art7-gfloor { position: relative; height: clamp(90px, 16vw, 140px); margin: 0 -10px; background: linear-gradient(#d9a066, #b77a45); border-top: 3px solid var(--ink); }
+.art7-gfloor .art7-actor { width: 10%; }
+.art7-night { background: repeating-linear-gradient(90deg, #2e2750 0 26px, #362e60 26px 52px); }
+.art7-night .art7-gfloor { background: linear-gradient(#5a3f6a, #3a2848); }
+.art7-night .art7-pic::after { content: ''; position: absolute; left: -35%; right: -35%; top: -60px; bottom: -14px; background: radial-gradient(ellipse 50% 70% at 50% 20%, rgb(255 249 196 / .38), transparent 75%); z-index: -2; pointer-events: none; }
+.art7-night .art7-plq { background: #fff3c4; }
+.art7-walker { transition: left 1.8s linear; }
+.art7-walker .art7-body { animation: art7Walk .3s ease-in-out infinite alternate; }
+.art7-ribbon { position: absolute; left: 0; right: 0; top: 36%; height: 12px; z-index: 5; display: grid; place-items: center; pointer-events: none; }
+.art7-ribbon::before, .art7-ribbon::after { content: ''; position: absolute; top: 0; height: 100%; width: 50%; background: #e8304f; border-block: 2px solid #3a2b3c; transition: transform .8s ease-in, opacity .8s ease-in; }
+.art7-ribbon::before { left: 0; transform-origin: 0 50%; } .art7-ribbon::after { right: 0; transform-origin: 100% 50%; }
+.art7-ribbon span { position: relative; z-index: 2; font-size: 1.8em; transition: opacity .5s; }
+.art7-ribbon.cut::before { transform: rotate(28deg); opacity: 0; } .art7-ribbon.cut::after { transform: rotate(-28deg); opacity: 0; } .art7-ribbon.cut span { opacity: 0; }
+.art7-flash { position: absolute; inset: 0; background: #fff; opacity: 0; animation: art7Flash .45s ease-out; pointer-events: none; z-index: 20; }
+@keyframes art7Flash { 20% { opacity: .75; } 100% { opacity: 0; } }
+.art7-rosette { position: absolute; top: -12px; inset-inline-end: -12px; font-size: 2em; animation: art7Pop .5s ease-out; z-index: 3; }
+.art7-won .art7-fr { box-shadow: 0 0 0 4px #ffd84d, 0 0 26px #ffd84d; }
+/* circus */
+.art7-rm { position: absolute; right: 2%; bottom: 4%; width: 12%; z-index: 6; }
+.art7-rm.girl { width: 14%; }
+.art7-rm.small { width: 7%; bottom: 3%; right: 1%; }
+.art7-rm.girl.small { width: 9%; }
+.art7-rm-art svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .25)); }
+.art7-rm-hat { position: absolute; left: 30%; width: 40%; top: -9%; z-index: 2; }
+.art7-rm-hat svg { width: 100%; height: auto; display: block; }
+.art7-rm:not(.girl) .art7-rm-hat { display: none; }
+.art7-rm .art7-say { left: 0; translate: -70% 0; }
+.art7-rm .art7-say::after { left: 80%; }
+.art7-cstage { cursor: pointer; }
+.art7-ghud { position: absolute; top: 8px; left: 8px; z-index: 8; background: rgb(255 255 255 / .92); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 2px 12px; font-size: clamp(12px, 1.9vw, 17px); }
+.art7-ghud:empty { display: none; }
+.art7-res { position: absolute; top: 16%; left: 50%; translate: -50% 0; z-index: 10; background: #fff; color: #3a2b3c; border: 3px solid #3a2b3c; border-radius: 18px; padding: 8px 22px; text-align: center; display: grid; gap: 2px; animation: art7Pop .45s ease-out; box-shadow: 0 6px 0 rgb(0 0 0 / .2); }
+.art7-res b { font-weight: 400; font-size: clamp(14px, 2.2vw, 20px); }
+.art7-stars span { font-size: clamp(28px, 5vw, 44px); color: #e6e0ea; -webkit-text-stroke: 1.5px #3a2b3c; margin: 0 2px; }
+.art7-stars span.on { color: #ffd84d; }
+.art7-hold { font-size: 1.5em; min-width: 110px; min-height: 58px; touch-action: none; user-select: none; -webkit-user-select: none; }
+.art7-hud { background: #fff8e0; border: 2px solid #b8860b; border-radius: 999px; padding: 2px 12px; color: #3a2b3c; }
+.art7-q { transition: left 1s ease-in-out, opacity .6s; cursor: pointer; }
+.art7-q.art7-in { opacity: 0; transition: left 1.4s ease-in, opacity 1.4s ease-in; }
+.art7-ticket { position: absolute; left: 86%; bottom: 44%; font-size: clamp(18px, 3vw, 30px); transition: left .45s ease-out, bottom .45s ease-out, opacity .3s .5s; z-index: 9; }
+.art7-ticket.go { left: 69%; bottom: 22%; opacity: 0; }
+.art7-seller { z-index: 1; }
+.art7-ccos { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.art7-ccard { display: grid; justify-items: center; gap: 4px; border: 2px solid #e6c7da; border-radius: 14px; padding: 8px; background: #fffafd; color: #3a2b3c; }
+.art7-ccard .ic { width: 70px; }
+.art7-ccard .ic svg { width: 100%; height: auto; display: block; }
+.art7-ccard b { font-weight: 400; }
+.art7-ccard .chips { justify-content: center; }
+/* the house row */
+.art7-housebar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 2px 0; }
+@media (prefers-reduced-motion: reduce) { .art7-idle, .art7-fan, .art7-tw, .art7-bub, .art7-snow, .art7-fly, .art7-walker .art7-body { animation: none; } }
+.art7-scbox > .chip { justify-self: start; }
+@media (max-width: 620px) {
+  .art7-stage:not(.art7-cstage) { aspect-ratio: 4 / 3; }
+  .art7-studio { aspect-ratio: 600 / 400; }
+  .art7-studio .art7-easel { width: 62%; }
+  .art7-tiles { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .art7-tpls { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
 </style>
 </head>
 <body class="bg-dots">
@@ -6809,6 +7057,18 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="ptwBody"></div>
+  </div>
+</dialog>
+
+<!-- Arts with all the pets: theater, paintings gallery, circus -->
+<dialog id="art7Dlg" aria-labelledby="art7Title" style="width:min(980px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="art7Title">🎭🎨🎪 אמנות עם החיות</h3><div class="sub" id="art7Sub">תיאטרון, ציור וקרקס — כל החיות שלך ביחד!</div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="art7Body"></div>
   </div>
 </dialog>
 
@@ -37400,6 +37660,925 @@ ${label(900, 520, '🌊 ים האיים')}
   { const d = $('#ptwDlg'); if (d) d.addEventListener('close', () => { ptwStop(); try { if ($('#houseDlg').open) drawHouse(); renderPet(); } catch {} }); }
   [['backpack', 'העבודות של החיות 💼', () => ptwOpen('jobs')], ['tree', 'השכונה של החיות 🏘️', () => ptwOpen('map')], ['rainbowheart', 'המקלט של החיות 🐾', () => ptwOpen('shelter')], ['gift', 'השכנים של החיות 💌', () => ptwOpen('friends')]]
     .forEach(t => { if (!MORE.some(m => m[1] === t[1])) MORE.push(t); });
+  // ================= 🎭 pets theater · 🎨 pets paint · 🎪 pets circus (arts agent, round 7c) =================
+  // all her pets together. store 'art7' = { plays[], gal[] (paintings as compact strokes), draft, styles{pid}, cc{pid: circus costume}, best{act}, aud, audDay, day, cnt }
+  const ART7_SECS = [
+    ['theater', '🎭', 'תיאטרון החיות', 'כותבים הצגה, בוחרים תפאורה ותחפושות — והחיות משחקות על הבמה!'],
+    ['paint', '🎨', 'הציורים של החיות', 'כל חיה מציירת בסגנון משלה — ממסגרים ותולים בגלריה'],
+    ['circus', '🎪', 'קרקס החיות', 'חבל דק, ג\'אגלינג, טרמפולינה, ליצנים, חישוקים וטרפז!'],
+  ];
+  let art7D = Object.assign({ plays: [], gal: [], draft: null, styles: {}, cc: {}, best: {}, aud: 0, audDay: '', day: '', cnt: {} }, store.get('art7', {}) || {});
+  const art7Save = () => store.set('art7', art7D);
+  let art7Sec = 'menu', art7V = {}, art7Tok = 0, art7Timers = [], art7Raf = 0, art7Key = null, art7Uid = 0;
+  const art7Pets = () => (typeof allPets === 'function' ? allPets() : pet ? [pet] : []).filter(p => p && p.onboarded !== false);
+  const art7Nm = p => (p && p.name) || 'החיה';
+  const art7Pick = a => a[Math.floor(Math.random() * a.length)];
+  const art7F = n => Math.round(n * 100) / 100;
+  const art7Later = (fn, ms) => { const t = art7Tok; art7Timers.push(setTimeout(() => { if (t === art7Tok) fn(); }, ms)); };
+  function art7Stop() { art7Tok++; art7Timers.forEach(clearTimeout); art7Timers = []; cancelAnimationFrame(art7Raf); if (art7Key) { removeEventListener('keydown', art7Key); removeEventListener('keyup', art7Key); art7Key = null; } }
+  function art7Loop(fn) {
+    const t = art7Tok; let last = performance.now();
+    const step = now => { if (t !== art7Tok) return; const dt = Math.min(.05, (now - last) / 1000); last = now; if (fn(dt, now / 1000) === false) return; art7Raf = requestAnimationFrame(step); };
+    art7Raf = requestAnimationFrame(step);
+  }
+  function art7Coin(key, n, why, max = 2) {
+    const t = localToday(); if (art7D.day !== t) { art7D.day = t; art7D.cnt = {}; }
+    if ((art7D.cnt[key] || 0) >= max) return false;
+    art7D.cnt[key] = (art7D.cnt[key] || 0) + 1; art7Save();
+    if (typeof addCoins === 'function') try { addCoins(n, why); } catch {}
+    return true;
+  }
+  const art7Tune = (notes, step = .16, type = 'triangle', vol = .07, at = 0) => notes.forEach((f, i) => { if (f) tone(f, step * .95, type, at + i * step, vol); });
+  const ART7_SND = {
+    fanfare: () => art7Tune([523, 659, 784, 1047, 0, 784, 1047], .12, 'square', .04),
+    drum: () => { for (let i = 0; i < 18; i++) tone(110 + (i % 2) * 12, .05, 'triangle', i * .05, .05 + i * .004); },
+    clap: (n = 20) => { for (let i = 0; i < n; i++) { const w = i * .08 + Math.random() * .05; tone(1800 + Math.random() * 1600, .03, 'square', w, .012); tone(240 + Math.random() * 140, .03, 'triangle', w, .03); } },
+    curtain: () => [0, 1, 2, 3, 4, 5, 6].forEach(i => tone(90 + i * 9, .14, 'sine', i * .05, .05)),
+    honk: () => { tone(330, .12, 'square', 0, .04); tone(262, .18, 'square', .13, .04); },
+    boing: () => [0, 1, 2, 3, 4, 5].forEach(i => tone(220 + i * 90, .07, 'sine', i * .035, .06)),
+    whoosh: () => [0, 1, 2, 3, 4].forEach(i => tone(700 - i * 90, .07, 'sine', i * .03, .03)),
+    swish: () => [0, 1, 2].forEach(i => tone(1200 + Math.random() * 800, .05, 'sine', i * .04, .015)),
+    ting: () => { tone(1568, .12, 'sine', 0, .05); tone(2093, .18, 'sine', .08, .04); },
+    bonk: () => { tone(160, .12, 'square', 0, .04); tone(110, .16, 'triangle', .06, .07); },
+    tada: () => art7Tune([784, 988, 1175, 1568], .1, 'triangle', .07),
+    oops: () => art7Tune([523, 440, 349], .14, 'sine', .06),
+    circus: () => art7Tune([784, 740, 784, 0, 659, 0, 784, 740, 784, 0, 659, 0, 880, 784, 698, 659, 587, 523], .13, 'square', .03),
+    chatter: () => { for (let i = 0; i < 10; i++) tone(380 + Math.random() * 500, .06, 'triangle', i * .09, .02); },
+  };
+  const ART7_GUESTS = [{ id: 'ag1', kind: 'owl', name: 'ינשופה' }, { id: 'ag2', kind: 'bear', name: 'דובי', color: 20 }, { id: 'ag3', kind: 'lion', name: 'אריאל' }, { id: 'ag4', kind: 'dog', name: 'רקסי', color: 30 },
+    { id: 'ag5', kind: 'bunny', name: 'פוצי', color: 300 }, { id: 'ag6', kind: 'panda', name: 'במבי' }, { id: 'ag7', kind: 'turtle', name: 'צבצב' }, { id: 'ag8', kind: 'cat', name: 'שמנת', color: 200 }, { id: 'ag9', kind: 'dino', name: 'דינו', color: 120 }];
+
+  // ---------- costumes + props, drawn in the pet's own 48-box coordinates ----------
+  const ART7_ST = `stroke="${O}" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round"`;
+  function art7G(p) {
+    let a = null; try { if (typeof styGeo === 'function') a = styGeo(p).a; } catch {}
+    a = a && a.head ? a : ANCHOR[p && p.kind] || ANCHOR.cat;
+    return { hx: a.head[0], hy: a.head[1], ey: (a.eyes || [24, 23.8])[1], ny: (a.neck || [24, 35.2])[1] };
+  }
+  const ART7_COS = [['none', 'בלי'], ['crown', '👑 כתר'], ['tiara', '💎 נזר'], ['wizard', '🧙 קוסם'], ['pirate', '🦜 פיראט'], ['astro', '🚀 אסטרונאוט'], ['hero', '🦸 גיבור/ה'], ['chef', '🍰 שף'],
+    ['detective', '🕵️ בלש/ית'], ['jester', '🃏 ליצן חצר'], ['fairy', '🧚 פיה'], ['alien', '👽 חייזר'], ['clown', '🤡 ליצן'], ['feather', '🪶 נוצות'], ['star', '⭐ כוכב/ת'], ['beret', '🎨 כומתה']];
+  const ART7_PROPS = [['none', 'בלי'], ['wand', '🪄 שרביט'], ['sword', '🗡️ חרב עץ'], ['flowers', '💐 זר'], ['lantern', '🏮 פנס'], ['book', '📖 ספר'], ['balloon', '🎈 בלון'], ['map', '🗺️ מפה'], ['magnify', '🔍 זכוכית מגדלת'], ['cake', '🎂 עוגה'], ['umbrella', '☂️ מטרייה']];
+  function art7CosSVG(id, g) {
+    const { hx, hy, ey, ny } = g, T = ART7_ST;
+    switch (id) {
+      case 'crown': return `<path d="M${hx - 8} ${hy + 3} L${hx - 9.5} ${hy - 6} L${hx - 4.5} ${hy - 1} L${hx} ${hy - 8} L${hx + 4.5} ${hy - 1} L${hx + 9.5} ${hy - 6} L${hx + 8} ${hy + 3} Z" fill="#ffd84d" ${T}/><circle cx="${hx}" cy="${hy + .8}" r="1.5" fill="#ff5a8a" ${T}/><circle cx="${hx - 5}" cy="${hy + 1.2}" r="1" fill="#7ec8ff"/><circle cx="${hx + 5}" cy="${hy + 1.2}" r="1" fill="#7ec8ff"/><circle cx="${hx}" cy="${hy - 8}" r="1.1" fill="#fff6c4" ${T}/>`;
+      case 'tiara': return `<path d="M${hx - 9} ${hy + 5} Q${hx} ${hy - 2} ${hx + 9} ${hy + 5}" fill="none" stroke="#dfe6f5" stroke-width="2.4"/><path d="M${hx - 9} ${hy + 5} Q${hx} ${hy - 2} ${hx + 9} ${hy + 5}" fill="none" stroke="${O}" stroke-width=".6"/>` + [-6, -3, 3, 6].map(d => `<circle cx="${hx + d}" cy="${hy + 2.2 + Math.abs(d) * .25}" r=".9" fill="#bfeaff" ${T}/>`).join('') + `<path d="${pzHeart(hx, hy - .4, 2.3)}" fill="#ff7ab8" ${T}/>`;
+      case 'wizard': return `<path d="M${hx - 8} ${hy + 3} Q${hx - 3} ${hy - 6} ${hx + 3} ${hy - 19} Q${hx + 5} ${hy - 6} ${hx + 8} ${hy + 3} Z" fill="#8e6bd6" ${T}/><ellipse cx="${hx}" cy="${hy + 3}" rx="12" ry="2.6" fill="#7b5cd6" ${T}/><polygon points="${starPts(hx + 1, hy - 5, 2.4, 1)}" fill="#ffd84d"/><polygon points="${starPts(hx - 3, hy - 1, 1.5, .6)}" fill="#fff6c4"/><polygon points="${starPts(hx + 3, hy - 12, 1.4, .6)}" fill="#fff6c4"/>`;
+      case 'pirate': return `<path d="M${hx - 13} ${hy + 4} Q${hx - 8} ${hy - 9} ${hx} ${hy - 7} Q${hx + 8} ${hy - 9} ${hx + 13} ${hy + 4} Q${hx} ${hy + 1} ${hx - 13} ${hy + 4} Z" fill="#3a3a4a" ${T}/><path d="M${hx - 11} ${hy + 2.6} Q${hx} ${hy - .4} ${hx + 11} ${hy + 2.6}" stroke="#ffd84d" stroke-width="1" fill="none"/><path d="${pzHeart(hx, hy - 2.6, 1.8)}" fill="#fff"/>` +
+        `<path d="M${hx - 9} ${ey - 7} L${hx + 12} ${ey + 1}" stroke="#2a2a33" stroke-width=".9"/><ellipse cx="${hx + 6.8}" cy="${ey}" rx="3.2" ry="2.8" fill="#2a2a33"/>`;
+      case 'astro': { const cy = (hy + ey) / 2 + 4, r = ey - hy + 5; return `<rect x="${hx - 10}" y="${ny - 2.4}" width="20" height="4.4" rx="2.2" fill="#e8eef6" ${T}/><circle cx="${hx}" cy="${cy}" r="${r}" fill="#bfe6ff" fill-opacity=".22" stroke="#8aa6c4" stroke-width="1.5"/><path d="M${hx - r * .62} ${cy - r * .45} A${r * .8} ${r * .8} 0 0 1 ${hx - r * .1} ${cy - r * .8}" stroke="#fff" stroke-width="1.6" fill="none" opacity=".9"/><circle cx="${hx + r * .7}" cy="${cy - r * .7}" r="1.4" fill="#ff5a6e" ${T}/>`; }
+      case 'hero': return `<path d="M${hx - 7} ${ny} Q${hx - 19} ${ny + 6} ${hx - 17} ${ny + 14} L${hx - 10} ${ny + 9} Z" fill="#ff5a6e" ${T}/><path d="M${hx + 7} ${ny} Q${hx + 19} ${ny + 6} ${hx + 17} ${ny + 14} L${hx + 10} ${ny + 9} Z" fill="#ff5a6e" ${T}/><circle cx="${hx}" cy="${ny + .5}" r="2" fill="#ffd84d" ${T}/>` +
+        `<path fill-rule="evenodd" d="M${hx - 11} ${ey - 3} Q${hx} ${ey - 5.5} ${hx + 11} ${ey - 3} Q${hx + 12} ${ey + 3} ${hx + 6.5} ${ey + 3.4} Q${hx} ${ey + 1.4} ${hx - 6.5} ${ey + 3.4} Q${hx - 12} ${ey + 3} ${hx - 11} ${ey - 3} Z M${hx - 3.6} ${ey} a3.3 3.3 0 1 0 -6.6 0 a3.3 3.3 0 1 0 6.6 0 Z M${hx + 10.2} ${ey} a3.3 3.3 0 1 0 -6.6 0 a3.3 3.3 0 1 0 6.6 0 Z" fill="#4a6cf7" opacity=".9" ${T}/>`;
+      case 'chef': return [-6, 0, 6].map(d => `<circle cx="${hx + d}" cy="${hy - 6 - (d ? 0 : 2)}" r="5.2" fill="#fff" ${T}/>`).join('') + `<rect x="${hx - 7.5}" y="${hy - 4}" width="15" height="7" rx="1.5" fill="#fff" ${T}/><path d="M${hx - 3} ${hy - 3} V${hy + 2} M${hx + 3} ${hy - 3} V${hy + 2}" stroke="#d8d8e6" stroke-width=".8"/>`;
+      case 'detective': return `<path d="M${hx - 10} ${hy + 3} L${hx - 16} ${hy + 5.5} L${hx - 9} ${hy + 6} Z M${hx + 10} ${hy + 3} L${hx + 16} ${hy + 5.5} L${hx + 9} ${hy + 6} Z" fill="#9b7446" ${T}/><path d="M${hx - 10} ${hy + 4} Q${hx - 10} ${hy - 7} ${hx} ${hy - 7} Q${hx + 10} ${hy - 7} ${hx + 10} ${hy + 4} Z" fill="#b08a5a" ${T}/><path d="M${hx - 6} ${hy - 5} V${hy + 3.4} M${hx} ${hy - 7} V${hy + 3.6} M${hx + 6} ${hy - 5} V${hy + 3.4} M${hx - 9.6} ${hy} H${hx + 9.6}" stroke="#7a5530" stroke-width=".7" opacity=".7"/><circle cx="${hx}" cy="${hy - 7.4}" r="1.2" fill="#7a5530"/>`;
+      case 'jester': return `<path d="M${hx - 9} ${hy + 4} Q${hx - 11} ${hy - 5} ${hx - 18} ${hy - 2} Q${hx - 8} ${hy - 11} ${hx} ${hy - 3} Z" fill="#b37bff" ${T}/><path d="M${hx + 9} ${hy + 4} Q${hx + 11} ${hy - 5} ${hx + 18} ${hy - 2} Q${hx + 8} ${hy - 11} ${hx} ${hy - 3} Z" fill="#ffd84d" ${T}/><path d="M${hx - 9.5} ${hy + 4.5} Q${hx} ${hy - 2} ${hx + 9.5} ${hy + 4.5} Z" fill="#ff5a8a" ${T}/><circle cx="${hx - 18}" cy="${hy - 2}" r="1.9" fill="#ffd84d" ${T}/><circle cx="${hx + 18}" cy="${hy - 2}" r="1.9" fill="#b37bff" ${T}/>`;
+      case 'fairy': return `<path d="M${hx - 5} ${ny + 2} Q${hx - 22} ${ny - 12} ${hx - 20} ${ny + 2} Q${hx - 21} ${ny + 12} ${hx - 6} ${ny + 6} Z" fill="#c9f0ff" fill-opacity=".8" ${T}/><path d="M${hx + 5} ${ny + 2} Q${hx + 22} ${ny - 12} ${hx + 20} ${ny + 2} Q${hx + 21} ${ny + 12} ${hx + 6} ${ny + 6} Z" fill="#ffd1ec" fill-opacity=".8" ${T}/>` + pzSpark(hx - 16, ny - 4, 1.4, '#fff') + pzSpark(hx + 17, ny - 3, 1.2, '#fff') + [-5, 0, 5].map((d, i) => `<circle cx="${hx + d}" cy="${hy + 2.6 - (d ? 0 : 1)}" r="1.7" fill="${['#ff9ad5', '#ffd84d', '#b37bff'][i]}" ${T}/>`).join('');
+      case 'alien': return `<path d="M${hx - 4} ${hy + 3} Q${hx - 6} ${hy - 5} ${hx - 10} ${hy - 10} M${hx + 4} ${hy + 3} Q${hx + 6} ${hy - 5} ${hx + 10} ${hy - 10}" stroke="${O}" stroke-width="2.4" fill="none"/><path d="M${hx - 4} ${hy + 3} Q${hx - 6} ${hy - 5} ${hx - 10} ${hy - 10} M${hx + 4} ${hy + 3} Q${hx + 6} ${hy - 5} ${hx + 10} ${hy - 10}" stroke="#6fdc7f" stroke-width="1.2" fill="none"/><circle cx="${hx - 10}" cy="${hy - 10.5}" r="2.6" fill="#b6ff7a" ${T}/><circle cx="${hx + 10}" cy="${hy - 10.5}" r="2.6" fill="#b6ff7a" ${T}/>`;
+      case 'clown': return [[-13, 7, '#ff5a6e'], [-15, 12.5, '#ffb35c'], [-9, 2.6, '#6fb8ff'], [13, 7, '#7ed48a'], [15, 12.5, '#b37bff'], [9, 2.6, '#ffe066']].map(([d, y, c]) => `<circle cx="${hx + d}" cy="${hy + y}" r="4" fill="${c}" ${T}/>`).join('') +
+        Array.from({ length: 7 }, (_, i) => `<circle cx="${hx - 9 + i * 3}" cy="${ny + 1.2}" r="2.3" fill="${i % 2 ? '#fff' : '#ff9ad5'}" ${T}/>`).join('') + `<circle cx="${hx}" cy="${ey + 4.3}" r="3.1" fill="#ff3b4a" ${T}/><circle cx="${hx - 1}" cy="${ey + 3.2}" r=".9" fill="#fff" opacity=".85"/>`;
+      case 'feather': return `<ellipse cx="${hx - 4}" cy="${hy - 5}" rx="2.2" ry="7" fill="#b37bff" transform="rotate(-18 ${hx - 4} ${hy - 5})" ${T}/><ellipse cx="${hx + 4}" cy="${hy - 5}" rx="2.2" ry="7" fill="#3fbf9f" transform="rotate(18 ${hx + 4} ${hy - 5})" ${T}/><ellipse cx="${hx}" cy="${hy - 7}" rx="2.6" ry="8.5" fill="#ff7ab8" ${T}/><path d="M${hx} ${hy - 13} V${hy + 2}" stroke="#fff" stroke-width=".6" opacity=".8"/><path d="M${hx - 10} ${hy + 5.2} Q${hx} ${hy + .8} ${hx + 10} ${hy + 5.2}" stroke="#ffd84d" stroke-width="2.2" fill="none"/><circle cx="${hx}" cy="${hy + 2.8}" r="1.5" fill="#7ec8ff" ${T}/>`;
+      case 'beret': return `<path d="M${hx - 11} ${hy + 4} Q${hx - 13} ${hy - 5} ${hx} ${hy - 6} Q${hx + 13} ${hy - 6} ${hx + 12} ${hy + 3} Q${hx} ${hy + 6} ${hx - 11} ${hy + 4} Z" fill="#ff5a6e" ${T}/><path d="M${hx + 1} ${hy - 6} q1 -3 3 -3" stroke="${O}" stroke-width="1.4" fill="none"/><circle cx="${hx - 5}" cy="${hy - 2}" r="1.3" fill="#fff" opacity=".4"/>`;
+      case 'star': return `<path d="M${hx - 10} ${hy + 5.2} Q${hx} ${hy + .8} ${hx + 10} ${hy + 5.2}" stroke="#4a6cf7" stroke-width="2" fill="none"/><polygon points="${starPts(hx, hy - 1, 5.2, 2.3)}" fill="#ffd84d" ${T}/>` + pzSpark(hx - 9, hy - 3, 1.3, '#fff6c4') + pzSpark(hx + 9, hy - 4, 1.1, '#fff6c4');
+    }
+    return '';
+  }
+  function art7PropSVG(id, g) {
+    const x = g.hx + 12, y = g.ny + 6, T = ART7_ST;
+    switch (id) {
+      case 'brush': return `<path d="M${x} ${y + 2} L${x + 6} ${y - 12}" stroke="${O}" stroke-width="2.6" stroke-linecap="round"/><path d="M${x} ${y + 2} L${x + 6} ${y - 12}" stroke="#ffd84d" stroke-width="1.4" stroke-linecap="round"/><path d="M${x + 5} ${y - 11} Q${x + 8} ${y - 18} ${x + 9} ${y - 17} Q${x + 9.4} ${y - 13} ${x + 7} ${y - 10.4} Z" fill="${g.c || '#ff5a6e'}" ${T}/>`;
+      case 'wand': return `<path d="M${x} ${y} L${x + 5} ${y - 12}" stroke="${O}" stroke-width="2.2"/><path d="M${x} ${y} L${x + 5} ${y - 12}" stroke="#ff9ad5" stroke-width="1"/><polygon points="${starPts(x + 5.4, y - 13.5, 4, 1.8)}" fill="#ffd84d" ${T}/>` + pzSpark(x + 10, y - 17, 1.1, '#fff6c4');
+      case 'sword': return `<path d="M${x - 1} ${y} L${x + 2} ${y - 18} L${x + 4.5} ${y - 17.4} L${x + 1.6} ${y + .4} Z" fill="#e8d3a8" ${T}/><path d="M${x - 3} ${y - 2.4} L${x + 5} ${y - .8}" stroke="${O}" stroke-width="2.6"/><path d="M${x - 3} ${y - 2.4} L${x + 5} ${y - .8}" stroke="#ff5a6e" stroke-width="1.4"/>`;
+      case 'flowers': return `<path d="M${x} ${y + 2} L${x - 2} ${y - 9} M${x} ${y + 2} L${x + 2} ${y - 11} M${x} ${y + 2} L${x + 5} ${y - 7}" stroke="#4fae5a" stroke-width="1.2"/>` + [[-2, -10, '#ff7ab8'], [2, -12, '#ffd84d'], [5.4, -8, '#b37bff']].map(([dx, dy, c]) => `<circle cx="${x + dx}" cy="${y + dy}" r="2.4" fill="${c}" ${T}/><circle cx="${x + dx}" cy="${y + dy}" r=".8" fill="#fff6c4"/>`).join('') + `<path d="M${x - 2.6} ${y - 1} L${x + 2.6} ${y - 1} L${x + 1} ${y + 3} L${x - 1} ${y + 3} Z" fill="#ff9ad5" ${T}/>`;
+      case 'lantern': return `<path d="M${x + 2} ${y - 3} Q${x + 2} ${y - 9} ${x + 5} ${y - 9}" stroke="${O}" stroke-width="1" fill="none"/><circle cx="${x + 2}" cy="${y + 4}" r="7" fill="#fff3a0" opacity=".45"/><rect x="${x - 1.4}" y="${y - 2}" width="7" height="9" rx="2" fill="#ffcf3a" ${T}/><rect x="${x + .6}" y="${y}" width="3" height="5" rx="1" fill="#fff6c4"/>`;
+      case 'book': return `<path d="M${x - 4} ${y - 5} L${x + 2} ${y - 3} L${x + 8} ${y - 5} L${x + 8} ${y + 4} L${x + 2} ${y + 6} L${x - 4} ${y + 4} Z" fill="#fff" ${T}/><path d="M${x - 4.6} ${y - 5.6} L${x + 2} ${y - 3.6} L${x + 8.6} ${y - 5.6} L${x + 8.6} ${y - 4.4} L${x + 2} ${y - 2.4} L${x - 4.6} ${y - 4.4} Z" fill="#ff5a6e"/><path d="M${x + 2} ${y - 3} V${y + 6}" stroke="${O}" stroke-width=".8"/>`;
+      case 'balloon': return `<path d="M${x} ${y} Q${x + 3} ${y - 8} ${x + 2} ${y - 15}" stroke="${O}" stroke-width=".7" fill="none"/><ellipse cx="${x + 2}" cy="${y - 20}" rx="5" ry="6" fill="#ff5a6e" ${T}/><ellipse cx="${x}" cy="${y - 22}" rx="1.3" ry="2" fill="#fff" opacity=".6"/>`;
+      case 'map': return `<rect x="${x - 3}" y="${y - 6}" width="11" height="9" rx="1" fill="#f3dfa8" ${T}/><path d="M${x - 1} ${y} q2 -3 4 -1 t3 -2" stroke="#b08a5a" stroke-width=".7" fill="none" stroke-dasharray="1 1"/><path d="M${x + 4.6} ${y - 4.4} l2 2 M${x + 6.6} ${y - 4.4} l-2 2" stroke="#ff3b4a" stroke-width="1"/>`;
+      case 'magnify': return `<path d="M${x} ${y + 2} L${x + 3.4} ${y - 3}" stroke="#8a5a3c" stroke-width="2.2"/><circle cx="${x + 5.4}" cy="${y - 6.4}" r="4" fill="#dff4ff" fill-opacity=".7" stroke="${O}" stroke-width="1.4"/>`;
+      case 'cake': return `<rect x="${x - 4}" y="${y - 3}" width="11" height="7" rx="1.5" fill="#ffd1e6" ${T}/><path d="M${x - 4} ${y - 1} q2.7 2 5.5 0 t5.5 0" fill="none" stroke="#fff" stroke-width="1.1"/><path d="M${x + 1.5} ${y - 3} V${y - 7}" stroke="#7ec8ff" stroke-width="1.4"/><ellipse cx="${x + 1.5}" cy="${y - 8.4}" rx="1" ry="1.6" fill="#ffb020"/>`;
+      case 'umbrella': return `<path d="M${x + 2} ${y + 4} V${y - 14} M${x + 2} ${y + 4} q0 2 -2 1.6" stroke="${O}" stroke-width="1.2" fill="none"/><path d="M${x - 8} ${y - 13} Q${x + 2} ${y - 24} ${x + 12} ${y - 13} Q${x + 9.5} ${y - 15} ${x + 7} ${y - 13} Q${x + 4.5} ${y - 15} ${x + 2} ${y - 13} Q${x - .5} ${y - 15} ${x - 3} ${y - 13} Q${x - 5.5} ${y - 15} ${x - 8} ${y - 13} Z" fill="#7ec8ff" ${T}/>`;
+    }
+    return '';
+  }
+  // pet art with a costume/prop (never saved on the pet)
+  function art7Art(p, o = {}) {
+    const g = Object.assign(art7G(p), { c: o.brushC }), sz = Math.max(.65, Math.min(1.15, p.size || 1));
+    const add = art7CosSVG(o.cos, g) + art7PropSVG(o.prop, g) + (o.extra || '');
+    return petSVG(p, { mood: o.mood, extra: add ? `<g transform="translate(24 47) scale(${sz}) translate(-24 -47)">${add}</g>` : '' });
+  }
+  // a pet inside a bigger svg scene, feet at (0,0)
+  const art7In = (p, w, o = {}) => { const h = art7F(w * 64 / 56); return art7Art(p, o).replace('<svg ', `<svg x="${art7F(-w / 2)}" y="${art7F(-h * .953)}" width="${w}" height="${h}" overflow="visible" `); };
+  function art7Actor(p, x, y, w, o = {}) {
+    const a = el('div', { class: 'art7-actor ' + (o.cls || '') }, el('div', { class: 'art7-body', html: art7Art(p, o) }));
+    a.style.cssText = `left:${x}%;bottom:${y}%;width:${w}%;` + (o.z ? `z-index:${o.z};` : '');
+    if (o.label) a.append(el('span', { class: 'art7-nm' }, o.label === true ? art7Nm(p) : o.label));
+    return a;
+  }
+  const art7Bop = (n, cls = 'art7-a-jump') => { if (!n) return; const b = n.querySelector('.art7-body') || n; b.className = 'art7-body'; void b.offsetWidth; b.classList.add(cls); };
+  function art7Say(n, text, ms = 2200, cls = '') { if (!n) return; n.querySelectorAll('.art7-say').forEach(b => b.remove()); const x = parseFloat(n.style.left), side = isNaN(x) ? '' : x < 22 ? ' l' : x > 78 ? ' r' : ''; const b = el('span', { class: 'art7-say ' + cls + side }, text); n.append(b); if (ms) setTimeout(() => b.remove(), ms); return b; }
+  const art7SVG = (body, vb = '0 0 600 320') => `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">${body}</svg>`;
+
+  // ---------- scenery (600x320) ----------
+  const art7Cloud = (x, y, s = 1, c = '#fff', o = .95) => `<g fill="${c}" opacity="${o}" transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="0" rx="34" ry="12"/><ellipse cx="-14" cy="-6" rx="16" ry="11"/><ellipse cx="12" cy="-10" rx="18" ry="14"/></g>`;
+  const art7Stars = (n, w, h, seed = 1, col = '#fff') => Array.from({ length: n }, (_, i) => { const x = (Math.sin(i * 91.7 + seed) * .5 + .5) * w, y = (Math.sin(i * 37.3 + seed * 3) * .5 + .5) * h; return `<polygon class="art7-tw" style="animation-delay:${(i % 7) * .3}s" points="${starPts(art7F(x), art7F(y), 2.4 + (i % 3), 1 + (i % 3) * .4)}" fill="${col}"/>`; }).join('');
+  const art7Grad = (id, a, b) => `<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`;
+  const art7Tree = (x, y, s, c = '#5fc36a') => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M-5 0 L-4 -40 H4 L5 0 Z" fill="#9b6b43" ${S2}/><circle cx="0" cy="-50" r="22" fill="${c}" ${S2}/><circle cx="-16" cy="-38" r="14" fill="${c}" ${S2}/><circle cx="16" cy="-38" r="14" fill="${c}" ${S2}/><circle cx="-6" cy="-58" r="7" fill="#fff" opacity=".25"/></g>`;
+  const art7Pine = (x, y, s, snow) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="-10" width="8" height="10" fill="#9b6b43" ${S2}/><path d="M0 -80 L-22 -44 H-12 L-28 -10 H28 L12 -44 H22 Z" fill="#3fae6a" ${S2}/>${snow ? '<path d="M0 -80 L-10 -64 Q0 -60 10 -64 Z M-16 -44 Q0 -40 16 -44 L12 -50 Q0 -46 -12 -50 Z" fill="#fff"/>' : ''}</g>`;
+  const art7Flower = (x, y, c, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 V14" stroke="#4fae5a" stroke-width="2"/>${[0, 72, 144, 216, 288].map(a => `<circle cx="${art7F(5 * Math.cos(a * Math.PI / 180))}" cy="${art7F(5 * Math.sin(a * Math.PI / 180))}" r="4" fill="${c}" ${S2}/>`).join('')}<circle r="3" fill="#ffe066" ${S2}/></g>`;
+  const ART7_BGS = {
+    castle: ['🏰 ארמון', u => `<defs>${art7Grad(u + 'a', '#ffd6ec', '#e3dcff')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>${art7Cloud(90, 60, 1)}${art7Cloud(500, 46, .8)}<circle cx="520" cy="110" r="26" fill="#fff3a0" opacity=".8"/>` +
+      `<path d="M0 250 Q140 190 300 236 T600 222 V320 H0 Z" fill="#a8e6a0"/>` +
+      `<g ${S2}><rect x="210" y="96" width="46" height="150" fill="#f4e6ff"/><rect x="344" y="96" width="46" height="150" fill="#f4e6ff"/><rect x="250" y="136" width="100" height="110" fill="#fff4fb"/><path d="M204 98 L233 40 L262 98 Z M338 98 L367 40 L396 98 Z" fill="#ff8fc0"/><path d="M270 138 L300 82 L330 138 Z" fill="#b58cff"/><path d="M280 246 V206 Q300 184 320 206 V246 Z" fill="#c98f3a"/></g>` +
+      `<path d="M233 40 V22 L250 28 L233 34 M367 40 V22 L384 28 L367 34" stroke="${O}" stroke-width="1.6" fill="#ffd84d"/>` + [[224, 130], [358, 130], [224, 180], [358, 180], [286, 150], [306, 150]].map(([x, y]) => `<path d="M${x} ${y + 16} V${y + 5} Q${x + 6} ${y - 3} ${x + 12} ${y + 5} V${y + 16} Z" fill="#7ec8ff" ${S2}/>`).join('') +
+      [250, 270, 290, 310, 330].map(x => `<rect x="${x}" y="126" width="12" height="11" fill="#fff4fb" ${S2}/>`).join('') + art7Flower(120, 262, '#ff7ab8') + art7Flower(470, 258, '#ffd84d') + art7Flower(520, 272, '#b37bff')],
+    forest: ['🌳 יער', u => `<defs>${art7Grad(u + 'a', '#c9f2ff', '#eaffe6')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>${art7Cloud(140, 50, .9)}${art7Cloud(430, 70, .7)}<circle cx="80" cy="60" r="24" fill="#ffe27a"/>` +
+      `<path d="M0 230 Q160 200 320 226 T600 214 V320 H0 Z" fill="#8fd694"/>` + [[40, 240, 1.3, '#4fae5a'], [150, 222, 1, '#6fcf7f'], [470, 226, 1.2, '#5fc36a'], [560, 244, 1.4, '#4fae5a'], [300, 214, .8, '#7fd98a']].map(t => art7Tree(...t)).join('') +
+      `<g transform="translate(220 250)"><path d="M-8 0 Q-9 -10 0 -10 Q9 -10 8 0 Z" fill="#fff" ${S2}/><path d="M-14 -8 Q0 -24 14 -8 Z" fill="#ff5a6e" ${S2}/><circle cx="-5" cy="-13" r="2" fill="#fff"/><circle cx="5" cy="-12" r="1.6" fill="#fff"/></g>` + art7Flower(380, 262, '#ff9ad5') + art7Flower(100, 272, '#ffd84d', .8)],
+    space: ['🚀 חלל', u => `<defs>${art7Grad(u + 'a', '#1b1640', '#3d2a6e')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>${art7Stars(40, 600, 240, 3, '#fff6c4')}` +
+      `<circle cx="470" cy="90" r="42" fill="#ff9ad5" ${S2}/><ellipse cx="470" cy="90" rx="70" ry="14" fill="none" stroke="#ffd84d" stroke-width="5" transform="rotate(-14 470 90)"/><circle cx="455" cy="76" r="8" fill="#fff" opacity=".3"/>` +
+      `<path d="M100 50 a30 30 0 1 0 26 44 a24 24 0 1 1 -26 -44 Z" fill="#fff3a0" ${S2}/><g transform="translate(250 80) rotate(30)"><path d="M0 -26 Q12 -10 10 14 H-10 Q-12 -10 0 -26 Z" fill="#fff" ${S2}/><circle cx="0" cy="-4" r="4.5" fill="#7ec8ff" ${S2}/><path d="M-10 6 L-17 18 L-9 15 Z M10 6 L17 18 L9 15 Z" fill="#ff5a6e" ${S2}/><path d="M-5 15 Q0 30 5 15" fill="#ffb35c"/></g>` +
+      `<path d="M0 240 Q150 214 300 236 T600 230 V320 H0 Z" fill="#b8b4d6"/>` + [[80, 262, 16], [230, 252, 10], [420, 266, 20], [540, 250, 9]].map(([x, y, r]) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * .4}" fill="#9d98c4"/>`).join('')],
+    candy: ['🍭 ארץ הממתקים', u => `<defs>${art7Grad(u + 'a', '#ffe0f2', '#fff6d6')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>${art7Cloud(100, 56, .9, '#fff')}${art7Cloud(480, 44, .8, '#ffd1ec')}` +
+      `<path d="M0 236 Q60 190 120 236 Q190 180 260 236 Q340 196 420 236 Q500 186 600 232 V320 H0 Z" fill="#ffb3d9" ${S2}/>` +
+      [[80, 150, '#ff5a6e'], [520, 140, '#7ec8ff'], [200, 170, '#b37bff']].map(([x, y, c]) => `<path d="M${x} ${y} V240" stroke="#fff" stroke-width="5"/><path d="M${x} ${y} V240" stroke="${O}" stroke-width="1" stroke-dasharray="0" opacity=".2"/><circle cx="${x}" cy="${y}" r="30" fill="${c}" ${S2}/><path d="M${x} ${y} m-20 0 a20 20 0 1 1 20 20 a14 14 0 1 1 -14 -14 a8 8 0 1 1 8 8" fill="none" stroke="#fff" stroke-width="4"/>`).join('') +
+      `<g transform="translate(360 240)"><path d="M-40 0 V-50 H40 V0 Z" fill="#ffe6c4" ${S2}/><path d="M-48 -48 Q-40 -64 -26 -54 Q-14 -72 0 -56 Q14 -72 26 -54 Q40 -64 48 -48 Z" fill="#ff9ad5" ${S2}/><circle cx="0" cy="-74" r="7" fill="#ff3b4a" ${S2}/><rect x="-10" y="-26" width="20" height="26" rx="10" fill="#c98f3a" ${S2}/><circle cx="-26" cy="-32" r="7" fill="#7ec8ff" ${S2}/><circle cx="26" cy="-32" r="7" fill="#7ec8ff" ${S2}/></g>` +
+      [[140, 250, '#7ed48a'], [460, 256, '#ffd84d'], [560, 250, '#ff7ab8']].map(([x, y, c]) => `<path d="M${x - 14} ${y} Q${x - 14} ${y - 22} ${x} ${y - 22} Q${x + 14} ${y - 22} ${x + 14} ${y} Z" fill="${c}" ${S2}/><circle cx="${x - 4}" cy="${y - 14}" r="3" fill="#fff" opacity=".6"/>`).join('')],
+    sea: ['🐠 מתחת לים', u => `<defs>${art7Grad(u + 'a', '#7fd6ff', '#1f6fb8')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>` +
+      [80, 220, 380, 520].map((x, i) => `<path d="M${x} 0 L${x + 40} 0 L${x + 90} 260 L${x + 20} 260 Z" fill="#fff" opacity="${.08 + i % 2 * .04}"/>`).join('') +
+      `<path d="M0 244 Q150 224 300 240 T600 236 V320 H0 Z" fill="#f3dfa8"/>` + [[60, 240, '#3fae6a'], [110, 244, '#5fc36a'], [500, 240, '#3fae6a'], [540, 244, '#7fd98a']].map(([x, y, c]) => `<path d="M${x} ${y} Q${x - 14} ${y - 40} ${x} ${y - 70} Q${x + 14} ${y - 100} ${x} ${y - 130}" fill="none" stroke="${c}" stroke-width="8" stroke-linecap="round"/>`).join('') +
+      `<g transform="translate(300 244)"><path d="M-30 0 Q-34 -30 -18 -40 M-30 0 Q-10 -26 0 -54 M0 -54 Q10 -30 24 -44 M-8 0 Q10 -20 24 -44" stroke="#ff7a9a" stroke-width="7" fill="none" stroke-linecap="round"/></g>` +
+      [[180, 90, '#ffb35c'], [420, 130, '#ffe066'], [250, 160, '#ff9ad5']].map(([x, y, c]) => `<g transform="translate(${x} ${y})"><ellipse rx="16" ry="10" fill="${c}" ${S2}/><path d="M14 0 L26 -9 V9 Z" fill="${c}" ${S2}/><circle cx="-7" cy="-2" r="2" fill="${O}"/></g>`).join('') +
+      Array.from({ length: 12 }, (_, i) => `<circle class="art7-bub" style="animation-delay:${i * .4}s" cx="${40 + i * 48}" cy="${220 - (i * 37) % 160}" r="${3 + i % 4}" fill="none" stroke="#fff" stroke-width="1.6" opacity=".7"/>`).join('')],
+    beach: ['🏝️ חוף', u => `<defs>${art7Grad(u + 'a', '#8fdcff', '#e8f9ff')}</defs><rect width="600" height="320" fill="url(#${u}a)"/><circle cx="500" cy="70" r="34" fill="#ffe066"/>${art7Cloud(150, 60, .9)}` +
+      `<rect y="170" width="600" height="80" fill="#3fb6e8"/><path d="M0 176 Q30 170 60 176 T120 176 T180 176 T240 176 T300 176 T360 176 T420 176 T480 176 T540 176 T600 176" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/>` +
+      `<path d="M0 226 Q300 196 600 226 V320 H0 Z" fill="#f7dfa0"/><g transform="translate(110 236)"><path d="M0 0 Q6 -60 22 -110" stroke="#9b6b43" stroke-width="9" fill="none"/>${[[-50, 10], [-20, 34], [30, 30], [54, 4], [0, -24]].map(([dx, dy]) => `<path d="M22 -110 Q${22 + dx * .5} ${-128 + dy * .2} ${22 + dx} ${-104 + dy}" stroke="#3fae6a" stroke-width="10" fill="none" stroke-linecap="round"/>`).join('')}<circle cx="18" cy="-100" r="5" fill="#8a5a3c"/></g>` +
+      `<g transform="translate(470 250)"><path d="M-30 0 A30 30 0 0 1 30 0 Z" fill="#ff7a9a" ${S2}/><path d="M-10 0 A10 30 0 0 1 10 0" fill="#fff"/><path d="M0 -30 V20" stroke="${O}" stroke-width="2"/></g><path d="M300 262 l6 6 l-6 6 l-6 -6 Z" fill="#ff9ad5" ${S2}/>`],
+    snow: ['❄️ ארץ השלג', u => `<defs>${art7Grad(u + 'a', '#cfe8ff', '#f5fbff')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>` +
+      `<path d="M0 200 L90 90 L170 190 L270 70 L380 190 L470 100 L600 200 Z" fill="#dce9f7" ${S2}/><path d="M90 90 L70 116 Q90 110 108 114 Z M270 70 L246 100 Q270 92 292 98 Z M470 100 L452 124 Q470 118 488 122 Z" fill="#fff"/>` +
+      `<path d="M0 234 Q150 210 300 230 T600 222 V320 H0 Z" fill="#fff" ${S2}/>` + [[60, 244, 1.2], [140, 232, .9], [480, 236, 1.1], [560, 248, 1.3]].map(t => art7Pine(...t, true)).join('') +
+      `<g transform="translate(330 250)"><circle cy="-14" r="16" fill="#fff" ${S2}/><circle cy="-40" r="11" fill="#fff" ${S2}/><path d="M0 -40 l9 2 l-9 2 Z" fill="#ffb35c"/><circle cx="-4" cy="-43" r="1.4" fill="${O}"/><circle cx="3" cy="-43" r="1.4" fill="${O}"/><path d="M-10 -30 H10" stroke="#ff5a6e" stroke-width="4"/></g>` +
+      Array.from({ length: 22 }, (_, i) => `<circle class="art7-snow" style="animation-delay:${(i % 8) * .5}s" cx="${(i * 67) % 600}" cy="${(i * 41) % 200}" r="${1.6 + i % 3}" fill="#fff"/>`).join('')],
+    jungle: ['🌴 ג\'ונגל', u => `<defs>${art7Grad(u + 'a', '#b6f0c8', '#e9ffd8')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>` +
+      `<path d="M470 0 Q480 120 500 250 H540 Q520 120 520 0 Z" fill="#8fdcff" opacity=".8"/><path d="M0 232 Q160 210 300 230 T600 226 V320 H0 Z" fill="#6fcf7f"/>` +
+      [[20, 0, 1], [580, 0, -1]].map(([x, y, s]) => `<g transform="translate(${x} ${y}) scale(${s} 1)">${[40, 90, 150, 210].map((yy, i) => `<path d="M-20 ${yy} Q70 ${yy - 30} 120 ${yy + 10} Q60 ${yy + 30} -20 ${yy}" fill="${['#3fae6a', '#5fc36a', '#2f9a5a', '#4fae5a'][i]}" ${S2}/>`).join('')}</g>`).join('') +
+      `<path d="M200 0 Q210 60 190 120 M260 0 Q250 50 270 90 M380 0 Q390 70 370 110" stroke="#4fae5a" stroke-width="4" fill="none"/>` + [[190, 120], [270, 90], [370, 110]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="#ff7ab8" ${S2}/>`).join('') +
+      art7Flower(150, 256, '#ffb35c', 1.2) + art7Flower(430, 262, '#ff5a6e', 1.1) + `<g transform="translate(300 60)"><path d="M0 0 q-10 -10 -18 0 q10 6 18 0 q10 -10 18 0 q-10 6 -18 0" fill="#ffd84d" ${S2}/></g>`],
+    city: ['🌃 עיר בלילה', u => `<defs>${art7Grad(u + 'a', '#2a2460', '#7a5cc4')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>${art7Stars(24, 600, 130, 7, '#fff6c4')}<circle cx="90" cy="60" r="26" fill="#fff3a0"/><circle cx="100" cy="54" r="24" fill="#2e2a66"/>` +
+      [[20, 120, 70], [100, 90, 60], [170, 140, 50], [230, 70, 70], [310, 110, 60], [380, 80, 64], [450, 130, 50], [510, 96, 70]].map(([x, y, w], i) => `<rect x="${x}" y="${y}" width="${w}" height="${250 - y}" fill="${['#3d3680', '#4a3f94', '#352f72'][i % 3]}" ${S2}/>` + Array.from({ length: Math.floor((240 - y) / 26) * 2 }, (_, k) => `<rect x="${x + 10 + (k % 2) * (w - 30)}" y="${y + 12 + Math.floor(k / 2) * 26}" width="10" height="12" rx="2" fill="${(k * 7 + i) % 3 ? '#ffe27a' : '#5a5299'}"/>`).join('')).join('') +
+      `<rect y="250" width="600" height="70" fill="#4a4a6a"/>`],
+    night: ['🌙 גינה בלילה', u => `<defs>${art7Grad(u + 'a', '#1f2a5c', '#5a4a9c')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>${art7Stars(34, 600, 180, 11, '#fff6c4')}<circle cx="480" cy="70" r="30" fill="#fff3a0"/><circle cx="470" cy="64" r="5" fill="#f0e08a"/>` +
+      `<path d="M0 230 Q150 200 300 226 T600 216 V320 H0 Z" fill="#2f6b52"/>` + art7Tree(70, 236, 1.1, '#2f8a5a') + art7Tree(540, 232, .9, '#2f8a5a') +
+      Array.from({ length: 14 }, (_, i) => `<circle class="art7-fly" style="animation-delay:${i * .37}s" cx="${40 + i * 40}" cy="${150 + (i * 29) % 80}" r="2.6" fill="#fff9a0"/>`).join('') + art7Flower(200, 250, '#b37bff') + art7Flower(400, 256, '#ff9ad5') + art7Flower(300, 262, '#7ec8ff', .8)],
+    meadow: ['🌈 שדה קשת', u => `<defs>${art7Grad(u + 'a', '#bfe6ff', '#fff4fb')}</defs><rect width="600" height="320" fill="url(#${u}a)"/>` + ['#ff6f7a', '#ffb35c', '#ffe066', '#7ed48a', '#6fb8ff', '#b37bff'].map((c, i) => `<path d="M60 240 A240 190 0 0 1 540 240" fill="none" stroke="${c}" stroke-width="12" transform="translate(0 ${i * 12})" opacity=".85"/>`).join('') +
+      art7Cloud(80, 220, 1.3) + art7Cloud(520, 220, 1.3) + `<path d="M0 240 Q150 222 300 238 T600 232 V320 H0 Z" fill="#9fe0a0"/>` + [60, 140, 250, 350, 450, 540].map((x, i) => art7Flower(x, 262 - (i % 2) * 8, ['#ff7ab8', '#ffd84d', '#b37bff'][i % 3], .9)).join('')],
+  };
+  const art7Bg = (id, floor = true) => { const u = 'a7b' + (++art7Uid), b = ART7_BGS[id] || ART7_BGS.castle;
+    return art7SVG(b[1](u) + (floor ? `<rect y="262" width="600" height="58" fill="#b77a45"/><path d="M0 262 H600" stroke="${O}" stroke-width="3"/>${Array.from({ length: 13 }, (_, i) => `<path d="M${i * 50} 262 L${i * 50 - 14} 320" stroke="#9a6236" stroke-width="2.4"/>`).join('')}<rect y="262" width="600" height="6" fill="#d9965a"/>` : '')); };
+
+  // ================= 🎭 pets theater =================
+  const ART7_ACTS = [['talk', '💬 מדבר/ת'], ['jump', '⬆️ קופץ/ת'], ['spin', '🌀 מסתובב/ת'], ['dance', '💃 רוקד/ת'], ['walk', '🚶 הולך/ת'], ['bow', '🙇 קד/ה'], ['shake', '😱 נבהל/ת'], ['laugh', '😂 צוחק/ת'], ['sleep', '😴 נרדם/ת'], ['love', '💖 מאוהב/ת']];
+  const ART7_MOOD = { laugh: 'happy', shake: 'surprised', sleep: 'sleepy', love: 'happy', dance: 'happy', jump: 'happy', spin: 'silly' };
+  // templates: roles [name, costume, prop], scenes [bg, [[role (-1 narrator), text, act]]]. {0},{1},{2} → the pet's name in that role
+  const ART7_TPL = [
+    ['crown', '👑 הכתר שנעלם', 'הכתר של המלכה נעלם! מי ימצא אותו?', [['המלכה', 'crown', 'none'], ['הבלש/ית', 'detective', 'magnify'], ['ליצן החצר', 'jester', 'balloon']], [
+      ['castle', [[-1, 'בוקר אחד בארמון...', 'talk'], [0, 'אוי לא! הכתר שלי נעלם! 😱', 'shake'], [1, 'אל דאגה, הוד מלכותה! אני אמצא אותו! 🔍', 'jump'], [2, 'אולי הוא הלך לטייל? 🤪', 'laugh']]],
+      ['forest', [[1, 'עקבות נוצצות! הכתר עבר ביער! ✨', 'walk'], [2, 'אני שומע משהו מתחת לפטרייה...', 'talk'], [1, 'מצאתי! ציפור קטנה בנתה ממנו קן! 🐦', 'jump']]],
+      ['castle', [[0, 'הכתר חזר! תודה, {1}! 💖', 'love'], [0, 'והציפור תקבל קן זהב משלה!', 'dance'], [-1, 'וכולם חגגו עד הערב! 🎉', 'dance']]]]],
+    ['moon', '🚀 טיול לירח', 'שני חברים בונים חללית וטסים לבקר חבר חדש', [['הטייס/ת', 'astro', 'none'], ['המדענ/ית', 'astro', 'book'], ['החייזר/ית', 'alien', 'flowers']], [
+      ['meadow', [[0, 'בנינו חללית מקופסאות! 🚀', 'jump'], [1, 'חגורות! שלוש... שתיים... אחת!', 'talk'], [-1, 'והחללית המריאה אל השמיים!', 'spin']]],
+      ['space', [[1, 'וואו! תראו כמה כוכבים! ⭐', 'shake'], [2, 'שלום! אני {2}, ברוכים הבאים! 👽', 'dance'], [0, 'רוצה להיות חבר/ה שלנו?', 'love']]],
+      ['space', [[2, 'בטח! אבל רק אם תבואו שוב!', 'jump'], [-1, 'ומאז, בכל לילה, {2} מנופף/ת להם מהירח 🌙', 'talk']]]]],
+    ['candy', '🍭 המלך המתוק', 'בארץ הממתקים נגמר הסוכר — ומי יציל את המסיבה?', [['השף/ית', 'chef', 'cake'], ['המלך/ה', 'crown', 'wand'], ['הפיה', 'fairy', 'wand']], [
+      ['candy', [[1, 'היום מסיבה! אבל... נגמר הסוכר! 😱', 'shake'], [0, 'אין מסיבה בלי עוגה!', 'talk'], [2, 'אולי קצת קסם יעזור? ✨', 'spin']]],
+      ['candy', [[2, 'אבקת כוכבים... ופוף! 🪄', 'spin'], [0, 'העוגה הכי גבוהה בעולם! 🎂', 'jump'], [1, 'בואו נחלק לכולם!', 'love']]],
+      ['candy', [[-1, 'וכל תושבי ארץ הממתקים קיבלו פרוסה 🍰', 'dance'], [0, 'יאמי יאמי! 😋', 'laugh']]]]],
+    ['sea', '🗺️ האוצר שמתחת לים', 'מפה ישנה, חוף שמשי ותיבה נוצצת במעמקים', [['הקפטן/ית', 'pirate', 'map'], ['הצוללנ/ית', 'astro', 'lantern'], ['התוכי/ת', 'feather', 'none']], [
+      ['beach', [[0, 'מצאתי מפה בבקבוק! 🗺️', 'jump'], [2, 'איקס! איקס מסמן אוצר!', 'dance'], [1, 'אני אצלול לבדוק! 🤿', 'walk']]],
+      ['sea', [[1, 'כמה דגים צבעוניים! 🐠', 'spin'], [1, 'הנה התיבה!', 'shake'], [-1, 'ובתוך התיבה... צדפים שרים! 🐚', 'talk']]],
+      ['beach', [[0, 'האוצר הכי טוב זה חברים! 💖', 'love'], [2, 'וגם צדפים שרים!', 'laugh'], [-1, 'ומאז הם שרים יחד כל ערב 🎶', 'dance']]]]],
+    ['snow', '❄️ פתית השלג הקסום', 'פתית שלג אחד מגשים משאלה — מה כדאי לבקש?', [['הנסיכ/ה', 'tiara', 'none'], ['הקוסם/ת', 'wizard', 'wand'], ['איש השלג', 'none', 'umbrella']], [
+      ['snow', [[0, 'איזה קר! אבל כמה יפה! ❄️', 'spin'], [1, 'תראו! פתית שלג נוצץ!', 'jump'], [1, 'מי שתופס אותו — מקבל משאלה!', 'talk']]],
+      ['snow', [[2, 'תפסתי! אני מבקש... חבר! ⛄', 'jump'], [0, 'אבל אנחנו כבר החברים שלך! 💖', 'love'], [2, 'אז אבקש... שוקו חם לכולם! ☕', 'laugh']]],
+      ['night', [[-1, 'והם שתו שוקו מתחת לכוכבים 🌟', 'talk'], [1, 'זו המשאלה הכי טובה! ✨', 'dance']]]]],
+    ['jungle', '🎂 יום הולדת בג\'ונגל', 'מסיבת הפתעה סודית... שכמעט מתגלה!', [['חתן/כלת יום ההולדת', 'crown', 'none'], ['המארגנ/ת', 'jester', 'balloon'], ['השומר/ת', 'hero', 'lantern']], [
+      ['jungle', [[1, 'ששש! מכינים מסיבת הפתעה! 🤫', 'talk'], [2, 'אני אשמור שאף אחד לא יציץ!', 'jump'], [0, 'היי! מה אתם עושים שם? 🤔', 'walk']]],
+      ['jungle', [[1, 'אממ... סופרים עלים! 🍃', 'laugh'], [2, 'כן! אחד, שתיים, אלף! 😅', 'shake'], [0, 'אתם מתנהגים מוזר...', 'talk']]],
+      ['meadow', [[-1, 'הפתעה!!! 🎉', 'jump'], [1, 'יום הולדת שמח, {0}! 🎂', 'dance'], [0, 'זה היום הכי טוב בחיים שלי! 💖', 'love']]]]],
+    ['hero', '🦸 גיבורי העיר', 'בלילה אחד כל הפנסים כבו — ומי מדליק אותם?', [['גיבור/ת האור', 'hero', 'lantern'], ['ממציא/ת', 'detective', 'book'], ['גיבור/ת הלב', 'hero', 'flowers']], [
+      ['city', [[-1, 'לילה אחד, כל האורות בעיר כבו! 🌑', 'talk'], [1, 'לפי הספר... צריך לבקש יפה מהירח!', 'talk'], [0, 'יאללה! לגג הכי גבוה! 🦸', 'jump']]],
+      ['city', [[2, 'ירח יקר, תדליק לנו אור בבקשה? 🌙', 'love'], [-1, 'והירח חייך... והאורות נדלקו! ✨', 'spin'], [0, 'הצלחנו! 💪', 'dance']]]]],
+    ['star', '⭐ הכוכב שנפל לגינה', 'כוכב קטן הלך לאיבוד — איך מחזירים אותו לשמיים?', [['הגנן/ית', 'none', 'lantern'], ['הכוכב/ת', 'star', 'none'], ['הינשוף החכם', 'wizard', 'book']], [
+      ['night', [[0, 'מה נוצץ שם בין הפרחים? 🔦', 'walk'], [1, 'נפלתי מהשמיים... אני רוצה הביתה 🥺', 'shake'], [0, 'אל תדאג/י, נעזור לך!', 'love']]],
+      ['forest', [[2, 'כוכב חוזר הביתה רק כשמישהו שר לו שיר 🎶', 'talk'], [0, 'אז כולם שרים איתי!', 'dance'], [1, 'אני מרגיש/ה קל... אני עף/ה! ✨', 'spin']]],
+      ['night', [[1, 'תודה! אני אנצנץ בשבילכם כל לילה! 🌟', 'jump'], [-1, 'ואם תסתכלו למעלה — תראו אותו מנצנץ 💫', 'talk']]]]],
+  ];
+  const ART7_ROLES = ['המלכה', 'המלך', 'הנסיכה', 'הנסיך', 'הקוסמת', 'הפיה', 'הפיראט', 'הבלשית', 'הגיבורה', 'הדרקון החמוד', 'השף', 'החייזר', 'המספרת', 'הליצן'];
+  const ART7_LINES = ['שלום לכולם! 👋', 'אוי, מה זה?! 😱', 'בואו נצא להרפתקה!', 'יש לי רעיון! 💡', 'חה חה חה! 😂', 'אני הכי אוהב/ת אתכם 💖', 'ששש... שמעתם את זה?', 'הצלחנו! 🎉', 'אני כל כך רעב/ה 🍪', 'תסתכלו! קשת! 🌈', 'לילה טוב... 😴', 'זה קסם! ✨'];
+  const art7Name = (s, cast) => String(s || '').replace(/\{(\d)\}/g, (m, i) => { const c = cast[+i] || cast[0]; const p = c && art7CastPet(c); return p ? art7Nm(p) : ''; });
+  function art7CastPet(c) { const all = art7Pets(); return all.find(p => p.id === c.pid) || null; }
+  function art7NewPlay(tpl) {
+    const all = art7Pets(), id = 'pl' + Date.now().toString(36);
+    if (!tpl) return { id, title: 'ההצגה שלי', cast: all.slice(0, 4).map((p, i) => ({ pid: p.id, role: ['הגיבור/ה', 'החבר/ה', 'הקוסם/ת', 'המלך/ה'][i], cos: ['none', 'none', 'wizard', 'crown'][i], prop: 'none' })), scenes: [{ bg: 'castle', lines: [[-1, 'פעם אחת, לפני הרבה זמן...', 'talk'], [0, 'שלום לכולם! 👋', 'jump']] }] };
+    const [tid, title, , roles, scenes] = tpl, n = Math.min(roles.length, all.length);
+    const cast = roles.slice(0, n).map((r, i) => ({ pid: all[i].id, role: r[0], cos: r[1], prop: r[2] }));
+    const re = w => w < 0 ? -1 : w % n;
+    return { id, tpl: tid, title: title.replace(/^\S+\s/, ''), cast, scenes: scenes.map(([bg, lines]) => ({ bg, lines: lines.map(([w, t, a]) => [re(w), art7Name(t, cast), a]) })) };
+  }
+  function art7Theater() {
+    const V = art7V; V.ph = V.ph || 'list';
+    if (V.ph === 'edit') return art7Edit();
+    if (V.ph === 'show') return art7Show();
+    const all = art7Pets();
+    const st = el('div', { class: 'art7-stage art7-closed' }, el('div', { class: 'art7-bg', html: art7Bg('castle') }), el('div', { class: 'art7-layer' }), el('div', { class: 'art7-cur l' }), el('div', { class: 'art7-cur r' }), el('div', { class: 'art7-val' }), el('div', { class: 'art7-marq' }, '🎭 תיאטרון החיות 🎭'));
+    const n = Math.min(all.length, 6);
+    all.slice(0, 6).forEach((p, i) => { const a = art7Actor(p, 50 + (i - (n - 1) / 2) * Math.min(13, 70 / n), 4, Math.min(13, 60 / n), { cls: 'art7-idle', label: true, mood: 'happy', z: 13 }); a.style.animationDelay = `${i * .2}s`; st.children[1].append(a); });
+    const tpls = el('div', { class: 'art7-tpls' }, ...ART7_TPL.map(t => el('button', { type: 'button', class: 'art7-tpl', onclick: () => { V.play = art7NewPlay(t); V.ph = 'edit'; V.sc = 0; SFX.pop(); art7Draw(); } },
+      el('span', { class: 'art7-tpl-bg', html: art7Bg(t[4][0][0], false) }), el('b', {}, t[1]), el('small', {}, t[2]))));
+    const mine = art7D.plays.length ? el('div', { class: 'art7-plays' }, ...art7D.plays.map(pl => el('div', { class: 'art7-play' },
+      el('span', { class: 'art7-play-bg', html: art7Bg((pl.scenes[0] || {}).bg, false) }), el('b', {}, pl.title || 'הצגה'), el('small', {}, `${pl.scenes.length} סצנות · ${pl.cast.length} שחקנים`),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { V.play = JSON.parse(JSON.stringify(pl)); V.ph = 'show'; art7Draw(); } }, '▶️ להציג'),
+        el('button', { type: 'button', class: 'chip', onclick: () => { V.play = JSON.parse(JSON.stringify(pl)); V.ph = 'edit'; V.sc = 0; art7Draw(); } }, '✏️'),
+        el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { let ok = true; try { ok = confirm('למחוק את ההצגה?'); } catch {} if (!ok) return; art7D.plays = art7D.plays.filter(x => x.id !== pl.id); art7Save(); art7Draw(); } }, '🗑️'))))) : el('p', { class: 'muted' }, 'עוד אין הצגות שמורות — כותבים אחת חדשה או בוחרים סיפור מוכן!');
+    return el('div', { class: 'art7-wrap' }, st,
+      el('div', { class: 'chips art7-cta' }, el('button', { type: 'button', class: 'btn main art7-big', onclick: () => { V.play = art7NewPlay(null); V.ph = 'edit'; V.sc = 0; SFX.pop(); art7Draw(); } }, '✏️ לכתוב הצגה חדשה')),
+      el('h4', { class: 'art7-h' }, '📜 סיפורים מוכנים (אפשר לשנות הכול!)'), tpls, el('h4', { class: 'art7-h' }, `🎬 ההצגות שלי (${art7D.plays.length})`), mine);
+  }
+  // actors spread on the stage
+  const art7Spots = n => Array.from({ length: n }, (_, i) => 50 + (i - (n - 1) / 2) * Math.min(19, 76 / Math.max(1, n)));
+  const art7W = n => Math.min(17, 12 + 20 / Math.max(1, n));
+  function art7Edit() {
+    const V = art7V, P = V.play, all = art7Pets();
+    P.cast = P.cast.filter(c => all.some(p => p.id === c.pid));
+    V.sc = Math.min(V.sc || 0, P.scenes.length - 1);
+    const sc = P.scenes[V.sc], redraw = () => art7Draw();
+    // preview
+    const st = el('div', { class: 'art7-stage art7-open art7-prev' }, el('div', { class: 'art7-bg', html: art7Bg(sc.bg) }), el('div', { class: 'art7-layer' }));
+    const xs = art7Spots(P.cast.length);
+    P.cast.forEach((c, i) => { const p = art7CastPet(c); st.children[1].append(art7Actor(p, xs[i], 4, art7W(P.cast.length), { cos: c.cos, prop: c.prop, label: c.role || art7Nm(p), cls: 'art7-idle' })); });
+    const title = el('input', { type: 'text', class: 'art7-title-in', maxLength: 40, value: P.title || '', placeholder: 'שם ההצגה', 'aria-label': 'שם ההצגה', oninput: e => { P.title = e.target.value; } });
+    // cast editor
+    const castBox = el('div', { class: 'art7-cast' }, ...all.map(p => {
+      const ci = P.cast.findIndex(c => c.pid === p.id), c = P.cast[ci], on = ci >= 0;
+      const card = el('div', { class: 'art7-castcard' + (on ? ' on' : '') },
+        el('button', { type: 'button', class: 'art7-castpet', 'aria-pressed': String(on), onclick: () => {
+          if (on) { if (P.cast.length <= 1) { toast(stickerHTML('mask'), 'צריך לפחות שחקן/ית אחד/ת 🎭'); return; } P.cast.splice(ci, 1); P.scenes.forEach(s => s.lines = s.lines.map(l => l[0] === ci ? [-1, l[1], l[2]] : l[0] > ci ? [l[0] - 1, l[1], l[2]] : l)); }
+          else if (P.cast.length >= 6) { toast(stickerHTML('mask'), 'עד 6 שחקנים על הבמה 🎭'); return; } else { P.cast.push({ pid: p.id, role: art7Pick(ART7_ROLES), cos: 'none', prop: 'none' }); SFX.pet(p.kind); }
+          redraw(); } }, el('span', { class: 'ic', html: art7Art(p, on ? { cos: c.cos, prop: c.prop } : {}) }), el('b', {}, art7Nm(p)), el('small', {}, on ? '✔️ משחק/ת' : '➕ להוסיף')));
+      if (on) {
+        const role = el('input', { type: 'text', maxLength: 24, value: c.role || '', placeholder: 'התפקיד', 'aria-label': `התפקיד של ${art7Nm(p)}`, oninput: e => { c.role = e.target.value; } });
+        role.addEventListener('change', redraw);
+        const sel = (list, key, lbl) => el('label', { class: 'art7-sel' }, lbl, el('select', { onchange: e => { c[key] = e.target.value; SFX.pop(); redraw(); } }, ...list.map(([id, n]) => el('option', { value: id, selected: c[key] === id }, n))));
+        card.append(el('div', { class: 'art7-castfields' }, el('label', { class: 'art7-sel' }, '🎭 תפקיד', role), sel(ART7_COS, 'cos', '👗 תחפושת'), sel(ART7_PROPS, 'prop', '🪄 אביזר')));
+      }
+      return card;
+    }));
+    // scenes
+    const tabs = el('div', { class: 'tabs art7-sctabs', role: 'tablist' }, ...P.scenes.map((s, i) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(i === V.sc), onclick: () => { V.sc = i; redraw(); } }, `סצנה ${i + 1}`)),
+      P.scenes.length < 6 ? el('button', { type: 'button', class: 'chip', onclick: () => { P.scenes.push({ bg: art7Pick(Object.keys(ART7_BGS)), lines: [[-1, 'ובינתיים...', 'talk']] }); V.sc = P.scenes.length - 1; SFX.pop(); redraw(); } }, '➕ סצנה') : null);
+    const bgs = el('div', { class: 'art7-bgs' }, ...Object.entries(ART7_BGS).map(([id, [n]]) => el('button', { type: 'button', class: 'art7-bgb', 'aria-pressed': String(sc.bg === id), onclick: () => { sc.bg = id; SFX.pop(); redraw(); } }, el('span', { html: art7Bg(id, false) }), el('small', {}, n))));
+    const who = l => el('select', { 'aria-label': 'מי מדבר', onchange: e => { l[0] = +e.target.value; } }, el('option', { value: -1, selected: l[0] === -1 }, '📢 המספר/ת'), ...P.cast.map((c, i) => el('option', { value: i, selected: l[0] === i }, `${art7Nm(art7CastPet(c))} (${c.role || ''})`)));
+    const lines = el('ol', { class: 'art7-lines' }, ...sc.lines.map((l, i) => el('li', {}, who(l),
+      el('select', { 'aria-label': 'מה עושים', onchange: e => { l[2] = e.target.value; } }, ...ART7_ACTS.map(([id, n]) => el('option', { value: id, selected: l[2] === id }, n))),
+      el('input', { type: 'text', maxLength: 80, value: l[1], placeholder: 'מה אומרים?', 'aria-label': 'הטקסט', oninput: e => { l[1] = e.target.value; } }),
+      el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק שורה', onclick: () => { sc.lines.splice(i, 1); redraw(); } }, '✕'))));
+    const addLine = t => { if (sc.lines.length >= 10) { toast(stickerHTML('mask'), 'עד 10 שורות בסצנה — אפשר להוסיף סצנה חדשה!'); return; } const last = sc.lines[sc.lines.length - 1]; sc.lines.push([P.cast.length ? ((last ? last[0] + 1 : 0) % P.cast.length) : -1, t || '', 'talk']); SFX.pop(); redraw(); };
+    const save = (show) => {
+      P.title = (P.title || '').trim() || 'ההצגה שלי';
+      P.scenes.forEach(s => s.lines = s.lines.filter(l => (l[1] || '').trim()));
+      const i = art7D.plays.findIndex(x => x.id === P.id), isNew = i < 0;
+      if (isNew) { if (art7D.plays.length >= 15) art7D.plays.pop(); art7D.plays.unshift(JSON.parse(JSON.stringify(P))); } else art7D.plays[i] = JSON.parse(JSON.stringify(P));
+      art7Save(); if (isNew) art7Coin('write', 8, 'כתבת הצגה 🎭');
+      if (show) { V.ph = 'show'; art7Draw(); } else { SFX.ding(); toast(stickerHTML('mask'), 'ההצגה נשמרה! 🎭'); }
+    };
+    return el('div', { class: 'art7-wrap' }, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => { V.ph = 'list'; art7Draw(); } }, '→ לכל ההצגות'), title), st,
+      el('h4', { class: 'art7-h' }, '🌟 השחקנים — לוחצים על חיה כדי להוסיף או להוריד'), castBox,
+      el('h4', { class: 'art7-h' }, '🎬 הסצנות'), tabs,
+      el('div', { class: 'art7-scbox' }, el('b', {}, '🖼️ תפאורה:'), bgs, el('b', {}, '💬 מה קורה בסצנה:'), lines,
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => addLine('') }, '➕ שורה'), el('span', { class: 'lbl' }, 'רעיונות:'), ...ART7_LINES.slice().sort(() => Math.random() - .5).slice(0, 4).map(t => el('button', { type: 'button', class: 'chip', onclick: () => addLine(t) }, t))),
+        P.scenes.length > 1 ? el('button', { type: 'button', class: 'chip', onclick: () => { P.scenes.splice(V.sc, 1); V.sc = 0; redraw(); } }, '🗑️ למחוק את הסצנה') : null),
+      el('div', { class: 'chips art7-cta' }, el('button', { type: 'button', class: 'btn', onclick: () => save(false) }, '💾 לשמור'), el('button', { type: 'button', class: 'btn main art7-big', onclick: () => save(true) }, '🎭 להרים מסך!')));
+  }
+  function art7Aud() {
+    return el('div', { class: 'art7-aud' }, ...ART7_GUESTS.slice(0, 8).map((g, i) => el('div', { class: 'art7-seat', style: `animation-delay:${i * .13}s` }, el('div', { class: 'art7-seat-a', html: petSVG(g, { mood: 'happy' }) }))));
+  }
+  function art7Show() {
+    const V = art7V, P = V.play, all = art7Pets();
+    const cast = P.cast.map(c => ({ c, p: art7CastPet(c) })).filter(x => x.p);
+    const st = el('div', { class: 'art7-stage art7-closed art7-live' }, el('div', { class: 'art7-bg', html: art7Bg((P.scenes[0] || {}).bg) }), el('div', { class: 'art7-layer' }), el('div', { class: 'art7-cur l' }), el('div', { class: 'art7-cur r' }), el('div', { class: 'art7-val' }), el('div', { class: 'art7-marq' }, `🎭 ${P.title || 'ההצגה'} 🎭`), el('div', { class: 'art7-narr', hidden: true }));
+    const L = st.children[1], narr = st.lastChild, aud = art7Aud(), xs = art7Spots(cast.length), W = art7W(cast.length);
+    const actors = cast.map(({ c, p }, i) => { const a = art7Actor(p, xs[i], 4, W, { cos: c.cos, prop: c.prop, z: 3 + i }); a.dataset.x = xs[i]; L.append(a); return a; });
+    const setMood = (i, mood) => { const { c, p } = cast[i]; actors[i].querySelector('.art7-body').innerHTML = art7Art(p, { cos: c.cos, prop: c.prop, mood }); };
+    const steps = [];
+    P.scenes.forEach((s, si) => { if (si) steps.push({ scene: s }); s.lines.forEach(l => steps.push({ line: l })); });
+    let k = 0, next = null;
+    const ctl = el('div', { class: 'chips art7-cta' }, el('button', { type: 'button', class: 'btn', onclick: () => { art7Stop(); V.ph = 'edit'; V.sc = 0; art7Draw(); } }, '✏️ לערוך'), el('button', { type: 'button', class: 'btn', onclick: () => { if (next) { const f = next; next = null; f(); } } }, '⏩ הלאה'), el('button', { type: 'button', class: 'btn', onclick: () => { art7Stop(); V.ph = 'list'; art7Draw(); } }, '⏹️ לעצור'));
+    st.addEventListener('click', () => { if (next) { const f = next; next = null; f(); } });
+    const wait = (fn, ms) => { next = fn; art7Later(() => { if (next === fn) { next = null; fn(); } }, ms); };
+    const curtain = (open) => { st.classList.toggle('art7-closed', !open); ART7_SND.curtain(); };
+    const run = () => {
+      if (k >= steps.length) return finale();
+      const s = steps[k++];
+      if (s.scene) { curtain(false); narr.hidden = true; art7Later(() => { st.firstChild.innerHTML = art7Bg(s.scene.bg); actors.forEach((a, i) => { a.style.left = xs[i] + '%'; a.dataset.x = xs[i]; setMood(i); }); art7Later(() => { curtain(true); wait(run, 1100); }, 500); }, 900); return; }
+      const [w, t, act] = s.line, text = art7Name(t, P.cast);
+      if (w < 0 || !actors[w]) { L.querySelectorAll('.art7-say').forEach(b => b.remove()); narr.hidden = false; narr.textContent = '📢 ' + text; tone(660, .1, 'sine', 0, .04); return wait(run, Math.max(2200, Math.min(5200, 1600 + text.length * 60))); }
+      narr.hidden = true; L.querySelectorAll('.art7-say').forEach(b => b.remove());
+      const a = actors[w], p = cast[w].p;
+      actors.forEach(x => x.classList.remove('art7-talking')); a.classList.add('art7-talking');
+      if (ART7_MOOD[act]) setMood(w, ART7_MOOD[act]); else setMood(w);
+      if (act === 'walk') { const others = actors.filter(o => o !== a).map(o => +o.dataset.x), far = x => Math.min(99, ...others.map(o => Math.abs(o - x)));
+        const cand = Array.from({ length: 15 }, (_, i) => 14 + i * 5).filter(x => Math.abs(x - a.dataset.x) > 12).sort((x, y) => far(y) - far(x)).slice(0, 3); const nx = art7Pick(cand.length ? cand : [50]); a.dataset.x = nx; a.style.left = nx + '%'; }
+      art7Bop(a, 'art7-a-' + (act === 'talk' ? 'talk' : act));
+      if (act === 'love') for (let h = 0; h < 5; h++) art7Later(() => { const hh = el('span', { class: 'art7-heart' }, '💖'); hh.style.left = `${30 + Math.random() * 40}%`; a.append(hh); setTimeout(() => hh.remove(), 1600); }, h * 160);
+      if (act === 'sleep') art7Later(() => art7Say(a, '💤', 0, 'art7-zz'), 400);
+      if (act === 'jump' || act === 'spin') ART7_SND.boing(); else if (act === 'shake') ART7_SND.oops(); else SFX.pet(p.kind);
+      art7Say(a, text, 0);
+      wait(run, Math.max(2200, Math.min(5400, 1500 + text.length * 65)));
+    };
+    const finale = () => {
+      narr.hidden = true; actors.forEach(a => { a.querySelectorAll('.art7-say').forEach(b => b.remove()); a.classList.remove('art7-talking'); });
+      curtain(false); st.querySelector('.art7-marq').textContent = '✨ סוף ✨';
+      art7Later(() => {
+        const n = actors.length, xs2 = art7Spots(n); actors.forEach((a, i) => { a.style.left = xs2[i] + '%'; setMood(i, 'happy'); });
+        curtain(true); ART7_SND.fanfare(); ART7_SND.clap(28); aud.classList.add('art7-clap');
+        actors.forEach((a, i) => art7Later(() => art7Bop(a, 'art7-a-bow'), 500 + i * 350));
+        for (let f = 0; f < 16; f++) art7Later(() => { const fl = el('span', { class: 'art7-throw', html: art7SVG(`<path d="M0 10 V26" stroke="#4fae5a" stroke-width="3"/>` + [0, 72, 144, 216, 288].map(a => `<circle cx="${art7F(7 * Math.cos(a * Math.PI / 180))}" cy="${art7F(7 * Math.sin(a * Math.PI / 180))}" r="6" fill="${art7Pick(['#ff7ab8', '#ffd84d', '#ff5a6e', '#b37bff', '#7ec8ff'])}" stroke="${O}" stroke-width="1.5"/>`).join('') + `<circle r="4" fill="#fff6c4" stroke="${O}" stroke-width="1.5"/>`, '-14 -14 28 42') });
+          const x0 = 10 + Math.random() * 80; fl.style.setProperty('--x0', x0 + '%'); fl.style.setProperty('--x1', (x0 + (50 - x0) * .4 + (Math.random() - .5) * 20) + '%'); fl.style.setProperty('--y1', (Math.random() * 3) + '%'); fl.style.setProperty('--r', (Math.random() * 540 - 270) + 'deg'); L.append(fl); }, 700 + f * 180);
+        art7Later(() => { try { confetti($('#art7Dlg .confetti-c')); } catch {} SFX.yay(); }, 1200);
+        art7Later(() => { ART7_SND.clap(20); }, 2400);
+        const got = art7Coin('show', 10, 'הצגה בתיאטרון החיות 🎭');
+        art7Later(() => { ctl.replaceChildren(el('b', { class: 'art7-bravo' }, got ? 'ברבו! הקהל משתגע! 👏 +10 🪙' : 'ברבו! הקהל משתגע! 👏'),
+          el('button', { type: 'button', class: 'btn main', onclick: () => art7Draw() }, '🔁 עוד פעם'), el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'edit'; V.sc = 0; art7Draw(); } }, '✏️ לערוך'), el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'list'; art7Draw(); } }, '📜 לכל ההצגות')); }, 2600);
+      }, 1300);
+    };
+    ART7_SND.drum();
+    art7Later(() => { curtain(true); ART7_SND.fanfare(); wait(run, 1300); }, 1500);
+    return el('div', { class: 'art7-wrap' }, el('div', { class: 'art7-hall' }, st, aud), ctl, el('p', { class: 'muted art7-tip' }, 'טיפ: לוחצים על הבמה כדי להמשיך מהר יותר 👆'));
+  }
+
+  // ================= 🎨 pets paint =================
+  // a painting = { pp: paper index, st: [[style index, color index, size 1-3, points as chars (x/2, y/2 + 256)]], by: [pid | 'me'] } on a 480x360 page
+  const ART7_PAL = ['#ff5a6e', '#ff9ad5', '#ffb35c', '#ffe066', '#7ed48a', '#3fbf9f', '#6fb8ff', '#4a6cf7', '#b37bff', '#8a5a3c', '#3a2b3c', '#ffffff'];
+  const ART7_PAPER = ['#ffffff', '#fff6dc', '#ffe6f2', '#e3f4ff', '#e6fbe9', '#f0e8ff', '#2e2750'];
+  const ART7_STY = [['paw', '🐾', 'טביעות כפות'], ['tail', '🌀', 'מכחול זנב'], ['splat', '💥', 'התזות'], ['dots', '🔵', 'נקודות'], ['hearts', '💖', 'לבבות'], ['stars', '⭐', 'כוכבים'], ['brush', '🖌️', 'מכחול רגיל']];
+  const ART7_KSTY = { cat: 'paw', dog: 'splat', bunny: 'hearts', panda: 'dots', bear: 'paw', lion: 'tail', owl: 'stars', dino: 'splat', turtle: 'dots', fish: 'tail', whale: 'splat' };
+  const ART7_FR = [['gold', '✨ זהב'], ['wood', '🪵 עץ'], ['pink', '💗 ורוד'], ['rainbow', '🌈 קשת'], ['stars', '⭐ כוכבים'], ['white', '🤍 לבן'], ['flowers', '🌸 פרחים']];
+  const ART7_WOW = ['וואו! 😍', 'יצירת מופת! 🖼️', 'איזה צבעים! 🌈', 'הכי יפה פה! ✨', 'אני רוצה אחד כזה בבית! 🏠', 'מרגש אותי... 🥹', 'איזה כישרון! 🎨', 'בראבו לאמנים! 👏'];
+  const art7Sty = p => art7D.styles[p.id] || ART7_KSTY[p.kind] || ART7_STY[[...String(p.id || p.name || 'x')].reduce((a, c) => a + c.charCodeAt(0), 0) % 6][0];
+  const art7StyI = id => Math.max(0, ART7_STY.findIndex(s => s[0] === id));
+  const art7Enc = pts => pts.map(([x, y]) => String.fromCharCode(256 + Math.max(0, Math.min(239, Math.round(x / 2))), 256 + Math.max(0, Math.min(179, Math.round(y / 2))))).join('');
+  const art7Dec = s => { const r = []; for (let i = 0; i + 1 < s.length; i += 2) r.push([(s.charCodeAt(i) - 256) * 2, (s.charCodeAt(i + 1) - 256) * 2]); return r; };
+  const art7Rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const art7Mix = (a, b, t) => { const h = x => [1, 3, 5].map(i => parseInt(x.slice(i, i + 2), 16)), A = h(a), B = h(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+  function art7Along(pts, step) {
+    if (pts.length < 2) return pts.length ? [{ x: pts[0][0], y: pts[0][1], a: 0 }] : [];
+    const out = [{ x: pts[0][0], y: pts[0][1], a: Math.atan2(pts[1][1] - pts[0][1], pts[1][0] - pts[0][0]) }]; let acc = 0;
+    for (let i = 1; i < pts.length; i++) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], d = Math.hypot(x1 - x0, y1 - y0), a = Math.atan2(y1 - y0, x1 - x0);
+      let t = step - acc; while (t <= d) { out.push({ x: x0 + (x1 - x0) * t / d, y: y0 + (y1 - y0) * t / d, a }); t += step; }
+      acc = d - (t - step);
+    }
+    return out;
+  }
+  function art7Stroke(ctx, s, i, n) {
+    const sty = (ART7_STY[s[0]] || ART7_STY[6])[0], col = ART7_PAL[s[1]] || '#3a2b3c', z = s[2] || 2;
+    let pts = art7Dec(s[3] || ''); const full = pts.length; if (n != null) pts = pts.slice(0, n); if (!pts.length) return;
+    const R = art7Rng(i * 7919 + (s[3].charCodeAt(0) || 0) * 131 + (s[3].charCodeAt(1) || 0) * 7 + s[0]);
+    ctx.save(); ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.fillStyle = col; ctx.strokeStyle = col;
+    const line = w => {
+      ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+      if (pts.length === 1) ctx.lineTo(pts[0][0] + .1, pts[0][1]);
+      for (let k = 1; k < pts.length - 1; k++) ctx.quadraticCurveTo(pts[k][0], pts[k][1], (pts[k][0] + pts[k + 1][0]) / 2, (pts[k][1] + pts[k + 1][1]) / 2);
+      if (pts.length > 1) ctx.lineTo(pts[pts.length - 1][0], pts[pts.length - 1][1]);
+      ctx.stroke();
+    };
+    switch (sty) {
+      case 'brush': line(3 + z * 3); break;
+      case 'tail': {
+        ctx.globalAlpha = .9; line(5 + z * 4);
+        const A = art7Along(pts, 3), dark = art7Mix(col, '#000000', .25), light = art7Mix(col, '#ffffff', .5);
+        for (const b of [-2, -1, 1, 2]) { ctx.globalAlpha = .55; ctx.strokeStyle = b % 2 ? light : dark; ctx.lineWidth = 1.2; ctx.beginPath(); A.forEach((q, j) => { const o = b * (1.2 + z * .9), x = q.x - Math.sin(q.a) * o, y = q.y + Math.cos(q.a) * o; j ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); }
+        const e = A[A.length - 1];
+        if (e && pts.length === full && full > 3) { ctx.globalAlpha = .9; ctx.strokeStyle = col; ctx.lineWidth = 2 + z; ctx.beginPath(); for (let t = 0; t < 9.5; t += .3) { const r = t * (1 + z * .45), a = e.a + t; const x = e.x + Math.cos(a) * r, y = e.y + Math.sin(a) * r; t ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
+        break;
+      }
+      case 'paw': art7Along(pts, 16 + z * 6).forEach((q, j) => {
+        const side = j % 2 ? 1 : -1, s2 = .75 + z * .3, x = q.x - Math.sin(q.a) * side * 5 * s2, y = q.y + Math.cos(q.a) * side * 5 * s2;
+        ctx.save(); ctx.translate(x, y); ctx.rotate(q.a + (R() - .5) * .3); ctx.scale(s2, s2); ctx.globalAlpha = .85 + R() * .15;
+        ctx.beginPath(); ctx.ellipse(0, 0, 4.4, 5, 0, 0, 7); ctx.fill();
+        [[5.8, -5], [7.8, -1.8], [7.8, 1.8], [5.8, 5]].forEach(([tx, ty]) => { ctx.beginPath(); ctx.arc(tx, ty, 1.9, 0, 7); ctx.fill(); });
+        ctx.restore(); }); break;
+      case 'splat': art7Along(pts, 28 + z * 10).forEach(q => {
+        const r = (7 + R() * 8) * (.6 + z * .4); ctx.globalAlpha = .93; ctx.beginPath();
+        for (let k = 0; k < 12; k++) { const a = k / 12 * Math.PI * 2, rr = r * (.75 + R() * .5); const x = q.x + Math.cos(a) * rr, y = q.y + Math.sin(a) * rr; k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+        ctx.closePath(); ctx.fill();
+        for (let d = 0; d < 9; d++) { const a = R() * 7, dd = r * (1.2 + R() * 1.8), rr = (.8 + R() * 2.2) * (.6 + z * .3); ctx.beginPath(); ctx.arc(q.x + Math.cos(a) * dd, q.y + Math.sin(a) * dd, rr, 0, 7); ctx.fill(); }
+      }); break;
+      case 'dots': { const lt = art7Mix(col, '#ffffff', .45); art7Along(pts, 4 + z * 2.5).forEach((q, j) => { ctx.fillStyle = j % 3 === 2 ? lt : col; ctx.beginPath(); ctx.arc(q.x + (R() - .5) * 5 * z, q.y + (R() - .5) * 5 * z, (1.1 + R() * 1.8) * (.6 + z * .4), 0, 7); ctx.fill(); }); break; }
+      case 'hearts': art7Along(pts, 13 + z * 6).forEach(q => {
+        const s2 = (3.5 + R() * 2) * (.6 + z * .35); ctx.save(); ctx.translate(q.x, q.y); ctx.rotate((R() - .5) * .7); ctx.beginPath(); ctx.moveTo(0, s2 * .9);
+        ctx.bezierCurveTo(-s2 * 1.5, -s2 * .1, -s2 * .9, -s2 * 1.2, 0, -s2 * .45); ctx.bezierCurveTo(s2 * .9, -s2 * 1.2, s2 * 1.5, -s2 * .1, 0, s2 * .9); ctx.fill(); ctx.restore(); }); break;
+      case 'stars': art7Along(pts, 15 + z * 6).forEach(q => {
+        const r = (3.5 + R() * 3) * (.6 + z * .35); ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(R() * 1.2); ctx.beginPath();
+        for (let k = 0; k < 10; k++) { const rr = k % 2 ? r * .45 : r, a = k * Math.PI / 5 - Math.PI / 2; ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+        ctx.closePath(); ctx.fill(); ctx.restore();
+        if (R() < .3) { ctx.fillStyle = '#fff6c4'; ctx.beginPath(); ctx.arc(q.x + (R() - .5) * 16, q.y + (R() - .5) * 16, 1.5, 0, 7); ctx.fill(); ctx.fillStyle = col; }
+      }); break;
+    }
+    ctx.restore();
+  }
+  function art7Render(cv, pw) {
+    const ctx = cv.getContext('2d'), k = cv.width / 480;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = ART7_PAPER[pw.pp || 0] || '#fff'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.setTransform(k, 0, 0, k, 0, 0); (pw.st || []).forEach((s, i) => art7Stroke(ctx, s, i)); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  }
+  const art7Thumbs = new Map();
+  function art7Thumb(pw, w = 360) {
+    const key = `${pw.id || 'draft'}:${(pw.st || []).length}:${pw.pp}:${w}`;
+    if (!art7Thumbs.has(key)) { const c = document.createElement('canvas'); c.width = w; c.height = w * .75; art7Render(c, pw); let u = ''; try { u = c.toDataURL('image/png'); } catch {} art7Thumbs.set(key, u); }
+    return art7Thumbs.get(key);
+  }
+  // a pet paints by itself, in its own style
+  function art7Gen(sty, cols, R) {
+    const si = art7StyI(sty), out = [], c = k => cols[k % cols.length], P = (x, y) => [Math.max(4, Math.min(476, x)), Math.max(4, Math.min(356, y))];
+    const add = (k, z, pts) => out.push([si, c(k), z, art7Enc(pts.map(q => P(...q)))]);
+    const cx = () => 90 + R() * 300, cy = () => 70 + R() * 220;
+    switch (sty) {
+      case 'paw': for (let k = 0; k < 4; k++) { const y0 = 45 + k * 90 + (R() - .5) * 30, ph = R() * 6, pts = []; for (let x = 20; x <= 460; x += 20) pts.push([k % 2 ? 480 - x : x, y0 + Math.sin(x / 55 + ph) * 32]); add(k, 3, pts); } break;
+      case 'tail': for (let k = 0; k < 6; k++) { const x0 = cx(), y0 = cy(), turns = 1.3 + R() * .8, rot = R() * 6, sg = R() < .5 ? 1 : -1, pts = []; for (let t = 0; t <= turns * 6.28; t += .3) { const r = 6 + t * 6; pts.push([x0 + Math.cos(rot + sg * t) * r, y0 + Math.sin(rot + sg * t) * r]); } add(k, 2 + (k % 2), pts); } break;
+      case 'splat': for (let k = 0; k < 16; k++) add(k, 1 + Math.floor(R() * 3), k % 4 === 3 ? [[40 + R() * 400, 40 + R() * 280], [40 + R() * 400, 40 + R() * 280]] : [[30 + R() * 420, 30 + R() * 300]]); break;
+      case 'dots': for (let k = 0; k < 5; k++) { const x0 = cx(), y0 = cy(), r = 40 + R() * 34, pts = [], p2 = []; for (let t = 0; t <= 6.4; t += .2) { const rr = r * (1 + .28 * Math.sin(t * 5)); pts.push([x0 + Math.cos(t) * rr, y0 + Math.sin(t) * rr]); p2.push([x0 + Math.cos(t) * rr * .45, y0 + Math.sin(t) * rr * .45]); } add(k, 3, pts); add(k + 1, 3, p2); add(k + 2, 3, [[x0 - 5, y0], [x0 + 5, y0], [x0, y0 + 5], [x0, y0 - 5]]); } break;
+      case 'hearts': { const s = 7 + R() * 2.5, pts = []; for (let t = 0; t <= 6.3; t += .1) pts.push([240 + 16 * Math.pow(Math.sin(t), 3) * s, 180 - (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * s]); add(0, 3, pts); const s2 = s * .5, pi = []; for (let t = 0; t <= 6.3; t += .16) pi.push([240 + 16 * Math.pow(Math.sin(t), 3) * s2, 170 - (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t)) * s2]); add(1, 3, pi);
+        for (let k = 1; k < 3; k++) { const y = k === 1 ? 30 : 334, p2 = []; for (let x = 20; x <= 460; x += 20) p2.push([x, y + Math.sin(x / 30) * 8]); add(k, 1, p2); } break; }
+      case 'stars': { for (let k = 0; k < 5; k++) { const x0 = cx(), y0 = cy(), r = 38 + R() * 26, pts = []; for (let j = 0; j <= 10; j++) { const rr = j % 2 ? r * .45 : r, a = j * Math.PI / 5 - Math.PI / 2; pts.push([x0 + Math.cos(a) * rr, y0 + Math.sin(a) * rr]); } add(k, 3, pts); }
+        const zz = []; for (let x = 20; x <= 460; x += 30) zz.push([x, 330 + ((x / 30) % 2 ? -14 : 14)]); add(3, 1, zz); break; }
+      default: for (let k = 0; k < Math.max(3, cols.length); k++) { const r = 220 - k * 30, pts = []; for (let t = Math.PI; t <= Math.PI * 2 + .01; t += .1) pts.push([240 + Math.cos(t) * r, 350 + Math.sin(t) * r * 1.1]); add(k, 3, pts); }
+    }
+    return out;
+  }
+  const art7StudioBg = () => art7SVG(`<rect width="600" height="400" fill="#fff4dc"/>${Array.from({ length: 16 }, (_, i) => `<rect x="${i * 40}" width="20" height="330" fill="#ffe9c4" opacity=".7"/>`).join('')}` +
+    `<g transform="translate(470 40)"><rect width="100" height="90" rx="6" fill="#bfe6ff" ${S2}/><path d="M50 0 V90 M0 45 H100" stroke="${O}" stroke-width="2"/>${art7Cloud(30, 30, .5)}<circle cx="80" cy="22" r="10" fill="#ffe066"/></g>` +
+    `<g transform="translate(30 60)"><rect width="110" height="8" fill="#c98f3a" ${S2}/>${['#ff5a6e', '#ffe066', '#6fb8ff', '#7ed48a'].map((c, i) => `<rect x="${8 + i * 26}" y="-22" width="18" height="22" rx="3" fill="#fff" ${S2}/><rect x="${9 + i * 26}" y="-12" width="16" height="11" fill="${c}"/>`).join('')}</g>` +
+    `<g transform="translate(44 150)"><rect width="70" height="54" fill="#fff" ${S2}/><circle cx="35" cy="27" r="14" fill="#ff9ad5"/><path d="M8 48 L28 30 L44 44 L56 34 L64 48 Z" fill="#7ed48a"/></g>` +
+    `<rect y="330" width="600" height="70" fill="#d9a066"/><path d="M0 330 H600" stroke="${O}" stroke-width="3"/>${Array.from({ length: 13 }, (_, i) => `<path d="M${i * 50} 330 L${i * 50 - 12} 400" stroke="#c28a52" stroke-width="2"/>`).join('')}` +
+    `<ellipse cx="300" cy="370" rx="190" ry="20" fill="#ff9ad5" opacity=".55"/>` + [[90, 352, '#ff5a6e'], [150, 364, '#6fb8ff'], [470, 356, '#ffe066'], [520, 368, '#7ed48a']].map(([x, y, c]) => `<ellipse cx="${x}" cy="${y}" rx="${9}" ry="4" fill="${c}" opacity=".8"/>`).join(''), '0 0 600 400');
+  const art7EaselLegs = () => art7SVG(`<path d="M60 20 L14 300 M240 20 L286 300 M150 10 L150 300" stroke="${O}" stroke-width="12" stroke-linecap="round"/><path d="M60 20 L14 300 M240 20 L286 300 M150 10 L150 300" stroke="#b77a45" stroke-width="7" stroke-linecap="round"/><rect x="20" y="222" width="260" height="16" rx="4" fill="#c98f3a" stroke="${O}" stroke-width="3"/>`, '0 0 300 300');
+  function art7Paint() {
+    const V = art7V; V.ph = V.ph || 'easel';
+    if (V.ph === 'gal' || V.ph === 'night') return art7Gallery(V.ph === 'night');
+    if (V.ph === 'frame') return art7Frame();
+    if (V.ph === 'view') return art7View();
+    const all = art7Pets(), D = art7D.draft = art7D.draft || { pp: 0, st: [], by: [] };
+    if (!V.who || (V.who !== 'me' && !all.some(p => p.id === V.who))) V.who = all[0] ? all[0].id : 'me';
+    V.cols = V.cols || [0, 3, 6]; V.z = V.z || 2;
+    const cur = () => V.cols[V.cols.length - 1];
+    const cv = el('canvas', { width: 960, height: 720, class: 'art7-cv', 'aria-label': 'הציור — מציירים עם האצבע' });
+    const base = document.createElement('canvas'); base.width = 960; base.height = 720;
+    const refresh = () => art7Render(base, D);
+    const show = x => { const ctx = cv.getContext('2d'); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(base, 0, 0); if (x) { ctx.setTransform(2, 0, 0, 2, 0, 0); art7Stroke(ctx, x.s, x.i, x.n); ctx.setTransform(1, 0, 0, 1, 0, 0); } };
+    refresh(); show();
+    // the studio: easel in the middle, all pets around it
+    const L = el('div', { class: 'art7-layer' });
+    const studio = el('div', { class: 'art7-studio' }, el('div', { class: 'art7-bg', html: art7StudioBg() }), el('div', { class: 'art7-easel' }, el('div', { class: 'art7-legs', html: art7EaselLegs() }), el('div', { class: 'art7-cvwrap' }, cv)), L);
+    const SLOTS = [[87, 6], [8, 6], [77, 5], [96, 8], [3, 8], [67, 4], [34, 3], [58, 3]];
+    const actors = {};
+    all.slice(0, 9).forEach(p => { const a = art7Actor(p, 50, 2, 13, { cos: 'beret', label: true, cls: 'art7-idle' }); actors[p.id] = a; L.append(a); a.addEventListener('click', () => { V.who = p.id; SFX.pet(p.kind); art7Draw(); }); });
+    const layout = () => { let k = 0; all.slice(0, 9).forEach(p => { const a = actors[p.id]; if (p.id === V.who) { a.style.left = '22%'; a.style.bottom = '6%'; a.style.width = '15%'; a.style.zIndex = 6; a.querySelector('.art7-body').innerHTML = art7Art(p, { cos: 'beret', prop: 'brush', brushC: ART7_PAL[cur()], mood: 'happy' }); a.classList.add('art7-painter'); }
+      else { const [x, y] = SLOTS[k++ % SLOTS.length]; a.style.left = x + '%'; a.style.bottom = y + '%'; a.style.width = '11%'; a.style.zIndex = 3; a.querySelector('.art7-body').innerHTML = art7Art(p, { cos: 'beret' }); a.classList.remove('art7-painter'); } }); };
+    layout();
+    // finger painting (her own strokes, in the chosen pet's style)
+    const who = () => all.find(p => p.id === V.who);
+    const mySty = () => V.who === 'me' ? (V.mySty || 'brush') : art7Sty(who());
+    const mk = pts => [art7StyI(mySty()), cur(), V.z, art7Enc(pts)];
+    let drag = null;
+    const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 480, (e.clientY - r.top) / r.height * 360]; };
+    const commit = () => { if (!drag || !drag.length) return; D.st.push(mk(drag)); if (!D.by.includes(V.who)) D.by.push(V.who); art7Save(); refresh(); show(); drag = null; };
+    cv.addEventListener('pointerdown', e => { if (V.busy) return; if (D.st.length >= 90) { toast(stickerHTML('palette'), 'הדף מלא! אפשר למסגר ולתלות אותו 🖼️'); return; } e.preventDefault(); try { cv.setPointerCapture(e.pointerId); } catch {} drag = [pos(e)]; show({ s: mk(drag), i: D.st.length }); ART7_SND.swish(); if (actors[V.who]) art7Bop(actors[V.who], 'art7-a-paint'); });
+    cv.addEventListener('pointermove', e => { if (!drag) return; const q = pos(e), l = drag[drag.length - 1]; if (Math.hypot(q[0] - l[0], q[1] - l[1]) < 6) return; drag.push(q); if (drag.length >= 70) { commit(); if (D.st.length >= 90) return; drag = [q]; } show({ s: mk(drag), i: D.st.length }); });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => cv.addEventListener(t, commit));
+    // a pet paints on its own
+    const auto = (p, max, done) => {
+      V.busy = true; V.who = p.id; layout();
+      const strokes = art7Gen(art7Sty(p), V.cols, art7Rng(Date.now() & 0xffffff)).slice(0, Math.min(max || 99, 90 - D.st.length));
+      const a = actors[p.id]; SFX.pet(p.kind); art7Say(a, art7Pick(['אני מצייר/ת! 🎨', 'רגע של השראה... ✨', 'תסתכלו על זה! 🖌️', 'הסגנון שלי! ' + ART7_STY[art7StyI(art7Sty(p))][1]]), 1600);
+      let si = 0;
+      const next = () => {
+        if (si >= strokes.length) { V.busy = false; if (!D.by.includes(p.id)) D.by.push(p.id); art7Save(); art7Bop(a, 'art7-a-jump'); SFX.pet(p.kind); art7Say(a, 'טה-דה! 🎨', 1600); art7Coin('paint', 3, `${art7Nm(p)} צייר/ה 🎨`, 4); return done ? art7Later(done, 700) : art7Later(art7Draw, 1300); }
+        const s = strokes[si], n = art7Dec(s[3]).length, i = D.st.length, dur = Math.max(.5, Math.min(1.3, n * .04)); let t = 0; ART7_SND.swish(); art7Bop(a, 'art7-a-paint');
+        a.querySelector('.art7-body').innerHTML = art7Art(p, { cos: 'beret', prop: 'brush', brushC: ART7_PAL[s[1]], mood: 'happy' });
+        art7Loop(dt => { t += dt; const k = Math.min(n, 1 + Math.floor(t / dur * n)); show({ s, i, n: k }); if (k >= n) { D.st.push(s); refresh(); show(); si++; art7Later(next, 160); return false; } });
+      };
+      next();
+    };
+    // controls
+    const petChips = el('div', { class: 'art7-who' }, ...all.map(p => el('button', { type: 'button', class: 'art7-whob', 'aria-pressed': String(V.who === p.id), onclick: () => { if (V.busy) return; V.who = p.id; SFX.pet(p.kind); art7Draw(); } },
+      el('span', { class: 'ic', html: art7Art(p, { cos: 'beret' }) }), el('b', {}, art7Nm(p)), el('small', {}, ART7_STY[art7StyI(art7Sty(p))].slice(1).join(' ')))),
+      el('button', { type: 'button', class: 'art7-whob', 'aria-pressed': String(V.who === 'me'), onclick: () => { if (V.busy) return; V.who = 'me'; SFX.pop(); art7Draw(); } }, el('span', { class: 'ic art7-me-ic' }, '👧'), el('b', {}, 'אני'), el('small', {}, (ART7_STY[art7StyI(V.mySty || 'brush')]).slice(1).join(' '))));
+    const wp = who(), styRow = el('div', { class: 'chips' }, el('span', { class: 'lbl' }, V.who === 'me' ? '🖌️ המכחול שלי:' : `🖌️ הסגנון של ${art7Nm(wp)}:`),
+      ...ART7_STY.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(mySty() === id), onclick: () => { if (V.who === 'me') V.mySty = id; else { art7D.styles[wp.id] = id; art7Save(); } SFX.pop(); art7Draw(); } }, `${em} ${n}`)));
+    const pal = el('div', { class: 'art7-pal' }, el('span', { class: 'lbl' }, '🎨 צבעים (עד 4):'), ...ART7_PAL.map((c, i) => { const k = V.cols.indexOf(i); return el('button', { type: 'button', class: 'art7-sw' + (k >= 0 ? ' on' : '') + (cur() === i ? ' cur' : ''), style: `--c:${c}`, 'aria-label': `צבע ${i + 1}`, 'aria-pressed': String(k >= 0), onclick: () => {
+      if (k < 0) { V.cols.push(i); if (V.cols.length > 4) V.cols.shift(); } else if (cur() === i && V.cols.length > 1) V.cols.splice(k, 1); else { V.cols.splice(k, 1); V.cols.push(i); }
+      SFX.pop(); art7Draw(); } }, k >= 0 ? String(k + 1) : ''); }));
+    const sizes = el('div', { class: 'chips' }, el('span', { class: 'lbl' }, 'עובי:'), ...[[1, '•'], [2, '●'], [3, '⬤']].map(([z, t]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(V.z === z), onclick: () => { V.z = z; art7Draw(); } }, t)),
+      el('span', { class: 'lbl' }, '📄 דף:'), ...ART7_PAPER.map((c, i) => el('button', { type: 'button', class: 'art7-sw art7-paper' + ((D.pp || 0) === i ? ' cur' : ''), style: `--c:${c}`, 'aria-label': `דף ${i + 1}`, onclick: () => { D.pp = i; art7Save(); art7Draw(); } })));
+    const busyGuard = fn => () => { if (!V.busy) fn(); };
+    const acts = el('div', { class: 'chips art7-cta' },
+      V.who !== 'me' && wp ? el('button', { type: 'button', class: 'btn main art7-big', onclick: busyGuard(() => { if (D.st.length >= 90) { toast(stickerHTML('palette'), 'הדף מלא! 🖼️'); return; } auto(wp); }) }, `✨ ${art7Nm(wp)} מצייר/ת!`) : null,
+      all.length > 1 ? el('button', { type: 'button', class: 'btn', onclick: busyGuard(() => { let k = 0; const go = () => { if (k >= all.length || D.st.length >= 90) { art7Later(art7Draw, 600); return; } auto(all[k++], 3, go); }; go(); }) }, '🎨 כולם מציירים ביחד!') : null,
+      el('button', { type: 'button', class: 'btn', onclick: busyGuard(() => { D.st.pop(); art7Save(); refresh(); show(); }) }, '↩️ לבטל'),
+      el('button', { type: 'button', class: 'btn', onclick: busyGuard(() => { if (D.st.length) { let ok = true; try { ok = confirm('להתחיל דף חדש? (הציור הזה יימחק)'); } catch {} if (!ok) return; } art7D.draft = { pp: D.pp, st: [], by: [] }; art7Save(); art7Draw(); }) }, '🧽 דף חדש'),
+      el('button', { type: 'button', class: 'btn main', onclick: busyGuard(() => { if (!D.st.length) { toast(stickerHTML('palette'), 'קודם מציירים משהו! 🎨'); return; } V.ph = 'frame'; SFX.pop(); art7Draw(); }) }, '🖼️ למסגר ולתלות'),
+      el('button', { type: 'button', class: 'btn', onclick: busyGuard(() => { V.ph = 'gal'; art7Draw(); }) }, `🏛️ לגלריה (${art7D.gal.length})`));
+    return el('div', { class: 'art7-wrap' }, studio, el('p', { class: 'art7-tip' }, '🖌️ מציירים באצבע על הדף — במכחול של החיה שבחרת. או שהחיה מציירת לבד!'), petChips, styRow, pal, sizes, acts);
+  }
+  const art7ByNames = by => (by || []).map(id => id === 'me' ? 'אני' : art7Nm(art7Pets().find(p => p.id === id))).filter(Boolean).join(', ') || 'אמנים סודיים';
+  const art7Framed = (pw, cls = '') => el('div', { class: 'art7-fr art7-fr-' + (pw.fr || 'gold') + ' ' + cls }, el('img', { src: art7Thumb(pw), alt: pw.t || 'ציור' }));
+  function art7Frame() {
+    const V = art7V, D = art7D.draft; if (!D || !D.st.length) { V.ph = 'easel'; return art7Paint(); }
+    V.fr = V.fr || 'gold'; if (V.title == null) V.title = '';
+    const pw = Object.assign({}, D, { fr: V.fr });
+    V.sugg = V.sugg || art7Pick(['שקיעה בגינה', 'ריקוד של צבעים', 'חלום ורוד', 'הלב הגדול', 'כוכבים בחלון', 'טיול בגשם', 'מסיבה על הדף', 'קשת של חברים', 'גן קסום', 'בוקר שמח']);
+    const title = el('input', { type: 'text', maxLength: 30, value: V.title, placeholder: 'למשל: ' + V.sugg, 'aria-label': 'שם הציור', oninput: e => { V.title = e.target.value; } });
+    const hang = () => {
+      if (art7D.gal.length >= 18) { toast(stickerHTML('palette'), 'הקיר מלא (18 ציורים) — אפשר להוריד ציור ישן מהגלריה'); return; }
+      const pic = { id: 'pn' + Date.now().toString(36), t: (V.title || '').trim() || title.placeholder.replace(/^.*: /, ''), pp: D.pp || 0, st: D.st, by: D.by, fr: V.fr, d: localToday() };
+      art7D.gal.unshift(pic);
+      if (JSON.stringify(art7D.gal).length > 220000 || !art7Save()) { art7D.gal.shift(); art7Save(); toast(stickerHTML('palette'), 'אין מספיק מקום — אפשר להוריד ציור ישן מהגלריה'); return; }
+      art7D.draft = null; art7Save(); V.title = ''; V.sugg = null; V.hl = pic.id; V.ph = 'gal'; ART7_SND.tada(); art7Coin('hang', 6, 'ציור חדש בגלריה 🖼️', 2); art7Draw();
+    };
+    return el('div', { class: 'art7-wrap' }, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => { V.ph = 'easel'; art7Draw(); } }, '→ חזרה לכן הציור')),
+      el('div', { class: 'art7-frprev' }, art7Framed(pw, 'art7-big-fr'), el('div', { class: 'art7-plaque' }, el('b', {}, V.title || V.sugg), el('small', {}, `🎨 ${art7ByNames(D.by)}`))),
+      el('div', { class: 'chips' }, el('span', { class: 'lbl' }, '🖼️ מסגרת:'), ...ART7_FR.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(V.fr === id), onclick: () => { V.fr = id; SFX.pop(); art7Draw(); } }, n))),
+      el('label', { class: 'art7-sel' }, '✏️ שם הציור', title),
+      el('div', { class: 'chips art7-cta' }, el('button', { type: 'button', class: 'btn main art7-big', onclick: hang }, '🔨 לתלות על הקיר!')));
+  }
+  function art7Gallery(night) {
+    const V = art7V, G = art7D.gal, all = art7Pets();
+    const hang = el('div', { class: 'art7-hang' }, ...G.map((pic, i) => el('button', { type: 'button', class: 'art7-pic' + (V.hl === pic.id ? ' art7-new' : ''), style: `--tilt:${((i * 37) % 7 - 3) * .6}deg`, 'data-id': pic.id, onclick: () => { if (night) return; V.pid = pic.id; V.ph = 'view'; art7Draw(); } },
+      art7Framed(pic), el('span', { class: 'art7-plq' }, el('b', {}, pic.t), el('small', {}, art7ByNames(pic.by))))));
+    const floor = el('div', { class: 'art7-gfloor' });
+    const wall = el('div', { class: 'art7-wall' + (night ? ' art7-night' : '') }, el('div', { class: 'art7-wall-t' }, night ? '🌙 ערב הפתיחה 🥂' : '🏛️ הגלריה של החיות'), G.length ? hang : el('p', { class: 'art7-empty' }, 'הקיר עוד ריק... מציירים ותולים את הציור הראשון! 🎨'), floor);
+    if (!night) {
+      const n = Math.min(all.length, 7);
+      all.slice(0, 7).forEach((p, i) => floor.append(art7Actor(p, 50 + (i - (n - 1) / 2) * Math.min(13, 80 / n), 20, Math.min(11, 70 / n), { cls: 'art7-idle', cos: 'beret', label: true })));
+    } else art7Opening(wall, floor, G);
+    return el('div', { class: 'art7-wrap' }, wall,
+      el('div', { class: 'chips art7-cta' }, el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'easel'; art7Draw(); } }, '🎨 לכן הציור'),
+        night ? el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'gal'; art7Draw(); } }, '💡 להדליק את האור') : G.length ? el('button', { type: 'button', class: 'btn main art7-big', onclick: () => { V.ph = 'night'; art7Draw(); } }, '🌙 ערב פתיחה חגיגי!') : null),
+      night ? null : el('p', { class: 'muted art7-tip' }, `לוחצים על ציור כדי לראות אותו גדול. יש מקום ל-18 ציורים (${G.length}/18).`));
+  }
+  function art7Opening(wall, floor, G) {
+    const all = art7Pets(), vis = [...all.slice(0, 5), ...ART7_GUESTS.slice(0, Math.max(3, 7 - Math.min(5, all.length)))];
+    const ribbon = el('div', { class: 'art7-ribbon' }, el('span', {}, '✂️'));
+    floor.append(ribbon); ART7_SND.drum();
+    const cos = p => all.includes(p) ? { cos: art7Pick(['beret', 'tiara', 'crown', 'star']) } : { cos: art7Pick(['none', 'beret', 'feather']) };
+    art7Later(() => { ribbon.classList.add('cut'); ART7_SND.fanfare(); ART7_SND.clap(14); try { confetti($('#art7Dlg .confetti-c')); } catch {} const got = art7Coin('night', 8, 'ערב פתיחה בגלריה 🥂', 1); if (got) toast(stickerHTML('palette'), 'הגלריה נפתחה! 🥂'); }, 1400);
+    vis.forEach((p, i) => {
+      let x = 6 + i * 88 / Math.max(1, vis.length - 1), dir = i % 2 ? -1 : 1;
+      const a = art7Actor(p, x, 20, 10, Object.assign({ cls: 'art7-walker', mood: 'happy' }, cos(p))); a.style.opacity = '0'; floor.append(a); art7Later(() => { a.style.transition += ', opacity .6s'; a.style.opacity = '1'; }, 1500 + i * 250);
+      const step = () => { x += dir * (6 + Math.random() * 10); if (x > 94 || x < 6) { dir = -dir; x = Math.max(6, Math.min(94, x)); } a.style.left = x + '%';
+        art7Later(() => { if (Math.random() < .5) { art7Say(a, art7Pick(ART7_WOW), 1700); if (Math.random() < .5) ART7_SND.chatter(); } step(); }, 1900 + Math.random() * 1400); };
+      art7Later(step, 2600 + i * 500);
+    });
+    // camera flashes + audience award
+    for (let f = 0; f < 6; f++) art7Later(() => { const fl = el('div', { class: 'art7-flash' }); wall.append(fl); setTimeout(() => fl.remove(), 500); tone(2400, .05, 'square', 0, .015); }, 4000 + f * 2600);
+    if (G.length) art7Later(() => { const pic = art7Pick(G), b = wall.querySelector(`.art7-pic[data-id="${pic.id}"]`); if (b) { b.append(el('span', { class: 'art7-rosette' }, '🏅')); b.classList.add('art7-won'); } ART7_SND.clap(24); toast(stickerHTML('trophy'), `פרס הקהל: ״${pic.t}״! 🏅`); }, 9000);
+  }
+  function art7View() {
+    const V = art7V, pic = art7D.gal.find(x => x.id === V.pid); if (!pic) { V.ph = 'gal'; return art7Gallery(false); }
+    return el('div', { class: 'art7-wrap' }, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => { V.ph = 'gal'; art7Draw(); } }, '→ לגלריה')),
+      el('div', { class: 'art7-frprev' }, art7Framed(pic, 'art7-big-fr'), el('div', { class: 'art7-plaque' }, el('b', {}, pic.t), el('small', {}, `🎨 ${art7ByNames(pic.by)} · ${pic.d ? `${fromIso(pic.d).d}.${fromIso(pic.d).m + 1}.${fromIso(pic.d).y}` : ''}`))),
+      el('div', { class: 'chips' }, el('span', { class: 'lbl' }, '🖼️ מסגרת:'), ...ART7_FR.map(([id, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(pic.fr === id), onclick: () => { pic.fr = id; art7Save(); SFX.pop(); art7Draw(); } }, n))),
+      el('div', { class: 'chips art7-cta' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { const D = art7D.draft; if (D && D.st.length) { let ok = true; try { ok = confirm('יש ציור על הכן. להחליף אותו בעותק של הציור הזה?'); } catch {} if (!ok) return; } art7D.draft = { pp: pic.pp, st: pic.st.slice(), by: (pic.by || []).slice() }; art7Save(); V.ph = 'easel'; art7Draw(); } }, '🎨 להמשיך לצייר עליו (עותק)'),
+        el('button', { type: 'button', class: 'btn', onclick: () => { let ok = true; try { ok = confirm('להוריד את הציור מהקיר? (הוא יימחק)'); } catch {} if (!ok) return; art7D.gal = art7D.gal.filter(x => x !== pic); art7Save(); V.ph = 'gal'; art7Draw(); } }, '🗑️ להוריד מהקיר')));
+  }
+
+  // ================= 🎪 pets circus =================
+  // acts: id, emoji, name, how, default costume
+  const ART7_CACTS = [['rope', '🤸', 'החבל הדק', 'שומרים על שיווי משקל', 'feather'], ['juggle', '🤹', 'ג\'אגלינג', 'לוחצים בזמן כדי לתפוס', 'jester'], ['tramp', '🦘', 'טרמפולינה', 'קפיצות וסלטות באוויר', 'star'],
+    ['clown', '🤡', 'הליצנים', 'מכונית קטנה — המון ליצנים!', 'clown'], ['hoop', '⭕', 'קפיצה בחישוק', 'קופצים בדיוק בזמן', 'hero'], ['trap', '🎠', 'טרפז', 'עפים ונתפסים באוויר', 'fairy']];
+  const ART7_CCOS = ['none', 'clown', 'feather', 'star', 'jester', 'hero', 'fairy', 'crown', 'tiara'];
+  const art7CosFor = (p, act) => act === 'clown' ? 'clown' : art7D.cc[p.id] || (ART7_CACTS.find(a => a[0] === act) || [])[4] || 'star';
+  const art7AudNow = () => art7D.audDay === localToday() ? art7D.aud || 0 : 0;
+  function art7TentBg(aud = art7AudNow(), top = true) {
+    const heads = Math.min(48, 10 + aud), C = ['#ffd6a8', '#f3c28a', '#d9a066', '#bfe6ff', '#ffd1ec', '#e6e6e6', '#c9f0c0', '#fff3a0', '#d8c8ff'];
+    const head = (x, y, i) => { const c = C[i % C.length], t = i % 4, e = t === 0 ? `<path d="M${x - 8} ${y - 4} L${x - 6} ${y - 14} L${x - 1} ${y - 7} Z M${x + 8} ${y - 4} L${x + 6} ${y - 14} L${x + 1} ${y - 7} Z" fill="${c}" ${S2}/>` : t === 1 ? `<ellipse cx="${x - 4}" cy="${y - 14}" rx="3" ry="8" fill="${c}" ${S2}/><ellipse cx="${x + 4}" cy="${y - 14}" rx="3" ry="8" fill="${c}" ${S2}/>` : t === 2 ? `<circle cx="${x - 7}" cy="${y - 7}" r="4" fill="${c}" ${S2}/><circle cx="${x + 7}" cy="${y - 7}" r="4" fill="${c}" ${S2}/>` : `<ellipse cx="${x - 9}" cy="${y}" rx="3" ry="6" fill="${art7Mix(c, '#8a5a3c', .3)}" ${S2}/><ellipse cx="${x + 9}" cy="${y}" rx="3" ry="6" fill="${art7Mix(c, '#8a5a3c', .3)}" ${S2}/>`;
+      return `<g class="art7-fan" style="animation-delay:${(i % 9) * .17}s">${e}<circle cx="${x}" cy="${y}" r="9" fill="${c}" ${S2}/><circle cx="${x - 3}" cy="${y - 1}" r="1.3" fill="${O}"/><circle cx="${x + 3}" cy="${y - 1}" r="1.3" fill="${O}"/><path d="M${x - 2} ${y + 3} q2 2 4 0" stroke="${O}" stroke-width="1" fill="none"/></g>`; };
+    let hs = ''; const per = Math.ceil(heads / 3); for (let i = 0; i < heads; i++) { const row = i % 3, k = Math.floor(i / 3), x = 24 + (k + (row % 2) * .5) * 552 / per + Math.sin(i * 7.3) * 6, y = 172 + row * 24; hs += head(art7F(x), y, i); }
+    return art7SVG(`<rect width="600" height="320" fill="#5a1f3f"/>` + Array.from({ length: 16 }, (_, i) => `<path d="M300 -60 L${-200 + i * 62.5} 190 L${-200 + (i + 1) * 62.5} 190 Z" fill="${i % 2 ? '#e8304f' : '#fff0e0'}"/>`).join('') +
+      `<path d="M0 150 Q300 110 600 150" stroke="${O}" stroke-width="2" fill="none" opacity=".3"/>` + Array.from({ length: 21 }, (_, i) => { const x = i * 30, y = 150 - Math.sin(i / 20 * Math.PI) * 38; return `<circle class="art7-tw" style="animation-delay:${(i % 5) * .25}s" cx="${x}" cy="${art7F(y + 4)}" r="3.4" fill="${['#ffd84d', '#7ec8ff', '#ff9ad5', '#7ed48a'][i % 4]}"/>`; }).join('') +
+      `<rect y="160" width="600" height="90" fill="#6a2a8f"/>` + [0, 1, 2].map(r => `<rect y="${178 + r * 24}" width="600" height="6" fill="#4d1f6b"/>`).join('') + hs +
+      `<rect y="236" width="600" height="84" fill="#3a1630"/><ellipse cx="300" cy="298" rx="300" ry="54" fill="#e8304f" ${S2}/><ellipse cx="300" cy="300" rx="286" ry="46" fill="#f3d9a4"/><ellipse cx="300" cy="298" rx="296" ry="51" fill="none" stroke="#ffd84d" stroke-width="3" stroke-dasharray="10 8"/>` +
+      (top ? `<path d="M60 -10 L10 320 H200 Z" fill="#fff9c4" opacity=".09"/><path d="M540 -10 L400 320 H590 Z" fill="#fff9c4" opacity=".09"/>` : ''));
+  }
+  function art7Ringmaster() {
+    let g = null; try { if (typeof girls !== 'undefined' && girls && girls.length) g = girls[0]; } catch {}
+    if (g && typeof girlSVG === 'function') { try { return { html: girlSVG(g, 'art7rm', { bg: false }), girl: true, name: g.name || 'מנהלת הקרקס' }; } catch {} }
+    return { html: person({ hair: '#6b4226', outfit: '#e8304f', extra: `<rect x="14" y="7.5" width="20" height="2.6" rx="1" fill="#3a3a4a" ${S2}/><path d="M17.5 8 V-1 H30.5 V8 Z" fill="#3a3a4a" ${S2}/><rect x="17.5" y="4.5" width="13" height="2" fill="#ffd84d"/>` }), girl: false, name: 'מנהלת הקרקס' };
+  }
+  function art7RmEl(cls = '') {
+    const r = art7Ringmaster();
+    return el('div', { class: 'art7-rm ' + (r.girl ? 'girl ' : '') + cls }, el('div', { class: 'art7-rm-hat', html: art7SVG(`<ellipse cx="20" cy="30" rx="18" ry="4" fill="#3a3a4a" ${S2}/><path d="M8 30 V6 Q20 3 32 6 V30 Z" fill="#3a3a4a" ${S2}/><rect x="8" y="22" width="24" height="5" fill="#e8304f"/><polygon points="${starPts(26, 14, 3.5, 1.5)}" fill="#ffd84d"/>`, '0 0 40 36') }), el('div', { class: 'art7-rm-art', html: r.html }));
+  }
+  function art7Circus() {
+    const V = art7V; V.ph = V.ph || 'menu';
+    if (V.ph === 'act') return art7Act();
+    if (V.ph === 'tix') return art7Tix();
+    if (V.ph === 'cos') return art7CCos();
+    const all = art7Pets(), n = Math.min(all.length, 6);
+    const st = el('div', { class: 'art7-stage art7-tentst' }, el('div', { class: 'art7-bg', html: art7TentBg() }), el('div', { class: 'art7-layer' }));
+    const L = st.lastChild;
+    all.slice(0, 6).forEach((p, i) => { const a = art7Actor(p, 44 + (i - (n - 1) / 2) * Math.min(12, 60 / n), 5, Math.min(13, 56 / n), { cls: 'art7-idle', label: true, mood: 'happy', cos: art7D.cc[p.id] || ART7_CACTS[i % 6][4] }); a.style.animationDelay = `${i * .15}s`; L.append(a); });
+    const rm = art7RmEl(); L.append(rm);
+    art7Later(() => { art7Say(rm, `גבירותיי ורבותיי! ברוכים הבאים לקרקס החיות! 🎩`, 3600, 'art7-say-rm'); ART7_SND.circus(); }, 400);
+    const tiles = el('div', { class: 'art7-tiles art7-ctiles' }, ...ART7_CACTS.map(([id, em, n2, d]) => el('button', { type: 'button', class: 'art7-tile', onclick: () => { V.ph = 'act'; V.act = id; V.go = false; SFX.pop(); art7Draw(); } },
+      el('span', { class: 'art7-ti' }, em), el('b', {}, n2), el('small', {}, d), art7D.best[id] != null ? el('span', { class: 'art7-best' }, `🏆 ${'⭐'.repeat(art7D.best[id])}`) : null)));
+    return el('div', { class: 'art7-wrap' }, st, el('div', { class: 'chips art7-cta' },
+      el('button', { type: 'button', class: 'btn main', onclick: () => { V.ph = 'tix'; art7Draw(); } }, `🎟️ קופה: למכור כרטיסים (קהל היום: ${art7AudNow()})`),
+      el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'cos'; art7Draw(); } }, '🎽 תחפושות קרקס')), tiles);
+  }
+  function art7CCos() {
+    const V = art7V, all = art7Pets();
+    return el('div', { class: 'art7-wrap' }, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', onclick: () => { V.ph = 'menu'; art7Draw(); } }, '→ לקרקס')),
+      el('p', { class: 'art7-tip' }, '🎽 בוחרים תחפושת קרקס לכל חיה. "לפי המופע" = תחפושת שמתאימה לכל מופע.'),
+      el('div', { class: 'art7-ccos' }, ...all.map(p => el('div', { class: 'art7-ccard' }, el('span', { class: 'ic', html: art7Art(p, { cos: art7D.cc[p.id] || 'star', mood: 'happy' }) }), el('b', {}, art7Nm(p)),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(!art7D.cc[p.id]), onclick: () => { delete art7D.cc[p.id]; art7Save(); art7Draw(); } }, '🎪 לפי המופע'),
+          ...ART7_CCOS.map(c => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(art7D.cc[p.id] === c), onclick: () => { art7D.cc[p.id] = c; art7Save(); SFX.pet(p.kind); art7Draw(); } }, (ART7_COS.find(x => x[0] === c) || [0, c])[1])))))));
+  }
+  // ---------- 🎟️ selling tickets to the animal crowd ----------
+  function art7Tix() {
+    const V = art7V, all = art7Pets(), seller = all[0];
+    const bg = art7SVG(`<defs>${art7Grad('a7tx', '#ffb3c7', '#6a4a9c')}</defs><rect width="600" height="320" fill="url(#a7tx)"/>${art7Stars(14, 600, 90, 5, '#fff6c4')}` +
+      `<path d="M40 250 L180 60 L320 250 Z" fill="#fff0e0" ${S}/>` + [0, 1, 2, 3].map(i => `<path d="M180 60 L${40 + i * 70} 250 L${75 + i * 70} 250 Z" fill="#e8304f"/>`).join('') + `<path d="M40 250 L180 60 L320 250" fill="none" ${S}/><path d="M180 60 V30 L204 38 L180 46" fill="#ffd84d" stroke="${O}" stroke-width="2"/>` +
+      `<path d="M140 250 V190 Q180 160 220 190 V250 Z" fill="#3a1630" ${S2}/><path d="M140 190 Q180 160 220 190" stroke="#ffd84d" stroke-width="4" fill="none"/>` + Array.from({ length: 9 }, (_, i) => `<circle class="art7-tw" style="animation-delay:${i * .2}s" cx="${60 + i * 30}" cy="${art7F(250 - Math.abs(4 - i) * 0 - 6)}" r="3" fill="${['#ffd84d', '#7ec8ff', '#ff9ad5'][i % 3]}"/>`).join('') +
+      `<rect y="250" width="600" height="70" fill="#8a6a4a"/><path d="M0 250 H600" ${S2}/>` +
+      `<g transform="translate(470 120)"><rect x="0" y="40" width="110" height="92" fill="#ffd84d" ${S}/><rect x="14" y="54" width="82" height="46" rx="6" fill="#5a3a6a" ${S2}/><path d="M-8 44 L55 0 L118 44 Z" fill="#e8304f" ${S}/><rect x="16" y="14" width="78" height="22" rx="6" fill="#fff" ${S2}/><text x="55" y="31" font-size="15" text-anchor="middle" fill="#e8304f" font-family="Rubik, sans-serif">קופה</text><rect x="-2" y="100" width="114" height="8" rx="3" fill="#c98f3a" ${S2}/></g>`);
+    const st = el('div', { class: 'art7-stage art7-tixst' }, el('div', { class: 'art7-bg', html: bg }), el('div', { class: 'art7-layer' }));
+    const L = st.lastChild, TOTAL = 12;
+    if (seller) { const s = art7Actor(seller, 87.5, 34, 11, { cos: 'star', mood: 'happy', cls: 'art7-seller' }); L.append(s); V.sellerEl = s; }
+    const cnt = el('span', { class: 'art7-hud' }, `🎟️ 0/${TOTAL}`);
+    let sold = 0, made = 0; const q = [];
+    const QX = [68, 57, 46, 35, 24];
+    const mkGuest = () => { const g = Object.assign({}, art7Pick(ART7_GUESTS), { color: Math.floor(Math.random() * 12) * 30, id: 'tq' + made }); made++; const a = art7Actor(g, -10, 4, 11, { mood: 'happy', cls: 'art7-q' }); L.append(a); q.push({ g, a }); a.addEventListener('click', e => { e.stopPropagation(); if (q[0] && q[0].a === a) sell(); }); };
+    const place = () => q.forEach((o, i) => { o.a.style.left = (QX[i] ?? -10) + '%'; });
+    for (let i = 0; i < 4; i++) mkGuest(); art7Later(place, 60);
+    const sell = () => {
+      const o = q[0]; if (!o || o.busy) return; o.busy = true;
+      const tk = el('span', { class: 'art7-ticket' }, '🎟️'); L.append(tk); art7Later(() => tk.classList.add('go'), 20); setTimeout(() => tk.remove(), 900);
+      ART7_SND.ting(); if (V.sellerEl) art7Bop(V.sellerEl);
+      art7Later(() => { sold++; cnt.textContent = `🎟️ ${sold}/${TOTAL}`; art7Say(o.a, art7Pick(['תודה! 🎉', 'יש! כרטיס! 🎪', 'מחכה לראות את הליצנים! 🤡', 'שורה ראשונה! 😍']), 1200); SFX.pet(o.g.kind); art7Bop(o.a);
+        q.shift(); art7Later(() => { o.a.classList.add('art7-in'); o.a.style.left = '30%'; art7Later(() => o.a.remove(), 1500); }, 700);
+        if (made < TOTAL) mkGuest(); art7Later(place, 80);
+        if (sold >= TOTAL) art7Later(done, 1300); }, 450);
+    };
+    const done = () => {
+      if (art7D.audDay !== localToday()) { art7D.audDay = localToday(); art7D.aud = 0; } art7D.aud = Math.min(99, (art7D.aud || 0) + TOTAL); art7Save();
+      const got = art7Coin('tix', TOTAL, 'מכרת כרטיסים לקרקס 🎟️', 1); ART7_SND.tada(); try { confetti($('#art7Dlg .confetti-c')); } catch {}
+      ctl.replaceChildren(el('b', { class: 'art7-bravo' }, `כל הכרטיסים נמכרו! ${got ? `+${TOTAL} 🪙` : ''} האוהל מתמלא 🎪`), el('button', { type: 'button', class: 'btn main', onclick: () => { V.ph = 'menu'; art7Draw(); } }, '🎪 להתחיל את ההופעה!'), el('button', { type: 'button', class: 'btn', onclick: () => art7Draw() }, '🔁 עוד תור'));
+    };
+    const ctl = el('div', { class: 'chips art7-cta' }, el('button', { type: 'button', class: 'btn main art7-big', onclick: sell }, '🎟️ למכור כרטיס!'), cnt, el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'menu'; art7Draw(); } }, '→ לקרקס'));
+    return el('div', { class: 'art7-wrap' }, st, el('p', { class: 'art7-tip' }, 'החיות עומדות בתור לקרקס! לוחצים על מי שראשון/ה בתור (או על הכפתור) כדי למכור כרטיס 🎟️'), ctl);
+  }
+  // ---------- the acts ----------
+  function art7Act() {
+    const V = art7V, all = art7Pets(), A = ART7_CACTS.find(a => a[0] === V.act) || ART7_CACTS[0];
+    if (!V.who || !all.some(p => p.id === V.who)) V.who = all[0].id;
+    const p = all.find(x => x.id === V.who), cos = art7CosFor(p, A[0]);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 600 320'); svg.setAttribute('class', 'art7-gsvg'); svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+    svg.innerHTML = art7TentBg().replace(/^<svg[^>]*>|<\/svg>$/g, '') + '<g class="art7-g"></g>';
+    const G = svg.querySelector('.art7-g');
+    const hud = el('span', { class: 'art7-ghud' }), rm = art7RmEl('small'), layer = el('div', { class: 'art7-layer' }, rm, hud);
+    const st = el('div', { class: 'art7-stage art7-cstage' }, svg, layer);
+    const ctl = el('div', { class: 'chips art7-cta' });
+    const api = { G, p, cos, all, onTap: null, onHold: null,
+      say: (t, ms = 2200) => art7Say(rm, t, ms, 'art7-say-rm'), hud: t => { hud.textContent = t; },
+      crowd: kind => { if (kind === 'oh') tone(300, .3, 'sine', 0, .03); else ART7_SND.clap(12); },
+      end: (score, stars, line) => {
+        api.onTap = api.onHold = null; const best = art7D.best[A[0]] || 0; if (stars > best) { art7D.best[A[0]] = stars; art7Save(); }
+        ART7_SND.clap(26); if (stars === 3) { ART7_SND.fanfare(); try { confetti($('#art7Dlg .confetti-c')); } catch {} } else SFX.yay();
+        const got = art7Coin('c_' + A[0], 4 + stars * 2, `קרקס החיות: ${A[2]} ${A[1]}`, 2);
+        api.say(stars === 3 ? `איזו הופעה!!! ${art7Nm(p)} כוכב/ת הקרקס! 🌟` : `כל הכבוד ל${art7Nm(p)}! 👏`, 4000);
+        layer.append(el('div', { class: 'art7-res' }, el('div', { class: 'art7-stars' }, ...[1, 2, 3].map(i => el('span', { class: i <= stars ? 'on' : '' }, '★'))), el('b', {}, line), got ? el('small', {}, `+${4 + stars * 2} 🪙`) : null));
+        ctl.replaceChildren(el('button', { type: 'button', class: 'btn main', onclick: () => { V.go = true; art7Draw(); } }, '🔁 עוד פעם'), el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'menu'; art7Draw(); } }, '🎪 לכל המופעים'));
+      } };
+    // input: tap the stage, big buttons, keyboard
+    const tapAt = e => { const r = svg.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+    st.addEventListener('pointerdown', e => { if (api.onTap) { e.preventDefault(); const [fx, fy] = tapAt(e); api.onTap(fx, fy); } });
+    art7Key = e => { if (!$('#art7Dlg').open || /INPUT|SELECT|TEXTAREA/.test((e.target || {}).tagName || '')) return; const down = e.type === 'keydown';
+      if ((e.key === ' ' || e.key === 'Enter') && down && api.onTap) { e.preventDefault(); if (!e.repeat) api.onTap(.5, .5); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); const d = e.key === 'ArrowLeft' ? -1 : 1; if (api.onHold) api.onHold(d, down); else if (down && api.onTap && !e.repeat) api.onTap(d < 0 ? .25 : .75, .5); } };
+    addEventListener('keydown', art7Key); addEventListener('keyup', art7Key);
+    const holdBtn = (d, t) => { const b = el('button', { type: 'button', class: 'btn art7-hold' }, t); const on = v => e => { e.preventDefault(); if (api.onHold) api.onHold(d, v); else if (v && api.onTap) api.onTap(d < 0 ? .25 : .75, .5); }; b.addEventListener('pointerdown', on(true)); ['pointerup', 'pointerleave', 'pointercancel'].forEach(k => b.addEventListener(k, on(false))); return b; };
+    const GAMES = { rope: art7GRope, juggle: art7GJuggle, tramp: art7GTramp, clown: art7GClown, hoop: art7GHoop, trap: art7GTrap };
+    const start = () => {
+      V.go = false; ART7_SND.drum(); api.say(`ועכשיו... ${art7Nm(p)} ב${A[2]}! 🥁`, 2000);
+      ctl.replaceChildren(...(A[0] === 'rope' ? [holdBtn(-1, '⬅️'), holdBtn(1, '➡️')] : A[0] === 'clown' ? [el('span', { class: 'art7-tip' }, '👆 לוחצים על הליצנים!')] : [holdBtn(0, '👆 עכשיו!')]),
+        el('button', { type: 'button', class: 'chip', onclick: () => { V.ph = 'menu'; art7Draw(); } }, '→ לכל המופעים'));
+      art7Later(() => { ART7_SND.fanfare(); GAMES[A[0]](api); }, 1900);
+    };
+    // pick the performer first
+    const who = el('div', { class: 'art7-who' }, el('span', { class: 'lbl' }, 'מי מופיע/ה?'), ...all.map(q => el('button', { type: 'button', class: 'art7-whob', 'aria-pressed': String(q === p), onclick: () => { V.who = q.id; SFX.pet(q.kind); art7Draw(); } },
+      el('span', { class: 'ic', html: art7Art(q, { cos: art7CosFor(q, A[0]) }) }), el('b', {}, art7Nm(q)))));
+    G.innerHTML = `<g transform="translate(300 292)">${art7In(p, 90, { cos, mood: 'happy' })}</g>`;
+    if (V.go) art7Later(start, 50);
+    else { ctl.replaceChildren(el('button', { type: 'button', class: 'btn main art7-big', onclick: start }, `▶️ ${A[1]} ${A[2]} — להתחיל!`), el('button', { type: 'button', class: 'btn', onclick: () => { V.ph = 'menu'; art7Draw(); } }, '→ לכל המופעים')); art7Later(() => api.say(`${A[1]} ${A[2]}: ${A[3]}!`, 3000), 300); }
+    return el('div', { class: 'art7-wrap' }, V.go ? null : who, st, ctl);
+  }
+  const art7PetG = (p, w, cos, cls = 'pg', mood = 'happy') => `<g class="${cls}">${art7In(p, w, { cos, mood })}</g>`;
+  function art7Timer(api, secs, onEnd) { let left = secs; return dt => { left -= dt; if (left <= 0) { onEnd(); return false; } return Math.ceil(left); }; }
+  // 🤸 tightrope: keep the balance
+  function art7GRope(api) {
+    const { G, p, cos } = api, ropeY = x => 156 + 6 * (1 - ((x - 300) / 214) ** 2);
+    G.innerHTML = `<path d="M60 290 Q300 314 540 290" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="5 4" opacity=".8"/><path d="M70 162 V300 M530 162 V300" stroke="${O}" stroke-width="8"/><path d="M70 162 V300 M530 162 V300" stroke="#c9a27e" stroke-width="4"/>` +
+      `<rect x="44" y="150" width="54" height="12" rx="3" fill="#ffcf3a" ${S2}/><rect x="502" y="150" width="54" height="12" rx="3" fill="#ffcf3a" ${S2}/><path d="M530 150 V116 L553 124 L530 132" fill="#7ed48a" stroke="${O}" stroke-width="2"/>` +
+      `<path d="M86 156 Q300 168 514 156" stroke="${O}" stroke-width="4" fill="none"/><path d="M86 156 Q300 168 514 156" stroke="#f3dfa8" stroke-width="2" fill="none"/>` +
+      `<g class="pg">${art7In(p, 66, { cos, mood: 'happy' })}<path d="M-50 -36 H50" stroke="${O}" stroke-width="4.4" stroke-linecap="round"/><path d="M-50 -36 H50" stroke="#ff9ad5" stroke-width="2.2" stroke-linecap="round"/><circle cx="-52" cy="-36" r="5" fill="#ffd84d" ${S2}/><circle cx="52" cy="-36" r="5" fill="#ffd84d" ${S2}/></g>`;
+    const pg = G.querySelector('.pg'); let x = 92, a = 0, va = 0, wind = 0, wt = 0, falls = 0, fall = 0, hold = 0;
+    api.onHold = (d, on) => { hold = on ? d : hold === d ? 0 : hold; };
+    api.onTap = fx => { va += fx < .5 ? -24 : 24; };
+    api.say('לוחצים ⬅️ או ➡️ לצד ההפוך מהנטייה!', 3200);
+    art7Loop(dt => {
+      if (fall > 0) { fall -= dt; const t = 1 - fall / 1.2, y = ropeY(x) + Math.min(1, t * 2.2) * 128 - (t > .45 ? Math.sin((t - .45) / .55 * Math.PI) * 34 : 0); pg.setAttribute('transform', `translate(${art7F(x)} ${art7F(y)}) rotate(${art7F(a + t * 360)})`); if (fall <= 0) { a = 0; va = 0; api.say('חוזרים לחבל! 💪', 1200); } return; }
+      wt -= dt; if (wt <= 0) { wt = .8 + Math.random() * 1.1; wind = (Math.random() - .5) * 46; }
+      va += (a * 2.2 + wind + hold * 95) * dt; va *= 1 - .6 * dt; a += va * dt; x += 29 * dt;
+      api.hud(`🤸 ${Math.round((x - 92) / 4.14)}%${falls ? ` · נפילות: ${falls}` : ''}`);
+      if (Math.abs(a) > 40) { falls++; fall = 1.2; ART7_SND.boing(); api.crowd('oh'); api.say('אופס! הרשת תפסה! 🤸', 1400); return; }
+      pg.setAttribute('transform', `translate(${art7F(x)} ${art7F(ropeY(x))}) rotate(${art7F(a)})`);
+      if (x >= 506) { api.end(falls, falls === 0 ? 3 : falls < 3 ? 2 : 1, falls === 0 ? 'עבר/ה את כל החבל בלי ליפול! 🌟' : `הגיע/ה לצד השני! (נפילות: ${falls})`); return false; }
+    });
+  }
+  // 🤹 juggling: tap when a ball reaches the paws
+  function art7GJuggle(api) {
+    const { G, p, cos } = api, g = 300, ZY = [168, 276];
+    G.innerHTML = `<ellipse cx="300" cy="294" rx="60" ry="9" fill="#000" opacity=".18"/><g transform="translate(300 294)">${art7In(p, 104, { cos, mood: 'happy' })}</g><ellipse class="zone" cx="300" cy="222" rx="84" ry="54" fill="#fff9c4" opacity=".14" stroke="#fff9c4" stroke-dasharray="6 5"/><g class="balls"></g>`;
+    const host = G.querySelector('.balls'), zone = G.querySelector('.zone'), balls = []; let catches = 0, lives = 5, over = false, T = 35;
+    const COL = ['#ff5a6e', '#6fb8ff', '#ffe066', '#7ed48a'];
+    const spawn = () => { const n = document.createElementNS('http://www.w3.org/2000/svg', 'g'), c = COL[balls.length % 4]; n.innerHTML = `<circle r="12" fill="${c}" ${S2}/><path d="M-11 -3 Q0 4 11 -3" stroke="#fff" stroke-width="2.4" fill="none" opacity=".8"/><circle cx="-4" cy="-5" r="2.6" fill="#fff" opacity=".7"/>`; host.append(n); balls.push({ n, x: 262 + Math.random() * 76, y: -20, vx: 0, vy: 0 }); };
+    art7Later(spawn, 900);
+    api.say('לוחצים כשהכדור מגיע לכפות! 🤹', 2600);
+    api.onTap = () => { const c = balls.filter(b => b.vy > 0 && b.y > ZY[0] && b.y < ZY[1]).sort((a, b) => b.y - a.y)[0]; if (!c) return;
+      c.vy = -(300 + Math.random() * 50); const tx = c.x < 300 ? 334 : 266, Tf = 2 * -c.vy / g; c.vx = (tx - c.x) / Tf; catches++; ART7_SND.ting();
+      if ((catches === 4 || catches === 10) && balls.length < 3) art7Later(spawn, 400); };
+    art7Loop(dt => {
+      if (over) return false; T -= dt;
+      let inZ = false;
+      for (const b of balls.slice()) { b.vy += g * dt; b.x += b.vx * dt; b.y += b.vy * dt; if (b.vy > 0 && b.y > ZY[0] && b.y < ZY[1]) inZ = true;
+        b.n.setAttribute('transform', `translate(${art7F(b.x)} ${art7F(b.y)}) rotate(${art7F(b.y * 2)})`);
+        if (b.y > 305) { balls.splice(balls.indexOf(b), 1); b.n.remove(); lives--; ART7_SND.bonk(); api.crowd('oh'); if (lives > 0) { api.say(`אופס! נשארו ${lives} ניסיונות`, 1300); art7Later(spawn, 700); } } }
+      zone.setAttribute('opacity', inZ ? '.5' : '.14');
+      api.hud(`🤹 ${catches} · ${'❤️'.repeat(Math.max(0, lives))} · ⏱️ ${Math.max(0, Math.ceil(T))}`);
+      if (T <= 0 || lives <= 0) { over = true; api.end(catches, catches >= 15 ? 3 : catches >= 6 ? 2 : 1, `${catches} תפיסות! 🤹`); return false; }
+    });
+  }
+  // 🦘 trampoline: tap just before landing for a big flip
+  function art7GTramp(api) {
+    const { G, p, cos } = api, g = 820, GY = 268, W = 76, H = W * 64 / 56;
+    G.innerHTML = `<path d="M232 276 L220 304 M368 276 L380 304 M300 280 V304" stroke="${O}" stroke-width="6" stroke-linecap="round"/><ellipse cx="300" cy="272" rx="84" ry="14" fill="#3a3a5a" ${S2}/><path class="bed" d="M222 270 Q300 270 378 270" stroke="#7ec8ff" stroke-width="7" fill="none"/>` +
+      Array.from({ length: 12 }, (_, i) => `<circle cx="${art7F(300 + 84 * Math.cos(i / 12 * Math.PI * 2))}" cy="${art7F(272 + 14 * Math.sin(i / 12 * Math.PI * 2))}" r="3" fill="${i % 2 ? '#ffd84d' : '#ff5a6e'}"/>`).join('') +
+      `<circle class="ring" cx="300" cy="230" r="30" fill="none" stroke="#fff9c4" stroke-width="4" opacity="0"/>${art7PetG(p, W, cos)}`;
+    const pg = G.querySelector('.pg'), bed = G.querySelector('.bed'), ring = G.querySelector('.ring');
+    let y = GY, vy = -400, primed = false, flips = 0, flip = null, T = 25, dip = 0;
+    api.say('לוחצים ממש לפני הנחיתה — וסלטה! 🌟', 2800);
+    api.onTap = () => { if (vy > 0 && y > GY - 150) { primed = true; ring.setAttribute('opacity', '.9'); } };
+    art7Loop(dt => {
+      T -= dt; vy += g * dt; y += vy * dt; dip = Math.max(0, dip - dt * 3);
+      if (y >= GY && vy > 0) {
+        const v = vy; if (primed) { vy = -Math.min(520, v * 1.04 + 50); flip = { t: 0, T: 2 * -vy / g }; flips++; ART7_SND.boing(); if (flips % 3 === 0) ART7_SND.clap(8); } else { vy = -Math.max(320, v * .86); tone(200, .1, 'sine', 0, .04); }
+        y = GY; primed = false; ring.setAttribute('opacity', '0'); dip = 1;
+      }
+      let rot = 0; if (flip) { flip.t += dt; rot = Math.min(1, flip.t / (flip.T * .9)) * 360; if (flip.t >= flip.T) flip = null; }
+      pg.setAttribute('transform', `translate(300 ${art7F(y + dip * 6)}) rotate(${art7F(rot)} 0 ${art7F(-H * .45)})`);
+      bed.setAttribute('d', `M222 270 Q300 ${art7F(270 + dip * 22)} 378 270`);
+      api.hud(`🌟 סלטות: ${flips} · ⏱️ ${Math.max(0, Math.ceil(T))}`);
+      if (T <= 0 && y >= GY - 2) { api.end(flips, flips >= 7 ? 3 : flips >= 3 ? 2 : 1, `${flips} סלטות באוויר! 🦘`); return false; }
+      if (T <= -3) { api.end(flips, flips >= 7 ? 3 : flips >= 3 ? 2 : 1, `${flips} סלטות באוויר! 🦘`); return false; }
+    });
+  }
+  // 🤡 clowns: a tiny car full of clowns — tap their noses
+  function art7GClown(api) {
+    const { G, all } = api, cast = [...all.slice(0, 5), ...ART7_GUESTS.slice(0, Math.max(0, 6 - Math.min(5, all.length)))];
+    const car = `<g class="car"><path d="M-62 -8 Q-60 -44 -22 -46 L8 -46 Q30 -46 44 -26 L62 -22 Q70 -20 68 -6 L-62 -6 Z" fill="#ff7ab8" ${S}/><path d="M-18 -40 L6 -40 Q22 -40 32 -26 L-18 -26 Z" fill="#bfe6ff" ${S2}/>${[[-40, -30], [-8, -16], [20, -14], [50, -14]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4" fill="#ffd84d"/>`).join('')}<circle cx="-36" cy="-4" r="13" fill="#3a3a4a" ${S2}/><circle cx="-36" cy="-4" r="5" fill="#ccc"/><circle cx="40" cy="-4" r="13" fill="#3a3a4a" ${S2}/><circle cx="40" cy="-4" r="5" fill="#ccc"/><path d="M62 -30 l12 -8 v14 Z" fill="#ffd84d" ${S2}/><circle cx="-24" cy="-58" r="6" fill="#ff5a6e" ${S2}/><path d="M-24 -52 V-46" stroke="${O}" stroke-width="2"/></g>`;
+    G.innerHTML = car + '<g class="cl"></g>';
+    const carG = G.querySelector('.car'), host = G.querySelector('.cl'), clowns = [];
+    const n = cast.length, xs = Array.from({ length: n }, (_, i) => 70 + i * (460 / Math.max(1, n - 1)));
+    let cx = -90, ph = 'drive', t = 0, honks = 0, k = 0;
+    api.onTap = fx => { if (ph !== 'play') return; const x = fx * 600; const c = clowns.slice().sort((a, b) => Math.abs(a.x - x) - Math.abs(b.x - x))[0]; if (!c || Math.abs(c.x - x) > 60) return;
+      ART7_SND.honk(); c.hop = 0; c.spin = Math.random() < .5; honks++; SFX.pet(c.p.kind);
+      if (honks % 4 === 0) { const o = art7Pick(clowns.filter(q => q !== c)) || c; o.pie = 1.6; tone(180, .2, 'triangle', .1, .06); api.say(`פאי קצפת על ${art7Nm(o.p)}! 🥧😂`, 1500); }
+      if (honks >= 12) { ph = 'end'; art7Later(() => { clowns.forEach((q, i) => art7Later(() => { q.hop = 0; q.spin = true; ART7_SND.honk(); }, i * 150)); art7Later(() => api.end(12, 3, 'הקהל מתגלגל מצחוק! 😂🤡'), 1400); }, 400); } };
+    art7Loop(dt => {
+      t += dt;
+      if (ph === 'drive') { cx = Math.min(300, cx + 190 * dt); carG.setAttribute('transform', `translate(${art7F(cx)} ${art7F(290 - Math.abs(Math.sin(t * 12)) * 4)})`); if (cx >= 300) { ph = 'out'; ART7_SND.honk(); api.say('מכונית כל כך קטנה... כמה ליצנים יש בה? 🤔', 2400); t = 0; } }
+      if (ph !== 'drive' && k === n && cx < 820) { cx += 150 * dt; carG.setAttribute('transform', `translate(${art7F(cx)} ${art7F(290 - Math.abs(Math.sin(t * 12)) * 4)})`); }
+      if (ph === 'out' && t > .9 && k < n) { t = .2; const p = cast[k], gEl = document.createElementNS('http://www.w3.org/2000/svg', 'g'); gEl.innerHTML = art7In(p, 62, { cos: 'clown', mood: 'happy' }) + '<g class="pie"></g>'; host.append(gEl); clowns.push({ p, g: gEl, x0: 300, x: 300, tx: xs[k], u: 0, hop: 1, spin: false, pie: 0 }); k++; ART7_SND.boing(); api.hud(`🤡 × ${k}`); if (k === n) art7Later(() => { ph = 'play'; api.say('לוחצים על הליצנים! 📯', 2600); api.hud('📯 0/12'); }, 900); }
+      clowns.forEach(c => {
+        if (c.u < 1) { c.u = Math.min(1, c.u + dt * 1.6); c.x = c.x0 + (c.tx - c.x0) * c.u; }
+        const arc = c.u < 1 ? Math.sin(c.u * Math.PI) * 90 : 0; let hy = 0, r = 0;
+        if (c.hop < 1) { c.hop = Math.min(1, c.hop + dt * 1.8); hy = Math.sin(c.hop * Math.PI) * 50; r = c.spin ? c.hop * 360 : 0; }
+        c.g.setAttribute('transform', `translate(${art7F(c.x)} ${art7F(292 - arc - hy)}) rotate(${art7F(r)} 0 -34)`);
+        if (c.pie > 0) { c.pie -= dt; c.g.querySelector('.pie').innerHTML = `<path d="M-16 -46 Q-18 -62 0 -60 Q18 -62 16 -46 Q8 -40 0 -44 Q-8 -40 -16 -46 Z" fill="#fff" ${S2}/><circle cx="0" cy="-62" r="4" fill="#ff5a6e" ${S2}/>`; if (c.pie <= 0) c.g.querySelector('.pie').innerHTML = ''; }
+      });
+      if (ph === 'play') api.hud(`📯 ${honks}/12`);
+    });
+  }
+  // ⭕ hoop jump: tap to jump through the hoops
+  function art7GHoop(api) {
+    const { G, p, cos } = api, PX = 150, GY = 292, g = 1400;
+    G.innerHTML = `<g class="hb"></g>${art7PetG(p, 68, cos)}<g class="hf"></g>`;
+    const pg = G.querySelector('.pg'), hb = G.querySelector('.hb'), hf = G.querySelector('.hf'), hoops = [];
+    let y = GY, vy = 0, t = 0, next = 1.2, made = 0, pass = 0, miss = 0; const TOTAL = 10;
+    const COL = ['#ff5a6e', '#6fb8ff', '#b37bff', '#7ed48a', '#ffb35c'];
+    const ns = () => document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const spawn = () => { const c = COL[made % 5], cy = 190 + (Math.random() - .5) * 26, b = ns(), f = ns();
+      const arc = (d) => `<path d="${d}" fill="none" stroke="${O}" stroke-width="9" stroke-linecap="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="6 10" stroke-linecap="round"/>`;
+      b.innerHTML = arc('M0 -46 A16 46 0 0 1 0 46'); f.innerHTML = arc('M0 46 A16 46 0 0 1 0 -46') + `<polygon points="${starPts(0, -52, 5, 2)}" fill="#ffd84d"/>`;
+      hb.append(b); hf.append(f); hoops.push({ b, f, x: 640, cy, done: false, fall: 0 }); made++; };
+    api.say('לוחצים כדי לקפוץ דרך החישוק! ⭕', 2600);
+    api.onTap = () => { if (y >= GY - 1) { vy = -560; ART7_SND.whoosh(); } };
+    art7Loop(dt => {
+      t += dt; next -= dt; if (next <= 0 && made < TOTAL) { spawn(); next = 1.7 + Math.random() * .7; }
+      vy += g * dt; y = Math.min(GY, y + vy * dt); if (y >= GY) vy = 0;
+      const bob = y >= GY ? Math.abs(Math.sin(t * 10)) * 4 : 0;
+      pg.setAttribute('transform', `translate(${PX} ${art7F(y - bob)}) rotate(${y < GY ? art7F(Math.max(-20, Math.min(20, vy / 30))) : 0})`);
+      for (const h of hoops) {
+        const px = h.x; h.x -= 190 * dt;
+        if (!h.done && px > PX && h.x <= PX) { h.done = true; const lift = GY - y, ok = Math.abs((y - 40) - h.cy) < 32 && lift > 20;
+          if (ok) { pass++; ART7_SND.ting(); api.hud(`⭕ ${pass}/${TOTAL}`); if (pass % 3 === 0) ART7_SND.clap(8); } else { miss++; h.fall = .01; ART7_SND.bonk(); api.crowd('oh'); } }
+        let fy = 0, fr = 0; if (h.fall) { h.fall += dt; fy = h.fall * h.fall * 300; fr = h.fall * 200; }
+        const tr = `translate(${art7F(h.x)} ${art7F(h.cy + fy)}) rotate(${art7F(fr)})`; h.b.setAttribute('transform', tr); h.f.setAttribute('transform', tr);
+      }
+      for (const h of hoops.slice()) if (h.x < -40 || h.cy + (h.fall ? h.fall * h.fall * 300 : 0) > 400) { h.b.remove(); h.f.remove(); hoops.splice(hoops.indexOf(h), 1); }
+      api.hud(`⭕ ${pass}/${TOTAL}`);
+      if (made >= TOTAL && !hoops.length) { api.end(pass, pass >= 8 ? 3 : pass >= 5 ? 2 : 1, `${pass} מתוך ${TOTAL} חישוקים! ⭕`); return false; }
+    });
+  }
+  // 🎠 trapeze: let go at the right moment and a friend catches you
+  function art7GTrap(api) {
+    const { G, p, cos, all } = api, A1 = [190, 12], A2 = [410, 12], LEN = 150, AMP = .62, W = 2.3;
+    const mate = all.find(q => q !== p) || ART7_GUESTS[1];
+    G.innerHTML = `<path d="M60 292 Q300 314 540 292" stroke="#fff" stroke-width="2" fill="none" stroke-dasharray="5 4" opacity=".8"/><path class="zone" fill="none" stroke="#2fd46a" stroke-width="16" stroke-linecap="round" opacity=".45"/>` +
+      `<g class="t1"><path class="r" stroke="#fff3e0" stroke-width="2"/><rect x="-18" y="-3" width="36" height="6" rx="3" fill="#ffd84d" ${S2}/></g><g class="t2"><path class="r" stroke="#fff3e0" stroke-width="2"/><rect x="-18" y="-3" width="36" height="6" rx="3" fill="#ffd84d" ${S2}/></g>` +
+      `<g class="mate">${art7In(mate, 62, { cos: art7CosFor(mate, 'trap'), mood: 'happy' })}</g>${art7PetG(p, 64, cos)}`;
+    const t1 = G.querySelector('.t1'), t2 = G.querySelector('.t2'), pg = G.querySelector('.pg'), mg = G.querySelector('.mate'), zone = G.querySelector('.zone');
+    const bar = (A, th) => [A[0] + LEN * Math.sin(th), A[1] + LEN * Math.cos(th)];
+    { const a0 = AMP * .8, a1 = AMP; const P = th => bar(A1, th); const [x0, y0] = P(a0), [x1, y1] = P(a1); zone.setAttribute('d', `M${art7F(x0)} ${art7F(y0 + 4)} A${LEN} ${LEN} 0 0 0 ${art7F(x1)} ${art7F(y1 + 4)}`); }
+    let t = 0, fly = null, tries = 0, caught = 0; const TRIES = 5;
+    const setT = (g, A, th) => { const [x, y] = bar(A, th); g.setAttribute('transform', `translate(${art7F(x)} ${art7F(y)})`); g.querySelector('.r').setAttribute('d', `M${art7F(A[0] - x - 16)} ${art7F(A[1] - y)} L-16 0 M${art7F(A[0] - x + 16)} ${art7F(A[1] - y)} L16 0`); return [x, y]; };
+    api.say('לוחצים כשהטרפז מגיע לאזור הירוק! 🎠', 3000); api.hud(`🎠 0/${TRIES}`);
+    api.onTap = () => { if (fly || tries >= TRIES) return; const s = Math.sin(W * t); const ok = s > .8; tries++; const [x, y] = bar(A1, AMP * s); fly = { t: 0, x0: x, y0: y, ok }; ART7_SND.whoosh(); };
+    art7Loop(dt => {
+      t += dt; const s = Math.sin(W * t), th1 = AMP * s, th2 = -AMP * s;
+      const b1 = setT(t1, A1, th1), b2 = setT(t2, A2, th2);
+      zone.setAttribute('opacity', !fly && s > .8 ? '.95' : '.45');
+      mg.setAttribute('transform', `translate(${art7F(b2[0] + (fly && fly.ok && fly.t > .9 ? 14 : 0))} ${art7F(b2[1])})`);
+      if (!fly) pg.setAttribute('transform', `translate(${art7F(b1[0])} ${art7F(b1[1])}) rotate(${art7F(-th1 * 20)})`);
+      else {
+        fly.t += dt; const D = .9;
+        if (fly.ok) { const u = Math.min(1, fly.t / D), tx = b2[0] - 14, ty = b2[1];
+          if (fly.t < D) pg.setAttribute('transform', `translate(${art7F(fly.x0 + (tx - fly.x0) * u)} ${art7F(fly.y0 + (ty - fly.y0) * u - Math.sin(u * Math.PI) * 80)}) rotate(${art7F(u * 360)} 0 -30)`);
+          else { pg.setAttribute('transform', `translate(${art7F(tx)} ${art7F(ty)})`); if (!fly.hit) { fly.hit = 1; caught++; ART7_SND.tada(); ART7_SND.clap(10); api.say(art7Pick(['תפיסה מושלמת! 🤝', 'וואו! באוויר! ✨', 'איזה אומץ! 💪']), 1500); } } }
+        else { const u = Math.min(1, fly.t / D), tx = fly.x0 + 70, ty = 292;
+          if (fly.t < D) pg.setAttribute('transform', `translate(${art7F(fly.x0 + (tx - fly.x0) * u)} ${art7F(fly.y0 + (ty - fly.y0) * u * u - Math.sin(u * Math.PI) * 40)}) rotate(${art7F(u * 200)} 0 -30)`);
+          else { const b = Math.abs(Math.sin((fly.t - D) * 9)) * Math.max(0, 1 - (fly.t - D) * 1.4) * 30; pg.setAttribute('transform', `translate(${art7F(tx)} ${art7F(ty - b)})`); if (!fly.hit) { fly.hit = 1; ART7_SND.boing(); api.crowd('oh'); api.say('אופס! לרשת! 🤸 עוד ניסיון', 1500); } } }
+        api.hud(`🎠 ${caught}/${tries} · נשארו ${TRIES - tries}`);
+        if (fly.t > D + 1.3) { fly = null; if (tries >= TRIES) { api.end(caught, caught >= 4 ? 3 : caught >= 2 ? 2 : 1, `${caught} תפיסות מתוך ${TRIES}! 🎠`); return false; } }
+      }
+    });
+  }
+
+  // ================= the dialog =================
+  function art7Open(sec = 'menu') { art7Sec = sec; art7V = {}; art7Draw(); const d = $('#art7Dlg'); if (d && !d.open) d.showModal(); }
+  function art7Go(sec) { art7Sec = sec; art7V = {}; SFX.pop(); art7Draw(); }
+  function art7Menu() {
+    const all = art7Pets(), n = Math.min(all.length, 7), COS = ['beret', 'crown', 'clown', 'wizard', 'star', 'tiara', 'feather'], PR = ['brush', 'wand', 'none', 'book', 'balloon', 'flowers', 'none'];
+    const st = el('div', { class: 'art7-stage' }, el('div', { class: 'art7-bg', html: art7Bg('meadow') }), el('div', { class: 'art7-layer' }));
+    all.slice(0, 7).forEach((p, i) => { const a = art7Actor(p, 50 + (i - (n - 1) / 2) * Math.min(12, 76 / n), 4, Math.min(14, 62 / n), { label: true, cls: 'art7-idle', mood: 'happy', cos: COS[i], prop: PR[i] }); a.style.animationDelay = `${i * .17}s`; st.lastChild.append(a); });
+    st.lastChild.append(el('div', { class: 'art7-banner' }, 'הבמה, הכן והאוהל מחכים לכם! ✨'));
+    return el('div', { class: 'art7-wrap' }, st, el('div', { class: 'art7-tiles' }, ...ART7_SECS.map(([id, em, nm, d]) => el('button', { type: 'button', class: 'art7-tile art7-t-' + id, onclick: () => art7Go(id) }, el('span', { class: 'art7-ti' }, em), el('b', {}, nm), el('small', {}, d)))));
+  }
+  function art7Draw() {
+    art7Stop(); art7V.busy = false;
+    const s = ART7_SECS.find(x => x[0] === art7Sec);
+    $('#art7Title').textContent = s ? `${s[1]} ${s[2]}` : '🎭🎨🎪 אמנות עם החיות';
+    $('#art7Sub').textContent = s ? s[3] : 'תיאטרון, ציור וקרקס — כל החיות שלך ביחד!';
+    const nav = el('div', { class: 'art7-nav' }, el('button', { type: 'button', class: 'chip', 'aria-pressed': String(art7Sec === 'menu'), onclick: () => art7Go('menu') }, '🏠 הכל'),
+      ...ART7_SECS.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(art7Sec === id), onclick: () => art7Go(id) }, `${em} ${n}`)), typeof coinChip === 'function' ? coinChip() : null);
+    const all = art7Pets();
+    const body = !all.length ? el('p', { class: 'art7-empty' }, 'קודם מאמצים חיה! 🐾 ואז כל האמנות מתחילה.') : ({ theater: art7Theater, paint: art7Paint, circus: art7Circus }[art7Sec] || art7Menu)();
+    $('#art7Body').replaceChildren(nav, body);
+  }
+  { const d = $('#art7Dlg'); if (d) d.addEventListener('close', () => { art7Stop(); if ($('#houseDlg') && $('#houseDlg').open) drawHouse(); }); }
+  // ---------- MORE tiles (pets room: the names contain 'החיות') ----------
+  if (typeof MORE !== 'undefined') { const t = [['mask', 'תיאטרון החיות', () => art7Open('theater')], ['palette', 'הציורים של החיות', () => art7Open('paint')], ['balloon', 'קרקס החיות', () => art7Open('circus')]]; MORE.push(...t.filter(x => !MORE.some(m => m[1] === x[1]))); }
+  // ---------- a row of buttons in the pets house ----------
+  const art7DrawHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    art7DrawHouse0(mode, say);
+    const tabs = $('#houseTabs'); if (!tabs) return;
+    let bar = $('#art7HouseBar');
+    if (!bar) { bar = el('div', { id: 'art7HouseBar', class: 'art7-housebar' }); tabs.before(bar); }
+    bar.replaceChildren(el('span', { class: 'lbl' }, '🎨 אמנות ביחד:'), ...ART7_SECS.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); art7Open(id); } }, `${em} ${n}`)));
+  };
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
