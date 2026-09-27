@@ -5745,6 +5745,251 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
   .art7-tiles { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
   .art7-tpls { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
 }
+/* ===== 🍳 pets' kitchen · 🧩 escape room · 📺 TV channel (media agent) ===== */
+#mdaDlg .sheet { gap: 10px; }
+.mda-nav { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.mda-nav .coin-chip { margin-inline-start: auto; }
+@media (max-width: 620px) { .mda-nav { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } .mda-nav > * { flex: none; } }
+.mda-wrap { display: grid; gap: 10px; }
+.mda-empty { font-size: 1.3em; text-align: center; padding: 30px; }
+.mda-tip, .mda-q { margin: 0; font-size: 1.05em; }
+.mda-q { font-size: 1.12em; text-align: center; }
+.mda-h { margin: 4px 0 0; font-size: 1.15em; }
+.mda-cta { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+.mda-big { font-size: 1.15em; padding: 8px 20px; box-shadow: 0 3px 0 rgb(0 0 0 / .2); }
+.mda-cta .btn:disabled { opacity: .5; }
+.mda-stage { position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: 18px; overflow: hidden; border: 3px solid var(--ink); background: #fff4e8; user-select: none; -webkit-user-select: none; }
+.mda-bg, .mda-bg > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mda-layer { position: absolute; inset: 0; pointer-events: none; }
+.mda-layer > * { pointer-events: auto; }
+.mda-layer > .mda-banner, .mda-layer > .mda-heart, .mda-layer > .mda-table, .mda-layer > .mda-plate, .mda-layer > .mda-clock { pointer-events: none; }
+.mda-actor { position: absolute; translate: -50% 0; z-index: 2; padding: 0; margin: 0; border: 0; background: none; font: inherit; color: inherit; transition: left 1s ease-in-out, bottom 1s ease-in-out, width 1s ease-in-out; }
+button.mda-actor { cursor: pointer; }
+button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 12px; }
+.mda-actor > svg { width: 100%; height: auto; display: block; overflow: visible; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .18)); }
+.mda-nm { position: absolute; left: 50%; bottom: -2px; translate: -50% 100%; background: var(--card); color: var(--ink); border: 2px solid var(--ink); border-radius: 999px; padding: 0 8px; font-size: clamp(10px, 1.5vw, 14px); white-space: nowrap; line-height: 1.4; }
+.mda-banner { position: absolute; top: 10px; left: 50%; translate: -50% 0; z-index: 8; background: rgb(255 255 255 / .93); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 999px; padding: 3px 16px; font-size: clamp(12px, 2vw, 18px); white-space: nowrap; max-width: 94%; overflow: hidden; text-overflow: ellipsis; box-shadow: 0 3px 0 rgb(0 0 0 / .15); }
+.mda-say { position: absolute; left: 50%; bottom: 100%; translate: -50% -4px; background: #fff; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 14px; padding: 3px 10px; width: max-content; max-width: min(46vw, 330px); white-space: normal; text-align: center; font-size: clamp(12px, 1.8vw, 16px); line-height: 1.35; z-index: 9; animation: mdaPop .3s ease-out; pointer-events: none; }
+.mda-say::after { content: ''; position: absolute; left: 50%; bottom: -8px; translate: -50% 0; border: 7px solid transparent; border-top-color: #3a2b3c; border-bottom: 0; }
+.mda-idle { animation: mdaIdle 2.6s ease-in-out infinite; }
+@keyframes mdaIdle { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-3%) rotate(-2deg); } }
+.mda-hop { animation: mdaHop .5s ease-out; }
+@keyframes mdaHop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-20%) scale(1.05); } }
+.mda-bop { animation: mdaBopA .25s ease-out; }
+@keyframes mdaBopA { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08, .94) translateY(3%); } }
+.mda-spin { animation: mdaSpin .9s ease-in-out; }
+@keyframes mdaSpin { 0% { transform: rotateY(0); } 50% { transform: rotateY(180deg) translateY(-8%); } 100% { transform: rotateY(360deg); } }
+.mda-shake { animation: mdaShake .45s ease-in-out; }
+@keyframes mdaShake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8%); } 75% { transform: translateX(8%); } }
+.mda-dance { animation: mdaDance .45s ease-in-out infinite alternate; }
+@keyframes mdaDance { from { transform: rotate(-10deg) translateY(0); } to { transform: rotate(10deg) translateY(-12%); } }
+.mda-pop { animation: mdaPop .35s ease-out; }
+@keyframes mdaPop { from { transform: scale(.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.mda-heart { position: absolute; font-size: clamp(16px, 3vw, 26px); animation: mdaFloat 1.7s ease-out forwards; z-index: 9; }
+@keyframes mdaFloat { from { transform: translateY(0) scale(.6); opacity: 1; } to { transform: translateY(-120px) scale(1.2); opacity: 0; } }
+.mda-tw { animation: mdaTw 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes mdaTw { 0%, 100% { opacity: .35; transform: scale(.7); } 50% { opacity: 1; transform: scale(1.1); } }
+.mda-glowb { animation: mdaGlow 1.4s ease-in-out infinite alternate; }
+@keyframes mdaGlow { from { opacity: .7; } to { opacity: 1; filter: drop-shadow(0 0 6px #fff6a8); } }
+.mda-bob { animation: mdaBob 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes mdaBob { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+.mda-flag { animation: mdaFlag 1.2s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 0 50%; }
+@keyframes mdaFlag { from { transform: skewY(-4deg); } to { transform: skewY(4deg); } }
+.mda-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+/* kitchen */
+.mda-jobs { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 18px; }
+.mda-jobchip { border: 2px dashed #ffb3d6; background: #fff4fa; color: #3a2b3c; border-radius: 999px; padding: 2px 12px; font-size: .95em; }
+.mda-recipes { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.mda-rec { display: grid; justify-items: center; gap: 2px; padding: 10px 8px; border: 2px solid var(--line); border-radius: 18px; background: linear-gradient(170deg, #fffaf2, #ffeede); color: #3a2b3c; font: inherit; cursor: pointer; transition: transform .15s; }
+.mda-rec:hover { transform: translateY(-3px) rotate(-1deg); border-color: #ff9ad5; }
+.mda-rec.done { border-color: #ffcf3a; background: linear-gradient(170deg, #fffbe0, #fff0b8); }
+.mda-rec b { font-size: 1.02em; text-align: center; }
+.mda-dish { width: 74px; height: 74px; display: block; }
+.mda-dish svg { width: 100%; height: 100%; display: block; }
+.mda-dish.sm { width: 40px; height: 40px; }
+.mda-steps { font-size: .95em; letter-spacing: 2px; }
+.mda-stars { color: #f0a800; font-size: 1.15em; letter-spacing: 2px; }
+.mda-rec small { color: #7a6a80; }
+.mda-cookhead { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mda-cookhead b { font-size: 1.15em; }
+.mda-dots { display: inline-flex; gap: 4px; margin-inline-start: auto; }
+.mda-dot { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--line); background: var(--card); opacity: .55; }
+.mda-dot.on { opacity: 1; border-color: #ff5a8a; background: #ffe0ee; transform: scale(1.12); }
+.mda-dot.ok { opacity: 1; border-color: #4fbf73; background: #e2f8e6; }
+.mda-cook { display: grid; grid-template-columns: minmax(150px, 28%) 1fr; gap: 12px; align-items: stretch; }
+@media (max-width: 620px) { .mda-cook { grid-template-columns: 1fr; } .mda-helper { min-height: 170px; } }
+.mda-helper { position: relative; border-radius: 18px; border: 3px solid var(--ink); background: linear-gradient(180deg, #ffe3ef, #fff4e8 70%, #ffd2a8 70%); min-height: 240px; overflow: visible; }
+.mda-helper .mda-actor { width: 70% !important; left: 50% !important; bottom: 34px !important; }
+.mda-fans { position: absolute; left: 4px; right: 4px; top: 6px; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px; }
+.mda-fan { width: 46px; display: block; animation: mdaIdle 2s ease-in-out infinite; }
+.mda-fan:nth-child(2n) { animation-delay: .5s; }
+.mda-fan svg { width: 100%; height: auto; display: block; }
+.mda-board { border-radius: 18px; border: 3px solid var(--ink); background: #fffaf2; color: #3a2b3c; padding: 8px; display: grid; gap: 8px; }
+.mda-board > div { display: grid; gap: 8px; }
+.mda-svgbox { width: min(100%, 60vh); aspect-ratio: 4 / 3; justify-self: center; touch-action: none; cursor: pointer; }
+.mda-svgbox > svg { width: 100%; height: 100%; display: block; }
+.mda-chop .mda-svgbox { cursor: crosshair; }
+.mda-bar { height: 16px; border-radius: 999px; border: 2px solid var(--ink); background: #fff; overflow: hidden; }
+.mda-bar > i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #ff9ad5, #ffd84d); transition: width .15s; }
+.mda-alt { justify-self: center; }
+.mda-meter { position: relative; height: 22px; border-radius: 999px; border: 2px solid var(--ink); background: linear-gradient(90deg, #fff0c8 0 35%, #ffe08a 35% 55%, #f0b050 55% 85%, #c97a2a 85% 95%, #8a5a3c 95%); direction: ltr; }
+.mda-meter .z1, .mda-meter .z2 { position: absolute; top: -4px; bottom: -4px; border-inline-start: 3px dashed #3a2b3c; }
+.mda-meter .z1 { left: 55%; } .mda-meter .z2 { left: 85%; }
+.mda-meter > i { position: absolute; top: -8px; bottom: -8px; width: 6px; margin-left: -3px; left: 0; background: #ff2f6a; border: 2px solid #3a2b3c; border-radius: 4px; }
+.mda-meter > i { inset-inline-start: 0; }
+.mda-flip { animation: mdaFlipA .7s ease-in-out; }
+@keyframes mdaFlipA { 0% { transform: translateY(0) scaleY(1); } 40% { transform: translateY(-110px) scaleY(-1); } 100% { transform: translateY(0) scaleY(1); } }
+.mda-wig { animation: mdaWig .3s ease-in-out 2; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes mdaWig { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(8deg); } }
+.mda-drop { animation: mdaPop .35s ease-out; transform-box: fill-box; transform-origin: center; }
+.mda-pal { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.mda-ingb { width: 58px; height: 58px; border-radius: 16px; border: 2px solid var(--line); background: #fff; padding: 4px; cursor: pointer; }
+.mda-ingb[aria-pressed="true"] { border-color: #ff5a8a; background: #ffe0ee; transform: scale(1.1); }
+.mda-ingb svg { width: 100%; height: 100%; display: block; }
+.mda-shelf { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.mda-ingb.big { width: auto; height: auto; display: grid; justify-items: center; gap: 2px; padding: 8px 4px; color: #3a2b3c; font: inherit; font-size: .9em; }
+.mda-ingb.big svg { width: 56px; height: 56px; }
+.mda-ingb.used { opacity: .3; transform: scale(.9); }
+.mda-basket { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-height: 52px; padding: 4px 10px; border: 2px dashed #e0b080; border-radius: 16px; background: #fff4e0; }
+.mda-inbasket { width: 44px; height: 44px; animation: mdaPop .3s ease-out; }
+.mda-inbasket svg { width: 100%; height: 100%; }
+.mda-hold { touch-action: none; user-select: none; -webkit-user-select: none; }
+.mda-serve .mda-table { position: absolute; left: 3%; right: 3%; bottom: 0; height: 30%; z-index: 3; background: linear-gradient(180deg, #ff9ad5 0 16%, #fff 16%); border: 3px solid #3a2b3c; border-radius: 16px 16px 0 0; background-image: linear-gradient(180deg, #ff9ad5 0 16%, transparent 16%), repeating-linear-gradient(90deg, #fff 0 22px, #ffe0ee 22px 44px); }
+.mda-plate { position: absolute; bottom: 6%; translate: -50% 0; z-index: 4; }
+.mda-plate svg { width: 100%; height: auto; display: block; }
+.mda-log { display: grid; gap: 4px; max-height: 150px; overflow: auto; font-size: .95em; }
+.mda-log > div { background: var(--card); border: 2px solid var(--line); border-radius: 12px; padding: 3px 10px; animation: mdaPop .3s ease-out; }
+/* escape */
+.mda-rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.mda-roomc { display: grid; gap: 4px; justify-items: center; padding: 8px; border: 2px solid var(--ink); border-radius: 18px; background: var(--card); color: var(--ink); font: inherit; cursor: pointer; transition: transform .15s; }
+.mda-roomc:hover { transform: translateY(-3px); }
+.mda-roomc b { font-size: 1.08em; }
+.mda-roomprev { width: 100%; aspect-ratio: 2 / 1; border-radius: 12px; overflow: hidden; border: 2px solid var(--line); display: block; }
+.mda-roomprev svg { width: 100%; height: 100%; display: block; }
+.mda-trophy { color: #b07a00; font-weight: 700; }
+.mda-timer-t { display: inline-flex; gap: 6px; align-items: center; justify-self: center; }
+.mda-shelf-t { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 16px; background: linear-gradient(180deg, #fff 70%, #c98f3a 70%); border: 2px solid var(--line); }
+.mda-cup { width: 52px; height: 52px; display: block; }
+.mda-cup svg, .mda-bigcup svg { width: 100%; height: 100%; display: block; }
+.mda-door { transition: transform 1.2s ease-in-out; transform-box: view-box; }
+.mda-door.open { transform: perspective(600px) rotateY(-75deg); }
+.mda-clock { position: absolute; top: 10px; inset-inline-start: 10px; z-index: 8; background: #3a2b3c; color: #fff; border-radius: 10px; padding: 2px 10px; font-variant-numeric: tabular-nums; }
+.mda-r-space .mda-banner { background: rgb(230 225 255 / .95); }
+.mda-puz { border-radius: 18px; border: 3px solid var(--ink); background: linear-gradient(180deg, #fffaf2, #fff0f8); color: #3a2b3c; padding: 12px; display: grid; gap: 10px; }
+.mda-puz > div { display: grid; gap: 10px; }
+.mda-find { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 8px; }
+.mda-obj { position: relative; aspect-ratio: 1 / 1.12; border: 2px solid var(--line); border-radius: 16px; background: #fff; padding: 0; cursor: pointer; overflow: hidden; font: inherit; color: #3a2b3c; }
+.mda-obj .under, .mda-obj .top { position: absolute; inset: 0 0 18% 0; }
+.mda-obj svg { width: 100%; height: 100%; display: block; }
+.mda-obj .top { transition: transform .5s cubic-bezier(.3, 1.6, .5, 1); }
+.mda-obj.up .top { transform: translate(-38%, -38%) rotate(-24deg) scale(.6); }
+.mda-obj small { position: absolute; bottom: 2px; left: 0; right: 0; text-align: center; }
+.mda-lockbox { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.mda-padlock { width: 60px; height: 60px; }
+.mda-padlock svg { width: 100%; height: 100%; }
+.mda-lock { display: flex; gap: 10px; }
+.mda-slot { width: 58px; height: 58px; border-radius: 50%; border: 3px solid #3a2b3c; background: #fff; font-size: 1.4em; color: #9a8aa0; cursor: pointer; box-shadow: inset 0 -5px 0 rgb(0 0 0 / .15); }
+.mda-pic svg { width: 100%; max-height: 40vh; display: block; }
+.mda-num { font-size: 1.5em; min-width: 64px; }
+.mda-holes, .mda-pieces { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.mda-holes { padding: 10px; border-radius: 16px; background: #c98f3a; border: 3px solid #3a2b3c; }
+.mda-r-library .mda-holes { background: #8e6bd6; } .mda-r-space .mda-holes { background: #5a5a8a; }
+.mda-hole, .mda-piece { width: 70px; height: 70px; border-radius: 14px; border: 2px solid #3a2b3c; background: #fff4e0; padding: 6px; cursor: pointer; }
+.mda-piece[aria-pressed="true"] { transform: scale(1.15) translateY(-4px); border-color: #ff5a8a; box-shadow: 0 4px 0 #ff9ad5; }
+.mda-hole svg, .mda-piece svg { width: 100%; height: 100%; display: block; }
+.mda-slidewrap { position: relative; width: min(330px, 86vw); justify-self: center; }
+.mda-slide { direction: ltr; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; background: #3a2b3c; border: 3px solid #3a2b3c; border-radius: 14px; overflow: hidden; }
+.mda-tile { aspect-ratio: 1; border: 0; padding: 0; cursor: pointer; background-size: 300% 300%; }
+.mda-tile.empty { background: #5a4a6a; }
+.mda-slide.won { gap: 0; }
+.mda-slidefull { position: absolute; inset: 0; background-size: cover; border-radius: 14px; border: 3px solid #3a2b3c; pointer-events: none; opacity: .92; }
+.mda-riddle { font-size: 1.25em; line-height: 1.5; }
+.mda-ans { display: grid; justify-items: center; gap: 2px; font-size: 1.1em; min-width: 96px; }
+.mda-ans .em { font-size: 2em; }
+.mda-patrow { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; direction: rtl; }
+.mda-pat { width: 50px; height: 50px; display: grid; place-items: center; }
+.mda-pat svg { width: 100%; height: 100%; display: block; }
+.mda-pat.q { border: 3px dashed #b58cff; border-radius: 12px; font-size: 1.8em; color: #8e6bd6; }
+.mda-patb { padding: 6px; }
+.mda-winbox { position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 10; display: grid; justify-items: center; gap: 2px; background: rgb(255 255 255 / .95); color: #3a2b3c; border: 3px solid #3a2b3c; border-radius: 22px; padding: 10px 22px; animation: mdaPop .5s ease-out; font-size: clamp(13px, 2vw, 18px); text-align: center; }
+.mda-bigcup { width: clamp(60px, 10vw, 96px); height: clamp(60px, 10vw, 96px); animation: mdaBopA .8s ease-in-out infinite alternate; }
+/* TV */
+.mda-tvset { position: relative; padding: clamp(8px, 1.6vw, 16px); padding-bottom: clamp(26px, 4vw, 38px); border-radius: 28px; background: linear-gradient(160deg, #8e6bd6, #5a3fa6); border: 3px solid #3a2b3c; box-shadow: 0 6px 0 #3a2b3c; }
+.mda-tvset::before, .mda-tvset::after { content: ''; position: absolute; top: -34px; width: 4px; height: 40px; background: #3a2b3c; border-radius: 2px; }
+.mda-tvset::before { left: 44%; rotate: -28deg; } .mda-tvset::after { left: 56%; rotate: 28deg; }
+.mda-knob { position: absolute; bottom: 7px; right: 24px; width: 16px; height: 16px; border-radius: 50%; background: #ffd84d; border: 2px solid #3a2b3c; }
+.mda-knob.k2 { right: 48px; background: #ff9ad5; }
+.mda-tvwrap { margin-top: 30px; }
+.mda-screen { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 3px solid #3a2b3c; background: #120f2e; }
+.mda-cam { position: absolute; inset: 0; transition: transform .9s ease-in-out, transform-origin .9s; transform-origin: var(--fx, 50%) 55%; }
+.mda-cam.cam-close { transform: scale(1.75); transform-origin: var(--fx, 50%) 42%; }
+.mda-cam.cam-side { transform: perspective(900px) rotateY(-14deg) scale(1.18) translateX(-4%); }
+.mda-tvbg, .mda-tvbg > svg, .mda-tvfront, .mda-tvfront > svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mda-tvfront { z-index: 3; pointer-events: none; }
+.mda-tvscr { position: absolute; z-index: 4; left: 63%; top: 12%; width: 32%; aspect-ratio: 4 / 3; border-radius: 12px; border: 3px solid #3a2b3c; background: linear-gradient(160deg, #fff, #e6f3ff); display: grid; place-items: center; align-content: center; box-shadow: 0 4px 0 rgb(0 0 0 / .25); opacity: 0; }
+.mda-tvscr.on { opacity: 1; animation: mdaPop .4s ease-out; }
+.mda-scr-weather { left: 54%; top: 10%; width: 40%; background: linear-gradient(160deg, #bfe6ff, #7ec8ff); }
+.mda-scr-talent { left: 40%; top: 4%; width: 20%; background: #fff6c4; }
+.mda-scr-ads { left: 50%; top: 8%; width: 42%; background: linear-gradient(160deg, #fff0fa, #ffd1e6); }
+.mda-scr-cook { left: 64%; top: 6%; width: 30%; }
+.mda-scr-em { font-size: clamp(28px, 7vw, 70px); line-height: 1; }
+.mda-scr-art { width: 70%; display: block; }
+.mda-scr-art svg { width: 100%; height: auto; display: block; }
+.mda-scr-cap { font-weight: 700; color: #3a2b3c; font-size: clamp(10px, 1.8vw, 17px); text-align: center; padding: 0 4px; }
+.mda-scr-ings { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 6px; }
+.mda-scr-ings svg { width: clamp(28px, 6vw, 58px); height: clamp(28px, 6vw, 58px); }
+.mda-scr-wx { display: grid; justify-items: center; color: #1e3a6a; line-height: 1.15; }
+.mda-scr-wx .d { font-weight: 700; font-size: clamp(11px, 2vw, 18px); }
+.mda-scr-wx .i { font-size: clamp(28px, 7vw, 64px); }
+.mda-scr-wx .t { font-weight: 700; font-size: clamp(13px, 2.6vw, 26px); direction: ltr; }
+.mda-scr-wx .n { font-size: clamp(10px, 1.7vw, 16px); }
+.mda-bug { position: absolute; top: 8px; inset-inline-end: 10px; z-index: 6; background: rgb(255 255 255 / .9); color: #5a3fa6; border-radius: 10px; padding: 1px 8px; font-weight: 700; font-size: clamp(10px, 1.6vw, 15px); }
+.mda-live { position: absolute; top: 8px; inset-inline-start: 10px; z-index: 6; background: #ff2f55; color: #fff; border-radius: 8px; padding: 1px 8px; font-weight: 700; font-size: clamp(10px, 1.6vw, 15px); animation: mdaGlow 1s ease-in-out infinite alternate; }
+.mda-live.off { background: #6a6a8a; animation: none; }
+.mda-live.rep { background: #4f9fe0; }
+.mda-live.rec { background: #ff2f55; }
+.mda-lower { position: absolute; top: 36px; inset-inline-start: 0; z-index: 6; background: linear-gradient(90deg, #ff5a8a, #ff9ad5); color: #fff; padding: 2px 16px; border-radius: 0 12px 12px 0; font-weight: 700; font-size: clamp(11px, 1.8vw, 17px); border: 2px solid #3a2b3c; border-inline-start: 0; }
+.mda-ticker { position: absolute; left: 0; right: 0; bottom: 0; height: 28px; z-index: 6; background: #ffd84d; border-top: 3px solid #3a2b3c; overflow: hidden; display: flex; align-items: center; color: #3a2b3c; font-weight: 700; font-size: clamp(11px, 1.7vw, 15px); }
+.mda-ticker > span { white-space: nowrap; padding-inline-start: 100%; animation: mdaTick 16s linear infinite; }
+@keyframes mdaTick { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+.mda-clapm { position: absolute; inset-inline-start: 8px; bottom: 36px; width: 14px; height: 40%; border-radius: 8px; border: 2px solid #fff; background: rgb(0 0 0 / .3); z-index: 6; display: flex; align-items: flex-end; overflow: hidden; }
+.mda-clapm > i { display: block; width: 100%; height: 0; background: linear-gradient(0deg, #ffd84d, #ff5a8a); transition: height .2s; }
+.mda-screen .mda-say { max-width: 40%; font-size: clamp(11px, 1.7vw, 16px); }
+.mda-cam.cam-close .mda-say { font-size: clamp(8px, 1vw, 10px); }
+.mda-spot { z-index: 5 !important; filter: drop-shadow(0 0 14px #fff6a8); }
+.mda-magic > svg { animation: mdaSpin 1.1s ease-in-out infinite; }
+.mda-juggle > svg, .mda-sing > svg { animation: mdaDance .5s ease-in-out infinite alternate; }
+.mda-flipper > svg { animation: mdaFlipper 1s ease-in-out infinite; }
+@keyframes mdaFlipper { 0%, 100% { transform: rotate(0) translateY(0); } 50% { transform: rotate(360deg) translateY(-30%); } }
+.mda-tvctl { display: grid; gap: 6px; padding: 8px 10px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); }
+.mda-tvctl b { min-width: 4.5em; }
+.mda-tvctl .chip:disabled { opacity: .45; }
+.mda-recb { background: #fff0f3; border-color: #ff2f55; color: #c0123a; }
+.mda-eps { display: grid; gap: 6px; }
+.mda-ep { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); }
+.mda-ep-ic { font-size: 1.6em; }
+.mda-ep-t { display: grid; flex: 1; min-width: 0; }
+.mda-housebar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 16px; background: linear-gradient(90deg, #fff6e0, #f3ecff); border: 2px dashed #c9a6ff; }
+.mda-housebar .lbl { font-weight: 700; }
+@media (prefers-reduced-motion: reduce) { .mda-idle, .mda-dance, .mda-bob, .mda-flag, .mda-tw, .mda-glowb, .mda-ticker > span, .mda-bigcup, .mda-fan { animation: none !important; } }
+.mda-cap { position: absolute; left: 50%; bottom: 36px; translate: -50% 0; z-index: 7; width: max-content; max-width: 82%; background: rgb(255 255 255 / .95); color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 14px; padding: 3px 14px; font-size: clamp(12px, 2vw, 19px); line-height: 1.35; text-align: center; box-shadow: 0 3px 0 rgb(0 0 0 / .2); }
+.mda-cap b { color: #d6336c; margin-inline-end: 6px; }
+.mda-talk > svg { animation: mdaTalk .32s ease-in-out infinite alternate; transform-origin: 50% 100%; }
+@keyframes mdaTalk { from { transform: scale(1, 1); } to { transform: scale(1.03, .97) rotate(-2deg); } }
+@media (max-width: 620px) {
+  .mda-helper { min-height: 150px; }
+  .mda-helper .mda-actor { width: 34% !important; bottom: 26px !important; }
+  .mda-find { grid-template-columns: repeat(3, 1fr); }
+  .mda-cap { font-size: 10px; padding: 1px 8px; bottom: 30px; max-width: 92%; border-radius: 10px; }
+  .mda-lower { display: none; }
+  .mda-ticker { height: 22px; font-size: 10px; }
+  .mda-shelf { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .mda-ingb.big svg { width: 40px; height: 40px; }
+  .mda-dots { margin-inline-start: 0; }
+}
+@media (max-width: 620px) { .mda-cap { top: 24px; bottom: auto; } }
+.mda-shine { animation: mdaShine 1.3s ease-in-out infinite alternate; }
+@keyframes mdaShine { from { filter: drop-shadow(0 0 1px #fff6a8); } to { filter: drop-shadow(0 0 7px #fff27a); } }
 </style>
 </head>
 <body class="bg-dots">
@@ -7069,6 +7314,18 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="art7Body"></div>
+  </div>
+</dialog>
+
+<!-- Pets' kitchen, escape room & TV channel (media) -->
+<dialog id="mdaDlg" aria-labelledby="mdaTitle" style="width:min(1000px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="mdaTitle">🍳 המטבח של החיות</h3><div class="sub" id="mdaSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="mdaBody"></div>
   </div>
 </dialog>
 
@@ -10202,8 +10459,8 @@ dialog.lb-dlg { width: min(680px, calc(100vw - 24px)); }
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.09.27-pets-and-magic';
-  const WHATS_NEW = ['🌱 החיות גדלות, מקבלות גורים, חולמות וכותבות לך מכתבים', '🎉 תערוכה, חתונה, טיולים, קמפינג, גינה, מספרה וחיות קסם', '🗺️ מפת הסרטים, 🏰 עולמות הקסם ו-😇😈 בית הספר לטוב ולרע'];
+  const APP_VERSION = '2026.09.27-pets-world';
+  const WHATS_NEW = ['🩺 מרפאת החיות: את בוחרת איך לרפא', '🚀 חלל, 🏊 פארק מים, 🎪 קרקס, 🎭 תיאטרון ו-🍳 מטבח עם החיות', '🏘️ שכונה, 💼 עבודות, 🏡 מקלט, 🧩 חדר בריחה ו-📺 ערוץ החיות'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -38578,6 +38835,889 @@ ${label(900, 520, '🌊 ים האיים')}
     let bar = $('#art7HouseBar');
     if (!bar) { bar = el('div', { id: 'art7HouseBar', class: 'art7-housebar' }); tabs.before(bar); }
     bar.replaceChildren(el('span', { class: 'lbl' }, '🎨 אמנות ביחד:'), ...ART7_SECS.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); art7Open(id); } }, `${em} ${n}`)));
+  };
+  // ================= 🍳 pets' kitchen · 🧩 pets' escape room · 📺 pets' TV channel (media agent, round 7c) =================
+  // all her pets together. store 'mdaPets' = { jobs{pid:job}, book{rid:{stars,n}}, trophies{room:{stars,best,n}}, eps[], timer, bg, day, cnt }
+  let mdaD = Object.assign({ jobs: {}, book: {}, trophies: {}, eps: [], timer: false, day: '', cnt: {} }, store.get('mdaPets', {}) || {});
+  const mdaSave = () => store.set('mdaPets', mdaD);
+  let mdaSec = 'kitchen', mdaV = {}, mdaTok = 0, mdaTimers = [], mdaRaf = 0, mdaUid = 0;
+  const mdaPets = () => (typeof allPets === 'function' ? allPets() : pet ? [pet] : []).filter(p => p && p.onboarded !== false);
+  const mdaNm = p => (p && p.name) || 'החיה';
+  const mdaPick = a => a[Math.floor(Math.random() * a.length)];
+  const mdaShuf = a => a.map(x => [Math.random(), x]).sort((x, y) => x[0] - y[0]).map(x => x[1]);
+  const mdaLater = (fn, ms) => { const t = mdaTok; mdaTimers.push(setTimeout(() => { if (t === mdaTok) fn(); }, ms)); };
+  function mdaStop() { mdaTok++; mdaTimers.forEach(clearTimeout); mdaTimers = []; cancelAnimationFrame(mdaRaf); }
+  function mdaCoin(key, n, why, max = 3) {
+    const t = localToday(); if (mdaD.day !== t) { mdaD.day = t; mdaD.cnt = {}; }
+    if ((mdaD.cnt[key] || 0) >= max) return; mdaD.cnt[key] = (mdaD.cnt[key] || 0) + 1; mdaSave();
+    try { if (typeof addCoins === 'function') addCoins(n, why); } catch {}
+  }
+  const mdaTune = (notes, step = .16, type = 'triangle', vol = .07, at = 0) => notes.forEach((f, i) => { if (f) tone(f, step * .95, type, at + i * step, vol); });
+  const MDA_SND = {
+    chop: () => { tone(1800, .03, 'square', 0, .03); tone(240, .06, 'triangle', .02, .08); },
+    sizzle: () => { for (let i = 0; i < 10; i++) tone(2500 + Math.random() * 2500, .04, 'sawtooth', i * .04, .012); },
+    bubble: () => tone(300 + Math.random() * 300, .08, 'sine', 0, .06),
+    crack: () => { tone(900, .03, 'square', 0, .04); tone(500, .05, 'square', .04, .04); },
+    plop: () => { tone(420, .06, 'sine', 0, .1); tone(260, .1, 'sine', .05, .08); },
+    whoosh: () => [0, 1, 2, 3, 4].forEach(i => tone(300 + i * 140, .07, 'sine', i * .03, .03)),
+    bell: () => { tone(1568, .5, 'sine', 0, .08); tone(2093, .6, 'sine', .12, .06); },
+    wrong: () => { tone(220, .12, 'square', 0, .04); tone(180, .16, 'square', .1, .04); },
+    right: () => mdaTune([784, 1047], .1, 'triangle', .07),
+    click: () => tone(1200, .03, 'square', 0, .03),
+    creak: () => [0, 1, 2, 3, 4, 5].forEach(i => tone(160 + i * 25 + Math.random() * 20, .1, 'sawtooth', i * .07, .015)),
+    fanfare: () => mdaTune([523, 659, 784, 1047, 0, 784, 1047], .12, 'square', .04),
+    jingle: () => mdaTune([659, 784, 988, 784, 880, 1175, 0, 988], .12, 'triangle', .07),
+    news: () => { mdaTune([392, 392, 523, 523, 659, 0, 587, 523], .13, 'square', .035); tone(98, .8, 'sine', 0, .12); },
+    applause: () => { for (let i = 0; i < 26; i++) tone(1400 + Math.random() * 2400, .03, 'square', i * .035 + Math.random() * .03, .012); },
+    ta: () => mdaTune([523, 0, 784, 1047], .1, 'triangle', .08),
+    beep: () => tone(880, .12, 'square', 0, .03),
+  };
+  // pet art with clothes/wear just for the scene (not saved)
+  const mdaArt = (p, o = {}) => {
+    const q = Object.assign({}, p);
+    if (o.fit) q.clothes = Object.assign({}, p.clothes || {}, o.fit);
+    if (o.wear) q.wear = Object.assign({}, p.wear || {}, o.wear);
+    try { return petSVG(q, { mood: o.mood, extra: o.extra || '' }); } catch { return petSVG(p); }
+  };
+  function mdaActor(p, x, y, w, o = {}) {
+    const a = el(o.onclick ? 'button' : 'div', { class: 'mda-actor ' + (o.cls || ''), html: mdaArt(p, o) });
+    if (o.onclick) { a.type = 'button'; a.setAttribute('aria-label', o.aria || mdaNm(p)); a.addEventListener('click', o.onclick); }
+    a.style.cssText = `left:${x}%;bottom:${y}%;width:${w}%;` + (o.z ? `z-index:${o.z};` : '');
+    if (o.label) a.append(el('span', { class: 'mda-nm' }, o.label === true ? mdaNm(p) : o.label));
+    if (p.id) a.dataset.pid = p.id;
+    return a;
+  }
+  const mdaBop = (n, cls = 'mda-hop') => { if (!n) return; n.classList.remove(cls); void n.offsetWidth; n.classList.add(cls); };
+  const mdaSay = (n, text, ms = 2200) => { if (!n) return; n.querySelectorAll(':scope > .mda-say').forEach(b => b.remove()); const b = el('span', { class: 'mda-say' }, text); n.append(b); setTimeout(() => b.remove(), ms); };
+  const mdaStage = (bg, cls = '') => el('div', { class: 'mda-stage ' + cls }, el('div', { class: 'mda-bg', html: bg }), el('div', { class: 'mda-layer' }));
+  const mdaSVG = (vb, body, cls = '') => `<svg viewBox="${vb}" class="${cls}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">${body}</svg>`;
+  const mdaXs = n => Array.from({ length: n }, (_, i) => n === 1 ? 50 : 12 + i * 76 / (n - 1));
+  const mdaStarsTxt = n => '★'.repeat(n) + '☆'.repeat(Math.max(0, 3 - n));
+  const mdaHearts = (n, x = 50, y = 40) => { for (let i = 0; i < 5; i++) { const h = el('span', { class: 'mda-heart' }, mdaPick(['💖', '💕', '✨', '⭐'])); h.style.cssText = `left:${x - 8 + Math.random() * 16}%;bottom:${y}%;animation-delay:${i * .12}s`; n.append(h); setTimeout(() => h.remove(), 1800); } };
+  const mdaConfetti = () => { try { confetti($('#mdaDlg canvas.confetti-c')); } catch {} };
+
+  // ---------- new clothes (drawn through the pz6Cloth hook; also in the wardrobe) ----------
+  // items that already exist (e.g. an older 'chefhat') keep their own look; only the missing ones are added
+  const mdaHad = new Set(typeof CRZ_CLOTHES !== 'undefined' ? CRZ_CLOTHES.map(c => c[0]) : []);
+  if (typeof CRZ_CLOTHES !== 'undefined') [['chefhat', 'כובע שף', 'head', 0, ['#ffffff', '#ff9ad5']], ['apron', 'סינר מטבח', 'body', 0, ['#ff9ad5', '#ffffff']],
+    ['piratehat', 'כובע פיראטים', 'head', 10, ['#3a3a4a', '#ffd84d']], ['spacehelmet', 'קסדת חלל', 'head', 15, ['#cfe8ff', '#ff5a8a']], ['wizhat', 'כובע קוסם/ת', 'head', 10, ['#8e6bd6', '#ffd84d']]].forEach(c => { if (!mdaHad.has(c[0])) CRZ_CLOTHES.push(c); });
+  if (typeof pz6Cloth === 'function') {
+    const mdaCloth0 = pz6Cloth;
+    pz6Cloth = function (id, c, c2, k) {
+      if (mdaHad.has(id) && id !== 'chefhat') return mdaCloth0(id, c, c2, k); // our puffier chef hat replaces the small one
+      const { B, H, nk, hx, hy, st, top, hem } = k, r = { back: '', main: '', top: '' };
+      switch (id) {
+        case 'chefhat':
+          r.main = `<path d="M${hx - 8} ${hy + 4} L${hx - 8.5} ${hy - 3} C${hx - 15} ${hy - 4} ${hx - 13} ${hy - 13} ${hx - 6} ${hy - 11} C${hx - 5} ${hy - 17} ${hx + 5} ${hy - 17} ${hx + 6} ${hy - 11} C${hx + 13} ${hy - 13} ${hx + 15} ${hy - 4} ${hx + 8.5} ${hy - 3} L${hx + 8} ${hy + 4} Z" fill="${c}" ${st}/>`
+            + `<path d="M${hx - 3} ${hy - 4} Q${hx - 2} ${hy - 9} ${hx - 4} ${hy - 11} M${hx + 3} ${hy - 4} Q${hx + 2} ${hy - 9} ${hx + 4} ${hy - 11}" fill="none" stroke="#d9d2e0" stroke-width=".9"/>`
+            + `<rect x="${hx - 8.6}" y="${hy + 1}" width="17.2" height="3.6" rx="1" fill="${c2}" ${st}/>`;
+          break;
+        case 'apron': {
+          const y2 = pzF(Math.min(hem + 3, B[1] + B[3] + 1));
+          r.main = `<path d="M${pzF(B[0] - 4.5)} ${pzF(top + 1)} H${pzF(B[0] + 4.5)} V${pzF(B[1] - 1)} Q${pzF(B[0] + 7.5)} ${pzF(B[1])} ${pzF(B[0] + 7)} ${y2} Q${B[0]} ${pzF(y2 + 1.6)} ${pzF(B[0] - 7)} ${y2} Q${pzF(B[0] - 7.5)} ${pzF(B[1])} ${pzF(B[0] - 4.5)} ${pzF(B[1] - 1)} Z" fill="${c}" ${st}/>`
+            + `<path d="M${pzF(B[0] - 4.5)} ${pzF(top + 1)} L${pzF(nk[0] - 3)} ${pzF(nk[1] - 1)} M${pzF(B[0] + 4.5)} ${pzF(top + 1)} L${pzF(nk[0] + 3)} ${pzF(nk[1] - 1)}" stroke="${c}" stroke-width="1.4"/>`
+            + `<rect x="${pzF(B[0] - 3)}" y="${pzF(B[1] + 1)}" width="6" height="3.6" rx="1.2" fill="${c2}" ${st}/><path d="${pzHeart(B[0], pzF(top + 3.4), 1.1)}" fill="${c2}"/>`;
+          break;
+        }
+        case 'piratehat':
+          r.main = `<path d="M${hx - 14} ${hy + 3} Q${hx} ${hy - 16} ${hx + 14} ${hy + 3} Q${hx} ${hy - 2} ${hx - 14} ${hy + 3} Z" fill="${c}" ${st}/>`
+            + `<path d="M${hx - 12} ${hy + 1.4} Q${hx} ${hy - 3.4} ${hx + 12} ${hy + 1.4}" fill="none" stroke="${c2}" stroke-width="1.3"/>`
+            + `<polygon points="${starPts(hx, hy - 4.4, 2.8, 1.2)}" fill="${c2}" ${st}/>`;
+          break;
+        case 'spacehelmet': {
+          const E = H || [24, hy + 13, 15, 13];
+          r.main = `<ellipse cx="${E[0]}" cy="${pzF(E[1] + .5)}" rx="${pzF(E[2] + 4)}" ry="${pzF(E[3] + 4)}" fill="${c}" fill-opacity=".28" ${st}/>`
+            + `<path d="M${pzF(E[0] - E[2] - 1)} ${pzF(E[1] - 3)} Q${pzF(E[0] - E[2] + 1)} ${pzF(E[1] - E[3] - 1)} ${pzF(E[0] - 3)} ${pzF(E[1] - E[3] - 2)}" fill="none" stroke="#fff" stroke-width="1.6" opacity=".9"/>`
+            + `<path d="M${E[0]} ${pzF(E[1] - E[3] - 4)} V${pzF(E[1] - E[3] - 9)}" ${st}/><circle cx="${E[0]}" cy="${pzF(E[1] - E[3] - 10)}" r="1.8" fill="${c2}" ${st}/>`;
+          break;
+        }
+        case 'wizhat':
+          r.main = `<ellipse cx="${hx}" cy="${hy + 3}" rx="12" ry="2.8" fill="${c}" ${st}/><path d="M${hx - 7} ${hy + 3} L${hx + 1} ${hy - 15} Q${hx + 4} ${hy - 13} ${hx + 7} ${hy + 3} Z" fill="${c}" ${st}/>`
+            + [[-2, -3], [2, -8], [3, 0]].map(([x, y]) => `<polygon points="${starPts(hx + x, hy + y, 1.6, .7)}" fill="${c2}"/>`).join('');
+          break;
+        default: return mdaCloth0(id, c, c2, k);
+      }
+      return r;
+    };
+  }
+  const MDA_CHEF = { head: { id: 'chefhat' }, body: { id: 'apron' } };
+
+  // ---------- dialog & navigation ----------
+  const MDA_SECS = [['kitchen', '🍳', 'המטבח של החיות', 'מבשלים ביחד ארוחות טעימות — כל חיה עם תפקיד!'], ['escape', '🧩', 'חדר הבריחה של החיות', 'פותרים חידות ביחד ובורחים מהחדר!'], ['tv', '📺', 'ערוץ החיות', 'אולפן טלוויזיה — החיות מגישות, ואת הבמאית!']];
+  function mdaOpen(sec = 'kitchen') { mdaSec = sec; mdaV = {}; mdaDraw(); const d = $('#mdaDlg'); if (d && !d.open) d.showModal(); }
+  function mdaGo(sec, v = {}) { mdaSec = sec; mdaV = v; SFX.pop(); mdaDraw(); }
+  function mdaDraw() {
+    mdaStop();
+    const s = MDA_SECS.find(x => x[0] === mdaSec) || MDA_SECS[0];
+    $('#mdaTitle').textContent = `${s[1]} ${s[2]}`; $('#mdaSub').textContent = s[3];
+    const nav = el('div', { class: 'mda-nav' }, ...MDA_SECS.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(mdaSec === id), onclick: () => mdaGo(id) }, `${em} ${n}`)),
+      typeof coinChip === 'function' ? coinChip() : null);
+    const all = mdaPets();
+    const body = !all.length ? el('p', { class: 'mda-empty' }, 'קודם מאמצים חיה! 🐾 ואז כל הכיף מתחיל.') : ({ kitchen: mdaKitchen, escape: mdaEscape, tv: mdaTV }[mdaSec] || mdaKitchen)();
+    $('#mdaDlg').dataset.sec = mdaSec;
+    $('#mdaBody').replaceChildren(nav, body);
+  }
+
+  // ---------- 🍳 the kitchen ----------
+  // ingredients: [name, svg centered on 0,0 (about 36 wide)]
+  const MDA_ING = {
+    tomato: ['עגבנייה', `<circle r="15" fill="#ff5a4e" ${S}/><path d="M-6 -12 L0 -8 L6 -12 L3 -15 L0 -12 L-3 -15 Z" fill="#4fbf73" ${S2}/><ellipse cx="-6" cy="-3" rx="4" ry="2.4" fill="#fff" opacity=".45"/>`],
+    basil: ['בזיליקום', `<path d="M-2 14 Q-16 2 -8 -12 Q4 -6 -2 14 Z" fill="#4fbf73" ${S}/><path d="M2 14 Q16 0 10 -14 Q-2 -6 2 14 Z" fill="#6fcf7f" ${S}/>`],
+    cheese: ['גבינה', `<path d="M-16 10 L16 10 L16 -4 L-16 -12 Z" fill="#ffd84d" ${S}/><circle cx="-6" cy="2" r="2.6" fill="#f0b82a"/><circle cx="7" cy="4" r="2" fill="#f0b82a"/><circle cx="4" cy="-3" r="1.6" fill="#f0b82a"/>`],
+    carrot: ['גזר', `<path d="M-4 -10 L10 -8 L-10 16 Z" fill="#ff9a3c" ${S}/><path d="M2 -9 Q2 -16 -3 -18 M5 -9 Q8 -16 12 -16" fill="none" stroke="#4fbf73" stroke-width="3" stroke-linecap="round"/><path d="M-1 -2 h4 M-4 4 h3" stroke="${O}" stroke-width="1.2"/>`],
+    potato: ['תפוח אדמה', `<path d="M-15 2 Q-14 -12 0 -11 Q15 -11 15 1 Q14 12 0 11 Q-15 12 -15 2 Z" fill="#d9a86c" ${S}/><circle cx="-5" cy="-3" r="1.2" fill="#8a5a3c"/><circle cx="6" cy="2" r="1.2" fill="#8a5a3c"/><circle cx="0" cy="6" r="1" fill="#8a5a3c"/>`],
+    zucchini: ['קישוא', `<rect x="-17" y="-7" width="34" height="14" rx="7" fill="#3fae5a" ${S}/><path d="M-12 -2 H10" stroke="#8fe39a" stroke-width="2" stroke-linecap="round"/><rect x="15" y="-3" width="4" height="6" rx="1" fill="#8a7a3a" ${S2}/>`],
+    cucumber: ['מלפפון', `<rect x="-17" y="-7" width="34" height="14" rx="7" fill="#6fcf7f" ${S}/><circle cx="-8" cy="-2" r="1" fill="#2f8f4a"/><circle cx="0" cy="2" r="1" fill="#2f8f4a"/><circle cx="8" cy="-2" r="1" fill="#2f8f4a"/>`],
+    pepper: ['פלפל', `<path d="M-12 -6 Q-15 14 -4 15 Q0 12 4 15 Q15 14 12 -6 Q0 -10 -12 -6 Z" fill="#ff5a4e" ${S}/><path d="M0 -9 Q0 -15 5 -16" fill="none" stroke="#3fae5a" stroke-width="3" stroke-linecap="round"/><path d="M-6 -2 Q-8 6 -5 11" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/>`],
+    lettuce: ['חסה', `<path d="M-15 4 Q-18 -6 -9 -9 Q-6 -16 1 -13 Q9 -17 12 -9 Q19 -5 15 4 Q10 13 0 12 Q-10 13 -15 4 Z" fill="#8fe06b" ${S}/><path d="M0 11 V-8 M0 2 L-7 -4 M0 -2 L7 -6" fill="none" stroke="#4fae3a" stroke-width="1.4"/>`],
+    onion: ['בצל', `<path d="M0 -15 Q14 -2 10 8 Q6 14 0 14 Q-6 14 -10 8 Q-14 -2 0 -15 Z" fill="#d8a6e0" ${S}/><path d="M0 -12 Q-6 0 -3 12 M0 -12 Q6 0 3 12" fill="none" stroke="#a56ab8" stroke-width="1.2"/>`],
+    egg: ['ביצה', `<ellipse cy="1" rx="11" ry="14" fill="#fff8ee" ${S}/><ellipse cx="-4" cy="-4" rx="3" ry="4" fill="#fff" opacity=".9"/>`],
+    banana: ['בננה', `<path d="M-16 -8 Q-14 14 14 8 Q16 6 14 4 Q-6 8 -10 -10 Z" fill="#ffe14d" ${S}/><path d="M-16 -8 l-2 -3" ${S2}/>`],
+    strawberry: ['תות', `<path d="M-12 -6 Q-12 10 0 15 Q12 10 12 -6 Q0 -10 -12 -6 Z" fill="#ff4d6d" ${S}/><path d="M-8 -8 L0 -4 L8 -8 L4 -12 L0 -8 L-4 -12 Z" fill="#4fbf73" ${S2}/>${[[-5, 0], [4, 1], [0, 6], [-3, 9], [6, 7]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx=".9" ry="1.3" fill="#ffe27a"/>`).join('')}`],
+    blueberry: ['אוכמניות', [[-7, 3], [6, 4], [0, -6], [-1, 9]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="#5b6fd8" ${S2}/><path d="M${x - 2} ${y - 3} l2 1.5 l2 -1.5" fill="none" stroke="#2a3a8a" stroke-width="1"/>`).join('')],
+    apple: ['תפוח', `<path d="M0 -8 Q-16 -14 -14 4 Q-11 16 0 13 Q11 16 14 4 Q16 -14 0 -8 Z" fill="#ff6b6b" ${S}/><path d="M0 -8 Q1 -14 4 -16" fill="none" stroke="#8a5a3c" stroke-width="2.4" stroke-linecap="round"/><path d="M3 -12 Q10 -16 12 -10 Q6 -8 3 -12 Z" fill="#6fcf7f" ${S2}/>`],
+    grape: ['ענבים', [[-6, -6], [6, -6], [0, -6], [-3, 2], [4, 2], [0, 10]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="5.5" fill="#a36bd6" ${S2}/>`).join('') + `<path d="M0 -12 V-17" stroke="#3fae5a" stroke-width="2.4"/>`],
+    pineapple: ['אננס', `<ellipse cy="4" rx="11" ry="12" fill="#ffc93c" ${S}/><path d="M-8 -2 L4 10 M-4 -6 L8 6 M8 -2 L-4 10 M4 -6 L-8 6" stroke="#d99a1a" stroke-width="1.2"/><path d="M-6 -8 L-9 -18 L-2 -10 L0 -20 L2 -10 L9 -18 L6 -8 Z" fill="#4fbf73" ${S2}/>`],
+    kiwi: ['קיווי', `<circle r="14" fill="#9b6b43" ${S}/><circle r="11" fill="#9be37a"/><circle r="4" fill="#f6ffd8"/>${Array.from({ length: 8 }, (_, i) => `<circle cx="${pzF(Math.cos(i * .785) * 7)}" cy="${pzF(Math.sin(i * .785) * 7)}" r="1" fill="${O}"/>`).join('')}`],
+    rice: ['אורז', `<path d="M-15 0 H15 Q14 14 0 14 Q-14 14 -15 0 Z" fill="#8ec5ff" ${S}/><path d="M-14 0 Q-12 -10 0 -10 Q12 -10 14 0 Z" fill="#fff" ${S2}/>${[[-6, -4], [0, -6], [6, -3], [-2, -2]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.6" ry=".8" fill="#e6e0d0"/>`).join('')}`],
+    salmon: ['סלמון', `<rect x="-15" y="-9" width="30" height="18" rx="4" fill="#ff9e7a" ${S}/><path d="M-10 -9 Q-6 0 -10 9 M-2 -9 Q2 0 -2 9 M6 -9 Q10 0 6 9" fill="none" stroke="#fff" stroke-width="1.6" opacity=".8"/>`],
+    avocado: ['אבוקדו', `<path d="M0 -15 Q9 -14 11 2 Q12 15 0 15 Q-12 15 -11 2 Q-9 -14 0 -15 Z" fill="#3f8f3a" ${S}/><path d="M0 -11 Q7 -10 8 2 Q8 12 0 12 Q-8 12 -8 2 Q-7 -10 0 -11 Z" fill="#c8ec8a"/><circle cy="4" r="4.6" fill="#9b6b43" ${S2}/>`],
+    seaweed: ['אצה', `<rect x="-14" y="-12" width="28" height="24" rx="2" fill="#2f5a3a" ${S}/><path d="M-10 -6 H10 M-10 0 H10 M-10 6 H10" stroke="#4f8a5a" stroke-width="1"/>`],
+    bun: ['לחמנייה', `<path d="M-17 4 Q-17 -13 0 -13 Q17 -13 17 4 Z" fill="#f0b86a" ${S}/>${[[-7, -6], [0, -9], [7, -5], [-2, -3]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.4" ry=".8" fill="#fff6d8"/>`).join('')}<rect x="-17" y="4" width="34" height="5" rx="2" fill="#e8a458" ${S2}/>`],
+    patty: ['קציצה', `<rect x="-17" y="-6" width="34" height="12" rx="6" fill="#8a5a3c" ${S}/><path d="M-11 -1 h3 M-2 1 h4 M7 -2 h3" stroke="#5a3a24" stroke-width="1.4" stroke-linecap="round"/>`],
+    mushroom: ['פטרייה', `<path d="M-15 0 Q-15 -14 0 -14 Q15 -14 15 0 Z" fill="#e8c8a8" ${S}/><path d="M-5 0 V11 Q0 14 5 11 V0 Z" fill="#fff6ea" ${S}/>`],
+    olive: ['זיתים', [[-6, 0], [6, -2], [0, 7]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="6" ry="4.6" fill="#3a3a4a" ${S2}/><ellipse cx="${x}" cy="${y}" rx="2" ry="1.4" fill="#8a5a8a"/>`).join('')],
+    milk: ['חלב', `<path d="M-9 -8 L-4 -15 H4 L9 -8 V15 H-9 Z" fill="#fff" ${S}/><path d="M-9 -2 H9 V8 H-9 Z" fill="#7ec8ff"/><path d="M-4 3 q4 -4 8 0" fill="none" stroke="#fff" stroke-width="1.6"/>`],
+    flour: ['קמח', `<path d="M-12 -10 Q0 -16 12 -10 L14 14 H-14 Z" fill="#f6ecd8" ${S}/><path d="M-4 -2 L0 6 L4 -2" fill="none" stroke="#e0a830" stroke-width="2"/>`],
+    pasta: ['פסטה', `<path d="M-15 -4 Q-10 -12 -5 -4 T5 -4 T15 -4 M-15 4 Q-10 -4 -5 4 T5 4 T15 4 M-15 12 Q-10 4 -5 12 T5 12 T15 12" fill="none" stroke="#e0a830" stroke-width="3.4" stroke-linecap="round"/>`],
+    sauce: ['רוטב', `<path d="M-10 -8 H10 V13 Q10 15 8 15 H-8 Q-10 15 -10 13 Z" fill="#ff5a4e" ${S}/><rect x="-8" y="-14" width="16" height="6" rx="1" fill="#ffd84d" ${S2}/><circle cy="4" r="4" fill="#fff" opacity=".8"/>`],
+    sheet: ['דף לזניה', `<path d="M-16 -8 Q-12 -11 -8 -8 T0 -8 T8 -8 T16 -8 V8 Q12 5 8 8 T0 8 T-8 8 T-16 8 Z" fill="#ffe08a" ${S}/>`],
+    yogurt: ['יוגורט', `<path d="M-10 -8 H10 L8 14 H-8 Z" fill="#fff" ${S}/><path d="M-11 -12 H11 V-8 H-11 Z" fill="#ff9ad5" ${S2}/><path d="${pzHeart(0, 3, 3)}" fill="#ff9ad5"/>`],
+    sock: ['גרב 🙃', `<path d="M-6 -15 H6 V4 L14 8 Q16 14 10 15 L-4 12 Q-8 10 -6 4 Z" fill="#b58cff" ${S}/><path d="M-6 -11 H6 M-6 -7 H6" stroke="#fff" stroke-width="2"/>`],
+    duck: ['ברווזון גומי 🙃', `<ellipse cx="-2" cy="6" rx="14" ry="9" fill="#ffd84d" ${S}/><circle cx="6" cy="-6" r="7" fill="#ffd84d" ${S}/><path d="M12 -6 L18 -4 L12 -2 Z" fill="#ff9a3c" ${S2}/><circle cx="7" cy="-8" r="1.3" fill="${O}"/>`],
+    crayon: ['צבע פנדה 🙃', `<rect x="-14" y="-4" width="24" height="8" fill="#7ec8ff" ${S}/><path d="M10 -4 L17 0 L10 4 Z" fill="#7ec8ff" ${S2}/><path d="M-8 -4 V4 M2 -4 V4" stroke="${O}" stroke-width="1"/>`],
+  };
+  const mdaIng = (id, x, y, s = 1, extra = '') => `<g transform="translate(${pzF(x)} ${pzF(y)}) scale(${s})" ${extra}>${(MDA_ING[id] || MDA_ING.tomato)[1]}</g>`;
+  // cut an ingredient into k+1 strips that slide apart
+  const mdaCut = (id, x, y, s, k) => {
+    if (!k) return mdaIng(id, x, y, s);
+    const u = 'mdc' + (++mdaUid), n = k + 1, w = 44 / n;
+    return `<g transform="translate(${pzF(x)} ${pzF(y)}) scale(${s})"><defs>${Array.from({ length: n }, (_, i) => `<clipPath id="${u}${i}"><rect x="${pzF(-22 + i * w)}" y="-24" width="${pzF(w)}" height="48"/></clipPath>`).join('')}</defs>`
+      + Array.from({ length: n }, (_, i) => `<g transform="translate(${pzF((i - k / 2) * 4)} ${i % 2 ? 1 : 0})"><g clip-path="url(#${u}${i})">${(MDA_ING[id] || MDA_ING.tomato)[1]}</g></g>`).join('') + '</g>';
+  };
+  const mdaPlate = (food, rim = '#fff') => `<ellipse cx="24" cy="33" rx="22" ry="9" fill="${rim}" ${S2}/><ellipse cx="24" cy="32" rx="15" ry="5.6" fill="#eef6ff"/>` + food;
+  // dishes (48×48)
+  const MDA_DISH = {
+    pasta: mdaPlate(`<path d="M10 30 Q12 18 24 18 Q36 18 38 30 Z" fill="#ffe08a" ${S2}/><path d="M13 27 q4 -6 8 0 t8 0 t8 0 M14 23 q4 -5 8 0 t8 0" fill="none" stroke="#e0a830" stroke-width="1.4"/><path d="M15 22 Q24 12 33 22 Q24 26 15 22 Z" fill="#ff5a4e" ${S2}/><circle cx="20" cy="20" r="2.4" fill="#b8472e"/><circle cx="28" cy="19" r="2.4" fill="#b8472e"/><path d="M24 15 q2 -3 5 -2 q-2 3 -5 2 Z" fill="#4fbf73"/>`),
+    pizza: `<circle cx="24" cy="26" r="20" fill="#f0b86a" ${S}/><circle cx="24" cy="26" r="16" fill="#ff7a4e"/><path d="M11 22 Q16 14 24 12 Q34 14 38 24 Q36 34 26 38 Q14 38 11 22 Z" fill="#ffe08a"/>${[[18, 20], [30, 22], [22, 32], [32, 32], [16, 29]].map(([x, y], i) => i % 2 ? `<circle cx="${x}" cy="${y}" r="2.6" fill="#3a3a4a"/><circle cx="${x}" cy="${y}" r="1" fill="#ffe08a"/>` : `<circle cx="${x}" cy="${y}" r="3.4" fill="#e8453a" ${S2}/>`).join('')}<path d="M26 24 q2 -3 5 -2 q-2 3 -5 2 Z" fill="#4fbf73"/>`,
+    soup: `<path d="M5 22 H43 Q42 42 24 42 Q6 42 5 22 Z" fill="#ff9ad5" ${S}/><ellipse cx="24" cy="22" rx="19" ry="5" fill="#ffb347" ${S2}/><circle cx="17" cy="22" r="2" fill="#ff9a3c"/><circle cx="26" cy="21" r="2" fill="#6fcf7f"/><circle cx="31" cy="23" r="1.6" fill="#ff9a3c"/><path d="M16 14 q-2 -4 1 -8 M24 13 q-2 -4 1 -8 M32 14 q-2 -4 1 -8" fill="none" stroke="#c9b2d6" stroke-width="1.6" stroke-linecap="round"/>`,
+    salad: `<path d="M4 24 H44 Q42 42 24 42 Q6 42 4 24 Z" fill="#7ec8ff" ${S}/><path d="M6 24 Q8 12 16 16 Q20 8 28 14 Q36 10 40 18 Q44 20 42 24 Z" fill="#8fe06b" ${S2}/><circle cx="18" cy="20" r="3.4" fill="#ff5a4e" ${S2}/><circle cx="30" cy="19" r="3" fill="#6fcf7f" ${S2}/><circle cx="30" cy="19" r="1.6" fill="#c8f0b0"/><path d="M23 17 l4 3 l-5 1 Z" fill="#ffd84d"/>`,
+    pancakes: mdaPlate([30, 26, 22, 18].map((y, i) => `<ellipse cx="24" cy="${y}" rx="15" ry="4.6" fill="${i % 2 ? '#f5c77a' : '#eab05e'}" ${S2}/>`).join('') + `<path d="M13 16 Q24 10 35 16 Q34 22 30 20 Q28 26 26 20 Q20 24 18 19 Q14 21 13 16 Z" fill="#c9722a" opacity=".85"/><rect x="21" y="9" width="6" height="4" rx="1" fill="#fff6c4" ${S2}/><circle cx="31" cy="12" r="2.6" fill="#ff4d6d"/>`),
+    sushi: mdaPlate([[12, 24], [24, 22], [36, 24]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="#2f5a3a" ${S2}/><circle cx="${x}" cy="${y}" r="5" fill="#fff"/><circle cx="${x}" cy="${y}" r="2.4" fill="#ff9e7a"/><circle cx="${x + 1.4}" cy="${y - 1}" r="1" fill="#6fcf7f"/>`).join(''), '#ffe0ec'),
+    smoothie: `<path d="M14 10 H34 L31 42 H17 Z" fill="#fff" fill-opacity=".6" ${S}/><path d="M15 16 H33 L31 41 H17 Z" fill="#ff8fb8"/><path d="M15.4 24 H32.6 L31.6 32 H16.4 Z" fill="#ffc2dc"/><path d="M28 4 L25 18" stroke="#7ec8ff" stroke-width="3.4" stroke-linecap="round"/><circle cx="33" cy="12" r="4" fill="#ff4d6d" ${S2}/><path d="M14 10 H34" ${S2}/>`,
+    burger: `<path d="M8 22 Q8 8 24 8 Q40 8 40 22 Z" fill="#f0b86a" ${S}/>${[[18, 13], [26, 12], [31, 16], [22, 17]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.4" ry=".8" fill="#fff6d8"/>`).join('')}<path d="M6 23 Q12 20 18 23 T30 23 T42 23 V26 H6 Z" fill="#8fe06b" ${S2}/><rect x="8" y="25" width="32" height="4" rx="1" fill="#ff5a4e" ${S2}/><rect x="7" y="28" width="34" height="6" rx="3" fill="#8a5a3c" ${S2}/><path d="M7 33 H41 L38 38 Q36 40 24 40 Q12 40 10 38 Z" fill="#e8a458" ${S2}/>`,
+    omelette: mdaPlate(`<path d="M8 28 Q10 14 24 14 Q38 14 40 28 Q24 33 8 28 Z" fill="#ffd84d" ${S2}/><circle cx="18" cy="22" r="1.8" fill="#6fcf7f"/><circle cx="28" cy="20" r="1.8" fill="#ff5a4e"/><circle cx="31" cy="25" r="1.4" fill="#6fcf7f"/><path d="M12 25 Q24 20 36 25" fill="none" stroke="#f0b82a" stroke-width="1.2"/>`),
+    skewers: mdaPlate([14, 24, 34].map((x, k) => `<path d="M${x} 34 L${x} 4" stroke="#c98f3a" stroke-width="1.8"/>` + [['#ff4d6d', 8], ['#ffe14d', 14], ['#9be37a', 20], ['#a36bd6', 26]].map(([c, y], i) => `<circle cx="${x}" cy="${y + (k % 2) * 2}" r="4" fill="${[c, '#ff9a3c', '#ff4d6d'][i % 3 === 1 && k === 1 ? 1 : 0] || c}" ${S2}/>`).join('')).join('')),
+    shakshuka: `<ellipse cx="24" cy="28" rx="21" ry="14" fill="#3a3a4a" ${S}/><path d="M43 28 H47" stroke="${O}" stroke-width="3.4" stroke-linecap="round"/><ellipse cx="24" cy="27" rx="17" ry="10.5" fill="#e8453a"/>${[[17, 24], [30, 25], [23, 32]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="5.4" ry="4" fill="#fff" ${S2}/><circle cx="${x}" cy="${y}" r="2.2" fill="#ffc93c"/>`).join('')}<path d="M34 31 q2 -2 4 0 M12 30 q2 -2 4 0" stroke="#4fbf73" stroke-width="1.6" fill="none"/>`,
+    lasagna: `<rect x="6" y="18" width="36" height="22" rx="3" fill="#7ec8ff" ${S}/><path d="M9 20 H39 V38 H9 Z" fill="#ffe08a"/><path d="M9 25 H39 M9 31 H39" stroke="#e8453a" stroke-width="3"/><path d="M9 20 Q14 16 19 20 T29 20 T39 20" fill="#ffd84d" ${S2}/><circle cx="16" cy="19" r="1.6" fill="#c9722a"/><circle cx="30" cy="19" r="1.6" fill="#c9722a"/>`,
+  };
+  const mdaDishSVG = id => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">${MDA_DISH[id] || MDA_DISH.pasta}</svg>`;
+  // step types: pick (choose ingredients), chop, stir, crack, flip, oven, roll, top (pizza toppings), stack (in order), blend
+  const MDA_REC = [
+    { id: 'pasta', n: 'ספגטי ברוטב עגבניות', yum: 3, steps: [['chop', ['tomato', 'basil', 'onion']], ['stir', 'sauce'], ['stack', ['pasta', 'sauce', 'cheese', 'basil']]] },
+    { id: 'pizza', n: 'פיצה של החיות', yum: 3, steps: [['roll', 'dough'], ['top', ['cheese', 'tomato', 'olive', 'mushroom', 'pepper', 'basil']], ['oven', 'pizza']] },
+    { id: 'soup', n: 'מרק ירקות חם', yum: 2, steps: [['pick', ['carrot', 'potato', 'zucchini', 'onion'], ['sock', 'banana', 'duck', 'strawberry']], ['chop', ['carrot', 'potato', 'zucchini']], ['stir', 'soup']] },
+    { id: 'salad', n: 'סלט צבעוני', yum: 2, steps: [['pick', ['cucumber', 'tomato', 'pepper', 'lettuce'], ['crayon', 'milk', 'patty', 'grape']], ['chop', ['cucumber', 'tomato', 'pepper']], ['stir', 'salad']] },
+    { id: 'pancakes', n: 'פנקייקים עם סירופ', yum: 3, steps: [['crack', 2], ['stir', 'batter'], ['flip', 'pancake']] },
+    { id: 'sushi', n: 'סושי', yum: 2, steps: [['pick', ['rice', 'seaweed', 'salmon', 'avocado'], ['sock', 'cheese', 'banana', 'bun']], ['roll', 'sushi'], ['chop', ['sushi']]] },
+    { id: 'smoothie', n: 'שייק פירות', yum: 3, steps: [['pick', ['banana', 'strawberry', 'blueberry', 'yogurt'], ['onion', 'duck', 'potato', 'olive']], ['chop', ['banana', 'strawberry']], ['blend', 'smoothie']] },
+    { id: 'burger', n: 'המבורגר', yum: 3, steps: [['flip', 'patty'], ['chop', ['tomato', 'lettuce']], ['stack', ['bun', 'patty', 'cheese', 'lettuce', 'tomato', 'bun']]] },
+    { id: 'omelette', n: 'חביתה עם ירקות', yum: 2, steps: [['crack', 3], ['chop', ['pepper', 'onion']], ['flip', 'omelette']] },
+    { id: 'skewers', n: 'שיפודי פירות', yum: 3, steps: [['chop', ['pineapple', 'kiwi', 'apple']], ['stack', ['strawberry', 'pineapple', 'kiwi', 'grape', 'strawberry', 'pineapple']]] },
+    { id: 'shakshuka', n: 'שקשוקה', yum: 2, steps: [['chop', ['tomato', 'pepper', 'onion']], ['stir', 'shakshuka'], ['crack', 3]] },
+    { id: 'lasagna', n: 'לזניה', yum: 3, steps: [['stack', ['sheet', 'sauce', 'cheese', 'sheet', 'sauce', 'cheese']], ['oven', 'lasagna']] },
+  ];
+  const MDA_JOBS = [['chef', 'שף/ית ראשי/ת', '👩‍🍳'], ['chop', 'חותך/ת', '🔪'], ['stir', 'מערבב/ת', '🥄'], ['oven', 'אחראי/ת תנור', '🔥'], ['serve', 'מלצר/ית', '🍽️'], ['taste', 'טועם/ת', '😋']];
+  const MDA_STEP_JOB = { chop: 'chop', stir: 'stir', blend: 'stir', roll: 'stir', oven: 'oven', crack: 'chef', flip: 'chef', top: 'chef', stack: 'chef', pick: 'taste' };
+  const MDA_STEP_TXT = { pick: 'לבחור מצרכים', chop: 'לחתוך', stir: 'לערבב', crack: 'לשבור ביצים', flip: 'להפוך במחבת', oven: 'לאפות בתנור', roll: 'לגלגל', top: 'לשים תוספות', stack: 'לסדר שכבות', blend: 'לטחון בבלנדר' };
+  const MDA_STEP_EM = { pick: '🧺', chop: '🔪', stir: '🥄', crack: '🥚', flip: '🍳', oven: '🔥', roll: '🌀', top: '🍕', stack: '🥪', blend: '🥤' };
+  function mdaJobs() {
+    const all = mdaPets(), used = new Set();
+    all.forEach(p => { const j = mdaD.jobs[p.id]; if (j && MDA_JOBS.some(x => x[0] === j) && !used.has(j)) used.add(j); else mdaD.jobs[p.id] = null; });
+    all.forEach(p => { if (!mdaD.jobs[p.id]) { const f = MDA_JOBS.find(x => !used.has(x[0])) || mdaPick(MDA_JOBS); mdaD.jobs[p.id] = f[0]; used.add(f[0]); } });
+    return all;
+  }
+  const mdaJob = p => MDA_JOBS.find(x => x[0] === mdaD.jobs[p.id]) || MDA_JOBS[0];
+  const mdaWorker = type => { const all = mdaJobs(), j = MDA_STEP_JOB[type] || 'chef'; return all.find(p => mdaD.jobs[p.id] === j) || all.find(p => mdaD.jobs[p.id] === 'chef') || all[0]; };
+  const MDA_KBG = mdaSVG('0 0 600 300', `<rect width="600" height="300" fill="#fff4e8"/>`
+    + Array.from({ length: 16 }, (_, i) => Array.from({ length: 5 }, (_, j) => `<rect x="${i * 38}" y="${j * 38}" width="38" height="38" fill="${(i + j) % 2 ? '#ffe3ef' : '#fff'}" stroke="#ffd0e4"/>`).join('')).join('')
+    + `<rect x="236" y="22" width="128" height="96" rx="10" fill="#bfe6ff" stroke="${O}" stroke-width="3"/><circle cx="330" cy="50" r="14" fill="#ffe27a"/><path d="M236 92 Q270 70 300 92 T364 88 V118 H236 Z" fill="#9be37a"/><path d="M300 22 V118 M236 70 H364" stroke="${O}" stroke-width="3"/>`
+    + `<path d="M226 16 Q250 70 232 124 L226 124 Z M374 16 Q350 70 368 124 L374 124 Z" fill="#ff9ad5" stroke="${O}" stroke-width="2"/><rect x="220" y="10" width="160" height="8" rx="4" fill="#c98f3a" stroke="${O}" stroke-width="2"/>`
+    + [40, 440].map(x => `<rect x="${x}" y="70" width="120" height="8" rx="3" fill="#c98f3a" stroke="${O}" stroke-width="2"/>` + [0, 1, 2, 3].map(i => `<g transform="translate(${x + 16 + i * 29} 52)"><rect x="-10" y="-14" width="20" height="30" rx="5" fill="${['#ffd84d', '#ff9ad5', '#9be37a', '#7ec8ff'][i]}" stroke="${O}" stroke-width="2"/><rect x="-11" y="-18" width="22" height="7" rx="2" fill="#fff" stroke="${O}" stroke-width="2"/></g>`).join('')).join('')
+    + `<path d="M60 110 V132 M90 104 V132 M120 110 V132" stroke="${O}" stroke-width="2.5"/><circle cx="60" cy="140" r="9" fill="#c9b2d6" stroke="${O}" stroke-width="2.5"/><path d="M84 132 h12 v18 h-12 Z" fill="#ffd84d" stroke="${O}" stroke-width="2.5"/><ellipse cx="120" cy="140" rx="7" ry="10" fill="#ff9ad5" stroke="${O}" stroke-width="2.5"/><path d="M40 104 H140" stroke="#c98f3a" stroke-width="5"/>`
+    + `<rect x="0" y="190" width="600" height="18" fill="#f0c38a" stroke="${O}" stroke-width="3"/><rect x="0" y="208" width="600" height="92" fill="#ffd2a8"/>`
+    + [0, 1, 2, 3, 4, 5].map(i => `<rect x="${12 + i * 100}" y="218" width="84" height="70" rx="8" fill="#ffe2c4" stroke="#e8b48a" stroke-width="2"/><circle cx="${54 + i * 100}" cy="232" r="4" fill="#c98f3a"/>`).join(''));
+  function mdaKitchen() {
+    if (mdaV.cook) return mdaCookView();
+    if (mdaV.serve) return mdaServeView();
+    const all = mdaJobs(), show = all.slice(0, 8), xs = mdaXs(show.length), w = Math.min(19, 88 / Math.max(3, show.length));
+    const st = mdaStage(MDA_KBG, 'mda-kstage'), L = st.lastChild;
+    L.append(el('div', { class: 'mda-banner' }, '👩‍🍳 המטבח של החיות — לוחצים על חיה כדי להחליף לה תפקיד'));
+    show.forEach((p, i) => {
+      const j = mdaJob(p);
+      const a = mdaActor(p, xs[i], 6, w, { fit: MDA_CHEF, cls: 'mda-idle', label: `${j[2]} ${mdaNm(p)}`, aria: `${mdaNm(p)} — ${j[1]}. ללחוץ כדי להחליף תפקיד`, onclick: () => {
+        const k = (MDA_JOBS.findIndex(x => x[0] === j[0]) + 1) % MDA_JOBS.length, other = all.find(q => q !== p && mdaD.jobs[q.id] === MDA_JOBS[k][0]);
+        if (other) mdaD.jobs[other.id] = j[0];
+        mdaD.jobs[p.id] = MDA_JOBS[k][0]; mdaSave(); SFX.pet(p.kind); mdaDraw();
+        const b = $('#mdaBody').querySelector(`.mda-actor[data-pid="${p.id}"]`); mdaBop(b); mdaSay(b, `אני ${MDA_JOBS[k][1]}! ${MDA_JOBS[k][2]}`);
+      } });
+      a.style.animationDelay = `${i * .25}s`; L.append(a);
+    });
+    const tot = MDA_REC.reduce((a, r) => a + ((mdaD.book[r.id] || {}).stars || 0), 0);
+    return el('div', { class: 'mda-wrap' }, st,
+      el('div', { class: 'mda-jobs' }, ...all.map(p => { const j = mdaJob(p); return el('span', { class: 'mda-jobchip' }, `${j[2]} ${mdaNm(p)}: ${j[1]}`); })),
+      el('h4', { class: 'mda-h' }, `📖 ספר המתכונים · ${tot} מתוך ${MDA_REC.length * 3} כוכבים`),
+      el('div', { class: 'mda-recipes' }, ...MDA_REC.map(r => { const b = mdaD.book[r.id] || {}; return el('button', { type: 'button', class: 'mda-rec' + (b.stars ? ' done' : ''), onclick: () => mdaCookStart(r.id) },
+        el('span', { class: 'mda-dish', html: mdaDishSVG(r.id) }), el('b', {}, r.n),
+        el('span', { class: 'mda-steps' }, r.steps.map(s => MDA_STEP_EM[s[0]]).join(' ')),
+        el('span', { class: 'mda-stars', 'aria-label': `${b.stars || 0} כוכבים` }, mdaStarsTxt(b.stars || 0)), b.n ? el('small', { class: 'muted' }, `בישלנו ${b.n} פעמים`) : el('small', { class: 'muted' }, 'עוד לא בישלנו')); })));
+  }
+  function mdaCookStart(rid) { SFX.pop(); mdaV = { cook: { rid, i: 0, stars: [] } }; mdaDraw(); }
+  function mdaCookView() {
+    const c = mdaV.cook, r = MDA_REC.find(x => x.id === c.rid), step = r.steps[c.i], wk = mdaWorker(step[0]), others = mdaPets().filter(p => p !== wk).slice(0, 5);
+    const helper = el('div', { class: 'mda-helper' });
+    const hp = mdaActor(wk, 50, 4, 78, { fit: MDA_CHEF, cls: 'mda-idle', label: `${mdaJob(wk)[2]} ${mdaNm(wk)}`, onclick: () => { SFX.pet(wk.kind); mdaBop(hp); mdaSay(hp, mdaPick(['אפשר, ביחד! 💪', 'את השפית הכי טובה! 👩‍🍳', 'מממ, מריח טוב! 😋', 'עוד קצת ומוכן! ✨'])); } });
+    helper.append(hp, el('div', { class: 'mda-fans' }, ...others.map(p => el('span', { class: 'mda-fan', html: mdaArt(p, { fit: MDA_CHEF, mood: 'happy' }) }))));
+    const say = t => { mdaSay(hp, t, 2000); };
+    const msg = el('p', { class: 'mda-tip' });
+    const done = stars => {
+      c.stars.push(stars); SFX.yay(); mdaBop(hp); say(['טוב, יצא בסדר 🙂', 'יופי! 😊', 'מושלם!!! 🌟'][stars - 1]);
+      mdaLater(() => { if (c.i + 1 < r.steps.length) { c.i++; mdaDraw(); } else { mdaV = { serve: { rid: r.id, stars: Math.max(1, Math.round(c.stars.reduce((a, b) => a + b, 0) / c.stars.length)) } }; mdaDraw(); } }, 1300);
+    };
+    const game = ({ pick: mdaGPick, chop: mdaGChop, stir: mdaGStir, crack: mdaGCrack, flip: mdaGFlip, oven: mdaGOven, roll: mdaGRoll, top: mdaGTop, stack: mdaGStack, blend: mdaGBlend }[step[0]])(step, { msg, say, done, r, wk });
+    return el('div', { class: 'mda-wrap' },
+      el('div', { class: 'mda-cookhead' }, el('button', { type: 'button', class: 'chip', onclick: () => mdaGo('kitchen') }, '→ לספר המתכונים'),
+        el('span', { class: 'mda-dish sm', html: mdaDishSVG(r.id) }), el('b', {}, r.n),
+        el('span', { class: 'mda-dots' }, ...r.steps.map((s, i) => el('span', { class: 'mda-dot' + (i < c.i ? ' ok' : i === c.i ? ' on' : ''), title: MDA_STEP_TXT[s[0]] }, MDA_STEP_EM[s[0]])))),
+      msg, el('div', { class: 'mda-cook' }, helper, game));
+  }
+  // ---- mini games. each returns a board element and calls ctx.done(stars 1-3) ----
+  const mdaPt = (svg, e) => { const r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal; return [(e.clientX - r.left) / r.width * vb.width, (e.clientY - r.top) / r.height * vb.height]; };
+  const mdaBoard = (inner, cls = '') => el('div', { class: 'mda-board ' + cls }, inner);
+  const MDA_WOOD = `<rect x="30" y="60" width="340" height="200" rx="26" fill="#e9b877" stroke="${O}" stroke-width="3"/><rect x="44" y="72" width="312" height="176" rx="20" fill="#f3c98f"/><circle cx="342" cy="88" r="8" fill="#fff4e8" stroke="${O}" stroke-width="2.5"/>` + [100, 150, 200].map(y => `<path d="M60 ${y} Q200 ${y - 8} 340 ${y}" fill="none" stroke="#e0ae70" stroke-width="2"/>`).join('');
+  function mdaGChop(step, ctx) {
+    const ids = step[1], need = 3, cuts = ids.map(() => 0), xs = ids.map((_, i) => ids.length === 1 ? 200 : 110 + i * 180 / (ids.length - 1));
+    ctx.msg.textContent = `🔪 מחליקים עם האצבע מעל כל מצרך כדי לחתוך (${need} חיתוכים לכל אחד) — או לוחצים עליו`;
+    const svg = el('div', { class: 'mda-svgbox' }); let down = false, last = null, moved = 0, inside = ids.map(() => false), fin = false;
+    const draw = kx => { svg.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">${MDA_WOOD}${ids.map((id, i) => mdaCut(id, xs[i], 160, ids[0] === 'sushi' ? 2.2 : 1.9, cuts[i])).join('')}${kx ? `<g transform="translate(${pzF(kx[0])} ${pzF(kx[1])}) rotate(-35)" pointer-events="none"><rect x="-4" y="-44" width="14" height="46" rx="4" fill="#dfe8f2" stroke="${O}" stroke-width="2.5"/><rect x="-3" y="0" width="12" height="26" rx="4" fill="#ff7a9a" stroke="${O}" stroke-width="2.5"/></g>` : ''}</svg>`; };
+    const cut = i => { if (fin || cuts[i] >= need) return; cuts[i]++; MDA_SND.chop(); if (cuts.every(n => n >= need)) { fin = true; ctx.done(3); } else if (cuts[i] >= need) ctx.say(`${MDA_ING[ids[i]] ? MDA_ING[ids[i]][0] : 'זה'} חתוך! ✔️`); };
+    const hit = p => xs.findIndex(x => Math.abs(p[0] - x) < 44 && Math.abs(p[1] - 160) < 44);
+    draw();
+    svg.addEventListener('pointerdown', e => { down = true; moved = 0; last = mdaPt(svg.firstChild, e); try { svg.setPointerCapture(e.pointerId); } catch {} inside = inside.map(() => false); const h = hit(last); if (h >= 0) inside[h] = true; });
+    svg.addEventListener('pointermove', e => {
+      const p = mdaPt(svg.firstChild, e); if (!down) { draw(p); return; }
+      moved += Math.hypot(p[0] - last[0], p[1] - last[1]); last = p; const h = hit(p);
+      inside.forEach((v, i) => { if (i !== h && v) { inside[i] = false; if (moved > 30) { cut(i); moved = 0; } } });
+      if (h >= 0 && !inside[h]) { inside[h] = true; }
+      if (h >= 0 && moved > 90) { cut(h); moved = 0; }
+      draw(p);
+    });
+    svg.addEventListener('pointerup', e => { const p = mdaPt(svg.firstChild, e); const h = hit(p); if (down && h >= 0 && moved < 12) cut(h); else if (h >= 0 && inside[h] && moved > 30) cut(h); down = false; draw(p); });
+    svg.addEventListener('pointerleave', () => { down = false; draw(); });
+    return mdaBoard(svg, 'mda-chop');
+  }
+  const MDA_POT = { sauce: ['#ff5a4e', '#ffb3a8'], soup: ['#ffb347', '#ffe0a8'], salad: ['#8fe06b', '#ff5a4e'], batter: ['#ffe9b8', '#fff8e0'], shakshuka: ['#e8453a', '#ff9a7a'] };
+  function mdaGStir(step, ctx) {
+    const [c1, c2] = MDA_POT[step[1]] || MDA_POT.soup, bowl = ['salad', 'batter'].includes(step[1]), need = Math.PI * 2 * 3;
+    ctx.msg.textContent = '🥄 מסובבים עיגולים עם האצבע בתוך ה' + (bowl ? 'קערה' : 'סיר') + ' — 3 סיבובים!';
+    let tot = 0, prev = null, fin = false;
+    const box = el('div', { class: 'mda-svgbox' }), bar = el('div', { class: 'mda-bar' }, el('i'));
+    const draw = ang => {
+      const a = ang == null ? tot : ang, sx = 200 + Math.cos(a) * 70, sy = 170 + Math.sin(a) * 36;
+      box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">`
+        + (bowl ? `<path d="M70 150 H330 Q320 270 200 270 Q80 270 70 150 Z" fill="#7ec8ff" stroke="${O}" stroke-width="3"/>` : `<rect x="72" y="140" width="256" height="120" rx="20" fill="#9aa6b8" stroke="${O}" stroke-width="3"/><rect x="40" y="160" width="36" height="14" rx="7" fill="#3a3a4a" stroke="${O}" stroke-width="2.5"/><rect x="324" y="160" width="36" height="14" rx="7" fill="#3a3a4a" stroke="${O}" stroke-width="2.5"/>`)
+        + `<ellipse cx="200" cy="${bowl ? 150 : 142}" rx="130" ry="42" fill="${c1}" stroke="${O}" stroke-width="3"/>`
+        + [0, 1, 2].map(k => { const R = 30 + k * 32, cy = bowl ? 150 : 142, a0 = tot * (1.4 - k * .25) + k * 2; return `<path d="${Array.from({ length: 9 }, (_, j) => { const q = a0 + j * .22; return `${j ? 'L' : 'M'}${pzF(200 + Math.cos(q) * R)} ${pzF(cy + Math.sin(q) * R * .3)}`; }).join(' ')}" fill="none" stroke="${c2}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>`; }).join('')
+        + (step[1] === 'salad' ? [[150, 140, '#ff5a4e'], [240, 150, '#6fcf7f'], [200, 132, '#ffd84d'], [270, 135, '#ff5a4e'], [130, 155, '#6fcf7f']].map(([x, y, c], i) => { const q = (tot + i) % 6.28; return `<circle cx="${pzF(x + Math.cos(q) * 12)}" cy="${pzF(y + Math.sin(q) * 5)}" r="10" fill="${c}" stroke="${O}" stroke-width="2"/>`; }).join('') : '')
+        + (bowl ? '' : [0, 1, 2].map(i => `<circle cx="${130 + i * 70}" cy="${128 - (tot * 10 + i * 13) % 26}" r="${4 + i}" fill="#fff" opacity=".6"/>`).join(''))
+        + `<g transform="translate(${pzF(sx)} ${pzF(sy)}) rotate(${pzF(-20 + Math.cos(a) * 25)})"><path d="M0 0 L10 -130" stroke="#c98f3a" stroke-width="12" stroke-linecap="round"/><path d="M0 0 L10 -130" stroke="${O}" stroke-width="2" fill="none" opacity=".3"/><ellipse cx="0" cy="6" rx="16" ry="11" fill="#c98f3a" stroke="${O}" stroke-width="2.5"/></g>`
+        + (!bowl && !fin ? `<text x="200" y="40" text-anchor="middle" font-size="26">🔥</text>` : '') + '</svg>';
+      bar.firstChild.style.width = Math.min(100, tot / need * 100) + '%';
+    };
+    const add = d => { if (fin) return; tot += Math.min(Math.abs(d), .6); if (Math.random() < .12) MDA_SND.bubble(); if (tot >= need) { fin = true; draw(); ctx.done(3); } };
+    box.addEventListener('pointerdown', e => { prev = null; try { box.setPointerCapture(e.pointerId); } catch {} });
+    box.addEventListener('pointermove', e => { if (!e.buttons && e.pointerType === 'mouse') { prev = null; return; } const p = mdaPt(box.firstChild, e), a = Math.atan2((p[1] - 160) * 2, p[0] - 200); if (prev != null) { let d = a - prev; if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI; add(d); } prev = a; if (!fin) draw(a); });
+    box.addEventListener('pointerup', () => { prev = null; });
+    draw();
+    return mdaBoard(el('div', {}, box, bar, el('button', { type: 'button', class: 'btn mda-alt', onclick: () => { for (let k = 0; k < 6; k++) add(.6); if (!fin) draw(); } }, '🥄 לערבב (לחיצה)')), 'mda-stir');
+  }
+  function mdaGCrack(step, ctx) {
+    const n = step[1], st = Array(n).fill(0); let fin = false;
+    ctx.msg.textContent = `🥚 לוחצים פעמיים על כל ביצה — פעם אחת לסדוק, ופעם שנייה לשבור לתוך ה${ctx.r.id === 'shakshuka' ? 'מחבת' : 'קערה'}`;
+    const box = el('div', { class: 'mda-svgbox' });
+    const pan = ctx.r.id === 'shakshuka';
+    const draw = () => {
+      const inBowl = st.filter(s => s === 2).length;
+      box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">`
+        + (pan ? `<ellipse cx="200" cy="215" rx="140" ry="58" fill="#3a3a4a" stroke="${O}" stroke-width="3"/><path d="M340 215 H392" stroke="${O}" stroke-width="12" stroke-linecap="round"/><ellipse cx="200" cy="210" rx="120" ry="46" fill="#e8453a"/>`
+          : `<path d="M90 190 H310 Q300 280 200 280 Q100 280 90 190 Z" fill="#ff9ad5" stroke="${O}" stroke-width="3"/><ellipse cx="200" cy="190" rx="110" ry="26" fill="#fff4f9" stroke="${O}" stroke-width="3"/>`)
+        + Array.from({ length: inBowl }, (_, i) => { const x = 200 + (i - (inBowl - 1) / 2) * 60, y = pan ? 208 : 192; return `<g class="mda-drop"><ellipse cx="${x}" cy="${y}" rx="${pan ? 26 : 22}" ry="${pan ? 17 : 9}" fill="#fff" stroke="${O}" stroke-width="2"/><circle cx="${x}" cy="${y - 1}" r="${pan ? 9 : 7}" fill="#ffc93c" stroke="${O}" stroke-width="2"/></g>`; }).join('')
+        + st.map((s, i) => { const x = 200 + (i - (n - 1) / 2) * 90; if (s === 2) return ''; return `<g data-e="${i}" style="cursor:pointer" class="${s ? 'mda-wig' : ''}"><ellipse cx="${x}" cy="90" rx="30" ry="38" fill="#fff8ee" stroke="${O}" stroke-width="3"/><ellipse cx="${x - 10}" cy="76" rx="7" ry="10" fill="#fff"/>${s ? `<path d="M${x - 28} 92 l12 -8 l8 10 l10 -12 l10 10 l14 -6" fill="none" stroke="${O}" stroke-width="3" stroke-linejoin="round"/>` : ''}</g>`; }).join('') + '</svg>';
+    };
+    box.addEventListener('click', e => { const g = e.target.closest('[data-e]'); if (!g || fin) return; const i = +g.dataset.e; st[i]++; if (st[i] === 1) MDA_SND.crack(); else { MDA_SND.plop(); ctx.say(mdaPick(['פלופ! 🥚', 'בלי קליפות! 👍', 'איזה חלמון צהוב! 🌞'])); } draw(); if (st.every(s => s === 2)) { fin = true; ctx.done(3); } });
+    draw();
+    return mdaBoard(box, 'mda-crack');
+  }
+  // a needle moves 0→100; press in the golden zone (55-85)
+  function mdaTiming(ctx, o) {
+    let v = 0, run = false, t0 = 0, fin = false, got = [];
+    const meter = el('div', { class: 'mda-meter' }, el('span', { class: 'z1' }), el('span', { class: 'z2' }), el('i'));
+    const btn = el('button', { type: 'button', class: 'btn main mda-big' }, o.startTxt);
+    const tick = now => { if (!run) return; v = Math.min(110, (now - t0) / o.ms * 100); meter.lastChild.style.insetInlineStart = Math.min(100, v) + '%'; o.draw(v, got.length); if (v >= 60 && !o.rang && o.bell) { o.rang = true; MDA_SND.bell(); } if (v >= 108) press(); else mdaRaf = requestAnimationFrame(tick); };
+    const start = () => { if (fin) return; run = true; o.rang = false; t0 = performance.now(); btn.textContent = o.goTxt; if (o.snd) o.snd(); mdaRaf = requestAnimationFrame(tick); };
+    const press = () => {
+      if (!run) return start();
+      if (v < 35) { ctx.say(mdaPick(['עוד לא! עוד רגע… ⏳', 'סבלנות, זה עוד לא מוכן 🙈'])); MDA_SND.wrong(); return; }
+      run = false; cancelAnimationFrame(mdaRaf);
+      const s = v >= 55 && v <= 85 ? 3 : v >= 45 && v <= 95 ? 2 : 1; got.push(s);
+      o.after(v, got.length, s); ctx.say(['אופס, קצת שרוף… אבל אוכלים! 😅', 'כמעט מושלם! 👍', 'בדיוק בזמן!! 🌟'][s - 1]);
+      if (got.length >= o.times) { fin = true; btn.disabled = true; ctx.done(Math.round(got.reduce((a, b) => a + b, 0) / got.length)); }
+      else { btn.textContent = o.againTxt; v = 0; meter.lastChild.style.insetInlineStart = '0%'; }
+    };
+    btn.addEventListener('click', press);
+    return { meter, btn, press };
+  }
+  const mdaDone = v => v < 35 ? '#fff0c8' : v < 55 ? '#ffe08a' : v <= 85 ? '#f0b050' : v <= 95 ? '#c97a2a' : '#8a5a3c';
+  function mdaGFlip(step, ctx) {
+    const kind = step[1], box = el('div', { class: 'mda-svgbox' }); let flipAnim = 0, side = 0;
+    const food = (v, s) => kind === 'patty' ? `<rect x="-62" y="-16" width="124" height="32" rx="16" fill="${v < 45 ? '#d98a8a' : v <= 85 ? '#8a5a3c' : '#4a3020'}" stroke="${O}" stroke-width="3"/>`
+      : kind === 'omelette' ? `<ellipse rx="80" ry="26" fill="${v < 45 ? '#fff3a0' : v <= 85 ? '#ffd84d' : '#e0a030'}" stroke="${O}" stroke-width="3"/><circle cx="-24" cy="-4" r="6" fill="#ff5a4e"/><circle cx="20" cy="4" r="6" fill="#6fcf7f"/><circle cx="40" cy="-6" r="5" fill="#d8a6e0"/>`
+        : `<ellipse rx="76" ry="24" fill="${mdaDone(v)}" stroke="${O}" stroke-width="3"/>${[[-20, -6], [14, 4], [34, -8], [-40, 6]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4" ry="2" fill="#fff" opacity=".5"/>`).join('')}`;
+    const draw = (v, s) => { box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><ellipse cx="200" cy="215" rx="140" ry="52" fill="#3a3a4a" stroke="${O}" stroke-width="3"/><path d="M335 212 H392" stroke="${O}" stroke-width="14" stroke-linecap="round"/><ellipse cx="200" cy="208" rx="122" ry="40" fill="#5a5a6a"/><g class="${flipAnim ? 'mda-flip' : ''}" style="transform-origin:200px 200px"><g transform="translate(200 200)">${food(v, s)}</g></g>${v > 20 && v < 100 ? [0, 1, 2].map(i => `<path d="M${160 + i * 40} 160 q-6 -12 0 -24 q6 -12 0 -24" fill="none" stroke="#c9b2d6" stroke-width="3" stroke-linecap="round" opacity=".7"/>`).join('') : ''}<text x="200" y="40" text-anchor="middle" font-size="22" font-family="Rubik, sans-serif" fill="${O}">צד ${side + 1} מתוך 2</text></svg>`; };
+    ctx.msg.textContent = `🍳 לוחצים "להדליק", וכשהמחוג בתוך האזור הזהוב — "להפוך!" (שני צדדים)`;
+    const T = mdaTiming(ctx, { ms: 3600, times: 2, startTxt: '🔥 להדליק את הכיריים', goTxt: '🍳 להפוך!', againTxt: '🔥 לבשל את הצד השני', snd: MDA_SND.sizzle, draw: v => draw(v), after: (v, k) => { MDA_SND.whoosh(); flipAnim = 1; side = Math.min(1, k); draw(0); setTimeout(() => { flipAnim = 0; }, 700); } });
+    draw(0);
+    box.addEventListener('click', () => T.press());
+    return mdaBoard(el('div', {}, box, T.meter, el('div', { class: 'mda-cta' }, T.btn)), 'mda-flipb');
+  }
+  function mdaGOven(step, ctx) {
+    const box = el('div', { class: 'mda-svgbox' }); let open = false;
+    const draw = (v = 0) => { const b = Math.max(0, Math.min(1, (v - 40) / 70)); box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect x="70" y="20" width="260" height="260" rx="22" fill="#ff9ad5" stroke="${O}" stroke-width="3"/><rect x="92" y="34" width="216" height="36" rx="10" fill="#fff4f9" stroke="${O}" stroke-width="2.5"/>${[0, 1, 2].map(i => `<circle cx="${130 + i * 70}" cy="52" r="10" fill="#fff" stroke="${O}" stroke-width="2.5"/><path d="M${130 + i * 70} 52 l${pzF(Math.cos(v / 16 + i) * 7)} ${pzF(Math.sin(v / 16 + i) * 7)}" stroke="${O}" stroke-width="2.5"/>`).join('')}<rect x="98" y="88" width="204" height="160" rx="16" fill="${v > 0 && !open ? '#ffb347' : '#3a2b3c'}" fill-opacity="${v > 0 && !open ? .55 : .85}" stroke="${O}" stroke-width="3"/><rect x="112" y="200" width="176" height="6" rx="3" fill="#c9b2d6"/><g transform="translate(140 118) scale(2.5)"><g style="filter:sepia(${pzF(b * .7)}) brightness(${pzF(1 - b * .45)})">${MDA_DISH[step[1]] || MDA_DISH.pizza}</g></g>${v > 0 && !open ? `<path d="M110 240 q10 -14 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="#ff5a2a" stroke-width="4" opacity=".7"/>` : ''}<rect x="150" y="256" width="100" height="10" rx="5" fill="#fff" stroke="${O}" stroke-width="2.5"/></svg>`; };
+    ctx.msg.textContent = '🔥 מדליקים את התנור. כשהפעמון מצלצל והמחוג בזהוב — מוציאים!';
+    const T = mdaTiming(ctx, { ms: 5200, times: 1, bell: true, startTxt: '🔥 להדליק את התנור', goTxt: '🧤 להוציא מהתנור!', againTxt: '', snd: MDA_SND.click, draw: v => draw(v), after: v => { open = true; MDA_SND.ta(); draw(v); } });
+    draw();
+    return mdaBoard(el('div', {}, box, T.meter, el('div', { class: 'mda-cta' }, T.btn)), 'mda-oven');
+  }
+  function mdaGRoll(step, ctx) {
+    const sushi = step[1] === 'sushi', need = 4; let n = 0, y0 = null, x0 = null, fin = false;
+    ctx.msg.textContent = sushi ? '🌀 מחליקים למעלה על מחצלת הבמבוק כדי לגלגל את הסושי (4 פעמים)' : '🌀 מחליקים עם המערוך על הבצק לכל כיוון כדי לרדד אותו (4 פעמים)';
+    const box = el('div', { class: 'mda-svgbox' });
+    const draw = () => { const k = n / need; box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">` + (sushi
+      ? `<rect x="80" y="40" width="240" height="230" rx="8" fill="#d8c08a" stroke="${O}" stroke-width="3"/>${Array.from({ length: 12 }, (_, i) => `<path d="M84 ${56 + i * 18} H316" stroke="#b89a5a" stroke-width="3"/>`).join('')}<rect x="100" y="${pzF(60 + k * 150)}" width="200" height="${pzF(190 - k * 150)}" fill="#2f5a3a" stroke="${O}" stroke-width="3"/><rect x="108" y="${pzF(68 + k * 150)}" width="184" height="${pzF(Math.max(0, 150 - k * 150))}" fill="#fff"/>${k < 1 ? `<rect x="108" y="${pzF(170 + k * 50)}" width="184" height="18" fill="#ff9e7a"/><rect x="108" y="${pzF(190 + k * 45)}" width="184" height="10" fill="#9be37a"/>` : ''}<rect x="100" y="${pzF(200 + k * 10)}" width="200" height="${pzF(20 + k * 44)}" rx="${pzF(10 + k * 22)}" fill="#2f5a3a" stroke="${O}" stroke-width="3"/>`
+      : `<ellipse cx="200" cy="170" rx="${pzF(60 + k * 110)}" ry="${pzF(40 + k * 70)}" fill="#f6e0b0" stroke="${O}" stroke-width="3"/>${[[-20, -10], [30, 14], [0, 30]].map(([x, y]) => `<circle cx="${pzF(200 + x * (1 + k))}" cy="${pzF(170 + y * (1 + k * .6))}" r="3" fill="#e8c890"/>`).join('')}<g transform="translate(200 ${pzF(90 + (n % 2) * 150)})"><rect x="-110" y="-14" width="220" height="28" rx="14" fill="#e9b877" stroke="${O}" stroke-width="3"/><rect x="-150" y="-7" width="42" height="14" rx="7" fill="#c98f3a" stroke="${O}" stroke-width="2.5"/><rect x="108" y="-7" width="42" height="14" rx="7" fill="#c98f3a" stroke="${O}" stroke-width="2.5"/></g>`) + '</svg>'; };
+    const add = () => { if (fin) return; n++; MDA_SND.whoosh(); draw(); if (n >= need) { fin = true; ctx.done(3); } };
+    box.addEventListener('pointerdown', e => { y0 = e.clientY; x0 = e.clientX; try { box.setPointerCapture(e.pointerId); } catch {} });
+    box.addEventListener('pointerup', e => { if (y0 == null) return; const dy = e.clientY - y0, dx = e.clientX - x0; y0 = null; if (sushi ? dy < -40 : Math.hypot(dx, dy) > 40) add(); });
+    draw();
+    return mdaBoard(el('div', {}, box, el('button', { type: 'button', class: 'btn mda-alt', onclick: add }, sushi ? '🌀 לגלגל (לחיצה)' : '🌀 לרדד (לחיצה)')), 'mda-roll');
+  }
+  function mdaGTop(step, ctx) {
+    const ids = step[1], placed = []; let sel = ids[0], fin = false;
+    ctx.msg.textContent = '🍕 בוחרים תוספת ולוחצים על הפיצה כדי לשים אותה. לפחות 8 תוספות!';
+    const box = el('div', { class: 'mda-svgbox' });
+    const draw = () => { box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><circle cx="200" cy="150" r="132" fill="#f0b86a" stroke="${O}" stroke-width="3"/><circle cx="200" cy="150" r="112" fill="#ff7a4e"/>${placed.filter(p => p[0] === 'cheese').length ? `<path d="M110 130 Q150 70 210 60 Q290 80 300 150 Q280 230 200 240 Q120 230 110 130 Z" fill="#ffe08a" opacity=".9"/>` : ''}${placed.filter(p => p[0] !== 'cheese').map(([id, x, y, r]) => mdaIng(id, x, y, .9).replace('scale(.9)', `scale(.9) rotate(${r})`)).join('')}</svg>`; };
+    const chips = el('div', { class: 'mda-pal' }, ...ids.map(id => el('button', { type: 'button', class: 'mda-ingb', 'aria-pressed': String(id === sel), 'aria-label': MDA_ING[id][0], title: MDA_ING[id][0], html: `<svg viewBox="-20 -20 40 40">${MDA_ING[id][1]}</svg>`, onclick: e => { sel = id; chips.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); SFX.pop(); } })));
+    const ok = el('button', { type: 'button', class: 'btn main', disabled: true, onclick: () => { if (fin) return; fin = true; ok.disabled = true; ctx.done(3); } }, '✔️ הפיצה מוכנה!');
+    box.addEventListener('click', e => { if (fin) return; const [x, y] = mdaPt(box.firstChild, e); if (Math.hypot(x - 200, y - 150) > 110) return; placed.push([sel, x, y, Math.round(Math.random() * 60 - 30)]); MDA_SND.plop(); draw(); if (placed.length >= 8) ok.disabled = false; if (placed.length === 8) ctx.say('וואו, נראה טעים! אפשר עוד או לסיים 😋'); });
+    draw();
+    return mdaBoard(el('div', {}, box, chips, el('div', { class: 'mda-cta' }, ok)), 'mda-top');
+  }
+  function mdaGStack(step, ctx) {
+    const order = step[1], got = []; let miss = 0, fin = false;
+    const opts = [...new Set(order)];
+    const skew = ctx.r.id === 'skewers', lasagna = ctx.r.id === 'lasagna', pasta = ctx.r.id === 'pasta';
+    ctx.msg.textContent = skew ? '🍢 משחילים את הפירות על השיפוד לפי הדוגמה!' : lasagna ? '🥘 מסדרים שכבות בתבנית לפי הסדר בפתק!' : pasta ? '🍝 מסדרים את הצלחת לפי הסדר בפתק!' : '🍔 בונים את ההמבורגר לפי הסדר בפתק — מלמטה למעלה!';
+    const box = el('div', { class: 'mda-svgbox' });
+    const burg = (id, i) => { const y = 246 - i * 22 - (id === 'bun' && i ? 12 : 0), f = id === 'bun' && !i; return `<g transform="translate(170 ${y}) scale(${f ? '3.6 -2' : id === 'bun' ? '3.6 2.6' : '3.6 2'})">${MDA_ING[id][1]}</g>`; };
+    const layer = (id, i) => skew ? mdaIng(id, 110 + i * 42, 160, 1.15) : lasagna ? `<g transform="translate(150 ${250 - i * 22})"><rect x="-100" y="-11" width="200" height="22" rx="4" fill="${id === 'sheet' ? '#ffe08a' : id === 'sauce' ? '#e8453a' : '#fff3a0'}" stroke="${O}" stroke-width="2.5"/></g>` : pasta ? ({ pasta: `<ellipse cx="200" cy="228" rx="110" ry="36" fill="#ffe08a" stroke="${O}" stroke-width="3"/>${[0, 1, 2, 3].map(k => `<path d="M${110 + k * 8} ${218 + k * 6} q15 -16 30 0 t30 0 t30 0 t30 0 t30 0" fill="none" stroke="#e0a830" stroke-width="4" stroke-linecap="round"/>`).join('')}`,
+      sauce: `<path d="M140 214 Q150 186 200 188 Q252 186 262 214 Q240 236 200 232 Q156 236 140 214 Z" fill="#ff5a4e" stroke="${O}" stroke-width="3"/><circle cx="182" cy="206" r="8" fill="#b8472e"/><circle cx="220" cy="204" r="8" fill="#b8472e"/>`,
+      cheese: Array.from({ length: 14 }, (_, k) => `<rect x="${pzF(158 + (k * 37) % 86)}" y="${pzF(192 + (k * 13) % 30)}" width="10" height="3.4" rx="1.6" fill="#fff3a0" stroke="#e0b030" stroke-width="1" transform="rotate(${(k * 47) % 180} ${pzF(163 + (k * 37) % 86)} ${pzF(194 + (k * 13) % 30)})"/>`).join(''),
+      basil: mdaIng('basil', 204, 186, 1.3) }[id] || '') : burg(id, i);
+    const draw = () => { box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">`
+      + (skew ? `<path d="M60 160 H360" stroke="#c98f3a" stroke-width="6" stroke-linecap="round"/><path d="M360 160 l14 -5 v10 Z" fill="#c98f3a"/>` : lasagna ? `<rect x="36" y="120" width="228" height="150" rx="14" fill="#7ec8ff" stroke="${O}" stroke-width="3"/>` : `<ellipse cx="${pasta ? 200 : 170}" cy="266" rx="${pasta ? 150 : 120}" ry="22" fill="#fff" stroke="${O}" stroke-width="3"/>`)
+      + got.map((id, i) => layer(id, i)).join('')
+      + `<g transform="translate(${skew ? 8 : 258} 8)"><rect width="${skew ? 150 : 136}" height="${skew ? 40 : 20 + order.length * 26}" rx="8" fill="#fffbe8" stroke="${O}" stroke-width="2"/>${order.map((id, i) => skew ? mdaIng(id, 14 + i * 24, 20, .52) : `<g opacity="${i < got.length ? .35 : 1}">${mdaIng(id, 118, 20 + (order.length - 1 - i) * 26 + 6, .55)}<text x="100" y="${pzF(26 + (order.length - 1 - i) * 26 + 6)}" font-size="13" font-family="Rubik, sans-serif" fill="${O}" direction="rtl">${i + 1}. ${MDA_ING[id][0]}</text></g>`).join('')}</g></svg>`; };
+    const pal = el('div', { class: 'mda-pal' }, ...opts.map(id => el('button', { type: 'button', class: 'mda-ingb', 'aria-label': MDA_ING[id][0], title: MDA_ING[id][0], html: `<svg viewBox="-20 -20 40 40">${MDA_ING[id][1]}</svg>`, onclick: () => {
+      if (fin) return;
+      if (order[got.length] === id) { got.push(id); MDA_SND.plop(); draw(); if (got.length === order.length) { fin = true; ctx.done(miss <= 1 ? 3 : miss <= 3 ? 2 : 1); } }
+      else { miss++; MDA_SND.wrong(); ctx.say(`אופס! עכשיו צריך ${MDA_ING[order[got.length]][0]} 😉`); }
+    } })));
+    draw();
+    return mdaBoard(el('div', {}, box, pal), 'mda-stack');
+  }
+  function mdaGPick(step, ctx) {
+    const good = step[1], bad = step[2], items = mdaShuf([...good, ...bad]), got = new Set(); let miss = 0, fin = false;
+    ctx.msg.textContent = `🧺 בוחרים רק את המצרכים ל${ctx.r.n} (${good.length} מצרכים)`;
+    const bowl = el('div', { class: 'mda-basket' }, el('span', { class: 'lbl' }, '🧺 בסל:'));
+    const grid = el('div', { class: 'mda-shelf' }, ...items.map(id => el('button', { type: 'button', class: 'mda-ingb big', 'aria-label': MDA_ING[id][0], html: `<svg viewBox="-20 -20 40 40">${MDA_ING[id][1]}</svg><span>${MDA_ING[id][0]}</span>`, onclick: e => {
+      if (fin || got.has(id)) return;
+      if (good.includes(id)) { got.add(id); MDA_SND.plop(); e.currentTarget.classList.add('used'); bowl.append(el('span', { class: 'mda-inbasket', html: `<svg viewBox="-20 -20 40 40">${MDA_ING[id][1]}</svg>` })); if (got.size === good.length) { fin = true; ctx.done(miss === 0 ? 3 : miss <= 2 ? 2 : 1); } }
+      else { miss++; MDA_SND.wrong(); mdaBop(e.currentTarget, 'mda-shake'); ctx.say(mdaPick([`${MDA_ING[id][0]}?! 🤪 זה לא נכנס ל${ctx.r.n}!`, `איכס! 🙈 בלי ${MDA_ING[id][0].replace(/ .*/, '')} בבקשה`, 'חחח, זה ממש לא אוכל! 😂'])); }
+    } })));
+    return mdaBoard(el('div', {}, grid, bowl), 'mda-pick');
+  }
+  function mdaGBlend(step, ctx) {
+    let v = 0, hold = false, fin = false, last = 0;
+    ctx.msg.textContent = '🥤 מחזיקים את הכפתור לחוץ כדי לטחון, ועוזבים כשהשייק מגיע לפס הזהוב!';
+    const box = el('div', { class: 'mda-svgbox' });
+    const draw = () => { const h = Math.min(100, v) * 1.7; box.innerHTML = `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect x="140" y="236" width="120" height="50" rx="12" fill="#b58cff" stroke="${O}" stroke-width="3"/><circle cx="200" cy="262" r="10" fill="${hold ? '#ff5a8a' : '#fff'}" stroke="${O}" stroke-width="2.5"/><path d="M146 30 H254 L244 232 H156 Z" fill="#eaf6ff" fill-opacity=".7" stroke="${O}" stroke-width="3"/><path d="M${pzF(155.5 - h / 170 * 0)} 231 H244.5 L${pzF(244.5 + h * .058)} ${pzF(231 - h)} H${pzF(155.5 - h * .058)} Z" fill="#ff8fb8"/><rect x="146" y="${pzF(231 - 170 * .85)}" width="108" height="${pzF(170 * .3)}" fill="#ffd84d" opacity=".35"/><path d="M140 ${pzF(231 - 170 * .55)} H260 M140 ${pzF(231 - 170 * .85)} H260" stroke="#e0a800" stroke-width="3" stroke-dasharray="6 4"/>${hold ? [0, 1, 2, 3].map(i => `<circle cx="${170 + ((v * 7 + i * 23) % 60)}" cy="${pzF(225 - ((v * 5 + i * 31) % Math.max(10, h)))}" r="${5 + i % 3}" fill="${['#ff4d6d', '#ffe14d', '#5b6fd8', '#fff'][i]}"/>`).join('') : ''}<rect x="140" y="18" width="120" height="16" rx="6" fill="#b58cff" stroke="${O}" stroke-width="3"/>${v > 100 ? '<text x="300" y="60" font-size="34">💦</text>' : ''}</svg>`; };
+    const tick = now => { if (!hold) return; v += (now - last) / 38; last = now; if (Math.random() < .3) tone(90 + Math.random() * 40, .05, 'sawtooth', 0, .03); draw(); if (v > 112) stop(); else mdaRaf = requestAnimationFrame(tick); };
+    const go = e => { if (fin) return; e.preventDefault(); hold = true; last = performance.now(); mdaRaf = requestAnimationFrame(tick); };
+    const stop = () => { if (!hold || fin) return; hold = false; cancelAnimationFrame(mdaRaf); draw(); if (v < 30) return; fin = true; const s = v >= 55 && v <= 85 ? 3 : v >= 45 && v <= 95 ? 2 : 1; ctx.say(['נשפך קצת! 💦 אבל טעים', 'כמעט בדיוק! 👍', 'שייק מושלם!! 🌟'][s - 1]); ctx.done(s); };
+    const btn = el('button', { type: 'button', class: 'btn main mda-big mda-hold' }, '🥤 להחזיק לחוץ!');
+    btn.addEventListener('pointerdown', go); btn.addEventListener('pointerup', stop); btn.addEventListener('pointerleave', stop);
+    btn.addEventListener('keydown', e => { if ((e.key === ' ' || e.key === 'Enter') && !hold) go(e); }); btn.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') stop(); });
+    draw();
+    return mdaBoard(el('div', {}, box, el('div', { class: 'mda-cta' }, btn)), 'mda-blend');
+  }
+  // ---- serve at the table ----
+  const MDA_TBG = mdaSVG('0 0 600 300', `<rect width="600" height="300" fill="#ffe9f3"/><path d="M0 0 H600 V60 Q560 90 520 60 Q480 90 440 60 Q400 90 360 60 Q320 90 280 60 Q240 90 200 60 Q160 90 120 60 Q80 90 40 60 Q20 80 0 60 Z" fill="#ff9ad5" opacity=".5"/>`
+    + [100, 300, 500].map(x => `<path d="M${x} 0 V30" stroke="${O}" stroke-width="2"/><path d="M${x - 18} 48 Q${x} 18 ${x + 18} 48 Z" fill="#ffe27a" stroke="${O}" stroke-width="2.5"/><circle cx="${x}" cy="52" r="6" fill="#fff6c4" class="mda-glowb"/>`).join('')
+    + `<rect x="0" y="120" width="600" height="180" fill="#fff4e8"/><path d="M0 120 H600" stroke="#ffd0e4" stroke-width="4"/>`);
+  function mdaServeView() {
+    const s = mdaV.serve, r = MDA_REC.find(x => x.id === s.rid), all = mdaPets().slice(0, 8), xs = mdaXs(all.length), w = Math.min(17, 80 / Math.max(3, all.length));
+    const st = mdaStage(MDA_TBG, 'mda-serve'), L = st.lastChild;
+    L.append(el('div', { class: 'mda-banner' }, `🍽️ ${r.n} מוכן! ${mdaStarsTxt(s.stars)}`));
+    const acts = all.map((p, i) => { const a = mdaActor(p, xs[i], 22, w, { fit: { head: { id: 'chefhat' } }, cls: 'mda-idle' }); a.style.animationDelay = `${i * .2}s`; L.append(a); return a; });
+    L.append(el('div', { class: 'mda-table' }));
+    const plates = all.map((p, i) => { const pl = el('div', { class: 'mda-plate', html: mdaDishSVG(r.id) }); pl.style.left = xs[i] + '%'; pl.style.width = Math.min(13, w * .8) + '%'; pl.hidden = true; L.append(pl); return pl; });
+    const log = el('div', { class: 'mda-log' });
+    const btn = el('button', { type: 'button', class: 'btn main mda-big', onclick: () => {
+      btn.disabled = true; SFX.pop();
+      const b = mdaD.book[r.id] = mdaD.book[r.id] || { stars: 0, n: 0 }; b.stars = Math.max(b.stars, s.stars); b.n++; mdaSave();
+      const art = mdaDishSVG(r.id);
+      all.forEach((p, i) => mdaLater(() => {
+        plates[i].hidden = false; mdaBop(plates[i], 'mda-pop');
+        let line = ''; try { line = typeof feedPet === 'function' ? feedPet(p, { id: 'mda_' + r.id, name: r.n, art, yum: Math.max(1, Math.min(3, s.stars)) }) : `${mdaNm(p)}: יאמי! 😋`; } catch { line = `${mdaNm(p)}: יאמי! 😋`; }
+        mdaBop(acts[i]); mdaSay(acts[i], mdaPick(['יאמי! 😋', 'מממ! 💖', 'טעים!! ⭐', 'עוד! 🥄']), 2600); mdaHearts(L, xs[i], 60);
+        log.prepend(el('div', {}, line));
+      }, 350 + i * 650));
+      mdaLater(() => { MDA_SND.fanfare(); mdaConfetti(); mdaCoin('kserve', 10, `בישלנו ${r.n}`, 3); again.hidden = false; }, 500 + all.length * 650);
+    } }, '🍽️ להגיש לכל החיות');
+    const again = el('div', { class: 'mda-cta', hidden: true }, el('button', { type: 'button', class: 'btn main', onclick: () => mdaGo('kitchen') }, '📖 לספר המתכונים'), el('button', { type: 'button', class: 'btn', onclick: () => mdaCookStart(r.id) }, '🔄 לבשל שוב'));
+    return el('div', { class: 'mda-wrap' }, st, el('div', { class: 'mda-cta' }, btn), again, log);
+  }
+
+  // ---------- 🧩 the escape room ----------
+  const MDA_COL = [['#ff5a6e', 'אדום'], ['#ffd84d', 'צהוב'], ['#4f9fe0', 'כחול'], ['#4fbf73', 'ירוק'], ['#b58cff', 'סגול']];
+  const MDA_SHAPES = {
+    circle: ['עיגול', c => `<circle r="26" fill="${c}"/>`], square: ['ריבוע', c => `<rect x="-24" y="-24" width="48" height="48" rx="4" fill="${c}"/>`],
+    triangle: ['משולש', c => `<path d="M0 -28 L28 22 H-28 Z" fill="${c}"/>`], star: ['כוכב', c => `<polygon points="${starPts(0, 0, 30, 13)}" fill="${c}"/>`],
+    heart: ['לב', c => `<path d="${pzHeart(0, 2, 22)}" fill="${c}"/>`], moon: ['ירח', c => `<path d="M13 -26 A26 26 0 1 0 13 26 A11 26 0 0 1 13 -26 Z" fill="${c}"/>`],
+  };
+  // objects for "find the key" (drawn in a 100×100 box, bottom at y=95)
+  const MDA_OBJ = {
+    teddy: ['הדובי', `<circle cx="50" cy="68" r="26" fill="#c68b59" ${S}/><circle cx="50" cy="36" r="20" fill="#c68b59" ${S}/><circle cx="34" cy="20" r="7" fill="#c68b59" ${S}/><circle cx="66" cy="20" r="7" fill="#c68b59" ${S}/><ellipse cx="50" cy="42" rx="8" ry="6" fill="#f1d3b3"/><circle cx="43" cy="33" r="2.4" fill="${O}"/><circle cx="57" cy="33" r="2.4" fill="${O}"/><circle cx="50" cy="40" r="2" fill="${O}"/><ellipse cx="50" cy="72" rx="13" ry="12" fill="#f1d3b3"/>`],
+    ball: ['הכדור', `<circle cx="50" cy="62" r="32" fill="#ff5a6e" ${S}/><path d="M18 62 Q50 40 82 62" fill="none" stroke="#fff" stroke-width="7"/><path d="M50 30 Q36 62 50 94" fill="none" stroke="#ffd84d" stroke-width="7"/><circle cx="50" cy="62" r="32" fill="none" ${S}/>`],
+    blocks: ['הקוביות', `<rect x="14" y="58" width="34" height="34" rx="3" fill="#7ec8ff" ${S}/><rect x="52" y="58" width="34" height="34" rx="3" fill="#ffd84d" ${S}/><rect x="33" y="22" width="34" height="34" rx="3" fill="#ff9ad5" ${S}/><text x="31" y="84" font-size="22" text-anchor="middle" font-family="Rubik, sans-serif" fill="${O}">א</text><text x="69" y="84" font-size="22" text-anchor="middle" font-family="Rubik, sans-serif" fill="${O}">ב</text><text x="50" y="48" font-size="22" text-anchor="middle" font-family="Rubik, sans-serif" fill="${O}">ג</text>`],
+    drum: ['התוף', `<rect x="18" y="44" width="64" height="46" fill="#ff9a3c" ${S}/><ellipse cx="50" cy="44" rx="32" ry="10" fill="#fff6ea" ${S}/><path d="M18 50 L34 88 L50 50 L66 88 L82 50" fill="none" stroke="#fff" stroke-width="3"/><ellipse cx="50" cy="90" rx="32" ry="6" fill="#ff9a3c" ${S}/><path d="M30 30 L44 42 M72 26 L58 40" ${S}/>`],
+    toybox: ['ארגז הצעצועים', `<rect x="10" y="44" width="80" height="48" rx="6" fill="#b58cff" ${S}/><rect x="6" y="34" width="88" height="14" rx="5" fill="#8e6bd6" ${S}/><polygon points="${starPts(50, 68, 12, 5)}" fill="#ffd84d" ${S2}/>`],
+    barrel: ['החבית', `<path d="M24 20 Q14 56 24 92 H76 Q86 56 76 20 Z" fill="#c98f3a" ${S}/><path d="M18 40 H82 M17 72 H83" stroke="#6b4226" stroke-width="5"/><ellipse cx="50" cy="20" rx="26" ry="6" fill="#e9b877" ${S}/>`],
+    chest: ['התיבה', `<rect x="12" y="50" width="76" height="42" rx="4" fill="#c98f3a" ${S}/><path d="M12 50 Q12 26 50 26 Q88 26 88 50 Z" fill="#e0a860" ${S}/><path d="M12 50 H88" ${S}/><rect x="44" y="44" width="12" height="16" rx="2" fill="#ffd84d" ${S2}/><path d="M30 28 V92 M70 28 V92" stroke="#8a5a2a" stroke-width="4"/>`],
+    rope: ['החבל', `<ellipse cx="50" cy="80" rx="38" ry="12" fill="#e8c890" ${S}/><ellipse cx="50" cy="70" rx="32" ry="10" fill="#e8c890" ${S}/><ellipse cx="50" cy="60" rx="24" ry="8" fill="#e8c890" ${S}/><ellipse cx="50" cy="52" rx="14" ry="5" fill="#c9a060" ${S}/>`],
+    anchor: ['העוגן', `<circle cx="50" cy="18" r="8" fill="none" stroke="#6a7a8a" stroke-width="6"/><path d="M50 26 V90 M34 40 H66 M20 66 Q24 90 50 90 Q76 90 80 66" fill="none" stroke="#6a7a8a" stroke-width="8" stroke-linecap="round"/><path d="M50 26 V90 M20 66 Q24 90 50 90 Q76 90 80 66" fill="none" ${S2} opacity=".5"/>`],
+    map: ['המפה', `<path d="M10 30 L36 22 L64 30 L90 22 V84 L64 92 L36 84 L10 92 Z" fill="#fff1c9" ${S}/><path d="M36 22 V84 M64 30 V92" stroke="#e0c890" stroke-width="2"/><path d="M20 70 q10 -20 24 -10 t26 -18" fill="none" stroke="#ff5a6e" stroke-width="3" stroke-dasharray="4 4"/><path d="M68 38 l8 8 M76 38 l-8 8" stroke="#ff5a6e" stroke-width="4"/>`],
+    books: ['ערימת הספרים', `<rect x="14" y="74" width="72" height="18" rx="3" fill="#ff5a6e" ${S}/><rect x="20" y="56" width="62" height="18" rx="3" fill="#4f9fe0" ${S}/><rect x="16" y="38" width="66" height="18" rx="3" fill="#4fbf73" ${S}/><rect x="24" y="20" width="54" height="18" rx="3" fill="#ffd84d" ${S}/>`],
+    globe: ['הגלובוס', `<circle cx="50" cy="42" r="30" fill="#7ec8ff" ${S}/><path d="M30 30 q10 -6 18 4 q-4 10 -14 8 Z M56 44 q12 -4 16 8 q-8 10 -16 2 Z" fill="#6fcf7f"/><path d="M50 72 V86 M32 92 H68" ${S}/><path d="M50 12 A30 30 0 0 1 50 72" fill="none" stroke="#c98f3a" stroke-width="4"/>`],
+    lamp: ['המנורה', `<path d="M30 16 H70 L80 50 H20 Z" fill="#ff9ad5" ${S}/><path d="M50 50 V88 M32 92 H68" ${S}/><ellipse cx="50" cy="56" rx="16" ry="5" fill="#ffe27a" opacity=".8"/>`],
+    plant: ['העציץ', `<path d="M28 60 H72 L66 92 H34 Z" fill="#ff9a3c" ${S}/><path d="M50 60 Q30 40 22 18 Q46 26 50 60 Q54 26 78 18 Q70 40 50 60 Q48 36 50 10" fill="#6fcf7f" ${S2}/>`],
+    armchair: ['הכורסה', `<rect x="18" y="20" width="64" height="50" rx="14" fill="#b58cff" ${S}/><rect x="8" y="46" width="22" height="40" rx="8" fill="#8e6bd6" ${S}/><rect x="70" y="46" width="22" height="40" rx="8" fill="#8e6bd6" ${S}/><rect x="26" y="58" width="48" height="24" rx="6" fill="#d6c2ff" ${S}/>`],
+  };
+  const MDA_KEY = `<g transform="translate(50 74)"><circle cx="-14" cy="0" r="10" fill="#ffd84d" ${S}/><circle cx="-14" cy="0" r="4" fill="#fff6c4" ${S2}/><path d="M-4 0 H22 M14 0 V8 M20 0 V6" stroke="#e0a800" stroke-width="5" stroke-linecap="round"/><path d="M-4 0 H22" stroke="${O}" stroke-width="1.4" opacity=".4"/></g>`;
+  const MDA_RIDDLES = {
+    book: ['יש לי עמודים אבל אני לא בניין, ויש לי כריכה אבל אני לא מיטה. מה אני?', [['📚', 'ספר'], ['🏠', 'בית'], ['🛏️', 'מיטה']]],
+    map: ['יש בי ימים ונהרות, אבל אין בי אף טיפת מים. מה אני?', [['🗺️', 'מפה'], ['🐟', 'דג'], ['☔', 'מטרייה']]],
+    clock: ['יש לי מחוגים אבל אין לי ידיים, ואני אומר לך מתי ללכת לישון. מה אני?', [['⏰', 'שעון'], ['🧤', 'כפפה'], ['🦀', 'סרטן']]],
+    moon: ['אני מאיר בלילה, ומשנה את הצורה שלי כל כמה ימים. מי אני?', [['🌙', 'הירח'], ['☀️', 'השמש'], ['💡', 'נורה']]],
+    towel: ['ככל שאני מייבשת יותר — אני נהיית רטובה יותר! מה אני?', [['🧻', 'מגבת'], ['🌂', 'מטרייה'], ['🔥', 'מדורה']]],
+    egg: ['צריך לשבור אותי לפני שמשתמשים בי. מה אני?', [['🥚', 'ביצה'], ['⚽', 'כדור'], ['🎁', 'מתנה']]],
+  };
+  const MDA_ROOMS = [
+    { id: 'toys', n: 'חדר הצעצועים', e: '🧸', col: '#ff9ad5', pz: [['find', ['teddy', 'ball', 'blocks', 'drum', 'toybox']], ['color', 3, 'balloons'], ['count', 'blocks'], ['shape', ['circle', 'square', 'triangle', 'star']], ['slide']] },
+    { id: 'pirate', n: 'ספינת הפיראטים', e: '🏴‍☠️', col: '#4f9fe0', pz: [['riddle', 'map'], ['find', ['barrel', 'chest', 'rope', 'anchor', 'map']], ['count', 'coins'], ['color', 4, 'flags'], ['slide']] },
+    { id: 'library', n: 'הספרייה הקסומה', e: '📚', col: '#b58cff', pz: [['riddle', 'book'], ['color', 4, 'books'], ['pattern'], ['find', ['books', 'globe', 'lamp', 'plant', 'armchair']], ['shape', ['moon', 'star', 'heart', 'circle']]] },
+    { id: 'space', n: 'תחנת החלל', e: '🚀', col: '#3a3a6a', pz: [['count', 'planets'], ['color', 4, 'lights'], ['riddle', 'moon'], ['shape', ['star', 'moon', 'circle', 'triangle', 'heart']], ['slide']] },
+  ];
+  const MDA_PZ_NAME = { find: '🔑 למצוא את המפתח', color: '🎨 מנעול הצבעים', count: '🔢 לספור', shape: '🔷 להתאים צורות', slide: '🧩 פאזל הזזה', riddle: '❓ חידה', pattern: '🔮 מה בא אחר כך?' };
+  // room backgrounds with the color clue drawn in
+  function mdaRoomBG(room, code, open = 0, solved = 0, total = 5) {
+    const c = code || [], door = (x, y, w, h, col, arch) => `<g><rect x="${x - 6}" y="${y - 6}" width="${w + 12}" height="${h + 6}" rx="${arch ? w / 2 + 6 : 8}" fill="#3a2b3c" opacity=".25"/><g class="mda-door${open ? ' open' : ''}" style="transform-origin:${x}px ${y}px"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${arch ? w / 2 : 6}" fill="${col}" stroke="${O}" stroke-width="3"/><circle cx="${x + w - 14}" cy="${y + h * .55}" r="5" fill="#ffd84d" stroke="${O}" stroke-width="2"/></g>`
+      + Array.from({ length: total }, (_, i) => `<g transform="translate(${x + w / 2} ${y + 26 + i * 22})"><rect x="-9" y="-6" width="18" height="15" rx="3" fill="${i < solved ? '#6fcf7f' : '#ffd84d'}" stroke="${O}" stroke-width="2"/><path d="M-5 -6 V-10 A5 5 0 0 1 5 -10 ${i < solved ? 'V-12' : 'V-6'}" fill="none" stroke="${O}" stroke-width="2.4"/></g>`).join('') + '</g>';
+    let b = '';
+    if (room.id === 'toys') b = `<rect width="600" height="300" fill="#ffe3f1"/>${Array.from({ length: 12 }, (_, i) => `<circle cx="${25 + i * 50}" cy="${20 + (i % 2) * 30}" r="4" fill="#fff"/>`).join('')}<rect x="0" y="222" width="600" height="78" fill="#ffd0a0"/>${Array.from({ length: 8 }, (_, i) => `<rect x="${i * 80}" y="222" width="80" height="78" fill="${i % 2 ? '#ffc690' : '#ffd8b0'}"/>`).join('')}`
+      + `<rect x="180" y="30" width="170" height="120" rx="12" fill="#bfe6ff" stroke="${O}" stroke-width="3"/><path d="M265 30 V150 M180 90 H350" stroke="${O}" stroke-width="3"/>`
+      + c.map((k, j) => { const i = c.length - 1 - j; return `<path d="M${215 + i * 50} ${128} Q${210 + i * 50} 110 ${215 + i * 50} 96" fill="none" stroke="${O}" stroke-width="1.6"/><ellipse cx="${215 + i * 50}" cy="${76}" rx="18" ry="22" fill="${MDA_COL[k][0]}" stroke="${O}" stroke-width="2.5" class="mda-bob" style="animation-delay:${i * .4}s"/><path d="M${209 + i * 50} 68 q3 -8 9 -8" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/>`; }).join('')
+      + `<rect x="30" y="100" width="120" height="10" rx="4" fill="#c98f3a" stroke="${O}" stroke-width="2"/><circle cx="60" cy="86" r="13" fill="#ff5a6e" stroke="${O}" stroke-width="2.5"/><rect x="92" y="72" width="26" height="28" rx="3" fill="#7ec8ff" stroke="${O}" stroke-width="2.5"/><rect x="380" y="100" width="90" height="10" rx="4" fill="#c98f3a" stroke="${O}" stroke-width="2"/><polygon points="${starPts(420, 84, 14, 6)}" fill="#ffd84d" stroke="${O}" stroke-width="2"/>`
+      + door(496, 70, 80, 152, '#ff9ad5');
+    else if (room.id === 'pirate') b = `<rect width="600" height="300" fill="#bfe6ff"/><circle cx="90" cy="50" r="24" fill="#ffe27a"/><path d="M0 150 Q40 140 80 150 T160 150 T240 150 T320 150 T400 150 T480 150 T600 150 V190 H0 Z" fill="#4f9fe0"/><rect x="0" y="180" width="600" height="120" fill="#c98f3a"/>${Array.from({ length: 6 }, (_, i) => `<path d="M0 ${196 + i * 18} H600" stroke="#9b6b43" stroke-width="2"/>`).join('')}<rect x="0" y="170" width="600" height="14" fill="#8a5a2a" stroke="${O}" stroke-width="2.5"/>`
+      + `<rect x="276" y="10" width="12" height="176" fill="#8a5a2a" stroke="${O}" stroke-width="2.5"/><path d="M214 26 Q282 14 350 26 Q362 66 350 106 Q282 94 214 106 Q202 66 214 26 Z" fill="#fff8e8" stroke="${O}" stroke-width="2.5"/><path d="${pzHeart(282, 62, 16)}" fill="#ff9ad5" stroke="${O}" stroke-width="2"/><rect x="264" y="2" width="36" height="14" rx="4" fill="#9b6b43" stroke="${O}" stroke-width="2.5"/>`
+      + c.map((k, i) => `<path d="M288 ${118 + i * 16} h40 l-8 7 l8 7 h-40 Z" fill="${MDA_COL[k][0]}" stroke="${O}" stroke-width="2" class="mda-flag"/>`).join('')
+      + `<g transform="translate(90 150)"><rect x="-26" y="-4" width="52" height="30" rx="4" fill="#e0a860" stroke="${O}" stroke-width="2.5"/></g><circle cx="200" cy="165" r="12" fill="none" stroke="#6a7a8a" stroke-width="5"/>`
+      + door(470, 64, 100, 116, '#9b6b43');
+    else if (room.id === 'library') b = `<rect width="600" height="300" fill="#e9dcff"/><rect x="0" y="230" width="600" height="70" fill="#8e6bd6"/><path d="M0 230 H600" stroke="${O}" stroke-width="3"/>`
+      + [20, 250].map(x => `<rect x="${x}" y="20" width="200" height="200" rx="6" fill="#9b6b43" stroke="${O}" stroke-width="3"/>` + [0, 1, 2].map(r => `<rect x="${x + 10}" y="${30 + r * 64}" width="180" height="56" fill="#6b4226"/>` + Array.from({ length: 9 }, (_, i) => { const h = 36 + (i * 7 % 18); return `<rect x="${x + 14 + i * 19}" y="${84 + r * 64 - h}" width="16" height="${h}" rx="2" fill="${['#ff9ad5', '#7ec8ff', '#ffd84d', '#6fcf7f', '#ff9a3c', '#c9b2d6'][(i + r * 2 + x) % 6]}" stroke="${O}" stroke-width="1.5"/>`; }).join('')).join('')).join('')
+      + c.map((k, j) => { const i = c.length - 1 - j; return `<g class="mda-shine"><rect x="${279 + i * 38}" y="40" width="26" height="44" rx="3" fill="${MDA_COL[k][0]}" stroke="${O}" stroke-width="2.5"/><polygon points="${starPts(292 + i * 38, 60, 6, 2.6)}" fill="#fff"/></g>`; }).join('')
+      + Array.from({ length: 10 }, (_, i) => `<polygon points="${starPts(30 + i * 60, 250 + (i % 2) * 20, 5, 2)}" fill="#ffe27a" class="mda-tw" style="animation-delay:${i * .3}s"/>`).join('')
+      + door(484, 60, 96, 170, '#6b4226', 1);
+    else b = `<rect width="600" height="300" fill="#1e1b3a"/>${Array.from({ length: 40 }, (_, i) => `<circle cx="${(i * 97) % 600}" cy="${(i * 53) % 220}" r="${1 + i % 2}" fill="#fff" opacity=".7"/>`).join('')}<rect x="0" y="228" width="600" height="72" fill="#5a5a8a"/><path d="M0 228 H600" stroke="${O}" stroke-width="3"/>`
+      + `<circle cx="120" cy="100" r="54" fill="#0e0c24" stroke="#c9b2d6" stroke-width="10"/><circle cx="130" cy="92" r="20" fill="#ff9ad5"/><ellipse cx="130" cy="92" rx="32" ry="7" fill="none" stroke="#ffd84d" stroke-width="4"/><circle cx="96" cy="118" r="8" fill="#7ec8ff"/>`
+      + `<rect x="210" y="150" width="220" height="76" rx="10" fill="#8a8ab8" stroke="${O}" stroke-width="3"/><rect x="224" y="160" width="192" height="26" rx="6" fill="#0e0c24"/>`
+      + c.map((k, j) => `<circle cx="${250 + (c.length - 1 - j) * 46}" cy="173" r="9" fill="${MDA_COL[k][0]}" class="mda-glowb" style="animation-delay:${j * .3}s"/>`).join('')
+      + Array.from({ length: 6 }, (_, i) => `<rect x="${230 + i * 32}" y="198" width="22" height="14" rx="4" fill="${['#ff5a6e', '#ffd84d', '#4fbf73'][i % 3]}" stroke="${O}" stroke-width="2"/>`).join('')
+      + door(470, 58, 110, 170, '#c9b2d6');
+    return mdaSVG('0 0 600 300', b);
+  }
+  function mdaEscape() {
+    if (mdaV.room) return mdaRoomView();
+    const tr = mdaD.trophies;
+    return el('div', { class: 'mda-wrap' },
+      el('p', { class: 'mda-tip' }, '🔐 בוחרים חדר. פותרים את כל החידות ביחד כדי לפתוח את הדלת! נתקעת? לוחצים על חיה והיא תיתן רמז 💡'),
+      el('div', { class: 'mda-rooms' }, ...MDA_ROOMS.map(r => { const t = tr[r.id]; return el('button', { type: 'button', class: 'mda-roomc', onclick: () => mdaRoomStart(r.id) },
+        el('span', { class: 'mda-roomprev', html: mdaRoomBG(r, r.pz.find(p => p[0] === 'color') ? [0, 2, 3, 1].slice(0, r.pz.find(p => p[0] === 'color')[1]) : []) }),
+        el('b', {}, `${r.e} ${r.n}`), el('span', { class: 'muted' }, `${r.pz.length} חידות`),
+        t ? el('span', { class: 'mda-trophy' }, `🏆 ${mdaStarsTxt(t.stars)}` + (t.best ? ` · ⏱️ ${mdaTime(t.best)}` : '')) : el('span', { class: 'muted' }, 'עוד לא ברחנו')); })),
+      el('label', { class: 'mda-timer-t' }, el('input', { type: 'checkbox', checked: !!mdaD.timer, onchange: e => { mdaD.timer = e.target.checked; mdaSave(); } }), ' ⏱️ עם שעון עצר (לא חובה)'),
+      Object.keys(tr).length ? el('div', { class: 'mda-shelf-t' }, el('b', {}, '🏆 מדף הגביעים:'), ...MDA_ROOMS.filter(r => tr[r.id]).map(r => el('span', { class: 'mda-cup', title: r.n, html: mdaCupSVG(r) }))) : null);
+  }
+  const mdaTime = ms => { const s = Math.round(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+  const mdaCupSVG = r => `<svg viewBox="0 0 48 48"><path d="M14 6 H34 V16 A10 10 0 0 1 14 16 Z" fill="#ffcf3a" ${S2}/><path d="M14 9 H8 Q8 18 16 19 M34 9 H40 Q40 18 32 19" fill="none" ${S2}/><path d="M21 25 H27 V31 H21 Z" fill="#ffcf3a" ${S2}/><rect x="13" y="31" width="22" height="9" rx="2" fill="${r.col}" ${S2}/><text x="24" y="16" font-size="9" text-anchor="middle">${r.e}</text></svg>`;
+  function mdaRoomStart(id) {
+    const r = MDA_ROOMS.find(x => x.id === id);
+    const cp = r.pz.find(p => p[0] === 'color'), code = cp ? Array.from({ length: cp[1] }, () => Math.floor(Math.random() * MDA_COL.length)) : [];
+    mdaV = { room: { id, i: 0, code, hints: 0, t0: Date.now(), st: {}, won: false } }; SFX.pop(); MDA_SND.creak(); mdaDraw();
+  }
+  function mdaRoomView() {
+    const R = mdaV.room, r = MDA_ROOMS.find(x => x.id === R.id), all = mdaPets().slice(0, 6), pz = r.pz[R.i];
+    const st = mdaStage(mdaRoomBG(r, R.code, R.won, R.won ? r.pz.length : R.i, r.pz.length), 'mda-room mda-r-' + r.id), L = st.lastChild;
+    const fits = { pirate: { head: { id: 'piratehat' } }, space: { head: { id: 'spacehelmet' } }, library: { head: { id: 'wizhat' } } }[r.id];
+    const w = Math.min(15, 62 / Math.max(3, all.length)), acts = all.map((p, i) => {
+      const a = mdaActor(p, 8 + i * (62 / Math.max(1, all.length)) + w / 2, 3, w, { fit: fits, cls: 'mda-idle', aria: `${mdaNm(p)} — רמז`, onclick: () => { if (R.won) { SFX.pet(p.kind); mdaBop(a); return; } R.hints++; SFX.pet(p.kind); mdaBop(a); mdaSay(a, '💡 ' + mdaHint(r, pz, R), 4200); const hc = $('#mdaHintN'); if (hc) hc.textContent = `💡 רמזים: ${R.hints}`; } });
+      a.style.animationDelay = `${i * .3}s`; L.append(a); return a;
+    });
+    L.append(el('div', { class: 'mda-banner' }, R.won ? `🎉 ברחנו מ${r.n}!` : `${r.e} ${r.n} · חידה ${R.i + 1} מתוך ${r.pz.length}`));
+    if (mdaD.timer && !R.won) { const t = el('div', { class: 'mda-clock' }, '⏱️ 0:00'); L.append(t); const upd = () => { t.textContent = '⏱️ ' + mdaTime(Date.now() - R.t0); mdaLater(upd, 500); }; upd(); }
+    if (R.won) return mdaEscWin(r, R, st, acts);
+    const solved = () => {
+      MDA_SND.right(); acts.forEach((a, i) => mdaLater(() => { mdaBop(a); if (i === 0) mdaSay(a, mdaPick(['יש! פתרנו! 🔓', 'כל הכבוד!! 🌟', 'איזו גאונה! 🧠'])); }, i * 120));
+      mdaLater(() => { if (R.i + 1 < r.pz.length) { R.i++; R.st = {}; MDA_SND.click(); mdaDraw(); } else { R.won = true; R.time = Date.now() - R.t0; mdaDraw(); } }, 1400);
+    };
+    const oops = t => { MDA_SND.wrong(); const a = mdaPick(acts); mdaBop(a, 'mda-shake'); mdaSay(a, t || mdaPick(['עוד לא… ננסה שוב! 💪', 'כמעט! 🤏', 'הממ… אולי לבקש רמז? 💡'])); };
+    const panel = ({ find: mdaPFind, color: mdaPColor, count: mdaPCount, shape: mdaPShape, slide: mdaPSlide, riddle: mdaPRiddle, pattern: mdaPPattern }[pz[0]])(r, pz, R, { solved, oops });
+    return el('div', { class: 'mda-wrap' }, el('div', { class: 'mda-cookhead' }, el('button', { type: 'button', class: 'chip', onclick: () => mdaGo('escape') }, '→ לכל החדרים'), el('b', {}, MDA_PZ_NAME[pz[0]]), el('span', { class: 'muted', id: 'mdaHintN' }, `💡 רמזים: ${R.hints}`)),
+      st, el('div', { class: 'mda-puz' }, panel));
+  }
+  function mdaHint(r, pz, R) {
+    const t = pz[0], S0 = R.st;
+    if (t === 'find') return S0.found ? 'לוחצים על המפתח כדי לקחת אותו! 🔑' : `אני חושב/ת שהמפתח ליד ${MDA_OBJ[S0.key || pz[1][0]][0]}... 👀`;
+    if (t === 'color') return { balloons: 'תסתכלי על הבלונים בחלון — מימין לשמאל! 🎈', flags: 'הדגלים על התורן — מלמעלה למטה! 🚩', books: 'יש ספרים זוהרים על המדף — מימין לשמאל! ✨', lights: 'האורות בלוח הבקרה — מימין לשמאל! 💡' }[pz[2]] + ` הצבע הראשון: ${MDA_COL[R.code[0]][1]}`;
+    if (t === 'count') return `סופרים לאט, אחד אחד, ונוגעים בכל אחד. ${S0.n > 5 ? 'זה יותר מ-5!' : 'זה 5 או פחות!'}`;
+    if (t === 'shape') return 'לוחצים על צורה צבעונית, ואז על החור שנראה בדיוק כמוה 🔷';
+    if (t === 'slide') return 'לוחצים על חלק שנוגע במשבצת הריקה והוא זז אליה. אפשר ללחוץ "לראות את התמונה" 🖼️';
+    if (t === 'riddle') return `התשובה מתחילה באות "${MDA_RIDDLES[pz[1]][1][0][1][0]}" 🤫`;
+    if (t === 'pattern') return 'תגידי את הצבעים בקול — יש חזרה! 🔁';
+    return 'את יכולה! 💪';
+  }
+  function mdaPFind(r, pz, R, cb) {
+    const S0 = R.st; if (!S0.key) { S0.key = mdaPick(pz[1]); S0.lift = []; }
+    const box = el('div', { class: 'mda-find' });
+    const draw = () => box.replaceChildren(...pz[1].map(id => {
+      const up = S0.lift.includes(id), key = id === S0.key;
+      return el('button', { type: 'button', class: 'mda-obj' + (up ? ' up' : ''), 'aria-label': (up && key && !S0.got ? 'מפתח! ' : '') + MDA_OBJ[id][0], onclick: () => {
+        if (up && key) { S0.got = true; MDA_SND.ta(); cb.solved(); return; }
+        if (up) return; S0.lift.push(id); MDA_SND.whoosh();
+        if (key) { S0.found = true; MDA_SND.bell(); } else cb.oops(mdaPick([`רק אבק מתחת ל${MDA_OBJ[id][0]} 🧹`, 'אין פה כלום… 🤷', 'הממ, לא פה! 👀']));
+        draw();
+      } }, el('span', { class: 'under', html: `<svg viewBox="0 0 100 100">${key ? MDA_KEY : `<ellipse cx="50" cy="86" rx="20" ry="5" fill="#c9b2d6" opacity=".6"/>`}</svg>` }), el('span', { class: 'top', html: `<svg viewBox="0 0 100 100">${MDA_OBJ[id][1]}</svg>` }), el('small', {}, MDA_OBJ[id][0]));
+    }));
+    draw();
+    return el('div', {}, el('p', { class: 'mda-q' }, 'המפתח מתחבא מתחת לאחד הדברים בחדר. לוחצים כדי להרים ולחפש! 🔑'), box);
+  }
+  function mdaPColor(r, pz, R, cb) {
+    const S0 = R.st; if (!S0.v) S0.v = R.code.map(() => -1);
+    const where = { balloons: 'הבלונים בחלון', flags: 'הדגלים על התורן', books: 'הספרים הזוהרים', lights: 'האורות בלוח הבקרה' }[pz[2]];
+    const slots = el('div', { class: 'mda-lock' });
+    const draw = () => slots.replaceChildren(...S0.v.map((v, i) => el('button', { type: 'button', class: 'mda-slot', style: v >= 0 ? `background:${MDA_COL[v][0]}` : '', 'aria-label': `מקום ${i + 1}: ${v >= 0 ? MDA_COL[v][1] : 'ריק'}`, onclick: () => { S0.v[i] = (S0.v[i] + 1) % MDA_COL.length; MDA_SND.click(); draw(); } }, v >= 0 ? '' : '?')));
+    draw();
+    return el('div', {}, el('p', { class: 'mda-q' }, `מנעול צבעים! הקוד מסתתר ב${where}. לוחצים על כל עיגול כדי להחליף צבע.`),
+      el('div', { class: 'mda-lockbox' }, el('span', { class: 'mda-padlock', html: `<svg viewBox="0 0 48 48"><path d="M14 22 V14 A10 10 0 0 1 34 14 V22" fill="none" ${S} stroke-width="4"/><rect x="8" y="22" width="32" height="22" rx="5" fill="#ffd84d" ${S}/><circle cx="24" cy="32" r="3" fill="${O}"/></svg>` }), slots),
+      el('div', { class: 'mda-cta' }, el('button', { type: 'button', class: 'btn main', onclick: () => { if (S0.v.every((v, i) => v === R.code[i])) cb.solved(); else { const k = S0.v.filter((v, i) => v === R.code[i]).length; cb.oops(`${k} צבעים במקום הנכון… 🤔`); } } }, '🔓 לנסות לפתוח')));
+  }
+  function mdaPCount(r, pz, R, cb) {
+    const S0 = R.st, kind = pz[1]; if (!S0.n) { S0.n = 3 + Math.floor(Math.random() * 6); S0.pos = Array.from({ length: S0.n + 5 }, (_, i) => [30 + (i * 67 + Math.random() * 30) % 340, 30 + (i * 41 + Math.random() * 30) % 160, Math.random() * 30 - 15]); S0.opts = mdaShuf([S0.n, S0.n + 1, S0.n - 1, S0.n + 2].filter(x => x > 0)); }
+    const Q = { blocks: ['כמה קוביות כחולות יש?', (x, y, a) => `<rect x="${x - 15}" y="${y - 15}" width="30" height="30" rx="3" fill="#7ec8ff" ${S} transform="rotate(${a} ${x} ${y})"/>`, (x, y) => `<circle cx="${x}" cy="${y}" r="13" fill="#ff5a6e" ${S}/>`],
+      coins: ['כמה מטבעות זהב יש בתיבה?', (x, y) => `<circle cx="${x}" cy="${y}" r="15" fill="#ffd84d" ${S}/><circle cx="${x}" cy="${y}" r="9" fill="none" stroke="#e0a800" stroke-width="2"/>`, (x, y) => `<circle cx="${x}" cy="${y}" r="11" fill="#fff" ${S2}/><circle cx="${x - 3}" cy="${y - 3}" r="3" fill="#e6f0ff"/>`],
+      planets: ['כמה כוכבי לכת (עם טבעת) יש?', (x, y, a) => `<g transform="rotate(${a} ${x} ${y})"><circle cx="${x}" cy="${y}" r="14" fill="#ff9ad5" ${S}/><ellipse cx="${x}" cy="${y}" rx="24" ry="6" fill="none" stroke="#ffd84d" stroke-width="3"/></g>`, (x, y) => `<polygon points="${starPts(x, y, 12, 5)}" fill="#fff6a8" ${S2}/>`] }[kind];
+    const bg = kind === 'planets' ? '#1e1b3a' : kind === 'coins' ? '#c98f3a' : '#fff4e8';
+    const pic = `<svg viewBox="0 0 400 220" class="mda-countpic"><rect width="400" height="220" rx="16" fill="${bg}"/>${S0.pos.map(([x, y, a], i) => i < S0.n ? Q[1](x, y, a) : Q[2](x, y, a)).join('')}</svg>`;
+    return el('div', {}, el('p', { class: 'mda-q' }, Q[0]), el('div', { class: 'mda-pic', html: pic }),
+      el('div', { class: 'mda-cta' }, ...S0.opts.map(n => el('button', { type: 'button', class: 'btn mda-num', onclick: () => n === S0.n ? cb.solved() : cb.oops(n > S0.n ? 'פחות מזה! 👇' : 'יותר מזה! 👆') }, String(n)))));
+  }
+  function mdaPShape(r, pz, R, cb) {
+    const S0 = R.st; if (!S0.holes) { S0.holes = mdaShuf(pz[1]); S0.pieces = mdaShuf(pz[1]); S0.done = []; S0.sel = null; }
+    const cols = ['#ff5a6e', '#ffd84d', '#4f9fe0', '#4fbf73', '#b58cff', '#ff9a3c'];
+    const col = id => cols[pz[1].indexOf(id) % cols.length];
+    const wrap = el('div', {});
+    const draw = () => wrap.replaceChildren(
+      el('div', { class: 'mda-holes' }, ...S0.holes.map(id => el('button', { type: 'button', class: 'mda-hole', 'aria-label': 'חור בצורת ' + MDA_SHAPES[id][0], html: `<svg viewBox="-34 -34 68 68">${S0.done.includes(id) ? MDA_SHAPES[id][1](col(id)) : MDA_SHAPES[id][1]('#3a2b3c').replace('/>', ` opacity=".75"/>`)}</svg>`, onclick: () => {
+        if (!S0.sel || S0.done.includes(id)) return;
+        if (S0.sel === id) { S0.done.push(id); S0.sel = null; MDA_SND.plop(); if (S0.done.length === pz[1].length) cb.solved(); } else { cb.oops(`זה ${MDA_SHAPES[S0.sel][0]}, והחור הוא ${MDA_SHAPES[id][0]} 😉`); S0.sel = null; }
+        draw();
+      } }))),
+      el('div', { class: 'mda-pieces' }, ...S0.pieces.filter(id => !S0.done.includes(id)).map(id => el('button', { type: 'button', class: 'mda-piece', 'aria-pressed': String(S0.sel === id), 'aria-label': MDA_SHAPES[id][0], html: `<svg viewBox="-34 -34 68 68">${MDA_SHAPES[id][1](col(id)).replace('/>', ` ${S}/>`)}</svg>`, onclick: () => { S0.sel = id; MDA_SND.click(); draw(); } }))));
+    draw();
+    return el('div', {}, el('p', { class: 'mda-q' }, { toys: 'ממיין הצורות! בוחרים צורה ואז לוחצים על החור המתאים.', library: 'סמלי הקסם! כל סמל צריך לחזור למקום שלו על הדלת ✨', space: 'מחברים את התקעים לשקעים בלוח הבקרה! 🔌' }[r.id] || 'מתאימים צורות!'), wrap);
+  }
+  function mdaSlidePic(r) {
+    const ps = mdaPets().slice(0, 3), bg = { toys: ['#ffd0e8', '#ffe8a8'], pirate: ['#bfe6ff', '#4f9fe0'], library: ['#e9dcff', '#b58cff'], space: ['#2a2560', '#6a5ab8'] }[r.id] || ['#fff', '#eee'];
+    const w = Math.min(180, 290 / ps.length);
+    const body = `<defs><linearGradient id="mdsl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg[0]}"/><stop offset="1" stop-color="${bg[1]}"/></linearGradient></defs><rect width="300" height="300" fill="url(#mdsl)"/>`
+      + Array.from({ length: 9 }, (_, i) => `<polygon points="${starPts(20 + (i * 71) % 270, 20 + (i * 37) % 90, 7, 3)}" fill="#fff" opacity=".8"/>`).join('')
+      + `<text x="150" y="60" font-size="44" text-anchor="middle">${r.e}</text><ellipse cx="150" cy="276" rx="140" ry="18" fill="#fff" opacity=".45"/>`
+      + ps.map((p, i) => placeSvg(petSVG(p), 150 + (i - (ps.length - 1) / 2) * w - w / 2, 284 - w * 64 / 56, w, w * 64 / 56)).join('');
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300">${body}</svg>`;
+  }
+  function mdaPSlide(r, pz, R, cb) {
+    const S0 = R.st;
+    if (!S0.t) { let t = [0, 1, 2, 3, 4, 5, 6, 7, 8], b = 8, prev = -1; for (let k = 0; k < 24; k++) { const nb = [b - 3, b + 3, b % 3 ? b - 1 : -1, b % 3 < 2 ? b + 1 : -1].filter(x => x >= 0 && x < 9 && x !== prev); const m = mdaPick(nb); [t[b], t[m]] = [t[m], t[b]]; prev = b; b = m; } if (t.every((v, i) => v === i)) [t[7], t[8]] = [t[8], t[7]]; S0.t = t; S0.moves = 0; S0.pic = svgData(mdaSlidePic(r)); }
+    const grid = el('div', { class: 'mda-slide' }), full = el('div', { class: 'mda-slidefull', hidden: true, style: `background-image:url("${S0.pic}")` });
+    const draw = () => grid.replaceChildren(...S0.t.map((v, i) => v === 8 ? el('span', { class: 'mda-tile empty' }) : el('button', { type: 'button', class: 'mda-tile', 'aria-label': `חלק ${v + 1}`, style: `background-image:url("${S0.pic}");background-position:${(v % 3) * 50}% ${Math.floor(v / 3) * 50}%`, onclick: () => {
+      const b = S0.t.indexOf(8), ok = (Math.abs(b - i) === 3) || (Math.abs(b - i) === 1 && Math.floor(b / 3) === Math.floor(i / 3));
+      if (!ok) { MDA_SND.wrong(); return; }
+      [S0.t[b], S0.t[i]] = [S0.t[i], S0.t[b]]; S0.moves++; MDA_SND.click(); draw();
+      if (S0.t.every((x, k) => x === k)) { grid.classList.add('won'); cb.solved(); }
+    } })));
+    draw();
+    return el('div', {}, el('p', { class: 'mda-q' }, 'פאזל הזזה! מסדרים את התמונה של החיות. לוחצים על חלק ליד המשבצת הריקה.'), el('div', { class: 'mda-slidewrap' }, grid, full),
+      el('div', { class: 'mda-cta' }, el('button', { type: 'button', class: 'chip', onclick: () => { full.hidden = !full.hidden; } }, '🖼️ לראות את התמונה')));
+  }
+  function mdaPRiddle(r, pz, R, cb) {
+    const [q, opts] = MDA_RIDDLES[pz[1]], S0 = R.st; if (!S0.o) S0.o = mdaShuf(opts);
+    return el('div', {}, el('p', { class: 'mda-q mda-riddle' }, '❓ ' + q), el('div', { class: 'mda-cta' }, ...S0.o.map(([em, n]) => el('button', { type: 'button', class: 'btn mda-ans', onclick: () => n === opts[0][1] ? cb.solved() : cb.oops(`${n}? חחח, לא 😄 ננסה שוב`) }, el('span', { class: 'em' }, em), n))));
+  }
+  function mdaPPattern(r, pz, R, cb) {
+    const S0 = R.st;
+    if (!S0.seq) { const shapes = mdaShuf(['circle', 'star', 'heart', 'square', 'moon', 'triangle']), cols = mdaShuf([0, 1, 2, 3, 4]), unit = mdaPick([[0, 1], [0, 0, 1], [0, 1, 2], [0, 1, 1]]).map(k => [shapes[k], cols[k]]); const seq = Array.from({ length: 7 }, (_, i) => unit[i % unit.length]); S0.ans = unit[7 % unit.length]; S0.seq = seq; const pool = [S0.ans, ...unit.filter(u => u !== S0.ans), [shapes[4], cols[4]]]; S0.o = mdaShuf(pool.filter((u, i) => pool.findIndex(v => v[0] === u[0] && v[1] === u[1]) === i).slice(0, 3)); }
+    const sh = ([s, c], cls = '') => el('span', { class: 'mda-pat ' + cls, html: `<svg viewBox="-34 -34 68 68">${MDA_SHAPES[s][1](MDA_COL[c][0]).replace('/>', ` ${S}/>`)}</svg>` });
+    return el('div', {}, el('p', { class: 'mda-q' }, 'על הדלת יש שורה של סמלים קסומים. מה בא אחר כך? 🔮'),
+      el('div', { class: 'mda-patrow' }, ...S0.seq.map(u => sh(u)), el('span', { class: 'mda-pat q' }, '?')),
+      el('div', { class: 'mda-cta' }, ...S0.o.map(u => el('button', { type: 'button', class: 'btn mda-patb', 'aria-label': `${MDA_COL[u[1]][1]} ${MDA_SHAPES[u[0]][0]}`, onclick: () => u === S0.ans ? cb.solved() : cb.oops() }, sh(u)))));
+  }
+  function mdaEscWin(r, R, st, acts) {
+    const L = st.lastChild, stars = R.hints <= 1 ? 3 : R.hints <= 3 ? 2 : 1;
+    if (!R.saved) {
+      R.saved = true; const t = mdaD.trophies[r.id] = mdaD.trophies[r.id] || { stars: 0, n: 0 }; t.stars = Math.max(t.stars, stars); t.n++; if (mdaD.timer) t.best = t.best ? Math.min(t.best, R.time) : R.time; mdaSave();
+      MDA_SND.creak(); mdaLater(() => { MDA_SND.fanfare(); mdaConfetti(); }, 700); mdaCoin('escape', 15, `ברחנו מ${r.n}`, 4);
+    }
+    acts.forEach((a, i) => { a.classList.add('mda-dance'); a.style.animationDelay = `${i * .1}s`; });
+    L.append(el('div', { class: 'mda-winbox' }, el('span', { class: 'mda-bigcup', html: mdaCupSVG(r) }), el('b', {}, 'הדלת נפתחה! ברחנו ביחד! 🎉'), el('span', {}, mdaStarsTxt(stars) + (mdaD.timer && R.time ? ` · ⏱️ ${mdaTime(R.time)}` : '') + ` · 💡 ${R.hints} רמזים`)));
+    const next = MDA_ROOMS[(MDA_ROOMS.findIndex(x => x.id === r.id) + 1) % MDA_ROOMS.length];
+    return el('div', { class: 'mda-wrap' }, st, el('div', { class: 'mda-cta' }, el('button', { type: 'button', class: 'btn main', onclick: () => mdaRoomStart(next.id) }, `➡️ לחדר הבא: ${next.e} ${next.n}`), el('button', { type: 'button', class: 'btn', onclick: () => mdaRoomStart(r.id) }, '🔄 לשחק שוב'), el('button', { type: 'button', class: 'btn', onclick: () => mdaGo('escape') }, '🏆 כל החדרים')));
+  }
+
+  // ---------- 📺 the TV channel ----------
+  const MDA_SHOWS = [['news', '📰', 'חדשות החיות'], ['weather', '🌦️', 'מזג האוויר'], ['cook', '👩‍🍳', 'מבשלים עם החיות'], ['talent', '🌟', 'מופע כישרונות'], ['ads', '📢', 'פרסומות מצחיקות']];
+  const MDA_CAMS = [['auto', '🎬 במאי אוטומטי'], ['wide', '🎥 רחב'], ['close', '🔍 קרוב'], ['side', '↗️ מהצד']];
+  const MDA_TVBG = {
+    studio: ['🟦 אולפן', `<defs><linearGradient id="mtv1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b4bb8"/><stop offset="1" stop-color="#8a6bff"/></linearGradient></defs><rect width="640" height="360" fill="url(#mtv1)"/>${Array.from({ length: 11 }, (_, i) => `<path d="M${i * 64} 0 V270" stroke="#fff" stroke-opacity=".08" stroke-width="2"/>`).join('')}${Array.from({ length: 5 }, (_, i) => `<path d="M0 ${i * 60} H640" stroke="#fff" stroke-opacity=".08" stroke-width="2"/>`).join('')}<circle cx="320" cy="130" r="110" fill="none" stroke="#fff" stroke-opacity=".15" stroke-width="18"/><circle cx="320" cy="130" r="60" fill="none" stroke="#ff9ad5" stroke-opacity=".3" stroke-width="10"/><rect y="270" width="640" height="90" fill="#2a2a6a"/><path d="M0 270 H640" stroke="#7ec8ff" stroke-width="4"/>`],
+    city: ['🌃 עיר בלילה', `<rect width="640" height="360" fill="#1e1b4a"/><circle cx="540" cy="60" r="26" fill="#fff6c4"/>${Array.from({ length: 30 }, (_, i) => `<circle cx="${(i * 83) % 640}" cy="${(i * 29) % 120}" r="1.4" fill="#fff" opacity=".8"/>`).join('')}${[[0, 150, 70], [70, 110, 60], [130, 170, 80], [210, 90, 70], [280, 140, 60], [340, 60, 80], [420, 130, 60], [480, 100, 70], [550, 160, 90]].map(([x, y, w], k) => `<rect x="${x}" y="${y}" width="${w}" height="${270 - y}" fill="${['#3a3a7a', '#4a3a8a', '#2e2e6a'][k % 3]}"/>` + Array.from({ length: Math.floor((270 - y) / 24) * 3 }, (_, i) => `<rect x="${x + 10 + (i % 3) * 20}" y="${y + 10 + Math.floor(i / 3) * 24}" width="10" height="12" fill="${(i * 7 + k) % 4 ? '#ffe27a' : '#5a5a9a'}"/>`).join('')).join('')}<rect y="270" width="640" height="90" fill="#2a2a50"/>`],
+    space: ['🪐 חלל', `<rect width="640" height="360" fill="#120f2e"/>${Array.from({ length: 60 }, (_, i) => `<circle cx="${(i * 97) % 640}" cy="${(i * 61) % 270}" r="${1 + i % 3 * .6}" fill="#fff" opacity="${.4 + (i % 3) * .2}"/>`).join('')}<circle cx="120" cy="90" r="46" fill="#ff9ad5"/><ellipse cx="120" cy="90" rx="78" ry="14" fill="none" stroke="#ffd84d" stroke-width="6"/><circle cx="520" cy="70" r="24" fill="#7ec8ff"/><circle cx="470" cy="190" r="12" fill="#b8f0a0"/><rect y="270" width="640" height="90" fill="#3a3a6a"/>`],
+    beach: ['🏖️ חוף', `<rect width="640" height="360" fill="#9fdcff"/><circle cx="520" cy="70" r="34" fill="#ffe27a"/><path d="M0 170 Q80 160 160 170 T320 170 T480 170 T640 170 V230 H0 Z" fill="#4f9fe0"/><path d="M0 220 Q160 200 320 220 T640 216 V360 H0 Z" fill="#ffe0a0"/><path d="M80 230 Q90 150 70 100" stroke="#9b6b43" stroke-width="10" fill="none"/><path d="M70 100 q-40 -10 -60 10 M70 100 q30 -30 60 -20 M70 100 q-10 -40 20 -50 M70 100 q40 0 50 30" stroke="#4fbf73" stroke-width="10" fill="none" stroke-linecap="round"/><rect y="270" width="640" height="90" fill="#f5d38a"/>`],
+    rainbow: ['🌈 קשת', `<rect width="640" height="360" fill="#fff0fa"/>${['#ff5a6e', '#ff9a3c', '#ffd84d', '#6fcf7f', '#4f9fe0', '#b58cff'].map((c, i) => `<path d="M${40 + i * 22} 300 A${280 - i * 22} ${250 - i * 22} 0 0 1 ${600 - i * 22} 300" fill="none" stroke="${c}" stroke-width="22"/>`).join('')}<ellipse cx="70" cy="270" rx="80" ry="36" fill="#fff"/><ellipse cx="570" cy="270" rx="80" ry="36" fill="#fff"/><rect y="280" width="640" height="80" fill="#ffd1e6"/>`],
+  };
+  const MDA_PRODUCTS = [
+    ['socks', 'גרביים מעופפות', 'עם גרביים מעופפות אף פעם לא מאחרים! 🧦💨', `<path d="M-14 -30 H6 V4 L24 12 Q30 24 18 26 L-8 20 Q-16 16 -14 6 Z" fill="#ff9ad5" ${S}/><path d="M-14 -24 H6 M-14 -16 H6" stroke="#fff" stroke-width="3"/><path d="M-18 -8 Q-40 -20 -44 -4 Q-30 -8 -18 0 Z M8 -10 Q30 -26 36 -10 Q22 -12 8 -2 Z" fill="#fff" ${S2}/>`],
+    ['icecream', 'גלידה שלא נמסה אף פעם', 'אוכלים לאט לאט — והיא נשארת קרה! 🍦', `<path d="M-14 0 L0 36 L14 0 Z" fill="#f0b86a" ${S}/><circle cx="-8" cy="-6" r="12" fill="#ff9ad5" ${S}/><circle cx="8" cy="-6" r="12" fill="#b8f0a0" ${S}/><circle cx="0" cy="-20" r="12" fill="#fff6c4" ${S}/><circle cx="0" cy="-34" r="4" fill="#ff4d6d" ${S2}/>`],
+    ['brush', 'מברשת שיניים שרה', 'מצחצחים שתי דקות וזה נגמר בשיר! 🎵', `<rect x="-6" y="-8" width="12" height="44" rx="6" fill="#7ec8ff" ${S}/><rect x="-10" y="-34" width="20" height="28" rx="5" fill="#fff" ${S}/><path d="M-6 -30 V-12 M0 -30 V-12 M6 -30 V-12" stroke="#7ec8ff" stroke-width="2"/><path d="M14 -30 q6 -4 8 2 M20 -40 q6 -4 8 2" fill="none" stroke="#b58cff" stroke-width="3"/>`],
+    ['pillow', 'כרית ענן', 'נרדמים מהר וחולמים חלומות ורודים! ☁️', `<path d="M-34 10 Q-44 -8 -24 -12 Q-20 -30 0 -24 Q16 -36 28 -18 Q44 -14 36 6 Q40 22 20 20 Q0 28 -20 20 Q-38 24 -34 10 Z" fill="#fff" ${S}/><circle cx="-8" cy="0" r="2" fill="${O}"/><circle cx="8" cy="0" r="2" fill="${O}"/><path d="M-4 6 q4 4 8 0" fill="none" ${S2}/>`],
+    ['shoes', 'נעלי קפיץ לחתולים', 'קופצים עד השמיים ונוחתים רכות! 🐱', `<path d="M-30 -10 H6 Q24 -10 28 4 H-30 Z" fill="#ff5a6e" ${S}/><path d="M-24 4 L-18 12 L-24 20 L-18 28 M10 4 L16 12 L10 20 L16 28" fill="none" stroke="#9aa6b8" stroke-width="4"/><rect x="-32" y="28" width="56" height="6" rx="3" fill="#3a3a4a" ${S2}/>`],
+    ['umbrella', 'מטרייה הפוכה', 'אוספת גשם להשקות את הפרחים! ☔🌷', `<path d="M-36 -20 Q0 30 36 -20 Z" fill="#b58cff" ${S}/><path d="M0 12 V-40" ${S}/><path d="M0 -40 q0 -8 8 -8" fill="none" ${S}/>${[-20, 0, 20].map(x => `<path d="M${x} -40 q-3 6 0 10 q3 -4 0 -10 Z" fill="#7ec8ff"/>`).join('')}`],
+    ['hat', 'כובע שזוכר שיעורי בית', 'הוא מזכיר לך הכל — חוץ מבדיחות! 🎩', `<ellipse cx="0" cy="20" rx="36" ry="8" fill="#3a3a4a" ${S}/><path d="M-20 20 V-20 Q0 -26 20 -20 V20 Z" fill="#3a3a4a" ${S}/><rect x="-20" y="6" width="40" height="8" fill="#ff9ad5"/><path d="M26 -20 h16 v12 h-10 l-4 4 v-4 h-2 Z" fill="#fff" ${S2}/><text x="34" y="-11" font-size="9" text-anchor="middle">📚</text>`],
+  ];
+  const MDA_JOKES = ['למה הדג לא משחק טניס? כי הוא מפחד מהרשת! 🐟', 'מה אמר קיר אחד לקיר השני? ניפגש בפינה! 😄', 'למה העגבנייה הסמיקה? כי היא ראתה את הסלט מתלבש! 🍅', 'מה עושה ענן כשהוא שמח? מזיע… גשם של שמחה! ☁️', 'למה החתול ישב ליד המחשב? לשמור על העכבר! 🐭'];
+  const MDA_TALENTS = [['שירה', '🎤', 'sing'], ['ריקוד', '💃', 'dance'], ['קסמים', '🎩', 'magic'], ['ג\'אגלינג', '🤹', 'juggle'], ['סלטות', '🤸', 'flip'], ['בדיחות', '😂', 'joke']];
+  const mdaWxOf = k => { try { return wx && wx.byDate && wx.byDate[k]; } catch { return null; } };
+  const mdaWxKind = w => !w ? 'sun' : [95, 96, 99].includes(w.code) || (w.code >= 51 && w.code <= 67) || (w.code >= 80 && w.code <= 82) ? 'rain' : (w.code >= 71 && w.code <= 77) || w.code >= 85 ? 'snow' : w.max < 15 ? 'cold' : w.code <= 1 || w.max >= 27 ? 'sun' : 'cloud';
+  const MDA_WXFIT = { rain: { fit: { body: { id: 'raincoat' } } }, snow: { fit: { head: { id: 'beanie' }, neck: { id: 'scarf' } } }, cold: { fit: { head: { id: 'beanie' }, neck: { id: 'scarf' } } }, sun: { fit: { head: { id: 'sunhat' } }, wear: { face: 'sunglasses' } }, cloud: { fit: { neck: { id: 'scarf' } } } };
+  const mdaG = (p, m, f) => (p && p.gender === 'f') ? f : m;
+  function mdaHeadlines() {
+    const all = mdaPets(), t = localToday(), out = [];
+    const nm = mdaNm;
+    try { holidaysOn(t).forEach(h => out.push(['🎉', `חג שמח! היום ${holName(h)} — החיות קישטו את הבית!`])); } catch {}
+    all.forEach(p => { try { const a = typeof petAge === 'function' ? petAge(p) : null; if (a && a.stage === 'baby') out.push(['🍼', a.days === 0 ? `מזל טוב!!! ${nm(p)} נולד/ה היום! כל החיות שולחות חיבוק` : `חדשות מתוקות: ${nm(p)} בן/בת ${a.days} ימים וכבר ממש חמוד/ה!`]); } catch {} });
+    try { (events[t] || []).slice(0, 2).forEach(ev => out.push(['📅', `היום בלוח: ${ev.text}${ev.time ? ` בשעה ${ev.time}` : ''} — החיות מחזיקות אצבעות!`])); } catch {}
+    try { const k2 = addDays(t, 1); (events[k2] || []).slice(0, 1).forEach(ev => out.push(['🗓️', `מחר: ${ev.text}. כדאי להכין הכל מהערב!`])); } catch {}
+    const w = mdaWxOf(t); if (w) out.push([wmo(w.code)[0], `מזג האוויר היום: ${wmo(w.code)[1]}, עד ${Math.round(w.max)} מעלות`]);
+    const MOOD = { happy: ['😊', p => `${nm(p)} שמח/ה היום ורקד/ה במסדרון!`], hungry: ['🍎', p => `דחוף: ${nm(p)} מחפש/ת חטיף! המטבח בכוננות`], tired: ['😴', p => `${nm(p)} פיהק/ה 7 פעמים ברצף — שיא עולם!`], bored: ['⚽', p => `${nm(p)} מחפש/ת מישהו לשחק איתו/ה`], miss: ['🥺', p => `${nm(p)} מתגעגע/ת ומחכה ליד הדלת`] };
+    mdaShuf(all).slice(0, 3).forEach(p => { let m = 'happy'; try { if (typeof petMood === 'function') m = petMood(p); } catch {} const M = MOOD[m] || MOOD.happy; out.push([M[0], M[1](p)]); });
+    try { if (typeof coinsNow === 'function') out.push(['🪙', `בקופה של הבית יש ${coinsNow()} מטבעות — אולי נקנה משהו יפה?`]); } catch {}
+    const cooked = MDA_REC.filter(r => (mdaD.book[r.id] || {}).n); if (cooked.length) out.push(['👩‍🍳', `המטבח של החיות כבר בישל ${cooked.length} מתכונים שונים! הכי אהוב: ${mdaPick(cooked).n}`]);
+    const tr = Object.keys(mdaD.trophies).length; if (tr) out.push(['🏆', `החיות ברחו מ-${tr} חדרי בריחה! איזה צוות חכם`]);
+    [['🧦', 'חדשות מרעישות: נמצאה גרב אבודה מתחת לספה!'], ['🤗', 'מחקר חדש: ליטופים משפרים את מצב הרוח ב-100%!'], ['🌈', 'נצפתה קשת מעל הבית — כולם הלכו לחפש את האוצר']].forEach(x => out.push(x));
+    return out;
+  }
+  function mdaMakeEp(show) {
+    const all = mdaPets(), cast = all.slice(0, 6), A = cast[0], B = cast[1] || cast[0], beats = [], title = MDA_SHOWS.find(s => s[0] === show)[2];
+    const b = (who, say, o = {}) => beats.push(Object.assign({ who, say, d: Math.max(2600, 1400 + say.length * 55) }, o));
+    const fits = {};
+    if (show === 'news') {
+      const hl = mdaHeadlines(), keep = [...hl.slice(0, Math.max(0, hl.length - 3)).slice(0, 5)]; while (keep.length < 4) keep.push(hl[hl.length - 3 + keep.length % 3]);
+      b(0, `ערב טוב! כאן ${mdaNm(A)}${B !== A ? ` ו${mdaNm(B)}` : ''} — וזו מהדורת החדשות של ערוץ החיות! 📺`, { snd: 'news', scr: { t: 'em', v: '📰' }, tick: 'מהדורה מיוחדת' });
+      keep.forEach(([em, txt], i) => { b(i % 2 && B !== A ? 1 : 0, txt, { scr: { t: 'em', v: em }, tick: txt }); if (i === 1) { const pr = mdaPick(MDA_PRODUCTS); b(i % 2 ? 0 : 1, 'ועכשיו — הפסקת פרסומות קצרה! 📢', { snd: 'jingle', scr: { t: 'prod', id: pr[0] } }); b(0, `${pr[1]}: ${pr[2]}`, { scr: { t: 'prod', id: pr[0] }, tick: '* המוצר דמיוני לגמרי 😂' }); } });
+      b(0, 'זה הכל להפעם! תודה שצפית, להתראות! 👋', { act: 'hop', snd: 'ta', scr: { t: 'em', v: '💖' } });
+    } else if (show === 'weather') {
+      const t = localToday(), w = mdaWxOf(t), w2 = mdaWxOf(addDays(t, 1)), fake = !w;
+      const W = w || { code: mdaPick([0, 2, 61, 3]), max: 24 + Math.round(Math.random() * 6), min: 16 + Math.round(Math.random() * 4) }, kind = mdaWxKind(W);
+      fits[0] = MDA_WXFIT[kind];
+      const tip = { rain: 'לא לשכוח מטרייה ומגפיים! ☔', snow: 'שלג!!! מתלבשים חם ובונים איש שלג ⛄', cold: 'קריר היום — כובע וצעיף! 🧣', sun: 'יום שמשי — כובע, משקפי שמש ומים! 😎', cloud: 'קצת עננים, אבל מצב הרוח שמשי! ⛅' }[kind];
+      b(0, `שלום לכולם! עם ${mdaNm(A)} — ותחזית מזג האוויר! 🌦️`, { snd: 'jingle', scr: { t: 'wx', code: W.code, max: W.max, min: W.min, day: 'היום' + (fake ? ' (דמיוני)' : '') }, tick: fake ? 'אין חיבור לתחזית — זו תחזית מהדמיון!' : `${(place && (place.short || place.name)) || ''} · ${wmo(W.code)[1]}` });
+      b(0, `היום: ${wmo(W.code)[1] || 'מזג אוויר נעים'}, בין ${Math.round(W.min)} ל-${Math.round(W.max)} מעלות.`, { scr: { t: 'wx', code: W.code, max: W.max, min: W.min, day: 'היום' }, act: 'hop' });
+      b(0, tip, { scr: { t: 'wx', code: W.code, max: W.max, min: W.min, day: 'היום' } });
+      if (w2) b(0, `ומחר: ${wmo(w2.code)[1]}, עד ${Math.round(w2.max)} מעלות ${wmo(w2.code)[0]}`, { scr: { t: 'wx', code: w2.code, max: w2.max, min: w2.min, day: 'מחר' } });
+      if (B !== A) b(1, mdaPick(['אז אפשר לצאת לשחק בחוץ? 🙋', 'אני כבר מוכן/ה! 🎒', 'יאללה לגינה! 🌳']), { act: 'hop' });
+      b(0, 'זו הייתה התחזית — שיהיה יום מקסים! ☀️', { snd: 'ta', act: 'spin' });
+    } else if (show === 'cook') {
+      const cooked = MDA_REC.filter(r => (mdaD.book[r.id] || {}).n), r = mdaPick(cooked.length ? cooked : MDA_REC);
+      fits[0] = { fit: MDA_CHEF }; cast.forEach((p, i) => { if (i) fits[i] = { fit: { head: { id: 'chefhat' } } }; });
+      b(0, `ברוכים הבאים ל"מבשלים עם החיות"! אני השף/ית ${mdaNm(A)} 👩‍🍳`, { snd: 'jingle', scr: { t: 'dish', id: r.id } });
+      b(0, `היום נכין ${r.n}! יאללה, לעבודה!`, { scr: { t: 'dish', id: r.id }, act: 'hop' });
+      r.steps.forEach(s => { const ids = Array.isArray(s[1]) ? s[1].slice(0, 4) : []; b(0, `${MDA_STEP_EM[s[0]]} עכשיו ${MDA_STEP_TXT[s[0]]}${ids.length ? ': ' + ids.map(x => MDA_ING[x][0].replace(/ .*/, '')).join(', ') : ''}!`, { scr: ids.length ? { t: 'ing', ids } : { t: 'em', v: MDA_STEP_EM[s[0]] }, snd: { chop: 'chop', stir: 'bubble', crack: 'crack', flip: 'sizzle', oven: 'bell' }[s[0]] || 'plop', act: 'bop' }); });
+      b(0, 'והנה זה מוכן! ✨', { scr: { t: 'dish', id: r.id }, snd: 'ta', act: 'spin' });
+      cast.slice(1, 4).forEach((p, i) => b(i + 1, mdaPick(['יאמי!!! 😋', 'הכי טעים בעולם! 💖', 'אפשר עוד צלחת? 🍽️']), { act: 'hop', scr: { t: 'dish', id: r.id } }));
+      b(0, 'רוצים לבשל בעצמכם? בואו למטבח של החיות! 👋', { scr: { t: 'em', v: '🍳' } });
+    } else if (show === 'talent') {
+      b(0, `ערב טוב וברוכים הבאים למופע הכישרונות של החיות! 🌟`, { snd: 'fanfare', scr: { t: 'em', v: '🌟' } });
+      const tl = mdaShuf(MDA_TALENTS);
+      cast.forEach((p, i) => {
+        const T = tl[i % tl.length];
+        b(0, i === 0 ? `ואני פותח/ת בעצמי — ${T[1]} ${T[0]}!` : `ועכשיו: ${mdaNm(p)} עם ${T[1]} ${T[0]}!`, { scr: { t: 'em', v: T[1] } });
+        b(i, T[2] === 'joke' ? mdaPick(MDA_JOKES) : { sing: 'לה לה לה~ 🎶', dance: 'צעד, סיבוב, קפיצה! 💃', magic: 'אברה קדברה! ✨🐇', juggle: 'אחד, שניים, שלושה כדורים! 🤹', flip: 'הופ! הופ! סלטה! 🤸' }[T[2]], { perf: T[2], snd: { sing: 'sing', dance: 'jingle', magic: 'magic', juggle: 'ta', flip: 'whoosh', joke: 'ta' }[T[2]], scr: { t: 'em', v: T[1] } });
+        b(-1, '👏👏👏', { snd: 'applause', d: 1600, clap: 1 });
+      });
+      b(0, 'כולם זוכים בגביע! 🏆 תודה ולילה טוב!', { snd: 'fanfare', act: 'dance', all: 1, scr: { t: 'em', v: '🏆' } });
+    } else {
+      const prs = mdaShuf(MDA_PRODUCTS).slice(0, 3);
+      b(0, 'הפסקת פרסומות! 📢 אל תזוזו מהמסך…', { snd: 'jingle', scr: { t: 'em', v: '📢' } });
+      prs.forEach((pr, i) => { const w = 0; b(w, `חדש!!! ${pr[1]}!`, { scr: { t: 'prod', id: pr[0] }, snd: 'ta', act: 'hop' }); b(w, pr[2], { scr: { t: 'prod', id: pr[0] }, tick: `${pr[1]} — רק 3 מטבעות דמיוניים! * המוצר לא באמת קיים 😂` }); });
+      b(0, 'ועכשיו — בחזרה לשידורים! 📺', { snd: 'ta', scr: { t: 'em', v: '📺' } });
+    }
+    return { v: 1, show, title, cast: cast.map(p => p.id), fits, beats, date: localToday(), log: [] };
+  }
+  const mdaScr = s => {
+    if (!s) return '';
+    if (s.t === 'em') return `<span class="mda-scr-em">${s.v}</span>`;
+    if (s.t === 'dish') return `<span class="mda-scr-art">${mdaDishSVG(s.id)}</span>`;
+    if (s.t === 'ing') return `<span class="mda-scr-ings">${s.ids.map(id => `<svg viewBox="-20 -20 40 40">${MDA_ING[id][1]}</svg>`).join('')}</span>`;
+    if (s.t === 'prod') { const p = MDA_PRODUCTS.find(x => x[0] === s.id) || MDA_PRODUCTS[0]; return `<span class="mda-scr-art"><svg viewBox="-50 -50 100 100">${p[3]}</svg></span><span class="mda-scr-cap">${p[1]}</span>`; }
+    if (s.t === 'wx') return `<span class="mda-scr-wx"><span class="d">${s.day}</span><span class="i">${wmo(s.code)[0]}</span><span class="t">${Math.round(s.max)}° / ${Math.round(s.min)}°</span><span class="n">${wmo(s.code)[1]}</span></span>`;
+    return '';
+  };
+  const MDA_SND2 = { sing: () => mdaTune([523, 587, 659, 523, 659, 784, 659], .2, 'sine', .08), magic: () => [0, 1, 2, 3, 4, 5].forEach(i => tone(900 + i * 220, .12, 'sine', i * .06, .04)) };
+  // layout of each show: [x%, bottom%, width%] for cast index
+  const mdaTvPos = (show, i, n) => show === 'news' ? (i < 2 ? [n > 1 ? 28 + i * 22 : 36, 26, 17] : null) : show === 'weather' ? (i === 0 ? [28, 6, 26] : i === 1 ? [84, 4, 13] : null) : show === 'cook' ? (i === 0 ? [30, 28, 20] : i < 4 ? [58 + (i - 1) * 12, 28, 11] : null)
+    : show === 'talent' ? [n === 1 ? 50 : 22 + i * 56 / (n - 1), 6, Math.min(n === 1 ? 20 : 13, 56 / n)] : (i === 0 ? [26, 6, 24] : null);
+  const mdaTvFront = show => show === 'news' ? `<svg viewBox="0 0 640 360" preserveAspectRatio="none"><path d="M60 250 H400 L380 360 H80 Z" fill="#ff5a8a" stroke="${O}" stroke-width="4"/><path d="M60 250 H400 V270 H60 Z" fill="#ffd1e6" stroke="${O}" stroke-width="4"/><text x="230" y="320" font-size="30" text-anchor="middle" fill="#fff" font-family="Rubik, sans-serif">🐾 חדשות החיות</text></svg>`
+    : show === 'cook' ? `<svg viewBox="0 0 640 360" preserveAspectRatio="none"><rect x="20" y="260" width="600" height="100" fill="#fff4e8" stroke="${O}" stroke-width="4"/><rect x="20" y="250" width="600" height="18" rx="4" fill="#ff9ad5" stroke="${O}" stroke-width="4"/><ellipse cx="300" cy="252" rx="46" ry="10" fill="#3a3a4a"/><rect x="250" y="226" width="100" height="26" rx="8" fill="#9aa6b8" stroke="${O}" stroke-width="3"/></svg>`
+      : show === 'talent' ? `<svg viewBox="0 0 640 360" preserveAspectRatio="none"><path d="M0 0 H90 Q70 180 110 360 H0 Z M640 0 H550 Q570 180 530 360 H640 Z" fill="#e8453a" stroke="${O}" stroke-width="4"/><path d="M0 0 H640 V30 Q600 50 560 30 Q520 50 480 30 Q440 50 400 30 Q360 50 320 30 Q280 50 240 30 Q200 50 160 30 Q120 50 80 30 Q40 50 0 30 Z" fill="#c9302a" stroke="${O}" stroke-width="3"/></svg>` : '';
+  function mdaTV() {
+    const P = mdaV.play;
+    mdaV.show = mdaV.show || 'news'; mdaV.cam = mdaV.cam || 'auto'; mdaV.bg = mdaV.bg || mdaD.bg || 'studio';
+    const ep = P ? P.ep : null, show = ep ? ep.show : mdaV.show, bg = ep && !P.rec ? (ep.bg || 'studio') : mdaV.bg;
+    const all = mdaPets(), cast = ep ? ep.cast.map((id, i) => all.find(p => p.id === id) || all[i % all.length]).filter(Boolean) : all.slice(0, 6);
+    const cam = el('div', { class: 'mda-cam cam-wide' }, el('div', { class: 'mda-tvbg', html: mdaSVG('0 0 640 360', MDA_TVBG[bg][1]) }));
+    const acts = cast.map((p, i) => { const pos = mdaTvPos(show, i, cast.length); if (!pos) return null; const [x, y, w] = pos, F = (ep && ep.fits && ep.fits[i]) || (show === 'cook' ? (i ? { fit: { head: { id: 'chefhat' } } } : { fit: MDA_CHEF }) : {}); const a = mdaActor(p, x, y, w, Object.assign({ cls: 'mda-idle' }, F)); a.dataset.home = JSON.stringify([x, y, w]); a.style.animationDelay = `${i * .3}s`; cam.append(a); return a; });
+    const front = el('div', { class: 'mda-tvfront', html: mdaTvFront(show) }), scr = el('div', { class: 'mda-tvscr mda-scr-' + show });
+    cam.append(front, scr);
+    const tick = el('div', { class: 'mda-ticker' }, el('span', {}, ep ? ep.title : 'ערוץ החיות · שידור ניסיון · בוחרים תוכנית ולוחצים "לשדר"'));
+    const lower = el('div', { class: 'mda-lower' }, `${(MDA_SHOWS.find(s => s[0] === show) || [])[1] || ''} ${(MDA_SHOWS.find(s => s[0] === show) || [])[2] || ''}`);
+    const badge = el('div', { class: 'mda-live' + (P ? (P.rec ? ' rec' : P.replay ? ' rep' : '') : ' off') }, P ? (P.rec ? '● מקליטים' : P.replay ? '▶ שידור חוזר' : '● שידור חי') : '○ מחוץ לשידור');
+    const clap = el('div', { class: 'mda-clapm', hidden: show !== 'talent' }, el('i'));
+    const cap = el('div', { class: 'mda-cap', hidden: true });
+    const tv = el('div', { class: 'mda-tvset' }, el('div', { class: 'mda-screen' }, cam, el('div', { class: 'mda-bug' }, '🐾 ערוץ החיות'), badge, lower, cap, tick, clap), el('span', { class: 'mda-knob' }), el('span', { class: 'mda-knob k2' }));
+    if (!P) { scr.innerHTML = mdaScr({ t: 'em', v: (MDA_SHOWS.find(s => s[0] === show) || [])[1] }); scr.classList.add('on'); }
+    const setCam = (c, who, rec = true) => {
+      const k = c === 'auto' ? null : c; if (P && P.rec && rec) P.ep.log.push([P.k, 'cam', c]); if (P) P.cam = c;
+      if (k) cam.className = 'mda-cam cam-' + k;
+      if (who != null && who >= 0 && acts[who]) cam.style.setProperty('--fx', JSON.parse(acts[who].dataset.home)[0] + '%');
+    };
+    const autoCam = (k, who) => { const c = who < 0 || !acts[who] ? 'wide' : ['wide', 'close', 'close', 'side', 'close', 'wide'][k % 6]; cam.className = 'mda-cam cam-' + c; if (who >= 0 && acts[who]) cam.style.setProperty('--fx', JSON.parse(acts[who].dataset.home)[0] + '%'); };
+    let claps = 0;
+    const controls = el('div', { class: 'mda-tvctl' },
+      el('div', { class: 'mda-row' }, el('b', {}, 'תוכנית:'), ...MDA_SHOWS.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', disabled: !!P, 'aria-pressed': String(show === id), onclick: () => { mdaV.show = id; SFX.pop(); mdaDraw(); } }, `${em} ${n}`))),
+      el('div', { class: 'mda-row' }, el('b', {}, 'רקע:'), ...Object.entries(MDA_TVBG).map(([id, [n]]) => el('button', { type: 'button', class: 'chip', disabled: !!(P && P.replay), 'aria-pressed': String(bg === id), onclick: e => { mdaV.bg = id; mdaD.bg = id; mdaSave(); if (P && P.rec) P.ep.bg = id; SFX.pop(); cam.firstChild.innerHTML = mdaSVG('0 0 640 360', MDA_TVBG[id][1]); e.currentTarget.parentNode.querySelectorAll('.chip').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); } }, n))),
+      el('div', { class: 'mda-row' }, el('b', {}, 'מצלמה:'), ...MDA_CAMS.map(([id, n]) => el('button', { type: 'button', class: 'chip mda-camb', disabled: !!(P && P.replay), 'aria-pressed': String((P ? P.cam || mdaV.cam : mdaV.cam) === id), onclick: e => { mdaV.cam = id; MDA_SND.click(); setCam(id, P ? P.who : 0); e.currentTarget.parentNode.querySelectorAll('.mda-camb').forEach(b => b.setAttribute('aria-pressed', String(b === e.currentTarget))); } }, n))));
+    controls.children[1].classList.add('mda-bgrow');
+    const acts2 = el('div', { class: 'mda-cta' });
+    if (P) acts2.replaceChildren(el('button', { type: 'button', class: 'btn', onclick: () => { mdaV.play = null; mdaDraw(); } }, '⏹️ לעצור'), show === 'talent' ? el('button', { type: 'button', class: 'btn main mda-big', onclick: () => { claps++; MDA_SND.applause(); clap.firstChild.style.height = Math.min(100, claps * 8) + '%'; mdaHearts(cam, 30 + Math.random() * 40, 30); } }, '👏 למחוא כפיים') : null);
+    else acts2.replaceChildren(el('button', { type: 'button', class: 'btn main mda-big', onclick: () => mdaTvStart(false) }, '▶️ לשדר'), el('button', { type: 'button', class: 'btn mda-big mda-recb', onclick: () => mdaTvStart(true) }, '🔴 להקליט פרק'));
+    const eps = el('div', { class: 'mda-eps' }, el('h4', { class: 'mda-h' }, `📼 הפרקים שהקלטנו (${mdaD.eps.length})`), ...(mdaD.eps.length ? mdaD.eps.map((e, i) => el('div', { class: 'mda-ep' },
+      el('span', { class: 'mda-ep-ic' }, (MDA_SHOWS.find(s => s[0] === e.show) || [])[1] || '📺'), el('span', { class: 'mda-ep-t' }, el('b', {}, e.title), el('small', { class: 'muted' }, `${e.date.split('-').reverse().join('.')} · ${e.beats.length} קטעים`)),
+      el('button', { type: 'button', class: 'btn', disabled: !!P, onclick: () => { mdaV.play = { ep: e, k: 0, replay: true }; SFX.pop(); mdaDraw(); } }, '▶️ לצפות שוב'),
+      el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק את הפרק', disabled: !!P, onclick: () => { if (!confirm('למחוק את הפרק?')) return; mdaD.eps.splice(i, 1); mdaSave(); SFX.boop(); mdaDraw(); } }, '🗑️'))) : [el('p', { class: 'muted' }, 'עוד אין פרקים. לוחצים "🔴 להקליט פרק" — ואפשר לצפות בו שוב מתי שרוצים!')]));
+    if (P) mdaLater(() => mdaTvRun(P, { acts, cam, scr, tick, lower, cap, setCam, autoCam, cast }), 500);
+    return el('div', { class: 'mda-wrap mda-tvwrap' }, tv, acts2, controls, eps);
+  }
+  function mdaTvStart(rec) { const ep = mdaMakeEp(mdaV.show); ep.bg = mdaV.bg; mdaV.play = { ep, k: 0, rec, cam: mdaV.cam }; SFX.pop(); mdaDraw(); }
+  function mdaTvRun(P, U) {
+    const ep = P.ep, { acts, cam, scr, tick, setCam, autoCam } = U;
+    if (P.replay) { const c0 = ep.log.find(l => l[0] === 0 && l[1] === 'cam'); P.cam = c0 ? c0[2] : 'auto'; }
+    const home = a => { const [x, y, w] = JSON.parse(a.dataset.home); a.style.left = x + '%'; a.style.bottom = y + '%'; a.style.width = w + '%'; a.classList.remove('mda-spot', 'mda-dance', 'mda-magic', 'mda-juggle', 'mda-flipper', 'mda-sing'); };
+    const step = () => {
+      if (P.k >= ep.beats.length) return mdaTvEnd(P, U);
+      const bt = ep.beats[P.k], who = bt.who;
+      if (P.replay) ep.log.filter(l => l[0] === P.k && l[1] === 'cam').forEach(l => { P.cam = l[2]; });
+      P.who = who;
+      if ((P.cam || 'auto') === 'auto') autoCam(P.k, who); else setCam(P.cam, who, false);
+      acts.forEach(x => x && home(x));
+      const a = acts[who];
+      if (bt.perf && a) { a.classList.add('mda-spot', { dance: 'mda-dance', magic: 'mda-magic', juggle: 'mda-juggle', flip: 'mda-flipper', sing: 'mda-sing' }[bt.perf] || 'x'); a.style.left = '50%'; a.style.bottom = '12%'; a.style.width = '24%'; cam.style.setProperty('--fx', '50%'); }
+      if (bt.scr) { scr.innerHTML = mdaScr(bt.scr); scr.classList.remove('on'); void scr.offsetWidth; scr.classList.add('on'); }
+      if (bt.tick) tick.firstChild.textContent = bt.tick + '   ·   ' + ep.title + '   ·   ' + bt.tick;
+      if (bt.snd) (MDA_SND[bt.snd] || MDA_SND2[bt.snd] || (() => {}))();
+      if (bt.say) { const p = U.cast[who]; U.cap.hidden = false; U.cap.replaceChildren(p && who >= 0 ? el('b', {}, mdaNm(p) + ':') : null, el('span', {}, bt.say)); mdaBop(U.cap, 'mda-pop'); if (a && !bt.snd) SFX.pet(p.kind); }
+      acts.forEach(x => x && x.classList.toggle('mda-talk', x === a && !bt.perf));
+      if (bt.act && a) mdaBop(a, 'mda-' + bt.act);
+      if (bt.all) acts.forEach((x, i) => x && setTimeout(() => x.classList.add('mda-dance'), i * 80));
+      if (bt.clap) mdaHearts(cam, 50, 40);
+      P.k++; mdaLater(step, bt.d);
+    };
+    step();
+  }
+  function mdaTvEnd(P, U) {
+    const ep = P.ep;
+    MDA_SND.ta(); U.tick.firstChild.textContent = 'תודה שצפית בערוץ החיות! 💖   ·   נתראה בפרק הבא!';
+    U.scr.innerHTML = mdaScr({ t: 'em', v: '🎬' }); U.cam.className = 'mda-cam cam-wide';
+    U.acts.forEach((a, i) => a && setTimeout(() => mdaBop(a), i * 120)); U.cap.hidden = true;
+    if (P.rec && !P.saved) {
+      P.saved = true; ep.id = 'ep' + Date.now().toString(36); ep.title = `${ep.title} · פרק ${mdaD.eps.filter(e => e.show === ep.show).length + 1}`;
+      mdaD.eps.unshift(ep); mdaD.eps = mdaD.eps.slice(0, 12); mdaSave(); mdaCoin('tvrec', 6, 'הקלטת פרק בערוץ החיות', 3);
+      toast(stickerHTML('camera'), 'הפרק נשמר! 📼 אפשר לצפות בו שוב מתחת למסך');
+    } else if (!P.replay) mdaCoin('tvlive', 4, 'שידור בערוץ החיות', 3);
+    mdaLater(() => { mdaV.play = null; mdaDraw(); }, 2600);
+  }
+
+  // ---------- entry points: MORE tiles + a row in the pets house ----------
+  { const d = $('#mdaDlg'); if (d) d.addEventListener('close', () => { mdaStop(); mdaV = {}; try { if ($('#houseDlg') && $('#houseDlg').open) drawHouse(); } catch {} }); }
+  if (typeof MORE !== 'undefined') [['bowl', 'המטבח של החיות', () => mdaOpen('kitchen')], ['treasure', 'חדר הבריחה של החיות', () => mdaOpen('escape')], ['camera', 'ערוץ החיות', () => mdaOpen('tv')]]
+    .forEach(t => { if (!MORE.some(m => m[1] === t[1])) MORE.push(t); });
+  const mdaDrawHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    mdaDrawHouse0(mode, say);
+    try {
+      const tabs = $('#houseTabs'); if (!tabs) return;
+      let bar = $('#mdaHouseBar');
+      if (!bar) { bar = el('div', { id: 'mdaHouseBar', class: 'mda-housebar' }); tabs.before(bar); }
+      bar.replaceChildren(el('span', { class: 'lbl' }, '🎬 יוצרים ביחד:'), ...MDA_SECS.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); mdaOpen(id); } }, `${em} ${n}`)));
+    } catch {}
   };
   // ================= sticker album =================
   function openAlbum() {
