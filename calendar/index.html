@@ -35613,8 +35613,10 @@ ${label(900, 520, '🌊 ים האיים')}
     if (!cand.length) return;
     const p = vetPick(cand);
     const pool = Object.keys(VET_SICK).filter(k => !vetBaby(p) || VET_SICK[k].mild);
-    vetS.sick[p.id] = { s: vetPick(pool), d: t, warnN: 0 }; vetS.lastNew = t;
-    vetNews = vetNews || { p, hot: false };
+    // she asked for real danger: sometimes a new sickness is already very serious (🚨 → intensive care, where a pet may not survive). never babies.
+    const hot = !vetBaby(p) && Math.random() < .3;
+    vetS.sick[p.id] = { s: vetPick(pool), d: hot ? addDays(t, -3) : t, warnN: 0 }; vetS.lastNew = t;
+    vetNews = vetNews || { p, hot };
     vetSave();
   }
   function vetDaily() {
@@ -35646,8 +35648,9 @@ ${label(900, 520, '🌊 ים האיים')}
         const nd = vetNeglect(p), ch = nd <= 1 ? .02 : nd === 2 ? .06 : nd <= 4 ? .15 : .25;
         if (Math.random() < ch) {
           const pool = Object.keys(VET_SICK).filter(k => !vetBaby(p) || VET_SICK[k].mild);
-          vetS.sick[p.id] = { s: vetPick(pool), d: t, warnN: 0 }; vetS.lastNew = t;
-          vetNews = vetNews || { p, hot: false };
+          const hot = !vetBaby(p) && Math.random() < .3;
+          vetS.sick[p.id] = { s: vetPick(pool), d: hot ? addDays(t, -3) : t, warnN: 0 }; vetS.lastNew = t;
+          vetNews = vetNews || { p, hot };
           break;
         }
       }
