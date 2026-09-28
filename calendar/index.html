@@ -5990,6 +5990,65 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
 @media (max-width: 620px) { .mda-cap { top: 24px; bottom: auto; } }
 .mda-shine { animation: mdaShine 1.3s ease-in-out infinite alternate; }
 @keyframes mdaShine { from { filter: drop-shadow(0 0 1px #fff6a8); } to { filter: drop-shadow(0 0 7px #fff27a); } }
+/* 🏥 clinic 2: staff girls, treatment groups, intensive care (vet agent, round 7b) */
+.vetb-img { display: block; }
+.vetb-img.bust { width: 58px; height: 66px; object-fit: contain; }
+.vetb-img.full { width: 96px; height: 192px; object-fit: contain; }
+.vetb-talk { display: flex; align-items: flex-end; gap: 6px; }
+.vetb-talk .vetb-img.bust { flex: none; border-radius: 50%; background: #eaf6ff; border: 2px solid var(--line); }
+.vetb-bub { position: relative; background: #fff; color: #1f2a44; border: 2px solid #3a2b3c; border-radius: 16px 16px 16px 4px; padding: 5px 10px; display: grid; gap: 1px; box-shadow: 2px 3px 0 rgb(0 0 0 / .07); }
+.vetb-bub small { color: #8e6bd6; font-size: .78em; }
+.vetb-talk.small .vetb-img.bust { width: 46px; height: 52px; }
+.vetb-talk.desk { background: linear-gradient(#fff6fb, #f3edff); border: 2px dashed #c9b2ff; border-radius: 16px; padding: 6px 10px; }
+.vetb-teambox { display: grid; gap: 6px; border: 2px solid var(--line); border-radius: 16px; padding: 8px; background: var(--card); }
+.vetb-teamhead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; } .vetb-teamhead b { font-weight: 400; font-size: 1.05em; } .vetb-teamhead .btn { margin-inline-start: auto; }
+.vetb-team { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.vetb-member { display: grid; justify-items: center; gap: 1px; padding: 4px 2px; border: 2px solid var(--line); border-radius: 14px; background: linear-gradient(#eaf6ff, var(--card)); color: var(--ink); cursor: pointer; font: inherit; }
+.vetb-member.on { border-color: #ff6b8b; box-shadow: 0 0 0 3px rgb(255 107 139 / .25); }
+.vetb-member b { font-weight: 400; font-size: .9em; } .vetb-member small { font-size: .72em; color: var(--soft); text-align: center; }
+.vetb-member .vetb-img.bust { width: 64px; height: 72px; }
+.vetb-picker { display: grid; gap: 4px; } .vetb-pickrow { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.vetb-pick { flex: none; display: grid; justify-items: center; padding: 3px; border: 2px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); cursor: pointer; font: inherit; }
+.vetb-pick.on { border-color: #4fbf73; } .vetb-pick small { font-size: .72em; }
+.vetb-stage { display: flex; align-items: flex-end; justify-content: center; gap: 4px; }
+.vetb-stage .vet7-pet { width: 180px; height: 206px; }
+.vetb-doc { display: grid; justify-items: center; font-size: .75em; color: #5b6b8c; }
+.vetb-doc.owner .vetb-img.full { width: 84px; height: 168px; }
+.vetb-sugrow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px; border-radius: 14px; background: #fffbe0; border: 2px dashed #ffc94d; color: #1f2a44; }
+.vetb-sugrow .muted { color: #8a6a1a; }
+.vetb-help { margin-inline-start: auto; }
+.vetb-cats { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; }
+.vetb-cat { display: grid; justify-items: center; gap: 0; padding: 4px 2px; border: 2px solid var(--line); border-radius: 14px; background: var(--card); color: var(--ink); cursor: pointer; font: inherit; }
+.vetb-cat .em { font-size: 1.8em; line-height: 1.1; } .vetb-cat small { font-size: .72em; text-align: center; }
+.vetb-cat[aria-selected="true"] { border-color: #ff6b8b; background: #fff0f5; color: #1f2a44; }
+.pz-tool.vetb-tr.big { min-width: 92px; font-size: .88em; } .pz-tool.vetb-tr.big .ic { width: 54px; height: 54px; }
+.pz-tool.vetb-sug { border-color: #ffc94d; background: #fffbe0; color: #1f2a44; }
+.vetb-grid.narrow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.vetb-grid.narrow .pz-tool { animation: vet7in .4s ease both; }
+/* intensive care */
+.vetb-icu { position: relative; border-radius: 20px; overflow: hidden; border: 2px solid #3a4a7a; background: linear-gradient(#27325e 0 62%, #3d4c86 62%); padding: 10px; display: grid; gap: 8px; }
+.vetb-icu.alarm { animation: vetbred 1.6s ease-in-out infinite; } .vetb-icu.good { background: linear-gradient(#dff7e8 0 62%, #bfe8cf 62%); border-color: #4fbf73; } .vetb-icu.calm { background: linear-gradient(#5a4f9a 0 62%, #7a6fc0 62%); }
+@keyframes vetbred { 50% { box-shadow: inset 0 0 0 6px rgb(255 90 110 / .35); } }
+.vetb-icu .vet7-say { justify-self: center; }
+.vetb-icustage { display: grid; grid-template-columns: auto 1fr auto; align-items: end; gap: 6px; }
+.vetb-icuteam { display: flex; } .vetb-icuteam .vetb-img.full { width: 70px; height: 140px; margin-inline-start: -14px; }
+.vetb-icubed { position: relative; width: 220px; height: 160px; justify-self: center; }
+.vetb-icubed > span { position: absolute; } .vetb-icubed .b0 { inset: 0; } .vetb-icubed .b0 svg { width: 100%; height: 100%; display: block; }
+.vetb-icubed .bp { left: 24%; bottom: 26%; width: 50%; height: 72%; } .vetb-icubed .bp svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.vetb-dripstand { right: -14px; bottom: 20%; width: 56px; height: 90px; } .vetb-dripstand svg { width: 100%; height: 100%; }
+.vetb-mon { width: 150px; } .vetb-mon svg { width: 100%; display: block; border-radius: 10px; border: 2px solid #3a2b3c; }
+.vetb-ecg { stroke-dasharray: 260; animation: vetbecg 1.2s linear infinite; } .vetb-mon.calm .vetb-ecg { animation: none; stroke-dasharray: none; opacity: .7; }
+@keyframes vetbecg { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+.vetb-icusteps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.vetb-icusteps .pz-tool[disabled] { cursor: default; }
+@media (max-width: 560px) {
+  .vetb-team { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .vetb-cats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .vetb-icustage { grid-template-columns: 1fr; justify-items: center; } .vetb-icuteam { order: 2; }
+  .vetb-icusteps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .vetb-stage .vet7-pet { width: 140px; height: 160px; } .vetb-img.full { width: 72px; height: 144px; }
+}
+@media (prefers-reduced-motion: reduce) { .vetb-icu.alarm, .vetb-ecg { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -39718,6 +39777,342 @@ ${label(900, 520, '🌊 ים האיים')}
       if (!bar) { bar = el('div', { id: 'mdaHouseBar', class: 'mda-housebar' }); tabs.before(bar); }
       bar.replaceChildren(el('span', { class: 'lbl' }, '🎬 יוצרים ביחד:'), ...MDA_SECS.map(([id, em, n]) => el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); mdaOpen(id); } }, `${em} ${n}`)));
     } catch {}
+  };
+  // ================= 🏥 clinic 2: her girls are the staff, 33 treatments in 6 groups + help choosing, 🚨 intensive care (vet agent, round 7b) =================
+  // store 'vetStaff' = { roles: { doctor|nurse|reception|driver|lab: girlId }, defs: [5 default staff girls] }
+  const VETB_ROLES = [['doctor', 'רופאה ראשית', '👩‍⚕️', '#8fd8d0'], ['nurse', 'אחות', '💉', '#ffb3d9'], ['reception', 'פקידת קבלה', '📋', '#c9b2ff'], ['driver', 'נהגת אמבולנס', '🚑', '#6f8fe0'], ['lab', 'עוזרת מעבדה', '🔬', '#b8ecd2']];
+  let vetB = Object.assign({ roles: {}, defs: null }, store.get('vetStaff', {}));
+  const vetbSave = () => store.set('vetStaff', vetB);
+  const vetbGirls = () => { try { return (typeof girls !== 'undefined' && Array.isArray(girls)) ? girls.filter(g => g && g.id) : []; } catch { return []; } };
+  function vetbDefs() {
+    if (!vetB.defs || vetB.defs.length < 5) {
+      try { vetB.defs = ['נוי', 'תמר', 'שירה', 'מאיה', 'ליה'].map((name, i) => Object.assign(newGirl(), randomGirl(), { id: 'vetstaff' + i, name })); vetbSave(); } catch { vetB.defs = []; }
+    }
+    return vetB.defs;
+  }
+  // who does each job: her choice, else her girls in order (girls[0] = the head doctor = her), else the default staff
+  function vetbWho(role) {
+    const G = vetbGirls(), D = vetbDefs(), all = [...G, ...D], id = vetB.roles[role];
+    const chosen = id && all.find(g => g.id === id); if (chosen) return chosen;
+    const i = VETB_ROLES.findIndex(r => r[0] === role);
+    return G[i] || D[i] || D[0] || null;
+  }
+  const vetbNm = g => (g && g.name) || 'הבובה';
+  // the uniform: scrubs in the role color, then a coat / cap / headset / vest drawn over the girl (300×600)
+  function vetbDress(g, role) {
+    const c = (VETB_ROLES.find(r => r[0] === role) || VETB_ROLES[0])[3];
+    const o = Object.assign({}, g, { jacket: 'none', scene: 'plain', mermaid: false, dress: 'none', top: 'tshirt', topColor: c, topPat: 'plain', bottom: 'wide', bottomColor: fmx(c, '#3a2b5c', .12), bottomPat: 'plain',
+      legwear: 'bare', shoes: 'sneakers', shoeColor: '#ffffff', hat: role === 'driver' ? 'cap' : 'none', hatColor: '#ff5a6e', acc: Object.assign({}, g.acc || {}) });
+    ['bag', 'scarf', 'watch', 'necklace', 'pearls', 'ribbon', 'pins', 'wings', 'cape'].forEach(k => delete o.acc[k]);
+    return o;
+  }
+  const VB_ST = `stroke="${O}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"`;
+  function vetbGear(role) {
+    const sleeve = (x1, y1, x2, y2, x3, y3) => `<path d="M${x1} ${y1} L${x2} ${y2} L${x3} ${y3}" fill="none" stroke="${O}" stroke-width="31" stroke-linecap="round" stroke-linejoin="round"/><path d="M${x1} ${y1} L${x2} ${y2} L${x3} ${y3}" fill="none" stroke="#fff" stroke-width="25" stroke-linecap="round" stroke-linejoin="round"/><path d="M${x3 - 12} ${y3 - 6} h24" stroke="#dfe7f2" stroke-width="3"/>`;
+    const coat = (len = 372) => sleeve(118, 152, 101, 222, 94, 282) + sleeve(182, 152, 199, 222, 206, 282)
+      + `<path d="M150 136 L114 146 L102 ${len} L144 ${len} L146 196 Z" fill="#fff" ${VB_ST}/><path d="M150 136 L186 146 L198 ${len} L156 ${len} L154 196 Z" fill="#fff" ${VB_ST}/>`
+      + `<path d="M150 136 L134 142 L146 196 Z M150 136 L166 142 L154 196 Z" fill="#eef3fa" ${VB_ST}/><rect x="112" y="296" width="24" height="22" rx="4" fill="#fff" ${VB_ST}/><rect x="164" y="220" width="22" height="18" rx="3" fill="#fff" ${VB_ST}/><path d="M168 216 v10 M174 214 v10" stroke="#ff5a8a" stroke-width="3" stroke-linecap="round"/>`;
+    const steth = `<path d="M128 142 Q124 196 146 222" fill="none" stroke="${O}" stroke-width="6.5" stroke-linecap="round"/><path d="M128 142 Q124 196 146 222" fill="none" stroke="#7ec8ff" stroke-width="3.2" stroke-linecap="round"/><path d="M172 142 Q178 188 162 214" fill="none" stroke="${O}" stroke-width="6.5" stroke-linecap="round"/><path d="M172 142 Q178 188 162 214" fill="none" stroke="#7ec8ff" stroke-width="3.2" stroke-linecap="round"/><path d="M146 222 Q152 236 162 214" fill="none" stroke="${O}" stroke-width="6.5"/><path d="M146 222 Q152 236 162 214" fill="none" stroke="#7ec8ff" stroke-width="3.2"/><circle cx="153" cy="240" r="9" fill="#cfd6e0" ${VB_ST}/><circle cx="153" cy="240" r="4" fill="#fff"/>`;
+    const badge = (c, t) => `<rect x="160" y="248" width="30" height="20" rx="4" fill="${c}" ${VB_ST}/><text x="175" y="263" text-anchor="middle" font-size="13" font-family="Rubik, sans-serif" fill="#fff">${t}</text>`;
+    const cross = (x, y, s, c = '#ff5a6e') => `<path d="M${x - s * .3} ${y - s} h${s * .6} v${s * .7} h${s * .7} v${s * .6} h${-s * .7} v${s * .7} h${-s * .6} v${-s * .7} h${-s * .7} v${-s * .6} h${s * .7} Z" fill="${c}"/>`;
+    if (role === 'doctor') return coat() + steth + `<rect x="160" y="248" width="30" height="20" rx="4" fill="#fff" ${VB_ST}/>` + cross(175, 258, 7);
+    if (role === 'nurse') return `<path d="M118 34 Q150 18 182 34 L176 56 Q150 48 124 56 Z" fill="#fff" ${VB_ST}/>` + cross(150, 40, 8) + badge('#ff7aa8', '💉') + `<path d="${pzHeart(130, 200, 9)}" fill="#fff" opacity=".85"/>`;
+    if (role === 'reception') return `<path d="M100 88 Q100 26 150 24 Q200 26 200 88" fill="none" stroke="${O}" stroke-width="8"/><path d="M100 88 Q100 26 150 24 Q200 26 200 88" fill="none" stroke="#b58cff" stroke-width="4"/><rect x="92" y="76" width="16" height="26" rx="7" fill="#b58cff" ${VB_ST}/><rect x="192" y="76" width="16" height="26" rx="7" fill="#b58cff" ${VB_ST}/><path d="M104 100 Q108 122 132 118" fill="none" stroke="${O}" stroke-width="3"/><circle cx="134" cy="118" r="4.5" fill="#ff9ad5" ${VB_ST}/>` + badge('#8e6bd6', '📋');
+    if (role === 'driver') return `<path d="M114 146 L186 146 L192 290 L108 290 Z" fill="#ff9a3c" ${VB_ST}/><path d="M112 206 H188 M110 250 H190" stroke="#fff36b" stroke-width="10"/><path d="M150 146 V290" stroke="${O}" stroke-width="2" opacity=".5"/>` + badge('#ff5a6e', '🚑');
+    if (role === 'lab') return coat(300) + `<rect x="112" y="46" width="76" height="22" rx="11" fill="#bfeaff" opacity=".85" ${VB_ST}/><path d="M150 50 v14" stroke="${O}" stroke-width="2"/><g transform="translate(212 286) rotate(-14)"><rect x="-6" y="-34" width="12" height="36" rx="6" fill="#fff" ${VB_ST}/><rect x="-4.5" y="-14" width="9" height="14" rx="4.5" fill="#6fdc8c"/></g>`;
+    return '';
+  }
+  const vetbArtCache = new Map();
+  let vetbUid = 0;
+  function vetbStaffSVG(g, role, view) {
+    if (!g) return '';
+    const k = role + (view || '') + JSON.stringify(g);
+    if (vetbArtCache.has(k)) return vetbArtCache.get(k);
+    let s = '';
+    try {
+      const body = girlSVG(vetbDress(g, role), 'vb' + (vetbUid++), { bg: false });
+      const VB = view === 'bust' ? '72 4 156 176' : '0 0 300 600';
+      s = `<svg viewBox="${VB}" xmlns="http://www.w3.org/2000/svg">${placeSvg(body, 0, 0, 300, 600)}${vetbGear(role)}</svg>`;
+    } catch { s = ''; }
+    if (vetbArtCache.size > 50) vetbArtCache.clear();
+    vetbArtCache.set(k, s); return s;
+  }
+  const vetbImg = (role, view = 'bust', g = vetbWho(role)) => el('img', { class: 'vetb-img ' + view, alt: vetbNm(g), src: svgData(vetbStaffSVG(g, role, view) || '<svg xmlns="http://www.w3.org/2000/svg"/>') });
+  const vetbTalk = (role, text, cls = '') => { const g = vetbWho(role), R = VETB_ROLES.find(r => r[0] === role); return el('div', { class: 'vetb-talk ' + cls }, vetbImg(role, 'bust', g), el('div', { class: 'vetb-bub' }, el('small', {}, `${R[2]} ${vetbNm(g)} · ${R[1]}`), el('span', {}, text))); };
+  // ---------- 33 treatments in 6 groups ----------
+  const VETB_CATS = [['med', '💊', 'תרופות'], ['aid', '🩹', 'עזרה ראשונה'], ['food', '🍲', 'אוכל ושתייה'], ['care', '🛁', 'טיפוח וניקיון'], ['love', '💕', 'אהבה ומנוחה'], ['special', '🔬', 'טיפולים מיוחדים']];
+  [['eyedrops', 'טיפות עיניים'], ['inhaler', 'משאף'], ['cast', 'גבס'], ['plaster', 'פלסטר'], ['soup', 'מרק חם'], ['honey', 'דבש בכפית'], ['water', 'הרבה מים'], ['veggies', 'פירות וירקות'], ['rice', 'אורז פשוט'],
+    ['bath', 'אמבטיה חמימה'], ['comb', 'סירוק עדין'], ['earclean', 'ניקוי אוזניים'], ['music', 'שיר ערש'], ['massage', 'עיסוי'], ['xray', 'צילום רנטגן'], ['surgery', 'ניתוח קטן'], ['drip', 'עירוי'],
+    ['heatlamp', 'מנורת חימום'], ['icebath', 'אמבט קריר'], ['herbal', 'תה צמחים'], ['dentist', 'כלי רופא שיניים']].forEach(t => { if (!VET_TR.some(x => x[0] === t[0])) VET_TR.push(t); });
+  const VETB_CAT_OF = { syrup: 'med', pill: 'med', vitamins: 'med', spray: 'med', drops: 'med', eyedrops: 'med', inhaler: 'med', bandage: 'aid', ointment: 'aid', ice: 'aid', cast: 'aid', plaster: 'aid',
+    tea: 'food', soup: 'food', honey: 'food', water: 'food', veggies: 'food', rice: 'food', brush: 'care', bath: 'care', comb: 'care', earclean: 'care', cuddle: 'love', rest: 'love', music: 'love', massage: 'love',
+    xray: 'special', surgery: 'special', drip: 'special', heatlamp: 'special', icebath: 'special', herbal: 'special', dentist: 'special' };
+  Object.assign(VET_ART, {
+    eyedrops: `<path d="M16 6 h16 v8 h-16 Z" fill="#7ec8ff" ${S2}/><path d="M14 14 H34 V36 Q34 42 24 44 Q14 42 14 36 Z" fill="#e6f5ff" ${S}/><ellipse cx="24" cy="28" rx="6" ry="4" fill="#fff" ${S2}/><circle cx="24" cy="28" r="2.2" fill="#4f84c8"/><path d="M38 8 q-2 3 0 5 q2 -2 0 -5 Z" fill="#7ec8ff" ${S2}/>`,
+    inhaler: `<path d="M16 6 H30 V30 H16 Z" fill="#ff9ad5" ${S}/><path d="M12 28 H34 Q38 28 38 32 V38 H22 Q12 38 12 32 Z" fill="#b58cff" ${S}/><circle cx="23" cy="14" r="3" fill="#fff" opacity=".8"/><path d="M40 33 q4 -2 6 0 M40 38 q4 1 6 3" stroke="#7ec8ff" stroke-width="2" fill="none" stroke-linecap="round"/>`,
+    cast: `<path d="M12 8 H30 Q34 8 34 12 V34 Q34 42 26 42 H12 Z" fill="#fff" ${S}/><path d="M12 16 H34 M12 24 H34" stroke="#dfe7f2" stroke-width="2"/><path d="${pzHeart(22, 32, 4)}" fill="#ff6b8b"/><polygon points="${starPts(18, 12, 3, 1.3)}" fill="#ffd84d"/><path d="M26 12 q3 3 6 0" stroke="#7ec8ff" stroke-width="1.8" fill="none"/>`,
+    plaster: `<g transform="rotate(-25 24 24)"><rect x="8" y="17" width="32" height="14" rx="7" fill="#ffd8b0" ${S}/><rect x="19" y="17" width="10" height="14" fill="#fff1e0" ${S2}/><circle cx="14" cy="24" r="1.2" fill="#e8a870"/><circle cx="34" cy="24" r="1.2" fill="#e8a870"/></g><polygon points="${starPts(24, 24, 3, 1.3)}" fill="#ffd84d"/>`,
+    soup: `<path d="M18 10 q-3 -4 0 -7 M26 10 q-3 -4 0 -7" fill="none" stroke="${O}" stroke-width="1.6" stroke-linecap="round" opacity=".5"/><path d="M4 20 H44 Q42 40 24 42 Q6 40 4 20 Z" fill="#fff" ${S}/><path d="M7 22 H41" stroke="#ffb020" stroke-width="4" stroke-linecap="round"/><circle cx="16" cy="23" r="1.8" fill="#ff7a3c"/><circle cx="28" cy="22.6" r="1.8" fill="#6fcf7f"/><path d="M34 12 L44 4" stroke="${O}" stroke-width="3.6" stroke-linecap="round"/><path d="M34 12 L44 4" stroke="#cfd6e0" stroke-width="1.8" stroke-linecap="round"/>`,
+    honey: `<path d="M12 18 H34 Q36 18 36 22 V38 Q36 42 30 42 H16 Q10 42 10 38 V22 Q10 18 12 18 Z" fill="#ffc53d" ${S}/><rect x="11" y="12" width="24" height="7" rx="2" fill="#c98f3a" ${S2}/><path d="M14 26 H32" stroke="#fff" stroke-width="2" opacity=".6"/><path d="M38 6 L28 22" stroke="${O}" stroke-width="3.6" stroke-linecap="round"/><path d="M38 6 L28 22" stroke="#cfd6e0" stroke-width="1.8" stroke-linecap="round"/><circle cx="28" cy="24" r="2.6" fill="#ffc53d" ${S2}/>`,
+    water: `<path d="M14 8 H34 L31 42 H17 Z" fill="#dff4ff" ${S}/><path d="M15.6 20 H32.4 L31 40 H17 Z" fill="#7ec8ff" opacity=".8"/><circle cx="21" cy="28" r="2" fill="#fff"/><circle cx="27" cy="34" r="1.4" fill="#fff"/><path d="M28 4 L25 20" stroke="#ff9ad5" stroke-width="3" stroke-linecap="round"/>`,
+    veggies: `<path d="M8 30 Q8 16 18 16 Q28 16 28 30 Q28 42 18 42 Q8 42 8 30 Z" fill="#ff5a6e" ${S}/><path d="M18 16 q2 -6 6 -8" stroke="#3fbf73" stroke-width="2.4" fill="none"/><path d="M30 42 L40 14" stroke="${O}" stroke-width="8" stroke-linecap="round"/><path d="M30 42 L40 14" stroke="#ff9a3c" stroke-width="5" stroke-linecap="round"/><path d="M40 14 l-2 -8 M40 14 l4 -6 M40 14 l6 -2" stroke="#3fbf73" stroke-width="2.4" stroke-linecap="round"/>`,
+    rice: `<path d="M4 24 H44 Q42 42 24 42 Q6 42 4 24 Z" fill="#7ec8ff" ${S}/><path d="M8 24 Q14 12 24 12 Q34 12 40 24 Z" fill="#fff" ${S2}/>${[[16, 20], [22, 16], [28, 19], [33, 22], [20, 22], [26, 23]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="1.8" ry="1" fill="#eef3fa" stroke="#c9d4e4" stroke-width=".5"/>`).join('')}`,
+    earclean: `<path d="M6 40 L36 10" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M6 40 L36 10" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><ellipse cx="38" cy="8" rx="5.5" ry="4" fill="#fff" ${S2} transform="rotate(-45 38 8)"/><ellipse cx="6" cy="40" rx="5.5" ry="4" fill="#fff" ${S2} transform="rotate(-45 6 40)"/>`,
+    music: `<path d="M16 34 V10 L38 6 V30" fill="none" stroke="${O}" stroke-width="3.4" stroke-linejoin="round"/><ellipse cx="12" cy="35" rx="6" ry="4.6" fill="#b58cff" ${S}/><ellipse cx="34" cy="31" rx="6" ry="4.6" fill="#ff9ad5" ${S}/><path d="M16 14 L38 10" stroke="${O}" stroke-width="3.4"/>`,
+    massage: `<path d="M10 30 Q6 20 12 14 Q16 10 20 16 V8 Q24 4 28 8 V14 Q32 10 36 14 V28 Q36 42 22 42 Q12 42 10 30 Z" fill="#ffd9c0" ${S}/><path d="${pzHeart(24, 28, 5)}" fill="#ff6b8b"/><path d="M40 8 l4 -4 M42 16 h5" stroke="#ffb020" stroke-width="2" stroke-linecap="round"/>`,
+    xray: `<rect x="6" y="6" width="36" height="34" rx="5" fill="#2b3a66" ${S}/><path d="M24 12 V34 M16 16 Q24 20 32 16 M15 22 Q24 26 33 22 M16 28 Q24 32 32 28" stroke="#dff4ff" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="24" cy="10" r="3" fill="#dff4ff"/><rect x="18" y="40" width="12" height="4" fill="#9aa6bd" ${S2}/>`,
+    surgery: `<path d="M8 22 Q8 10 24 10 Q40 10 40 22 Q40 34 24 36 Q8 34 8 22 Z" fill="#bfeaff" ${S}/><path d="M24 36 V44" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M24 36 V44" stroke="#7ec8ff" stroke-width="2.6" stroke-linecap="round"/><path d="M8 18 L2 14 M40 18 L46 14" stroke="${O}" stroke-width="2"/><path d="M17 22 q7 5 14 0" stroke="#ff9ad5" stroke-width="2.2" fill="none" stroke-linecap="round"/><text x="30" y="8" font-size="8" font-family="Rubik, sans-serif" fill="#7a6aa8">z</text>`,
+    drip: `<path d="M24 4 V46 M16 46 H32" stroke="${O}" stroke-width="2.6" stroke-linecap="round"/><path d="M14 8 H34 V22 Q34 28 24 28 Q14 28 14 22 Z" fill="#dff4ff" ${S}/><path d="M15 16 H33 V22 Q33 27 24 27 Q15 27 15 22 Z" fill="#7ec8ff" opacity=".85"/><path d="M24 28 Q24 36 36 40" fill="none" stroke="#9fdcff" stroke-width="2.4"/><path d="${pzHeart(24, 20, 3)}" fill="#fff"/>`,
+    heatlamp: `<path d="M24 44 V26 M14 44 H34" stroke="${O}" stroke-width="3" stroke-linecap="round"/><path d="M10 26 Q10 10 24 8 Q38 10 38 26 Z" fill="#ff9a3c" ${S}/><ellipse cx="24" cy="26" rx="10" ry="3" fill="#fff36b" ${S2}/><path d="M16 34 l-4 6 M24 32 v8 M32 34 l4 6" stroke="#ffb020" stroke-width="2" stroke-linecap="round" opacity=".8"/>`,
+    icebath: `<path d="M4 20 H44 V28 Q44 40 32 40 H16 Q4 40 4 28 Z" fill="#fff" ${S}/><path d="M6 22 H42 V28 Q42 36 32 36 H16 Q6 36 6 28 Z" fill="#9fdcff"/><rect x="12" y="14" width="8" height="8" rx="2" fill="#e6f7ff" ${S2} transform="rotate(12 16 18)"/><rect x="26" y="12" width="8" height="8" rx="2" fill="#e6f7ff" ${S2} transform="rotate(-10 30 16)"/><path d="M8 40 L6 44 M40 40 L42 44" ${S}/>`,
+    herbal: `<path d="M34 21 H38 A5 5 0 0 1 38 31 H34" fill="none" ${S}/><path d="M8 16 H35 V34 A7 7 0 0 1 28 41 H15 A7 7 0 0 1 8 34 Z" fill="#e8ffe8" ${S}/><path d="M10.5 20 H32.5" stroke="#8fd08a" stroke-width="3" stroke-linecap="round"/><path d="M20 8 Q14 2 22 0 Q28 4 20 8 Z M26 10 Q30 2 36 6 Q32 12 26 10 Z" fill="#6fcf7f" ${S2}/>`,
+    dentist: `<path d="M14 10 Q8 10 8 18 Q8 26 12 32 L14 42 Q16 44 18 40 L20 32 Q24 30 28 32 L30 40 Q32 44 34 42 L36 32 Q40 26 40 18 Q40 10 34 10 Q28 10 24 13 Q20 10 14 10 Z" fill="#fff" ${S}/><path d="M42 4 L32 18" stroke="${O}" stroke-width="3.6" stroke-linecap="round"/><path d="M42 4 L32 18" stroke="#cfd6e0" stroke-width="1.8" stroke-linecap="round"/><circle cx="31" cy="19" r="2.4" fill="#cfd6e0" ${S2}/><polygon points="${starPts(16, 20, 3, 1.2)}" fill="#ffd84d"/>`,
+    mask: `<path d="M8 22 Q8 10 24 10 Q40 10 40 22 Q40 34 24 36 Q8 34 8 22 Z" fill="#bfeaff" ${S}/><path d="M24 36 V44" stroke="${O}" stroke-width="5" stroke-linecap="round"/><path d="M24 36 V44" stroke="#7ec8ff" stroke-width="2.6" stroke-linecap="round"/><path d="M8 18 L2 14 M40 18 L46 14" stroke="${O}" stroke-width="2"/>`,
+    oxygen: `<rect x="30" y="8" width="12" height="34" rx="6" fill="#6fdc8c" ${S}/><rect x="33" y="4" width="6" height="6" fill="#cfd6e0" ${S2}/><path d="M30 26 Q18 30 16 20" fill="none" stroke="#9fdcff" stroke-width="3"/><path d="M4 18 Q4 8 16 8 Q26 8 26 18 Q26 26 16 28 Q4 26 4 18 Z" fill="#bfeaff" ${S}/>`,
+    paw: `<ellipse cx="24" cy="30" rx="11" ry="9" fill="#ffd1e6" ${S}/>${[[12, 16], [20, 11], [28, 11], [36, 16]].map(([x, y]) => `<ellipse cx="${x}" cy="${y}" rx="4" ry="5" fill="#ffd1e6" ${S2}/>`).join('')}<path d="${pzHeart(24, 30, 4)}" fill="#ff6b8b"/>`,
+  });
+  // ---------- each sickness has 2–3 right treatments (and more "close" ones) ----------
+  const VETB_GOOD = { cold: ['tea', 'soup', 'honey'], tummy: ['syrup', 'rice', 'herbal'], fever: ['pill', 'icebath', 'water'], itchy: ['ointment', 'bath', 'comb'], paw: ['bandage', 'cast'], lonely: ['cuddle', 'music', 'massage'],
+    ear: ['drops', 'earclean'], allergy: ['spray', 'eyedrops', 'inhaler'], tooth: ['brush', 'dentist'], flu: ['rest', 'soup', 'drip'], bump: ['ice', 'plaster'], weak: ['vitamins', 'veggies', 'drip'] };
+  const VETB_CLOSE = { cold: ['heatlamp', 'herbal', 'water'], tummy: ['water'], fever: ['drip'], itchy: ['icebath'], paw: ['massage', 'plaster', 'xray', 'surgery'], lonely: ['rest'], ear: ['heatlamp'],
+    allergy: ['bath', 'water'], tooth: ['herbal', 'surgery'], flu: ['honey', 'water', 'heatlamp'], bump: ['xray', 'rest'], weak: ['soup', 'honey'] };
+  Object.keys(VET_SICK).forEach(k => { const S0 = VET_SICK[k]; S0.goods = VETB_GOOD[k] || [S0.ok]; S0.close = [...new Set([...(S0.close || []), ...(VETB_CLOSE[k] || [])])].filter(x => !S0.goods.includes(x)); });
+  const vetbGood = (s, k) => VET_SICK[s] && VET_SICK[s].goods.includes(k);
+  const vetbShuf = a => a.slice().sort(() => Math.random() - .5);
+  // the nurse's suggestion after the exam: 2 right ones + 1 close one
+  function vetbSuggest(V) {
+    if (V.sug) return V.sug;
+    const S0 = VET_SICK[V.s]; if (!S0) return (V.sug = ['vitamins', 'cuddle', 'water']);
+    return (V.sug = vetbShuf([...vetbShuf(S0.goods).slice(0, 2), ...vetbShuf(S0.close).slice(0, 1)]));
+  }
+  // "help me choose": exactly 3 options, one right
+  function vetbNarrow(V) {
+    const S0 = VET_SICK[V.s]; if (!S0) return ['vitamins', 'cuddle', 'water'];
+    const good = vetbShuf(S0.goods.filter(k => !V.tried.includes(k)))[0] || S0.goods[0];
+    const others = vetbShuf(VET_TR.map(t => t[0]).filter(k => !S0.goods.includes(k) && !V.tried.includes(k)));
+    const close = others.filter(k => S0.close.includes(k)), wrong = others.filter(k => !S0.close.includes(k));
+    return vetbShuf([good, close[0] || wrong[1], wrong[0]].filter(Boolean));
+  }
+  // ---------- timers (the monitor beeps) ----------
+  let vetbTimer = null;
+  const vetbStop = () => { if (vetbTimer) { clearInterval(vetbTimer); vetbTimer = null; } };
+  try { $('#petzVetDlg').addEventListener('close', vetbStop); } catch {}
+  // ---------- the team panel ----------
+  let vetbPickRole = null;
+  function vetbTeam(redraw) {
+    const G = vetbGirls(), D = vetbDefs();
+    const cards = el('div', { class: 'vetb-team' }, ...VETB_ROLES.map(([role, n, em]) => {
+      const g = vetbWho(role);
+      return el('button', { type: 'button', class: 'vetb-member' + (vetbPickRole === role ? ' on' : ''), onclick: () => { vetbPickRole = vetbPickRole === role ? null : role; SFX.pop(); redraw(); } },
+        vetbImg(role, 'bust', g), el('b', {}, vetbNm(g)), el('small', {}, `${em} ${n}`));
+    }));
+    const picker = vetbPickRole ? el('div', { class: 'vetb-picker' }, el('small', { class: 'muted' }, `מי תהיה ה${VETB_ROLES.find(r => r[0] === vetbPickRole)[1]}?`),
+      el('div', { class: 'vetb-pickrow' }, ...[...G, ...D].map(g => el('button', { type: 'button', class: 'vetb-pick' + (vetbWho(vetbPickRole) === g ? ' on' : ''), title: vetbNm(g), onclick: () => {
+        vetB.roles[vetbPickRole] = g.id; vetbSave(); SFX.ding(); vetbPickRole = null; redraw();
+      } }, vetbImg(vetbPickRole, 'bust', g), el('small', {}, vetbNm(g) + (G.includes(g) ? ' 💖' : ''))))) ) : null;
+    return el('div', { class: 'vetb-teambox' }, el('div', { class: 'vetb-teamhead' }, el('b', {}, '👩‍⚕️ הצוות של המרפאה'),
+      el('small', { class: 'muted' }, G.length ? 'לוחצים על תפקיד כדי לבחור מי עושה אותו' : 'עוד אין לך בנות — זה צוות זמני. עצבי בת והיא תעבוד כאן!'),
+      el('button', { type: 'button', class: 'btn', onclick: () => { vetDlg().close(); try { openFashion(); } catch {} } }, '👗 לעצב בת לצוות')), cards, picker);
+  }
+  // ---------- lobby (waiting room) with the receptionist, the team and the recovery room ----------
+  const vetbLobby0 = vetLobby;
+  vetLobby = function () {
+    vetbStop();
+    vetbLobby0();
+    try {
+      const body = $('#petzVetBody'), head = body.querySelector('.vet7-head');
+      const all = allPets(), sick = all.filter(p => vetSickOf(p)), hot = sick.filter(p => vetSev(p, vetSickOf(p)) === 3), rec = all.filter(vetRecovering), doc = vetbWho('doctor');
+      const line = hot.length ? `דוקטור ${vetbNm(doc)}! ${vetNm(hot[0])} חולה מאוד — מחכה לך בטיפול נמרץ! 🚨` : sick.length ? `שלום דוקטור ${vetbNm(doc)}! יש לנו ${sick.length === 1 ? 'מטופל/ת אחד/ת' : sick.length + ' מטופלים'} בחדר ההמתנה 📋` : `בוקר טוב דוקטור ${vetbNm(doc)}! כל החיות בריאות היום 🌸`;
+      head.after(vetbTalk('reception', line, 'desk'));
+      // very sick pets go to intensive care
+      body.querySelectorAll('.vet7-pcard.hot .btn').forEach(b => { b.textContent = '🚨 לטיפול נמרץ'; b.classList.add('vetb-icubtn'); });
+      const rb = body.querySelector('.vet7-recbox'); if (rb) rb.append(vetbTalk('nurse', 'אני שומרת עליהם במיטות ההחלמה, שינוחו טוב 💤', 'small'));
+      body.append(vetbTeam(() => vetLobby()));
+    } catch (e) { console.error('vetb lobby', e); }
+  };
+  // ---------- start: 🚨 → intensive care; visitors are sometimes her girls with their pets ----------
+  const vetbStart0 = vetStart;
+  vetStart = function (p, checkup) {
+    vetbStop();
+    if (p && !p.visitor) { const r = vetSickOf(p); if (r && vetSev(p, r) === 3 && !vetBaby(p)) return vetbIcu(p); }
+    vetbStart0(p, checkup);
+    try {
+      const V = vetV; if (!V || !V.visitor) return;
+      const G = vetbGirls();
+      if (G.length && Math.random() < .5) { V.owner = vetPick(G); V.say = `${vetbNm(V.owner)}: הבאתי את ${vetNm(V.p)} שלי... ${VET_SICK[V.s].say}`; }
+      V.driver = true;
+      vetDraw();
+    } catch {}
+  };
+  // ---------- the exam room ----------
+  vetDraw = function (line) {
+    const V = vetV; if (!V) return vetLobby();
+    if (V.icu) return vetbIcuDraw(line);
+    const P = V.s ? VET_SICK[V.s] : null, nm = vetNm(V.p), diag = vetDiag(V);
+    const art = el('div', { class: 'vet7-pet' + (V.healed ? ' healed' : ''), html: vetArt(V) });
+    art.append(el('span', { class: 'vet7-fx' }));
+    const say = el('span', { class: 'pz-say vet7-say' }, line || V.say);
+    const doc = el('div', { class: 'vetb-doc' }, vetbImg('doctor', 'full'), el('small', {}, `${vetbNm(vetbWho('doctor'))} 👩‍⚕️`));
+    const owner = V.owner ? el('div', { class: 'vetb-doc owner' }, el('img', { class: 'vetb-img full', alt: vetbNm(V.owner), src: (() => { try { return girlImgURL(V.owner, { bg: false }); } catch { return ''; } })() }), el('small', {}, `${vetbNm(V.owner)} 💖`)) : null;
+    const chart = el('div', { class: 'vet7-chart' }, el('b', {}, `📋 ${nm} ${V.owner ? `(של ${vetbNm(V.owner)})` : V.visitor ? '(מטופל/ת אורח/ת)' : '(שלך 💖)'}`),
+      el('small', { class: 'muted' }, V.healed ? '✔️ הטיפול הצליח!' : diag ? 'הבדיקות הסתיימו — עכשיו את מחליטה איך לרפא' : 'בודקים בכלים לפחות 2 בדיקות'),
+      ...VET_EX.map(([k, n]) => el('div', { class: 'vet7-row' + (V.ex[k] ? ' ok' : '') }, el('span', { class: 'ic', html: vetToolSVG(k) }), el('span', {}, V.ex[k] ? V.ex[k] : `${n} — ?`))));
+    const dcard = diag ? el('div', { class: 'vet7-diag' + (V.healed ? ' done' : '') },
+      P ? el('b', {}, `🔎 האבחנה: ${P.e} ${P.n}`) : el('b', {}, '🔎 האבחנה: בריא/ה לגמרי! 💪'),
+      P ? el('span', {}, `💡 ${P.hint}`) : el('span', {}, 'אפשר לתת ויטמינים או חיבוק — ולשלוח הביתה 🏡'),
+      V.tried.length && !V.healed ? el('small', { class: 'muted' }, `ניסינו: ${V.tried.map(k => (VET_TR.find(x => x[0] === k) || [k, k])[1]).join(', ')}`) : null) : null;
+    const side = el('div', { class: 'vet7-side' }, chart, dcard,
+      diag && P && !V.healed ? vetbTalk('lab', `בדקתי במיקרוסקופ 🔬 — זה באמת ${P.n}!`, 'small') : null);
+    const room = el('div', { class: 'vet7-room vetb-room' }, say, el('div', { class: 'vetb-stage' }, art, doc, owner), side);
+    const exBtns = el('div', { class: 'pz-tools vet7-tools' }, ...VET_EX.map(([k, n, what]) => {
+      const b = el('button', { type: 'button', class: 'pz-tool' + (V.ex[k] ? ' vet7-done' : '') + (!diag && V.s && Object.keys(V.ex).length >= 2 && VET_SICK[V.s].ex[k] && !V.ex[k] ? ' hint' : ''), title: what }, el('span', { class: 'ic', html: vetToolSVG(k) }), n);
+      petzDragTool(b, () => art, () => vetExam(k, art)); return b;
+    }));
+    const trBtn = (k, big) => {
+      const t = VET_TR.find(x => x[0] === k); if (!t) return null;
+      const sug = diag && !V.healed && vetbSuggest(V).includes(k);
+      const b = el('button', { type: 'button', class: 'pz-tool vetb-tr' + (big ? ' big' : '') + (sug ? ' vetb-sug' : '') + (V.tried.includes(k) ? ' vet7-tried' : '') + (V.s && V.fails >= 2 && vetbGood(V.s, k) ? ' hint' : ''), title: t[1] },
+        el('span', { class: 'ic', html: vetToolSVG(k) }), t[1]);
+      petzDragTool(b, () => art, () => vetTreat(k, art)); return b;
+    };
+    let treat = null;
+    if (diag && !V.healed) {
+      V.cat = V.cat || 'med';
+      const sugg = vetbSuggest(V);
+      const nurse = vetbTalk('nurse', V.narrow ? 'צמצמתי לך ל-3 אפשרויות — אחת מהן בטוח עוזרת! 💪' : P ? `אני חושבת ש${sugg.map(k => VET_TR.find(x => x[0] === k)[1]).join(' או ')} יכולים לעזור ל${nm}! ✨` : 'הכל נראה מצוין! אולי ויטמינים? 💊', 'small');
+      const cats = el('div', { class: 'vetb-cats', role: 'tablist' }, ...VETB_CATS.map(([id, em, n]) => el('button', { type: 'button', role: 'tab', class: 'vetb-cat', 'aria-selected': String(!V.narrow && V.cat === id), onclick: () => { V.cat = id; V.narrow = null; SFX.pop(); vetDraw(); } },
+        el('span', { class: 'em' }, em), el('small', {}, n))));
+      const list = V.narrow || VET_TR.map(t => t[0]).filter(k => VETB_CAT_OF[k] === V.cat);
+      treat = el('div', { class: 'row', style: 'gap:6px' },
+        el('h4', { class: 'vet7-h' }, '2️⃣ את בוחרת: איזה טיפול יעזור?'), nurse,
+        el('div', { class: 'vetb-sugrow' }, el('small', { class: 'muted' }, '⭐ ההצעות של האחות:'), ...sugg.map(k => trBtn(k, true)),
+          V.s ? el('button', { type: 'button', class: 'btn vetb-help', onclick: () => { V.narrow = vetbNarrow(V); SFX.ding(); vetDraw(`${vetbNm(vetbWho('nurse'))}: בואי נבחר ביחד! 🤔`); } }, '🤔 תעזרי לי לבחור') : null),
+        cats, el('div', { class: 'pz-tools vet7-tools vetb-grid' + (V.narrow ? ' narrow' : '') }, ...list.map(k => trBtn(k, !!V.narrow))));
+    }
+    const acts = el('div', { class: 'chips' },
+      V.healed ? el('button', { type: 'button', class: 'btn main', onclick: vetLobby }, '🐾 חזרה לחדר ההמתנה') : el('button', { type: 'button', class: 'btn', onclick: vetLobby }, '↩️ לחדר ההמתנה'),
+      V.healed && !V.visitor && !V.checkup && typeof openHouse === 'function' ? el('button', { type: 'button', class: 'btn', onclick: () => { vetDlg().close(); houseTab = 'together'; openHouse(); } }, '🛏️ לראות אותה/אותו במיטת ההחלמה') : null,
+      V.healed && V.visitor ? el('button', { type: 'button', class: 'btn', onclick: () => vetStart(null) }, '🚑 המטופל/ת הבא/ה') : null);
+    const top = V.driver && !Object.keys(V.ex).length && !V.healed ? vetbTalk('driver', `ווּ־ווּ! 🚑 הבאתי באמבולנס את ${nm}${V.owner ? ` ואת ${vetbNm(V.owner)}` : ''}!`, 'small') : null;
+    $('#petzVetBody').replaceChildren(vetHead(), top || '', room,
+      V.healed ? el('div', { class: 'row', style: 'gap:6px' },
+        vetbTalk('nurse', V.visitor ? `${nm} חוזר/ת הביתה בריא/ה! כל הכבוד דוקטור! 🎉` : V.checkup ? `${nm} בריא/ה לגמרי! 💪` : `אני אקח את ${nm} למיטת ההחלמה ואשמור עליו/ה 💤`, 'small'),
+        V.cards && V.cards.length ? el('div', { class: 'vet7-cardsrow' }, ...V.cards.map(([q, it]) => el('span', { class: 'vet7-gw' }, el('span', { class: 'ic', html: petSVG(q, { mood: 'happy' }) }), el('span', { class: 'ic', html: vetGiftSVG(it) }), `${vetNm(q)} הביא/ה ${VET_GIFTS[it][0]}`))) : null)
+        : el('div', { class: 'row', style: 'gap:6px' }, el('h4', { class: 'vet7-h' }, '1️⃣ בדיקות — לוחצים על כלי או גוררים אותו אל החיה'), exBtns,
+          diag ? treat : el('h4', { class: 'vet7-h off' }, '2️⃣ הטיפולים ייפתחו אחרי הבדיקות 🔒')),
+      acts);
+  };
+  // ---------- choosing a treatment: 2–3 right ones per sickness; the small operation has a sleepy mask ----------
+  vetTreat = function (k, art) {
+    const V = vetV; if (!V || V.healed) return;
+    const nm = vetNm(V.p), T = (VET_TR.find(x => x[0] === k) || [k, k])[1];
+    const say = { syrup: 'כפית של סירופ בטעם תות 🍓', pill: `${nm} אכל/ה את החטיף... ולא שם/ה לב לכדור! 😉`, bandage: 'עוטפים בעדינות 🩹', ointment: 'מורחים משחה קרירה 🧴', tea: 'לגימה של תה חם, ושמיכה רכה 🍵', drops: 'טיפ... טיפ... 💧',
+      brush: 'צחצוח צחצוח! ✨', cuddle: 'חיבוק ענק ומשחק! 🤗', rest: 'לישון קצת במיטה החמה 😴', vitamins: 'ויטמין צבעוני! 💊', ice: 'קר קר! ❄️', spray: 'פְּשְׁשְׁשְׁ! 👃', eyedrops: 'טיפה בכל עין 👀', inhaler: 'נושמים עמוק... פְּפְפְף 🌬️',
+      cast: 'גבס קשה וחזק — ואפשר לצייר עליו! 🎨', plaster: 'פלסטר עם כוכב ⭐', soup: 'מרק חם חם, סוּרְפּ! 🍲', honey: 'כפית דבש מתוקה 🍯', water: 'גְּלוּג גְּלוּג — הרבה מים 💧', veggies: 'קְרַאנְץ׳! פירות וירקות 🥕', rice: 'אורז רך ופשוט 🍚',
+      bath: 'אמבטיה חמימה עם קצף 🛁', comb: 'סירוק רך רך ☁️', earclean: 'מנקים בעדינות את האוזניים 👂', music: 'לַה לַה לַה... שיר ערש 🎵', massage: 'עיסוי רך ונעים 💆', xray: 'קְלִיק! צילום רנטגן — רואים את כל העצמות 🦴',
+      surgery: `שמים מסכה קטנה... ${nm} נרדם/ת לרגע 😴 ניתוח קטן — ומתעוררים!`, drip: 'עירוי קטן של כוח ומים 💧', heatlamp: 'מנורה חמימה כמו שמש ☀️', icebath: 'אמבט קריר ונעים 🧊', herbal: 'תה צמחים מהגינה 🌿', dentist: 'פותחים גדול... מנקים ומתקנים את השן 🦷' }[k] || T;
+    const where = { bandage: 'foot', cast: 'foot', plaster: 'head', ointment: 'body', drops: 'ear', earclean: 'ear', ice: 'head', cuddle: 'body', rest: 'body', massage: 'body', bath: 'body', comb: 'body', music: 'head', xray: 'body', heatlamp: 'head', icebath: 'body', drip: 'body' }[k] || 'mouth';
+    const fx = (art && art.querySelector('.vet7-fx')) || $('#petzVetBody .vet7-fx');
+    if (fx) vetFx(fx, k === 'surgery' ? 'mask' : k, where);
+    SFX.pop();
+    const say0 = $('#petzVetBody .vet7-say'); if (say0) say0.textContent = say;
+    if (k === 'surgery') [0, .4, .8].forEach(w => tone(330, .2, 'sine', w, .04));
+    setTimeout(() => {
+      if (vetV !== V) return;
+      if (!V.s) { vetHeal(V, `${say} ${nm} בריא/ה וחזק/ה! 💪`); return; }
+      const P = VET_SICK[V.s], good = P.goods.includes(k);
+      if (V.tried.includes(k) && !good) { SFX.boop(); vetDraw(`כבר ניסינו ${T}... נסי משהו אחר 🤔`); return; }
+      if (good || (P.close.includes(k) && Math.random() < .75)) { vetHeal(V, good ? `${say} זה בדיוק מה שהיה צריך!` : `${say} וזה עזר!`, good && !V.fails); return; }
+      V.tried.push(k); V.fails++; SFX.boop();
+      if (V.narrow) V.narrow = V.narrow.filter(x => x !== k);
+      const near = P.close.includes(k), oops = !near && Math.random() < .1;
+      vetDraw(near ? `${nm}: זה עזר קצת... אבל עוד לא לגמרי. נסי משהו אחר! 🤏` : oops ? `${nm}: אופס, זה קצת דגדג 😣 — לא נורא! לא עזר, נסי משהו אחר` : `${nm}: הממ... לא עזר, נסי משהו אחר 🤔${V.fails >= 2 ? ' (מה שזוהר יעזור! ✨)' : ''}`);
+    }, k === 'surgery' ? 2200 : 1000);
+  };
+  // ---------- 🚨 intensive care: 4 care steps with the whole team, then (usually) a recovery ----------
+  const VETB_ICU = [['oxygen', 'מסכת חמצן', 'nurse', 'שמים מסכה קטנה — נושמים לאט לאט 🫁'], ['drip', 'עירוי', 'lab', 'עירוי של מים וכוח 💧'], ['blanket', 'שמיכה חמה', 'nurse', 'מכסים בשמיכה חמימה 🧣'], ['paw', 'להחזיק את הכף', 'doctor', 'מחזיקים את הכף ולוחשים "אני כאן איתך" 🤝']];
+  function vetbIcu(p) {
+    vetbStop();
+    const r = vetSickOf(p);
+    vetV = { icu: true, p, s: r ? r.s : 'fever', visitor: false, checkup: false, ex: {}, tried: [], fails: 0, healed: false, done: [], score: 0, phase: 'care', say: `🚨 ${vetNm(p)} חולה מאוד מאוד... כל הצוות מתאסף!` };
+    vetbIcuDraw();
+    try { SFX.pet(p.kind); } catch {}
+  }
+  function vetbOver(p, done) {
+    let g; try { g = styGeo(p); } catch { return ''; }
+    const G = g.G, B = G.body, ny = G.noseY, H = G.V || G.head || g.H;
+    let o = '';
+    if (done.includes('blanket')) o += `<path d="M${vetF(B[0] - B[2] - 3)} ${vetF(B[1] - 2)} Q24 ${vetF(B[1] - 6)} ${vetF(B[0] + B[2] + 3)} ${vetF(B[1] - 2)} L${vetF(B[0] + B[2] + 2)} ${vetF(B[1] + B[3] + 1)} Q24 ${vetF(B[1] + B[3] + 3)} ${vetF(B[0] - B[2] - 2)} ${vetF(B[1] + B[3] + 1)} Z" fill="#ffb3d9" stroke="${O}" stroke-width="1.1" stroke-linejoin="round"/><path d="${pzHeart(20, B[1] + 2, 1.4)}" fill="#fff"/><path d="${pzHeart(28, B[1] + 4, 1.4)}" fill="#fff"/>`;
+    if (done.includes('oxygen')) o += `<ellipse cx="24" cy="${vetF(ny + 1)}" rx="4.6" ry="3.6" fill="#bfeaff" fill-opacity=".8" stroke="${O}" stroke-width=".8"/><path d="M${vetF(24 - 4.4)} ${vetF(ny)} L${vetF(24 - H[2])} ${vetF(ny - 3)} M${vetF(24 + 4.4)} ${vetF(ny)} L${vetF(24 + H[2])} ${vetF(ny - 3)}" stroke="#7ec8ff" stroke-width=".8"/>`;
+    if (done.includes('paw')) o += `<path d="${pzHeart(24 + B[2] + 3, B[1] - 6, 2.6)}" fill="#ff6b8b" stroke="${O}" stroke-width=".5"/>`;
+    return o;
+  }
+  const vetbMonitor = (bpm, mode) => el('div', { class: 'vetb-mon ' + mode, html: `<svg viewBox="0 0 200 70" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="70" rx="10" fill="#10233a"/><path class="vetb-ecg" d="${mode === 'calm' ? 'M0 42 H200' : 'M0 42 H40 L48 42 L54 20 L60 58 L66 42 H110 L118 42 L124 20 L130 58 L136 42 H200'}" fill="none" stroke="${mode === 'good' ? '#6fdc8c' : mode === 'calm' ? '#b8a8ff' : '#ffd84d'}" stroke-width="3" stroke-linejoin="round"/><text x="186" y="18" text-anchor="end" direction="ltr" font-size="14" font-family="Rubik, sans-serif" fill="#fff">${mode === 'calm' ? '💗' : '♥ ' + bpm}</text></svg>` });
+  function vetbIcuDraw(line) {
+    const V = vetV; if (!V || !V.icu) return;
+    const p = V.p, nm = vetNm(p), sev = 3;
+    const moodArt = V.phase === 'saved' ? petSVG(p, { mood: 'happy', noSick: true, over: vetbOver(p, V.done) + [[8, 10], [40, 8], [4, 34], [44, 32]].map(([x, y], i) => pzSpark(x, y, i % 2 ? 2.4 : 3.2, i % 2 ? '#ffd84d' : '#fff', .95)).join('') })
+      : V.phase === 'gone' ? petSVG(p, { mood: 'sleepy', noSick: true, over: vetbOver(p, ['blanket']) }) : petSVG(p, { mood: 'sick', noSick: true, over: vetSym(p, V.s, sev) + vetbOver(p, V.done) });
+    const bpm = V.phase === 'saved' ? 96 : 150 - V.done.length * 12;
+    const mode = V.phase === 'saved' ? 'good' : V.phase === 'gone' ? 'calm' : 'alarm';
+    const bed = el('div', { class: 'vetb-icubed' }, el('span', { class: 'b0', html: VET_BED('#bfeaff') }), el('span', { class: 'bp', html: moodArt }), V.done.includes('drip') ? el('span', { class: 'vetb-dripstand', html: vetToolSVG('drip') }) : null);
+    const team = el('div', { class: 'vetb-icuteam' }, ...['doctor', 'nurse', 'lab'].map(r => vetbImg(r, 'full')));
+    const next = VETB_ICU.find(s => !V.done.includes(s[0]));
+    const talk = V.phase === 'care' ? (next ? vetbTalk(next[2], V.done.length ? `יופי! עכשיו ${next[1]} 💪` : `דוקטור ${vetbNm(vetbWho('doctor'))}, מתחילים! קודם ${next[1]}`, 'small') : vetbTalk('nurse', 'עשינו הכל... עכשיו מחכים ומחזיקים אצבעות 🤞', 'small'))
+      : V.phase === 'saved' ? vetbTalk('doctor', `${nm} ניצל/ה! הלב חזק שוב 💚 עכשיו מנוחה ארוכה במיטת ההחלמה`, 'small')
+      : vetbTalk('nurse', `עשית הכל, דוקטור. ${nm} היה/תה חולה מאוד מאוד... ועכשיו ${nm} נח/ה בשקט. אנחנו כאן איתך 💗`, 'small');
+    const steps = el('div', { class: 'vetb-icusteps' }, ...VETB_ICU.map(([id, n]) => el('button', { type: 'button', class: 'pz-tool vetb-tr big' + (V.done.includes(id) ? ' vet7-done' : '') + (next && next[0] === id && V.phase === 'care' ? ' hint' : ''), disabled: V.phase !== 'care' || V.done.includes(id), title: n, onclick: () => vetbIcuStep(id) },
+      el('span', { class: 'ic', html: id === 'blanket' ? pzToolSVG('blanket') : vetToolSVG(id) }), n)));
+    const acts = el('div', { class: 'chips' },
+      V.phase === 'saved' ? el('button', { type: 'button', class: 'btn main', onclick: vetLobby }, '🐾 לחדר ההמתנה') : null,
+      V.phase === 'gone' ? el('button', { type: 'button', class: 'btn main', onclick: () => { const m = lifeS.memorial.find(x => x.id === p.id); vetDlg().close(); if (m && typeof lifeBye === 'function') lifeBye(m); } }, '🌈 להיפרד בעדינות') : null,
+      V.phase === 'care' && !V.waiting ? el('button', { type: 'button', class: 'btn', onclick: vetLobby }, '↩️ לחדר ההמתנה') : null);
+    $('#petzVetBody').replaceChildren(vetHead(),
+      el('div', { class: 'vetb-icu ' + mode }, el('span', { class: 'pz-say vet7-say' }, line || V.say), el('div', { class: 'vetb-icustage' }, team, bed, vetbMonitor(bpm, mode))),
+      talk, V.phase === 'care' ? el('div', { class: 'row', style: 'gap:6px' }, el('h4', { class: 'vet7-h' }, `🚨 טיפול נמרץ — ${V.done.length}/4 צעדים (לפי הסדר שהצוות מציע זה הכי טוב)`), steps) : null, acts);
+    vetbStop();
+    if (V.phase === 'care') vetbTimer = setInterval(() => { if (!vetDlg().open || vetV !== V) return vetbStop(); tone(880, .07, 'sine', 0, .03); }, Math.round(60000 / Math.max(60, bpm)));
+    else if (V.phase === 'saved') vetbTimer = setInterval(() => { if (!vetDlg().open || vetV !== V) return vetbStop(); tone(660, .06, 'sine', 0, .02); }, 900);
+  }
+  function vetbIcuStep(id) {
+    const V = vetV; if (!V || !V.icu || V.phase !== 'care' || V.done.includes(id) || V.waiting) return;
+    const next = VETB_ICU.find(s => !V.done.includes(s[0]));
+    if (next && next[0] === id) V.score++;
+    V.done.push(id); SFX.pop();
+    const S0 = VETB_ICU.find(s => s[0] === id);
+    if (V.done.length < 4) { vetbIcuDraw(S0[3]); return; }
+    V.waiting = true;
+    vetbIcuDraw(`${S0[3]} ... כולם מחכים ביחד 🤞`);
+    setTimeout(() => vetbIcuEnd(V), 3200);
+  }
+  function vetbIcuEnd(V) {
+    if (vetV !== V) return;
+    const p = V.p;
+    // rules: babies always survive, the last pet always survives, "pets don't die" = always survive; otherwise 70–80%, better steps = better chances
+    const safe = vetBaby(p) || allPets().length < 2 || vetNoDeath();
+    const chance = safe ? 1 : Math.min(.8, .7 + V.score * .025);
+    V.waiting = false;
+    if (Math.random() < chance) {
+      V.phase = 'saved'; SFX.yay();
+      vetbIcuDraw(`💚 ${vetNm(p)} פותח/ת את העיניים... ${vetNm(p)} ניצל/ה!`);
+      setTimeout(() => {
+        if (vetV !== V) return;
+        const H = { p, s: V.s, visitor: false, checkup: false, ex: {}, tried: [], fails: 0, healed: false };
+        vetV = H; vetHeal(H, `🚨 טיפול נמרץ הצליח!`, V.score >= 4);
+      }, 2600);
+    } else {
+      V.phase = 'gone';
+      try { vetPass(p); } catch {}
+      [523, 440, 392].forEach((f, i) => tone(f, .6, 'sine', i * .5, .04));
+      vetbIcuDraw(`💗 ${vetNm(p)} היה/תה חולה מאוד מאוד... ונרדם/ה בשקט, מוקף/ת באהבה.`);
+      try { renderStrip(); renderPet(); } catch {}
+    }
+  }
+  // ---------- the ICU in the lobby cards; a "🚨 טיפול נמרץ" label on the board pill ----------
+  const vetbStrip0 = renderStrip;
+  renderStrip = function () {
+    vetbStrip0();
+    try { const pl = $('#strip .vet7-pill.hot'); if (pl && !pl.dataset.icu) { pl.dataset.icu = '1'; pl.append(' — 🚨 טיפול נמרץ'); } } catch {}
   };
   // ================= sticker album =================
   function openAlbum() {
