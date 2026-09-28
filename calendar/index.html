@@ -35605,7 +35605,20 @@ ${label(900, 520, '🌊 ים האיים')}
   const vetRecovering = p => p && p.id && vetS.rec[p.id] && vetS.rec[p.id].d === localToday();
   // ---------- the daily tick: maybe one new sickness, warnings, and (rarely, only when neglected) a goodbye ----------
   let vetNews = null;
+  // she asked: there is always at least one sick pet in the clinic (a fresh, mild one — never a pet resting in the recovery bed)
+  function vetKeepOne() {
+    if (vetSickList().length) return;
+    const t = localToday();
+    const cand = allPets().filter(p => p.id && !vetRecovering(p) && p.born !== t);
+    if (!cand.length) return;
+    const p = vetPick(cand);
+    const pool = Object.keys(VET_SICK).filter(k => !vetBaby(p) || VET_SICK[k].mild);
+    vetS.sick[p.id] = { s: vetPick(pool), d: t, warnN: 0 }; vetS.lastNew = t;
+    vetNews = vetNews || { p, hot: false };
+    vetSave();
+  }
   function vetDaily() {
+    try { vetKeepOne(); } catch {}
     const t = localToday();
     if (vetS.lastTick === t) return;
     vetS.lastTick = t;
