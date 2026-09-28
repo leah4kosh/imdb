@@ -6049,6 +6049,21 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
   .vetb-stage .vet7-pet { width: 140px; height: 160px; } .vetb-img.full { width: 72px; height: 144px; }
 }
 @media (prefers-reduced-motion: reduce) { .vetb-icu.alarm, .vetb-ecg { animation: none; } }
+/* 🏥 clinic 3: favorites & visitor ICU (vet agent, round 7c) */
+.vetc-star { position: absolute; top: 4px; left: 4px; width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ffc94d; background: #fff; color: #e8a400; font-size: 1.1em; line-height: 1; cursor: pointer; display: grid; place-items: center; padding: 0; z-index: 2; }
+.vetc-star.on { background: #fff4b8; box-shadow: 0 0 0 3px rgb(255 216 77 / .45); }
+.vetc-star.big { position: static; width: auto; height: auto; border-radius: 999px; padding: 4px 12px; display: inline-flex; gap: 6px; font-size: 1em; }
+.vetc-star.big small { color: #1f2a44; }
+.vetc-safe { color: #b07a00; font-size: .8em; }
+.vetc-info { display: grid; gap: 2px; padding: 6px 10px; border-radius: 14px; background: #fffbe0; color: #1f2a44; border: 2px dashed #ffc94d; font-size: .9em; }
+.vetc-owner { display: grid; justify-items: center; font-size: .75em; color: #fff; }
+.vetb-icu.good .vetc-owner { color: #1f2a44; }
+.vetc-opet { width: 80px; height: 92px; } .vetc-opet svg { width: 100%; height: 100%; display: block; }
+.vetc-sky { position: absolute; inset: 0; pointer-events: none; display: flex; align-items: flex-end; } .vetc-sky svg { width: 100%; height: 100%; }
+.vetc-newstar { animation: vetcstar 2s ease-in-out infinite; transform-origin: 300px 40px; }
+@keyframes vetcstar { 50% { transform: scale(1.2); opacity: .8; } }
+@media (prefers-reduced-motion: reduce) { .vetc-newstar { animation: none; } }
+.vetc-sky { z-index: 0; } .vetb-icu > :not(.vetc-sky) { position: relative; z-index: 1; }
 </style>
 </head>
 <body class="bg-dots">
@@ -35636,7 +35651,7 @@ ${label(900, 520, '🌊 ים האיים')}
         if (r.warnDay !== t) { r.warnDay = t; r.warnN = (r.warnN || 0) + 1; }
         vetNews = vetNews || { p, hot: true };
         // only a very sick, neglected (3+ days with no care), not-a-baby pet, after two earlier warning days, never the last pet, never with "pets don't die"
-        if (!gone && (r.warnN || 0) >= 3 && vetNeglect(p) >= 3 && !vetBaby(p) && allPets().length > 1 && !vetNoDeath() && Math.random() < 0.35) gone = p;
+        if (!gone && (r.warnN || 0) >= 3 && vetNeglect(p) >= 3 && !vetBaby(p) && !p.fav && !vetNoDeath() && Math.random() < 0.35) gone = p;
       }
     });
     if (gone) vetPass(gone);
@@ -40129,6 +40144,112 @@ ${label(900, 520, '🌊 ים האיים')}
   renderStrip = function () {
     vetbStrip0();
     try { const pl = $('#strip .vet7-pill.hot'); if (pl && !pl.dataset.icu) { pl.dataset.icu = '1'; pl.append(' — 🚨 טיפול נמרץ'); } } catch {}
+  };
+  // ================= 🏥 clinic 3: ⭐ favorites never die, real (sometimes) goodbyes in intensive care, very sick visitor patients (vet agent, round 7c) =================
+  // p.fav = true on the pet object (saved with the pets). Favorites and babies never die — from any path (ICU, neglect, old age). "🌈 החיות לא מתות" still overrides everything.
+  const vetcFav = p => !!(p && p.fav);
+  const vetcSafe = p => !p || vetcFav(p) || vetBaby(p) || vetNoDeath();
+  let vetcStars = store.get('vetStars', []);
+  function vetcToggleFav(p, redraw) {
+    const r = petzList.find(q => q.id === p.id) || p;
+    r.fav = !r.fav; if (p !== r) p.fav = r.fav;
+    petzSave(); try { if (pet && pet.id === r.id) { pet.fav = r.fav; savePet(); } } catch {}
+    SFX.ding(); try { toast(petSVG(r, { mood: 'happy' }), r.fav ? `⭐ ${vetNm(r)} במועדפים — לא תמות לעולם 💖` : `${vetNm(r)} יצא/ה מהמועדפים`); } catch {}
+    if (redraw) redraw();
+  }
+  const vetcStar = (p, redraw, big) => el('button', { type: 'button', class: 'vetc-star' + (vetcFav(p) ? ' on' : '') + (big ? ' big' : ''), 'aria-pressed': String(vetcFav(p)), title: vetcFav(p) ? '⭐ מועדפת — לא תמות (לוחצים כדי להוריד)' : 'להוסיף למועדפים ⭐', onclick: e => { e.stopPropagation(); vetcToggleFav(p, redraw); } },
+    vetcFav(p) ? '⭐' : '☆', big ? el('small', {}, vetcFav(p) ? 'מועדפת — לא תמות' : 'להוסיף למועדפים') : null);
+  // every goodbye goes through lifePass: favorites and babies are skipped; the last pet can go too (then the home is empty, like at the start)
+  const vetcLifePass0 = lifePass;
+  lifePass = function (p) {
+    if (!p || vetcFav(p) || vetBaby(p) || vetNoDeath()) return false;
+    if (petzList.some(q => q.id !== p.id)) return vetcLifePass0(p);
+    try {
+      lifeS.memorial.push({ id: p.id, pet: JSON.parse(JSON.stringify(p)), d: localToday(), days: petAge(p).days, fam: '', role: '', elder: lifeElder(p), fav: lifeFavs(p), flowers: [], candles: 0, notes: [], seen: false });
+      petzList = []; store.set('pets', petzList); pet = null; store.set('pet', null); lifeSave();
+      return true;
+    } catch { return false; }
+  };
+  const vetcWarn0 = lifeWarnDays;
+  lifeWarnDays = function (p) { return vetcFav(p) ? null : vetcWarn0(p); };
+  // ---------- ICU end: 45% → 25% chance of a goodbye (better steps = better chances); visitors too ----------
+  vetbIcuEnd = function (V) {
+    if (vetV !== V) return;
+    const p = V.p, safe = V.visitor ? false : vetcSafe(p);
+    const die = safe ? 0 : Math.max(.25, .45 - V.score * .05);
+    V.waiting = false;
+    if (Math.random() >= die) {
+      V.phase = 'saved'; SFX.yay();
+      vetbIcuDraw(`💚 ${vetNm(p)} פותח/ת את העיניים... ${vetNm(p)} ניצל/ה!`);
+      setTimeout(() => {
+        if (vetV !== V) return;
+        const H = { p, s: V.s, visitor: !!V.visitor, owner: V.owner, ownerPet: V.ownerPet, checkup: false, ex: {}, tried: [], fails: 0, healed: false };
+        vetV = H; vetHeal(H, V.visitor ? `🚨 טיפול נמרץ הצליח! ${vetNm(p)} חוזר/ת הביתה עם ${V.owner ? vetbNm(V.owner) : V.ownerPet ? vetNm(V.ownerPet) : 'המשפחה'} 🏡` : `🚨 טיפול נמרץ הצליח!`, V.score >= 4);
+      }, 2600);
+    } else {
+      V.phase = 'gone';
+      if (V.visitor) { vetcStars = [...vetcStars, { name: vetNm(p), kind: p.kind, d: localToday(), owner: V.owner ? vetbNm(V.owner) : V.ownerPet ? vetNm(V.ownerPet) : '' }].slice(-30); store.set('vetStars', vetcStars); }
+      else try { vetPass(p); } catch {}
+      [523, 440, 392].forEach((f, i) => tone(f, .6, 'sine', i * .5, .04));
+      vetbIcuDraw(`💗 ${vetNm(p)} היה/תה חולה מאוד מאוד... ונרדם/ה בשקט, מוקף/ת באהבה.`);
+      try { renderStrip(); renderPet(); } catch {}
+    }
+  };
+  // ---------- the ICU screen: the favorite star, the waiting owner, the gentle visitor goodbye ----------
+  const vetcIcuDraw0 = vetbIcuDraw;
+  vetbIcuDraw = function (line) {
+    vetcIcuDraw0(line);
+    const V = vetV; if (!V || !V.icu) return;
+    try {
+      const body = $('#petzVetBody'), stage = body.querySelector('.vetb-icustage'), acts = body.querySelector(':scope > .chips');
+      if (V.visitor) {
+        const who = V.owner ? el('img', { class: 'vetb-img full', alt: vetbNm(V.owner), src: girlImgURL(V.owner, { bg: false }) }) : V.ownerPet ? el('span', { class: 'vetc-opet', html: petSVG(V.ownerPet, { mood: V.phase === 'saved' ? 'happy' : 'sad' }) }) : null;
+        if (who && stage) stage.append(el('div', { class: 'vetc-owner' }, who, el('small', {}, V.owner ? `${vetbNm(V.owner)} מחכה 🤞` : `${vetNm(V.ownerPet)} מחכה 🤞`)));
+        if (V.phase === 'gone') {
+          const on = V.owner ? vetbNm(V.owner) : V.ownerPet ? vetNm(V.ownerPet) : 'המשפחה';
+          const talk = body.querySelector(':scope > .vetb-talk'); if (talk) talk.replaceWith(vetbTalk('nurse', `עשית כל מה שיכולת 💗 אנחנו מחבקות את ${on} חזק חזק. ${vetNm(V.p)} עכשיו כוכב קטן בשמיים של המרפאה ⭐`, 'small'));
+          const icu = body.querySelector('.vetb-icu'); if (icu) icu.append(el('span', { class: 'vetc-sky', html: `<svg viewBox="0 0 600 200" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">${['#ff6f7a', '#ffb35c', '#ffe066', '#7ed48a', '#6fb8ff', '#b37bff'].map((c, i) => `<path d="M${120 + i * 9} 200 A${180 - i * 9} ${180 - i * 9} 0 0 1 ${480 - i * 9} 200" fill="none" stroke="${c}" stroke-width="9.4" opacity=".75"/>`).join('')}<polygon class="vetc-newstar" points="${starPts(300, 40, 16, 7)}" fill="#fff6c4" stroke="#ffd84d" stroke-width="2"/></svg>` }));
+          if (acts) acts.replaceChildren(el('button', { type: 'button', class: 'btn main', onclick: () => { SFX.ding(); vetLobby(); } }, '🌟 כוכב חדש בשמיים — חזרה למרפאה'));
+        }
+      } else if (V.phase === 'care' && acts) {
+        acts.prepend(vetcStar(V.p, () => vetbIcuDraw(), true));
+        if (vetBaby(V.p)) acts.append(el('small', { class: 'vetc-safe' }, '🍼 תינוקות תמיד מבריאים'));
+      }
+    } catch (e) { console.error('vetc icu', e); }
+  };
+  // ---------- visitors: ~30% arrive 🚨 very sick → the same intensive care, with the owner waiting ----------
+  const vetcStart0 = vetStart;
+  vetStart = function (p, checkup) {
+    if (p || Math.random() >= .3) return vetcStart0(p, checkup);
+    vetbStop();
+    const kind = pzPick(PET_KINDS)[0], G = vetbGirls();
+    const vp = { kind, name: pzPick(PZ_VISITORS), size: 0.85 + Math.random() * 0.25, look: petzRandomLook(kind), wear: {}, visitor: true };
+    const owner = G.length && Math.random() < .6 ? vetPick(G) : null;
+    let ownerPet = null;
+    if (!owner) { const k2 = pzPick(PET_KINDS)[0]; ownerPet = { kind: k2, name: pzPick(PZ_VISITORS.filter(n => n !== vp.name)), look: petzRandomLook(k2), wear: {}, visitor: true }; }
+    vetV = { icu: true, visitor: true, owner, ownerPet, p: vp, s: vetPick(Object.keys(VET_SICK).filter(k => !VET_SICK[k].mild)), checkup: false, ex: {}, tried: [], fails: 0, healed: false, done: [], score: 0, phase: 'care',
+      say: `🚑 ${vetbNm(vetbWho('driver'))} הביאה באמבולנס את ${vp.name} — חולה מאוד מאוד! ${owner ? vetbNm(owner) : ownerPet.name} מחכה בחוץ 🚨` };
+    vetbIcuDraw();
+    try { SFX.pet(kind); } catch {}
+  };
+  // ---------- stars on the lobby cards + "stars of the clinic" ----------
+  const vetcLobby0 = vetLobby;
+  vetLobby = function () {
+    vetcLobby0();
+    try {
+      const body = $('#petzVetBody'), all = allPets(), sick = all.filter(p => vetSickOf(p)).sort((a, b) => vetSev(b, vetSickOf(b)) - vetSev(a, vetSickOf(a)));
+      body.querySelectorAll('.vet7-pcard').forEach((c, i) => { const p = sick[i]; if (!p) return; c.style.position = 'relative'; c.append(vetcStar(p, () => vetLobby())); if (vetcFav(p)) c.querySelector('small').after(el('small', { class: 'vetc-safe' }, '⭐ מועדפת — לא תמות')); });
+      const favN = all.filter(vetcFav).length;
+      body.append(el('div', { class: 'vetc-info' }, el('span', {}, `⭐ ${favN ? `${favN} חיות במועדפים — הן לא ימותו לעולם` : 'חיה במועדפים (⭐) לא תמות לעולם — אפשר לסמן ולהוריד מתי שרוצים'} · 🍼 תינוקות תמיד מבריאים`),
+        vetcStars.length ? el('span', {}, `🌟 כוכבי המרפאה: ${vetcStars.slice(-6).map(s => s.name).join(', ')}`) : null));
+    } catch (e) { console.error('vetc lobby', e); }
+  };
+  // ---------- the pets house: a star on every pet card ----------
+  const vetcHousePets0 = petzHousePets;
+  petzHousePets = function () {
+    const box = vetcHousePets0();
+    try { const list = allPets(); [...box.querySelectorAll('.pz-card:not(.pz-add)')].forEach((c, i) => { const p = list[i]; if (!p) return; c.style.position = 'relative'; c.append(vetcStar(p, () => { try { drawHouse(); } catch {} })); }); } catch {}
+    return box;
   };
   // ================= sticker album =================
   function openAlbum() {
