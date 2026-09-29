@@ -40367,7 +40367,9 @@ ${label(900, 520, '🌊 ים האיים')}
     if (vetSickList().length) return;
     const t = localToday(), all = allPets().filter(p => p.id);
     const cand = all.filter(p => !vetRecovering(p) && p.born !== t);
-    const p = vetPick(cand.length ? cand : all); if (!p) return;
+    // she said only babies were coming: prefer grown-up pets that can really be in danger, then any non-baby, then anyone
+    const elig = cand.filter(p => vetdEligible(p)), grown = cand.filter(p => !vetBaby(p));
+    const p = vetPick(elig.length ? elig : grown.length ? grown : cand.length ? cand : all); if (!p) return;
     vetdMakeSick(p, t);
   };
   const vetdDaily0 = vetDaily;
@@ -40534,6 +40536,14 @@ ${label(900, 520, '🌊 ים האיים')}
     vetSave();
   } catch {}
   try { vetKeepOne(); } catch {}
+  // ⭐ easy to find: a MORE tile and a board pill for "המועדפות שלי" (she couldn't find where to pick favorites)
+  if (!MORE.some(m => m[1] === '⭐ החיות המועדפות שלי')) MORE.unshift(['star', '⭐ החיות המועדפות שלי', () => openVetFavs('house')]);
+  { const favStrip0 = renderStrip;
+    renderStrip = function (...a) {
+      favStrip0.apply(this, a);
+      try { const s = $('#strip'); if (s && allPets().length > 1 && !s.querySelector('.fav-pill')) s.append(el('button', { type: 'button', class: 'pill fav-pill', onclick: () => openVetFavs('house') }, '⭐ לבחור חיות מועדפות')); } catch {}
+    };
+    try { renderStrip(); } catch {} }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
