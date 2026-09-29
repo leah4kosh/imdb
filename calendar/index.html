@@ -6064,6 +6064,36 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
 @keyframes vetcstar { 50% { transform: scale(1.2); opacity: .8; } }
 @media (prefers-reduced-motion: reduce) { .vetc-newstar { animation: none; } }
 .vetc-sky { z-index: 0; } .vetb-icu > :not(.vetc-sky) { position: relative; z-index: 1; }
+/* ---- vet7d: wounds, ≥10 options with glowing suggestions, ⭐ favorites picker ---- */
+.vetd-grid { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
+.vetb-cats { grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); }
+.pz-tool.vetb-tr { position: relative; }
+.pz-tool.vetd-extra { border-style: dashed; }
+.pz-tool.vetd-glow { border-color: #ffc94d; background: #fffbe0; color: #1f2a44; animation: vetdglow 1.4s ease-in-out infinite; }
+.pz-tool.vetd-help { border-color: #ff6b8b; background: #fff0f5; animation: vetdglow2 1.1s ease-in-out infinite; }
+.vetd-tag { position: absolute; top: -8px; left: -6px; font-style: normal; font-size: 1.05em; background: #fff; border: 2px solid #ffc94d; border-radius: 50%; width: 24px; height: 24px; display: grid; place-items: center; line-height: 1; }
+@keyframes vetdglow { 50% { box-shadow: 0 0 0 4px rgb(255 216 77 / .55), 0 0 16px 4px rgb(255 201 77 / .6); } }
+@keyframes vetdglow2 { 50% { box-shadow: 0 0 0 4px rgb(255 107 139 / .45), 0 0 18px 5px rgb(255 154 213 / .7); transform: translateY(-2px); } }
+.vetd-favbtn { margin-inline-start: auto; background: #fff4b8; border-color: #ffc94d; color: #1f2a44; font-weight: 700; white-space: nowrap; }
+.vetd-hbtn { background: #fff4b8; border-color: #ffc94d; color: #1f2a44; }
+.vetd-fhead { display: grid; gap: 4px; justify-items: center; text-align: center; padding: 10px; border-radius: 18px; background: linear-gradient(135deg, #fff6c4, #ffe0ef); border: 2px solid #ffc94d; color: #1f2a44; }
+.vetd-rule { font-size: 1.6em; font-weight: 800; letter-spacing: .5px; }
+.vetd-fgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin: 10px 0; }
+.vetd-fcard { display: grid; justify-items: center; gap: 3px; padding: 8px; border: 3px solid var(--line); border-radius: 18px; background: var(--card); color: var(--ink); text-align: center; }
+.vetd-fcard.on { border-color: #ffc94d; background: linear-gradient(#fffbe0, #fff4b8); color: #1f2a44; box-shadow: 0 0 0 3px rgb(255 216 77 / .35); }
+.vetd-fcard.on .muted { color: #8a6a1a; }
+.vetd-fart { width: 92px; height: 92px; display: block; } .vetd-fart svg { width: 100%; height: 100%; }
+.vetd-fstar { display: grid; justify-items: center; gap: 0; width: 100%; padding: 6px 4px; border: 3px solid #ffc94d; border-radius: 16px; background: #fff; color: #1f2a44; cursor: pointer; font: inherit; }
+.vetd-fstar .s { font-size: 2.4em; line-height: 1.05; color: #e8a400; }
+.vetd-fstar small { font-size: .78em; font-weight: 700; }
+.vetd-fstar.on { background: #ffd84d; border-color: #e8a400; animation: vetdpop .35s ease; }
+.vetd-fstar:focus-visible { outline: 3px solid #ff6b8b; outline-offset: 2px; }
+@keyframes vetdpop { 40% { transform: scale(1.08); } }
+.vetd-why { font-size: .74em; color: #4a7a4a; }
+.vetd-why.risk { color: #c0304a; }
+@media (max-width: 520px) { .vetd-fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .vetd-fart { width: 76px; height: 76px; } .vet7-head { flex-wrap: wrap; } }
+@media (prefers-reduced-motion: reduce) { .pz-tool.vetd-glow, .pz-tool.vetd-help, .vetd-fstar.on { animation: none; box-shadow: 0 0 0 4px rgb(255 201 77 / .6); } }
+.vetd-hrow { align-items: center; margin-bottom: 6px; }
 </style>
 </head>
 <body class="bg-dots">
@@ -35590,6 +35620,19 @@ ${label(900, 520, '🌊 ים האיים')}
     bump: { n: 'מכה בראש', e: '🤕', mild: 1, say: 'בּוּם! נתקלתי בשולחן... יש לי בליטה', ex: { look: 'יש בליטה קטנה על הראש 🤕', ears: 'האוזניים בסדר, רק מצלצל קצת' }, ok: 'ice', close: ['bandage', 'ointment'], hint: 'על בליטה שמים משהו קר קר ❄️' },
     weak: { n: 'חולשה', e: '🔋', mild: 1, say: 'אין לי תיאבון... אני קצת חלש/ה', ex: { look: 'הפרווה פחות מבריקה', steth: 'הלב בסדר, קצת חלש', mouth: 'הלשון חיוורת' }, ok: 'vitamins', close: ['syrup', 'cuddle'], hint: 'כדי לחזור להיות חזקים לוקחים משהו מחזק כל יום 💪' },
   };
+  // ---------- 🩸 9 wounds (vet agent, round 7d; drawings + treatments live in the vet7d chunk) ----------
+  const VETD_WOUNDS = {
+    scratch: { n: 'שריטה וחתך', e: '🩸', mild: 1, say: 'איי! נשרטתי בשיח קוצני... יש לי חתך', ex: { look: 'יש שריטה ארוכה על הגוף 🩸', steth: 'הלב בסדר — רק קצת נבהל' }, goods: ['rinse', 'antiseptic', 'bandaid'], close: ['plaster', 'ointment', 'stitches'], hint: 'חתך קודם שוטפים ומחטאים — ואז מדביקים משהו רך 🩹' },
+    knee: { n: 'ברך שפשופה', e: '🦵', mild: 1, say: 'נפלתי כשרצתי ושפשפתי את הברך! 😭', ex: { look: 'הברך אדומה ושפשופה 🦵', steth: 'הלב דופק מהר מהבכי' }, goods: ['rinse', 'bandaid'], close: ['antiseptic', 'plaster', 'ointment'], hint: 'על שפשוף שוטפים עם מים ומדביקים פלסטר חמוד 💧' },
+    bite: { n: 'סימן נשיכה', e: '🦷', say: 'חיה אחרת בפארק נשכה אותי... זה כואב', ex: { look: 'יש סימני שיניים עמוקים 😟', thermo: '38.0° — קצת חום', steth: 'הלב דופק מהר' }, goods: ['antiseptic', 'stitches'], close: ['rinse', 'wrap', 'cone', 'bandage'], hint: 'נשיכה עמוקה צריך לחטא טוב — ולפעמים לתפור 🪡' },
+    splinter: { n: 'קוץ תקוע', e: '🌵', mild: 1, say: 'משהו דוקר לי בכף הרגל! אני לא יכול/ה לדרוך!', ex: { look: 'יש קוץ קטן תקוע בכף! 🌵', steth: 'הלב בסדר' }, goods: ['tweezers'], close: ['antiseptic', 'bandaid', 'rinse'], hint: 'קודם כל צריך להוציא את הקוץ — עם כלי קטן שתופס 🤏' },
+    burn: { n: 'כוויה קטנה', e: '🔥', say: 'נגעתי בתנור חם... אוי זה שורף!', ex: { look: 'יש כתם אדום עם בועה קטנה 🔥', thermo: 'העור חם במקום הזה', steth: 'הלב דופק מהר' }, goods: ['burncream', 'rinse'], close: ['coldpack', 'ice', 'ointment'], hint: 'כוויה מקררים עם מים (לא קרח!) ומורחים משחה מיוחדת 🧴' },
+    bruise: { n: 'חבורה כחולה', e: '💜', mild: 1, say: 'נתקלתי ברהיט... ועכשיו יש לי כתם כחול', ex: { look: 'יש כתם סגול־כחול על העור 💜', steth: 'הלב בסדר גמור' }, goods: ['coldpack', 'ice'], close: ['massage', 'rest', 'ointment'], hint: 'על חבורה שמים משהו קר, והיא נעלמת לאט לאט ❄️' },
+    sting: { n: 'עקיצת דבורה', e: '🐝', mild: 1, say: 'דבורה עקצה אותי באף! זה נפוח!', ex: { look: 'יש נפיחות אדומה ועוקץ קטן 🐝', mouth: 'הלחי קצת נפוחה', thermo: 'אין חום — 36.9° ✔️' }, goods: ['stingcream', 'tweezers'], close: ['coldpack', 'ice', 'ointment'], hint: 'מוציאים את העוקץ, ומורחים משחה מרגיעה לעקיצות 🐝' },
+    padcut: { n: 'חתך בכרית הכף', e: '🐾', say: 'דרכתי על זכוכית... הכף שלי מדממת', ex: { look: 'יש חתך בכרית של הכף 🐾', steth: 'הלב קצת מהיר' }, goods: ['wrap', 'stitches'], close: ['bandage', 'antiseptic', 'cone', 'bandaid'], hint: 'כף חתוכה עוטפים בתחבושת גלילה — ולפעמים תופרים 🩹' },
+    earnick: { n: 'חתך קטן באוזן', e: '👂', say: 'האוזן נתפסה בגדר... יש שם חתך קטן', ex: { look: 'יש חתך קטן בקצה האוזן', ears: 'בתוך האוזן הכל נקי — רק הקצה פצוע 👂' }, goods: ['antiseptic', 'cone'], close: ['bandaid', 'earclean', 'rinse'], hint: 'מחטאים — ושמים קולר מגן כדי שלא יגרדו את האוזן 🛡️' },
+  };
+  Object.entries(VETD_WOUNDS).forEach(([k, W]) => { VET_SICK[k] = Object.assign({ wound: 1, ok: W.goods[0] }, W); });
   const VET_LV = [[0, 'רופאה מתלמדת', '🩺'], [3, 'רופאת חיות', '👩‍⚕️'], [8, 'רופאה מומחית', '🏅'], [15, 'מנהלת המרפאה', '🏥'], [30, 'רופאת חיות אגדית', '👑']];
   const vetLevel = () => { let i = 0; VET_LV.forEach((l, k) => { if (vetS.heals >= l[0]) i = k; }); return i; };
   // ---------- care: the last day she fed / played / hugged / bathed / treated this pet ----------
@@ -40251,6 +40294,246 @@ ${label(900, 520, '🌊 ים האיים')}
     try { const list = allPets(); [...box.querySelectorAll('.pz-card:not(.pz-add)')].forEach((c, i) => { const p = list[i]; if (!p) return; c.style.position = 'relative'; c.append(vetcStar(p, () => { try { drawHouse(); } catch {} })); }); } catch {}
     return box;
   };
+  // ================= 🏥 clinic 4: 🩸 wounds, always ≥10 treatment options, real danger for non-favorites, ⭐ "המועדפות שלי" picker (vet agent, round 7d) =================
+  // ---------- 10 wound treatments (a new 🩸 group) ----------
+  [['rinse', 'שטיפה במים'], ['antiseptic', 'תרסיס חיטוי'], ['stitches', 'תפרים'], ['tweezers', 'פינצטה'], ['burncream', 'משחה לכוויות'], ['coldpack', 'שקית קירור'],
+    ['bandaid', 'פלסטר לבבות'], ['wrap', 'תחבושת גלילה'], ['stingcream', 'משחה לעקיצות'], ['cone', 'קולר מגן']].forEach(t => { if (!VET_TR.some(x => x[0] === t[0])) VET_TR.push(t); VETB_CAT_OF[t[0]] = 'wound'; });
+  if (!VETB_CATS.some(c => c[0] === 'wound')) VETB_CATS.push(['wound', '🩸', 'פצעים']);
+  if (!VETB_CATS.some(c => c[0] === 'all')) VETB_CATS.push(['all', '🌈', 'הכל']);
+  Object.assign(VET_ART, {
+    rinse: `<path d="M16 14 H32 L34 42 Q24 46 14 42 Z" fill="#dff4ff" ${S}/><path d="M15.4 24 H32.6 L33.6 41 Q24 44 14.4 41 Z" fill="#7ec8ff" opacity=".85"/><rect x="19" y="8" width="10" height="7" rx="2" fill="#4f9fe0" ${S2}/><path d="M29 10 L38 6" stroke="${O}" stroke-width="2.6" stroke-linecap="round"/>${[[40, 12], [43, 18], [38, 20]].map(([x, y]) => `<path d="M${x} ${y} q-2 3 0 4.4 q2 -1.4 0 -4.4 Z" fill="#7ec8ff" ${S2}/>`).join('')}<circle cx="21" cy="32" r="2" fill="#fff"/>`,
+    antiseptic: `<rect x="12" y="18" width="20" height="26" rx="6" fill="#fff" ${S}/><path d="M19.5 25 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 Z" fill="#ff5a6e" ${S2}/><rect x="16" y="9" width="12" height="10" rx="2" fill="#7ec8ff" ${S2}/><path d="M28 12 H34" ${S2}/>${[[38, 8], [42, 12], [41, 5], [44, 8]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.3" fill="#9fdcff"/>`).join('')}`,
+    stitches: `<path d="M8 40 Q10 14 36 8" fill="none" stroke="${O}" stroke-width="4" stroke-linecap="round"/><path d="M8 40 Q10 14 36 8" fill="none" stroke="#cfd6e0" stroke-width="2" stroke-linecap="round"/><ellipse cx="34.6" cy="8.6" rx="2" ry="1" fill="#fff" stroke="${O}" stroke-width=".8" transform="rotate(-20 34.6 8.6)"/><path d="M36 8 Q44 14 38 22 Q30 30 38 36 Q44 40 40 46" fill="none" stroke="#ff6b8b" stroke-width="2" stroke-linecap="round"/><path d="M16 30 l6 4 M19 24 l6 4 M23 18 l6 4" stroke="#b58cff" stroke-width="2" stroke-linecap="round"/>`,
+    tweezers: `<path d="M22 4 L10 40 L14 42 L24 10 Z" fill="#cfd6e0" ${S}/><path d="M26 4 L38 40 L34 42 L24 10 Z" fill="#e6ecf4" ${S}/><circle cx="24" cy="6" r="3" fill="#ff9ad5" ${S2}/><path d="M18 44 h12" stroke="#c98f3a" stroke-width="3" stroke-linecap="round"/>`,
+    burncream: `<path d="M10 34 L30 14 L38 22 L18 42 Q12 44 9 40 Q7 37 10 34 Z" fill="#ffc6a8" ${S}/><path d="M30 14 L34 10 L42 18 L38 22 Z" fill="#fff" ${S2}/><path d="M16 30 q2 -5 4 -2 q1 -4 3 -1 q2 3 -2 6 q-3 2 -5 -3 Z" fill="#ff7a3c" ${S2}/><polygon points="${starPts(40, 34, 5, 2)}" fill="#bfeaff" stroke="#4f9fe0" stroke-width="1"/>`,
+    coldpack: `<rect x="6" y="12" width="36" height="26" rx="8" fill="#9fdcff" ${S}/><rect x="10" y="16" width="28" height="18" rx="6" fill="#bfeaff" opacity=".9"/><path d="M24 17 v16 M17 21 l14 8 M31 21 l-14 8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="14" r="2" fill="#fff" opacity=".8"/>`,
+    bandaid: `<g transform="rotate(35 24 24)"><rect x="6" y="18" width="36" height="12" rx="6" fill="#ffb3d9" ${S}/><rect x="18" y="18" width="12" height="12" fill="#ffe0ef" ${S2}/></g><g transform="rotate(-35 24 24)"><rect x="6" y="18" width="36" height="12" rx="6" fill="#ffb3d9" ${S}/><rect x="18" y="18" width="12" height="12" fill="#ffe0ef" ${S2}/></g><path d="${pzHeart(24, 24, 4)}" fill="#ff5a8a"/>`,
+    wrap: `<ellipse cx="18" cy="24" rx="12" ry="14" fill="#fff" ${S}/><ellipse cx="18" cy="24" rx="5" ry="6" fill="#e6ecf4" ${S2}/><path d="M18 10 H40 Q44 10 44 16 V36 Q44 40 40 38 L30 34" fill="#fff" ${S}/><path d="M26 14 H40 M26 20 H42 M28 26 H42" stroke="#dfe7f2" stroke-width="1.6"/>`,
+    stingcream: `<rect x="10" y="18" width="28" height="24" rx="6" fill="#b8ecd2" ${S}/><rect x="8" y="12" width="32" height="8" rx="3" fill="#6fcf7f" ${S2}/><ellipse cx="24" cy="31" rx="5" ry="3.6" fill="#ffd84d" ${S2}/><path d="M21 31 v-3.6 M24 34.6 v-7.2 M27 31 v-3.6" stroke="${O}" stroke-width="1.2"/><ellipse cx="20" cy="26" rx="3" ry="2" fill="#fff" opacity=".85" ${S2}/><ellipse cx="28" cy="26" rx="3" ry="2" fill="#fff" opacity=".85" ${S2}/>`,
+    cone: `<path d="M6 8 L42 8 L32 38 L16 38 Z" fill="#fff" fill-opacity=".85" ${S}/><path d="M10 14 L38 14 M12 22 L36 22 M14 30 L34 30" stroke="#bfeaff" stroke-width="2"/><ellipse cx="24" cy="38" rx="8" ry="3" fill="#ffb3d9" ${S2}/><polygon points="${starPts(24, 22, 3.4, 1.4)}" fill="#ffd84d"/>`,
+  });
+  // ---------- 9 wounds (in the sickness list, so every random pick can be a wound) ----------
+  // the 9 wounds (VETD_WOUNDS) are registered right after VET_SICK by the vet7d patch, so every tick sees them; vet7b reset goods/close — restore them
+  Object.entries(VETD_WOUNDS).forEach(([k, W]) => Object.assign(VET_SICK[k], { goods: W.goods.slice(), close: W.close.filter(x => !W.goods.includes(x)), ok: W.goods[0] }));
+  // ---------- wounds drawn on the pet (petSVG's 48×48 space), every kind ----------
+  const vetdSym0 = vetSym;
+  vetSym = function (p, s, sev) {
+    if (!VETD_WOUNDS[s]) return vetdSym0(p, s, sev);
+    let g; try { g = styGeo(p); } catch { return ''; }
+    const G = Object.assign({}, g.G), std = !g.PB && !['owl', 'turtle', 'fish', 'whale'].includes(g.kind);
+    if (std && vetBaby(p) && typeof LIFEB_GEO !== 'undefined') Object.assign(G, LIFEB_GEO);
+    const H = G.V || G.head || g.H, hy = H[1], hw = H[2], hh = H[3], ey = G.eyeY, cy = G.cheekY, cdx = G.cheekDX, B = G.body;
+    const top = vetF(hy - hh), F = g.feet && g.feet.length ? g.feet : [[vetF(24 - B[2] * .7), vetF(B[1] + B[3] * .5)]], ft = F[0], ft2 = F[1] || F[0];
+    const bx = vetF(B[0] + B[2] * .38), by = vetF(B[1] - B[3] * .1), lx = vetF(B[0] - B[2] * .4);
+    const R = '#e0304a', drop = (x, y) => `<path d="M${vetF(x)} ${vetF(y)} q1.3 2 0 3 q-1.3 -1 0 -3 Z" fill="#ff4d6a" stroke="#b01a36" stroke-width=".4"/>`;
+    let o = '';
+    if (s === 'scratch') o = `<ellipse cx="${bx}" cy="${by}" rx="4" ry="3.2" fill="#ff8fab" opacity=".35"/>` + [0, 1.7, 3.4].map(d => `<path d="M${vetF(bx - 3 + d)} ${vetF(by - 3)} L${vetF(bx + d - .4)} ${vetF(by + 2.4)}" stroke="${R}" stroke-width=".9" stroke-linecap="round"/>`).join('') + (sev >= 2 ? drop(bx + 2, by + 2.6) : '');
+    if (s === 'knee') o = `<ellipse cx="${vetF(ft[0])}" cy="${vetF(ft[1] - 4)}" rx="2.8" ry="2" fill="#ff7a7a" opacity=".85" stroke="#c0304a" stroke-width=".4"/>` + [[-1, -4.4], [.8, -3.6], [0, -4.8], [1.4, -4.6]].map(([dx, dy]) => `<circle cx="${vetF(ft[0] + dx)}" cy="${vetF(ft[1] + dy)}" r=".35" fill="#b01a36"/>`).join('') + `<path d="M${vetF(ft[0] - 4.5)} ${vetF(ft[1] - 6)} l-1.2 -1.2 M${vetF(ft[0] + 4.5)} ${vetF(ft[1] - 6)} l1.2 -1.2" stroke="#ff4d6a" stroke-width=".7" stroke-linecap="round"/>`;
+    if (s === 'bite') o = `<ellipse cx="${bx}" cy="${by}" rx="4.4" ry="3.4" fill="#ff8fab" opacity=".4"/>` + [-2.4, -.8, .8, 2.4].map((d, i) => `<circle cx="${vetF(bx + d)}" cy="${vetF(by - 1.6 + Math.abs(d) * .25)}" r=".62" fill="${R}"/><circle cx="${vetF(bx + d)}" cy="${vetF(by + 1.6 - Math.abs(d) * .25)}" r=".62" fill="${R}"/>`).join('') + (sev >= 2 ? drop(bx + 3.4, by + 1.6) : '');
+    if (s === 'splinter') o = `<circle cx="${vetF(ft2[0])}" cy="${vetF(ft2[1] - 1)}" r="2.2" fill="#ff5a6e" opacity=".45"/><path d="M${vetF(ft2[0] - .6)} ${vetF(ft2[1] - .6)} L${vetF(ft2[0] + 2.6)} ${vetF(ft2[1] - 4.6)}" stroke="#7a4a22" stroke-width="1.1" stroke-linecap="round"/><path d="M${vetF(ft2[0] + 3.6)} ${vetF(ft2[1] - 6)} l1.4 -1.4 M${vetF(ft2[0] + 4.2)} ${vetF(ft2[1] - 3.6)} h2" stroke="#ffb020" stroke-width=".7" stroke-linecap="round"/>`;
+    if (s === 'burn') o = `<path d="M${vetF(lx - 3)} ${vetF(by)} q1 -3 3.4 -2.4 q2.6 -.6 2.8 2 q.4 2.8 -2.4 3 q-3.4 .6 -3.8 -2.6 Z" fill="#ff7a3c" opacity=".7" stroke="#d8502a" stroke-width=".4"/><circle cx="${vetF(lx + .6)}" cy="${vetF(by - .2)}" r="1" fill="#fff4f0" stroke="#ff9a7a" stroke-width=".4"/><path d="M${vetF(lx - 2)} ${vetF(by - 4.4)} q1 -1.2 0 -2.4 M${vetF(lx + .4)} ${vetF(by - 4.8)} q1 -1.2 0 -2.4 M${vetF(lx + 2.8)} ${vetF(by - 4.4)} q1 -1.2 0 -2.4" stroke="#ff7a3c" stroke-width=".7" fill="none" stroke-linecap="round"/>`;
+    if (s === 'bruise') o = `<ellipse cx="${bx}" cy="${by}" rx="3.6" ry="2.8" fill="#8a6ad8" opacity=".55"/><ellipse cx="${vetF(bx + .4)}" cy="${vetF(by + .2)}" rx="2" ry="1.5" fill="#4a3aa0" opacity=".45"/><ellipse cx="${vetF(bx - 1.6)}" cy="${vetF(by - 1.2)}" rx="1.2" ry=".8" fill="#9fdc7a" opacity=".45"/>`;
+    if (s === 'sting') o = `<circle cx="${vetF(24 + cdx)}" cy="${vetF(cy - .4)}" r="2.8" fill="#ff5a6e" opacity=".6" stroke="#c0304a" stroke-width=".4"/><path d="M${vetF(24 + cdx)} ${vetF(cy - .6)} l.9 -1.8" stroke="${O}" stroke-width=".6" stroke-linecap="round"/><g transform="translate(${vetF(24 + hw + 3)} ${vetF(top + 1)})"><ellipse rx="2.2" ry="1.6" fill="#ffd84d" stroke="${O}" stroke-width=".5"/><path d="M-.6 -1.4 v2.8 M.7 -1.4 v2.8" stroke="${O}" stroke-width=".5"/><ellipse cx="-.6" cy="-2" rx="1.2" ry=".8" fill="#fff" stroke="${O}" stroke-width=".35" opacity=".9"/><ellipse cx=".9" cy="-2" rx="1.2" ry=".8" fill="#fff" stroke="${O}" stroke-width=".35" opacity=".9"/></g><path d="M${vetF(24 + hw + .6)} ${vetF(top + 3)} q-1 1.4 -2.4 1" stroke="${O}" stroke-width=".4" stroke-dasharray=".8 .8" fill="none"/>`;
+    if (s === 'padcut') o = `<ellipse cx="${vetF(ft[0])}" cy="${vetF(ft[1] - .4)}" rx="2.8" ry="1.6" fill="#ff8fab" opacity=".55"/><path d="M${vetF(ft[0] - 2)} ${vetF(ft[1] - .2)} L${vetF(ft[0] + 2)} ${vetF(ft[1] - .8)}" stroke="${R}" stroke-width="1" stroke-linecap="round"/>` + drop(ft[0] + 1.2, ft[1] + .6);
+    if (s === 'earnick') { const ex = vetF(24 - hw * .82), eyy = vetF(hy - hh * .72); o = `<circle cx="${ex}" cy="${eyy}" r="2.6" fill="#ff8fab" opacity=".45"/><path d="M${vetF(ex - 1.6)} ${vetF(eyy - 1)} l1.4 1.4 l1.4 -1.6" stroke="${R}" stroke-width=".9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>` + (sev >= 2 ? drop(ex - .4, eyy + 1.6) : ''); }
+    if (sev >= 3) o += `<ellipse cx="24" cy="${vetF(hy + hh * .2)}" rx="${vetF(hw * .8)}" ry="${vetF(hh * .6)}" fill="#9fdc7a" opacity=".18"/><path d="M${vetF(24 + hw * .8)} ${vetF(ey - 6)} q1.8 2.8 0 4 q-1.8 -1.2 0 -4 Z" fill="#9fdcff" stroke="#4f9fe0" stroke-width=".6"/>`;
+    return o;
+  };
+  // ---------- who may die: NOT favorite, NOT a baby, NOT new (arrived in the last 2 days), and "🌈 החיות לא מתות" is off ----------
+  let vetdSeen = store.get('vetdSeen', null);
+  if (!vetdSeen) { vetdSeen = {}; try { allPets().forEach(p => { if (p.id) vetdSeen[p.id] = '2000-01-01'; }); } catch {} store.set('vetdSeen', vetdSeen); }
+  function vetdNew(p) {
+    if (!p || !p.id || p.visitor) return false;
+    const t = localToday();
+    if (!vetdSeen[p.id]) { vetdSeen[p.id] = t; store.set('vetdSeen', vetdSeen); }
+    return [vetdSeen[p.id], p.born, p.fromShelter].some(d => { try { return typeof d === 'string' && /^\d{4}-\d\d-\d\d/.test(d) && daysBetween(d.slice(0, 10), t) < 2; } catch { return false; } });
+  }
+  const vetdEligible = p => !!p && !p.visitor && !vetcFav(p) && !vetBaby(p) && !vetdNew(p) && !vetNoDeath();
+  const vetdWhy = p => vetNoDeath() ? '🌈 "החיות לא מתות" דלוק' : vetcFav(p) ? '⭐ מועדפת — לא תמות לעולם' : vetBaby(p) ? '🍼 תינוק/ת — מוגן/ת' : vetdNew(p) ? '🆕 חדש/ה בבית — מוגן/ת' : '';
+  // protected pets can get sick, but never 🚨 very sick
+  const vetdSev0 = vetSev;
+  vetSev = function (p, r) { const s = vetdSev0(p, r); return s === 3 && !vetdEligible(p) ? 2 : s; };
+  const vetdLifePass0 = lifePass;
+  lifePass = function (p) { return p && vetdNew(p) ? false : vetdLifePass0(p); };
+  // ---------- ≥1 sick pet always; ~50% of new sicknesses of eligible pets start 🚨 ----------
+  function vetdMakeSick(p, t) {
+    const pool = Object.keys(VET_SICK).filter(k => !vetBaby(p) || VET_SICK[k].mild);
+    const hot = vetdEligible(p) && Math.random() < .5;
+    vetS.sick[p.id] = { s: vetPick(pool), d: hot ? addDays(t, -3) : t, warnN: 0, vd: 1 }; vetS.lastNew = t;
+    vetNews = vetNews || { p, hot };
+    vetSave();
+  }
+  vetKeepOne = function () {
+    if (vetSickList().length) return;
+    const t = localToday(), all = allPets().filter(p => p.id);
+    const cand = all.filter(p => !vetRecovering(p) && p.born !== t);
+    const p = vetPick(cand.length ? cand : all); if (!p) return;
+    vetdMakeSick(p, t);
+  };
+  const vetdDaily0 = vetDaily;
+  vetDaily = function () {
+    const before = new Set(Object.keys(vetS.sick));
+    vetdDaily0();
+    try {
+      const t = localToday(); let ch = false;
+      Object.keys(vetS.sick).forEach(id => {
+        const r = vetS.sick[id]; if (before.has(id) || r.vd) return;
+        const p = allPets().find(q => q.id === id); if (!p) return;
+        const hot = vetdEligible(p) && Math.random() < .5;
+        r.vd = 1; r.d = hot ? addDays(t, -3) : t; ch = true;
+        if (vetNews && vetNews.p && vetNews.p.id === id) vetNews.hot = hot;
+      });
+      if (ch) vetSave();
+      vetKeepOne();
+    } catch (e) { console.error('vetd daily', e); }
+  };
+  // ---------- ICU: 50% goodbye chance, down to 35% with all 4 steps in the right order ----------
+  vetbIcuEnd = function (V) {
+    if (vetV !== V) return;
+    const p = V.p, safe = V.visitor ? false : !vetdEligible(p);
+    const die = safe ? 0 : Math.max(.35, .5 - V.score * .0375);
+    V.waiting = false;
+    if (Math.random() >= die) {
+      V.phase = 'saved'; SFX.yay();
+      vetbIcuDraw(`💚 ${vetNm(p)} פותח/ת את העיניים... ${vetNm(p)} ניצל/ה!`);
+      setTimeout(() => {
+        if (vetV !== V) return;
+        const H = { p, s: V.s, visitor: !!V.visitor, owner: V.owner, ownerPet: V.ownerPet, checkup: false, ex: {}, tried: [], fails: 0, healed: false };
+        vetV = H; vetHeal(H, V.visitor ? `🚨 טיפול נמרץ הצליח! ${vetNm(p)} חוזר/ת הביתה עם ${V.owner ? vetbNm(V.owner) : V.ownerPet ? vetNm(V.ownerPet) : 'המשפחה'} 🏡` : `🚨 טיפול נמרץ הצליח!`, V.score >= 4);
+      }, 2600);
+    } else {
+      V.phase = 'gone';
+      if (V.visitor) { vetcStars = [...vetcStars, { name: vetNm(p), kind: p.kind, d: localToday(), owner: V.owner ? vetbNm(V.owner) : V.ownerPet ? vetNm(V.ownerPet) : '' }].slice(-30); store.set('vetStars', vetcStars); }
+      else try { vetPass(p); } catch {}
+      [523, 440, 392].forEach((f, i) => tone(f, .6, 'sine', i * .5, .04));
+      vetbIcuDraw(`💗 ${vetNm(p)} היה/תה חולה מאוד מאוד... ונרדם/ה בשקט, מוקף/ת באהבה.`);
+      try { renderStrip(); renderPet(); } catch {}
+    }
+  };
+  // ---------- treating wounds: what we say, where the tool goes ----------
+  const VETD_SAY = { rinse: 'שוטפים בעדינות עם מים נקיים 💧', antiseptic: 'פְּשְׁשְׁ! תרסיס חיטוי — עוקץ רק שנייה 🧴', stitches: 'קצת הרדמה... ותפר תפר תפר 🪡', tweezers: 'תופסים... ומושכים! יצא! 🤏', burncream: 'משחה קרירה לכוויה ✨',
+    coldpack: 'שקית קירור קרה קרה ❄️', bandaid: 'פלסטר עם לבבות 💗', wrap: 'עוטפים סיבוב, סיבוב, סיבוב 🩹', stingcream: 'מורחים משחה לעקיצה 🐝', cone: 'קולר מגן — כדי לא לגרד! 🛡️' };
+  const VETD_WHERE = { rinse: 'body', antiseptic: 'body', stitches: 'body', tweezers: 'foot', burncream: 'body', coldpack: 'body', bandaid: 'body', wrap: 'foot', stingcream: 'head', cone: 'head' };
+  const vetdTreat0 = vetTreat;
+  vetTreat = function (k, art) {
+    const V = vetV, go = V && !V.healed;
+    vetdTreat0(k, art);
+    if (!go || !VETD_SAY[k]) return;
+    try {
+      const fx = (art && art.querySelector('.vet7-fx')) || $('#petzVetBody .vet7-fx'); if (fx) vetFx(fx, k, VETD_WHERE[k]);
+      const say0 = $('#petzVetBody .vet7-say'); if (say0) say0.textContent = VETD_SAY[k];
+    } catch {}
+  };
+  // ---------- always ≥10 treatment options: the category + a mix; the nurse and "help me choose" make choices GLOW ----------
+  const VETD_MIN = 12;
+  function vetdGrid(V) {
+    const body = $('#petzVetBody'), grid = body.querySelector('.vetb-grid'); if (!grid) return;
+    if (V.narrow) { V.vdHelp = V.narrow.slice(); V.narrow = null; }
+    const art = body.querySelector('.vet7-pet'), P = V.s ? VET_SICK[V.s] : null;
+    const help = (V.vdHelp || []).filter(k => !V.tried.includes(k)), sug = P ? vetbSuggest(V).filter(k => !V.tried.includes(k)) : [];
+    const all = VET_TR.map(t => t[0]), cat = V.cat || 'med';
+    V.vdOrder = V.vdOrder || vetbShuf(all);
+    const inCat = cat === 'all' ? all : all.filter(k => VETB_CAT_OF[k] === cat);
+    const must = [...new Set([...inCat, ...help, ...sug])];
+    const list = [...new Set([...must, ...V.vdOrder])].slice(0, Math.max(VETD_MIN, must.length));
+    const btn = k => {
+      const t = VET_TR.find(x => x[0] === k); if (!t) return null;
+      const h = help.includes(k), s = sug.includes(k);
+      const b = el('button', { type: 'button', class: 'pz-tool vetb-tr' + (h ? ' vetd-glow vetd-help' : s ? ' vetd-glow' : '') + (inCat.includes(k) ? '' : ' vetd-extra') + (V.tried.includes(k) ? ' vet7-tried' : '') + (V.s && V.fails >= 2 && vetbGood(V.s, k) ? ' hint' : ''), title: t[1] },
+        el('span', { class: 'ic', html: vetToolSVG(k) }), t[1], h ? el('i', { class: 'vetd-tag' }, '🤔') : s ? el('i', { class: 'vetd-tag' }, '⭐') : null);
+      petzDragTool(b, () => art || body.querySelector('.vet7-pet'), () => vetTreat(k, art)); return b;
+    };
+    grid.className = 'pz-tools vet7-tools vetb-grid vetd-grid';
+    grid.replaceChildren(...list.map(btn).filter(Boolean));
+    const cats = body.querySelector('.vetb-cats');
+    if (cats) [...cats.children].forEach((c, i) => c.setAttribute('aria-selected', String(!!VETB_CATS[i] && VETB_CATS[i][0] === cat)));
+    const row = grid.parentElement, nurse = row && row.querySelector(':scope > .vetb-talk .vetb-bub > span');
+    const nm = k => (VET_TR.find(x => x[0] === k) || [k, k])[1];
+    if (nurse && P) nurse.textContent = help.length ? `סימנתי לך ${help.length} טיפולים זוהרים עם 🤔 — אחד מהם בטוח עוזר ל${vetNm(V.p)}! 💪` : `אני חושבת ש${sug.map(nm).join(' או ')} יכולים לעזור — סימנתי אותם ב⭐ והם זוהרים ברשימה ✨`;
+    const sr = row && row.querySelector(':scope > .vetb-sugrow');
+    if (sr) { sr.querySelectorAll('.vetb-tr').forEach(b => b.remove()); const l = sr.querySelector('small'); if (l) l.textContent = P ? `⭐ ההצעות של האחות זוהרות ברשימה · יש כאן ${list.length} טיפולים לבחירה` : `יש כאן ${list.length} טיפולים לבחירה`; }
+  }
+  const vetdDraw0 = vetDraw;
+  vetDraw = function (line) {
+    vetdDraw0(line);
+    const V = vetV; if (!V || V.icu || V.healed) return;
+    try { vetdGrid(V); } catch (e) { console.error('vetd grid', e); }
+  };
+  // ---------- ⭐ "המועדפות שלי": a clear favorites picker ----------
+  function vetdFavs(from) {
+    try { vetbStop(); } catch {}
+    vetV = null;
+    const t = $('#petzVetTitle'); if (t) t.textContent = '⭐ המועדפות שלי';
+    const sub = vetDlg() && vetDlg().querySelector('.sub'); if (sub) sub.textContent = 'בוחרים מי המועדפות — הן לא ימותו לעולם 💖';
+    const all = allPets(), favN = all.filter(vetcFav).length, redraw = () => vetdFavs(from);
+    const card = p => {
+      const f = vetcFav(p), why = !f ? vetdWhy(p) : '';
+      let age = ''; try { age = petAge(p).label; } catch {}
+      return el('div', { class: 'vetd-fcard' + (f ? ' on' : '') },
+        el('span', { class: 'vetd-fart', html: petSVG(p, { mood: f ? 'happy' : undefined }) }),
+        el('b', {}, vetNm(p)), el('small', { class: 'muted' }, age),
+        el('button', { type: 'button', class: 'vetd-fstar' + (f ? ' on' : ''), 'aria-pressed': String(f), 'aria-label': f ? `להוריד את ${vetNm(p)} מהמועדפות` : `לסמן את ${vetNm(p)} כמועדפת`, onclick: () => vetcToggleFav(p, redraw) },
+          el('span', { class: 's' }, f ? '⭐' : '☆'), el('small', {}, f ? 'מועדפת — לא תמות לעולם' : 'לסמן כמועדפת')),
+        why ? el('small', { class: 'vetd-why' }, why) : !f ? el('small', { class: 'vetd-why risk' }, '💔 יכול/ה לחלות מאוד') : null);
+    };
+    $('#petzVetBody').replaceChildren(
+      el('div', { class: 'vetd-fhead' }, el('div', { class: 'vetd-rule' }, '⭐ = לא תמות לעולם'),
+        el('small', {}, `${favN} מתוך ${all.length} חיות במועדפות. לוחצים על הכוכב הגדול כדי לסמן או להוריד. חיה בלי כוכב יכולה לחלות מאוד — ולפעמים גם למות 💔 (חוץ מתינוקות 🍼 וחיות חדשות 🆕)`)),
+      all.length ? el('div', { class: 'vetd-fgrid' }, ...all.map(card)) : el('p', { class: 'muted' }, 'עוד אין לך חיות 🐾'),
+      el('div', { class: 'chips' }, from === 'house' ? el('button', { type: 'button', class: 'btn main', onclick: () => vetDlg().close() }, '✔️ סיימתי') : el('button', { type: 'button', class: 'btn main', onclick: () => vetLobby() }, '↩️ לחדר ההמתנה')));
+  }
+  function openVetFavs(from = 'house') {
+    try { vetDaily(); } catch {}
+    const d = vetDlg(); if (!d) return;
+    const sub = d.querySelector('.sub'); if (sub) sub.textContent = 'בוחרים מי המועדפות — הן לא ימותו לעולם 💖';
+    vetdFavs(from);
+    if (!d.open) {
+      d.showModal();
+      if (from === 'house') d.addEventListener('close', () => { try { if ($('#houseDlg') && $('#houseDlg').open) drawHouse(); } catch {} }, { once: true });
+    }
+  }
+  const vetdLobby0 = vetLobby;
+  vetLobby = function () {
+    try { vetKeepOne(); } catch {}
+    const t = $('#petzVetTitle'); if (t) t.textContent = '🏥 מרפאת החיות';
+    const sub = vetDlg() && vetDlg().querySelector('.sub'); if (sub) sub.textContent = 'את הרופאה! בודקים, מחליטים איך לרפא — ומרפאים 👩‍⚕️';
+    vetdLobby0();
+    try {
+      const body = $('#petzVetBody'), head = body.querySelector('.vet7-head');
+      if (head) head.append(el('button', { type: 'button', class: 'btn vetd-favbtn', onclick: () => { SFX.pop(); vetdFavs('clinic'); } }, '⭐ המועדפות שלי'));
+      const info = body.querySelector('.vetc-info'); if (info) info.append(el('span', {}, '🆕 חיות חדשות (ביומיים הראשונים) מוגנות · 🚨 רק חיות בלי ⭐ יכולות להיות חולות מאוד'));
+    } catch (e) { console.error('vetd lobby', e); }
+  };
+  // the pets house: a button in the shared-home bar (🏡 together tab), in #houseActions when shown, and on top of the 🐾 pets tab
+  const vetdHBtn = () => el('button', { type: 'button', class: 'btn vetd-hbtn', onclick: () => openVetFavs('house') }, '⭐ המועדפות שלי');
+  const vetdHouse0 = drawHouse;
+  drawHouse = function (mode, say) {
+    vetdHouse0(mode, say);
+    try {
+      const d = $('#houseDlg'); if (!d || d.querySelector('.vetd-hbtn')) return;
+      const bar = d.querySelector('.life-homebar'), a = $('#houseActions');
+      if (bar) bar.append(vetdHBtn()); else if (a && !a.hidden) a.append(vetdHBtn());
+    } catch {}
+  };
+  const vetdHousePets0 = petzHousePets;
+  petzHousePets = function () {
+    const box = vetdHousePets0();
+    try { box.prepend(el('div', { class: 'chips vetd-hrow' }, vetdHBtn(), el('small', { class: 'muted' }, '⭐ = לא תמות לעולם'))); } catch {}
+    return box;
+  };
+  // sicknesses the older vet7 code made at load time (before this chunk): give eligible pets the same 50% 🚨 roll
+  try {
+    const t = localToday();
+    Object.entries(vetS.sick).forEach(([id, r]) => {
+      if (r.vd || vetS.lastNew !== t || (r.warnN || 0) > 1 || !(r.d === t || r.d === addDays(t, -3))) return;
+      const p = allPets().find(q => q.id === id); if (!p) return;
+      const hot = vetdEligible(p) && Math.random() < .5;
+      r.vd = 1; r.d = hot ? addDays(t, -3) : t;
+      if (vetNews && vetNews.p && vetNews.p.id === id) vetNews.hot = hot;
+    });
+    vetSave();
+  } catch {}
+  try { vetKeepOne(); } catch {}
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
