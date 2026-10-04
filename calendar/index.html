@@ -46055,7 +46055,7 @@ ${label(900, 520, '🌊 ים האיים')}
         el('div', { class: 'lk8-gender small' }, ...[['boy', 'בן', false], ['girl', 'בת', true]].map(([g, l, girl]) => el('button', { type: 'button', class: 'lk8-g', 'aria-pressed': String(st.g === g), 'aria-label': l, onclick: () => { st.g = g; SFX.pop(); draw(); } },
           el('span', { html: LK8_FACE(girl) }), el('b', {}, (girl ? '👧 ' : '👦 ') + l)))),
         el('b', {}, `2. בחרי 2–4 שאלות (${st.qs.length}/4)`),
-        el('div', { class: 'chips lk8-qpick' }, ...LK8_QS.map(q => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(st.qs.includes(q.id)), disabled: !st.qs.includes(q.id) && st.qs.length >= 4,
+        el('div', { class: 'chips lk8-qpick' }, ...LK8_QS.filter(q => !['pet', 'book'].includes(q.id) || st.qs.includes(q.id)).map(q => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(st.qs.includes(q.id)), disabled: !st.qs.includes(q.id) && st.qs.length >= 4,
           onclick: () => { st.qs = st.qs.includes(q.id) ? st.qs.filter(x => x !== q.id) : [...st.qs, q.id]; draw(); } }, `${q.ic} ${q.q}`))),
         st.qs.length ? el('b', {}, '3. התשובות (אף אחד לא יראה אותן, הן נשמרות בקוד סודי)') : null,
         ...st.qs.map(qid => { const q = LK8_QS.find(x => x.id === qid); return el('label', { class: 'lk8-ans' }, el('span', {}, `${q.ic} ${q.q}`), lk8AnsUI(q, v => { st.ans[qid] = v; if (q.kind !== 'text' && q.kind !== 'num') draw(); }, true, q.kind !== 'text' && q.kind !== 'num' ? st.ans[qid] : (st.had.has(qid) ? 'had' : ''), st.ans[qid])); }),
