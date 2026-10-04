@@ -6638,6 +6638,154 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
 .pfn-housebar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px; }
 .pfn-housebar .chip { font-size: .88em; padding: 2px 10px; }
 @media (prefers-reduced-motion: reduce) { .pfn-menuprev > span, .pfn-flame, .pfn-tw, .pfn-pair .h, .pfn-pair.bff > .pa, .pfn-pair.bff > .pb, .pfn-spa.music .pfn-actor > svg { animation: none; } }
+/* ===== girls2: the girls' school, house and letters ===== */
+#bnDlg { --bn-a: #ff6f9e; --bn-l: #fff0f6; }
+.bn-body, .bn-pane { display: grid; gap: 10px; min-width: 0; }
+.bn-nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.bn-navb { flex: 1 1 0; min-width: 0; white-space: nowrap; border: 2px solid var(--line); background: var(--card); color: inherit; border-radius: 999px; padding: 6px 10px; font: inherit; font-weight: 700; cursor: pointer; }
+.bn-navb.on { background: linear-gradient(135deg, #ffb3cf, #ff8fbd); border-color: var(--bn-a); color: #3a2b3c; }
+.bn-tabs button { font-weight: 600; }
+.bn-scene { border-radius: 18px; overflow: hidden; border: 3px solid #3a2b3c; box-shadow: 0 6px 18px rgba(120, 60, 100, .16); background: #fdf0d8; user-select: none; }
+.bn-scene > svg { display: block; width: 100%; height: auto; }
+.bn-click .bn-kid, .bn-click .bn-room, .bn-click .bn-add, .bn-click .bn-mailbox { cursor: pointer; }
+.bn-click .bn-room:hover rect:last-of-type, .bn-click .bn-room:focus rect { stroke: #ff6f9e; }
+.bn-housesc .bn-room:hover { filter: brightness(1.05); }
+.bn-roomsc { touch-action: none; }
+.bn-roomsc .bn-it { cursor: grab; }
+.bn-roomsc .bn-it.sel { filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 5px #ff6f9e); }
+.bn-bub { pointer-events: none; animation: bn-pop .25s ease-out; transform-box: fill-box; transform-origin: 50% 100%; }
+@keyframes bn-pop { from { transform: scale(.4); opacity: 0; } }
+.bn-hint { color: var(--soft); font-size: .9em; margin: 0; }
+.bn-lbl { font-weight: 600; font-size: .92em; }
+.bn-head { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; background: #fff0f6; display: inline-grid; place-items: center; flex: none; }
+.bn-who { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.bn-gbtn { display: grid; justify-items: center; gap: 1px; border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 3px 6px; color: inherit; font: inherit; cursor: pointer; min-width: 54px; }
+.bn-gbtn small { font-size: .72em; max-width: 64px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bn-gbtn[aria-pressed="true"] { border-color: var(--bn-a); background: var(--bn-l); box-shadow: 0 0 0 2px var(--bn-a) inset; }
+.bn-gme { font-size: 28px; line-height: 40px; }
+.bn-subjs { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.bn-subj { border: 3px solid #3a2b3c; border-radius: 20px; padding: 12px 6px; background: linear-gradient(160deg, #fff, color-mix(in srgb, var(--c) 45%, #fff)); display: grid; justify-items: center; gap: 4px; cursor: pointer; font: inherit; color: #3a2b3c; box-shadow: 0 4px 0 #3a2b3c; transition: transform .12s; }
+.bn-subj:hover { transform: translateY(-3px) rotate(-1deg); }
+.bn-subj-ic { font-size: 40px; }
+.bn-subj small { font-size: .78em; }
+.bn-lesson { display: grid; gap: 10px; border: 3px dashed var(--c, #ffcf4d); border-radius: 20px; padding: 10px; background: color-mix(in srgb, var(--c, #ffcf4d) 10%, var(--card)); }
+.bn-les-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 1.05em; }
+.bn-prog { display: flex; gap: 6px; justify-content: center; }
+.bn-prog i { width: 14px; height: 14px; border-radius: 50%; background: var(--line); border: 2px solid #3a2b3c; }
+.bn-prog i.ok { background: #ffd84d; }
+.bn-prog i.now { background: #fff; box-shadow: 0 0 0 3px var(--c, #ff8fbd); }
+.bn-board { background: #2f6b52; color: #fff; border: 8px solid #a8703f; border-radius: 12px; padding: 14px; text-align: center; display: grid; gap: 6px; justify-items: center; box-shadow: inset 0 0 30px rgba(0,0,0,.25); }
+.bn-board.small { padding: 8px 12px; border-width: 5px; font-weight: 600; }
+.bn-eq { font-size: 2.6em; font-weight: 800; letter-spacing: 2px; }
+.bn-count { font-size: 1.5em; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: 100%; word-break: break-all; }
+.bn-emo { font-size: 3.4em; line-height: 1.1; }
+.bn-word { display: flex; gap: 4px; font-size: 2.2em; font-weight: 800; direction: rtl; }
+.bn-word span { min-width: 1em; border-bottom: 3px solid rgba(255,255,255,.5); }
+.bn-word .gap { color: #ffd84d; animation: bn-blink 1s infinite; }
+@keyframes bn-blink { 50% { opacity: .35; } }
+.bn-letter { font-size: 4em; font-weight: 800; color: #ffd84d; line-height: 1; }
+.bn-ans { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; }
+.bn-ansb { font: inherit; font-size: 1.7em; font-weight: 800; border: 3px solid #3a2b3c; border-radius: 18px; background: var(--card); color: inherit; padding: 10px 4px; cursor: pointer; box-shadow: 0 4px 0 #3a2b3c; }
+.bn-ansb.ok { background: #b8f0a8; }
+.bn-ansb:disabled:not(.ok) { opacity: .45; }
+.bn-shake { animation: bn-shake .4s; }
+@keyframes bn-shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.bn-win { text-align: center; display: grid; justify-items: center; gap: 6px; }
+.bn-win-art { width: 120px; animation: bn-bounce 1s ease-in-out infinite; }
+@keyframes bn-bounce { 50% { transform: translateY(-8px) rotate(4deg); } }
+.bn-win h4 { margin: 0; font-size: 1.4em; }
+.bn-easel { border: 10px solid #c98f55; border-radius: 10px; background: #fff; box-shadow: 0 6px 0 #a8703f; line-height: 0; }
+.bn-canvas { width: 100%; height: auto; touch-action: none; cursor: crosshair; display: block; }
+.bn-pal, .bn-sws { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.bn-sw { width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(0,0,0,.25); padding: 0; cursor: pointer; font-size: 16px; }
+.bn-sw[aria-pressed="true"] { outline: 3px solid var(--bn-a); outline-offset: 2px; }
+.bn-xylo-wrap { display: flex; justify-content: center; padding: 10px; background: linear-gradient(#fff6e6, #ffe6c4); border-radius: 18px; border: 3px solid #3a2b3c; }
+.bn-xylo { display: flex; align-items: center; gap: 6px; }
+.bn-bar { width: clamp(30px, 8vw, 54px); border: 3px solid #3a2b3c; border-radius: 10px; color: #fff; font: inherit; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,.4); cursor: pointer; transition: transform .1s, filter .1s; }
+.bn-bar.on, .bn-bar:active { transform: scale(.94) translateY(4px); filter: brightness(1.25) drop-shadow(0 0 8px #fff); }
+.bn-jumpb { font-size: 1.3em; padding: 10px 30px; }
+.bn-lab { display: grid; grid-template-columns: minmax(130px, 200px) 1fr; gap: 10px; align-items: start; }
+.bn-recipe { margin: 0; padding: 10px 28px 10px 10px; background: #fffbea; border: 2px solid #3a2b3c; border-radius: 14px; display: grid; gap: 6px; font-size: .9em; transform: rotate(-1deg); }
+.bn-recipe li.done { text-decoration: line-through; color: #3f9c6e; }
+.bn-recipe li.done::after { content: ' ✅'; }
+.bn-foam { animation: bn-foam 1.6s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes bn-foam { 0% { transform: translate(0, 0) scale(.3); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) scale(1.1); opacity: 0; } }
+.bn-flow { animation: bn-flow 1.2s ease-out both; transform-box: fill-box; transform-origin: 50% 0; }
+@keyframes bn-flow { from { transform: scaleY(0); } }
+.bn-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+.bn-card { border: 3px solid #3a2b3c; border-radius: 16px; padding: 10px; background: repeating-linear-gradient(#fffdf5 0 26px, #eaf2ff 26px 27px); display: grid; gap: 6px; color: #3a2b3c; position: relative; }
+.bn-card.gold { box-shadow: 0 0 0 4px #ffd84d, 0 6px 16px rgba(255, 190, 0, .35); }
+.bn-card-h { display: flex; gap: 8px; align-items: center; border-bottom: 2px dashed #ff8fbd; padding-bottom: 6px; }
+.bn-card-h > div { display: grid; }
+.bn-card-h small { font-size: .74em; color: #8a6a7a; }
+.bn-ctab { width: 100%; border-collapse: collapse; font-size: .86em; }
+.bn-ctab td { padding: 2px 4px; border-bottom: 1px solid #f3dbe6; }
+.bn-ctab td.st { letter-spacing: -2px; white-space: nowrap; }
+.bn-crem { font-size: .85em; font-style: italic; color: #7a4fbf; }
+.bn-cstk { display: flex; flex-wrap: wrap; gap: 2px; min-height: 8px; }
+.bn-cstk .ic { width: 30px; height: 30px; transform: rotate(-8deg); }
+.bn-cstk .ic:nth-child(2n) { transform: rotate(10deg); }
+.bn-cstk .ic svg, .bn-stkpick svg { width: 100%; height: 100%; display: block; }
+.bn-stkpick { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px; background: #fff; border-radius: 12px; border: 2px solid var(--line); }
+.bn-stkpick button { width: 38px; height: 38px; border: 0; background: none; padding: 2px; cursor: pointer; }
+.bn-ipal { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 6px; max-height: 196px; overflow-y: auto; padding: 2px; }
+.bn-ipal button { border: 2px solid var(--line); background: var(--card); border-radius: 14px; padding: 4px 2px; display: grid; justify-items: center; gap: 1px; font: inherit; font-size: .72em; line-height: 1.15; touch-action: pan-y; color: inherit; cursor: pointer; }
+.bn-ipal button[aria-pressed="true"] { border-color: var(--bn-a); background: var(--bn-l); box-shadow: 0 0 0 2px var(--bn-a) inset; }
+.bn-ipal .ic { width: 42px; height: 42px; display: grid; place-items: center; font-size: 26px; }
+.bn-ipal .ic > svg { width: 100%; height: 100%; overflow: visible; }
+.bn-ghost { position: fixed; width: 70px; height: 70px; margin: -35px 0 0 -35px; pointer-events: none; z-index: 99; filter: drop-shadow(0 4px 6px rgba(0,0,0,.3)); }
+.bn-ghost > svg { width: 100%; height: 100%; overflow: visible; }
+.bn-tools { min-height: 38px; align-items: center; }
+.bn-box { border: 2px dashed var(--line); border-radius: 16px; padding: 6px 10px; background: var(--card); }
+.bn-box > summary { font-weight: 700; cursor: pointer; }
+.bn-thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 6px; padding-top: 6px; }
+.bn-th { border: 2px solid var(--line); background: #fff; border-radius: 12px; padding: 3px; display: grid; justify-items: center; gap: 2px; cursor: pointer; font: inherit; font-size: .7em; color: #3a2b3c; }
+.bn-th .ic { width: 64px; height: 50px; display: block; }
+.bn-th .ic > svg { width: 100%; height: 100%; }
+.bn-th[aria-pressed="true"] { border-color: var(--bn-a); box-shadow: 0 0 0 2px var(--bn-a) inset; background: var(--bn-l); }
+.bn-rtitle { display: flex; align-items: center; gap: 6px; margin: 0; }
+.bn-smoke { animation: bn-smoke 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes bn-smoke { 50% { transform: translate(6px, -8px) scale(1.2); opacity: .3; } }
+.bn-empty { text-align: center; display: grid; justify-items: center; gap: 6px; padding: 10px; }
+.bn-empty-art { width: min(260px, 70vw); }
+.bn-empty h4 { margin: 0; font-size: 1.3em; }
+.bn-today { display: flex; align-items: center; gap: 12px; border: 3px solid #3a2b3c; border-radius: 20px; padding: 10px 14px; background: linear-gradient(135deg, #fff0f6, #fffbea); font: inherit; color: #3a2b3c; cursor: pointer; text-align: start; }
+.bn-today > span:last-child { display: grid; }
+.bn-today.new .bn-env { animation: bn-wob 1.4s ease-in-out infinite; }
+@keyframes bn-wob { 25% { transform: rotate(-8deg) scale(1.06); } 75% { transform: rotate(8deg) scale(1.06); } }
+.bn-env { width: 70px; flex: none; }
+.bn-env svg { width: 100%; display: block; overflow: visible; }
+.bn-archs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+.bn-arch { display: flex; align-items: center; gap: 8px; border: 2px solid var(--line); background: var(--card); color: inherit; border-radius: 14px; padding: 5px 8px; font: inherit; cursor: pointer; text-align: start; }
+.bn-arch > span { display: grid; flex: 1; min-width: 0; }
+.bn-arch small { font-size: .74em; color: var(--soft); }
+.bn-arch em { font-style: normal; font-size: .76em; white-space: nowrap; }
+.bn-arch.new { border-color: var(--bn-a); background: var(--bn-l); }
+.bn-paper { --bg: #fff6fa; --ac: #ff8fbd; background: repeating-linear-gradient(var(--bg) 0 29px, color-mix(in srgb, var(--ac) 30%, #fff) 29px 30px); border: 3px solid #3a2b3c; border-radius: 6px 22px 6px 22px; padding: 14px 18px 18px; color: #3a2b3c; box-shadow: 6px 6px 0 var(--ac); max-width: 620px; justify-self: center; width: 100%; box-sizing: border-box; position: relative; }
+.bn-paper::after { content: '💗'; position: absolute; bottom: 8px; left: 12px; font-size: 1.4em; transform: rotate(-14deg); }
+.bn-paper.open { animation: bn-unfold .6s ease-out; transform-origin: top; }
+@keyframes bn-unfold { from { transform: scaleY(.1) rotate(-3deg); opacity: 0; } }
+.bn-paper-h { display: flex; align-items: center; gap: 10px; border-bottom: 2px dashed var(--ac); padding-bottom: 6px; margin-bottom: 4px; }
+.bn-pface { width: 64px; height: 64px; border-radius: 50%; background: #fff; border: 3px solid var(--ac); object-fit: contain; }
+.bn-paper p { margin: 0; line-height: 30px; font-size: 1.08em; }
+.bn-paper p.hi { font-weight: 700; }
+.bn-paper p.ps { font-size: .92em; color: #7a4fbf; }
+.bn-paper p.sig { text-align: end; margin-top: 6px; }
+.bn-reply { display: grid; gap: 6px; max-width: 620px; width: 100%; justify-self: center; }
+.bn-reply textarea { font: inherit; border: 2px solid var(--line); border-radius: 14px; padding: 8px; resize: vertical; background: var(--card); color: inherit; }
+.bn-mine { background: var(--card); border: 2px dashed var(--line); border-radius: 14px; padding: 8px; }
+.bn-mine p, .bn-react p { margin: 2px 0 0; }
+.bn-react { display: flex; gap: 8px; align-items: center; background: #fff0f6; color: #3a2b3c; border: 2px solid #ff8fbd; border-radius: 14px; padding: 8px; animation: bn-pop .4s; }
+.pill .ic.bn-pill-ic { width: 26px; }
+.pill .ic.bn-pill-ic > svg { animation: bn-wob 2s ease-in-out infinite; }
+@media (max-width: 560px) {
+  .bn-navb { font-size: .86em; padding: 6px 4px; }
+  .bn-lab { grid-template-columns: 1fr; }
+  .bn-recipe { transform: none; }
+  .bn-eq { font-size: 2em; }
+  .bn-ansb { font-size: 1.35em; }
+}
+@media (prefers-reduced-motion: reduce) { .bn-foam, .bn-smoke, .bn-today.new .bn-env, .pill .ic.bn-pill-ic > svg, .bn-win-art, .bn-word .gap { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -8001,6 +8149,18 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
       <button class="x" type="button" data-close aria-label="לסגור">✕</button>
     </div>
     <div class="row" id="pfnBody"></div>
+  </div>
+</dialog>
+
+<!-- girls2: the girls' school, house and letters -->
+<dialog id="bnDlg" aria-labelledby="bnTitle" style="width:min(960px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="bnTitle">🏫 בית הספר של הבנות</h3><div class="sub" id="bnSub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div id="bnBody" class="bn-body"></div>
   </div>
 </dialog>
 
@@ -43492,6 +43652,865 @@ ${label(900, 520, '🌊 ים האיים')}
     const pfnHome0 = pz5Home;
     pz5Home = function () { const box = pfnHome0.apply(this, arguments); try { pfnHomePaws(box); } catch {} return box; };
   }
+  // ================= girls2: the girls' school, the girls' house, letters from the girls =================
+  const bnGirls = () => { try { return Array.isArray(girls) ? girls.filter(g => g && g.id) : []; } catch { return []; } };
+  const bnPets = () => { try { return (typeof allPets === 'function' ? allPets() : pet ? [pet] : []).filter(Boolean); } catch { return []; } };
+  const bnCoin = (n, why) => { try { if (typeof addCoins === 'function') addCoins(n, why); } catch {} };
+  const bnR = a => a[Math.floor(Math.random() * a.length)];
+  const bnRand = n => Math.floor(Math.random() * n);
+  const bnHash = s => { let h = 7; for (const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return h; };
+  const bnNm = g => (g && g.name) || 'הבובה שלי';
+  const bnF = v => (+v).toFixed(1);
+  const bnEsc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const bnMe = () => { try { const b = birthdays.find(x => x.me && x.name); return b ? b.name : ''; } catch { return ''; } };
+  let bnS = store.get('bnS', {}) || {};
+  bnS = { sch: Object.assign({ t: 'me', c: {} }, bnS.sch), h: Object.assign({}, bnS.h), m: Object.assign({ l: [] }, bnS.m) };
+  const bnSave = () => { if (!store.set('bnS', bnS)) toast(stickerHTML('heart'), 'אין מספיק מקום לשמור 😢'); };
+  let bnMode = 'school', bnTab = 'class', bnLes = null, bnStu = null, bnRoomId = null, bnTool = null, bnSelIt = null, bnUid = 0, bnLetId = null, bnConfirm = false, bnSeed = 0, bnStkFor = null;
+  let bnTimers = [];
+  const bnLater = (fn, ms) => { const t = setTimeout(fn, ms); bnTimers.push(['t', t]); return t; };
+  const bnRaf = fn => { let on = true; const loop = ts => { if (!on) return; fn(ts); requestAnimationFrame(loop); }; requestAnimationFrame(loop); bnTimers.push(['f', () => { on = false; }]); };
+  const bnStop = () => { bnTimers.forEach(([k, t]) => k === 't' ? clearTimeout(t) : t()); bnTimers = []; };
+  const bnBoom = () => { try { confetti($('#bnDlg .confetti-c')); } catch {} };
+  const BN_POSE = { stand: {}, wave: { la: 70, lf: -100 }, up: { la: 160, ra: 160 }, hips: { la: 35, lf: 80, ra: 35, rf: 80 }, run: { la: 40, lf: -70, ra: -25, rf: 60, ll: 28, lk: 70, rl: -8, rk: 10, head: -5 },
+    dance: { la: 120, lf: -40, ra: -30, rf: 60, ll: 15, lk: 40, head: 8 }, wow: { la: 55, lf: -120, ra: 55, rf: -120, ll: 8, rl: 8, head: -6 }, jump: { la: 140, ra: 140, ll: 12, rl: 12, lk: 35, rk: 35 },
+    star: { la: 110, ra: 110, ll: 22, rl: 22, head: -6 }, peace: { la: 150, lf: -30, ra: 20, rf: 70, head: 10 }, point: { la: 85, lf: -5, head: 10 }, shy: { la: 10, lf: 130, ra: 10, rf: 130, head: -14 }, rope: { la: 45, lf: -20, ra: 45, rf: -20 } };
+  // a girl as a picture (cached data-url), so a scene with many girls stays light
+  const bnImgCache = new Map();
+  const bnImg = (g, opt = {}) => {
+    const o = Object.assign({ bg: false }, opt);
+    try { if (typeof girlImgURL === 'function') return girlImgURL(g, o); } catch {}
+    const k = JSON.stringify([o, g]); let v = bnImgCache.get(k);
+    if (!v) { v = svgData(girlSVG(g, 'bn' + (bnUid++), o)); if (bnImgCache.size > 80) bnImgCache.clear(); bnImgCache.set(k, v); }
+    return v;
+  };
+  // full girl, feet at (cx, footY), h tall
+  const bnGirlAt = (g, cx, footY, h, pose) => `<image href="${bnImg(g, pose && Object.keys(pose).length ? { pose } : {})}" x="${bnF(cx - h / 4)}" y="${bnF(footY - h * 0.955)}" width="${bnF(h / 2)}" height="${bnF(h)}"/>`;
+  const bnHead = g => el('img', { class: 'bn-head', src: bnImg(g, { view: 'head' }), alt: '' });
+  const bnHeart = (x, y, s) => `M${bnF(x)} ${bnF(y + 4 * s)} C${bnF(x - 10 * s)} ${bnF(y - 3 * s)} ${bnF(x - 5 * s)} ${bnF(y - 10 * s)} ${bnF(x)} ${bnF(y - 4.5 * s)} C${bnF(x + 5 * s)} ${bnF(y - 10 * s)} ${bnF(x + 10 * s)} ${bnF(y - 3 * s)} ${bnF(x)} ${bnF(y + 4 * s)}Z`;
+  // a speech bubble that pops over a scene for a moment
+  function bnBubble(svgEl, x, y, text) {
+    svgEl.querySelectorAll('.bn-bub').forEach(n => n.remove());
+    const w = Math.max(60, text.length * 8.6 + 26), vb = svgEl.viewBox.baseVal, bx = Math.max(6, Math.min(vb.width - w - 6, x - w / 2)), by = Math.max(6, y - 46);
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', 'bn-bub');
+    g.innerHTML = `<rect x="${bnF(bx)}" y="${bnF(by)}" width="${bnF(w)}" height="34" rx="17" fill="#fff" stroke="${O}" stroke-width="2"/><path d="M${bnF(x - 7)} ${bnF(by + 33)} L${bnF(x)} ${bnF(by + 46)} L${bnF(x + 7)} ${bnF(by + 33)}" fill="#fff" stroke="${O}" stroke-width="2" stroke-linejoin="round"/><rect x="${bnF(x - 9)}" y="${bnF(by + 29)}" width="18" height="5" fill="#fff"/><text x="${bnF(bx + w / 2)}" y="${bnF(by + 22)}" text-anchor="middle" font-size="15" font-weight="600" fill="${O}">${bnEsc(text)}</text>`;
+    svgEl.append(g); setTimeout(() => g.remove(), 2600);
+  }
+  // photo of a scene -> a sticker in the album (drawn into a small jpeg so it stays light)
+  function bnSnap(svgEl, label) {
+    try {
+      const vb = svgEl.viewBox.baseVal, W = 420, H = Math.round(W * vb.height / vb.width);
+      const clone = svgEl.cloneNode(true); clone.querySelectorAll('.bn-bub').forEach(n => n.remove()); clone.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+      clone.setAttribute('width', W); clone.setAttribute('height', H); clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const c = document.createElement('canvas'); c.width = W + 24; c.height = H + 24;
+          const x = c.getContext('2d'); x.fillStyle = '#fffdf5'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 12, 12, W, H);
+          const s = { id: 'my' + Date.now().toString(36), url: c.toDataURL('image/jpeg', 0.82) };
+          customStk.push(s);
+          if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('camera'), 'אין מספיק מקום לשמור את הצילום 😢'); return; }
+          registerCustom(s); tone(1800, .05, 'square', 0, .05); SFX.ding();
+          toast(stickerHTML(s.id), `📸 ${label} - נשמר כמדבקה באלבום!`);
+          if (typeof afterChange === 'function') afterChange();
+        } catch { toast(stickerHTML('camera'), 'לא הצלחתי לצלם 🙈'); }
+      };
+      img.onerror = () => toast(stickerHTML('camera'), 'לא הצלחתי לצלם 🙈');
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+    } catch { toast(stickerHTML('camera'), 'לא הצלחתי לצלם 🙈'); }
+  }
+
+  // ---------- the dialog ----------
+  function bnOpen(mode) {
+    bnMode = mode; bnConfirm = false; bnStkFor = null;
+    bnDraw();
+    const d = $('#bnDlg'); if (d && !d.open) d.showModal();
+  }
+  function openGirlSchool(tab) { bnTab = tab || 'class'; bnLes = null; bnOpen('school'); }
+  function openGirlHouse(gid) { bnRoomId = gid || null; bnTool = null; bnSelIt = null; bnOpen('house'); }
+  function openGirlLetters(id) { bnLetId = id || null; bnOpen('letters'); }
+  const BN_HEAD = { school: ['🏫 בית הספר של הבנות', 'הבנות שלך יושבות בכיתה, לומדות 6 מקצועות, יוצאות להפסקה ומקבלות תעודות!'],
+    house: ['🏠 הבית של הבנות', 'לכל בת יש חדר משלה. לוחצים על חדר ומעצבים אותו!'], letters: ['💌 מכתבים מהבנות', 'כל יום אחת הבנות כותבת לך מכתב קטן. אפשר לענות לה, והיא תגיב מחר!'] };
+  function bnDraw() {
+    bnStop();
+    const body = $('#bnBody'); if (!body) return;
+    $('#bnTitle').textContent = BN_HEAD[bnMode][0]; $('#bnSub').textContent = BN_HEAD[bnMode][1];
+    const nav = el('div', { class: 'bn-nav' }, ...[['school', '🏫 בית הספר'], ['house', '🏠 הבית'], ['letters', '💌 מכתבים']].map(([m, n]) => el('button', { type: 'button', class: 'bn-navb' + (m === bnMode ? ' on' : ''), 'aria-pressed': String(m === bnMode),
+      onclick: () => { if (m === bnMode && !(m === 'house' && bnRoomId) && !(m === 'letters' && bnLetId)) return; SFX.pop(); m === 'school' ? openGirlSchool() : m === 'house' ? openGirlHouse() : openGirlLetters(); } }, n)));
+    if (!bnGirls().length) { body.replaceChildren(nav, bnNoGirls()); return; }
+    const pane = el('div', { class: 'bn-pane' });
+    body.replaceChildren(nav, pane);
+    ({ school: bnSchool, house: bnHouse, letters: bnLetters }[bnMode] || bnSchool)(pane);
+  }
+  const bnToFash = () => { $('#bnDlg').close(); if (typeof openFashion === 'function') openFashion(); else { const b = $('#openFash'); b && b.click(); } };
+  function bnNoGirls() {
+    const art = `<svg viewBox="0 0 240 150" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="30" width="200" height="110" rx="14" fill="#fff4d6" ${S}/><path d="M10 40 L120 4 L230 40Z" fill="#ff8fbd" ${S}/><rect x="96" y="80" width="48" height="60" rx="22" fill="#b79cff" ${S}/><circle cx="134" cy="112" r="3" fill="${O}"/>` +
+      `<rect x="36" y="58" width="40" height="34" rx="6" fill="#bfe6ff" ${S2}/><rect x="164" y="58" width="40" height="34" rx="6" fill="#bfe6ff" ${S2}/><path d="${bnHeart(120, 26, 1.1)}" fill="#fff" ${S2}/><text x="56" y="82" text-anchor="middle" font-size="18">❓</text><text x="184" y="82" text-anchor="middle" font-size="18">❓</text></svg>`;
+    return el('div', { class: 'bn-empty' }, el('div', { class: 'bn-empty-art', html: art }), el('h4', {}, 'עוד אין לך בנות! 👗'),
+      el('p', { class: 'muted' }, 'קודם מעצבים בנות בסטודיו האופנה. אחר כך הן באות ללמוד בבית הספר, גרות בבית שלהן וכותבות לך מכתבים 💌'),
+      el('button', { type: 'button', class: 'btn main', onclick: bnToFash }, '👗 לעצב בת בסטודיו האופנה'));
+  }
+
+  // ---------- 🏫 the school ----------
+  const BN_SUBJ = [['m', '🔢', 'חשבון', '#ffcf4d'], ['h', '🔤', 'עברית', '#ff8fbd'], ['a', '🎨', 'אומנות', '#9be27a'], ['u', '🎵', 'מוזיקה', '#b79cff'], ['s', '🪢', 'ספורט', '#7ec8ff'], ['v', '🌋', 'מדעים', '#ff9b6e']];
+  const bnSubj = k => BN_SUBJ.find(s => s[0] === k) || BN_SUBJ[0];
+  const BN_STAB = [['class', '🏫 הכיתה'], ['les', '📚 שיעורים'], ['yard', '🛝 הפסקה'], ['cards', '📜 תעודות'], ['photo', '📸 תמונת מחזור']];
+  const bnTeacher = () => (bnS.sch.t !== 'me' && bnGirls().find(g => g.id === bnS.sch.t)) || null;
+  const bnKids = () => { const t = bnTeacher(); return bnGirls().filter(g => g !== t); };
+  const bnCard = id => (bnS.sch.c[id] = bnS.sch.c[id] || {});
+  const bnStars = id => BN_SUBJ.reduce((a, [k]) => a + (bnCard(id)[k] || 0), 0);
+  const BN_KID_LINES = ['אני יודעת! אני יודעת! 🙋‍♀️', 'המורה, אפשר לצאת לשתות?', 'שכחתי את המחק 🙈', 'אני אוהבת את בית הספר! 💖', 'מתי הפסקה? 🛝', 'ציירתי לך לב במחברת 💗', 'זה קל! 😎', 'אפשר שיעור אומנות? 🎨', 'יש לי סוד... 🤫', 'הכנתי את כל שיעורי הבית! 📒', 'בוקר טוב! ☀️', 'איזה כיף היום! 🌈'];
+  const BN_YARD_LINES = ['בואי לשחק איתי! 🛝', 'תופסת! את בה! 🏃‍♀️', 'אני הכי גבוה בנדנדה! 🌤️', 'קלאס עד 8! 🔢', 'יש לי חטיף, רוצה? 🍎', 'עוד חמש דקות הפסקה! ⏰', 'בואי נעשה גלגלון 🤸‍♀️', 'החיות באו לבית הספר! 🐾'];
+  function bnSchool(pane) {
+    const tabs = el('div', { class: 'tabs bn-tabs', role: 'tablist' }, ...BN_STAB.map(([id, n]) => el('button', { type: 'button', role: 'tab', 'aria-selected': String(bnTab === id), onclick: () => { bnTab = id; bnLes = null; bnStkFor = null; SFX.pop(); bnDraw(); } }, n)));
+    const box = el('div', { class: 'bn-pane' });
+    pane.replaceChildren(tabs, box);
+    ({ class: bnClassTab, les: bnLesTab, yard: bnYardTab, cards: bnCardsTab, photo: bnPhotoTab }[bnTab] || bnClassTab)(box);
+  }
+  const bnScene = (svg, cls = '') => el('div', { class: 'bn-scene ' + cls, html: svg });
+  // the teacher when it is "me": a simple drawn grown-up
+  const bnMeTeacher = (x, footY, h) => placeSvg(person({ skin: '#f6d0b1', hair: '#6b4226', hairStyle: 'long', outfit: '#b79cff' }), x - h / 2, footY - h, h, h);
+  function bnClassSVG(u) {
+    const kids = bnKids().slice(0, 12), t = bnTeacher(), now = new Date();
+    let s = `<defs><linearGradient id="${u}fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8b980"/><stop offset="1" stop-color="#c98f55"/></linearGradient><linearGradient id="${u}sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e3f5ff"/></linearGradient></defs>`;
+    s += `<rect width="800" height="330" fill="#fdf0d8"/><rect y="262" width="800" height="68" fill="#f6dcae"/><path d="M0 262H800" stroke="#d9b07a" stroke-width="5"/>`;
+    s += `<rect y="330" width="800" height="170" fill="url(#${u}fl)"/>` + Array.from({ length: 7 }, (_, i) => `<path d="M0 ${348 + i * 24}H800" stroke="#a96f3c" stroke-width="1.4" opacity=".45"/>`).join('');
+    // alef-bet bunting
+    const AB = 'אבגדהוזחטיכלמנסעפצקרשת', cols = ['#ff8fbd', '#ffcf4d', '#7ec8ff', '#9be27a', '#b79cff', '#ff9b6e'];
+    s += `<path d="M6 10 Q400 62 794 10" fill="none" stroke="${O}" stroke-width="1.6"/>`;
+    AB.split('').forEach((ch, i) => { const x = 776 - i * 36, tt = (x - 6) / 788, y = 10 + 52 * tt * (1 - tt); s += `<path d="M${bnF(x - 13)} ${bnF(y)} H${bnF(x + 13)} L${bnF(x)} ${bnF(y + 30)}Z" fill="${cols[i % 6]}" ${S2}/><text x="${bnF(x)}" y="${bnF(y + 15)}" text-anchor="middle" font-size="13" font-weight="700" fill="${O}">${ch}</text>`; });
+    // window
+    s += `<rect x="36" y="66" width="156" height="150" rx="8" fill="#fff" ${S}/><rect x="46" y="76" width="136" height="130" fill="url(#${u}sk)"/><circle cx="150" cy="104" r="16" fill="#ffd84d"/><path d="M62 150 q12 -16 26 -4 q10 -12 22 0 q12 2 6 12 h-56 q-8 -4 2 -8Z" fill="#fff"/><path d="M114 76 V206 M46 141 H182" stroke="#fff" stroke-width="6"/><rect x="40" y="70" width="148" height="142" rx="6" fill="none" ${S}/>`;
+    s += `<rect x="28" y="214" width="172" height="12" rx="4" fill="#f2c27f" ${S2}/><path d="M60 214 l-6 -20 h28 l-6 20Z" fill="#ff9b6e" ${S2}/><circle cx="68" cy="188" r="9" fill="#ff6f9e" ${S2}/><circle cx="68" cy="188" r="3" fill="#ffd84d"/><path d="M150 214 l-5 -16 h24 l-5 16Z" fill="#7ec8ff" ${S2}/><path d="M157 198 q-8 -14 0 -26 q8 12 0 26 M160 198 q10 -12 18 -6" fill="#7ccf7a" ${S2}/>`;
+    // chalkboard
+    const sj = bnSubj(BN_SUBJ[now.getDay() % 6][0]);
+    s += `<rect x="222" y="54" width="356" height="160" rx="8" fill="#a8703f" ${S}/><rect x="232" y="64" width="336" height="140" rx="4" fill="#2f6b52"/><g fill="#fff" font-weight="600" text-anchor="middle" opacity=".93">` +
+      `<text x="400" y="100" font-size="25">בוקר טוב כיתה! ☀️</text><text x="400" y="134" font-size="17">יום ${DAYS[now.getDay()]}, ${now.getDate()} ב${MONTHS[now.getMonth()]}</text><text x="400" y="168" font-size="17">השיעור הראשון: ${sj[2]} ${sj[1]}</text></g>` +
+      `<polygon points="${starPts(258, 90, 11, 5)}" fill="none" stroke="#fff" stroke-width="1.6" opacity=".7"/><path d="${bnHeart(542, 178, 1.2)}" fill="none" stroke="#ffc2dc" stroke-width="1.6"/>` +
+      `<rect x="236" y="204" width="328" height="9" rx="3" fill="#8a5a33"/><rect x="300" y="198" width="22" height="7" rx="2" fill="#fff"/><rect x="330" y="199" width="16" height="6" rx="2" fill="#ffc2dc"/><rect x="500" y="196" width="34" height="11" rx="2" fill="#5a6b8a" ${S2}/>`;
+    // class rules poster + clock
+    s += `<rect x="612" y="70" width="156" height="128" rx="6" fill="#fff" ${S2} transform="rotate(2 690 134)"/><g transform="rotate(2 690 134)" text-anchor="middle" fill="${O}"><text x="690" y="96" font-size="15" font-weight="700">כללי הכיתה 💗</text><text x="690" y="122" font-size="13">מקשיבות זו לזו 👂</text><text x="690" y="145" font-size="13">מצביעות לפני שמדברות 🙋‍♀️</text><text x="690" y="168" font-size="13">עוזרות לחברות 🤝</text><text x="690" y="189" font-size="13">צוחקות הרבה 😄</text></g>`;
+    s += `<circle cx="590" cy="238" r="18" fill="#fff" ${S2}/><path d="M590 238 V226 M590 238 H600" stroke="${O}" stroke-width="2" stroke-linecap="round"/>`;
+    // teacher
+    if (t) s += `<g class="bn-kid" data-x="680" data-y="168" data-l="t">${bnGirlAt(t, 684, 410, 250, BN_POSE.point)}</g>`;
+    else s += `<g class="bn-kid" data-x="684" data-y="200" data-l="me">${bnMeTeacher(684, 412, 220)}</g>`;
+    s += `<path d="M600 380 H770 L780 400 H590Z" fill="#c98f55" ${S}/><rect x="596" y="400" width="178" height="56" fill="#a8703f" ${S}/><rect x="650" y="412" width="76" height="22" rx="5" fill="#fff8e6" ${S2}/><text x="688" y="428" text-anchor="middle" font-size="12" font-weight="700" fill="${O}">המורה ${bnEsc(t ? bnNm(t) : 'שלכן')}</text>` +
+      `<circle cx="752" cy="372" r="10" fill="#ff5f6b" ${S2}/><path d="M752 362 q2 -6 6 -7" stroke="${O}" stroke-width="2" fill="none"/><path d="M754 360 q6 -4 9 0 q-5 3 -9 0Z" fill="#7ccf7a"/><rect x="612" y="368" width="34" height="12" rx="2" fill="#7ec8ff" ${S2}/><rect x="616" y="358" width="30" height="10" rx="2" fill="#ffcf4d" ${S2}/>`;
+    // desks
+    const n = kids.length, per = n <= 4 ? n : n <= 8 ? Math.ceil(n / 2) : 4, rows = n ? Math.ceil(n / per) : 0;
+    const RY = rows === 1 ? [[392, 0.98]] : rows === 2 ? [[322, 0.82], [416, 1]] : [[296, 0.72], [360, 0.86], [430, 1]];
+    const deco = [(x, y, k) => `<rect x="${bnF(x - 14 * k)}" y="${bnF(y - 3 * k)}" width="${bnF(28 * k)}" height="${bnF(5 * k)}" rx="1" fill="#fff" ${S2}/><path d="M${bnF(x)} ${bnF(y - 3 * k)} V${bnF(y + 2 * k)}" stroke="${O}" stroke-width="1"/>`,
+      (x, y, k) => `<circle cx="${bnF(x + 18 * k)}" cy="${bnF(y - 5 * k)}" r="${bnF(6 * k)}" fill="#ff5f6b" ${S2}/>`, (x, y, k) => `<rect x="${bnF(x - 22 * k)}" y="${bnF(y - 2 * k)}" width="${bnF(26 * k)}" height="${bnF(4 * k)}" rx="2" fill="#ffcf4d" ${S2} transform="rotate(-8 ${bnF(x)} ${bnF(y)})"/>`,
+      (x, y, k) => `<rect x="${bnF(x - 10 * k)}" y="${bnF(y - 8 * k)}" width="${bnF(20 * k)}" height="${bnF(8 * k)}" rx="2" fill="#b79cff" ${S2}/>`];
+    kids.forEach((g, i) => {
+      const r = Math.floor(i / per), j = i % per, inRow = Math.min(per, n - r * per), [dy, k] = RY[r];
+      const cx = 300 - (inRow - 1) * 132 * k / 2 + j * 132 * k + (r % 2 ? 10 : 0), h = 200 * k, top = dy + 4 * k - 0.473 * h, dw = 108 * k;
+      s += `<g class="bn-kid" data-x="${bnF(cx)}" data-y="${bnF(top + 0.02 * h)}" data-l="k">${bnGirlAt(g, cx, top + 0.955 * h, h)}</g>`;
+      s += `<path d="M${bnF(cx - dw / 2)} ${bnF(dy)} H${bnF(cx + dw / 2)} L${bnF(cx + dw / 2 + 7 * k)} ${bnF(dy + 13 * k)} H${bnF(cx - dw / 2 - 7 * k)}Z" fill="#f4c98c" ${S2}/>` +
+        `<rect x="${bnF(cx - dw / 2 - 7 * k)}" y="${bnF(dy + 13 * k)}" width="${bnF(dw + 14 * k)}" height="${bnF(52 * k)}" fill="#d99a55" ${S2}/><path d="M${bnF(cx - dw / 2)} ${bnF(dy + 48 * k)} H${bnF(cx + dw / 2)}" stroke="#b97a3c" stroke-width="${bnF(2 * k)}"/>` +
+        `<path d="M${bnF(cx - dw / 2)} ${bnF(dy + 65 * k)} V${bnF(dy + 74 * k)} M${bnF(cx + dw / 2)} ${bnF(dy + 65 * k)} V${bnF(dy + 74 * k)}" stroke="#7a5230" stroke-width="${bnF(5 * k)}" stroke-linecap="round"/>` +
+        `<rect x="${bnF(cx - 32 * k)}" y="${bnF(dy + 19 * k)}" width="${bnF(64 * k)}" height="${bnF(18 * k)}" rx="${bnF(4 * k)}" fill="#fff8e6" ${S2}/><text x="${bnF(cx)}" y="${bnF(dy + 32.5 * k)}" text-anchor="middle" font-size="${bnF(12 * k)}" font-weight="700" fill="${O}">${bnEsc(bnNm(g).slice(0, 9))}</text>` +
+        deco[(i + r) % 4](cx, dy + 6 * k, k);
+    });
+    if (!n) s += `<text x="300" y="420" text-anchor="middle" font-size="18" fill="${O}">הכיתה ריקה... כל הבנות הן מורות? 😄</text>`;
+    return `<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  }
+  const bnTalk = (sceneEl, lines, extra) => sceneEl.addEventListener('click', e => {
+    const k = e.target.closest('.bn-kid'); if (!k) return;
+    const svg = sceneEl.querySelector('svg'), L = k.dataset.l === 'me' ? ['שקט בבקשה, מתחילות! 📚', 'כל הכבוד לכולן! ⭐', 'מי רוצה לענות? 🙋‍♀️'] : k.dataset.l === 't' ? ['פותחות את המחברות! 📒', 'מי יודעת את התשובה? 🙋‍♀️', 'כל הכבוד כיתה! ⭐', 'היום יש לנו שיעור כיפי! 🎉'] : lines;
+    SFX.pop(); bnBubble(svg, +k.dataset.x, +k.dataset.y, bnR(L)); if (extra) extra(k);
+  });
+  function bnClassTab(box) {
+    const scene = bnScene(bnClassSVG('bc' + (bnUid++)), 'bn-click');
+    bnTalk(scene, BN_KID_LINES);
+    const t = bnS.sch.t, set = v => { bnS.sch.t = v; bnSave(); SFX.ding(); bnDraw(); };
+    const pick = el('div', { class: 'bn-who' }, el('b', {}, '👩‍🏫 מי המורה היום?'),
+      el('button', { type: 'button', class: 'bn-gbtn', 'aria-pressed': String(t === 'me' || !bnTeacher()), onclick: () => set('me') }, el('span', { class: 'bn-gme' }, '🙋‍♀️'), el('small', {}, 'אני!')),
+      ...bnGirls().map(g => el('button', { type: 'button', class: 'bn-gbtn', 'aria-pressed': String(t === g.id), onclick: () => set(g.id), title: bnNm(g) }, bnHead(g), el('small', {}, bnNm(g)))));
+    const more = bnKids().length > 12 ? el('p', { class: 'muted' }, `ועוד ${bnKids().length - 12} בנות יושבות בכיתה השנייה 😊`) : null;
+    box.replaceChildren(scene, el('p', { class: 'bn-hint' }, 'לוחצים על בת והיא אומרת משהו 💬'), more, pick,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { bnTab = 'les'; bnDraw(); } }, '📚 מתחילים שיעור!'), el('button', { type: 'button', class: 'btn', onclick: () => { bnBell(); bnTab = 'yard'; bnDraw(); } }, '🔔 צלצול להפסקה')));
+  }
+  const bnBell = () => [0, .18, .36, .54].forEach((w, i) => tone(i % 2 ? 1180 : 1480, .14, 'triangle', w, .08));
+
+  // ---------- 📚 lessons ----------
+  function bnLesTab(box) {
+    const kids = bnKids().length ? bnKids() : bnGirls();
+    if (!kids.find(g => g.id === bnStu)) bnStu = kids[0].id;
+    const g = kids.find(x => x.id === bnStu);
+    const who = el('div', { class: 'bn-who' }, el('b', {}, '🙋‍♀️ מי עונה?'), ...kids.map(x => el('button', { type: 'button', class: 'bn-gbtn', 'aria-pressed': String(x.id === bnStu), title: bnNm(x),
+      onclick: () => { bnStu = x.id; SFX.pop(); bnDraw(); } }, bnHead(x), el('small', {}, bnNm(x)))));
+    if (!bnLes) {
+      const grid = el('div', { class: 'bn-subjs' }, ...BN_SUBJ.map(([k, ic, name, c]) => {
+        const b = el('button', { type: 'button', class: 'bn-subj', onclick: () => { bnLes = k; SFX.pop(); bnDraw(); } }, el('span', { class: 'bn-subj-ic' }, ic), el('b', {}, name), el('small', {}, '⭐'.repeat(Math.min(5, bnCard(g.id)[k] || 0)) || 'עוד אין כוכבים'));
+        b.style.setProperty('--c', c); return b;
+      }));
+      box.replaceChildren(who, el('p', { class: 'bn-hint' }, `בוחרים שיעור. כל שיעור שמצליחים = כוכב בתעודה של ${bnNm(g)} ⭐`), grid);
+      return;
+    }
+    const [k, ic, name, c] = bnSubj(bnLes), area = el('div', { class: 'bn-lesson' });
+    area.style.setProperty('--c', c);
+    const head = el('div', { class: 'bn-les-head' }, el('button', { type: 'button', class: 'btn', onclick: () => { bnLes = null; bnDraw(); } }, '→ לכל השיעורים'), el('b', {}, `${ic} שיעור ${name}`), bnHead(g), el('span', {}, bnNm(g)));
+    box.replaceChildren(who, head, area);
+    const win = () => {
+      const cd = bnCard(g.id); cd[k] = Math.min(99, (cd[k] || 0) + 1); bnSave();
+      SFX.yay(); bnBoom(); bnCoin(5, `שיעור ${name} 📚`);
+      toast(stickerHTML('goldstar'), `⭐ ${bnNm(g)} קיבלה כוכב ב${name}!`);
+      area.replaceChildren(el('div', { class: 'bn-win' }, el('div', { class: 'bn-win-art', html: `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><polygon points="${starPts(60, 62, 52, 22)}" fill="#ffd84d" ${S}/>${face(60, 64, 1.6)}</svg>` }),
+        el('h4', {}, `כל הכבוד ${bnNm(g)}! 🎉`), el('p', {}, `קיבלת כוכב בתעודה ב${name}. יש לך כבר ${cd[k]} ⭐`),
+        el('div', { class: 'chips', style: 'justify-content:center' }, el('button', { type: 'button', class: 'btn main', onclick: () => bnDraw() }, '🔁 עוד פעם'),
+          el('button', { type: 'button', class: 'btn', onclick: () => { bnLes = null; bnDraw(); } }, '📚 שיעור אחר'), el('button', { type: 'button', class: 'btn', onclick: () => { bnTab = 'cards'; bnLes = null; bnDraw(); } }, '📜 לתעודה'))));
+    };
+    ({ m: bnMath, h: bnHeb, a: bnArt, u: bnMusic, s: bnSport, v: bnVolcano }[k])(area, g, win);
+  }
+  const bnProg = (i, n) => el('div', { class: 'bn-prog' }, ...Array.from({ length: n }, (_, j) => el('i', { class: j < i ? 'ok' : j === i ? 'now' : '' })));
+  const bnWrong = b => { SFX.boop(); b.classList.remove('bn-shake'); void b.offsetWidth; b.classList.add('bn-shake'); b.disabled = true; };
+  // a round of "pick the right answer" buttons
+  function bnQuiz(area, rounds, make, win) {
+    let i = 0;
+    const next = () => {
+      if (i >= rounds) { win(); return; }
+      const q = make(i);
+      const ans = el('div', { class: 'bn-ans' + (q.big ? ' big' : '') }, ...q.opts.map(o => el('button', { type: 'button', class: 'bn-ansb', onclick: e => {
+        const b = e.currentTarget;
+        if (o !== q.right) { bnWrong(b); return; }
+        b.classList.add('ok'); SFX.ding(); ans.querySelectorAll('button').forEach(x => { x.disabled = true; }); i++; bnLater(next, 650);
+      } }, o)));
+      area.replaceChildren(bnProg(i, rounds), q.show, ans);
+    };
+    next();
+  }
+  function bnMath(area, g, win) {
+    bnQuiz(area, 6, () => {
+      const op = bnR(['+', '+', '-', '-', '×']); let a, b, r;
+      if (op === '+') { a = 1 + bnRand(12); b = 1 + bnRand(9); r = a + b; } else if (op === '-') { a = 5 + bnRand(14); b = 1 + bnRand(a - 1); r = a - b; } else { a = 2 + bnRand(8); b = 2 + bnRand(4); r = a * b; }
+      const opts = new Set([r]); while (opts.size < 4) { const w = r + bnR([-3, -2, -1, 1, 2, 3, 10, -10]); if (w >= 0) opts.add(w); }
+      const fr = bnR(['🍎', '🍓', '⭐', '🌸', '🧁', '🎈']);
+      const pic = op === '+' && r <= 12 ? el('div', { class: 'bn-count', dir: 'ltr' }, el('span', {}, fr.repeat(a)), el('b', {}, ' + '), el('span', {}, fr.repeat(b))) : null;
+      return { show: el('div', { class: 'bn-board' }, el('div', { class: 'bn-eq', dir: 'ltr' }, `${a} ${op} ${b} = ?`), pic), opts: [...opts].sort(() => Math.random() - .5).map(String), right: String(r), big: true };
+    }, win);
+  }
+  const BN_WORDS = [['🐱', 'חתול'], ['🐶', 'כלב'], ['🍎', 'תפוח'], ['🌸', 'פרח'], ['⭐', 'כוכב'], ['🌙', 'ירח'], ['☀️', 'שמש'], ['🏠', 'בית'], ['🎈', 'בלון'], ['🦋', 'פרפר'], ['🐟', 'דג'], ['🍌', 'בננה'],
+    ['🌈', 'קשת'], ['🎂', 'עוגה'], ['📚', 'ספר'], ['✏️', 'עיפרון'], ['🐰', 'ארנב'], ['🦁', 'אריה'], ['🐘', 'פיל'], ['🍓', 'תות'], ['👑', 'כתר'], ['🌳', 'עץ'], ['🚗', 'מכונית'], ['🐢', 'צב'],
+    ['🍦', 'גלידה'], ['☁️', 'ענן'], ['🎁', 'מתנה'], ['🐴', 'סוס'], ['🐝', 'דבורה'], ['🌊', 'ים'], ['🍕', 'פיצה'], ['🦉', 'ינשוף'], ['🐸', 'צפרדע'], ['👗', 'שמלה'], ['🍋', 'לימון'], ['🎹', 'פסנתר']];
+  const BN_AB = 'אבגדהוזחטיכלמנסעפצקרשת';
+  function bnHeb(area, g, win) {
+    const pool = BN_WORDS.slice().sort(() => Math.random() - .5);
+    bnQuiz(area, 6, i => {
+      const [em, w] = pool[i];
+      if (i % 2 === 0) {
+        const at = bnRand(w.length), ch = w[at], opts = new Set([ch]);
+        while (opts.size < 4) opts.add(bnR(BN_AB.split('')));
+        return { show: el('div', { class: 'bn-board' }, el('div', { class: 'bn-emo' }, em), el('div', { class: 'bn-word' }, ...w.split('').map((c, j) => el('span', { class: j === at ? 'gap' : '' }, j === at ? '?' : c))), el('small', {}, 'איזו אות חסרה?')),
+          opts: [...opts].sort(() => Math.random() - .5), right: ch, big: true };
+      }
+      const firsts = new Set([w[0]]), others = [];
+      for (const x of BN_WORDS.slice().sort(() => Math.random() - .5)) { if (others.length >= 3) break; if (!firsts.has(x[1][0])) { firsts.add(x[1][0]); others.push(x); } }
+      return { show: el('div', { class: 'bn-board' }, el('div', { class: 'bn-letter' }, w[0]), el('small', {}, `איזה ציור מתחיל באות ${w[0]}?`)), opts: [em, ...others.map(x => x[0])].sort(() => Math.random() - .5), right: em, big: true };
+    }, win);
+  }
+  function bnArt(area, g, win) {
+    const topic = bnR(['חתול', 'בית', 'פרח', 'קשת בענן', 'את המורה', 'את החדר שלך', 'ארוחת בוקר', 'חיה שאת אוהבת', 'ים ושמש', 'עוגת יום הולדת', 'טירה', 'את החברה הכי טובה']);
+    const cv = el('canvas', { class: 'bn-canvas', width: 560, height: 360, 'aria-label': 'דף ציור' }), x = cv.getContext('2d');
+    x.fillStyle = '#fff'; x.fillRect(0, 0, 560, 360); x.lineCap = x.lineJoin = 'round';
+    let col = '#ff5f8f', size = 8, last = null, ink = 0, done = false;
+    const pt = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * 560 / r.width, (e.clientY - r.top) * 360 / r.height]; };
+    cv.addEventListener('pointerdown', e => { if (done) return; last = pt(e); cv.setPointerCapture(e.pointerId); x.fillStyle = col; x.beginPath(); x.arc(last[0], last[1], size / 2, 0, 7); x.fill(); ink++; e.preventDefault(); });
+    cv.addEventListener('pointermove', e => { if (!last || done) return; const p = pt(e); x.strokeStyle = col; x.lineWidth = size; x.beginPath(); x.moveTo(...last); x.lineTo(...p); x.stroke(); last = p; ink++; });
+    const up = () => { last = null; }; cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    const COLS = ['#ff5f8f', '#ff9b6e', '#ffd84d', '#7ccf7a', '#4fc3a1', '#7ec8ff', '#5a6bd8', '#b79cff', '#a8703f', '#f6d0b1', '#3a2b3c', '#ffffff'];
+    const pal = el('div', { class: 'bn-pal' }, ...COLS.map(c => { const b = el('button', { type: 'button', class: 'bn-sw', 'aria-label': c === '#ffffff' ? 'מחק' : 'צבע', 'aria-pressed': String(c === col), onclick: () => { col = c; pal.querySelectorAll('.bn-sw').forEach(n => n.setAttribute('aria-pressed', String(n === b))); } }, c === '#ffffff' ? '🧽' : ''); b.style.background = c; return b; }));
+    const sizes = el('div', { class: 'chips' }, ...[[4, '✏️ דק'], [10, '🖌️ בינוני'], [22, '🖍️ עבה']].map(([v, n]) => { const b = el('button', { type: 'button', class: 'chip', 'aria-pressed': String(v === size), onclick: () => { size = v; sizes.querySelectorAll('.chip').forEach(q => q.setAttribute('aria-pressed', String(q === b))); } }, n); return b; }),
+      el('button', { type: 'button', class: 'chip', onclick: () => { if (done) return; x.fillStyle = '#fff'; x.fillRect(0, 0, 560, 360); ink = 0; SFX.boop(); } }, '🗑️ דף חדש'));
+    const fin = el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+      if (done) return; if (ink < 12) { toast(stickerHTML('palette'), 'קודם מציירים משהו 🙂'); return; }
+      done = true;
+      x.save(); x.translate(500, 58); x.rotate(-0.2); x.fillStyle = '#ffd84d'; x.strokeStyle = '#3a2b3c'; x.lineWidth = 3; x.beginPath();
+      for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, r = i % 2 ? 18 : 40; x.lineTo(r * Math.cos(a), r * Math.sin(a)); } x.closePath(); x.fill(); x.stroke();
+      x.fillStyle = '#3a2b3c'; x.font = 'bold 15px sans-serif'; x.textAlign = 'center'; x.fillText('מצוין!', 0, 5); x.restore();
+      const keep = el('button', { type: 'button', class: 'btn', onclick: () => {
+        try { const s = { id: 'my' + Date.now().toString(36), url: cv.toDataURL('image/jpeg', 0.7) }; customStk.push(s); if (!store.set('customStk', customStk)) { customStk.pop(); toast(stickerHTML('camera'), 'אין מספיק מקום 😢'); return; } registerCustom(s); SFX.ding(); toast(stickerHTML(s.id), '🎨 הציור נשמר כמדבקה באלבום!'); keep.disabled = true; } catch {}
+      } }, '🖼️ לשמור את הציור כמדבקה');
+      fin.replaceChildren(el('span', {}, `👩‍🏫 המורה הדביקה כוכב על הציור של ${bnNm(g)}!`), keep, el('button', { type: 'button', class: 'btn main', onclick: win }, '⭐ לקבל כוכב'));
+      SFX.ding();
+    } }, '✅ סיימתי! להראות למורה'));
+    area.replaceChildren(el('div', { class: 'bn-board small' }, el('b', {}, `🎨 המשימה: לצייר ${topic}`)), el('div', { class: 'bn-easel' }, cv), pal, sizes, fin);
+  }
+  const BN_NOTES = [[262, 'דו', '#ff6b6b'], [294, 'רה', '#ffa94d'], [330, 'מי', '#ffd43b'], [349, 'פה', '#69db7c'], [392, 'סול', '#4dabf7'], [440, 'לה', '#748ffc'], [494, 'סי', '#b197fc'], [523, 'דו', '#f783ac']];
+  function bnMusic(area, g, win) {
+    let round = 0, mel = [], pos = 0, busy = false;
+    const msg = el('div', { class: 'bn-board small' }), prog = el('div');
+    const bars = el('div', { class: 'bn-xylo', dir: 'ltr' }, ...BN_NOTES.map(([f, n, c], i) => { const b = el('button', { type: 'button', class: 'bn-bar', onclick: () => hit(i) }, n); b.style.background = c; b.style.height = (150 - i * 8) + 'px'; return b; }));
+    const flash = i => { const b = bars.children[i]; b.classList.add('on'); bnLater(() => b.classList.remove('on'), 260); tone(BN_NOTES[i][0], .35, 'triangle', 0, .14); };
+    const play = () => { busy = true; pos = 0; msg.textContent = '🎧 מקשיבות... המורה מנגנת'; mel.forEach((n, j) => bnLater(() => flash(n), 300 + j * 520)); bnLater(() => { busy = false; msg.textContent = `🎵 עכשיו ${bnNm(g)} מנגנת את אותה מנגינה!`; }, 300 + mel.length * 520); };
+    const start = () => { if (round >= 4) { win(); return; } mel = Array.from({ length: 3 + round }, () => bnRand(8)); prog.replaceChildren(bnProg(round, 4)); play(); };
+    const hit = i => {
+      if (busy) return; flash(i);
+      if (i !== mel[pos]) { SFX.boop(); msg.textContent = '🙈 אופס! מקשיבות שוב...'; busy = true; bnLater(play, 900); return; }
+      pos++; if (pos >= mel.length) { busy = true; round++; msg.textContent = '🌟 נכון! איזה יופי'; bnLater(start, 1000); }
+    };
+    area.replaceChildren(prog, msg, el('div', { class: 'bn-xylo-wrap' }, bars), el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { if (!busy) play(); } }, '🔁 לשמוע שוב')));
+    bnLater(start, 300);
+  }
+  function bnSport(area, g, win) {
+    const others = bnGirls().filter(x => x !== g).slice(0, 2), hy = 228, L = [150, hy], R = [450, hy];
+    let s = `<defs><linearGradient id="bnsp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fdcff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient></defs><rect width="600" height="360" fill="url(#bnsp)"/><circle cx="80" cy="60" r="28" fill="#ffd84d"/>` +
+      `<path d="M380 70 q14 -20 32 -6 q14 -14 28 2 q16 0 10 14 h-72 q-10 -4 2 -10Z" fill="#fff"/><rect y="250" width="600" height="110" fill="#8fd77a"/><rect x="60" y="282" width="480" height="70" rx="30" fill="#d8d3e6"/><path d="M60 300 H540" stroke="#fff" stroke-width="3" stroke-dasharray="14 10"/>`;
+    others.forEach((o, i) => { s += bnGirlAt(o, i ? 488 : 112, 336, 230, BN_POSE.rope); });
+    if (!others.length) s += `<rect x="140" y="${hy}" width="12" height="110" rx="4" fill="#c98f55" ${S2}/><rect x="448" y="${hy}" width="12" height="110" rx="4" fill="#c98f55" ${S2}/>`;
+    if (others.length === 1) s += `<rect x="448" y="${hy}" width="12" height="110" rx="4" fill="#c98f55" ${S2}/>`;
+    s += `<path class="bn-rope-b" fill="none" stroke="#ff5f8f" stroke-width="5" stroke-linecap="round"/><g class="bn-jumper">${bnGirlAt(g, 300, 345, 240, BN_POSE.up)}</g><path class="bn-rope-f" fill="none" stroke="#ff5f8f" stroke-width="5" stroke-linecap="round"/>` +
+      `<text class="bn-cnt" x="300" y="44" text-anchor="middle" font-size="30" font-weight="800" fill="${O}">0 / 10</text>`;
+    const scene = bnScene(`<svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">${s}</svg>`, 'bn-click'), svg = scene.querySelector('svg');
+    const ropeB = svg.querySelector('.bn-rope-b'), ropeF = svg.querySelector('.bn-rope-f'), jp = svg.querySelector('.bn-jumper'), cnt = svg.querySelector('.bn-cnt');
+    const msg = el('div', { class: 'bn-board small' }, '🪢 לוחצים "לקפוץ!" בדיוק כשהחבל מגיע לרגליים. 10 קפיצות ברצף = כוכב!');
+    let th = Math.PI, last = 0, jumpAt = -9999, count = 0, over = false, started = 0;
+    const jump = () => { const t = performance.now(); if (over || t - jumpAt < 560) return; jumpAt = t; tone(660, .08, 'triangle'); };
+    const btn = el('button', { type: 'button', class: 'btn main bn-jumpb', onclick: jump }, '🦘 לקפוץ!');
+    scene.addEventListener('pointerdown', e => { e.preventDefault(); jump(); });
+    const key = e => { if (e.code === 'Space' && $('#bnDlg').open) { e.preventDefault(); jump(); } };
+    document.addEventListener('keydown', key); bnTimers.push(['f', () => document.removeEventListener('keydown', key)]);
+    bnRaf(ts => {
+      if (!started) started = last = ts;
+      const dt = Math.min(50, ts - last); last = ts;
+      if (ts - started < 1200) { cnt.textContent = ts - started < 600 ? 'מוכנה?' : 'קדימה!'; }
+      else if (!over) {
+        const prev = th; th += dt / 1000 * (2 * Math.PI / Math.max(1.05, 1.7 - count * 0.06));
+        if (Math.floor((prev - Math.PI * 2 * 0) / (2 * Math.PI)) !== Math.floor(th / (2 * Math.PI))) {
+          const air = ts - jumpAt < 560;
+          if (air) { count++; SFX.ding(); cnt.textContent = `${count} / 10`; if (count >= 10) { over = true; bnLater(win, 700); } }
+          else if (count || ts - started > 3000) { count = 0; SFX.boop(); cnt.textContent = '🙈 אופס! מתחילות מ-0'; }
+        }
+      }
+      const c = Math.cos(th), cy = hy + (c > 0 ? 220 : 270) * c, d = `M${L[0]} ${L[1]} Q300 ${bnF(cy)} ${R[0]} ${R[1]}`, front = Math.sin(th) < 0;
+      ropeF.setAttribute('d', front ? d : ''); ropeB.setAttribute('d', front ? '' : d);
+      const k = (ts - jumpAt) / 560, up = k >= 0 && k < 1 ? Math.sin(k * Math.PI) * 58 : 0;
+      jp.setAttribute('transform', `translate(0 ${bnF(-up)})`);
+    });
+    area.replaceChildren(msg, scene, el('div', { class: 'chips', style: 'justify-content:center' }, btn));
+  }
+  function bnVolcano(area, g, win) {
+    const COLS = [['#ff5f5f', 'אדום'], ['#ff8fbd', 'ורוד'], ['#b79cff', 'סגול'], ['#5fb8ff', 'כחול'], ['#7ccf7a', 'ירוק']];
+    let col = null, soda = false, soap = false, boom = false;
+    const steps = [['soda', '🧂', 'כף סודה לשתייה'], ['color', '🎨', 'כמה טיפות צבע'], ['soap', '🧴', 'קצת סבון כלים'], ['vin', '🍋', 'חומץ... ואז 💥']];
+    const card = el('ol', { class: 'bn-recipe' });
+    const scene = el('div', { class: 'bn-scene' }), msg = el('div', { class: 'bn-board small' }, `👩‍🔬 ${bnNm(g)} עושה ניסוי! מוסיפים לפי המתכון.`), ctrl = el('div', { class: 'chips' });
+    const draw = () => {
+      const lava = col || '#ff9b6e';
+      let s = `<rect width="600" height="360" fill="#eaf6ff"/><rect y="0" width="600" height="40" fill="#d6ecff"/>` +
+        `<rect x="40" y="70" width="160" height="10" rx="3" fill="#c98f55" ${S2}/><path d="M60 70 v-30 h18 v30Z" fill="#bfe6ff" ${S2}/><path d="M100 70 l-8 -26 h26 l-8 26Z" fill="#ffd8ec" ${S2}/><circle cx="160" cy="54" r="15" fill="#d9ffd6" ${S2}/><rect x="154" y="30" width="12" height="12" fill="#d9ffd6" ${S2}/>` +
+        `<rect x="420" y="70" width="140" height="10" rx="3" fill="#c98f55" ${S2}/><text x="490" y="62" text-anchor="middle" font-size="30">🧪🔬</text>` +
+        `<rect x="40" y="300" width="520" height="22" rx="6" fill="#c98f55" ${S}/><path d="M70 322 V360 M530 322 V360" stroke="#7a5230" stroke-width="10"/>` +
+        `<path d="M170 300 L262 150 Q300 138 338 150 L430 300Z" fill="#a8703f" ${S}/><path d="M200 300 L270 180 L290 300Z" fill="#8a5a33" opacity=".5"/><ellipse cx="300" cy="150" rx="38" ry="9" fill="#5a3a22" ${S2}/>` +
+        `<path d="M226 260 q8 -6 16 0 M340 230 q8 -6 16 0" stroke="#7ccf7a" stroke-width="5" stroke-linecap="round"/>`;
+      if (soda) s += `<ellipse cx="300" cy="150" rx="28" ry="5" fill="#fff"/>`;
+      if (col) s += `<ellipse cx="300" cy="151" rx="22" ry="4" fill="${col}"/>`;
+      if (boom) {
+        s += `<path class="bn-flow" d="M268 150 Q250 200 230 260 Q226 290 240 296 Q256 270 272 200Z M332 150 Q350 210 372 270 Q376 292 360 296 Q344 260 328 200Z M292 152 Q286 220 300 298 Q312 230 308 152Z" fill="${lava}" ${S2}/>`;
+        for (let i = 0; i < (soap ? 34 : 16); i++) { const dx = (i * 37 % 120) - 60, dy = -60 - (i * 53 % 110), r = 8 + (i * 7 % 12); s += `<circle class="bn-foam" cx="300" cy="148" r="${r}" fill="${i % 3 ? lava : '#fff'}" style="--dx:${dx}px;--dy:${dy}px;animation-delay:${(i % 8) * 0.12}s" opacity=".92"/>`; }
+      }
+      s += bnGirlAt(g, 500, 352, 210, boom ? BN_POSE.wow : BN_POSE.point);
+      scene.innerHTML = `<svg viewBox="0 0 600 360" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+      card.replaceChildren(...steps.map(([id, ic, n]) => el('li', { class: (id === 'soda' && soda) || (id === 'color' && col) || (id === 'soap' && soap) || (id === 'vin' && boom) ? 'done' : '' }, `${ic} ${n}`)));
+    };
+    const quiz = () => {
+      const opts = [['החומץ והסודה יוצרים בועות של גז 🫧', true], ['יש בפנים דרקון קטן שמתעטש 🐉', false], ['הסבון התחמם מאוד 🔥', false]].sort(() => Math.random() - .5);
+      ctrl.replaceChildren(el('b', {}, '🤔 למה הר הגעש התפרץ?'), ...opts.map(([t, ok]) => el('button', { type: 'button', class: 'btn', onclick: e => { if (ok) { SFX.ding(); msg.textContent = '✅ נכון! חומץ + סודה = גז (פחמן דו-חמצני), והסבון עושה מזה הרבה קצף!'; bnLater(win, 1800); ctrl.replaceChildren(); } else bnWrong(e.currentTarget); } }, t)));
+    };
+    const add = id => {
+      if (boom) return;
+      if (id === 'soda') { soda = true; SFX.pop(); msg.textContent = '🧂 שמנו סודה לשתייה בתוך הר הגעש.'; }
+      if (id === 'soap') { soap = true; SFX.pop(); msg.textContent = '🧴 קצת סבון — בשביל קצף!'; }
+      if (id === 'vin') {
+        if (!soda) { SFX.boop(); msg.textContent = '🤔 שפכנו חומץ... ושום דבר לא קרה. חסר משהו! תסתכלי במתכון'; return; }
+        boom = true; draw(); msg.textContent = '💥 וואו! הר הגעש מתפרץ!';
+        [0, .1, .2, .3, .4].forEach((w, i) => tone(160 + i * 60, .3, 'sawtooth', w, .05)); bnLater(quiz, 1600); return;
+      }
+      draw();
+    };
+    const colRow = el('span', { class: 'chips' }, '🎨', ...COLS.map(([c, n]) => { const b = el('button', { type: 'button', class: 'bn-sw', 'aria-label': n, title: n, onclick: () => { if (boom) return; col = c; SFX.pop(); msg.textContent = `🎨 טיפות צבע ${n}`; draw(); } }); b.style.background = c; return b; }));
+    ctrl.replaceChildren(el('button', { type: 'button', class: 'btn', onclick: () => add('soda') }, '🧂 סודה'), colRow, el('button', { type: 'button', class: 'btn', onclick: () => add('soap') }, '🧴 סבון'), el('button', { type: 'button', class: 'btn main', onclick: () => add('vin') }, '🍋 חומץ!'));
+    draw();
+    area.replaceChildren(msg, el('div', { class: 'bn-lab' }, card, scene), ctrl);
+  }
+
+  // ---------- 🛝 recess ----------
+  function bnYardSVG(u) {
+    let s = `<defs><linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3ff"/><stop offset="1" stop-color="#e6f7ff"/></linearGradient></defs><rect width="800" height="300" fill="url(#${u}s)"/><circle cx="90" cy="64" r="34" fill="#ffd84d"/>` +
+      `<path d="M260 70 q16 -22 36 -6 q16 -16 32 2 q18 0 12 16 h-82 q-12 -4 2 -12Z M480 46 q12 -16 28 -4 q12 -12 24 2 q14 0 8 12 h-62 q-8 -4 2 -10Z" fill="#fff"/>`;
+    // school building
+    s += `<rect x="610" y="96" width="200" height="200" fill="#ffd8a8" ${S}/><path d="M596 100 L710 40 L820 100Z" fill="#ff8f8f" ${S}/><rect x="672" y="52" width="76" height="26" rx="6" fill="#fff8e6" ${S2}/><text x="710" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="${O}">בית הספר</text>` +
+      [0, 1].map(r => [0, 1, 2].map(c => `<rect x="${628 + c * 56}" y="${118 + r * 64}" width="40" height="40" rx="5" fill="#bfe6ff" ${S2}/>`).join('')).join('') + `<path d="M712 60 v-12" stroke="${O}" stroke-width="2"/><path d="M704 50 q8 -14 16 0Z" fill="#ffd84d" ${S2}/>`;
+    // fence, tree, grass
+    s += `<rect y="280" width="800" height="180" fill="#9be27a"/>` + Array.from({ length: 22 }, (_, i) => `<rect x="${i * 28 + 4}" y="240" width="16" height="46" rx="6" fill="#fff" ${S2}/>`).join('') + `<rect y="256" width="610" height="8" fill="#fff" ${S2}/>`;
+    s += `<rect x="540" y="180" width="22" height="110" fill="#a8703f" ${S2}/><circle cx="551" cy="160" r="52" fill="#7ccf7a" ${S}/><circle cx="520" cy="190" r="30" fill="#8fdc84" ${S2}/><circle cx="584" cy="186" r="30" fill="#8fdc84" ${S2}/><circle cx="530" cy="150" r="5" fill="#ff5f6b"/><circle cx="570" cy="140" r="5" fill="#ff5f6b"/><circle cx="556" cy="182" r="5" fill="#ff5f6b"/>`;
+    // slide
+    s += `<path d="M40 330 V190 M100 330 V190" stroke="#7ec8ff" stroke-width="8"/><path d="M40 210 H100 M40 240 H100 M40 270 H100 M40 300 H100" stroke="#7ec8ff" stroke-width="5"/><rect x="30" y="182" width="80" height="12" rx="4" fill="#ff8fbd" ${S2}/><path d="M104 186 Q150 196 170 280 Q178 320 220 330 L210 342 Q160 334 150 290 Q136 210 100 196Z" fill="#ffcf4d" ${S2}/>`;
+    // swings
+    s += `<path d="M232 340 L262 230 L292 340 M372 340 L402 230 L432 340 M256 232 H408" stroke="#b79cff" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M296 232 V310 M326 232 V310 M346 232 V300 M376 232 V300" stroke="${O}" stroke-width="2"/><rect x="290" y="306" width="42" height="8" rx="3" fill="#ff9b6e" ${S2}/><rect x="340" y="296" width="42" height="8" rx="3" fill="#7ec8ff" ${S2}/>`;
+    // hopscotch
+    s += `<path d="M300 376 H560 Q590 416 560 456 H300 Q270 416 300 376Z" fill="#dcd6ea"/>`;
+    [[330, 400, 1], [330, 430, 2], [372, 415, 3], [414, 400, 4], [414, 430, 5], [456, 415, 6], [498, 400, 7], [498, 430, 8]].forEach(([x, y, n]) => { s += `<rect x="${x - 18}" y="${y - 13}" width="36" height="26" fill="none" stroke="#fff" stroke-width="2.5"/><text x="${x}" y="${y + 6}" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">${n}</text>`; });
+    // sandbox + bench
+    s += `<rect x="30" y="398" width="170" height="44" rx="8" fill="#c98f55" ${S2}/><rect x="40" y="404" width="150" height="32" rx="6" fill="#ffe3a3"/><path d="M80 420 l-8 -14 h20 l-6 14Z" fill="#ff5f8f" ${S2}/><circle cx="150" cy="418" r="10" fill="#ffd84d" ${S2}/>`;
+    s += `<rect x="640" y="356" width="130" height="12" rx="4" fill="#c98f55" ${S2}/><rect x="640" y="334" width="130" height="10" rx="4" fill="#c98f55" ${S2}/><path d="M652 368 V390 M758 368 V390" stroke="#7a5230" stroke-width="6"/>`;
+    // girls & pets
+    const spots = [[70, 186, 150, 'up'], [262, 340, 165, 'wave'], [372, 410, 195, 'jump'], [468, 432, 200, 'dance'], [600, 316, 160, 'hips'], [700, 440, 205, 'run'], [190, 368, 180, 'dance'], [520, 300, 150, 'peace'], [110, 452, 210, 'wow'], [280, 456, 215, 'run'], [760, 300, 150, 'wave'], [430, 300, 150, 'up']];
+    const gl = bnGirls().slice(), order = gl.map((g, i) => [g, (bnHash(g.id) + bnSeed * 7 + i * 5) % 997]).sort((a, b) => a[1] - b[1]).map(x => x[0]);
+    const items = order.slice(0, spots.length).map((g, i) => { const [x, y, h, p] = spots[(i + bnSeed) % spots.length]; return [y, `<g class="bn-kid" data-x="${x}" data-y="${bnF(y - h * 0.94)}" data-l="k">${bnGirlAt(g, x, y, h, BN_POSE[p])}</g>`]; });
+    const pspots = [[236, 452], [560, 458], [340, 352], [160, 470], [640, 452], [460, 360], [60, 360], [740, 470]];
+    bnPets().slice(0, 8).forEach((p, i) => { const [x, y] = pspots[(i + bnSeed) % pspots.length]; try { items.push([y, `<g class="bn-kid" data-x="${x}" data-y="${y - 70}" data-l="p">${placeSvg(petSVG(p), x - 36, y - 72, 72, 72)}</g>`]); } catch {} });
+    s += items.sort((a, b) => a[0] - b[0]).map(x => x[1]).join('');
+    return `<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  }
+  function bnYardTab(box) {
+    const scene = bnScene(bnYardSVG('by' + (bnUid++)), 'bn-click');
+    scene.addEventListener('click', e => { const k = e.target.closest('.bn-kid'); if (k && k.dataset.l === 'p') { const p = bnPets().find(() => true); SFX.pet && p && SFX.pet(p.kind); } });
+    bnTalk(scene, BN_YARD_LINES);
+    box.replaceChildren(scene, el('p', { class: 'bn-hint' }, 'הפסקה! לוחצים על בת והיא מדברת. גם החיות באו לשחק 🐾'),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { bnSeed++; SFX.pop(); bnDraw(); } }, '🎲 משחק אחר'),
+        el('button', { type: 'button', class: 'btn', onclick: () => bnSnap(scene.querySelector('svg'), 'ההפסקה') }, '📸 לצלם למדבקה'),
+        el('button', { type: 'button', class: 'btn main', onclick: () => { bnBell(); bnTab = 'class'; bnDraw(); } }, '🔔 צלצול! חוזרים לכיתה')));
+  }
+
+  // ---------- 📜 report cards ----------
+  const BN_GRADE = n => !n ? 'עוד לא למדה' : n === 1 ? 'טוב 🙂' : n === 2 ? 'טוב מאוד 😊' : n < 5 ? 'מצוין 🌟' : 'מצוין מאוד! 🏆';
+  const BN_REMARKS = ['תלמידה חרוצה עם לב זהב 💛', 'תמיד עוזרת לחברות בכיתה 🤝', 'שואלת שאלות מעולות! 🤔', 'מביאה שמחה לכל שיעור 🌈', 'יש לה רעיונות יצירתיים במיוחד 🎨', 'מקשיבה יפה ומשתתפת 👂', 'מתקדמת בצעדי ענק! 🚀', 'הכתב שלה הכי יפה בכיתה ✏️'];
+  const BN_CARD_STK = ['goldstar', 'heart', 'rainbow', 'crown', 'unicorn', 'sparkles', 'flower', 'butterfly', 'cupcake', 'trophy', 'smiley', 'rainbowheart'].filter(id => STICKERS[id]);
+  function bnCardsTab(box) {
+    const t = bnTeacher();
+    const cards = bnGirls().map(g => {
+      const c = bnCard(g.id), tot = bnStars(g.id);
+      c.k = Array.isArray(c.k) ? c.k : [];
+      const auto = BN_SUBJ.filter(([k]) => (c[k] || 0) >= 3).map(() => 'goldstar');
+      const rows = el('table', { class: 'bn-ctab' }, ...BN_SUBJ.map(([k, ic, n]) => el('tr', {}, el('td', {}, `${ic} ${n}`), el('td', { class: 'st' }, (c[k] || 0) > 5 ? `⭐×${c[k]}` : '⭐'.repeat(c[k] || 0) || '·'), el('td', {}, BN_GRADE(c[k] || 0)))));
+      const stk = el('div', { class: 'bn-cstk' }, ...[...auto, ...c.k].map(id => el('span', { class: 'ic', html: stickerHTML(id) })));
+      const picker = bnStkFor === g.id ? el('div', { class: 'bn-stkpick' }, ...BN_CARD_STK.map(id => el('button', { type: 'button', 'aria-label': 'מדבקה', html: stickerHTML(id), onclick: () => { c.k.push(id); if (c.k.length > 8) c.k.shift(); bnSave(); SFX.pop(); bnStkFor = null; bnDraw(); } }))) : null;
+      return el('div', { class: 'bn-card' + (tot >= 12 ? ' gold' : '') },
+        el('div', { class: 'bn-card-h' }, bnHead(g), el('div', {}, el('b', {}, bnNm(g)), el('small', {}, g === t ? '👩‍🏫 המורה של הכיתה (וגם תלמידה!)' : 'תעודה · כיתה ו׳ · תשפ״ז'))),
+        rows, el('div', { class: 'bn-crem' }, `✍️ ${BN_REMARKS[(bnHash(g.id) + tot) % BN_REMARKS.length]}`), stk,
+        el('div', { class: 'chips' }, el('span', { class: 'muted' }, `סה״כ ${tot} ⭐`), el('button', { type: 'button', class: 'chip', onclick: () => { bnStkFor = bnStkFor === g.id ? null : g.id; bnDraw(); } }, '✨ להדביק מדבקה')), picker);
+    });
+    box.replaceChildren(el('p', { class: 'bn-hint' }, 'כוכבים מקבלים בשיעורים. 3 כוכבים במקצוע = מדבקת זהב אוטומטית! ואת המורה — אפשר להדביק מדבקות לבד ✨'), el('div', { class: 'bn-cards' }, ...cards));
+  }
+
+  // ---------- 📸 class photo ----------
+  function bnPhotoSVG(u) {
+    const gl = bnGirls().slice(0, 18), t = bnTeacher(), kids = gl.filter(g => g !== t), N = kids.length;
+    const rows = N <= 6 ? 1 : N <= 12 ? 2 : 3, per = Math.ceil(N / rows);
+    const R = rows === 1 ? [[470, 240]] : rows === 2 ? [[380, 200], [482, 222]] : [[318, 168], [404, 188], [494, 212]];
+    let s = `<defs><linearGradient id="${u}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe9ff"/><stop offset="1" stop-color="#fff2f8"/></linearGradient></defs><rect width="800" height="560" fill="url(#${u}b)"/>` +
+      `<path d="M0 120 Q200 90 400 120 T800 120 V0 H0Z" fill="#ffd6e7" opacity=".6"/>` + Array.from({ length: 14 }, (_, i) => `<polygon points="${starPts(30 + i * 57, 40 + (i % 3) * 22, 7, 3)}" fill="#fff" opacity=".8"/>`).join('') +
+      `<rect x="170" y="22" width="460" height="64" rx="32" fill="#ff8fbd" ${S}/><text x="400" y="52" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">תמונת מחזור 📸 בית הספר של הבנות</text><text x="400" y="76" text-anchor="middle" font-size="15" font-weight="600" fill="#fff">כיתה ו׳ · ${new Date().getFullYear()}</text>`;
+    R.forEach(([y], i) => { s += `<rect x="20" y="${y - 6}" width="760" height="${i === R.length - 1 ? 60 : 96}" fill="${['#e9dcff', '#ffe6f1', '#e0f3ff'][i % 3]}" ${S2}/>`; });
+    const poses = ['wave', 'peace', 'hips', 'stand', 'up', 'shy', 'dance'];
+    kids.forEach((g, i) => {
+      const r = Math.floor(i / per), j = i % per, inRow = Math.min(per, N - r * per), [y, h] = R[r], sp = Math.min(118, 640 / Math.max(1, inRow));
+      const x = 400 - (inRow - 1) * sp / 2 + j * sp + (t && r === R.length - 1 ? -50 : 0);
+      s += bnGirlAt(g, x, y, h, BN_POSE[poses[(bnHash(g.id) + bnSeed) % poses.length]]);
+    });
+    if (t) s += bnGirlAt(t, 730, R[R.length - 1][0], R[R.length - 1][1] + 14, BN_POSE.hips) + `<rect x="688" y="${R[R.length - 1][0] + 6}" width="84" height="22" rx="11" fill="#fff" ${S2}/><text x="730" y="${R[R.length - 1][0] + 22}" text-anchor="middle" font-size="13" font-weight="700" fill="${O}">המורה 🍎</text>`;
+    bnPets().slice(0, 6).forEach((p, i, a) => { const x = 400 - (a.length - 1) * 50 + i * 100; try { s += placeSvg(petSVG(p), x - 30, 492, 60, 60); } catch {} });
+    s += `<rect x="6" y="6" width="788" height="548" rx="14" fill="none" stroke="#fff" stroke-width="10"/><rect x="2" y="2" width="796" height="556" rx="16" fill="none" stroke="${O}" stroke-width="3"/>`;
+    return `<svg viewBox="0 0 800 560" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  }
+  function bnPhotoTab(box) {
+    const scene = bnScene(bnPhotoSVG('bp' + (bnUid++)), 'bn-photo');
+    box.replaceChildren(scene, el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { bnSnap(scene.querySelector('svg'), 'תמונת המחזור'); bnCoin(3, 'תמונת מחזור 📸'); } }, '📸 לשמור כמדבקה באלבום'),
+      el('button', { type: 'button', class: 'btn', onclick: () => { bnSeed++; SFX.pop(); bnDraw(); } }, '😄 פוזות אחרות! צ׳יז!')),
+    bnGirls().length > 18 ? el('p', { class: 'muted' }, 'בתמונה נכנסות עד 18 בנות 📷') : null);
+  }
+
+  // ---------- 🏠 the girls' house ----------
+  const BN_WALLS = [['נקודות ורודות', '#ffd6e7', '#ff8fbd', 'dots'], ['פסים תכלת', '#e3f3ff', '#a9d8ff', 'stripes'], ['לבבות', '#fff0f5', '#ff6f9e', 'hearts'], ['כוכבים בלילה', '#2f3270', '#ffe680', 'stars'],
+    ['פרחים', '#f2ffe9', '#ff9ec7', 'flowers'], ['משבצות', '#fff6d9', '#ffd27a', 'checks'], ['עננים', '#bfe6ff', '#ffffff', 'clouds'], ['קשת בענן', '#fff', '#fff', 'rainbow'], ['יהלומים סגולים', '#efe4ff', '#b79cff', 'diamonds'],
+    ['גלים', '#dcfff6', '#6fd8c4', 'waves'], ['פרפרים', '#fffae6', '#ffb84d', 'butter'], ['מנטה', '#dff7e6', '#9ee0b4', 'plain'], ['תותים', '#ffeef0', '#ff5f6b', 'straw'], ['אפרסק', '#ffe4d1', '#ffb894', 'plain']];
+  function bnWallPat(id, [, a, b, k]) {
+    const P = (w, h, inner) => `<pattern id="${id}" width="${w}" height="${h}" patternUnits="userSpaceOnUse"><rect width="${w}" height="${h}" fill="${a}"/>${inner}</pattern>`;
+    switch (k) {
+      case 'dots': return P(40, 40, `<circle cx="10" cy="10" r="5" fill="${b}"/><circle cx="30" cy="30" r="5" fill="${b}"/>`);
+      case 'stripes': return P(40, 40, `<rect width="16" height="40" fill="${b}" opacity=".7"/>`);
+      case 'hearts': return P(50, 50, `<path d="${bnHeart(14, 16, 0.9)}" fill="${b}" opacity=".8"/><path d="${bnHeart(38, 40, 0.6)}" fill="${b}" opacity=".5"/>`);
+      case 'stars': return P(60, 60, `<polygon points="${starPts(16, 16, 7, 3)}" fill="${b}"/><polygon points="${starPts(46, 42, 4, 1.8)}" fill="${b}" opacity=".8"/><circle cx="40" cy="12" r="1.5" fill="#fff"/><circle cx="12" cy="48" r="1.2" fill="#fff"/>`);
+      case 'flowers': return P(56, 56, [0, 72, 144, 216, 288].map(d => `<circle cx="${bnF(16 + 6 * Math.cos(d * Math.PI / 180))}" cy="${bnF(16 + 6 * Math.sin(d * Math.PI / 180))}" r="4.5" fill="${b}"/>`).join('') + `<circle cx="16" cy="16" r="3.5" fill="#ffd84d"/><circle cx="44" cy="44" r="4" fill="#9be27a" opacity=".7"/>`);
+      case 'checks': return P(40, 40, `<rect width="20" height="20" fill="${b}" opacity=".55"/><rect x="20" y="20" width="20" height="20" fill="${b}" opacity=".55"/>`);
+      case 'clouds': return P(100, 70, `<path d="M14 40 q6 -14 20 -8 q8 -12 22 -2 q14 0 10 12 h-48 q-10 -2 -4 -2Z" fill="${b}"/><circle cx="80" cy="16" r="2" fill="#fff"/>`);
+      case 'rainbow': return P(120, 40, ['#ffc2c2', '#ffe0b3', '#fff5b3', '#d2f5c4', '#c9e6ff', '#e3d4ff'].map((c, i) => `<rect x="${i * 20}" width="20" height="40" fill="${c}"/>`).join(''));
+      case 'diamonds': return P(40, 40, `<path d="M20 4 L32 20 L20 36 L8 20Z" fill="${b}" opacity=".55"/>`);
+      case 'waves': return P(60, 30, `<path d="M0 15 q15 -10 30 0 t30 0" fill="none" stroke="${b}" stroke-width="4"/>`);
+      case 'butter': return P(70, 70, `<g transform="translate(20 22)"><ellipse cx="-6" cy="-3" rx="6" ry="8" fill="${b}"/><ellipse cx="6" cy="-3" rx="6" ry="8" fill="${b}"/><ellipse cx="-5" cy="6" rx="4" ry="5" fill="${b}" opacity=".7"/><ellipse cx="5" cy="6" rx="4" ry="5" fill="${b}" opacity=".7"/><rect x="-1" y="-8" width="2" height="16" rx="1" fill="${O}"/></g><circle cx="54" cy="54" r="2" fill="${b}"/>`);
+      case 'straw': return P(60, 60, `<path d="M18 14 q-9 0 -8 9 q2 10 8 14 q6 -4 8 -14 q1 -9 -8 -9Z" fill="${b}"/><path d="M12 14 q6 -6 12 0" fill="#7ccf7a"/><circle cx="16" cy="22" r=".9" fill="#ffe680"/><circle cx="20" cy="27" r=".9" fill="#ffe680"/><circle cx="46" cy="46" r="2" fill="${b}" opacity=".4"/>`);
+      default: return P(40, 40, '');
+    }
+  }
+  const BN_FLOORS = [['עץ בהיר', '#e6b77d', '#c98f55', 1], ['עץ כהה', '#a8703f', '#85552c', 1], ['שטיח ורוד', '#ffc6dc', '#ffb0cd', 0], ['משבצות', '#ffffff', '#b9d7ff', 2], ['ירוק רך', '#c6ecb0', '#a6d98a', 0]];
+  const BN_BLANK = ['#ff8fbd', '#b79cff', '#7ec8ff', '#ffcf4d', '#7ccf7a', '#ff9b6e', '#ffffff', '#4fc3a1', '#e0314b', '#2f3270'];
+  // beds stand on the right side of the room (x 390..590, floor at y 345)
+  const bnBedBase = (bc, ft) => `<rect x="398" y="300" width="186" height="38" rx="6" fill="${ft}" ${S2}/><path d="M406 338 V352 M576 338 V352" stroke="${O}" stroke-width="5" stroke-linecap="round"/><rect x="404" y="282" width="176" height="22" rx="8" fill="#fff" ${S2}/>` +
+    `<path d="M404 290 Q402 280 414 278 H540 Q548 296 540 322 H410 Q400 318 404 290Z" fill="${bc}" ${S2}/><path d="M420 296 H530" stroke="#fff" stroke-width="2" opacity=".5"/><ellipse cx="560" cy="282" rx="22" ry="11" fill="#fff" ${S2}/>`;
+  const BN_BEDS = [
+    ['מיטת עץ', bc => `<path d="M574 342 V220 Q586 204 598 220 V342Z" fill="#c98f55" ${S2}/><path d="M396 342 V268 Q402 260 410 268 V342Z" fill="#c98f55" ${S2}/>` + bnBedBase(bc, '#d99a55')],
+    ['מיטת נסיכה', bc => `<path d="M400 112 Q490 80 590 112 L594 128 H396Z" fill="#ff8fbd" ${S2}/><path d="M400 126 Q380 210 392 300 L408 300 Q404 210 420 126Z M590 126 Q610 210 598 300 L582 300 Q586 210 570 126Z" fill="#ffd6e7" ${S2} opacity=".95"/><polygon points="${starPts(495, 98, 11, 5)}" fill="#ffd84d" ${S2}/><path d="M574 342 V210 Q586 190 598 210 V342Z" fill="#fff0f6" ${S2}/>` + bnBedBase(bc, '#ffc6dc')],
+    ['מיטת לב', bc => `<path d="${bnHeart(586, 238, 4.2)}" fill="#ff6f9e" ${S2}/><path d="M396 342 V272 H410 V342Z" fill="#ff6f9e" ${S2}/>` + bnBedBase(bc, '#ffb0cd')],
+    ['מיטת ענן', bc => `<path d="M560 300 q-20 -30 4 -50 q-6 -34 26 -36 q30 4 18 40 q22 20 0 46Z" fill="#fff" ${S2}/><path d="M392 304 q-8 -24 14 -30 q16 4 10 30Z" fill="#fff" ${S2}/>` + bnBedBase(bc, '#cfe9ff')],
+    ['מיטת כוכב', bc => `<polygon points="${starPts(588, 236, 46, 21)}" fill="#ffd84d" ${S2}/><path d="M396 342 V272 H410 V342Z" fill="#ffcf4d" ${S2}/>` + bnBedBase(bc, '#ffe680')],
+    ['מיטת קומותיים', bc => `<path d="M398 140 V352 M584 140 V352" stroke="#a8703f" stroke-width="10" stroke-linecap="round"/><rect x="398" y="196" width="186" height="20" rx="5" fill="#d99a55" ${S2}/><path d="M406 196 Q404 180 416 178 H570 Q580 180 578 196Z" fill="${BN_BLANK[(BN_BLANK.indexOf(bc) + 2) % BN_BLANK.length]}" ${S2}/><ellipse cx="558" cy="178" rx="18" ry="8" fill="#fff" ${S2}/><path d="M420 216 V300 M444 216 V300 M420 236 H444 M420 258 H444 M420 280 H444" stroke="#a8703f" stroke-width="4"/>` + bnBedBase(bc, '#d99a55')],
+    ['מיטת צדף', bc => `<path d="M560 330 Q540 230 590 200 Q610 230 600 330Z" fill="#7fe0d0" ${S2}/><path d="M572 320 Q568 250 588 214 M584 324 Q588 250 596 220" stroke="#fff" stroke-width="3" fill="none"/><path d="M396 342 V272 Q404 262 410 272 V342Z" fill="#7fe0d0" ${S2}/>` + bnBedBase(bc, '#a8eee2')],
+    ['מיטת פרח', bc => [0, 60, 120, 180, 240, 300].map(d => `<circle cx="${bnF(588 + 24 * Math.cos(d * Math.PI / 180))}" cy="${bnF(232 + 24 * Math.sin(d * Math.PI / 180))}" r="18" fill="#ff9ec7" ${S2}/>`).join('') + `<circle cx="588" cy="232" r="16" fill="#ffd84d" ${S2}/><path d="M584 256 V342 H594 V256Z" fill="#7ccf7a" ${S2}/>` + bnBedBase(bc, '#ffc6dc')],
+    ['מיטת חלל', bc => `<path d="M574 342 V214 Q586 196 598 214 V342Z" fill="#2f3270" ${S2}/><circle cx="586" cy="236" r="9" fill="#ffd84d"/><circle cx="584" cy="270" r="4" fill="#fff"/><path d="M396 342 V268 H410 V342Z" fill="#2f3270" ${S2}/>` + bnBedBase(bc, '#5a6bd8')],
+  ];
+  const BN_RUGS = [['בלי שטיח', () => ''], ['עגול ורוד', () => `<ellipse cx="300" cy="368" rx="110" ry="24" fill="#ffb0cd" ${S2}/><ellipse cx="300" cy="368" rx="80" ry="16" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="8 6"/>`],
+    ['אליפסה תכלת', () => `<ellipse cx="300" cy="368" rx="130" ry="22" fill="#a9d8ff" ${S2}/><ellipse cx="300" cy="368" rx="100" ry="14" fill="#cfe9ff"/>`],
+    ['קשת', () => ['#ffb3b3', '#ffd9a3', '#fff1a3', '#bdeab0', '#b3dcff', '#d9c7ff'].map((c, i) => `<ellipse cx="300" cy="370" rx="${130 - i * 18}" ry="${26 - i * 3.6}" fill="${c}" ${i ? '' : S2}/>`).join('')],
+    ['לב', () => `<path d="M300 392 C210 372 210 344 262 344 Q290 344 300 358 Q310 344 338 344 C390 344 390 372 300 392Z" fill="#ff8fbd" ${S2}/>`],
+    ['כוכב', () => `<polygon points="${starPts(0, 0, 70, 32)}" transform="translate(300 368) scale(1.5 .4)" fill="#ffd84d" stroke="${O}" stroke-width="3"/>`],
+    ['פסים', () => `<rect x="190" y="350" width="220" height="38" rx="6" fill="#b79cff" ${S2}/>` + [0, 1, 2, 3, 4].map(i => `<rect x="${206 + i * 42}" y="350" width="18" height="38" fill="#fff" opacity=".6"/>`).join('')],
+    ['פרווה לבנה', () => `<path d="M200 370 q-6 -20 20 -24 q40 -8 80 -4 q50 -6 84 4 q24 4 16 24 q-6 18 -40 20 q-60 6 -120 0 q-40 -2 -40 -20Z" fill="#fff" ${S2}/>`]];
+  // desks stand on the left (x 30..200)
+  const BN_DESKS = [['בלי שולחן', () => ''],
+    ['שולחן עץ', () => `<rect x="30" y="250" width="170" height="14" rx="3" fill="#c98f55" ${S2}/><path d="M42 264 V346 M188 264 V346" stroke="#a8703f" stroke-width="8"/><rect x="60" y="226" width="30" height="24" rx="3" fill="#7ec8ff" ${S2}/><path d="M150 250 l6 -30 l6 30Z" fill="#ffcf4d" ${S2}/>`],
+    ['שולחן לבן', () => `<rect x="30" y="252" width="170" height="12" rx="3" fill="#fff" ${S2}/><rect x="130" y="264" width="66" height="80" rx="4" fill="#fff" ${S2}/><path d="M140 290 H186 M140 318 H186" stroke="${O}" stroke-width="1.5"/><path d="M40 264 V344" stroke="#ddd" stroke-width="7"/><circle cx="64" cy="240" r="12" fill="#ffb0cd" ${S2}/>`],
+    ['שולחן איפור', () => `<ellipse cx="115" cy="186" rx="44" ry="54" fill="#cfe9ff" stroke="#ff8fbd" stroke-width="8"/><path d="M96 168 q10 -12 22 -6" stroke="#fff" stroke-width="5" fill="none"/><rect x="40" y="252" width="150" height="14" rx="4" fill="#ffc6dc" ${S2}/><path d="M50 266 Q46 310 54 346 M180 266 Q184 310 176 346" stroke="#ff8fbd" stroke-width="7" fill="none"/><rect x="70" y="236" width="10" height="16" rx="2" fill="#e0314b" ${S2}/><circle cx="150" cy="244" r="8" fill="#b79cff" ${S2}/>`],
+    ['שולחן מחשב', () => `<rect x="30" y="252" width="170" height="12" rx="3" fill="#8f97b8" ${S2}/><path d="M42 264 V346 M188 264 V346" stroke="#5a6b8a" stroke-width="7"/><rect x="70" y="196" width="80" height="52" rx="5" fill="#2b2b30" ${S2}/><rect x="76" y="202" width="68" height="40" rx="3" fill="#7ec8ff"/><path d="${bnHeart(110, 222, 0.8)}" fill="#ff8fbd"/><rect x="100" y="248" width="20" height="5" fill="#2b2b30"/>`],
+    ['שולחן ציור', () => `<path d="M60 346 L110 160 L160 346 M110 160 V346" stroke="#a8703f" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="66" y="180" width="88" height="70" rx="3" fill="#fff" ${S2}/><circle cx="96" cy="206" r="10" fill="#ffd84d"/><path d="M76 240 q20 -24 40 0 q14 -14 30 0" fill="#7ccf7a"/><rect x="60" y="250" width="100" height="8" fill="#c98f55" ${S2}/>`]];
+  // placeable things: [id, name, definite name, art (origin = bottom middle)]
+  const bnPetPic = () => { const p = bnPets()[0]; try { return p ? placeSvg(petSVG(p), -22, -64, 44, 44) : `<text x="0" y="-36" text-anchor="middle" font-size="26">🐾</text>`; } catch { return ''; } };
+  const BN_ITEMS = [
+    ['pStar', 'פוסטר כוכב', 'הפוסטר עם הכוכב', () => `<rect x="-26" y="-74" width="52" height="70" rx="3" fill="#5a6bd8" ${S2}/><polygon points="${starPts(0, -40, 18, 8)}" fill="#ffd84d" ${S2}/>`],
+    ['pRain', 'פוסטר קשת', 'הפוסטר עם הקשת', () => `<rect x="-30" y="-60" width="60" height="56" rx="3" fill="#fff" ${S2}/>` + ['#ff6b6b', '#ffd43b', '#69db7c', '#4dabf7'].map((c, i) => `<path d="M${-20 + i * 5} -14 a${20 - i * 5} ${20 - i * 5} 0 0 1 ${40 - i * 10} 0" fill="none" stroke="${c}" stroke-width="5"/>`).join('')],
+    ['pCat', 'פוסטר חתול', 'הפוסטר של החתול', () => `<rect x="-26" y="-72" width="52" height="68" rx="3" fill="#ffe6f1" ${S2}/><path d="M-14 -24 V-50 L-8 -42 H8 L14 -50 V-24Z" fill="#ffb36b" ${S2}/>${face(0, -36, 0.8)}`],
+    ['pHeart', 'פוסטר לב', 'הפוסטר עם הלב', () => `<rect x="-24" y="-62" width="48" height="58" rx="3" fill="#fff8e6" ${S2}/><path d="${bnHeart(0, -30, 1.8)}" fill="#ff5f8f" ${S2}/>`],
+    ['pMusic', 'פוסטר מוזיקה', 'הפוסטר של המוזיקה', () => `<rect x="-28" y="-66" width="56" height="62" rx="3" fill="#b79cff" ${S2}/><path d="M-6 -20 V-50 L12 -54 V-26" stroke="${O}" stroke-width="3" fill="none"/><circle cx="-10" cy="-20" r="6" fill="${O}"/><circle cx="8" cy="-26" r="6" fill="${O}"/>`],
+    ['clock', 'שעון', 'השעון', () => `<circle cx="0" cy="-24" r="22" fill="#fff" stroke="#ff8fbd" stroke-width="5"/><path d="M0 -24 V-38 M0 -24 H10" stroke="${O}" stroke-width="2.5" stroke-linecap="round"/>`],
+    ['mirror', 'מראה', 'המראה', () => `<ellipse cx="0" cy="-40" rx="22" ry="34" fill="#cfe9ff" stroke="#ffcf4d" stroke-width="6"/><path d="M-8 -54 q6 -8 14 -6" stroke="#fff" stroke-width="4" fill="none"/>`],
+    ['shelf', 'מדף ספרים', 'מדף הספרים', () => `<rect x="-40" y="-6" width="80" height="6" fill="#c98f55" ${S2}/>` + ['#ff6b6b', '#4dabf7', '#ffd43b', '#69db7c', '#b197fc'].map((c, i) => `<rect x="${-34 + i * 11}" y="${-30 + (i % 2) * 4}" width="9" height="${24 - (i % 2) * 4}" fill="${c}" ${S2}/>`).join('') + `<circle cx="28" cy="-14" r="8" fill="#9be27a" ${S2}/>`],
+    ['petpic', 'תמונה של החיה שלי', 'התמונה של החיה שלי', () => `<rect x="-30" y="-72" width="60" height="64" rx="4" fill="#ffcf4d" ${S2}/><rect x="-24" y="-66" width="48" height="52" fill="#fff8e6"/>` + bnPetPic()],
+    ['lights', 'שרשרת אורות', 'שרשרת האורות', () => `<path d="M-60 -40 Q0 -10 60 -40" fill="none" stroke="${O}" stroke-width="1.5"/>` + [-48, -30, -12, 6, 24, 42].map((x, i) => `<circle cx="${x}" cy="${-37 + 22 * (1 - ((x / 60) ** 2))}" r="5" fill="${['#ffd84d', '#ff8fbd', '#7ec8ff', '#9be27a'][i % 4]}" ${S2}/>`).join('')],
+    ['bunting', 'דגלונים', 'הדגלונים', () => `<path d="M-60 -50 Q0 -30 60 -50" fill="none" stroke="${O}" stroke-width="1.5"/>` + [-48, -24, 0, 24, 48].map((x, i) => `<path d="M${x - 10} ${-48 + 18 * (1 - (x / 60) ** 2)} h20 l-10 22Z" fill="${['#ff8fbd', '#ffd84d', '#7ec8ff', '#b79cff', '#9be27a'][i]}" ${S2}/>`).join('')],
+    ['mobile', 'מובייל פרפרים', 'מובייל הפרפרים', () => `<path d="M0 -90 V-70 M-30 -70 H30 M-30 -70 V-40 M30 -70 V-30 M0 -70 V-50" stroke="${O}" stroke-width="1.5"/>` + [[-30, -36, '#ff8fbd'], [30, -26, '#7ec8ff'], [0, -46, '#ffd84d']].map(([x, y, c]) => `<ellipse cx="${x - 6}" cy="${y}" rx="6" ry="8" fill="${c}" ${S2}/><ellipse cx="${x + 6}" cy="${y}" rx="6" ry="8" fill="${c}" ${S2}/>`).join('')],
+    ['cactus', 'קקטוס', 'הקקטוס', () => `<path d="M-14 0 l-4 -20 h36 l-4 20Z" fill="#ff9b6e" ${S2}/><rect x="-8" y="-62" width="16" height="44" rx="8" fill="#7ccf7a" ${S2}/><path d="M-8 -40 h-8 v-12 a4 4 0 0 1 8 0 M8 -34 h8 v-14 a4 4 0 0 0 -8 0" fill="#7ccf7a" ${S2}/><circle cx="0" cy="-64" r="4" fill="#ff8fbd"/>`],
+    ['flowers', 'עציץ פרחים', 'עציץ הפרחים', () => `<path d="M-16 0 l-4 -24 h40 l-4 24Z" fill="#7ec8ff" ${S2}/><path d="M-8 -24 v-24 M0 -24 v-34 M8 -24 v-22" stroke="#4f9c4a" stroke-width="3"/>` + [[-8, -50, '#ff6f9e'], [0, -60, '#ffd84d'], [8, -48, '#b79cff']].map(([x, y, c]) => `<circle cx="${x}" cy="${y}" r="7" fill="${c}" ${S2}/><circle cx="${x}" cy="${y}" r="2.5" fill="#fff"/>`).join('')],
+    ['monstera', 'צמח גדול', 'הצמח הגדול', () => `<path d="M-18 0 l-4 -26 h44 l-4 26Z" fill="#fff" ${S2}/><path d="M0 -26 Q-30 -60 -26 -96 Q-4 -80 0 -26 Q14 -76 36 -88 Q38 -50 0 -26 Q-10 -60 6 -110 Q22 -70 0 -26" fill="#5fbf6b" ${S2}/>`],
+    ['sunflower', 'חמנייה', 'החמנייה', () => `<path d="M-12 0 l-3 -18 h30 l-3 18Z" fill="#c98f55" ${S2}/><path d="M0 -18 V-80" stroke="#4f9c4a" stroke-width="4"/><path d="M0 -44 q-16 -4 -18 -16 q14 0 18 16" fill="#7ccf7a"/>` + Array.from({ length: 10 }, (_, i) => `<ellipse cx="${bnF(14 * Math.cos(i * 0.628))}" cy="${bnF(-86 + 14 * Math.sin(i * 0.628))}" rx="7" ry="4" transform="rotate(${i * 36} ${bnF(14 * Math.cos(i * 0.628))} ${bnF(-86 + 14 * Math.sin(i * 0.628))})" fill="#ffd84d" ${S2}/>`).join('') + `<circle cx="0" cy="-86" r="9" fill="#8a5a33" ${S2}/>`],
+    ['hang', 'עציץ תלוי', 'העציץ התלוי', () => `<path d="M0 -100 V-60 M-16 -60 L0 -100 L16 -60" stroke="${O}" stroke-width="1.5" fill="none"/><path d="M-18 -60 h36 q-2 18 -18 20 q-16 -2 -18 -20Z" fill="#ffcf4d" ${S2}/><path d="M-12 -48 q-6 20 -2 40 M0 -42 q2 24 -4 40 M12 -48 q8 16 4 34" stroke="#5fbf6b" stroke-width="4" fill="none" stroke-linecap="round"/>`],
+    ['teddy', 'דובי', 'הדובי', () => `<circle cx="-14" cy="-50" r="7" fill="#c98f55" ${S2}/><circle cx="14" cy="-50" r="7" fill="#c98f55" ${S2}/><ellipse cx="0" cy="-16" rx="18" ry="16" fill="#c98f55" ${S2}/><circle cx="0" cy="-40" r="15" fill="#c98f55" ${S2}/><ellipse cx="0" cy="-35" rx="6" ry="4" fill="#f4dcc0"/>${face(0, -42, 0.6)}<path d="M-6 -26 l6 4 l6 -4 v6 l-6 -2 l-6 2Z" fill="#ff5f8f"/>`],
+    ['bunny', 'ארנבונת', 'הארנבונת', () => `<ellipse cx="-7" cy="-62" rx="5" ry="15" fill="#fff" ${S2}/><ellipse cx="7" cy="-62" rx="5" ry="15" fill="#fff" ${S2}/><ellipse cx="0" cy="-16" rx="16" ry="16" fill="#fff" ${S2}/><circle cx="0" cy="-40" r="14" fill="#fff" ${S2}/>${face(0, -40, 0.6)}<circle cx="10" cy="-58" r="4" fill="#ff8fbd"/>`],
+    ['doll', 'בובה', 'הבובה', () => `<path d="M-14 0 L0 -36 L14 0Z" fill="#ff8fbd" ${S2}/><circle cx="0" cy="-44" r="11" fill="#f6d0b1" ${S2}/><path d="M-12 -46 q0 -14 12 -14 q12 0 12 14 q-4 -6 -12 -6 q-8 0 -12 6Z" fill="#ffcf4d" ${S2}/>${face(0, -43, 0.45)}`],
+    ['ball', 'כדור', 'הכדור', () => `<circle cx="0" cy="-16" r="16" fill="#ff6b6b" ${S2}/><path d="M-16 -16 H16 M0 -32 Q10 -16 0 0" stroke="#fff" stroke-width="3" fill="none"/>`],
+    ['blocks', 'קוביות', 'הקוביות', () => `<rect x="-24" y="-20" width="20" height="20" fill="#ffd84d" ${S2}/><rect x="0" y="-20" width="20" height="20" fill="#7ec8ff" ${S2}/><rect x="-12" y="-40" width="20" height="20" fill="#ff8fbd" ${S2}/><text x="-14" y="-5" text-anchor="middle" font-size="12" font-weight="700" fill="${O}">א</text><text x="10" y="-5" text-anchor="middle" font-size="12" font-weight="700" fill="${O}">ב</text><text x="-2" y="-25" text-anchor="middle" font-size="12" font-weight="700" fill="${O}">ג</text>`],
+    ['kite', 'עפיפון', 'העפיפון', () => `<path d="M0 -90 L18 -66 L0 -36 L-18 -66Z" fill="#ff8fbd" ${S2}/><path d="M0 -90 V-36 M-18 -66 H18" stroke="${O}" stroke-width="1.2"/><path d="M0 -36 q-8 10 0 18 q8 8 0 18" stroke="${O}" stroke-width="1.5" fill="none"/><path d="M-4 -24 l8 -4 M-4 -8 l8 -4" stroke="#ffd84d" stroke-width="4"/>`],
+    ['rocking', 'סוס נדנדה', 'סוס הנדנדה', () => `<path d="M-34 -4 Q0 10 34 -4" stroke="#c98f55" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M-20 -2 V-20 M18 -2 V-20" stroke="#c98f55" stroke-width="5"/><ellipse cx="0" cy="-26" rx="24" ry="10" fill="#fff" ${S2}/><path d="M16 -30 L28 -54 Q36 -52 36 -44 L24 -24Z" fill="#fff" ${S2}/><path d="M24 -54 q-8 4 -10 18" stroke="#ff8fbd" stroke-width="5" fill="none"/><circle cx="30" cy="-46" r="1.8" fill="${O}"/>`],
+    ['dollhouse', 'בית בובות', 'בית הבובות', () => `<rect x="-30" y="-46" width="60" height="46" fill="#fff0f6" ${S2}/><path d="M-36 -44 L0 -72 L36 -44Z" fill="#ff8fbd" ${S2}/><rect x="-8" y="-22" width="16" height="22" rx="7" fill="#b79cff" ${S2}/><rect x="-24" y="-38" width="12" height="12" fill="#bfe6ff" ${S2}/><rect x="12" y="-38" width="12" height="12" fill="#bfe6ff" ${S2}/>`],
+    ['piano', 'פסנתר צעצוע', 'הפסנתר הצעצוע', () => `<rect x="-30" y="-34" width="60" height="26" rx="5" fill="#ff8fbd" ${S2}/><rect x="-26" y="-30" width="52" height="12" fill="#fff" ${S2}/>` + [-17, -8, 1, 10, 19].map(x => `<rect x="${x}" y="-30" width="4" height="7" fill="${O}"/>`).join('') + `<path d="M-24 -8 V0 M24 -8 V0" stroke="${O}" stroke-width="4"/>`],
+    ['balloon', 'בלונים', 'הבלונים', () => `<path d="M0 0 Q-6 -20 -12 -54 M0 0 Q4 -24 12 -62 M0 0 V-46" stroke="${O}" stroke-width="1.3" fill="none"/><ellipse cx="-12" cy="-66" rx="11" ry="13" fill="#ff8fbd" ${S2}/><ellipse cx="12" cy="-74" rx="11" ry="13" fill="#7ec8ff" ${S2}/><ellipse cx="0" cy="-58" rx="11" ry="13" fill="#ffd84d" ${S2}/>`],
+    ['lamp', 'מנורה', 'המנורה', () => `<ellipse cx="0" cy="-2" rx="14" ry="4" fill="#b79cff" ${S2}/><path d="M0 -2 V-70" stroke="${O}" stroke-width="3"/><path d="M-18 -66 L-10 -92 H10 L18 -66Z" fill="#ffe680" ${S2}/><ellipse cx="0" cy="-60" rx="30" ry="10" fill="#fff6b3" opacity=".5"/>`],
+    ['beanbag', 'פוף', 'הפוף', () => `<path d="M-30 0 Q-36 -30 -10 -40 Q10 -46 26 -30 Q38 -10 30 0Z" fill="#b79cff" ${S2}/><path d="M-14 -24 q10 -6 22 0" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>`],
+    ['wardrobe', 'ארון בגדים', 'ארון הבגדים', () => `<rect x="-34" y="-110" width="68" height="108" rx="5" fill="#fff0f6" ${S2}/><path d="M0 -110 V-2" stroke="${O}" stroke-width="1.8"/><circle cx="-5" cy="-56" r="3" fill="#ffcf4d" ${S2}/><circle cx="5" cy="-56" r="3" fill="#ffcf4d" ${S2}/><path d="${bnHeart(-17, -90, 0.8)} ${bnHeart(17, -90, 0.8)}" fill="#ff8fbd"/>`],
+    ['chest', 'ארגז צעצועים', 'ארגז הצעצועים', () => `<rect x="-30" y="-30" width="60" height="30" rx="4" fill="#7ec8ff" ${S2}/><path d="M-32 -30 Q0 -46 32 -30Z" fill="#5fa8e8" ${S2}/><circle cx="-14" cy="-36" r="6" fill="#ff6b6b" ${S2}/><polygon points="${starPts(0, -16, 8, 3.5)}" fill="#ffd84d" ${S2}/>`],
+    ['night', 'שידה עם מנורה', 'השידה', () => `<rect x="-24" y="-40" width="48" height="40" rx="4" fill="#fff" ${S2}/><path d="M-24 -20 H24" stroke="${O}" stroke-width="1.5"/><circle cx="0" cy="-30" r="2.5" fill="#ff8fbd"/><circle cx="0" cy="-10" r="2.5" fill="#ff8fbd"/><path d="M-12 -40 V-50 H12 V-40" fill="none" stroke="${O}" stroke-width="2"/><path d="M-16 -50 L-10 -68 H10 L16 -50Z" fill="#ffd6e7" ${S2}/>`],
+    ['guitar', 'גיטרה', 'הגיטרה', () => `<g transform="rotate(-12)"><rect x="-3" y="-96" width="6" height="50" fill="#a8703f" ${S2}/><path d="M0 -50 q-20 0 -18 18 q-6 10 4 22 q14 12 28 0 q10 -12 4 -22 q2 -18 -18 -18Z" fill="#ff9b6e" ${S2}/><circle cx="0" cy="-26" r="6" fill="${O}"/></g>`],
+    ['fishbowl', 'אקווריום קטן', 'האקווריום', () => `<rect x="-26" y="-6" width="52" height="6" fill="#c98f55" ${S2}/><circle cx="0" cy="-28" r="22" fill="#cfefff" fill-opacity=".8" ${S2}/><path d="M-10 -26 q8 -8 14 0 q-6 8 -14 0Z M4 -26 l6 -5 v10Z" fill="#ff9b3d"/><circle cx="10" cy="-40" r="2" fill="#fff"/>`],
+    ['books', 'ערימת ספרים', 'ערימת הספרים', () => ['#ff6b6b', '#4dabf7', '#ffd43b', '#69db7c'].map((c, i) => `<rect x="${-22 + (i % 2) * 4}" y="${-12 - i * 11}" width="${42 - i * 4}" height="11" rx="2" fill="${c}" ${S2}/>`).join('')],
+    ['globe', 'גלובוס', 'הגלובוס', () => `<path d="M-14 0 h28 l-6 -8 h-16Z" fill="#c98f55" ${S2}/><path d="M0 -8 V-16" stroke="${O}" stroke-width="3"/><circle cx="0" cy="-36" r="20" fill="#7ec8ff" ${S2}/><path d="M-10 -46 q8 -2 10 6 q-6 6 -12 2Z M4 -30 q10 -4 10 6 q-8 4 -10 -6Z" fill="#7ccf7a"/>`],
+    ['cat', 'חתול צעצוע', 'חתול הצעצוע', () => `<ellipse cx="0" cy="-12" rx="18" ry="12" fill="#ffb36b" ${S2}/><path d="M-14 -40 L-12 -52 L-4 -44 M14 -40 L12 -52 L4 -44" fill="#ffb36b" ${S2}/><circle cx="0" cy="-34" r="13" fill="#ffb36b" ${S2}/>${face(0, -34, 0.55)}<path d="M18 -12 q14 -4 12 -20" stroke="#ffb36b" stroke-width="5" fill="none" stroke-linecap="round"/>`],
+  ];
+  const bnItem = id => BN_ITEMS.find(x => x[0] === id);
+  const BN_RPOSE = [['stand', '🧍‍♀️'], ['wave', '👋'], ['hips', '💁‍♀️'], ['dance', '💃'], ['up', '🙌'], ['shy', '🙈']];
+  // a girl's room: { w wallpaper, f floor, b bed, c blanket, r rug, d desk, p pose, x, y (girl), it: [[id, x, y, size*10, flip]] }
+  function bnRoomOf(g) {
+    let R = bnS.h[g.id];
+    if (!R) { const h = bnHash(g.id); R = bnS.h[g.id] = { w: h % BN_WALLS.length, f: h % 3, b: h % BN_BEDS.length, c: h % BN_BLANK.length, r: 1 + h % (BN_RUGS.length - 1), d: 1 + h % (BN_DESKS.length - 1), p: 0, x: 300, y: 388, it: [] }; }
+    R.it = Array.isArray(R.it) ? R.it : [];
+    return R;
+  }
+  const bnItemG = (it, i) => { const I = bnItem(it[0]); if (!I) return ''; const s = (it[3] || 10) / 10; return `<g class="bn-it" data-i="${i}" transform="translate(${it[1]} ${it[2]}) scale(${it[4] ? -s : s} ${s})">${I[3]()}</g>`; };
+  function bnRoomLayer(g, R) {
+    const list = R.it.map((it, i) => [it[2], bnItemG(it, i)]);
+    list.push([R.y, `<g class="bn-it bn-me" data-i="g" transform="translate(${R.x} ${R.y})">${bnGirlAt(g, 0, 0, 205, BN_POSE[(BN_RPOSE[R.p] || BN_RPOSE[0])[0]])}</g>`]);
+    return list.sort((a, b) => a[0] - b[0]).map(x => x[1]).join('');
+  }
+  function bnRoomSVG(g, R, u) {
+    const wp = BN_WALLS[R.w] || BN_WALLS[0], fl = BN_FLOORS[R.f] || BN_FLOORS[0], night = wp[3] === 'stars';
+    let s = `<defs>${bnWallPat(u + 'w', wp)}<pattern id="${u}f" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="${fl[1]}"/>${fl[3] === 1 ? `<path d="M0 29 H60 M30 0 V15 M0 15 H60 M10 15 V30" stroke="${fl[2]}" stroke-width="2"/>` : fl[3] === 2 ? `<rect width="30" height="15" fill="${fl[2]}"/><rect x="30" y="15" width="30" height="15" fill="${fl[2]}"/>` : `<circle cx="15" cy="10" r="1.5" fill="${fl[2]}"/><circle cx="45" cy="24" r="1.5" fill="${fl[2]}"/>`}</pattern></defs>`;
+    s += `<rect width="600" height="306" fill="url(#${u}w)"/>${wp[3] === 'plain' ? `<rect y="40" width="600" height="14" fill="${wp[2]}"/>` : ''}<rect y="300" width="600" height="100" fill="url(#${u}f)"/><rect y="294" width="600" height="10" fill="#fff" ${S2}/>`;
+    // window
+    s += `<rect x="236" y="54" width="128" height="104" rx="8" fill="#fff" ${S2}/><rect x="244" y="62" width="112" height="88" fill="${night ? '#1c1f52' : '#a8dcff'}"/>${night ? `<circle cx="330" cy="86" r="12" fill="#fff6b3"/><circle cx="270" cy="80" r="2" fill="#fff"/>` : `<circle cx="330" cy="86" r="12" fill="#ffd84d"/><path d="M256 126 q8 -12 20 -4 q8 -8 18 0 q10 2 4 10 h-40 q-8 -2 -2 -6Z" fill="#fff"/>`}<path d="M300 62 V150 M244 106 H356" stroke="#fff" stroke-width="5"/>` +
+      `<path d="M228 48 H372" stroke="${O}" stroke-width="4" stroke-linecap="round"/><path d="M230 50 Q244 110 232 166 L252 166 Q262 100 250 50Z M370 50 Q356 110 368 166 L348 166 Q338 100 350 50Z" fill="${BN_BLANK[R.c] || '#ff8fbd'}" ${S2} opacity=".92"/>`;
+    s += (BN_DESKS[R.d] || BN_DESKS[0])[1]() + (BN_BEDS[R.b] || BN_BEDS[0])[1](BN_BLANK[R.c] || '#ff8fbd') + (BN_RUGS[R.r] || BN_RUGS[0])[1]();
+    s += `<g class="bn-items">${bnRoomLayer(g, R)}</g>`;
+    return s;
+  }
+  // the house: all rooms in a cut-away view, 2 rooms a floor, and a living room downstairs where the pets play together
+  function bnHouseSVG(u) {
+    const gl = bnGirls(), fl = Math.ceil(gl.length / 2), RW = 300, RH = 200, top = 160, step = RH + 16, H = top + (fl + 1) * step + 90, mail = bnS.m.l.some(l => !l.r);
+    let s = `<defs><linearGradient id="${u}sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fdcff"/><stop offset="1" stop-color="#fff0f8"/></linearGradient></defs><rect width="800" height="${H}" fill="url(#${u}sky)"/><circle cx="90" cy="70" r="36" fill="#ffd84d"/>` +
+      `<path d="M600 70 q16 -22 36 -6 q16 -16 32 2 q18 0 12 16 h-82 q-12 -4 2 -12Z" fill="#fff"/>`;
+    s += `<rect x="600" y="40" width="40" height="80" fill="#e0716b" ${S}/><circle class="bn-smoke" cx="620" cy="28" r="10" fill="#fff" opacity=".8"/><circle class="bn-smoke" cx="634" cy="10" r="13" fill="#fff" opacity=".6" style="animation-delay:.8s"/>` +
+      `<path d="M50 ${top} L400 22 L750 ${top}Z" fill="#ff8f8f" ${S}/><path d="M120 ${top - 26} L400 46 L680 ${top - 26}" fill="none" stroke="#fff" stroke-width="3" opacity=".5"/><circle cx="400" cy="92" r="30" fill="#bfe6ff" ${S}/><path d="${bnHeart(400, 94, 1.6)}" fill="#ff8fbd"/>` +
+      `<rect x="250" y="${top - 34}" width="300" height="34" rx="17" fill="#fff8e6" ${S2}/><text x="400" y="${top - 11}" text-anchor="middle" font-size="18" font-weight="800" fill="${O}">🏠 הבית של הבנות</text>`;
+    s += `<rect x="78" y="${top}" width="644" height="${(fl + 1) * step + 12}" fill="#ffe6c4" ${S}/>`;
+    gl.forEach((g, i) => {
+      const f = Math.floor(i / 2), x = i % 2 ? 92 : 408, y = top + 12 + f * step, R = bnRoomOf(g);
+      s += `<g class="bn-room" data-g="${g.id}" tabindex="0" role="button" aria-label="החדר של ${bnEsc(bnNm(g))}"><svg x="${x}" y="${y}" width="${RW}" height="${RH}" viewBox="0 0 600 400" preserveAspectRatio="none">${bnRoomSVG(g, R, u + 'r' + i)}</svg><rect x="${x}" y="${y}" width="${RW}" height="${RH}" fill="none" stroke="${O}" stroke-width="3"/>` +
+        `<rect x="${x + RW / 2 - 70}" y="${y + 6}" width="140" height="24" rx="12" fill="#fff" ${S2} opacity=".93"/><text x="${x + RW / 2}" y="${y + 23}" text-anchor="middle" font-size="13" font-weight="700" fill="${O}">החדר של ${bnEsc(bnNm(g).slice(0, 10))}</text></g>`;
+    });
+    if (gl.length % 2) { const y = top + 12 + (fl - 1) * step; s += `<g class="bn-add"><rect x="92" y="${y}" width="${RW}" height="${RH}" fill="#fff8ee" stroke="${O}" stroke-width="3" stroke-dasharray="10 6"/><text x="242" y="${y + 96}" text-anchor="middle" font-size="40">➕</text><text x="242" y="${y + 136}" text-anchor="middle" font-size="15" font-weight="700" fill="${O}">חדר פנוי! לעצב בת חדשה</text></g>`; }
+    // the living room
+    const ly = top + 12 + fl * step, lw = 616;
+    s += `<g class="bn-living"><rect x="92" y="${ly}" width="${lw}" height="${RH}" fill="#fff4e0" ${S}/><rect x="92" y="${ly}" width="${lw}" height="140" fill="#ffe9c9"/>` + Array.from({ length: 15 }, (_, i) => `<rect x="${100 + i * 41}" y="${ly}" width="18" height="140" fill="#ffd9a8" opacity=".5"/>`).join('') +
+      `<rect x="92" y="${ly + 140}" width="${lw}" height="60" fill="#e6b77d"/><path d="M92 ${ly + 140} H708" stroke="${O}" stroke-width="2"/>` +
+      `<rect x="140" y="${ly + 40}" width="110" height="66" rx="6" fill="#2b2b30" ${S2}/><rect x="146" y="${ly + 46}" width="98" height="54" fill="#7ec8ff"/><path d="${bnHeart(195, ly + 76, 1.4)}" fill="#ff8fbd"/><path d="M180 ${ly + 106} V${ly + 140} M210 ${ly + 106} V${ly + 140}" stroke="${O}" stroke-width="3"/>` +
+      `<rect x="470" y="${ly + 86}" width="200" height="50" rx="16" fill="#b79cff" ${S2}/><rect x="460" y="${ly + 66}" width="220" height="34" rx="14" fill="#c9b3ff" ${S2}/><rect x="456" y="${ly + 86}" width="24" height="54" rx="10" fill="#b79cff" ${S2}/><rect x="660" y="${ly + 86}" width="24" height="54" rx="10" fill="#b79cff" ${S2}/>` +
+      `<ellipse cx="400" cy="${ly + 172}" rx="150" ry="18" fill="#ffb0cd" ${S2}/><rect x="300" y="${ly + 30}" width="70" height="50" rx="4" fill="#fff" ${S2}/><path d="M314 ${ly + 70} l14 -22 l12 14 l8 -8 l12 16Z" fill="#7ccf7a"/>` +
+      `<rect x="${92 + lw / 2 - 60}" y="${ly + 6}" width="120" height="24" rx="12" fill="#fff" ${S2}/><text x="400" y="${ly + 23}" text-anchor="middle" font-size="13" font-weight="700" fill="${O}">הסלון 🐾</text>`;
+    const ps = bnPets().slice(0, 8);
+    ps.forEach((p, i) => { const x = 400 - (ps.length - 1) * 34 + i * 68; try { s += placeSvg(petSVG(p), x - 30, ly + 124, 60, 60); } catch {} });
+    s += `</g>`;
+    // ground, door path, mailbox
+    const gy = ly + RH + 12;
+    s += `<rect y="${gy}" width="800" height="${H - gy}" fill="#9be27a"/><path d="M0 ${gy} H800" stroke="${O}" stroke-width="2"/>` +
+      [40, 760].map(x => `<circle cx="${x}" cy="${gy + 4}" r="26" fill="#7ccf7a" ${S2}/><circle cx="${x - 8}" cy="${gy - 6}" r="5" fill="#ff8fbd"/><circle cx="${x + 10}" cy="${gy + 2}" r="5" fill="#ffd84d"/>`).join('') +
+      `<g class="bn-mailbox" role="button" tabindex="0" aria-label="תיבת הדואר"><path d="M736 ${gy - 6} V${gy - 60}" stroke="#a8703f" stroke-width="7"/><rect x="712" y="${gy - 92}" width="50" height="34" rx="14" fill="#ff6f9e" ${S2}/>${mail ? `<rect x="724" y="${gy - 104}" width="26" height="18" rx="2" fill="#fff" ${S2} transform="rotate(-10 737 ${gy - 95})"/><path d="${bnHeart(737, gy - 96, 0.5)}" fill="#ff5f8f"/>` : ''}<path d="M762 ${gy - 86} v-16 h10 v8 h-10" fill="#ffd84d" ${S2}/></g>`;
+    return `<svg viewBox="0 0 800 ${H}" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+  }
+  function bnHouse(pane) {
+    const g = bnRoomId && bnGirls().find(x => x.id === bnRoomId);
+    if (g) { bnRoomEd(pane, g); return; }
+    bnRoomId = null;
+    const scene = bnScene(bnHouseSVG('bh' + (bnUid++)), 'bn-click bn-housesc');
+    scene.addEventListener('click', e => {
+      const r = e.target.closest('.bn-room'); if (r) { SFX.pop(); openGirlHouse(r.dataset.g); return; }
+      if (e.target.closest('.bn-add')) { bnToFash(); return; }
+      if (e.target.closest('.bn-mailbox')) { SFX.ding(); openGirlLetters(); return; }
+      if (e.target.closest('.bn-living')) { const p = bnPets()[0]; if (p && SFX.pet) SFX.pet(p.kind); }
+    });
+    scene.addEventListener('keydown', e => { if (e.key === 'Enter') { const r = e.target.closest('.bn-room'); if (r) openGirlHouse(r.dataset.g); } });
+    pane.replaceChildren(scene, el('p', { class: 'bn-hint' }, 'למטה בסלון כל החיות משחקות ביחד 🐾 · לוחצים על תיבת הדואר כדי לקרוא מכתבים 💌'),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => bnSnap(scene.querySelector('svg'), 'הבית של הבנות') }, '📸 לצלם את הבית למדבקה')));
+  }
+  function bnRoomEd(pane, g) {
+    const R = bnRoomOf(g), u = 'be' + (bnUid++);
+    const save = () => bnSave();
+    const scene = bnScene(`<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">${bnRoomSVG(g, R, u)}</svg>`, 'bn-roomsc'), svg = scene.querySelector('svg'), layer = svg.querySelector('.bn-items');
+    const tools = el('div', { class: 'chips bn-tools' });
+    const relayer = () => { layer.innerHTML = bnRoomLayer(g, R); mark(); };
+    const mark = () => layer.querySelectorAll('.bn-it').forEach(n => n.classList.toggle('sel', n.dataset.i === String(bnSelIt)));
+    const toSvg = (x, y) => { const p = svg.createSVGPoint(); p.x = x; p.y = y; return p.matrixTransform(svg.getScreenCTM().inverse()); };
+    const cl = (v, a, b) => Math.round(Math.max(a, Math.min(b, v)));
+    const drawTools = () => {
+      const it = bnSelIt != null && bnSelIt !== 'g' ? R.it[bnSelIt] : null;
+      if (it) tools.replaceChildren(el('b', {}, (bnItem(it[0]) || [])[1] || ''),
+        el('button', { type: 'button', class: 'chip', onclick: () => { it[4] = it[4] ? 0 : 1; save(); relayer(); } }, '↔️ להפוך'),
+        el('button', { type: 'button', class: 'chip', onclick: () => { it[3] = Math.max(5, (it[3] || 10) - 2); save(); relayer(); } }, '➖ קטן'),
+        el('button', { type: 'button', class: 'chip', onclick: () => { it[3] = Math.min(24, (it[3] || 10) + 2); save(); relayer(); } }, '➕ גדול'),
+        el('button', { type: 'button', class: 'chip', onclick: () => { R.it.splice(bnSelIt, 1); bnSelIt = null; save(); SFX.boop(); relayer(); drawTools(); } }, '🗑️ למחוק'));
+      else tools.replaceChildren(el('span', { class: 'bn-hint' }, bnTool === 'erase' ? '🧽 מחק: לוחצים על דבר בחדר כדי להוריד אותו' : bnTool ? `👆 לוחצים בחדר כדי לשים: ${bnItem(bnTool)[1]}` : `✋ גוררים דברים (וגם את ${bnNm(g)}) למקום אחר`));
+    };
+    const add = (t, x, y) => {
+      if (R.it.length >= 60) { toast(stickerHTML('bed'), 'החדר כבר מלא! אפשר למחוק משהו 🧽'); return; }
+      R.it.push([t, cl(x, 20, 580), cl(y, 40, 398), 10, 0]); bnSelIt = R.it.length - 1; save(); SFX.pop(); relayer(); drawTools();
+    };
+    let drag = null;
+    svg.addEventListener('pointerdown', e => {
+      const p = toSvg(e.clientX, e.clientY), hit = e.target.closest('.bn-it');
+      if (hit) {
+        const i = hit.dataset.i;
+        if (bnTool === 'erase' && i !== 'g') { R.it.splice(+i, 1); bnSelIt = null; save(); SFX.boop(); relayer(); drawTools(); e.preventDefault(); return; }
+        bnSelIt = i === 'g' ? 'g' : +i; mark(); drawTools();
+        const o = i === 'g' ? { get x() { return R.x; }, get y() { return R.y; } } : { x: R.it[+i][1], y: R.it[+i][2] };
+        drag = { i, n: hit, dx: o.x - p.x, dy: o.y - p.y, moved: false };
+        try { svg.setPointerCapture(e.pointerId); } catch {} e.preventDefault(); return;
+      }
+      if (bnTool && bnTool !== 'erase') { add(bnTool, p.x, p.y); return; }
+      bnSelIt = null; mark(); drawTools();
+    });
+    svg.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const p = toSvg(e.clientX, e.clientY), x = cl(p.x + drag.dx, 20, 580), y = cl(p.y + drag.dy, drag.i === 'g' ? 300 : 40, 398);
+      if (drag.i === 'g') { R.x = x; R.y = y; drag.n.setAttribute('transform', `translate(${x} ${y})`); }
+      else { const it = R.it[+drag.i], s = (it[3] || 10) / 10; it[1] = x; it[2] = y; drag.n.setAttribute('transform', `translate(${x} ${y}) scale(${it[4] ? -s : s} ${s})`); }
+      drag.moved = true;
+    });
+    const end = () => { if (!drag) return; if (drag.moved) { save(); relayer(); } drag = null; };
+    svg.addEventListener('pointerup', end); svg.addEventListener('pointercancel', end);
+    // palette
+    const ic = t => `<svg viewBox="-36 -82 72 84" xmlns="http://www.w3.org/2000/svg">${bnItem(t)[3]()}</svg>`;
+    const pal = el('div', { class: 'bn-ipal', role: 'group', 'aria-label': 'דברים לחדר' });
+    const markPal = () => pal.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.t || null) === bnTool)));
+    const pbtn = (t, icon, name, fn) => el('button', { type: 'button', 'data-t': t || '', title: name, onclick: fn }, el('span', { class: 'ic', html: icon }), el('small', {}, name));
+    pal.append(pbtn(null, '<span>✋</span>', 'להזיז', () => { bnTool = null; markPal(); drawTools(); }), pbtn('erase', '<span>🧽</span>', 'מחק', () => { bnTool = 'erase'; bnSelIt = null; mark(); markPal(); drawTools(); SFX.boop(); }),
+      ...BN_ITEMS.map(([t, name]) => {
+        const b = pbtn(t, ic(t), name, () => { bnTool = bnTool === t ? null : t; bnSelIt = null; mark(); markPal(); drawTools(); });
+        b.addEventListener('pointerdown', e => {
+          if (e.button) return;
+          const x0 = e.clientX, y0 = e.clientY; let ghost = null;
+          const mv = ev => {
+            if (!ghost && Math.hypot(ev.clientX - x0, ev.clientY - y0) > 12) { ghost = el('div', { class: 'bn-ghost', html: ic(t) }); document.body.append(ghost); }
+            if (ghost) { ghost.style.left = ev.clientX + 'px'; ghost.style.top = ev.clientY + 'px'; ev.preventDefault(); }
+          };
+          const up = ev => {
+            document.removeEventListener('pointermove', mv); document.removeEventListener('pointerup', up); document.removeEventListener('pointercancel', up);
+            if (!ghost) return; ghost.remove();
+            const r = svg.getBoundingClientRect();
+            if (ev.type === 'pointerup' && ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom) { const p = toSvg(ev.clientX, ev.clientY + 30); add(t, p.x, p.y); }
+            const block = ce => { ce.stopImmediatePropagation(); ce.preventDefault(); };
+            b.addEventListener('click', block, { once: true, capture: true }); setTimeout(() => b.removeEventListener('click', block, true), 60);
+          };
+          document.addEventListener('pointermove', mv, { passive: false }); document.addEventListener('pointerup', up); document.addEventListener('pointercancel', up);
+        });
+        return b;
+      }));
+    markPal();
+    // design choices
+    const redraw = () => { save(); SFX.pop(); bnDraw(); };
+    const thumb = (vb, inner, on, fn, label) => el('button', { type: 'button', class: 'bn-th', 'aria-pressed': String(on), title: label, onclick: fn }, el('span', { class: 'ic', html: `<svg viewBox="${vb}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>` }), el('small', {}, label));
+    const sec = (title, ...kids) => el('details', { class: 'bn-box', open: true }, el('summary', {}, title), el('div', { class: 'bn-thumbs' }, ...kids));
+    const wallSec = sec(`🎨 טפט (${BN_WALLS.length})`, ...BN_WALLS.map((w, i) => thumb('0 0 80 60', `<defs>${bnWallPat(u + 'tw' + i, w)}</defs><rect width="80" height="60" rx="8" fill="url(#${u}tw${i})"/>`, R.w === i, () => { R.w = i; redraw(); }, w[0])));
+    const floorSec = sec('🪵 רצפה', ...BN_FLOORS.map((f, i) => thumb('0 0 80 60', `<rect width="80" height="60" rx="8" fill="${f[1]}"/><path d="M0 20 H80 M0 40 H80" stroke="${f[2]}" stroke-width="3"/>`, R.f === i, () => { R.f = i; redraw(); }, f[0])));
+    const bedSec = sec(`🛏️ מיטה (${BN_BEDS.length})`, ...BN_BEDS.map((b, i) => thumb('380 90 225 270', b[1](BN_BLANK[R.c]), R.b === i, () => { R.b = i; redraw(); }, b[0])));
+    const blankSec = el('div', { class: 'bn-sws' }, el('b', {}, 'צבע השמיכה והווילון:'), ...BN_BLANK.map((c, i) => { const b = el('button', { type: 'button', class: 'bn-sw', 'aria-pressed': String(R.c === i), 'aria-label': 'צבע', onclick: () => { R.c = i; redraw(); } }); b.style.background = c; return b; }));
+    const rugSec = sec('🧶 שטיח', ...BN_RUGS.map((r, i) => thumb('160 330 280 70', r[1]() || `<text x="300" y="375" text-anchor="middle" font-size="30">🚫</text>`, R.r === i, () => { R.r = i; redraw(); }, r[0])));
+    const deskSec = sec('✏️ שולחן', ...BN_DESKS.map((d, i) => thumb('20 120 200 240', d[1]() || `<text x="120" y="260" text-anchor="middle" font-size="60">🚫</text>`, R.d === i, () => { R.d = i; redraw(); }, d[0])));
+    const poseSec = el('div', { class: 'bn-sws' }, el('b', {}, `איך ${bnNm(g)} עומדת?`), ...BN_RPOSE.map(([p, e], i) => el('button', { type: 'button', class: 'chip', 'aria-pressed': String((R.p || 0) === i), onclick: () => { R.p = i; redraw(); } }, e)));
+    const others = bnGirls().filter(x => x !== g);
+    const nav = el('div', { class: 'bn-who' }, el('button', { type: 'button', class: 'btn', onclick: () => { SFX.pop(); openGirlHouse(); } }, '🏠 לכל הבית'), ...others.slice(0, 12).map(x => el('button', { type: 'button', class: 'bn-gbtn', title: 'החדר של ' + bnNm(x), onclick: () => { SFX.pop(); openGirlHouse(x.id); } }, bnHead(x), el('small', {}, bnNm(x)))));
+    const clear = bnConfirm ? el('span', { class: 'chips' }, 'להוריד את כל הדברים מהחדר?', el('button', { type: 'button', class: 'btn', onclick: () => { R.it = []; bnConfirm = false; bnSelIt = null; save(); bnDraw(); } }, 'כן'), el('button', { type: 'button', class: 'btn', onclick: () => { bnConfirm = false; bnDraw(); } }, 'לא'))
+      : el('button', { type: 'button', class: 'btn', disabled: !R.it.length, onclick: () => { bnConfirm = true; bnDraw(); } }, '🧹 לנקות את החדר');
+    drawTools(); mark();
+    pane.replaceChildren(nav, el('h4', { class: 'bn-rtitle' }, '🛏️ החדר של ', bnHead(g), ` ${bnNm(g)}`), scene, tools, el('div', { class: 'bn-lbl' }, `🧸 דברים לחדר (${BN_ITEMS.length}) — לוחצים ואז לוחצים בחדר, או גוררים פנימה:`), pal,
+      wallSec, floorSec, bedSec, blankSec, rugSec, deskSec, poseSec,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { bnSnap(svg, `החדר של ${bnNm(g)}`); bnCoin(2, 'חדר מעוצב 🛏️'); } }, '📸 לצלם את החדר למדבקה'), clear));
+  }
+
+  // ---------- 💌 letters from the girls ----------
+  const BN_OPEN = ['{me},', 'היי {me}! 💗', 'שלום שלום {me}!', 'ל{me}, הכי מיוחדת בעולם,', 'בוקר טוב {me}! ☀️', 'היי את! כן, את 💖', 'ל{me} האהובה,', 'מה נשמע {me}?'];
+  const BN_BODY = [
+    'היום בשיעור {sub} הייתי ממש טובה! המורה {tch} אמרה שאני כוכבת ⭐', 'יש לי כבר {stars} כוכבים בתעודה! את חושבת שאקבל "מצוין מאוד"? 📜', 'בהפסקה שיחקתי עם {fr} בקלאס. היא קופצת הכי רחוק בכל הכיתה! 🛝',
+    'השיעור הכי אהוב עליי זה {sub}. ואצלך? 📚', 'בשיעור מדעים עשינו הר געש! הקצף עף כמעט עד התקרה 🌋', 'למדתי היום לכתוב מילה חדשה בלי אף טעות! ✏️', '{fr} נתנה לי חצי מהכריך שלה בהפסקה. איזו חברה טובה 🥪',
+    'המורה {tch} הדביקה לי מדבקה של כוכב על המחברת. הדבקתי אותה גם על הלב 💖', 'בשיעור מוזיקה ניגנתי על הקסילופון מנגינה שלמה! 🎵', 'בשיעור ספורט קפצתי בחבל עשר פעמים ברצף! 🪢', 'ציירתי בשיעור אומנות ציור בשבילך. אני שומרת לך אותו 🎨',
+    'שכחתי את הקלמר בבית, אבל {fr} השאילה לי עיפרון ורוד ✏️', 'בתמונת המחזור עשיתי פרצוף מצחיק. אל תספרי לאף אחד 🤭', 'בחשבון היה תרגיל ממש קשה, אבל חשבתי חזק חזק ופתרתי אותו! 🔢',
+    'הטפט בחדר שלי ({wall}) כל כך יפה! כל בוקר אני מחייכת אליו 🏠', 'אני ממש אוהבת את המיטה שבחרת לי ({bed}). אני ישנה בה כמו נסיכה 😴', 'הכי אהוב עליי בחדר זה {item}. תבואי לראות? 🧸',
+    'בלילה אני מספרת סיפורים ל{item0} עד שאני נרדמת 🌙', 'סידרתי את כל החדר שלי לבד! טוב, כמעט לבד 🧹', 'יש לי בחדר {n} דברים שעיצבת לי. ספרתי! 🔢', 'החדר שלי עוד די ריק... אולי נעצב אותו ביחד? יש לי מלא רעיונות! 🎨',
+    'הייתי רוצה עוד משהו קטן לחדר... אולי עציץ? או דובי? את מחליטה 🪴', '{pet} ביקר/ה אותי בחדר והתכרבל/ה לי על המיטה 🐾', 'תמסרי ל{pet} חיבוק ממני! הכי חמוד/ה בעולם 💕', 'שיחקתי היום עם {pet} בכדור. מי ניצח? כמובן ש{pet} 😄',
+    'ציירתי את {pet} בשיעור אומנות. יצא כמעט כמו במציאות 🖍️', 'נראה לי ש{pet} רוצה חטיף. אולי תביאי משהו טעים? 🍪', '{pet} ואני ישבנו ליד החלון והסתכלנו על העננים ☁️', 'ראיתי בלוח שלך ש{evw} יש "{ev}". אני מחזיקה לך אצבעות! 🤞',
+    'איך מתכוננים ל"{ev}"? אם צריך עזרה, אני פה 💪', 'אני כל כך מתרגשת בשבילך! {evw} יש לך "{ev}" ✨', 'כתבתי לעצמי לזכור: {evw} יש לך "{ev}". תספרי לי איך היה! 📝', '{holw}! אני כבר מתכוננת 🎉',
+    'מה את הכי אוהבת ב{hol}? אני את האוכל, ברור 😋', 'סתם רציתי להגיד שאת הכי מיוחדת בעולם 💖', 'היום ראיתי קשת בענן וחשבתי עלייך 🌈', 'אכלתי גלידה בטעם תות והיא הייתה מושלמת 🍓🍦',
+    'יש לי סוד: כשאת מעצבת לי בגדים חדשים אני מרגישה כמו דוגמנית 👗', 'חלמתי הלילה שעפנו ביחד על ענן ורוד ☁️💗', 'אני לומדת לשרוק. בינתיים יוצא רק פפפפ 😆', 'מצאתי אבן בצורת לב! שמרתי אותה בשבילך 💗',
+    'בא לי לעשות איתך מסיבת פיג׳מות. מביאה פופקורן? 🍿', 'ניסיתי לאפות עוגיות. הן יצאו קצת שרופות, אבל טעימות 🍪', 'אם היית יכולה להיות כל חיה בעולם, איזו היית בוחרת? אני דולפינה 🐬', 'שרתי במקלחת שיר שלם ואף אחד לא שמע. חוץ מהסבון 🧼',
+    'תודה שאת תמיד דואגת לנו. אנחנו אוהבות אותך המון 🫶', 'גיליתי שאם מסתכלים על הירח מספיק זמן, הוא כאילו מחייך 🌙', 'הכנתי לך צמיד חברות בצבעים שאת הכי אוהבת 📿', 'היום הייתי קצת עצובה, אבל אז נזכרתי בך וחייכתי 😊',
+    'אני מתאמנת על ריקוד חדש. בהופעה הבאה את יושבת בשורה הראשונה! 💃', 'יש לי רעיון: בואי נמציא יחד מילה חדשה. למשל "ורודלי" 🤭', 'קראתי ספר על נסיכה שהייתה גם ממציאה. הכי אהבתי! 📖', 'ספרתי כוכבים בשמיים, הגעתי ל-47 ואז נרדמתי ⭐',
+    '{fr} ואני המצאנו לחיצת יד סודית. אני אלמד גם אותך 🤝', 'אני ו{fr} עשינו מסיבת תה בחדר שלי ☕', '{fr} ביקשה שאגיד לך שלום! אז... שלום! 👋', 'נהיה קצת קריר בבקרים. הוצאתי את הסוודר הכי רך שלי 🧶',
+    'אני מחכה לגשם הראשון. אני אוהבת את הריח שלו 🌧️', 'הבגדים שעיצבת לי כל כך נוחים! כולן בכיתה שאלו מאיפה הם 👚', 'היום התלבשתי בצבע הכי אהוב עליי. נחשי איזה? רמז: הצבע של הלב שלך 💗', 'אני גרה בבית הכי יפה בעולם, עם החברות הכי טובות. תודה! 🏠',
+    'בסלון ראיתי את כל החיות ישנות ביחד בערימה. הכי חמוד שיש 🐾', 'אני כותבת לך מהחדר שלי, ליד החלון. השמש מחממת לי את האף ☀️', 'קיבלתי כוכב ב{sub}! אמרתי לכולם שאת עזרת לי ⭐'];
+  const BN_CLOSE = ['באהבה גדולה,', 'שלך תמיד,', 'מחכה למכתב ממך!', 'חיבוק ענק,', 'נשיקות וחיבוקים,', 'החברה הכי טובה שלך,', 'עד מחר! 👋', 'בלב מלא אהבה,'];
+  const BN_PS = ['נ.ב. אל תשכחי לשתות מים! 💧', 'נ.ב. את מדהימה 💖', 'נ.ב. ציירתי לך לב בפינה ↙️', 'נ.ב. תעני לי? 🥺', 'נ.ב. מחר אכתוב שוב, מבטיחה!', ''];
+  const BN_REACT = ['קראתי את המכתב שלך שלוש פעמים! 💖', 'קיבלתי את התשובה שלך וקפצתי משמחה! 🤸‍♀️', 'הדבקתי את המכתב שלך על הקיר בחדר שלי 📌', 'כתבת לי "{q}" — וזה שימח אותי כל היום! 🥰', 'הראיתי את המכתב שלך לכל הבנות. כולן קינאו! 😄',
+    'שמתי את המכתב שלך מתחת לכרית. חלמתי חלומות מתוקים 😴', 'רקדתי ריקוד שמחה כשקיבלתי את התשובה שלך! 💃', '"{q}" — זה המשפט הכי יפה שקראתי השבוע! ✨', 'וואו, ענית לי! אני הכי מאושרת בעולם 🌈', 'שמרתי את המכתב שלך בקופסת האוצרות שלי 💎', 'התשובה שלך הצחיקה אותי עד שהבטן כאבה 😂', 'תודה על התשובה! חיבוק ענק בחזרה 🤗'];
+  const BN_STAT = [['#fff6fa', '#ff8fbd'], ['#f3fbff', '#7ec8ff'], ['#fffbea', '#ffcf4d'], ['#f6f1ff', '#b79cff'], ['#f1fff4', '#7ccf7a'], ['#fff3ec', '#ff9b6e']];
+  const bnFill = (tp, c) => tp.replace(/\{(\w+)\}/g, (m, k) => c[k] != null ? c[k] : m);
+  const bnNeeds = tp => [...tp.matchAll(/\{(\w+)\}/g)].map(m => m[1]);
+  function bnCtx(g, t) {
+    const gl = bnGirls(), others = gl.filter(x => x !== g), ps = bnPets(), c = { g: bnNm(g), me: bnMe() || 'חברה שלי' }, h = bnHash(t + g.id);
+    if (others.length) c.fr = bnNm(others[h % others.length]);
+    const tch = bnTeacher(); if (tch !== g) c.tch = tch ? bnNm(tch) : 'שלנו (כלומר את! 😄)';
+    const cd = bnCard(g.id), best = BN_SUBJ.slice().sort((a, b) => (cd[b[0]] || 0) - (cd[a[0]] || 0))[0];
+    c.sub = (cd[best[0]] ? best : BN_SUBJ[h % 6])[2]; const st = bnStars(g.id); if (st) c.stars = st;
+    const R = bnRoomOf(g);
+    {
+      c.wall = (BN_WALLS[R.w] || BN_WALLS[0])[0]; c.bed = (BN_BEDS[R.b] || BN_BEDS[0])[0];
+      const its = (R.it || []).map(it => bnItem(it[0])).filter(Boolean);
+      if (its.length) { const I = its[h % its.length]; c.item = I[2]; c.item0 = I[2].replace(/^ה/, ''); c.n = its.length; if (its.length < 3) c.few = 1; } else c.empty = 1;
+    }
+    if (ps.length) c.pet = ps[h % ps.length].name || 'החיה שלך';
+    try {
+      for (let i = 1; i <= 14 && !c.ev; i++) { const k = addDays(t, i), e = (events[k] || [])[0]; if (e && e.text) { c.ev = (e.test ? 'מבחן ב' : '') + e.text; c.evw = i === 1 ? 'מחר' : `בעוד ${i} ימים`; } }
+      for (let i = 1; i <= 21 && !c.hol; i++) { const k = addDays(t, i), hs = dayInfo(k).hols || []; if (hs[0]) { c.hol = holName(hs[0]); c.holw = i === 1 ? `מחר ${c.hol}` : `עוד ${i} ימים ל${c.hol}`; } }
+    } catch {}
+    return c;
+  }
+  function bnMakeLetter(t) {
+    const gl = bnGirls(); if (!gl.length) return null;
+    const L = bnS.m.l, lastOf = g => { for (let i = L.length - 1; i >= 0; i--) if (L[i].g === g.id) return L[i].d; return ''; };
+    const g = gl.slice().sort((a, b) => lastOf(a).localeCompare(lastOf(b)) || bnHash(t + a.id) - bnHash(t + b.id))[0];
+    const c = bnCtx(g, t), recent = new Set(L.slice(-14).flatMap(l => l.tp || [])), h = bnHash(t + g.id);
+    const ok = BN_BODY.map((tp, i) => [tp, i]).filter(([tp, i]) => bnNeeds(tp).every(k => c[k] != null) && !(i === 20 && !c.empty) && !(i === 21 && !c.few && !c.empty));
+    const fresh = ok.filter(([, i]) => !recent.has(i)), pool = fresh.length >= 2 ? fresh : ok;
+    const special = pool.filter(([tp]) => /\{(ev|hol|pet|wall|bed|item|item0|stars|n)\}/.test(tp));
+    const a = (special.length && h % 3 ? special : pool)[h % (special.length && h % 3 ? special.length : pool.length)];
+    const rest = pool.filter(x => x !== a), b = rest.length ? rest[(h >> 3) % rest.length] : null;
+    const fill = tp => bnFill(tp, c);
+    return { id: 'l' + Date.now().toString(36) + bnRand(999), d: t, g: g.id, n: bnNm(g), s: h % BN_STAT.length, tp: [a[1], b && b[1]].filter(x => x != null),
+      x: [bnFill(BN_OPEN[h % BN_OPEN.length], c), fill(a[0]) + (b ? ' ' + fill(b[0]) : ''), BN_PS[(h >> 5) % BN_PS.length]].filter(Boolean).join('\n'), c: BN_CLOSE[(h >> 2) % BN_CLOSE.length] };
+  }
+  function bnMailCheck() {
+    if (!bnGirls().length) return null;
+    const t = localToday(), L = bnS.m.l;
+    let l = L.find(x => x.d === t);
+    if (!l) { l = bnMakeLetter(t); if (l) { L.push(l); if (L.length > 60) L.splice(0, L.length - 60); bnSave(); } }
+    return l;
+  }
+  const bnReactReady = l => l.rep && l.rd && l.rd < localToday();
+  const bnEnvSVG = (open, col = '#ff8fbd') => `<svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="58" height="38" rx="5" fill="#fff" ${S2}/>${open ? `<path d="M3 8 L32 -12 L61 8" fill="${col}" ${S2}/><rect x="10" y="2" width="44" height="22" rx="2" fill="#fffdf5" ${S2}/>` : `<path d="M3 8 L32 30 L61 8" fill="${col}" fill-opacity=".35" ${S2}/>`}<path d="${bnHeart(32, open ? 12 : 28, 0.9)}" fill="#ff5f8f"/></svg>`;
+  const bnDate = d => { try { const { m, d: dd } = fromIso(d); return `${dd} ב${MONTHS[m]}`; } catch { return d; } };
+  function bnLetters(pane) {
+    bnMailCheck();
+    const L = bnS.m.l, t = localToday();
+    const l = bnLetId && L.find(x => x.id === bnLetId);
+    if (l) { bnLetterView(pane, l); return; }
+    const today = L.find(x => x.d === t);
+    const top = today ? el('button', { type: 'button', class: 'bn-today' + (today.r ? '' : ' new'), onclick: () => { SFX.pop(); openGirlLetters(today.id); } },
+      el('span', { class: 'bn-env', html: bnEnvSVG(!!today.r, BN_STAT[today.s][1]) }), el('span', {}, el('b', {}, today.r ? `המכתב של היום מ${today.n} 💌` : `📬 הגיע מכתב חדש מ${today.n}!`), el('small', {}, today.r ? 'אפשר לקרוא שוב או לענות' : 'לוחצים כדי לפתוח את המעטפה'))) : null;
+    const g = id => bnGirls().find(x => x.id === id);
+    const arch = L.slice().reverse().map(x => {
+      const gg = g(x.g), st = !x.r ? '✉️ חדש' : bnReactReady(x) ? '💗 ענתה לך' : x.rep ? '↩️ ענית' : '💌 נקרא';
+      return el('button', { type: 'button', class: 'bn-arch' + (x.r ? '' : ' new'), onclick: () => { SFX.pop(); openGirlLetters(x.id); } }, gg ? bnHead(gg) : el('span', { class: 'bn-head' }, '👧'), el('span', {}, el('b', {}, x.n), el('small', {}, bnDate(x.d))), el('em', {}, st));
+    });
+    pane.replaceChildren(top, el('h4', {}, `📚 כל המכתבים (${L.length})`), el('div', { class: 'bn-archs' }, ...arch));
+  }
+  function bnLetterView(pane, l) {
+    const g = bnGirls().find(x => x.id === l.g), [bg, ac] = BN_STAT[l.s] || BN_STAT[0];
+    const first = !l.r; if (first) { l.r = 1; bnSave(); bnCoin(2, 'מכתב מהבנות 💌'); try { renderStrip(); } catch {} }
+    if (bnReactReady(l) && !l.rs) { l.rs = 1; if (!l.re) l.re = bnFill(BN_REACT[bnHash(l.id) % BN_REACT.length], { q: l.rep.slice(0, 26) + (l.rep.length > 26 ? '...' : '') }); bnSave(); try { renderStrip(); } catch {} }
+    const paper = el('div', { class: 'bn-paper' + (first ? ' open' : '') });
+    paper.style.setProperty('--bg', bg); paper.style.setProperty('--ac', ac);
+    paper.append(el('div', { class: 'bn-paper-h' }, g ? el('img', { class: 'bn-pface', src: bnImg(g, { view: 'head' }), alt: '' }) : null, el('div', {}, el('small', {}, `${bnDate(l.d)} · ✉️ מכתב מ${l.n}`))),
+      ...l.x.split('\n').map((p, i) => el('p', { class: i === 0 ? 'hi' : p.startsWith('נ.ב') ? 'ps' : '' }, p)), el('p', { class: 'sig' }, l.c, el('br'), el('b', {}, `${l.n} 💕`)));
+    const reply = el('div', { class: 'bn-reply' });
+    if (!l.rep) {
+      const ta = el('textarea', { maxLength: 300, rows: 3, placeholder: `לכתוב תשובה ל${l.n}...`, 'aria-label': 'תשובה' });
+      reply.append(el('b', {}, `✍️ לענות ל${l.n}:`), ta, el('div', { class: 'chips' }, ...['💖', '😂', '🌈', '⭐', '🐾', '🤗'].map(e => el('button', { type: 'button', class: 'chip', onclick: () => { ta.value = (ta.value + e).slice(0, 300); ta.focus(); } }, e)),
+        el('button', { type: 'button', class: 'btn main', onclick: () => {
+          const v = ta.value.trim(); if (!v) { ta.focus(); return; }
+          l.rep = v; l.rd = localToday(); bnSave(); SFX.ding(); bnCoin(3, 'מכתב תשובה ✍️'); toast(stickerHTML('heart'), `📮 התשובה נשלחה! ${l.n} תענה לך מחר 💗`); bnDraw();
+        } }, '📮 לשלוח')));
+    } else {
+      reply.append(el('div', { class: 'bn-mine' }, el('small', {}, '✍️ התשובה שלך:'), el('p', {}, l.rep)),
+        bnReactReady(l) ? el('div', { class: 'bn-react' }, g ? bnHead(g) : null, el('div', {}, el('small', {}, `💗 ${l.n} קיבלה את התשובה שלך:`), el('p', {}, l.re))) : el('p', { class: 'muted' }, `📬 ${l.n} תקרא את התשובה שלך ותגיב מחר!`));
+    }
+    pane.replaceChildren(el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn', onclick: () => { SFX.pop(); openGirlLetters(); } }, '📚 לכל המכתבים'),
+      g ? el('button', { type: 'button', class: 'btn', onclick: () => openGirlHouse(g.id) }, `🛏️ לחדר של ${l.n}`) : null), paper, reply);
+    if (first) { SFX.ding(); }
+  }
+
+  // ---------- hooks: board pill, MORE tiles, dialog cleanup ----------
+  { const bnStrip0 = renderStrip;
+    renderStrip = function (...a) {
+      const r = bnStrip0.apply(this, a);
+      try {
+        const s = $('#strip'); if (!s || s.querySelector('.bn-pill')) return r;
+        const l = bnMailCheck(), t = localToday();
+        if (l && !l.r) s.prepend(el('button', { type: 'button', class: 'pill bn-pill', style: 'border-color:var(--accent)', onclick: () => openGirlLetters(l.id) }, el('span', { class: 'ic bn-pill-ic', html: bnEnvSVG(false, BN_STAT[l.s][1]) }), `מכתב מ${l.n}! 💌`));
+        else { const w = bnS.m.l.find(x => bnReactReady(x) && !x.rs); if (w) s.prepend(el('button', { type: 'button', class: 'pill bn-pill', onclick: () => openGirlLetters(w.id) }, el('span', { class: 'ic bn-pill-ic', html: bnEnvSVG(true, BN_STAT[w.s][1]) }), `💗 ${w.n} ענתה לך!`)); }
+        void t;
+      } catch {}
+      return r;
+    };
+    try { renderStrip(); } catch {} }
+  try {
+    [['backpack', 'בית הספר של בנות האופנה', () => openGirlSchool()], ['bed', 'הבית של בנות האופנה', () => openGirlHouse()], ['rainbowheart', 'מכתבים מבנות האופנה', () => openGirlLetters()]]
+      .forEach(t => { if (!MORE.some(m => m[1] === t[1])) MORE.push(t); });
+  } catch {}
+  try { const d = $('#bnDlg'); if (d) d.addEventListener('close', () => { bnStop(); document.querySelectorAll('.bn-ghost').forEach(n => n.remove()); try { renderStrip(); } catch {} }); } catch {}
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
