@@ -6208,6 +6208,146 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
 .g8-dt-cheer.party span { animation: g8dance .7s ease-in-out infinite; transform-origin: 50% 100%; }
 @keyframes g8hop { 40% { transform: translateY(-16px) rotate(-6deg); } }
 @media (prefers-reduced-motion: reduce) { .g8-dancer, .g8-dt-cheer.party span, .g8-bulb { animation: none; } }
+/* ===== 🏥 clinic 5 (clinic2 agent, round 7d): 🚑 ambulance, 🦴 x-ray, 🍼 NICU ===== */
+.cl2-lrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cl2-lbtn { display: grid; justify-items: center; gap: 2px; padding: 8px 6px; border-radius: 18px; border: 2px solid var(--line); background: var(--card); color: inherit; font: inherit; cursor: pointer; box-shadow: 0 3px 0 rgb(0 0 0 / .06); }
+.cl2-lbtn:hover { transform: translateY(-2px); }
+.cl2-lbtn.amb { background: linear-gradient(#fff0f3, #ffe0e8); border-color: #ff9ab0; color: #1f2a44; }
+.cl2-lbtn.xr { background: linear-gradient(#e6efff, #d5e2ff); border-color: #8fa8e8; color: #1f2a44; }
+.cl2-lbtn.nicu { background: linear-gradient(#fff8e6, #ffeedd); border-color: #ffc98a; color: #1f2a44; }
+.cl2-lbtn .ic { width: 64px; height: 40px; } .cl2-lbtn .ic svg { width: 100%; height: 100%; }
+.cl2-lbtn .e { font-size: 2em; line-height: 40px; }
+.cl2-lbtn small { color: #5b6b8c; font-size: .75em; }
+.cl2-amb .cl2-l1, .cl2-sceneamb .cl2-l1, .cl2-lbtn .cl2-l1 { animation: cl2flash .5s steps(1) infinite; }
+.cl2-amb .cl2-l2, .cl2-sceneamb .cl2-l2, .cl2-lbtn .cl2-l2 { animation: cl2flash .5s steps(1) infinite .25s; }
+@keyframes cl2flash { 50% { fill: #fff6a8; } }
+/* map */
+.cl2-map { position: relative; border-radius: 18px; overflow: hidden; border: 2px solid var(--line); aspect-ratio: 400 / 240; max-width: 640px; width: 100%; justify-self: center; background: #bfe8a6; }
+.cl2-mapsvg, .cl2-mapsvg svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cl2-blink { animation: cl2blink 1s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes cl2blink { 50% { opacity: .2; transform: scale(1.15); } }
+.cl2-route { animation: cl2dash 1s linear infinite; }
+@keyframes cl2dash { to { stroke-dashoffset: -15; } }
+.cl2-mapspot { position: absolute; width: 15%; height: 22%; transform: translate(-50%, -50%); background: transparent; border: 0; border-radius: 50%; cursor: pointer; padding: 0; }
+.cl2-mapspot:focus-visible { outline: 3px solid #ffb020; }
+.cl2-sos { position: absolute; top: -6px; right: 0; font-size: 1.4em; animation: pzglow 1s ease-in-out infinite; }
+.cl2-amb { position: absolute; width: 13%; aspect-ratio: 100 / 62; transform: translate(-50%, -78%); pointer-events: none; z-index: 2; filter: drop-shadow(0 3px 2px rgb(0 0 0 / .25)); }
+.cl2-amb svg { width: 100%; height: 100%; display: block; }
+.cl2-amb.moving svg { animation: cl2bump .25s ease-in-out infinite; }
+@keyframes cl2bump { 50% { transform: translateY(-4%); } }
+.cl2-drive { align-items: center; justify-content: center; }
+.cl2-pedal { font-size: 1.15em; padding: 10px 22px; touch-action: none; user-select: none; }
+.cl2-drive .btn.on { border-color: #ff5a6e; background: #fff0f3; color: #1f2a44; }
+/* scenes */
+.cl2-scene { position: relative; height: 260px; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); }
+.cl2-bg-street { background: linear-gradient(#bfe6ff 0 42%, #ffd6e8 42% 46%, #c9ced9 46% 50%, #8e96a8 50% 80%, #c9ced9 80%); }
+.cl2-bg-forest { background: radial-gradient(ellipse 30% 22% at 18% 45%, #3f9e6a 0 98%, transparent 100%), radial-gradient(ellipse 34% 26% at 72% 45%, #2f8e5a 0 98%, transparent 100%), linear-gradient(#cfeedd 0 45%, #6fbf73 45%); }
+.cl2-bg-beach { background: radial-gradient(circle at 85% 18%, #ffe27a 0 7%, transparent 7.5%), linear-gradient(#bfe6ff 0 34%, #4fa8ff 34% 50%, #f3d38c 50%); }
+.cl2-bg-park { background: radial-gradient(circle at 70% 18%, #fff 0 5%, transparent 5.5%), linear-gradient(#cfeaff 0 44%, #8fd08a 44%); }
+.cl2-bg-snow { background: radial-gradient(circle at 20% 20%, #fff 0 1.2%, transparent 1.5%), radial-gradient(circle at 60% 12%, #fff 0 1.2%, transparent 1.5%), radial-gradient(ellipse at 30% 60%, #fff 0 40%, transparent 41%), linear-gradient(#d9e8fb 0 45%, #f4f8ff 45%); }
+.cl2-bg-river { background: linear-gradient(170deg, transparent 0 52%, #5fb0ff 52% 68%, transparent 68%), linear-gradient(#cfeaff 0 40%, #7fcb7f 40%); }
+.cl2-spot { position: absolute; width: 22%; max-width: 120px; aspect-ratio: 60 / 50; transform: translate(-50%, -50%); background: transparent; border: 0; padding: 0; cursor: pointer; }
+.cl2-spot .cl2-spotart, .cl2-spot .cl2-spotart svg { width: 100%; height: 100%; display: block; }
+.cl2-spot:hover .cl2-spotart { animation: cl2wig .4s ease; }
+.cl2-spot.seen { opacity: .45; cursor: default; }
+.cl2-spot.hint .cl2-spotart { animation: pzglow 1s ease-in-out infinite; }
+@keyframes cl2wig { 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
+.cl2-spot .cl2-hurt { position: absolute; left: 50%; bottom: 0; width: 115%; z-index: 2; transform: translateX(-50%); animation: lbpop .6s ease both; }
+.cl2-hurt svg { width: 100%; height: auto; display: block; overflow: visible; }
+.cl2-sceneamb { position: absolute; left: 3%; top: 6%; width: 26%; max-width: 130px; }
+.cl2-sceneamb svg { width: 100%; display: block; }
+.cl2-steps { display: grid; gap: 6px; padding: 8px 10px; border-radius: 16px; background: linear-gradient(#fff8fb, #f3f0ff); border: 2px dashed #ffb3d9; color: #1f2a44; }
+.cl2-aid { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.cl2-aidb { display: grid; justify-items: center; gap: 2px; min-width: 92px; padding: 6px 8px; border-radius: 14px; border: 2px solid var(--line); background: #fff; color: #1f2a44; font: inherit; font-size: .85em; cursor: pointer; }
+.cl2-aidb .e { font-size: 1.8em; line-height: 1.1; }
+.cl2-aidb.hint { border-color: #ffb020; animation: pzglow 1s ease-in-out infinite; }
+.cl2-swatch { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #3a2b3c; display: block; }
+.cl2-arrive { position: relative; display: flex; align-items: flex-end; justify-content: center; gap: 12px; padding: 12px; border-radius: 20px; background: linear-gradient(#e8f6ff 0 70%, #cfe9df 70%); border: 2px solid var(--line); min-height: 170px; }
+.cl2-arrive .cl2-sceneamb.big { position: static; width: 190px; max-width: 45%; }
+.cl2-arrive .cl2-hurt { width: 120px; }
+/* x-ray */
+.cl2-xpick { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 6px; }
+.cl2-xpb { display: grid; justify-items: center; padding: 4px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); color: inherit; font: inherit; cursor: pointer; }
+.cl2-xpb .ic { width: 64px; height: 72px; } .cl2-xpb .ic svg { width: 100%; height: 100%; }
+.cl2-xpb.vis .e { font-size: 2.6em; line-height: 72px; }
+.cl2-xstage { position: relative; width: min(320px, 100%); aspect-ratio: 1; justify-self: center; border-radius: 22px; overflow: hidden; border: 3px solid #8fa8e8; background: radial-gradient(circle at 50% 35%, #f4f8ff, #dce6f7); touch-action: none; cursor: ew-resize; user-select: none; }
+.cl2-table { position: absolute; left: 6%; right: 6%; bottom: 7%; height: 12%; border-radius: 12px; background: #b8c6de; border: 3px solid #3a2b3c; }
+.cl2-xp, .cl2-xl { position: absolute; inset: 0; padding: 1% 7% 10%; }
+.cl2-xstage.after { cursor: default; }
+.cl2-xp svg, .cl2-ghost svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.cl2-xl { background: radial-gradient(circle at 50% 45%, #2a3f7a, #101a3a 75%); }
+.cl2-ghost { width: 100%; height: 100%; filter: drop-shadow(0 0 3px rgb(160 210 255 / .6)); }
+.cl2-ghost :is(path, circle, ellipse, rect, polygon, polyline, line) { fill: rgb(170 215 255 / .14); stroke: rgb(190 225 255 / .45); }
+.cl2-ghost image { opacity: .12; }
+.cl2-item { animation: cl2pulse 1s ease-in-out infinite; transform-box: fill-box; }
+@keyframes cl2pulse { 50% { opacity: .55; } }
+.cl2-scanner { position: absolute; top: 0; bottom: 0; border-inline: 4px solid #6fdc8c; box-shadow: 0 0 14px #6fdc8c, inset 0 0 14px rgb(111 220 140 / .5); pointer-events: none; border-radius: 6px; }
+.cl2-beam { position: absolute; left: 0; right: 0; height: 4px; background: #9fffc0; box-shadow: 0 0 10px #6fdc8c; animation: cl2beam 1.6s ease-in-out infinite alternate; }
+@keyframes cl2beam { from { top: 4%; } to { top: 94%; } }
+.cl2-rangebox { display: flex; align-items: center; gap: 6px; justify-content: center; direction: ltr; }
+.cl2-range { width: min(300px, 70vw); accent-color: #6fdc8c; }
+.cl2-xres { display: grid; gap: 2px; padding: 8px 12px; border-radius: 14px; border: 2px solid #8fa8e8; background: #eef3ff; color: #1f2a44; text-align: center; }
+.cl2-xres.item { border-color: #ffb020; background: #fff8e0; }
+.cl2-xres.break { border-color: #ff7a9a; background: #fff0f3; }
+.cl2-xres.ok { border-color: #6fdc8c; background: #eafbef; }
+/* NICU */
+.cl2-nhead { display: flex; align-items: center; gap: 10px; background: linear-gradient(90deg, #fff8e6, #ffeef6); color: #1f2a44; border: 2px solid var(--line); border-radius: 16px; padding: 6px 10px; }
+.cl2-nhead > div { display: grid; flex: 1; }
+.cl2-angel { width: 48px; height: 48px; filter: grayscale(1); opacity: .5; } .cl2-angel svg { width: 100%; height: 100%; }
+.cl2-angel.on { filter: none; opacity: 1; animation: pzhop 1.6s ease-in-out infinite; }
+.cl2-incs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.cl2-inc { position: relative; flex: none; }
+.cl2-inc.mini { width: 132px; height: 120px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); color: inherit; cursor: pointer; padding: 0; font: inherit; }
+.cl2-inc.mini.on { border-color: #ffb020; box-shadow: 0 0 0 3px rgb(255 176 32 / .3); }
+.cl2-inc.mini.done { opacity: .65; cursor: default; }
+.cl2-incbg, .cl2-dome { position: absolute; left: 4%; right: 4%; top: 2%; height: 74%; pointer-events: none; }
+.cl2-incbg svg, .cl2-dome svg { width: 100%; height: 100%; display: block; }
+.cl2-dome { z-index: 2; }
+.cl2-inc .cl2-baby { position: absolute; left: 50%; top: 22%; width: 34%; transform: translateX(-50%); z-index: 1; }
+.cl2-baby svg { width: 100%; height: auto; display: block; overflow: visible; }
+.cl2-incl { position: absolute; bottom: 4px; left: 0; right: 0; text-align: center; font-size: .72em; }
+.cl2-st { position: absolute; top: 4px; right: 6px; font-size: .8em; z-index: 3; }
+.cl2-nroom { position: relative; display: grid; grid-template-columns: 1.5fr 1fr; gap: 10px; align-items: center; padding: 10px; border-radius: 20px; border: 2px solid var(--line); background: linear-gradient(#fff6fb 0 70%, #f1e8ff 70%); color: #1f2a44; }
+.cl2-nsay { position: static; transform: none; grid-column: 1 / -1; justify-self: center; max-width: 94%; }
+.cl2-inc.big { width: 100%; max-width: 340px; aspect-ratio: 200 / 160; justify-self: center; }
+.cl2-inc.big .cl2-incbg, .cl2-inc.big .cl2-dome { height: 94%; }
+.cl2-inc.big .cl2-baby { top: 17%; width: 36%; touch-action: none; cursor: grab; }
+.cl2-baby.cold svg { animation: cl2shiver .18s linear infinite; }
+@keyframes cl2shiver { 50% { transform: translateX(2px); } }
+.cl2-shiver { position: absolute; top: 8%; right: 18%; font-size: 1.5em; z-index: 3; animation: pzglow 1s ease-in-out infinite; }
+.cl2-nfx { position: absolute; left: 50%; top: 20%; transform: translateX(-50%); font-size: 1.4em; font-weight: 700; opacity: 0; z-index: 4; pointer-events: none; white-space: nowrap; color: #ff5a8a; }
+.cl2-nfx.on { animation: cl2up 1.1s ease-out; }
+@keyframes cl2up { 0% { opacity: 0; transform: translate(-50%, 10px); } 20% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -30px); } }
+.cl2-ecg { stroke-dasharray: 40; animation: cl2dash2 1.2s linear infinite; }
+@keyframes cl2dash2 { to { stroke-dashoffset: -80; } }
+.cl2-tbox { display: grid; justify-items: center; gap: 4px; }
+.cl2-dial { width: 120px; height: 120px; touch-action: none; cursor: grab; display: block; }
+.cl2-dial svg { width: 100%; height: 100%; }
+.cl2-tbox .btn { min-width: 46px; }
+.cl2-gline { display: grid; gap: 3px; justify-items: center; text-align: center; }
+.cl2-gbar { width: min(320px, 90%); }
+.cl2-cares { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cl2-care { display: grid; justify-items: center; gap: 2px; padding: 8px 4px; border-radius: 16px; border: 2px solid var(--line); background: #fff; color: #1f2a44; font: inherit; cursor: pointer; }
+.cl2-care .e { font-size: 2em; line-height: 1.2; }
+.cl2-care .ic { width: 44px; height: 44px; } .cl2-care .ic svg { width: 100%; height: 100%; }
+.cl2-care.ready { border-color: #ffb020; animation: pzglow 1.2s ease-in-out infinite; }
+.cl2-care.wait { opacity: .75; }
+.cl2-scale { position: relative; width: min(300px, 100%); aspect-ratio: 200 / 170; justify-self: center; }
+.cl2-scale .cl2-baby { position: absolute; left: 50%; top: 10%; width: 40%; transform: translateX(-50%); }
+.cl2-plate { position: absolute; left: 0; right: 0; bottom: 0; height: 52%; } .cl2-plate svg { width: 100%; height: 100%; display: block; }
+.cl2-num { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; color: #6fdc8c; font-family: 'Courier New', monospace; font-size: 1.25em; direction: ltr; }
+.cl2-home { display: flex; align-items: flex-end; justify-content: center; gap: 8px; padding: 12px; border-radius: 20px; background: linear-gradient(#fff6fb 0 72%, #cfe9df 72%); border: 2px solid var(--line); position: relative; min-height: 160px; }
+.cl2-home .cl2-friend { width: 74px; } .cl2-home .cl2-friend svg { width: 100%; height: auto; display: block; }
+.cl2-home .cl2-baby { width: 90px; animation: pzhop .8s ease 3; }
+.cl2-momart { width: 140px; } .cl2-momart svg { width: 100%; height: auto; display: block; }
+.cl2-hearts { position: absolute; top: 10px; left: 0; right: 0; text-align: center; font-size: 1.4em; animation: cl2pulse 1.2s ease-in-out infinite; }
+@media (max-width: 560px) {
+  .cl2-lrow { gap: 5px; } .cl2-lbtn { padding: 6px 2px; font-size: .9em; }
+  .cl2-scene { height: 210px; }
+  .cl2-nroom { grid-template-columns: 1fr; }
+  .cl2-dial { width: 100px; height: 100px; }
+  .cl2-amb { width: 17%; }
+}
 </style>
 </head>
 <body class="bg-dots">
@@ -7546,6 +7686,8 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
     <div class="row" id="mdaBody"></div>
   </div>
 </dialog>
+
+<!-- clinic27: no new dialogs (reuses #petzVetDlg) -->
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -41155,6 +41297,583 @@ ${label(900, 520, '🌊 ים האיים')}
       hud, el('div', { class: 'g8-dt-wrap' }, svg, say), cheer, end);
     loop();
   }
+  // ================= 🏥 clinic 5: 🚑 ambulance rescues, 🦴 x-ray room, 🍼 NICU (clinic2 agent, round 7d) =================
+  // store 'clinic2' = { rescues, xrays, finds, casts, xrDay: { pid: day }, nicu: { id: { g, g0, goal, fed, rub, temp, lastFed, at, vis, done } }, grads, angel }
+  let cl2S = Object.assign({ rescues: 0, xrays: 0, finds: 0, casts: 0, xrDay: {}, nicu: {}, grads: 0, angel: false }, store.get('clinic2', {}));
+  const cl2Save = () => store.set('clinic2', cl2S);
+  const cl2Pick = a => a[Math.floor(Math.random() * a.length)];
+  const cl2Shuf = a => a.slice().sort(() => Math.random() - .5);
+  const cl2Coins = (n, why) => { try { if (typeof addCoins === 'function') addCoins(n, why); } catch {} };
+  const cl2Nm = p => (p && p.name) || 'החיה';
+  const cl2Body = () => $('#petzVetBody');
+  const cl2Driver = () => { try { return vetbNm(vetbWho('driver')); } catch { return 'הנהגת'; } };
+  const cl2Talk = (role, text, cls = 'small') => { try { return vetbTalk(role, text, cls); } catch { return el('div', { class: 'pz-say cl2-say' }, text); } };
+  let cl2Timers = [], cl2Raf = 0, cl2SirenT = 0;
+  function cl2Stop() {
+    cl2Timers.forEach(t => { clearInterval(t); clearTimeout(t); }); cl2Timers = [];
+    if (cl2Raf) cancelAnimationFrame(cl2Raf); cl2Raf = 0;
+    if (cl2SirenT) clearInterval(cl2SirenT); cl2SirenT = 0;
+  }
+  try { $('#petzVetDlg').addEventListener('close', cl2Stop); } catch {}
+  const cl2Visitor = (o = {}) => { const kind = pzPick(PET_KINDS)[0]; return Object.assign({ kind, name: pzPick(PZ_VISITORS), size: .85 + Math.random() * .25, look: petzRandomLook(kind), wear: {}, visitor: true }, o); };
+  function cl2Open(mode) {
+    try { vetDaily(); } catch {}
+    const d = vetDlg(); if (!d) return;
+    cl2Stop(); try { vetbStop(); } catch {}
+    if (mode === 'amb') cl2Amb(); else if (mode === 'xray') cl2Xray(); else if (mode === 'nicu') cl2Nicu(); else vetLobby();
+    if (!d.open) d.showModal();
+  }
+  function cl2Head(title, sub) {
+    const t = $('#petzVetTitle'); if (t) t.textContent = title;
+    const s = vetDlg() && vetDlg().querySelector('.sub'); if (s) s.textContent = sub;
+  }
+  const cl2Back = (txt = '↩️ חזרה למרפאה') => el('button', { type: 'button', class: 'btn', onclick: () => { cl2Stop(); SFX.pop(); vetLobby(); } }, txt);
+
+  // ================= 🚑 ambulance rescues =================
+  const S3 = `stroke="${O}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"`;
+  const CL2_LOCS = {
+    street: { n: 'הרחוב', e: '🏙️', x: 78, y: 54, spots: ['car', 'box', 'bench', 'bush'], sick: ['scratch', 'knee', 'paw', 'bump', 'padcut', 'bruise'], call: 'שמעו חיה קטנה בוכה ליד הרחוב!' },
+    river: { n: 'הנהר', e: '🏞️', x: 140, y: 128, spots: ['reeds', 'log', 'rock', 'bush'], sick: ['cold', 'scratch', 'earnick', 'flu'], call: 'חיה קטנה נפלה לנהר ויצאה רטובה ועייפה!' },
+    park: { n: 'הפארק', e: '🛝', x: 202, y: 60, spots: ['slide', 'bench', 'tree', 'bush'], sick: ['knee', 'bump', 'bruise', 'paw', 'sting', 'lonely'], call: 'מישהו נפל מהמגלשה בפארק!' },
+    forest: { n: 'היער', e: '🌲', x: 262, y: 132, spots: ['pine', 'log', 'rock', 'bush'], sick: ['splinter', 'scratch', 'bite', 'itchy', 'sting'], call: 'חיה הלכה לאיבוד ביער ונפצעה!' },
+    snow: { n: 'הגבעה המושלגת', e: '🏔️', x: 322, y: 52, spots: ['snowman', 'pine', 'sled', 'rock'], sick: ['cold', 'flu', 'paw', 'bump'], call: 'מישהו החליק במזחלת על הגבעה המושלגת!' },
+    beach: { n: 'החוף', e: '🏖️', x: 372, y: 126, spots: ['umbrella', 'castle', 'rock', 'reeds'], sick: ['burn', 'padcut', 'sting', 'fever'], call: 'חיה קטנה בחוף — חם לה ומשהו כואב לה!' },
+  };
+  const CL2_SPOT_N = { car: 'המכונית', box: 'הקרטון', bench: 'הספסל', bush: 'השיח', reeds: 'הקנים', log: 'הבול עץ', rock: 'הסלע', slide: 'המגלשה', tree: 'העץ', pine: 'האורן', snowman: 'איש השלג', sled: 'המזחלת', umbrella: 'השמשייה', castle: 'ארמון החול' };
+  const CL2_NOT = ['🦋 רק פרפר!', '🐦 ציפור קטנה עפה', '🍂 רק עלים', '🐌 שבלול קטן אומר שלום', '🐞 פרת משה רבנו', '🐿️ סנאי קפץ ממש!'];
+  const cl2SpotSVG = k => `<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg">${{
+    car: `<path d="M6 34 V26 Q6 22 12 22 L18 12 H40 L48 22 Q56 22 56 28 V34 Z" fill="#ff7aa8" ${S3}/><path d="M21 15 H30 V22 H17 Z M33 15 H39 L44 22 H33 Z" fill="#cfefff" ${S2}/><circle cx="16" cy="36" r="6" fill="#4a4a5a" ${S2}/><circle cx="46" cy="36" r="6" fill="#4a4a5a" ${S2}/><circle cx="16" cy="36" r="2.2" fill="#ddd"/><circle cx="46" cy="36" r="2.2" fill="#ddd"/>`,
+    box: `<path d="M10 18 H50 V44 H10 Z" fill="#d9a066" ${S3}/><path d="M10 18 L4 10 H44 L50 18 M10 18 L18 8" fill="#e8b67c" ${S2}/><path d="M24 18 V30 H36 V18" fill="none" stroke="#b07a42" stroke-width="2"/>`,
+    bench: `<path d="M6 22 H54 V28 H6 Z M6 12 H54 V18 H6 Z" fill="#c98f3a" ${S2}/><path d="M12 28 V44 M48 28 V44" ${S3}/>`,
+    bush: `<path d="M6 42 Q2 30 12 26 Q12 14 26 16 Q34 6 44 16 Q58 18 54 30 Q60 40 52 44 Z" fill="#6fcf7f" ${S3}/><circle cx="20" cy="28" r="2.2" fill="#ff7aa8"/><circle cx="40" cy="24" r="2.2" fill="#ffd84d"/><circle cx="34" cy="36" r="2.2" fill="#ff7aa8"/>`,
+    reeds: `${[12, 20, 28, 36, 44].map((x, i) => `<path d="M${x} 46 Q${x - 2} 30 ${x + (i % 2 ? 3 : -3)} 10" stroke="#3fae6a" stroke-width="3.5" fill="none" stroke-linecap="round"/><rect x="${x + (i % 2 ? 1 : -5)}" y="10" width="4.5" height="11" rx="2.2" fill="#8a5a2b" ${S2}/>`).join('')}`,
+    log: `<rect x="6" y="24" width="48" height="18" rx="9" fill="#a8743f" ${S3}/><ellipse cx="50" cy="33" rx="6" ry="9" fill="#e8c08c" ${S2}/><path d="M48 31 q2 -3 4 0 q-2 4 -4 0" stroke="#a8743f" stroke-width="1.4" fill="none"/><path d="M16 30 h14 M22 37 h16" stroke="#7a5230" stroke-width="1.6" stroke-linecap="round"/><path d="M26 24 q2 -8 8 -9" stroke="#3fae6a" stroke-width="2.4" fill="none" stroke-linecap="round"/>`,
+    rock: `<path d="M6 44 Q4 30 14 24 Q22 12 36 16 Q52 18 54 32 Q58 42 50 44 Z" fill="#a9b4c6" ${S3}/><path d="M18 26 q6 -4 12 -2" stroke="#fff" stroke-width="2.4" fill="none" opacity=".6" stroke-linecap="round"/>`,
+    slide: `<path d="M8 46 V10 M20 46 V10 M8 18 H20 M8 28 H20 M8 38 H20" ${S3}/><path d="M20 12 Q34 14 40 30 Q44 40 56 44 L54 48 Q40 44 36 32 Q32 20 20 18 Z" fill="#ffb020" ${S3}/>`,
+    tree: `<rect x="25" y="28" width="10" height="20" rx="3" fill="#a8743f" ${S3}/><circle cx="30" cy="20" r="16" fill="#58c26e" ${S3}/><circle cx="24" cy="16" r="2.4" fill="#ff5a6e"/><circle cx="36" cy="22" r="2.4" fill="#ff5a6e"/>`,
+    pine: `<rect x="26" y="38" width="8" height="10" fill="#a8743f" ${S2}/><path d="M30 2 L46 24 H38 L52 40 H8 L22 24 H14 Z" fill="#2f9e63" ${S3}/><path d="M24 22 q6 3 12 0 M18 34 q12 4 24 0" stroke="#fff" stroke-width="2.4" fill="none" opacity=".7" stroke-linecap="round"/>`,
+    snowman: `<circle cx="30" cy="34" r="13" fill="#fff" ${S3}/><circle cx="30" cy="14" r="9" fill="#fff" ${S3}/><circle cx="27" cy="12" r="1.3" fill="${O}"/><circle cx="33" cy="12" r="1.3" fill="${O}"/><path d="M30 15 l7 2 l-7 1 Z" fill="#ff9a3c"/><path d="M21 22 Q30 26 39 22" stroke="#ff5a6e" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="30" cy="32" r="1.6" fill="${O}"/><circle cx="30" cy="38" r="1.6" fill="${O}"/>`,
+    sled: `<path d="M8 26 H48 V34 H8 Z" fill="#ff5a6e" ${S3}/><path d="M6 42 H50 Q56 42 56 36" fill="none" ${S3}/><path d="M14 34 V42 M42 34 V42" ${S2}/>`,
+    umbrella: `<path d="M30 14 V48" ${S3}/><path d="M4 22 Q30 -4 56 22 Q49 18 43 22 Q36 17 30 22 Q24 17 17 22 Q11 18 4 22 Z" fill="#ff7aa8" ${S3}/><path d="M17 22 Q22 8 30 4 M43 22 Q38 8 30 4" stroke="#fff" stroke-width="3" fill="none"/>`,
+    castle: `<path d="M8 46 V24 H14 V20 H20 V24 H26 V14 H34 V24 H40 V20 H46 V24 H52 V46 Z" fill="#f3d38c" ${S3}/><path d="M26 46 V36 Q30 32 34 36 V46" fill="#d9a85a" ${S2}/><path d="M30 14 V4 L38 7 L30 10" fill="#ff5a6e" ${S2}/>`,
+  }[k] || ''}</svg>`;
+  const CL2_AMB = `<svg viewBox="0 0 100 62" xmlns="http://www.w3.org/2000/svg"><rect x="36" y="2" width="12" height="8" rx="3" class="cl2-l1" fill="#ff3b5c" ${S2}/><rect x="50" y="2" width="12" height="8" rx="3" class="cl2-l2" fill="#3b8bff" ${S2}/><path d="M6 48 V16 Q6 10 12 10 H66 V48 Z" fill="#fff" ${S3}/><path d="M66 18 H80 L94 32 V48 H66 Z" fill="#fff" ${S3}/><path d="M70 22 H79 L89 32 H70 Z" fill="#bfe6ff" ${S2}/><rect x="6" y="34" width="88" height="6" fill="#ff5a6e"/><path d="M30 16 h8 v6 h6 v8 h-6 v6 h-8 v-6 h-6 v-8 h6 Z" fill="#ff3b5c" ${S2}/><circle cx="24" cy="50" r="8" fill="#4a4a5a" ${S3}/><circle cx="78" cy="50" r="8" fill="#4a4a5a" ${S3}/><circle cx="24" cy="50" r="3" fill="#ddd"/><circle cx="78" cy="50" r="3" fill="#ddd"/><circle cx="94" cy="40" r="2.6" fill="#ffd84d" ${S2}/></svg>`;
+  const cl2LocArt = (k, x, y) => {
+    const g = s => `<g transform="translate(${x - 26} ${y - 22})">${s}</g>`;
+    if (k === 'street') return g(`<path d="M2 40 V18 L14 8 L26 18 V40 Z" fill="#ffc7de" ${S2}/><path d="M26 40 V14 L38 4 L50 14 V40 Z" fill="#c9b2ff" ${S2}/><rect x="9" y="26" width="8" height="14" fill="#a8743f" ${S2}/><rect x="33" y="18" width="10" height="8" fill="#cfefff" ${S2}/>`);
+    if (k === 'river') return g(`<path d="M-8 30 Q10 20 26 30 T60 30 V42 Q42 34 26 42 T-8 42 Z" fill="#6fb8ff" ${S2}/><path d="M8 32 Q26 14 44 32" fill="none" stroke="#a8743f" stroke-width="5"/><path d="M8 32 Q26 14 44 32" fill="none" stroke="${O}" stroke-width="1.5" opacity=".5"/>`);
+    if (k === 'park') return g(`<rect x="6" y="22" width="5" height="18" fill="#a8743f" ${S2}/><circle cx="8.5" cy="16" r="10" fill="#58c26e" ${S2}/><path d="M24 40 V12 M30 40 V12" stroke="${O}" stroke-width="2"/><path d="M30 14 Q42 16 48 38" stroke="#ffb020" stroke-width="5" fill="none" stroke-linecap="round"/>`);
+    if (k === 'forest') return g(`${[[8, 6], [22, 0], [38, 6]].map(([a, b]) => `<path d="M${a + 6} ${b} L${a + 16} ${b + 28} H${a - 4} Z" fill="#2f9e63" ${S2}/><rect x="${a + 4}" y="${b + 28}" width="4" height="8" fill="#a8743f"/>`).join('')}`);
+    if (k === 'snow') return g(`<path d="M-6 40 L18 4 L32 22 L40 12 L60 40 Z" fill="#dfe9f7" ${S2}/><path d="M11 14 L18 4 L25 14 Q18 18 11 14 Z" fill="#fff"/>${[[4, 6], [46, 4], [52, 20]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="1.6" fill="#fff" ${S2}/>`).join('')}`);
+    return g(`<path d="M-6 40 Q20 30 60 36 V44 H-6 Z" fill="#f3d38c" ${S2}/><path d="M-6 30 Q10 26 26 30 T60 28 V36 Q30 30 -6 40 Z" fill="#6fb8ff" ${S2}/><path d="M34 34 V12" stroke="${O}" stroke-width="2"/><path d="M20 16 Q34 0 48 16 Z" fill="#ff7aa8" ${S2}/>`);
+  };
+  const CL2_CLINIC = [34, 200];
+  const cl2Route = (k, back) => { const L = CL2_LOCS[k], r = [[CL2_CLINIC[0], 214], [L.x, 214], [L.x, L.y + 28]]; return back ? r.reverse() : r; };
+  function cl2MapSVG(goal, route) {
+    const roads = Object.values(CL2_LOCS).map(L => `<path d="M${L.x} 214 V${L.y + 28}" stroke="#8e96a8" stroke-width="12" stroke-linecap="round"/>`).join('');
+    const hl = route ? `<polyline points="${route.map(p => p.join(',')).join(' ')}" fill="none" stroke="#ffd84d" stroke-width="5" stroke-dasharray="8 7" stroke-linecap="round" class="cl2-route"/>` : '';
+    return `<svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"><rect width="400" height="240" rx="18" fill="#bfe8a6"/>
+      ${[[110, 24], [180, 160], [240, 30], [300, 170], [360, 30], [50, 120]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9" fill="#8fd08a" opacity=".8"/><circle cx="${x + 10}" cy="${y + 4}" r="6" fill="#8fd08a" opacity=".8"/>`).join('')}
+      <path d="M22 214 H392" stroke="#8e96a8" stroke-width="14" stroke-linecap="round"/>${roads}<path d="M22 214 H392" stroke="#fff" stroke-width="2" stroke-dasharray="10 10"/>${hl}
+      <g transform="translate(${CL2_CLINIC[0] - 26} ${CL2_CLINIC[1] - 44})"><rect x="2" y="14" width="48" height="30" fill="#fff" ${S2}/><path d="M0 16 L26 2 L52 16 Z" fill="#ff9ab8" ${S2}/><path d="M22 20 h8 v5 h5 v8 h-5 v5 h-8 v-5 h-5 v-8 h5 Z" fill="#ff3b5c"/></g>
+      ${Object.entries(CL2_LOCS).map(([k, L]) => cl2LocArt(k, L.x, L.y)).join('')}
+      ${goal ? `<g class="cl2-blink"><circle cx="${CL2_LOCS[goal].x}" cy="${CL2_LOCS[goal].y}" r="30" fill="none" stroke="#ff3b5c" stroke-width="4"/></g>` : ''}</svg>`;
+  }
+  // the aid steps on the spot (2 real ones + the stretcher)
+  const CL2_AID = {
+    buoy: ['🛟', 'לזרוק גלגל הצלה', 'תפסת! מושכים בעדינות אל החוף 🛟'], blanket: ['🧣', 'לעטוף בשמיכה חמה', 'עכשיו חם ונעים 🧣'], tweezers: ['🤏', 'להוציא את הקוץ', 'יצא! איזה קוץ קטנטן 🌵'],
+    stinger: ['🤏', 'להוציא את העוקץ', 'העוקץ בחוץ! 🐝'], cool: ['💧', 'לקרר במים', 'מים קרירים על הכוויה — אחחח, יותר טוב 💧'], rinse: ['💧', 'לשטוף את הפצע', 'שוטפים בעדינות עם מים נקיים 💧'],
+    bandage: ['🩹', 'לחבוש', 'עוטפים בתחבושת רכה 🩹'], splint: ['🦴', 'לקבע את הרגל', 'קרש קטן ותחבושת — שהרגל לא תזוז 🦴'], ice: ['❄️', 'לשים קרח', 'קר קר! הנפיחות כבר קטנה ❄️'],
+    water: ['🥤', 'לתת לשתות', 'לגימה... לגימה... 🥤'], hug: ['🤗', 'חיבוק מרגיע', 'את/ה לא לבד, אנחנו כאן 💗'], calm: ['💗', 'ללטף ולהרגיע', 'שששש... הכל יהיה בסדר 💗'],
+    stretcher: ['🛏️', 'להעלות לאלונקה', 'אחת, שתיים, שלוש — על האלונקה ולאמבולנס! 🚑'],
+  };
+  const CL2_FUN = [['🍭', 'סוכרייה'], ['🎈', 'בלון'], ['📸', 'לצלם תמונה'], ['🧸', 'דובי'], ['🎵', 'לשיר שיר']];
+  function cl2AidSteps(s, loc) {
+    const a = [];
+    if (loc === 'river') a.push('buoy'); if (loc === 'snow') a.push('blanket');
+    const S0 = VET_SICK[s] || {};
+    const m = { splinter: 'tweezers', sting: 'stinger', burn: 'cool', paw: 'splint', bump: 'ice', bruise: 'ice', cold: 'blanket', flu: 'blanket', fever: 'water', tummy: 'water', lonely: 'hug', itchy: 'rinse' }[s] || (S0.wound ? 'rinse' : 'calm');
+    if (!a.includes(m)) a.push(m);
+    if (a.length < 2) a.push({ rinse: 'bandage', tweezers: 'bandage', stinger: 'ice', cool: 'bandage', splint: 'calm', ice: 'calm', blanket: 'water', water: 'calm', hug: 'water', calm: 'water' }[m] || 'calm');
+    return [...a.slice(0, 2), 'stretcher'];
+  }
+  let cl2A = null;
+  function cl2Amb() {
+    cl2Stop();
+    vetV = null;
+    const loc = cl2Pick(Object.keys(CL2_LOCS)), L = CL2_LOCS[loc];
+    const pool = L.sick.filter(k => VET_SICK[k]), s = cl2Pick(pool.length ? pool : Object.keys(VET_SICK));
+    const p = cl2Visitor();
+    const spots = cl2Shuf(L.spots), hide = cl2Pick(spots);
+    cl2A = { loc, s, p, spots, hide, open: {}, miss: 0, phase: 'call', d: 0, route: null, back: false, siren: true, steps: cl2AidSteps(s, loc), si: 0, wrong: 0, mood: 'sick' };
+    [0, .35, .7].forEach(w => tone(880, .22, 'square', w, .03));
+    cl2AmbDraw();
+  }
+  function cl2Siren(on) {
+    if (on && !cl2SirenT) { let hi = 0; cl2SirenT = setInterval(() => { tone(hi ? 960 : 720, .34, 'triangle', 0, .045); hi = 1 - hi; }, 380); }
+    if (!on && cl2SirenT) { clearInterval(cl2SirenT); cl2SirenT = 0; }
+  }
+  function cl2AmbDraw(line) {
+    const A = cl2A; if (!A) return;
+    const L = CL2_LOCS[A.loc], body = cl2Body();
+    cl2Head('🚑 אמבולנס החיות', `${cl2Driver()} נוהגת, ואת הפרמדיקית! מצילים חיות ומביאים אותן למרפאה 🚨`);
+    if (A.phase === 'call' || A.phase === 'drive' || A.phase === 'back') {
+      const route = A.route;
+      const map = el('div', { class: 'cl2-map' }, el('div', { class: 'cl2-mapsvg', html: cl2MapSVG(A.phase === 'back' ? null : A.loc, route) }));
+      const amb = el('div', { class: 'cl2-amb on', html: CL2_AMB });
+      map.append(amb);
+      Object.entries(CL2_LOCS).forEach(([k, Lk]) => {
+        const b = el('button', { type: 'button', class: 'cl2-mapspot', 'aria-label': Lk.n, style: `left:${Lk.x / 4}%;top:${Lk.y / 2.4}%` }, k === A.loc && A.phase !== 'back' ? el('span', { class: 'cl2-sos' }, '🚨') : null);
+        b.onclick = () => {
+          if (A.phase !== 'call') return;
+          if (k !== A.loc) { SFX.boop(); cl2AmbDraw(`זה ${Lk.n} — אבל הקריאה הגיעה מ${L.n}! חפשי את ה🚨 המהבהב`); return; }
+          SFX.ding(); A.phase = 'drive'; A.route = cl2Route(A.loc); A.d = 0; cl2AmbDraw(`מסלול מוכן אל ${L.n}! 🗺️ לחצי על הדוושה (או החזיקי אותה) כדי לנסוע`);
+        };
+        map.append(b);
+      });
+      const place = () => {
+        const pts = A.route || [[CL2_CLINIC[0], 214]];
+        let d = A.d, i = 0, pos = pts[0], dir = 1;
+        for (; i < pts.length - 1; i++) {
+          const [x1, y1] = pts[i], [x2, y2] = pts[i + 1], len = Math.hypot(x2 - x1, y2 - y1);
+          if (d <= len) { const f = len ? d / len : 0; pos = [x1 + (x2 - x1) * f, y1 + (y2 - y1) * f]; dir = x2 < x1 ? -1 : x2 > x1 ? 1 : A.dir || 1; break; }
+          d -= len; pos = pts[i + 1];
+        }
+        A.dir = dir;
+        amb.style.left = (pos[0] / 4) + '%'; amb.style.top = (pos[1] / 2.4) + '%';
+        amb.style.transform = `translate(-50%, -78%) scaleX(${dir})`;
+      };
+      const total = () => { const p = A.route || []; let t = 0; for (let i = 0; i < p.length - 1; i++) t += Math.hypot(p[i + 1][0] - p[i][0], p[i + 1][1] - p[i][1]); return t; };
+      place();
+      let hold = false, auto = false, last = 0, downAt = 0;
+      const arrive = () => {
+        hold = auto = false; cl2Siren(false);
+        if (A.phase === 'drive') { A.phase = 'find'; SFX.ding(); cl2AmbDraw(`הגענו אל ${L.n}! ${cl2Driver()}: "שמעתי יבבה קטנה... איפה החיה הפצועה?" 🔎`); }
+        else { A.phase = 'arrive'; cl2AmbArrive(); }
+      };
+      const step = ts => {
+        cl2Raf = 0;
+        if (!(hold || auto) || !A.route) { cl2Siren(false); amb.classList.remove('moving'); return; }
+        const dt = last ? Math.min(.05, (ts - last) / 1000) : 0; last = ts;
+        A.d = Math.min(total(), A.d + dt * 110); place();
+        if (A.d >= total()) return arrive();
+        cl2Raf = requestAnimationFrame(step);
+      };
+      const go = () => { if (!A.route || cl2Raf) return; last = 0; amb.classList.add('moving'); if (A.siren) cl2Siren(true); cl2Raf = requestAnimationFrame(step); };
+      const pedal = el('button', { type: 'button', class: 'btn main cl2-pedal' }, A.phase === 'back' ? '🦶 נוסעים למרפאה!' : '🦶 לנסוע!');
+      if (!A.route) pedal.disabled = true;
+      pedal.addEventListener('pointerdown', e => { if (!A.route) return; downAt = Date.now(); hold = true; try { pedal.setPointerCapture(e.pointerId); } catch {} go(); });
+      const up = () => { hold = false; };
+      pedal.addEventListener('pointerup', up); pedal.addEventListener('pointercancel', up);
+      pedal.addEventListener('click', () => { if (!A.route) return; if (!downAt || Date.now() - downAt < 300) { auto = !auto; if (auto) go(); } downAt = 0; });
+      const sirenB = el('button', { type: 'button', class: 'btn' + (A.siren ? ' on' : ''), 'aria-pressed': String(A.siren), onclick: () => { A.siren = !A.siren; sirenB.classList.toggle('on', A.siren); sirenB.setAttribute('aria-pressed', String(A.siren)); if (!A.siren) cl2Siren(false); else if (cl2Raf) cl2Siren(true); } }, '🚨 סירנה');
+      const horn = el('button', { type: 'button', class: 'btn', onclick: () => { tone(330, .18, 'square', 0, .05); tone(330, .25, 'square', .22, .05); } }, '📯 צפצוף');
+      const say = line || (A.phase === 'call' ? `📞 שיחת חירום! ${L.call} לחצי על המקום עם ה🚨 במפה` : A.phase === 'back' ? `${cl2Nm(A.p)} על האלונקה. נוסעים בזהירות למרפאה 🏥` : '');
+      body.replaceChildren(cl2Talk('driver', say, 'desk'), map, el('div', { class: 'chips cl2-drive' }, pedal, sirenB, horn, el('small', { class: 'muted' }, 'לחיצה = נסיעה אוטומטית · החזקה = נוסעים כל עוד מחזיקים')), el('div', { class: 'chips' }, cl2Back('↩️ לבטל ולחזור למרפאה')));
+      return;
+    }
+    // at the scene: find the hurt animal, then first aid
+    const scene = el('div', { class: 'cl2-scene cl2-bg-' + A.loc });
+    const petArt = () => petSVG(A.p, { noSick: true, mood: A.mood, over: A.mood === 'happy' ? '' : vetSym(A.p, A.s, A.mood === 'sick' ? 2 : 1) });
+    const pos = [[16, 64], [39, 72], [62, 62], [85, 70]];
+    A.spots.forEach((k, i) => {
+      const found = A.open[k] && k === A.hide;
+      const b = el('button', { type: 'button', class: 'cl2-spot' + (A.open[k] && !found ? ' seen' : '') + (A.miss >= 2 && !A.open[A.hide] && k === A.hide ? ' hint' : ''), style: `left:${pos[i][0]}%;top:${pos[i][1]}%`, 'aria-label': CL2_SPOT_N[k] },
+        el('span', { class: 'cl2-spotart', html: cl2SpotSVG(k) }));
+      if (found) b.append(el('span', { class: 'cl2-hurt', html: petArt() }));
+      b.onclick = () => {
+        if (A.phase !== 'find' || A.open[k]) return;
+        A.open[k] = 1;
+        if (k === A.hide) {
+          A.phase = 'aid'; try { SFX.pet(A.p.kind); } catch {} tone(520, .3, 'sine', .25, .05); tone(440, .4, 'sine', .5, .05);
+          cl2AmbDraw(`מצאת! ${cl2Nm(A.p)} מתחבא/ת מאחורי ${CL2_SPOT_N[k]}: "${VET_SICK[A.s].say}" — עכשיו עזרה ראשונה! 🩹`);
+        } else {
+          A.miss++; SFX.pop();
+          cl2AmbDraw(`${cl2Pick(CL2_NOT)} — לא מאחורי ${CL2_SPOT_N[k]}.${A.miss >= 2 ? ` ${cl2Driver()}: "שמעתי יבבה ליד ${CL2_SPOT_N[A.hide]}!" ✨` : ' נחפש עוד!'}`);
+        }
+      };
+      scene.append(b);
+    });
+    if (A.phase !== 'find') {
+      // the ambulance waits at the side, the driver beside it
+      scene.append(el('span', { class: 'cl2-sceneamb', html: CL2_AMB }));
+    }
+    const kids = [scene];
+    if (A.phase === 'aid') {
+      const want = A.steps[A.si];
+      const opts = cl2Shuf([...A.steps.slice(A.si).map(k => ['s', k]), ...cl2Shuf(CL2_FUN).slice(0, 2).map(f => ['f', f])]);
+      kids.push(el('div', { class: 'cl2-steps' }, el('b', {}, `🩹 עזרה ראשונה — שלב ${A.si + 1} מתוך ${A.steps.length}: מה עושים עכשיו?`),
+        el('div', { class: 'cl2-aid' }, ...opts.map(([t, k]) => {
+          const D = t === 's' ? CL2_AID[k] : k;
+          return el('button', { type: 'button', class: 'cl2-aidb' + (t === 's' && k === want && A.wrong ? ' hint' : ''), onclick: () => {
+            if (t === 'f') { SFX.boop(); A.wrong++; cl2AmbDraw(`${D[0]} חמוד! אבל קודם עזרה ראשונה 😊`); return; }
+            if (k !== want) { SFX.boop(); A.wrong++; cl2AmbDraw(`עוד לא — יש משהו שעושים לפני ${CL2_AID[k][1]} 🤔`); return; }
+            SFX.ding(); A.si++; A.wrong = 0;
+            if (A.si === 1) A.mood = 'sad';
+            if (A.si >= A.steps.length) {
+              A.mood = ''; A.phase = 'back'; A.route = cl2Route(A.loc, true); A.d = 0;
+              cl2AmbDraw(`${CL2_AID[k][2]} עכשיו לוחצים על הדוושה וחוזרים למרפאה 🏥`); return;
+            }
+            cl2AmbDraw(CL2_AID[k][2]);
+          } }, el('span', { class: 'e' }, D[0]), D[1]);
+        }))));
+    }
+    const say = line || (A.phase === 'find' ? `הגענו אל ${L.n}! איפה החיה הפצועה? לחצי על המקומות כדי לחפש 🔎` : '');
+    body.replaceChildren(cl2Talk('driver', say, 'desk'), ...kids, el('div', { class: 'chips' }, cl2Back()));
+  }
+  function cl2AmbArrive() {
+    const A = cl2A; if (!A) return;
+    cl2S.rescues++; cl2Save();
+    cl2Coins(10, `חילוץ מוצלח של ${cl2Nm(A.p)} 🚑`);
+    SFX.yay();
+    const L = CL2_LOCS[A.loc];
+    cl2Body().replaceChildren(cl2Talk('driver', `🏥 הגענו! ${cl2Nm(A.p)} מגיע/ה למרפאה על האלונקה. כל הכבוד, פרמדיקית!`, 'desk'),
+      el('div', { class: 'cl2-arrive' }, el('span', { class: 'cl2-sceneamb big', html: CL2_AMB }), el('span', { class: 'cl2-hurt', html: petSVG(A.p, { noSick: true, mood: 'sad', over: vetSym(A.p, A.s, 1) }) })),
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+        SFX.pop();
+        const head = $('#petzVetTitle'); if (head) head.textContent = '🏥 מרפאת החיות';
+        vetV = { p: A.p, s: A.s, visitor: true, checkup: false, ex: {}, tried: [], fails: 0, healed: false, fx: null, driver: true, rescue: true,
+          say: `🚑 ${cl2Driver()} הביאה את ${cl2Nm(A.p)} מ${L.n}. עשינו עזרה ראשונה — עכשיו בודקים מה בדיוק קרה! 🩺` };
+        cl2A = null; vetDraw();
+      } }, '🩺 לחדר הבדיקות'), cl2Back()));
+  }
+  // after a rescued patient is healed: "another rescue"
+  const cl2Draw0 = vetDraw;
+  vetDraw = function (line) {
+    cl2Draw0(line);
+    try {
+      const V = vetV; if (!V || V.icu) return;
+      const acts = [...cl2Body().querySelectorAll(':scope > .chips')].pop();
+      if (V.healed && V.rescue && acts && !acts.querySelector('.cl2-again')) acts.append(el('button', { type: 'button', class: 'btn cl2-again', onclick: () => cl2Open('amb') }, '🚑 עוד חילוץ!'));
+      const chart = cl2Body().querySelector('.vet7-chart > b'); if (chart && V.rescue && !chart.textContent.includes('🚑')) chart.textContent += ' 🚑';
+    } catch {}
+  };
+
+  // ================= 🦴 the x-ray room =================
+  const cl2BodyType = k => ({ owl: 'bird', turtle: 'turtle', fish: 'fish', whale: 'fish', dino: 'dino' })[k] || (/bird|owl|parrot|chick|duck|penguin/.test(k) ? 'bird' : /fish|dolph|shark/.test(k) ? 'fish' : /drag|dino/.test(k) ? 'dino' : 'std');
+  const CL2_BN = 'fill:#eef8ff;stroke:#bfe2ff;stroke-width:.6';
+  const cl2Bone = (x1, y1, x2, y2, w = 2.4, broken) => {
+    const knob = (x, y) => { const a = Math.atan2(y2 - y1, x2 - x1) + Math.PI / 2, dx = Math.cos(a) * w * .5, dy = Math.sin(a) * w * .5; return `<circle cx="${(x + dx).toFixed(1)}" cy="${(y + dy).toFixed(1)}" r="${(w * .62).toFixed(1)}" style="${CL2_BN}"/><circle cx="${(x - dx).toFixed(1)}" cy="${(y - dy).toFixed(1)}" r="${(w * .62).toFixed(1)}" style="${CL2_BN}"/>`; };
+    if (!broken) return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:#eef8ff;stroke-width:${w};stroke-linecap:round"/>${knob(x1, y1)}${knob(x2, y2)}`;
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    return `<line x1="${x1}" y1="${y1}" x2="${mx - .8}" y2="${my - .8}" style="stroke:#eef8ff;stroke-width:${w};stroke-linecap:round"/><line x1="${mx + .8}" y1="${my + .8}" x2="${x2}" y2="${y2}" style="stroke:#eef8ff;stroke-width:${w};stroke-linecap:round"/>${knob(x1, y1)}${knob(x2, y2)}<circle cx="${mx}" cy="${my}" r="3.6" style="fill:none;stroke:#ff4d6d;stroke-width:.9;stroke-dasharray:1.4 1"/><path d="M${mx - 1.6} ${my - 1.2} l1 1 l-.8 .8 l1.6 .6" style="fill:none;stroke:#ff4d6d;stroke-width:.7"/>`;
+  };
+  const CL2_ITEMS = {
+    sock: ['גרב', `<path d="M-3 -5 h5 v6 l3 2 q2 2 0 4 h-6 q-3 0 -3 -3 Z" style="fill:#ff7aa8;stroke:#fff;stroke-width:.5"/><path d="M-3 -2 h5 M-3 0 h5" style="stroke:#fff;stroke-width:.8"/>`],
+    coin: ['מטבע', `<circle r="4" style="fill:#ffd84d;stroke:#fff;stroke-width:.6"/><text y="1.8" text-anchor="middle" font-size="5" style="fill:#b07a00;font-family:Rubik,sans-serif">1</text>`],
+    ball: ['כדור קטן', `<circle r="3.8" style="fill:#7ec8ff;stroke:#fff;stroke-width:.6"/><path d="M-3.8 0 q3.8 2.4 7.6 0" style="fill:none;stroke:#fff;stroke-width:.6"/>`],
+    duck: ['ברווזון גומי', `<circle cx="1.6" cy="-2.6" r="2.2" style="fill:#ffd84d;stroke:#fff;stroke-width:.5"/><path d="M-4 0 q0 4 4 4 h2 q3 0 3 -3 l-2 -1 h-5 Z" style="fill:#ffd84d;stroke:#fff;stroke-width:.5"/><path d="M3.6 -2.8 l1.8 .6 l-1.8 .6" style="fill:#ff9a3c"/>`],
+    key: ['מפתח', `<circle cx="-2.4" r="2.2" style="fill:none;stroke:#ffd84d;stroke-width:1.2"/><path d="M-.2 0 h5 M3 0 v1.8 M4.6 0 v1.4" style="stroke:#ffd84d;stroke-width:1.2"/>`],
+  };
+  function cl2Skeleton(kind, out) {
+    const T = cl2BodyType(kind), brk = out && out.t === 'break';
+    const eye = (x, y, r = 2.6) => `<ellipse cx="${x}" cy="${y}" rx="${r}" ry="${r * 1.1}" style="fill:#16234a;stroke:#bfe2ff;stroke-width:.5"/>`;
+    const skull = (cy = 22, rx = 10.5, ry = 9) => `<ellipse cx="24" cy="${cy}" rx="${rx}" ry="${ry}" style="${CL2_BN}"/>${eye(20, cy - .5)}${eye(28, cy - .5)}<path d="M23 ${cy + 3} h2 l-1 1.6 Z" style="fill:#16234a"/><rect x="20" y="${cy + 5.2}" width="8" height="2.4" rx="1" style="fill:#16234a"/><path d="M22 ${cy + 5.2} v2.4 M24 ${cy + 5.2} v2.4 M26 ${cy + 5.2} v2.4" style="stroke:#eef8ff;stroke-width:.6"/>`;
+    const spine = (y1, y2, x = 24) => { let s = ''; for (let y = y1; y <= y2; y += 2.3) s += `<ellipse cx="${x}" cy="${y.toFixed(1)}" rx="1.5" ry="1" style="${CL2_BN}"/>`; return s; };
+    const ribs = (y, n = 3) => Array.from({ length: n }, (_, i) => `<path d="M24 ${y + i * 2.6} q-5 .2 -6.4 3 M24 ${y + i * 2.6} q5 .2 6.4 3" style="fill:none;stroke:#eef8ff;stroke-width:1.2;stroke-linecap:round"/>`).join('');
+    const tail = (pts) => pts.map(([x, y], i) => `<circle cx="${x}" cy="${y}" r="${Math.max(.6, 1.3 - i * .12)}" style="${CL2_BN}"/>`).join('');
+    let s = '';
+    if (T === 'fish') s = `<path d="M10 32 H36" style="stroke:#eef8ff;stroke-width:1.6;stroke-linecap:round"/>${[14, 18, 22, 26, 30].map(x => `<path d="M${x} 32 q2 -6 4 -8 M${x} 32 q2 6 4 8" style="fill:none;stroke:#eef8ff;stroke-width:1;stroke-linecap:round"/>`).join('')}<path d="M36 32 l6 -6 M36 32 l6 6" style="stroke:#eef8ff;stroke-width:1.4;stroke-linecap:round"/><circle cx="24" cy="22" r="7" style="${CL2_BN}"/>${eye(21, 21, 2.2)}${eye(27, 21, 2.2)}`;
+    else if (T === 'turtle') s = `<ellipse cx="24" cy="37" rx="14" ry="9" style="fill:none;stroke:#bfe2ff;stroke-width:1.2;stroke-dasharray:2 1.6"/>${skull(21, 8.5, 7.5)}${spine(30, 44)}${cl2Bone(15, 38, 9, 44, 2.2, brk)}${cl2Bone(33, 38, 39, 44, 2.2)}${cl2Bone(18, 43, 16, 47.5, 2)}${cl2Bone(30, 43, 32, 47.5, 2)}`;
+    else if (T === 'bird') s = `${skull(22, 9.5, 8.5)}<path d="M22.4 26 L24 29.5 L25.6 26 Z" style="fill:#ffd84d"/>${spine(32, 44)}${ribs(34)}<path d="M17 33 q-7 4 -6 12 M31 33 q7 4 6 12" style="fill:none;stroke:#eef8ff;stroke-width:1.6;stroke-linecap:round"/>${cl2Bone(21, 44, 20, 48, 1.4, brk)}${cl2Bone(27, 44, 28, 48, 1.4)}<path d="M18 48.5 h4 M26 48.5 h4" style="stroke:#eef8ff;stroke-width:1;stroke-linecap:round"/>`;
+    else {
+      s = `${skull()}${spine(32, 44)}${ribs(34)}${cl2Bone(18.5, 35, 14, 42, 2.2, brk)}${cl2Bone(29.5, 35, 34, 42, 2.2)}${cl2Bone(20, 44, 19, 48.5, 2.4)}${cl2Bone(28, 44, 29, 48.5, 2.4)}<ellipse cx="24" cy="44.5" rx="4.4" ry="1.8" style="${CL2_BN}"/>`;
+      s += T === 'dino' ? `${tail([[30, 45], [33, 44], [36, 42.6], [39, 41], [41.6, 39]])}${[15, 19, 23].map(y => `<path d="M${35 - (y - 15) * .2} ${y - 6} l2 -2 l1 2.4" style="fill:#eef8ff"/>`).join('')}` : tail([[30, 45], [32.6, 43.4], [34.6, 41.2], [35.8, 38.6]]);
+    }
+    if (out && out.t === 'item') s += `<g transform="translate(24 39.5)" class="cl2-item">${CL2_ITEMS[out.item][1]}</g>`;
+    return `<g class="cl2-skel">${s}</g>`;
+  }
+  let cl2X = null;
+  function cl2Xray(opts = {}) {
+    cl2Stop();
+    const exam = opts.exam || null;
+    if (exam) { cl2X = { p: exam.p, exam, phase: 'scan', scan: 50, seen: {}, out: cl2XrOut(exam.p, exam.s) }; return cl2XrDraw(); }
+    vetV = null;
+    cl2X = { p: opts.p || null, phase: opts.p ? 'scan' : 'pick', scan: 50, seen: {}, out: null };
+    if (cl2X.p) cl2X.out = cl2XrOut(cl2X.p);
+    cl2XrDraw();
+  }
+  function cl2XrOut(p, s) {
+    if (s) {
+      if (s === 'paw') return { t: 'break', txt: 'רואים סדק קטן בעצם של הרגל! 🦴 גבס יעזור לה להתחבר' };
+      if (s === 'tummy') { const item = cl2Pick(Object.keys(CL2_ITEMS)); return { t: 'item', item, txt: `בתוך הבטן יש... ${CL2_ITEMS[item][0]}! 😮 תרופה מתוקה תעזור לה/לו לצאת` }; }
+      const T = { bump: 'הגולגולת שלמה ✔️ — רק נפיחות קטנה מבחוץ', tooth: 'רואים שן אחת עם חור קטן 🦷', bite: 'העצמות שלמות ✔️ — הפצע רק בעור', padcut: 'אין זכוכית בפנים ✔️ רק חתך', knee: 'הברך שלמה ✔️ רק שפשוף', bruise: 'העצמות שלמות ✔️ — זו רק חבורה' }[s];
+      return { t: 'ok', txt: T || 'העצמות שלמות ובריאות ✔️' };
+    }
+    const r = Math.random();
+    if (r < .3) { const item = cl2Pick(Object.keys(CL2_ITEMS)); return { t: 'item', item, txt: `הפתעה! ${cl2Nm(p)} בלע/ה ${CL2_ITEMS[item][0]}! 😮` }; }
+    const T = cl2BodyType(p.kind);
+    if (r < .52 && T !== 'fish') return { t: 'break', txt: `אוי! יש שבר קטן ${T === 'bird' ? 'בכנף' : T === 'turtle' ? 'ברגל' : 'ביד'} של ${cl2Nm(p)} 🦴 צריך גבס` };
+    return { t: 'ok', txt: `כל העצמות של ${cl2Nm(p)} שלמות, חזקות ובריאות! 💪` };
+  }
+  const cl2CastC = [['#ff9ad5', 'ורוד'], ['#7ec8ff', 'תכלת'], ['#c9b2ff', 'סגול'], ['#fff36b', 'צהוב'], ['#ffffff', 'לבן']];
+  const cl2CastSVG = (c, wraps = 3, hearts, kind) => { const T = cl2BodyType(kind || ''), [x, y, a] = T === 'bird' ? [12.5, 39, 25] : T === 'turtle' ? [12, 41, 45] : [16.2, 38.5, 33];
+    return `<g transform="rotate(${a} ${x} ${y})"><rect x="${x - 3.6}" y="${y - wraps * 1.6}" width="7.2" height="${Math.max(1, wraps) * 3.2}" rx="3.2" fill="${c}" ${S2}/>${hearts ? `<path d="${pzHeart(x, y, 1.5)}" fill="#ff5a8a"/>` : ''}</g>`; };
+  function cl2XrDraw(line) {
+    const X = cl2X; if (!X) return;
+    cl2Head('🦴 חדר רנטגן', 'שמים חיה על המיטה, מזיזים את הסורק — ורואים מה יש בפנים! 🔍');
+    const body = cl2Body();
+    if (X.phase === 'pick') {
+      const all = allPets();
+      body.replaceChildren(cl2Talk('lab', line || 'מי עולה למיטת הרנטגן? בחרי חיה, ונראה את העצמות שלה 🦴', 'desk'),
+        el('div', { class: 'cl2-xpick' }, ...all.slice(0, 24).map(p => el('button', { type: 'button', class: 'cl2-xpb', onclick: () => { SFX.pop(); X.p = p; X.out = cl2XrOut(p); X.phase = 'scan'; cl2XrDraw(); } }, el('span', { class: 'ic', html: petSVG(p, { noSick: true }) }), el('small', {}, cl2Nm(p)))),
+          el('button', { type: 'button', class: 'cl2-xpb vis', onclick: () => { SFX.pop(); X.p = cl2Visitor(); X.out = cl2XrOut(X.p); X.phase = 'scan'; cl2XrDraw(`${cl2Nm(X.p)} הגיע/ה לצילום רנטגן 🚑`); } }, el('span', { class: 'e' }, '🚑'), el('small', {}, 'מטופל/ת אורח/ת'))),
+        el('div', { class: 'chips' }, el('span', { class: 'pill' }, `📸 צילמת ${cl2S.xrays} · 🧦 מצאת ${cl2S.finds} הפתעות · 🦴 ${cl2S.casts} גבסים`), cl2Back()));
+      return;
+    }
+    const p = X.p, out = X.out;
+    const castOver = X.cast && X.cast.w ? cl2CastSVG(X.cast.c, X.cast.w, X.cast.h, p.kind) : '';
+    const normal = el('div', { class: 'cl2-xp', html: petSVG(p, { noSick: true, mood: X.phase === 'done' ? 'happy' : X.phase === 'treat' && out.t === 'break' ? 'sad' : '', over: castOver }) });
+    const xl = el('div', { class: 'cl2-xl' }, el('div', { class: 'cl2-ghost', html: petSVG(p, { noSick: true, over: cl2Skeleton(p.kind, X.phase === 'done' ? (out.t === 'item' ? null : out.t === 'break' && X.cast ? null : out) : out) }) }));
+    const win = el('div', { class: 'cl2-scanner' }, el('span', { class: 'cl2-beam' }));
+    const W = 34;
+    const setScan = v => {
+      X.scan = Math.max(0, Math.min(100, v));
+      const l = X.scan * (100 - W) / 100;
+      xl.style.clipPath = `inset(0 ${(100 - l - W).toFixed(1)}% 0 ${l.toFixed(1)}%)`;
+      win.style.left = l + '%'; win.style.width = W + '%';
+      X.seen[Math.round(X.scan / 10)] = 1;
+      if (X.phase === 'scan' && X.scan > 35 && X.scan < 65 && Object.keys(X.seen).length >= 5 && !X.found) {
+        X.found = true; X.phase = 'result'; cl2S.xrays++; cl2Save();
+        if (out.t === 'ok') SFX.ding(); else { tone(660, .15, 'triangle'); tone(880, .2, 'triangle', .15); }
+        setTimeout(() => cl2XrDraw(`📸 ${out.txt}`), 250);
+      }
+    };
+    const showX = X.exam || !(X.phase === 'treat' || (X.phase === 'done' && out.t !== 'ok'));
+    const stage = el('div', { class: 'cl2-xstage' + (showX ? '' : ' after') }, el('span', { class: 'cl2-table' }), normal, showX ? xl : null, showX ? win : null);
+    let drag = false;
+    const fromEv = e => { const r = stage.getBoundingClientRect(); setScan(((e.clientX - r.left) / r.width * 100 - W / 2) / (100 - W) * 100); };
+    stage.addEventListener('pointerdown', e => { if (!showX) return; drag = true; try { stage.setPointerCapture(e.pointerId); } catch {} fromEv(e); tone(200, .05, 'sine', 0, .02); });
+    stage.addEventListener('pointermove', e => { if (drag) fromEv(e); });
+    stage.addEventListener('pointerup', () => { drag = false; });
+    const range = el('input', { type: 'range', min: '0', max: '100', value: String(X.scan), dir: 'ltr', class: 'cl2-range', 'aria-label': 'להזיז את הסורק' });
+    range.addEventListener('input', () => setScan(+range.value));
+    if (showX) setScan(X.scan);
+    const kids = [];
+    if (X.phase === 'result' || X.phase === 'treat' || X.phase === 'done') kids.push(el('div', { class: 'cl2-xres ' + out.t }, el('b', {}, out.t === 'ok' ? '✔️ צילום תקין' : out.t === 'item' ? `😮 הפתעה: ${CL2_ITEMS[out.item][0]}!` : '🦴 שבר קטן'), el('span', {}, out.txt)));
+    if (X.exam) {
+      if (X.phase !== 'scan') kids.push(el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+        const V = X.exam; cl2X = null; V.ex.xray = out.txt; SFX.ding();
+        if (vetV !== V) vetV = V;
+        const t = $('#petzVetTitle'); if (t) t.textContent = '🏥 מרפאת החיות';
+        vetDraw(`🦴 רנטגן: ${out.txt}${vetDiag(V) ? ' — יש אבחנה! 🔎' : ''}`);
+      } }, '📋 לרשום בתיק ולחזור לבדיקה')));
+    } else if (X.phase === 'result') {
+      if (out.t === 'ok') {
+        const t = localToday(), key = p.id || p.name;
+        if (cl2S.xrDay[key] !== t) { cl2S.xrDay[key] = t; cl2Save(); cl2Coins(3, `צילום רנטגן ל${cl2Nm(p)} 🦴`); }
+        X.phase = 'done';
+      } else if (out.t === 'item') {
+        kids.push(el('div', { class: 'cl2-aid' }, ...[['🍯', 'סירופ מחליק', 'ploop'], ['🧲', 'מגנט קסמים', 'ploop'], ['🍌', 'בננה', 'ploop']].map(([e, n]) => el('button', { type: 'button', class: 'cl2-aidb', onclick: () => {
+          X.phase = 'done'; cl2S.finds++; cl2Save(); SFX.yay(); tone(300, .12, 'sine', .1); tone(600, .12, 'sine', .25);
+          cl2Coins(8, `הוצאת ${CL2_ITEMS[out.item][0]} מהבטן של ${cl2Nm(p)} 🧦`);
+          try { confetti(vetDlg().querySelector('.confetti-c')); } catch {}
+          cl2XrDraw(`${e} ${n}... פְּלוֹפּ! ${CL2_ITEMS[out.item][0]} יצא/ה! ${cl2Nm(p)}: "אוי, סליחה, חשבתי שזה חטיף" 😅`);
+        } }, el('span', { class: 'e' }, e), n))));
+      } else {
+        X.phase = 'treat'; X.cast = null; X.ts = 0;
+      }
+    }
+    if (X.phase === 'treat' && !X.exam) {
+      const steps = el('div', { class: 'cl2-steps' });
+      if (!X.ts) steps.append(el('b', {}, '1️⃣ מיישרים את העצם בעדינות'), el('div', { class: 'cl2-aid' }, el('button', { type: 'button', class: 'cl2-aidb hint', onclick: () => { X.ts = 1; X.cast = { c: '#ffffff', w: 0 }; SFX.pop(); cl2XrDraw(`בעדינות... ${cl2Nm(p)} אמיץ/ה מאוד! 💪`); } }, el('span', { class: 'e' }, '🫳'), 'ליישר בעדינות')));
+      else if (X.ts === 1) steps.append(el('b', {}, '2️⃣ בוחרים צבע לגבס'), el('div', { class: 'cl2-aid' }, ...cl2CastC.map(([c, n]) => el('button', { type: 'button', class: 'cl2-aidb', onclick: () => { X.ts = 2; X.cast.c = c; SFX.ding(); cl2XrDraw(`גבס ${n}! עכשיו עוטפים 🤍`); } }, el('span', { class: 'cl2-swatch', style: `background:${c}` }), n))));
+      else if (X.ts === 2) steps.append(el('b', {}, `3️⃣ עוטפים בגבס — לחצי ${3 - X.cast.w} פעמים`), el('div', { class: 'cl2-aid' }, el('button', { type: 'button', class: 'cl2-aidb hint', onclick: () => { X.cast.w++; SFX.pop(); if (X.cast.w >= 3) X.ts = 3; cl2XrDraw(X.cast.w >= 3 ? 'הגבס מוכן! רוצה לקשט אותו? 💗' : 'סיבוב... ועוד סיבוב 🤍'); } }, el('span', { class: 'e' }, '🤍'), 'לעטוף')));
+      else steps.append(el('b', {}, '4️⃣ מקשטים את הגבס'), el('div', { class: 'cl2-aid' }, ...[['💗', 'לבבות', true], ['✔️', 'ככה זה מושלם', false]].map(([e, n, h]) => el('button', { type: 'button', class: 'cl2-aidb', onclick: () => {
+        X.cast.h = h; X.phase = 'done'; cl2S.casts++; cl2Save(); SFX.yay();
+        cl2Coins(10, `גבס ל${cl2Nm(p)} 🦴`); try { confetti(vetDlg().querySelector('.confetti-c')); } catch {}
+        cl2XrDraw(`${cl2Nm(p)}: "איזה גבס יפה! עוד כמה ימים העצם תתחבר ואני ארוץ שוב" 💗`);
+      } }, el('span', { class: 'e' }, e), n))));
+      kids.push(steps);
+    }
+    if (!X.exam && X.phase === 'done') kids.push(el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => { cl2X = { phase: 'pick', seen: {} }; cl2XrDraw(); } }, '📸 צילום לחיה אחרת')));
+    const say = line || (X.phase === 'scan' ? `${cl2Nm(p)} שוכב/ת על מיטת הרנטגן. הזיזי את הסורק (גוררים או עם הפס) ונראה מה יש בפנים! 🔍` : '');
+    body.replaceChildren(cl2Talk('lab', say, 'desk'), stage, showX ? el('div', { class: 'cl2-rangebox' }, el('span', {}, '◀'), range, el('span', {}, '▶')) : null, ...kids,
+      el('div', { class: 'chips' }, X.exam ? el('button', { type: 'button', class: 'btn', onclick: () => { const V = X.exam; cl2X = null; vetV = V; vetDraw(); } }, '↩️ חזרה לבדיקה') : cl2Back()));
+  }
+  // x-ray as an exam tool in the exam room
+  if (!VET_EX.some(x => x[0] === 'xray')) VET_EX.push(['xray', 'רנטגן', 'לצלם רנטגן']);
+  VET_NORMAL.xray = 'העצמות שלמות ובריאות ✔️';
+  Object.entries({ paw: 'רואים סדק קטן בעצם 🦴', tummy: 'משהו מוזר בבטן! 😮', bump: 'הגולגולת שלמה ✔️', tooth: 'רואים חור קטן בשן 🦷', bite: 'העצמות שלמות ✔️', padcut: 'אין זכוכית בפנים ✔️' })
+    .forEach(([k, t]) => { if (VET_SICK[k]) VET_SICK[k].ex.xray = VET_SICK[k].ex.xray || t; });
+  const cl2Exam0 = vetExam;
+  vetExam = function (k, ...a) {
+    if (k !== 'xray') return cl2Exam0(k, ...a);
+    const V = vetV; if (!V || V.healed) return;
+    SFX.pop(); cl2Xray({ exam: V });
+  };
+
+  // ================= 🍼 the NICU (פגייה) =================
+  const CL2_GAP = 30000;
+  const cl2NicuEnsure = () => {
+    const t = localToday(), N = cl2S.nicu;
+    const babies = allPets().filter(p => { try { return typeof petAge === 'function' && petAge(p).stage === 'baby'; } catch { return false; } });
+    babies.forEach(p => { if (!N[p.id]) { const g0 = 400 + Math.round(Math.random() * 300); N[p.id] = { g: g0, g0, goal: g0 + 220, fed: 0, rub: 0, temp: 35.4, lastFed: 0, at: Date.now(), done: false }; } });
+    Object.keys(N).forEach(id => { const r = N[id]; if (!r.vis && !babies.some(p => p.id === id)) delete N[id]; });
+    const vis = Object.keys(N).filter(id => N[id].vis);
+    if (vis.length < (babies.filter(p => !N[p.id].done).length ? 1 : 2)) {
+      const id = 'cl2v' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), kind = pzPick(PET_KINDS)[0];
+      const g0 = 300 + Math.round(Math.random() * 250);
+      N[id] = { vis: { kind, name: pzPick(PZ_VISITORS), size: .62, look: petzRandomLook(kind), wear: {}, visitor: true, id }, g: g0, g0, goal: g0 + 200, fed: 0, rub: 0, temp: 35.2, lastFed: 0, at: Date.now(), done: false, mom: pzPick(PZ_VISITORS) };
+    }
+    // left alone for a while: the incubator cools down a little (never dangerous)
+    Object.values(N).forEach(r => { if (Date.now() - (r.at || 0) > 10 * 60000 && r.temp > 35.6) r.temp = 35.6; r.at = Date.now(); });
+    cl2Save();
+    return babies;
+  };
+  const cl2NicuPet = (id, r) => { if (r.vis) return Object.assign({}, r.vis, { born: localToday() }); return allPets().find(p => p.id === id); };
+  const cl2Warm = r => r.temp >= 36.5 && r.temp <= 37.5;
+  const cl2IncSVG = (warm) => `<svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><rect x="18" y="104" width="164" height="30" rx="8" fill="#e8eef7" ${S3}/><path d="M40 134 V146 M160 134 V146" stroke="${O}" stroke-width="5" stroke-linecap="round"/><rect x="132" y="112" width="40" height="16" rx="4" fill="#1f2a44" ${S2}/><path d="M136 120 h6 l3 -5 l4 10 l3 -5 h16" stroke="#6fdc8c" stroke-width="2" fill="none" class="cl2-ecg"/><rect x="26" y="96" width="148" height="12" rx="6" fill="${warm ? '#ffd1e6' : '#cfe3ff'}" ${S2}/><circle cx="34" cy="120" r="5" fill="${warm ? '#ff9a3c' : '#7ec8ff'}" ${S2}/></svg>`;
+  const cl2DomeSVG = `<svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg"><path d="M22 100 V52 Q22 22 60 22 H140 Q178 22 178 52 V100" fill="rgb(191 230 255 / .28)" stroke="#8fc6ef" stroke-width="3"/><path d="M36 48 Q40 32 62 30" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/><circle cx="46" cy="80" r="8" fill="none" stroke="#8fc6ef" stroke-width="2.5"/><circle cx="154" cy="80" r="8" fill="none" stroke="#8fc6ef" stroke-width="2.5"/></svg>`;
+  const cl2Arc = (a1, a2, c) => { const P = a => `${(50 + 34 * Math.sin(a * Math.PI / 180)).toFixed(1)} ${(54 - 34 * Math.cos(a * Math.PI / 180)).toFixed(1)}`; return `<path d="M${P(a1)} A34 34 0 0 1 ${P(a2)}" stroke="${c}" stroke-width="8" fill="none"/>`; };
+  const cl2DialSVG = t => `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="54" r="42" fill="#fff" ${S3}/>${cl2Arc(-62, -16, '#7ec8ff')}${cl2Arc(-14, 14, '#6fdc8c')}${cl2Arc(16, 62, '#ff9a3c')}<text x="20" y="70" font-size="10" text-anchor="middle">❄️</text><text x="80" y="70" font-size="10" text-anchor="middle">🔥</text><g transform="rotate(${Math.max(-62, Math.min(62, (t - 37) * 30)).toFixed(1)} 50 54)"><path d="M50 54 L50 24" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round"/></g><circle cx="50" cy="54" r="6" fill="#ff4d6d" ${S2}/><text x="50" y="88" text-anchor="middle" font-size="13" font-weight="700" font-family="Rubik, sans-serif" fill="#1f2a44">${t.toFixed(1)}°</text></svg>`;
+  const CL2_BOTTLE = `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M20 4 Q24 0 28 4 V10 H20 Z" fill="#ffc7a0" ${S2}/><rect x="17" y="10" width="14" height="5" rx="2" fill="#ff9ad5" ${S2}/><path d="M16 15 H32 V40 Q32 45 24 45 Q16 45 16 40 Z" fill="#fff" ${S}/><path d="M17 26 H31 V40 Q31 44 24 44 Q17 44 17 40 Z" fill="#fff6e0"/><path d="M19 22 h4 M19 30 h4 M19 38 h4" stroke="#b58cff" stroke-width="1.6"/></svg>`;
+  const CL2_ANGEL = `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M30 34 Q10 40 4 22 Q18 20 30 30 Z M34 34 Q54 40 60 22 Q46 20 34 30 Z" fill="#fff" ${S}/><circle cx="32" cy="36" r="14" fill="#ffd1e6" ${S}/><ellipse cx="32" cy="12" rx="12" ry="4" fill="none" stroke="#ffd84d" stroke-width="3.4"/><path d="${pzHeart(32, 36, 6)}" fill="#ff5a8a"/></svg>`;
+  let cl2Sel = null;
+  function cl2Nicu(line) {
+    cl2Stop(); vetV = null;
+    cl2NicuEnsure();
+    cl2Head('🍼 הפגייה', 'תינוקות קטנטנים באינקובטורים: שומרים על חום, מאכילים בבקבוק ומלטפים — עד שהם גדלים ✨');
+    const N = cl2S.nicu, ids = Object.keys(N).filter(id => cl2NicuPet(id, N[id]));
+    if (!cl2Sel || !N[cl2Sel] || N[cl2Sel].done) cl2Sel = ids.find(id => !N[id].done) || null;
+    const body = cl2Body();
+    const head = el('div', { class: 'cl2-nhead' }, el('span', { class: 'cl2-angel' + (cl2S.angel ? ' on' : ''), html: CL2_ANGEL }),
+      el('div', {}, el('b', {}, cl2S.angel ? '👼 מלאכית הפגייה!' : '👼 בדרך להיות מלאכית הפגייה'), el('small', { class: 'muted' }, cl2S.angel ? `שלחת ${cl2S.grads} תינוקות הביתה בריאים 💗` : `שלחת ${cl2S.grads} מתוך 3 תינוקות הביתה בריאים`)),
+      typeof coinChip === 'function' ? coinChip() : null);
+    const left = id => Math.max(0, CL2_GAP - (Date.now() - (N[id].lastFed || 0)));
+    const mini = el('div', { class: 'cl2-incs' }, ...ids.map(id => {
+      const r = N[id], p = cl2NicuPet(id, r);
+      return el('button', { type: 'button', class: 'cl2-inc mini' + (id === cl2Sel ? ' on' : '') + (r.done ? ' done' : ''), onclick: () => { if (r.done) return; cl2Sel = id; SFX.pop(); cl2Nicu(); } },
+        el('span', { class: 'cl2-incbg', html: cl2IncSVG(cl2Warm(r)) }), el('span', { class: 'cl2-baby', html: petSVG(p, { mood: 'sleepy', noSick: true }) }), el('span', { class: 'cl2-dome', html: cl2DomeSVG }),
+        el('small', { class: 'cl2-incl' }, `${cl2Nm(p)}${r.vis ? '' : ' 💖'} · ${r.done ? '✔️ בריא/ה!' : `${r.g} גרם`}`),
+        r.done ? null : el('span', { class: 'cl2-st' }, cl2Warm(r) ? '🌡️✔️' : '🥶', left(id) ? '' : '🍼'));
+    }));
+    const kids = [head];
+    if (!ids.length) kids.push(el('p', { class: 'muted' }, 'אין תינוקות בפגייה כרגע 🍼'));
+    kids.push(mini);
+    if (cl2Sel) {
+      const id = cl2Sel, r = N[id], p = cl2NicuPet(id, r), warm = cl2Warm(r), nm = cl2Nm(p);
+      const baby = el('span', { class: 'cl2-baby big' + (warm ? '' : ' cold'), html: petSVG(p, { mood: warm ? 'sleepy' : 'sad', noSick: true }) });
+      const fx = el('span', { class: 'cl2-nfx' });
+      const inc = el('div', { class: 'cl2-inc big' }, el('span', { class: 'cl2-incbg', html: cl2IncSVG(warm) }), baby, el('span', { class: 'cl2-dome', html: cl2DomeSVG }), fx, warm ? null : el('span', { class: 'cl2-shiver' }, '🥶'));
+      const say = el('span', { class: 'pz-say cl2-nsay' }, line || (warm ? `${nm} ישן/ה בשקט באינקובטור החמים 💤` : `${nm} קצת קר/ה... סובבי את החוגה ל־37° 🌡️`));
+      const pop = (t, c = '') => { fx.textContent = t; fx.className = 'cl2-nfx on ' + c; setTimeout(() => { if (fx.isConnected) fx.className = 'cl2-nfx'; }, 1100); };
+      // temperature dial
+      const dial = el('span', { class: 'cl2-dial', html: cl2DialSVG(r.temp), role: 'slider', 'aria-label': 'חום האינקובטור', 'aria-valuemin': '35', 'aria-valuemax': '39', 'aria-valuenow': String(r.temp), tabindex: '0' });
+      const setT = v => {
+        const was = cl2Warm(r);
+        r.temp = Math.round(Math.max(35, Math.min(39, v)) * 10) / 10; cl2Save();
+        dial.innerHTML = cl2DialSVG(r.temp); dial.setAttribute('aria-valuenow', String(r.temp));
+        const now = cl2Warm(r);
+        if (now !== was) { if (now) { SFX.ding(); } cl2Nicu(now ? `נעים וחמים! ${nm} מחייך/ת בשינה 🥰` : r.temp > 37.5 ? 'אופס, קצת חם מדי! בואי נוריד מעט 🌡️' : `${nm} קצת קר/ה... עוד קצת חום 🌡️`); }
+      };
+      let dd = false;
+      const dialEv = e => { const R = dial.getBoundingClientRect(), a = Math.atan2(e.clientX - (R.left + R.width / 2), -(e.clientY - (R.top + R.height * .54))) * 180 / Math.PI; setT(37 + Math.max(-60, Math.min(60, a)) / 30); };
+      dial.addEventListener('pointerdown', e => { dd = true; try { dial.setPointerCapture(e.pointerId); } catch {} dialEv(e); });
+      dial.addEventListener('pointermove', e => { if (dd) dialEv(e); });
+      dial.addEventListener('pointerup', () => { dd = false; });
+      dial.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') setT(r.temp - .2); if (e.key === 'ArrowRight' || e.key === 'ArrowUp') setT(r.temp + .2); });
+      const tbox = el('div', { class: 'cl2-tbox' }, el('b', {}, '🌡️ חום'), dial, el('div', { class: 'chips' },
+        el('button', { type: 'button', class: 'btn cl2-tminus', 'aria-label': 'להוריד חום', onclick: () => setT(r.temp - .5) }, '➖'),
+        el('button', { type: 'button', class: 'btn cl2-tplus', 'aria-label': 'להעלות חום', onclick: () => setT(r.temp + .5) }, '➕')), el('small', { class: 'muted' }, 'הירוק = 37° מושלם'));
+      // feeding, tummy rub, weighing
+      const lf = left(id);
+      const feed = el('button', { type: 'button', class: 'cl2-care cl2-feed' + (lf ? ' wait' : ' ready') }, el('span', { class: 'ic', html: CL2_BOTTLE }), el('span', { class: 'cl2-fl' }, lf ? `🍼 בעוד ${Math.ceil(lf / 1000)} שנ׳` : '🍼 זמן בקבוק!'));
+      feed.onclick = () => {
+        if (left(id)) { SFX.boop(); say.textContent = `${nm} עוד שבע/ה. הבקבוק הבא בעוד ${Math.ceil(left(id) / 1000)} שניות ⏰`; return; }
+        const add = warm ? 35 + Math.round(Math.random() * 20) : 18;
+        r.g += add; r.fed++; r.lastFed = Date.now(); cl2Save();
+        [0, .25, .5, .75].forEach(w => tone(240, .09, 'sine', w, .05));
+        pop('🍼 גְּלוּק גְּלוּק', 'feed');
+        setTimeout(() => cl2Nicu(`${nm} שתה/תה את כל הבקבוק! ${warm ? '' : '(כשחם, אוכלים יותר טוב 🌡️) '}עכשיו ליטוף בבטן 💗`), 900);
+      };
+      let rubD = 0, rubP = null, rubbed = false;
+      const rubDone = () => {
+        if (rubbed) return; rubbed = true;
+        r.rub++; r.g += 8; cl2Save(); SFX.pet(p.kind); tone(200, .2, 'sine', .3, .05);
+        pop('💗 בּוּרְפּ!', 'rub');
+        setTimeout(() => cl2Nicu(`ליטוף עדין בבטן... בּוּרְפּ! ${nm} מרוצה ונרדם/ת שוב 😊`), 900);
+      };
+      baby.addEventListener('pointerdown', e => { rubP = [e.clientX, e.clientY]; });
+      baby.addEventListener('pointermove', e => { if (!rubP) return; rubD += Math.hypot(e.clientX - rubP[0], e.clientY - rubP[1]); rubP = [e.clientX, e.clientY]; if (rubD > 50 && Math.random() < .3) pop('💗'); if (rubD > 260) rubDone(); });
+      baby.addEventListener('pointerup', () => { rubP = null; });
+      const rub = el('button', { type: 'button', class: 'cl2-care', onclick: () => { rubD += 90; pop('💗'); tone(500 + rubD, .08, 'sine', 0, .04); if (rubD > 260) rubDone(); } }, el('span', { class: 'e' }, '🫶'), el('span', {}, 'ליטוף בבטן'));
+      const weigh = el('button', { type: 'button', class: 'cl2-care', onclick: () => cl2Weigh(id) }, el('span', { class: 'e' }, '⚖️'), el('span', {}, 'לשקול'));
+      const prog = el('span', { class: 'vet7-bar cl2-gbar' }, el('i')); prog.firstChild.style.width = Math.min(100, Math.round((r.g - r.g0) / (r.goal - r.g0) * 100)) + '%';
+      kids.push(el('div', { class: 'cl2-nroom' }, say, inc, tbox),
+        el('div', { class: 'cl2-gline' }, el('b', {}, `${nm}: ${r.g} גרם`), prog, el('small', { class: 'muted' }, `צריך ${r.goal} גרם כדי ללכת הביתה · 🍼 ${r.fed} בקבוקים · 🫶 ${r.rub} ליטופים`)),
+        el('div', { class: 'cl2-cares' }, feed, rub, weigh));
+      cl2Timers.push(setInterval(() => {
+        if (!feed.isConnected) return;
+        const l = left(id), fl = feed.querySelector('.cl2-fl');
+        feed.classList.toggle('wait', !!l); feed.classList.toggle('ready', !l);
+        if (fl) fl.textContent = l ? `🍼 בעוד ${Math.ceil(l / 1000)} שנ׳` : '🍼 זמן בקבוק!';
+      }, 1000));
+    }
+    kids.push(el('div', { class: 'chips' }, el('span', { class: 'pill' }, '💗 בפגייה כל התינוקות מבריאים וגדלים — תמיד'), cl2Back()));
+    body.replaceChildren(...kids);
+  }
+  function cl2Weigh(id) {
+    const r = cl2S.nicu[id]; if (!r) return;
+    const p = cl2NicuPet(id, r), nm = cl2Nm(p), body = cl2Body(), prev = r.w || r.g0;
+    const num = el('b', { class: 'cl2-num' }, '0');
+    const scale = el('div', { class: 'cl2-scale' }, el('span', { class: 'cl2-baby', html: petSVG(p, { mood: 'happy', noSick: true }) }),
+      el('span', { class: 'cl2-plate', html: `<svg viewBox="0 0 200 90" xmlns="http://www.w3.org/2000/svg"><path d="M20 20 Q100 44 180 20 L170 34 Q100 52 30 34 Z" fill="#dff4ff" ${S3}/><rect x="40" y="40" width="120" height="44" rx="10" fill="#ff9ad5" ${S3}/><rect x="58" y="48" width="84" height="26" rx="5" fill="#1f2a44" ${S2}/></svg>` }), num);
+    body.replaceChildren(cl2Talk('nurse', `שמים את ${nm} על המשקל בעדינות... ⚖️`, 'desk'), scale, el('div', { class: 'chips cl2-wact' }));
+    let v = 0; const t0 = performance.now();
+    const tick = ts => {
+      v = Math.round(r.g * Math.min(1, (ts - t0) / 1200)); num.textContent = `${v} גרם`;
+      if (v < r.g) { cl2Raf = requestAnimationFrame(tick); return; }
+      cl2Raf = 0; SFX.ding();
+      const grew = r.g - prev; r.w = r.g; cl2Save();
+      const ready = r.g >= r.goal;
+      const acts = body.querySelector('.cl2-wact');
+      const sp = body.querySelector('.vetb-bub > span') || body.querySelector('.cl2-say');
+      if (sp) sp.textContent = (ready ? `${nm} שוקל/ת ${r.g} גרם — גדול/ה וחזק/ה מספיק ללכת הביתה! 🎉` : grew > 0 ? `${nm} גדל/ה ב־${grew} גרם! עוד ${r.goal - r.g} גרם עד הבית 🌱` : `${nm} שוקל/ת ${r.g} גרם. בקבוק וליטופים יעזרו לגדול 🍼`);
+      if (acts) acts.append(ready ? el('button', { type: 'button', class: 'btn main', onclick: () => cl2Grad(id) }, '🏡 הולכים הביתה בריאים!') : el('button', { type: 'button', class: 'btn main', onclick: () => cl2Nicu() }, '↩️ חזרה לאינקובטור'));
+    };
+    cl2Raf = requestAnimationFrame(tick);
+  }
+  function cl2Grad(id) {
+    const r = cl2S.nicu[id]; if (!r || r.done) return;
+    const p = cl2NicuPet(id, r), nm = cl2Nm(p);
+    r.done = true; cl2S.grads++;
+    if (r.vis) delete cl2S.nicu[id];
+    const angelNow = !cl2S.angel && cl2S.grads >= 3;
+    if (angelNow) cl2S.angel = true;
+    cl2Save();
+    cl2Coins(r.vis ? 12 : 15, `${nm} יצא/ה מהפגייה בריא/ה 🍼`);
+    SFX.yay(); try { confetti(vetDlg().querySelector('.confetti-c')); } catch {}
+    const mom = r.vis ? Object.assign({}, r.vis, { size: 1.05, born: undefined, name: r.mom || 'אמא' }) : null;
+    cl2Body().replaceChildren(cl2Talk('nurse', r.vis ? `${r.mom || 'אמא'} באה לקחת את ${nm} הביתה! "תודה רבה שגידלת אותו/ה כל כך יפה!" 💕` : `${nm} בריא/ה וחזק/ה וחוזר/ת הביתה לכל החברים! 🏡💖`, 'desk'),
+      el('div', { class: 'cl2-home' }, mom ? el('span', { class: 'cl2-momart', html: petSVG(mom, { mood: 'happy' }) }) : null,
+        ...(mom ? [] : allPets().filter(q => q.id !== id).slice(0, 2).map(q => el('span', { class: 'cl2-friend', html: petSVG(q, { mood: 'happy' }) }))),
+        el('span', { class: 'cl2-baby', html: petSVG(p, { mood: 'happy', noSick: true }) }),
+        ...(mom ? [] : allPets().filter(q => q.id !== id).slice(2, 4).map(q => el('span', { class: 'cl2-friend', html: petSVG(q, { mood: 'happy' }) }))), el('span', { class: 'cl2-hearts' }, '💗 💕 💗')),
+      angelNow ? el('div', { class: 'cl2-xres ok' }, el('b', {}, '👼 קיבלת את התג "מלאכית הפגייה"!'), el('span', {}, '3 תינוקות יצאו הביתה בריאים בזכותך')) : null,
+      el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => cl2Nicu() }, '🍼 חזרה לפגייה'), cl2Back()));
+    if (angelNow) setTimeout(() => { try { toast(CL2_ANGEL, '👼 תג חדש: מלאכית הפגייה!'); } catch {} cl2Coins(25, 'מלאכית הפגייה 👼'); }, 1400);
+  }
+
+  // ================= lobby buttons + MORE tiles =================
+  const cl2Lobby0 = vetLobby;
+  vetLobby = function () {
+    cl2Stop();
+    cl2Lobby0();
+    try {
+      const body = cl2Body(), N = cl2S.nicu;
+      const babies = allPets().filter(p => { try { return petAge(p).stage === 'baby'; } catch { return false; } }).filter(p => !(N[p.id] && N[p.id].done)).length;
+      const row = el('div', { class: 'cl2-lrow' },
+        el('button', { type: 'button', class: 'cl2-lbtn amb', onclick: () => { SFX.pop(); cl2Open('amb'); } }, el('span', { class: 'ic', html: CL2_AMB }), el('b', {}, '🚑 יציאה לחילוץ'), el('small', {}, cl2S.rescues ? `${cl2S.rescues} חילוצים` : 'קריאת חירום!')),
+        el('button', { type: 'button', class: 'cl2-lbtn xr', onclick: () => { SFX.pop(); cl2Open('xray'); } }, el('span', { class: 'e' }, '🦴'), el('b', {}, 'חדר רנטגן'), el('small', {}, 'מה יש בפנים?')),
+        el('button', { type: 'button', class: 'cl2-lbtn nicu', onclick: () => { SFX.pop(); cl2Open('nicu'); } }, el('span', { class: 'e' }, '🍼'), el('b', {}, 'פגייה'), el('small', {}, babies ? `${babies} תינוקות שלך 💖` : 'תינוקות קטנטנים')));
+      const anchor = body.querySelector('.vetb-talk.desk') || body.querySelector('.vet7-head');
+      if (anchor) anchor.after(row); else body.prepend(row);
+    } catch (e) { console.error('cl2 lobby', e); }
+  };
+  { const at = MORE.findIndex(m => m[1] === 'מרפאת החיות');
+    const T = [['lightning', '🚑 אמבולנס החיות', () => cl2Open('amb')], ['crystal', '🦴 רנטגן החיות', () => cl2Open('xray')], ['heart', '🍼 פגיית החיות', () => cl2Open('nicu')]].filter(t => !MORE.some(m => m[1] === t[1]));
+    if (at >= 0) MORE.splice(at + 1, 0, ...T); else MORE.push(...T); }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
