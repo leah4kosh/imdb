@@ -11563,7 +11563,7 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
     };
     const draw = err => {
       const s = steps[stepAt];
-      lk8bRedraw = () => { stepAt = 0; code = ''; if (lock.open) draw(); }; lock.replaceChildren(lk8bBlocked() ? lk8bSorry(lk8bRedraw, cancelLink) : s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
+      lk8bRedraw = () => { stepAt = 0; code = ''; if (lock.open) draw(); }; lock.replaceChildren(lk8bBlocked() ? (() => { const b = lk8bSorry(lk8bRedraw, cancelLink); try { (b.querySelector('.lk8b-card, .lock-box') || b).append(el('button', { type: 'button', class: 'lock-link', style: 'margin-top:14px', onclick: () => forgot() }, '🔑 שכחתי? לענות על השאלה הסודית')); } catch {} return b; })() : s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
     };
     const key = k => {
       if (k === '⌫') code = code.slice(0, -1);
