@@ -11497,7 +11497,12 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
       ...(extra || []));
     return box;
   }
-  const sameAnswer = (a, b) => a.trim().replace(/\s+/g, ' ').toLowerCase() === (b || '').trim().replace(/\s+/g, ' ').toLowerCase();
+  // forgiving answers (she typed right answers and was told "wrong"): ignore punctuation, Hebrew final letters, and a wrong keyboard language (EN↔HE)
+  const ansFold = x => String(x == null ? '' : x).trim().replace(/[.,!?'"׳״`\-]/g, '').replace(/\s+/g, ' ').toLowerCase().replace(/[ךםןףץ]/g, c => ({ 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' })[c]);
+  const ANS_EN = "qwertyuiopasdfghjkl;zxcvbnm,.", ANS_HE = "/'קראטוןםפשדגכעיחלךףזסבהנמצתץ";
+  const ansSwap = x => String(x == null ? '' : x).toLowerCase().split('').map(c => { let i = ANS_EN.indexOf(c); if (i >= 0) return ANS_HE[i]; i = ANS_HE.indexOf(c); return i >= 0 ? ANS_EN[i] : c; }).join('');
+  const ansVariants = x => [x, ansSwap(x)];
+  const sameAnswer = (a, b) => ansVariants(a).some(v => ansFold(v) === ansFold(b)) || ansVariants(b).some(v => ansFold(v) === ansFold(a));
   function showLock(onOk, canCancel, upgradedNote) {
     const lock = $('#lock');
     const steps = lockSteps();
@@ -45830,14 +45835,14 @@ ${label(900, 520, '🌊 ים האיים')}
   function lk8TextPad(mode, emit, o = {}) {
     const inp = el('input', { type: 'password', class: 'lk8-in', autocomplete: 'off', maxLength: 30, placeholder: o.ph || 'המילה הסודית', 'aria-label': o.ph || 'המילה הסודית' });
     inp.setAttribute('form', 'lk8-noform');
-    const go = () => { const v = lk8Norm(inp.value); if (mode === 'set' && v.length < 3) { lk8Hint(wrap, 'לפחות 3 אותיות 🔤'); return; } if (!v) return; inp.value = ''; emit(v); };
+    const go = () => { const raw = inp.value, v = lk8Norm(raw); if (mode === 'set' && v.length < 3) { lk8Hint(wrap, 'לפחות 3 אותיות 🔤'); return; } if (!v) return; inp.value = ''; emit(mode === 'set' ? v : raw); };
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(); } });
     const wrap = el('div', { class: 'lk8-pad' }, inp, el('div', { class: 'lk8-hint' }), el('button', { type: 'button', class: 'btn main', onclick: go }, '✓ אישור'));
     if (mode === 'open') setTimeout(() => inp.focus());
     return wrap;
   }
 
-  const lk8Exact = { secret: v => ({ h: lk8Hash(v) }), match: (s, v) => !!s && s.h === lk8Hash(v) };
+  const lk8Exact = { secret: v => ({ h: lk8Hash(ansFold(v)) }), match: (s, v) => !!s && [v, ansSwap(v)].some(w => s.h === lk8Hash(w) || s.h === lk8Hash(ansFold(w))) };
   const lk8Near = (A, B) => { const near = (c, S) => S.some(d => Math.abs(c % 8 - d % 8) <= 1 && Math.abs(Math.floor(c / 8) - Math.floor(d / 8)) <= 1); return (B.filter(c => near(c, A)).length + A.filter(c => near(c, B)).length) / (A.length + B.length); };
   const LK8_L = {
     pattern: Object.assign({ ic: '🔵', name: 'צורה סודית', how: 'מחברים 4 נקודות או יותר', ask: 'מחברים את הנקודות בצורה הסודית', pad: lk8PatternPad }, lk8Exact),
@@ -45937,7 +45942,7 @@ ${label(900, 520, '🌊 ים האיים')}
     if (q.kind === 'color') return chips(LK8_COLORS, 'cols');
     if (q.kind === 'month') return chips(MONTHS.map(m => [m, m]), 'months');
     if (q.kind === 'season') return chips(LK8_SEASONS.map(([id, l]) => [id, l]));
-    const inp = el('input', { type: set ? 'password' : 'text', class: 'lk8-in', autocomplete: 'off', maxLength: 40, inputMode: q.kind === 'num' ? 'numeric' : 'text', placeholder: set ? (cur ? '✔️ יש תשובה (אפשר לכתוב חדשה)' : 'התשובה') : 'התשובה', 'aria-label': q.q });
+    const inp = el('input', { type: 'text', class: 'lk8-in', autocomplete: 'off', maxLength: 40, inputMode: q.kind === 'num' ? 'numeric' : 'text', placeholder: set ? (cur ? '✔️ יש תשובה (אפשר לכתוב חדשה)' : 'התשובה') : 'התשובה', 'aria-label': q.q });
     inp.setAttribute('form', 'lk8-noform');
     if (set) { if (val) inp.value = val; inp.addEventListener('input', () => onVal(inp.value)); return inp; }
     const go = () => { if (lk8Norm(inp.value)) onVal(inp.value); };
@@ -45961,7 +45966,8 @@ ${label(900, 520, '🌊 ים האיים')}
         lk8AnsUI(q, v => { ans[i] = v; i++; if (i <= qs.length) step(); else check(); }), ...foot());
     };
     const check = () => {
-      const good = lk8Hash(ans[0]) === id.g && qs.every((q, k) => lk8Hash(ans[k + 1]) === q.h);
+      const hit = (v, h) => [v, ansSwap(v)].some(w => lk8Hash(w) === h || lk8Hash(ansFold(w)) === h);
+      const good = lk8Hash(ans[0]) === id.g && qs.every((q, k) => hit(ans[k + 1], q.h));
       if (good) { box.replaceChildren(...head('🪪', 'מי את?'), prog(), ...foot()); ok(); }
       else { box.replaceChildren(...head('🤔', 'מי את?'), prog(), ...foot()); lk8Wrong(box, 'lk8id', ctx, true); }
     };
@@ -46062,7 +46068,7 @@ ${label(900, 520, '🌊 ים האיים')}
             if (miss) { note = '✏️ חסרה תשובה: ' + LK8_QS.find(x => x.id === miss).q; return draw(); }
             const old = new Map(c.id.on ? c.id.qs.map(x => [x.id, x.h]) : []);
             const cc = lk8Cfg();
-            cc.id = { on: true, g: lk8Hash(st.g), qs: st.qs.map(qid => ({ id: qid, h: lk8Norm(st.ans[qid] || '') ? lk8Hash(st.ans[qid]) : old.get(qid) })) };
+            cc.id = { on: true, g: lk8Hash(st.g), qs: st.qs.map(qid => ({ id: qid, h: lk8Norm(st.ans[qid] || '') ? lk8Hash(ansFold(st.ans[qid])) : old.get(qid) })) };
             lk8SaveCfg(cc); SFX.ding(); done();
           } }, '💾 לשמור שאלות'),
           el('button', { type: 'button', class: 'lk8-mini', onclick: done }, 'ביטול')));
