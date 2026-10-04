@@ -7020,6 +7020,105 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
 .g8-adopt-row { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
 .g8-adopt-name { width: 7em; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line, #ddd); font: inherit; text-align: center; }
 .g8-adopt { font-size: .95em; }
+/* ---------- lock8: entry questions + extra security layers ---------- */
+.lk8-box { width: min(360px, 100%); }
+.lk8-big { font-family: 'Drawn Emoji', system-ui, sans-serif; font-size: 3.4em; line-height: 1; filter: drop-shadow(0 4px 3px rgb(0 0 0 / .2)); }
+.lk8-qq { margin: 0; font-size: 1.45em; font-weight: 700; }
+.lk8-count { font-size: 3em; font-family: var(--title-font); }
+.lk8-busy { pointer-events: none; }
+.lk8-pad { display: grid; justify-items: center; gap: 10px; width: 100%; }
+.lk8-hint { min-height: 1.3em; font-size: .95em; opacity: .85; }
+.lk8-hint.shake { animation: shake .4s; opacity: 1; font-weight: 700; }
+.lk8-row { justify-content: center; }
+.lk8-mini { border: 2px solid currentColor; background: transparent; color: inherit; border-radius: 999px; padding: 4px 12px; font: inherit; cursor: pointer; }
+.lk8-mini.add { background: var(--accent); color: #fff; border-color: transparent; font-weight: 700; }
+.lk8-slots { display: flex; gap: 8px; justify-content: center; direction: ltr; min-height: 30px; }
+.lk8-slots i { width: 28px; height: 28px; border: 2.5px solid currentColor; border-radius: 50%; display: grid; place-items: center; overflow: hidden; font-style: normal; }
+.lk8-slots i.on { background: currentColor; }
+.lk8-slots i svg { width: 100%; height: 100%; background: #fff; }
+.lk8-slots i b { width: 100%; height: 100%; display: block; }
+.lk8-slots i em { font-style: normal; background: #fff; width: 100%; height: 100%; display: grid; place-items: center; font-size: 16px; font-family: 'Drawn Emoji', system-ui, sans-serif; }
+.lk8-slots.small i { width: 14px; height: 14px; border-width: 2px; }
+.lk8-slots.small i.cur { box-shadow: 0 0 0 3px rgb(255 255 255 / .6); }
+.lk8-grid { display: grid; gap: 8px; width: 100%; direction: ltr; }
+.lk8-it { border: 2.5px solid var(--lock-ink, var(--ink)); background: var(--lock-key, var(--card)); color: var(--lock-key-ink, var(--ink)); border-radius: 16px; padding: 4px; cursor: pointer; display: grid; place-items: center; }
+.lk8-it svg { width: 100%; height: auto; display: block; }
+.lk8-it.pop { animation: lk8pop .3s; }
+.lk8-it[aria-pressed="true"] { box-shadow: 0 0 0 4px #ff7ab6; }
+@keyframes lk8pop { 50% { transform: scale(.86); } }
+.lk8-pics { grid-template-columns: repeat(4, 1fr); }
+.lk8-cols { grid-template-columns: repeat(3, 1fr); }
+.lk8-cols .lk8-it { height: 64px; border-radius: 50% 50% 50% 14%; }
+.lk8-emo { grid-template-columns: repeat(4, 1fr); }
+.lk8-emo .lk8-it { font-family: 'Drawn Emoji', system-ui, sans-serif; font-size: 2em; height: 62px; }
+.lk8-xylo { grid-template-columns: repeat(8, 1fr); align-items: center; gap: 5px; }
+.lk8-xylo .lk8-it { border-radius: 10px; padding: 0; align-content: end; color: #3a2b3c; font-weight: 700; font-size: .85em; position: relative; }
+.lk8-xylo .lk8-it span { padding-bottom: 6px; }
+.lk8-xylo .lk8-it::before, .lk8-xylo .lk8-it::after { content: ''; position: absolute; left: 50%; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #c9d1dc; border: 1.5px solid #3a2b3c; }
+.lk8-xylo .lk8-it::before { top: 10px; } .lk8-xylo .lk8-it::after { bottom: 30px; }
+.lk8-pets { grid-template-columns: repeat(3, 1fr); }
+.lk8-pets .lk8-it { padding: 6px; gap: 2px; }
+.lk8-petart { width: 76px; height: 76px; display: block; }
+.lk8-petart svg { width: 100%; height: 100%; }
+.lk8-pat { width: min(270px, 80vw); aspect-ratio: 1; touch-action: none; background: rgb(255 255 255 / .35); border-radius: 24px; border: 2.5px solid currentColor; cursor: pointer; }
+.lk8-pat svg { width: 100%; height: 100%; display: block; }
+.lk8-spot { position: relative; width: 100%; max-width: 340px; border-radius: 18px; overflow: hidden; border: 2.5px solid currentColor; cursor: crosshair; line-height: 0; }
+.lk8-spot svg { width: 100%; height: auto; display: block; }
+.lk8-mark { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 3px #ff7ab6; animation: lk8ring .5s ease-out forwards; display: grid; place-items: center; font-size: 18px; line-height: 1; }
+.lk8-mark.set { animation: none; background: rgb(255 255 255 / .6); }
+@keyframes lk8ring { from { transform: scale(.3); opacity: 1; } to { transform: scale(1.4); opacity: 0; } }
+.lk8-door { width: 150px; background: none; border: none; padding: 0; cursor: pointer; touch-action: manipulation; }
+.lk8-door svg { width: 100%; height: auto; filter: drop-shadow(0 6px 5px rgb(0 0 0 / .25)); }
+.lk8-door.knock { animation: lk8knock .18s; }
+@keyframes lk8knock { 50% { transform: scale(.95) rotate(-1.5deg); } }
+.lk8-cv { width: min(260px, 78vw); aspect-ratio: 1; touch-action: none; background: #fff; border-radius: 22px; border: 2.5px solid currentColor; }
+.lk8-tray { display: flex; gap: 10px; justify-content: center; }
+.lk8-tray .lk8-it { width: 64px; height: 64px; }
+.lk8-board { display: grid; grid-template-columns: repeat(3, 72px); gap: 6px; direction: ltr; padding: 8px; border-radius: 18px; background: rgb(255 255 255 / .35); border: 2.5px dashed currentColor; }
+.lk8-cell { height: 72px; border: 2px solid currentColor; border-radius: 14px; background: rgb(255 255 255 / .55); padding: 6px; cursor: pointer; }
+.lk8-cell svg { width: 100%; height: 100%; }
+.lk8-in { font: inherit; font-size: 1.25em; padding: 10px 14px; border-radius: 16px; border: 2.5px solid currentColor; width: min(280px, 100%); text-align: center; background: #fff; color: #3a2b3c; }
+.lk8-gender { display: flex; gap: 16px; justify-content: center; }
+.lk8-g { display: grid; justify-items: center; gap: 4px; width: 132px; padding: 10px; border-radius: 24px; border: 3px solid currentColor; background: var(--lock-key, var(--card)); color: var(--lock-key-ink, var(--ink)); font: inherit; font-size: 1.2em; cursor: pointer; transition: transform .15s; }
+.lk8-g:hover { transform: translateY(-3px) rotate(-2deg); }
+.lk8-g span { width: 96px; height: 96px; } .lk8-g svg { width: 100%; height: 100%; }
+.lk8-gender.small .lk8-g { width: 104px; font-size: 1em; } .lk8-gender.small .lk8-g span { width: 64px; height: 64px; }
+.lk8-g[aria-pressed="true"] { box-shadow: 0 0 0 4px #ff7ab6; background: #ffe3f0; }
+.lk8-choice { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.lk8-choice.cols { display: grid; grid-template-columns: repeat(6, 44px); }
+.lk8-choice .chip { font-size: 1.05em; padding: 6px 14px; color: var(--ink); }
+.lk8-sw { width: 44px; height: 44px; border-radius: 50%; border: 2.5px solid #3a2b3c; cursor: pointer; }
+.lk8-sw[aria-pressed="true"] { box-shadow: 0 0 0 4px #ff7ab6; }
+/* setup */
+.lk8-setup { gap: 10px; }
+.lk8-meter { display: flex; gap: 12px; align-items: center; background: linear-gradient(135deg, #fff3fa, #eef6ff); border-radius: 18px; padding: 10px; color: #3a2b3c; }
+.lk8-shield { width: 74px; flex: none; } .lk8-shield svg { width: 100%; height: auto; display: block; }
+.lk8-meter > div { display: grid; gap: 3px; flex: 1; min-width: 0; }
+.lk8-bar { display: flex; gap: 3px; margin-top: 3px; }
+.lk8-bar i { flex: 1; height: 12px; border-radius: 4px; background: #e2dbe8; }
+.lk8-bar i.on { background: linear-gradient(#ff9ac6, #ff6fa8); }
+.lk8-bar i.on:nth-child(n+5) { background: linear-gradient(#ffd77a, #ffb020); }
+.lk8-bar i.on:nth-child(n+9) { background: linear-gradient(#b8a2ff, #8d6bf0); }
+.lk8-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; }
+.lk8-card { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border: 2px solid var(--line); border-radius: 16px; padding: 8px; background: var(--card); }
+.lk8-card.on { border-color: #2ecc71; background: color-mix(in srgb, #2ecc71 10%, var(--card)); }
+.lk8-card.editing { border-color: var(--accent); }
+.lk8-cic { font-family: 'Drawn Emoji', system-ui, sans-serif; font-size: 1.9em; }
+.lk8-ctx { display: grid; flex: 1; min-width: 150px; } .lk8-ctx small { opacity: .75; }
+.lk8-cbtn { display: flex; gap: 3px; flex-wrap: wrap; justify-content: end; margin-inline-start: auto; }
+.lk8-cbtn .lk8-mini { padding: 2px 8px; }
+.lk8-ed { grid-column: 1 / -1; display: grid; gap: 10px; justify-items: center; border: 2.5px dashed var(--accent); border-radius: 18px; padding: 12px; background: var(--paper); }
+.lk8-ed > b { justify-self: stretch; text-align: center; }
+.lk8-ed .lk8-it { --lock-ink: var(--ink); }
+.lk8-qpick .chip { font-size: .92em; }
+.lk8-qpick .chip:disabled { opacity: .4; }
+.lk8-ans { display: grid; gap: 6px; justify-items: center; justify-self: stretch; }
+.lk8-log { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.lk8-log li { display: flex; justify-content: space-between; gap: 8px; padding: 4px 10px; border-radius: 10px; background: color-mix(in srgb, #ff5a6e 10%, var(--card)); }
+.lk8-alert { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); width: min(360px, calc(100vw - 24px)); z-index: 9000; display: grid; gap: 6px; padding: 14px 16px; border-radius: 20px; background: #fff; color: #3a2b3c; border: 3px solid #ff5a6e; box-shadow: 0 10px 30px rgb(0 0 0 / .25); animation: lk8in .4s; }
+.lk8-alert b { font-size: 1.2em; } .lk8-alert ul { margin: 0; padding-inline-start: 1.2em; }
+@keyframes lk8in { from { transform: translate(-50%, 30px); opacity: 0; } }
+@media (max-width: 420px) { .lk8-board { grid-template-columns: repeat(3, 64px); } .lk8-cell { height: 64px; } .lk8-g { width: 120px; } .lk8-cards { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -8409,6 +8508,8 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
     <div class="row" id="ppgBody"></div>
   </div>
 </dialog>
+
+<!-- lock8: no extra dialogs; the security-layers section is injected into #pinBody and the lock steps draw into #lock -->
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -11341,7 +11442,7 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
   };
   const LOCK_KEYS = [{ id: 'round', name: 'עגולים' }, { id: 'square', name: 'מרובעים' }, { id: 'blob', name: 'בועות' }, { id: 'flower', name: 'טיפות' }, { id: 'rainbow', name: 'קשת בענן' }];
   const LOCK_DOTS = [{ id: 'circle', name: 'עיגולים' }, { id: 'heart', name: 'לבבות' }, { id: 'star', name: 'כוכבים' }];
-  const lockSteps = () => [hasKeys() ? 'key' : null, 'code', pin && pin.q ? 'q' : null].filter(Boolean);
+  const lockSteps = () => lk8Steps([hasKeys() ? 'key' : null, 'code', pin && pin.q ? 'q' : null].filter(Boolean));
   const STEP_NAMES = { key: '🗝️ מפתח', code: '🔢 קוד', q: '❓ שאלה' };
   function stepsBar(cur) {
     const steps = lockSteps();
@@ -11369,7 +11470,7 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
     const news = () => upgradedNote && stepAt === 0 ? el('p', { class: 'lock-news' }, '✨ הלוח שודרג! פותחים את המנעול כדי לראות מה חדש') : null;
     const next = () => {
       stepAt++;
-      if (stepAt >= steps.length) { unlocked = true; lock.close(); SFX.yay(); onOk && onOk(); return; }
+      if (stepAt >= steps.length) { unlocked = true; lock.close(); SFX.yay(); onOk && onOk(); lk8Unlocked(); return; }
       draw();
     };
     const shakeErr = (box, text) => { const e = box.querySelector('.pin-err'); e.textContent = text; e.classList.remove('shake'); void e.offsetWidth; e.classList.add('shake'); };
@@ -11390,7 +11491,7 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
             setTimeout(next, reduceMotion() ? 50 : 850);
           } else {
             b.classList.remove('nope'); void b.offsetWidth; b.classList.add('nope'); SFX.boop();
-            shakeErr(box, 'המפתח הזה לא פותח! נסי מפתח אחר');
+            lk8Fail('key'); shakeErr(box, 'המפתח הזה לא פותח! נסי מפתח אחר');
           }
         } }))),
         el('div', { class: 'pin-err' }),
@@ -11410,7 +11511,7 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
       const box = el('form', { class: 'lock-box', onsubmit: e => {
         e.preventDefault();
         if (sameAnswer(inp.value, pin.a)) next();
-        else { shakeErr(box, 'זו לא התשובה. נסי שוב!'); SFX.boop(); inp.select(); }
+        else { lk8Fail('q'); shakeErr(box, 'זו לא התשובה. נסי שוב!'); SFX.boop(); inp.select(); }
       } },
         el('span', { class: 'ic', html: stickerHTML(design.lockStk) }),
         el('h2', {}, 'השאלה הסודית'), stepsBar('q'),
@@ -11421,7 +11522,7 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
     };
     const draw = err => {
       const s = steps[stepAt];
-      lock.replaceChildren(s === 'key' ? drawKey() : s === 'q' ? drawQ() : drawCode(err));
+      lock.replaceChildren(s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
     };
     const key = k => {
       if (k === '⌫') code = code.slice(0, -1);
@@ -11429,7 +11530,7 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
       else if (code.length < 4) code += k;
       if (code.length === 4) {
         if (code === pin.code) { code = ''; SFX.ding(); next(); return; }
-        code = ''; draw('הקוד לא נכון. נסי שוב!'); return;
+        code = ''; lk8Fail('code'); draw('הקוד לא נכון. נסי שוב!'); return;
       }
       draw();
     };
@@ -45503,6 +45604,446 @@ ${label(900, 520, '🌊 ים האיים')}
     } catch (e) { console.error('ppg house', e); }
   };
   try { ppgDaily(); ppgStar(); } catch {}
+  // ================= lock8: entry questions + extra security layers (all optional) =================
+  // store 'lk8' = { id: {on, g, qs:[{id,h}]}, layers: [{t, s}] }; 'lk8log' = [{t, s}]; 'lk8seen', 'lk8tries', 'lk8cool'
+  const lk8Norm = s => String(s == null ? '' : s).trim().replace(/[.,!?'"׳״`-]/g, '').replace(/\s+/g, ' ').toLowerCase();
+  const lk8Hash = s => { // cyrb53 over a salted, normalized answer: answers are never stored as text
+    const str = 'halu-lk8|' + lk8Norm(s); let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+    for (let i = 0; i < str.length; i++) { const c = str.charCodeAt(i); h1 = Math.imul(h1 ^ c, 2654435761); h2 = Math.imul(h2 ^ c, 1597334677); }
+    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+    return (h2 >>> 0).toString(36) + (h1 >>> 0).toString(36);
+  };
+  const lk8Shuf = a => { const b = [...a]; for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+  const lk8Cfg = () => { const c = store.get('lk8', null) || {}; return { id: c.id && c.id.on ? c.id : { on: false, qs: [] }, layers: Array.isArray(c.layers) ? c.layers.filter(l => LK8_L[l.t]) : [] }; };
+  const lk8SaveCfg = c => store.set('lk8', c);
+  const lk8Is = s => typeof s === 'string' && s.startsWith('lk8');
+
+  const LK8_COLORS = [['red', 'אדום', '#ff5a6e'], ['orange', 'כתום', '#ff9f5a'], ['yellow', 'צהוב', '#ffd84d'], ['green', 'ירוק', '#2ecc71'], ['turq', 'טורקיז', '#3fd6c6'], ['sky', 'תכלת', '#7cc6f5'],
+    ['blue', 'כחול', '#3a6cf5'], ['purple', 'סגול', '#a64dff'], ['pink', 'ורוד', '#ff8fc8'], ['brown', 'חום', '#a8703f'], ['black', 'שחור', '#2b2b33'], ['white', 'לבן', '#ffffff']];
+  const LK8_SEASONS = [['winter', '❄️ חורף'], ['spring', '🌸 אביב'], ['summer', '☀️ קיץ'], ['autumn', '🍂 סתיו']];
+  const LK8_QS = [
+    ['pet', '🐾', 'איך קוראים לחיה הכי אהובה?'], ['color', '🎨', 'מה הצבע הכי אהוב?', 'color'], ['food', '🍕', 'מה המאכל הכי אהוב?'],
+    ['num', '🔢', 'מה המספר הכי אהוב?', 'num'], ['friend', '👭', 'איך קוראים לחברה הכי טובה?'], ['born', '🏥', 'באיזו עיר נולדת?'],
+    ['month', '🎂', 'באיזה חודש יום ההולדת?', 'month'], ['firstpet', '🐶', 'איך קראו לחיה הראשונה שאימצת?'], ['movie', '🎬', 'מה הסרט הכי אהוב?'],
+    ['season', '🍂', 'מה העונה הכי אהובה?', 'season'], ['teacher', '🍎', 'איך קוראים למורה הכי אהובה?'], ['sweet', '🍭', 'מה הממתק הכי אהוב?'],
+    ['place', '🏖️', 'מה המקום הכי כיפי שהיית בו?'], ['toy', '🧸', 'איך קוראים לבובה או לדובי שלך?'], ['book', '📚', 'מה הספר הכי אהוב?'],
+  ].map(([id, ic, q, kind = 'text']) => ({ id, ic, q, kind }));
+
+  // drawn pictures (pictures password, stickers board)
+  const lk8P = (inner) => `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${inner}</svg>`;
+  const LK8_PICS = [
+    ['sun', 'שמש', lk8P(`${[...Array(8)].map((_, i) => { const a = i * Math.PI / 4; return `<path d="M${(24 + 13 * Math.cos(a)).toFixed(1)} ${(24 + 13 * Math.sin(a)).toFixed(1)} L${(24 + 20 * Math.cos(a)).toFixed(1)} ${(24 + 20 * Math.sin(a)).toFixed(1)}" stroke="#ffb020" stroke-width="4" stroke-linecap="round"/>`; }).join('')}<circle cx="24" cy="24" r="10" fill="#ffd84d" ${S2}/><circle cx="20.5" cy="23" r="1.4" fill="${O}"/><circle cx="27.5" cy="23" r="1.4" fill="${O}"/><path d="M21 27 Q24 30 27 27" fill="none" ${S2}/>`)],
+    ['cat', 'חתול', lk8P(`<path d="M10 20 L12 6 L20 13 H28 L36 6 L38 20 C40 34 32 41 24 41 C16 41 8 34 10 20 Z" fill="#ffb877" ${S2}/><circle cx="18.5" cy="24" r="2" fill="${O}"/><circle cx="29.5" cy="24" r="2" fill="${O}"/><path d="M22 29 h4 l-2 2 z" fill="#ff7ab6" ${S2}/><path d="M6 27 H15 M6 31 H15 M33 27 H42 M33 31 H42" stroke="${O}" stroke-width="1.3"/>`)],
+    ['flower', 'פרח', lk8P(`${[0, 1, 2, 3, 4].map(i => { const a = i * 2 * Math.PI / 5 - Math.PI / 2; return `<circle cx="${(24 + 10 * Math.cos(a)).toFixed(1)}" cy="${(21 + 10 * Math.sin(a)).toFixed(1)}" r="7.5" fill="#ff8fc8" ${S2}/>`; }).join('')}<circle cx="24" cy="21" r="6" fill="#ffd84d" ${S2}/><path d="M24 31 V45" stroke="#2ecc71" stroke-width="3.5" stroke-linecap="round"/>`)],
+    ['star', 'כוכב', lk8P(`<polygon points="${starPts(24, 25, 20, 9)}" fill="#ffd84d" ${S2}/><circle cx="20" cy="25" r="1.5" fill="${O}"/><circle cx="28" cy="25" r="1.5" fill="${O}"/><path d="M21.5 29 Q24 31 26.5 29" fill="none" ${S2}/>`)],
+    ['heart', 'לב', lk8P(`<path d="M24 42 C8 31 3 21 7 13 C11 6 20 7 24 14 C28 7 37 6 41 13 C45 21 40 31 24 42 Z" fill="#ff5a8a" ${S2}/><path d="M12 15 Q11 19 13 23" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/>`)],
+    ['rainbow', 'קשת', lk8P(`${['#ff5a6e', '#ffb020', '#ffd84d', '#2ecc71', '#3aa0ff', '#a64dff'].map((c, i) => `<path d="M${4 + i * 3} 38 A${20 - i * 3} ${20 - i * 3} 0 0 1 ${44 - i * 3} 38" fill="none" stroke="${c}" stroke-width="3.2"/>`).join('')}<ellipse cx="8" cy="39" rx="7" ry="4" fill="#fff" ${S2}/><ellipse cx="40" cy="39" rx="7" ry="4" fill="#fff" ${S2}/>`)],
+    ['apple', 'תפוח', lk8P(`<path d="M24 15 C14 9 5 16 8 28 C10 38 17 44 24 40 C31 44 38 38 40 28 C43 16 34 9 24 15 Z" fill="#ff5a6e" ${S2}/><path d="M24 15 Q24 8 28 5" fill="none" stroke="#8a5a2b" stroke-width="2.5" stroke-linecap="round"/><path d="M26 10 Q33 5 36 10 Q31 13 26 10 Z" fill="#2ecc71" ${S2}/>`)],
+    ['fish', 'דג', lk8P(`<path d="M6 24 C14 12 30 12 36 24 C30 36 14 36 6 24 Z" fill="#7cc6f5" ${S2}/><path d="M35 24 L45 15 V33 Z" fill="#3aa0ff" ${S2}/><circle cx="15" cy="22" r="2" fill="${O}"/><path d="M22 18 Q25 24 22 30" fill="none" ${S2}/>`)],
+    ['butterfly', 'פרפר', lk8P(`<path d="M24 22 C16 6 4 8 6 18 C7 26 16 26 24 24 Z M24 22 C32 6 44 8 42 18 C41 26 32 26 24 24 Z" fill="#b594f5" ${S2}/><path d="M24 26 C18 32 10 40 15 42 C20 44 23 36 24 28 Z M24 26 C30 32 38 40 33 42 C28 44 25 36 24 28 Z" fill="#ff9ab8" ${S2}/><rect x="22" y="16" width="4" height="22" rx="2" fill="${O}"/>`)],
+    ['cupcake', 'קאפקייק', lk8P(`<path d="M12 26 H36 L33 43 H15 Z" fill="#7cc6f5" ${S2}/><path d="M10 26 C8 18 16 12 24 12 C32 12 40 18 38 26 Z" fill="#ffc2d6" ${S2}/><circle cx="24" cy="9" r="4" fill="#ff5a6e" ${S2}/><path d="M17 20 l2 1 M25 18 l2 1 M30 22 l2 -1" stroke="#a64dff" stroke-width="2" stroke-linecap="round"/>`)],
+    ['balloon', 'בלון', lk8P(`<ellipse cx="24" cy="19" rx="12" ry="14" fill="#ff7ab6" ${S2}/><path d="M22 33 h4 l-2 3 z" fill="#ff7ab6" ${S2}/><path d="M24 36 Q20 41 24 46" fill="none" stroke="${O}" stroke-width="1.5"/><path d="M17 13 Q16 17 18 21" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/>`)],
+    ['moon', 'ירח', lk8P(`<path d="M30 6 C18 8 12 18 14 28 C16 38 27 44 38 40 C28 38 22 30 23 21 C24 13 28 8 30 6 Z" fill="#fff1a8" ${S2}/><circle cx="21" cy="25" r="1.5" fill="${O}"/><path d="M19 31 Q22 33 25 31" fill="none" ${S2}/><polygon points="${starPts(38, 14, 5, 2.2)}" fill="#ffd84d"/>`)],
+  ].map(([id, label, html]) => ({ id, label, html }));
+  const lk8Pic = id => (LK8_PICS.find(p => p.id === id) || {}).html || '';
+  const LK8_EMO = ['🦄', '🐱', '🌈', '🍓', '🌸', '⭐', '🍦', '🐶', '🎀', '🍩', '🦋', '🐼', '🌙', '🍉', '🎈', '🐬'];
+  const LK8_NOTES = [['דו', 523], ['רה', 587], ['מי', 659], ['פה', 698], ['סול', 784], ['לה', 880], ['סי', 988], ['דו׳', 1047]];
+  const LK8_BAR = ['#ff5a6e', '#ff9f5a', '#ffd84d', '#2ecc71', '#3fd6c6', '#3aa0ff', '#a64dff', '#ff8fc8'];
+  const LK8_STK3 = ['heart', 'star', 'rainbow'];
+  const LK8_FACE = (girl) => `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${girl
+    ? `<path d="M14 40 C10 14 70 14 66 40 V66 Q40 72 14 66 Z" fill="#7a4a2a" ${S2}/>`
+    : ''}<circle cx="40" cy="40" r="22" fill="#f6d0b1" ${S2}/>${girl
+    ? `<path d="M18 36 C18 18 62 18 62 36 C54 26 30 24 18 36 Z" fill="#7a4a2a" ${S2}/><path d="M52 18 l10 -6 v14 z M52 18 l-8 -8 l-2 12 z" fill="#ff5a8a" ${S2}/><circle cx="52" cy="18" r="3" fill="#ff8fc8" ${S2}/>`
+    : `<path d="M18 36 C16 16 64 16 62 36 L56 28 L50 33 L44 26 L38 32 L32 26 L26 32 Z" fill="#4a3020" ${S2}/>`}<circle cx="32" cy="42" r="2.6" fill="${O}"/><circle cx="48" cy="42" r="2.6" fill="${O}"/><circle cx="27" cy="49" r="3.5" fill="#ff9ab8" opacity=".6"/><circle cx="53" cy="49" r="3.5" fill="#ff9ab8" opacity=".6"/><path d="M34 51 Q40 56 46 51" fill="none" ${S2}/>${girl
+    ? `<path d="M30 66 h20 l4 14 h-28 z" fill="#ff8fc8" ${S2}/>` : `<path d="M28 64 h24 l2 16 h-28 z" fill="#3aa0ff" ${S2}/>`}</svg>`;
+  const LK8_SCENE = `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect width="300" height="200" fill="#bfe6ff"/><rect y="140" width="300" height="60" fill="#8fd98a"/>
+    <circle cx="255" cy="38" r="20" fill="#ffd84d" ${S2}/><g fill="#fff" ${S2}><ellipse cx="70" cy="34" rx="26" ry="11"/><ellipse cx="88" cy="28" rx="16" ry="10"/></g>
+    <path d="M110 150 V95 L150 62 L190 95 V150 Z" fill="#ffe3b8" ${S}/><path d="M102 98 L150 56 L198 98" fill="none" stroke="#ff5a6e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="140" y="115" width="20" height="35" rx="3" fill="#a8703f" ${S2}/><rect x="118" y="104" width="16" height="16" fill="#9fd8ff" ${S2}/><rect x="166" y="104" width="16" height="16" fill="#9fd8ff" ${S2}/>
+    <rect x="42" y="105" width="10" height="45" fill="#8a5a2b" ${S2}/><circle cx="47" cy="92" r="24" fill="#2ecc71" ${S}/><circle cx="38" cy="88" r="4" fill="#ff5a6e"/><circle cx="55" cy="98" r="4" fill="#ff5a6e"/><circle cx="49" cy="80" r="4" fill="#ff5a6e"/>
+    ${[[220, 160, '#ff8fc8'], [240, 170, '#ffd84d'], [262, 158, '#b594f5'], [80, 172, '#ff9f5a']].map(([x, y, c]) => `<path d="M${x} ${y + 14} V${y + 4}" stroke="#2e8b57" stroke-width="2.5"/><circle cx="${x}" cy="${y}" r="6" fill="${c}" ${S2}/><circle cx="${x}" cy="${y}" r="2.2" fill="#fff"/>`).join('')}
+    <path d="M230 120 q6 -8 12 0 q6 -8 12 0" fill="none" stroke="${O}" stroke-width="2"/><ellipse cx="100" cy="178" rx="12" ry="7" fill="#c9d1dc" ${S2}/></svg>`;
+
+  const lk8Pets = () => { try { const a = typeof allPets === 'function' ? allPets() : (pet ? [pet] : []); return (a || []).filter(p => p && p.kind); } catch { return pet ? [pet] : []; } };
+  const lk8PetId = p => p.id || (p.kind + ':' + (p.name || ''));
+  const lk8PetArt = p => { try { return petSVG(p); } catch { return ''; } };
+
+  // ---------- pads: each layer's input widget; mode 'set' (setup) or 'open' (lock screen) ----------
+  function lk8Hint(pad, t) { const h = pad.querySelector('.lk8-hint'); if (h) { h.textContent = t; h.classList.remove('shake'); void h.offsetWidth; h.classList.add('shake'); } }
+  function lk8SeqPad(mode, emit, o) {
+    const seq = [], items = mode === 'open' && o.shuffle ? lk8Shuf(o.items) : o.items;
+    const slots = el('div', { class: 'lk8-slots' });
+    const drawSlots = () => slots.replaceChildren(...Array.from({ length: o.n }, (_, i) => el('i', { class: i < seq.length ? 'on' : '', html: mode === 'set' && seq[i] ? (o.items.find(x => x.id === seq[i]) || {}).mini || '' : '' })));
+    const grid = el('div', { class: 'lk8-grid ' + (o.cls || '') }, ...items.map(it => el('button', { type: 'button', class: 'lk8-it', 'aria-label': it.label, style: it.style || '', html: it.html, onclick: e => {
+      if (seq.length >= o.n) return;
+      const b = e.currentTarget; seq.push(it.id); o.onTap ? o.onTap(it) : SFX.pop();
+      b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); drawSlots();
+      if (seq.length === o.n) setTimeout(() => { const v = seq.join(','); seq.length = 0; drawSlots(); emit(v); }, 320);
+    } })));
+    drawSlots();
+    return el('div', { class: 'lk8-pad' }, slots, grid, el('button', { type: 'button', class: 'lk8-mini', onclick: () => { seq.pop(); drawSlots(); } }, '⌫ אחורה'));
+  }
+  function lk8PatternPad(mode, emit) {
+    let seq = [], drag = false, moved = false;
+    const P = i => [50 + (i % 3) * 100, 50 + Math.floor(i / 3) * 100];
+    const box = el('div', { class: 'lk8-pat' });
+    const render = cur => { box.innerHTML = `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">${seq.length ? `<polyline points="${[...seq.map(P), ...(cur ? [cur] : [])].map(p => p.join(',')).join(' ')}" fill="none" stroke="#ff7ab6" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>` : ''}`
+      + [...Array(9)].map((_, i) => { const [x, y] = P(i), on = seq.includes(i); return `<circle cx="${x}" cy="${y}" r="${on ? 25 : 19}" fill="${on ? '#ff8fc8' : '#fff'}" stroke="${O}" stroke-width="4"/><circle cx="${x - 6}" cy="${y - 6}" r="${on ? 6 : 4}" fill="#fff" opacity=".85"/>`; }).join('') + '</svg>'; };
+    const at = e => { const r = box.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 300, (e.clientY - r.top) / r.height * 300]; };
+    const hit = p => { for (let i = 0; i < 9; i++) { const [x, y] = P(i); if (Math.hypot(p[0] - x, p[1] - y) < 40 && !seq.includes(i)) { seq.push(i); SFX.pop(); return true; } } return false; };
+    const finish = () => {
+      if (mode === 'set' && seq.length < 4) { lk8Hint(wrap, 'צריך לחבר לפחות 4 נקודות 🙂'); return; }
+      if (!seq.length) return;
+      const v = seq.join('-'); seq = []; render(); emit(v);
+    };
+    box.addEventListener('pointerdown', e => { e.preventDefault(); drag = true; moved = false; try { box.setPointerCapture(e.pointerId); } catch {} hit(at(e)); render(); });
+    box.addEventListener('pointermove', e => { if (!drag) return; const p = at(e); if (hit(p)) moved = true; render(seq.length ? p : null); });
+    box.addEventListener('pointerup', () => { if (!drag) return; drag = false; render(); if (moved && seq.length >= 4) finish(); });
+    render();
+    const wrap = el('div', { class: 'lk8-pad' }, box, el('div', { class: 'lk8-hint' }),
+      el('div', { class: 'chips lk8-row' }, el('button', { type: 'button', class: 'btn main', onclick: finish }, '✓ סיימתי'), el('button', { type: 'button', class: 'lk8-mini', onclick: () => { seq = []; render(); } }, '↺ מחדש')));
+    return wrap;
+  }
+  function lk8SpotPad(mode, emit) {
+    const box = el('div', { class: 'lk8-spot', html: LK8_SCENE });
+    box.addEventListener('click', e => {
+      const r = box.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      box.querySelectorAll('.lk8-mark').forEach(m => m.remove());
+      box.append(el('span', { class: 'lk8-mark' + (mode === 'set' ? ' set' : ''), style: `left:${x * 100}%;top:${y * 100}%` }, mode === 'set' ? '💖' : ''));
+      SFX.pop(); setTimeout(() => emit({ x: +x.toFixed(3), y: +y.toFixed(3) }), 380);
+    });
+    return el('div', { class: 'lk8-pad' }, box);
+  }
+  function lk8KnockPad(mode, emit) {
+    let times = [], timer = 0;
+    const dots = el('div', { class: 'lk8-slots' });
+    const drawDots = () => dots.replaceChildren(...Array.from({ length: 6 }, (_, i) => el('i', { class: i < times.length ? 'on' : '' })));
+    const finish = () => {
+      clearTimeout(timer);
+      if (mode === 'set' && times.length < 3) { lk8Hint(wrap, 'צריך 3 עד 6 דפיקות 🥁'); times = []; drawDots(); return; }
+      const v = times.slice(1).map((t, i) => Math.round(t - times[i])); times = []; drawDots(); emit(v);
+    };
+    const door = el('button', { type: 'button', class: 'lk8-door', 'aria-label': 'לדפוק בדלת', html: `<svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 146 V40 A48 38 0 0 1 108 40 V146 Z" fill="#c98a52" ${S}/><path d="M28 138 V48 A32 26 0 0 1 92 48 V138 Z" fill="none" stroke="#9b6235" stroke-width="3"/><circle cx="60" cy="40" r="10" fill="#ffe08a" ${S2}/><path d="M60 30 V50 M50 40 H70" stroke="${O}" stroke-width="1.6"/><circle cx="88" cy="96" r="6" fill="#ffd84d" ${S2}/><path d="M44 120 Q60 112 76 120" fill="none" stroke="#9b6235" stroke-width="3"/></svg>`,
+      onpointerdown: e => {
+        e.preventDefault(); clearTimeout(timer); times.push(performance.now()); tone(180, 0.09, 'square', 0, 0.08);
+        door.classList.remove('knock'); void door.offsetWidth; door.classList.add('knock'); drawDots();
+        if (times.length >= 6) finish(); else timer = setTimeout(finish, 1300);
+      } });
+    drawDots();
+    const wrap = el('div', { class: 'lk8-pad' }, door, dots, el('div', { class: 'lk8-hint' }, 'דופקים בקצב, ומחכים רגע בסוף'));
+    return wrap;
+  }
+  function lk8DrawPad(mode, emit) {
+    const N = 8, cells = new Set(), cv = el('canvas', { class: 'lk8-cv', width: 480, height: 480 });
+    const ctx = cv.getContext('2d');
+    const clear = () => { ctx.clearRect(0, 0, 480, 480); ctx.fillStyle = 'rgba(58,43,60,.25)'; for (let i = 0; i < N; i++) for (let j = 0; j < N; j++) { ctx.beginPath(); ctx.arc(30 + i * 60, 30 + j * 60, 4, 0, 7); ctx.fill(); } cells.clear(); };
+    let last = null;
+    const at = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * 480, (e.clientY - r.top) / r.height * 480]; };
+    const mark = (x, y) => { const i = Math.floor(x / 60), j = Math.floor(y / 60); if (i >= 0 && j >= 0 && i < N && j < N) cells.add(j * N + i); };
+    const line = p => {
+      ctx.strokeStyle = '#ff5a8a'; ctx.lineWidth = 16; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(...(last || p)); ctx.lineTo(...p); ctx.stroke();
+      const a = last || p, d = Math.max(1, Math.hypot(p[0] - a[0], p[1] - a[1]) / 6);
+      for (let k = 0; k <= d; k++) mark(a[0] + (p[0] - a[0]) * k / d, a[1] + (p[1] - a[1]) * k / d);
+      last = p;
+    };
+    cv.addEventListener('pointerdown', e => { e.preventDefault(); try { cv.setPointerCapture(e.pointerId); } catch {} last = null; line(at(e)); });
+    cv.addEventListener('pointermove', e => { if (last) line(at(e)); });
+    cv.addEventListener('pointerup', () => { last = null; });
+    clear();
+    const finish = () => {
+      if (mode === 'set' && cells.size < 5) { lk8Hint(wrap, 'ציירי צורה קצת יותר גדולה ✍️'); return; }
+      if (!cells.size) return;
+      const v = [...cells].sort((a, b) => a - b); clear(); emit(v);
+    };
+    const wrap = el('div', { class: 'lk8-pad' }, cv, el('div', { class: 'lk8-hint' }),
+      el('div', { class: 'chips lk8-row' }, el('button', { type: 'button', class: 'btn main', onclick: finish }, '✓ סיימתי'), el('button', { type: 'button', class: 'lk8-mini', onclick: clear }, '↺ למחוק')));
+    return wrap;
+  }
+  function lk8StickerPad(mode, emit) {
+    const place = {}; let sel = null;
+    const tray = el('div', { class: 'lk8-tray' }), board = el('div', { class: 'lk8-board' });
+    const draw = () => {
+      tray.replaceChildren(...LK8_STK3.map(id => el('button', { type: 'button', class: 'lk8-it', 'aria-label': (LK8_PICS.find(p => p.id === id) || {}).label, 'aria-pressed': String(sel === id), html: lk8Pic(id), style: place[id] != null ? 'opacity:.35' : '', onclick: () => { sel = sel === id ? null : id; SFX.pop(); draw(); } })));
+      board.replaceChildren(...Array.from({ length: 9 }, (_, c) => { const who = LK8_STK3.find(id => place[id] === c); return el('button', { type: 'button', class: 'lk8-cell', 'aria-label': `משבצת ${c + 1}`, html: who ? lk8Pic(who) : '', onclick: () => {
+        if (sel) { place[sel] = c; LK8_STK3.forEach(id => { if (id !== sel && place[id] === c) delete place[id]; }); sel = null; SFX.pop(); }
+        else if (who) { delete place[who]; sel = who; }
+        draw();
+      } }); }));
+    };
+    draw();
+    const wrap = el('div', { class: 'lk8-pad' }, tray, board, el('div', { class: 'lk8-hint' }, 'בוחרים מדבקה ואז משבצת'),
+      el('div', { class: 'chips lk8-row' }, el('button', { type: 'button', class: 'btn main', onclick: () => {
+        if (LK8_STK3.some(id => place[id] == null)) { lk8Hint(wrap, 'צריך לשים את כל 3 המדבקות 🧩'); return; }
+        const v = LK8_STK3.map(id => id + ':' + place[id]).join(','); LK8_STK3.forEach(id => delete place[id]); draw(); emit(v);
+      } }, '✓ סיימתי')));
+    return wrap;
+  }
+  function lk8PetPad(mode, emit) {
+    const mine = lk8Pets();
+    if (!mine.length) return el('div', { class: 'lk8-pad' }, el('p', {}, 'עוד אין לך חיה, אז אי אפשר להשתמש בשכבה הזאת 🐾'));
+    let list = mine.map(p => ({ id: lk8PetId(p), p }));
+    if (mode === 'open') {
+      const used = new Set(mine.map(p => p.kind)), kinds = lk8Shuf(PET_KINDS.map(k => k[0]).filter(k => !used.has(k)));
+      while (list.length < 6 && kinds.length) { const base = pick(mine); list.push({ id: 'decoy' + list.length, p: Object.assign({}, base, { id: undefined, kind: kinds.pop(), name: '' }) }); }
+      list = lk8Shuf(list).slice(0, Math.max(6, mine.length));
+    }
+    return el('div', { class: 'lk8-pad' }, el('div', { class: 'lk8-grid lk8-pets' }, ...list.map(x => el('button', { type: 'button', class: 'lk8-it', 'aria-label': mode === 'set' ? (x.p.name || 'חיה') : 'חיה', onclick: () => { SFX.pop(); emit(x.id); } },
+      el('span', { class: 'lk8-petart', html: lk8PetArt(x.p) }), mode === 'set' ? el('b', {}, x.p.name || '') : null))));
+  }
+  function lk8TextPad(mode, emit, o = {}) {
+    const inp = el('input', { type: 'password', class: 'lk8-in', autocomplete: 'off', maxLength: 30, placeholder: o.ph || 'המילה הסודית', 'aria-label': o.ph || 'המילה הסודית' });
+    inp.setAttribute('form', 'lk8-noform');
+    const go = () => { const v = lk8Norm(inp.value); if (mode === 'set' && v.length < 3) { lk8Hint(wrap, 'לפחות 3 אותיות 🔤'); return; } if (!v) return; inp.value = ''; emit(v); };
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(); } });
+    const wrap = el('div', { class: 'lk8-pad' }, inp, el('div', { class: 'lk8-hint' }), el('button', { type: 'button', class: 'btn main', onclick: go }, '✓ אישור'));
+    if (mode === 'open') setTimeout(() => inp.focus());
+    return wrap;
+  }
+
+  const lk8Exact = { secret: v => ({ h: lk8Hash(v) }), match: (s, v) => !!s && s.h === lk8Hash(v) };
+  const lk8Near = (A, B) => { const near = (c, S) => S.some(d => Math.abs(c % 8 - d % 8) <= 1 && Math.abs(Math.floor(c / 8) - Math.floor(d / 8)) <= 1); return (B.filter(c => near(c, A)).length + A.filter(c => near(c, B)).length) / (A.length + B.length); };
+  const LK8_L = {
+    pattern: Object.assign({ ic: '🔵', name: 'צורה סודית', how: 'מחברים 4 נקודות או יותר', ask: 'מחברים את הנקודות בצורה הסודית', pad: lk8PatternPad }, lk8Exact),
+    pics: Object.assign({ ic: '🖼️', name: 'תמונות סודיות', how: '3 תמונות לפי הסדר', ask: 'לוחצים על 3 התמונות הסודיות לפי הסדר',
+      pad: (m, e) => lk8SeqPad(m, e, { n: 3, shuffle: true, cls: 'lk8-pics', items: LK8_PICS.map(p => Object.assign({ mini: p.html }, p)) }) }, lk8Exact),
+    colors: Object.assign({ ic: '🎨', name: 'רצף צבעים', how: '4 צבעים לפי הסדר', ask: 'לוחצים על 4 הצבעים הסודיים',
+      pad: (m, e) => lk8SeqPad(m, e, { n: 4, cls: 'lk8-cols', items: LK8_COLORS.slice(0, 9).map(([id, label, c]) => ({ id, label, html: '', style: `background:${c}`, mini: `<b style="background:${c}"></b>` })) }) }, lk8Exact),
+    emoji: Object.assign({ ic: '😀', name: 'סיסמת אימוג׳י', how: '4 אימוג׳י לפי הסדר', ask: 'בוחרים את 4 האימוג׳י הסודיים',
+      pad: (m, e) => lk8SeqPad(m, e, { n: 4, shuffle: true, cls: 'lk8-emo', items: LK8_EMO.map((x, i) => ({ id: 'e' + i, label: x, html: x, mini: `<em>${x}</em>` })) }) }, lk8Exact),
+    melody: Object.assign({ ic: '🎵', name: 'מנגינה סודית', how: '4 צלילים בקסילופון', ask: 'מנגנים את המנגינה הסודית',
+      pad: (m, e) => lk8SeqPad(m, e, { n: 4, cls: 'lk8-xylo', onTap: it => tone(it.f, 0.45, 'triangle', 0, 0.14),
+        items: LK8_NOTES.map(([nm, f], i) => ({ id: 'n' + i, f, label: nm, html: `<span>${nm}</span>`, style: `background:${LK8_BAR[i]};height:${150 - i * 10}px`, mini: `<b style="background:${LK8_BAR[i]}"></b>` })) }) }, lk8Exact),
+    spot: { ic: '👆', name: 'נקודה סודית', how: 'נקודה נסתרת בציור', ask: 'לוחצים על הנקודה הסודית בציור', pad: lk8SpotPad,
+      secret: v => ({ x: v.x, y: v.y }), match: (s, v) => !!s && !!v && Math.hypot(s.x - v.x, (s.y - v.y) * 2 / 3) < 0.075 },
+    knock: { ic: '🥁', name: 'דפיקה סודית', how: 'קצב של 3–6 דפיקות', ask: 'דופקים בדלת בקצב הסודי', pad: lk8KnockPad,
+      secret: v => ({ k: v }), match: (s, v) => { if (!s || !Array.isArray(v) || v.length !== s.k.length) return false; if (!v.length) return true;
+        const ta = s.k.reduce((a, b) => a + b, 0) || 1, tb = v.reduce((a, b) => a + b, 0) || 1;
+        return tb / ta < 2.2 && ta / tb < 2.2 && s.k.every((a, i) => Math.abs(a / ta - v[i] / tb) < 0.16); } },
+    draw: { ic: '✍️', name: 'ציור סודי', how: 'צורה פשוטה שציירת', ask: 'מציירים את הצורה הסודית', pad: lk8DrawPad,
+      secret: v => ({ c: v }), match: (s, v) => !!s && Array.isArray(v) && v.length > 0 && lk8Near(s.c, v) >= 0.8 },
+    stickers: Object.assign({ ic: '🧩', name: 'לוח מדבקות סודי', how: '3 מדבקות במשבצות שלהן', ask: 'שמים כל מדבקה במשבצת הסודית שלה', pad: lk8StickerPad }, lk8Exact),
+    pet: Object.assign({ ic: '🐾', name: 'מי החיה שלי?', how: 'מוצאים את החיה שבחרת', ask: 'מי החיה הסודית שלך?', pad: lk8PetPad }, lk8Exact),
+    word: Object.assign({ ic: '🔤', name: 'מילה סודית', how: 'מילה שמקלידים', ask: 'מקלידים את המילה הסודית', pad: lk8TextPad }, lk8Exact),
+  };
+  const LK8_SHORT = { pattern: 'צורה', pics: 'תמונות', colors: 'צבעים', emoji: 'אימוג׳י', melody: 'מנגינה', spot: 'נקודה', knock: 'דפיקה', draw: 'ציור', stickers: 'מדבקות', pet: 'חיה', word: 'מילה' };
+  const LK8_MAX = 2 + Object.keys(LK8_L).length;
+  const lk8StepLabel = s => ({ key: '🗝️ מפתח', code: '🔢 קוד', q: '❓ שאלה', lk8id: '🪪 שאלות כניסה' })[s] || (LK8_L[String(s).slice(3)] ? LK8_L[String(s).slice(3)].ic + ' ' + LK8_L[String(s).slice(3)].name : s);
+
+  // ---------- hooks used by the lock (patches.json) ----------
+  function lk8Steps(base) {
+    STEP_NAMES.lk8id = '🪪 שאלות';
+    for (const [t, L] of Object.entries(LK8_L)) STEP_NAMES['lk8' + t] = L.ic + ' ' + LK8_SHORT[t];
+    if (!pin) return base;
+    const c = lk8Cfg();
+    return [c.id.on && c.id.qs.length ? 'lk8id' : null, ...c.layers.map(l => 'lk8' + l.t), ...base].filter(Boolean);
+  }
+  function lk8Fail(step) {
+    const log = store.get('lk8log', []) || [];
+    log.push({ t: Date.now(), s: step }); store.set('lk8log', log.slice(-40));
+  }
+  function lk8Unlocked() {
+    store.set('lk8tries', 0);
+    const seen = store.get('lk8seen', 0) || 0, news = (store.get('lk8log', []) || []).filter(x => x.t > seen);
+    store.set('lk8seen', Date.now());
+    if (!news.length) return;
+    document.querySelector('.lk8-alert')?.remove();
+    const card = el('div', { class: 'lk8-alert', role: 'alert' },
+      el('b', {}, '🚨 מישהו ניסה להיכנס!'),
+      el('ul', {}, ...news.slice(-5).reverse().map(x => el('li', {}, `${lk8When(x.t)} · ${lk8StepLabel(x.s)}`))),
+      news.length > 5 ? el('small', {}, `ועוד ${news.length - 5} ניסיונות...`) : null,
+      el('small', {}, 'אולי זו היית את? 😉 את כל הרשימה רואים ב"המנעול שלי".'),
+      el('button', { type: 'button', class: 'btn main', onclick: () => card.remove() }, 'הבנתי 👍'));
+    document.body.append(card);
+    setTimeout(() => card.remove(), 25000);
+  }
+  const lk8When = t => { try { return new Date(t).toLocaleString('he-IL', { weekday: 'short', day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
+  const lk8CoolLeft = () => Math.max(0, (store.get('lk8cool', 0) || 0) - Date.now());
+
+  // ctx = { next, again, redraw, cancel, forgot, news, first }
+  function lk8Draw(s, ctx) {
+    const box = el('div', { class: 'lock-box lk8-box' });
+    const cool = lk8CoolLeft();
+    if (cool > 0) {
+      const sec = el('b', { class: 'lk8-count' }, String(Math.ceil(cool / 1000)));
+      box.append(...[el('div', { class: 'lk8-big' }, '⏳'), el('h2', {}, 'הפסקה קטנה'), el('p', { class: 'lock-news' }, 'היו כמה טעויות, אז מחכים רגע ומנסים שוב 🌸'), sec, ctx.cancel()].filter(Boolean));
+      const iv = setInterval(() => { const l = lk8CoolLeft(); if (!box.isConnected) return clearInterval(iv); sec.textContent = String(Math.ceil(l / 1000)); if (l <= 0) { clearInterval(iv); ctx.again(); } }, 500);
+      return box;
+    }
+    const head = (ic, title, sub) => [ctx.first ? ctx.news() : null, el('div', { class: 'lk8-big' }, ic), el('h2', {}, title), stepsBar(s), sub ? el('p', { class: 'lock-news' }, sub) : null];
+    const foot = () => [el('div', { class: 'pin-err' }), el('button', { type: 'button', class: 'lock-link', onclick: ctx.forgot }, 'שכחתי'), ctx.cancel()];
+    const ok = () => { SFX.ding(); const e = box.querySelector('.pin-err'); if (e) e.textContent = '✔️ נכון!'; setTimeout(ctx.next, 350); };
+    if (s === 'lk8id') { lk8IdFlow(box, ctx, head, foot, ok); return box; }
+    const t = s.slice(3), L = LK8_L[t], lay = lk8Cfg().layers.find(l => l.t === t);
+    if (!L || !lay) { setTimeout(ctx.next); return box; }
+    box.append(...[...head(L.ic, L.name, L.ask), L.pad('open', v => L.match(lay.s, v) ? ok() : lk8Wrong(box, s, ctx, false)), ...foot()].filter(Boolean));
+    return box;
+  }
+  function lk8Wrong(box, s, ctx, toStart) {
+    lk8Fail(s); SFX.boop();
+    const tries = (store.get('lk8tries', 0) || 0) + 1;
+    const e = box.querySelector('.pin-err');
+    if (tries >= 3) {
+      store.set('lk8tries', 0); store.set('lk8cool', Date.now() + 30000);
+      if (e) e.textContent = 'לא נכון 🤔 עכשיו הפסקה קטנה...';
+      setTimeout(ctx.again, 1100); return;
+    }
+    store.set('lk8tries', tries);
+    if (e) { e.textContent = toStart ? 'לא נכון 🤔 מתחילים מההתחלה' : 'לא נכון 🤔 נסי שוב'; e.classList.remove('shake'); void e.offsetWidth; e.classList.add('shake'); }
+    box.classList.add('lk8-busy');
+    setTimeout(toStart ? ctx.again : ctx.redraw, 1100);
+  }
+  // answer widget for one entry question; set=true marks the chosen chip instead of moving on
+  function lk8AnsUI(q, onVal, set, cur, val) {
+    const chips = (list, cls) => el('div', { class: 'lk8-choice ' + (cls || '') }, ...list.map(([id, label, c]) => el('button', { type: 'button', class: c ? 'lk8-sw' : 'chip', 'aria-pressed': String(cur === id), 'aria-label': label, style: c ? `background:${c}` : '', onclick: () => { SFX.pop(); onVal(id); } }, c ? '' : label)));
+    if (q.kind === 'color') return chips(LK8_COLORS, 'cols');
+    if (q.kind === 'month') return chips(MONTHS.map(m => [m, m]), 'months');
+    if (q.kind === 'season') return chips(LK8_SEASONS.map(([id, l]) => [id, l]));
+    const inp = el('input', { type: set ? 'password' : 'text', class: 'lk8-in', autocomplete: 'off', maxLength: 40, inputMode: q.kind === 'num' ? 'numeric' : 'text', placeholder: set ? (cur ? '✔️ יש תשובה (אפשר לכתוב חדשה)' : 'התשובה') : 'התשובה', 'aria-label': q.q });
+    inp.setAttribute('form', 'lk8-noform');
+    if (set) { if (val) inp.value = val; inp.addEventListener('input', () => onVal(inp.value)); return inp; }
+    const go = () => { if (lk8Norm(inp.value)) onVal(inp.value); };
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(); } });
+    setTimeout(() => inp.focus());
+    return el('div', { class: 'lk8-pad' }, inp, el('button', { type: 'button', class: 'btn main', onclick: go }, 'הבא ➜'));
+  }
+  function lk8IdFlow(box, ctx, head, foot, ok) {
+    const id = lk8Cfg().id, qs = id.qs.map(x => Object.assign({}, LK8_QS.find(q => q.id === x.id) || LK8_QS[0], { h: x.h }));
+    const ans = []; let i = 0;
+    const prog = () => el('div', { class: 'lk8-slots small' }, ...Array.from({ length: qs.length + 1 }, (_, k) => el('i', { class: k < i ? 'on' : k === i ? 'cur' : '' })));
+    const step = () => {
+      if (i === 0) {
+        box.replaceChildren(...head('🪪', 'מי את?', 'קודם כל...'), prog(), el('h3', { class: 'lk8-qq' }, 'בן או בת?'),
+          el('div', { class: 'lk8-gender' }, ...[['boy', 'בן', false], ['girl', 'בת', true]].map(([g, l, girl]) => el('button', { type: 'button', class: 'lk8-g', 'aria-label': l, onclick: () => { SFX.pop(); ans[0] = g; i++; step(); } },
+            el('span', { html: LK8_FACE(girl) }), el('b', {}, (girl ? '👧 ' : '👦 ') + l)))), ...foot());
+        return;
+      }
+      const q = qs[i - 1];
+      box.replaceChildren(...head(q.ic, 'שאלת כניסה', `שאלה ${i} מתוך ${qs.length}`), prog(), el('h3', { class: 'lk8-qq' }, q.q),
+        lk8AnsUI(q, v => { ans[i] = v; i++; if (i <= qs.length) step(); else check(); }), ...foot());
+    };
+    const check = () => {
+      const good = lk8Hash(ans[0]) === id.g && qs.every((q, k) => lk8Hash(ans[k + 1]) === q.h);
+      if (good) { box.replaceChildren(...head('🪪', 'מי את?'), prog(), ...foot()); ok(); }
+      else { box.replaceChildren(...head('🤔', 'מי את?'), prog(), ...foot()); lk8Wrong(box, 'lk8id', ctx, true); }
+    };
+    step();
+  }
+
+  // ---------- setup section inside "המנעול שלי" ----------
+  const LK8_SHIELD_C = ['#c9d1dc', '#9fd8ff', '#7fe0b5', '#ffd84d', '#ffb020', '#ff7ab6', '#b594f5'];
+  function lk8ShieldSVG(n) {
+    const tier = Math.min(6, Math.floor((n - 1) / (LK8_MAX - 1) * 6.99)), c = LK8_SHIELD_C[tier];
+    const fill = tier === 6 ? 'url(#lk8rb)' : c;
+    const stars = Math.min(5, Math.ceil(n / 3));
+    return `<svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="lk8rb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8fc8"/><stop offset=".5" stop-color="#ffd84d"/><stop offset="1" stop-color="#7cc6f5"/></linearGradient></defs>`
+      + `<path d="M50 6 L88 20 V50 C88 76 70 96 50 104 C30 96 12 76 12 50 V20 Z" fill="${fill}" ${S}/><path d="M50 14 L80 25 V50 C80 71 66 87 50 94" fill="none" stroke="#fff" stroke-width="3" opacity=".55" stroke-linecap="round"/>`
+      + `<circle cx="39" cy="50" r="4" fill="${O}"/><circle cx="61" cy="50" r="4" fill="${O}"/><circle cx="40.5" cy="48.5" r="1.4" fill="#fff"/><circle cx="62.5" cy="48.5" r="1.4" fill="#fff"/><circle cx="32" cy="60" r="5" fill="#ff9ab8" opacity=".6"/><circle cx="68" cy="60" r="5" fill="#ff9ab8" opacity=".6"/>`
+      + `<path d="${n > 3 ? 'M40 62 Q50 72 60 62' : 'M42 64 Q50 68 58 64'}" fill="none" ${S2}/>`
+      + [...Array(stars)].map((_, i) => `<polygon points="${starPts(50 + (i - (stars - 1) / 2) * 13, 30, 6, 2.6)}" fill="#fff6a8" ${S2}/>`).join('') + '</svg>';
+  }
+  const LK8_LEVEL = n => n <= 1 ? 'מגן קטן 🌱' : n <= 3 ? 'מגן טוב 🙂' : n <= 5 ? 'מגן חזק 💪' : n <= 8 ? 'מגן-על ⚡' : n <= 11 ? 'טירה 🏰' : 'מבצר בלתי חדיר! 🐉';
+  function lk8Meter() {
+    const c = lk8Cfg(), n = 1 + (c.id.on ? 1 : 0) + c.layers.length;
+    const bonus = [typeof hasKeys === 'function' && hasKeys() ? '🗝️ מפתח' : null, pin && pin.q ? '❓ שאלה סודית' : null].filter(Boolean);
+    return el('div', { class: 'lk8-meter' }, el('span', { class: 'lk8-shield', html: lk8ShieldSVG(n) }),
+      el('div', {}, el('b', {}, `🔐 רמת אבטחה: ${n} מתוך ${LK8_MAX}`), el('div', {}, LK8_LEVEL(n)),
+        el('div', { class: 'lk8-bar', 'aria-hidden': 'true' }, ...Array.from({ length: LK8_MAX }, (_, i) => el('i', { class: i < n ? 'on' : '' }))),
+        bonus.length ? el('small', { class: 'muted' }, '⭐ בונוס: ' + bonus.join(' + ')) : null));
+  }
+  function lk8Setup() {
+    const sec = el('div', { class: 'box lk8-setup' });
+    let edit = null, msg = '';
+    const save = c => { lk8SaveCfg(c); SFX.ding(); };
+    const draw = () => {
+      const c = lk8Cfg(), on = new Map(c.layers.map((l, i) => [l.t, i]));
+      const card = (key, ic, name, how, isOn, order, btns) => el('div', { class: 'lk8-card' + (isOn ? ' on' : '') + (edit === key ? ' editing' : '') },
+        el('span', { class: 'lk8-cic' }, ic), el('div', { class: 'lk8-ctx' }, el('b', {}, name), el('small', {}, isOn ? `✔️ פועל${order ? ` · שלב ${order}` : ''}` : how)), el('div', { class: 'lk8-cbtn' }, ...btns));
+      const move = (t, d) => { const k = c.layers.findIndex(l => l.t === t), j = k + d; if (j < 0 || j >= c.layers.length) return; [c.layers[k], c.layers[j]] = [c.layers[j], c.layers[k]]; lk8SaveCfg(c); draw(); };
+      const cards = [];
+      cards.push(card('id', '🪪', 'שאלות כניסה', 'בן או בת? ועוד 2–4 שאלות', c.id.on, c.id.on ? 1 : 0, c.id.on
+        ? [el('button', { type: 'button', class: 'lk8-mini', onclick: () => { edit = 'id'; msg = ''; draw(); } }, '✏️ לשנות'), el('button', { type: 'button', class: 'lk8-mini', 'aria-label': 'לכבות', onclick: () => { c.id = { on: false, qs: [] }; lk8SaveCfg(c); draw(); } }, '🗑️')]
+        : [el('button', { type: 'button', class: 'lk8-mini add', onclick: () => { edit = 'id'; msg = ''; draw(); } }, '➕ להפעיל')]));
+      if (edit === 'id') cards.push(lk8IdEditor(c, () => { edit = null; draw(); }));
+      for (const [t, L] of Object.entries(LK8_L)) {
+        const k = on.get(t), isOn = k != null;
+        cards.push(card(t, L.ic, L.name, L.how, isOn, isOn ? k + 1 + (c.id.on ? 1 : 0) : 0, isOn
+          ? [el('button', { type: 'button', class: 'lk8-mini', 'aria-label': 'מוקדם יותר', onclick: () => move(t, -1) }, '⬆️'), el('button', { type: 'button', class: 'lk8-mini', 'aria-label': 'מאוחר יותר', onclick: () => move(t, 1) }, '⬇️'),
+            el('button', { type: 'button', class: 'lk8-mini', onclick: () => { edit = t; msg = ''; draw(); } }, '✏️'), el('button', { type: 'button', class: 'lk8-mini', 'aria-label': 'לכבות', onclick: () => { c.layers = c.layers.filter(l => l.t !== t); lk8SaveCfg(c); draw(); } }, '🗑️')]
+          : [el('button', { type: 'button', class: 'lk8-mini add', onclick: () => { edit = t; msg = ''; draw(); } }, '➕ להפעיל')]));
+        if (edit === t) cards.push(lk8LayerEditor(t, L, v => { const cc = lk8Cfg(), at = cc.layers.findIndex(l => l.t === t); if (at >= 0) cc.layers[at].s = v; else cc.layers.push({ t, s: v }); save(cc); edit = null; draw(); }, () => { edit = null; draw(); }));
+      }
+      const log = (store.get('lk8log', []) || []).slice().reverse();
+      sec.replaceChildren(
+        el('h4', {}, '🛡️ עוד שכבות אבטחה (לא חובה)'),
+        el('p', { class: 'muted' }, 'כל שכבה שמדליקים מופיעה לפני הקוד, לפי הסדר שבחרת (⬆️⬇️). כדי שאף אחד לא יפרוץ!'),
+        lk8Meter(), msg ? el('p', { class: 'pin-msg' }, msg) : null,
+        el('div', { class: 'lk8-cards' }, ...cards),
+        el('h4', {}, '🚨 מישהו ניסה להיכנס!'),
+        log.length ? el('ul', { class: 'lk8-log' }, ...log.slice(0, 12).map(x => el('li', {}, el('span', {}, lk8When(x.t)), el('b', {}, lk8StepLabel(x.s))))) : el('p', { class: 'muted' }, '✨ אף אחד לא טעה בכניסה. הכל שקט!'),
+        log.length ? el('button', { type: 'button', class: 'lk8-mini', onclick: () => { store.set('lk8log', []); draw(); } }, '🧹 לנקות את הרשימה') : null);
+    };
+    draw();
+    return sec;
+  }
+  function lk8LayerEditor(t, L, onSave, onCancel) {
+    const ed = el('div', { class: 'lk8-ed' });
+    let first = null;
+    const phase = note => {
+      const pad = L.pad('set', v => {
+        if (first == null) { first = v; phase(); return; }
+        if (L.match(L.secret(first), v)) { onSave(L.secret(first)); return; }
+        first = null; SFX.boop(); phase('🙈 זה לא היה אותו דבר. מתחילים שוב!');
+      });
+      ed.replaceChildren(el('b', {}, `${L.ic} ${first == null ? 'בחרי' : 'שוב פעם, כדי לוודא שזוכרים'}: ${L.how}`), note ? el('p', { class: 'pin-msg' }, note) : null, pad,
+        el('button', { type: 'button', class: 'lk8-mini', onclick: onCancel }, 'ביטול'));
+    };
+    phase();
+    return ed;
+  }
+  function lk8IdEditor(c, done) {
+    const ed = el('div', { class: 'lk8-ed' });
+    const st = { g: null, qs: c.id.on ? c.id.qs.map(x => x.id) : [], ans: {}, had: new Set(c.id.on ? c.id.qs.map(x => x.id) : []) };
+    let note = '';
+    const draw = () => {
+      ed.replaceChildren(
+        el('b', {}, '1. בן או בת?'),
+        el('div', { class: 'lk8-gender small' }, ...[['boy', 'בן', false], ['girl', 'בת', true]].map(([g, l, girl]) => el('button', { type: 'button', class: 'lk8-g', 'aria-pressed': String(st.g === g), 'aria-label': l, onclick: () => { st.g = g; SFX.pop(); draw(); } },
+          el('span', { html: LK8_FACE(girl) }), el('b', {}, (girl ? '👧 ' : '👦 ') + l)))),
+        el('b', {}, `2. בחרי 2–4 שאלות (${st.qs.length}/4)`),
+        el('div', { class: 'chips lk8-qpick' }, ...LK8_QS.map(q => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(st.qs.includes(q.id)), disabled: !st.qs.includes(q.id) && st.qs.length >= 4,
+          onclick: () => { st.qs = st.qs.includes(q.id) ? st.qs.filter(x => x !== q.id) : [...st.qs, q.id]; draw(); } }, `${q.ic} ${q.q}`))),
+        st.qs.length ? el('b', {}, '3. התשובות (אף אחד לא יראה אותן, הן נשמרות בקוד סודי)') : null,
+        ...st.qs.map(qid => { const q = LK8_QS.find(x => x.id === qid); return el('label', { class: 'lk8-ans' }, el('span', {}, `${q.ic} ${q.q}`), lk8AnsUI(q, v => { st.ans[qid] = v; if (q.kind !== 'text' && q.kind !== 'num') draw(); }, true, q.kind !== 'text' && q.kind !== 'num' ? st.ans[qid] : (st.had.has(qid) ? 'had' : ''), st.ans[qid])); }),
+        note ? el('p', { class: 'pin-msg' }, note) : null,
+        el('div', { class: 'chips' },
+          el('button', { type: 'button', class: 'btn main', onclick: () => {
+            if (!st.g) { note = '👦👧 צריך לבחור בן או בת.'; return draw(); }
+            if (st.qs.length < 2) { note = '❓ צריך לבחור לפחות 2 שאלות.'; return draw(); }
+            const miss = st.qs.find(qid => !lk8Norm(st.ans[qid] || '') && !st.had.has(qid));
+            if (miss) { note = '✏️ חסרה תשובה: ' + LK8_QS.find(x => x.id === miss).q; return draw(); }
+            const old = new Map(c.id.on ? c.id.qs.map(x => [x.id, x.h]) : []);
+            const cc = lk8Cfg();
+            cc.id = { on: true, g: lk8Hash(st.g), qs: st.qs.map(qid => ({ id: qid, h: lk8Norm(st.ans[qid] || '') ? lk8Hash(st.ans[qid]) : old.get(qid) })) };
+            lk8SaveCfg(cc); SFX.ding(); done();
+          } }, '💾 לשמור שאלות'),
+          el('button', { type: 'button', class: 'lk8-mini', onclick: done }, 'ביטול')));
+    };
+    draw();
+    return ed;
+  }
+  // inject the section whenever "המנעול שלי" is (re)built
+  function lk8Inject() {
+    const body = $('#pinBody');
+    if (!body || body.querySelector('.lk8-setup')) return;
+    if (!pin) { store.set('lk8', null); }
+    const sec = lk8Setup();
+    const form = body.querySelector('form'), try1 = [...body.querySelectorAll('button')].find(b => b.textContent.includes('לנסות את המנעול'));
+    if (!pin && form) form.insertBefore(sec, form.querySelector('.pin-msg'));
+    else if (try1) body.insertBefore(sec, try1.parentElement);
+    else body.append(sec);
+  }
+  if ($('#pinBody')) new MutationObserver(lk8Inject).observe($('#pinBody'), { childList: true });
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
