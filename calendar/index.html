@@ -6348,6 +6348,133 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
   .cl2-dial { width: 100px; height: 100px; }
   .cl2-amb { width: 17%; }
 }
+/* ===== board8: alarm clock + bedtime story ===== */
+.b8-note { margin: 0; padding: 8px 12px; border-radius: 14px; background: #fff6d9; border: 1.5px dashed #ffc94d; color: #6b4a00; font-size: .95em; }
+.b8-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.b8-pet svg, .b8-actor svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.b8-alhead { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; padding: 12px; border-radius: 20px; background: linear-gradient(135deg, #ffe9f5, #efe6ff 60%, #e3f4ff); border: 2px solid var(--line); }
+.b8-bigclock { width: 150px; flex: none; } .b8-bigclock svg { width: 100%; display: block; }
+.b8-bigclock .b8-bell { transform-origin: 100px 60px; animation: b8bell 2.4s ease-in-out infinite; }
+@keyframes b8bell { 0%, 70%, 100% { transform: rotate(0); } 75% { transform: rotate(-8deg); } 80% { transform: rotate(8deg); } 85% { transform: rotate(-6deg); } 90% { transform: rotate(5deg); } }
+.b8-alhead-txt { display: grid; gap: 4px; flex: 1; min-width: 180px; }
+.b8-alhead-txt b { font-size: 1.5em; }
+.b8-alpets { display: flex; gap: 6px; }
+.b8-alpets .b8-pet { width: 64px; height: 64px; }
+.b8-bob { animation: b8bob 1.8s ease-in-out infinite; }
+@keyframes b8bob { 50% { transform: translateY(-6px) rotate(-3deg); } }
+.b8-allist { display: grid; gap: 8px; }
+.b8-alcard { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 18px; border: 2px solid var(--line); background: var(--card); flex-wrap: wrap; }
+.b8-alcard.off { opacity: .6; }
+.b8-mini { width: 54px; flex: none; } .b8-mini svg { width: 100%; display: block; }
+.b8-alinfo { display: grid; flex: 1; min-width: 140px; } .b8-alinfo b { font-size: 1.7em; line-height: 1; } .b8-alinfo small { color: var(--soft); }
+.b8-alact { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.b8-sw { width: 50px; height: 28px; border-radius: 999px; border: 2px solid var(--ink); background: #ddd; position: relative; padding: 0; }
+.b8-sw i { position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 1.5px solid var(--ink); transition: right .2s; }
+.b8-sw.on { background: #7fd8a6; } .b8-sw.on i { right: 24px; }
+.b8-edit { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start; }
+.b8-editform { display: grid; gap: 8px; flex: 1; min-width: 240px; }
+.b8-steps { display: flex; align-items: center; gap: 10px; direction: ltr; justify-content: flex-end; }
+.b8-step { display: grid; justify-items: center; gap: 2px; }
+.b8-step b { font-size: 2.4em; line-height: 1; min-width: 1.4em; text-align: center; background: var(--paper); border-radius: 12px; padding: 2px 6px; }
+.b8-step small { color: var(--soft); }
+.b8-colon { font-size: 2.4em; }
+.b8-lbl { font-weight: 700; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.b8-lbl input { font: inherit; padding: 4px 10px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); color: var(--ink); }
+.b8-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.b8-day { min-width: 36px; }
+.b8-sounds { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; }
+.b8-snd { display: grid; justify-items: center; gap: 2px; padding: 8px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); color: var(--ink); font: inherit; }
+.b8-snd span { font-size: 1.8em; } .b8-snd small { color: var(--soft); }
+.b8-snd[aria-pressed="true"] { border-color: var(--accent); background: var(--paper); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+/* ring scene */
+#b8RingDlg.b8-ringdlg { width: 100vw; height: 100vh; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; background: linear-gradient(#fff3d6, #ffe0ec); overflow: hidden; }
+#b8RingDlg::backdrop { background: #ffe9c9; }
+.b8-ring { height: 100%; display: flex; flex-direction: column; gap: 10px; padding: 14px; box-sizing: border-box; color: #3a2b3c; }
+.b8-ringtop { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.b8-ringclock { width: 90px; animation: b8shake .5s ease-in-out infinite; } .b8-ringclock svg { width: 100%; display: block; }
+@keyframes b8shake { 25% { transform: rotate(-7deg); } 75% { transform: rotate(7deg); } }
+.b8-time { font-size: 3.2em; font-weight: 800; line-height: 1; }
+.b8-ringlbl { font-size: 1.2em; }
+.b8-room { position: relative; flex: none; align-self: center; width: min(100%, calc((100dvh - 210px) * 4 / 3)); aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; border: 3px solid #3a2b3c; container-type: inline-size; }
+.b8-ring > .b8-room { margin-block: auto; }
+.b8-roombg, .b8-roombg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.b8-sun { animation: b8rise 6s ease-out forwards; }
+@keyframes b8rise { from { transform: translateY(40px); } to { transform: translateY(-34px); } }
+.b8-sleeper { position: absolute; left: 13%; bottom: 37%; width: 18%; aspect-ratio: 1; }
+.b8-sleeper img, .b8-sleeper svg { width: 100%; height: 100%; object-fit: contain; display: block; }
+.b8-jump { position: absolute; left: var(--x); bottom: var(--y); width: clamp(60px, 14%, 130px); aspect-ratio: 1; translate: -50% 0; animation: b8jump 1.1s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes b8jump { 0%, 100% { transform: translateY(0) scale(1.05, .92); } 40% { transform: translateY(-38%) scale(.95, 1.05) rotate(-6deg); } 60% { transform: translateY(-40%) rotate(6deg); } }
+.b8-lick { position: absolute; left: var(--x, 50%); bottom: 72%; translate: -50% 0; background: #fff; border: 2.5px solid #3a2b3c; border-radius: 18px; padding: 4px 12px; font-weight: 800; font-size: 1.2em; opacity: 0; pointer-events: none; }
+.b8-lick.show { animation: b8pop 1.5s ease-out; }
+@keyframes b8pop { 0% { opacity: 0; transform: scale(.4); } 15% { opacity: 1; transform: scale(1.1); } 80% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: translateY(-14px); } }
+.b8-lyric { position: absolute; top: 3%; right: 3%; max-width: 58%; background: rgb(255 255 255 / .9); border: 2px solid #3a2b3c; border-radius: 18px; padding: 6px 14px; font-size: clamp(.85em, 3.6cqi, 1.3em); font-weight: 700; }
+.b8-notes i { position: absolute; bottom: 50%; font-style: normal; font-size: 2em; color: #b58cff; animation: b8note 3s linear infinite; }
+.b8-notes i:nth-child(1) { left: 30%; } .b8-notes i:nth-child(2) { left: 48%; animation-delay: .8s; color: #ff7aa8; } .b8-notes i:nth-child(3) { left: 64%; animation-delay: 1.5s; } .b8-notes i:nth-child(4) { left: 78%; animation-delay: 2.2s; color: #4fc3a1; }
+@keyframes b8note { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-140px) rotate(20deg); opacity: 0; } }
+.b8-ringbtns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.b8-ringbtns .btn { font-size: 1.35em; padding: 10px 26px; border-color: #3a2b3c; color: #3a2b3c; }
+.b8-up { background: #ffd84d; } .b8-snz { background: #fff; }
+.b8-sum { overflow-y: auto; max-width: 760px; margin: 0 auto; position: relative; z-index: 6; }
+.b8-sumhead { display: flex; align-items: center; gap: 12px; }
+.b8-sumhead h3 { margin: 0; font-size: 2em; font-family: var(--title-font); font-weight: 400; }
+.b8-sunbig { width: 70px; animation: b8bob 2.5s ease-in-out infinite; } .b8-sunbig svg { width: 100%; display: block; }
+.b8-sumpets { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.b8-sumpets .b8-pet { width: 82px; height: 82px; }
+.b8-cheer { animation: b8cheer 1s ease-in-out infinite; } @keyframes b8cheer { 50% { transform: translateY(-12px) rotate(4deg); } }
+.b8-gm { background: #fff; border: 2px solid #3a2b3c; border-radius: 18px; padding: 10px 14px; font-size: 1.15em; position: relative; }
+.b8-sumrows { display: grid; gap: 8px; }
+.b8-sumrow { display: flex; gap: 10px; align-items: flex-start; background: rgb(255 255 255 / .75); border-radius: 16px; padding: 8px 12px; border: 1.5px solid #e8cfe0; }
+.b8-sumrow small { display: block; color: #6b5a6e; }
+.b8-sumic { font-size: 1.6em; line-height: 1; }
+.b8-evs { margin: 4px 0 0; padding-inline-start: 18px; } .b8-evt { font-weight: 800; margin-inline-end: 6px; }
+/* story */
+.b8-scene { position: relative; aspect-ratio: 400 / 250; border-radius: 18px; overflow: hidden; border: 2.5px solid #3a2b3c; background: #1d1b4f; }
+.b8-page .b8-scene, .b8-cover .b8-scene { aspect-ratio: auto; height: clamp(190px, 46vh, 430px); }
+.b8-scene > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.b8-tw { animation: b8tw 2.4s ease-in-out infinite; } @keyframes b8tw { 50% { opacity: .25; } }
+.b8-actor { position: absolute; left: var(--x); bottom: 8%; width: min(19%, 30vh); aspect-ratio: 1; translate: -50% 0; animation: b8bob 2.2s ease-in-out infinite; transition: transform .3s; }
+.b8-actor.b8-focus { width: min(24%, 36vh); z-index: 2; animation: b8hop 1.2s ease-in-out infinite; }
+@keyframes b8hop { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(-12%) rotate(-4deg); } }
+.b8-actor.b8-sleep { animation: b8breath 3s ease-in-out infinite; filter: brightness(.85); }
+@keyframes b8breath { 50% { transform: scale(1.04, .97); } }
+.b8-girl { position: absolute; right: 3%; bottom: 3%; height: 64%; z-index: 1; animation: b8bob 2.6s ease-in-out infinite; }
+.b8-girl.b8-focus { height: 70%; }
+.b8-prop { position: absolute; top: 8%; left: 44%; width: 15%; aspect-ratio: 1; animation: b8float 3s ease-in-out infinite; filter: drop-shadow(0 0 8px rgb(255 255 200 / .8)); }
+.b8-prop svg { width: 100%; height: 100%; }
+@keyframes b8float { 50% { transform: translateY(-8px) rotate(6deg); } }
+.b8-final::after { content: ''; position: absolute; inset: 0; background: #0b0a24; opacity: 0; transition: opacity 6s ease-in; pointer-events: none; z-index: 3; }
+.b8-final.b8-dim::after { opacity: .6; }
+.b8-final.b8-dim .b8-tw { animation-duration: 4s; }
+.b8-zzz { position: absolute; top: 18%; left: 30%; color: #fff; font-size: 2.2em; font-weight: 800; animation: b8note 4s linear infinite; z-index: 4; }
+.b8-zzz small { font-size: .6em; margin-inline-start: 4px; }
+.b8-gn { position: absolute; top: 6%; inset-inline: 0; text-align: center; color: #fff7c9; font-family: var(--title-font); font-size: 2.4em; text-shadow: 0 0 14px #b58cff; z-index: 4; }
+.b8-book { position: relative; perspective: 1400px; display: grid; }
+.b8-page { grid-area: 1 / 1; display: grid; gap: 8px; background: #fffaf2; color: #3a2b3c; border: 2px solid #3a2b3c; border-radius: 20px; padding: 10px; box-shadow: 6px 6px 0 #e8d8f0; transform-origin: 0% 50%; backface-visibility: hidden; }
+.b8-page.b8-in { animation: b8in .55s ease-out; }
+.b8-page.b8-out { z-index: 5; animation: b8out .6s ease-in forwards; }
+.b8-page.b8-outb { z-index: 5; transform-origin: 100% 50%; animation: b8outb .6s ease-in forwards; }
+@keyframes b8out { to { transform: rotateY(-105deg); opacity: .2; } }
+@keyframes b8outb { to { transform: rotateY(105deg); opacity: .2; } }
+@keyframes b8in { from { opacity: .3; transform: scale(.98); } }
+.b8-txt { margin: 0; font-size: 1.35em; line-height: 1.5; min-height: 3em; padding: 0 6px; }
+.b8-pnum { text-align: center; color: #8a7a8e; font-size: .9em; }
+.b8-nav { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.b8-nav .chip { font-size: 1.1em; padding: 6px 16px; }
+.b8-dots { display: flex; justify-content: center; gap: 6px; }
+.b8-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); } .b8-dots i.on { background: var(--accent); transform: scale(1.3); }
+.b8-readtop { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; } .b8-readtop b { font-size: 1.3em; }
+.b8-cover { position: relative; }
+.b8-covtitle { position: absolute; top: 6%; inset-inline: 8%; display: grid; justify-items: center; text-align: center; gap: 2px; background: rgb(255 250 242 / .92); border: 2.5px solid #3a2b3c; border-radius: 18px; padding: 8px 12px; color: #3a2b3c; z-index: 3; }
+.b8-covtitle b { font-family: var(--title-font); font-size: 1.8em; font-weight: 400; line-height: 1.1; } .b8-covtitle small, .b8-covtitle span { color: #7a5a8e; }
+.b8-libh { margin: 4px 0 0; font-size: 1.25em; font-weight: 400; color: var(--accent); }
+.b8-lib { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.b8-libb { display: grid; justify-items: center; gap: 2px; padding: 8px; border-radius: 16px; border: 2px solid var(--line); background: linear-gradient(#2b2b5a, #4a3f8f); color: #fff7c9; font: inherit; text-align: center; }
+.b8-libb small { color: #cfc6ff; } .b8-libic { width: 38px; height: 38px; } .b8-libic svg { width: 100%; height: 100%; }
+.b8-pill { border-color: #b58cff; }
+.b8-housebar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 16px; background: linear-gradient(90deg, #fff3d6, #e8e2ff); border: 2px dashed #b58cff; }
+.b8-housebar .lbl { font-weight: 700; }
+@media (max-width: 560px) { .b8-time { font-size: 2.4em; } .b8-txt { font-size: 1.15em; } .b8-bigclock { width: 120px; } .b8-actor { width: 25%; } .b8-actor.b8-focus { width: 30%; } .b8-girl { height: 58%; } .b8-jump { width: 19%; } }
+@media (prefers-reduced-motion: reduce) { .b8-jump, .b8-bob, .b8-actor, .b8-ringclock, .b8-notes i, .b8-prop, .b8-cheer, .b8-tw, .b8-girl, .b8-bigclock .b8-bell { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -7688,6 +7815,19 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
 </dialog>
 
 <!-- clinic27: no new dialogs (reuses #petzVetDlg) -->
+
+<dialog id="b8Dlg" aria-labelledby="b8Title" style="width:min(900px, calc(100vw - 24px))">
+  <canvas class="confetti-c" aria-hidden="true"></canvas>
+  <div class="sheet">
+    <div class="sheet-head">
+      <div><h3 id="b8Title">⏰ השעון המעורר</h3><div class="sub" id="b8Sub"></div></div>
+      <button class="x" type="button" data-close aria-label="לסגור">✕</button>
+    </div>
+    <div class="row" id="b8Body"></div>
+  </div>
+</dialog>
+<dialog id="b8RingDlg" class="b8-ringdlg" aria-label="השעון המעורר מצלצל"></dialog>
+
 
 <!-- Secret code -->
 <dialog id="pinDlg" aria-labelledby="pinTitle">
@@ -41874,6 +42014,552 @@ ${label(900, 520, '🌊 ים האיים')}
   { const at = MORE.findIndex(m => m[1] === 'מרפאת החיות');
     const T = [['lightning', '🚑 אמבולנס החיות', () => cl2Open('amb')], ['crystal', '🦴 רנטגן החיות', () => cl2Open('xray')], ['heart', '🍼 פגיית החיות', () => cl2Open('nicu')]].filter(t => !MORE.some(m => m[1] === t[1]));
     if (at >= 0) MORE.splice(at + 1, 0, ...T); else MORE.push(...T); }
+  // ================= ⏰ board8: alarm clock (השעון המעורר) + 📖 bedtime story (סיפור לפני השינה) =================
+  // store 'b8al' = { l: [[id, 'HH:MM', daysMask(bit0=Sun, 0=once), label, sound 0-5, on 0/1]], f: {id: lastRingDate}, z: [id, atMs] | null, w: wokeDate }
+  // store 'b8st' = { lib: [{ d: date, n: reroll, t: title, h: [petIds], g: girlId|'', r: 0/1 }] } (one per night, newest first, max 60)
+  let b8Al = Object.assign({ l: [], f: {}, z: null, w: '' }, store.get('b8al', {}));
+  let b8St = Object.assign({ lib: [] }, store.get('b8st', {}));
+  const b8SaveAl = () => store.set('b8al', b8Al), b8SaveSt = () => store.set('b8st', b8St);
+  let b8Mode = 'alarm', b8Ed = null, b8Ring = null, b8Uid = 0, b8Book = null, b8Period = '';
+  const b8Pets = () => { try { return (typeof allPets === 'function' ? allPets() : (pet ? [pet] : [])).filter(Boolean); } catch { return pet ? [pet] : []; } };
+  const b8Girls = () => { try { return (typeof girls !== 'undefined' && Array.isArray(girls)) ? girls.filter(g => g && g.id) : []; } catch { return []; } };
+  const b8Gen = (p, m, f) => (p && (p.gender === 'f' || p.girl)) ? f : m;
+  const b8Coins = (n, why) => { try { if (typeof addCoins === 'function') addCoins(n, why); } catch {} };
+  const b8Pet = (p, cls = '', st = '') => el('div', { class: 'b8-pet ' + cls, style: st, html: (() => { try { return petSVG(p, { mood: 'happy' }); } catch { return stickerHTML('cat'); } })() });
+  const b8Hm = (h, m) => `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+  const b8Night = () => { const n = new Date(); return n.getHours() < 5 ? addDays(localToday(), -1) : localToday(); };
+  const b8Coin1 = (key, n, why) => { const k = 'b8c-' + key; if (store.get(k, '') === localToday()) return; store.set(k, localToday()); b8Coins(n, why); };
+
+  // ---------- sounds: the alarm plays even when the board's sounds are off ----------
+  function b8Tone(f, d, type = 'sine', when = 0, vol = 0.14) {
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === 'suspended') actx.resume();
+      const t = actx.currentTime + when, o = actx.createOscillator(), g = actx.createGain();
+      o.type = type; o.frequency.setValueAtTime(f, t);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+      o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + d + 0.05);
+    } catch {}
+  }
+  const B8_N = { C4: 262, D4: 294, E4: 330, F4: 349, G4: 392, A4: 440, B4: 494, C5: 523, D5: 587, E5: 659, F5: 698, G5: 784, A5: 880, B5: 988, C6: 1047, E6: 1319, G6: 1568 };
+  const b8Seq = (notes, type, vol, gap = 1) => { let t = 0; notes.forEach(([n, d]) => { if (n) b8Tone(B8_N[n] || n, d * 0.92, type, t, vol); t += d * gap; }); return t; };
+  const B8_SOUNDS = [
+    ['🐾', 'שיר הבוקר של החיות', () => b8Seq([['C5', .2], ['E5', .2], ['G5', .2], ['E5', .2], ['C5', .2], ['G4', .2], ['C5', .4], [0, .15], ['D5', .2], ['F5', .2], ['A5', .2], ['G5', .2], ['E5', .2], ['D5', .2], ['C5', .5]], 'triangle', .13)],
+    ['🐦', 'ציוץ ציפורים', () => { [0, .5, 1.2, 1.6, 2.3].forEach((w, i) => { b8Tone(2200 + i * 90, .07, 'sine', w, .08); b8Tone(2600 + i * 60, .07, 'sine', w + .09, .08); b8Tone(2350, .09, 'sine', w + .19, .07); }); return 2.7; }],
+    ['🔔', 'פעמונים', () => { [['E6', 0], ['C6', .35], ['G5', .7], ['C6', 1.05], ['E6', 1.6], ['G6', 1.95]].forEach(([n, w]) => { b8Tone(B8_N[n], .7, 'triangle', w, .12); b8Tone(B8_N[n] * 2, .4, 'sine', w, .03); }); return 2.7; }],
+    ['🐓', 'קוקוריקו', () => b8Seq([['G4', .16], ['G4', .16], ['C5', .22], ['E5', .55], [0, .3], ['G4', .16], ['G4', .16], ['C5', .22], ['G5', .7]], 'sawtooth', .06)],
+    ['🎶', 'תיבת נגינה', () => b8Seq([['E5', .3], ['G5', .3], ['C6', .3], ['B5', .3], ['G5', .3], ['A5', .3], ['G5', .3], ['E5', .6]], 'sine', .12)],
+    ['🥁', 'תופים שמחים', () => { [0, .25, .5, .62, .75, 1, 1.25, 1.5, 1.62, 1.75].forEach((w, i) => b8Tone(i % 3 === 2 ? 220 : 110, .14, 'triangle', w, .22)); b8Tone(784, .2, 'square', 2, .04); b8Tone(1047, .3, 'square', 2.2, .04); return 2.7; }],
+  ];
+
+  // ---------- the cute drawn clock face ----------
+  function b8ClockSVG(hm, col = '#ff9ad5', small) {
+    const [h, m] = hm.split(':').map(Number), ha = ((h % 12) + m / 60) * 30, ma = m * 6;
+    const nums = Array.from({ length: 12 }, (_, i) => { const a = (i + 1) * Math.PI / 6, r = 54; return `<text x="${(100 + Math.sin(a) * r).toFixed(1)}" y="${(124 - Math.cos(a) * r + 5).toFixed(1)}" text-anchor="middle" font-size="${(i + 1) % 3 ? 11 : 15}" font-weight="800" fill="${O}" font-family="Rubik, sans-serif">${i + 1}</text>`; }).join('');
+    const ticks = Array.from({ length: 60 }, (_, i) => i % 5 ? '' : `<circle cx="${(100 + Math.sin(i * Math.PI / 30) * 66).toFixed(1)}" cy="${(124 - Math.cos(i * Math.PI / 30) * 66).toFixed(1)}" r="2" fill="${col}"/>`).join('');
+    return `<svg viewBox="0 0 200 210" xmlns="http://www.w3.org/2000/svg" ${small ? '' : 'role="img" aria-label="שעון מעורר ' + hm + '"'}>
+      <path d="M58 196 L48 206 M142 196 L152 206" ${S} stroke-width="7"/>
+      <g class="b8-bell"><path d="M30 60 A30 30 0 0 1 72 26 Z" fill="#ffd84d" ${S}/><circle cx="48" cy="38" r="5" fill="#fff" opacity=".7"/></g>
+      <g class="b8-bell b8-bell2"><path d="M170 60 A30 30 0 0 0 128 26 Z" fill="#ffd84d" ${S}/></g>
+      <path d="M86 40 Q100 30 114 40" fill="none" ${S} stroke-width="5"/><circle cx="100" cy="34" r="6" fill="#ffd84d" ${S}/>
+      <circle cx="100" cy="124" r="84" fill="${col}" ${S}/><circle cx="100" cy="124" r="72" fill="#fffaf2" ${S}/>
+      ${ticks}${nums}
+      <circle cx="62" cy="150" r="7" fill="#ffb3c7" opacity=".6"/><circle cx="138" cy="150" r="7" fill="#ffb3c7" opacity=".6"/>
+      <path d="M90 158 Q100 166 110 158" fill="none" ${S}/>
+      <line x1="100" y1="124" x2="${(100 + Math.sin(ha * Math.PI / 180) * 36).toFixed(1)}" y2="${(124 - Math.cos(ha * Math.PI / 180) * 36).toFixed(1)}" stroke="${O}" stroke-width="7" stroke-linecap="round"/>
+      <line x1="100" y1="124" x2="${(100 + Math.sin(ma * Math.PI / 180) * 54).toFixed(1)}" y2="${(124 - Math.cos(ma * Math.PI / 180) * 54).toFixed(1)}" stroke="#ff5a8a" stroke-width="4.5" stroke-linecap="round"/>
+      <circle cx="100" cy="124" r="6" fill="#ffd84d" ${S}/>
+    </svg>`;
+  }
+  const B8_CLR = ['#ff9ad5', '#b58cff', '#7ec8ff', '#7fd8a6', '#ffb86b'];
+
+  // ---------- alarms ----------
+  const b8Days = mask => mask === 0 ? 'פעם אחת' : mask === 127 ? 'כל יום' : mask === 31 ? 'ימים א׳–ה׳' : mask === 62 ? 'ימים ב׳–ו׳' : mask === 63 ? 'ימים א׳–ו׳' : DOW.filter((_, i) => mask & (1 << i)).join(' · ');
+  const b8In = n => { const h = Math.floor(n / 60), m = n % 60, H = h === 1 ? 'שעה' : h === 2 ? 'שעתיים' : `${h} שעות`, M = m === 1 ? 'דקה' : `${m} דקות`; return 'בעוד ' + (h && m ? `${H} ו-${M}` : h ? H : M); };
+  function b8NextRing() {
+    const now = new Date(), cur = now.getHours() * 60 + now.getMinutes(); let best = null;
+    b8Al.l.filter(a => a[5]).forEach(a => {
+      const [h, m] = a[1].split(':').map(Number), am = h * 60 + m;
+      for (let i = 0; i < 8; i++) {
+        const dow = (now.getDay() + i) % 7;
+        if (i === 0 && am <= cur) continue;
+        if (a[2] && !(a[2] & (1 << dow))) continue;
+        const inMin = i * 1440 + am - cur;
+        if (!best || inMin < best.inMin) best = { a, inMin };
+        break;
+      }
+    });
+    return best;
+  }
+  function b8Tick() {
+    try {
+      const now = new Date(), t = localToday(), cur = now.getHours() * 60 + now.getMinutes(), dow = now.getDay();
+      const per = `${t}-${now.getHours() < 5 ? 'n' : now.getHours() < 12 ? 'm' : now.getHours() < 17 ? 'd' : 'e'}`;
+      if (per !== b8Period) { const first = !b8Period; b8Period = per; if (!first) try { renderStrip(); } catch {} }
+      if (b8Ring) return;
+      if (b8Al.z && Date.now() >= b8Al.z[1]) { const a = b8Al.l.find(x => x[0] === b8Al.z[0]); b8Al.z = null; b8SaveAl(); if (a) return b8DoRing(a, true); }
+      for (const a of b8Al.l) {
+        if (!a[5] || b8Al.f[a[0]] === t) continue;
+        const [h, m] = a[1].split(':').map(Number), am = h * 60 + m;
+        if (cur < am || cur - am > 3) continue;
+        if (a[2] && !(a[2] & (1 << dow))) continue;
+        b8Al.f[a[0]] = t; if (!a[2]) a[5] = 0; b8SaveAl();
+        return b8DoRing(a);
+      }
+    } catch {}
+  }
+
+  function b8OpenAlarm() { b8Mode = 'alarm'; b8Ed = null; b8Draw(); const d = $('#b8Dlg'); if (d && !d.open) d.showModal(); }
+  function b8OpenStory(view) { b8Mode = 'story'; b8Book = view === 'read' ? b8Book : null; if (view === 'tonight') b8Book = { e: b8Tonight(), at: 0 }; b8Draw(); const d = $('#b8Dlg'); if (d && !d.open) d.showModal(); }
+  function b8Draw() {
+    const body = $('#b8Body'); if (!body) return;
+    b8StopSpeak();
+    $('#b8Dlg').classList.toggle('b8-storymode', b8Mode === 'story');
+    $('#b8Title').textContent = b8Mode === 'alarm' ? '⏰ השעון המעורר' : '📖 סיפור לפני השינה';
+    $('#b8Sub').textContent = b8Mode === 'alarm' ? 'החיות יעירו אותך בבוקר עם שיר, קפיצות וליקוקים!' : 'בכל ערב סיפור חדש, והחיות שלך הן הגיבורות';
+    body.replaceChildren(...(b8Mode === 'alarm' ? b8AlarmView() : b8StoryView()));
+  }
+  function b8AlarmView() {
+    if (b8Ed) return b8EditView();
+    const next = b8NextRing(), pets = b8Pets().slice(0, 3);
+    const note = el('p', { class: 'b8-note' }, '💡 השעון מצלצל רק כשהלוח פתוח במכשיר הזה (ולא נעול במסך כבוי). משאירים את הלוח פתוח ליד המיטה, עם הווליום למעלה. הצלצול נשמע גם כשהצלילים של הלוח כבויים.');
+    const head = el('div', { class: 'b8-alhead' },
+      el('div', { class: 'b8-bigclock', html: b8ClockSVG(next ? next.a[1] : b8Hm(new Date().getHours(), new Date().getMinutes()), next ? B8_CLR[0] : '#d9d2e9') }),
+      el('div', { class: 'b8-alhead-txt' },
+        el('b', {}, next ? `הצלצול הבא: ${next.a[1]}` : 'אין שעון מעורר דלוק'),
+        el('span', {}, next ? b8In(next.inMin) + (next.a[3] ? ` · ${next.a[3]}` : '') : 'מוסיפים שעון ובוחרים שיר השכמה'),
+        el('div', { class: 'b8-alpets' }, ...pets.map((p, i) => b8Pet(p, 'b8-bob', `animation-delay:${i * .3}s`)))));
+    const list = b8Al.l.map(a => el('div', { class: 'b8-alcard' + (a[5] ? '' : ' off') },
+      el('div', { class: 'b8-mini', html: b8ClockSVG(a[1], a[5] ? B8_CLR[b8Al.l.indexOf(a) % 5] : '#d9d2e9', true) }),
+      el('div', { class: 'b8-alinfo' }, el('b', { class: 'nums-ltr' }, a[1]), el('span', {}, `${a[3] || 'שעון מעורר'} · ${b8Days(a[2])}`), el('small', {}, `${B8_SOUNDS[a[4]][0]} ${B8_SOUNDS[a[4]][1]}`)),
+      el('div', { class: 'b8-alact' },
+        el('button', { type: 'button', class: 'b8-sw' + (a[5] ? ' on' : ''), role: 'switch', 'aria-checked': String(!!a[5]), 'aria-label': 'להדליק או לכבות', onclick: () => { a[5] = a[5] ? 0 : 1; if (a[5]) delete b8Al.f[a[0]]; b8SaveAl(); SFX.pop(); b8Draw(); try { renderStrip(); } catch {} } }, el('i')),
+        el('button', { type: 'button', class: 'chip', onclick: () => { b8Ed = { i: a[0], t: a[1], d: a[2], n: a[3], s: a[4] }; b8Draw(); } }, '✏️'),
+        el('button', { type: 'button', class: 'chip', 'aria-label': 'לנסות', onclick: () => b8DoRing(a, false, true) }, '▶️'),
+        el('button', { type: 'button', class: 'chip', 'aria-label': 'למחוק', onclick: () => { if (!confirm('למחוק את השעון המעורר?')) return; b8Al.l = b8Al.l.filter(x => x !== a); b8SaveAl(); b8Draw(); try { renderStrip(); } catch {} } }, '🗑️'))));
+    return [head, note,
+      list.length ? el('div', { class: 'b8-allist' }, ...list) : el('p', { class: 'muted b8-empty' }, 'עוד אין שעונים. בואי נכין את הראשון! ⏰'),
+      el('div', { class: 'b8-row' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { if (b8Al.l.length >= 8) return toast(stickerHTML('sun'), 'אפשר עד 8 שעונים 🙂'); b8Ed = { i: '', t: '07:00', d: 31, n: '', s: 0 }; b8Draw(); } }, '➕ שעון מעורר חדש'),
+        b8Al.w ? el('button', { type: 'button', class: 'btn ghost', onclick: () => b8Summary() }, '☀️ הסיכום של הבוקר') : null)];
+  }
+  function b8EditView() {
+    const E = b8Ed, [h, m] = E.t.split(':').map(Number);
+    const set = (hh, mm) => { E.t = b8Hm((hh + 24) % 24, (mm + 60) % 60); SFX.pop(); b8Draw(); };
+    const step = (lbl, up, dn, val) => el('div', { class: 'b8-step' },
+      el('button', { type: 'button', class: 'chip', 'aria-label': lbl + ' למעלה', onclick: up }, '▲'), el('b', { class: 'nums-ltr' }, val), el('button', { type: 'button', class: 'chip', 'aria-label': lbl + ' למטה', onclick: dn }, '▼'), el('small', {}, lbl));
+    const ti = el('input', { type: 'time', value: E.t, 'aria-label': 'שעה', onchange: e => { if (/^\d\d:\d\d$/.test(e.target.value)) { E.t = e.target.value; b8Draw(); } } });
+    const lab = el('input', { type: 'text', maxLength: 24, value: E.n, placeholder: 'למשל: בית ספר 🎒', 'aria-label': 'שם השעון', oninput: e => { E.n = e.target.value; } });
+    return [
+      el('div', { class: 'b8-edit' },
+        el('div', { class: 'b8-bigclock', html: b8ClockSVG(E.t, B8_CLR[1]) }),
+        el('div', { class: 'b8-editform' },
+          el('div', { class: 'b8-steps nums-ltr' }, step('שעה', () => set(h + 1, m), () => set(h - 1, m), String(h).padStart(2, '0')), el('b', { class: 'b8-colon' }, ':'), step('דקות', () => set(h, m + 5 - m % 5), () => set(h, m % 5 ? m - m % 5 : m - 5), String(m).padStart(2, '0'))),
+          el('label', { class: 'b8-lbl' }, 'או לכתוב שעה: ', ti),
+          el('div', { class: 'b8-chips' }, ...['06:30', '06:45', '07:00', '07:15', '07:30', '08:00', '09:00'].map(x => el('button', { type: 'button', class: 'chip', 'aria-pressed': String(E.t === x), onclick: () => { E.t = x; SFX.pop(); b8Draw(); } }, x))),
+          el('div', { class: 'b8-lbl' }, 'באילו ימים?'),
+          el('div', { class: 'b8-chips' }, ...DAYS.map((dn, i) => el('button', { type: 'button', class: 'chip b8-day', 'aria-pressed': String(!!(E.d & (1 << i))), 'aria-label': dn, onclick: () => { E.d ^= (1 << i); b8Draw(); } }, DOW[i])),
+            el('button', { type: 'button', class: 'chip', onclick: () => { E.d = 31; b8Draw(); } }, 'ימי לימודים'), el('button', { type: 'button', class: 'chip', onclick: () => { E.d = 127; b8Draw(); } }, 'כל יום'), el('button', { type: 'button', class: 'chip', onclick: () => { E.d = 0; b8Draw(); } }, 'פעם אחת')),
+          el('small', { class: 'muted' }, b8Days(E.d)),
+          el('label', { class: 'b8-lbl' }, 'שם: ', lab))),
+      el('div', { class: 'b8-lbl' }, '🎵 שיר ההשכמה:'),
+      el('div', { class: 'b8-sounds' }, ...B8_SOUNDS.map(([em, nm, fn], i) => el('button', { type: 'button', class: 'b8-snd', 'aria-pressed': String(E.s === i), onclick: () => { E.s = i; fn(); b8Draw(); } }, el('span', {}, em), nm, el('small', {}, '▶ להקשיב')))),
+      el('div', { class: 'b8-row' },
+        el('button', { type: 'button', class: 'btn', onclick: () => {
+          const n = (E.n || '').trim().slice(0, 24);
+          if (E.i) { const a = b8Al.l.find(x => x[0] === E.i); if (a) { a[1] = E.t; a[2] = E.d; a[3] = n; a[4] = E.s; a[5] = 1; delete b8Al.f[a[0]]; } }
+          else b8Al.l.push(['a' + Date.now().toString(36), E.t, E.d, n, E.s, 1]);
+          b8Al.l.sort((x, y) => x[1].localeCompare(y[1])); b8SaveAl(); b8Ed = null; SFX.yay();
+          const nx = b8NextRing(); toast(stickerHTML('sun'), nx ? `⏰ השעון יצלצל ${b8In(nx.inMin)}. להשאיר את הלוח פתוח!` : '⏰ נשמר!');
+          b8Coin1('alset', 2, 'כיוונת שעון מעורר'); b8Draw(); try { renderStrip(); } catch {}
+        } }, '💾 לשמור'),
+        el('button', { type: 'button', class: 'btn ghost', onclick: () => { b8Ed = null; b8Draw(); } }, 'ביטול'))];
+  }
+
+  // ---------- 🔔 the wake-up scene ----------
+  const B8_SONG = ['🎵 בוקר טוב, בוקר טוב, השמש כבר פה!', '🎵 קומי, קומי, ילדה מתוקה, יום חדש מחכה!', '🎵 ליק־ליק על האף, קפיצה על הכרית!', '🎵 פותחים את העיניים... אחת, שתיים, שלוש!', '🎵 הציפורים כבר שרות, וגם אנחנו!'];
+  const B8_GM = [
+    p => `בוקר טוב! חלמתי עלייך כל הלילה 💖`, p => `קומי קומי, השמש כבר מחכה לך! ☀️`, p => `אפשר ליקוק של בוקר? 👅`,
+    p => `היום יהיה יום מעולה, אני ${b8Gen(p, 'מרגיש', 'מרגישה')} את זה בזנב! ✨`, p => `הכנתי לך חיבוק של בוקר, בואי לקחת! 🤗`,
+    p => `אל תשכחי לשתות מים ולאכול ארוחת בוקר! 🥣`, p => `${b8Gen(p, 'ישנתי', 'ישנתי')} ליד הרגליים שלך, היה כל כך חמים! 🧦`, p => `את הכי הכי! שיהיה לך יום מתוק כמו עוגייה 🍪`,
+  ];
+  function b8BedSVG() {
+    return `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="b8wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe3ef"/><stop offset="1" stop-color="#ffd2e4"/></linearGradient>
+      <linearGradient id="b8win" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd8ff"/><stop offset=".7" stop-color="#ffe3a8"/><stop offset="1" stop-color="#ffb88a"/></linearGradient></defs>
+      <rect width="400" height="300" fill="url(#b8wall)"/>
+      ${Array.from({ length: 9 }, (_, i) => `<circle cx="${20 + i * 46}" cy="${30 + (i % 2) * 40}" r="3" fill="#fff" opacity=".7"/>`).join('')}
+      <g transform="translate(250 34)"><rect width="110" height="96" rx="10" fill="url(#b8win)" ${S}/><g class="b8-sun"><circle cx="55" cy="80" r="18" fill="#ffd84d" ${S}/></g>
+      <path d="M8 82 Q30 66 52 80 T104 76 L104 92 L8 92 Z" fill="#9be37a" opacity=".9"/><path d="M55 0 V96 M0 48 H110" stroke="${O}" stroke-width="3"/>
+      <path d="M-8 -4 Q14 50 -2 100 L-14 100 L-14 -4 Z" fill="#ff9ad5" ${S}/><path d="M118 -4 Q96 50 112 100 L124 100 L124 -4 Z" fill="#ff9ad5" ${S}/></g>
+      <rect y="232" width="400" height="68" fill="#e8c7a8"/><path d="M0 232 H400" stroke="${O}" stroke-width="2.5"/>
+      <rect x="30" y="128" width="22" height="120" rx="8" fill="#c9a2ff" ${S}/><circle cx="41" cy="124" r="13" fill="#ffd84d" ${S}/>
+      <rect x="44" y="160" width="312" height="70" rx="22" fill="#fff" ${S}/>
+      <rect x="40" y="200" width="320" height="58" rx="18" fill="#b58cff" ${S}/><path d="M48 252 v26 M352 252 v26" ${S} stroke-width="8"/>
+      <ellipse cx="96" cy="176" rx="46" ry="22" fill="#fff8fc" ${S}/>
+      <path d="M118 180 Q200 150 356 186 L356 228 Q200 236 118 226 Z" fill="#ff9ad5" ${S}/>
+      ${Array.from({ length: 6 }, (_, i) => `<circle cx="${150 + i * 34}" cy="${200 + (i % 2) * 10}" r="5" fill="#fff" opacity=".8"/>`).join('')}
+    </svg>`;
+  }
+  function b8SleeperHTML() {
+    const g = b8Girls()[0];
+    if (g && typeof girlImgURL === 'function') try { return `<img src="${girlImgURL(g, { view: 'head', bg: false })}" alt="">`; } catch {}
+    return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M10 46 Q8 10 40 8 Q72 10 70 46 Q74 66 60 70 L20 70 Q6 66 10 46Z" fill="#7a4a2e" ${S}/><circle cx="40" cy="44" r="24" fill="#ffe0c8" ${S}/><path d="M18 34 Q30 18 52 22 Q62 26 64 36 Q50 28 34 32 Z" fill="#7a4a2e"/>
+      <path d="M28 46 q5 4 10 0 M44 46 q5 4 10 0" fill="none" ${S}/><circle cx="27" cy="54" r="4" fill="#ffb3c7"/><circle cx="55" cy="54" r="4" fill="#ffb3c7"/><path d="M36 58 q4 3 8 0" fill="none" ${S}/></svg>`;
+  }
+  function b8DoRing(a, snoozed, test) {
+    b8StopRing();
+    const d = $('#b8RingDlg'); if (!d) return;
+    const pets = b8Pets().slice(0, 5), list = pets.length ? pets : [{ kind: 'bunny', name: 'ארנבון השעון' }];
+    const R = b8Ring = { a, test, timers: [], i: 0, title: document.title, start: Date.now() };
+    const stage = el('div', { class: 'b8-room' }, el('div', { class: 'b8-roombg', html: b8BedSVG() }), el('div', { class: 'b8-sleeper', html: b8SleeperHTML() }));
+    const pos = [[34, 50], [52, 46], [68, 50], [80, 46], [44, 44]];
+    const petEls = list.map((p, i) => { const e = b8Pet(p, 'b8-jump', `--x:${pos[i][0]}%;--y:${pos[i][1]}%;animation-delay:${(i * .23).toFixed(2)}s`); stage.append(e); return e; });
+    const bubble = el('div', { class: 'b8-lick' }, 'ליק! 👅');
+    const lyric = el('div', { class: 'b8-lyric' }, B8_SONG[0]);
+    stage.append(bubble, lyric, el('div', { class: 'b8-notes', html: '<i>♪</i><i>♫</i><i>♪</i><i>♬</i>' }));
+    const time = el('div', { class: 'b8-time nums-ltr' }, a[1]);
+    d.replaceChildren(el('div', { class: 'b8-ring' },
+      el('div', { class: 'b8-ringtop' }, el('div', { class: 'b8-ringclock', html: b8ClockSVG(a[1], '#ff9ad5') }), el('div', {}, time, el('div', { class: 'b8-ringlbl' }, `${a[3] || 'בוקר טוב!'}${snoozed ? ' · נודניק נגמר 😄' : ''}${test ? ' · ניסיון' : ''}`))),
+      stage,
+      el('div', { class: 'b8-ringbtns' },
+        el('button', { type: 'button', class: 'btn ghost b8-snz', onclick: () => b8Snooze() }, '😴 עוד 5 דקות'),
+        el('button', { type: 'button', class: 'btn b8-up', onclick: () => b8Woke() }, '☀️ קמתי!'))));
+    if (!d.open) d.showModal();
+    const play = () => { if (b8Ring !== R) return; const len = B8_SOUNDS[a[4]] ? B8_SOUNDS[a[4]][2]() : 2; R.timers.push(setTimeout(play, (len + 0.9) * 1000)); };
+    play();
+    R.timers.push(setInterval(() => {
+      R.i++; lyric.textContent = B8_SONG[R.i % B8_SONG.length];
+      const p = petEls[R.i % petEls.length]; bubble.style.setProperty('--x', p.style.getPropertyValue('--x')); bubble.classList.remove('show'); void bubble.offsetWidth; bubble.classList.add('show');
+      bubble.textContent = ['ליק! 👅', 'בוקר טוב! 💖', 'קומי! ☀️', 'ליק ליק! 😛', 'הופ! 🐾'][R.i % 5];
+      document.title = R.i % 2 ? '⏰ בוקר טוב!' : R.title;
+      try { navigator.vibrate && navigator.vibrate(200); } catch {}
+    }, 1600));
+    R.timers.push(setTimeout(() => { if (b8Ring === R && !test) b8Snooze(true); }, 4 * 60e3));
+  }
+  function b8StopRing() {
+    if (!b8Ring) return;
+    b8Ring.timers.forEach(x => { clearTimeout(x); clearInterval(x); });
+    document.title = b8Ring.title; b8Ring = null;
+  }
+  function b8Snooze(auto) {
+    const R = b8Ring; if (!R) return;
+    if (!R.test) { b8Al.z = [R.a[0], Date.now() + 5 * 60e3]; b8SaveAl(); }
+    b8StopRing(); $('#b8RingDlg').close();
+    toast(stickerHTML('bed'), auto ? '⏰ השעון ינסה שוב בעוד 5 דקות 💤' : '😴 עוד 5 דקות... החיות יחזרו לקפוץ עלייך!');
+    try { renderStrip(); } catch {}
+  }
+  function b8Woke() {
+    const R = b8Ring; b8StopRing();
+    if (R && !R.test) { b8Al.w = localToday(); b8Al.z = null; b8SaveAl(); b8Coin1('woke', 3, 'קמת עם השעון המעורר ☀️'); }
+    SFX.yay(); b8Summary(true);
+    try { renderStrip(); } catch {}
+  }
+  function b8Summary(fresh) {
+    const d = $('#b8RingDlg'); if (!d) return;
+    const t = localToday(), { m, d: dd } = fromIso(t), now = new Date(), pets = b8Pets(), p = pets.length ? pets[(now.getDate()) % pets.length] : null;
+    const hr = now.getHours(), greet = hr < 12 ? 'בוקר טוב' : hr < 17 ? 'צהריים טובים' : 'ערב טוב';
+    const me = (() => { try { const b = birthdays.find(x => x.me); return b && b.name ? b.name : ''; } catch { return ''; } })();
+    const rows = [];
+    try {
+      const w = typeof wx !== 'undefined' && wx && !wx.error && wx.byDate && wx.byDate[t];
+      if (w) { const [em, nm] = wmo(w.code); rows.push(el('div', { class: 'b8-sumrow' }, el('span', { class: 'b8-sumic' }, em), el('div', {}, el('b', {}, `${nm} · ${Math.round(w.min)}°–${Math.round(w.max)}°`), el('small', {}, (() => { try { return whatToWear(w, !dayInfo(t).noSchool); } catch { return ''; } })())))); }
+    } catch {}
+    try { const hols = dayInfo(t).hols.map(holName); if (hols.length) rows.push(el('div', { class: 'b8-sumrow' }, el('span', { class: 'b8-sumic' }, '✡️'), el('b', {}, 'היום: ' + hols.join(' · ')))); } catch {}
+    try { const bd = bdayOn(t).filter(b => b.name); if (bd.length) rows.push(el('div', { class: 'b8-sumrow' }, el('span', { class: 'b8-sumic' }, '🎂'), el('b', {}, bd.map(b => b.me ? 'היום יום ההולדת שלך! 🎉' : `יום ההולדת של ${b.name}!`).join(' · ')))); } catch {}
+    if (!(pin && !unlocked)) {
+      const evs = (events[t] || []).slice().sort((a, b) => (a.time || '99').localeCompare(b.time || '99'));
+      rows.push(el('div', { class: 'b8-sumrow' }, el('span', { class: 'b8-sumic' }, '📅'), evs.length
+        ? el('div', {}, el('b', {}, 'מה יש היום:'), el('ul', { class: 'b8-evs' }, ...evs.slice(0, 6).map(e => el('li', {}, e.time ? el('span', { class: 'nums-ltr b8-evt' }, e.time) : null, (e.test ? '📝 ' : '') + e.text))))
+        : el('b', {}, 'אין אירועים בלוח היום — יום חופשי להרפתקאות! 🌈')));
+    }
+    const line = p ? B8_GM[(now.getDate() + now.getMonth()) % B8_GM.length](p) : 'שיהיה לך יום נפלא! 🌞';
+    const cv = el('canvas', { class: 'confetti-c', 'aria-hidden': 'true' });
+    d.replaceChildren(cv, el('div', { class: 'b8-ring b8-sum' },
+      el('div', { class: 'b8-sumhead' }, el('div', { class: 'b8-sunbig', html: stickerHTML('sun') }),
+        el('div', {}, el('h3', {}, `${greet}${me ? ', ' + me : ''}! ${fresh ? '🎉' : '☀️'}`), el('div', { class: 'muted' }, `יום ${DAYS[now.getDay()]}, ${dd} ב${MONTHS[m]}`))),
+      el('div', { class: 'b8-sumpets' }, ...(pets.length ? pets : []).slice(0, 5).map((q, i) => b8Pet(q, 'b8-cheer', `animation-delay:${i * .2}s`))),
+      p ? el('div', { class: 'b8-gm' }, el('b', {}, `${p.name || 'החיה'}: `), line) : el('div', { class: 'b8-gm' }, line),
+      el('div', { class: 'b8-sumrows' }, ...rows),
+      el('div', { class: 'b8-ringbtns' },
+        typeof buildMorning === 'function' && $('#mornDlg') ? el('button', { type: 'button', class: 'btn', onclick: () => { d.close(); buildMorning(); $('#mornDlg').showModal(); } }, '✅ צ׳קליסט בוקר') : null,
+        el('button', { type: 'button', class: 'btn ghost', onclick: () => d.close() }, 'יאללה, מתחילים את היום! 🌈'))));
+    if (!d.open) d.showModal();
+    if (fresh) try { confetti(cv); } catch {}
+  }
+
+  // ================= 📖 bedtime story =================
+  const b8Hash = s => { let h = 2166136261; for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const b8Rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const b8Mix = (a, b, k) => { const p = x => [1, 3, 5].map(i => parseInt(x.slice(i, i + 2), 16)); const A = p(a), B = p(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * k).toString(16).padStart(2, '0')).join(''); };
+  // settings: [id, name, "in" phrase, special object, friend1 [kind, name, gender], friend2, painter]
+  const B8_SET = [
+    ['forest', 'היער הקסום', 'ביער הקסום', 'עץ האורות', ['owl', 'ינשופי', 'm'], ['bunny', 'ארנבונית', 'f']],
+    ['beach', 'חוף הצדפים', 'בחוף הצדפים', 'הצדף הוורוד הענק', ['turtle', 'צבצבון', 'm'], ['fish', 'דגדגונת', 'f']],
+    ['clouds', 'ממלכת העננים', 'בממלכת העננים', 'טירת העננים', ['owl', 'נוצי', 'm'], ['bunny', 'פלאפי', 'f']],
+    ['candy', 'ארץ הממתקים', 'בארץ הממתקים', 'מפל השוקולד', ['bear', 'דובי סוכר', 'm'], ['bunny', 'סוכריה', 'f']],
+    ['snow', 'הר השלג', 'על הר השלג', 'מערת הקרח הנוצצת', ['panda', 'פתית', 'm'], ['bear', 'שלגונית הדובה', 'f']],
+    ['moon', 'הירח', 'על הירח', 'המכתש הכסוף', ['owl', 'כוכבון', 'm'], ['dino', 'רקטית', 'f']],
+    ['meadow', 'אחו הפרחים', 'באחו הפרחים', 'הפרח הענקי', ['bunny', 'פרחונית', 'f'], ['turtle', 'עלעלי', 'm']],
+    ['sea', 'ממלכת הים', 'במעמקי הים', 'ארמון האלמוגים', ['whale', 'לוויתני', 'm'], ['fish', 'בועית', 'f']],
+    ['toys', 'חנות הצעצועים', 'בחנות הצעצועים', 'קופסת הנגינה', ['bear', 'דובי הבד', 'm'], ['dog', 'כלבלבה', 'f']],
+    ['jungle', 'הג׳ונגל הירוק', 'בג׳ונגל הירוק', 'המפל הגדול', ['lion', 'אריאלי', 'm'], ['dino', 'דינה', 'f']],
+    ['island', 'אי הקשת', 'באי הקשת', 'גשר הקשת', ['turtle', 'קשתון', 'm'], ['whale', 'מזרקית', 'f']],
+    ['village', 'כפר העוגיות', 'בכפר העוגיות', 'המאפייה העגולה', ['dog', 'בייגלה', 'm'], ['cat', 'קינמונית', 'f']],
+  ];
+  // 35 plots: [title, [[text, prop sticker], ...]] — tokens {A}{B}{C}{G}{F}{ALL}{P}{PL}{O}, gender [X|masc|fem]
+  const B8_PLOTS = [
+    ['הכוכב שנפל', [['באמצע הערב, כוכב קטן ונוצץ נפל מהשמיים ונחת {P}, ממש ליד {O}.', 'shootingstar'], ['"אוי," לחש הכוכב, "אני לא יודע איך לחזור הביתה לשמיים!"', 'star'], ['{A} [A|חשב|חשבה] רגע, ואז [A|קרא|קראה]: "נבנה לך סולם מעננים!"', 'cloud'], ['{B} [B|הביא|הביאה] חוטים, {C} [C|אסף|אספה] עננים רכים, וכולם בנו סולם ארוך ארוך.', 'rainbow'], ['הכוכב טיפס למעלה, נופף לשלום, ומאז הוא מנצנץ להם בכל לילה הכי חזק.', 'goldstar']]],
+    ['יום ההולדת של הירח', [['הירח נראה קצת עצוב הלילה. "היום יום ההולדת שלי," הוא לחש, "ואף אחד לא זוכר."', 'moon'], ['{A} [A|שמע|שמעה] ומיד [A|לחש|לחשה] לכולם: "בואו נפתיע אותו!"', 'heart'], ['{B} [B|אפה|אפתה] עוגה עגולה וצהובה, בדיוק כמו הירח.', 'cake'], ['{C} [C|קשר|קשרה] בלונים, ו{G} [G|כתב|כתבה] באבנים קטנות על האדמה: "מזל טוב, ירח!"', 'balloon'], ['הירח ראה מלמעלה, חייך חיוך כסוף, והאיר {P} באור הכי יפה שהיה אי פעם.', 'magicmoon']]],
+    ['המפה הסודית', [['{A} [A|מצא|מצאה] {P} מפה ישנה ומקומטת, עם איקס אדום גדול.', 'book'], ['"מטמון!" [A|צעק|צעקה] {A}. כולם יצאו לדרך: שלושה צעדים ימינה, קפיצה מעל אבן, וסיבוב סביב {O}.', 'clover4'], ['{F} [F|עזר|עזרה] להם לחפור, ו{B} [B|חפר|חפרה] הכי מהר, עם המון חול על האף.', 'leaf'], ['בסוף מצאו תיבה קטנה. בפנים לא היה זהב...', 'treasure'], ['...היה פתק: "האוצר הכי גדול הוא חברים טובים." וכולם התחבקו חזק חזק.', 'rainbowheart']]],
+    ['הבלון הסגול', [['{P} עמד בלון פורח סגול וגדול, עם סל קלוע ופעמון קטן.', 'hotair'], ['{ALL} טיפסו לסל, ו{C} [C|משך|משכה] בחבל. הבלון התחיל לעלות לאט לאט.', 'cloud'], ['מלמעלה הכל נראה קטן: {O} נראה כמו צעצוע, והבתים כמו קוביות סוכר.', 'sparkles'], ['{A} [A|נופף|נופפה] לציפורים, וציפור אחת אפילו נחתה על הראש של {B}!', 'butterfly'], ['כשהשמש שקעה, הבלון ירד בעדינות, בדיוק לאן שהם רצו.', 'sun']]],
+    ['השיר שהלך לאיבוד', [['{F} [F|ישב|ישבה] {P} [F|ובכה|ובכתה] בשקט: "השיר שלי הלך לאיבוד! התווים ברחו!"', 'music'], ['{A} [A|מצא|מצאה] תו אחד מתחבא מאחורי {O}. "דו!" הוא צייץ.', 'music'], ['{B} [B|מצא|מצאה] שני תווים על ענף, ו{C} [C|מצא|מצאה] תו ישנוני בתוך פרח.', 'flower'], ['כשכל התווים חזרו, {F} [F|שר|שרה] את השיר מההתחלה, וכולם רקדו במעגל.', 'music'], ['ומאז, בכל פעם ש{A} [A|מזמזם|מזמזמת] את השיר, כל התווים באים לרקוד.', 'heart']]],
+    ['הביצה המסתורית', [['{P} מצאו {ALL} ביצה גדולה עם נקודות צבעוניות.', 'egg'], ['"היא קרה," [B|אמר|אמרה] {B}. אז כולם התכרבלו סביבה כדי לחמם אותה.', 'heart'], ['קרק... קרק... קרק! מתוך הביצה יצא אפרוח קטנטן ופלומתי.', 'sparkles'], ['"אמא?" הוא שאל את {A}. כולם צחקו, ו{A} [A|נתן|נתנה] לו חיבוק גדול.', 'rainbowheart'], ['ביחד הם מצאו את הקן של המשפחה שלו, והאפרוח צייץ להם תודה.', 'leaf']]],
+    ['העוגייה הכי גדולה בעולם', [['"בואו נאפה את העוגייה הכי גדולה בעולם!" [G|הציע|הציעה] {G}.', 'cookie'], ['{A} [A|הביא|הביאה] קמח, {B} [B|שבר|שברה] ביצים, ו{C} [C|שפך|שפכה] המון שוקולד צ׳יפס.', 'bowl'], ['העוגייה הייתה כל כך גדולה, שהיו צריכים לאפות אותה ליד {O}!', 'sun'], ['כשהיא יצאה, ריח מתוק התפזר {P}, וכל השכנים באו לטעום.', 'cookie'], ['כולם קיבלו חתיכה, ועוד נשארה פינה קטנה לארוחת בוקר.', 'heart']]],
+    ['הגשם שלא נגמר', [['פתאום התחיל לרדת גשם {P}. טיפ, טיפ, טפטפטפ!', 'umbrella'], ['{A} [A|פתח|פתחה] מטרייה גדולה, וכולם נדחסו מתחתיה וצחקו.', 'umbrella'], ['{B} [B|קפץ|קפצה] בשלולית, ו... שפלאש! כולם נרטבו, וצחקו עוד יותר.', 'cloud'], ['ואז הגשם נעצר, ומעל {O} הופיעה קשת בענן ענקית.', 'rainbow'], ['"הגשם בא כדי להביא לנו את הקשת," [C|לחש|לחשה] {C}.', 'rainbowcloud']]],
+    ['הפרפר שפחד לעוף', [['על עלה {P} ישב פרפר קטן עם כנפיים חדשות, ולא העז לעוף.', 'butterfly'], ['"אני אראה לך," [A|אמר|אמרה] {A}, ונפנף בידיים כמו כנפיים. כולם צחקו.', 'smiley'], ['{B} [B|ספר|ספרה]: "אחת... שתיים..." ו{C} [C|החזיק|החזיקה] את העלה יציב.', 'leaf'], ['"...שלוש!" הפרפר קפץ, נפנף, ו... עף! הוא עף סביב {O} שלוש פעמים.', 'butterfly'], ['מאז הוא בא לבקר אותם כל ערב, ותמיד נוחת על האף של {A}.', 'heart']]],
+    ['המכתב בבקבוק', [['גל קטן הביא {P} בקבוק זכוכית עם מכתב בפנים.', 'sailboat'], ['{A} [A|קרא|קראה] בקול: "מי שמוצא את המכתב — אתם החברים החדשים שלי! חתום: {F}."', 'book'], ['כולם יצאו לחפש, ומצאו את {F} [F|מחכה|מחכה] ליד {O}.', 'shell'], ['"קיבלתם את המכתב!" [F|קרא|קראה] {F} [F|ורקד|ורקדה] מרוב שמחה.', 'heart'], ['באותו ערב כתבו כולם מכתב חדש ושלחו אותו לים, לחבר הבא.', 'pearl']]],
+    ['מצעד התחפושות', [['{P} הודיעו: "הערב מצעד תחפושות!"', 'mask'], ['{A} [A|התחפש|התחפשה] לכוכב, {B} — לענן רך, ו{C} — לעוגה עם דובדבן.', 'cupcake'], ['{G} [G|ניגן|ניגנה] בתוף, וכולם צעדו סביב {O} וצחקו.', 'music'], ['בסוף נתנו פרס לכל אחד: "התחפושת הכי מצחיקה", "הכי נוצצת", "הכי חמודה".', 'trophy'], ['ואת התחפושות הם לא הורידו אפילו כשהלכו לישון.', 'goldstar']]],
+    ['האור שכבה', [['הערב {O} לא האיר. "האור שלו נגמר!" [B|נבהל|נבהלה] {B}.', 'lightbulb'], ['{A} [A|קרא|קראה] לגחליליות הקטנות: "בואו לעזור!"', 'sparkles'], ['מאות גחליליות הגיעו, ונצצו כמו אלף נורות קטנות.', 'star'], ['לאט לאט {O} התחיל לזהור שוב, חם ונעים.', 'lightbulb'], ['"תודה, חברים," הוא לחש, וכל הגחליליות נצצו בחזרה.', 'heart']]],
+    ['הכתר האבוד', [['{F} [F|היה עצוב מאוד: הכתר הקטן שלו נעלם!|הייתה עצובה מאוד: הכתר הקטן שלה נעלם!]', 'crown'], ['{ALL} חיפשו מתחת לאבנים, בין העלים ומאחורי {O}.', 'leaf'], ['{C} [C|הרגיש|הרגישה] משהו מדגדג בזנב... זה היה הכתר! הוא נתקע שם כל הזמן.', 'crown'], ['כולם צחקו כל כך, שאפילו {F} [F|צחק|צחקה] עד שירדו דמעות.', 'smiley'], ['{F} [F|הכתיר|הכתירה] את כולם למלכי ומלכות החברות.', 'crown']]],
+    ['המירוץ האיטי', [['{P} התקיים מירוץ מיוחד: מי שמגיע אחרון — מנצח!', 'trophy'], ['{A} [A|הלך|הלכה] לאט לאט, {B} [B|זחל|זחלה], ו{C} [C|עצר|עצרה] להריח כל פרח.', 'flower'], ['{F} [F|נרדם|נרדמה] באמצע הדרך, ונחר בשקט: חררר...', 'bed'], ['בסוף כולם הגיעו ביחד, צעד אחרי צעד, ממש באותו רגע.', 'goldstar'], ['אז כולם ניצחו, וקיבלו מדליה עשויה מעוגייה.', 'cookie']]],
+    ['הכוכבים שהתחבאו', [['הלילה השמיים {P} היו חשוכים: כל הכוכבים התחבאו מאחורי העננים.', 'cloud'], ['"אולי הם ביישנים?" [A|שאל|שאלה] {A}.', 'star'], ['{B} [B|הציע|הציעה]: "בואו נשיר להם שיר!" וכולם שרו בקול רך ויפה.', 'music'], ['כוכב אחד הציץ, ואחריו עוד אחד, ועוד... עד שכל השמיים נצצו.', 'sparkles'], ['"שירו לנו גם מחר," לחשו הכוכבים, ו{C} [C|הבטיח|הבטיחה].', 'star']]],
+    ['הקשת שאיבדה צבעים', [['הקשת מעל {O} הייתה אפורה. "איבדתי את הצבעים שלי," היא אמרה.', 'rainbow'], ['{A} [A|הביא|הביאה] אדום מתות שדה, ו{B} [B|הביא|הביאה] כתום משקיעה.', 'strawberry'], ['{C} [C|מצא|מצאה] צהוב בפרח חמנייה, וכחול בשלולית שמיים.', 'sunflower'], ['{G} [G|הוסיף|הוסיפה] סגול מעננת ערב. וכל הצבעים חזרו!', 'palette'], ['הקשת זהרה כל כך, שהיא האירה להם את הדרך הביתה.', 'rainbow']]],
+    ['גינת הלילה', [['{F} [F|נתן|נתנה] ל{ALL} שקית זרעים קטנים. "אלה זרעים של לילה," [F|לחש|לחשה].', 'tulip'], ['כולם חפרו גומות קטנות ליד {O}, ושתלו זרע אחד כל אחד.', 'leaf'], ['{B} [B|השקה|השקתה] אותם במים מהירח, ו{A} [A|שר|שרה] להם שיר ערש.', 'moon'], ['פתאום — פופ, פופ, פופ! צצו פרחים שזוהרים בחושך.', 'flower'], ['ומאז, כל לילה, הגינה מאירה להם כמו מנורת לילה.', 'tulip']]],
+    ['הספר המדבר', [['{P} מצא[A||ה] {A} ספר עבה וישן. כשפתח[A||ה] אותו — הספר אמר: "שלום!"', 'book'], ['"אני ספר שאוהב לשמוע סיפורים," הוא אמר. "תספרו לי?"', 'book'], ['{B} [B|סיפר|סיפרה] על החיבוק הכי טוב, ו{C} [C|סיפר|סיפרה] על הפעם [C|שצחק|שצחקה] הכי חזק.', 'smiley'], ['הספר צחק כל כך, שהדפים שלו התנופפו כמו כנפיים.', 'butterfly'], ['ובסוף הוא סיפר להם סיפור בחזרה... ממש את הסיפור הזה.', 'magicmoon']]],
+    ['הדרקון הקטן שפחד מהחושך', [['{P} גר דרקון קטן וירוק, שפחד מאוד מהחושך.', 'dino'], ['"גם אני לפעמים [A|מפחד|מפחדת]," [A|אמר|אמרה] {A}, "אבל ביחד זה פחות מפחיד."', 'heart'], ['{B} [B|לימד|לימדה] אותו לספור כוכבים, ו{C} [C|הראה|הראתה] לו את הירח הצוחק.', 'moon'], ['הדרקון נשף בעדינות — והוציא אש קטנה וחמימה, כמו פנס.', 'lightbulb'], ['"אני בכלל לא צריך לפחד," הוא צחק, "יש לי אור משלי, וחברים!"', 'rainbowheart']]],
+    ['המשאלה', [['כוכב נופל עבר מעל {O}. "מהר, משאלה!" [B|קרא|קראה] {B}.', 'shootingstar'], ['כל אחד עצם עיניים וביקש בשקט משאלה.', 'wand'], ['{A} [A|ביקש|ביקשה] ש{ALL} יישארו חברים תמיד תמיד.', 'heart'], ['הכוכב שמע, הסתובב בשמיים, ופיזר עליהם אבקת נצנצים.', 'sparkles'], ['ומה שמעניין: המשאלה כבר התגשמה. הם באמת חברים תמיד.', 'rainbowheart']]],
+    ['העפיפון ברוח', [['{P} נשבה רוח נעימה, בדיוק בשביל עפיפון.', 'kite'], ['{A} [A|צייר|ציירה] על העפיפון לב, {B} — כוכב, ו{C} — פרצוף צוחק.', 'palette'], ['העפיפון עלה גבוה גבוה, מעל {O}, וכמעט נגע בעננים.', 'kite'], ['פתאום הרוח משכה, ו{G} [G|רץ|רצה] אחריו עם כולם, הופ הופ הופ!', 'cloud'], ['העפיפון נחת בעדינות בדיוק בידיים של {B}. איזה מזל!', 'clover4']]],
+    ['הפנינה הבורחת', [['פנינה קטנה ונוצצת התגלגלה {P}: רוללל...', 'pearl'], ['{A} [A|רדף|רדפה] אחריה, {B} [B|קפץ|קפצה], ו{C} [C|כמעט תפס|כמעט תפסה]!', 'sparkles'], ['הפנינה התגלגלה עד {O} ונעצרה. "אני רק רציתי לשחק תופסת," היא אמרה.', 'pearl'], ['אז כולם שיחקו איתה תופסת, עד שכולם היו עייפים ומאושרים.', 'smiley'], ['הפנינה נשארה לישון אצלם, בתוך צדף רך.', 'shell']]],
+    ['פיקניק תחת הכוכבים', [['{G} [G|פרש|פרשה] שמיכה משובצת {P}, ליד {O}.', 'bowl'], ['{A} [A|הביא|הביאה] פירות, {B} — כריכים קטנים, ו{C} — שוקו חם.', 'strawberry'], ['כולם שכבו על הגב והסתכלו למעלה. "הנה כוכב שנראה כמו לב!"', 'star'], ['{F} [F|הצטרף|הצטרפה] עם עוגיות, וכולם חילקו הכל שווה בשווה.', 'cookie'], ['זה היה הפיקניק הכי שקט ונעים בעולם.', 'heart']]],
+    ['החיפושית שאיבדה את הדרך', [['על עלה ליד {O} ישבה חיפושית קטנה ובכתה. "איבדתי את הבית שלי."', 'ladybug'], ['"נעזור לך!" [A|אמר|אמרה] {A}. "איך הבית שלך נראה?"', 'heart'], ['"יש בו פרח אדום ודלת עגולה," היא אמרה. {B} [B|חיפש|חיפשה] מימין, {C} — משמאל.', 'flower'], ['ואז {G} [G|ראה|ראתה]: פרח אדום ודלת עגולה! כל המשפחה של החיפושית חיכתה שם.', 'tulip'], ['החיפושית נתנה לכל אחד נשיקה קטנה על האף. מוץ!', 'ladybug']]],
+    ['הרקטה מקרטון', [['{ALL} בנו רקטה מקופסת קרטון גדולה וצבעוניות.', 'rocket'], ['"שלוש, שתיים, אחת... המראה!" [C|ספר|ספרה] {C}.', 'rocket'], ['הם עפו בדמיון מעל {O}, בין הכוכבים, ועד כוכב לכת סגול.', 'planet'], ['על כוכב הלכת חיכו להם חייזרים חמודים שאוהבים לצחוק.', 'ufo'], ['ובדרך חזרה נחתו בדיוק בזמן, ממש לפני השינה.', 'star']]],
+    ['השלג הראשון', [['פתיתי שלג ראשונים התחילו לרדת {P}. כמה יפה!', 'snowflake'], ['{A} [A|תפס|תפסה] פתית על הלשון: "טעים! כמו אוויר קר ומתוק!"', 'snowflake'], ['{B} ו{C} בנו איש שלג עם כובע, צעיף, וגזר במקום אף.', 'snowman'], ['{F} [F|הביא|הביאה] לכולם כפפות חמות ושוקו עם מרשמלו.', 'cocoa'], ['איש השלג נופף להם לשלום כשהלכו הביתה. או שאולי זו הייתה הרוח?', 'snowman']]],
+    ['כוס שוקו לכולם', [['ערב קריר הגיע {P}, וכולם היו קצת קרים.', 'cloud'], ['{A} [A|הדליק|הדליקה] פנס חמים, ו{B} [B|חימם|חיממה] חלב בסיר קטן.', 'lightbulb'], ['{C} [C|הוסיף|הוסיפה] שוקולד, ו{G} [G|פיזר|פיזרה] מרשמלו ורודים.', 'cocoa'], ['כולם ישבו צמודים ליד {O} ולגמו שלוק... שלוק... אהההה.', 'cocoa'], ['לכולם נשאר שפם של שוקו, וכולם צחקו עד שנהיה חם.', 'smiley']]],
+    ['המתנה הסודית', [['{ALL} רצו להכין מתנה הפתעה ל{F}.', 'gift'], ['{A} [A|קיפל|קיפלה] נייר צבעוני, {B} [B|צייר|ציירה] ציור, ו{C} [C|קשר|קשרה] סרט.', 'bow'], ['הם החביאו את המתנה מאחורי {O} ולחשו: "ששש!"', 'gift'], ['כש{F} [F|מצא|מצאה] אותה, [F|קפץ|קפצה] מרוב שמחה עד השמיים.', 'balloon'], ['בפנים היה ציור של כולם ביחד, מחובקים. המתנה הכי טובה.', 'rainbowheart']]],
+    ['הקריסטל המזמר', [['{P} מצא[B||ה] {B} קריסטל שקוף שמזמזם מנגינה קטנה.', 'crystal'], ['כשמישהו צחק — הקריסטל נצץ בוורוד. כשמישהו עצוב — בכחול.', 'gem'], ['{A} [A|סיפר|סיפרה] בדיחה, וכולם צחקו, והקריסטל זהר בכל הצבעים!', 'smiley'], ['{F} [F|לחש|לחשה]: "הקריסטל הזה אוהב לב שמח."', 'heart'], ['הם החזירו אותו ל{O}, כדי שישמח גם אחרים.', 'crystal']]],
+    ['הפטריות הקופצות', [['{P} צמחו פטריות גדולות ורכות, כמו טרמפולינות.', 'mushroom'], ['{A} [A|קפץ|קפצה] על הראשונה — בוינג! — עד הענפים.', 'mushroom'], ['{B} ו{C} קפצו ביחד, והתהפכו באוויר כמו לוליינים.', 'sparkles'], ['{F} [F|ספר|ספרה] את הקפיצות: מאה, מאתיים... אלף!', 'trophy'], ['בסוף נשכבו כולם על פטרייה אחת גדולה, ונחו כמו על ענן.', 'cloud']]],
+    ['כוכב הים שרצה לראות שמיים', [['כוכב ים קטן חלם לראות את הכוכבים של השמיים.', 'starfish'], ['{A} [A|הרים|הרימה] אותו בעדינות, ו{B} [B|טיפס|טיפסה] איתו לראש {O}.', 'starfish'], ['משם ראו את כל השמיים מנצנצים. "הם כמוני!" צחק כוכב הים, "רק רחוקים!"', 'star'], ['הכוכבים למעלה נצצו בחזרה, כאילו אמרו שלום.', 'sparkles'], ['{C} [C|החזיר|החזירה] אותו לים, והוא נרדם עם חיוך.', 'shell']]],
+    ['תחרות הפיהוקים', [['{G} [G|הכריז|הכריזה]: "תחרות פיהוקים! מי מפהק הכי גדול?"', 'trophy'], ['{A} [A|פיהק|פיהקה] פיהוק ענק: אההההה! כולם צחקו.', 'smiley'], ['{B} [B|פיהק|פיהקה] עוד יותר גדול, ו{C} [C|פיהק|פיהקה] כל כך, שנשמע כמו שיר.', 'music'], ['אפילו {O} פיהק, ו{F} [F|פיהק|פיהקה] בדיוק באותו רגע.', 'magicmoon'], ['מי ניצח? אף אחד לא זוכר... כולם כבר היו ישנוניים מדי.', 'bed']]],
+    ['הבועה הענקית', [['{C} [C|נשף|נשפה] בועת סבון, והיא גדלה וגדלה... עד שהייתה ענקית!', 'sparkles'], ['{ALL} נכנסו לתוכה, והיא התרוממה באוויר בעדינות.', 'cloud'], ['הם ריחפו מעל {O}, והכל נראה ורוד וסגול דרך הבועה.', 'rainbowcloud'], ['פופ! הבועה התפוצצה בדיוק מעל ערימת עלים רכה.', 'leaf'], ['כולם נחתו בצחוק, ומיד רצו לנשוף עוד אחת.', 'smiley']]],
+    ['הגלידה שלא נמסה', [['{F} [F|הביא|הביאה] גלידת קסם: גלידה שלא נמסה אף פעם!', 'icecream'], ['{A} [A|בחר|בחרה] תות, {B} — וניל, ו{C} — שוקולד עם סוכריות.', 'icecream'], ['הם ליקקו וליקקו, והגלידה נשארה בדיוק באותו גודל!', 'strawberry'], ['"אז נחלק לכולם," [G|אמר|אמרה] {G}, וכל {PL} קיבל טעימה.', 'heart'], ['בסוף הגלידה אמרה: "תודה ששיתפתם," ונעלמה בנצנוץ.', 'sparkles']]],
+    ['היהלום של החבר', [['{F} [F|איבד|איבדה] {P} יהלום כחול קטן, מתנה מסבתא.', 'gem'], ['{A} [A|הציע|הציעה]: "נחפש לפי הנצנוץ!" וכולם עצמו עין אחת והסתכלו.', 'sparkles'], ['{B} [B|ראה|ראתה] משהו נוצץ ליד {O}... אבל זו הייתה טיפת טל.', 'leaf'], ['ואז {C} [C|ראה|ראתה] את האמיתי, מתחבא בתוך פרח כחול.', 'gem'], ['{F} [F|חיבק|חיבקה] את כולם, והיהלום נצץ כאילו גם הוא שמח.', 'rainbowheart']]],
+    ['הצל השובב', [['בשקיעה, הצל של {A} התחיל לזוז לבד!', 'sun'], ['הוא קפץ, רקד, ועשה פרצופים מצחיקים על הקיר.', 'smiley'], ['{B} [B|ניסה|ניסתה] לתפוס אותו, ו{C} [C|רקד|רקדה] איתו ריקוד מצחיק.', 'music'], ['כשהשמש שקעה מאחורי {O}, הצל פיהק ונצמד בחזרה.', 'moon'], ['"נשחק מחר," הוא לחש ל{A}, ונרדם ממש מתחת לשמיכה.', 'bed']]],
+  ];
+  const B8_OPEN = [
+    'פעם אחת, בערב שקט ורך, {ALL} יצאו לטייל {P}.',
+    'היה היה ערב סגול וחמים. {ALL} שיחקו יחד {P}, ממש ליד {O}.',
+    'השמש כבר התחילה לשקוע, כש{ALL} הגיעו {P} לחפש הרפתקה קטנה.',
+    '{F} [F|חיכה|חיכתה] להם {P}. "הגעתם בדיוק בזמן!" [F|קרא|קראה] ל{ALL}.',
+    'בכל ערב {ALL} מספרים זה לזה סוד אחד. הערב, הסוד הוביל אותם אל {PL}.',
+  ];
+  const B8_END = [
+    ['אחרי כל ההרפתקה, {ALL} חזרו הביתה עייפים ושמחים.', 'הם התכרבלו יחד בערימה רכה אחת, {A} באמצע, ו... פיהוק גדול. 🥱'],
+    ['{F} [F|נתן|נתנה] לכל אחד נשיקת לילה טוב על המצח.', '"תחזרו מחר?" [F|שאל|שאלה]. "בטח," לחשו כולם, והעיניים כבר נעצמו לאט לאט.'],
+    ['הירח הדליק להם שביל של אור כסוף עד הבית.', 'בבית חיכו שמיכות חמות וכריות רכות, ו{B} [B|נרדם ראשון|נרדמה ראשונה].'],
+    ['כולם שתו כוס חלב חם עם דבש, ו{A} [A|סיפר|סיפרה] שוב את כל הסיפור מההתחלה.', 'אבל באמצע... כולם כבר נשמו לאט ובשקט. ז־ז־ז... 💤'],
+    ['בדרך הביתה ספרו יחד כוכבים: אחד, שניים, שלושה... מאה!', 'בכוכב המאה ואחד, {C} [C|כבר ישן|כבר ישנה] על הגב של {A}.'],
+    ['{G} [G|כיסה|כיסתה] את כולם בשמיכת הטלאים הצבעונית.', '"מחר נמשיך," [G|לחש|לחשה] {G}, [G|וכיבה|וכיבתה] את המנורה.'],
+    ['הרוח שרה להם שיר ערש שקט: לה־לה־לי, לה־לה־לו.', 'העיניים של {A} נהיו כבדות, כבדות... והחלומות התחילו.'],
+    ['{O} האיר להם בפעם האחרונה הערב, ואז כבה לאט.', '"לילה טוב, {PL}," לחשו כולם, "לילה טוב, עולם."'],
+    ['כל אחד סיפר מה הכי אהב היום. {B} [B|אהב|אהבה] הכי את החיבוק בסוף.', 'ואז כולם התחבקו עוד פעם אחת אחרונה, ונרדמו מחובקים.'],
+    ['ענן רך ירד מהשמיים והציע לכולם טרמפ הביתה.', 'על הענן היה כל כך נעים, שכולם נרדמו עוד לפני שהגיעו. הענן הניח אותם במיטה בעדינות.'],
+  ];
+  // the night's story: seeded by the date (+ reroll number), heroes = her pets (+ one of her girls)
+  function b8MakeStory(e) {
+    const r = b8Rng(b8Hash(e.d + ':' + e.n));
+    const pick = a => a[Math.floor(r() * a.length)];
+    const plotI = Math.floor(r() * B8_PLOTS.length), set = pick(B8_SET), end = pick(B8_END), open = pick(B8_OPEN);
+    const all = b8Pets(), G0 = b8Girls();
+    if (!e.h) {
+      const sh = all.slice().sort(() => r() - .5).slice(0, 3); e.h = sh.map(p => p.id || p.name);
+      e.g = G0.length && r() < .7 ? G0[Math.floor(r() * G0.length)].id : '';
+    }
+    const fr = (f, i) => ({ name: f[1], gender: f[2], pet: { kind: f[0], name: f[1], id: 'b8f' + i } , local: 1 });
+    const H = e.h.map(id => all.find(p => (p.id || p.name) === id)).filter(Boolean).map(p => ({ name: p.name || 'חמוד', gender: p.gender, pet: p }));
+    if (!H.length) H.push({ name: 'פוצי', gender: 'm', pet: { kind: 'bunny', name: 'פוצי', id: 'b8d' } });
+    const F = fr(set[4], 1), F2 = fr(set[5], 2);
+    while (H.length < 3) H.push(H.length === 1 ? F2 : { name: 'גחלילון', gender: 'm', pet: { kind: 'owl', name: 'גחלילון', id: 'b8g' }, local: 1 });
+    const gObj = e.g && G0.find(g => g.id === e.g);
+    const Gh = gObj ? { name: gObj.name || 'הילדה', gender: 'f', girl: gObj } : H[0];
+    const own = H.filter(h => !h.local), names = (own.length ? own : H.slice(0, 1)).map(h => h.name).concat(gObj ? [Gh.name] : []);
+    const ALL = names.length > 1 ? names.slice(0, -1).join(', ') + ' ו' + names[names.length - 1] : names[0];
+    const tok = { A: H[0], B: H[1], C: H[2], G: Gh, F };
+    const fill = s => s.replace(/\[([ABCGF])\|([^|\]]*)\|([^\]]*)\]/g, (_, k, m, f) => (tok[k].gender === 'f' || tok[k].girl) ? f : m)
+      .replace(/\{ALL\}/g, ALL).replace(/\{PL\}/g, set[1]).replace(/\{P\}/g, set[2]).replace(/\{O\}/g, set[3])
+      .replace(/\{([ABCGF])\}/g, (_, k) => tok[k].name);
+    const [title, mid] = B8_PLOTS[plotI];
+    const pages = [[fill(open), 'sparkles'], ...mid.filter(x => x[0]).map(([s, p]) => [fill(s), p]), [fill(end[0]), 'moon'], [fill(end[1]), 'bed']];
+    pages.push([`לילה טוב, ${ALL}. ולילה טוב גם לך 💜 חלומות מתוקים...`, 'night']);
+    const cast = [...own.map(h => h.pet), ...H.filter(h => h.local).map(h => h.pet)].slice(0, 4);
+    e.t = `${H[0].name} ו${title}`;
+    return { title: e.t, set, pages, cast, girl: gObj || null, focus: [H[0], H[1], H[2], F, Gh] };
+  }
+  function b8Tonight() {
+    const d = b8Night();
+    let e = b8St.lib.find(x => x.d === d);
+    if (!e) { e = { d, n: 0, t: '', r: 0 }; b8MakeStory(e); b8St.lib.unshift(e); b8St.lib = b8St.lib.slice(0, 60); b8SaveSt(); }
+    return e;
+  }
+  // ---------- drawn scenes (400×250) ----------
+  function b8SceneSVG(set, k, u) {
+    const night = set[0] === 'moon' ? Math.max(.75, k) : k;
+    const top = b8Mix('#ffb3a7', '#1d1b4f', night), bot = b8Mix('#ffe3b0', '#5a4b9a', night), dk = c => b8Mix(c, '#2a2350', night * .45);
+    const r = b8Rng(b8Hash(set[0])), stars = night > .35 ? Array.from({ length: 26 }, () => `<circle cx="${(r() * 400).toFixed(0)}" cy="${(r() * 130).toFixed(0)}" r="${(.8 + r() * 1.6).toFixed(1)}" fill="#fff" opacity="${Math.min(1, (night - .35) * 1.8).toFixed(2)}" class="b8-tw" style="animation-delay:${(r() * 3).toFixed(1)}s"/>`).join('') : '';
+    const sun = night < .55 ? `<circle cx="80" cy="${(70 + night * 120).toFixed(0)}" r="22" fill="#ffd84d" opacity="${(1 - night * 1.6).toFixed(2)}"/>` : '';
+    const moon = night > .4 ? `<g opacity="${Math.min(1, (night - .4) * 2.5).toFixed(2)}"><circle cx="330" cy="46" r="18" fill="#fff7c9"/><circle cx="338" cy="40" r="15" fill="${top}"/></g>` : '';
+    const tree = (x, y, s, c) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-4" y="0" width="8" height="26" fill="${dk('#8a5a3c')}"/><circle cx="0" cy="-8" r="22" fill="${dk(c)}"/><circle cx="-12" cy="2" r="14" fill="${dk(c)}"/><circle cx="12" cy="2" r="14" fill="${dk(c)}"/></g>`;
+    const fl = (x, y, c) => `<g transform="translate(${x} ${y})"><path d="M0 0 V14" stroke="${dk('#4fbf73')}" stroke-width="2"/>${[0, 72, 144, 216, 288].map(a => `<circle cx="${(Math.cos(a * Math.PI / 180) * 4).toFixed(1)}" cy="${(Math.sin(a * Math.PI / 180) * 4).toFixed(1)}" r="3.4" fill="${dk(c)}"/>`).join('')}<circle r="2.4" fill="#ffd84d"/></g>`;
+    let mid = '', ground = dk('#8fd88f');
+    switch (set[0]) {
+      case 'forest': ground = dk('#6fbf73'); mid = tree(40, 150, 1.4, '#4fae6a') + tree(110, 160, 1, '#5fbf7a') + tree(370, 150, 1.5, '#4fae6a') + `<g transform="translate(280 128)"><rect x="-8" y="0" width="16" height="60" fill="${dk('#8a5a3c')}"/><circle cy="-14" r="40" fill="${dk('#3f9a5c')}"/>${Array.from({ length: 9 }, (_, i) => `<circle cx="${Math.round(Math.cos(i) * 28)}" cy="${Math.round(-14 + Math.sin(i * 1.7) * 24)}" r="3" fill="#fff59a" class="b8-tw" style="animation-delay:${i * .3}s"/>`).join('')}</g>`; break;
+      case 'beach': ground = dk('#ffe2a8'); mid = `<rect y="140" width="400" height="40" fill="${dk('#5fb4ef')}"/><path d="M0 150 q20 -8 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/><g transform="translate(300 176)"><path d="M-34 0 Q0 -60 34 0 Z" fill="${dk('#ff9ac2')}" ${S}/><path d="M0 -40 V0 M-16 -26 L-10 0 M16 -26 L10 0" stroke="${O}" stroke-width="2"/></g>`; break;
+      case 'clouds': ground = dk('#ffffff'); mid = `<g fill="${dk('#ffffff')}"><circle cx="40" cy="180" r="40"/><circle cx="120" cy="190" r="44"/><circle cx="380" cy="182" r="40"/></g><g transform="translate(280 90)" fill="${dk('#f3e6ff')}" ${S}><rect x="-36" y="20" width="72" height="70"/><rect x="-50" y="0" width="22" height="90"/><rect x="28" y="0" width="22" height="90"/><path d="M-50 0 L-39 -20 L-28 0 Z M28 0 L39 -20 L50 0 Z" fill="${dk('#ff9ad5')}"/><path d="M-10 90 V60 a10 10 0 0 1 20 0 V90" fill="${dk('#b58cff')}"/></g>`; break;
+      case 'candy': ground = dk('#ffc4de'); mid = `<g transform="translate(60 120)"><rect x="-3" width="6" height="60" fill="#fff" ${S}/><circle cy="-6" r="20" fill="${dk('#ff7aa8')}" ${S}/><path d="M-12 -6 a12 12 0 0 1 24 0 a8 8 0 0 1 -16 0" fill="none" stroke="#fff" stroke-width="3"/></g><g transform="translate(130 140)"><rect x="-3" width="6" height="40" fill="#fff" ${S}/><circle cy="-4" r="14" fill="${dk('#7ec8ff')}" ${S}/></g><path d="M260 60 h50 v120 h-50 Z" fill="${dk('#8a5a3c')}"/><path d="M262 60 q4 60 0 120 M282 60 q-4 60 2 120 M300 60 q4 60 -2 120" stroke="${dk('#b07a52')}" stroke-width="3" fill="none"/>`; break;
+      case 'snow': ground = dk('#f4f8ff'); mid = `<path d="M-10 170 L80 70 L170 170 Z M120 170 L230 50 L340 170 Z" fill="${dk('#dfe9ff')}" ${S}/><path d="M60 92 L80 70 L100 92 L90 88 L80 96 L70 88 Z M210 72 L230 50 L250 72 L240 68 L230 76 L220 68Z" fill="#fff"/><g transform="translate(330 176)"><path d="M-40 0 a40 40 0 0 1 80 0 Z" fill="${dk('#bfe6ff')}" ${S}/><path d="M-18 0 a18 22 0 0 1 36 0 Z" fill="${dk('#4f7fc0')}"/></g>`; break;
+      case 'moon': ground = dk('#cfd3e6'); mid = `<g transform="translate(90 70)"><circle r="22" fill="#5fb4ef"/><path d="M-12 -10 q8 4 6 12 q-8 2 -10 -6 Z M4 4 q10 -2 10 8 q-8 4 -10 -8" fill="#6fcf7f"/></g><ellipse cx="290" cy="196" rx="44" ry="10" fill="${dk('#a7acc8')}"/><ellipse cx="140" cy="214" rx="24" ry="6" fill="${dk('#a7acc8')}"/>`; break;
+      case 'meadow': ground = dk('#9be37a'); mid = Array.from({ length: 14 }, (_, i) => fl(20 + i * 28, 168 + (i % 3) * 14, ['#ff7aa8', '#ffd84d', '#b58cff', '#7ec8ff'][i % 4])).join('') + `<g transform="translate(300 100)"><path d="M0 0 V80" stroke="${dk('#4fbf73')}" stroke-width="6"/>${[0, 60, 120, 180, 240, 300].map(a => `<ellipse cx="${(Math.cos(a * Math.PI / 180) * 20).toFixed(1)}" cy="${(Math.sin(a * Math.PI / 180) * 20).toFixed(1)}" rx="14" ry="10" transform="rotate(${a} ${(Math.cos(a * Math.PI / 180) * 20).toFixed(1)} ${(Math.sin(a * Math.PI / 180) * 20).toFixed(1)})" fill="${dk('#ff9ad5')}" ${S}/>`).join('')}<circle r="12" fill="#ffd84d" ${S}/></g>`; break;
+      case 'sea': ground = dk('#f2d9a8'); mid = `<rect width="400" height="250" fill="${dk('#3f8fd8')}" opacity=".55"/>${Array.from({ length: 10 }, (_, i) => `<circle cx="${30 + i * 38}" cy="${40 + (i * 37) % 120}" r="${3 + i % 3 * 2}" fill="none" stroke="#fff" opacity=".6" class="b8-tw"/>`).join('')}<path d="M40 190 q-10 -30 4 -60 q10 30 -4 60 M70 190 q10 -40 -4 -70" stroke="${dk('#4fbf73')}" stroke-width="6" fill="none"/><g transform="translate(300 120)" fill="${dk('#ff8a8a')}" ${S}><path d="M-40 70 V20 q0 -14 12 -14 V-10 L-20 -24 L-12 -10 V6 h24 V-10 L20 -24 L28 -10 V6 q12 0 12 14 V70 Z"/><path d="M-8 70 V44 a8 8 0 0 1 16 0 V70" fill="${dk('#ffd84d')}"/></g>`; break;
+      case 'toys': mid = `<rect width="400" height="180" fill="${dk('#ffe0c2')}" opacity=".9"/><rect x="20" y="70" width="140" height="8" fill="${dk('#b07a52')}"/><rect x="250" y="60" width="140" height="8" fill="${dk('#b07a52')}"/><rect x="30" y="46" width="24" height="24" fill="${dk('#ff7aa8')}" ${S}/><rect x="58" y="52" width="18" height="18" fill="${dk('#7ec8ff')}" ${S}/><circle cx="110" cy="58" r="12" fill="${dk('#ffd84d')}" ${S}/><circle cx="280" cy="46" r="13" fill="${dk('#b58cff')}" ${S}/><rect x="320" y="36" width="30" height="24" fill="${dk('#4fc3a1')}" ${S}/><g transform="translate(200 120)"><rect x="-30" y="0" width="60" height="40" rx="6" fill="${dk('#ff9ad5')}" ${S}/><path d="M-30 0 L-24 -26 L30 -26 L30 0" fill="${dk('#ffc4de')}" ${S}/><circle cx="0" cy="-34" r="6" fill="#ffd84d" ${S}/></g>`; ground = dk('#d9a77a'); break;
+      case 'jungle': ground = dk('#5fae5a'); mid = `<path d="M320 40 h40 v140 h-40 Z" fill="${dk('#7ec8ff')}" opacity=".8"/><path d="M330 40 v140 M345 40 v140" stroke="#fff" stroke-width="2" opacity=".6"/>` + [30, 90, 380].map((x, i) => `<g transform="translate(${x} 70)"><path d="M0 0 Q6 60 0 120" stroke="${dk('#8a5a3c')}" stroke-width="8" fill="none"/>${[-60, -20, 20, 60, 160].map(a => `<path d="M0 0 q${Math.round(Math.cos(a * Math.PI / 180) * 30)} ${Math.round(Math.sin(a * Math.PI / 180) * 20 - 16)} ${Math.round(Math.cos(a * Math.PI / 180) * 44)} ${Math.round(Math.sin(a * Math.PI / 180) * 30)}" stroke="${dk('#3f9a5c')}" stroke-width="7" fill="none" stroke-linecap="round"/>`).join('')}</g>`).join('') + `<path d="M150 0 q10 40 0 80 M220 0 q-8 30 4 64" stroke="${dk('#3f9a5c')}" stroke-width="3" fill="none"/>`; break;
+      case 'island': ground = dk('#5fb4ef'); mid = `<path d="M60 180 a90 90 0 0 1 280 0" fill="none" stroke-width="10" stroke="#ff7a7a" opacity=".85"/><path d="M70 180 a80 80 0 0 1 260 0" fill="none" stroke-width="10" stroke="#ffd84d" opacity=".85"/><path d="M80 180 a70 70 0 0 1 240 0" fill="none" stroke-width="10" stroke="#6fcf7f" opacity=".85"/><path d="M90 180 a60 60 0 0 1 220 0" fill="none" stroke-width="10" stroke="#b58cff" opacity=".85"/><ellipse cx="200" cy="200" rx="160" ry="26" fill="${dk('#ffe2a8')}"/>`; break;
+      case 'village': ground = dk('#a8e08a'); mid = [[50, '#d9a066'], [130, '#e8b980'], [350, '#d9a066']].map(([x, c]) => `<g transform="translate(${x} 130)"><rect x="-24" y="0" width="48" height="44" fill="${dk(c)}" ${S}/><path d="M-30 2 L0 -26 L30 2 Z" fill="${dk('#ff9ad5')}" ${S}/><rect x="-7" y="22" width="14" height="22" fill="${dk('#8a5a3c')}"/>${[[-14, 10], [12, 12], [-2, 4]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="2.4" fill="#6b3f22"/>`).join('')}</g>`).join('') + `<g transform="translate(250 120)"><path d="M-40 54 V10 a40 40 0 0 1 80 0 V54 Z" fill="${dk('#f0c27a')}" ${S}/><circle cy="10" r="10" fill="${dk('#fff1c9')}" ${S}/><rect x="16" y="-40" width="10" height="24" fill="${dk('#b07a52')}"/></g>`; break;
+    }
+    return `<svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="b8sk${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bot}"/></linearGradient></defs>
+      <rect width="400" height="250" fill="url(#b8sk${u})"/>${stars}${sun}${moon}${mid}
+      <path d="M0 190 Q100 172 200 186 T400 182 V250 H0 Z" fill="${ground}"/><path d="M0 214 Q120 204 240 214 T400 210 V250 H0 Z" fill="${b8Mix(ground, '#000000', .08)}"/></svg>`;
+  }
+  function b8PageEl(S0, i, extra = '') {
+    const n = S0.pages.length, [txt, prop] = S0.pages[i], k = Math.min(1, i / (n - 1)), last = prop === 'night';
+    const scene = el('div', { class: 'b8-scene' + (last ? ' b8-final' : ''), html: b8SceneSVG(S0.set, last ? 1 : k * .85, ++b8Uid) });
+    const focus = S0.focus.find(h => txt.includes(h.name));
+    const cast = S0.cast.slice();
+    cast.forEach((p, j) => {
+      const isF = focus && focus.pet === p, span = S0.girl ? 56 : 72, x = 12 + j * (span / Math.max(1, cast.length - 1)) + (cast.length === 1 ? span / 2 : 0);
+      scene.append(el('div', { class: 'b8-actor' + (isF ? ' b8-focus' : '') + (last ? ' b8-sleep' : ''), style: `--x:${x.toFixed(1)}%;animation-delay:${(j * .25).toFixed(2)}s`, html: (() => { try { return petSVG(p, { mood: last ? 'sleepy' : 'happy' }); } catch { return ''; } })() }));
+    });
+    if (S0.girl) try { scene.append(el('img', { class: 'b8-girl' + (focus && focus.girl ? ' b8-focus' : ''), src: girlImgURL(S0.girl, { view: 'full', bg: false }), alt: '' })); } catch {}
+    if (prop && !last) scene.append(el('div', { class: 'b8-prop', html: stickerHTML(prop) }));
+    if (last) scene.append(el('div', { class: 'b8-zzz' }, 'Z', el('small', {}, 'z'), el('small', {}, 'z')), el('div', { class: 'b8-gn' }, 'לילה טוב 🌙'));
+    return el('div', { class: 'b8-page ' + extra }, scene, el('p', { class: 'b8-txt' }, txt), el('div', { class: 'b8-pnum' }, `${i + 1} / ${n}`));
+  }
+  // read aloud (he-IL), page by page, with play / pause
+  let b8Speaking = false;
+  function b8StopSpeak() { b8Speaking = false; try { window.speechSynthesis && speechSynthesis.cancel(); } catch {} }
+  function b8Speak(text, done) {
+    try {
+      const ss = window.speechSynthesis;
+      if (!ss || !window.SpeechSynthesisUtterance) { toast(stickerHTML('book'), 'בדפדפן הזה אין הקראה 😕'); return false; }
+      ss.cancel();
+      const u = new SpeechSynthesisUtterance(text.replace(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF]/gu, '')), v = ss.getVoices().find(x => /^(he|iw)/i.test(x.lang));
+      u.lang = 'he-IL'; if (v) u.voice = v; u.rate = 0.85; u.pitch = 1.1;
+      u.onend = () => { if (b8Speaking) done && done(); };
+      u.onerror = () => { b8Speaking = false; b8SyncPlay(); };
+      ss.speak(u); b8Speaking = true; return true;
+    } catch { return false; }
+  }
+  const b8SyncPlay = () => { const b = $('#b8Play'); if (b) { b.textContent = b8Speaking ? '⏸️ הפסקה' : '🔊 להקריא'; b.setAttribute('aria-pressed', String(b8Speaking)); } };
+  function b8StoryView() {
+    if (b8Book) return b8ReadView();
+    const e = b8Tonight(), S0 = b8MakeStory(Object.assign({}, e)), pets = S0.cast;
+    const cover = el('div', { class: 'b8-cover' },
+      el('div', { class: 'b8-scene', html: b8SceneSVG(S0.set, .6, ++b8Uid) }, ...pets.map((p, j) => el('div', { class: 'b8-actor', style: `--x:${(14 + j * 72 / Math.max(1, pets.length - 1)).toFixed(1)}%;animation-delay:${j * .3}s`, html: petSVG(p, { mood: 'happy' }) })),
+        el('div', { class: 'b8-covtitle' }, el('small', {}, e.r ? 'הסיפור של הלילה ✔️' : '✨ הסיפור של הלילה ✨'), el('b', {}, S0.title), el('span', {}, `${S0.pages.length} עמודים · ${S0.set[1]}`))));
+    const hr = new Date().getHours();
+    const lib = b8St.lib.filter(x => x !== e);
+    return [
+      hr >= 7 && hr < 17 ? el('p', { class: 'b8-note' }, '🌙 הסיפור הכי כיף בערב, לפני השינה... אבל אפשר להציץ גם עכשיו!') : null,
+      cover,
+      el('div', { class: 'b8-row' },
+        el('button', { type: 'button', class: 'btn', onclick: () => { b8Book = { e, at: 0 }; SFX.pop(); b8Draw(); } }, '📖 לקרוא את הסיפור'),
+        el('button', { type: 'button', class: 'btn ghost', onclick: () => { b8Book = { e, at: 0, auto: 1 }; b8Draw(); b8AutoRead(); } }, '🔊 להקריא לי'),
+        el('button', { type: 'button', class: 'btn ghost', onclick: () => { e.n++; delete e.h; e.r = 0; b8MakeStory(e); b8SaveSt(); SFX.pop(); b8Draw(); } }, '🎲 סיפור אחר להלילה')),
+      el('h4', { class: 'b8-libh' }, `📚 ספריית הלילות (${lib.length})`),
+      lib.length ? el('div', { class: 'b8-lib' }, ...lib.map(x => {
+        const { m, d } = fromIso(x.d);
+        return el('button', { type: 'button', class: 'b8-libb', onclick: () => { b8Book = { e: x, at: 0 }; b8Draw(); } }, el('span', { class: 'b8-libic', html: stickerHTML(x.r ? 'magicmoon' : 'book') }), el('b', {}, x.t || 'סיפור'), el('small', {}, `${d} ב${MONTHS[m]}`));
+      })) : el('p', { class: 'muted' }, 'כל לילה הסיפור נשמר פה, כדי שאפשר יהיה לקרוא אותו שוב 💜'),
+    ];
+  }
+  function b8ReadView() {
+    const B = b8Book, S0 = b8MakeStory(Object.assign({}, B.e)); B.S = S0;
+    const n = S0.pages.length;
+    const book = el('div', { class: 'b8-book', id: 'b8BookEl' }, b8PageEl(S0, B.at));
+    const go = dir => { const to = B.at + dir; if (to < 0 || to >= n) return; b8Turn(to, dir); };
+    const nav = el('div', { class: 'b8-nav' },
+      el('button', { type: 'button', class: 'chip', 'aria-label': 'עמוד קודם', onclick: () => { b8StopSpeak(); b8SyncPlay(); go(-1); } }, '▶ הקודם'),
+      el('button', { type: 'button', class: 'btn ghost', id: 'b8Play', 'aria-pressed': 'false', onclick: () => { if (b8Speaking) { b8StopSpeak(); b8SyncPlay(); } else { B.auto = 1; b8AutoRead(); } } }, '🔊 להקריא'),
+      el('button', { type: 'button', class: 'chip', id: 'b8Next', 'aria-label': 'עמוד הבא', onclick: () => { b8StopSpeak(); b8SyncPlay(); go(1); } }, 'הבא ◀'));
+    return [el('div', { class: 'b8-readtop' }, el('button', { type: 'button', class: 'chip', onclick: () => { b8Book = null; b8Draw(); } }, '📚 לכל הסיפורים'), el('b', {}, S0.title)), book, nav,
+      el('div', { class: 'b8-dots' }, ...S0.pages.map((_, i) => el('i', { class: i === B.at ? 'on' : '' })))];
+  }
+  function b8Turn(to, dir) {
+    const B = b8Book, box = $('#b8BookEl'); if (!B || !box) return;
+    const old = box.firstElementChild, pg = b8PageEl(B.S, to, 'b8-in');
+    B.at = to;
+    if (old && !reduceMotion()) { old.classList.add(dir > 0 ? 'b8-out' : 'b8-outb'); setTimeout(() => old.remove(), 650); box.prepend(pg); } else box.replaceChildren(pg);
+    tone(dir > 0 ? 700 : 560, .06, 'triangle', 0, .04); tone(dir > 0 ? 900 : 480, .08, 'triangle', .05, .03);
+    document.querySelectorAll('#b8Body .b8-dots i').forEach((d, i) => d.classList.toggle('on', i === to));
+    if (to === B.S.pages.length - 1) b8Finale();
+  }
+  function b8AutoRead() {
+    const B = b8Book; if (!B || !B.S) return;
+    const ok = b8Speak(B.S.pages[B.at][0], () => {
+      if (!b8Book || b8Book !== B) return;
+      if (B.at < B.S.pages.length - 1) { b8Turn(B.at + 1, 1); setTimeout(() => { if (b8Speaking && b8Book === B) b8AutoRead(); }, 900); }
+      else { b8Speaking = false; b8SyncPlay(); }
+    });
+    b8SyncPlay(); return ok;
+  }
+  function b8Finale() {
+    const B = b8Book; if (!B) return;
+    [392, 330, 262, 196].forEach((f, i) => tone(f, .9, 'sine', i * .55, .05));
+    if (!B.e.r) { B.e.r = 1; b8SaveSt(); b8Coin1('story', 4, 'קראת סיפור לפני השינה 🌙'); try { renderStrip(); } catch {} }
+    setTimeout(() => { const sc = document.querySelector('#b8BookEl .b8-final'); if (sc) sc.classList.add('b8-dim'); }, 2500);
+  }
+
+  // ---------- strip pills: evening (story + tomorrow's alarm) and morning (summary) ----------
+  const b8Strip0 = renderStrip;
+  renderStrip = function (...a) {
+    b8Strip0.apply(this, a);
+    try {
+      const s = $('#strip'); if (!s) return;
+      const h = new Date().getHours(), eve = h >= 18 || h < 4, out = [];
+      if (eve) {
+        const e = b8St.lib.find(x => x.d === b8Night());
+        if (!e || !e.r) out.push(el('button', { type: 'button', class: 'pill b8-pill', onclick: () => b8OpenStory('tonight') }, el('span', { class: 'ic', html: stickerHTML('magicmoon') }), '📖 סיפור לפני השינה מחכה לך!'));
+        const nx = b8NextRing();
+        if (nx && nx.inMin < 16 * 60) out.push(el('button', { type: 'button', class: 'pill b8-pill', onclick: () => b8OpenAlarm() }, el('span', { class: 'ic', html: b8ClockSVG(nx.a[1], '#ff9ad5', true) }), `⏰ השעון יעיר אותך ב-`, el('span', { class: 'nums-ltr' }, nx.a[1]), ' · להשאיר את הלוח פתוח'));
+      } else if (h >= 5 && h < 11 && b8Al.w === localToday()) {
+        out.push(el('button', { type: 'button', class: 'pill b8-pill', onclick: () => b8Summary() }, el('span', { class: 'ic', html: stickerHTML('sun') }), '☀️ הסיכום של הבוקר'));
+      }
+      if (b8Al.z) out.push(el('button', { type: 'button', class: 'pill b8-pill', onclick: () => b8OpenAlarm() }, el('span', { class: 'ic', html: stickerHTML('bed') }), '😴 נודניק: עוד כמה דקות החיות חוזרות'));
+      s.prepend(...out);
+    } catch {}
+  };
+
+  // ---------- entry points ----------
+  if (typeof MORE !== 'undefined') [['sun', 'השעון המעורר של הבוקר', () => b8OpenAlarm()], ['magicmoon', 'סיפור לפני השינה', () => b8OpenStory()]]
+    .forEach(t => { if (!MORE.some(m => m[1] === t[1])) MORE.push(t); });
+  { const d = $('#b8Dlg'); if (d) d.addEventListener('close', () => { b8StopSpeak(); b8Book = null; b8Ed = null; }); }
+  { const d = $('#b8RingDlg'); if (d) d.addEventListener('cancel', e => { if (b8Ring) { e.preventDefault(); b8Snooze(); } }); }
+  const b8DrawHouse0 = drawHouse;
+  drawHouse = function (...a) {
+    b8DrawHouse0.apply(this, a);
+    try {
+      const tabs = $('#houseTabs'); if (!tabs) return;
+      let bar = $('#b8HouseBar');
+      if (!bar) { bar = el('div', { id: 'b8HouseBar', class: 'b8-housebar' }); tabs.before(bar); }
+      bar.replaceChildren(el('span', { class: 'lbl' }, '🌙 בוקר ולילה עם החיות:'),
+        el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); b8OpenStory('tonight'); } }, '📖 סיפור לפני השינה'),
+        el('button', { type: 'button', class: 'chip', onclick: () => { SFX.pop(); b8OpenAlarm(); } }, '⏰ השעון המעורר'));
+    } catch {}
+  };
+  setInterval(b8Tick, 10000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) b8Tick(); });
+  b8Tick();
+  try { renderStrip(); } catch {}
+
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
