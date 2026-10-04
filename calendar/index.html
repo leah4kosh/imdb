@@ -7119,6 +7119,42 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
 .lk8-alert b { font-size: 1.2em; } .lk8-alert ul { margin: 0; padding-inline-start: 1.2em; }
 @keyframes lk8in { from { transform: translate(-50%, 30px); opacity: 0; } }
 @media (max-width: 420px) { .lk8-board { grid-template-columns: repeat(3, 64px); } .lk8-cell { height: 64px; } .lk8-g { width: 120px; } .lk8-cards { grid-template-columns: 1fr; } }
+/* ---------- lock8b: sorry screen + phone fixes for the lock ---------- */
+dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; overscroll-behavior: contain; }
+.lk8b-sorry { gap: 16px; animation: lk8in .4s; }
+.lk8b-lock { width: 130px; height: 140px; } .lk8b-lock svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 5px rgb(0 0 0 / .2)); }
+.lk8b-tear { animation: lk8btear 1.8s ease-in infinite; }
+@keyframes lk8btear { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(22px); opacity: 0; } }
+.lk8b-msg { margin: 0; font-size: 1.4em; line-height: 1.45; font-weight: 700; padding: 16px 18px; border-radius: 22px; background: rgb(255 255 255 / .55); color: #3a2b3c; }
+.lk8b-clock { display: grid; justify-items: center; gap: 2px; }
+.lk8b-time { font-family: var(--title-font); font-size: 3.2em; direction: ltr; line-height: 1.1; }
+/* touch: no double-tap zoom / scroll stealing, big targets */
+.lk8-it, .lk8-cell, .lk8-g, .lk8-sw, .lk8-mini, .lk8-door, .lk8-box .btn, .lk8-box .chip { touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none; }
+.lk8-pat, .lk8-cv, .lk8-pat svg { touch-action: none; user-select: none; -webkit-user-select: none; }
+.lk8-box { max-width: 100%; }
+.lk8-box .lk8-mini, .lk8-ed .lk8-mini { min-height: 40px; min-width: 40px; }
+.lk8-box .lock-link { min-height: 40px; }
+@media (max-width: 420px) {
+  dialog#lock { padding: 12px 10px; }
+  .lk8-box { gap: 10px; }
+  .lk8-box h2 { font-size: 1.7em; }
+  .lk8-big { font-size: 2.6em; }
+  .lk8-box .lock-steps { font-size: .78em; gap: 4px; }
+  .lk8-box .lock-steps span { padding: 0 7px; }
+  .lk8-pics, .lk8-emo { gap: 6px; }
+  .lk8-pics .lk8-it { min-height: 64px; }
+  .lk8-xylo { gap: 3px; }
+  .lk8-xylo .lk8-it { min-width: 0; }
+  .lk8-cols .lk8-it { height: 56px; }
+  .lk8-choice.cols { grid-template-columns: repeat(6, 42px); gap: 7px; }
+  .lk8-sw { width: 42px; height: 42px; }
+  .lk8-g { width: min(132px, 40vw); }
+  .lk8-board { grid-template-columns: repeat(3, min(72px, 20vw)); }
+  .lk8-cell { height: min(72px, 20vw); }
+  .lk8-pets .lk8-it { padding: 4px; }
+  .lk8-petart { width: min(76px, 22vw); height: min(76px, 22vw); }
+  .lk8b-msg { font-size: 1.25em; }
+}
 </style>
 </head>
 <body class="bg-dots">
@@ -11522,7 +11558,7 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
     };
     const draw = err => {
       const s = steps[stepAt];
-      lock.replaceChildren(s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
+      lk8bRedraw = () => { stepAt = 0; code = ''; if (lock.open) draw(); }; lock.replaceChildren(lk8bBlocked() ? lk8bSorry(lk8bRedraw, cancelLink) : s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
     };
     const key = k => {
       if (k === '⌫') code = code.slice(0, -1);
@@ -45828,7 +45864,7 @@ ${label(900, 520, '🌊 ים האיים')}
   };
   const LK8_SHORT = { pattern: 'צורה', pics: 'תמונות', colors: 'צבעים', emoji: 'אימוג׳י', melody: 'מנגינה', spot: 'נקודה', knock: 'דפיקה', draw: 'ציור', stickers: 'מדבקות', pet: 'חיה', word: 'מילה' };
   const LK8_MAX = 2 + Object.keys(LK8_L).length;
-  const lk8StepLabel = s => ({ key: '🗝️ מפתח', code: '🔢 קוד', q: '❓ שאלה', lk8id: '🪪 שאלות כניסה' })[s] || (LK8_L[String(s).slice(3)] ? LK8_L[String(s).slice(3)].ic + ' ' + LK8_L[String(s).slice(3)].name : s);
+  const lk8StepLabel = s => ({ key: '🗝️ מפתח', code: '🔢 קוד', q: '❓ שאלה', lk8id: '🪪 שאלות כניסה', block: '🔒 2 ניסיונות כושלים: נחסם ל-10 דקות' })[s] || (LK8_L[String(s).slice(3)] ? LK8_L[String(s).slice(3)].ic + ' ' + LK8_L[String(s).slice(3)].name : s);
 
   // ---------- hooks used by the lock (patches.json) ----------
   function lk8Steps(base) {
@@ -45839,10 +45875,12 @@ ${label(900, 520, '🌊 ים האיים')}
     return [c.id.on && c.id.qs.length ? 'lk8id' : null, ...c.layers.map(l => 'lk8' + l.t), ...base].filter(Boolean);
   }
   function lk8Fail(step) {
+    if (step !== 'block') setTimeout(lk8bAttempt);
     const log = store.get('lk8log', []) || [];
     log.push({ t: Date.now(), s: step }); store.set('lk8log', log.slice(-40));
   }
   function lk8Unlocked() {
+    store.set('lk8att', 0);
     store.set('lk8tries', 0);
     const seen = store.get('lk8seen', 0) || 0, news = (store.get('lk8log', []) || []).filter(x => x.t > seen);
     store.set('lk8seen', Date.now());
@@ -46044,6 +46082,37 @@ ${label(900, 520, '🌊 ים האיים')}
     else body.append(sec);
   }
   if ($('#pinBody')) new MutationObserver(lk8Inject).observe($('#pinBody'), { childList: true });
+  // ================= lock8b: 2 failed attempts -> gentle 10-minute "sorry" screen =================
+  // store 'lk8att' = failed attempts since last unlock/block, 'lk8block' = time the block ends
+  var lk8bRedraw = null;
+  const LK8B_MS = 10 * 60 * 1000;
+  const lk8bLeft = () => Math.max(0, (store.get('lk8block', 0) || 0) - Date.now());
+  const lk8bBlocked = () => lk8bLeft() > 0;
+  function lk8bAttempt() {
+    if (lk8bBlocked()) return;
+    const n = (store.get('lk8att', 0) || 0) + 1;
+    if (n < 2) { store.set('lk8att', n); return; }
+    store.set('lk8att', 0); store.set('lk8tries', 0); store.set('lk8block', Date.now() + LK8B_MS);
+    lk8Fail('block');
+    setTimeout(() => lk8bRedraw && lk8bRedraw(), 900);
+  }
+  const LK8B_SAD = `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M32 60 V40 a28 28 0 0 1 56 0 V60" fill="none" stroke="${O}" stroke-width="14" stroke-linecap="round"/><path d="M32 60 V40 a28 28 0 0 1 56 0 V60" fill="none" stroke="#c9d1dc" stroke-width="8" stroke-linecap="round"/>`
+    + `<rect x="14" y="56" width="92" height="68" rx="18" fill="#ffc2d6" ${S}/><path d="M24 64 Q22 86 25 112" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/>`
+    + `<path d="M38 82 Q44 77 50 82 M70 82 Q76 77 82 82" fill="none" ${S}/><path d="M46 104 Q60 94 74 104" fill="none" ${S}/><circle cx="34" cy="94" r="5" fill="#ff8fb5" opacity=".7"/><circle cx="86" cy="94" r="5" fill="#ff8fb5" opacity=".7"/>`
+    + `<path class="lk8b-tear" d="M44 86 C40 93 40 98 44 99 C48 98 48 93 44 86 Z" fill="#7cc6f5" ${S2}/></svg>`;
+  function lk8bSorry(again, cancel) {
+    const t = el('b', { class: 'lk8b-time' });
+    const tick = () => { const l = lk8bLeft(), s = Math.ceil(l / 1000); t.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; return l; };
+    const box = el('div', { class: 'lock-box lk8b-sorry', role: 'alert' },
+      el('span', { class: 'lk8b-lock', html: LK8B_SAD }),
+      el('p', { class: 'lk8b-msg' }, 'סליחה, אני לא יכול לתת לך להיכנס בגלל שאינך זוכר/ת את הקוד. סליחה.'),
+      el('div', { class: 'lk8b-clock' }, el('span', {}, '⏳ אפשר לנסות שוב בעוד'), t),
+      el('small', {}, 'אחרי זה יהיו עוד 2 ניסיונות 🌸'),
+      cancel ? cancel() : null);
+    tick();
+    const iv = setInterval(() => { if (!box.isConnected) return clearInterval(iv); if (tick() <= 0) { clearInterval(iv); again(); } }, 1000);
+    return box;
+  }
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
