@@ -7155,6 +7155,14 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
   .lk8-petart { width: min(76px, 22vw); height: min(76px, 22vw); }
   .lk8b-msg { font-size: 1.25em; }
 }
+.lock-box.prank { text-align: center; gap: 12px; }
+.prank-shout { font-size: 1.7em; font-weight: 900; color: #e5304a; text-shadow: 2px 2px 0 #ffd1d8; animation: prankShake .35s infinite; line-height: 1.25; }
+.prank-shout.big { font-size: 2em; }
+.prank-say { font-size: 1.15em; font-weight: 700; }
+.prank-face { font-size: 64px; background: none; border: 0; cursor: pointer; line-height: 1; }
+.prank-face.wig { animation: prankShake .3s 2; }
+@keyframes prankShake { 0%, 100% { transform: translate(0, 0) rotate(0); } 25% { transform: translate(-3px, 1px) rotate(-2deg); } 75% { transform: translate(3px, -1px) rotate(2deg); } }
+@media (prefers-reduced-motion: reduce) { .prank-shout, .prank-face.wig { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -11503,11 +11511,21 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
   const ansSwap = x => String(x == null ? '' : x).toLowerCase().split('').map(c => { let i = ANS_EN.indexOf(c); if (i >= 0) return ANS_HE[i]; i = ANS_HE.indexOf(c); return i >= 0 ? ANS_EN[i] : c; }).join('');
   const ansVariants = x => [x, ansSwap(x)];
   const sameAnswer = (a, b) => ansVariants(a).some(v => ansFold(v) === ansFold(b)) || ansVariants(b).some(v => ansFold(v) === ansFold(a));
+  // the "עוד" button on the lock: a cheeky prank for anyone trying to break in. Her secret way back to the secret question: tap the 😜 five times.
+  function lockPrank(lock, back, forgot) {
+    let taps = 0;
+    const face = el('button', { type: 'button', class: 'prank-face', 'aria-label': 'פרצוף', onclick: () => { taps++; face.classList.remove('wig'); void face.offsetWidth; face.classList.add('wig'); if (taps >= 5 && forgot) forgot(); } }, '😜');
+    const box = el('div', { class: 'lock-box prank', role: 'alert' });
+    const step1 = () => { box.replaceChildren(el('div', { class: 'prank-shout' }, 'למה פרצת לי לאתר!!?!?!?!?'), el('p', { class: 'prank-say' }, 'אתה לא יודע את השאלות, נכון?!!? בוא אני אגלה לך...'),
+      el('button', { type: 'button', class: 'btn main', onclick: () => { try { SFX.boop(); } catch {} step2(); } }, 'תגלי 🤫'), el('button', { type: 'button', class: 'lock-link', onclick: back }, '⬅️ חזרה')); };
+    const step2 = () => { box.replaceChildren(face, el('div', { class: 'prank-shout big' }, 'נראה לך אני מגלה לך משהוווווו!'), el('button', { type: 'button', class: 'lock-link', onclick: back }, '⬅️ חזרה')); try { tone(520, .12); tone(300, .25, 'sawtooth', .12); } catch {} };
+    step1(); lock.replaceChildren(box);
+  }
   function showLock(onOk, canCancel, upgradedNote) {
     const lock = $('#lock');
     const steps = lockSteps();
     let code = '', stepAt = 0;
-    const cancelLink = () => canCancel ? el('button', { type: 'button', class: 'lock-link', onclick: () => lock.close() }, 'ביטול') : null;
+    const cancelLink = () => null; // she asked: no cancel button on the lock
     const news = () => upgradedNote && stepAt === 0 ? el('p', { class: 'lock-news' }, '✨ הלוח שודרג! פותחים את המנעול כדי לראות מה חדש') : null;
     const next = () => {
       stepAt++;
@@ -11536,12 +11554,12 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
           }
         } }))),
         el('div', { class: 'pin-err' }),
-        el('button', { type: 'button', class: 'lock-link', onclick: forgot }, 'שכחתי איזה מפתח'),
+        el('button', { type: 'button', class: 'lock-link', onclick: () => lockPrank(lock, () => draw(), forgot) }, 'עוד'),
         cancelLink());
       return box;
     };
     const drawCode = err => {
-      const box = lockBox(code.length, key, [el('button', { type: 'button', class: 'lock-link', onclick: forgot }, 'שכחתי את הקוד'), cancelLink()], 'code');
+      const box = lockBox(code.length, key, [el('button', { type: 'button', class: 'lock-link', onclick: () => lockPrank(lock, () => draw(), forgot) }, 'עוד'), cancelLink()], 'code');
       const n = news();
       if (n) box.insertBefore(n, box.querySelector('.pin-dots'));
       if (err) setTimeout(() => shakeErr(box, err));
@@ -11563,7 +11581,7 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
     };
     const draw = err => {
       const s = steps[stepAt];
-      lk8bRedraw = () => { stepAt = 0; code = ''; if (lock.open) draw(); }; lock.replaceChildren(lk8bBlocked() ? (() => { const b = lk8bSorry(lk8bRedraw, cancelLink); try { (b.querySelector('.lk8b-card, .lock-box') || b).append(el('button', { type: 'button', class: 'lock-link', style: 'margin-top:14px', onclick: () => forgot() }, '🔑 שכחתי? לענות על השאלה הסודית')); } catch {} return b; })() : s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
+      lk8bRedraw = () => { stepAt = 0; code = ''; if (lock.open) draw(); }; lock.replaceChildren(lk8bBlocked() ? (() => { const b = lk8bSorry(lk8bRedraw, cancelLink); try { (b.querySelector('.lk8b-card, .lock-box') || b).append(el('button', { type: 'button', class: 'lock-link', style: 'margin-top:14px', onclick: () => lockPrank(lock, () => draw(), forgot) }, 'עוד')); } catch {} return b; })() : s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
     };
     const key = k => {
       if (k === '⌫') code = code.slice(0, -1);
@@ -45914,7 +45932,7 @@ ${label(900, 520, '🌊 ים האיים')}
       return box;
     }
     const head = (ic, title, sub) => [ctx.first ? ctx.news() : null, el('div', { class: 'lk8-big' }, ic), el('h2', {}, title), stepsBar(s), sub ? el('p', { class: 'lock-news' }, sub) : null];
-    const foot = () => [el('div', { class: 'pin-err' }), el('button', { type: 'button', class: 'lock-link', onclick: ctx.forgot }, 'שכחתי'), ctx.cancel()];
+    const foot = () => [el('div', { class: 'pin-err' }), el('button', { type: 'button', class: 'lock-link', onclick: () => lockPrank($('#lock'), ctx.redraw, ctx.forgot) }, 'עוד'), ctx.cancel()];
     const ok = () => { SFX.ding(); const e = box.querySelector('.pin-err'); if (e) e.textContent = '✔️ נכון!'; setTimeout(ctx.next, 350); };
     if (s === 'lk8id') { lk8IdFlow(box, ctx, head, foot, ok); return box; }
     const t = s.slice(3), L = LK8_L[t], lay = lk8Cfg().layers.find(l => l.t === t);
@@ -46091,7 +46109,7 @@ ${label(900, 520, '🌊 ים האיים')}
   // ================= lock8b: 2 failed attempts -> gentle 10-minute "sorry" screen =================
   // store 'lk8att' = failed attempts since last unlock/block, 'lk8block' = time the block ends
   var lk8bRedraw = null;
-  const LK8B_MS = 10 * 60 * 1000;
+  const LK8B_MS = 60 * 1000;
   const lk8bLeft = () => Math.max(0, (store.get('lk8block', 0) || 0) - Date.now());
   const lk8bBlocked = () => lk8bLeft() > 0;
   function lk8bAttempt() {
@@ -46102,10 +46120,7 @@ ${label(900, 520, '🌊 ים האיים')}
     lk8Fail('block');
     setTimeout(() => lk8bRedraw && lk8bRedraw(), 900);
   }
-  const LK8B_SAD = `<svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M32 60 V40 a28 28 0 0 1 56 0 V60" fill="none" stroke="${O}" stroke-width="14" stroke-linecap="round"/><path d="M32 60 V40 a28 28 0 0 1 56 0 V60" fill="none" stroke="#c9d1dc" stroke-width="8" stroke-linecap="round"/>`
-    + `<rect x="14" y="56" width="92" height="68" rx="18" fill="#ffc2d6" ${S}/><path d="M24 64 Q22 86 25 112" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/>`
-    + `<path d="M38 82 Q44 77 50 82 M70 82 Q76 77 82 82" fill="none" ${S}/><path d="M46 104 Q60 94 74 104" fill="none" ${S}/><circle cx="34" cy="94" r="5" fill="#ff8fb5" opacity=".7"/><circle cx="86" cy="94" r="5" fill="#ff8fb5" opacity=".7"/>`
-    + `<path class="lk8b-tear" d="M44 86 C40 93 40 98 44 99 C48 98 48 93 44 86 Z" fill="#7cc6f5" ${S2}/></svg>`;
+  const LK8B_SAD = `<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="${O}" stroke-width="30" stroke-linecap="round"><path d="M26 26 L94 94 M94 26 L26 94"/></g><g stroke="#ff5a6e" stroke-width="20" stroke-linecap="round"><path d="M26 26 L94 94 M94 26 L26 94"/></g><path d="M34 32 L50 48" stroke="#ffb3bd" stroke-width="5" stroke-linecap="round"/><circle cx="51" cy="56" r="4" fill="${O}"/><circle cx="69" cy="56" r="4" fill="${O}"/><path d="M51 70 q9 -7 18 0" fill="none" stroke="${O}" stroke-width="3.5" stroke-linecap="round"/><path class="lk8b-tear" d="M47 62 q-4 7 0 10 q4 -3 0 -10z" fill="#7cc6f5" stroke="${O}" stroke-width="1.5"/></svg>`;
   function lk8bSorry(again, cancel) {
     const t = el('b', { class: 'lk8b-time' });
     const tick = () => { const l = lk8bLeft(), s = Math.ceil(l / 1000); t.textContent = `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; return l; };
