@@ -7017,6 +7017,9 @@ button.mda-actor:focus-visible { outline: 3px solid var(--accent); outline-offse
   .ppg-cp, .ppg-fan, .ppg-tmpet, .ppg-gift, .ppg-boxpill, .ppg-rays, .ppg-mach-pets span, .ppg-p-ptero, .ppg-p-boat, .ppg-p-car, .ppg-p-dragon, .ppg-prop .neon { animation: none; }
 }
 .ppg-prize-art svg, .ppg-colart svg { overflow: hidden; }
+.g8-adopt-row { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.g8-adopt-name { width: 7em; padding: 6px 8px; border-radius: 10px; border: 2px solid var(--line, #ddd); font: inherit; text-align: center; }
+.g8-adopt { font-size: .95em; }
 </style>
 </head>
 <body class="bg-dots">
@@ -41792,7 +41795,31 @@ ${label(900, 520, '🌊 ים האיים')}
       reveal.classList.add('on'); SFX.yay();
       if (isNew) g8Win('claw', 'clawWins'); else confetti($('#gamesDlg .confetti-c'));
       if (info.gold) g8Coins('claw', 5, 'בובת זהב!');
-      clearTimeout(revealT); revealT = setTimeout(() => reveal.classList.remove('on'), 2600);
+      clearTimeout(revealT);
+      // she asked: whoever you catch comes alive and becomes one of your pets!
+      const adoptKind = info.p ? info.p.kind : info.kind;
+      if (adoptKind) {
+        const card = reveal.querySelector('.g8-rv-card');
+        const nm0 = g8Pick(['פוצי', 'מוקה', 'שוקו', 'לולו', 'בובי', 'נוני', 'קיקי', 'פופי', 'טופי', 'מימי', 'דבשי', 'צימוקי']);
+        const inp = el('input', { type: 'text', maxLength: 20, value: nm0, 'aria-label': 'שם', class: 'g8-adopt-name', onclick: e => e.stopPropagation() });
+        const btn = el('button', { type: 'button', class: 'btn main g8-adopt', onclick: e => {
+          e.stopPropagation();
+          const t = localToday(), nm = inp.value.trim() || nm0;
+          const look = info.p ? (info.p.look ? Object.assign({}, info.p.look) : undefined) : { v: 1, c1: info.v[2], c2: info.v[3], eyes: 'happy' };
+          const np = { v: 2, kind: adoptKind, color: 0, look, name: nm, wear: {}, house: { bg: typeof defaultBg === 'function' ? defaultBg(adoptKind) : 'room', hidden: [] }, fed: { [t]: 1 }, played: {}, onboarded: true, fromClaw: t };
+          if (!np.look) delete np.look;
+          try {
+            const newId = typeof petzId === 'function' ? petzId() : 'p' + Date.now().toString(36);
+            if (!pet || !pet.onboarded) { np.id = newId; pet = np; savePet(); if (typeof petzSave === 'function') petzSave(); }
+            else { if (typeof petzSync === 'function') petzSync(); np.id = newId; petzList.push(np); store.set('pets', petzList); }
+            renderPet(); if (typeof afterChange === 'function') afterChange();
+          } catch { shout('אופס, משהו השתבש 🙈'); return; }
+          SFX.yay(); confetti($('#gamesDlg .confetti-c'));
+          card.replaceChildren(el('span', { class: 'g8-rv-art', html: petSVG(np, { mood: 'happy' }) }), el('b', {}, `🐾 ${nm} התעורר/ה לחיים!`), el('small', {}, 'ועבר/ה לגור בבית של כל החיות 🏡💕'));
+          revealT = setTimeout(() => reveal.classList.remove('on'), 3200);
+        } }, '🐾 להפוך אותה לחיה שלי!');
+        card.append(el('div', { class: 'g8-adopt-row' }, inp, btn));
+      } else revealT = setTimeout(() => reveal.classList.remove('on'), 2600);
       drawShelf();
       p.key = g8RandPlush(); fillPrize(p); p.el.classList.remove('fall'); void p.el.offsetWidth; p.el.classList.add('drop-in'); prizeLayer.append(p.el);
     };
