@@ -7188,6 +7188,47 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
 .lk8p-ask .btn { min-width: 84px; min-height: 44px; }
 @media (max-width: 420px) { .lk8p .prank-shout { font-size: 1.45em; } .lk8p .prank-shout.huge { font-size: 1.9em; } .lk8p-code { font-size: 2.4em; letter-spacing: 6px; } }
 @media (prefers-reduced-motion: reduce) { .lk8p-siren { animation: none; } }
+/* ================= phone-friendly pass (mobile) ================= */
+/* everywhere (no visible change on desktop) */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* no double-tap zoom when a kid taps fast on buttons / days / tiles */
+button, a, label, summary, select, [role=button], [role=tab], .day, .tile, .chip, .btn { touch-action: manipulation; }
+/* iOS: 100vh is taller than the visible area (URL bar) -> use the dynamic viewport where supported */
+@supports (height: 100dvh) {
+  dialog:not([id=lock]) { max-height: calc(100dvh - 32px); }
+  .sheet { max-height: calc(100dvh - 40px); }
+}
+input, select, textarea { max-width: 100%; }
+input[type=file] { min-width: 0; width: 100%; }
+
+@media (max-width: 640px) {
+  body { padding: 10px 10px 120px; } /* room so the pet corner never hides the last row */
+  #toast { max-width: calc(100vw - 20px); }
+  #pet .say { width: max-content; max-width: min(260px, calc(100vw - 40px)); white-space: normal; }
+  /* sheets use (almost) the whole phone width */
+  dialog:not([id=lock]) { max-width: calc(100vw - 12px); }
+  dialog { width: min(600px, calc(100vw - 12px)); border-radius: 18px; }
+  .sheet { padding: 14px 12px; gap: 12px; grid-template-columns: minmax(0, 1fr); overscroll-behavior: contain; }
+  .sheet-head h3 { font-size: 1.7em; overflow-wrap: anywhere; }
+  .sheet-head .x { min-width: 40px; min-height: 40px; flex: none; }
+  .sheet .box { min-width: 0; }
+  /* iOS zooms into inputs with text smaller than 16px and the page then has to be dragged around */
+  input:not([type=range]):not([type=checkbox]):not([type=radio]):not([type=color]):not([type=file]), textarea, select { font-size: max(16px, 1em); }
+  /* bigger taps */
+  .fav-b { min-width: 30px; min-height: 30px; }
+  .sw2 { min-width: 30px; min-height: 30px; }
+  input[type=checkbox], input[type=radio] { width: 22px; height: 22px; }
+  input[type=range] { min-height: 28px; }
+  .cake-ctl .sw3 { width: 30px; height: 30px; }
+  /* targeted: rows of pets that were wider than a small phone */
+  .pfn-menuprev > span { width: min(86px, 22vw); }
+}
+@media (max-width: 380px) {
+  body { padding: 6px 6px 120px; }
+  dialog:not([id=lock]) { max-width: calc(100vw - 8px); }
+  dialog { width: calc(100vw - 8px); }
+  .sheet { padding: 12px 8px; }
+}
 </style>
 </head>
 <body class="bg-dots">
