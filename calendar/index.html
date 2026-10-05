@@ -7163,6 +7163,31 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
 .prank-face.wig { animation: prankShake .3s 2; }
 @keyframes prankShake { 0%, 100% { transform: translate(0, 0) rotate(0); } 25% { transform: translate(-3px, 1px) rotate(-2deg); } 75% { transform: translate(3px, -1px) rotate(2deg); } }
 @media (prefers-reduced-motion: reduce) { .prank-shout, .prank-face.wig { animation: none; } }
+/* ---------- lock8c: faint "עוד", prank conversation, intruder alarm ---------- */
+#lock .lock-link.lk8p-more { font-size: .78em; opacity: .35; text-decoration: none; padding: 6px 10px; min-height: 0; margin-top: 18px; outline: none; box-shadow: none; border: 0; background: none; }
+#lock .lock-link.lk8p-more:focus, #lock .lock-link.lk8p-more:focus-visible { outline: none; }
+.lk8p { width: min(360px, 100%); gap: 16px; }
+.lk8p.lk8p-in { animation: lk8in .3s; }
+.lk8p .prank-shout { overflow-wrap: anywhere; }
+.lk8p .prank-shout.huge { font-size: 2.4em; }
+.lk8p .prank-shout.calm { animation: none; color: inherit; text-shadow: none; }
+.lk8p-dots { font-size: 2.4em; font-weight: 900; min-height: 1.2em; letter-spacing: 4px; }
+.lk8p-btn { font-size: 1.15em; padding: 10px 22px; min-height: 48px; touch-action: manipulation; }
+.lk8p-btn.big { font-size: 1.4em; padding: 14px 26px; }
+.lk8p-back { background: none; border: 0; color: inherit; font: inherit; font-size: .9em; opacity: .7; padding: 8px 12px; min-height: 40px; }
+.lk8p-in-box { font-size: 1.15em; }
+.lk8p-yay { font-size: 3.2em; line-height: 1; }
+.lk8p-code-t { font-size: 1.3em; font-weight: 700; }
+.lk8p-code { font-size: 3em; font-weight: 900; letter-spacing: 10px; padding: 6px 20px; border-radius: 18px; background: #fff; color: #3a2b3c; border: 3px dashed #2ecc71; }
+.lk8-alert.lk8p-alarm { border-color: #e5304a; max-height: calc(100dvh - 28px); overflow-y: auto; }
+.lk8p-siren { margin: -14px -16px 4px; padding: 10px; border-radius: 17px 17px 0 0; text-align: center; font-weight: 900; font-size: 1.25em; color: #fff; background: #e5304a; animation: lk8pflash .6s steps(1) infinite; }
+@keyframes lk8pflash { 50% { background: #ff8a3d; } }
+.lk8p-who { display: grid; gap: 4px; }
+.lk8p-who q { display: block; padding: 8px 10px; border-radius: 12px; background: #fff3f5; font-weight: 700; overflow-wrap: anywhere; }
+.lk8p-ask { display: grid; gap: 6px; justify-items: center; margin-top: 6px; }
+.lk8p-ask .btn { min-width: 84px; min-height: 44px; }
+@media (max-width: 420px) { .lk8p .prank-shout { font-size: 1.45em; } .lk8p .prank-shout.huge { font-size: 1.9em; } .lk8p-code { font-size: 2.4em; letter-spacing: 6px; } }
+@media (prefers-reduced-motion: reduce) { .lk8p-siren { animation: none; } }
 </style>
 </head>
 <body class="bg-dots">
@@ -11513,6 +11538,7 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
   const sameAnswer = (a, b) => ansVariants(a).some(v => ansFold(v) === ansFold(b)) || ansVariants(b).some(v => ansFold(v) === ansFold(a));
   // the "עוד" button on the lock: a cheeky prank for anyone trying to break in. Her secret way back to the secret question: tap the 😜 five times.
   function lockPrank(lock, back, forgot) {
+    if (typeof lk8pPrank === 'function') return lk8pPrank(lock, back, forgot);
     let taps = 0;
     const face = el('button', { type: 'button', class: 'prank-face', 'aria-label': 'פרצוף', onclick: () => { taps++; face.classList.remove('wig'); void face.offsetWidth; face.classList.add('wig'); if (taps >= 5 && forgot) forgot(); } }, '😜');
     const box = el('div', { class: 'lock-box prank', role: 'alert' });
@@ -11581,7 +11607,7 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
     };
     const draw = err => {
       const s = steps[stepAt];
-      lk8bRedraw = () => { stepAt = 0; code = ''; if (lock.open) draw(); }; lock.replaceChildren(lk8bBlocked() ? (() => { const b = lk8bSorry(lk8bRedraw, cancelLink); try { (b.querySelector('.lk8b-card, .lock-box') || b).append(el('button', { type: 'button', class: 'lock-link', style: 'margin-top:14px', onclick: () => lockPrank(lock, () => draw(), forgot) }, 'עוד')); } catch {} return b; })() : s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
+      lk8bRedraw = () => { stepAt = 0; code = ''; if (lock.open) draw(); }; lk8pEnter = () => { unlocked = true; lock.close(); SFX.yay(); onOk && onOk(); }; lock.replaceChildren(lk8bBlocked() ? (() => { const b = lk8bSorry(lk8bRedraw, cancelLink); try { (b.querySelector('.lk8b-card, .lock-box') || b).append(el('button', { type: 'button', class: 'lock-link', style: 'margin-top:14px', onclick: () => lockPrank(lock, () => draw(), forgot) }, 'עוד')); } catch {} return b; })() : s === 'key' ? drawKey() : s === 'q' ? drawQ() : lk8Is(s) ? lk8Draw(s, { next, again: () => { stepAt = 0; code = ''; if (lock.open) draw(); }, redraw: () => { if (lock.open) draw(); }, cancel: cancelLink, forgot, news, first: stepAt === 0 }) : drawCode(err));
     };
     const key = k => {
       if (k === '⌫') code = code.slice(0, -1);
@@ -45907,7 +45933,7 @@ ${label(900, 520, '🌊 ים האיים')}
     store.set('lk8tries', 0);
     const seen = store.get('lk8seen', 0) || 0, news = (store.get('lk8log', []) || []).filter(x => x.t > seen);
     store.set('lk8seen', Date.now());
-    if (!news.length) return;
+    return lk8pAlarm(news);
     document.querySelector('.lk8-alert')?.remove();
     const card = el('div', { class: 'lk8-alert', role: 'alert' },
       el('b', {}, '🚨 מישהו ניסה להיכנס!'),
@@ -46134,6 +46160,89 @@ ${label(900, 520, '🌊 ים האיים')}
     const iv = setInterval(() => { if (!box.isConnected) return clearInterval(iv); if (tick() <= 0) { clearInterval(iv); again(); } }, 1000);
     return box;
   }
+  // ================= lock8c: the "עוד" prank conversation + intruder alarm =================
+  // store 'lk8intr' = [{t, color, why, seen, granted}], 'lk8grant' = true when she agreed to let the next one in (one-time)
+  var lk8pEnter = null;
+  const lk8pLog = () => store.get('lk8intr', []) || [];
+  const lk8pSave = a => store.set('lk8intr', a.slice(-30));
+  function lk8pPrank(lock, back, forgot) {
+    let taps = 0, rec = null;
+    const box = el('div', { class: 'lock-box prank lk8p' });
+    const backBtn = () => el('button', { type: 'button', class: 'lk8p-back', onclick: back }, '⬅️ חזרה');
+    const shout = (t, cls = '') => el('div', { class: 'prank-shout ' + cls }, t);
+    const beep = () => { try { tone(520, .12); tone(300, .25, 'sawtooth', .12); } catch {} };
+    const show = (...kids) => { box.replaceChildren(...kids.filter(Boolean)); box.classList.remove('lk8p-in'); void box.offsetWidth; box.classList.add('lk8p-in'); };
+    const upd = patch => { if (!rec) return; const a = lk8pLog(), i = a.findIndex(x => x.t === rec.t); Object.assign(rec, patch); if (i >= 0) a[i] = rec; else a.push(rec); lk8pSave(a); };
+    const input = (ph, go) => { const i = el('input', { type: 'text', class: 'lk8-in lk8p-in-box', maxLength: 120, autocomplete: 'off', placeholder: ph, 'aria-label': ph });
+      i.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); go(i); } }); return i; };
+    const dots = (txt, ms, then) => { const d = el('span', { class: 'lk8p-dots' }, ''); let k = 0; const iv = setInterval(() => { d.textContent = '.'.repeat(++k % 4); }, 300);
+      show(shout(txt, 'calm'), d); setTimeout(() => { clearInterval(iv); if (box.isConnected) then(); }, ms); };
+    // a) why did you break in
+    const a = () => { show(shout('למה פרצת לי לאתר!!?!?!?!?', 'big'), el('p', { class: 'prank-say' }, 'אתה לא יודע את השאלות, נכון?!!? בוא אני אגלה לך...'),
+      el('button', { type: 'button', class: 'btn main lk8p-btn', onclick: () => { try { SFX.boop(); } catch {} b(); } }, 'תגלי 🤫'), backBtn()); beep(); };
+    // b) favorite color
+    const b = () => { const go = i => { const v = i.value.trim(); if (!v) { i.focus(); return; } rec = { t: Date.now(), color: v.slice(0, 40), why: '', seen: false }; upd({}); c(); };
+      const i = input('הצבע האהוב עליך', go);
+      show(shout('מה הצבע האהוב עליך?'), i, el('button', { type: 'button', class: 'btn main lk8p-btn', onclick: () => go(i) }, 'הבא ➜'), backBtn()); setTimeout(() => i.focus(), 50); };
+    // c) reveal the code! (or, if she agreed, really reveal it)
+    const c = () => show(el('button', { type: 'button', class: 'btn main lk8p-btn big', onclick: () => store.get('lk8grant', false) && pin && pin.code ? granted() : d() }, 'נו, תגלי את הקוד!'), backBtn());
+    const granted = () => {
+      store.set('lk8grant', false); upd({ granted: true, seen: true });
+      try { SFX.yay(); } catch {}
+      show(el('div', { class: 'lk8p-yay' }, '🎉'), el('div', { class: 'lk8p-code-t' }, 'הקוד הוא:'), el('div', { class: 'lk8p-code', dir: 'ltr' }, pin.code),
+        el('p', { class: 'prank-say' }, 'בעלת האתר הסכימה להכניס אותך! 🎉'),
+        el('button', { type: 'button', class: 'btn main lk8p-btn big', onclick: () => { if (lk8pEnter) lk8pEnter(); else back(); } }, 'להיכנס'));
+    };
+    // d) "the code is..." -> no way + why should I tell you?
+    const d = () => dots('הקוד הוא:', 1300, () => {
+      const go = i => { const v = i.value.trim(); if (!v) { i.focus(); return; } upd({ why: v.slice(0, 120) }); e(); };
+      const i = input('למה כדאי שאספר לך?', go);
+      show(shout('אתה חושב שאני אספר לך!?!?!? אתה פורץ לי לאתר!!!! למה שאספר לך?!?!?!'), el('label', { class: 'prank-say' }, 'למה כדאי שאספר לך?'), i,
+        el('button', { type: 'button', class: 'btn main lk8p-btn', onclick: () => go(i) }, 'לשלוח 📨'), backBtn()); beep(); setTimeout(() => i.focus(), 50);
+    });
+    // e) thinking... NO! (5 taps on 😜 = her hidden way to the secret question)
+    const e = () => dots('חכה... אני שוקלת....🤔', 2500, () => {
+      const face = el('button', { type: 'button', class: 'prank-face', 'aria-label': 'פרצוף', onclick: () => { taps++; face.classList.remove('wig'); void face.offsetWidth; face.classList.add('wig'); if (taps >= 5 && forgot) forgot(); } }, '😜');
+      show(shout('בשום פנים ואופן לאאאאא!!!!!!!!', 'huge'), face, backBtn()); beep();
+    });
+    a(); lock.replaceChildren(box);
+  }
+  // alarm after SHE unlocks: intruders (with "let him in?") + failed tries, in one card
+  function lk8pAlarm(news) {
+    const intr = lk8pLog().filter(x => !x.seen && !x.granted);
+    if (!news.length && !intr.length) return;
+    if (intr.length) { const a = lk8pLog(); a.forEach(x => { if (!x.granted) x.seen = true; }); lk8pSave(a); }
+    document.querySelector('.lk8-alert')?.remove();
+    const last = intr[intr.length - 1];
+    const ask = el('div', { class: 'lk8p-ask' });
+    if (last) ask.replaceChildren(el('b', {}, 'להכניס אותו?'), el('div', { class: 'chips' },
+      el('button', { type: 'button', class: 'btn main', onclick: () => { store.set('lk8grant', true); try { SFX.ding(); } catch {} ask.replaceChildren(el('small', {}, '✔️ בפעם הבאה שהוא ילחץ "נו, תגלי את הקוד!" הוא יקבל את הקוד וייכנס (רק פעם אחת).')); } }, 'כן'),
+      el('button', { type: 'button', class: 'btn', onclick: () => { store.set('lk8grant', false); card.remove(); } }, 'לא')));
+    const card = el('div', { class: 'lk8-alert' + (intr.length ? ' lk8p-alarm' : ''), role: 'alert' },
+      intr.length ? el('div', { class: 'lk8p-siren' }, '🚨 מישהו ניסה לפרוץ! 🚨') : null,
+      last ? el('div', { class: 'lk8p-who' },
+        el('div', {}, '🕒 ', lk8When(last.t)),
+        el('div', {}, '🎨 הצבע האהוב שלו: ', el('b', {}, last.color || '—')),
+        el('div', {}, 'למה הוא חושב שכדאי להכניס אותו:'), el('q', {}, last.why || '(לא כתב כלום)'),
+        intr.length > 1 ? el('small', {}, `(ועוד ${intr.length - 1} ניסיונות פריצה לפני זה)`) : null, ask) : null,
+      news.length ? el('b', {}, '🚨 מישהו ניסה להיכנס!') : null,
+      news.length ? el('ul', {}, ...news.slice(-5).reverse().map(x => el('li', {}, `${lk8When(x.t)} · ${lk8StepLabel(x.s)}`))) : null,
+      news.length > 5 ? el('small', {}, `ועוד ${news.length - 5} ניסיונות...`) : null,
+      news.length ? el('small', {}, 'אולי זו היית את? 😉 את כל הרשימה רואים ב"המנעול שלי".') : null,
+      el('button', { type: 'button', class: last ? 'lk8-mini' : 'btn main', onclick: () => card.remove() }, 'סגירה'));
+    document.body.append(card);
+    if (intr.length) { try { for (let k = 0; k < 4; k++) { tone(660, .28, 'square', k * .6, .06); tone(880, .28, 'square', k * .6 + .3, .06); } } catch {} }
+    else setTimeout(() => card.remove(), 25000);
+  }
+  // "עוד" on every lock screen: small, faint, plain text, always at the bottom, never focused first
+  if ($('#lock')) new MutationObserver(() => {
+    for (const b of $('#lock').querySelectorAll('button.lock-link:not(.lk8p-more)')) {
+      if (b.textContent.trim() !== 'עוד') continue;
+      b.classList.add('lk8p-more'); b.removeAttribute('style'); b.tabIndex = -1;
+      const box = b.closest('.lock-box') || b.parentElement; if (box && box.lastElementChild !== b) box.append(b);
+      if (document.activeElement === b) b.blur();
+    }
+  }).observe($('#lock'), { childList: true, subtree: true });
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
