@@ -7188,6 +7188,8 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
 .lk8p-ask .btn { min-width: 84px; min-height: 44px; }
 @media (max-width: 420px) { .lk8p .prank-shout { font-size: 1.45em; } .lk8p .prank-shout.huge { font-size: 1.9em; } .lk8p-code { font-size: 2.4em; letter-spacing: 6px; } }
 @media (prefers-reduced-motion: reduce) { .lk8p-siren { animation: none; } }
+.vis-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.vis-list li { padding: 10px 12px; border-radius: 14px; background: var(--card, #fff); border: 2px solid var(--line, #eee); }
 </style>
 </head>
 <body class="bg-dots">
@@ -11726,8 +11728,8 @@ dialog#lock[open] { height: 100dvh; place-items: safe center; overflow-y: auto; 
   }
 
   // ================= new version: welcome screen in the lock-screen design =================
-  const APP_VERSION = '2026.10.04-everything';
-  const WHATS_NEW = ['🩺 מרפאה: פצעים, ⭐ מועדפות, 🚑 אמבולנס, 🦴 רנטגן ו-🍼 פגייה', '🧖 ספא, 🙈 מחבואים, ⚽ ספורט, ⭐ משימות, 🎁 קופסת הפתעה ו-🦕 מכונת זמן', '🏫 בית ספר ובית לבנות, ⏰ שעון מעורר, 📖 סיפור לפני השינה ו-3 משחקים חדשים'];
+  const APP_VERSION = '2026.10.05-lock-prank';
+  const WHATS_NEW = ['😈 מנעול חדש: מי שפורץ מקבל שיחה מצחיקה, ואת מקבלת אזעקה ומחליטה אם להכניס אותו', '❌ אחרי 2 טעויות: איקס ודקה המתנה. כפתור "עוד" קטן במקום "שכחתי"', '👀 "מי נכנס ללוח שלי": רואים כשמישהו מהמשפחה פותח את הלוח'];
   const lastVersion = store.get('appVersion', null);
   const upgraded = lastVersion !== APP_VERSION && (lastVersion !== null || store.get('design', null) !== null);
   store.set('appVersion', APP_VERSION);
@@ -46243,6 +46245,46 @@ ${label(900, 520, '🌊 ים האיים')}
       if (document.activeElement === b) b.blur();
     }
   }).observe($('#lock'), { childList: true, subtree: true });
+  // ================= 👀 who opened my board? (shared db: each signed-in visitor writes visits/<their id>; only the owner reads them) =================
+  const vis = { list: [], names: {}, ready: false };
+  const visWhen = t => { try { return new Date(t).toLocaleString('he-IL', { weekday: 'short', day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
+  function openVisits() {
+    let dlg = $('#visDlg');
+    if (!dlg) { dlg = el('dialog', { id: 'visDlg', class: 'sheet-dlg' }); document.body.append(dlg); dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); }); }
+    const rows = vis.list.slice().sort((a, b) => (b.last || 0) - (a.last || 0));
+    dlg.replaceChildren(el('div', { class: 'sheet vis-sheet' },
+      el('div', { class: 'dlg-head' }, el('h2', {}, '👀 מי נכנס ללוח שלי'), el('button', { type: 'button', class: 'x', 'aria-label': 'סגירה', onclick: () => dlg.close() }, '✕')),
+      !vis.ready ? el('p', { class: 'muted' }, 'כדי לראות מי נכנס, צריך לפתוח את הלוח דרך הקישור של Claude (ולשתף אותו עם המשפחה עם הרשאת "יכול/ה להשתמש").')
+        : rows.length ? el('ul', { class: 'vis-list' }, ...rows.map(r => el('li', {}, el('b', {}, vis.names[r.id] || 'מישהו מהמשפחה'), el('span', {}, ` · נכנס/ה ${r.n || 1} ${(r.n || 1) === 1 ? 'פעם' : 'פעמים'}`), el('small', {}, ` · בפעם האחרונה: ${visWhen(r.last)}`))))
+        : el('p', {}, 'עוד אף אחד לא נכנס ללוח שלך 🙂')));
+    store.set('visSeen', Date.now()); dlg.showModal();
+  }
+  if (!MORE.some(m => m[1] === 'מי נכנס ללוח שלי')) MORE.push(['star', 'מי נכנס ללוח שלי', () => openVisits()]);
+  (async () => {
+    try {
+      const C = window.claude; if (!C || !C.use) return;
+      const [db, user] = await Promise.all([C.use('db'), C.use('user')]);
+      if (!db || !user) return;
+      const owner = await user.isOwner(), id = await user.id();
+      if (!owner) {
+        if (!id) return;
+        const ref = db.doc('visits/' + id), now = Date.now();
+        let n = 1; try { const snap = await ref.get(); if (snap.exists) n = ((snap.data() || {}).n || 0) + 1; } catch {}
+        try { if (n === 1) await ref.set({ first: now, last: now, n }); else await ref.update({ last: now, n }); } catch {}
+        return;
+      }
+      vis.ready = true;
+      db.collection('visits').onSnapshot(async qs => {
+        vis.list = qs.docs.map(d => Object.assign({ id: d.id }, d.data() || {}));
+        try { const ps = await user.profiles(vis.list.map(r => r.id)); vis.list.forEach(r => { vis.names[r.id] = (ps && ps[r.id] && ps[r.id].name) || ''; }); } catch {}
+        const seen = store.get('visSeen', 0), fresh = vis.list.filter(r => (r.last || 0) > seen);
+        if (fresh.length && !$('#visDlg[open]')) {
+          const who = fresh.map(r => vis.names[r.id] || 'מישהו מהמשפחה').join(', ');
+          toast(stickerHTML('star'), `👀 ${who} נכנס/ה ללוח שלך! (לראות: "עוד" ⬅️ "מי נכנס ללוח שלי")`);
+        }
+      });
+    } catch {}
+  })();
   // ================= sticker album =================
   function openAlbum() {
     const un = unlockedSet();
