@@ -52915,7 +52915,7 @@ ${label(900, 520, '🌊 ים האיים')}
       if (ghost > 0 && !scary) { ctx.translate(W / 2, H / 2); ctx.rotate(Math.sin(t * 6) * .014 * ghost); ctx.translate(-W / 2, -H / 2); }
       const nt = drawBg();
       if (caveIn > 0) { ctx.globalAlpha = caveIn; const cb = A4.bd_cave; if (cb) { const bw = Math.max(W, (HZ + H * .05) * cb.width / cb.height), bh2 = bw * cb.height / cb.width; ctx.drawImage(cb, (W - bw) / 2, HZ + H * .05 - bh2, bw, bh2); if (HZ + H * .05 - bh2 > 0) { ctx.drawImage(cb, 0, 0, cb.width, cb.height * .25, 0, 0, W, HZ + H * .05 - bh2 + 2); } } else ctx.drawImage(caveSky, 0, 0, W, HZ + H * .05); ctx.globalAlpha = 1; }
-      glows.length = 0; drawRoad(); drawGaps(); drawBerms();
+      glows.length = 0; drawRoad(); drawGaps(); // no berms between lanes (she asked to remove them)
       for (const b of items) if (b.k === 'box') b._k = Math.max(.5, b.z - (b.ramp || 0));
       const keyOn = (z, b) => b._k - .01 + Math.min(.009, Math.max(0, z - b.z) * 1e-4);
       for (const o of decor) o._k = o.z; for (const o of items) if (o.k !== 'box') o._k = o.box ? keyOn(o.z, o.box) : o.z;
