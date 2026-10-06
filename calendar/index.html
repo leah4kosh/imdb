@@ -53133,10 +53133,10 @@ ${label(900, 520, '🌊 ים האיים')}
     };
     try { if ($('#dsrDlg') && $('#dsrDlg').open && !$('#dsrSetup').hidden) dsrSetup(); } catch {} }
   // ================= 🏅 her rank ladder (14 ranks; the last one is the top and stays) =================
-  const DSR_RANKS = [[0, '🐣', 'מתחילה'], [60, '📘', 'לומדת'], [150, '🌱', 'מתקדמת'], [280, '🐎', 'רוכבת'], [450, '🥇', 'אולימפית'], [650, '👍', 'טובה'], [900, '🌟', 'טובה מאוד'], [1200, '🤪', 'מטורפת'],
-    [1550, '💯', 'מצוינת'], [1950, '✨', 'מצוצינת'], [2400, '💖', 'ממש ממש טובה'], [2900, '🏅', 'רוכבת מצליחה'], [3500, '🌍', 'הרוכבת הטובה בעולם'], [4300, '👑', 'רוכבת מספר אחת']];
+  const DSR_RANKS = [[0, '🐣', 'מתחילה'], [200, '📘', 'לומדת'], [450, '🌱', 'מתקדמת'], [750, '🐎', 'רוכבת'], [1100, '🥇', 'אולימפית'], [1500, '👍', 'טובה'], [2000, '🌟', 'טובה מאוד'], [2600, '🤪', 'מטורפת'],
+    [3300, '💯', 'מצוינת'], [4100, '✨', 'מצוצינת'], [5000, '💖', 'ממש ממש טובה'], [6000, '🏅', 'רוכבת מצליחה'], [7200, '🌍', 'הרוכבת הטובה בעולם'], [8500, '👑', 'רוכבת מספר אחת']];
   dsr4Rank = function () {
-    const sc = (dsrS.best3 || 0) + (dsrS.runs || 0) * 15; let i = 0; DSR_RANKS.forEach((r, k) => { if (sc >= r[0]) i = k; });
+    const sc = dsrS.best3 || 0; // rank = her best distance only (it was climbing too fast) let i = 0; DSR_RANKS.forEach((r, k) => { if (sc >= r[0]) i = k; });
     if (dsrS.rankTop) i = DSR_RANKS.length - 1; if (i === DSR_RANKS.length - 1 && !dsrS.rankTop) { dsrS.rankTop = 1; dsrSave(); }
     return [DSR_RANKS[i][1], DSR_RANKS[i][2], i === DSR_RANKS.length - 1];
   };
