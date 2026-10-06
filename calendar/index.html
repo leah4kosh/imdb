@@ -53136,7 +53136,7 @@ ${label(900, 520, '🌊 ים האיים')}
   const DSR_RANKS = [[0, '🐣', 'מתחילה'], [200, '📘', 'לומדת'], [450, '🌱', 'מתקדמת'], [750, '🐎', 'רוכבת'], [1100, '🥇', 'אולימפית'], [1500, '👍', 'טובה'], [2000, '🌟', 'טובה מאוד'], [2600, '🤪', 'מטורפת'],
     [3300, '💯', 'מצוינת'], [4100, '✨', 'מצוצינת'], [5000, '💖', 'ממש ממש טובה'], [6000, '🏅', 'רוכבת מצליחה'], [7200, '🌍', 'הרוכבת הטובה בעולם'], [8500, '👑', 'רוכבת מספר אחת']];
   dsr4Rank = function () {
-    const sc = dsrS.best3 || 0; // rank = her best distance only (it was climbing too fast) let i = 0; DSR_RANKS.forEach((r, k) => { if (sc >= r[0]) i = k; });
+    const sc = dsrS.best3 || 0; /* rank = her best distance only */ let i = 0; DSR_RANKS.forEach((r, k) => { if (sc >= r[0]) i = k; });
     if (dsrS.rankTop) i = DSR_RANKS.length - 1; if (i === DSR_RANKS.length - 1 && !dsrS.rankTop) { dsrS.rankTop = 1; dsrSave(); }
     return [DSR_RANKS[i][1], DSR_RANKS[i][2], i === DSR_RANKS.length - 1];
   };
