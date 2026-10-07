@@ -2796,7 +2796,7 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
     const totals = () => [store.get('dsrDiamonds', 0), store.get('dsrCrystals', 0)];
     const chestAt = (z, lane) => items.push({ k: 'chest', z, lane });
     // ================= round E: scorpion, ramp+pit, secret tunnel, horseshoe, oasis, train-roof run, timed gates, flying carpet =================
-    let cAlt = 1.7, rugIt = null, rugForce = 0, boost = 0, carpet = 0, cH = 0, iris = 0, oasisAt = rnd(1000, 1450), melT = 0, melN = 0;
+    let cAlt = 1.7, rugIt = null, rugForce = 1 /* carpet always at the first cave of a run */, boost = 0, carpet = 0, cH = 0, iris = 0, oasisAt = rnd(1000, 1450), melT = 0, melN = 0;
     const nx = { scorp: rnd(220, 380), ramp: rnd(160, 300), secret: rnd(420, 650), shoe: rnd(450, 750), carpet: rnd(800, 1200), roof: 0 };
     const due = (k, gap) => { if (dist < nx[k]) return false; nx[k] = dist + rnd(...gap); return true; };
     // insert a stretch (oasis / secret tunnel) into the zone list, pushing everything after it further away
