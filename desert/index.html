@@ -232,6 +232,20 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
 .dsr11-row b { display: block; font: 800 17px/1.25 system-ui, sans-serif; color: #5a3a08; }
 .dsr11-row div > span { display: block; font: 500 15px/1.35 system-ui, sans-serif; color: #2e2a28; }
 @media (max-height: 460px) { .dsr11-h { margin-bottom: 6px; font-size: 21px; padding: 2px 20px 4px; } .dsr11-x { width: 42px; height: 42px; font-size: 21px; } .dsr11-ic { width: 42px; height: 42px; font-size: 26px; } .dsr11-row { padding: 5px 8px; } }
+/* round I: her own instructions text */
+.dsr11-card .dsr11-h { max-width: calc(100% - 60px); font-size: clamp(18px, 4.2vw, 26px); line-height: 1.3; }
+.dsr12-list { display: block; padding: 4px 6px 8px; background: linear-gradient(#fbfcfd, #eef1f4); border-radius: 14px; border: 2px solid #b39040; box-shadow: inset 0 1px 0 #fff; }
+.dsr12-sec { padding: 10px 6px 12px; border-bottom: 1.5px dashed rgb(179 144 64 / .55); }
+.dsr12-sec:last-child { border-bottom: 0; }
+.dsr12-hd { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font: 900 21px/1.25 system-ui, sans-serif; color: #4a2e06; }
+.dsr12-hd > span:last-child { border-bottom: 3px solid #d4a62a; padding-bottom: 1px; }
+.dsr12-ic { flex: none; width: 40px; height: 40px; display: grid; place-items: center; font-size: 24px; line-height: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffffff, #cfd5db 60%, #959ea7); border: 2px solid #c9a040; }
+.dsr12-p { margin: 0; font: 500 18px/1.6 system-ui, sans-serif; color: #2a2522; }
+@media (max-width: 480px) { .dsr12-hd { font-size: 19px; } .dsr12-p { font-size: 16.5px; } }
+/* round I: the mud warning - a small pulsing brown square with her mud splat, no text */
+.dsr-warn.dsr12-mudw { top: 13%; background: #7a4a26; border: 3px solid #fff; border-radius: 12px; padding: 5px; box-shadow: 0 2px 8px rgb(0 0 0 / .35); animation: dsr12Mud .5s ease-in-out infinite alternate; }
+.dsr12-mudw canvas, .dsr12-mudw .dsr-wi { display: block; width: 38px; height: 38px; font-size: 30px; text-align: center; }
+@keyframes dsr12Mud { to { transform: translate(-50%, 0) scale(1.1); } }
 
 </style>
 </head>
@@ -2988,9 +3002,9 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
       for (let i = 0; i < 12; i++) parts.push({ k: 'star', x: cx + (laneX - camX) * LS, y: (FOOT + camH * PH) - PH * .5, vx: rnd(-200, 200), vy: rnd(-260, 0), r: rnd(4, 8), life: .7, max: .7, c: R(['#ffd84d', '#fff', '#ff9ad5']) });
     };
     const startTrick = k => {
-      trick = { k, t0: t, warn: 1.3, dur: k === 'mud' ? 3.1 : k === 'ghost' && scary ? 2 : 4.5 };
-      warn.replaceChildren(el('span', { class: 'dsr-wi' }, { mud: '🟫', ghost: '👻', speed: '⚡' }[k]));
-      warn.className = 'dsr-warn on'; tone(880, .1, 'square', 0, .05); tone(880, .1, 'square', .2, .05); tone(660, .16, 'square', .4, .05);
+      trick = { k, t0: t, warn: 1.3, dur: k === 'mud' ? 2.6 : k === 'ghost' && scary ? 2 : 4.5 };
+      warn.replaceChildren(k === 'mud' && A.mud1 ? (() => { const c = document.createElement('canvas'), im = A.mud1, sc = Math.min(64 / im.width, 64 / im.height); c.width = c.height = 64; c.getContext('2d').drawImage(im, (64 - im.width * sc) / 2, (64 - im.height * sc) / 2, im.width * sc, im.height * sc); return c; })() : el('span', { class: 'dsr-wi' }, { mud: '🤎', ghost: '👻', speed: '⚡' }[k]));
+      warn.className = 'dsr-warn on' + (k === 'mud' ? ' dsr12-mudw' : ''); if (k === 'mud') { tone(330, .12, 'triangle', 0, .04); tone(262, .14, 'triangle', .25, .04); } else { tone(880, .1, 'square', 0, .05); tone(880, .1, 'square', .2, .05); tone(660, .16, 'square', .4, .05); }
     };
     function togglePause() {
       if (state !== 'run' && !paused) return;
@@ -3335,9 +3349,9 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
       if (d < 12 && state === 'run') redA = Math.max(redA, (12 - d) / 12 * (.3 + .25 * Math.sin(t * 9)));
       redA = Math.round(clamp(redA, 0, 1) * 50) / 50; if (redA !== redD._a) { redD._a = redA; redD.style.opacity = redA; }
       if (trick && trick.k === 'mud' && trick.on && A4.mud) { const e = t - trick.t0 - trick.warn, im = A4.mud, sc0 = Math.max(W / im.width, H / im.height) * 1.04;
-        const k = e < .1 ? 1 + .05 * e / .1 : e < .24 ? 1.05 - .05 * (e - .1) / .14 : 1, dy = e > 2.45 ? Math.pow((e - 2.45) / .6, 2) * H * 1.15 : e * H * .006, w2 = im.width * sc0 * k, h2 = im.height * sc0 * k;
+        const k = e < .1 ? 1 + .05 * e / .1 : e < .24 ? 1.05 - .05 * (e - .1) / .14 : 1, dy = e > 2 ? Math.pow((e - 2) / .55, 2) * H * 1.2 : e * H * .006, w2 = im.width * sc0 * k, h2 = im.height * sc0 * k;
         ctx.globalAlpha = 1; ctx.drawImage(im, (W - w2) / 2, (H - h2) / 2 + dy, w2, h2); }
-      else if (trick && trick.k === 'mud' && trick.on) { const e = t - trick.t0 - trick.warn; for (const m of muds) { ctx.save(); ctx.translate(m.x, m.y + e * m.drip + (e > 2.2 ? (e - 2.2) * H : 0)); ctx.rotate(m.r); ctx.drawImage(m.img, -m.sz / 2, -m.sz / 2, m.sz, m.sz); ctx.restore(); } }
+      else if (trick && trick.k === 'mud' && trick.on) { const e = t - trick.t0 - trick.warn; for (const m of muds) { ctx.save(); ctx.translate(m.x, m.y + e * m.drip + (e > 2 ? Math.pow((e - 2) / .55, 2) * H * 1.2 : 0)); ctx.rotate(m.r); ctx.drawImage(m.img, -m.sz / 2, -m.sz / 2, m.sz, m.sz); ctx.restore(); } }
       ctx.globalAlpha = 1;
     };
     // ---- update ----
@@ -3642,6 +3656,22 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
       box('dsr9-gear', 0.5, 21.0, 30.5, 38.0, close));
     const wrap = el('div', { class: 'dsr9-wrap', onclick: e => { if (e.target === wrap) close(); } }, panel);
     sync(); host.append(wrap); requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('on'))); try { SFX.pop(); } catch {}
+  };
+  // ================= 📖 round I: her own instructions text (instructions_he.md, verbatim) in the steel-and-gold card =================
+  const DSR_HELP12 = {"title": "🐎 הוראות המשחק: בריחה במדבר", "secs": [["🎮", "- חצים -", ["כדי לזוז, תשתמשו בחצים: למעלה, למטה, שמאלה וימינה. ⬅️➡️ מעבירים שביל, ⬆️ קופץ, ו-⬇️ מתכופף. אם תלחצו על רווח, גם זה יקפיץ אתכם. 📱 בטלפון לוחצים על החצים שבתחתית המסך."]], ["🦹", "- הנבל -", ["הנבל רודף אחריכם כל הזמן, אבל רואים אותו רק כשהוא מאיץ ⚡, או אחרי שנתקעתם במשהו. כל פעם שאתם נתקעים במכשול, הוא מתקרב אליכם. אם הוא תופס אתכם, המשחק נגמר!"]], ["📦", "- תיבת אוצר -", ["כאשר תראו תיבת אוצר, קחו אותה! היא נותנת לכם 10 יהלומים, 10 מטבעות ו-10 קריסטלים. תיבות אוצר מופיעות לפעמים ליד מערות הקריסטלים או בתוכן. לפעמים הן מחכות במקום שקשה מאוד להגיע אליו, אז תצטרכו להיות זריזים! כדי לקחת אותה, רוכבים ישר לתוכה, לא קופצים מעליה."]], ["🧞", "- שטיח מעופף -", ["כאשר תראו שטיח מעופף מגולגל על הרצפה, קחו אותו! הוא יעיף אתכם מעל הכל, ובדרך תמשיכו לאסוף כסף, קריסטלים ויהלומים. הוא יישאר איתכם 100 מטר טובים, ואז ינחית אתכם בעדינות. שטיחים מעופפים מופיעים רק לפעמים, ורק במערות הקריסטלים."]], ["👻", "- רוח רפאים -", ["לפעמים רוח רפאים תגיע אליכם ותנסה להפחיד אתכם. את הרוח הנבל שולח עליכם! היא נשארת שתי שניות ונעלמת. בהגדרות של המשחק ⚙️ אפשר לבחור רוח מפחידה או רוח חמודה."]], ["🤎", "- בוץ -", ["לפעמים הנבל יזרוק עליכם בוץ. הבוץ יישאר על המסך 2 שניות, ואז יחליק למטה. לפני שהוא משפריץ על המסך, תופיע על הלוח הודעה בריבוע חום."]], ["🐫", "- עדרים -", ["לפעמים תראו חמש נקודות על הלוח, ותשמעו רעש של פרסות. זה אומר שמגיע עדר של חזירים, גמלים או פרות! כשאתם רואים את הנקודות, לחצו חמש פעמים על רווח, והסוס יקפוץ קפיצת ענק מעל כל העדר. זה מונע מהגמלים, הפרות והחזירים להרוג אתכם!"]], ["✨", "- פרסה זוהרת -", ["כאשר תראו פרסה זהובה וזוהרת, קחו אותה! הסוס ירוץ מהר מאוד וישבור את כל המכשולים בדרך."]], ["🦂", "- עקרב ענק -", ["העקרב חוסם שביל שלם, ואי אפשר לקפוץ מעליו. כשאתם רואים אותו, עברו מהר לשביל אחר!"]], ["🪵", "- רמפה -", ["כאשר תראו רמפה מעץ, עלו עליה, והיא תעיף אתכם מעל הבור."]], ["🌴", "- נווה מדבר -", ["אחרי הגשר מגיעים בדרך כלל לנווה מדבר. שם הסוס עוצר לשתות מים, ואתם יכולים לנוח כמה שאתם רוצים, כי הנבל לא יודע איפה אתם. כשתהיו מוכנים, לחצו על 🐎▶ כדי להמשיך."]], ["🏆", "- דרגות -", ["ככל שתרכבו רחוק יותר, תעלו בדרגה: מתחילה, לומדת, מתקדמת, רוכבת, אולימפית, טובה, טובה מאוד, מטורפת, מצוינת, מצוצינת, ממש ממש טובה, רוכבת מצליחה, הרוכבת הטובה בעולם, ו... 👑 רוכבת מספר אחת!"]]]}; // her own text (instructions_he.md), verbatim
+  dsr11Help = function (host) {
+    host.querySelectorAll('.dsr11-wrap').forEach(n => n.remove());
+    const close = () => { document.removeEventListener('keydown', kd, true); wrap.classList.remove('on'); setTimeout(() => wrap.remove(), 300); try { tone(660, .08, 'triangle', 0, .05); } catch {} };
+    const kd = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); close(); } else if (['ArrowUp', 'ArrowDown', ' '].includes(e.key)) { e.stopPropagation(); } };
+    const card = el('div', { class: 'dsr11-card', role: 'dialog', 'aria-label': 'הוראות' },
+      el('i', { class: 'dsr11-rv r1' }), el('i', { class: 'dsr11-rv r2' }), el('i', { class: 'dsr11-rv r3' }), el('i', { class: 'dsr11-rv r4' }),
+      el('button', { type: 'button', class: 'dsr11-x', 'aria-label': 'לסגור', onclick: e => { e.stopPropagation(); close(); } }, '✕'),
+      el('h2', { class: 'dsr11-h' }, DSR_HELP12.title),
+      el('div', { class: 'dsr11-list dsr12-list' }, ...DSR_HELP12.secs.map(([ic, t, ps]) => el('section', { class: 'dsr12-sec' }, el('h3', { class: 'dsr12-hd' }, el('span', { class: 'dsr12-ic', 'aria-hidden': 'true' }, ic), el('span', {}, t)), ...ps.map(p => el('p', { class: 'dsr12-p' }, p))))));
+    const wrap = el('div', { class: 'dsr11-wrap', onclick: e => { e.stopPropagation(); if (e.target === wrap) close(); } }, card);
+    ['pointerdown', 'touchstart', 'wheel'].forEach(ev => card.addEventListener(ev, e => e.stopPropagation(), { passive: true }));
+    document.addEventListener('keydown', kd, true);
+    host.append(wrap); requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('on'))); try { SFX.pop(); } catch {}
   };
 })();
 </script>

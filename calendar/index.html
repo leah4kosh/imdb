@@ -7441,6 +7441,20 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
 .dsr11-row b { display: block; font: 800 17px/1.25 system-ui, sans-serif; color: #5a3a08; }
 .dsr11-row div > span { display: block; font: 500 15px/1.35 system-ui, sans-serif; color: #2e2a28; }
 @media (max-height: 460px) { .dsr11-h { margin-bottom: 6px; font-size: 21px; padding: 2px 20px 4px; } .dsr11-x { width: 42px; height: 42px; font-size: 21px; } .dsr11-ic { width: 42px; height: 42px; font-size: 26px; } .dsr11-row { padding: 5px 8px; } }
+/* round I: her own instructions text */
+.dsr11-card .dsr11-h { max-width: calc(100% - 60px); font-size: clamp(18px, 4.2vw, 26px); line-height: 1.3; }
+.dsr12-list { display: block; padding: 4px 6px 8px; background: linear-gradient(#fbfcfd, #eef1f4); border-radius: 14px; border: 2px solid #b39040; box-shadow: inset 0 1px 0 #fff; }
+.dsr12-sec { padding: 10px 6px 12px; border-bottom: 1.5px dashed rgb(179 144 64 / .55); }
+.dsr12-sec:last-child { border-bottom: 0; }
+.dsr12-hd { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font: 900 21px/1.25 system-ui, sans-serif; color: #4a2e06; }
+.dsr12-hd > span:last-child { border-bottom: 3px solid #d4a62a; padding-bottom: 1px; }
+.dsr12-ic { flex: none; width: 40px; height: 40px; display: grid; place-items: center; font-size: 24px; line-height: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffffff, #cfd5db 60%, #959ea7); border: 2px solid #c9a040; }
+.dsr12-p { margin: 0; font: 500 18px/1.6 system-ui, sans-serif; color: #2a2522; }
+@media (max-width: 480px) { .dsr12-hd { font-size: 19px; } .dsr12-p { font-size: 16.5px; } }
+/* round I: the mud warning - a small pulsing brown square with her mud splat, no text */
+.dsr-warn.dsr12-mudw { top: 13%; background: #7a4a26; border: 3px solid #fff; border-radius: 12px; padding: 5px; box-shadow: 0 2px 8px rgb(0 0 0 / .35); animation: dsr12Mud .5s ease-in-out infinite alternate; }
+.dsr12-mudw canvas, .dsr12-mudw .dsr-wi { display: block; width: 38px; height: 38px; font-size: 30px; text-align: center; }
+@keyframes dsr12Mud { to { transform: translate(-50%, 0) scale(1.1); } }
 </style>
 </head>
 <body class="bg-dots">
@@ -8844,6 +8858,7 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
   </div>
   <div class="dsr-play" id="dsrPlay" hidden></div>
 </dialog>
+
 
 
 
@@ -55553,6 +55568,1094 @@ ${label(900, 520, '🌊 ים האיים')}
       box('dsr9-gear', 0.5, 21.0, 30.5, 38.0, close));
     const wrap = el('div', { class: 'dsr9-wrap', onclick: e => { if (e.target === wrap) close(); } }, panel);
     sync(); host.append(wrap); requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('on'))); try { SFX.pop(); } catch {}
+  };
+  // ================= 🐎 runner3g: round I — mud stays 2 s then slides, brown-square mud warning, her own instructions text (runner agent) =================
+  dsr4Start = async function () {
+    if (dsrRun) dsrRun.stop();
+    const dlg = $('#dsrDlg'), playBox = $('#dsrPlay');
+    $('#dsrSetup').hidden = true; playBox.hidden = false;
+    const cv = el('canvas', { class: 'dsr3-cv' }), ctx = cv.getContext('2d');
+    const hud = el('div', { class: 'dsr-hud dsr3-hud' }), warn = el('div', { class: 'dsr-warn' }), over = el('div', { class: 'dsr-over' });
+    const hC = el('b'), hM = el('b'), hB = el('b'), rk0 = dsr4Rank(), hR = el('span', { class: 'dsr-hp dsr4-rank' + (rk0[2] ? ' dsr10-top' : '') }, rk0[0] + ' ', el('small', {}, rk0[1])), zsp = el('div', { class: 'dsr4-zone' });
+    const pauseB = el('button', { type: 'button', class: 'dsr-hb', 'aria-label': 'הפסקה', onclick: e => { e.stopPropagation(); togglePause(); } }, '⏸️');
+    const hD = el('b'), hY = el('b'), hW = el('span', { class: 'dsr-hp dsr6-cur' }, '🪙', hC, ' 💎', hD, ' 🔮', hY);
+    hud.append(pauseB, el('span', { class: 'dsr-hp' }, '📏 ', hM), hW, el('span', { class: 'dsr-hp' }, '🏆 ', hB), hR);
+    const bt = (cls, txt, lbl) => el('button', { type: 'button', class: 'dsr3-b ' + cls, 'aria-label': lbl }, txt);
+    const bL = bt('dsr3-bl', '◀', 'שמאלה'), bR = bt('dsr3-br', '▶', 'ימינה'), bU = bt('dsr3-bu', '⬆', 'קפיצה'), bD = bt('dsr3-bd', '⬇', 'להתכופף');
+    const stage = el('div', { class: 'dsr-stage dsr3-stage' }, cv, hud, warn, zsp, over, el('div', { class: 'dsr3-pad' }, el('div', {}, bL, bD), el('div', {}, bU, bR)));
+    playBox.replaceChildren(stage);
+    over.replaceChildren(el('div', { class: 'dsr-card-msg' }, el('b', {}, '🐎')));
+    const { A, body: hBody, tail: hTail, bad: badF } = await dsr3Load(), A4 = await dsr6Load(A).then(R => dsr7Load(R)).then(R => dsr8Load(R)), Pz = await dsr4Load(A), HERD = await dsr4HerdLoad(), scary = dsrS.ghost !== 'cute' && Pz.ghost_scary;
+    if (!dlg.open || playBox.hidden || !playBox.contains(stage) || !hBody) return;
+    { const bake = v => { if (!(v instanceof HTMLImageElement) || !v.width) return v; try { const c = document.createElement('canvas'); c.width = v.width; c.height = v.height; c.getContext('2d').drawImage(v, 0, 0); return c; } catch { return v; } };
+      for (const O of [A, A4, Pz]) for (const k in O) { const v = O[k]; if (Array.isArray(v)) { for (let i = 0; i < v.length; i++) v[i] = bake(v[i]); } else O[k] = bake(v); } }
+    const MIP = new WeakMap(), mipOf = (img, dw) => { let L = MIP.get(img); if (!L) { L = [img]; let c = img; while (c.width > 40 && c.height > 8) { const n = document.createElement('canvas'); n.width = c.width >> 1; n.height = c.height >> 1; const x = n.getContext('2d'); x.imageSmoothingQuality = 'high'; x.drawImage(c, 0, 0, n.width, n.height); L.push(n); c = n; } MIP.set(img, L); }
+      let m = L[0]; for (let i = 1; i < L.length && L[i].width >= dw; i++) m = L[i]; return m; };
+    // one textured ground row; the source slab is padded by a texel above and below (and the row stretched to match) so the filtering
+    // runs on across row seams: no visible bands even with tall rows near her
+    const slab = (m, sx, sw, v0, vh, dx, dy, dw, dh) => { const mh = m.height; v0 = Math.min(mh - .5, Math.max(0, v0)); vh = Math.max(.5, Math.min(mh - v0, vh)); const k = dh / vh, pa = Math.min(1, v0), pb = Math.min(1, mh - v0 - vh);
+      ctx.drawImage(m, sx, v0 - pa, sw, vh + pa + pb, dx, dy - pa * k, dw, dh + (pa + pb) * k); };
+    const rowImg = (img, sy, sh, dx, dy, dw, dh) => { const m = mipOf(img, dw), f = m.width / img.width; slab(m, 0, sy * f, m.width, sh * f, dx, dy, dw, dh); };
+    // P6: thin rows only near the horizon, wider rows near her (each row samples its true slab of the texture, so no banding)
+    const rowStp = y => y < HZ + 18 ? 1 : y < HZ + 60 ? 2 : y < HZ + 150 ? 3 : y < HZ + 280 ? 4 : 6;
+    if (A4.t_rock) Pz.rib = dsr3Mk(800, 720, x => { const p = x.createPattern(A4.t_rock, 'repeat'); try { p.setTransform(new DOMMatrix().scale(1.4)); } catch {} x.fillStyle = p; x.fillRect(0, 0, 800, 720);
+      x.fillStyle = 'rgba(255,170,110,.12)'; x.fillRect(0, 0, 800, 720); x.globalCompositeOperation = 'destination-out'; x.fillStyle = '#000'; x.beginPath(); x.moveTo(175, 720); x.lineTo(175, 330); x.bezierCurveTo(175, 96, 625, 96, 625, 330); x.lineTo(625, 720); x.closePath(); x.fill(); x.globalCompositeOperation = 'source-over';
+      x.strokeStyle = 'rgba(90,40,20,.5)'; x.lineWidth = 10; x.beginPath(); x.moveTo(175, 720); x.lineTo(175, 330); x.bezierCurveTo(175, 96, 625, 96, 625, 330); x.lineTo(625, 720); x.stroke(); });
+    // ---- geometry: camera behind both riders; z = metres ahead of the camera; she gallops at z = ZP ----
+    const ZP = 8, ZF = 150;
+    const G = {}, LG = {}; let cliffC = null, W = 400, H = 700, dpr = 1, HZ = 220, FOOT = 500, PH = 190, LS = 100, cx = 200, vig = null, red = null, haze = null, night = null, voidC = null, caveSky = null;
+    const portrait = () => H > W;
+    const ovl = () => { const d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;pointer-events:none;'; return d; };
+    const vigD = ovl(), redD = ovl(); redD.style.opacity = 0; redD.style.willChange = 'opacity'; redD._a = 0; cv.after(vigD, redD);
+    let dprQ = 1, dprUp = 0, dprLock = false, RCAP = 1280; // P7: adaptive resolution: start at 1x (at most 1280x720 worth of pixels), go sharper only while it stays smooth, drop toward 960 wide when it doesn't
+    const resize = () => {
+      const r = stage.getBoundingClientRect(); if (!r.width || !r.height) return;
+      W = r.width; H = r.height; dpr = Math.min(dprQ, Math.max(1, window.devicePixelRatio || 1), Math.sqrt(RCAP * RCAP * .5625 / Math.max(1, W * H))); /* big desktop windows: the canvas holds at most ~RCAP x RCAP*9/16 pixels and CSS scales it up */
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px';
+      HZ = H * (portrait() ? .3 : .28); FOOT = H * (portrait() ? .7 : .75); PH = H * (portrait() ? .27 : .37); LS = Math.min(W * .25, PH * (portrait() ? 1.05 : 1.15)); cx = W / 2;
+      { const r1 = Math.min(W, H) * .42, r2 = Math.hypot(W, H) * .62, q1 = Math.min(W, H) * .32, q2 = Math.hypot(W, H) * .58;
+        vigD.style.background = `radial-gradient(circle at 50% 55%, rgba(60,25,30,0) ${r1}px, rgba(60,25,30,.34) ${r2}px)`; redD.style.background = `radial-gradient(circle at 50% 50%, rgba(230,20,40,0) ${q1}px, rgba(230,20,40,.85) ${q2}px)`; }
+      vig = 0 && dsr3Mk(W, H, x => { x.fillStyle = dsr3Rad(x, W / 2, H * .55, Math.min(W, H) * .42, Math.hypot(W, H) * .62, [[0, 'rgba(60,25,30,0)'], [1, 'rgba(60,25,30,.34)']]); x.fillRect(0, 0, W, H); });
+      red = 0 && dsr3Mk(W, H, x => { x.fillStyle = dsr3Rad(x, W / 2, H / 2, Math.min(W, H) * .32, Math.hypot(W, H) * .58, [[0, 'rgba(230,20,40,0)'], [1, 'rgba(230,20,40,.85)']]); x.fillRect(0, 0, W, H); });
+      haze = dsr3Mk(W, H * .16, x => { x.fillStyle = dsr3Lin(x, 0, 0, 0, H * .16, [[0, 'rgba(255,236,214,0)'], [.45, 'rgba(255,236,214,.6)'], [1, 'rgba(255,236,214,0)']]); x.fillRect(0, 0, W, H * .16); });
+      voidC = dsr3Mk(W, Math.max(1, H - HZ), x => {
+        const h = H - HZ, vx = W * .5;
+        x.fillStyle = dsr3Lin(x, 0, 0, 0, h, [[0, '#d99a72'], [.06, '#9a5a44'], [.25, '#5a2c2a'], [.6, '#2e1622'], [1, '#1a0c16']]); x.fillRect(0, 0, W, h);
+        x.fillStyle = '#2f7f86'; x.beginPath(); x.moveTo(vx + W * .02, 0); x.bezierCurveTo(W * .7, h * .25, W * .62, h * .55, W * .84, h); x.lineTo(W * 1.02, h); x.bezierCurveTo(W * .82, h * .55, W * .86, h * .25, vx + W * .05, 0); x.fill();
+        x.strokeStyle = 'rgba(200,250,245,.5)'; x.lineWidth = 1.5; for (let i = 0; i < 7; i++) { const f = .1 + i * .13; x.beginPath(); x.moveTo(W * (.6 + f * .25), h * f); x.lineTo(W * (.63 + f * .25), h * (f + .02)); x.stroke(); }
+        x.fillStyle = 'rgba(80,130,60,.8)'; for (let i = 0; i < 30; i++) { const f = Math.random(), yy = h * f, xx = W * (.56 + f * .24) + (Math.random() < .5 ? -1 : 1) * W * (.05 + f * .08); x.beginPath(); x.arc(xx, yy, 1.5 + f * 6, 0, 7); x.fill(); }
+        const cliff = (pts, lit) => { x.fillStyle = dsr3Lin(x, 0, 0, 0, h, [[0, lit], [.35, '#9a4a30'], [1, '#3a1814']]); x.beginPath(); pts.forEach(p => x.lineTo(p[0], p[1])); x.closePath(); x.fill();
+          x.save(); x.clip(); x.strokeStyle = 'rgba(255,200,150,.18)'; x.lineWidth = 3; for (let i = 0; i < 24; i++) { const yy = h * i / 24; x.beginPath(); x.moveTo(0, yy); x.lineTo(W, yy + 6); x.stroke(); } x.restore(); };
+        x.fillStyle = '#2f7f86'; x.beginPath(); x.moveTo(vx - W * .06, 0); x.bezierCurveTo(W * .3, h * .3, W * .36, h * .6, W * .16, h); x.lineTo(W * .32, h); x.bezierCurveTo(W * .46, h * .6, W * .38, h * .3, vx - W * .04, 0); x.fill();
+        cliff([[0, 0], [vx - W * .1, 0], [W * .12, h * .5], [0, h * .8]], '#e0905c');
+        cliff([[vx + W * .09, 0], [W, 0], [W, h], [W * .9, h * .4]], '#d07a4c');
+        x.fillStyle = dsr3Lin(x, 0, 0, 0, h * .15, [[0, 'rgba(255,215,175,.55)'], [1, 'rgba(255,215,175,0)']]); x.fillRect(0, 0, W, h * .15); });
+      cliffC = dsr3Mk(W, Math.max(1, H - HZ), x => { // canyon walls on both sides (the floor between them is her river picture)
+        const h = H - HZ, vx = W * .5;
+        const cliff = (pts, lit) => { x.fillStyle = dsr3Lin(x, 0, 0, 0, h, [[0, lit], [.3, '#b4603a'], [.7, '#7a3424'], [1, '#4a1c18']]); x.beginPath(); pts.forEach(p => x.lineTo(p[0], p[1])); x.closePath(); x.fill();
+          x.save(); x.clip(); x.strokeStyle = 'rgba(255,200,150,.2)'; x.lineWidth = 3; for (let i = 0; i < 26; i++) { const yy = h * i / 26; x.beginPath(); x.moveTo(0, yy); x.lineTo(W, yy + 6); x.stroke(); } x.restore(); };
+        cliff([[0, 0], [W * .1, 0], [W * .05, h * .4], [W * .015, h * .75], [0, h]], '#e8a06a');
+        cliff([[W * .9, 0], [W, 0], [W, h], [W * .985, h * .75], [W * .95, h * .4]], '#dc905c');
+        x.fillStyle = dsr3Lin(x, 0, 0, 0, h * .12, [[0, 'rgba(255,215,175,.6)'], [1, 'rgba(255,215,175,0)']]); x.fillRect(0, 0, W, h * .12); });
+      caveSky = dsr3Mk(W, HZ + H * .05, x => { x.fillStyle = dsr3Rad(x, W / 2, HZ, 4, Math.max(W, HZ) * .9, [[0, '#b8a0e8'], [.3, '#c8784a'], [1, '#a04a2a']]); x.fillRect(0, 0, W, HZ + H * .05); });
+      G.day = dsr3Lin(ctx, 0, 0, 0, HZ, [[0, '#4f9fe8'], [.7, '#8fcaf2'], [1, '#ffe9c4']]); G.night = dsr3Lin(ctx, 0, 0, 0, HZ, [[0, '#0c1236'], [1, '#41306e']]); G.ground = A4.t_sand ? (() => { const p = ctx.createPattern(A4.t_sand, 'repeat'); try { p.setTransform(new DOMMatrix().scale(.6)); } catch {} return p; })() : dsr3Lin(ctx, 0, HZ, 0, H, [[0, '#f0c286'], [.3, '#e6ad6c'], [1, '#d08f52']]); G.bermP = A4.t_berm ? ctx.createPattern(A4.t_berm, 'repeat') : null; G.woodP = A4.t_wood ? ctx.createPattern(A4.t_wood, 'repeat') : null;
+      night = dsr3Mk(W, H, x => { for (let i = 0; i < 90; i++) { x.fillStyle = `rgba(255,255,235,${.35 + (i % 5) / 7})`; x.beginPath(); x.arc((i * 137.5 % 1000) / 1000 * W, (i * 59.3 % 1000) / 1000 * HZ * .85, .8 + (i % 3) * .5, 0, 7); x.fill(); } });
+    };
+    const texOf = k => k === 'cave' && A4.t_cave ? A4.t_cave : k === 'bridge' && A4.t_deck ? A4.t_deck : (k === 'desert' || k === 'town' || k === 'castle' || k === 'cave') ? (A4.t_sand || Pz.sandW || (Pz.sandW = Pz.sandT(A.trail))) : k === 'train' || k === 'mine' ? Pz.rails : k === 'bridge' ? (Pz.bdeck || (Pz.bdeck = Pz.deck(Pz.planks))) : k === 'oasis' ? (A4.t_sand || Pz.sandW) : A.trail;
+    const SANDT = texOf('desert'), EK = 1.62, KT = 9; let SW = null, SWc = '#d9a86a';
+    const sandWide = () => { if (SW || !SANDT || !SANDT.width) return SW; const tw = SANDT.width, th = SANDT.height;
+      try { if (!SANDT._fixed && SANDT.getContext) { SANDT._fixed = 1; const x = SANDT.getContext('2d'), w = tw, h = th, B = Math.round(h * .08), d = x.getImageData(0, 0, w, h), p = d.data, L = i => p[i] * .3 + p[i + 1] * .59 + p[i + 2] * .11; // wipe the dark smudges at the texture's wrap seam
+        for (let y = 0; y < h; y++) { const e = Math.min(y, h - 1 - y); if (e >= B) continue; const ys = y < h / 2 ? 2 * B - y : h - 1 - (2 * B - (h - 1 - y)), k = 1 - e / B * .3;
+          for (let xx = 0; xx < w; xx++) { const i = (y * w + xx) * 4, j = (ys * w + xx) * 4; if (L(j) - L(i) > 8) for (let c = 0; c < 3; c++) p[i + c] = p[i + c] + (p[j + c] - p[i + c]) * k; } }
+        x.putImageData(d, 0, 0); MIP.delete(SANDT); } } catch {}
+      const side = dsr3Mk(tw, th, x => { x.filter = 'blur(10px)'; for (const dy of [-th, 0, th]) for (const dx of [-tw, 0, tw]) x.drawImage(SANDT, dx, dy); x.filter = 'none'; x.globalAlpha = .28; x.drawImage(SANDT, 0, 0); x.globalAlpha = 1; x.fillStyle = 'rgba(150,85,35,.13)'; x.fillRect(0, 0, tw, th); });
+      SW = dsr3Mk(tw * KT, th, x => { for (let i = 0; i < KT; i++) x.drawImage(i === KT >> 1 ? SANDT : side, i * tw, 0, tw, th);
+        const g = x.createLinearGradient(0, 0, tw * KT, 0), c0 = (KT >> 1) / KT, c1 = ((KT >> 1) + 1) / KT, e = .006;
+        g.addColorStop(0, 'rgba(150,85,35,0)'); g.addColorStop(c0 - e, 'rgba(150,85,35,0)'); g.addColorStop(c0, 'rgba(150,85,35,.1)'); g.addColorStop(c0 + e, 'rgba(150,85,35,0)'); g.addColorStop(c1 - e, 'rgba(150,85,35,0)'); g.addColorStop(c1, 'rgba(150,85,35,.1)'); g.addColorStop(c1 + e, 'rgba(150,85,35,0)'); g.addColorStop(1, 'rgba(150,85,35,0)');
+        x.fillStyle = g; x.fillRect(0, 0, tw * KT, th); });
+      try { const L = mipOf(SW, 1), m = MIP.get(SW), q = m[m.length - 1], d = q.getContext('2d').getImageData(0, q.height >> 1, 1, 1).data; SWc = `rgb(${d[0]},${d[1]},${d[2]})`; } catch {}
+      return SW; };
+    const sideRow = (y, h, s, s2, w) => { const T = sandWide(); if (!T) { ctx.fillStyle = SWc; ctx.fillRect(0, y, W, h); return; }
+      const bx = cx + bendX(s), L0 = camX + (0 - bx) / (s * LS), L1 = camX + (W - bx) / (s * LS), R = EK * KT, la = Math.max(-R, L0), lb = Math.min(R, L1);
+      const xa = xOf(s, la), xb = xOf(s, lb); ctx.fillStyle = SWc; if (xa > 0) ctx.fillRect(0, y, xa + 1, h); if (xb < W) ctx.fillRect(xb - 1, y, W - xb + 1, h);
+      if (lb <= la) return; const tw = SANDT.width, th = SANDT.height, ua = (la + R) / (2 * EK) * tw, ub = (lb + R) / (2 * EK) * tw;
+      const m = mipOf(T, T.width * (xb - xa) / Math.max(1, ub - ua)), f = m.width / T.width, mh = m.height;
+      const v = ((-w / 14) * th % th + th) % th, span = (ZP / Math.max(.001, s) - ZP / Math.max(.001, s2)) / 14 * th;
+      slab(m, ua * f, (ub - ua) * f, v * f, span * f, xa, y, xb - xa, h); };
+    // cave floor share at trail position w: blends sand -> cave floor across the mouth (6 m before it to 8 m inside), the same at the exit
+    const caveW = w => { let g = segAt(w); if (g.k !== 'cave') { const n = segAt(w + 6), p = segAt(w - 6); g = n.k === 'cave' && !n.secret ? n : p.k === 'cave' && !p.secret ? p : null; if (!g) return 0; }
+      if (g.secret) return clamp(Math.min(w - g.a, g.b - w) / 10, 0, 1); return clamp((Math.min(w - g.a, g.b - w) + 6) / 14, 0, 1); };
+    const carpetAlt = w => caveW(w) > .15 ? .5 : 1.7;
+    const MW = 2.45, MP = 2.35, MA = .95, FWL = 30; // hole half-width, post height, arch rise, face half-width
+    const RIDGE = []; { const sd = Math.random() * 6; for (let l = -FWL; l <= FWL + .01; l += 1.5) RIDGE.push([l, Math.max(1.2, 1.4 + 9.2 * Math.exp(-Math.pow(l / 10.5, 2)) + 2.2 * Math.exp(-Math.pow((l - 17 * Math.sign(l + .01)) / 4, 2)) + .7 * Math.sin(l * .62 + sd) + .35 * Math.sin(l * 1.9 + sd * 2))]); }
+    const caveNow = () => { for (const g of segs) if (g.k === 'cave' && !g.secret && g.b > dist - 40 && g.a < dist + ZF + 40) return g; return null; };
+    const archPath = (zm, open) => { const s = sOf(Math.max(.3, zm)), yb = yOf(s), xl = xOf(s, -MW), xr = xOf(s, MW), yt = yb - MP * PH * s;
+      ctx.moveTo(xl, yb + 2); ctx.lineTo(xl, yt); ctx.ellipse((xl + xr) / 2, yt, (xr - xl) / 2, MA * PH * s, 0, Math.PI, 2 * Math.PI); ctx.lineTo(xr, yb + 2); if (!open) ctx.closePath(); };
+    // her river picture as the canyon floor far below the deck, in perspective; the white water streams along the river
+    const RIV = A4.river ? { T: A4.river, F: A4.riverF, tw: A4.river.width, th: A4.river.height } : null;
+    const riverRow = (y, stp, g, z) => {
+      if (!RIV) { ctx.drawImage(voidC, 0, y - HZ, W, stp, 0, y, W, stp + .5); return; }
+      const dy = Math.max(.5, y - HZ), zf = 6.5 * ((FOOT + camH * PH - HZ)) * ZP / dy, half = (W / 2) / LS * zf / ZP, pxl = 15, pxz = 5.2;
+      const row = (((dist * .9 + zf * .35) * pxz) % RIV.th + RIV.th) % RIV.th, sw = RIV.tw * (.62 + .25 * Math.min(1, zf / 60)), xo = (camX * 12) - bend * 30;
+      const zf2 = 6.5 * ((FOOT + camH * PH - HZ)) * ZP / Math.max(.5, y + stp - HZ), rh = Math.max(1, Math.min(RIV.th - row - 1, Math.abs(zf - zf2) * pxz * .35));
+      const fit = (img, off) => { let sx = RIV.tw / 2 - sw / 2 + xo + off; const S = Math.min(sw, RIV.tw); if (sw > RIV.tw) { const dw = W * RIV.tw / sw; ctx.drawImage(img, 0, row, RIV.tw, rh, (W - dw) / 2, y, dw, stp + .5); return; }
+        sx = ((sx % RIV.tw) + RIV.tw) % RIV.tw; const p1 = Math.min(S, RIV.tw - sx); ctx.drawImage(img, sx, row, p1, rh, 0, y, W * p1 / S, stp + .5); if (p1 < S) ctx.drawImage(img, 0, row, S - p1, rh, W * p1 / S, y, W * (S - p1) / S + .5, stp + .5); };
+      ctx.fillStyle = '#d9a46a'; ctx.fillRect(0, y, W, stp + .5); fit(RIV.T, 0); fit(RIV.F, -t * 22 + Math.sin(t * 1.3 + y * .05) * 2);
+      ctx.drawImage(cliffC, 0, y - HZ, W, stp, 0, y, W, stp + .5);
+    };
+    // raised sand berms between the 3 lanes (her picture 29), all the way to the horizon, in sandy zones
+    const BERMZ = Array.from({ length: 34 }, (_, i) => 2.3 * Math.pow(ZF / 2.3, i / 33)), sandy = k => k === 'desert' || k === 'town' || k === 'castle' || k === 'oasis' || k === 'cave' || k === 'bridge';
+    // rounded mounds of sand and stones along a berm (her picture 29): drawn far to near
+    const MCOL = [['#fbd296', '#eaae6a', '#c88648'], ['#f6c888', '#e2a05e', '#bc7a40'], ['#fdd8a0', '#eeb474', '#cc8c50']], MGRN = [['#b8e07a', '#7cbc4e', '#4e8a34'], ['#a8d870', '#6eae46', '#44802e'], ['#c4e888', '#86c456', '#589838']];
+    const drawMounds = (r, l) => {
+      const z0 = Math.max(r[0], 2.3), z1 = r[r.length - 1], ph = (dist % 1.1);
+      for (let z = Math.ceil((z1 + ph) / 1.1) * 1.1 - ph; z >= z0; z -= z < 12 ? .42 : z < 40 ? .9 : 1.8) {
+        const s = sOf(z), y = yOf(s), x = xOf(s, l), rw = .17 * LS * s, rh = .1 * PH * s; if (rw < .6) continue;
+        const hz = Math.abs(Math.sin((Math.round((dist + z) / .55)) * 12.9898) * 43758.5) % 1, k = Math.floor(hz * 3), c = (zoneAt(dist + z) === 'oasis' ? MGRN : MCOL)[k], sc = .7 + hz * .55, g = ctx.createRadialGradient(x - rw * .25, y - rh * .8 * sc, rw * .05, x, y, rw * 1.25 * sc);
+        g.addColorStop(0, c[0]); g.addColorStop(.6, c[1]); g.addColorStop(1, c[2]); ctx.fillStyle = g;
+        ctx.beginPath(); ctx.ellipse(x + (hz - .5) * rw * .4, y - rh * .35 * sc, rw * sc, rh * sc, 0, Math.PI, 0); ctx.lineTo(x + rw * sc, y); ctx.lineTo(x - rw * sc, y); ctx.fill();
+        if (rw > 3) { ctx.fillStyle = hz > .5 ? '#c86a4c' : '#a8806a'; ctx.beginPath(); ctx.ellipse(x + rw * (hz - .3), y - rh * (.1 + hz * .5), rw * .2, rh * .28, 0, 0, 7); ctx.fill(); if (hz > .72 && zoneAt(dist + z) !== 'cave') { ctx.fillStyle = '#7a9a4a'; for (let i = -2; i <= 2; i++) { ctx.beginPath(); ctx.moveTo(x + i * rw * .12, y - rh * .6); ctx.lineTo(x + i * rw * .2, y - rh * 1.6); ctx.lineTo(x + i * rw * .12 + rw * .06, y - rh * .6); ctx.fill(); } } }
+      }
+    };
+    const drawBerms = () => {
+      const run = [], runs = [];
+      let rk = null; for (const z of BERMZ) { const k = zoneAt(dist + z), kk = sandy(k) ? (k === 'bridge' ? 'w' : 's') : null; if (kk !== rk && run.length) { run.k = rk; runs.push(run.splice(0)); } rk = kk; if (kk) run.push(z); } if (run.length) { run.k = rk; runs.push(run); }
+      ctx.globalAlpha = 1;
+      for (const r of runs) { if (r.length < 2) continue;
+        for (const l of [-.5, .5]) {
+          const wd = r.k === 'w', bw = wd ? .07 : .18, bh = wd ? .06 : .19, B = r.map(z => { const s = sOf(z), y = yOf(s); return [xOf(s, l - bw), xOf(s, l), xOf(s, l + bw), y, y - bh * PH * s]; });
+          const face = (i0, fill) => { ctx.fillStyle = fill; ctx.beginPath(); B.forEach(b => ctx.lineTo(b[i0], b[3])); for (let i = B.length - 1; i >= 0; i--) ctx.lineTo(B[i][1], B[i][4]); ctx.closePath(); ctx.fill(); };
+          if (!wd) { drawMounds(r, l); continue; } ctx.fillStyle = 'rgba(110,55,25,.28)'; ctx.beginPath(); B.forEach(b => ctx.lineTo(b[2], b[3])); for (let i = B.length - 1; i >= 0; i--) ctx.lineTo(B[i][2] + (B[i][2] - B[i][1]) * .9, B[i][3]); ctx.closePath(); ctx.fill();
+          face(0, wd ? (G.woodP || '#a8703e') : (G.bermP || '#e6a25e')); face(2, wd ? (G.woodP || '#6e4424') : (G.bermP || '#c47e44')); face(2, wd ? 'rgba(40,20,8,.45)' : 'rgba(90,40,15,.38)'); face(0, 'rgba(255,230,180,.12)');
+          ctx.strokeStyle = 'rgba(255,225,170,.55)'; ctx.lineWidth = 1.5; ctx.beginPath(); B.forEach((b, i) => i ? ctx.lineTo(b[1], b[4]) : ctx.moveTo(b[1], b[4])); ctx.stroke();
+        } }
+    };
+    // thick wooden railings with X-bracing and iron plates along both bridge edges (her picture 31)
+    const RAILZ = Array.from({ length: 30 }, (_, i) => 2.2 * Math.pow(ZF / 2.2, i / 29));
+    const drawRails = () => {
+      for (const l of [-2.05, 2.05]) {
+        const pts = RAILZ.map(z => [z, zoneAt(dist + z) === 'bridge']);
+        for (const [h0, h1, col] of [[.56, .76, '#b07a48'], [.26, .4, '#8a5a32']]) { ctx.fillStyle = col; let on = []; const flush = () => { if (on.length > 1) { ctx.beginPath(); on.forEach(z => { const s = sOf(z); ctx.lineTo(xOf(s, l), yOf(s) - h1 * PH * s); }); for (let i = on.length - 1; i >= 0; i--) { const s = sOf(on[i]); ctx.lineTo(xOf(s, l), yOf(s) - h0 * PH * s); } ctx.closePath(); ctx.fill(); } on = []; };
+          pts.forEach(([z, b]) => b ? on.push(z) : flush()); flush(); }
+        const w0 = dist + 2.2, step = 3; for (let wz = Math.ceil(w0 / step) * step; wz < dist + 60; wz += step) { const z = wz - dist; if (zoneAt(wz) !== 'bridge' || zoneAt(wz + step) !== 'bridge') continue;
+          const s = sOf(z), s2 = sOf(z + step), x = xOf(s, l), x2 = xOf(s2, l), y = yOf(s), y2 = yOf(s2);
+          ctx.strokeStyle = '#7a4e2c'; ctx.lineWidth = Math.max(2, 13 * s); ctx.beginPath(); ctx.moveTo(x, y - .34 * PH * s); ctx.lineTo(x2, y2 - .62 * PH * s2); ctx.moveTo(x, y - .62 * PH * s); ctx.lineTo(x2, y2 - .34 * PH * s2); ctx.stroke();
+          const pw = Math.max(4, 30 * s); ctx.fillStyle = '#8a5a32'; ctx.fillRect(x - pw / 2, y - .82 * PH * s, pw, .82 * PH * s); ctx.fillStyle = '#c08850'; ctx.fillRect(x - pw / 2, y - .82 * PH * s, pw * .35, .82 * PH * s); ctx.fillStyle = '#3a3634'; ctx.fillRect(x - pw * .6, y - .7 * PH * s, pw * 1.2, Math.max(2, 9 * s)); }
+      }
+    };
+    // the canyon floor (her river 28) is a ground plane far below the deck; past the bridge ends we see the cliff walls (her rock)
+    const CH = 2.4;
+    const canyonRow = (y, stp) => {
+      const sc = (y - HZ) / ((FOOT + camH * PH) + camH * PH - HZ + CH * PH), zc = ZP / Math.max(.001, sc), gc = segAt(dist + zc);
+      if (gc.k !== 'bridge' || !RIV) { const tr = A4.t_cliff || A4.t_rock; if (tr) { const ry = Math.floor((((dist + zc) * 6) % tr.height + tr.height) % tr.height); rowImg(tr, ry, 1, 0, y, W, stp + .5); ctx.fillStyle = 'rgba(70,25,10,.18)'; ctx.fillRect(0, y, W, stp + .5); } else { ctx.fillStyle = '#a8603c'; ctx.fillRect(0, y, W, stp + .5); } return; }
+      const half = (W / 2) / (LS * sc), row = Math.floor(((-(dist + zc) * 7) % RIV.th + RIV.th) % RIV.th), rh = Math.max(1, Math.min(RIV.th - row - 1, stp / Math.max(.02, sc) * .02 * 7));
+      const upl = RIV.tw * .016, u0 = RIV.tw / 2 + (camX - half) * upl, u1 = RIV.tw / 2 + (camX + half) * upl, toX = u => (u - u0) / (u1 - u0) * W;
+      const a0 = Math.max(0, u0), a1 = Math.min(RIV.tw, u1), fo = Math.sin(t * .8 + zc * .3) * 3 - (t * 12) % 4;
+      const tr = A4.t_cliff || A4.t_rock, ry = tr ? Math.floor((((dist + zc) * 6) % tr.height + tr.height) % tr.height) : 0;
+      if (tr && a0 > u0) ctx.drawImage(tr, 0, ry, tr.width * .45, 1, 0, y, toX(a0) + 1, stp + .5);
+      if (tr && a1 < u1) ctx.drawImage(tr, tr.width * .55, ry, tr.width * .45, 1, toX(a1) - 1, y, W - toX(a1) + 1, stp + .5);
+      if (a1 > a0) { ctx.drawImage(RIV.T, a0, row, a1 - a0, rh, toX(a0), y, toX(a1) - toX(a0), stp + .5); const b0 = Math.max(0, a0 + fo), b1 = Math.min(RIV.tw, a1 + fo); if (b1 > b0) ctx.drawImage(RIV.F, b0, row, b1 - b0, rh, toX(b0 - fo), y, toX(b1 - fo) - toX(b0 - fo), stp + .5); }
+      ctx.fillStyle = `rgba(40,90,110,${Math.min(.25, .08 + sc * .3)})`; ctx.fillRect(0, y, W, stp + .5);
+    };
+    const sOf = z => ZP / z, yOf = s => HZ + ((FOOT + camH * PH - HZ)) * s;
+    let bend = 0, bendTo = 0, camX = 0;
+    const bendX = s => (s < 1 ? (1 - s) * (1 - s) : 0) * bend * W * .5;
+    const xOf = (s, lx) => cx + bendX(s) + (lx - camX) * s * LS;
+    // ---- state ----
+    let air = 0, flo = 0, flb = null, raf = 0, last = 0, t = 0, dist = 0, v = 15, slow = 1, tl = 0, laneX = 0, lean = 0, jy = 0, jv = 0, jq = 0, land = 0, ducking = 0, inv = 0, shake = 0;
+    let god = false, coins = 0, d = 36, lastHit = -9, state = 'count', countT = 3.2, paused = false, caughtT = 0, nextRow = 34, nextBlock = 160, trick = null, trickAt = 12, lastTrick = '';
+    let ph = 0, beatT = 0, badT = 0, drumT = 0, hudT = 0, decT = 0, bendT = 6, fps = 60, fpsN = 0, fpsT = 0, tailA = 0, tailV = 0;
+    const vil = { k: 'villain', z: 2.6, lane: .95, hy: 0, hv: 0 };
+    const items = [], decor = [], parts = [], ghosts = [], muds = [];
+    const R = a => a[Math.floor(Math.random() * a.length)], rnd = (a, b) => a + Math.random() * (b - a), clamp = (a, lo, hi) => Math.max(lo, Math.min(hi, a));
+    const level = () => Math.min(1, t / 150);
+    // ---- zones: desert → 🚂 train → 🌉 bridge → ⛏️ mine → 🏰 fortress → 💎 crystal cave (with short desert stretches between) ----
+    const ZN = { town: '🤠 העיר המערבית', train: '🚂 מסילת הרכבת', bridge: '🌉 גשר הקניון', mine: '⛏️ המכרה', castle: '🏰 המבצר', cave: '💎 מערת הקריסטלים' };
+    let oasisN = 0, oasisForce = 0;
+    const ORDER = ['town', 'train', 'bridge', 'mine', 'town', 'castle', 'cave']; let zi = Math.floor(Math.random() * ORDER.length);
+    const segs = [{ a: -9999, b: 230, k: 'desert' }];
+    const newSeg = (a, k) => { const len = k === 'desert' ? rnd(80, 130) : k === 'oasis' ? 150 : rnd(420, 560), sg = { a, b: a + len, k }; if (k === 'mine') { sg.ta = a + len * .45; sg.tb = sg.ta + 70; } return sg; };
+    const segAt = w => { while (segs[segs.length - 1].b < w + 300) { const p = segs[segs.length - 1]; segs.push(newSeg(p.b, p.k === 'bridge' && (oasisN === 0 || (p.b > 2500 && oasisN < 2)) && Math.random() < .85 ? (oasisN++, 'oasis') : p.k === 'desert' ? ORDER[zi++ % ORDER.length] : 'desert')); } for (let i = segs.length - 1; i >= 0; i--) if (w >= segs[i].a) return segs[i]; return segs[0]; };
+    const zoneAt = w => segAt(w).k;
+    const darkAt = w => { const g = segAt(w); if (g.k === 'cave' && g.secret) return .5; if (g.k === 'mine' && w > g.ta && w < g.tb) return .85; const c = caveW(w); return c > 0 ? .1 * c + .72 * c * (1 - c) : 0; };
+    let vShow = 0, bdPrev = null, bdPA = 0, bdCur = null, bdA = 0, caveIn = 0, amb = 0, propW = 0, camH = 0;
+    const glows = [], PL = { k: 'player', z: ZP }, ALL = [], byK = (a, b) => b._k - a._k;
+    // what is under her (or him): boxcar roofs, mine carts, fortress walls, and their ramps
+    const floorAt = (lx, z) => { let f = 0, fb = null; for (const b of items) { if (b.k !== 'box' || Math.abs(lx - b.lane) > .5) continue; const z0 = b.z - (b.ramp || 0), z1 = b.z + b.len; if (z < z0 || z > z1) continue; const h = z < b.z ? b.h * (z - z0) / b.ramp : b.h; if (h > f) { f = h; fb = b; } } return [f, fb]; };
+    const coinLine = (l, z0, n, hy, box, step = 3) => { for (let i = 0; i < n; i++) items.push({ k: 'coin', z: z0 + i * step, lane: l, hy, sd: i, box }); };
+    const coinArcLanes = z0 => { const l0 = R([-1, 1]); for (let i = 0; i < 7; i++) items.push({ k: 'coin', z: z0 + i * 2.2, lane: l0 - l0 * i / 3, hy: .14 + Math.sin(i / 6 * Math.PI) * .4, sd: i }); }; // splits across lanes: you can't get them all
+    const shuffled = () => [-1, 0, 1].sort(() => Math.random() - .5);
+    const box = (kind, lane, z, len, h, ramp = 0, vz = 0) => { const b = { k: 'box', kind, lane, z, len, h, ramp, vz }; items.push(b); return b; };
+    // one "row" of the current zone at distance z0; returns metres until the next row
+    const spawnZone = z0 => {
+      const k = zoneAt(dist + z0), lv = level(), L = shuffled();
+      { const sp = special(z0, k); if (sp) return sp; if (k === 'oasis' || segAt(dist + z0).secret) return special(z0, k) || 20; }
+      if (k === 'desert' || k === 'town') { const keep = items.length; spawnRow(); for (let i = keep; i < items.length; i++) items[i].z += z0 - ZF; if (Math.random() < .12) coinArcLanes(z0 + 4); return nextRow; }
+      if (k === 'train') {
+        const nT = Math.random() < .55 ? 2 : 1; let far = 0;
+        for (let i = 0; i < nT; i++) { const cars = 2 + Math.floor(Math.random() * 3), len = cars * 10 + (cars - 1), ramp = i === 0 || Math.random() < .45 ? 6 : 0, zz = z0 + ramp + (i ? rnd(0, 10) : 0);
+          const b = box('car', L[i], zz, len, 1.12, ramp, Math.random() < .35 ? 2.2 : 0); far = Math.max(far, zz + len - z0);
+          if (ramp || Math.random() < .5) coinLine(L[i], zz + 2, Math.floor(len / 3.2), 1.26, b, 3); }
+        if (Math.random() < .6) coinLine(L[2], z0 + 4, 5, .14); else items.push({ k: R(['rock', 'log']), z: z0 + rnd(4, 14), lane: L[2], v: Math.random() < .5 });
+        return far + rnd(12, 22);
+      }
+      if (k === 'bridge') {
+        const r = Math.random();
+        if (r < .3) items.push({ k: 'gap', z: z0, lane: 0, all: true, len: 2.6, void: true });
+        else if (r < .6) { const n = r < .45 ? 1 : 2; for (let i = 0; i < n; i++) items.push({ k: 'gap', z: z0 + rnd(0, 2), lane: L[i], len: rnd(2.4, 3.6), void: true }); }
+        else { items.push({ k: 'xbar', z: z0, lane: L[0] }); if (Math.random() < .6) items.push({ k: 'crates', z: z0 + rnd(4, 9), lane: L[1] }); }
+        if (Math.random() < .2) coinArcLanes(z0 - 6); else coinLine(L[2], z0 - 6, 5, .14);
+        return rnd(17, 27) - lv * 4;
+      }
+      if (k === 'mine') {
+        const n = Math.random() < .5 ? 2 : 1; let far = 0;
+        for (let i = 0; i < n; i++) { const carts = 1 + Math.floor(Math.random() * 3), len = carts * 2.6 + (carts - 1) * .7, zz = z0 + (i ? rnd(2, 8) : 0); const b = box('cart', L[i], zz, len, .4, 0, Math.random() < .3 ? 1.5 : 0); far = Math.max(far, zz + len - z0);
+          if (Math.random() < .6) coinLine(L[i], zz + .6, Math.max(2, Math.round(len / 1.6)), .56, b, 1.6); }
+        if (Math.random() < .5) items.push({ k: 'rock', z: z0 + rnd(3, 10), lane: L[2], v: false }); else coinLine(L[2], z0, 5, .14);
+        return far + rnd(14, 22) - lv * 3;
+      }
+      if (k === 'castle') {
+        const n = Math.random() < .5 ? 2 : 1; let far = 0;
+        for (let i = 0; i < n; i++) { const len = rnd(8, 14), ramp = Math.random() < .6 ? 5 : 0, zz = z0 + ramp + (i ? rnd(0, 6) : 0); const b = box('wall', L[i], zz, len, .55, ramp); b.banner = Math.random() < .5; far = Math.max(far, zz + len - z0);
+          if (ramp) coinLine(L[i], zz + 1.5, Math.floor(len / 2.5), .69, b, 2.5);
+          else if (Math.random() < .5) { const b2 = box('wall', L[i], zz + len + 3.2, rnd(6, 9), .55, 0); coinLine(L[i], zz + len - .5, 4, .8, null, 1.3); far = Math.max(far, b2.z + b2.len - z0); } } // coins over the gap between two walls
+        items.push({ k: Math.random() < .5 ? 'lwall' : 'rock', z: z0 + rnd(2, 8), lane: L[2], v: true, w: Math.floor(Math.random() * 3) });
+        return far + rnd(12, 20);
+      }
+      // cave: glowing crystals to dodge or jump, fallen logs, crystal shards to collect
+      const n = Math.random() < .45 + lv * .3 ? 2 : 1;
+      for (let i = 0; i < n; i++) { if (Math.random() < .15) items.push({ k: 'log', z: z0, lane: L[i] }); else items.push({ k: 'crys', z: z0 + rnd(0, 1.5), lane: L[i], big: Math.random() < .45, c: Math.floor(Math.random() * 3) }); }
+      for (let i = 0; i < 4; i++) items.push({ k: 'shard', z: z0 - 5 + i * 2.6, lane: L[2], hy: .2, c: Math.floor(Math.random() * 3) });
+      if (Math.random() < .12) { const big = items.find(o => o.k === 'crys' && o.big && o.z >= z0 - .1); if (big && Math.random() < .4) chestAt(big.z + 1.6, big.lane); else chestAt(z0 + 8, L[2]); } // sometimes right behind a big crystal
+      return rnd(16, 25) - lv * 4;
+    };
+    // a little western station beside the trail: water tower, depot, platform with lamps, barrels & crates, fences (always off the lanes)
+    const station = z => { const sd = R([-1, 1]), f = sd > 0;
+      decor.push({ k: 'fence', img: Pz.fence, z, lx: sd * 2.55, h: .45, flip: f });
+      decor.push({ k: 'barrels', img: Pz.barrels, z: z + 3, lx: sd * 2.6, h: .5, flip: f });
+      decor.push({ k: 'platform', img: Pz.platform, z: z + 8, lx: sd * 3.1, h: .62, flip: f, glow: Pz.warm });
+      decor.push({ k: 'depot', img: Pz.depot, z: z + 14, lx: sd * 3.6, h: 1.45, flip: f });
+      decor.push({ k: 'tower', img: Pz.tower, z: z + 24, lx: sd * 3.4, h: 2.1, flip: f });
+      decor.push({ k: 'fence', img: Pz.fence, z: z + 30, lx: sd * 2.55, h: .45, flip: f });
+      return 34; };
+    // scenery along the trail for each zone
+    const placeProp = w => {
+      const z = w - dist, g = segAt(w), k = g.k;
+      if (k === 'oasis' && w - g.a < 30) { const a5 = window.ART5; for (const sd of [-1, 1]) { decor.push({ k: 'pool', img: a5 ? a5.pool(420, 1) : Pz.pool, z, lx: sd * rnd(2.4, 3), h: .7, glow: Pz.crysGlow[0] }); decor.push({ k: 'palm', img: a5 ? a5.palm(260) : A.palmOasis, z: z + 1, lx: sd * rnd(3.2, 4.2), h: rnd(1.6, 2), flip: sd > 0 }); } return 3.2; }
+      if (k === 'oasis' && Math.round(w) % 37 < 2) { const a5 = window.ART5, sd = R([-1, 1]); decor.push({ k: 'pool', img: A4.o_pool || (a5 ? a5.pool(480, 2) : Pz.pool), z, lx: sd * 3.9, h: .9 }); if (A4.o_fall) decor.push({ k: 'fall', img: A4.o_fall, z: z + 3, lx: sd * 5.2, h: 1.5, flip: sd < 0 }); if (A4.bd_oasis) decor.push({ k: 'palm', img: a5 ? a5.palm(260) : A.palmOasis, z: z + 2, lx: sd * 4.4, h: 2.1, flip: sd > 0 }); return 4; }
+      if (k === 'oasis') { const r = Math.random(), side = R([-1, 1]), a5 = window.ART5;
+        if (r < .1) decor.push({ k: 'pool', img: A4.o_pool || (a5 ? a5.pool(420, 1) : Pz.pool), z, lx: side * rnd(3.8, 4.6), h: .7 });
+        else if (r < .5) decor.push({ k: 'palm', img: A4.o_palm1 ? R([A4.o_palm1, A4.o_palm1, A4.o_palm2]) : a5 ? a5.palm(260) : A.palmOasis, z, lx: side * rnd(2.2, 4.6), h: rnd(1.8, 2.5), flip: Math.random() < .5 });
+        else if (r < .56 && A4.o_pot) decor.push({ k: 'pot', img: A4.o_pot, z, lx: side * rnd(1.95, 2.3), h: .35 });
+        else if (r < .52 && A4.bench) decor.push({ k: 'bench', img: A4.bench, z, lx: side * rnd(2.05, 2.5), h: .4, flip: side > 0 });
+        else if (r < .76) decor.push({ k: 'flowers', img: a5 ? a5.flowers(160) : Pz.flowers, z, lx: side * rnd(1.85, 3.2), h: .3 });
+        else decor.push({ k: 'tuft', img: a5 ? a5.grassTuft(160) : Pz.flowers, z, lx: side * rnd(1.9, 4), h: .34 });
+        return rnd(1, 1.7); }
+      if (k === 'train' && Math.random() < .03 && w - g.a > 20 && g.b - w > 60) return station(z);
+      if (k === 'desert' && Math.random() < .006 && g.b - w > 50) return station(z);
+      if (k === 'desert') { addDecor(z); addDecor(z + rnd(0, 1)); if (Math.random() < .5) decor.push({ k: 'agave', img: A4.g_agave || Pz.agave, z, lx: R([-1, 1]) * rnd(1.95, 2.6), h: .3 }); if (Math.random() < .35) decor.push({ k: 'rockA', z, lx: R([-1, 1]) * rnd(2, 2.8), h: rnd(.3, .5) }); return rnd(1, 1.8); }
+      if (k === 'town') { for (const sd of [-1, 1]) { const r = Math.random();
+          if (r < .5) decor.push({ k: 'bld', img: R([A4.g_store_l, A4.g_store_l, A4.g_store_l, A4.g_depot].map(i => i || Pz.store)), z: z + rnd(0, 1.5), lx: sd * rnd(2.9, 3.3), h: rnd(1.5, 1.85), flip: sd > 0 });
+          else if (r < .62) decor.push({ k: 'tower', img: R([A4.g_tower, A4.g_tower29]) || Pz.tower, z, lx: sd * 3.5, h: 2.4, flip: sd > 0 });
+          if (Math.random() < .3) decor.push(A4.g_lamp29 ? { k: 'lpost', img: A4.g_lamp29, z: z + .5, lx: sd * 2.05, h: 1.3, flip: sd < 0, lampXY: [-.33, .62] } : { k: 'lpost', img: Pz.lpost, z: z + .5, lx: sd * 1.95, h: 1.15, flip: sd > 0, lamp2: 1 });
+          const f = R(['barrels', 'wheel', 'rock', 'cactus', 'agave', 'fence']);
+          decor.push(f === 'barrels' ? { k: 'barrels', img: Pz.barrels, z: z + 1.5, lx: sd * 2.15, h: .45, flip: sd > 0 } : f === 'wheel' ? { k: 'wheel', img: Pz.wheel, z: z + 1.5, lx: sd * 2.2, h: .4 } : f === 'rock' ? { k: 'rockA', z: z + 1.5, lx: sd * 2.1, h: .38 } : f === 'cactus' ? { k: 'cactusSaguaro', z: z + 1.5, lx: sd * 2.25, h: rnd(.8, 1.1) } : f === 'agave' ? { k: 'agave', img: A4.g_agave || Pz.agave, z: z + 1.5, lx: sd * 2.05, h: .3 } : { k: 'fence', img: Pz.fence, z: z + 1.5, lx: sd * 2.2, h: .42, flip: sd > 0 }); }
+        return rnd(2.6, 3.6); }
+      if (k === 'train') { addDecor(z); if (Math.random() < .14) decor.push({ k: 'pole', img: Pz.pole, z, lx: R([-2.2, 2.2]), h: 1.7 }); return rnd(1.4, 2.5); }
+      if (k === 'bridge') { if (Math.round(w / 3) % 4 === 0) [-1, 1].forEach(sd => decor.push({ k: 'lpost', img: A4.g_lamp29 || Pz.lpost, z: z + .1, lx: sd * 2.12, h: 1.4, flip: A4.g_lamp29 ? sd < 0 : sd > 0, lampXY: A4.g_lamp29 ? [-.33, .62] : null, lamp2: A4.g_lamp29 ? 0 : 1 })); return 3; }
+      if (k === 'mine') { const tun = w > g.ta && w < g.tb; if (tun || Math.random() < .09) { decor.push({ k: 'mframe', z, big: true, lamp: true }); return tun ? 3.5 : rnd(2, 3); } addDecor(z); return rnd(1.6, 2.8); }
+      if (k === 'castle') { const r = Math.random(); if (r < .04) { decor.push({ k: 'gate', z, big: true }); return 6; } if (r < .45) { const wi = Math.floor(Math.random() * 3); decor.push({ k: 'ruin', img: Math.random() < .6 && A4['wall' + wi] ? A4['wall' + wi] : Pz.ruin, z, lx: R([-1, 1]) * rnd(2.6, 5), h: rnd(.5, .9), flip: Math.random() < .5 }); } else addDecor(z); return rnd(1.8, 3); }
+      // cave: arched ribs, lanterns, low stone dividers between lanes, crystals on the walls
+      const off = w - g.a; if (!g.secret && (off < 1.2 || g.b - w < 1.2)) return Math.max(.3, off < 1.2 ? 1.2 - off : g.b - w + .5);
+      if (off % 7 < 2.5 && (g.secret || (off > 14 && g.b - w > 34))) decor.push({ k: 'cbeam', z: z - .05, big: true });
+      if (A4.c_wallL) { decor.push({ k: 'cwall', img: A4.c_wallL, z: z + .3, lx: -2.75, h: 2.3, big: true }); decor.push({ k: 'cwall', img: A4.c_wallR, z: z + 1.4, lx: 2.75, h: 2.3, big: true }); }
+      for (const sd of [-1, 1]) decor.push({ k: 'rockA', z: z + rnd(0, 2.5), lx: sd * rnd(2.45, 3.1), h: rnd(.5, .9), flip: Math.random() < .5 });
+      for (const sd of [-1, 1]) { const r = Math.random(); if (r < .45) { const c = Math.random() < .5 ? 0 : 1; decor.push({ k: 'wcrys', img: (c ? A4.c_purple : A4.c_blue) || Pz.crys[c], glow: Pz.crysGlow[c ? 1 : 0], z: z + rnd(0, 2), lx: sd * rnd(1.95, 2.5), h: rnd(.5, .85) }); }
+        else if (r < .42) decor.push({ k: 'cart', img: A4.c_cart || Pz.cartBack, z: z + rnd(0, 2), lx: sd * 2.2, h: .5, flip: sd < 0 }); else if (r < .6) decor.push({ k: 'rockA', z: z + rnd(0, 2), lx: sd * rnd(1.95, 2.3), h: rnd(.25, .42) }); else if (r < .7) decor.push({ k: 'fence', img: Pz.fence, z, lx: sd * 2.05, h: .38, flip: sd > 0 }); }
+      if (Math.random() < .3) { const c = Math.floor(Math.random() * 3); decor.push({ k: 'wcrys', img: Pz.crys[c], glow: Pz.crysGlow[c], z, lx: R([-1, 1]) * rnd(1.85, 2.6), h: rnd(.35, .7) }); }
+      return 2.5;
+    };
+    const zoneEntry = () => { // signs, the cave mouth, and a short splash when she enters a zone
+      for (const g of segs) {
+        if (g.k === 'desert') continue;
+        if (!g.sp && g.a < dist + ZF + 25) { g.sp = 1; const z = g.a - dist; Pz['sg_' + g.k] = Pz['sg_' + g.k] || Pz.sign(ZN[g.k]);
+          decor.push({ k: 'zsign', img: Pz['sg_' + g.k], z: Math.max(ZP + 4, z - 22), lx: R([-2.15, 2.15]), h: 1.05 });
+          if (g.k === 'castle') decor.push({ k: 'gate', z: z + 1, big: true });
+          if (g.k === 'mine') decor.push({ k: 'mframe', z: z + 1, big: true });
+          if (g.k === 'cave' && Math.random() < .55) chestAt(z - 9, R([-1, 0, 1]));
+          if (g.k === 'cave') { decor.push({ k: 'cmouth', z, big: true }); for (const sd of [-1, 1]) for (let i = 0; i < 3; i++) decor.push({ k: 'rockA', z: z - rnd(.3, 2.5), lx: sd * rnd(MW + 1.2, MW + 6), h: rnd(.45, .9), flip: Math.random() < .5 });
+            if (rugForce || Math.random() < .45) { rugForce = 0; rugIt = { k: 'rug', z: z + 48, lane: 0 }; items.push(rugIt); coinLine(0, z + 30, 5, .14, null, 3); } } }
+        if (g.k === 'cave' && !g.secret && !g.xp && g.b < dist + ZF + 25) { g.xp = 1; decor.push({ k: 'cmouth', z: g.b - dist, exit: 1, big: true }); }
+        if (!g.ann && dist + ZP >= g.a) { g.ann = 1; zsp.textContent = ZN[g.k]; zsp.classList.remove('on'); void zsp.offsetWidth; zsp.classList.add('on'); tone(660, .12, 'triangle', 0, .06); tone(880, .16, 'triangle', .1, .06); }
+      }
+    };
+    const zoneTick = dt => {
+      while (propW < dist + ZF) propW += placeProp(propW);
+      zoneEntry();
+      if (rugIt) { if (!items.includes(rugIt)) rugIt = null; else for (let i = items.length - 1; i >= 0; i--) { const o = items[i]; if (o !== rugIt && !['coin', 'gem', 'shard'].includes(o.k) && Math.abs(o.z - rugIt.z) < 11 && (o.all || Math.abs((o.lane || 0) - rugIt.lane) < .8)) items.splice(i, 1); } }
+      const kf = zoneAt(dist + 70), target = kf === 'desert' || kf === 'town' ? A4.bd_town || null : kf === 'cave' ? bdCur : kf === 'bridge' ? A4.bd_oasis || null : true ? (A4['bd_' + kf] || Pz['bd_' + kf] || null) : null;
+      if (target !== bdCur) { bdPrev = bdCur; bdPA = bdA; bdCur = target; bdA = 0; } // slow crossfade (~2.5 s), sky only
+      bdA = Math.min(1, bdA + dt * .4); bdPA = Math.max(0, bdPA - dt * .4);
+      { const g3 = segAt(dist + 3); caveIn += ((g3.k === 'cave' && g3.secret ? 1 : 0) - caveIn) * Math.min(1, dt * 2.2); }
+      amb += (darkAt(dist + ZP * .7) - amb) * Math.min(1, dt * 2);
+    };
+    const prefill = () => { propW = dist; while (propW < dist + ZF) propW += placeProp(propW); for (let z = 30; z < ZF; ) z += spawnZone(z); nextRow = 8; zoneTick(5); };
+    const jumpZone = k => { // (testing) skip ahead to a zone
+      segs.length = 0; segs.push({ a: -9999, b: dist + ZP + 1, k: 'desert', ann: 1 }, newSeg(dist + ZP + 1, k)); if (k !== 'desert') zi = ORDER.indexOf(k) + 1; if (k === 'desert' || k === 'town') { bdCur = null; }
+      items.length = 0; decor.length = 0; prefill(); bdCur = null; bdA = 0; bdPrev = null;
+    };
+    const toRamp = () => { const b = items.filter(o => o.k === 'box' && o.ramp && o.z > ZP + 3).sort((p, q) => p.z - q.z)[0]; if (b) tl = b.lane; return b ? b.z - ZP : -1; };
+    // her own scary ghost: rises from behind the horizon toward the top of the screen while growing (ease-out, 1.5 s), then flickers away (0.4 s)
+    const drawScary = () => {
+      const e = t - trick.t0 - trick.warn, img = Pz.ghost_scary, dk = Math.min(1, e / .25) * (e > 1.6 ? Math.max(0, 1 - (e - 1.6) / .4) : 1);
+      ctx.globalAlpha = .6 * dk; ctx.fillStyle = '#05030c'; ctx.fillRect(-20, -20, W + 40, H + 40);
+      const p = Math.min(1, e / 1.5), ez = 1 - Math.pow(1 - p, 3), gh = H * (.22 + .78 * ez), gw = gh * img.width / img.height;
+      const gx = W / 2 + Math.sin(e * 7) * W * .03 * (1 - ez * .5), gy = HZ + H * .12 - (HZ + H * .12 - H * .02) * ez;
+      let a = Math.min(1, e / .3); if (e > 1.6) a *= Math.max(0, 1 - (e - 1.6) / .4) * (Math.random() < .35 ? .3 : 1); else if (Math.random() < .08) a *= .6;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .95 * a; ctx.translate(gx, gy); ctx.rotate(Math.sin(e * 5) * .05); ctx.drawImage(img, -gw / 2, 0, gw, gh);
+      if (e > 1.6) { ctx.globalAlpha = .4 * a; ctx.drawImage(img, -gw / 2 + (Math.random() - .5) * 20, -10, gw * 1.05, gh * 1.05); } ctx.restore();
+    };
+    // ---- 🐷🐪🐮 the stampede: her herd picture runs at her as one group across all 3 lanes; 5 quick jump taps = a huge leap over it ----
+    const HSZ = { pig: .7, cow: 1.0, camel: 1.35 }, HDEP = 6;
+    let herd = null, sj = null, nextHerdW = rnd(330, 520), rumbleT = 0;
+    const tapsEl = el('div', { class: 'dsr4-taps', 'aria-hidden': 'true' }, ...Array.from({ length: 5 }, () => el('span')));
+    stage.append(tapsEl);
+    const tapsUI = () => { const n = herd ? herd.taps.length : 0; [...tapsEl.children].forEach((c, i) => c.classList.toggle('f', !!herd && (herd.armed || i < n))); tapsEl.classList.toggle('ok', !!(herd && herd.armed)); tapsEl.classList.toggle('on', !!(herd && !herd.res && herd.it.z > ZP + 1)); };
+    const spawnHerd = () => {
+      const sp = R(['pig', 'camel', 'cow']);
+      for (let i = items.length - 1; i >= 0; i--) if (items[i].z > 55 && items[i].k !== 'sign') items.splice(i, 1);
+      const it = { k: 'herdimg', sp, z: ZF, ph: Math.random() * 6 }, dust = [-1.3, -.45, .45, 1.3].map(lx => ({ k: 'hdust', lx, z: ZF + HDEP, o: rnd(0, 1.5), ph: Math.random() * 4 }));
+      herd = { sp, it, dust, taps: [], vz: -7, res: '', armed: false }; items.push(it, ...dust); nextRow = Math.max(nextRow, 70);
+      const voice = { pig: [[620, .1], [760, .12], [540, .14]], cow: [[160, .35], [135, .45]], camel: [[220, .2], [180, .3], [240, .15]] }[sp]; let w0 = 0; voice.forEach(([f, d]) => { tone(f, d, 'sawtooth', w0, .04); w0 += d * .8; });
+    };
+    const herdTap = () => {
+      if (!herd || herd.res || herd.it.z < ZP + .5) return false;
+      if (herd.armed) return true;
+      herd.taps = herd.taps.filter(x => t - x < 1.7); herd.taps.push(t); tone(480 + herd.taps.length * 110, .07, 'triangle', 0, .06);
+      if (herd.taps.length >= 5) { herd.armed = true; tone(880, .1, 'triangle', 0, .07); tone(1175, .12, 'triangle', .08, .07); tone(1568, .18, 'triangle', .16, .07); }
+      tapsUI(); return true;
+    };
+    const herdTick = dt => {
+      if (!herd) { if (state === 'run' && dist > 150 && dist + ZF >= nextHerdW) { const k = zoneAt(dist + ZF); if (k === 'bridge' || k === 'cave' || k === 'oasis' || segAt(dist + ZF).secret || segAt(dist + ZP).k === 'oasis' || segAt(dist + 60).k === 'oasis' || drink) nextHerdW += 60; else spawnHerd(); } return; }
+      herd.it.z += herd.vz * dt; const front = herd.it.z, back = front + HDEP, rel = v * slow - herd.vz;
+      for (const d of herd.dust) d.z = back + 1.2 + d.o;
+      rumbleT -= dt; if (rumbleT <= 0 && state === 'run') { rumbleT = .16; const c = clamp(1 - (front - ZP) / ZF, 0, 1); tone(48 + Math.random() * 14, .14, 'square', 0, .02 + c * .06); }
+      if (herd.armed && !sj && !herd.res && front - ZP < 7 + rel * .25) {
+        const T = Math.max(1.25, (back - ZP + 3.5) / rel); sj = { e: 0, T, H: HSZ[herd.sp] + .6 }; herd.res = 'ok'; ducking = 0;
+        for (let i = 0; i < 10; i++) dust(rnd(-.5, .5) * PH, 1.5); tone(330, .2, 'triangle', 0, .08); tone(660, .3, 'triangle', .1, .08); tone(990, .4, 'triangle', .25, .07);
+      }
+      if (state === 'run' && !herd.res && front <= ZP + .4 && back >= ZP && jy - flo < HSZ[herd.sp] * .85) { herd.res = 'fail'; hit(true); items.push({ k: 'animal', sp: herd.sp, lx: laneX, z: ZP + .7, ph: 0, h: HSZ[herd.sp] * .95, sq: true }); }
+      tapsUI();
+      if (back < 1.4) { for (let i = items.length - 1; i >= 0; i--) if (['herdimg', 'hdust'].includes(items[i].k)) items.splice(i, 1); herd = null; nextHerdW = dist + ZF + rnd(600, 900); tapsUI(); }
+    };
+    // ---- treasure chest (cave): +10 💎 +10 🔮 +10 🪙 ----
+    let dia = 0, cry = 0;
+    const totals = () => [store.get('dsrDiamonds', 0), store.get('dsrCrystals', 0)];
+    const chestAt = (z, lane) => items.push({ k: 'chest', z, lane });
+    // ================= round E: scorpion, ramp+pit, secret tunnel, horseshoe, oasis, train-roof run, timed gates, flying carpet =================
+    let cAlt = 1.7, rugIt = null, rugForce = 0, boost = 0, carpet = 0, cH = 0, iris = 0, oasisAt = rnd(1000, 1450), melT = 0, melN = 0;
+    const nx = { scorp: rnd(220, 380), ramp: rnd(160, 300), secret: rnd(420, 650), shoe: rnd(450, 750), carpet: rnd(800, 1200), roof: 0 };
+    const due = (k, gap) => { if (dist < nx[k]) return false; nx[k] = dist + rnd(...gap); return true; };
+    // insert a stretch (oasis / secret tunnel) into the zone list, pushing everything after it further away
+    const insertSeg = (a, len, k, ex = {}) => {
+      const i = segs.findIndex(g => a >= g.a && a < g.b); if (i < 0) return null; const g = segs[i];
+      for (let j = i + 1; j < segs.length; j++) { segs[j].a += len; segs[j].b += len; if (segs[j].ta) { segs[j].ta += len; segs[j].tb += len; } }
+      const s1 = Object.assign({}, g, { b: a }), s2 = Object.assign({ a, b: a + len, k, sp: 1, ann: 1 }, ex), s3 = Object.assign({}, g, { a: a + len, b: g.b + len, sp: 1, ann: 1 });
+      if (s3.ta) { s3.ta = Math.max(s3.ta + len, s3.a + 1); s3.tb = Math.max(s3.tb + len, s3.ta + 1); }
+      segs.splice(i, 1, s1, s2, s3); return s2;
+    };
+    const calm = () => { const g = segAt(dist + ZP); return g.k === 'oasis' || !!g.secret; };
+    // one of the special rows (returns the gap to the next row, or 0 = nothing special now)
+    const special = (z0, k) => {
+      if (k === 'town') k = 'desert';
+      const g = segAt(dist + z0);
+      if (g.secret) { const L = shuffled(); [-1, 0, 1].forEach(l => coinLine(l, z0, 6, l === L[0] ? .55 : .14, null, 2.2)); if (!g.chest && dist + z0 > g.a + 25) { g.chest = 1; chestAt(z0 + 6, L[1]); } return 16; }
+      if (k === 'oasis') { const l = R([-1, 0, 1]); coinLine(l, z0, 5, .14); if (Math.random() < .3) items.push({ k: 'gem', z: z0 + 18, lane: R([-1, 0, 1]), hy: .3 }); return rnd(22, 30); }
+      if (k === 'train' && dist > 120 && due('roof', [260, 420])) { // a long moving train: ramp up, hop car to car over the gaps
+        const l = R([-1, 0, 1]), n = 4 + Math.floor(Math.random() * 3), vz = 4.5; let z = z0 + 6;
+        for (let i = 0; i < n; i++) { const b = box('car', l, z, 10, 1.12, i === 0 ? 6 : 0, vz); b.lane0 = l; b.sway = Math.random() * 6; if (i === n - 1) b.loco = 1; coinLine(l, z + 1.5, 3, 1.26, b, 3); z += 10 + 3.2; }
+        [-1, 0, 1].filter(x => x !== l).forEach(x => { if (Math.random() < .5) coinLine(x, z0 + 10, 5, .14); });
+        return z - z0 + 14;
+      }
+      if (['desert', 'castle', 'mine', 'train'].includes(k) && dist > 100 && due('scorp', [260, 420])) { // the giant scorpion: you have to go around it
+        const l = R([-1, 0, 1]); items.push({ k: 'scorp', z: z0, lane: l, ph: Math.random() * 3 }); const free = [-1, 0, 1].filter(x => x !== l); coinLine(R(free), z0 - 4, 5, .14); return 26;
+      }
+      if (['desert', 'castle'].includes(k) && dist > 90 && due('ramp', [240, 380])) { // a wooden ramp, then a pit in that lane: ride up and fly over it
+        const l = R([-1, 0, 1]); box('wood', l, z0 + 6, .35, .42, 6); items.push({ k: 'gap', z: z0 + 6.6, lane: l, len: 7 }, { k: 'pitedge', z: z0 + 6.6, lane: l, deco: true });
+        for (let i = 0; i < 5; i++) items.push({ k: 'coin', z: z0 + 7 + i * 2.2, lane: l, hy: .8 + Math.sin(i / 4 * Math.PI) * .45, sd: i });
+        if (Math.random() < .5) items.push({ k: R(['rock', 'log']), z: z0 + 9, lane: R([-1, 0, 1].filter(x => x !== l)), v: true });
+        return 30;
+      }
+      if (['desert', 'castle', 'train'].includes(k) && dist > 60 && due('secret', [520, 800])) { // a coin trail that curves off toward a rock arch at the trail's edge
+        const l = R([-1, 1]); for (let i = 0; i < 8; i++) items.push({ k: 'coin', z: z0 + i * 2.4, lane: l * (1 + Math.max(0, i - 3) * .07), hy: .14, sd: i });
+        decor.push({ k: 'sarch', img: window.ART5 ? window.ART5.tunnelMouth(360) : Pz.sarch, z: z0 + 21, lx: l * 2.3, h: 1.3, side: l, big: true, glow: Pz.crysGlow[0] }); return 30;
+      }
+      if (due('shoe', [700, 1000])) { items.push({ k: 'shoe', z: z0, lane: R([-1, 0, 1]), hy: .3 }); return 0; }
+      return 0;
+    };
+    const enterSecret = arch => {
+      const z0 = arch.z, len = Math.max(70, v * 5.2), sg = insertSeg(dist + z0, len, 'cave', { secret: 1 }); if (!sg) return;
+      for (let i = items.length - 1; i >= 0; i--) if (items[i].z > z0 - .5) items.splice(i, 1);
+      for (let i = decor.length - 1; i >= 0; i--) if (decor[i].z > z0 - .5 && decor[i] !== arch) decor.splice(i, 1);
+      decor.push({ k: 'portal', z: z0, big: true }); // a cave mouth across the trail: she rides straight in
+      propW = dist + z0 + 1; nextRow = z0 + len + 6; sg.chest = 1; const ZPs = z0 - 2;
+      for (let zz = ZPs + 8, i = 0; zz < ZPs + len - 4; zz += 2.4, i++) { const l = Math.round(Math.sin(i * .35) * 1.2); items.push({ k: 'coin', z: zz, lane: Math.max(-1, Math.min(1, l)), hy: .14, sd: i }); if (i % 4 === 0) items.push({ k: 'shard', z: zz + 1.2, lane: -Math.max(-1, Math.min(1, l)) || 1, hy: .2, c: i % 3 }); }
+      chestAt(ZPs + len * .6, 0); trick = null; warn.className = 'dsr-warn';
+      tone(220, .3, 'sine', 0, .06); tone(330, .3, 'sine', .1, .06); tone(440, .4, 'sine', .2, .06);
+    };
+    const featTick = dt => {
+      if (iris > 0) iris -= dt;
+      if (boost > 0) { boost -= dt; if (Math.random() < .7) parts.push({ k: 'spark', x: cx + (laneX - camX) * LS + rnd(-PH * .2, PH * .2), y: (FOOT + camH * PH) - jy * PH - PH * rnd(.05, .5), vx: rnd(-40, 40), vy: rnd(120, 260), r: rnd(8, 15), life: .45, max: .45 }); }
+      if (carpet > 0) { carpet -= v * slow * dt; cAlt += (carpetAlt(dist + ZP + 18) - cAlt) * Math.min(1, dt * 1.6); const e = 100 - carpet; cH = e < 14 ? cAlt * (1 - Math.pow(1 - e / 14, 3)) : carpet < 24 ? cAlt * Math.pow(Math.max(0, carpet) / 24, 2) : cAlt; if (carpet <= 0) { carpet = 0; cH = 0; } }
+      // the oasis comes once per run, from the horizon
+      if (oasisAt && oasisN && !oasisForce) oasisAt = 0; if (oasisAt && dist + ZF + 12 >= (oasisForce ? oasisAt : Math.max(oasisAt, 1700))) { oasisN++; oasisForce = 0; const g = segAt(dist + ZF + 12); if (g.k === 'desert' || g.k === 'train' || g.k === 'castle') { insertSeg(dist + ZF + 12, 150, 'oasis'); oasisAt = 0; } else oasisAt += 40; }
+      // calm music in the oasis
+      if (segAt(dist + ZP).k === 'oasis') { melT -= dt; if (melT <= 0) { melT = .42; const sc = [523, 587, 659, 784, 880, 784, 659, 587]; tone(sc[melN++ % 8], .5, 'sine', 0, .035); if (melN % 4 === 1) tone(262, .9, 'sine', 0, .03); } }
+      // the secret arch: be in its lane as it passes
+      for (const o of decor) if (o.k === 'sarch' && !o.used && o.z < ZP + 26 && o.z > ZP + 6) { if (state === 'run' && Math.round(laneX) === o.side) { o.used = 1; enterSecret(o); } }
+      // the scorpion snaps its claws as she comes close
+      for (const o of items) if (o.k === 'scorp' && o.z < 40 && o.z > ZP) { const p = Math.floor((t + o.ph) * 2.2); if (p !== o.snp) { o.snp = p; o.snapT = t; if (o.z < 30) { tone(900, .04, 'square', 0, .04); tone(700, .05, 'square', .05, .04); } } }
+      // moving trains: a slight sway, clack-clack
+      for (const o of items) if (o.k === 'box' && o.lane0 !== undefined) o.lane = o.lane0 + Math.sin(t * 2.6 + o.sway) * .025;
+    };
+    // ---- drawing the new things ----
+    const drawFeat = o => {
+      const k = o.k; if (!['scorp', 'pgate', 'shoe', 'rug'].includes(k)) return false; if (o.z < 1.2) return true;
+      const s = sOf(o.z), y = yOf(s), x = xOf(s, o.lane);
+      if (k === 'scorp') { const a5 = window.ART5, snap = Math.max(0, 1 - (t - (o.snapT || -9)) / .3), img = a5 && a5.isReady() ? a5.scorpion(420, Math.min(3, Math.floor(snap * 4))) : A4.scorp; if (!img) return true; const w = LS * s * 1.55, h = w * img.height / img.width, q = Math.max(0, 1 - (t - (o.snapT || -9)) / .18), sx = 1 + q * .07, rr = Math.sin(t * 3 + o.ph) * .02;
+        shadowAt(x, y, w * .95, .8); ctx.save(); ctx.translate(x, y + h * .02); ctx.rotate(rr); ctx.scale(sx, 1 - q * .03); ctx.globalAlpha = 1; ctx.drawImage(img, -w / 2, -h, w, h); ctx.restore(); return true; }
+      if (k === 'pgate') { const op = gateOpen(o), x0 = xOf(s, o.lane - .5), x1 = xOf(s, o.lane + .5), hh = PH * 1.3 * s, pw = Math.max(3, 12 * s), top = y - hh;
+        ctx.globalAlpha = 1; ctx.fillStyle = o.kind === 'castle' ? '#c99a64' : '#6a4630'; ctx.fillRect(x0 - pw, top, pw, hh); ctx.fillRect(x1, top, pw, hh); ctx.fillRect(x0 - pw, top - pw, x1 - x0 + pw * 2, pw * 1.6);
+        const gh = (hh - pw) * (1 - op); if (gh > 1) { const gy = top + pw * .6; ctx.save(); ctx.beginPath(); ctx.rect(x0, gy, x1 - x0, gh); ctx.clip();
+          ctx.fillStyle = o.kind === 'castle' ? '#5a4a40' : '#7a5232'; const bw = Math.max(2, 6 * s), n = 6; for (let i = 0; i <= n; i++) ctx.fillRect(x0 + (x1 - x0) * i / n - bw / 2, gy, bw, gh);
+          for (let yy = gy + gh; yy > gy; yy -= hh / 6) ctx.fillRect(x0, yy - bw, x1 - x0, bw);
+          ctx.fillStyle = '#3a3634'; for (let i = 0; i <= n; i++) { const px = x0 + (x1 - x0) * i / n; ctx.beginPath(); ctx.moveTo(px - bw, gy + gh - bw); ctx.lineTo(px, gy + gh + bw * 1.6); ctx.lineTo(px + bw, gy + gh - bw); ctx.fill(); } ctx.restore(); }
+        return true; }
+      if (k === 'shoe') { const h = PH * .34 * s, yy = y - o.hy * PH * s - Math.sin(t * 4 + o.z) * PH * .03 * s, a5 = window.ART5, img = a5 ? a5.horseshoe(160, Math.floor(t * 10)) : Pz.shoe; glows.push([Pz.warm, x, yy - h * .5, h * 2.6, 1]); ctx.globalAlpha = 1; ctx.drawImage(img, x - h / 2, yy - h, h, h); return true; }
+      if (k === 'rug') { const a5 = window.ART5, rimg = a5 && a5.isReady() ? a5.carpetRolled(240, Math.floor(t * 8)) : Pz.rug, h = PH * .34 * s, w = h * rimg.width / rimg.height, yy = y - Math.abs(Math.sin(t * 3)) * PH * .06 * s; shadowAt(x, y, w, .6); glows.push([Pz.crysGlow[1], x, yy - h * .5, h * 2.6, 1]); ctx.globalAlpha = 1; ctx.drawImage(rimg, x - w / 2, yy - h, w, h); return true; }
+      return true;
+    };
+    const gateOpen = o => clamp(.5 + .9 * Math.sin(t * 1.5 + o.ph), 0, 1);
+    // the flying carpet under her: a waving rug with tassels, seen from behind and above
+    const drawCarpet = () => {
+      const a5 = window.ART5; if (a5 && a5.isReady()) { const px = cx + (laneX - camX) * LS, fy = (FOOT + camH * PH) - jy * PH, w = PH * 1.35, h = w * .72, img = a5.carpet(420, Math.floor(t * 12)); ctx.globalAlpha = 1; ctx.drawImage(img, px - w / 2, fy - h * .72, w, h); return; }
+      const px = cx + (laneX - camX) * LS, fy = (FOOT + camH * PH) - jy * PH, w = PH * .62, d = PH * .5, n = 10;
+      const row = i => { const f = i / n, wv = Math.sin(t * 7 - f * 5) * PH * .03; return [fy - d * f * .55 + wv, w * (1 - f * .28)]; };
+      ctx.save(); ctx.globalAlpha = 1;
+      for (let i = n - 1; i >= 0; i--) { const [ya, wa] = row(i), [yb, wb] = row(i + 1); const sy = (n - 1 - i) / n * 256, sh = 256 / n;
+        ctx.save(); ctx.beginPath(); ctx.moveTo(px - wa / 2, ya); ctx.lineTo(px + wa / 2, ya); ctx.lineTo(px + wb / 2, yb); ctx.lineTo(px - wb / 2, yb); ctx.closePath(); ctx.clip();
+        ctx.drawImage(Pz.carpetTex, 0, sy, 256, sh + 1, px - wa / 2, yb - 1, wa, ya - yb + 2); ctx.restore(); }
+      const [y0, w0] = row(0); ctx.fillStyle = '#5a0e26'; ctx.fillRect(px - w0 / 2, y0, w0, PH * .03);
+      ctx.strokeStyle = '#ffd36a'; ctx.lineWidth = Math.max(2, PH * .012); for (let i = 0; i <= 12; i++) { const tx = px - w0 / 2 + w0 * i / 12, sw = Math.sin(t * 9 + i) * PH * .012; ctx.beginPath(); ctx.moveTo(tx, y0 + PH * .03); ctx.lineTo(tx + sw, y0 + PH * .075); ctx.stroke(); }
+      ctx.restore();
+    };
+    const drawBoost = () => {
+      const px = cx + (laneX - camX) * LS, fy = (FOOT + camH * PH) - jy * PH; ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .55 + .2 * Math.sin(t * 20); ctx.drawImage(Pz.warm, px - PH * .7, fy - PH * 1.05, PH * 1.4, PH * 1.4);
+      ctx.strokeStyle = 'rgba(255,220,120,.9)'; ctx.lineWidth = 3; for (let i = 0; i < 7; i++) { const sx = px + (i - 3) * PH * .12, l = PH * (.3 + (i % 3) * .15), oy = ((t * 900 + i * 73) % (PH * .8)); ctx.beginPath(); ctx.moveTo(sx, fy - PH * .2 + oy); ctx.lineTo(sx, fy - PH * .2 + oy + l); ctx.stroke(); } ctx.restore();
+    };
+    const pickup = (o, px) => {
+      if (o.k === 'shoe') { boost = 5; [784, 988, 1175, 1568].forEach((f, i) => tone(f, .15, 'triangle', i * .06, .07)); for (let i = 0; i < 16; i++) parts.push({ k: 'spark', x: px + rnd(-PH * .3, PH * .3), y: (FOOT + camH * PH) - PH * .5, vx: rnd(-200, 200), vy: rnd(-260, 40), r: rnd(9, 16), life: .6, max: .6 }); }
+      if (o.k === 'rug') { carpet = 100; cH = 0; cAlt = carpetAlt(dist + ZP + 18); [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, .25, 'sine', i * .08, .06));
+        for (let i = 0; i < 12; i++) { const z = ZP + 16 + i * 5.2, hy = carpetAlt(dist + z) + .05; for (const l of [-1, 0, 1]) if ((i + l + 3) % 3 !== 0) items.push({ k: 'shard', z, lane: l, hy, c: Math.floor(Math.random() * 3) }); } }
+    };
+    // ---- 🐴💧 the oasis drink: slow to a stop at the pool in her lane, head down, ripples + slurps, then refreshed and off again ----
+    let drink = null;
+    const drinkMul = () => { if (!drink) return 1; const e = drink.e; return e < 1.3 ? Math.max(0, 1 - e / 1.3) : e < drink.T + 1.3 ? 0 : Math.min(1, (e - drink.T - 1.3) / 1.4); };
+    const drinkPose = () => { if (!drink) return 0; const e = drink.e - 1.3, idle = e > 4 && !drink.go ? .55 + .45 * Math.max(0, Math.sin(e * .9)) : 1; return e < 0 ? 0 : e < .6 ? e / .6 : e < drink.T - .6 ? idle : e < drink.T ? (drink.T - e) / .6 * idle : 0; };
+    // her painting of the rest (image 32): slides up over the game, slowly alive; the big 🐎▶ button continues
+    const restEl = el('div', { class: 'dsr8-rest', 'aria-hidden': 'true' }, el('div', { class: 'dsr8-bg' }), el('div', { class: 'dsr8-pic' }, el('img', { src: DSR_REST.rest, alt: '' }), el('i', { class: 'dsr8-pool' }), el('i', { class: 'dsr8-fall' }), ...Array.from({ length: 9 }, (_, i) => el('b', { class: 'dsr8-sp', style: `left:${8 + i * 10.5}%;animation-delay:${-i * 1.3}s` }, i % 3 ? '✦' : '🌸'))),
+      el('button', { type: 'button', class: 'dsr7-go dsr8-go', 'aria-label': 'להמשיך', onclick: e => { e.stopPropagation(); drinkRest(); } }, '🐎▶'));
+    restEl.firstChild.style.backgroundImage = `url("${DSR_REST.restSm}")`; stage.append(restEl);
+    const goBtn = el('button', { type: 'button', class: 'dsr7-go', 'aria-label': 'להמשיך', onclick: e => { e.stopPropagation(); drinkRest(); } }, '🐎▶'); stage.append(goBtn);
+    const drinkRest = () => { if (!drink || !drink.rest || drink.go) return !!drink; drink.go = 1; restEl.classList.remove('on'); drink.T = drink.e - 1.3 + 1.1; goBtn.classList.remove('on'); tone(660, .1, 'triangle', 0, .06); tone(990, .14, 'triangle', .08, .06); return true; };
+    const drinkTick = dt => {
+      const g = segAt(dist + ZP);
+      if (!drink && g.k === 'oasis' && !g.drank && dist + ZP > g.a + 55 && state === 'run' && !sj && !(carpet > 0)) {
+        g.drank = 1; drink = {}; const stopZ = ZP + v * .65 + .4;
+        for (let i = items.length - 1; i >= 0; i--) if (items[i].z < stopZ + 14 && !['coin', 'gem'].includes(items[i].k)) items.splice(i, 1);
+        const sd = laneX >= 0 ? 1 : -1; tl = sd; drink.sd = sd; // ride to the outer lane: the pool lies right beside it
+        decor.push({ k: 'dpool', img: A4.o_pool || (window.ART5 ? window.ART5.pool(480, 0) : Pz.pool), z: stopZ + .7, lx: sd * 3.3, h: .75, deco: true });
+        Object.assign(drink, { e: 0, T: 1e9, lane: Math.round(laneX), rip: [], sl: 0 });
+      }
+      if (!drink) return;
+      drink.e += dt; const p = drinkPose(); if (!drink.rest && drink.e > 4.6) { drink.rest = 1; restEl.classList.add('on'); [523, 659, 784, 988].forEach((f, i) => tone(f, .5, 'sine', i * .18, .04)); }
+      if (p > .9 && Math.sin(t * 2.2) > .2) { drink.sl -= dt; if (drink.sl <= 0) { drink.sl = rnd(.5, .8); tone(300 + Math.random() * 80, .07, 'sine', 0, .05); tone(220, .09, 'sine', .07, .04); drink.rip.push({ t0: t }); } }
+      if (drink.e > 1.3 + drink.T && !drink.done) { drink.done = 1; [880, 1175, 1568].forEach((f, i) => tone(f, .12, 'triangle', i * .06, .05)); for (let i = 0; i < 12; i++) parts.push({ k: 'spark', x: cx + (laneX - camX) * LS + rnd(-PH * .25, PH * .25), y: (FOOT + camH * PH) - PH * rnd(.4, 1), vx: rnd(-90, 90), vy: rnd(-160, -20), r: rnd(8, 14), life: .6, max: .6 }); shake = .12; }
+      if (drink.e > drink.T + 2.8) drink = null;
+    };
+    const drawDrinkFx = () => {
+      if (drink && !drink.go && drink.e > 1.3) { melT -= 0; }
+      if (!drink) return; const px = cx + (laneX - camX) * LS, y = (FOOT + camH * PH) - PH * .015;
+      ctx.strokeStyle = 'rgba(235,255,255,.85)'; ctx.lineWidth = 2;
+      drink.rip = drink.rip.filter(r => t - r.t0 < 1.2);
+      for (const r of drink.rip) { const q = (t - r.t0) / 1.2; ctx.globalAlpha = 1; ctx.beginPath(); ctx.ellipse(px, y - PH * .05, PH * (.05 + q * .3), PH * (.012 + q * .07), 0, 0, 7); ctx.stroke(); }
+    };
+    const DEC = [['cactusSaguaro', 1.0, 3], ['cactusBarrel', .42, 2], ['cactusFlowering', .5, 2], ['rockA', .36, 1], ['rockB', .36, 1], ['shrub', .34, 3], ['palmOasis', 1.15, 1]];
+    const DECP = DEC.flatMap(x => Array(x[2]).fill(x));
+    const addDecor = z => { const [k, h] = R(DECP), side = Math.random() < .5 ? -1 : 1; decor.push({ k, h: h * rnd(.85, 1.2), z, lx: side * rnd(2.15, 5.5), flip: Math.random() < .5 }); };
+    // ---- input ----
+    const act = () => state === 'run' && !paused && !drink;
+    const lane = dir => { if (!act()) return; const n = clamp(tl + dir, -1, 1); if (n !== tl) { tl = n; tone(520 + dir * 60, .06, 'triangle', 0, .05); tone(700 + dir * 60, .06, 'triangle', .04, .04); } };
+    const jump = () => { if (drink) { drinkRest(); return; } if (act() && herdTap()) return; if (!act() || air > .001 || jq > 0) return; jq = .07; ducking = 0; tone(440, .08, 'triangle', 0, .07); tone(660, .1, 'triangle', .05, .06); };
+    const duck = () => { if (!act()) return; ducking = .8; jq = 0; if (air > .02) jv = Math.min(jv, -4.5); tone(240, .07, 'triangle', 0, .05); tone(180, .08, 'triangle', .05, .05); };
+    let pd = null;
+    const pDown = e => { if (e.target.closest('button')) return; e.preventDefault(); pd = { x: e.clientX, y: e.clientY, id: e.pointerId, done: false }; };
+    const swipe = (dx, dy) => { if (Math.abs(dx) > Math.abs(dy)) lane(dx > 0 ? 1 : -1); else if (dy < 0) jump(); else duck(); };
+    const pMove = e => { if (!pd || pd.done || e.pointerId !== pd.id) return; const dx = e.clientX - pd.x, dy = e.clientY - pd.y; if (Math.hypot(dx, dy) > 26) { pd.done = true; swipe(dx, dy); } };
+    const pUp = e => { if (pd && !pd.done && e.pointerId === pd.id) jump(); pd = null; };
+    const pCancel = () => { pd = null; };
+    stage.addEventListener('pointerdown', pDown); stage.addEventListener('pointermove', pMove); window.addEventListener('pointerup', pUp); window.addEventListener('pointercancel', pCancel);
+    [[bL, () => lane(-1)], [bR, () => lane(1)], [bU, jump], [bD, duck]].forEach(([b, f]) => { b.addEventListener('pointerdown', e => { e.preventDefault(); e.stopPropagation(); f(); }); b.addEventListener('contextmenu', e => e.preventDefault()); });
+    const kd = e => {
+      if (!dlg.open || playBox.hidden) return;
+      const k = e.key;
+      if (['ArrowLeft', 'a', 'A'].includes(k)) { e.preventDefault(); if (!e.repeat) lane(-1); }
+      else if (['ArrowRight', 'd', 'D'].includes(k)) { e.preventDefault(); if (!e.repeat) lane(1); }
+      else if ([' ', 'ArrowUp', 'w', 'W'].includes(k)) { e.preventDefault(); if (!e.repeat) jump(); }
+      else if (['ArrowDown', 's', 'S'].includes(k)) { e.preventDefault(); if (!e.repeat) duck(); }
+      else if (['p', 'P', 'פ'].includes(k)) togglePause();
+    };
+    document.addEventListener('keydown', kd);
+    const vis = () => { if (document.hidden && state === 'run' && !paused) togglePause(); };
+    document.addEventListener('visibilitychange', vis);
+    const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(() => resize()) : null; if (ro) ro.observe(stage); else window.addEventListener('resize', resize);
+    resize();
+    // ---- world ----
+    const dust = (dx, k = 1) => parts.push({ k: 'dust', x: dx, y: 0, vx: dx * rnd(.6, 1.6) * k, vy: rnd(-14, 4), sz: rnd(.42, .6) * k, life: .32, max: .32 });
+    const lanesBlockedAt = z => items.filter(o => o.k === 'wall' && Math.abs(o.z - z) < 9).map(o => o.lane);
+    const spawnRow = () => {
+      const lv = level(), z = ZF, wb = lanesBlockedAt(z), open = [-1, 0, 1].filter(l => !wb.includes(l));
+      const kinds = ['rock', 'rock', 'log', 'cactus', 'gap', 'lwall', ...(t > 14 ? ['arch', 'arch'] : [])];
+      let blocked = [...wb];
+      if (!wb.length && t > 10 && Math.random() < .14 + lv * .06) { const k = R(t > 22 ? ['arch', 'log', 'gap'] : ['log', 'gap']); items.push({ k, z, lane: 0, all: true, len: 2.6 }); blocked = [-1, 0, 1]; }
+      else {
+        const n = wb.length ? 1 : Math.random() < .35 + lv * .35 ? 2 : 1, lanes = [...open].sort(() => Math.random() - .5).slice(0, n);
+        lanes.forEach(l => { const k = wb.length ? R(['rock', 'log', 'gap']) : R(kinds); items.push({ k, z: z + (n > 1 ? rnd(0, 1.5) : 0), lane: l, len: 2.4, v: Math.random() < .5, w: Math.floor(Math.random() * 3) }); blocked.push(l); });
+      }
+      const free = [-1, 0, 1].filter(l => !blocked.includes(l)), gem = Math.random() < .1 + lv * .05;
+      if (free.length && Math.random() < .8) { const l = R(free); for (let i = 0; i < 5; i++) items.push({ k: gem && i === 2 ? 'gem' : 'coin', z: z - 6 + i * 3, lane: l, hy: .14, sd: i }); }
+      else { const jb = items.filter(o => o.z >= z - .1 && !o.all && ['rock', 'log'].includes(o.k)); if (jb.length) { const o = R(jb); for (let i = 0; i < 5; i++) items.push({ k: gem && i === 2 ? 'gem' : 'coin', z: o.z + (i - 2) * 2.2, lane: o.lane, hy: .14 + Math.sin(i / 4 * Math.PI) * .42, sd: i }); } }
+      nextRow = rnd(19 - lv * 5, 30 - lv * 9) * (v / 15) ** .5;
+    };
+    // a lane closed for a stretch: a warning sign, then a wall of blocks — switch lanes in time!
+    const spawnBlock = () => {
+      const l = R([-1, 0, 1]), len = rnd(26, 40), z0 = ZF + 14;
+      items.push({ k: 'sign', z: ZF, lx: l < 0 ? -1.9 : l > 0 ? 1.9 : (Math.random() < .5 ? -1.9 : 1.9), dir: l });
+      for (let z = 0; z <= len; z += 6.5) items.push({ k: 'wall', z: z0 + z, lane: l });
+      nextBlock = rnd(170, 260); nextRow = Math.max(nextRow, 16);
+    };
+    const openChest = (o, px) => {
+      coins += 10; dia += 10; cry += 10;
+      [1047, 1319, 1568, 2093, 2637].forEach((f, i) => tone(f, .16, 'triangle', i * .07, .06)); tone(523, .5, 'sine', 0, .05);
+      const cr = hW.getBoundingClientRect(), sr = stage.getBoundingClientRect(), tx = cr.left - sr.left + cr.width / 2, ty = cr.top - sr.top + cr.height / 2;
+      for (let i = 0; i < 18; i++) parts.push({ k: 'fly', img: i % 3 === 0 ? A.gem : i % 3 === 1 ? Pz.crys[i % 2] : A.coinSheet, x0: px + rnd(-PH * .3, PH * .3), y0: (FOOT + camH * PH) - PH * rnd(.2, .7), tx, ty, x: 0, y: 0, vx: 0, vy: 0, life: .9 + i * .03, max: .9 + i * .03, hop: rnd(.4, .9) });
+      for (let k = 0; k < 14; k++) parts.push({ k: 'spark', x: px + rnd(-PH * .3, PH * .3), y: (FOOT + camH * PH) - PH * .4, vx: rnd(-180, 180), vy: rnd(-300, -60), r: rnd(10, 18), life: .6, max: .6 });
+    };
+    const hit = big => {
+      if (boost > 0 && state === 'run') { for (let i = 0; i < 16; i++) parts.push({ k: 'star', x: cx + (laneX - camX) * LS, y: (FOOT + camH * PH) - PH * .5, vx: rnd(-260, 260), vy: rnd(-300, 0), r: rnd(5, 9), life: .6, max: .6, c: R(['#ffd84d', '#fff6b0', '#ffffff']) }); tone(1200, .08, 'triangle', 0, .06); return; }
+      if (inv > 0 || state !== 'run' || god) return;
+      inv = 1.3; slow = .5; d -= big ? 12 : 9; lastHit = t; shake = .35;
+      tone(150, .22, 'sawtooth', 0, .08); tone(110, .25, 'square', .06, .05);
+      for (let i = 0; i < 12; i++) parts.push({ k: 'star', x: cx + (laneX - camX) * LS, y: (FOOT + camH * PH) - PH * .5, vx: rnd(-200, 200), vy: rnd(-260, 0), r: rnd(4, 8), life: .7, max: .7, c: R(['#ffd84d', '#fff', '#ff9ad5']) });
+    };
+    const startTrick = k => {
+      trick = { k, t0: t, warn: 1.3, dur: k === 'mud' ? 2.6 : k === 'ghost' && scary ? 2 : 4.5 };
+      warn.replaceChildren(k === 'mud' && A.mud1 ? (() => { const c = document.createElement('canvas'), im = A.mud1, sc = Math.min(64 / im.width, 64 / im.height); c.width = c.height = 64; c.getContext('2d').drawImage(im, (64 - im.width * sc) / 2, (64 - im.height * sc) / 2, im.width * sc, im.height * sc); return c; })() : el('span', { class: 'dsr-wi' }, { mud: '🤎', ghost: '👻', speed: '⚡' }[k]));
+      warn.className = 'dsr-warn on' + (k === 'mud' ? ' dsr12-mudw' : ''); if (k === 'mud') { tone(330, .12, 'triangle', 0, .04); tone(262, .14, 'triangle', .25, .04); } else { tone(880, .1, 'square', 0, .05); tone(880, .1, 'square', .2, .05); tone(660, .16, 'square', .4, .05); }
+    };
+    function togglePause() {
+      if (state !== 'run' && !paused) return;
+      paused = !paused; pauseB.textContent = paused ? '▶️' : '⏸️';
+      if (paused) over.replaceChildren(el('div', { class: 'dsr-card-msg' }, el('b', { class: 'dsr-ot' }, '⏸️'),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: togglePause, 'aria-label': 'להמשיך' }, '▶️'), el('button', { type: 'button', class: 'btn dsr9-gearb', onclick: () => dsr9Open(stage, { onRestDone: () => { if (paused) togglePause(); } }), 'aria-label': 'הגדרות' }, dsr9Gear()), el('button', { type: 'button', class: 'btn', onclick: () => { stop(); dsrSetup(); }, 'aria-label': 'דמויות' }, '🎨'), el('button', { type: 'button', class: 'btn', onclick: () => $('#dsrDlg').close(), 'aria-label': 'יציאה' }, '🚪'))));
+      else { over.replaceChildren(); last = performance.now(); }
+    }
+    // ---- drawing ----
+    const fade = () => 1;
+    const shadowAt = (x, y, w, a = 1) => { ctx.globalAlpha = a; ctx.drawImage(A.shadow, x - w / 2, y - w * .15, w, w * .3); };
+    const bb = (img0, x, y, h, a = 1, flip = false, w = h * img0.width / img0.height) => { const img = mipOf(img0, w); ctx.globalAlpha = a; if (flip) { ctx.save(); ctx.translate(x, 0); ctx.scale(-1, 1); ctx.drawImage(img, -w / 2, y - h, w, h); ctx.restore(); } else ctx.drawImage(img, x - w / 2, y - h, w, h); };
+    const tileX = (img, x0, yBottom, h) => { const w = h * img.width / img.height; let x = ((x0 % w) + w) % w - w; for (; x < W; x += w) ctx.drawImage(img, x, yBottom - h, w + 1, h); };
+    const dayAt = p => { // [blue-day overlay, night, sun height 0..1 (1 = at the horizon)]
+      const day = p < .42 ? 1 : p < .58 ? 1 - (p - .42) / .16 : p < .9 ? 0 : (p - .9) / .1;
+      const nt = p < .66 ? 0 : p < .76 ? (p - .66) / .1 : p < .88 ? 1 : p < .95 ? 1 - (p - .88) / .07 : 0;
+      const sun = p < .3 ? .25 : p < .7 ? .25 + (p - .3) / .4 * .85 : 1.3;
+      return [day, nt, sun];
+    };
+    const drawBg = () => {
+      const p = (t / 150 + .1) % 1, [day, nt, sun] = dayAt(p), par = bend * W * .25 + camX * LS * .2;
+      ctx.globalAlpha = 1; tileX(A.sky, -t * 6 - par * .05, HZ + 2, Math.max(HZ + 2, (HZ + 2) * 1.0));
+      if (day > 0) { ctx.globalAlpha = day * .62; ctx.fillStyle = G.day; ctx.fillRect(0, 0, W, HZ + 2); }
+      if (nt > 0) { ctx.globalAlpha = nt * .78; ctx.fillStyle = G.night; ctx.fillRect(0, 0, W, HZ + 2); ctx.globalAlpha = nt; ctx.drawImage(night, 0, 0, night.width, Math.min(night.height, HZ + 2), 0, 0, W, Math.min(H, HZ + 2)); }
+      if (sun < 1.2) { const sz = Math.min(W, H) * .42, sx = W * .66 - par * .05, sy = HZ * (.2 + sun * .78); ctx.globalAlpha = (1 - nt) * .95; ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(A.sunGlow, sx - sz / 2, sy - sz / 2, sz, sz); ctx.globalCompositeOperation = 'source-over'; }
+      ctx.globalAlpha = 1;
+      tileX(A.farMesas, -par * .1, HZ + H * .012, H * .13);
+      tileX(A.midButtes, -par * .25 - 300, HZ + H * .02, H * .12);
+      tileX(A.dunes, -par * .5 - 150, HZ + H * .028, H * .085);
+      { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, HZ + H * .035); ctx.clip(); // backdrops slide up from behind the horizon, fully opaque
+        [[bdPrev, bdPA], [bdCur, bdA]].forEach(([im, al]) => { if (!im || al <= 0) return; const bw = Math.max(W * 1.15, HZ * 1.25 * im.width / im.height), bh = bw * im.height / im.width, e = 1 - Math.pow(1 - al, 3); ctx.globalAlpha = 1; ctx.drawImage(im, (W - bw) / 2 - par * .15, HZ + H * .035 - bh * e, bw, bh); });
+        if (nt > 0 && (bdA > 0 || bdPA > 0)) { ctx.globalAlpha = nt * .5; ctx.fillStyle = G.night; ctx.fillRect(0, 0, W, HZ + H * .035); } ctx.restore(); ctx.globalAlpha = 1; }
+      if (!sandWide()) { ctx.fillStyle = G.ground; ctx.fillRect(0, HZ + H * .02, W, H); }
+      return nt;
+    };
+    // the sandy trail: the 3-lane texture projected in thin rows (perspective), scrolling toward the camera
+    const drawRoad = () => {
+      ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'low';
+      const tw = A.trail.width, th = A.trail.height, tex = 14, y0 = Math.ceil(HZ + H * .012), E = 1.62, EB = 2.05, Ez = z => zoneAt(dist + z) === 'bridge' ? EB : E;
+      // clip to the (curving) trail outline so the edges stay smooth, then fill it with textured rows
+      // full-width rows first: the canyon far below the bridge, the tunnel walls in the cave
+      for (let y = y0; y < H; ) { const s = (y - HZ) / ((FOOT + camH * PH - HZ)), z = ZP / s, k = zoneAt(dist + z), stp = k === 'bridge' ? Math.min(2, rowStp(y)) : rowStp(y);
+        if (k === 'bridge') { const g = segAt(dist + z), e = Math.min(dist + z - g.a, g.b - dist - z); canyonRow(y, stp); }
+        else { const cw = caveW(dist + z); if (cw < 1) sideRow(y, stp + .5, s, (y + stp - HZ) / ((FOOT + camH * PH - HZ)), dist + z); if (cw > 0) { ctx.globalAlpha = cw; if (A4.t_cave) { const tr = A4.t_cave, ry = Math.floor((((dist + z) * 9) % tr.height + tr.height) % tr.height); rowImg(tr, ry, 1, 0, y, W, stp + .5); } else { ctx.fillStyle = '#c87a48'; ctx.fillRect(0, y, W, stp + .5); } ctx.globalAlpha = 1; } }
+        y += stp; }
+      ctx.save(); ctx.beginPath(); const P = [];
+      for (let i = 0; i <= 24; i++) { const s = 2.6 * Math.pow(((y0 - HZ) / ((FOOT + camH * PH - HZ))) / 2.6, i / 24); P.push([s, yOf(s)]); }
+      P.forEach(([s, y]) => ctx.lineTo(xOf(s, -Ez(ZP / s)), y)); for (let i = P.length - 1; i >= 0; i--) ctx.lineTo(xOf(P[i][0], Ez(ZP / P[i][0])), P[i][1]); ctx.closePath(); ctx.clip();
+      ctx.globalAlpha = 1;
+      for (let y = y0; y < H; ) {
+        const s = (y - HZ) / ((FOOT + camH * PH - HZ)), z = ZP / s, stp = rowStp(y), s2 = (y + stp - HZ) / ((FOOT + camH * PH - HZ));
+        const Er = Ez(z), a = xOf(s, -Er), b = xOf(s2, -Er), c = xOf(s, Er), e = xOf(s2, Er), xl = Math.min(a, b) - 2, xr = Math.max(c, e) + 2;
+        const w = dist + z, vv = ((-w / tex) * th % th + th) % th, g = segAt(w), tc = texOf(g.k), dA = w - g.a, sv = Math.min(th - 1, vv);
+        if (tc === SANDT && SW && !(dA < 9 && g.a > -999 && texOf(zoneAt(g.a - .01)) !== tc) && caveW(w) <= 0) { y += stp; continue; }
+        if (dA < 9 && g.a > -999) { const tp = texOf(zoneAt(g.a - .01)); if (tp !== tc) { rowImg(tp, sv, Math.max(1, Math.min(th - sv - 1, (ZP / Math.max(.001, s) - ZP / Math.max(.001, s2)) / tex * th)), xl, y, xr - xl, stp + .5); ctx.globalAlpha = dA / 9; } }
+        rowImg(tc, sv, Math.max(1, Math.min(th - sv - 1, (ZP / Math.max(.001, s) - ZP / Math.max(.001, s2)) / tex * th)), xl, y, xr - xl, stp + .5); ctx.globalAlpha = 1;
+        const cw = caveW(w); if (cw > 0) { ctx.fillStyle = `rgba(120,70,170,${(.18 * (1 - Math.min(1, s * 1.5))) * cw})`; ctx.fillRect(xl, y, xr - xl, stp + .5); }
+        y += stp;
+      }
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(255,240,215,.5)'; ctx.lineWidth = 1.5; [-1, 1].forEach(sg => { ctx.beginPath(); P.forEach(([s, y], i) => { const l = sg * Ez(ZP / s); i ? ctx.lineTo(xOf(s, l), y) : ctx.moveTo(xOf(s, l), y); }); ctx.stroke(); });
+      // bridge railings: a rail on top of the posts, only where the bridge is
+      drawRails();
+      { const g = caveNow(), hk = !g ? 1 : dist < g.a ? clamp((g.a - dist - 2) / 30, 0, 1) : dist >= g.b ? clamp((dist - g.b) / 30, 0, 1) : 0; ctx.globalAlpha = .9 * (1 - caveIn) * hk; if (ctx.globalAlpha > .01) ctx.drawImage(haze, 0, HZ - H * .05, W, H * .16); ctx.globalAlpha = 1; }
+    };
+    // gaps (canyons) are flat: draw them as part of the ground, row by row
+    const drawGaps = () => {
+      for (const o of items) {
+        if (o.k !== 'gap') continue;
+        const za = Math.max(o.z, 2.6), zb = Math.min(o.z + o.len, ZF); if (zb <= za) continue;
+        const sa = sOf(za), sb = sOf(zb), ya = yOf(sa), yb = yOf(sb), l0 = o.all ? -1.62 : o.lane - .5, l1 = o.all ? 1.62 : o.lane + .5, n = Math.max(2, Math.min(14, Math.round((ya - yb) / 3)));
+        ctx.globalAlpha = fade(za); const img = A.canyonGap, ih = img.height;
+        if (o.void) { ctx.save(); ctx.beginPath(); ctx.moveTo(xOf(sb, l0), yb); ctx.lineTo(xOf(sb, l1), yb); ctx.lineTo(xOf(sa, l1), ya); ctx.lineTo(xOf(sa, l0), ya); ctx.closePath(); ctx.clip(); { const gg = segAt(dist + o.z); for (let yy = Math.floor(yb); yy < ya; yy += 2) riverRow(yy, 2, gg, ZP / Math.max(.01, (yy - HZ) / ((FOOT + camH * PH - HZ)))); } ctx.restore(); ctx.strokeStyle = 'rgba(40,20,10,.8)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(xOf(sb, l0), yb); ctx.lineTo(xOf(sb, l1), yb); ctx.moveTo(xOf(sa, l0), ya); ctx.lineTo(xOf(sa, l1), ya); ctx.stroke(); continue; }
+        ctx.save(); ctx.beginPath(); ctx.moveTo(xOf(sb, l0), yb); ctx.lineTo(xOf(sb, l1), yb); ctx.lineTo(xOf(sa, l1), ya); ctx.lineTo(xOf(sa, l0), ya); ctx.closePath(); ctx.clip();
+        for (let i = 0; i < n; i++) { const f = i / n, f2 = (i + 1) / n, y = yb + (ya - yb) * f, y2 = yb + (ya - yb) * f2, sA = sb + (sa - sb) * f, sB = sb + (sa - sb) * f2, x0 = Math.min(xOf(sA, l0), xOf(sB, l0)) - 2, x1 = Math.max(xOf(sA, l1), xOf(sB, l1)) + 2;
+          ctx.drawImage(img, 0, ih * f, img.width * (o.all ? 1 : .5), ih / n + .5, x0, y, x1 - x0, y2 - y + .6); }
+        ctx.restore();
+      }
+      ctx.globalAlpha = 1;
+    };
+    // ---- zone drawing: boxes you can climb (boxcars, mine carts, fortress walls) + their ramps, and the big zone props ----
+    const pt = (s, l, h) => [xOf(s, l), yOf(s) - h * PH * s];
+    const poly = (pts, fill) => { ctx.fillStyle = fill; ctx.beginPath(); pts.forEach(p => ctx.lineTo(p[0], p[1])); ctx.closePath(); ctx.fill(); };
+    // solid 3D blocks: textured top + front + the side that faces the camera, shaded; nothing is see-through
+    const PAT = {}; const pat = (k, sc) => { const p = PAT[k] || (PAT[k] = ctx.createPattern(Pz[k], 'repeat')); try { p.setTransform(new DOMMatrix().scale(sc)); } catch {} return p; };
+    const shade = (pts, a0, a1) => { const g = ctx.createLinearGradient(pts[0][0], pts[0][1], pts[1][0], pts[1][1]); g.addColorStop(0, `rgba(30,12,10,${a0})`); g.addColorStop(1, `rgba(30,12,10,${a1})`); poly(pts, g); };
+    const NEAR = 1.3;
+    const drawUnit = (b, z0, z1) => {
+      if (z1 < NEAR) return; const zn = Math.max(z0, NEAR), zf = Math.min(z1, ZF), sN = sOf(zn), sF = sOf(zf), w = b.kind === 'cart' ? .38 : .46, l0 = b.lane - w, l1 = b.lane + w, h = b.h, k = b.kind, sm = Math.min(2.5, sN) * .5;
+      ctx.globalAlpha = 1;
+      poly([pt(sN, l0 - .04, 0), pt(sN, l1 + .14, 0), pt(sF, l1 + .14, 0), pt(sF, l0 - .04, 0)], 'rgba(70,35,30,.3)'); // ground shadow
+      const rel = b.lane - camX, side = rel > .05 ? l0 : rel < -.05 ? l1 : null;
+      if (side !== null) { const q = [pt(sN, side, 0), pt(sF, side, 0), pt(sF, side, h), pt(sN, side, h)];
+        poly(q, k === 'car' ? pat('plankSide', sm) : k === 'wall' ? pat('stoneTex', sm) : '#5a3a22');
+        poly(q, dsr3Lin(ctx, 0, q[3][1], 0, q[0][1], [[0, 'rgba(255,220,180,.08)'], [1, 'rgba(30,10,5,.35)']]));
+        if (k === 'car') { ctx.strokeStyle = '#2c1c18'; ctx.lineWidth = Math.max(2, 5 * sm); [[.06], [.52], [.98]].forEach(([f]) => { ctx.beginPath(); ctx.moveTo(...pt(sN, side, h * f)); ctx.lineTo(...pt(sF, side, h * f)); ctx.stroke(); }); }
+        if (k === 'cart') { ctx.strokeStyle = '#2e2a28'; ctx.lineWidth = Math.max(2, 4 * sm); ctx.beginPath(); ctx.moveTo(...pt(sN, side, h * .92)); ctx.lineTo(...pt(sF, side, h * .92)); ctx.stroke(); } }
+      const top = [pt(sN, l0, h), pt(sN, l1, h), pt(sF, l1, h), pt(sF, l0, h)];
+      if (k === 'car') { // curved roof: dark eaves, light ridge
+        poly(top, dsr3Lin(ctx, top[0][0], 0, top[1][0], 0, [[0, '#3e241c'], [.25, '#6e4434'], [.5, '#9a6650'], [.75, '#6e4434'], [1, '#3e241c']]));
+        ctx.strokeStyle = 'rgba(30,12,8,.35)'; ctx.lineWidth = 1.5; for (let zz = Math.ceil(zn); zz < zf; zz += 1.1) { const s = sOf(zz); ctx.beginPath(); ctx.moveTo(...pt(s, l0, h)); ctx.lineTo(...pt(s, l1, h)); ctx.stroke(); }
+        ctx.strokeStyle = '#2c1c18'; ctx.lineWidth = Math.max(1.5, 3 * sm); [l0, l1].forEach(l => { ctx.beginPath(); ctx.moveTo(...pt(sN, l, h)); ctx.lineTo(...pt(sF, l, h)); ctx.stroke(); });
+      } else if (k === 'wall') { poly(top, pat('stoneTop', sm)); poly(top, dsr3Lin(ctx, 0, top[2][1], 0, top[0][1], [[0, 'rgba(255,240,210,.15)'], [1, 'rgba(120,80,40,.1)']]));
+        ctx.strokeStyle = 'rgba(110,70,35,.6)'; ctx.lineWidth = Math.max(1.5, 3 * sm); [l0, l1].forEach(l => { ctx.beginPath(); ctx.moveTo(...pt(sN, l, h)); ctx.lineTo(...pt(sF, l, h)); ctx.stroke(); });
+      } else { poly(top, '#4a4440'); for (let i = 0; i < 3; i++) { const s = sOf(zn + (zf - zn) * (i + .5) / 3), [x, y] = pt(s, b.lane, h); ctx.fillStyle = i % 2 ? '#8a8480' : '#6a6460'; ctx.beginPath(); ctx.arc(x, y - 4 * s, LS * s * .16, Math.PI, 0); ctx.fill(); ctx.fillStyle = '#ffd77a'; ctx.fillRect(x - 3 * s, y - 8 * s, 3 * s, 3 * s); } }
+      if (z0 >= NEAR && z0 > ZP - 2) { const [x0, yb] = pt(sN, l0, 0), [x1] = pt(sN, l1, 0), hh = h * PH * sN;
+        if (k === 'car') ctx.drawImage(Pz.carBack, x0 - (x1 - x0) * .02, yb - hh * 1.09, (x1 - x0) * 1.04, hh * 1.2);
+        else if (k === 'cart') { const kk = hh / 140; ctx.drawImage(Pz.cartBack, x0 - (x1 - x0) * .05, yb - 190 * kk, (x1 - x0) * 1.1, 190 * kk); }
+        else { ctx.drawImage(Pz.wall, x0, yb - hh * 1.19, x1 - x0, hh * 1.19); if (b.banner) ctx.drawImage(Pz.banner, (x0 + x1) / 2 - (x1 - x0) * .14, yb - hh * .98, (x1 - x0) * .28, hh * .6); } }
+    };
+    const drawRamp = b => {
+      const zA = b.z - b.ramp, zB = b.z; if (zB < NEAR) return; const zn = Math.max(zA, NEAR), hn = b.h * (zn - zA) / b.ramp, sN = sOf(zn), sF = sOf(zB), w = .44, l0 = b.lane - w, l1 = b.lane + w, sm = Math.min(2.5, sN) * .5;
+      ctx.globalAlpha = 1; const wall = b.kind === 'wall';
+      const rel = b.lane - camX, side = rel > .05 ? l0 : rel < -.05 ? l1 : null;
+      if (side !== null) { const q = [pt(sN, side, 0), pt(sF, side, 0), pt(sF, side, b.h), pt(sN, side, hn)]; poly(q, wall ? pat('stoneTex', sm) : pat('plankSide', sm)); poly(q, 'rgba(30,12,8,.3)'); }
+      const top = [pt(sN, l0, hn), pt(sN, l1, hn), pt(sF, l1, b.h), pt(sF, l0, b.h)];
+      poly(top, wall ? '#e7c690' : '#a8754a');
+      ctx.strokeStyle = wall ? 'rgba(150,100,50,.55)' : 'rgba(50,25,10,.6)'; ctx.lineWidth = Math.max(1.5, 3 * sm);
+      for (let i = 1; i < 10; i++) { const zz = zA + b.ramp * i / 10; if (zz < zn) continue; const s = sOf(zz), hh = b.h * i / 10; ctx.beginPath(); ctx.moveTo(...pt(s, l0, hh)); ctx.lineTo(...pt(s, l1, hh)); ctx.stroke(); }
+      ctx.strokeStyle = wall ? '#b88a52' : '#5a3a22'; [l0, l1].forEach(l => { ctx.beginPath(); ctx.moveTo(...pt(sN, l, hn)); ctx.lineTo(...pt(sF, l, b.h)); ctx.stroke(); });
+    };
+    const drawBox = b => {
+      const unit = b.kind === 'car' ? 10 : b.kind === 'cart' ? 2.6 : b.len, gap = b.kind === 'car' ? 1 : b.kind === 'cart' ? .7 : 0, U = [];
+      for (let z = b.z; z < b.z + b.len - .05; z += unit + gap) U.push([z, Math.min(z + unit, b.z + b.len)]);
+      for (let i = U.length - 1; i >= 0; i--) drawUnit(b, U[i][0], U[i][1]);
+      if (b.ramp) drawRamp(b);
+      ctx.globalAlpha = 1;
+    };
+    const drawTrestle = o => { if (o.z < 1.1) return; const s = sOf(o.z), y = yOf(s), a = 1, k = 'trestle'; const x = xOf(s, o.lx), w = PH * 4 * s * 120 / 520, za = o.ga - dist, lim = za > 1.3 ? yOf(sOf(za)) : H; const h = Math.min(PH * 4 * s, lim - y); if (h <= 2) return; ctx.globalAlpha = 1; ctx.drawImage(Pz.trestle, 0, 0, 120, 520 * h / (PH * 4 * s), x - w / 2, y - PH * .05 * s, w, h);  };
+    // the fortress gate: two towers beside the trail and a lintel high above — the camera rides cleanly through
+    const drawGate = (s, y) => {
+      const sm = Math.min(2.5, s) * .5, H1 = PH * 1.9 * s, lin = PH * .38 * s; ctx.globalAlpha = 1;
+      [[-2.75, -1.72], [1.72, 2.75]].forEach(([a, b]) => { const x0 = xOf(s, a), x1 = xOf(s, b); if (x1 < -40 || x0 > W + 40) return;
+        ctx.fillStyle = pat('stoneTex', sm); ctx.fillRect(x0, y - H1, x1 - x0, H1); ctx.fillStyle = 'rgba(60,30,10,.18)'; ctx.fillRect(a < 0 ? x1 - (x1 - x0) * .2 : x0, y - H1, (x1 - x0) * .2, H1);
+        ctx.fillStyle = '#e2c38e'; const cw = (x1 - x0) / 5; for (let i = 0; i < 3; i++) ctx.fillRect(x0 + cw * i * 2, y - H1 - cw * .8, cw, cw * .8);
+        ctx.drawImage(Pz.banner, (x0 + x1) / 2 - (x1 - x0) * .2, y - H1 * .85, (x1 - x0) * .4, (x1 - x0) * .86); });
+      const lx0 = xOf(s, -1.72), lx1 = xOf(s, 1.72), ly = y - H1; if (ly + lin > -20) { ctx.fillStyle = pat('stoneTex', sm); ctx.fillRect(lx0, ly, lx1 - lx0, lin);
+        ctx.fillStyle = 'rgba(60,30,10,.25)'; ctx.fillRect(lx0, ly + lin * .82, lx1 - lx0, lin * .18); ctx.fillStyle = '#e2c38e'; const cw = (lx1 - lx0) / 13; for (let i = 0; i < 7; i++) ctx.fillRect(lx0 + cw * i * 2, ly - cw * .7, cw, cw * .7); }
+    };
+    // her mine timbers: thick posts with iron bands, a heavy cross beam, lanterns hanging from it
+    const drawCBeam = o => { if (o.z < 1.1) return; const s = sOf(o.z), y = yOf(s), pw = .26 * LS * s, hh = 1.6 * PH * s; ctx.globalAlpha = 1;
+      if (!A4.c_wallL) for (const l of [-1.95, 1.95]) { const x = xOf(s, l); ctx.fillStyle = G.woodP || '#8a5a32'; ctx.fillRect(x - pw / 2, y - hh, pw, hh); ctx.fillStyle = 'rgba(40,20,8,.35)'; ctx.fillRect(x + pw * .2, y - hh, pw * .3, hh); ctx.fillStyle = '#3e3a38'; [.2, .55, .9].forEach(f => ctx.fillRect(x - pw * .6, y - hh * f, pw * 1.2, Math.max(2, .05 * PH * s))); }
+      const x0 = xOf(s, -2.6), x1 = xOf(s, 2.6), bh = .24 * PH * s; ctx.fillStyle = G.woodP || '#8a5a32'; ctx.fillRect(x0, y - hh - bh * .6, x1 - x0, bh); ctx.fillStyle = 'rgba(40,20,8,.35)'; ctx.fillRect(x0, y - hh + bh * .2, x1 - x0, bh * .2);
+      (A4.c_wallL ? [] : [[-1.95, 1], [1.95, -1]]).forEach(([l, d2]) => { ctx.strokeStyle = G.woodP || '#7a4e2c'; ctx.lineWidth = pw * .55; ctx.beginPath(); ctx.moveTo(xOf(s, l), y - hh * .75); ctx.lineTo(xOf(s, l + d2 * .55), y - hh); ctx.stroke(); });
+      if (A4.c_lantern) [-.95, .95].forEach(l => { const lx = xOf(s, l), lh = .34 * PH * s, lw = lh * A4.c_lantern.width / A4.c_lantern.height; ctx.drawImage(A4.c_lantern, lx - lw / 2, y - hh + bh * .3, lw, lh); glows.push([Pz.warm, lx, y - hh + bh * .3 + lh * .6, lh * 2.2, 1]); });
+    };
+    const drawZoneItem = o => {
+      const k = o.k; if (!['box', 'crys', 'shard', 'trestle', 'mframe', 'gate', 'rib', 'portal', 'animal', 'hdust', 'herdimg', 'chest'].includes(k)) return false;
+      if (k === 'herdimg') { if (o.z < ZP * .8) return true; const s = sOf(o.z), y = yOf(s), img = A4['herd_' + o.sp]; if (!img) return true; const w = 3.9 * LS * s, h = w * img.height / img.width, b = Math.abs(Math.sin(t * 11 + o.ph)) * PH * .05 * s;
+        shadowAt(xOf(s, 0), y, w * .95, .8); ctx.save(); ctx.translate(xOf(s, 0), y + h * .02 - b); ctx.rotate(Math.sin(t * 5.5 + o.ph) * .012); ctx.globalAlpha = 1; ctx.drawImage(img, -w / 2, -h, w, h); ctx.restore(); return true; }
+      if (k === 'chest') { if (o.z < 1.2) return true; const s = sOf(o.z), y = yOf(s), img = A4.chest; if (!img) return true; let h = PH * .55 * s; if (o.pop) { const q = (t - o.pop) / .3; if (q >= 1) { o.z = -99; return true; } h *= 1 + q * .5; }
+        const x = xOf(s, o.lane); shadowAt(x, y, h * 1.1, .7); glows.push([Pz.warm, x, y - h * .6, h * 2.2, 1]); bb(img, x, y + h * .03, h, 1); return true; }
+      if (k === 'animal') { if (o.z < 1.2) return true; const s = sOf(o.z), y = yOf(s), fr = HERD[o.sp] || [], img = o.sq ? fr[4] : fr[Math.floor(t * 9 + o.ph) % 4]; if (!img) return true;
+        const h = o.h * PH * s, w = h * img.width / img.height, x = xOf(s, o.lx), b = o.sq ? 0 : Math.abs(Math.sin(t * 9 + o.ph)) * PH * .04 * s; shadowAt(x, y, w * 1.05, .7); ctx.globalAlpha = 1; ctx.drawImage(img, x - w / 2, y - h - b, w, h); return true; }
+      if (k === 'hdust') { if (o.z < 1.2) return true; const s = sOf(o.z), y = yOf(s), sz = PH * 1.5 * s, f = Math.floor(t * 7 + o.ph) % 4; ctx.globalAlpha = 1; ctx.drawImage(A.dustSheet, f * 128, 0, 128, 128, xOf(s, o.lx) - sz / 2, y - sz * .9, sz, sz); return true; }
+      if (k === 'box') { drawBox(o); return true; }
+      if (o.z < 1.1) return true; const s = sOf(o.z), y = yOf(s), a = 1;
+      if (k === 'crys') { const x = xOf(s, o.lane), ci = o.c % 2 ? A4.c_purple : A4.c_blue, h = (o.big ? .62 : .26) * PH * s * (ci ? 1 : 1.5); bb(ci || Pz.crys[o.c], x, y + h * .04, h, a); glows.push([Pz.crysGlow[o.c], x, y - h * .5, h * 2.4, a]); return true; }
+      if (k === 'shard') { const x = xOf(s, o.lane), h = PH * .2 * s, yy = y - o.hy * PH * s - Math.sin(t * 4 + o.z) * PH * .02 * s; shadowAt(x, y, h * .7, .4 * a); bb(Pz.crys[o.c], x, yy, h, a); glows.push([Pz.crysGlow[o.c], x, yy - h * .5, h * 2.6, a]); return true; }
+      if (k === 'trestle') return true;
+      if (k === 'mframe') { const w = 4.7 * LS * s, h = w * 440 / 520, x = xOf(s, 0); ctx.globalAlpha = a; ctx.drawImage(Pz.mframe, x - w / 2, y - h, w, h); [-.385, .385].forEach(f => glows.push([Pz.warm, x + f * w, y - h * .74, h * .5, a])); return true; }
+      if (k === 'gate') { drawGate(s, y); return true; }
+      if (k === 'rib') { const w = 5.6 * LS * s, h = w * 720 / 800, x = xOf(s, 0); ctx.globalAlpha = a; ctx.drawImage(Pz.rib, x - w / 2, y - h, w, h); if (o.lamp) [-.29, .29].forEach(f => { ctx.drawImage(Pz.lantern, x + f * w - w * .02, y - h * .55, w * .04, w * .12); glows.push([Pz.warm, x + f * w, y - h * .5, h * .4, a]); }); return true; }
+      if (k === 'portal') { const w = 8 * LS * s, h = w * .7, x = xOf(s, 0); ctx.globalAlpha = a; ctx.drawImage(Pz.portal, x - w / 2, y - h, w, h); return true; }
+      return false;
+    };
+    let FR = null, rockPat = null, MF = null;
+    const mkFace = () => dsr3Mk(1600, 420, x => { const W0 = 1600, H0 = 420, cs = 34, nx = Math.ceil(W0 / cs) + 1, ny = Math.ceil(H0 / cs) + 1, P = [];
+      for (let j = 0; j <= ny; j++) for (let i = 0; i <= nx; i++) P.push([i * cs + (i && i < nx ? (Math.random() - .5) * cs * .8 : 0), j * cs + (j && j < ny ? (Math.random() - .5) * cs * .8 : 0)]);
+      const pal = [[150, 60, 34], [186, 82, 44], [214, 108, 60], [232, 136, 80], [244, 168, 110]];
+      const tri = (a, b, c) => { const cy = (a[1] + b[1] + c[1]) / 3, hgt = 1 - cy / H0, nxv = (b[1] - a[1]) * (c[0] - a[0]) - (c[1] - a[1]) * (b[0] - a[0]);
+        const lit = .55 + .45 * Math.random() + (nxv > 0 ? .08 : -.08), idx = Math.min(4, Math.max(0, Math.floor(hgt * 3.2 + lit * 1.6 - .4))), q = pal[idx], m = .86 + Math.random() * .22;
+        x.fillStyle = x.strokeStyle = `rgb(${Math.min(255, q[0] * m) | 0},${Math.min(255, q[1] * m) | 0},${Math.min(255, q[2] * m) | 0})`; x.lineWidth = 1.2; x.beginPath(); x.moveTo(...a); x.lineTo(...b); x.lineTo(...c); x.closePath(); x.fill(); x.stroke(); };
+      for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) { const p = k => P[k], a = j * (nx + 1) + i, b = a + 1, c = a + nx + 1, d = c + 1; if ((i + j) % 2) { tri(p(a), p(b), p(d)); tri(p(a), p(d), p(c)); } else { tri(p(a), p(b), p(c)); tri(p(b), p(d), p(c)); } }
+      x.globalAlpha = .18; x.strokeStyle = '#5a1e10'; for (let k = 0; k < 9; k++) { const y0 = 30 + k * 44 + Math.random() * 14; x.lineWidth = 3 + Math.random() * 5; x.beginPath(); for (let xx = 0; xx <= W0; xx += 40) x.lineTo(xx, y0 + Math.sin(xx * .01 + k) * 9); x.stroke(); }
+      x.globalAlpha = .22; x.lineWidth = 2.5; for (let k = 0; k < 60; k++) { let xx = Math.random() * W0, yy = Math.random() * H0; x.beginPath(); x.moveTo(xx, yy); for (let n = 0; n < 4; n++) { xx += (Math.random() - .5) * 18; yy += 10 + Math.random() * 16; x.lineTo(xx, yy); } x.stroke(); }
+      x.globalAlpha = 1; });
+    const mkFrame = () => { // the timber set in the mouth (posts, lintel, braces, iron bands, two hanging lanterns), 170 px per lane / per horse-height
+      const k = 170, w = Math.round(2 * (MW + .1) * k), h = Math.round((MP + .6) * k), X = l => w / 2 + l * k, Y = u => h - u * k;
+      return dsr3Mk(w, h, x => {
+        const wood = (x0, y0, ww, hh, vert) => { const g = vert ? x.createLinearGradient(x0, 0, x0 + ww, 0) : x.createLinearGradient(0, y0, 0, y0 + hh); g.addColorStop(0, '#4e2c16'); g.addColorStop(.3, '#9a6238'); g.addColorStop(.55, '#b07444'); g.addColorStop(1, '#5a3218');
+          x.fillStyle = g; x.fillRect(x0, y0, ww, hh); if (A4.t_wood) { x.save(); x.globalAlpha = .35; x.globalCompositeOperation = 'multiply'; const p = x.createPattern(A4.t_wood, 'repeat'); x.fillStyle = p; x.fillRect(x0, y0, ww, hh); x.restore(); }
+          x.strokeStyle = 'rgba(50,25,10,.45)'; x.lineWidth = 2; for (let i = 1; i < 5; i++) { x.beginPath(); if (vert) { x.moveTo(x0 + ww * i / 5, y0); x.lineTo(x0 + ww * i / 5 + 3, y0 + hh); } else { x.moveTo(x0, y0 + hh * i / 5); x.lineTo(x0 + ww, y0 + hh * i / 5 + 2); } x.stroke(); }
+          x.strokeStyle = '#2e1a0c'; x.lineWidth = 5; x.strokeRect(x0, y0, ww, hh); };
+        const band = (x0, y0, ww, hh) => { x.fillStyle = '#34302e'; x.fillRect(x0, y0, ww, hh); x.fillStyle = '#8a8682'; for (const f of [.2, .8]) { x.beginPath(); x.arc(x0 + ww * f, y0 + hh / 2, hh * .28, 0, 7); x.fill(); } };
+        const pw = .46 * k, pt = Y(MP + .05);
+        for (const sd of [-1, 1]) { const px = X(sd * (MW - .26)) - pw / 2; wood(px, pt, pw, h - pt, true); [.18, .55].forEach(f => band(px - 4, pt + (h - pt) * f, pw + 8, 18)); }
+        for (const sd of [-1, 1]) { x.save(); x.translate(X(sd * (MW - .26)), Y(MP - .75)); x.rotate(sd * -0.72); wood(-14, -k * .95, 28, k * .95, true); x.restore(); }
+        wood(0, Y(MP + .5), w, .5 * k, false); band(X(-MW + .05), Y(MP + .5) + .14 * k, .3 * k, 20); band(X(MW - .35), Y(MP + .5) + .14 * k, .3 * k, 20);
+        const L = A4.c_lantern; if (L) for (const sd of [-1, 1]) { const lx = X(sd * (MW - 1.05)), ly = Y(MP - .05); x.strokeStyle = '#2a2622'; x.lineWidth = 4; x.beginPath(); x.moveTo(lx, ly); x.lineTo(lx, ly + .22 * k); x.stroke(); const lh = .5 * k, lw = lh * L.width / L.height; x.drawImage(L, lx - lw / 2, ly + .2 * k, lw, lh); }
+      }); };
+    const drawMouth = o => { const zm = o.z; if (zm < 1.15 || zm > ZF + 40) return true;
+      const s = sOf(zm), yb = yOf(s), ux = LS * s, uy = PH * s, X = l => xOf(s, l), rise = o.exit ? 0 : clamp((zm - 112) / 60, 0, 1), dy = rise * 9 * uy;
+      if (!FR) FR = mkFrame(); if (!MF) { MF = mkFace(); rockPat = ctx.createPattern(MF, 'repeat'); }
+      ctx.save(); ctx.globalAlpha = 1; if (dy > 0) { ctx.beginPath(); ctx.rect(-10, -10, W + 20, yb + 10); ctx.clip(); ctx.translate(0, dy); }
+      ctx.beginPath(); ctx.moveTo(X(-FWL), yb + 2); for (const [l, hh] of RIDGE) ctx.lineTo(X(l), yb - hh * uy); ctx.lineTo(X(FWL), yb + 2); ctx.closePath(); archPath(zm);
+      try { rockPat.setTransform(new DOMMatrix([2 * FWL * ux / MF.width, 0, 0, 12 * uy / MF.height, X(-FWL), yb - 12 * uy])); } catch {}
+      ctx.fillStyle = rockPat; ctx.fill('evenodd');
+      const top = yb - 11 * uy, hz = o.exit ? 0 : clamp((zm - 30) / 120, 0, .62), g = ctx.createLinearGradient(0, top, 0, yb);
+      g.addColorStop(0, `rgba(255,214,170,${.06 + hz * .85})`); g.addColorStop(.6, `rgba(${Math.round(150 + hz * 90)},${Math.round(70 + hz * 130)},${Math.round(40 + hz * 140)},${.12 + hz * .75})`); g.addColorStop(1, `rgba(${Math.round(70 + hz * 160)},${Math.round(28 + hz * 170)},${Math.round(14 + hz * 160)},${.3 + hz * .5})`);
+      ctx.fillStyle = g; ctx.fill('evenodd');
+      ctx.beginPath(); archPath(zm, dy === 0); if (dy > 0) { ctx.fillStyle = '#4a2416'; ctx.fill(); } ctx.strokeStyle = 'rgba(45,16,8,.6)'; ctx.lineWidth = Math.max(1, .22 * ux); ctx.stroke();
+      const fw = FR.width / 170 * ux, fh = FR.height / 170 * uy; ctx.drawImage(mipOf(FR, fw), X(0) - fw / 2, yb - fh, fw, fh);
+      if (hz > .05) { ctx.globalAlpha = hz * .8; ctx.fillStyle = 'rgb(236,206,178)'; ctx.fillRect(X(0) - fw / 2, yb - fh, fw, fh); ctx.globalAlpha = 1; }
+      for (const sd of [-1, 1]) { const ci = sd < 0 ? A4.c_blue : A4.c_purple; if (ci) { const ch = 1.05 * uy, cw = ch * ci.width / ci.height; ctx.drawImage(mipOf(ci, cw), X(sd * (MW + .75)) - cw / 2, yb - ch * .96, cw, ch); if (dy === 0) glows.push([Pz.crysGlow[sd < 0 ? 0 : 1], X(sd * (MW + .75)), yb - ch * .45, ch * 2.2, 1]); }
+        if (dy === 0) glows.push([Pz.warm, X(sd * (MW - 1.05)), yb - (MP - .55) * uy, .9 * uy, 1]); }
+      ctx.restore(); return true; };
+    const drawItem = o => {
+      if (o.k === 'cbeam') return drawCBeam(o);
+      if (o.k === 'cmouth') return drawMouth(o);
+      if (o.lane !== undefined && o.k !== 'box' && o.k !== 'villain' && o.k !== 'player' && o.z < ZP - .1 && Math.abs(o.lane - laneX) < .7) return;
+      if (o.k === 'villain') return drawVillain();
+      if (o.k === 'player') { drawDrinkFx(); if (boost > 0) drawBoost(); if (carpet > 0 || cH > .02) drawCarpet(); return drawPlayer(); }
+      if (drawFeat(o)) return;
+      if (drawZoneItem(o)) return;
+      if (o.k === 'gap') return;
+      const s = sOf(o.z), y = yOf(s), a = fade(o.z);
+      if (o.k === 'coin' || o.k === 'gem') {
+        const x = xOf(s, o.lane), h = PH * .19 * s, yy = y - o.hy * PH * s - Math.sin(t * 4 + o.z) * PH * .015 * s;
+        shadowAt(x, y, h * .8, .45 * a); ctx.globalCompositeOperation = 'lighter'; bb(A.glow, x, yy + h * .55, h * 1.9, .55 * a); ctx.globalCompositeOperation = 'source-over';
+        if (o.k === 'gem') { const g = h * 1.4 * (1 + Math.sin(t * 6) * .06); bb(A.gem, x, yy + g * .2, g, a); }
+        else { const f = Math.floor(t * 12 + o.sd * 2) % 6; ctx.globalAlpha = a; ctx.drawImage(A.coinSheet, f * 64, 0, 64, 64, x - h / 2, yy - h, h, h); }
+        return;
+      }
+      if (o.k === 'arch') { const l0 = o.all ? -1.62 : o.lane - .55, l1 = o.all ? 1.62 : o.lane + .55, x0 = xOf(s, l0), x1 = xOf(s, l1); ctx.globalAlpha = a; ctx.drawImage(A.archBranch, x0, y - PH * 1.62 * s, x1 - x0, PH * 1.62 * s * 1.02); return; }
+      if (o.k === 'log') { const l0 = o.all ? -1.6 : o.lane - .58, l1 = o.all ? 1.6 : o.lane + .58, x0 = xOf(s, l0), x1 = xOf(s, l1), hh = (x1 - x0) * A.log.height / A.log.width * (o.all ? .5 : 1); ctx.globalAlpha = a; ctx.drawImage(A.log, x0, y - hh * .95, x1 - x0, hh); return; }
+      if (o.k === 'wall') { const x0 = xOf(s, o.lane - .56), x1 = xOf(s, o.lane + .56); ctx.globalAlpha = a; ctx.drawImage(A.wallBlock, x0, y - (x1 - x0) * 256 / 384 * .96, x1 - x0, (x1 - x0) * 256 / 384); return; }
+      if (o.k === 'sign') { bb(A.signWarning, xOf(s, o.lx), y, PH * .8 * s, a); return; }
+      if (o.k === 'pitedge') { const a5 = window.ART5, x0 = xOf(s, o.lane - .62), x1 = xOf(s, o.lane + .62); if (a5) { const img = a5.pitEdge(360), hh = (x1 - x0) * .45; ctx.globalAlpha = 1; ctx.drawImage(img, x0, y - hh * .53, x1 - x0, hh); } return; }
+      if (o.k === 'xbar' || o.k === 'crates') { const img = (o.k === 'xbar' ? A4.b_xbar : A4.b_crates) || Pz[o.k], x0 = xOf(s, o.lane - .52), x1 = xOf(s, o.lane + .52), hh = (x1 - x0) * img.height / img.width; ctx.globalAlpha = 1; ctx.drawImage(img, x0, y - hh * .95, x1 - x0, hh); return; }
+      if (o.k === 'lwall') { const img = A4['wall' + (o.w || 0)]; if (!img) return; const x0 = xOf(s, o.lane - .64), x1 = xOf(s, o.lane + .64), hh = (x1 - x0) * img.height / img.width; ctx.globalAlpha = 1; ctx.drawImage(img, x0, y - hh * .9, x1 - x0, hh); return; }
+      if (o.k === 'rock') { bb(o.v ? A.rockA : A.rockB, xOf(s, o.lane), y + PH * .03 * s, PH * .36 * s, a); return; }
+      if (o.k === 'cactus') { bb(A.cactusSaguaro, xOf(s, o.lane), y + PH * .04 * s, PH * 1.0 * s, a); return; }
+      const img = o.img || A[o.k] || Pz[o.k], x = xOf(s, o.lx), h = o.h * PH * s; if (!img || x < -h * 2 || x > W + h * 2) return;
+      if (o.lampXY) glows.push([Pz.warm, x + o.lampXY[0] * h * img.width / img.height * (o.flip ? -1 : 1), y - h + o.lampXY[1] * h, h * .35, .9]);
+      if (o.glow) glows.push([o.glow, x, y - h * .55, h * 1.8, a]); if (o.lamp2) glows.push([Pz.warm, x + (o.flip ? -1 : 1) * h * .26, y - h * .74, h * .32, .8]);
+      bb(img, x, y + h * .045, h, a, o.flip);
+    };
+    // her horse from behind: body + spring-swung tail from her picture, drawn galloping legs underneath (4-beat)
+    const legPath = (lx, lift, far) => {
+      const top = 288, hk = 400 - lift * 46, ft = (far ? 452 : 466) - lift * 86, sx = lx + lift * (lx < 104 ? 8 : -8);
+      ctx.fillStyle = LG[lx] || (LG[lx] = far ? dsr3Lin(ctx, lx - 16, 0, lx + 16, 0, [[0, '#b9a796'], [.5, '#ddd0c2'], [1, '#ad9b8a']]) : dsr3Lin(ctx, lx - 22, 0, lx + 22, 0, [[0, '#c4b2a0'], [.3, '#efe6dc'], [.5, '#f8f2ea'], [.8, '#dccdbd'], [1, '#b9a693']]));
+      const w0 = far ? 21 : 31, w1 = far ? 11 : 15, w2 = far ? 9 : 12;
+      ctx.beginPath(); ctx.moveTo(lx - w0, top); ctx.quadraticCurveTo(lx - w0 - 2, (top + hk) / 2, sx - w1, hk); ctx.quadraticCurveTo(sx - w2 - 1, (hk + ft) / 2, sx - w2, ft);
+      ctx.lineTo(sx + w2, ft); ctx.quadraticCurveTo(sx + w2 + 1, (hk + ft) / 2, sx + w1, hk); ctx.quadraticCurveTo(lx + w0 + 2, (top + hk) / 2, lx + w0, top); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = 'rgba(120,95,80,.3)'; ctx.lineWidth = 1.4; ctx.stroke();
+      ctx.fillStyle = 'rgba(150,120,100,.22)'; ctx.beginPath(); ctx.ellipse(sx, hk, w1 * .9, 7, 0, 0, 7); ctx.fill(); // the hock
+      ctx.fillStyle = 'rgba(255,255,255,.35)'; ctx.beginPath(); ctx.ellipse(lx - w0 * .35, (top + hk) / 2, w0 * .22, (hk - top) * .3, .1, 0, 7); ctx.fill();
+      ctx.fillStyle = far ? 'rgba(232,224,214,.85)' : 'rgba(255,255,255,.95)';
+      for (let i = -2; i <= 2; i++) { ctx.beginPath(); ctx.ellipse(sx + i * w2 * .55, ft + 4, w2 * .45, 7.5, i * .25, 0, 7); ctx.fill(); }
+      if (lift > .4) { // lifted hoof: the sole with its silver shoe shows, like in her picture
+        const ry = 8 + lift * 5; ctx.fillStyle = '#6e6862'; ctx.beginPath(); ctx.ellipse(sx, ft + 12, w2 + 3, ry, 0, 0, 7); ctx.fill();
+        ctx.strokeStyle = '#dcd9d4'; ctx.lineWidth = 3.2; ctx.beginPath(); ctx.ellipse(sx, ft + 12, w2 + 1.5, ry - 1.6, 0, Math.PI * .15, Math.PI * .85, true); ctx.stroke();
+        ctx.fillStyle = '#4a433e'; ctx.beginPath(); ctx.moveTo(sx, ft + 6); ctx.lineTo(sx - 4, ft + 17); ctx.lineTo(sx + 4, ft + 17); ctx.fill();
+      } else {
+        ctx.fillStyle = dsr3Lin(ctx, 0, ft + 4, 0, ft + 30, [[0, '#6a5a50'], [1, '#2f2925']]); ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(sx - w2 - 3, ft + 6, (w2 + 3) * 2, 24, 6); else ctx.rect(sx - w2 - 3, ft + 6, (w2 + 3) * 2, 24); ctx.fill();
+        ctx.fillStyle = '#cfccc7'; ctx.fillRect(sx - w2 - 2, ft + 26, (w2 + 2) * 2, 4);
+      }
+    };
+    const TAU = Math.PI * 2, LEG = [[90, .5, true], [116, .75, true], [64, 0, false], [142, .25, false]]; // [x, phase in the stride, far]
+    const legLift = o => { if (air > .01) return .8; const v0 = Math.sin(ph - o * TAU); return v0 > 0 ? Math.pow(v0, .75) : 0; };
+    const bobOf = p => Math.pow(Math.max(0, Math.sin(p + .4)), 1.5); // up in the suspension phase, once per stride
+    const drawPlayer = () => {
+      const px = cx + (laneX - camX) * LS, bob = air > .01 ? 0 : bobOf(ph) * PH * .035;
+      const sq = (ducking > 0 && air < .05 ? .74 : 1) * (jq > 0 ? .93 : 1) * (land > 0 ? 1 - land * .6 : 1);
+      const sc = 1 - air * .1, h = PH * sc, u = h / 507, footY = (FOOT + camH * PH) - jy * PH;
+      shadowAt(px, (FOOT + camH * PH) - flo * PH, 199 * u * 1.4 * (1 - air * .6), .9 - air * .5);
+      ctx.save(); ctx.globalAlpha = 1; ctx.translate(px, footY); ctx.rotate(lean + Math.sin(ph) * .014); ctx.scale(1 + (1 - sq) * .3, sq);
+      ctx.save(); ctx.translate(-99.5 * u, -h); ctx.scale(u, u); LEG.forEach(([x, o, far]) => far && legPath(x, legLift(o), true)); LEG.forEach(([x, o, far]) => !far && legPath(x, legLift(o), false)); ctx.restore();
+      const rb = -bob, cb = -bobOf(ph - .7) * PH * .035 * .65; // rump rides the bob; the rider follows a little later (counter-bob)
+      const iw = hBody.width, ih = hBody.height, cut = 150 / 507;
+      const c0 = cut - .012;
+      ctx.drawImage(hBody, 0, ih * c0, iw, ih * (1 - c0), -99.5 * u, -h + h * c0 + rb, 199 * u, h * (1 - c0));
+      { const dp = drinkPose(); ctx.save(); ctx.translate(0, -h + cb + dp * PH * .09); ctx.scale(1, 1 - dp * .1); ctx.drawImage(hBody, 0, 0, iw, ih * cut, -99.5 * u, 0, 199 * u, h * cut); ctx.restore(); }
+      ctx.save(); ctx.translate((105 - 99.5) * u, -h + 196 * u + rb); ctx.rotate(tailA); if (air > .01) ctx.scale(1, .93);
+      ctx.drawImage(hTail, -105 * u, -196 * u, 199 * u, h); ctx.restore();
+      if (inv > .6 && Math.floor(inv * 14) % 2) { ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .55; ctx.drawImage(hBody, -99.5 * u, -h, 199 * u, h); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1; }
+      ctx.restore();
+    };
+    // the bad guy (from her picture: man in black on a black horse, from behind) gallops between the camera and her
+    const drawVillain = () => {
+      const s = sOf(vil.z), img = badF[Math.floor((vil.ph || 0) * 4 / TAU) % 4] || badF[0]; if (!img) return;
+      if (vShow < .01) return; const ls = Math.min(s, 1.4), x = cx + (vil.lane - camX) * ls * LS, hh = PH * Math.min(s, 2.1) * 1.12, y = yOf(s) - (vil.hy * .8 + (vil.base || 0)) * PH * s - bobOf(vil.ph || 0) * PH * .03 * s + (1 - vShow) * (H - (yOf(s) - hh) + 10);
+      const w = hh * img.width / img.height, px = cx + (laneX - camX) * LS, pw = PH * 199 / 507, caught = state !== 'run';
+      let sd = vil.lane >= laneX ? 1 : -1, vx = px + sd * (pw / 2 + w * .42) * (caught ? .55 : 1);
+      if (vx + w * .32 > W || vx - w * .32 < 0) { sd = -sd; vx = px + sd * (pw / 2 + w * .42) * (caught ? .55 : 1); }
+      vx = Math.max(w * .3, Math.min(W - w * .3, vx));
+      shadowAt(vx, yOf(s) - (vil.base || 0) * PH * s + (1 - vShow) * H, hh * .55, .8 * (1 - Math.min(1, vil.hy)));
+      ctx.globalAlpha = 1; ctx.drawImage(img, vx - w / 2, y - hh, w, hh);
+    };
+    const drawParts = () => {
+      const px = cx + (laneX - camX) * LS;
+      for (const p of parts) {
+        const f = Math.max(0, p.life / p.max);
+        if (p.k === 'fly') { const q = 1 - f, e2 = q * q * (3 - 2 * q), x = p.x0 + (p.tx - p.x0) * e2, y = p.y0 + (p.ty - p.y0) * e2 - Math.sin(q * Math.PI) * PH * p.hop, sz = PH * .14 * (1 - q * .4); ctx.globalAlpha = 1;
+          if (p.img === A.coinSheet) ctx.drawImage(A.coinSheet, (Math.floor(t * 12) % 6) * 64, 0, 64, 64, x - sz / 2, y - sz / 2, sz, sz); else ctx.drawImage(p.img, x - sz / 2, y - sz / 2, sz, sz * p.img.height / p.img.width); continue; }
+        if (p.k === 'dust') { const fr = Math.min(3, Math.floor((1 - f) * 4)), sz = PH * p.sz * (1 + (1 - f) * .3); ctx.globalAlpha = .9; ctx.drawImage(A.dustSheet, fr * 128, 0, 128, 128, (p.abs ? 0 : px) + p.x - sz / 2, (p.abs ? p.y : (FOOT + camH * PH) + p.y) - sz * .92, sz, sz); }
+        else if (p.k === 'spark') { ctx.globalAlpha = f; ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(A.spark, p.x - p.r, p.y - p.r, p.r * 2, p.r * 2); ctx.globalCompositeOperation = 'source-over'; }
+        else if (p.k === 'star') { ctx.globalAlpha = f; ctx.fillStyle = p.c; ctx.beginPath(); for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5, r = i % 2 ? p.r * .45 : p.r * 1.3; ctx.lineTo(p.x + Math.cos(a) * r, p.y + Math.sin(a) * r); } ctx.fill(); }
+        else if (p.k === 'txt') { ctx.globalAlpha = f; ctx.fillStyle = '#fff'; ctx.strokeStyle = '#3a2b3c'; ctx.lineWidth = 4; ctx.font = `bold ${Math.round(PH * .12)}px sans-serif`; ctx.textAlign = 'center'; ctx.strokeText(p.txt, p.x, p.y); ctx.fillText(p.txt, p.x, p.y); }
+      }
+      ctx.globalAlpha = 1;
+    };
+    const draw = () => {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.save();
+      if (shake > 0) ctx.translate(rnd(-6, 6) * shake, rnd(-4, 4) * shake);
+      const ghost = trick && trick.k === 'ghost' && trick.on ? (scary ? 1 : clamp(Math.min((t - trick.t0 - trick.warn) / .5, (trick.t0 + trick.warn + trick.dur - t) / .7), 0, 1)) : 0;
+      if (ghost > 0 && !scary) { ctx.translate(W / 2, H / 2); ctx.rotate(Math.sin(t * 6) * .014 * ghost); ctx.translate(-W / 2, -H / 2); }
+      const nt = drawBg();
+      const caveBack = () => { const cb = A4.bd_cave, top = HZ + H * .05; if (cb) { const bw = Math.max(W, top * cb.width / cb.height), bh2 = bw * cb.height / cb.width; ctx.drawImage(cb, (W - bw) / 2, top - bh2, bw, bh2); if (top - bh2 > 0) { ctx.drawImage(cb, 0, 0, cb.width, cb.height * .25, 0, 0, W, top - bh2 + 2); } } else ctx.drawImage(caveSky, 0, 0, W, top); };
+      if (caveIn > 0) { ctx.globalAlpha = caveIn; caveBack(); ctx.globalAlpha = 1; } // (the secret tunnel keeps its soft fade)
+      { const g = caveNow(); ctx.globalAlpha = 1;
+        if (g && dist >= g.a && dist < g.b) { const ze = g.b - dist; ctx.save(); if (ze < ZF + 30) { ctx.beginPath(); ctx.rect(0, 0, W, H); archPath(ze); ctx.clip('evenodd'); } caveBack(); ctx.restore(); } // inside: daylight only through the exit
+        else if (g && dist < g.a) { const ze = g.a - dist; if (ze < 115) { ctx.save(); ctx.beginPath(); archPath(ze); ctx.clip(); caveBack(); ctx.restore(); } } } // outside: the cave only through the mouth
+      glows.length = 0; drawRoad(); drawGaps();
+      for (const b of items) if (b.k === 'box') b._k = Math.max(.5, b.z - (b.ramp || 0));
+      const keyOn = (z, b) => b._k - .01 + Math.min(.009, Math.max(0, z - b.z) * 1e-4);
+      for (const o of decor) o._k = o.z; for (const o of items) if (o.k !== 'box') o._k = o.box ? keyOn(o.z, o.box) : o.z;
+      if (herd && sj) herd.it._k = Math.max(herd.it._k, ZP + .3);
+      const vb = floorAt(vil.lane, vil.z)[1]; vil._k = vb && (vil.base || 0) > .05 ? keyOn(vil.z, vb) : vil.z;
+      PL._k = flb && flo > .05 && jy >= flo - .08 ? keyOn(ZP, flb) : ZP - .2;
+      ALL.length = 0; for (const o of decor) { if (o.h > 0 && o.z > ZP && (o.k === 'tuft' ? o.z > 55 : o.h * PH * ZP / o.z < 3)) continue; ALL.push(o); }
+      for (const o of items) ALL.push(o); ALL.push(vil, PL); const all = ALL.sort(byK);
+      for (const o of all) { const n0 = glows.length; drawItem(o); for (let i = n0; i < glows.length; i++) glows[i].z = o.z; }
+      let GF = null; { const gm = caveNow(), zm = !gm ? -1 : dist < gm.a ? gm.a - dist : dist < gm.b ? gm.b - dist : -1; if (zm > 1.2 && zm < ZF + 40) { const s = sOf(zm), yb = yOf(s), xl = xOf(s, -MW), xr = xOf(s, MW), yt = yb - (MP + MA) * PH * s; GF = q => q.z > zm + .01 && (q[1] < xl || q[1] > xr || q[2] < yt || q[2] > yb); } }
+      drawParts();
+      if (nt > 0) { ctx.globalAlpha = nt * .32; ctx.fillStyle = '#1a1850'; ctx.fillRect(-20, HZ, W + 40, H); }
+      if (amb > .01) { ctx.globalAlpha = amb * .5; ctx.fillStyle = '#060a22'; ctx.fillRect(-20, -20, W + 40, H + 40); }
+      if (glows.length) { ctx.globalCompositeOperation = 'lighter'; for (let gi = Math.max(0, glows.length - 34); gi < glows.length; gi++) { if (GF && GF(glows[gi])) continue; const [img, x, y, sz0, a0] = glows[gi]; const sz = Math.min(sz0, H * .28), a = a0 * (amb > .3 ? 1 : .6); ctx.globalAlpha = a * (.45 + .55 * amb) * (.85 + .15 * Math.sin(t * 5 + x)); ctx.drawImage(img, x - sz / 2, y - sz / 2, sz, sz); } ctx.globalCompositeOperation = 'source-over'; }
+      ctx.globalAlpha = 1;
+      if (ghost > 0 && scary) drawScary(ghost);
+      else if (ghost > 0) {
+        ctx.globalAlpha = .55 * ghost; ctx.fillStyle = '#140830'; ctx.fillRect(-20, -20, W + 40, H + 40);
+        for (const g of ghosts) { const s = sOf(g.z), h = PH * .8 * s; if (s > 3.4) continue;
+          const a = ghost * clamp((ZF * .6 - g.z) / 20, 0, 1) * (s > 2.4 ? (3.4 - s) : 1); ctx.globalAlpha = clamp(a, 0, 1);
+          const w = h * A.ghost.width / A.ghost.height; ctx.drawImage(A.ghost, xOf(s, g.lx) - w / 2 + Math.sin(t * 3 + g.ph) * w * .3, yOf(s) - g.hy * PH * s - h, w, h); }
+      }
+      ctx.restore();
+      ctx.globalAlpha = 1; let redA = 0;
+      if (trick && trick.k === 'speed' && trick.on) redA = .5 + .4 * Math.sin(t * 14);
+      if (d < 12 && state === 'run') redA = Math.max(redA, (12 - d) / 12 * (.3 + .25 * Math.sin(t * 9)));
+      redA = Math.round(clamp(redA, 0, 1) * 50) / 50; if (redA !== redD._a) { redD._a = redA; redD.style.opacity = redA; }
+      if (trick && trick.k === 'mud' && trick.on && A4.mud) { const e = t - trick.t0 - trick.warn, im = A4.mud, sc0 = Math.max(W / im.width, H / im.height) * 1.04;
+        const k = e < .1 ? 1 + .05 * e / .1 : e < .24 ? 1.05 - .05 * (e - .1) / .14 : 1, dy = e > 2 ? Math.pow((e - 2) / .55, 2) * H * 1.2 : e * H * .006, w2 = im.width * sc0 * k, h2 = im.height * sc0 * k;
+        ctx.globalAlpha = 1; ctx.drawImage(im, (W - w2) / 2, (H - h2) / 2 + dy, w2, h2); }
+      else if (trick && trick.k === 'mud' && trick.on) { const e = t - trick.t0 - trick.warn; for (const m of muds) { ctx.save(); ctx.translate(m.x, m.y + e * m.drip + (e > 2 ? Math.pow((e - 2) / .55, 2) * H * 1.2 : 0)); ctx.rotate(m.r); ctx.drawImage(m.img, -m.sz / 2, -m.sz / 2, m.sz, m.sz); ctx.restore(); } }
+      ctx.globalAlpha = 1;
+    };
+    // ---- update ----
+    const moveVil = dt => {
+      const zt = state === 'caught' || state === 'over' ? ZP - .7 : ZP - .55 - (ZP - 3.1) * Math.pow(clamp(d / 40, 0, 1), .8);
+      vil.z += (zt - vil.z) * Math.min(1, dt * (state === 'caught' ? 2.5 : 1.6));
+      const close = clamp(1 - d / 30, 0, 1), side = laneX > .3 ? -1 : laneX < -.3 ? 1 : (vil.lane - laneX >= 0 ? 1 : -1);
+      const lt = state === 'caught' || state === 'over' ? laneX + side * .55 : clamp(laneX + side * (1.75 - close * .2), -2.4, 2.4);
+      vil.lane += (lt - vil.lane) * Math.min(1, dt * 2.2);
+      const vT = !calm() && (state !== 'run' || t - lastHit < 1.9 || (trick && trick.k === 'speed' && trick.on)) ? 1 : 0; vShow += (vT - vShow) * Math.min(1, dt * (vT ? 3.2 : 1.6));
+      vil.ph = (vil.ph || 0) + dt * (6.5 + v * .22) * (state === 'over' ? .4 : 1.04);
+      vil.base = (vil.base || 0) + (floorAt(vil.lane, vil.z)[0] - (vil.base || 0)) * Math.min(1, dt * 6);
+      if (vil.hy <= 0 && items.some(o => !['coin', 'gem', 'sign', 'gap', 'box', 'shard'].includes(o.k) && !o.deco && Math.abs(o.z - vil.z) < 1.4 && (o.all || Math.abs(o.lane - vil.lane) < .7))) vil.hv = 2.4;
+      vil.hv -= 7.6 * dt; vil.hy = Math.max(0, vil.hy + vil.hv * dt); if (vil.hy <= 0) vil.hv = Math.max(0, vil.hv);
+    };
+    const update = dt => {
+      t += dt; const lv = level();
+      v = (15 + Math.min(14, t * .095)) * (boost > 0 ? 1.45 : 1) * (segAt(dist + ZP).k === 'oasis' ? .85 : 1) * drinkMul(); slow = Math.min(1, slow + dt * .45);
+      const mv = v * slow * dt; dist += mv;
+      if (inv > 0) inv -= dt; if (shake > 0) shake -= dt; if (ducking > 0 && air < .02) ducking -= dt; if (land > 0) land -= dt;
+      // lane change: eased slide + lean into the turn
+      const pl = laneX; laneX += (tl - laneX) * Math.min(1, dt * 11); lean += (clamp((laneX - pl) / Math.max(dt, .001) * .028, -.2, .2) - lean) * Math.min(1, dt * 14); camX = laneX * .62;
+      // jump: anticipation squash, arc, landing squash + dust
+      if (jq > 0) { jq -= dt; if (jq <= 0) { jv = 2.75; for (let i = 0; i < 4; i++) dust(rnd(-.3, .3) * PH, .8); } }
+      for (const o of items) if (o.vz || (o.box && o.box.vz)) o.z += (o.vz || o.box.vz) * dt;
+      [flo, flb] = floorAt(laneX, ZP); if (carpet > 0 || cH > 0) { if (cH > flo) { flo = cH; flb = null; } }
+      if (flb && flb.kind === 'wood' && !flb.launched && ZP >= flb.z - .05 && jy - flo < .06) { flb.launched = 1; jv = 3.7; jy += .01; tone(392, .1, 'triangle', 0, .07); tone(587, .14, 'triangle', .07, .07); tone(784, .2, 'triangle', .14, .07); }
+      if (state === 'run' && flo > jy + .2 && !(carpet > 0)) { // ran into the back or side of something tall
+        hit(true); const here = Math.round(laneX), alt = [-1, 0, 1].filter(l => l !== here && floorAt(l, ZP)[0] <= jy + .2).sort((p, q) => Math.abs(p - laneX) - Math.abs(q - laneX))[0];
+        if (alt !== undefined) { tl = alt; laneX += (alt - laneX) * .6; [flo, flb] = floorAt(laneX, ZP); } else { jy = flo; jv = 0; } }
+      jv -= 7.6 * dt; jy += jv * dt; if (jy <= flo) { if (jv < -1.5) { land = .12; for (let i = 0; i < 5; i++) dust(rnd(-.45, .45) * PH, 1.1); tone(120, .08, 'triangle', 0, .07); } jy = flo; jv = 0; }
+      if (sj) { sj.e += dt; const p = Math.min(1, sj.e / sj.T); jy = flo + sj.H * 4 * p * (1 - p); jv = 0; if (p >= 1) { sj = null; jy = flo; land = .16; for (let i = 0; i < 12; i++) dust(rnd(-.6, .6) * PH, 1.6); tone(110, .12, 'triangle', 0, .08); } else if (Math.random() < .5) parts.push({ k: 'spark', x: cx + (laneX - camX) * LS + rnd(-PH * .2, PH * .2), y: (FOOT + camH * PH) - jy * PH - PH * .3, vx: rnd(-60, 60), vy: rnd(-40, 40), r: rnd(6, 11), life: .5, max: .5 }); }
+      air = Math.max(0, jy - flo);
+      // gallop: 4-beat legs, bob, hoof dust + clip-clop on each footfall
+      drinkTick(dt); const prev = ph; ph += dt * (6.5 + v * .22) * Math.max(.35, slow) * (drink ? Math.max(.08, drinkMul()) : 1);
+      LEG.forEach(([x, o, far]) => { const a = Math.sin(prev - o * TAU), b = Math.sin(ph - o * TAU); if (a > 0 && b <= 0 && air < .01 && state !== 'over') { if (!far) dust((x - 99.5) / 507 * PH, .9); tone(far ? 130 : 155, .045, 'triangle', 0, far ? .03 : .045); } });
+      // the tail: a spring that lags behind the stride and the turns
+      const tt = Math.sin(ph - 1.3) * (air > .01 ? .04 : .11) - lean * 1.2; tailV += ((tt - tailA) * 60 - tailV * 9) * dt; tailA += tailV * dt;
+      bendT -= dt; if (bendT <= 0) { bendT = rnd(4, 8); bendTo = rnd(-.55, .55); } bend += (bendTo - bend) * Math.min(1, dt * .35);
+      if (state === 'run') { nextRow -= mv; if (nextRow <= 0) nextRow = spawnZone(ZF); if (t > 16 && zoneAt(dist + ZF) === 'desert') { nextBlock -= mv; if (nextBlock <= 0) spawnBlock(); } }
+      featTick(dt);
+      zoneTick(dt); herdTick(dt); camH += ((sj ? flo + (jy - flo) * .45 : carpet > 0 || cH > .05 ? flo * (caveW(dist + ZP) > .15 ? .12 : .95) : flo * .8) - camH) * Math.min(1, dt * 3.5);
+      for (let i = items.length - 1; i >= 0; i--) { items[i].z -= mv; if (items[i].z + (items[i].len || 0) < 1.5) items.splice(i, 1); }
+      for (let i = decor.length - 1; i >= 0; i--) { decor[i].z -= mv; if (decor[i].z < (decor[i].big ? 1.2 : 2.4)) decor.splice(i, 1); }
+      for (let i = parts.length - 1; i >= 0; i--) { const p = parts[i]; p.x += p.vx * dt; p.y += p.vy * dt; if (p.k === 'star') p.vy += 500 * dt; if (p.k === 'dust') p.y += mv * 2.2; p.life -= dt; if (p.life <= 0) parts.splice(i, 1); }
+      for (let i = ghosts.length - 1; i >= 0; i--) { const g = ghosts[i]; g.z -= (v + 22) * dt; g.lx += g.vx * dt; if (g.z < 2) ghosts.splice(i, 1); }
+      moveVil(dt);
+      // collisions
+      if (state === 'run') {
+        const px = cx + (laneX - camX) * LS;
+        for (let i = items.length - 1; i >= 0; i--) {
+          const o = items[i];
+          if (o.k === 'gap') { if (!o.done && o.z <= ZP && o.z + o.len >= ZP && (o.all || Math.abs(laneX - o.lane) < .5) && jy < .04 && !(carpet > 0)) { o.done = 1; hit(true); jv = 3.1; tone(300, .12, 'triangle', 0, .07); tone(520, .14, 'triangle', .1, .07); } continue; }
+          if (o.done || o.k === 'sign' || o.k === 'box' || (o.k === 'pgate' && Math.abs(o.z - ZP) > .45) || o.k === 'animal' || o.k === 'hdust' || o.k === 'herdimg' || o.deco || Math.abs(o.z - ZP) > .75) continue;
+          if (!(o.all || Math.abs(laneX - o.lane) < .55)) continue;
+          if (o.k === 'shoe' || o.k === 'rug') { if (Math.abs(jy - flo - (o.hy || 0)) < .6) { items.splice(i, 1); pickup(o, px); } continue; }
+          if (carpet > 0 && !['coin', 'gem', 'shard', 'chest'].includes(o.k)) continue;
+          if (o.k === 'chest') { if (!o.pop && jy - flo < .7) { o.pop = t; openChest(o, px); } continue; }
+          if (o.k === 'coin' || o.k === 'gem' || o.k === 'shard') {
+            if (Math.abs(jy - o.hy) < .3 || (o.hy < .3 && jy < .32)) { items.splice(i, 1); coins += o.k === 'coin' ? 1 : 5; if (o.k === 'gem') dia++; if (o.k === 'shard') cry++;
+              if (o.k !== 'coin') { tone(1319, .08, 'triangle', 0, .06); tone(1760, .14, 'triangle', .07, .06); tone(2093, .18, 'triangle', .14, .05); parts.push({ k: 'txt', txt: '+5', x: px, y: (FOOT + camH * PH) - PH * 1.15, vx: 0, vy: -60, life: .9, max: .9 }); }
+              else { tone(988, .06, 'square', 0, .035); tone(1319, .1, 'square', .05, .035); }
+              for (let k = 0; k < (o.k === 'coin' ? 5 : 9); k++) parts.push({ k: 'spark', x: px + rnd(-PH * .15, PH * .15), y: (FOOT + camH * PH) - o.hy * PH - PH * .1 + rnd(-20, 20), vx: rnd(-120, 120), vy: rnd(-220, -60), r: rnd(8, 14), life: .5, max: .5 }); }
+            continue;
+          }
+          o.done = 1;
+          const ok = o.k === 'xbar' ? jy > .3 : o.k === 'crates' ? false : o.k === 'pgate' ? gateOpen(o) > .62 : o.k === 'scorp' ? jy > 1.6 : o.k === 'lwall' ? jy > .27 : o.k === 'rock' ? jy > .22 : o.k === 'log' ? jy > .2 : o.k === 'arch' ? ducking > 0 && jy < .1 : o.k === 'crys' ? !o.big && jy > .28 : false;
+          if (ok) continue;
+          hit(o.k === 'wall');
+          if (o.k === 'wall') tl = o.lane === 0 ? (laneX >= 0 ? 1 : -1) : 0;
+        }
+      }
+      // the chase + his tricks
+      if (state === 'run') {
+        if (t - lastHit > 2.5) d = Math.min(40, d + (1 - lv * .45) * dt);
+        if (trick && trick.k === 'speed' && trick.on) d -= 4.2 * dt;
+        if (d <= 0) { d = 0; state = 'caught'; caughtT = 0; trick = null; warn.className = 'dsr-warn';
+          tone(196, .5, 'sawtooth', 0, .06); tone(185, .5, 'sawtooth', .02, .05); tone(130, .9, 'sawtooth', .3, .06); }
+        if (calm()) trickAt = Math.max(trickAt, t + 4); if (trick && calm() && !trick.on) { trick = null; warn.className = 'dsr-warn'; }
+        if (!trick && t >= trickAt && state === 'run') startTrick(R(['mud', 'ghost', 'speed'].filter(k => k !== lastTrick)));
+        if (trick) {
+          const e = t - trick.t0;
+          if (e >= trick.warn && !trick.on) { trick.on = 1; warn.className = 'dsr-warn';
+            if (trick.k === 'mud') { tone(90, .25, 'sawtooth', 0, .08); tone(60, .3, 'square', .03, .07); const U = Math.min(W, H); muds.length = 0; for (let i = 0; i < 8; i++) muds.push({ img: A['mud' + (1 + i % 3)], x: i === 0 ? W / 2 : rnd(0, W), y: i === 0 ? H * .5 : rnd(0, H * .9), r: rnd(-3, 3), sz: U * rnd(.45, .9) * (i === 0 ? 1.4 : 1), drip: rnd(4, 14) });
+              tone(140, .18, 'sawtooth', 0, .06); tone(90, .2, 'square', .05, .06); for (let i = 0; i < 4; i++) tone(260 - i * 30, .06, 'triangle', .1 + i * .05, .05); }
+            if (trick.k === 'ghost' && scary) { for (let i = 0; i < 8; i++) tone(180 + i * 70, .12, 'sawtooth', i * .09, .03); for (let i = 0; i < 6; i++) tone(1400 - i * 120 + (i % 2) * 300, .1, 'square', .75 + i * .06, .03); tone(110, 1.6, 'triangle', 0, .05); tone(117, 1.6, 'triangle', 0, .05); }
+            else if (trick.k === 'ghost') { for (let i = 0; i < 5; i++) ghosts.push({ z: ZF * .55 + i * 14, lx: rnd(-1.6, 1.6), vx: rnd(-.3, .3), hy: rnd(.2, .8), ph: rnd(0, 6) });
+              for (let i = 0; i < 10; i++) tone(620 - i * 34 + (i % 2) * 40, .22, 'sine', i * .12, .05); tone(233, 1.2, 'triangle', 0, .03); tone(277, 1.2, 'triangle', .1, .03); tone(330, 1.2, 'triangle', .2, .03); }
+            if (trick.k === 'speed') { tone(98, .4, 'sawtooth', 0, .06); tone(147, .4, 'sawtooth', .05, .05); } }
+          if (trick && e >= trick.warn + trick.dur) { lastTrick = trick.k; trick = null; trickAt = t + rnd(10, 16) - lv * 4; }
+        }
+      } else if (state === 'caught') { caughtT += dt; slow = Math.max(0, slow - dt * 1.2); if (caughtT > 1.8) gameOver(); }
+      // his hoofbeats + heartbeat when close, drums when he speeds up
+      const c = (20 - d) / 20;
+      badT -= dt; if (c > 0 && badT <= 0 && state === 'run') { badT = .2 + (1 - c) * .15; tone(70, .07, 'square', 0, .03 + c * .05); tone(58, .07, 'square', .09, .025 + c * .04); }
+      beatT -= dt; if (d < 12 && beatT <= 0 && state === 'run') { beatT = .45 + d / 30; tone(62, .12, 'sine', 0, .22); tone(55, .12, 'sine', .17, .16); }
+      drumT -= dt; if (trick && trick.k === 'speed' && trick.on && drumT <= 0) { drumT = .15; tone(85, .07, 'square', 0, .06); }
+    };
+    const updHud = () => {
+      hC.textContent = coins; hD.textContent = dia; hY.textContent = cry; hM.textContent = Math.floor(dist); hB.textContent = Math.max(dsrS.best3 || 0, Math.floor(dist));
+    };
+    const loop = now => {
+      raf = requestAnimationFrame(loop);
+      const raw = Math.max(0, (now - (last || now)) / 1000), dt = Math.min(.1, raw); last = now;
+      fpsN++; fpsT += raw; if (fpsT >= 1) { fps = fpsN / fpsT; fpsN = 0; fpsT = 0; stage.dataset.fps = Math.round(fps);
+        if (!paused && state === 'run') { const cap = Math.min(1.5, window.devicePixelRatio || 1);
+          if (fps < 50 && dprQ > 1) { dprQ = 1; dprLock = true; resize(); } else if (fps < 50 && RCAP > 960 && dpr < 1.01) { RCAP -= 160; dprLock = true; resize(); } else if (!dprLock && fps > 56 && dprQ < cap && ++dprUp >= 3) { dprUp = 0; dprQ = Math.min(cap, dprQ + .25); resize(); } } }
+      if (paused) return;
+      if (state === 'count') {
+        countT -= dt; const n = Math.ceil(countT - .2), txt = n > 0 ? String(n) : '🐎';
+        if (over.dataset.n !== txt) { over.dataset.n = txt; over.replaceChildren(el('div', { class: 'dsr-count' }, el('b', {}, txt))); tone(n > 0 ? 520 : 880, .14, 'triangle', 0, .07); }
+        if (countT <= 0) { state = 'run'; over.replaceChildren(); delete over.dataset.n; }
+        ph += dt * 5; dist += dt * 3; vil.ph = (vil.ph || 0) + dt * 5; tailA = Math.sin(ph - 1.3) * .08;
+        for (let i = parts.length - 1; i >= 0; i--) { const q = parts[i]; q.life -= dt; if (q.life <= 0) parts.splice(i, 1); }
+      } else if (state === 'run' || state === 'caught') { const n = Math.ceil(dt / .034); for (let i = 0; i < n; i++) update(dt / n); }
+      else if (state === 'over') { ph += dt * 1.5; moveVil(dt); }
+      draw();
+      hudT -= dt; if (hudT <= 0) { hudT = .1; updHud(); }
+    };
+    function gameOver() {
+      if (state === 'over') return; state = 'over'; trick = null; warn.className = 'dsr-warn'; { const [td, tc] = totals(); store.set('dsrDiamonds', td + dia); store.set('dsrCrystals', tc + cry); }
+      const rkBefore = dsr4Rank()[1], m = Math.floor(dist), today = localToday();
+      if (dsrS.coins.d !== today) dsrS.coins = { d: today, n: 0 };
+      const give = Math.max(0, Math.min(coins, DSR_CAP - dsrS.coins.n)), rec = m > (dsrS.best3 || 0);
+      dsrS.best3 = Math.max(dsrS.best3 || 0, m); dsrS.best = Math.max(dsrS.best || 0, m); dsrS.bestCoins = Math.max(dsrS.bestCoins || 0, coins); dsrS.runs = (dsrS.runs || 0) + 1; dsrS.pill = today; dsrS.coins.n += give; dsrSave();
+      try { games.desertRuns = (games.desertRuns || 0) + 1; games.desertBest = dsrS.best; store.set('games', games); } catch {}
+      if (give && typeof addCoins === 'function') try { addCoins(give, 'הבריחה במדבר'); } catch {}
+      if (rec && m > 30) { try { confetti($('#dsrDlg .confetti-c')); SFX.yay(); } catch {} } else for (let i = 0; i < 4; i++) tone(440 - i * 60, .16, 'triangle', i * .14, .06);
+      const rk = dsr4Rank(); hR.replaceChildren(rk[0] + ' ', el('small', {}, rk[1])); hR.classList.toggle('dsr10-top', !!rk[2]); if (rk[1] !== rkBefore) setTimeout(() => dsr10RankUp(stage, rk), 600);
+      over.replaceChildren(el('div', { class: 'dsr-card-msg dsr-end' },
+        el('b', { class: 'dsr-ot' }, '😱'),
+        el('div', { class: 'dsr-stats' }, el('span', {}, '📏 ', el('b', {}, String(m))), el('span', { class: rec ? 'dsr-rec' : '' }, '🏆 ', el('b', {}, String(dsrS.best3))), el('span', {}, '🪙 ', el('b', {}, String(coins)))),
+        el('div', { class: 'dsr-stats dsr6-tot' }, el('span', {}, '💎 ', el('b', {}, String(dia)), el('small', {}, ' / ' + totals()[0])), el('span', {}, '🔮 ', el('b', {}, String(cry)), el('small', {}, ' / ' + totals()[1]))),
+        el('span', { class: 'dsr4-rk' }, rk[0] + ' ' + rk[1]),
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: () => dsrStart(), 'aria-label': 'שוב' }, '🔁'), el('button', { type: 'button', class: 'btn', onclick: () => { stop(); dsrSetup(); }, 'aria-label': 'הגדרות' }, '🎨'),
+          el('button', { type: 'button', class: 'btn', onclick: () => $('#dsrDlg').close(), 'aria-label': 'יציאה' }, '🚪'))));
+      try { if (typeof renderStrip === 'function') renderStrip(); } catch {}
+    }
+    function stop() {
+      cancelAnimationFrame(raf); if (ro) ro.disconnect(); else window.removeEventListener('resize', resize);
+      document.removeEventListener('keydown', kd); document.removeEventListener('visibilitychange', vis); window.removeEventListener('pointerup', pUp); window.removeEventListener('pointercancel', pCancel);
+      if (dsrRun && dsrRun.stop === stop) dsrRun = null;
+    }
+    dsrRun = { stop, mode: 'zones', zone: () => zoneAt(dist + ZP), jumpZone, toRamp, floor: () => [flo, jy], get fps() { return fps; }, get state() { return state; }, a4: () => A4, kinds: () => items.map(o => o.k + ':' + Math.round(o.z) + ':' + o.lane).concat(decor.filter(o => o.k === 'sarch').map(o => 'sarch:' + Math.round(o.z))), debug: () => ({ t, d, coins, dist, v, items: items.length, decor: decor.length, W, H, PH, LS, vz: vil.z }),
+      cheat: o => { if ('d' in o) d = o.d; if (o.rug) rugForce = 1;
+        if (o.caveAhead) { segs.length = 0; segs.push({ a: -9999, b: dist + o.caveAhead, k: 'desert', ann: 1 }, Object.assign(newSeg(dist + o.caveAhead, 'cave'))); zi = ORDER.indexOf('cave') + 1; items.length = 0; decor.length = 0; prefill(); }
+        if (o.caveExit) { segs.length = 0; segs.push({ a: -9999, b: dist - 80, k: 'desert', ann: 1 }, { a: dist - 80, b: dist + o.caveExit, k: 'cave', sp: 1, ann: 1 }); zi = ORDER.indexOf('cave') + 1; items.length = 0; decor.length = 0; prefill(); } if (o.trick) { trick = null; trickAt = t; lastTrick = ''; startTrick(o.trick); } if ('t' in o) t = o.t; if ('lane' in o) lane(o.lane); if (o.jump) jump(); if (o.duck) duck(); if (o.block) spawnBlock(); if ('god' in o) god = o.god; if (o.freeze) paused = true; if (o.ph != null) ph = o.ph; if (o.step) { paused = false; } if (o.zone) jumpZone(o.zone); if (o.station) station(o.station); if (o.hit) { inv = 0; hit(false); } if (o.feat) { const f = o.feat; if (f === 'oasis') { oasisAt = dist + 1; oasisForce = 1; } else if (f === 'carpet' || f === 'shoe') pickup({ k: f === 'shoe' ? 'shoe' : 'rug' }, cx); else { Object.keys(nx).forEach(k => { nx[k] = 1e9; }); nx[f] = 0; nextRow = 0; } } if (o.calm) { trickAt = 1e9; trick = null; } if (o.herd && !herd) spawnHerd(); if (o.chest) chestAt(ZP + o.chest, Math.round(laneX)); if (o.taps) for (let i = 0; i < o.taps; i++) jump(); if (o.ramp) toRamp(); },
+      frame: p => { ph = p; vil.ph = p; tailA = Math.sin(p - 1.3) * .11; draw(); } };
+    prefill();
+    over.replaceChildren(); over.dataset.n = '';
+    raf = requestAnimationFrame(loop);
+  };
+  // ================= 📖 round I: her own instructions text (instructions_he.md, verbatim) in the steel-and-gold card =================
+  const DSR_HELP12 = {"title": "🐎 הוראות המשחק: בריחה במדבר", "secs": [["🎮", "- חצים -", ["כדי לזוז, תשתמשו בחצים: למעלה, למטה, שמאלה וימינה. ⬅️➡️ מעבירים שביל, ⬆️ קופץ, ו-⬇️ מתכופף. אם תלחצו על רווח, גם זה יקפיץ אתכם. 📱 בטלפון לוחצים על החצים שבתחתית המסך."]], ["🦹", "- הנבל -", ["הנבל רודף אחריכם כל הזמן, אבל רואים אותו רק כשהוא מאיץ ⚡, או אחרי שנתקעתם במשהו. כל פעם שאתם נתקעים במכשול, הוא מתקרב אליכם. אם הוא תופס אתכם, המשחק נגמר!"]], ["📦", "- תיבת אוצר -", ["כאשר תראו תיבת אוצר, קחו אותה! היא נותנת לכם 10 יהלומים, 10 מטבעות ו-10 קריסטלים. תיבות אוצר מופיעות לפעמים ליד מערות הקריסטלים או בתוכן. לפעמים הן מחכות במקום שקשה מאוד להגיע אליו, אז תצטרכו להיות זריזים! כדי לקחת אותה, רוכבים ישר לתוכה, לא קופצים מעליה."]], ["🧞", "- שטיח מעופף -", ["כאשר תראו שטיח מעופף מגולגל על הרצפה, קחו אותו! הוא יעיף אתכם מעל הכל, ובדרך תמשיכו לאסוף כסף, קריסטלים ויהלומים. הוא יישאר איתכם 100 מטר טובים, ואז ינחית אתכם בעדינות. שטיחים מעופפים מופיעים רק לפעמים, ורק במערות הקריסטלים."]], ["👻", "- רוח רפאים -", ["לפעמים רוח רפאים תגיע אליכם ותנסה להפחיד אתכם. את הרוח הנבל שולח עליכם! היא נשארת שתי שניות ונעלמת. בהגדרות של המשחק ⚙️ אפשר לבחור רוח מפחידה או רוח חמודה."]], ["🤎", "- בוץ -", ["לפעמים הנבל יזרוק עליכם בוץ. הבוץ יישאר על המסך 2 שניות, ואז יחליק למטה. לפני שהוא משפריץ על המסך, תופיע על הלוח הודעה בריבוע חום."]], ["🐫", "- עדרים -", ["לפעמים תראו חמש נקודות על הלוח, ותשמעו רעש של פרסות. זה אומר שמגיע עדר של חזירים, גמלים או פרות! כשאתם רואים את הנקודות, לחצו חמש פעמים על רווח, והסוס יקפוץ קפיצת ענק מעל כל העדר. זה מונע מהגמלים, הפרות והחזירים להרוג אתכם!"]], ["✨", "- פרסה זוהרת -", ["כאשר תראו פרסה זהובה וזוהרת, קחו אותה! הסוס ירוץ מהר מאוד וישבור את כל המכשולים בדרך."]], ["🦂", "- עקרב ענק -", ["העקרב חוסם שביל שלם, ואי אפשר לקפוץ מעליו. כשאתם רואים אותו, עברו מהר לשביל אחר!"]], ["🪵", "- רמפה -", ["כאשר תראו רמפה מעץ, עלו עליה, והיא תעיף אתכם מעל הבור."]], ["🌴", "- נווה מדבר -", ["אחרי הגשר מגיעים בדרך כלל לנווה מדבר. שם הסוס עוצר לשתות מים, ואתם יכולים לנוח כמה שאתם רוצים, כי הנבל לא יודע איפה אתם. כשתהיו מוכנים, לחצו על 🐎▶ כדי להמשיך."]], ["🏆", "- דרגות -", ["ככל שתרכבו רחוק יותר, תעלו בדרגה: מתחילה, לומדת, מתקדמת, רוכבת, אולימפית, טובה, טובה מאוד, מטורפת, מצוינת, מצוצינת, ממש ממש טובה, רוכבת מצליחה, הרוכבת הטובה בעולם, ו... 👑 רוכבת מספר אחת!"]]]}; // her own text (instructions_he.md), verbatim
+  dsr11Help = function (host) {
+    host.querySelectorAll('.dsr11-wrap').forEach(n => n.remove());
+    const close = () => { document.removeEventListener('keydown', kd, true); wrap.classList.remove('on'); setTimeout(() => wrap.remove(), 300); try { tone(660, .08, 'triangle', 0, .05); } catch {} };
+    const kd = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); close(); } else if (['ArrowUp', 'ArrowDown', ' '].includes(e.key)) { e.stopPropagation(); } };
+    const card = el('div', { class: 'dsr11-card', role: 'dialog', 'aria-label': 'הוראות' },
+      el('i', { class: 'dsr11-rv r1' }), el('i', { class: 'dsr11-rv r2' }), el('i', { class: 'dsr11-rv r3' }), el('i', { class: 'dsr11-rv r4' }),
+      el('button', { type: 'button', class: 'dsr11-x', 'aria-label': 'לסגור', onclick: e => { e.stopPropagation(); close(); } }, '✕'),
+      el('h2', { class: 'dsr11-h' }, DSR_HELP12.title),
+      el('div', { class: 'dsr11-list dsr12-list' }, ...DSR_HELP12.secs.map(([ic, t, ps]) => el('section', { class: 'dsr12-sec' }, el('h3', { class: 'dsr12-hd' }, el('span', { class: 'dsr12-ic', 'aria-hidden': 'true' }, ic), el('span', {}, t)), ...ps.map(p => el('p', { class: 'dsr12-p' }, p))))));
+    const wrap = el('div', { class: 'dsr11-wrap', onclick: e => { e.stopPropagation(); if (e.target === wrap) close(); } }, card);
+    ['pointerdown', 'touchstart', 'wheel'].forEach(ev => card.addEventListener(ev, e => e.stopPropagation(), { passive: true }));
+    document.addEventListener('keydown', kd, true);
+    host.append(wrap); requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add('on'))); try { SFX.pop(); } catch {}
   };
   // ================= sticker album =================
   function openAlbum() {
