@@ -511,6 +511,23 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
 /* the lobby covers the whole game stage, edge to edge; the title's corner controls hide while it is open */
 #dsrSetup > .dsrL-root, .dsr14-lob > .dsrL-root { inset: 0 !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; width: auto !important; max-width: none !important; margin: 0 !important; }
 .dsr14-lob .dsr5-corner { display: none !important; }
+/* round L: ⛶ full-screen buttons in her steel/gold style */
+.dsr15-fs { width: 44px; height: 44px; padding: 0 !important; border-radius: 12px !important; border: 3px solid #c9a040 !important; background: linear-gradient(145deg, #f2f4f6, #b9c0c7 45%, #7c848c) !important;
+  box-shadow: inset 0 2px 3px rgb(255 255 255 / .7), inset 0 -3px 5px rgb(0 0 0 / .35), 0 2px 5px rgb(0 0 0 / .45), 0 0 0 1.5px #7a5a14; display: inline-grid; place-items: center; cursor: pointer; color: #3a3632; }
+.dsr15-fs[hidden] { display: none !important; }
+.dsr15-fs span { font: 900 24px/1 system-ui, sans-serif; color: #4a3a1a; text-shadow: 0 1px 0 #fff8d8; }
+.dsr15-fs.on span { color: #8a5a14; }
+.dsr15-fs:active { transform: scale(.94); }
+.dsr5-corner .dsr15-cfs { font-size: 0; }
+.dsrL-root .dsr15-lfs { position: absolute; top: 24px; right: 200px; width: 62px; height: 62px; margin: 0; }
+.dsrL-port .dsr15-lfs { position: relative; top: auto; right: auto; width: 40px; height: 40px; order: 3; }
+.dsrL-port .dsr15-lfs span { font-size: 20px; }
+.dsrL-root .dsr15-lfs span { font-size: 30px; }
+.dsr15-fsb { width: auto; min-width: 48px; }
+/* the desert dialog is the whole viewport: no frame, no margins */
+#dsrDlg.dsr15-full { width: 100vw !important; height: 100vh !important; height: 100dvh !important; max-width: none !important; max-height: none !important; margin: 0 !important; inset: 0 !important; border: 0 !important; border-radius: 0 !important; padding: 0 !important; }
+/* the lobby panels use a little more of the screen when there is room above and below (window narrower than 16:10) */
+@media (max-aspect-ratio: 16/10) { .dsrL-root.dsrL-land:not(.dsrL-scroll) .dsrL-stage { scale: 1.06; } }
 
 </style>
 </head>
@@ -3667,7 +3684,7 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
       if (state !== 'run' && !paused) return;
       paused = !paused; pauseB.textContent = paused ? '▶️' : '⏸️';
       if (paused) over.replaceChildren(el('div', { class: 'dsr-card-msg' }, el('b', { class: 'dsr-ot' }, '⏸️'),
-        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: togglePause, 'aria-label': 'להמשיך' }, '▶️'), el('button', { type: 'button', class: 'btn dsr9-gearb', onclick: () => dsr9Open(stage, { onRestDone: () => { if (paused) togglePause(); } }), 'aria-label': 'הגדרות' }, dsr9Gear()), el('button', { type: 'button', class: 'btn', onclick: () => { stop(); dsrSetup(); }, 'aria-label': 'דמויות' }, '🎨'), el('button', { type: 'button', class: 'btn', onclick: () => $('#dsrDlg').close(), 'aria-label': 'יציאה' }, '🚪'))));
+        el('div', { class: 'chips' }, el('button', { type: 'button', class: 'btn main', onclick: togglePause, 'aria-label': 'להמשיך' }, '▶️'), el('button', { type: 'button', class: 'btn dsr9-gearb', onclick: () => dsr9Open(stage, { onRestDone: () => { if (paused) togglePause(); } }), 'aria-label': 'הגדרות' }, dsr9Gear()), ...(typeof dsr15FsBtn === 'function' ? [dsr15FsBtn('btn dsr15-fsb')] : []), el('button', { type: 'button', class: 'btn', onclick: () => { stop(); dsrSetup(); }, 'aria-label': 'דמויות' }, '🎨'), el('button', { type: 'button', class: 'btn', onclick: () => $('#dsrDlg').close(), 'aria-label': 'יציאה' }, '🚪'))));
       else { over.replaceChildren(); last = performance.now(); }
     }
     // ---- drawing ----
@@ -4397,6 +4414,26 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
   { const dsr5TitleV14 = dsr5Title;
     dsr5Title = function (host, onPlay, corner) { return dsr5TitleV14(host, () => dsr14Lobby(host, onPlay), corner); };
     try { if ($('#dsrDlg') && $('#dsrDlg').open && !$('#dsrSetup').hidden && $('#dsrSetup .dsr5-title')) dsrSetup(); } catch {} }
+  // ================= ⛶ round L: full screen (title corner, lobby top bar, pause card) =================
+  function dsr15FsOn() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function dsr15FsOk() { return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled); }
+  function dsr15FsToggle() {
+    try {
+      if (dsr15FsOn()) { const p = (document.exitFullscreen || document.webkitExitFullscreen || (() => {})).call(document); if (p && p.catch) p.catch(() => {}); }
+      else { const d = document.documentElement, f = d.requestFullscreen || d.webkitRequestFullscreen; if (f) { const p = f.call(d); if (p && p.catch) p.catch(() => {}); } }
+    } catch {}
+  }
+  function dsr15FsBtn(cls) {
+    const b = el('button', { type: 'button', class: (cls || '') + ' dsr15-fs', 'aria-label': 'מסך מלא', title: 'מסך מלא', onclick: e => { e.stopPropagation(); try { SFX.pop(); } catch {} dsr15FsToggle(); } }, el('span', {}, '⛶'));
+    if (!dsr15FsOk()) b.hidden = true; return b;
+  }
+  ['fullscreenchange', 'webkitfullscreenchange'].forEach(ev => document.addEventListener(ev, () => document.querySelectorAll('.dsr15-fs').forEach(b => b.classList.toggle('on', dsr15FsOn()))));
+  { const dsr5TitleV15 = dsr5Title;
+    dsr5Title = function (host, onPlay, corner) { const w = dsr5TitleV15(host, onPlay, corner); try { const c = w && w.querySelector('.dsr5-corner'); if (c && !c.querySelector('.dsr15-fs')) c.append(dsr15FsBtn('dsr15-cfs')); } catch {} return w; };
+    try { if ($('#dsrDlg') && $('#dsrDlg').open && !$('#dsrSetup').hidden && $('#dsrSetup .dsr5-title')) dsrSetup(); } catch {} }
+  { const dsr14LobbyV15 = dsr14Lobby;
+    dsr14Lobby = function (host, onPlay) { const r = dsr14LobbyV15(host, onPlay); try { const g = host.querySelector('.dsrL-root .dsrL-gear'); if (g && !g.parentNode.querySelector('.dsr15-fs')) g.after(dsr15FsBtn('dsr15-lfs')); } catch {} return r; }; }
+  try { const d = $('#dsrDlg'); if (d) d.classList.add('dsr15-full'); } catch {}
 })();
 </script>
 </body>
