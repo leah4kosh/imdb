@@ -906,16 +906,24 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
   }
 
   // ---------- 🏆 the worldwide leaderboard ("טבלת השיאים העולמית") ----------
-  // DSR_LB_CONFIG: paste your Supabase project URL and anon key here (see SETUP_LEADERBOARD.md). Empty = this device only.
-  var LB = window.DSR_LB = window.DSR_LB || { provider: 'supabase', url: '', anonKey: '', table: 'dsr_scores' };
+  // DSR_LB_CONFIG: where the worldwide table lives (see SETUP_LEADERBOARD.md).
+  //  - 'vercel' (default): the site's own /api/lb (Vercel function + Upstash Redis). On dessert-escape.vercel.app it is same-origin;
+  //    anywhere else (claude.ai, her calendar) it calls https://dessert-escape.vercel.app/api/lb. If that fails, the device table is shown.
+  //  - 'supabase': { provider: 'supabase', url: 'https://xxxx.supabase.co', anonKey: '...', table: 'dsr_scores' } (older option, still works)
+  var LB_HOME = 'https://dessert-escape.vercel.app/api/lb';
+  var LB0 = window.DSR_LB, LB = window.DSR_LB = (LB0 && (LB0.provider !== 'supabase' || LB0.url)) ? LB0 : { provider: 'vercel', url: (function () { try { return /\.vercel\.app$/i.test(location.hostname) ? '/api/lb' : LB_HOME; } catch (e) { return LB_HOME; } })() };
   var LB_MAX = 60000; // sanity cap on a single run (metres)
-  function lbOn() { return !!(LB && LB.provider === 'supabase' && /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(String(LB.url || '').trim()) && String(LB.anonKey || '').length > 20); }
+  function lbVercel() { return !!(LB && LB.provider === 'vercel' && LB.url); }
+  function lbOn() { return lbVercel() || !!(LB && LB.provider === 'supabase' && /^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(String(LB.url || '').trim()) && String(LB.anonKey || '').length > 20); }
   var BAD = ['זונה', 'זין', 'כוס', 'חרא', 'שרמוט', 'מזדיי', 'לזיין', 'מניאק', 'מטומטם', 'אידיוט', 'דביל', 'טיפש', 'מפגר', 'נאצי', 'היטלר', 'סקס',
     'fuck', 'fuk', 'shit', 'bitch', 'cunt', 'dick', 'cock', 'pussy', 'porn', 'sex', 'nazi', 'hitler', 'whore', 'slut', 'nigg', 'fag', 'rape', 'kill', 'idiot', 'stupid', 'dumb', 'ass'];
   function cleanName(v) { return String(v == null ? '' : v).replace(/[\u0000-\u001f<>{}\[\]\\\/@#$%^&*=+|`~"]/g, '').replace(/\s+/g, ' ').trim().slice(0, 14); }
   function norm(v) { return String(v).toLowerCase().replace(/[0@4]/g, function (c) { return c === '0' ? 'o' : 'a'; }).replace(/1|!/g, 'i').replace(/3/g, 'e').replace(/5|\$/g, 's').replace(/[\s._'\-]/g, '').replace(/(.)\1+/g, '$1'); }
   function nameOk(v) { var n = cleanName(v); if (n.length < 2) return false; if ((n.match(/\d/g) || []).length > 4) return false; if (/https?:|www\.|\.com|\.co\./i.test(n)) return false;
+    try { if (!new RegExp('^[\\p{L}\\p{N} ]+$', 'u').test(n)) return false; } catch (e) { /* old browser: the server checks */ }
     var z = norm(n); for (var i = 0; i < BAD.length; i++) if (z.indexOf(norm(BAD[i])) >= 0) return false; return true; }
+  // a random id for this device (the server keeps one best score per id)
+  function myId() { var u = lsGet('uid', ''); if (!/^[a-zA-Z0-9-]{16,40}$/.test(u)) { u = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : 'd' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2); lsSet('uid', u); } return u; }
   function myName() { return cleanName(S.prof.name); }
   function boardNote(m, rankName, rankIcon, sc) {
     sc = Math.round(num(sc));
@@ -931,7 +939,19 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
   }
   function boardSync() { var nm = myName(); for (var i = 0; i < S.board.length; i++) if (S.board[i].key === (nm || '·')) { S.board[i].gender = S.prof.g; } save('board'); }
   var lastPost = 0;
+  var pending = lsGet('lbpend', null);
+  function postVercel() {
+    if (!pending || !lbVercel() || typeof fetch !== 'function') return Promise.resolve();
+    var body = pending; lastPost = Date.now();
+    return fetch(LB.url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(function (r) {
+      if (r.ok || r.status === 400 || r.status === 503) { if (pending === body) { pending = null; lsSet('lbpend', null); } } // done (or never acceptable / not set up yet)
+    }).catch(function () { /* offline or blocked: try again next time */ });
+  }
   function publish(e) {
+    if (lbVercel()) { if (!nameOk(e.nickname) || !(e.best_meters > 0)) return;
+      pending = { id: myId(), nickname: cleanName(e.nickname), gender: e.gender === 'm' ? 'm' : 'f', hair: e.hair | 0, cloth: e.cloth | 0, color: e.color | 0,
+        best_meters: Math.min(LB_MAX, Math.round(e.best_meters)), score: Math.round(e.best_score || 0), rank: String(e.rank || '').slice(0, 30) };
+      lsSet('lbpend', pending); if (Date.now() - lastPost > 8500) postVercel(); else setTimeout(postVercel, 8600); return; }
     if (!lbOn() || !nameOk(e.nickname) || !(e.best_meters > 0) || e.best_meters > LB_MAX) return;
     var now = Date.now(); if (now - lastPost < 8000) return; lastPost = now;
     var body = { nickname: cleanName(e.nickname), best_meters: Math.round(e.best_meters), best_score: Math.round(e.best_score || 0), rank: String(e.rank || '').slice(0, 30), gender: e.gender === 'm' ? 'm' : 'f', hair: e.hair | 0, cloth: e.cloth | 0, color: e.color | 0, created_at: new Date().toISOString() };
@@ -939,6 +959,10 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
   }
   function fetchTop() {
     if (!lbOn() || typeof fetch !== 'function') return Promise.reject(new Error('off'));
+    if (lbVercel()) { var ctl2 = typeof AbortController === 'function' ? new AbortController() : null, to2 = setTimeout(function () { if (ctl2) ctl2.abort(); }, 7000), me = myId();
+      return (Date.now() - lastPost > 8500 ? postVercel() : Promise.resolve()).then(function () { return fetch(LB.url, { signal: ctl2 ? ctl2.signal : undefined }); }).then(function (r) { clearTimeout(to2); if (!r.ok) throw new Error('http ' + r.status); return r.json(); }).then(function (j) {
+        if (!j || !j.configured || !Array.isArray(j.top)) throw new Error('off');
+        return j.top.filter(function (x) { return x && nameOk(x.nickname); }).map(function (x) { return { id: String(x.id || ''), me: x.id === me, nickname: cleanName(x.nickname), best_meters: Math.round(num(x.best_meters)), best_score: Math.round(num(x.best_score)), rank: String(x.rank || '').slice(0, 30), gender: x.gender === 'm' ? 'm' : 'f', hair: (x.hair | 0) % 3, cloth: (x.cloth | 0) % 3, color: (x.color | 0) % 4 }; }).slice(0, 50); }); }
     var u = String(LB.url).replace(/\/$/, '') + '/rest/v1/' + (LB.table || 'dsr_scores') + '?select=nickname,best_meters,best_score,rank,gender,hair,cloth,color,created_at&order=best_score.desc,best_meters.desc&limit=300';
     var ctl = typeof AbortController === 'function' ? new AbortController() : null; var to = setTimeout(function () { if (ctl) ctl.abort(); }, 7000);
     return fetch(u, { headers: { apikey: LB.anonKey, Authorization: 'Bearer ' + LB.anonKey }, signal: ctl ? ctl.signal : undefined }).then(function (r) { clearTimeout(to); if (!r.ok) throw new Error('http ' + r.status); return r.json(); }).then(function (rows) {
@@ -964,7 +988,7 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
   function boardScore(x) { return Math.round(num(x.best_score)) || Math.round(num(x.best_meters)); }
   function openBoard(host) {
     var old = host.querySelector('.dsrL-lb'); if (old) old.remove();
-    var me = (myName() || '').toLowerCase(), mine = function (x) { return x.me || (me && String(x.nickname || '').toLowerCase() === me); };
+    var me = (myName() || '').toLowerCase(), mine = function (x) { return x.me || (!x.id && me && String(x.nickname || '').toLowerCase() === me); };
     var stage = el('div', { class: 'dsrL-lbstage' }), list = el('ol', { class: 'dsrL-lblist' }), note = el('p', { class: 'dsrL-lbnote', 'aria-live': 'polite' });
     var topIn = el('div', { class: 'dsrL-lbtopin' }), topW = el('div', { class: 'dsrL-lbtop' }, topIn); stage.appendChild(topW);
     topIn.appendChild(img('lb_base', 'dsrL-lbbase', 'הדירוג העולמי'));
@@ -999,7 +1023,7 @@ html.dsr-lock, html.dsr-lock body { overflow: hidden; overscroll-behavior: none;
         el('bdi', { class: 'dsrL-lbm', text: fmt(boardScore(x)) }))); });
     }
     var local = S.board.filter(function (x) { return x.best_meters > 0; }).map(function (x) { return { nickname: x.nickname || 'אני', best_meters: x.best_meters, best_score: x.best_score, rank: x.rank, gender: x.gender, hair: x.hair, cloth: x.cloth, color: x.color, me: x.key === (myName() || '·') }; });
-    if (lbOn()) { draw(local, 'טוען את הטבלה העולמית… 🌍'); fetchTop().then(function (rows) { draw(rows, rows.length ? '' : 'עוד אין שיאים בטבלה העולמית. תהיו הראשונים! 🌍'); }).catch(function () { draw(local, 'אין חיבור כרגע. אלה השיאים במכשיר הזה.'); }); }
+    if (lbOn()) { draw(local, 'טוען… 🌍'); fetchTop().then(function (rows) { draw(rows, rows.length ? '' : 'עוד אין שיאים בטבלה העולמית. תהיו הראשונים! 🌍'); }).catch(function () { draw(local, lbVercel() ? 'בקרוב: טבלה לכל העולם! 🌍' : 'אין חיבור כרגע. אלה השיאים במכשיר הזה.'); }); }
     else draw(local, 'בקרוב: טבלה לכל העולם! 🌍');
     // layout: landscape = her picture at 1672x941 scaled to fit; phone portrait = the podium on top, the table below, "חזרה" at the bottom
     function layout() { var w = wrap.clientWidth, h = wrap.clientHeight, port = w < 760 && h > w * 1.05; wrap.classList.toggle('dsrL-lbport', port);
