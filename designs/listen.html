@@ -210,23 +210,15 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 @media (max-width:980px){.down{display:none}.hero .hc{padding-bottom:calc(15vw + 30px)}}
 @media (prefers-reduced-motion:reduce){.sky path{animation:none;stroke-dashoffset:0}.down,.down svg{animation:none;opacity:1}}
 
-/* side drawings: scales and a home, drawn in gold, then breathe gently */
-.side{position:absolute;top:50%;width:clamp(90px,9vw,140px);z-index:0;pointer-events:none;opacity:.9}
-.sl{left:max(24px,5vw);transform:translateY(-62%)}
-.sr{right:max(24px,5vw);transform:translateY(-58%)}
-.side path,.side circle{fill:none;stroke:#c09a55;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-.side path[pathLength]{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 4.5s cubic-bezier(.45,0,.2,1) forwards}
-.sl path[pathLength]{animation-delay:1.2s}.sr path[pathLength]{animation-delay:2s}
-.side circle{opacity:0;animation:rise 1s 4.5s forwards}
-.tilt{transform-origin:60px 38px;animation:sway 7s 6s ease-in-out infinite}
-@keyframes sway{0%,100%{transform:rotate(0)}25%{transform:rotate(3deg)}75%{transform:rotate(-3deg)}}
-.win{fill:#e9b866;stroke:none;opacity:0;animation:lamp 2s 6s ease forwards}
-.win.w2{animation-delay:7s}
-@keyframes lamp{to{opacity:.85}}
-.smoke{stroke:#d9c39a!important;opacity:0;animation:smoke 6s 7.5s ease-in-out infinite}
-@keyframes smoke{0%{opacity:0;transform:translateY(4px)}30%{opacity:.8}100%{opacity:0;transform:translateY(-10px)}}
-@media (max-width:1100px){.side{display:none}}
-@media (prefers-reduced-motion:reduce){.side path[pathLength]{animation:none;stroke-dashoffset:0}.tilt,.smoke{animation:none}.win,.side circle{animation:none;opacity:.85}}
+
+/* scroll reveals: gold rule grows beside each title, cards glide in from the sides in sequence */
+.kick{display:inline-flex;align-items:center;gap:12px}
+.kick::before{content:"";height:1.5px;width:0;background:var(--gold);transition:width 1s cubic-bezier(.2,.7,.2,1) .15s}
+.in .kick::before,.kick.in::before{width:42px}
+.rv2{opacity:0;transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv2.l{transform:translateX(-40px)}.rv2.r{transform:translateX(40px)}.rv2.u{transform:translateY(30px)}
+.rv2.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv2{opacity:1;transform:none;transition:none}.kick::before{width:42px;transition:none}}
 @media (max-width:980px){.spec .areas{grid-template-columns:1fr 1fr}.why3{grid-template-columns:1fr}.hero .hc{min-height:78vh}}
 @media (max-width:560px){.spec .areas{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.hero h1 .w,.hero .ctas,.hero .ru,.hero .sub{animation:none;opacity:1;transform:none}}
@@ -330,21 +322,21 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
  <h1><span class="w w1">We listen.</span><span class="w w2">Then we fight for you.</span></h1>
  <p class="prac"><span>Landlord Tenant</span> <i>·</i> <span>Bankruptcy</span> <i>·</i> <span>Real Estate</span> <i>·</i> <span>No Fault Collections</span></p>
  <div class="ctas"><a class="btn p" href="tel:+15168609014"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg>Call (516) 860-9014</a><a class="btn s" href="#contact">Book a consultation</a></div>
-</div><svg class="side sl" viewBox="0 0 120 140" aria-hidden="true"><g class="tilt"><path pathLength="1" d="M60 18V118M38 118H82M20 38H100"/><path pathLength="1" d="M28 38L14 72H42Z"/><path pathLength="1" d="M92 38L78 72H106Z"/><path pathLength="1" d="M14 72a14 7 0 0028 0M78 72a14 7 0 0028 0"/></g><circle cx="60" cy="14" r="4"/></svg><svg class="side sr" viewBox="0 0 120 140" aria-hidden="true"><path pathLength="1" d="M14 64L60 28L106 64"/><path pathLength="1" d="M24 58V122H96V58"/><path pathLength="1" d="M52 122V94H68V122"/><rect class="win" x="34" y="72" width="16" height="14"/><rect class="win w2" x="70" y="72" width="16" height="14"/><path pathLength="1" d="M82 44V30H90V50"/><path class="smoke" d="M86 24c-4-6 4-8 0-14"/></svg><svg class="sky" viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path pathLength="1" d="M0 200 H60 V170 H90 V150 H120 V170 H150 V140 H175 V120 H200 V140 H230 V175 H260 V160 H300 V130 H330 V160 H360 V185 H380 L420 150 L460 185 Q520 120 580 185 L620 150 L660 185 H690 V140 H720 V100 H745 V140 H770 V90 H790 V60 H800 V40 H805 V10 H810 V40 H815 V60 H825 V90 H845 V130 H870 V110 H885 V75 Q895 55 905 75 L907 40 L909 75 V110 H925 V140 H960 V95 H990 V140 H1010 V120 H1040 V60 L1055 20 V5 V20 L1070 60 V120 H1100 V150 H1130 V130 H1160 V160 H1200 V140 H1230 V170 H1270 V150 H1300 V175 H1340 V160 H1380 V180 H1440"/><path class="ground" pathLength="1" d="M0 200 H1440"/></svg><a class="down" href="#who" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></section>
+</div><svg class="sky" viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path pathLength="1" d="M0 200 H60 V170 H90 V150 H120 V170 H150 V140 H175 V120 H200 V140 H230 V175 H260 V160 H300 V130 H330 V160 H360 V185 H380 L420 150 L460 185 Q520 120 580 185 L620 150 L660 185 H690 V140 H720 V100 H745 V140 H770 V90 H790 V60 H800 V40 H805 V10 H810 V40 H815 V60 H825 V90 H845 V130 H870 V110 H885 V75 Q895 55 905 75 L907 40 L909 75 V110 H925 V140 H960 V95 H990 V140 H1010 V120 H1040 V60 L1055 20 V5 V20 L1070 60 V120 H1100 V150 H1130 V130 H1160 V160 H1200 V140 H1230 V170 H1270 V150 H1300 V175 H1340 V160 H1380 V180 H1440"/><path class="ground" pathLength="1" d="M0 200 H1440"/></svg><a class="down" href="#who" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></section>
 
 <section class="s spec" id="who"><div class="wrap">
  <span class="kick">What we do</span>
  <h2>We specialize in helping you with</h2>
- <div class="areas"><div class="area"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></g></svg></span><b>Landlord &amp; Tenant</b></div><div class="area"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4M8 12h8M8 16h5"/></g></svg></span><b>Bankruptcy</b></div><div class="area"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></g></svg></span><b>Real Estate</b></div><div class="area"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M12 9v7M8.5 12.5h7"/></g></svg></span><b>No-Fault Collections</b></div></div>
- <p class="value">Every case is different. <b>Your plan will be too.</b></p>
+ <div class="areas"><div class="area rv2 l" style="transition-delay:0.0s"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></g></svg></span><b>Landlord &amp; Tenant</b></div><div class="area rv2 l" style="transition-delay:0.12s"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4M8 12h8M8 16h5"/></g></svg></span><b>Bankruptcy</b></div><div class="area rv2 r" style="transition-delay:0.24s"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/></g></svg></span><b>Real Estate</b></div><div class="area rv2 r" style="transition-delay:0.36s"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M12 9v7M8.5 12.5h7"/></g></svg></span><b>No-Fault Collections</b></div></div>
+ <p class="value rv2 u">Every case is different. <b>Your plan will be too.</b></p>
 
 </div></section>
 
 <section class="s alt" id="why"><div class="wrap"><span class="kick">Why us</span><h2>Experience you can count on</h2>
  <div class="why3">
-  <div class="big"><b data-to="15">15</b><span>+ years</span><p>Licensed in New York since 2011.</p></div>
-  <div class="wcard"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></g></svg></span><h3>Every kind of case</h3><p>Evictions, debt, closings, insurance claims. We've handled them all.</p></div>
-  <div class="wcard"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></g></svg></span><h3>You come first</h3><p>Your best interest guides every decision we make.</p></div>
+  <div class="big rv2 l"><b data-to="15">15</b><span>+ years</span><p>Licensed in New York since 2011.</p></div>
+  <div class="wcard rv2 u" style="transition-delay:.15s"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/></g></svg></span><h3>Every kind of case</h3><p>Evictions, debt, closings, insurance claims. We've handled them all.</p></div>
+  <div class="wcard rv2 r" style="transition-delay:.3s"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></g></svg></span><h3>You come first</h3><p>Your best interest guides every decision we make.</p></div>
  </div></div></section>
 
 <section class="s" id="reviews"><div class="wrap"><div class="rv-head"><div><span class="kick">Reviews</span><h2>What clients say</h2></div>
@@ -354,10 +346,10 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 
 <section class="s alt" id="contact"><div class="wrap"><span class="kick">Contact us</span><h2>How to reach us</h2>
  <div class="ways">
-  <a class="way main" href="tel:+15168609014"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg></span><small>Call us</small><b>(516) 860-9014</b></a>
-  <a class="way" href="https://wa.me/15168609014" target="_blank" rel="noopener"><span class="ic wa"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/></g></svg></span><small>WhatsApp</small><b>Send a message</b></a>
-  <a class="way" href="mailto:Naybergrima@gmail.com"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g></svg></span><small>Email</small><b>Naybergrima@gmail.com</b></a>
-  <a class="way" href="https://www.google.com/maps/search/?api=1&amp;query=147-17+Union+Tpke+Flushing+NY+11367" target="_blank" rel="noopener"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></g></svg></span><small>Office</small><b>147-17 Union Tpke, Flushing</b></a></div>
+  <a class="way main rv2 u" href="tel:+15168609014"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg></span><small>Call us</small><b>(516) 860-9014</b></a>
+  <a class="way rv2 u" style="transition-delay:.1s" href="https://wa.me/15168609014" target="_blank" rel="noopener"><span class="ic wa"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/></g></svg></span><small>WhatsApp</small><b>Send a message</b></a>
+  <a class="way rv2 u" style="transition-delay:.2s" href="mailto:Naybergrima@gmail.com"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></g></svg></span><small>Email</small><b>Naybergrima@gmail.com</b></a>
+  <a class="way rv2 u" style="transition-delay:.3s" href="https://www.google.com/maps/search/?api=1&amp;query=147-17+Union+Tpke+Flushing+NY+11367" target="_blank" rel="noopener"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></g></svg></span><small>Office</small><b>147-17 Union Tpke, Flushing</b></a></div>
 </div></section>
 </main>
 <footer><div class="wrap"><div class="row"><img src="logo-rn-icon.png" alt="Rima Nayberg Law Office"><span>We listen. Then we fight for you.</span></div><p>Attorney Advertising. Prior results do not guarantee a similar outcome. The information on this website is for general information only and is not legal advice. Contacting the office through this website does not create an attorney–client relationship.</p><p>This Website Is Created By Z-Tech · © 2026 Law Offices of Rima Nayberg, All Rights Reserved</p></div></footer>
@@ -370,6 +362,8 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 (() => {const h=document.querySelector('.ham'),d=document.getElementById('drawer');h.onclick=()=>{const o=d.classList.toggle('open');h.setAttribute('aria-expanded',o)};
 d.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{d.classList.remove('open');h.setAttribute('aria-expanded',false)}))})();
 (() => {const R=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add(e.target.classList.contains('kick')?'in':'on');io2.unobserve(e.target)}}),{threshold:.2});
+ document.querySelectorAll('.rv2,.kick').forEach(el=>io2.observe(el));
  const n=document.querySelector('[data-to]');new IntersectionObserver((e,o)=>{if(!e[0].isIntersecting)return;o.disconnect();const T=+n.dataset.to;if(R){n.textContent=T;return}n.textContent=0;let k=0;const s=setInterval(()=>{n.textContent=++k;if(k>=T)clearInterval(s)},60)}).observe(n);
 })();
 </script>
