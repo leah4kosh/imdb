@@ -22,9 +22,9 @@
 }
 *{box-sizing:border-box;margin:0}
 /* custom scroll rail: fine line with diamond end caps and a medallion that travels with the page */
-@media (hover:hover) and (pointer:fine){
-  html{scrollbar-width:none}
-  html::-webkit-scrollbar{display:none}
+@media (min-width:861px){
+  html,body{scrollbar-width:none}
+  html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0}
   .rail{position:fixed;right:18px;top:12vh;bottom:12vh;width:34px;z-index:40;cursor:pointer;touch-action:none}
   .rail::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--sky-line);transform:translateX(-50%)}
   .rail i{position:absolute;left:50%;width:8px;height:8px;border:1px solid var(--royal);background:var(--cream);transform:translate(-50%,-50%) rotate(45deg)}
@@ -40,7 +40,7 @@
   .float-wa{right:70px}
 }
 .rail{display:none}
-@media (hover:hover) and (pointer:fine){.rail{display:block}}
+@media (min-width:861px){.rail{display:block}}
 
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:var(--body);color:var(--ink);background:var(--white);line-height:1.7;font-size:17px}
