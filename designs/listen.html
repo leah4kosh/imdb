@@ -239,8 +239,18 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 @media (max-width:760px){.spec .areas{grid-template-columns:1fr}}
 
 /* voice line: a gentle sound wave while "We listen." appears, settling into a steady line as "Then we fight for you." lands */
-.voice{width:min(520px,80vw);height:clamp(40px,7vh,70px);overflow:visible;opacity:0;animation:rise .8s .2s forwards}
+.voice-unused{width:min(520px,80vw);height:clamp(40px,7vh,70px);overflow:visible;opacity:0;animation:rise .8s .2s forwards}
 .voice path{fill:none;stroke:#c09a55;stroke-width:2;stroke-linecap:round;vector-effect:non-scaling-stroke}
+
+/* rotating words: "Then we fight for ___" cycles through what clients care about */
+.hero h1 .rot{display:grid;justify-items:center;position:relative;margin-top:.04em}
+.hero h1 .rot .rw{display:block;grid-area:1/1;white-space:nowrap;opacity:0;transform:translateY(.4em);filter:blur(6px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1),filter .7s ease}
+.hero h1 .rot .rw.on{opacity:1;transform:none;filter:none}
+.hero h1 .rot .rw.out{opacity:0;transform:translateY(-.4em);filter:blur(6px)}
+.hero h1 .rot::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:-.02em;height:3px;width:var(--uw,0);background:#c09a55;opacity:.55;transition:width .8s cubic-bezier(.2,.7,.2,1);border-radius:3px}
+.hero h1{font-size:min(6.4vw,9.6vh);line-height:1.04;margin-bottom:clamp(6px,1.6vh,16px)!important}
+@media (max-width:980px){.hero h1{font-size:min(10.5vw,7.4vh)}}
+@media (prefers-reduced-motion:reduce){.hero h1 .rot .rw{transition:none;filter:none}}
 @media (max-width:980px){.spec .areas{grid-template-columns:1fr}.why3{grid-template-columns:1fr}.hero .hc{min-height:78vh}}
 @media (max-width:560px){.spec .areas{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.hero h1 .w,.hero .ctas,.hero .ru,.hero .sub{animation:none;opacity:1;transform:none}}
@@ -341,8 +351,7 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 <main>
 <section class="hero" id="home"><div class="wrap hc">
  <p class="locs-top">Long Island · New York · Queens</p>
- <h1><span class="w w1">We listen.</span><span class="w w2">Then we fight for you.</span></h1>
- <svg class="voice" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true"><path id="vw" d="M0 40H600"/></svg>
+ <h1><span class="w w1">We listen.</span><span class="w w2">Then we fight for <span class="rot" aria-live="polite"><span class="rw on">you.</span><span class="rw">your home.</span><span class="rw">your family.</span><span class="rw">your business.</span><span class="rw">your future.</span><span class="rw">your peace of mind.</span></span></span></h1>
  <p class="prac"><span>Landlord Tenant</span> <i>·</i> <span>Bankruptcy</span> <i>·</i> <span>Real Estate</span> <i>·</i> <span>No Fault Collections</span></p>
  <div class="ctas"><a class="btn p" href="tel:+15168609014"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg>Call (516) 860-9014</a><a class="btn s" href="#contact">Book a consultation</a></div>
 </div><a class="down" href="#who" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></section>
@@ -385,10 +394,10 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 (() => {const h=document.querySelector('.ham'),d=document.getElementById('drawer');h.onclick=()=>{const o=d.classList.toggle('open');h.setAttribute('aria-expanded',o)};
 d.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{d.classList.remove('open');h.setAttribute('aria-expanded',false)}))})();
 (() => {const R=matchMedia('(prefers-reduced-motion:reduce)').matches;
- const vw=document.getElementById('vw');if(vw){const t0=performance.now();
-  const draw=now=>{const t=(now-t0)/1000;const calm=t<2.2?1:Math.max(0,1-(t-2.2)/1.6);const amp=R?0:calm*calm;let d='';
-   for(let x=0;x<=600;x+=6){const env=Math.sin(Math.PI*x/600);const y=40+amp*env*(18*Math.sin(x/22+t*5)+9*Math.sin(x/9-t*7.3)+5*Math.sin(x/4.3+t*11));d+=(x?'L':'M')+x+' '+y.toFixed(1)}
-   vw.setAttribute('d',d);if(amp>0)requestAnimationFrame(draw)};requestAnimationFrame(draw)}
+ const rot=document.querySelector('.rot');if(rot&&!R){const ws=[...rot.querySelectorAll('.rw')];let k=0;
+  const ul=()=>rot.style.setProperty('--uw',ws[k].getBoundingClientRect().width+'px');
+  setTimeout(ul,1800);addEventListener('resize',ul);
+  setTimeout(()=>setInterval(()=>{const o=ws[k];o.classList.remove('on');o.classList.add('out');setTimeout(()=>o.classList.remove('out'),750);k=(k+1)%ws.length;ws[k].classList.add('on');ul()},2600),2400)}
  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add(e.target.classList.contains('kick')?'in':'on');io2.unobserve(e.target)}}),{threshold:.2});
  document.querySelectorAll('.kick').forEach(el=>io2.observe(el));
  const io3=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;setTimeout(()=>el.classList.add('go'),[...el.parentNode.children].indexOf(el)*350);io3.unobserve(el)}}),{threshold:.6});
