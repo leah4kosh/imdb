@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Rima Nayberg Law · Celestial</title>
+<meta name="description" content="Law Offices of Rima Nayberg PC in Flushing, NY. Landlord &amp; Tenant, Bankruptcy, Real Estate and No-Fault Collections.">
+<link rel="icon" href="royal-logo.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LegalService","name":"Law Offices of Rima Nayberg PC","telephone":"+1-516-860-9014","email":"Naybergrima@gmail.com","image":"rima.jpg","address":{"@type":"PostalAddress","streetAddress":"147-17 Union Tpke","addressLocality":"Flushing","addressRegion":"NY","postalCode":"11367","addressCountry":"US"},"areaServed":["Queens","New York City","Long Island"],"founder":{"@type":"Person","name":"Rima Nayberg","jobTitle":"Attorney at Law"}}</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&family=Outfit:wght@400;500;600&display=swap">
+<style>
+/* Layout: night sky. Live constellation canvas behind everything, 3D tilt cards, rotating seal, floating dock menu at the bottom */
+:root{--night:#070b1f;--night2:#0d1433;--royal:#3d63ff;--royal-deep:#070b1f;--gold:#e9c46a;--ice:#cfe0ff;--bg:#070b1f;--ink:#e8edff;--muted:#9aa6cf;--line:rgba(207,224,255,.14);--accent:#3d63ff;--on-accent:#fff;
+--sky:#f3f6ff;--sky-line:#c9d6ff;--white:#fff;
+--display:"Cormorant",Georgia,serif;--body:"Outfit","Helvetica Neue",Arial,sans-serif;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font:16.5px/1.7 var(--body);color:var(--ink);background:var(--night)}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1;letter-spacing:-.01em;text-wrap:balance;color:#fff}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.neb{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(900px 600px at 85% 10%,rgba(61,99,255,.28),transparent 60%),radial-gradient(700px 500px at 0% 90%,rgba(140,90,255,.18),transparent 60%)}
+main,footer{position:relative;z-index:1}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:20px}
+.brand{position:fixed;top:calc(20px + env(safe-area-inset-top,0px));left:24px;z-index:40;display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{height:40px;filter:brightness(0) invert(1)}
+.brand span{font:500 1.25rem var(--display);color:#fff}
+.dock{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:45;display:flex;align-items:flex-end;gap:6px;padding:8px 10px;border-radius:22px;background:rgba(13,20,51,.6);backdrop-filter:blur(18px) saturate(1.5);border:1px solid var(--line);box-shadow:0 20px 50px -10px rgba(0,0,0,.6)}
+.dock a{position:relative;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;color:var(--ice);text-decoration:none;transition:width .2s,height .2s,background .2s,margin .2s}
+.dock a svg{width:22px;height:22px;transition:transform .2s}
+.dock a:hover{width:58px;height:58px;background:rgba(61,99,255,.35);margin-top:-12px}
+.dock a:hover svg{transform:scale(1.15)}
+.dock a span{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%) translateY(4px);white-space:nowrap;font-size:.75rem;background:#fff;color:var(--night);padding:4px 10px;border-radius:8px;opacity:0;pointer-events:none;transition:.2s}
+.dock a:hover span,.dock a:focus-visible span{opacity:1;transform:translateX(-50%)}
+.dock a.on{background:rgba(61,99,255,.25)}
+.dock a.on::after{content:"";position:absolute;bottom:3px;width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.dock .sep{width:1px;align-self:stretch;background:var(--line);margin:6px 4px}
+.dock a.call{background:var(--royal);color:#fff}
+.hero{min-height:100vh;display:flex;align-items:center;padding:110px 0 120px}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
+.kick{display:inline-flex;gap:10px;align-items:center;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.kick::before{content:"";width:34px;height:1px;background:var(--gold)}
+.hero h1{font-size:clamp(3.4rem,8vw,7rem);margin:22px 0;font-weight:400}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero h1 .glow{background:linear-gradient(180deg,#fff,#a9bcff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:1.12rem;max-width:50ch}
+.btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.b1{position:relative;padding:15px 30px;border-radius:999px;background:linear-gradient(135deg,#3d63ff,#7b5cff);color:#fff;text-decoration:none;font-weight:600;box-shadow:0 0 0 1px rgba(255,255,255,.15) inset,0 14px 40px -10px rgba(61,99,255,.8);transition:transform .2s,box-shadow .2s}
+.b1:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.25) inset,0 18px 50px -8px rgba(61,99,255,1)}
+.b2{padding:15px 30px;border-radius:999px;border:1px solid rgba(233,196,106,.5);color:var(--gold);text-decoration:none;font-weight:500}
+.orbit{position:relative;justify-self:center;width:min(100%,400px);aspect-ratio:1}
+.orbit .ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--line)}
+.orbit .ring:nth-child(2){inset:-34px;border-style:dashed;animation:spin 60s linear infinite}
+.orbit .ring:nth-child(2)::after{content:"";position:absolute;top:50%;left:-5px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 20px var(--gold)}
+.orbit img{position:absolute;inset:22px;width:calc(100% - 44px);height:calc(100% - 44px);border-radius:50%;object-fit:cover;object-position:center 18%;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 80px -10px rgba(61,99,255,.8)}
+.seal{position:absolute;right:-18px;bottom:6px;width:126px;height:126px;border-radius:50%;background:var(--night2);border:1px solid rgba(233,196,106,.4);display:grid;place-items:center}
+.seal svg.t{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);animation:spin 22s linear infinite}
+.seal text{font:600 10.5px var(--body);letter-spacing:3.2px;fill:var(--gold);text-transform:uppercase}
+.seal b{font:500 1.9rem var(--display);color:#fff;line-height:1;text-align:center}
+.seal b small{display:block;font:500 .6rem var(--body);letter-spacing:.14em;color:var(--muted)}
+@keyframes spin{to{transform:rotate(360deg)}}
+section.s{padding:120px 0}
+.hd{text-align:center;margin-bottom:56px;display:grid;justify-items:center;gap:14px}
+.hd h2{font-size:clamp(2.6rem,5.4vw,4.4rem);font-weight:400}
+.hd h2 em{color:var(--gold);font-style:italic}
+.star{width:26px;height:26px;color:var(--gold)}
+.glassbox{border-radius:30px;padding:2px;background:linear-gradient(140deg,rgba(233,196,106,.6),rgba(61,99,255,.2) 40%,rgba(255,255,255,.05) 60%,rgba(140,90,255,.5))}
+.glassbox>div{border-radius:28px;background:rgba(13,20,51,.82);backdrop-filter:blur(10px);padding:56px}
+.about{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.about .q{font-family:var(--display);font-style:italic;font-size:clamp(1.8rem,3.2vw,2.6rem);line-height:1.2;color:#fff}
+.about .q span{color:var(--gold)}
+.about p{color:var(--muted);margin-bottom:14px}
+.mini{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap}
+.mini b{display:block;font:500 2.4rem/1 var(--display);color:var(--gold)}
+.mini span{font-size:.78rem;color:var(--muted);letter-spacing:.06em}
+.tilts{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;perspective:1200px}
+.tilt{position:relative;border-radius:26px;padding:36px;background:linear-gradient(160deg,rgba(29,40,90,.9),rgba(13,20,51,.9));border:1px solid var(--line);transform-style:preserve-3d;transition:transform .15s ease-out,border-color .3s;overflow:hidden;min-height:330px;display:flex;flex-direction:column;gap:14px}
+.tilt::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(61,99,255,.35),transparent 50%);opacity:0;transition:opacity .3s}
+.tilt:hover{border-color:rgba(233,196,106,.45)}
+.tilt:hover::before{opacity:1}
+.tilt>*{position:relative;transform:translateZ(30px)}
+.tilt .ic{width:58px;height:58px;color:var(--gold)}
+.tilt h3{font-size:2.2rem}
+.tilt p{color:var(--muted);font-size:.95rem}
+.tilt ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.tilt li{font-size:.78rem;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--ice)}
+.path{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:30px;text-align:center}
+.path svg.ln{position:absolute;top:26px;left:12%;width:76%;height:20px;overflow:visible}
+.path div{position:relative}
+.path b{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:50%;background:var(--night2);border:1px solid var(--gold);color:var(--gold);font:500 1.5rem var(--display);box-shadow:0 0 30px -4px rgba(233,196,106,.5);margin-bottom:20px}
+.path h3{font-size:1.6rem;margin-bottom:6px}
+.path p{color:var(--muted);font-size:.93rem}
+.whyr{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:70px}
+.whyr div{border-radius:20px;padding:24px;border:1px solid var(--line);background:rgba(13,20,51,.55)}
+.whyr b{display:block;font-family:var(--display);font-size:1.4rem;color:#fff;margin-bottom:4px}
+.whyr p{color:var(--muted);font-size:.9rem}
+.hon{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.hon .glassbox>div{padding:40px 30px;text-align:center;height:100%}
+.hon strong{display:block;font:400 clamp(3.4rem,6vw,4.6rem)/1 var(--display);background:linear-gradient(180deg,#fff,var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hon h3{font-size:1.4rem;margin:10px 0 6px}
+.hon p{color:var(--muted);font-size:.93rem}
+.hon a{color:var(--gold)}
+.faq{max-width:820px;margin:0 auto;display:grid;gap:12px}
+.faq details{border-radius:18px;border:1px solid var(--line);background:rgba(13,20,51,.6);padding:20px 24px}
+.faq details[open]{border-color:rgba(233,196,106,.4)}
+.faq summary{cursor:pointer;list-style:none;font-family:var(--display);font-size:1.4rem;color:#fff;display:flex;justify-content:space-between;gap:14px}
+.faq summary::after{content:"✦";color:var(--gold);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(90deg)}
+.faq p{color:var(--muted);margin-top:10px}
+.ctc{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:start}
+.ctc h2{font-size:clamp(2.4rem,4.6vw,3.6rem);margin:14px 0 26px;font-weight:400}
+.ctc .ln a,.ctc .ln span{display:flex;gap:14px;align-items:center;text-decoration:none;padding:16px 0;border-bottom:1px solid var(--line)}
+.ctc svg{width:20px;height:20px;color:var(--gold)}
+.tf{background:#fff;color:#14193a;border-radius:26px;padding:38px;min-height:400px;display:flex;flex-direction:column;--ink:#14193a;--muted:#5a6488;box-shadow:0 0 0 1px rgba(233,196,106,.4),0 30px 80px -30px rgba(61,99,255,.9)}
+footer{padding:50px 0 120px;text-align:center;color:var(--muted);font-size:.8rem;border-top:1px solid var(--line)}
+footer p{max-width:80ch;margin:0 auto 8px}
+.callbar{display:none!important}.callpill{display:none!important}body{padding-bottom:0!important}
+.float-wa{bottom:calc(96px + env(safe-area-inset-bottom,0px))!important}
+.bot-btn,.bot{bottom:calc(160px + env(safe-area-inset-bottom,0px))!important}
+.bot{color:#14193a;--ink:#14193a;--muted:#5a6488;--line:#e0e6f7}
+@media (max-width:900px){
+ .hero .wrap,.about,.ctc{grid-template-columns:1fr}
+ .orbit{max-width:280px}.seal{width:100px;height:100px;right:-10px}
+ .tilts,.hon{grid-template-columns:1fr}
+ .path,.whyr{grid-template-columns:1fr 1fr}.path svg.ln{display:none}
+ .glassbox>div{padding:30px}
+ .brand span{display:none}
+ .dock{gap:2px;padding:6px}.dock a{width:40px;height:40px}.dock a:hover{width:40px;height:40px;margin:0}.dock .sep{display:none}
+}
+@media (max-width:480px){.path,.whyr{grid-template-columns:1fr}.dock a:nth-child(6){display:none}}
+@media (prefers-reduced-motion:reduce){.orbit .ring,.seal svg.t{animation:none}html{scroll-behavior:auto}}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.callbar,.callpill{display:none}
+@media (max-width:860px){
+ body{padding-bottom:72px}
+ .callbar{display:grid;grid-template-columns:1fr 1.4fr;position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--bg);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));gap:10px}
+ .callbar a{text-align:center;padding:12px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem;border:1.5px solid var(--accent);color:var(--accent)}
+ .callbar a:last-of-type{background:var(--accent);color:var(--on-accent)}
+ .cb-x{position:absolute;right:10px;top:-16px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer}
+ body.cb-closed .callbar{display:none}body.cb-closed{padding-bottom:0}
+ body.cb-closed .callpill{display:inline-flex;align-items:center;gap:8px;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:45;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:600;font-size:.92rem;padding:10px 20px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(0,0,0,.5)}
+ .callpill svg{width:18px;height:18px}
+ .float-wa{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+ body.cb-closed .float-wa{bottom:calc(24px + env(safe-area-inset-bottom,0px))!important}
+}
+.float-wa{position:fixed;right:20px;bottom:calc(24px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;background:#1f9d55;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.35);z-index:44}
+.float-wa svg{width:28px;height:28px}
+
+.stats{background:var(--royal);color:var(--white)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;padding-block:30px;gap:12px}
+.stats b{display:block;font-family:var(--display);font-size:2.1rem;font-weight:500;line-height:1.1}
+.stats span{font-size:.82rem;letter-spacing:.06em;opacity:.85}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s;position:relative}
+.step{display:grid;gap:8px;align-content:start}
+.step b{font-family:var(--display);font-size:2.6rem;font-weight:500;color:var(--royal);line-height:1}
+.tf{background:var(--white);border-radius:20px;padding:36px;box-shadow:0 20px 50px -20px rgba(20,48,111,.25);min-height:360px;display:flex;flex-direction:column;min-width:0}
+.st{display:none;flex-direction:column;gap:12px}
+.st.on{display:flex;animation:up .35s ease}
+@keyframes up{from{opacity:0;transform:translateY(14px)}}
+.st label{font-family:var(--display);font-size:1.6rem;color:var(--royal-deep);font-weight:600}
+.st label i{font-style:normal;color:var(--royal);font-family:var(--body);font-size:.9rem;margin-right:8px}
+.st small{color:var(--muted)}
+.st input,.st textarea{border:0;border-bottom:1.5px solid var(--sky-line);font:1.15rem var(--body);padding:10px 2px;outline:0;background:transparent;color:var(--ink)}
+.st input:focus,.st textarea:focus{border-color:var(--royal)}
+.st .btn{align-self:flex-start;margin-top:8px}
+.ch{display:grid;gap:8px}
+.ch button{display:flex;gap:12px;align-items:center;text-align:left;padding:12px 14px;border:1px solid var(--sky-line);background:var(--white);border-radius:10px;font:inherit;cursor:pointer;color:var(--ink)}
+.ch button b{display:inline-grid;place-items:center;width:26px;height:26px;border:1px solid var(--royal);border-radius:6px;font-size:.8rem;color:var(--royal)}
+.ch button.sel{background:var(--sky);border-color:var(--royal)}
+.ch button.sel b{background:var(--royal);color:var(--white)}
+.bar{height:3px;background:var(--sky);border-radius:3px;margin-top:auto}
+.bar i{display:block;height:100%;width:0;background:var(--royal);transition:width .4s;border-radius:3px}
+.err{color:#b42318;font-size:.9rem;min-height:1.4em;margin-top:8px}
+.thanks svg{width:90px;height:90px}
+
+/* chat assistant */
+.bot-btn{position:fixed;right:20px;bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:46;display:flex;align-items:center;gap:10px;background:var(--accent);color:var(--on-accent);border:0;border-radius:999px;padding:12px 18px 12px 14px;font:600 .9rem var(--body);cursor:pointer;box-shadow:0 12px 28px -10px rgba(0,0,0,.45)}
+.bot-btn svg{width:22px;height:22px}
+.bot-btn .dot{width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 3px rgba(61,220,132,.25)}
+.bot{position:fixed;right:20px;bottom:calc(90px + env(safe-area-inset-bottom,0px));z-index:47;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100vh - 130px));background:#fff;border-radius:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);font-family:var(--body);color:var(--ink)}
+.bot[hidden]{display:none}
+.bot-h{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--royal-deep);color:#fff}
+.bot-h img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:center 18%;border:2px solid rgba(255,255,255,.3)}
+.bot-h b{display:block;font-size:.95rem}
+.bot-h small{font-size:.75rem;opacity:.8}
+.bot-h button{margin-left:auto;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;line-height:1}
+.bot-m{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--sky)}
+.msg{max-width:85%;padding:10px 14px;border-radius:16px;font-size:.92rem;line-height:1.5;animation:pop .25s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}}
+.msg.b{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.u{background:var(--accent);color:var(--on-accent);border-bottom-right-radius:4px;align-self:flex-end}
+.msg ul{margin:6px 0 0 16px;padding:0}
+.msg a{color:inherit;font-weight:600}
+.typing{display:flex;gap:4px;padding:12px 14px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes blink{50%{opacity:.3}}
+.qr{display:flex;flex-wrap:wrap;gap:6px;align-self:flex-start}
+.qr button{background:#fff;border:1px solid var(--accent);color:var(--accent);border-radius:999px;padding:6px 12px;font:500 .82rem var(--body);cursor:pointer}
+.qr button:hover{background:var(--accent);color:var(--on-accent)}
+.bot-f{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#fff}
+.bot-f input{flex:1;border:1px solid var(--line);border-radius:999px;padding:10px 14px;font:inherit;font-size:.92rem;outline:0;min-width:0}
+.bot-f input:focus{border-color:var(--accent)}
+.bot-f button{background:var(--accent);color:var(--on-accent);border:0;border-radius:999px;width:42px;cursor:pointer;font-size:1.1rem}
+.bot-note{font-size:.7rem;color:var(--muted);text-align:center;padding:0 10px 8px;background:#fff}
+@media (max-width:860px){.bot-btn,.bot{bottom:calc(150px + env(safe-area-inset-bottom,0px))}.bot{right:12px;height:min(520px,calc(100vh - 190px))}body.cb-closed .bot-btn,body.cb-closed .bot{bottom:calc(90px + env(safe-area-inset-bottom,0px))}.bot-btn span{display:none}.bot-btn{padding:13px}}
+@media (prefers-reduced-motion:reduce){.msg,.typing i{animation:none}}
+
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas><div class="neb" aria-hidden="true"></div>
+<a class="brand" href="#home"><img src="royal-logo.png" alt="Rima Nayberg Law"><span>Rima Nayberg</span></a>
+<nav class="dock" aria-label="Sections"><a href="#home" data-s="home"><span>Home</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></g></svg></a><a href="#about" data-s="about"><span>About Us</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></g></svg></a><a href="#practice" data-s="practice"><span>Practice Areas</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16"/><path d="M6 7l-3 7a3 3 0 006 0zM18 7l-3 7a3 3 0 006 0z"/></g></svg></a><a href="#process" data-s="process"><span>How It Works</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/></g></svg></a><a href="#reviews" data-s="reviews"><span>Reviews</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/></g></svg></a><a href="#faq" data-s="faq"><span>FAQ</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-1 .7-1.5 1.2-1.5 2.5M12 17h.01"/></g></svg></a><a href="#contact" data-s="contact"><span>Contact</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></g></svg></a><i class="sep"></i><a class="call" href="tel:+15168609014"><span>Call (516) 860-9014</span><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg></a></nav>
+<main>
+<section class="hero" id="home"><div class="wrap">
+ <div><span class="kick">Long Island · New York · Queens</span>
+  <h1><span class="glow">Clear advice.</span><br><em>Honest</em> <span class="glow">representation.</span></h1>
+  <p>Practical legal help for tenants, landlords, homeowners, families facing debt, and medical providers, explained in plain English with fair, upfront fees.</p>
+  <div class="btns"><a class="b1" href="#contact">Request a consultation</a><a class="b2" href="#about">Meet Rima</a></div></div>
+ <div class="orbit"><span class="ring"></span><span class="ring"></span><img src="rima.jpg" alt="Attorney Rima Nayberg">
+  <div class="seal"><svg class="t" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="c" d="M50 50m-40 0a40 40 0 1180 0a40 40 0 11-80 0"/></defs><text><textPath href="#c">Honest · Clear · Committed · </textPath></text></svg><b>4.8<small>AVVO</small></b></div></div>
+</div></section>
+<section class="s" id="about"><div class="wrap"><div class="glassbox"><div class="about">
+ <div><span class="kick">About Us</span><p class="q" style="margin-top:18px">"Honesty, empathy, and <span>direct communication</span>, with every client."</p>
+  <div class="mini"><div><b>2011</b><span>Licensed in NY</span></div><div><b>4.8</b><span>Avvo rating</span></div><div><b>3×</b><span>Rising Star</span></div></div></div>
+ <div><h2 style="font-size:2.4rem;margin-bottom:18px">Rima Nayberg, Attorney at Law</h2><p>Rima Nayberg earned her law degree from The Thomas M. Cooley Law School in 2009 and has been officially licensed to practice law in New York since 2011. Over the past decade and a half, she has built her practice on a simple principle: treating every client with honesty, empathy, and direct communication.</p><p>Her work hasn't gone unnoticed by the legal community. Rima was named to the Super Lawyers Rising Stars list from 2019 through 2021, a peer-nominated honor given to top local attorneys. She also holds a 4.8 out of 5.0 client rating on Avvo (with a 7.1 "Very Good" overall score).</p><p>What clients appreciate most isn't just the titles, but her practical approach. She takes the time to explain your options without the complicated legal jargon, keeps her fees fair and upfront, and fights genuinely for the best outcome in your case.</p></div>
+</div></div></div></section>
+<section class="s" id="practice"><div class="wrap"><div class="hd"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l1.6 7.4L21 12l-7.4 1.6L12 21l-1.6-7.4L3 12l7.4-2.6z"/></svg><h2>How we can <em>help</em></h2></div><div class="tilts"><article class="tilt" id="pa-lt"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30L32 12l24 18"/><path d="M14 26v28h36V26"/><path d="M27 54V40h10v14"/><path d="M20 32h7v6h-7zM37 32h7v6h-7z"/></g></svg><h3>Landlord &amp; Tenant</h3><p>Legal representation and guidance for landlords and tenants in matters involving leases, rent disputes, evictions, housing issues, and other landlord–tenant concerns. We help clients understand their rights and responsibilities and work toward practical legal solutions.</p><ul><li>Residential &amp; commercial evictions (holdover &amp; non-payment)</li><li>Rent arrears &amp; rent disputes</li><li>Lease drafting &amp; review</li><li>Housing Court representation</li><li>Repairs, habitability &amp; housing issues</li></ul></article><article class="tilt" id="pa-bk"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10h26l10 10v34H14z"/><path d="M40 10v10h10"/><path d="M22 30h20M22 37h20M22 44h12"/></g></svg><h3>Bankruptcy</h3><p>Legal guidance for individuals and businesses facing financial difficulties, debt, or bankruptcy. We assist clients in understanding their available options and navigating the bankruptcy process while protecting their legal rights and interests.</p><ul><li>Chapter 7 bankruptcy</li><li>Chapter 13 bankruptcy</li><li>Stopping creditor calls &amp; wage garnishments</li><li>Foreclosure defense options</li><li>Debt relief consultations</li></ul></article><article class="tilt" id="pa-re"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="42" r="10"/><circle cx="20" cy="42" r="3"/><path d="M27 35l25-25M44 18l6 6M38 24l5 5"/></g></svg><h3>Real Estate</h3><p>Legal services for residential and commercial real estate matters, including purchases, sales, leases, contracts, closings, and property-related disputes. We provide guidance throughout the transaction to help ensure that legal requirements and agreements are properly addressed.</p><ul><li>Residential purchases &amp; sales</li><li>Commercial transactions</li><li>Contract drafting &amp; review</li><li>Closings &amp; title issues</li><li>Property-related disputes</li></ul></article><article class="tilt" id="pa-nf"><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14h40v36H12z"/><path d="M32 22v20M22 32h20"/><path d="M20 14V8h24v6"/></g></svg><h3>No Fault Collections</h3><p>Legal representation for medical providers and healthcare practices seeking payment on unpaid or denied No-Fault (Personal Injury Protection) insurance claims arising from motor vehicle accidents. We pursue overdue claims through arbitration and litigation so providers are paid what they are owed.</p><ul><li>Unpaid &amp; denied No-Fault claims</li><li>No-Fault arbitration</li><li>Litigation in Civil Court</li><li>Claim review &amp; follow-up</li><li>Representation for medical providers</li></ul></article></div></div></section>
+<section class="s" id="process"><div class="wrap"><div class="hd"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l1.6 7.4L21 12l-7.4 1.6L12 21l-1.6-7.4L3 12l7.4-2.6z"/></svg><h2>Your path, <em>step by step</em></h2></div>
+ <div class="path"><svg class="ln" viewBox="0 0 100 2" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="1" x2="100" y2="1" stroke="#e9c46a" stroke-opacity=".5" stroke-dasharray="1 1.5" vector-effect="non-scaling-stroke"/></svg>
+ <div><b>1</b><h3>Reach out</h3><p>Call, message on WhatsApp, or fill out the short form.</p></div><div><b>2</b><h3>Consultation</h3><p>We review your situation and explain your options.</p></div><div><b>3</b><h3>A clear plan</h3><p>We agree on a strategy and on fees, upfront.</p></div><div><b>4</b><h3>Resolution</h3><p>We handle your case and keep you updated along the way.</p></div></div>
+ <div class="whyr"><div><b>Honesty &amp; empathy</b><p>Every client is treated with honesty, empathy, and direct communication.</p></div><div><b>No legal jargon</b><p>Your options explained clearly, so you can make informed decisions.</p></div><div><b>Fair, upfront fees</b><p>Transparent pricing, discussed before any work begins.</p></div><div><b>Committed to you</b><p>We fight genuinely for the best outcome in your case.</p></div></div></div></section>
+<section class="s" id="reviews"><div class="wrap"><div class="hd"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l1.6 7.4L21 12l-7.4 1.6L12 21l-1.6-7.4L3 12l7.4-2.6z"/></svg><h2>Trusted by <em>clients</em> and peers</h2></div>
+ <div class="hon"><div class="glassbox"><div><strong>4.8</strong><h3>Avvo client rating</h3><p>Out of 5.0, with a 7.1 "Very Good" score. <a href="https://www.avvo.com/search/lawyer_search?q=Rima+Nayberg" target="_blank" rel="noopener">Read reviews →</a></p></div></div>
+ <div class="glassbox"><div><strong>3×</strong><h3>Super Lawyers Rising Star</h3><p>2019, 2020 and 2021. Peer-nominated.</p></div></div>
+ <div class="glassbox"><div><strong>2011</strong><h3>Licensed in New York</h3><p>A decade and a half of practice.</p></div></div></div></div></section>
+<section class="s" id="faq"><div class="wrap"><div class="hd"><svg class="star" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2l1.6 7.4L21 12l-7.4 1.6L12 21l-1.6-7.4L3 12l7.4-2.6z"/></svg><h2>Questions, <em>answered</em></h2></div><div class="faq"><details><summary>Which areas do you serve?</summary><p>We serve clients in Queens, New York City, and Long Island.</p></details><details><summary>What types of cases do you handle?</summary><p>Landlord &amp; Tenant, Bankruptcy, Real Estate, and No-Fault Collections.</p></details><details><summary>How do I schedule a consultation?</summary><p>Call (516) 860-9014, message us on WhatsApp, or complete the contact form and we will reach out at your preferred time.</p></details><details><summary>What should I bring to my first meeting?</summary><p>Any relevant documents, such as leases, notices, court papers, contracts, bills, or insurance letters, and a short timeline of events.</p></details><details><summary>How much will my case cost?</summary><p>Fees depend on the matter. We discuss them clearly and upfront before any work begins.</p></details></div></div></section>
+<section class="s" id="contact"><div class="wrap ctc"><div><span class="kick">Contact</span><h2>Let's talk about your case</h2>
+ <div class="ln"><a href="tel:+15168609014"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>+1 (516) 860-9014</a><a href="mailto:Naybergrima@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></g></svg>Naybergrima@gmail.com</a><a href="https://www.google.com/maps/search/?api=1&amp;query=147-17+Union+Tpke+Flushing+NY+11367" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></g></svg>147-17 Union Tpke, Flushing, NY 11367</a></div></div><div class="tf" id="tf">
+    <div class="st on"><h3>Contact Rima Nayberg</h3><p class="lead">Thank you for reaching out to us. Please provide your details and a brief description of your legal matter. Our team will review your inquiry and follow up promptly.</p><button class="btn" type="button" data-next>Begin</button><small>Takes 45 sec</small></div>
+    <div class="st"><label for="f-name"><i>1 →</i>Full Name*</label><small>Please enter your full legal name.</small><input id="f-name" name="name" placeholder="Type your answer here..." required><button class="btn" type="button" data-next>OK</button></div>
+    <div class="st"><label for="f-email"><i>2 →</i>Email Address*</label><small>We will use this to provide updates about your inquiry.</small><input id="f-email" type="email" name="email" placeholder="name@example.com" required><button class="btn" type="button" data-next>OK</button></div>
+    <div class="st"><label for="f-phone"><i>3 →</i>Phone Number*</label><small>Please provide your preferred phone number.</small><input id="f-phone" type="tel" name="phone" placeholder="(201) 555-0123" required><button class="btn" type="button" data-next>OK</button></div>
+    <div class="st"><label><i>4 →</i>Preferred Contact Method*</label><small>Preferred Contact Method</small><div class="ch" data-k="method"><button type="button" data-v="Email"><b>A</b>Email</button><button type="button" data-v="Phone"><b>B</b>Phone</button></div><button class="btn" type="button" data-next>OK</button></div>
+    <div class="st"><label for="f-matter"><i>5 →</i>Type of Legal Matter*</label><small>Type or select an option</small><input id="f-matter" name="matter" list="matters" placeholder="Type or select an option" required><datalist id="matters"><option>Landlord &amp; Tenant</option><option>Bankruptcy</option><option>Real Estate</option><option>No Fault Collections</option><option>Other</option></datalist><button class="btn" type="button" data-next>OK</button></div>
+    <div class="st"><label for="f-desc"><i>6 →</i>Brief Description of Your Legal Matter</label><small>Optional. Shift+Enter for a new line.</small><textarea id="f-desc" name="desc" rows="3" placeholder="Type your answer here..."></textarea><button class="btn" type="button" data-next>OK</button></div>
+    <div class="st"><label><i>7 →</i>Preferred Time to Contact You*</label><small>Preferred Time to Contact You</small><div class="ch" data-k="time"><button type="button" data-v="Morning (8am - 12pm)"><b>A</b>Morning (8am - 12pm)</button><button type="button" data-v="Afternoon (12pm - 5pm)"><b>B</b>Afternoon (12pm - 5pm)</button><button type="button" data-v="Evening (5pm - 8pm)"><b>C</b>Evening (5pm - 8pm)</button><button type="button" data-v="No preference"><b>D</b>No preference</button></div><button class="btn" type="button" data-next>Submit</button></div>
+    <div class="st thanks"><svg viewBox="0 0 90 90" aria-hidden="true"><g class="line-art" stroke-width="1.4"><circle cx="45" cy="45" r="36"/><path d="M30 46l10 10 20-22"/></g></svg><h3>Thank you!</h3><p class="lead">Thank you for contacting our law firm. Your message has been received and a member of our team will be in touch with you soon.</p></div>
+    <div class="bar"><i></i></div><p class="err" role="alert"></p>
+  </div></div></section>
+</main>
+<footer><div class="wrap"><p>Attorney Advertising. Prior results do not guarantee a similar outcome. The information on this website is for general information only and is not legal advice. Contacting the office through this website does not create an attorney–client relationship.</p><p>This Website Is Created By Z-Tech · © 2026 Law Offices of Rima Nayberg, All Rights Reserved</p></div></footer>
+<div class="callbar"><button class="cb-x" type="button" aria-label="Close">&times;</button><a href="tel:+15168609014">Call now</a><a href="#contact">Request a consultation</a></div>
+<a class="callpill" href="tel:+15168609014"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Call Rima</a>
+<a class="float-wa" href="https://wa.me/15168609014" target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 8.5c.3-.6.6-.6 1-.6l.6 1.4c.1.3-.4.8-.6 1 .6 1.3 1.6 2.3 2.9 2.9.2-.2.7-.8 1-.6l1.4.6c0 .5 0 .8-.6 1.1-.7.4-1.6.4-3-.4a8 8 0 01-2.9-2.9c-.7-1.3-.6-2.1-.3-2.5z" fill="#fff"/></svg></a>
+<script>document.querySelector('.cb-x').onclick=()=>document.body.classList.add('cb-closed')</script>
+
+<script>
+(() => {
+  const cv=document.getElementById('sky'),x=cv.getContext('2d');let W,H,st=[],mx=-999,my=-999;const R=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function size(){W=cv.width=innerWidth*devicePixelRatio;H=cv.height=innerHeight*devicePixelRatio;const n=Math.min(170,Math.round(innerWidth*innerHeight/9000));
+    st=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*1.3+.3)*devicePixelRatio,t:Math.random()*6.28,s:.004+Math.random()*.012,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08}))}
+  function draw(){x.clearRect(0,0,W,H);const L=120*devicePixelRatio;
+    for(const a of st){a.t+=a.s;if(!R){a.x=(a.x+a.vx+W)%W;a.y=(a.y+a.vy+H)%H}const o=.35+.65*Math.abs(Math.sin(a.t));x.fillStyle=`rgba(220,230,255,${o})`;x.beginPath();x.arc(a.x,a.y,a.r,0,6.28);x.fill()}
+    for(let i=0;i<st.length;i++){const a=st[i];const dm=Math.hypot(a.x-mx,a.y-my);if(dm>L*1.6)continue;
+      for(let j=i+1;j<st.length;j++){const b=st[j];const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<L){x.strokeStyle=`rgba(233,196,106,${(1-d/L)*.5*(1-dm/(L*1.6))})`;x.lineWidth=devicePixelRatio*.7;x.beginPath();x.moveTo(a.x,a.y);x.lineTo(b.x,b.y);x.stroke()}}}
+    if(!R)requestAnimationFrame(draw)}
+  addEventListener('resize',()=>{size();if(R)draw()});addEventListener('pointermove',e=>{mx=e.clientX*devicePixelRatio;my=e.clientY*devicePixelRatio});size();draw();
+  document.querySelectorAll('.tilt').forEach(c=>{c.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse'||R)return;const b=c.getBoundingClientRect(),px=(e.clientX-b.left)/b.width,py=(e.clientY-b.top)/b.height;
+    c.style.transform=`rotateY(${(px-.5)*10}deg) rotateX(${(.5-py)*10}deg)`;c.style.setProperty('--mx',px*100+'%');c.style.setProperty('--my',py*100+'%')});c.addEventListener('pointerleave',()=>c.style.transform='')});
+  const ds=[...document.querySelectorAll('.dock a[data-s]')];const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)ds.forEach(d=>d.classList.toggle('on',d.dataset.s===e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('main section[id]').forEach(s=>io.observe(s));
+})();
+</script>
+<button class="bot-btn" type="button" aria-label="Chat with our assistant"><span class="dot"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Ask a question</span></button>
+<div class="bot" hidden role="dialog" aria-label="Chat assistant">
+  <div class="bot-h"><img src="rima.jpg" alt=""><div><b>Rima's Assistant</b><small>Usually helps in seconds</small></div><button type="button" aria-label="Close chat">&times;</button></div>
+  <div class="bot-m" aria-live="polite"></div>
+  <form class="bot-f"><input id="bot-in" placeholder="Type your question..." autocomplete="off" aria-label="Your question"><button type="submit" aria-label="Send">&#10148;</button></form>
+  <p class="bot-note">Automated assistant. General information only, not legal advice.</p>
+</div>
+<script>
+(() => {
+  const f = document.getElementById('tf'), st = [...f.querySelectorAll('.st')], bar = f.querySelector('.bar i'), err = f.querySelector('.err');
+  let i = 0; const c = {};
+  const v = k => f.querySelector('[name=' + k + ']').value.trim();
+  f.querySelectorAll('.ch button').forEach(b => b.onclick = () => {
+    const g = b.parentNode; g.querySelectorAll('button').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel'); c[g.dataset.k] = b.dataset.v;
+  });
+  function send() {
+    const fields = { Name: v('name'), Email: v('email'), Phone: v('phone'), 'Preferred contact': c.method, 'Legal matter': v('matter'), Description: v('desc'), 'Preferred time': c.time };
+    const body = Object.entries(fields).map(([k, x]) => k + ': ' + (x || '')).join(String.fromCharCode(10));
+    const mail = 'mailto:Naybergrima@gmail.com?subject=' + encodeURIComponent('New inquiry from ' + v('name')) + '&body=' + encodeURIComponent(body);
+    fetch('https://formsubmit.co/ajax/Naybergrima@gmail.com', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ _subject: 'New website inquiry from ' + v('name'), _template: 'table', ...fields }) })
+      .then(r => { if (!r.ok) throw 0 }).catch(() => { location.href = mail });
+  }
+  f.querySelectorAll('[data-next]').forEach(b => b.onclick = () => {
+    const inp = st[i].querySelector('input,textarea'); err.textContent = '';
+    if (inp && !inp.checkValidity()) { err.textContent = inp.value ? 'Please check your answer.' : 'Please fill this in.'; return }
+    const g = st[i].querySelector('.ch'); if (g && !c[g.dataset.k]) { err.textContent = 'Please choose an option.'; return }
+    st[i].classList.remove('on'); i++; st[i].classList.add('on');
+    bar.style.width = (i / (st.length - 1) * 100) + '%';
+    const n = st[i].querySelector('input,textarea'); n && n.focus();
+    if (i === st.length - 1) send();
+  });
+  f.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { const b = st[i].querySelector('[data-next]'); if (b) { e.preventDefault(); b.click() } } });
+})();
+
+(() => {
+  const btn=document.querySelector('.bot-btn'),box=document.querySelector('.bot'),m=box.querySelector('.bot-m'),f=box.querySelector('.bot-f'),inp=box.querySelector('input');
+  let started=false;
+  const goForm=()=>{box.hidden=true;btn.hidden=false;const o=document.querySelector('[data-open]');if(o){o.click();return}location.hash='';location.hash='contact'};
+  const A={
+    menu:{t:"How can I help you today?",q:['Practice areas','Book a consultation','Fees','Office location','Talk to Rima']},
+    'Practice areas':{t:"Rima handles four areas of law. Which one is your question about?",q:['Landlord & Tenant','Bankruptcy','Real Estate','No Fault Collections']},
+    'Landlord & Tenant':{t:"Rima represents both <b>landlords and tenants</b>: evictions (holdover &amp; non-payment), rent arrears and disputes, lease drafting and review, Housing Court, and repairs or habitability issues.",q:['Book a consultation','Talk to Rima','Back to menu']},
+    'Bankruptcy':{t:"For individuals and businesses facing debt: <b>Chapter 7</b> and <b>Chapter 13</b> bankruptcy, stopping creditor calls and wage garnishments, foreclosure options and debt relief consultations.",q:['Book a consultation','Talk to Rima','Back to menu']},
+    'Real Estate':{t:"Residential and commercial <b>purchases, sales, leases, contracts and closings</b>, plus title issues and property disputes.",q:['Book a consultation','Talk to Rima','Back to menu']},
+    'No Fault Collections':{t:"Rima represents <b>medical providers</b> seeking payment on unpaid or denied No-Fault (PIP) insurance claims, through arbitration and litigation.",q:['Book a consultation','Talk to Rima','Back to menu']},
+    'Book a consultation':{t:"Great! The short contact form takes about 45 seconds. I'll open it for you.",q:['Open the form','Talk to Rima','Back to menu']},
+    'Fees':{t:"Fees depend on the matter. Rima discusses them <b>clearly and upfront</b> before any work begins, so there are no surprises.",q:['Book a consultation','Back to menu']},
+    'Office location':{t:"The office is at <b>147-17 Union Tpke, Flushing, NY 11367</b>. Rima serves clients in Queens, New York City and Long Island.<br><a href=\"https://www.google.com/maps/search/?api=1&query=147-17+Union+Tpke+Flushing+NY+11367\" target=\"_blank\" rel=\"noopener\">Get directions</a>",q:['Book a consultation','Back to menu']},
+    'Talk to Rima':{t:"You can reach Rima directly:<ul><li>Phone: <a href=\"tel:+15168609014\">(516) 860-9014</a></li><li>WhatsApp: <a href=\"https://wa.me/15168609014\" target=\"_blank\" rel=\"noopener\">Send a message</a></li><li>Email: <a href=\"mailto:Naybergrima@gmail.com\">Naybergrima@gmail.com</a></li></ul>",q:['Book a consultation','Back to menu']},
+    'What to bring':{t:"Bring any relevant documents, such as leases, notices, court papers, contracts, bills or insurance letters, and a short timeline of events.",q:['Book a consultation','Back to menu']},
+    unknown:{t:"I'm not sure I understood. Rima can answer that personally. Would you like to book a consultation or contact her directly?",q:['Book a consultation','Talk to Rima','Back to menu']}
+  };
+  const K=[[/evict|landlord|tenant|rent|lease|housing|apartment|repair/i,'Landlord & Tenant'],[/bankrupt|debt|chapter|credit|garnish|foreclos|owe/i,'Bankruptcy'],[/real estate|closing|buy|sell|purchase|house|property|title|contract/i,'Real Estate'],[/no.?fault|insurance|pip|accident|medical|provider|claim/i,'No Fault Collections'],[/fee|cost|price|charge|how much|pay/i,'Fees'],[/where|address|location|office|direction|queens|long island|flushing/i,'Office location'],[/call|phone|whatsapp|email|talk|speak|contact|reach/i,'Talk to Rima'],[/book|appoint|consult|meet|schedule|form/i,'Book a consultation'],[/bring|document|prepare/i,'What to bring'],[/^(hi|hello|hey|shalom|good)/i,'menu'],[/area|practice|handle|service|help with/i,'Practice areas']];
+  const scroll=()=>m.scrollTop=m.scrollHeight;
+  const add=(html,who)=>{const d=document.createElement('div');d.className='msg '+who;d.innerHTML=html;m.appendChild(d);scroll();return d};
+  function reply(key){
+    m.querySelectorAll('.qr').forEach(q=>q.remove());
+    const t=document.createElement('div');t.className='msg b typing';t.innerHTML='<i></i><i></i><i></i>';m.appendChild(t);scroll();
+    setTimeout(()=>{t.remove();const a=A[key]||A.unknown;add(a.t,'b');
+      if(a.q){const q=document.createElement('div');q.className='qr';a.q.forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=x;b.onclick=()=>choose(x);q.appendChild(b)});m.appendChild(q);scroll()}},650);
+  }
+  function choose(x){
+    add(x.replace(/&/g,'&amp;').replace(/</g,'&lt;'),'u');
+    if(x==='Open the form'){setTimeout(goForm,400);return}
+    reply(x==='Back to menu'?'menu':x);
+  }
+  btn.onclick=()=>{box.hidden=false;btn.hidden=true;if(!started){started=true;add("Hi! I'm Rima Nayberg's virtual assistant. 👋".replace(' 👋',''),'b');reply('menu')}inp.focus()};
+  box.querySelector('.bot-h button').onclick=()=>{box.hidden=true;btn.hidden=false};
+  f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(!v)return;inp.value='';add(v.replace(/&/g,'&amp;').replace(/</g,'&lt;'),'u');const hit=K.find(([r])=>r.test(v));reply(hit?hit[1]:'unknown')};
+})();
+
+</script>
+</body>
+</html>
