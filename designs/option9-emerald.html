@@ -4,146 +4,114 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Rima Nayberg Law · Emerald</title>
-<meta name="description" content="Law Offices of Rima Nayberg PC in Flushing, NY. Landlord & Tenant, Bankruptcy, Real Estate and No-Fault Collections for clients in Queens, New York City and Long Island. Call (516) 860-9014.">
-<meta property="og:title" content="Law Offices of Rima Nayberg PC">
-<meta property="og:description" content="Clear advice. Honest representation. Serving Queens, New York and Long Island.">
-<meta property="og:image" content="rima.jpg">
-<link rel="icon" href="option9-emerald-logo.png">
+<meta name="description" content="Law Offices of Rima Nayberg PC in Flushing, NY. Landlord &amp; Tenant, Bankruptcy, Real Estate and No-Fault Collections.">
+<link rel="icon" href="emerald-logo.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LegalService","name":"Law Offices of Rima Nayberg PC","telephone":"+1-516-860-9014","email":"Naybergrima@gmail.com","image":"rima.jpg","address":{"@type":"PostalAddress","streetAddress":"147-17 Union Tpke","addressLocality":"Flushing","addressRegion":"NY","postalCode":"11367","addressCountry":"US"},"areaServed":["Queens","New York City","Long Island"],"founder":{"@type":"Person","name":"Rima Nayberg","jobTitle":"Attorney at Law"}}</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Mulish:wght@400;600&display=swap">
 <style>
-/* Layout: airy single column, alternating white / cream / pale-blue bands, fine-line drawings as quiet accents */
-:root{
-  --royal:#1d6b52; --royal-deep:#0f3d30; --sky:#e3f0ea; --sky-line:#b3d3c4;
-  --cream:#faf6ee; --white:#ffffff; --ink:#1c2622; --muted:#5a6862;
-  --display:"Cormorant Garamond",Georgia,"Times New Roman",serif;
-  --body:Jost,"Helvetica Neue",Arial,sans-serif;
-  color-scheme:light;
-}
+/* Layout: split screen. A fixed emerald profile panel on the left; content scrolls on the right */
+:root{--deep:#0f3d30;--accent:#1d6b52;--on-accent:#fff;--mint:#e3f0ea;--mint-line:#b3d3c4;--cream:#faf6ee;--bg:#fffdf8;--ink:#1c2622;--muted:#5a6862;--line:#dfe9e3;
+--display:"Playfair Display",Georgia,serif;--body:"Mulish","Helvetica Neue",Arial,sans-serif;
+--royal:var(--accent);--royal-deep:var(--deep);--sky:var(--mint);--sky-line:var(--mint-line);--white:#fff;color-scheme:light}
 *{box-sizing:border-box;margin:0}
-/* decorative scroll line: hairline with diamond end caps that fills as you scroll */
-.rail{display:none}
-html.has-rail{scrollbar-width:none}
-html.has-rail::-webkit-scrollbar{display:none;width:0}
-html.has-rail .rail{display:block;position:fixed;right:18px;top:12vh;bottom:12vh;width:24px;z-index:40;cursor:pointer;touch-action:none}
-.rail::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--sky-line);transform:translateX(-50%)}
-.rail i{position:absolute;left:50%;width:8px;height:8px;border:1px solid var(--royal);background:var(--cream);transform:translate(-50%,-50%) rotate(45deg)}
-.rail i.t{top:0}
-.rail i.b{top:100%}
-.rail .fill{position:absolute;left:50%;top:0;width:2px;height:0;transform:translateX(-50%);background:linear-gradient(var(--sky-line),var(--royal));border-radius:2px}
-.rail:hover .fill,.rail.drag .fill{width:3px}
-html.has-rail .rail.hide{display:none}
-html.has-rail .float-wa{right:60px}
-@media (max-width:860px){html.has-rail .rail{bottom:110px;right:10px}}
-
-
-html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{font-family:var(--body);color:var(--ink);background:var(--white);line-height:1.7;font-size:17px}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font:17px/1.7 var(--body);color:var(--ink);background:var(--bg)}
 a{color:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
-h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.15;color:var(--royal-deep);text-wrap:balance}
-h2{font-size:clamp(2rem,4vw,2.8rem)}
-h3{font-size:1.55rem}
-.eyebrow{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--royal);font-weight:500}
-.lead{color:var(--muted);max-width:60ch}
-.line-art{stroke:var(--royal);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
-:focus-visible{outline:2px solid var(--royal);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.15;color:var(--deep);text-wrap:balance}
+.panel{position:fixed;inset:0 auto 0 0;width:38vw;max-width:520px;background:var(--deep);color:#e3efe9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:40px 36px;text-align:center;overflow:hidden}
+.panel::before{content:"";position:absolute;inset:18px;border:1px solid rgba(179,211,196,.25);border-radius:220px 220px 18px 18px;pointer-events:none}
+.panel img.ph{width:min(62%,250px);aspect-ratio:4/5;object-fit:cover;object-position:center 18%;border-radius:200px 200px 14px 14px;border:4px solid rgba(255,255,255,.12)}
+.panel .logo{height:46px;filter:brightness(0) invert(1);opacity:.9}
+.panel h1{color:#fff;font-size:clamp(1.8rem,2.6vw,2.4rem)}
+.panel .role{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mint-line)}
+.panel .areas{font-size:.85rem;color:#b9d3c7}
+.panel .links{display:grid;gap:6px;font-size:.95rem}
+.panel .links a{text-decoration:none;display:inline-flex;gap:8px;align-items:center;justify-content:center}
+.panel .links svg{width:17px;height:17px;color:var(--mint-line)}
+.panel .btn{background:#fff;color:var(--deep)}
+.content{margin-left:min(38vw,520px)}
+.chips{position:sticky;top:0;z-index:30;background:rgba(255,253,248,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:6px;padding:12px 40px;overflow-x:auto;scrollbar-width:none}
+.chips a{white-space:nowrap;text-decoration:none;font-size:.88rem;padding:6px 14px;border-radius:999px;color:var(--muted)}
+.chips a:hover,.chips a.on{background:var(--mint);color:var(--deep)}
+section{padding:72px 56px;max-width:860px}
+.eyebrow{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+h2{font-size:clamp(1.9rem,3vw,2.5rem);margin-bottom:22px}
+.intro h2{font-size:clamp(2.4rem,4.4vw,3.6rem)}
+.intro h2 em{color:var(--accent)}
+.intro p{font-size:1.1rem;color:var(--muted);max-width:56ch}
+.btn{display:inline-block;padding:12px 26px;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;font-size:.95rem;border:1.5px solid transparent}
+.btn.line{background:transparent;border-color:var(--accent);color:var(--accent)}
+.row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.leaf{width:90px;height:22px;color:var(--mint-line);margin:6px 0 18px}
+.about p{margin-bottom:16px;max-width:64ch}
+.pull{font-family:var(--display);font-style:italic;font-size:1.5rem;color:var(--accent);padding:6px 0 6px 22px;border-left:2px solid var(--mint-line);margin:22px 0}
+.acc details{border-top:1px solid var(--line);padding:6px 0}
+.acc details:last-child{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;display:flex;align-items:center;gap:18px;cursor:pointer;padding:16px 0}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .ic{width:46px;height:46px;color:var(--accent);flex:none}
+.acc summary h3{font-size:1.45rem;flex:1}
+.acc summary::after{content:"";width:12px;height:12px;border-right:1.5px solid var(--accent);border-bottom:1.5px solid var(--accent);transform:rotate(45deg);transition:transform .25s;margin-right:6px}
+.acc details[open] summary::after{transform:rotate(-135deg)}
+.acc .body{padding:0 0 22px 64px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;color:var(--muted);font-size:.97rem}
+.acc ul{list-style:none;padding:0;display:grid;gap:6px;color:var(--ink)}
+.acc li::before{content:"◆";color:var(--mint-line);font-size:.6rem;margin-right:10px;vertical-align:2px}
+.why{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px}
+.why b{display:block;font-family:var(--display);font-size:1.25rem;color:var(--deep);margin-bottom:4px}
+.why p{color:var(--muted);font-size:.96rem}
+.tl{position:relative;display:grid;gap:30px;padding-left:44px}
+.tl::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:1px;background:var(--mint-line)}
+.tl div{position:relative}
+.tl span{position:absolute;left:-44px;top:0;width:31px;height:31px;border-radius:50%;background:var(--bg);border:1.5px solid var(--accent);display:grid;place-items:center;font:600 .85rem var(--display);color:var(--accent)}
+.tl h3{font-size:1.25rem}
+.tl p{color:var(--muted);font-size:.96rem}
+.creds{display:grid;gap:18px}
+.cred{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;padding:22px 26px;background:var(--mint);border-radius:16px}
+.cred strong{font-family:var(--display);font-size:2.2rem;color:var(--deep);line-height:1;grid-row:span 2}
+.cred b{color:var(--deep)}
+.cred p{color:var(--muted);font-size:.95rem}
+.faq details{padding:16px 0;border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-weight:600;color:var(--deep)}
+.faq p{color:var(--muted);margin-top:8px}
+.tf{background:#fff;border-radius:20px;padding:34px;box-shadow:0 20px 50px -24px rgba(15,61,48,.35);min-height:340px;display:flex;flex-direction:column;border:1px solid var(--line)}
+footer{margin-left:min(38vw,520px);background:var(--cream);border-top:1px solid var(--line);padding:30px 56px;font-size:.82rem;color:var(--muted)}
+footer p+p{margin-top:8px}
+@media (max-width:960px){
+ .panel{position:relative;width:auto;max-width:none;inset:auto;padding:48px 20px}
+ .content,footer{margin-left:0}
+ section{padding:56px 20px}.chips{padding:10px 16px}footer{padding:24px 20px}
+ .acc .body{grid-template-columns:1fr;padding-left:0}.why{grid-template-columns:1fr}
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-/* nav */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--sky)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-.brand img{height:50px;width:auto}
-.brand span{font-family:var(--display);font-size:1.3rem;color:var(--royal-deep);line-height:1.1}
-.brand small{display:block;font-family:var(--body);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.nav nav{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
-.nav nav a{text-decoration:none;font-size:.92rem;color:var(--ink)}
-.nav nav a:hover{color:var(--royal)}.nav nav a.btn{color:var(--white)}
-.btn{display:inline-block;font:500 .95rem var(--body);padding:12px 26px;border-radius:999px;background:var(--royal);color:var(--white);text-decoration:none;border:1.5px solid var(--royal);cursor:pointer;transition:background .2s,color .2s}
-.btn:hover{background:var(--royal-deep);border-color:var(--royal-deep)}
-.btn.line{background:transparent;color:var(--royal)}
-.btn.line:hover{background:var(--sky)}
-.btn.sm{padding:8px 18px;font-size:.88rem}
+.callbar,.callpill{display:none}
+@media (max-width:860px){
+ body{padding-bottom:72px}
+ .callbar{display:grid;grid-template-columns:1fr 1.4fr;position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--bg);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));gap:10px}
+ .callbar a{text-align:center;padding:12px;border-radius:999px;text-decoration:none;font-weight:600;font-size:.95rem;border:1.5px solid var(--accent);color:var(--accent)}
+ .callbar a:last-of-type{background:var(--accent);color:var(--on-accent)}
+ .cb-x{position:absolute;right:10px;top:-16px;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.2rem;line-height:1;cursor:pointer}
+ body.cb-closed .callbar{display:none}body.cb-closed{padding-bottom:0}
+ body.cb-closed .callpill{display:inline-flex;align-items:center;gap:8px;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:45;background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:600;font-size:.92rem;padding:10px 20px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(0,0,0,.5)}
+ .callpill svg{width:18px;height:18px}
+ .float-wa{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
+ body.cb-closed .float-wa{bottom:calc(24px + env(safe-area-inset-bottom,0px))!important}
+}
+.float-wa{position:fixed;right:20px;bottom:calc(24px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;background:#1f9d55;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.35);z-index:44}
+.float-wa svg{width:28px;height:28px}
 
-/* hero */
-.hero{background:linear-gradient(180deg,var(--cream),var(--white));padding-block:72px 40px;overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-.hero h1{font-size:clamp(2.6rem,6vw,4.4rem);margin:14px 0 18px}
-.hero h1 em{font-style:italic;color:var(--royal)}
-.hero .lead{font-size:1.1rem}
-.areas{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 30px}
-.areas span{font-size:.85rem;padding:6px 14px;border:1px solid var(--sky-line);border-radius:999px;background:var(--white);color:var(--royal-deep)}
-.cta{display:flex;flex-wrap:wrap;gap:12px}
-.hero svg{width:100%;height:auto}
-
-/* stats */
 .stats{background:var(--royal);color:var(--white)}
 .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);text-align:center;padding-block:30px;gap:12px}
 .stats b{display:block;font-family:var(--display);font-size:2.1rem;font-weight:500;line-height:1.1}
 .stats span{font-size:.82rem;letter-spacing:.06em;opacity:.85}
-
-section.band{padding-block:90px}
-.cream{background:var(--cream)}
-.sky{background:var(--sky)}
-.head{text-align:center;margin-bottom:48px;display:grid;gap:10px;justify-items:center}
-.sprig{width:120px;height:24px}
-
-/* about */
-.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
-.portrait{aspect-ratio:4/5;max-width:100%;border-radius:200px 200px 16px 16px;background:var(--sky);display:grid;place-items:center;position:relative;overflow:hidden}
-.portrait svg{width:70%}
-.portrait .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
-.about h2{margin:10px 0 18px}
-.about p{margin-bottom:16px;max-width:62ch}
-.quote{font-family:var(--display);font-style:italic;font-size:1.45rem;color:var(--royal);border-left:2px solid var(--sky-line);padding-left:18px;margin:24px 0}
-
-/* practice */
-.practice{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-.area{background:var(--white);border-radius:16px;padding:34px;display:grid;gap:12px;align-content:start}
-.area svg{width:64px;height:64px}
-.area p{color:var(--muted);font-size:.97rem}
-.area ul{list-style:none;padding:0;display:grid;gap:6px;font-size:.93rem;margin-top:6px}
-.area li{padding-left:20px;position:relative}
-.area li::before{content:"";position:absolute;left:0;top:.75em;width:10px;height:1px;background:var(--royal)}
-
-/* why + steps */
-.why{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
-.why div{display:grid;gap:8px;align-content:start}
-.why svg{width:44px;height:44px}
-.why h3{font-size:1.3rem}
-.why p,.step p{color:var(--muted);font-size:.95rem}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:s;position:relative}
 .step{display:grid;gap:8px;align-content:start}
 .step b{font-family:var(--display);font-size:2.6rem;font-weight:500;color:var(--royal);line-height:1}
-
-/* recognition */
-.rec{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.rec div{background:var(--white);border:1px solid var(--sky-line);border-radius:16px;padding:30px;text-align:center;display:grid;gap:8px;justify-items:center;align-content:start}
-.rec strong{font-family:var(--display);font-size:2rem;color:var(--royal-deep);font-weight:600;line-height:1.1}
-.rec p{color:var(--muted);font-size:.95rem}
-
-/* faq */
-.faq{max-width:780px;margin:0 auto;display:grid;gap:10px}
-details{background:var(--white);border-radius:12px;padding:18px 22px;border:1px solid var(--sky)}
-summary{cursor:pointer;font-weight:500;color:var(--royal-deep);list-style:none;display:flex;justify-content:space-between;gap:12px}
-summary::after{content:"+";color:var(--royal);font-size:1.3rem;line-height:1}
-details[open] summary::after{content:"–"}
-details p{margin-top:10px;color:var(--muted)}
-
-/* contact */
-.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
-.info{display:grid;gap:14px;margin:24px 0}
-.info div{display:flex;gap:14px;align-items:flex-start}
-.info svg{width:22px;height:22px;flex:none;margin-top:3px}
-.info small{display:block;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.contact .cta{margin-top:8px}
-.wa{background:#1f9d55;border-color:#1f9d55}.wa:hover{background:#177a42;border-color:#177a42}
-
-.tf{background:var(--white);border-radius:20px;padding:36px;box-shadow:0 20px 50px -20px rgba(15,61,48,.25);min-height:360px;display:flex;flex-direction:column;min-width:0}
+.tf{background:var(--white);border-radius:20px;padding:36px;box-shadow:0 20px 50px -20px rgba(20,48,111,.25);min-height:360px;display:flex;flex-direction:column;min-width:0}
 .st{display:none;flex-direction:column;gap:12px}
 .st.on{display:flex;animation:up .35s ease}
 @keyframes up{from{opacity:0;transform:translateY(14px)}}
-@media (prefers-reduced-motion:reduce){.st.on{animation:none}html{scroll-behavior:auto}}
 .st label{font-family:var(--display);font-size:1.6rem;color:var(--royal-deep);font-weight:600}
 .st label i{font-style:normal;color:var(--royal);font-family:var(--body);font-size:.9rem;margin-right:8px}
 .st small{color:var(--muted)}
@@ -159,205 +127,33 @@ details p{margin-top:10px;color:var(--muted)}
 .bar i{display:block;height:100%;width:0;background:var(--royal);transition:width .4s;border-radius:3px}
 .err{color:#b42318;font-size:.9rem;min-height:1.4em;margin-top:8px}
 .thanks svg{width:90px;height:90px}
-
-footer{background:var(--royal-deep);color:#dcebe4;padding-block:40px 28px;font-size:.9rem}
-.fgrid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:32px;padding-block:10px 28px;border-bottom:1px solid rgba(220,235,228,.2)}
-.fgrid > div{display:grid;gap:6px;align-content:start;min-width:0}
-.fgrid a{text-decoration:none;color:#dcebe4}.fgrid a:hover{color:#fff;text-decoration:underline}
-.flogo{height:56px;width:auto;filter:brightness(0) invert(1);opacity:.9}
-.fname{font-family:var(--display);font-size:1.35rem;color:#fff}
-.fh{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#8fbfaa;margin-bottom:4px}
-.disc{font-size:.78rem;opacity:.7;max-width:80ch;margin:22px auto 10px;text-align:center}
-.copy{text-align:center;font-size:.8rem;opacity:.85}
-.menu{display:none;background:none;border:0;padding:10px;cursor:pointer;flex-direction:column;gap:5px}
-.menu span{display:block;width:24px;height:1.5px;background:var(--royal-deep);transition:transform .25s,opacity .25s}
-.float-wa{position:fixed;right:20px;bottom:calc(24px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:#1f9d55;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.35);z-index:20;transition:transform .2s}
-.float-wa:hover{transform:scale(1.07)}.float-wa svg{width:28px;height:28px}
-.callbar{display:none}.callpill{display:none}
-footer svg{width:100%;max-width:760px;height:auto;margin:0 auto 18px;display:block}
-footer .line-art{stroke:#8fbfaa}
-
-@media (max-width:860px){
-  .hero .wrap,.about,.contact{grid-template-columns:1fr}
-  .hero svg{max-width:420px;margin:0 auto}
-  .practice,.rec{grid-template-columns:1fr}
-  .why,.steps,.stats .wrap{grid-template-columns:repeat(2,1fr)}
-  .portrait{max-width:320px;margin:0 auto}
-  .menu{display:flex}
-  .nav nav{display:none;width:100%;flex-direction:column;align-items:flex-start;gap:4px;padding-block:8px 14px}
-  .nav nav.open{display:flex}
-  .nav nav a{padding:8px 0;font-size:1.05rem}
-  .nav nav a.btn{padding:10px 22px;margin-top:6px}
-  .menu[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-  .menu[aria-expanded="true"] span:nth-child(2){opacity:0}
-  .menu[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-  .fgrid{grid-template-columns:1fr}
-  .callbar{position:fixed;display:grid;grid-template-columns:1fr 1.4fr;position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--white);border-top:1px solid var(--sky);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));gap:10px}
-  .callbar a{text-align:center;padding:12px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem;border:1.5px solid var(--royal);color:var(--royal)}
-  .callbar a:last-child{background:var(--royal);color:var(--white)}
-  .cb-x{position:absolute;right:10px;top:-16px;width:30px;height:30px;border-radius:50%;border:1px solid var(--sky-line);background:var(--white);color:var(--royal-deep);font-size:1.2rem;line-height:1;cursor:pointer;box-shadow:0 4px 10px -4px rgba(15,61,48,.4)}
-  body.cb-closed .callbar{display:none}
-  body.cb-closed{padding-bottom:0}
-  body.cb-closed .callpill{display:inline-flex;align-items:center;gap:8px;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--royal);color:var(--white);text-decoration:none;font-weight:500;font-size:.92rem;padding:10px 20px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(15,61,48,.6);animation:fade .3s ease}
-  @keyframes fade{from{opacity:0}}.callpill svg{width:18px;height:18px}
-  body.cb-closed .float-wa{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
-  .float-wa{bottom:calc(84px + env(safe-area-inset-bottom,0px));right:14px;width:50px;height:50px}
-  body{padding-bottom:72px}
-}
-@media (max-width:420px){.why,.steps{grid-template-columns:1fr}.area,.tf{padding:24px}}
-</style>
-<style>
-
-:root{--display:"Playfair Display",Georgia,serif;--body:"Mulish","Helvetica Neue",Arial,sans-serif}
-h1,h2,h3{font-weight:600;letter-spacing:-.01em}
-.hero{background:var(--white);padding-block:56px 64px;position:relative}
-.hero::before{content:"";position:absolute;inset:0 55% 0 0;background:var(--sky);border-radius:0 0 240px 0}
-.hero .wrap{grid-template-columns:.85fr 1.15fr;gap:64px;position:relative}
-.hp{margin:0;position:relative;justify-self:center;max-width:400px;width:100%}
-.hp img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;border-radius:220px 220px 20px 20px;box-shadow:0 30px 60px -30px rgba(15,61,48,.45);display:block}
-.hp figcaption{position:absolute;left:-18px;bottom:28px;background:var(--white);border:1px solid var(--sky-line);border-radius:14px;padding:12px 18px;font-size:.78rem;color:var(--muted);box-shadow:0 12px 30px -16px rgba(15,61,48,.4);max-width:85%}
-.hp figcaption b{display:block;font-family:var(--display);font-size:1.15rem;color:var(--royal-deep)}
-.hero svg.hp-orn{position:absolute;width:120px;right:-34px;top:-26px;z-index:-1}
-.hero h1{font-size:clamp(2.4rem,5vw,3.8rem)}
-.portrait{border-radius:20px}
-#about .portrait img.photo{display:none}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;gap:40px}.hp{max-width:300px}.hero::before{inset:0 0 55% 0;border-radius:0 0 120px 0}.hp figcaption{left:8px}.hero svg.hp-orn{right:-6px}}
-
 </style>
 </head>
 <body>
-
-<header class="nav"><div class="wrap">
-  <a class="brand" href="#top"><img src="option9-emerald-logo.png" alt="Rima Nayberg Law Office logo"><span>Rima Nayberg<small>Law Offices · PC</small></span></a>
-  <button class="menu" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-  <nav id="menu"><a href="#about">About Us</a><a href="#practice">Practice Areas</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a class="btn sm" href="#contact">Contact</a></nav>
-</div></header>
-
-<section class="hero" id="top"><div class="wrap">
-  <figure class="hp"><img src="rima.jpg" alt="Attorney Rima Nayberg"><figcaption><b>Rima Nayberg</b>Attorney at Law · Licensed in New York since 2011</figcaption>
-    <svg class="hp-orn" viewBox="0 0 120 120" aria-hidden="true"><g class="line-art"><circle cx="60" cy="60" r="56"/><circle cx="60" cy="60" r="48" stroke-dasharray="2 5"/></g></svg></figure>
-  <div class="ht">
-    <p class="eyebrow">Long Island · New York · Queens</p>
-    <h1>Clear advice.<br><em>Honest</em> representation.</h1>
-    <p class="lead">Practical legal help for tenants, landlords, homeowners, families facing debt, and medical providers, explained in plain English with fair, upfront fees.</p>
-    <div class="areas"><span>Landlord &amp; Tenant</span><span>Bankruptcy</span><span>Real Estate</span><span>No Fault Collections</span></div>
-    <div class="cta"><a class="btn" href="tel:+15168609014">Call (516) 860-9014</a><a class="btn line" href="#about">About Us</a></div>
-  </div>
-</div></section>
-
-<div class="stats"><div class="wrap">
-  <div><b>Since 2011</b><span>Licensed in New York</span></div>
-  <div><b>4.8 / 5</b><span>Avvo client rating</span></div>
-  <div><b>2019–2021</b><span>Super Lawyers Rising Stars</span></div>
-  <div><b>4</b><span>Focused practice areas</span></div>
-</div></div>
-
-<section class="band" id="about"><div class="wrap about">
-  <div class="portrait">
-    <svg viewBox="0 0 200 200" aria-hidden="true"><g class="line-art" stroke-width="1.4">
-      <path d="M100 30v140M60 170h80M45 60h110M100 24a5 5 0 100 .1"/>
-      <path d="M55 60l-22 50h44zM145 60l-22 50h44z"/><path d="M33 110a22 11 0 0044 0M123 110a22 11 0 0044 0"/>
-      <path d="M20 185c25-12 45 6 70-4M110 181c25 10 45-8 70 4" opacity=".6"/></g></svg>
-    <img class="photo" src="rima.jpg" alt="Attorney Rima Nayberg" onerror="this.remove()">
-  </div>
-  <div>
-    <p class="eyebrow">About Us</p>
-    <h2>Rima Nayberg, Attorney at Law</h2>
-    <p>Rima Nayberg earned her law degree from The Thomas M. Cooley Law School in 2009 and has been officially licensed to practice law in New York since 2011. Over the past decade and a half, she has built her practice on a simple principle: treating every client with honesty, empathy, and direct communication.</p>
-    <p class="quote">Honesty, empathy, and direct communication, with every client.</p>
-    <p>Her work hasn't gone unnoticed by the legal community. Rima was named to the Super Lawyers Rising Stars list from 2019 through 2021, a peer-nominated honor given to top local attorneys. She also holds a 4.8 out of 5.0 client rating on Avvo (with a 7.1 "Very Good" overall score).</p>
-    <p>What clients appreciate most isn't just the titles, but her practical approach. She takes the time to explain your options without the complicated legal jargon, keeps her fees fair and upfront, and fights genuinely for the best outcome in your case.</p>
-    <a class="btn" href="#contact">Speak with Rima</a>
-  </div>
-</div></section>
-
-<section class="band sky" id="practice"><div class="wrap">
-  <div class="head">
-    <p class="eyebrow">Practice Areas</p>
-    <h2>How we can help</h2>
-    <svg class="sprig" viewBox="0 0 120 24" aria-hidden="true"><g class="line-art"><path d="M10 12h100"/><path d="M60 12c-6-8-14-8-18-6 4 4 12 6 18 6zM60 12c6-8 14-8 18-6-4 4-12 6-18 6zM60 12c-6 8-14 8-18 6 4-4 12-6 18-6zM60 12c6 8 14 8 18 6-4-4-12-6-18-6z"/></g></svg>
-  </div>
-  <div class="practice">
-    <article class="area">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><g class="line-art"><path d="M8 30L32 12l24 18"/><path d="M14 26v28h36V26"/><path d="M27 54V40h10v14"/><path d="M20 32h7v6h-7zM37 32h7v6h-7z"/><path d="M44 16v-6h5v10"/></g></svg>
-      <h3>Landlord &amp; Tenant</h3>
-      <p>Legal representation and guidance for landlords and tenants in matters involving leases, rent disputes, evictions, housing issues, and other landlord–tenant concerns. We help clients understand their rights and responsibilities and work toward practical legal solutions.</p>
-      <ul><li>Residential &amp; commercial evictions (holdover &amp; non-payment)</li><li>Rent arrears &amp; rent disputes</li><li>Lease drafting &amp; review</li><li>Housing Court representation</li><li>Repairs, habitability &amp; housing issues</li></ul>
-    </article>
-    <article class="area">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><g class="line-art"><path d="M14 10h26l10 10v34H14z"/><path d="M40 10v10h10"/><path d="M22 30h20M22 37h20M22 44h12"/><path d="M42 44c2-3 6-3 8 0s-2 8-4 10c-2-2-6-7-4-10z"/></g></svg>
-      <h3>Bankruptcy</h3>
-      <p>Legal guidance for individuals and businesses facing financial difficulties, debt, or bankruptcy. We assist clients in understanding their available options and navigating the bankruptcy process while protecting their legal rights and interests.</p>
-      <ul><li>Chapter 7 bankruptcy</li><li>Chapter 13 bankruptcy</li><li>Stopping creditor calls &amp; wage garnishments</li><li>Foreclosure defense options</li><li>Debt relief consultations</li></ul>
-    </article>
-    <article class="area">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><g class="line-art"><circle cx="20" cy="42" r="10"/><circle cx="20" cy="42" r="3"/><path d="M27 35l25-25M44 18l6 6M38 24l5 5"/><path d="M40 52h16M44 52V40l4-4 4 4v12"/></g></svg>
-      <h3>Real Estate</h3>
-      <p>Legal services for residential and commercial real estate matters, including purchases, sales, leases, contracts, closings, and property-related disputes. We provide guidance throughout the transaction to help ensure that legal requirements and agreements are properly addressed.</p>
-      <ul><li>Residential purchases &amp; sales</li><li>Commercial transactions</li><li>Contract drafting &amp; review</li><li>Closings &amp; title issues</li><li>Property-related disputes</li></ul>
-    </article>
-    <article class="area">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><g class="line-art"><path d="M12 14h40v36H12z"/><path d="M32 22v20M22 32h20"/><path d="M8 54h48"/><path d="M20 14V8h24v6"/></g></svg>
-      <h3>No Fault Collections</h3>
-      <p>Legal representation for medical providers and healthcare practices seeking payment on unpaid or denied No-Fault (Personal Injury Protection) insurance claims arising from motor vehicle accidents. We pursue overdue claims through arbitration and litigation so providers are paid what they are owed.</p>
-      <ul><li>Unpaid &amp; denied No-Fault claims</li><li>No-Fault arbitration</li><li>Litigation in Civil Court</li><li>Claim review &amp; follow-up</li><li>Representation for medical providers</li></ul>
-    </article>
-  </div>
-</div></section>
-
-<section class="band"><div class="wrap">
-  <div class="head"><p class="eyebrow">Why clients choose us</p><h2>A practical, personal approach</h2></div>
-  <div class="why">
-    <div><svg viewBox="0 0 44 44" aria-hidden="true"><path class="line-art" d="M22 38s-14-8-14-19a8 8 0 0114-5 8 8 0 0114 5c0 11-14 19-14 19z"/></svg><h3>Honesty &amp; empathy</h3><p>Every client is treated with honesty, empathy, and direct communication.</p></div>
-    <div><svg viewBox="0 0 44 44" aria-hidden="true"><path class="line-art" d="M6 8h32v22H18l-8 7v-7H6z"/></svg><h3>No legal jargon</h3><p>Your options explained clearly, so you can make informed decisions.</p></div>
-    <div><svg viewBox="0 0 44 44" aria-hidden="true"><g class="line-art"><circle cx="22" cy="22" r="15"/><path d="M27 16c-1-2-3-3-5-3-3 0-5 2-5 4 0 5 10 3 10 8 0 2-2 4-5 4-2 0-4-1-5-3M22 10v3M22 29v3"/></g></svg><h3>Fair, upfront fees</h3><p>Transparent pricing, discussed before any work begins.</p></div>
-    <div><svg viewBox="0 0 44 44" aria-hidden="true"><g class="line-art"><path d="M22 5l14 5v10c0 9-6 15-14 18-8-3-14-9-14-18V10z"/><path d="M16 21l4 4 8-8"/></g></svg><h3>Committed to you</h3><p>We fight genuinely for the best outcome in your case.</p></div>
-  </div>
-</div></section>
-
-<section class="band cream"><div class="wrap">
-  <div class="head"><p class="eyebrow">How it works</p><h2>Four simple steps</h2></div>
-  <div class="steps">
-    <div class="step"><b>1</b><h3>Reach out</h3><p>Call, message on WhatsApp, or fill out the short form below.</p></div>
-    <div class="step"><b>2</b><h3>Consultation</h3><p>We review your situation and explain your options.</p></div>
-    <div class="step"><b>3</b><h3>A clear plan</h3><p>We agree on a strategy and on fees, upfront.</p></div>
-    <div class="step"><b>4</b><h3>Resolution</h3><p>We handle your case and keep you updated along the way.</p></div>
-  </div>
-</div></section>
-
-<section class="band" id="reviews"><div class="wrap">
-  <div class="head"><p class="eyebrow">Recognition &amp; reviews</p><h2>Trusted by clients and peers</h2></div>
-  <div class="rec">
-    <div><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><g class="line-art"><circle cx="22" cy="17" r="11"/><path d="M15 26l-3 13 10-5 10 5-3-13"/></g></svg><strong>Rising Stars</strong><p>Super Lawyers, 2019–2021. A peer-nominated honor for top local attorneys.</p></div>
-    <div><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><path class="line-art" d="M22 5l5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2z"/></svg><strong>4.8 / 5.0</strong><p>Client rating on Avvo, with a 7.1 "Very Good" overall score.</p></div>
-    <div><svg viewBox="0 0 44 44" width="44" height="44" aria-hidden="true"><path class="line-art" d="M6 8h32v22H18l-8 7v-7H6zM13 16h18M13 22h12"/></svg><strong>Client reviews</strong><p>Read what clients say about working with Rima.</p><a class="btn line sm" href="https://www.avvo.com/search/lawyer_search?q=Rima+Nayberg" target="_blank" rel="noopener">Reviews on Avvo</a></div>
-  </div>
-</div></section>
-
-<section class="band sky" id="faq"><div class="wrap">
-  <div class="head"><p class="eyebrow">Questions</p><h2>Frequently asked</h2></div>
-  <div class="faq">
-    <details><summary>Which areas do you serve?</summary><p>We serve clients in Queens, New York City, and Long Island.</p></details>
-    <details><summary>What types of cases do you handle?</summary><p>Landlord &amp; Tenant, Bankruptcy, Real Estate, and No-Fault Collections.</p></details>
-    <details><summary>How do I schedule a consultation?</summary><p>Call (516) 860-9014, message us on WhatsApp, or complete the contact form and we will reach out at your preferred time.</p></details>
-    <details><summary>What should I bring to my first meeting?</summary><p>Any relevant documents, such as leases, notices, court papers, contracts, bills, or insurance letters, and a short timeline of events.</p></details>
-    <details><summary>How much will my case cost?</summary><p>Fees depend on the matter. We discuss them clearly and upfront before any work begins.</p></details>
-  </div>
-</div></section>
-
-<section class="band" id="contact"><div class="wrap contact">
-  <div>
-    <p class="eyebrow">Contact</p>
-    <h2>Let's talk about your case</h2>
-    <div class="info">
-      <div><svg viewBox="0 0 24 24" aria-hidden="true"><path class="line-art" d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg><p><small>Phone</small><a href="tel:+15168609014">+1 (516) 860-9014</a></p></div>
-      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g class="line-art"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></g></svg><p><small>Email</small><a href="mailto:Naybergrima@gmail.com">Naybergrima@gmail.com</a></p></div>
-      <div><svg viewBox="0 0 24 24" aria-hidden="true"><g class="line-art"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></g></svg><p><small>Office</small>147-17 Union Tpke, Flushing, NY 11367</p></div>
-    </div>
-    <div class="cta"><a class="btn wa" href="https://wa.me/15168609014" target="_blank" rel="noopener">WhatsApp Us</a><a class="btn line" href="https://www.google.com/maps/search/?api=1&query=147-17+Union+Tpke+Flushing+NY+11367" target="_blank" rel="noopener">Directions</a></div>
-  </div>
-
-  <div class="tf" id="tf">
+<aside class="panel">
+  <img class="logo" src="emerald-logo.png" alt="Rima Nayberg Law Office logo">
+  <img class="ph" src="rima.jpg" alt="Attorney Rima Nayberg">
+  <div><p class="role">Attorney at Law · PC</p><h1>Rima Nayberg</h1></div>
+  <p class="areas">Long Island · New York · Queens</p>
+  <div class="links"><a href="tel:+15168609014"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>+1 (516) 860-9014</a><a href="mailto:Naybergrima@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 6l9 7 9-7"/></g></svg>Naybergrima@gmail.com</a><a href="https://www.google.com/maps/search/?api=1&amp;query=147-17+Union+Tpke+Flushing+NY+11367" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></g></svg>147-17 Union Tpke, Flushing</a></div>
+  <a class="btn" href="#contact">Request a consultation</a>
+</aside>
+<main class="content">
+  <nav class="chips" aria-label="Sections"><a href="#home">Home</a><a href="#about">About Us</a><a href="#practice">Practice Areas</a><a href="#process">How It Works</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
+  <section class="intro" id="home"><p class="eyebrow">Law Offices of Rima Nayberg PC</p><h2>Clear advice.<br><em>Honest</em> representation.</h2>
+    <p>Practical legal help for tenants, landlords, homeowners, families facing debt, and medical providers, explained in plain English with fair, upfront fees.</p>
+    <div class="row"><a class="btn" href="tel:+15168609014">Call (516) 860-9014</a><a class="btn line" href="#about">About Us</a></div></section>
+  <section class="about" id="about"><p class="eyebrow">About Us</p><h2>Rima Nayberg, Attorney at Law</h2><svg class="leaf" viewBox="0 0 90 22" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 11h82"/><path d="M45 11c-5-7-12-7-15-5 3 4 10 5 15 5zM45 11c5-7 12-7 15-5-3 4-10 5-15 5zM45 11c-5 7-12 7-15 5 3-4 10-5 15-5zM45 11c5 7 12 7 15 5-3-4-10-5-15-5z"/></g></svg><p>Rima Nayberg earned her law degree from The Thomas M. Cooley Law School in 2009 and has been officially licensed to practice law in New York since 2011. Over the past decade and a half, she has built her practice on a simple principle: treating every client with honesty, empathy, and direct communication.</p><p class="pull">Honesty, empathy, and direct communication, with every client.</p><p>Her work hasn't gone unnoticed by the legal community. Rima was named to the Super Lawyers Rising Stars list from 2019 through 2021, a peer-nominated honor given to top local attorneys. She also holds a 4.8 out of 5.0 client rating on Avvo (with a 7.1 "Very Good" overall score).</p><p>What clients appreciate most isn't just the titles, but her practical approach. She takes the time to explain your options without the complicated legal jargon, keeps her fees fair and upfront, and fights genuinely for the best outcome in your case.</p></section>
+  <section id="practice"><p class="eyebrow">Practice Areas</p><h2>How we can help</h2><div class="acc"><details id="pa-lt" open><summary><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 30L32 12l24 18"/><path d="M14 26v28h36V26"/><path d="M27 54V40h10v14"/><path d="M20 32h7v6h-7zM37 32h7v6h-7z"/></g></svg><h3>Landlord &amp; Tenant</h3></summary><div class="body"><p>Legal representation and guidance for landlords and tenants in matters involving leases, rent disputes, evictions, housing issues, and other landlord–tenant concerns. We help clients understand their rights and responsibilities and work toward practical legal solutions.</p><ul><li>Residential &amp; commercial evictions (holdover &amp; non-payment)</li><li>Rent arrears &amp; rent disputes</li><li>Lease drafting &amp; review</li><li>Housing Court representation</li><li>Repairs, habitability &amp; housing issues</li></ul></div></details><details id="pa-bk"><summary><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 10h26l10 10v34H14z"/><path d="M40 10v10h10"/><path d="M22 30h20M22 37h20M22 44h12"/></g></svg><h3>Bankruptcy</h3></summary><div class="body"><p>Legal guidance for individuals and businesses facing financial difficulties, debt, or bankruptcy. We assist clients in understanding their available options and navigating the bankruptcy process while protecting their legal rights and interests.</p><ul><li>Chapter 7 bankruptcy</li><li>Chapter 13 bankruptcy</li><li>Stopping creditor calls &amp; wage garnishments</li><li>Foreclosure defense options</li><li>Debt relief consultations</li></ul></div></details><details id="pa-re"><summary><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="42" r="10"/><circle cx="20" cy="42" r="3"/><path d="M27 35l25-25M44 18l6 6M38 24l5 5"/></g></svg><h3>Real Estate</h3></summary><div class="body"><p>Legal services for residential and commercial real estate matters, including purchases, sales, leases, contracts, closings, and property-related disputes. We provide guidance throughout the transaction to help ensure that legal requirements and agreements are properly addressed.</p><ul><li>Residential purchases &amp; sales</li><li>Commercial transactions</li><li>Contract drafting &amp; review</li><li>Closings &amp; title issues</li><li>Property-related disputes</li></ul></div></details><details id="pa-nf"><summary><svg class="ic" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 14h40v36H12z"/><path d="M32 22v20M22 32h20"/><path d="M20 14V8h24v6"/></g></svg><h3>No Fault Collections</h3></summary><div class="body"><p>Legal representation for medical providers and healthcare practices seeking payment on unpaid or denied No-Fault (Personal Injury Protection) insurance claims arising from motor vehicle accidents. We pursue overdue claims through arbitration and litigation so providers are paid what they are owed.</p><ul><li>Unpaid &amp; denied No-Fault claims</li><li>No-Fault arbitration</li><li>Litigation in Civil Court</li><li>Claim review &amp; follow-up</li><li>Representation for medical providers</li></ul></div></details></div></section>
+  <section id="process"><p class="eyebrow">Why clients choose us</p><h2>A practical, personal approach</h2>
+    <div class="why"><div><b>Honesty &amp; empathy</b><p>Every client is treated with honesty, empathy, and direct communication.</p></div><div><b>No legal jargon</b><p>Your options explained clearly, so you can make informed decisions.</p></div><div><b>Fair, upfront fees</b><p>Transparent pricing, discussed before any work begins.</p></div><div><b>Committed to you</b><p>We fight genuinely for the best outcome in your case.</p></div></div>
+    <h2 style="margin-top:56px">How it works</h2><div class="tl"><div><span>1</span><h3>Reach out</h3><p>Call, message on WhatsApp, or fill out the short form.</p></div><div><span>2</span><h3>Consultation</h3><p>We review your situation and explain your options.</p></div><div><span>3</span><h3>A clear plan</h3><p>We agree on a strategy and on fees, upfront.</p></div><div><span>4</span><h3>Resolution</h3><p>We handle your case and keep you updated along the way.</p></div></div></section>
+  <section id="reviews"><p class="eyebrow">Recognition &amp; reviews</p><h2>Trusted by clients and peers</h2><div class="creds">
+    <div class="cred"><strong>4.8</strong><b>Client rating on Avvo</b><p>Out of 5.0, with a 7.1 "Very Good" overall score. <a href="https://www.avvo.com/search/lawyer_search?q=Rima+Nayberg" target="_blank" rel="noopener">Read reviews on Avvo</a></p></div>
+    <div class="cred"><strong>3×</strong><b>Super Lawyers Rising Stars</b><p>2019, 2020 and 2021. A peer-nominated honor for top local attorneys.</p></div>
+    <div class="cred"><strong>2011</strong><b>Licensed in New York</b><p>Over a decade and a half of practice.</p></div></div></section>
+  <section id="faq"><p class="eyebrow">Questions</p><h2>Frequently asked</h2><div class="faq"><details><summary>Which areas do you serve?</summary><p>We serve clients in Queens, New York City, and Long Island.</p></details><details><summary>What types of cases do you handle?</summary><p>Landlord &amp; Tenant, Bankruptcy, Real Estate, and No-Fault Collections.</p></details><details><summary>How do I schedule a consultation?</summary><p>Call (516) 860-9014, message us on WhatsApp, or complete the contact form and we will reach out at your preferred time.</p></details><details><summary>What should I bring to my first meeting?</summary><p>Any relevant documents, such as leases, notices, court papers, contracts, bills, or insurance letters, and a short timeline of events.</p></details><details><summary>How much will my case cost?</summary><p>Fees depend on the matter. We discuss them clearly and upfront before any work begins.</p></details></div></section>
+  <section id="contact"><p class="eyebrow">Contact</p><h2>Let's talk about your case</h2><div class="tf" id="tf">
     <div class="st on"><h3>Contact Rima Nayberg</h3><p class="lead">Thank you for reaching out to us. Please provide your details and a brief description of your legal matter. Our team will review your inquiry and follow up promptly.</p><button class="btn" type="button" data-next>Begin</button><small>Takes 45 sec</small></div>
     <div class="st"><label for="f-name"><i>1 →</i>Full Name*</label><small>Please enter your full legal name.</small><input id="f-name" name="name" placeholder="Type your answer here..." required><button class="btn" type="button" data-next>OK</button></div>
     <div class="st"><label for="f-email"><i>2 →</i>Email Address*</label><small>We will use this to provide updates about your inquiry.</small><input id="f-email" type="email" name="email" placeholder="name@example.com" required><button class="btn" type="button" data-next>OK</button></div>
@@ -368,50 +164,23 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
     <div class="st"><label><i>7 →</i>Preferred Time to Contact You*</label><small>Preferred Time to Contact You</small><div class="ch" data-k="time"><button type="button" data-v="Morning (8am - 12pm)"><b>A</b>Morning (8am - 12pm)</button><button type="button" data-v="Afternoon (12pm - 5pm)"><b>B</b>Afternoon (12pm - 5pm)</button><button type="button" data-v="Evening (5pm - 8pm)"><b>C</b>Evening (5pm - 8pm)</button><button type="button" data-v="No preference"><b>D</b>No preference</button></div><button class="btn" type="button" data-next>Submit</button></div>
     <div class="st thanks"><svg viewBox="0 0 90 90" aria-hidden="true"><g class="line-art" stroke-width="1.4"><circle cx="45" cy="45" r="36"/><path d="M30 46l10 10 20-22"/></g></svg><h3>Thank you!</h3><p class="lead">Thank you for contacting our law firm. Your message has been received and a member of our team will be in touch with you soon.</p></div>
     <div class="bar"><i></i></div><p class="err" role="alert"></p>
-  </div>
-</div></section>
-
-<div class="rail" aria-hidden="true"><i class="t"></i><i class="b"></i><span class="fill"></span></div>
-<script>
-(() => {
-  if (!(matchMedia('(any-pointer:fine)').matches || matchMedia('(any-hover:hover)').matches)) return;
-  document.documentElement.classList.add('has-rail');
-  const r = document.querySelector('.rail'), fill = r.querySelector('.fill');
-  const max = () => document.documentElement.scrollHeight - innerHeight;
-  function draw() {
-    const m = max(); r.classList.toggle('hide', m < 40);
-    const p = m > 0 ? Math.min(1, Math.max(0, scrollY / m)) : 0;
-    fill.style.height = (p * r.clientHeight) + 'px';
-  }
-  const go = e => { const b = r.getBoundingClientRect(); scrollTo({ top: Math.min(1, Math.max(0, (e.clientY - b.top) / b.height)) * max(), behavior: 'instant' }) };
-  r.addEventListener('pointerdown', e => { r.classList.add('drag'); r.setPointerCapture(e.pointerId); go(e) });
-  r.addEventListener('pointermove', e => { if (r.classList.contains('drag')) go(e) });
-  r.addEventListener('pointerup', () => r.classList.remove('drag'));
-  addEventListener('scroll', draw, { passive: true }); addEventListener('resize', draw);
-  new ResizeObserver(draw).observe(document.body); draw();
-})();
-</script>
-<a class="float-wa" href="https://wa.me/15168609014" target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 8.5c.3-.6.6-.6 1-.6l.6 1.4c.1.3-.4.8-.6 1 .6 1.3 1.6 2.3 2.9 2.9.2-.2.7-.8 1-.6l1.4.6c0 .5 0 .8-.6 1.1-.7.4-1.6.4-3-.4a8 8 0 01-2.9-2.9c-.7-1.3-.6-2.1-.3-2.5z" fill="#fff"/></svg></a>
+  </div></section>
+</main>
+<footer><p>Attorney Advertising. Prior results do not guarantee a similar outcome. The information on this website is for general information only and is not legal advice. Contacting the office through this website does not create an attorney–client relationship.</p><p>This Website Is Created By Z-Tech · © 2026 Law Offices of Rima Nayberg, All Rights Reserved</p></footer>
 <div class="callbar"><button class="cb-x" type="button" aria-label="Close">&times;</button><a href="tel:+15168609014">Call now</a><a href="#contact">Request a consultation</a></div>
 <a class="callpill" href="tel:+15168609014"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Call Rima</a>
-
-<footer><div class="wrap">
-  <svg viewBox="0 0 760 60" aria-hidden="true"><path class="line-art" d="M0 58h60V40h20v18h20V30h14v28h26V20l10-10 10 10v38h30V34h22v24h18V26h16v32h40V44h20v14h24V16h8V6h8v10h8v42h30V36h24v22h20V28h18v30h36V42h22v16h30V30h16v28h26V38h20v20h60"/></svg>
-  <div class="fgrid">
-    <div><img src="option9-emerald-logo.png" alt="" class="flogo"><p class="fname">Law Offices of Rima Nayberg PC</p><p>Serving Queens, New York City and Long Island.</p></div>
-    <div><p class="fh">Practice Areas</p><a href="#practice">Landlord &amp; Tenant</a><a href="#practice">Bankruptcy</a><a href="#practice">Real Estate</a><a href="#practice">No Fault Collections</a></div>
-    <div><p class="fh">Contact</p><a href="tel:+15168609014">+1 (516) 860-9014</a><a href="mailto:Naybergrima@gmail.com">Naybergrima@gmail.com</a><p>147-17 Union Tpke<br>Flushing, NY 11367</p></div>
-  </div>
-  <p class="disc">Attorney Advertising. Prior results do not guarantee a similar outcome. The information on this website is for general information only and is not legal advice. Contacting the office through this website does not create an attorney–client relationship.</p>
-  <p class="copy">This Website Is Created By Z-Tech · © 2026 Law Offices of Rima Nayberg, All Rights Reserved</p>
-</div></footer>
+<a class="float-wa" href="https://wa.me/15168609014" target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 8.5c.3-.6.6-.6 1-.6l.6 1.4c.1.3-.4.8-.6 1 .6 1.3 1.6 2.3 2.9 2.9.2-.2.7-.8 1-.6l1.4.6c0 .5 0 .8-.6 1.1-.7.4-1.6.4-3-.4a8 8 0 01-2.9-2.9c-.7-1.3-.6-2.1-.3-2.5z" fill="#fff"/></svg></a>
+<script>document.querySelector('.cb-x').onclick=()=>document.body.classList.add('cb-closed')</script>
 
 <script>
 (() => {
-  const m = document.querySelector('.menu'), nav = document.getElementById('menu');
-  m.onclick = () => { const o = nav.classList.toggle('open'); m.setAttribute('aria-expanded', o) };
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); m.setAttribute('aria-expanded', false) }));
+  const links=[...document.querySelectorAll('.chips a')];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('main section[id]').forEach(s=>io.observe(s));
+  document.querySelectorAll('a[href^="#pa-"]').forEach(a=>a.addEventListener('click',()=>{const d=document.querySelector(a.getAttribute('href'));if(d)d.open=true}));
 })();
+</script>
+<script>
 (() => {
   const f = document.getElementById('tf'), st = [...f.querySelectorAll('.st')], bar = f.querySelector('.bar i'), err = f.querySelector('.err');
   let i = 0; const c = {};
@@ -440,6 +209,5 @@ h1,h2,h3{font-weight:600;letter-spacing:-.01em}
   f.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { const b = st[i].querySelector('[data-next]'); if (b) { e.preventDefault(); b.click() } } });
 })();
 </script>
-<script>document.querySelector('.cb-x').onclick=()=>document.body.classList.add('cb-closed')</script>
 </body>
 </html>
