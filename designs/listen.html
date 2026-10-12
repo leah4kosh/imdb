@@ -200,8 +200,8 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 .hero .btn.s{background:transparent;color:var(--navy);border-color:var(--navy)}
 .hero .btn.s:hover{background:rgba(13,43,82,.06)}
 .sky{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;aspect-ratio:1440/210;max-height:24vh;z-index:0;pointer-events:none}
-.sky path{fill:none;stroke:#c09a55;stroke-width:1.4;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 5.5s .6s cubic-bezier(.45,0,.2,1) forwards}
-.sky .ground{stroke:#d9c39a;animation-duration:2.5s;animation-delay:.2s}
+.sky path{fill:none;stroke:#c09a55;stroke-width:1.4;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 10s .6s cubic-bezier(.45,0,.2,1) forwards}
+.sky .ground{stroke:#d9c39a;animation-duration:4s;animation-delay:.2s}
 @keyframes draw{to{stroke-dashoffset:0}}
 .down{position:absolute;left:50%;bottom:clamp(10px,3vh,26px);transform:translateX(-50%);z-index:2;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--navy);background:rgba(255,255,255,.7);border:1px solid rgba(13,43,82,.15);opacity:0;animation:rise .8s 2.2s forwards}
 .down svg{width:22px;height:22px;animation:hop 2.4s 3s ease-in-out infinite}
@@ -209,6 +209,24 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 .hero .hc{padding-bottom:clamp(110px,24vh,230px)}
 @media (max-width:980px){.down{display:none}.hero .hc{padding-bottom:calc(15vw + 30px)}}
 @media (prefers-reduced-motion:reduce){.sky path{animation:none;stroke-dashoffset:0}.down,.down svg{animation:none;opacity:1}}
+
+/* side drawings: scales and a home, drawn in gold, then breathe gently */
+.side{position:absolute;top:50%;width:clamp(90px,9vw,140px);z-index:0;pointer-events:none;opacity:.9}
+.sl{left:max(24px,5vw);transform:translateY(-62%)}
+.sr{right:max(24px,5vw);transform:translateY(-58%)}
+.side path,.side circle{fill:none;stroke:#c09a55;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.side path[pathLength]{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 4.5s cubic-bezier(.45,0,.2,1) forwards}
+.sl path[pathLength]{animation-delay:1.2s}.sr path[pathLength]{animation-delay:2s}
+.side circle{opacity:0;animation:rise 1s 4.5s forwards}
+.tilt{transform-origin:60px 38px;animation:sway 7s 6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(0)}25%{transform:rotate(3deg)}75%{transform:rotate(-3deg)}}
+.win{fill:#e9b866;stroke:none;opacity:0;animation:lamp 2s 6s ease forwards}
+.win.w2{animation-delay:7s}
+@keyframes lamp{to{opacity:.85}}
+.smoke{stroke:#d9c39a!important;opacity:0;animation:smoke 6s 7.5s ease-in-out infinite}
+@keyframes smoke{0%{opacity:0;transform:translateY(4px)}30%{opacity:.8}100%{opacity:0;transform:translateY(-10px)}}
+@media (max-width:1100px){.side{display:none}}
+@media (prefers-reduced-motion:reduce){.side path[pathLength]{animation:none;stroke-dashoffset:0}.tilt,.smoke{animation:none}.win,.side circle{animation:none;opacity:.85}}
 @media (max-width:980px){.spec .areas{grid-template-columns:1fr 1fr}.why3{grid-template-columns:1fr}.hero .hc{min-height:78vh}}
 @media (max-width:560px){.spec .areas{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.hero h1 .w,.hero .ctas,.hero .ru,.hero .sub{animation:none;opacity:1;transform:none}}
@@ -312,7 +330,7 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
  <h1><span class="w w1">We listen.</span><span class="w w2">Then we fight for you.</span></h1>
  <p class="prac"><span>Landlord Tenant</span> <i>·</i> <span>Bankruptcy</span> <i>·</i> <span>Real Estate</span> <i>·</i> <span>No Fault Collections</span></p>
  <div class="ctas"><a class="btn p" href="tel:+15168609014"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg>Call (516) 860-9014</a><a class="btn s" href="#contact">Book a consultation</a></div>
-</div><svg class="sky" viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path pathLength="1" d="M0 200 H60 V170 H90 V150 H120 V170 H150 V140 H175 V120 H200 V140 H230 V175 H260 V160 H300 V130 H330 V160 H360 V185 H380 L420 150 L460 185 Q520 120 580 185 L620 150 L660 185 H690 V140 H720 V100 H745 V140 H770 V90 H790 V60 H800 V40 H805 V10 H810 V40 H815 V60 H825 V90 H845 V130 H870 V110 H885 V75 Q895 55 905 75 L907 40 L909 75 V110 H925 V140 H960 V95 H990 V140 H1010 V120 H1040 V60 L1055 20 V5 V20 L1070 60 V120 H1100 V150 H1130 V130 H1160 V160 H1200 V140 H1230 V170 H1270 V150 H1300 V175 H1340 V160 H1380 V180 H1440"/><path class="ground" pathLength="1" d="M0 200 H1440"/></svg><a class="down" href="#who" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></section>
+</div><svg class="side sl" viewBox="0 0 120 140" aria-hidden="true"><g class="tilt"><path pathLength="1" d="M60 18V118M38 118H82M20 38H100"/><path pathLength="1" d="M28 38L14 72H42Z"/><path pathLength="1" d="M92 38L78 72H106Z"/><path pathLength="1" d="M14 72a14 7 0 0028 0M78 72a14 7 0 0028 0"/></g><circle cx="60" cy="14" r="4"/></svg><svg class="side sr" viewBox="0 0 120 140" aria-hidden="true"><path pathLength="1" d="M14 64L60 28L106 64"/><path pathLength="1" d="M24 58V122H96V58"/><path pathLength="1" d="M52 122V94H68V122"/><rect class="win" x="34" y="72" width="16" height="14"/><rect class="win w2" x="70" y="72" width="16" height="14"/><path pathLength="1" d="M82 44V30H90V50"/><path class="smoke" d="M86 24c-4-6 4-8 0-14"/></svg><svg class="sky" viewBox="0 0 1440 210" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path pathLength="1" d="M0 200 H60 V170 H90 V150 H120 V170 H150 V140 H175 V120 H200 V140 H230 V175 H260 V160 H300 V130 H330 V160 H360 V185 H380 L420 150 L460 185 Q520 120 580 185 L620 150 L660 185 H690 V140 H720 V100 H745 V140 H770 V90 H790 V60 H800 V40 H805 V10 H810 V40 H815 V60 H825 V90 H845 V130 H870 V110 H885 V75 Q895 55 905 75 L907 40 L909 75 V110 H925 V140 H960 V95 H990 V140 H1010 V120 H1040 V60 L1055 20 V5 V20 L1070 60 V120 H1100 V150 H1130 V130 H1160 V160 H1200 V140 H1230 V170 H1270 V150 H1300 V175 H1340 V160 H1380 V180 H1440"/><path class="ground" pathLength="1" d="M0 200 H1440"/></svg><a class="down" href="#who" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></section>
 
 <section class="s spec" id="who"><div class="wrap">
  <span class="kick">What we do</span>
@@ -355,14 +373,7 @@ d.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{d.classList.r
  const n=document.querySelector('[data-to]');new IntersectionObserver((e,o)=>{if(!e[0].isIntersecting)return;o.disconnect();const T=+n.dataset.to;if(R){n.textContent=T;return}n.textContent=0;let k=0;const s=setInterval(()=>{n.textContent=++k;if(k>=T)clearInterval(s)},60)}).observe(n);
 })();
 </script>
-<button class="bot-btn" type="button" aria-label="Open the virtual assistants"><span class="dot"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 10h.01M12 10h.01M16 10h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>Virtual assistants</span></button>
-<div class="bot" hidden role="dialog" aria-label="Virtual assistants">
-  <div class="bot-h"><span class="bot-av" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M8 20h8M5 7h14"/><path d="M7 7l-3 6a3 3 0 006 0zM17 7l-3 6a3 3 0 006 0z"/></g></svg></span><div><b id="bot-title">Virtual Assistant</b><small>Automated · Law Office of Rima Nayberg</small></div><button type="button" aria-label="Close">&times;</button></div>
-  <div class="bot-pick" role="tablist" aria-label="Choose an assistant"></div>
-  <div class="bot-m" aria-live="polite"></div>
-  <form class="bot-f"><input id="bot-in" placeholder="Type your question..." autocomplete="off" aria-label="Your question"><button type="submit" aria-label="Send">&#10148;</button></form>
-  <p class="bot-note">Automated assistants. General information only, not legal advice.</p>
-</div>
+
 <script>
 if(document.getElementById("tf"))(() => {
   const f = document.getElementById('tf'), st = [...f.querySelectorAll('.st')], bar = f.querySelector('.bar i'), err = f.querySelector('.err');
@@ -390,76 +401,6 @@ if(document.getElementById("tf"))(() => {
     if (i === st.length - 1) send();
   });
   f.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { const b = st[i].querySelector('[data-next]'); if (b) { e.preventDefault(); b.click() } } });
-})();
-
-(() => {
-  const btn=document.querySelector('.bot-btn'),box=document.querySelector('.bot'),m=box.querySelector('.bot-m'),f=box.querySelector('.bot-f'),inp=box.querySelector('input'),pick=box.querySelector('.bot-pick'),title=document.getElementById('bot-title');
-  const ic=d=>'<svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'+d+'</g></svg>';
-  const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  const G={
-    general:{name:'General',title:'Virtual Assistant',icon:ic('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-1 .7-1.5 1.2-1.5 2.5M12 17h.01"/>')},
-    lt:{name:'Landlord & Tenant',title:'Landlord & Tenant Guide',matter:'Landlord & Tenant',icon:ic('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>'),
-      intro:"I'll ask three quick questions, then show you what to prepare and help you request a consultation.",
-      q:[['Are you a landlord or a tenant?',['Tenant','Landlord','Other']],
-         ['What is happening?',['I received a notice or court papers','Unpaid rent or a rent dispute','Repairs or living conditions','I need a lease drafted or reviewed','Something else']],
-         ['Is there a court date or deadline?',['Yes, soon','Yes, but not urgent','No','Not sure']]],
-      prep:a=>['Your lease and any renewals','Every notice or court paper you received, with envelopes','Rent receipts, bank records or a rent ledger'].concat(a[1].startsWith('Repairs')?['Photos or videos of the problem and any repair requests']:[]).concat(a[0]==='Landlord'?['Property deed or management agreement']:[]),
-      urgent:a=>a[2]==='Yes, soon'},
-    bk:{name:'Bankruptcy',title:'Debt & Bankruptcy Guide',matter:'Bankruptcy',icon:ic('<path d="M5 4h10l4 4v12H5z"/><path d="M15 4v4h4M8 12h8M8 16h5"/>'),
-      intro:"Three quick questions about your situation, then a checklist of documents that usually help.",
-      q:[['Is this for you personally or for a business?',['Personal','Business','Both']],
-         ['What worries you most right now?',['Collection calls and letters','Wage garnishment or a frozen account','Possible foreclosure','The total amount of debt','Something else']],
-         ['Have you received a lawsuit or court papers?',['Yes','No','Not sure']]],
-      prep:a=>['A list of your debts and creditors','Recent pay stubs or income records','The last two years of tax returns','Recent bank statements'].concat(a[1].includes('foreclosure')?['Mortgage statements and any foreclosure notices']:[]).concat(a[0]!=='Personal'?['Business financial statements']:[]),
-      urgent:a=>a[2]==='Yes'||a[1].startsWith('Wage')},
-    re:{name:'Real Estate',title:'Real Estate Guide',matter:'Real Estate',icon:ic('<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3M14 9l2 2"/>'),
-      intro:"Tell me a little about the transaction and I'll list what to have ready.",
-      q:[['What are you working on?',['Buying','Selling','Leasing','A property dispute','Something else']],
-         ['What type of property?',['Residential','Commercial']],
-         ['Where are you in the process?',['Just starting','Offer or contract stage','Closing soon','Already closed']]],
-      prep:a=>['Any listing, offer or term sheet','The contract or lease draft, if you have one','Contact details for the other side and any broker'].concat(a[2]==='Closing soon'?['Lender commitment letter and title report']:[]).concat(a[0]==='A property dispute'?['Photos, letters and any notices about the dispute']:[]),
-      urgent:a=>a[2]==='Closing soon'},
-    nf:{name:'No-Fault',title:'No-Fault Collections Guide',matter:'No Fault Collections',icon:ic('<rect x="4" y="5" width="16" height="15" rx="1"/><path d="M12 9v7M8.5 12.5h7M9 5V3h6v2"/>'),
-      intro:"For medical providers with unpaid No-Fault (PIP) claims. Three quick questions.",
-      q:[['What type of practice are you?',['Medical practice','Physical therapy or chiropractic','Equipment or pharmacy','Other provider']],
-         ['What is the status of the claims?',['Unpaid','Denied','Partially paid','A mix']],
-         ['Roughly how many claims?',['1 to 10','10 to 50','More than 50']]],
-      prep:a=>['Bills submitted to the insurer (NF-3 forms)','Denial letters or explanations of benefits','Proof of mailing and any verification requests','Assignment of benefits forms'],
-      urgent:()=>false}
-  };
-  let cur='general',ans=[],step=-1,started=false;
-  const scroll=()=>m.scrollTop=m.scrollHeight;
-  const add=(html,who)=>{const d=document.createElement('div');d.className='msg '+who;d.innerHTML=html;m.appendChild(d);scroll();return d};
-  const clearQ=()=>m.querySelectorAll('.qr').forEach(q=>q.remove());
-  function quick(list,fn){const q=document.createElement('div');q.className='qr';list.forEach(x=>{const b=document.createElement('button');b.type='button';b.textContent=x;b.onclick=()=>{clearQ();add(esc(x),'u');fn(x)};q.appendChild(b)});m.appendChild(q);scroll()}
-  function say(html,then){const t=document.createElement('div');t.className='msg b typing';t.innerHTML='<i></i><i></i><i></i>';m.appendChild(t);scroll();setTimeout(()=>{t.remove();add(html,'b');then&&then()},550)}
-  function goForm(g){
-    box.hidden=true;btn.hidden=false;
-    const mt=document.querySelector('[name=matter]'),ds=document.querySelector('[name=desc]');
-    if(g&&mt){mt.value=g.matter;ds.value=g.q.map((q,i)=>q[0]+' '+ans[i]).join(String.fromCharCode(10))}
-    const o=document.querySelector('[data-open]');if(o){o.click();return}location.hash='';location.hash='contact';
-  }
-  function menu(){say("Which assistant would you like? Each one gives general information and helps you get in touch with Rima.",()=>quick(['Landlord & Tenant','Bankruptcy','Real Estate','No-Fault','Contact details'],x=>{if(x==='Contact details')return contact();switch_(Object.keys(G).find(k=>G[k].name===x))}))}
-  function contact(){say('You can reach the office directly:<ul><li>Phone: <a href="tel:+15168609014">(516) 860-9014</a></li><li>WhatsApp: <a href="https://wa.me/15168609014" target="_blank" rel="noopener">Send a message</a></li><li>Email: <a href="mailto:Naybergrima@gmail.com">Naybergrima@gmail.com</a></li><li>Office: 147-17 Union Tpke, Flushing, NY 11367</li></ul>',()=>quick(['Open the contact form','Back to assistants'],x=>x==='Back to assistants'?menu():goForm()))}
-  function ask(){const g=G[cur];if(step>=g.q.length)return finish();const [q,o]=g.q[step];
-    say('<div class="prog">'+g.q.map((_,i)=>'<i class="'+(i<=step?'d':'')+'"></i>').join('')+'</div>'+esc(q),()=>quick(o,x=>{ans.push(x);step++;ask()}))}
-  function finish(){const g=G[cur];
-    const h='<div class="sum"><h4>Your summary</h4><ul>'+g.q.map((q,i)=>'<li>'+esc(ans[i])+'</li>').join('')+'</ul><h4>What to prepare</h4><ul>'+g.prep(ans).map(x=>'<li>'+x+'</li>').join('')+'</ul>'+(g.urgent(ans)?'<p><b>Because there is a deadline, it is best to contact the office as soon as possible.</b></p>':'')+'<p class="note">This is general information, not legal advice. Every case is different, and Rima will review yours personally.</p></div>';
-    say("Thank you. Here is a summary based on your answers.",()=>{const d=document.createElement('div');d.innerHTML=h;m.appendChild(d.firstChild);scroll();quick(['Send my answers to the contact form','Call (516) 860-9014','Start over','Back to assistants'],x=>{
-      if(x.startsWith('Send'))return goForm(g);if(x.startsWith('Call')){location.href='tel:+15168609014';return menu()}if(x==='Start over')return switch_(cur,true);menu()})})}
-  function switch_(k,silent){cur=k;ans=[];step=0;pick.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k===k));title.textContent=G[k].title;
-    if(k==='general'){step=-1;return menu()}say(G[k].intro,ask)}
-  Object.entries(G).forEach(([k,g])=>{const b=document.createElement('button');b.type='button';b.dataset.k=k;b.innerHTML=g.icon+g.name;b.onclick=()=>{clearQ();switch_(k)};pick.appendChild(b)});
-  const K=[[/evict|landlord|tenant|rent|lease|housing|apartment|repair/i,'lt'],[/bankrupt|debt|chapter|credit|garnish|foreclos|owe/i,'bk'],[/real estate|closing|buy|sell|purchase|house|property|title|contract/i,'re'],[/no.?fault|insurance|pip|accident|medical|provider|claim/i,'nf']];
-  const open=k=>{box.hidden=false;btn.hidden=true;if(k){m.innerHTML='';switch_(k)}else if(!started){add("Hello! These are the law office's automated assistants. Choose a topic and I'll guide you step by step.",'b');switch_('general')}started=true;inp.focus()};
-  btn.onclick=()=>open();
-  document.querySelectorAll('[data-guide]').forEach(b=>b.addEventListener('click',()=>open(b.dataset.guide)));
-  box.querySelector('.bot-h button').onclick=()=>{box.hidden=true;btn.hidden=false};
-  f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(!v)return;inp.value='';clearQ();add(esc(v),'u');
-    if(/fee|cost|price|how much/i.test(v))return say("Fees depend on the matter. They are discussed clearly and upfront before any work begins.",menu);
-    if(/where|address|office|location|phone|call|whatsapp|email|contact/i.test(v))return contact();
-    const hit=K.find(([r])=>r.test(v));if(hit)return say('That sounds like a '+G[hit[1]].name+' question. Let me open that assistant.',()=>switch_(hit[1]));
-    say("I'm not sure I understood. Rima can answer that personally.",()=>quick(['Open the contact form','Back to assistants'],x=>x==='Back to assistants'?menu():goForm()))};
 })();
 
 </script>
