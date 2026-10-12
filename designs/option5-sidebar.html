@@ -210,7 +210,7 @@ footer{background:var(--royal-deep);color:#dfe7f7;padding-block:40px 28px;font-s
 .menu span{display:block;width:24px;height:1.5px;background:var(--royal-deep);transition:transform .25s,opacity .25s}
 .float-wa{position:fixed;right:20px;bottom:calc(24px + env(safe-area-inset-bottom,0px));width:56px;height:56px;border-radius:50%;background:#1f9d55;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.35);z-index:20;transition:transform .2s}
 .float-wa:hover{transform:scale(1.07)}.float-wa svg{width:28px;height:28px}
-.callbar{display:none}
+.callbar{display:none}.callpill{display:none}
 footer svg{width:100%;max-width:760px;height:auto;margin:0 auto 18px;display:block}
 footer .line-art{stroke:#8fa9dd}
 
@@ -232,9 +232,15 @@ footer .line-art{stroke:#8fa9dd}
   .menu[aria-expanded="true"] span:nth-child(2){opacity:0}
   .menu[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
   .fgrid{grid-template-columns:1fr}
-  .callbar{display:grid;grid-template-columns:1fr 1.4fr;position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--white);border-top:1px solid var(--sky);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));gap:10px}
+  .callbar{position:fixed;display:grid;grid-template-columns:1fr 1.4fr;position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--white);border-top:1px solid var(--sky);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));gap:10px}
   .callbar a{text-align:center;padding:12px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem;border:1.5px solid var(--royal);color:var(--royal)}
   .callbar a:last-child{background:var(--royal);color:var(--white)}
+  .cb-x{position:absolute;right:10px;top:-16px;width:30px;height:30px;border-radius:50%;border:1px solid var(--sky-line);background:var(--white);color:var(--royal-deep);font-size:1.2rem;line-height:1;cursor:pointer;box-shadow:0 4px 10px -4px rgba(20,48,111,.4)}
+  body.cb-closed .callbar{display:none}
+  body.cb-closed{padding-bottom:0}
+  body.cb-closed .callpill{display:inline-flex;align-items:center;gap:8px;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:15;background:var(--royal);color:var(--white);text-decoration:none;font-weight:500;font-size:.92rem;padding:10px 20px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(20,48,111,.6);animation:fade .3s ease}
+  .callpill svg{width:18px;height:18px}
+  body.cb-closed .float-wa{bottom:calc(24px + env(safe-area-inset-bottom,0px))}
   .float-wa{bottom:calc(84px + env(safe-area-inset-bottom,0px));right:14px;width:50px;height:50px}
   body{padding-bottom:72px}
 }
@@ -438,7 +444,8 @@ footer .line-art{stroke:#8fa9dd}
 })();
 </script>
 <a class="float-wa" href="https://wa.me/15168609014" target="_blank" rel="noopener" aria-label="WhatsApp us"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M8.5 8.5c.3-.6.6-.6 1-.6l.6 1.4c.1.3-.4.8-.6 1 .6 1.3 1.6 2.3 2.9 2.9.2-.2.7-.8 1-.6l1.4.6c0 .5 0 .8-.6 1.1-.7.4-1.6.4-3-.4a8 8 0 01-2.9-2.9c-.7-1.3-.6-2.1-.3-2.5z" fill="#fff"/></svg></a>
-<div class="callbar"><a href="tel:+15168609014">Call now</a><a href="#contact">Request a consultation</a></div>
+<div class="callbar"><button class="cb-x" type="button" aria-label="Close">&times;</button><a href="tel:+15168609014">Call now</a><a href="#contact">Request a consultation</a></div>
+<a class="callpill" href="tel:+15168609014"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Call Rima</a>
 
 <footer><div class="wrap">
   <svg viewBox="0 0 760 60" aria-hidden="true"><path class="line-art" d="M0 58h60V40h20v18h20V30h14v28h26V20l10-10 10 10v38h30V34h22v24h18V26h16v32h40V44h20v14h24V16h8V6h8v10h8v42h30V36h24v22h20V28h18v30h36V42h22v16h30V30h16v28h26V38h20v20h60"/></svg>
@@ -502,5 +509,6 @@ footer .line-art{stroke:#8fa9dd}
   f.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { const b = st[i].querySelector('[data-next]'); if (b) { e.preventDefault(); b.click() } } });
 })();
 </script>
+<script>document.querySelector('.cb-x').onclick=()=>document.body.classList.add('cb-closed')</script>
 </body>
 </html>
