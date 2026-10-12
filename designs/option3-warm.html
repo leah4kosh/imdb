@@ -17,8 +17,12 @@ blockquote{background:var(--card);padding:26px;border-radius:var(--r);font-style
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px}.two h2{text-align:left}.ci{font-size:1.1rem;margin:10px 0}
 .form{background:var(--card);padding:28px;border-radius:var(--r);box-shadow:0 6px 24px #0002;display:flex;flex-direction:column;gap:12px}
 .form input,.form textarea{padding:12px;border:1px solid #ccc;border-radius:8px;font:inherit}
-.about{max-width:850px}.about p{margin:16px 0;font-size:1.05rem}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:26px 0;text-align:center}.stats div{background:var(--card);padding:18px;border-radius:var(--r);border-bottom:4px solid var(--acc);font-size:.9rem}.stats b{display:block;font-size:1.5rem;color:var(--h2);font-family:var(--hf)}
-footer{background:var(--navbg);color:var(--navink);text-align:center;padding:24px 0;font-size:.85rem}</style></head><body><header class="nav"><div class="wrap navin"><div class="logo">Law Offices of <b>Rima Nayberg</b></div>
+.about{max-width:850px}.about p{margin:16px 0;font-size:1.05rem}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:26px 0;text-align:center}.stats div{background:var(--card);padding:18px;border-radius:var(--r);border-bottom:4px solid var(--acc);font-size:.9rem}.stats b{display:block;font-size:1.5rem;color:var(--h2);font-family:var(--hf)}.tf{min-height:330px;position:relative}.st{display:none;flex-direction:column;gap:12px}.st.on{display:flex;animation:up .4s}@keyframes up{from{opacity:0;transform:translateY(20px)}}
+.st label{font-family:var(--hf);font-size:1.4rem;color:var(--h2)}.st small{opacity:.7}.st input,.st textarea{border:0!important;border-bottom:2px solid var(--acc)!important;border-radius:0!important;font-size:1.2rem;outline:0}
+.st .btn{align-self:flex-start;margin:6px 0}.ch{display:flex;flex-direction:column;gap:8px}.ch button{text-align:left;padding:12px;border:2px solid var(--acc);background:transparent;border-radius:8px;font:inherit;cursor:pointer;color:inherit}
+.ch b{display:inline-block;width:24px;border:1px solid;border-radius:4px;text-align:center;margin-right:8px}.ch .sel{background:var(--acc);color:var(--btnink)}
+.bar{height:5px;background:#0001;border-radius:5px;margin-top:auto}.bar i{display:block;height:100%;width:0;background:var(--acc);transition:.4s;border-radius:5px}.err{color:#c0262d;font-size:.9rem;min-height:1em}
+footer{background:var(--navbg);color:var(--navink);text-align:center;padding:24px 0;font-size:.85rem}</style></head><body><header class="nav"><div class="wrap navin"><div class="logo">&#9878;&#65039; Law Offices of <b>Rima Nayberg PC</b></div>
 <nav><a href="#about">About</a><a href="#practice">Practice Areas</a><a href="#testimonials">Testimonials</a><a href="#contact" class="btn sm">Contact</a></nav></div></header>
 <section class="hero"><div class="wrap">
 <p class="eyebrow">Long Island &bull; New York &bull; Queens</p>
@@ -48,8 +52,25 @@ footer{background:var(--navbg);color:var(--navink);text-align:center;padding:24p
 <p class="ci">&#9993;&#65039; <a href="mailto:Naybergrima@gmail.com">Naybergrima@gmail.com</a></p>
 <p class="ci">&#128205; 147-17 Union Tpke, Flushing, NY 11367</p>
 <a class="btn wa" href="https://wa.me/15168609014" target="_blank">WhatsApp Us</a></div>
-<form class="form" action="mailto:Naybergrima@gmail.com" method="post" enctype="text/plain">
-<h3>Contact Form</h3><input name="name" placeholder="Full Name" required><input name="phone" placeholder="Phone"><input type="email" name="email" placeholder="Email" required>
-<textarea name="message" rows="4" placeholder="How can we help?"></textarea><button class="btn" type="submit">Send Message</button></form>
+<div class="form tf" id="tf">
+<div class="st on"><h3>Contact Rima Nayberg</h3><p>Thank you for reaching out to us. Please provide your details and a brief description of your legal matter. Our team will review your inquiry and follow up promptly.</p><button class="btn" data-next>Begin</button><small>&#9201; Takes 45 sec</small></div>
+<div class="st"><label>1 &rarr; Full Name*</label><small>Please enter your full legal name.</small><input name="name" placeholder="Type your answer here..." required><button class="btn" data-next>OK &#10003;</button></div>
+<div class="st"><label>2 &rarr; Email Address*</label><small>We will use this to provide updates about your inquiry.</small><input type="email" name="email" placeholder="name@example.com" required><button class="btn" data-next>OK &#10003;</button></div>
+<div class="st"><label>3 &rarr; Phone Number*</label><small>Please provide your preferred phone number.</small><input type="tel" name="phone" placeholder="(201) 555-0123" required><button class="btn" data-next>OK &#10003;</button></div>
+<div class="st"><label>4 &rarr; Preferred Contact Method*</label><small>Preferred Contact Method</small>
+<div class="ch" data-k="method"><button type="button" data-v="Email"><b>A</b> Email</button><button type="button" data-v="Phone"><b>B</b> Phone</button></div><button class="btn" data-next>OK &#10003;</button></div>
+<div class="st"><label>5 &rarr; Type of Legal Matter*</label><small>Type or select an option</small><input name="matter" list="matters" placeholder="Type or select an option" required><datalist id="matters"><option>Landlord &amp; Tenant</option><option>Bankruptcy</option><option>Real Estate</option><option>No Fault Collections</option><option>Other</option></datalist><button class="btn" data-next>OK &#10003;</button></div>
+<div class="st"><label>6 &rarr; Brief Description of Your Legal Matter</label><small>Optional. Shift+Enter for a new line.</small><textarea name="desc" rows="3" placeholder="Type your answer here..."></textarea><button class="btn" data-next>OK &#10003;</button></div>
+<div class="st"><label>7 &rarr; Preferred Time to Contact You*</label><small>Preferred Time to Contact You</small><div class="ch" data-k="time"><button type="button" data-v="Morning (8am - 12pm)"><b>A</b> Morning (8am - 12pm)</button><button type="button" data-v="Afternoon (12pm - 5pm)"><b>B</b> Afternoon (12pm - 5pm)</button><button type="button" data-v="Evening (5pm - 8pm)"><b>C</b> Evening (5pm - 8pm)</button><button type="button" data-v="No preference"><b>D</b> No preference</button></div><button class="btn" data-next>Submit</button></div>
+<div class="st"><h3>Thank you!</h3><p>Thank you for contacting our law firm. Your message has been received and a member of our team will be in touch with you soon.</p><a id="tfsend" hidden></a></div>
+<div class="bar"><i></i></div><p class="err"></p></div>
+<script>(()=>{const f=document.getElementById('tf'),st=[...f.querySelectorAll('.st')],bar=f.querySelector('.bar i'),err=f.querySelector('.err');let i=0;const c={};
+f.querySelectorAll('.ch button').forEach(b=>b.onclick=()=>{const g=b.parentNode;g.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');c[g.dataset.k]=b.dataset.v});
+f.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>{const inp=st[i].querySelector('input,textarea');err.textContent='';
+if(inp&&!inp.checkValidity()){err.textContent=inp.value?'Please check your answer.':'Please fill this in.';return}
+const g=st[i].querySelector('.ch');if(g&&!c[g.dataset.k]){err.textContent='Please choose an option.';return}
+st[i].classList.remove('on');i++;st[i].classList.add('on');bar.style.width=(i/(st.length-1)*100)+'%';const n=st[i].querySelector('input,textarea');n&&n.focus();
+if(i==st.length-1){const v=k=>f.querySelector('[name='+k+']').value.trim();document.getElementById('tfsend').href='mailto:Naybergrima@gmail.com?subject='+encodeURIComponent('New inquiry from '+v('name'))+'&body='+encodeURIComponent(['Name: '+v('name'),'Email: '+v('email'),'Phone: '+v('phone'),'Preferred contact: '+c.method,'Legal matter: '+v('matter'),'Description: '+v('desc'),'Preferred time: '+c.time].join(String.fromCharCode(10)));location.href=document.getElementById('tfsend').href}});
+f.addEventListener('keydown',e=>{if(e.key=='Enter'&&!e.shiftKey){const b=st[i].querySelector('[data-next]');b&&(e.preventDefault(),b.click())}})})()</script>
 </div></section>
 <footer><div class="wrap">This Website Is Created By Z-Tech &copy; 2026 Law Offices of Rima Nayberg, All Rights Reserved</div></footer></body></html>
