@@ -22,25 +22,24 @@
 }
 *{box-sizing:border-box;margin:0}
 /* custom scroll rail: fine line with diamond end caps and a medallion that travels with the page */
-@media (min-width:861px){
-  html,body{scrollbar-width:none}
-  html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0}
-  .rail{position:fixed;right:18px;top:12vh;bottom:12vh;width:34px;z-index:40;cursor:pointer;touch-action:none}
-  .rail::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--sky-line);transform:translateX(-50%)}
-  .rail i{position:absolute;left:50%;width:8px;height:8px;border:1px solid var(--royal);background:var(--cream);transform:translate(-50%,-50%) rotate(45deg)}
-  .rail i.t{top:0}.rail i.b{top:100%}
-  .rail .fill{position:absolute;left:50%;top:0;width:2px;transform:translateX(-50%);background:linear-gradient(var(--sky-line),var(--royal));height:0}
-  .rail .knob{position:absolute;left:50%;top:0;width:34px;height:34px;border-radius:50%;background:var(--royal-deep);border:1px solid var(--royal);box-shadow:0 0 0 4px var(--cream),0 0 0 5px var(--sky-line),0 8px 18px -6px rgba(20,48,111,.5);transform:translate(-50%,-50%);display:grid;place-items:center;transition:transform .2s,background .2s;cursor:grab}
-  .rail .knob svg{width:18px;height:18px}
-  .rail:hover .knob,.rail.drag .knob{transform:translate(-50%,-50%) scale(1.12);background:var(--royal)}
-  .rail.drag .knob{cursor:grabbing}
-  .rail .pct{position:absolute;right:46px;top:0;transform:translateY(-50%);font:500 .72rem var(--body);letter-spacing:.12em;color:var(--royal-deep);background:var(--white);border:1px solid var(--sky);padding:4px 8px;border-radius:999px;opacity:0;transition:opacity .2s;white-space:nowrap;pointer-events:none}
-  .rail:hover .pct,.rail.drag .pct{opacity:1}
-  .rail.hide{opacity:0;pointer-events:none}
-  .float-wa{right:70px}
-}
 .rail{display:none}
-@media (min-width:861px){.rail{display:block}}
+html.has-rail .rail{display:block}
+html.has-rail,html.has-rail body{scrollbar-width:none}
+html.has-rail::-webkit-scrollbar,html.has-rail body::-webkit-scrollbar{display:none;width:0}
+html.has-rail .rail{position:fixed;right:18px;top:12vh;bottom:12vh;width:34px;z-index:40;cursor:pointer;touch-action:none}
+html.has-rail .rail::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--sky-line);transform:translateX(-50%)}
+html.has-rail .rail i{position:absolute;left:50%;width:8px;height:8px;border:1px solid var(--royal);background:var(--cream);transform:translate(-50%,-50%) rotate(45deg)}
+html.has-rail .rail i.t{top:0}.rail i.b{top:100%}
+html.has-rail .rail .fill{position:absolute;left:50%;top:0;width:2px;transform:translateX(-50%);background:linear-gradient(var(--sky-line),var(--royal));height:0}
+html.has-rail .rail .knob{position:absolute;left:50%;top:0;width:34px;height:34px;border-radius:50%;background:var(--royal-deep);border:1px solid var(--royal);box-shadow:0 0 0 4px var(--cream),0 0 0 5px var(--sky-line),0 8px 18px -6px rgba(20,48,111,.5);transform:translate(-50%,-50%);display:grid;place-items:center;transition:transform .2s,background .2s;cursor:grab}
+html.has-rail .rail .knob svg{width:18px;height:18px}
+html.has-rail .rail:hover .knob,html.has-rail .rail.drag .knob{transform:translate(-50%,-50%) scale(1.12);background:var(--royal)}
+html.has-rail .rail.drag .knob{cursor:grabbing}
+html.has-rail .rail .pct{position:absolute;right:46px;top:0;transform:translateY(-50%);font:500 .72rem var(--body);letter-spacing:.12em;color:var(--royal-deep);background:var(--white);border:1px solid var(--sky);padding:4px 8px;border-radius:999px;opacity:0;transition:opacity .2s;white-space:nowrap;pointer-events:none}
+html.has-rail .rail:hover .pct,html.has-rail .rail.drag .pct{opacity:1}
+html.has-rail .rail.hide{opacity:0;pointer-events:none}
+html.has-rail .float-wa{right:70px}
+@media (max-width:860px){html.has-rail .rail{bottom:110px;right:10px}html.has-rail .float-wa{right:60px}}
 
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{font-family:var(--body);color:var(--ink);background:var(--white);line-height:1.7;font-size:17px}
@@ -419,6 +418,9 @@ footer .line-art{stroke:#8fa9dd}
 <div class="rail" aria-hidden="true"><i class="t"></i><i class="b"></i><span class="fill"></span><span class="knob"><svg viewBox="0 0 24 24"><g fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M8 20h8M5 7h14"/><path d="M7 7l-3 6a3 3 0 006 0zM17 7l-3 6a3 3 0 006 0z"/></g></svg></span><span class="pct">0%</span></div>
 <script>
 (() => {
+  const fine = matchMedia('(any-pointer:fine)').matches || matchMedia('(any-hover:hover)').matches;
+  if (!fine) return;
+  document.documentElement.classList.add('has-rail');
   const r = document.querySelector('.rail'), k = r.querySelector('.knob'), fill = r.querySelector('.fill'), pct = r.querySelector('.pct');
   const max = () => document.documentElement.scrollHeight - innerHeight;
   function draw() {
