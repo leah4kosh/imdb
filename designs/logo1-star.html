@@ -48,16 +48,13 @@ h1,h2,h3{font-family:var(--display);font-weight:500;color:var(--plum);line-heigh
 .btn::after{content:"";width:7px;height:7px;background:var(--copper);transform:rotate(45deg)}
 .btn:hover{background:var(--plum2);gap:18px}
 .btn.ghost{background:transparent;color:var(--plum);border:1px solid var(--plum)}
-.dia{position:relative;justify-self:center;width:min(100%,460px);aspect-ratio:1}
-.dia .frame{position:absolute;inset:0;border:1px solid var(--copper);transform:rotate(45deg) scale(.86)}
-.dia .frame.f2{transform:rotate(45deg) scale(.96);border-color:var(--copper-l);animation:breathe 6s ease-in-out infinite}
-@keyframes breathe{50%{transform:rotate(45deg) scale(1)}}
-.dia .cut{position:absolute;inset:11%;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);overflow:hidden}
-.dia .cut img{width:100%;height:100%;object-fit:cover;object-position:center 22%;transform:scale(1.05)}
-.dia .badge{position:absolute;right:0;bottom:12%;background:#fff;padding:14px 20px;box-shadow:0 18px 40px -20px rgba(58,15,46,.5);border-left:3px solid var(--copper)}
-.dia .badge b{display:block;font:500 1.5rem var(--display);color:var(--plum)}
-.dia .badge span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.dia .badge2{position:absolute;left:0;top:14%;background:var(--plum);color:#fff;padding:12px 18px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.port{justify-self:center;width:min(100%,400px);margin:40px 0 0}
+.pic{position:relative;padding:0 22px 22px 0}
+.pic::before{content:"";position:absolute;right:0;bottom:0;width:calc(100% - 22px);height:calc(100% - 22px);border:1px solid var(--copper);border-radius:220px 220px 0 0}
+.port img{position:relative;display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;border-radius:200px 200px 0 0}
+.port .st{position:absolute;left:calc(50% - 11px);top:-30px;transform:translateX(-50%);width:56px;padding:8px;background:var(--cream);border-radius:50%;z-index:2}
+.port figcaption{margin-top:30px;text-align:center;font:italic 400 1.15rem var(--display);color:var(--plum)}
+.port figcaption span{display:block;font:400 .7rem var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--copper);margin-top:4px;font-style:normal}
 .strip{background:var(--plum);color:var(--copper-l);overflow:hidden;padding:20px 0}
 .strip .row{display:flex;justify-content:center;flex-wrap:wrap;gap:16px 46px;font:italic 400 1.3rem var(--display)}
 .strip .row span{display:flex;align-items:center;gap:46px}
@@ -132,7 +129,7 @@ footer p{max-width:78ch;margin:0 auto 8px}
  .top nav{display:none}.ham{display:grid}
  .top nav.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:20px;padding:28px 24px;background:var(--cream);border-bottom:1px solid var(--line)}
  .hero .wrap,.about,.ctc,.rate{grid-template-columns:1fr}
- .dia{max-width:340px}
+ .port{max-width:320px}
  .compass{grid-template-columns:1fr}.compass .center{display:none}
  .pt,.pt:nth-child(n){text-align:left;align-items:flex-start;padding:40px 0;border-right:0;border-bottom:1px solid var(--line);min-height:0}
  .pt ul{max-height:none}.pt .more{display:none}
@@ -142,7 +139,7 @@ footer p{max-width:78ch;margin:0 auto 8px}
  section.s{padding:90px 0}
 }
 @media (max-width:520px){.journey{grid-template-columns:1fr}.journey div{border-right:0;border-bottom:1px solid var(--line)}}
-@media (prefers-reduced-motion:reduce){.bgstar,.dia .frame.f2{animation:none}.rv{transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.bgstar{animation:none}.rv{transition:none}html{scroll-behavior:auto}}
 :focus-visible{outline:1px solid var(--copper);outline-offset:4px}
 
 .callbar,.callpill{display:none}
@@ -224,8 +221,7 @@ footer p{max-width:78ch;margin:0 auto 8px}
  <div><span class="tag">Rima Nayberg · Law Office</span><h1>Clear advice. <em>Honest</em> representation.</h1>
   <p>Practical legal help in Queens, New York City and Long Island, explained in plain English, with fair and upfront fees.</p>
   <div class="acts"><a class="btn" href="#contact">Request a consultation</a><a class="btn ghost" href="tel:+15168609014">(516) 860-9014</a></div></div>
- <div class="dia"><span class="frame f2"></span><span class="frame"></span><div class="cut"><img src="rima.jpg" alt="Attorney Rima Nayberg"></div>
-  <div class="badge2">Licensed since 2011</div><div class="badge"><b>4.8 / 5</b><span>Avvo client rating</span></div></div>
+ <figure class="port"><div class="pic"><img class="st" src="logo-star-icon.png" alt="" aria-hidden="true"><img src="rima.jpg" alt="Attorney Rima Nayberg"></div><figcaption>Rima Nayberg<span>Attorney at Law · Licensed since 2011</span></figcaption></figure>
 </div></section>
 <div class="strip"><div class="row"><span>Landlord &amp; Tenant</span><span>Bankruptcy</span><span>Real Estate</span><span>No Fault Collections</span></div></div>
 <section class="s" id="about"><div class="wrap about">
