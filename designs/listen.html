@@ -274,6 +274,36 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 .float-wa{display:grid!important;width:60px;height:60px;background:#25d366;box-shadow:0 12px 28px -8px rgba(37,211,102,.6);transition:transform .2s}
 .float-wa:hover{transform:scale(1.08)}
 .float-wa svg{width:32px;height:32px}
+
+/* inspiration from competitors: gold call pill in header, lead card beside the headline, WhatsApp everywhere */
+.callpill2{display:inline-flex;flex-direction:column;align-items:flex-end;text-decoration:none;gap:2px}
+.callpill2 small{font:600 .7rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}
+.callpill2 span{display:inline-flex;align-items:center;gap:8px;background:#c09a55;color:#fff;font-weight:700;padding:9px 18px;border-radius:999px;box-shadow:0 8px 18px -10px rgba(176,132,63,.8)}
+.callpill2 span .i{width:18px;height:18px}
+.callpill2 em{font-style:normal;font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.9;border-right:1px solid rgba(255,255,255,.45);padding-right:8px}
+@media (max-width:1100px){.callpill2 em{display:none}}
+.callpill2:hover span{background:#a87a35}
+.hero .hc2{display:grid;grid-template-columns:1.25fr .85fr;gap:clamp(28px,4vw,60px);align-items:center;min-height:calc(100svh - 72px);padding-block:clamp(16px,4vh,40px) clamp(56px,9vh,90px)}
+.hero .hc2 .hc{min-height:0;padding:0;align-items:flex-start;text-align:left}
+.hero .hc2 .ctas{justify-content:flex-start}
+.hero .hc2 h1 .rot{justify-items:start}
+.hero .hc2 h1 .rot::after{left:0;transform:none}
+.hero .hc2 h1{font-size:min(5.2vw,9vh)}
+.btn.wab{background:#25d366;border-color:#25d366;color:#fff}
+.btn.wab:hover{background:#1ebe5a}
+.btn.full{width:100%}
+.exp{font-size:.92rem;color:#3b4a63;opacity:0;animation:rise .8s 1.9s forwards}
+.exp b{color:var(--navy)}
+.lead{background:#fff;border-radius:20px;padding:28px;box-shadow:0 30px 60px -30px rgba(13,43,82,.45);border-top:4px solid #c09a55;display:grid;gap:11px;opacity:0;animation:rise .9s 1.2s forwards}
+.lead h2{font-size:1.55rem}
+.lsub{color:var(--muted);font-size:.92rem;margin-top:-6px}
+.lead input,.lead select,.lead textarea{font:inherit;font-size:.95rem;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fbfaf7;color:var(--ink);width:100%}
+.lead input:focus,.lead select:focus,.lead textarea:focus{outline:0;border-color:#c09a55;background:#fff}
+.lead textarea{resize:vertical}
+.orcall{text-align:center;font-size:.86rem;color:var(--muted)}
+@media (max-width:980px){.hero .hc2{grid-template-columns:1fr;min-height:0;padding-block:28px 48px}.hero .hc2 .hc{align-items:center;text-align:center}.hero .hc2 .ctas{justify-content:center}.hero .hc2 h1 .rot{justify-items:center}.hero .hc2 h1 .rot::after{left:50%;transform:translateX(-50%)}.hero .hc2 h1{font-size:min(10.5vw,7.4vh)}.callpill2 small{display:none}.callpill2 span{padding:8px 12px;font-size:.85rem}}
+@media (max-width:420px){.callpill2{display:none}}
+@media (prefers-reduced-motion:reduce){.lead,.exp{animation:none;opacity:1}}
 @media (max-width:980px){.spec .areas{grid-template-columns:1fr}.why3{grid-template-columns:1fr}.hero .hc{min-height:78vh}}
 @media (max-width:560px){.spec .areas{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.hero h1 .w,.hero .ctas,.hero .ru,.hero .sub{animation:none;opacity:1;transform:none}}
@@ -368,15 +398,26 @@ footer p{opacity:.75;margin-top:6px;font-size:.78rem}
 <header class="top"><div class="wrap">
  <a class="lg" href="#home"><img src="logo-rn-icon.png" alt=""><span>Rima Nayberg<small>Law Office</small></span></a>
  <nav aria-label="Main"><a href="#who">What we do</a><a href="#why">Why us</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav>
- <a class="btn p sm" href="tel:+15168609014"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg>(516) 860-9014</a>
+ <a class="callpill2" href="tel:+15168609014"><span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg><em>Call now</em>(516) 860-9014</span></a>
  <button class="ham" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="drawer">MENU</button></div>
  <nav class="drawer" id="drawer" aria-label="Mobile"><a href="#who">What we do</a><a href="#why">Why us</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav></header>
 <main>
-<section class="hero" id="home"><div class="wrap hc">
+<section class="hero" id="home"><div class="wrap hc2"><div class="hc">
  <p class="locs-top">Long Island · New York · Queens</p>
  <h1><span class="w w1">We listen.</span><span class="w w2">Then we fight for <span class="rot" aria-live="polite"><span class="rw on">you.</span><span class="rw">your home.</span><span class="rw">your family.</span><span class="rw">your business.</span><span class="rw">your future.</span><span class="rw">your peace of mind.</span></span></span></h1>
  <p class="prac"><span>Landlord Tenant</span> <i>·</i> <span>Bankruptcy</span> <i>·</i> <span>Real Estate</span> <i>·</i> <span>No Fault Collections</span></p>
- <div class="ctas"><a class="btn p" href="tel:+15168609014"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg>Call (516) 860-9014</a><a class="btn s" href="#contact">Book a consultation</a></div>
+ <div class="ctas"><a class="btn p" href="tel:+15168609014"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></g></svg>Call (516) 860-9014</a><a class="btn wab" href="https://wa.me/15168609014" target="_blank" rel="noopener"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/></g></svg>WhatsApp Rima</a></div>
+ <p class="exp"><b>15+ years</b> · Licensed in NY since 2011 · <b>4.8/5</b> on Avvo</p>
+ </div>
+ <form class="lead" id="lead">
+  <h2>Tell us what happened</h2><p class="lsub">Rima will get back to you personally.</p>
+  <input id="l-name" name="name" placeholder="Full name" required autocomplete="name">
+  <input id="l-phone" name="phone" type="tel" placeholder="Phone number" required autocomplete="tel">
+  <select id="l-area" name="area" required><option value="" disabled selected>Type of case</option><option>Landlord &amp; Tenant</option><option>Bankruptcy</option><option>Real Estate</option><option>No-Fault Collections</option><option>Other</option></select>
+  <textarea id="l-msg" name="msg" rows="3" placeholder="How can we help?"></textarea>
+  <button type="submit" class="btn wab full"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"/></g></svg>Send on WhatsApp</button>
+  <a class="orcall" href="tel:+15168609014">or call (516) 860-9014</a>
+ </form>
 </div><a class="down" href="#who" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></section>
 
 <section class="s spec" id="who"><div class="wrap">
@@ -428,6 +469,9 @@ d.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{d.classList.r
   const ul=()=>rot.style.setProperty('--uw',ws[k].getBoundingClientRect().width+'px');
   setTimeout(ul,1800);addEventListener('resize',ul);
   setTimeout(()=>setInterval(()=>{const o=ws[k];o.classList.remove('on');o.classList.add('out');setTimeout(()=>o.classList.remove('out'),750);k=(k+1)%ws.length;ws[k].classList.add('on');ul()},2600),2400)}
+ const lf=document.getElementById('lead');if(lf)lf.addEventListener('submit',e=>{e.preventDefault();const v=id=>document.getElementById(id).value.trim();
+  const t=['Hi Rima, I found you on your website.','Name: '+v('l-name'),'Phone: '+v('l-phone'),'Case: '+v('l-area'),v('l-msg')?'Details: '+v('l-msg'):''].filter(Boolean).join(String.fromCharCode(10));
+  window.open('https://wa.me/15168609014?text='+encodeURIComponent(t),'_blank','noopener')});
  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add(e.target.classList.contains('kick')?'in':'on');io2.unobserve(e.target)}}),{threshold:.2});
  document.querySelectorAll('.kick').forEach(el=>io2.observe(el));
  const io3=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;setTimeout(()=>el.classList.add('go'),[...el.parentNode.children].indexOf(el)*350);io3.unobserve(el)}}),{threshold:.6});
