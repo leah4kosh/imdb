@@ -1005,7 +1005,8 @@ Requirements:
       if (!type.includes("event-stream")) {
         const body = await res.text();
         try { text = JSON.parse(body).choices[0].message.content || ""; } catch { text = body; }
-        if (/needs paid Pollen|only spends Quest Pollen/i.test(text)) throw { code: "paid_model" };
+        if (/not enough left|ran out|insufficient/i.test(text)) throw { code: "no_pollen" };
+        if (/needs paid Pollen/i.test(text)) throw { code: "paid_model" };
         opts.onText?.({ text, delta: text });
         return { text };
       }
@@ -1028,7 +1029,8 @@ Requirements:
           } catch { /* keep-alive or partial line */ }
         }
       }
-      if (/needs paid Pollen|only spends Quest Pollen/i.test(text)) throw { code: "paid_model" };
+      if (/not enough left|ran out|insufficient/i.test(text)) throw { code: "no_pollen" };
+        if (/needs paid Pollen/i.test(text)) throw { code: "paid_model" };
       return { text };
     } catch (e) {
       if (e?.name === "AbortError") throw { code: "cancelled", text };
@@ -1400,7 +1402,7 @@ Requirements:
       offline: "אין חיבור לאינטרנט, או ששירות הצ'אט לא זמין כרגע. נסו שוב.",
       bad_key: "המפתח לא עובד. בדקו אותו בכפתור 🎨 בסרגל הצד.",
       paid_model: "המודל הזה דורש pollen בתשלום. נסו שוב, Echo יבחר מודל חינמי.",
-      no_pollen: "נגמר ה-pollen החינמי במפתח. אפשר להרוויח עוד במשימות (Quests) באתר של Pollinations.",
+      no_pollen: "נגמר ה-pollen החינמי 🌱 אפשר לאסוף עוד במשימות (Quests) באתר enter.pollinations.ai ואז לנסות שוב.",
     }[code] || "משהו השתבש. נסו שוב.";
   }
 
