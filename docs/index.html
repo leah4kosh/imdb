@@ -1480,7 +1480,18 @@ Requirements:
    */
   // A refusal or an error message must never become the picture itself.
   const NOT_A_PICTURE = /\b(block|blocked|filter|policy|sorry|cannot|can't|unable|refuse|not allowed|copyright|trademark|request)\b/i;
-  const usable = (line) => line && line.length > 8 && !/[\u0590-\u05FF]/.test(line) && !NOT_A_PICTURE.test(line);
+  // Image services block brand characters by name, so they are described instead of named.
+  const BRANDS = [
+    [/\bbarbie\b|ברבי/gi, "glamorous fashion doll"], [/\bken\b/gi, "stylish fashion doll boy"],
+    [/\belsa\b|אלזה/gi, "ice queen princess with a long platinum braid"], [/\banna\b|אנה/gi, "cheerful princess with auburn braids"],
+    [/\bpikachu\b|פיקאצ'ו/gi, "cute yellow electric mouse creature"], [/\bmickey( mouse)?\b|מיקי/gi, "cheerful cartoon mouse"],
+    [/\bminnie( mouse)?\b|מיני/gi, "cute cartoon mouse with a polka-dot bow"], [/\bhello kitty\b|הלו קיטי/gi, "cute white kitten with a pink bow"],
+    [/\bspider-?man\b|ספיידרמן/gi, "superhero in a red and blue suit"], [/\bstitch\b|סטיץ'/gi, "fluffy blue alien creature"],
+    [/\bmario\b|מריו/gi, "cheerful plumber hero with a red cap"], [/\bdisney\b|דיסני/gi, "fairy-tale"],
+  ];
+  const BRAND_TEST = new RegExp(BRANDS.map(([re]) => re.source).join("|"), "i");
+  const unbrand = (line) => BRANDS.reduce((out, [re, plain]) => out.replace(re, plain), line);
+  const usable = (line) => line && line.length > 8 && !/[\u0590-\u05FF]/.test(line) && !NOT_A_PICTURE.test(line) && !BRAND_TEST.test(line);
 
   async function englishPrompt(desc, chat) {
     const request = [...chat.messages].reverse().find((m) => m.role === "user")?.text || "";
@@ -1493,8 +1504,10 @@ Requirements:
       ]);
       const line = text.trim().split("\n")[0].replace(/^["']|["']$/g, "");
       if (usable(line)) return line;
+      if (usable(unbrand(line))) return unbrand(line);
     } catch { /* fall back to what we have */ }
-    return usable(desc) ? desc : "a beautiful, magical, colorful illustration";
+    const fallback = unbrand(desc || "");
+    return usable(fallback) ? fallback : "a beautiful, magical, colorful illustration";
   }
 
   /** Paints the picture for a reply with the image service, and saves it into the chat. */
