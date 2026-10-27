@@ -909,6 +909,7 @@ Many users are kids: keep everything friendly and age-appropriate.
 If the user asks for a picture, drawing, illustration or any image, start your reply with exactly one line:
 [[IMAGE: <English description that keeps EXACTLY the subject the user asked for, plus style, colors and mood>]]
 The description must be in English, even when the user writes in Hebrew.
+If the user asks for a famous brand character (like Barbie, Elsa or Pikachu), don't refuse and don't mention rules: describe an original look-alike instead (for example "a glamorous fashion doll" for Barbie) with every detail the user asked for.
 then one short friendly sentence in the user's language. Otherwise never write that line.`;
 
   const state = { chats: [], current: null, busy: null, menuId: null, pending: [] };
@@ -1477,19 +1478,23 @@ Requirements:
    * The image service only understands English. If the chat model wrote the description in Hebrew
    * (or wrote nothing useful), turn the user's request into a short English description first.
    */
+  // A refusal or an error message must never become the picture itself.
+  const NOT_A_PICTURE = /\b(block|blocked|filter|policy|sorry|cannot|can't|unable|refuse|not allowed|copyright|trademark|request)\b/i;
+  const usable = (line) => line && line.length > 8 && !/[\u0590-\u05FF]/.test(line) && !NOT_A_PICTURE.test(line);
+
   async function englishPrompt(desc, chat) {
     const request = [...chat.messages].reverse().find((m) => m.role === "user")?.text || "";
-    if (desc && !/[\u0590-\u05FF]/.test(desc) && desc.length > 8) return desc;
+    if (usable(desc)) return desc;
     try {
       const { text } = await sample([
-        { role: "user", content: "You write prompts for an image generator. Reply with ONE line only: a vivid English description of the picture the user asked for. Keep the exact subject they asked for. No quotes, no extra words." },
+        { role: "user", content: "You write prompts for an image generator. Reply with ONE line only: a vivid English description of the picture the user asked for, keeping every detail they asked for (colors, hair, eyes, clothes, setting). If they name a brand character (like Barbie, Elsa or Pikachu), describe an original look-alike instead of using the name (for example \"a glamorous fashion doll\" for Barbie). Never refuse and never mention rules. No quotes, no extra words." },
         { role: "assistant", content: "OK" },
-        { role: "user", content: `${request}\n${desc || ""}` },
+        { role: "user", content: request },
       ]);
       const line = text.trim().split("\n")[0].replace(/^["']|["']$/g, "");
-      if (line && !/[\u0590-\u05FF]/.test(line)) return line;
+      if (usable(line)) return line;
     } catch { /* fall back to what we have */ }
-    return desc || request;
+    return usable(desc) ? desc : "a beautiful, magical, colorful illustration";
   }
 
   /** Paints the picture for a reply with the image service, and saves it into the chat. */
