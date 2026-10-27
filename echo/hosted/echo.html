@@ -680,7 +680,8 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .stars, .sun, .bubbles i { animation: none; }
 }
 
-pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;background:#282c34}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}
+pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;background:#282c34}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}.failed-box { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 20px; text-align: center; }
+
 </style>
 <div dir="rtl" lang="he" style="height:100%">
 
@@ -873,6 +874,7 @@ Subject: ${desc}
 Requirements:
 - Output ONLY the SVG code, starting with <svg and ending with </svg>. No markdown fences, no explanation.
 - viewBox="0 0 1024 1024", width="1024" height="1024", xmlns="http://www.w3.org/2000/svg".
+- Keep it compact: at most about 9000 characters. Use a moderate number of well-chosen shapes with gradients, not hundreds of tiny paths, and short ids. Always finish with </svg>.
 - Fill the whole canvas with a full scene or rich gradient background; no empty white areas.
 - Make it polished and magical: many linearGradient/radialGradient fills, soft glows (feGaussianBlur filters), highlights, shadows, depth and sparkles, with the subject large and centered.
 - Draw the subject carefully so it is instantly recognizable, with cute expressive details.
@@ -1146,11 +1148,17 @@ Requirements:
     c.querySelector("small").textContent = desc;
     return c;
   }
-  function failedCard(text) {
+  function failedCard(text, retry) {
     const c = document.createElement("div");
     c.className = "gen-image failed";
-    c.innerHTML = "<div></div>";
-    c.firstChild.textContent = text || "😕 לא הצלחתי ליצור את התמונה";
+    c.innerHTML = '<div class="failed-box"><div></div></div>';
+    c.querySelector(".failed-box div").textContent = text || "😕 לא הצלחתי ליצור את התמונה";
+    if (retry) {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "btn"; b.textContent = "🎨 לנסות שוב";
+      b.addEventListener("click", retry);
+      c.querySelector(".failed-box").append(b);
+    }
     return c;
   }
 
@@ -1186,7 +1194,9 @@ Requirements:
       const holder = document.createElement("div");
       v.content.after(holder);
       store.get(msg.imageId).then((d) => holder.replaceWith(d?.svg ? imageCard(d.svg, msg.imageDesc) : failedCard("😕 התמונה לא נמצאה"))).catch(() => holder.replaceWith(failedCard()));
-    } else if (msg.imageFailed) v.content.after(failedCard());
+    } else if (msg.imageFailed) {
+      v.content.after(failedCard(undefined, () => { v.node.querySelector(".gen-image.failed")?.remove(); draw(state.current, msg, v); }));
+    }
     setActions(v, msg.text, isLast);
     return v.node;
   }
@@ -1262,8 +1272,15 @@ Requirements:
         : `[The user attached ${n} image(s) earlier; they are no longer visible to you.]\n${content}`;
       return { role: m.role, content: content.trim() || "(empty)" };
     });
-    while (turns.length && turns[0].role !== "user") turns.shift();
-    const input = [{ role: "user", content: RULES }, { role: "assistant", content: "בסדר!" }, ...turns];
+    // Claude needs turns that alternate user/assistant: merge any two in a row from the same side
+    // (for example after a reply that failed or was stopped).
+    const merged = [];
+    for (const t of turns) {
+      if (merged.length && merged.at(-1).role === t.role) merged.at(-1).content += "\n\n" + t.content;
+      else merged.push({ ...t });
+    }
+    while (merged.length && merged[0].role !== "user") merged.shift();
+    const input = [{ role: "user", content: RULES }, { role: "assistant", content: "בסדר!" }, ...merged];
 
     let raw = "", frame = 0;
     const msg = { role: "assistant", text: "" };
@@ -1286,7 +1303,7 @@ Requirements:
       raw = e.text || raw;
       if (e.code !== "cancelled") {
         const note = document.createElement("div");
-        note.className = "error-note"; note.textContent = "⚠️ " + errorText(e.code);
+        note.className = "error-note"; note.textContent = `⚠️ ${errorText(e.code)}${e.code ? ` (${e.code})` : ""}`;
         v.flow.append(note);
       }
     }
@@ -1296,35 +1313,59 @@ Requirements:
     renderMarkdown(v.content, msg.text);
     v.node.classList.remove("streaming");
 
-    if (match && state.busy === ctl) {
-      const desc = match[1].trim();
-      msg.imageDesc = desc;
-      const card = pendingCard(desc);
-      v.content.after(card);
-      scrollToBottom();
-      try {
-        const { text } = await sample(IMAGE_PROMPT(desc), { signal: ctl.signal, modelTier: "complex", cache: false });
-        const svg = (text.match(/<svg[\s\S]*<\/svg>/i) || [])[0];
-        if (!svg) throw new Error("no svg");
-        const imageId = "img_" + uid();
-        await store.put(imageId, { kind: "image", svg });
-        msg.imageId = imageId;
-        card.replaceWith(imageCard(svg, desc));
-      } catch (e) {
-        msg.imageFailed = true;
-        card.replaceWith(failedCard(e.code === "cancelled" ? "התמונה בוטלה" : undefined));
-      }
-      scrollToBottom();
-    }
+    const drawing = match && state.busy === ctl;
+    if (drawing) msg.imageDesc = match[1].trim();
+    // The reply is done: free the chat right away, even while a drawing is still being painted.
     if (state.busy === ctl) { state.busy = null; setBusy(false); }
-    if (msg.text || msg.imageId) { chat.messages.push(msg); await saveChat(chat); }
+    if (msg.text || drawing) { chat.messages.push(msg); await saveChat(chat); }
     if (state.current === chat) setActions(v, msg.text, true);
+    if (drawing) await draw(chat, msg, v);
+  }
+
+  /** Paints the picture for a reply, in the background, and saves it into the chat. */
+  async function draw(chat, msg, v) {
+    const card = pendingCard(msg.imageDesc);
+    v.content.after(card);
+    scrollToBottom();
+    let svg = null, why = "";
+    // Two tries: if the first drawing comes back cut off or broken, ask again for a simpler one.
+    for (let attempt = 0; attempt < 2 && !svg; attempt++) {
+      try {
+        const prompt = IMAGE_PROMPT(msg.imageDesc) + (attempt ? "\nThe previous attempt was too long and got cut off. Make this one simpler and shorter (under 6000 characters)." : "");
+        const { text } = await sample(prompt, { cache: false });
+        const found = (text.match(/<svg[\s\S]*<\/svg>/i) || [])[0];
+        if (found && isDrawable(found)) svg = found; else why = "cut";
+      } catch (e) {
+        why = e?.code || "error";
+        if (["not_granted", "rate_limited", "usage_limit"].includes(why)) break;
+      }
+    }
+    if (svg) {
+      card.replaceWith(imageCard(svg, msg.imageDesc));
+      msg.imageFailed = false;
+      const imageId = "img_" + uid();
+      try { await store.put(imageId, { kind: "image", svg }); msg.imageId = imageId; }
+      catch { toast("הציור מוצג, אבל לא הצלחתי לשמור אותו"); }
+    } else {
+      msg.imageFailed = true;
+      const retry = () => { fail.remove(); draw(chat, msg, v); };
+      const fail = failedCard(why === "rate_limited" ? "😕 יותר מדי בקשות כרגע, נסו שוב בעוד רגע" : undefined, retry);
+      card.replaceWith(fail);
+    }
+    await saveChat(chat);
+    scrollToBottom();
+  }
+  /** True when the browser can actually parse the drawing. */
+  function isDrawable(svg) {
+    const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+    return !doc.querySelector("parsererror") && doc.documentElement.nodeName.toLowerCase() === "svg";
   }
 
   async function sendMessage(text) {
     text = text.trim();
     const photos = state.pending;
-    if ((!text && !photos.length) || state.busy) return;
+    if (!text && !photos.length) return;
+    if (state.busy) { toast("רגע, אני עוד עונה… אפשר לעצור עם הכפתור ■"); return; }
     if (!sample) { toast("החיבור ל-Claude לא זמין כאן"); return; }
     els.input.value = ""; autosize();
     state.pending = []; renderPending();
