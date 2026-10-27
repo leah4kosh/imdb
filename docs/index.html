@@ -689,6 +689,12 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 }
 
 pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;background:#282c34}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}.failed-box { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 20px; text-align: center; }
+.key-btn { margin: 8px 6px 0; padding: 8px 12px; border-radius: 12px; border: 1px dashed var(--accent-2); background: var(--accent-soft); color: var(--text); font-size: 13px; text-align: center; }
+.key-btn:hover { border-style: solid; }
+.key-steps { margin: 0 0 14px; padding-inline-start: 20px; line-height: 1.8; color: var(--text); }
+.key-steps a { color: var(--accent); }
+.key-input { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font: inherit; }
+.key-note { font-size: 12.5px; margin: 8px 0 16px !important; }
 
 </style>
 </head>
@@ -750,6 +756,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         </div>
         <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
       </div>
+      <button type="button" class="key-btn" id="keyBtn">🎨 ציורים מציאותיים</button>
     </aside>
     <div class="scrim" id="scrim"></div>
 
@@ -831,6 +838,25 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
     </form>
   </dialog>
 
+  <!-- Realistic pictures key -->
+  <dialog class="dialog" id="keyDialog">
+    <form method="dialog">
+      <h3>🎨 ציורים מציאותיים</h3>
+      <p>בלי מפתח, Echo מצייר בעצמו איורים. כדי לקבל תמונות מציאותיות:</p>
+      <ol class="key-steps">
+        <li>נכנסים ל-<a href="https://enter.pollinations.ai" target="_blank" rel="noopener">enter.pollinations.ai</a> ומתחברים עם GitHub</li>
+        <li>יוצרים מפתח (Create key) ומעתיקים אותו</li>
+        <li>מדביקים אותו כאן 👇</li>
+      </ol>
+      <input id="keyInput" class="key-input" type="password" placeholder="sk_..." autocomplete="off" dir="ltr">
+      <p class="key-note">המפתח נשמר רק בדפדפן שלך.</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">ביטול</button>
+        <button value="save" class="btn">שמירה</button>
+      </div>
+    </form>
+  </dialog>
+
   <!-- Image lightbox -->
   <div class="lightbox" id="lightbox" hidden>
     <img alt="">
@@ -886,7 +912,20 @@ then one short friendly sentence in the user's language. Otherwise never write t
   const col = null, downloads = true;
   const imageLimits = { maxCount: 4, maxInputBytes: 20 * 1024 * 1024, mediaTypes: ["image/png", "image/jpeg", "image/webp", "image/gif"] };
   const TEXT_API = "https://text.pollinations.ai/openai";
-  const IMAGE_API = "https://image.pollinations.ai/prompt/";
+  // Real photos-like pictures need a free Pollinations key; without one, the chat model paints an SVG.
+  const IMAGE_API = "https://gen.pollinations.ai/image/";
+  const KEY_NAME = "echo-pollen-key";
+  const IMAGE_PROMPT = (desc) => `You are a master illustrator who paints with SVG.
+Create one gorgeous, detailed illustration as a single SVG image.
+Subject: ${desc}
+Requirements:
+- Output ONLY the SVG code, starting with <svg and ending with </svg>. No markdown fences, no explanation.
+- viewBox="0 0 1024 1024", width="1024" height="1024", xmlns="http://www.w3.org/2000/svg".
+- Keep it compact: at most about 9000 characters, and always finish with </svg>.
+- Fill the whole canvas with a scene or rich gradient background; no empty white areas.
+- Make it polished and magical: linearGradient/radialGradient fills, soft glows, highlights, shadows and sparkles, with the subject large and centered.
+- Draw the subject carefully so it is instantly recognizable.
+- No <script>, no external links, no <image>, no <foreignObject>, no <title>, no text unless asked.`;
 
   const readAsDataUrl = (blob) => new Promise((resolve, reject) => {
     const r = new FileReader();
@@ -1409,10 +1448,11 @@ then one short friendly sentence in the user's language. Otherwise never write t
     scrollToBottom();
     let url = null;
     const subject = await englishPrompt(msg.imageDesc, chat);
-    for (let attempt = 0; attempt < 2 && !url; attempt++) {
+    const key = storage.get(KEY_NAME);
+    if (key) {
       const seed = Math.floor(Math.random() * 1e9);
       const prompt = `${subject}. Beautiful, highly detailed, vibrant colors, soft magical lighting.`;
-      const candidate = `${IMAGE_API}${encodeURIComponent(prompt)}?model=flux&width=1024&height=1024&nologo=true&safe=true&seed=${seed}`;
+      const candidate = `${IMAGE_API}${encodeURIComponent(prompt)}?width=1024&height=1024&safe=true&seed=${seed}&key=${encodeURIComponent(key)}`;
       url = await new Promise((resolve) => {
         const img = new Image();
         const timer = setTimeout(() => resolve(null), 120000);
@@ -1420,6 +1460,16 @@ then one short friendly sentence in the user's language. Otherwise never write t
         img.onerror = () => { clearTimeout(timer); resolve(null); };
         img.src = candidate;
       });
+      if (!url) toast("הציור עם המפתח לא הצליח, מצייר בדרך הרגילה 🎨");
+    }
+    // No key (or it failed): the chat model paints the picture itself, so the subject is always right.
+    for (let attempt = 0; attempt < 2 && !url; attempt++) {
+      try {
+        const extra = attempt ? "\nThe previous attempt got cut off. Make this one simpler and shorter (under 6000 characters)." : "";
+        const { text } = await sample([{ role: "user", content: IMAGE_PROMPT(subject) + extra }, { role: "assistant", content: "OK" }, { role: "user", content: "Draw it now." }]);
+        const svg = (text.match(/<svg[\s\S]*<\/svg>/i) || [])[0];
+        if (svg && isDrawable(svg)) url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+      } catch { /* try again */ }
     }
     if (url) {
       card.replaceWith(imageCard(url, msg.imageDesc));
@@ -1433,6 +1483,12 @@ then one short friendly sentence in the user's language. Otherwise never write t
     }
     await saveChat(chat);
     scrollToBottom();
+  }
+
+  /** True when the browser can actually parse the drawing. */
+  function isDrawable(svg) {
+    const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+    return !doc.querySelector("parsererror") && doc.documentElement.nodeName.toLowerCase() === "svg";
   }
 
   async function sendMessage(text) {
@@ -1559,6 +1615,20 @@ then one short friendly sentence in the user's language. Otherwise never write t
   els.hello.textContent = `${greeting()} ✨`;
   autosize();
   renderChatList();
+  const keyDialog = document.querySelector("#keyDialog");
+  const keyInput = document.querySelector("#keyInput");
+  const keyBtn = document.querySelector("#keyBtn");
+  const showKeyState = () => { keyBtn.textContent = storage.get(KEY_NAME) ? "🎨 ציורים מציאותיים: מחובר" : "🎨 ציורים מציאותיים"; };
+  keyBtn.addEventListener("click", () => { keyInput.value = storage.get(KEY_NAME) || ""; keyDialog.showModal(); });
+  keyDialog.addEventListener("close", () => {
+    if (keyDialog.returnValue === "save") {
+      const v = keyInput.value.trim();
+      if (v) { storage.set(KEY_NAME, v); toast("מעולה! מעכשיו הציורים יהיו מציאותיים ✨"); }
+      else { try { localStorage.removeItem(KEY_NAME); } catch { /* blocked */ } toast("המפתח הוסר"); }
+    }
+    showKeyState();
+  });
+  showKeyState();
   els.attachBtn.hidden = false;
   els.fileInput.accept = imageLimits.mediaTypes.join(",");
   els.status.classList.add("live");
