@@ -876,7 +876,8 @@ Reply in the user's language (usually Hebrew). Use Markdown when it helps.
 Never introduce yourself by name and never call yourself "Echo".
 Many users are kids: keep everything friendly and age-appropriate.
 If the user asks for a picture, drawing, illustration or any image, start your reply with exactly one line:
-[[IMAGE: <rich English description of the image: subject, style, colors, mood>]]
+[[IMAGE: <English description that keeps EXACTLY the subject the user asked for, plus style, colors and mood>]]
+The description must be in English, even when the user writes in Hebrew.
 then one short friendly sentence in the user's language. Otherwise never write that line.`;
 
   const state = { chats: [], current: null, busy: null, menuId: null, pending: [] };
@@ -1382,16 +1383,36 @@ then one short friendly sentence in the user's language. Otherwise never write t
     if (drawing) await draw(chat, msg, v);
   }
 
+  /**
+   * The image service only understands English. If the chat model wrote the description in Hebrew
+   * (or wrote nothing useful), turn the user's request into a short English description first.
+   */
+  async function englishPrompt(desc, chat) {
+    const request = [...chat.messages].reverse().find((m) => m.role === "user")?.text || "";
+    if (desc && !/[\u0590-\u05FF]/.test(desc) && desc.length > 8) return desc;
+    try {
+      const { text } = await sample([
+        { role: "user", content: "You write prompts for an image generator. Reply with ONE line only: a vivid English description of the picture the user asked for. Keep the exact subject they asked for. No quotes, no extra words." },
+        { role: "assistant", content: "OK" },
+        { role: "user", content: `${request}\n${desc || ""}` },
+      ]);
+      const line = text.trim().split("\n")[0].replace(/^["']|["']$/g, "");
+      if (line && !/[\u0590-\u05FF]/.test(line)) return line;
+    } catch { /* fall back to what we have */ }
+    return desc || request;
+  }
+
   /** Paints the picture for a reply with the image service, and saves it into the chat. */
   async function draw(chat, msg, v) {
     const card = pendingCard(msg.imageDesc);
     v.content.after(card);
     scrollToBottom();
     let url = null;
+    const subject = await englishPrompt(msg.imageDesc, chat);
     for (let attempt = 0; attempt < 2 && !url; attempt++) {
       const seed = Math.floor(Math.random() * 1e9);
-      const prompt = `${msg.imageDesc}, beautiful, highly detailed, vibrant colors, soft magical lighting`;
-      const candidate = `${IMAGE_API}${encodeURIComponent(prompt)}?width=1024&height=1024&nologo=true&safe=true&enhance=true&seed=${seed}`;
+      const prompt = `${subject}. Beautiful, highly detailed, vibrant colors, soft magical lighting.`;
+      const candidate = `${IMAGE_API}${encodeURIComponent(prompt)}?model=flux&width=1024&height=1024&nologo=true&safe=true&seed=${seed}`;
       url = await new Promise((resolve) => {
         const img = new Image();
         const timer = setTimeout(() => resolve(null), 120000);
