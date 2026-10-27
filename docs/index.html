@@ -761,7 +761,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         </div>
         <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
       </div>
-      <button type="button" class="key-btn" id="keyBtn">🎨 ציורים יפים + Claude</button>
+      <button type="button" class="key-btn" id="keyBtn">🎨 ציורים יפים</button>
     </aside>
     <div class="scrim" id="scrim"></div>
 
@@ -846,8 +846,8 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   <!-- Realistic pictures key -->
   <dialog class="dialog" id="keyDialog">
     <form method="dialog">
-      <h3>🎨 ציורים יפים + Claude</h3>
-      <p>עם מפתח, Echo מצייר תמונות יפות באמת ועונה עם Claude החכם. כדי לחבר:</p>
+      <h3>🎨 ציורים יפים</h3>
+      <p>עם מפתח, Echo מצייר תמונות יפות באמת ועונה עם מודל חכם יותר. כדי לחבר:</p>
       <ol class="key-steps">
         <li>נכנסים ל-<a href="https://enter.pollinations.ai" target="_blank" rel="noopener">enter.pollinations.ai</a> ומתחברים עם GitHub</li>
         <li>ב-Keys יוצרים מפתח Secret, מסמנים <b>Quest pollen only</b>, ומעתיקים אותו</li>
@@ -920,7 +920,29 @@ then one short friendly sentence in the user's language. Otherwise never write t
   // Real photos-like pictures need a free Pollinations key; without one, the chat model paints an SVG.
   const IMAGE_API = "https://gen.pollinations.ai/image/";
   const CHAT_API = "https://gen.pollinations.ai/v1/chat/completions";
-  const CHAT_MODEL = "anthropic/claude-sonnet-4.6";
+  // Free (Quest) pollen can't pay for every model, so Echo asks which ones this key may use and
+  // picks the smartest chat model and the best image model from that list.
+  const CHAT_PREFERENCE = [/claude.*sonnet/i, /claude/i, /gpt-5(?!.*nano)/i, /gemini.*pro/i, /gpt-5/i, /gemini/i, /deepseek/i, /mistral/i];
+  const IMAGE_PREFERENCE = [/flux\.1\.1-pro/i, /qwen-image-3/i, /z-image-turbo/i, /flux\.1-schnell/i, /qwen-image/i, /flux/i];
+  const models = { chat: null, image: null, key: null, bad: new Set() };
+  async function pickModels(key) {
+    if (models.key === key) return models;
+    const list = async (path) => {
+      try {
+        const res = await fetch(`https://gen.pollinations.ai${path}`, { headers: { Authorization: `Bearer ${key}` } });
+        const body = await res.json();
+        const items = Array.isArray(body) ? body : body.data || [];
+        return items.filter((m) => !m.paid_only).map((m) => m.id || m.name).filter(Boolean);
+      } catch { return []; }
+    };
+    const [text, image] = await Promise.all([list("/text/models"), list("/image/models")]);
+    text.splice(0, text.length, ...text.filter((id) => !models.bad.has(id)));
+    const best = (ids, prefs) => { for (const re of prefs) { const hit = ids.find((id) => re.test(id)); if (hit) return hit; } return ids[0] || null; };
+    models.chat = best(text.filter((id) => !/audio|embed|realtime|tts/i.test(id)), CHAT_PREFERENCE);
+    models.image = best(image.filter((id) => !/video|edit|kontext|vector/i.test(id)), IMAGE_PREFERENCE);
+    models.key = key;
+    return models;
+  }
   const KEY_NAME = "echo-pollen-key";
   const IMAGE_PROMPT = (desc) => `You are a master illustrator who paints with SVG.
 Create one gorgeous, detailed illustration as a single SVG image.
@@ -943,6 +965,17 @@ Requirements:
 
   /** Asks the chat model. Same shape as before: resolves {text}, rejects {code, text}. */
   async function sample(input, opts = {}) {
+    try {
+      return await ask(input, opts);
+    } catch (e) {
+      // A model this key can't pay for: skip it and ask once more with the next best one.
+      if (e?.code !== "paid_model" || !models.chat) throw e;
+      models.bad.add(models.chat);
+      models.key = null;
+      return ask(input, opts);
+    }
+  }
+  async function ask(input, opts = {}) {
     const [rules, , ...turns] = input;
     const messages = [{ role: "system", content: rules.content }, ...turns.map((t) => ({ role: t.role, content: t.content }))];
     if (opts.images?.length) {
@@ -959,7 +992,7 @@ Requirements:
         method: "POST",
         headers: key ? { "Content-Type": "application/json", Authorization: `Bearer ${key}` } : { "Content-Type": "application/json" },
         body: JSON.stringify(key
-          ? { model: CHAT_MODEL, messages, stream: true }
+          ? { ...((await pickModels(key)).chat ? { model: models.chat } : {}), messages, stream: true }
           : { model: "openai", messages, stream: true, private: true }),
         signal: opts.signal,
       });
@@ -971,6 +1004,7 @@ Requirements:
       if (!type.includes("event-stream")) {
         const body = await res.text();
         try { text = JSON.parse(body).choices[0].message.content || ""; } catch { text = body; }
+        if (/needs paid Pollen|only spends Quest Pollen/i.test(text)) throw { code: "paid_model" };
         opts.onText?.({ text, delta: text });
         return { text };
       }
@@ -993,6 +1027,7 @@ Requirements:
           } catch { /* keep-alive or partial line */ }
         }
       }
+      if (/needs paid Pollen|only spends Quest Pollen/i.test(text)) throw { code: "paid_model" };
       return { text };
     } catch (e) {
       if (e?.name === "AbortError") throw { code: "cancelled", text };
@@ -1363,6 +1398,7 @@ Requirements:
       rate_limited: "יותר מדי בקשות כרגע. נסו שוב בעוד רגע ⏳",
       offline: "אין חיבור לאינטרנט, או ששירות הצ'אט לא זמין כרגע. נסו שוב.",
       bad_key: "המפתח לא עובד. בדקו אותו בכפתור 🎨 בסרגל הצד.",
+      paid_model: "המודל הזה דורש pollen בתשלום. נסו שוב, Echo יבחר מודל חינמי.",
       no_pollen: "נגמר ה-pollen החינמי במפתח. אפשר להרוויח עוד במשימות (Quests) באתר של Pollinations.",
     }[code] || "משהו השתבש. נסו שוב.";
   }
@@ -1467,7 +1503,8 @@ Requirements:
     if (key) {
       const seed = Math.floor(Math.random() * 1e9);
       const prompt = `${subject}. Beautiful, highly detailed, vibrant colors, soft magical lighting.`;
-      const candidate = `${IMAGE_API}${encodeURIComponent(prompt)}?width=1024&height=1024&safe=true&seed=${seed}&key=${encodeURIComponent(key)}`;
+      const model = (await pickModels(key)).image;
+      const candidate = `${IMAGE_API}${encodeURIComponent(prompt)}?width=1024&height=1024&safe=true&seed=${seed}${model ? `&model=${encodeURIComponent(model)}` : ""}&key=${encodeURIComponent(key)}`;
       url = await new Promise((resolve) => {
         const img = new Image();
         const timer = setTimeout(() => resolve(null), 120000);
@@ -1633,12 +1670,13 @@ Requirements:
   const keyDialog = document.querySelector("#keyDialog");
   const keyInput = document.querySelector("#keyInput");
   const keyBtn = document.querySelector("#keyBtn");
-  const showKeyState = () => { keyBtn.textContent = storage.get(KEY_NAME) ? "🎨 ציורים יפים + Claude: מחובר ✓" : "🎨 ציורים יפים + Claude"; };
+  const showKeyState = () => { keyBtn.textContent = storage.get(KEY_NAME) ? "🎨 ציורים יפים: מחובר ✓" : "🎨 ציורים יפים"; };
   keyBtn.addEventListener("click", () => { keyInput.value = storage.get(KEY_NAME) || ""; keyDialog.showModal(); });
   keyDialog.addEventListener("close", () => {
     if (keyDialog.returnValue === "save") {
       const v = keyInput.value.trim();
-      if (v) { storage.set(KEY_NAME, v); toast("מעולה! מעכשיו הציורים יפים ו-Claude עונה ✨"); }
+      models.key = null;
+      if (v) { storage.set(KEY_NAME, v); toast("מעולה! מעכשיו הציורים יפים ✨"); }
       else { try { localStorage.removeItem(KEY_NAME); } catch { /* blocked */ } toast("המפתח הוסר"); }
     }
     showKeyState();
