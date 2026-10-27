@@ -695,6 +695,11 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 .key-steps a { color: var(--accent); }
 .key-input { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font: inherit; }
 .key-note { font-size: 12.5px; margin: 8px 0 16px !important; }
+.gen-image.refining::after {
+  content: "✨ משפר את הציור…"; position: absolute; top: 12px; inset-inline-end: 12px;
+  padding: 6px 12px; border-radius: 999px; font-size: 13px; color: var(--text);
+  background: var(--surface-solid); box-shadow: var(--shadow); animation: blink 1.6s ease-in-out infinite;
+}
 
 </style>
 </head>
@@ -756,7 +761,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         </div>
         <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
       </div>
-      <button type="button" class="key-btn" id="keyBtn">🎨 ציורים מציאותיים</button>
+      <button type="button" class="key-btn" id="keyBtn">🎨 ציורים יפים + Claude</button>
     </aside>
     <div class="scrim" id="scrim"></div>
 
@@ -841,11 +846,11 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   <!-- Realistic pictures key -->
   <dialog class="dialog" id="keyDialog">
     <form method="dialog">
-      <h3>🎨 ציורים מציאותיים</h3>
-      <p>בלי מפתח, Echo מצייר בעצמו איורים. כדי לקבל תמונות מציאותיות:</p>
+      <h3>🎨 ציורים יפים + Claude</h3>
+      <p>עם מפתח, Echo מצייר תמונות יפות באמת ועונה עם Claude החכם. כדי לחבר:</p>
       <ol class="key-steps">
         <li>נכנסים ל-<a href="https://enter.pollinations.ai" target="_blank" rel="noopener">enter.pollinations.ai</a> ומתחברים עם GitHub</li>
-        <li>יוצרים מפתח (Create key) ומעתיקים אותו</li>
+        <li>ב-Keys יוצרים מפתח Secret, מסמנים <b>Quest pollen only</b>, ומעתיקים אותו</li>
         <li>מדביקים אותו כאן 👇</li>
       </ol>
       <input id="keyInput" class="key-input" type="password" placeholder="sk_..." autocomplete="off" dir="ltr">
@@ -914,6 +919,8 @@ then one short friendly sentence in the user's language. Otherwise never write t
   const TEXT_API = "https://text.pollinations.ai/openai";
   // Real photos-like pictures need a free Pollinations key; without one, the chat model paints an SVG.
   const IMAGE_API = "https://gen.pollinations.ai/image/";
+  const CHAT_API = "https://gen.pollinations.ai/v1/chat/completions";
+  const CHAT_MODEL = "anthropic/claude-sonnet-4.6";
   const KEY_NAME = "echo-pollen-key";
   const IMAGE_PROMPT = (desc) => `You are a master illustrator who paints with SVG.
 Create one gorgeous, detailed illustration as a single SVG image.
@@ -945,13 +952,19 @@ Requirements:
       last.content = parts;
     }
     let text = "";
+    // With the viewer's Pollinations key, answers come from Claude; without it, from the free model.
+    const key = storage.get(KEY_NAME);
     try {
-      const res = await fetch(TEXT_API, {
+      const res = await fetch(key ? CHAT_API : TEXT_API, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ model: "openai", messages, stream: true, private: true }),
+        headers: key ? { "Content-Type": "application/json", Authorization: `Bearer ${key}` } : { "Content-Type": "application/json" },
+        body: JSON.stringify(key
+          ? { model: CHAT_MODEL, messages, stream: true }
+          : { model: "openai", messages, stream: true, private: true }),
         signal: opts.signal,
       });
+      if (key && (res.status === 401 || res.status === 403)) throw { code: "bad_key" };
+      if (key && res.status === 402) throw { code: "no_pollen" };
       if (res.status === 429) throw { code: "rate_limited" };
       if (!res.ok) throw { code: "server_" + res.status };
       const type = res.headers.get("content-type") || "";
@@ -1349,6 +1362,8 @@ Requirements:
     return {
       rate_limited: "יותר מדי בקשות כרגע. נסו שוב בעוד רגע ⏳",
       offline: "אין חיבור לאינטרנט, או ששירות הצ'אט לא זמין כרגע. נסו שוב.",
+      bad_key: "המפתח לא עובד. בדקו אותו בכפתור 🎨 בסרגל הצד.",
+      no_pollen: "נגמר ה-pollen החינמי במפתח. אפשר להרוויח עוד במשימות (Quests) באתר של Pollinations.",
     }[code] || "משהו השתבש. נסו שוב.";
   }
 
@@ -1618,12 +1633,12 @@ Requirements:
   const keyDialog = document.querySelector("#keyDialog");
   const keyInput = document.querySelector("#keyInput");
   const keyBtn = document.querySelector("#keyBtn");
-  const showKeyState = () => { keyBtn.textContent = storage.get(KEY_NAME) ? "🎨 ציורים מציאותיים: מחובר" : "🎨 ציורים מציאותיים"; };
+  const showKeyState = () => { keyBtn.textContent = storage.get(KEY_NAME) ? "🎨 ציורים יפים + Claude: מחובר ✓" : "🎨 ציורים יפים + Claude"; };
   keyBtn.addEventListener("click", () => { keyInput.value = storage.get(KEY_NAME) || ""; keyDialog.showModal(); });
   keyDialog.addEventListener("close", () => {
     if (keyDialog.returnValue === "save") {
       const v = keyInput.value.trim();
-      if (v) { storage.set(KEY_NAME, v); toast("מעולה! מעכשיו הציורים יהיו מציאותיים ✨"); }
+      if (v) { storage.set(KEY_NAME, v); toast("מעולה! מעכשיו הציורים יפים ו-Claude עונה ✨"); }
       else { try { localStorage.removeItem(KEY_NAME); } catch { /* blocked */ } toast("המפתח הוסר"); }
     }
     showKeyState();
