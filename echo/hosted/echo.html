@@ -681,6 +681,17 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 }
 
 pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;background:#282c34}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}.failed-box { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 20px; text-align: center; }
+.key-btn { margin: 8px 6px 0; padding: 8px 12px; border-radius: 12px; border: 1px dashed var(--accent-2); background: var(--accent-soft); color: var(--text); font-size: 13px; text-align: center; }
+.key-btn:hover { border-style: solid; }
+.key-steps { margin: 0 0 14px; padding-inline-start: 20px; line-height: 1.8; color: var(--text); }
+.key-steps a { color: var(--accent); }
+.key-input { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg); color: var(--text); font: inherit; }
+.key-note { font-size: 12.5px; margin: 8px 0 16px !important; }
+.gen-image.refining::after {
+  content: "✨ משפר את הציור…"; position: absolute; top: 12px; inset-inline-end: 12px;
+  padding: 6px 12px; border-radius: 999px; font-size: 13px; color: var(--text);
+  background: var(--surface-solid); box-shadow: var(--shadow); animation: blink 1.6s ease-in-out infinite;
+}
 
 </style>
 <div dir="rtl" lang="he" style="height:100%">
@@ -868,17 +879,42 @@ If the user asks for a picture, drawing, illustration or any image, start your r
 [[IMAGE: <rich English description of the image: subject, style, colors, mood>]]
 then one short friendly sentence in the user's language. Otherwise never write that line.`;
 
-  const IMAGE_PROMPT = (desc) => `You are a master illustrator who paints with SVG.
-Create one gorgeous, detailed illustration as a single SVG image.
-Subject: ${desc}
-Requirements:
+  const ART_DIRECTION = `ART DIRECTION (follow closely):
+- Look: a premium, luminous illustration, like a high-end sticker or a Pixar/Disney-style poster rendered in vector. Soft, glossy, dreamy.
+- Light: one clear light source. Every shape gets a gradient (light side to shadow side), a soft rim light on its edge, and a small white specular highlight.
+- Depth: three layers. A soft atmospheric background (big gradients, distant blurred shapes, bokeh circles), a middle ground, and the subject in front with a soft drop shadow under it.
+- Glow and magic: use <filter> with feGaussianBlur for glows and blurred background shapes, and add 8-20 small sparkles (four-point stars) and light particles.
+- Characters: build them from smooth, overlapping curved paths (no stiff polygons), with correct anatomy and proportions, big expressive eyes with two white highlights, gentle blush, and a clear pose. Make sure every body part connects naturally.
+- Color: a harmonious palette of 4-6 hues with soft pastel tints and one rich accent; no flat black outlines, use darker shades of the fill color instead.
+- Composition: the subject fills about 60% of the canvas, centered, fully visible, nothing cut off.`;
+
+  const IMAGE_PROMPT = (desc) => `You are a world-class illustrator who paints with SVG code.
+Paint ONE breathtaking illustration as a single SVG.
+Subject (draw exactly this): ${desc}
+
+${ART_DIRECTION}
+
+FORMAT:
 - Output ONLY the SVG code, starting with <svg and ending with </svg>. No markdown fences, no explanation.
-- viewBox="0 0 1024 1024", width="1024" height="1024", xmlns="http://www.w3.org/2000/svg".
-- Keep it compact: at most about 9000 characters. Use a moderate number of well-chosen shapes with gradients, not hundreds of tiny paths, and short ids. Always finish with </svg>.
-- Fill the whole canvas with a full scene or rich gradient background; no empty white areas.
-- Make it polished and magical: many linearGradient/radialGradient fills, soft glows (feGaussianBlur filters), highlights, shadows, depth and sparkles, with the subject large and centered.
-- Draw the subject carefully so it is instantly recognizable, with cute expressive details.
-- No <script>, no external links, no <image>, no <foreignObject>, no text unless the description asks for text.`;
+- viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg".
+- At most about 16000 characters; short ids; always finish with </svg>.
+- No <script>, <image>, <foreignObject>, <title>, external links, or text unless the subject asks for text.`;
+
+  const REFINE_PROMPT = (desc, svg) => `You are a world-class illustrator who paints with SVG code.
+The attached picture is a rendering of the SVG below, which should show: ${desc}
+
+Look at the picture critically, like an art director: anything that looks wrong, stiff, unrecognizable, disconnected, flat or ugly? Then paint an improved version that fixes every problem and is clearly more beautiful, detailed and polished.
+
+${ART_DIRECTION}
+
+FORMAT:
+- Output ONLY the improved SVG code, starting with <svg and ending with </svg>. No explanation.
+- viewBox="0 0 1024 1024" width="1024" height="1024" xmlns="http://www.w3.org/2000/svg".
+- At most about 16000 characters; always finish with </svg>.
+- No <script>, <image>, <foreignObject>, <title>, external links, or text unless asked.
+
+CURRENT SVG:
+${svg}`;
 
   const state = { chats: [], current: null, busy: null, menuId: null, pending: [] };
   let sample = null, col = null, downloads = null, imageLimits = null;
@@ -1109,13 +1145,7 @@ Requirements:
   async function savePng(src) {
     if (!downloads) return;
     try {
-      const img = new Image();
-      img.src = src;
-      await img.decode();
-      const canvas = document.createElement("canvas");
-      canvas.width = canvas.height = 1024;
-      canvas.getContext("2d").drawImage(img, 0, 0, 1024, 1024);
-      const blob = await new Promise((r) => canvas.toBlob(r, "image/png"));
+      const blob = await renderPng(src, 1024);
       await downloads.save({ filename: `echo-${new Date().toISOString().slice(0, 10)}.png`, data: blob });
     } catch (e) {
       if (e?.code !== "declined") toast("לא הצלחתי להוריד את התמונה");
@@ -1328,32 +1358,70 @@ Requirements:
     v.content.after(card);
     scrollToBottom();
     let svg = null, why = "";
-    // Two tries: if the first drawing comes back cut off or broken, ask again for a simpler one.
+    // First draft. If it comes back cut off or broken, ask again for a shorter one.
     for (let attempt = 0; attempt < 2 && !svg; attempt++) {
       try {
-        const prompt = IMAGE_PROMPT(msg.imageDesc) + (attempt ? "\nThe previous attempt was too long and got cut off. Make this one simpler and shorter (under 6000 characters)." : "");
-        const { text } = await sample(prompt, { cache: false });
-        const found = (text.match(/<svg[\s\S]*<\/svg>/i) || [])[0];
-        if (found && isDrawable(found)) svg = found; else why = "cut";
+        const prompt = IMAGE_PROMPT(msg.imageDesc) + (attempt ? "\nThe previous attempt was too long and got cut off. Keep this one under 9000 characters." : "");
+        const { text } = await sample(prompt, { cache: false, modelTier: "complex" });
+        svg = paintable(text);
+        if (!svg) why = "cut";
       } catch (e) {
         why = e?.code || "error";
         if (["not_granted", "rate_limited", "usage_limit"].includes(why)) break;
       }
     }
-    if (svg) {
-      card.replaceWith(imageCard(svg, msg.imageDesc));
-      msg.imageFailed = false;
-      const imageId = "img_" + uid();
-      try { await store.put(imageId, { kind: "image", svg }); msg.imageId = imageId; }
-      catch { toast("הציור מוצג, אבל לא הצלחתי לשמור אותו"); }
-    } else {
+    if (!svg) {
       msg.imageFailed = true;
       const retry = () => { fail.remove(); draw(chat, msg, v); };
       const fail = failedCard(why === "rate_limited" ? "😕 יותר מדי בקשות כרגע, נסו שוב בעוד רגע" : undefined, retry);
       card.replaceWith(fail);
+      await saveChat(chat);
+      return;
     }
-    await saveChat(chat);
+    let shown = imageCard(svg, msg.imageDesc);
+    card.replaceWith(shown);
+    msg.imageFailed = false;
+    await keepImage(chat, msg, svg);
     scrollToBottom();
+
+    // Second pass: Claude looks at its own drawing and paints a better version.
+    if (!imageLimits) return;
+    shown.classList.add("refining");
+    try {
+      const png = await renderPng(svgUrl(svg), 768);
+      const { text } = await sample(REFINE_PROMPT(msg.imageDesc, svg), { cache: false, modelTier: "complex", images: [png] });
+      const better = paintable(text);
+      if (better) {
+        const next = imageCard(better, msg.imageDesc);
+        shown.replaceWith(next);
+        shown = next;
+        await keepImage(chat, msg, better);
+      }
+    } catch { /* keep the first drawing */ }
+    shown.classList.remove("refining");
+  }
+  /** The SVG inside a reply, if the browser can draw it. */
+  function paintable(text) {
+    const found = (text.match(/<svg[\s\S]*<\/svg>/i) || [])[0];
+    return found && isDrawable(found) ? found : null;
+  }
+  async function keepImage(chat, msg, svg) {
+    const imageId = "img_" + uid();
+    try {
+      await store.put(imageId, { kind: "image", svg });
+      if (msg.imageId) store.remove(msg.imageId).catch(() => {});
+      msg.imageId = imageId;
+      await saveChat(chat);
+    } catch { toast("הציור מוצג, אבל לא הצלחתי לשמור אותו"); }
+  }
+  async function renderPng(src, size) {
+    const img = new Image();
+    img.src = src;
+    await img.decode();
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = size;
+    canvas.getContext("2d").drawImage(img, 0, 0, size, size);
+    return new Promise((r) => canvas.toBlob(r, "image/png"));
   }
   /** True when the browser can actually parse the drawing. */
   function isDrawable(svg) {
