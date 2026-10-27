@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="pearl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Echo</title>
+  <link rel="icon" href="/static/logo-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/vendor/fonts.css">
+  <link rel="stylesheet" href="/static/vendor/atom-one-dark.min.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <a class="logo" href="#" id="logoHome" aria-label="Echo">
+          <svg class="logo-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <defs>
+              <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="var(--accent-2)"/><stop offset="1" stop-color="var(--accent)"/>
+              </linearGradient>
+            </defs>
+            <circle cx="24" cy="24" r="6" fill="url(#lg)"/>
+            <path d="M24 10a14 14 0 0 1 0 28" fill="none" stroke="url(#lg)" stroke-width="4" stroke-linecap="round" class="ring r1"/>
+            <path d="M24 10a14 14 0 0 0 0 28" fill="none" stroke="url(#lg)" stroke-width="4" stroke-linecap="round" class="ring r1" opacity=".55"/>
+            <path d="M24 3a21 21 0 0 1 0 42" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round" class="ring r2" opacity=".55"/>
+            <path d="M24 3a21 21 0 0 0 0 42" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round" class="ring r2" opacity=".3"/>
+          </svg>
+          <span class="logo-word">Echo</span>
+        </a>
+        <button class="icon-btn only-mobile" id="closeSidebar" aria-label="סגירת התפריט">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <button class="new-chat" id="newChat">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <span>שיחה חדשה</span>
+      </button>
+
+      <label class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input type="search" id="search" placeholder="חיפוש בשיחות…" autocomplete="off">
+      </label>
+
+      <nav class="chat-list" id="chatList" aria-label="שיחות"></nav>
+
+      <div class="sidebar-foot">
+        <div class="themes" role="radiogroup" aria-label="ערכת צבעים">
+          <button class="swatch" data-set-theme="pearl" title="פנינה ורודה" aria-label="פנינה ורודה"></button>
+          <button class="swatch" data-set-theme="ocean" title="מים" aria-label="מים"></button>
+          <button class="swatch" data-set-theme="jade" title="ירקן" aria-label="ירקן"></button>
+          <button class="swatch" data-set-theme="night" title="לילה" aria-label="לילה"></button>
+        </div>
+        <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
+      </div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn only-mobile" id="openSidebar" aria-label="פתיחת התפריט">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+        </button>
+        <h1 class="chat-title" id="chatTitle"></h1>
+        <button class="icon-btn only-mobile" id="newChatTop" aria-label="שיחה חדשה">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </header>
+
+      <section class="thread" id="thread" aria-live="polite">
+        <div class="welcome" id="welcome">
+          <div class="welcome-mark" aria-hidden="true">
+            <span class="wave w1"></span><span class="wave w2"></span><span class="wave w3"></span>
+            <span class="core"></span>
+          </div>
+          <h2 class="welcome-title">על מה נדבר היום?</h2>
+          <div class="suggestions" id="suggestions">
+            <button class="suggestion" data-prompt="תצייר לי חתול מהמם עם חליפת אסטרונאוט שמרחף בחלל">
+              <span class="s-emoji">🎨</span><span><b>צייר לי</b> חתול מהמם באסטרונאוט</span>
+            </button>
+            <button class="suggestion" data-prompt="תכתוב לי שיר קצר ומתוק על הים">
+              <span class="s-emoji">✍️</span><span><b>תכתוב לי</b> שיר קצר על הים</span>
+            </button>
+            <button class="suggestion" data-prompt="תן לי 5 רעיונות מגניבים למסיבת יום הולדת">
+              <span class="s-emoji">🎉</span><span><b>רעיונות</b> למסיבת יום הולדת</span>
+            </button>
+            <button class="suggestion" data-prompt="תמליץ לי על סרט טוב לערב, משהו מצחיק ומרגש">
+              <span class="s-emoji">🎬</span><span><b>תמליץ לי</b> על סרט לערב</span>
+            </button>
+          </div>
+        </div>
+        <div class="messages" id="messages"></div>
+      </section>
+
+      <footer class="composer-wrap">
+        <form class="composer" id="composer">
+          <div class="attachments" id="attachments"></div>
+          <div class="composer-row">
+            <button type="button" class="icon-btn attach" id="attachBtn" aria-label="צירוף תמונה" title="צירוף תמונה">
+              <svg viewBox="0 0 24 24"><path d="M21 11.5l-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.9-8.9a3.7 3.7 0 0 1 5.2 5.2l-8.9 8.9a1.8 1.8 0 0 1-2.6-2.6l8.2-8.2"/></svg>
+            </button>
+            <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden>
+            <textarea id="input" rows="1" placeholder="כתבו הודעה…" aria-label="הודעה"></textarea>
+            <button type="submit" class="send" id="sendBtn" aria-label="שליחה" disabled>
+              <svg class="i-send" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+              <svg class="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/></svg>
+            </button>
+          </div>
+        </form>
+        <p class="fineprint">גם בינה מלאכותית יכולה לטעות, כדאי לבדוק דברים חשובים.</p>
+      </footer>
+
+      <div class="dropzone" id="dropzone"><div>📎 שחררו כאן כדי לצרף תמונה</div></div>
+    </main>
+  </div>
+
+  <!-- Chat item menu -->
+  <div class="menu" id="chatMenu" role="menu" hidden>
+    <button data-action="rename" role="menuitem">✏️ שינוי שם</button>
+    <button data-action="pin" role="menuitem">📌 <span>הצמדה</span></button>
+    <button data-action="delete" role="menuitem" class="danger">🗑️ מחיקה</button>
+  </div>
+
+  <!-- Confirm dialog -->
+  <dialog class="dialog" id="confirmDialog">
+    <form method="dialog">
+      <h3>למחוק את השיחה?</h3>
+      <p id="confirmText">אי אפשר לבטל את זה.</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">ביטול</button>
+        <button value="ok" class="btn danger">מחיקה</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Image lightbox -->
+  <div class="lightbox" id="lightbox" hidden>
+    <img alt="">
+    <div class="lightbox-bar">
+      <a class="btn" id="lightboxDownload" download>⬇️ הורדה</a>
+      <button class="btn ghost" id="lightboxClose">סגירה</button>
+    </div>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="/static/vendor/marked.min.js"></script>
+  <script src="/static/vendor/purify.min.js"></script>
+  <script src="/static/vendor/highlight.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
