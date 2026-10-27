@@ -775,8 +775,8 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
           <p class="welcome-hello" id="hello">שלום ✨</p>
           <h2 class="welcome-title">על מה נדבר היום?</h2>
           <div class="suggestions" id="suggestions">
-            <button class="suggestion" data-prompt="תצייר לי חתול מהמם עם חליפת אסטרונאוט שמרחף בחלל">
-              <span class="s-emoji">🎨</span><span><b>צייר לי</b> חתול מהמם באסטרונאוט</span>
+            <button class="suggestion" data-prompt="תספר לי סיפור קצר ומצחיק על חתול שטס לחלל">
+              <span class="s-emoji">🚀</span><span><b>ספר לי</b> סיפור על חתול בחלל</span>
             </button>
             <button class="suggestion" data-prompt="תכתוב לי שיר קצר ומתוק על הים">
               <span class="s-emoji">✍️</span><span><b>תכתוב לי</b> שיר קצר על הים</span>
@@ -875,9 +875,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   const RULES = `You are a warm, helpful, witty assistant inside a chat app.
 Reply in the user's language (usually Hebrew). Use Markdown when it helps.
 Never introduce yourself by name and never call yourself "Echo".
-If the user asks for a picture, drawing, illustration or any image, start your reply with exactly one line:
-[[IMAGE: <rich English description of the image: subject, style, colors, mood>]]
-then one short friendly sentence in the user's language. Otherwise never write that line.`;
+Pictures are turned off in this app: you cannot create images. If the user asks for one, say kindly in one short sentence that drawing isn't available here, and offer something fun instead (a vivid description, a story, a poem, or ideas). Never write a line that starts with [[IMAGE:.`;
 
   const ART_DIRECTION = `ART DIRECTION (follow closely):
 - Look: a premium, luminous illustration, like a high-end sticker or a Pixar/Disney-style poster rendered in vector. Soft, glossy, dreamy.
@@ -1343,7 +1341,7 @@ ${svg}`;
     renderMarkdown(v.content, msg.text);
     v.node.classList.remove("streaming");
 
-    const drawing = match && state.busy === ctl;
+    const drawing = false; // pictures are turned off
     if (drawing) msg.imageDesc = match[1].trim();
     // The reply is done: free the chat right away, even while a drawing is still being painted.
     if (state.busy === ctl) { state.busy = null; setBusy(false); }

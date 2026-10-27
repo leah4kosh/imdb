@@ -761,7 +761,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         </div>
         <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
       </div>
-      <button type="button" class="key-btn" id="keyBtn">🎨 ציורים יפים</button>
+      <button type="button" class="key-btn" id="keyBtn" hidden>🎨 ציורים יפים</button>
     </aside>
     <div class="scrim" id="scrim"></div>
 
@@ -786,8 +786,8 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
           <p class="welcome-hello" id="hello">שלום ✨</p>
           <h2 class="welcome-title">על מה נדבר היום?</h2>
           <div class="suggestions" id="suggestions">
-            <button class="suggestion" data-prompt="תצייר לי חתול מהמם עם חליפת אסטרונאוט שמרחף בחלל">
-              <span class="s-emoji">🎨</span><span><b>צייר לי</b> חתול מהמם באסטרונאוט</span>
+            <button class="suggestion" data-prompt="תספר לי סיפור קצר ומצחיק על חתול שטס לחלל">
+              <span class="s-emoji">🚀</span><span><b>ספר לי</b> סיפור על חתול בחלל</span>
             </button>
             <button class="suggestion" data-prompt="תכתוב לי שיר קצר ומתוק על הים">
               <span class="s-emoji">✍️</span><span><b>תכתוב לי</b> שיר קצר על הים</span>
@@ -906,11 +906,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 Reply in the user's language (usually Hebrew). Use Markdown when it helps.
 Never introduce yourself by name and never call yourself "Echo".
 Many users are kids: keep everything friendly and age-appropriate.
-If the user asks for a picture, drawing, illustration or any image, start your reply with exactly one line:
-[[IMAGE: <English description that keeps EXACTLY the subject the user asked for, plus style, colors and mood>]]
-The description must be in English, even when the user writes in Hebrew.
-If the user asks for a famous brand character (like Barbie, Elsa or Pikachu), don't refuse and don't mention rules: describe an original look-alike instead (for example "a glamorous fashion doll" for Barbie) with every detail the user asked for.
-then one short friendly sentence in the user's language. Otherwise never write that line.`;
+Pictures are turned off in this app: you cannot create images. If the user asks for one, say kindly in one short sentence that drawing isn't available here, and offer something fun instead (a vivid description, a story, a poem, or ideas). Never write a line that starts with [[IMAGE:.`;
 
   const state = { chats: [], current: null, busy: null, menuId: null, pending: [] };
   // This version runs as a normal website: chats stay in this browser, and both the chat and
@@ -965,18 +961,32 @@ Requirements:
   });
 
   /** Asks the chat model. Same shape as before: resolves {text}, rejects {code, text}. */
+  // Set when the key's free pollen ran out (or the key stopped working): Echo keeps talking
+  // with the free model instead of showing errors, and tries the key again later.
+  let freeModeUntil = 0;
+  const keyActive = () => !!storage.get(KEY_NAME) && Date.now() > freeModeUntil;
+  const KEY_TROUBLE = new Set(["no_pollen", "paid_model", "bad_key", "offline"]);
+
   async function sample(input, opts = {}) {
-    try {
-      return await ask(input, opts);
-    } catch (e) {
-      // A model this key can't pay for: skip it and ask once more with the next best one.
-      if (e?.code !== "paid_model" || !models.chat) throw e;
-      models.bad.add(models.chat);
-      models.key = null;
-      return ask(input, opts);
+    if (keyActive()) {
+      try {
+        return await ask(input, opts, true);
+      } catch (e) {
+        if (e?.code === "cancelled" || e?.code === "rate_limited") throw e;
+        if (e?.code === "paid_model" && models.chat) {
+          // A model this key can't pay for: skip it and ask once more with the next best one.
+          models.bad.add(models.chat);
+          models.key = null;
+          try { return await ask(input, opts, true); } catch (again) { if (!KEY_TROUBLE.has(again?.code)) throw again; }
+        } else if (!KEY_TROUBLE.has(e?.code)) throw e;
+        freeModeUntil = Date.now() + 10 * 60 * 1000;
+        toast("נגמר ה-pollen לציורים היפים 🌱 Echo ממשיך לדבר במצב חינמי");
+        showKeyState?.();
+      }
     }
+    return ask(input, opts, false);
   }
-  async function ask(input, opts = {}) {
+  async function ask(input, opts = {}, useKey = false) {
     const [rules, , ...turns] = input;
     const messages = [{ role: "system", content: rules.content }, ...turns.map((t) => ({ role: t.role, content: t.content }))];
     if (opts.images?.length) {
@@ -987,7 +997,7 @@ Requirements:
     }
     let text = "";
     // With the viewer's Pollinations key, answers come from Claude; without it, from the free model.
-    const key = storage.get(KEY_NAME);
+    const key = useKey ? storage.get(KEY_NAME) : null;
     try {
       const res = await fetch(key ? CHAT_API : TEXT_API, {
         method: "POST",
@@ -1467,7 +1477,7 @@ Requirements:
     renderMarkdown(v.content, msg.text);
     v.node.classList.remove("streaming");
 
-    const drawing = match && state.busy === ctl;
+    const drawing = false; // pictures are turned off
     if (drawing) msg.imageDesc = match[1].trim();
     // The reply is done: free the chat right away, even while a drawing is still being painted.
     if (state.busy === ctl) { state.busy = null; setBusy(false); }
@@ -1519,7 +1529,7 @@ Requirements:
     scrollToBottom();
     let url = null;
     const subject = await englishPrompt(msg.imageDesc, chat);
-    const key = storage.get(KEY_NAME);
+    const key = keyActive() ? storage.get(KEY_NAME) : null;
     if (key) {
       const seed = Math.floor(Math.random() * 1e9);
       const prompt = `${subject}. Beautiful, highly detailed, vibrant colors, soft magical lighting.`;
@@ -1532,7 +1542,8 @@ Requirements:
         img.onerror = () => { clearTimeout(timer); resolve(null); };
         img.src = candidate;
       });
-      if (!url) toast("הציור עם המפתח לא הצליח, מצייר בדרך הרגילה 🎨");
+      // Most often the free pollen ran out: stop trying the key for a while.
+      if (!url) freeModeUntil = Date.now() + 10 * 60 * 1000;
     }
     // No key (or it failed): the chat model paints the picture itself, so the subject is always right.
     for (let attempt = 0; attempt < 2 && !url; attempt++) {
@@ -1550,7 +1561,9 @@ Requirements:
     } else {
       msg.imageFailed = true;
       const retry = () => { fail.remove(); draw(chat, msg, v); };
-      const fail = failedCard(undefined, retry);
+      const fail = failedCard(storage.get(KEY_NAME)
+        ? "🌱 אין כרגע pollen לציורים. אפשר לאסוף עוד במשימות (Quests) ולנסות שוב"
+        : "🎨 לציורים יפים צריך לחבר מפתח בכפתור למטה בסרגל הצד", retry);
       card.replaceWith(fail);
     }
     await saveChat(chat);
