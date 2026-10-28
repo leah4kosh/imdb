@@ -1857,6 +1857,7 @@ ${svg}`;
   /* ---------------- profile and avatar */
   const PROFILE_ID = "profile";
   const AVATAR_PARTS = {
+    kind: { label: "דמות", values: ["person", "robot", "cat", "bunny", "bear"], names: ["ילד/ה", "רובוט", "חתול", "ארנב", "דובי"] },
     skin: { label: "צבע עור", values: ["#ffe6d5", "#f9d0b4", "#eab38c", "#d0956a", "#a96d47", "#7a4a2e"] },
     hair: {
       label: "תסרוקת",
@@ -1874,7 +1875,7 @@ ${svg}`;
     shirt: { label: "חולצה", values: ["#ff8fb8", "#8fc8ff", "#9be3b0", "#ffd36b", "#b79bff", "#ffffff", "#3b3f58"] },
     bg: { label: "רקע", values: ["#ffd6e8", "#d4ecff", "#d9f7dc", "#fff0b8", "#e8dcff", "#ffe0cc", "#2c2350"] },
   };
-  const DEFAULT_AVATAR = { skin: "#f9d0b4", hair: "wavy", hairColor: "#5b3a29", eyeColor: "#5b3a29", mouth: "smile", extra: "bow", shirt: "#ff8fb8", bg: "#ffd6e8" };
+  const DEFAULT_AVATAR = { kind: "person", skin: "#f9d0b4", hair: "wavy", hairColor: "#5b3a29", eyeColor: "#5b3a29", mouth: "smile", extra: "bow", shirt: "#ff8fb8", bg: "#ffd6e8" };
 
   /** Draws a glossy, cute avatar as SVG from the chosen parts. */
   function avatarSvg(input = DEFAULT_AVATAR) {
@@ -1889,7 +1890,8 @@ ${svg}`;
       }).join("");
     };
     const H = a.hairColor, HL = mix(H, 1.35), HD = mix(H, 0.72);
-    const S = a.skin, SD = mix(S, 0.88), SL = mix(S, 1.25);
+    const animal = a.kind === "cat" || a.kind === "bunny" || a.kind === "bear";
+    const S = animal ? a.hairColor : a.skin, SD = mix(S, 0.85), SL = mix(S, 1.3);
     const dark = parseInt(a.bg.slice(1), 16) < 0x606060;
 
     const defs = `<defs>
@@ -1926,7 +1928,7 @@ ${svg}`;
       curly: `<g fill="url(#hr)"><circle cx="42" cy="38" r="9"/><circle cx="54" cy="33" r="9"/><circle cx="67" cy="33" r="9"/><circle cx="78" cy="39" r="9"/><circle cx="35" cy="48" r="7"/><circle cx="86" cy="48" r="7"/></g>`,
       short: `<path d="M32 52c1-18 13-27 28-27s27 9 28 27c-4-6-9-9-14-10 2 3 2 6 0 8-4-6-11-9-18-9 2 3 1 6-2 8-3-4-7-6-11-6-5 2-9 5-11 9z" fill="url(#hr)"/>`,
     }[a.hair] || "";
-    const shine = a.hair === "curly" ? "" : `<path d="M44 33c5-4 11-6 17-6" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".35"/>`;
+    const shine = a.hair === "curly" ? "" : `<path d="M44 33c5-4 11-6 17-6" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".35"/><path d="M52 30c-3 5-4 10-3 15M66 29c3 4 5 9 5 14" stroke="${HD}" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>`;
 
     const body = `<path d="M18 124c2-18 16-28 42-28s40 10 42 28z" fill="url(#sh)"/>
 <path d="M50 96c3 6 17 6 20 0" fill="none" stroke="${mix(a.shirt, 0.8)}" stroke-width="2" stroke-linecap="round"/>
@@ -1964,7 +1966,41 @@ ${svg}`;
       stars: `<g fill="#ffd34d" stroke="#f0b323" stroke-width=".8">${[[38, 38, 5], [80, 36, 6]].map(([x, y, r]) => `<path d="M${x} ${y - r}l${r * 0.3} ${r * 0.7} ${r * 0.7} ${r * 0.1}-${r * 0.55} ${r * 0.5} ${r * 0.15} ${r * 0.75}-${r * 0.6}-${r * 0.4}-${r * 0.6} ${r * 0.4} ${r * 0.15}-${r * 0.75}-${r * 0.55}-${r * 0.5} ${r * 0.7}-${r * 0.1}z"/>`).join("")}</g>`,
     }[a.extra] || "";
 
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">${defs}<g clip-path="url(#circle)">${background}${hairBack}${body}${head}${brows}${eye(46, -1)}${eye(74, 1)}${blush}${nose}${mouth}${hairFront}${shine}${extra}</g></svg>`;
+    const face = `${eye(46, -1)}${eye(74, 1)}${blush}`;
+    let figure;
+    if (a.kind === "robot") {
+      const M = a.shirt === "#ffffff" ? "#cfd8e6" : a.shirt, ML = mix(M, 1.45), MD = mix(M, 0.7);
+      // robots get bright, glowing versions of the chosen eye colour
+      const glow = { "#5b3a29": "#ffb86b", "#2f8a5b": "#6dffb0", "#2f74c0": "#6fe3ff", "#7d8a96": "#e6f4ff", "#8f5bd6": "#d39bff", "#c0832f": "#ffe066" }[a.eyeColor] || "#6fe3ff";
+      figure = `<defs><linearGradient id="mt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${ML}"/><stop offset=".6" stop-color="${M}"/><stop offset="1" stop-color="${MD}"/></linearGradient>
+<radialGradient id="gl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="${glow}"/><stop offset="1" stop-color="${glow}" stop-opacity="0"/></radialGradient></defs>
+<path d="M22 124c2-17 15-26 38-26s36 9 38 26z" fill="url(#mt)"/><circle cx="60" cy="110" r="6" fill="#ff6f9f"/><circle cx="58" cy="108" r="2" fill="#fff" opacity=".7"/>
+<rect x="53" y="86" width="14" height="12" rx="3" fill="${MD}"/>
+<path d="M60 34V20" stroke="${MD}" stroke-width="3" stroke-linecap="round"/><circle cx="60" cy="17" r="9" fill="url(#gl)"/><circle cx="60" cy="17" r="4.5" fill="${glow}"/>
+<rect x="22" y="52" width="9" height="20" rx="4.5" fill="${MD}"/><rect x="89" y="52" width="9" height="20" rx="4.5" fill="${MD}"/>
+<rect x="28" y="32" width="64" height="58" rx="20" fill="url(#mt)"/><path d="M36 38c8-4 30-5 44-1" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".45" fill="none"/>
+<rect x="36" y="46" width="48" height="34" rx="13" fill="#1d1830"/>
+<g fill="${glow}"><rect x="43" y="55" width="9" height="12" rx="4.5"/><rect x="68" y="55" width="9" height="12" rx="4.5"/></g>
+<g fill="#fff" opacity=".8"><circle cx="49.5" cy="57.5" r="1.8"/><circle cx="74.5" cy="57.5" r="1.8"/></g>
+<ellipse cx="41" cy="72" rx="4" ry="2.2" fill="#ff7fa0" opacity=".6"/><ellipse cx="79" cy="72" rx="4" ry="2.2" fill="#ff7fa0" opacity=".6"/>
+<path d="M55 71q5 4 10 0" fill="none" stroke="${glow}" stroke-width="2.2" stroke-linecap="round"/>`;
+    } else if (animal) {
+      const ears = {
+        cat: `<path d="M33 46L30 16 54 33z" fill="url(#sk)"/><path d="M87 46L90 16 66 33z" fill="url(#sk)"/><path d="M36 39L35 23 48 33z" fill="#ffb3c9"/><path d="M84 39L85 23 72 33z" fill="#ffb3c9"/>`,
+        bunny: `<g transform="rotate(-10 44 30)"><ellipse cx="44" cy="20" rx="9" ry="24" fill="url(#sk)"/><ellipse cx="44" cy="22" rx="4.5" ry="17" fill="#ffb3c9"/></g><g transform="rotate(12 76 30)"><ellipse cx="76" cy="20" rx="9" ry="24" fill="url(#sk)"/><ellipse cx="76" cy="22" rx="4.5" ry="17" fill="#ffb3c9"/></g>`,
+        bear: `<circle cx="36" cy="36" r="11" fill="url(#sk)"/><circle cx="84" cy="36" r="11" fill="url(#sk)"/><circle cx="36" cy="36" r="5.5" fill="${SD}"/><circle cx="84" cy="36" r="5.5" fill="${SD}"/>`,
+      }[a.kind];
+      const muzzle = mix(S, 1.6);
+      const snout = a.kind === "bear"
+        ? `<ellipse cx="60" cy="75" rx="12" ry="9" fill="${muzzle}"/><ellipse cx="60" cy="70.5" rx="4.6" ry="3.2" fill="#3a2630"/><circle cx="58.6" cy="69.6" r="1.1" fill="#fff" opacity=".7"/>`
+        : `<ellipse cx="54" cy="74" rx="7" ry="5.5" fill="${muzzle}"/><ellipse cx="66" cy="74" rx="7" ry="5.5" fill="${muzzle}"/><path d="M57.5 69.5h5l-2.5 3z" fill="#ff7f9f"/>`;
+      const whiskers = a.kind === "cat" ? `<g stroke="${mix(S, 0.55)}" stroke-width="1" stroke-linecap="round" opacity=".55"><path d="M42 72l-12-2M42 75l-12 2M78 72l12-2M78 75l12 2"/></g>` : "";
+      const stripes = a.kind === "cat" ? `<g stroke="${SD}" stroke-width="2.4" stroke-linecap="round"><path d="M60 34v8M53 35l2 7M67 35l-2 7"/></g>` : "";
+      figure = `${body}${ears}<ellipse cx="60" cy="61" rx="29" ry="28" fill="url(#sk)"/>${stripes}${face}${snout}${whiskers}${a.mouth === "grin" ? `<path d="M55 78q5 6 10 0z" fill="#9e2f47"/>` : a.mouth === "tongue" ? `<path d="M58 78q2 5 4 0" fill="#ff7f99"/>` : ""}`;
+    } else {
+      figure = `${hairBack}${body}${head}${brows}${face}${nose}${mouth}${hairFront}${shine}`;
+    }
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">${defs}<g clip-path="url(#circle)">${background}${figure}${a.kind === "robot" && (a.extra === "catears" || a.extra === "glasses") ? "" : extra}</g></svg>`;
   }
   const profile = { name: "", avatar: { ...DEFAULT_AVATAR } };
 
@@ -1990,10 +2026,16 @@ ${svg}`;
     document.querySelector("#avatarPreview").innerHTML = avatarImg(draft);
     const box = document.querySelector("#avatarOptions");
     box.innerHTML = "";
+    // Only the options that make sense for the chosen character, with fitting names.
+    const kind = draft.kind || "person";
+    const animal = kind === "cat" || kind === "bunny" || kind === "bear";
+    const skip = kind === "robot" ? ["skin", "hair", "hairColor"] : animal ? ["skin", "hair"] : [];
+    const relabel = kind === "robot" ? { shirt: "צבע הרובוט", eyeColor: "צבע האורות" } : animal ? { hairColor: "צבע פרווה" } : {};
     for (const [part, def] of Object.entries(AVATAR_PARTS)) {
+      if (skip.includes(part)) continue;
       const row = document.createElement("div");
       row.className = "avatar-row";
-      row.innerHTML = `<span class="avatar-row-label">${def.label}</span><div class="avatar-choices"></div>`;
+      row.innerHTML = `<span class="avatar-row-label">${relabel[part] || def.label}</span><div class="avatar-choices"></div>`;
       def.values.forEach((value, i) => {
         const b = document.createElement("button");
         b.type = "button";
@@ -2056,6 +2098,8 @@ ${svg}`;
     const used = new Set(state.chats.map((c) => c.contact?.name));
     const free = CONTACT_NAMES.filter((n) => !used.has(n));
     const avatar = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, pick(def.values)]));
+    // about half the contacts are kids, the rest robots and cute animals
+    avatar.kind = Math.random() < 0.45 ? "person" : pick(["robot", "cat", "bunny", "bear"]);
     return { name: pick(free.length ? free : CONTACT_NAMES), avatar };
   }
   /** A contact's face, or Echo's own mark for chats from before contacts existed. */
