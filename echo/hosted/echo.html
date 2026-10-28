@@ -929,6 +929,28 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 .si-label { color: var(--muted); flex: 1; }
 .sheet-close { display: flex; justify-content: center; padding: 10px 20px 18px; }
 .about-label { margin-top: 12px; }
+.toast.tip { max-width: min(460px, calc(100vw - 32px)); text-align: center; line-height: 1.5; background: var(--accent); color: #fff; font-size: 14.5px; padding: 12px 18px; }
+.toast.tip, .toasts { pointer-events: none; }
+.call .toasts { z-index: 90; }
+.toasts { z-index: 95; }
+body:has(.call:not([hidden])) .toasts { bottom: auto; top: 110px; }
+
+/* ============================================================ who's using Echo */
+.profile-row { display: flex; gap: 8px; align-items: stretch; }
+.profile-row .profile-chip { flex: 1; min-width: 0; }
+.switch-btn { flex: none; width: 48px; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); font-size: 20px; }
+.switch-btn:hover { border-color: var(--accent-2); }
+.who-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 12px; margin: 6px 0 18px; }
+.who { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; border-radius: 18px; border: 2px solid transparent; background: var(--accent-soft); color: var(--text); }
+.who:hover { border-color: var(--accent-2); }
+.who.on { border-color: var(--accent); background: var(--surface-solid); }
+.who-face { width: 70px; height: 70px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; }
+.who-face img { width: 100%; height: 100%; }
+.who-face.plus { border: 2px dashed var(--accent-2); font-size: 30px; color: var(--accent); }
+.who b { font-weight: 500; font-size: 14px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.who small { font-size: 11px; color: var(--accent); }
+.gender-choice { padding: 7px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; }
+.gender-choice.on { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 </style>
 <div dir="rtl" lang="he" style="height:100%">
@@ -965,10 +987,13 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         </button>
       </div>
 
-      <button type="button" class="profile-chip" id="profileBtn">
-        <span class="me-avatar" id="meAvatar" aria-hidden="true"></span>
-        <span class="profile-text"><b id="profileName">הפרופיל שלי</b><small>עיצוב אווטאר ושם ✏️</small></span>
-      </button>
+      <div class="profile-row">
+        <button type="button" class="profile-chip" id="profileBtn">
+          <span class="me-avatar" id="meAvatar" aria-hidden="true"></span>
+          <span class="profile-text"><b id="profileName">הפרופיל שלי</b><small>עיצוב אווטאר ושם ✏️</small></span>
+        </button>
+        <button type="button" class="switch-btn" id="switchBtn" title="מי משתמש ב-Echo?" aria-label="החלפת משתמש">👥</button>
+      </div>
 
       <button class="new-chat" id="newChat">
         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
@@ -1112,6 +1137,13 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
       <input id="profileNameInput" class="key-input" maxlength="30" placeholder="איך קוראים לך?" dir="auto">
       <label class="field-label about-label" for="profileAboutInput">סטטוס</label>
       <input id="profileAboutInput" class="key-input" maxlength="60" placeholder="משהו קצר עלייך ✨" dir="auto">
+      <div class="voice-row" id="genderRow" hidden>
+        <span class="avatar-row-label">אני…</span>
+        <div class="avatar-choices">
+          <button type="button" class="gender-choice" data-gender="girl">👧 בת</button>
+          <button type="button" class="gender-choice" data-gender="boy">👦 בן</button>
+        </div>
+      </div>
       <div class="voice-row" id="voiceRow" hidden>
         <span class="avatar-row-label">קול בשיחה</span>
         <div class="avatar-choices">
@@ -1127,6 +1159,16 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         <button value="cancel" class="btn ghost">ביטול</button>
         <button value="save" class="btn">שמירה</button>
       </div>
+    </form>
+  </dialog>
+
+  <!-- Who's using Echo -->
+  <dialog class="dialog who-dialog" id="whoDialog">
+    <form method="dialog">
+      <h3>👥 מי משתמש/ת ב-Echo?</h3>
+      <p>לכל אחד בבית יש פרופיל משלו, עם שיחות, אווטאר וזיכרון נפרדים.</p>
+      <div class="who-grid" id="whoGrid"></div>
+      <div class="dialog-actions"><button value="close" class="btn ghost">סגירה</button></div>
     </form>
   </dialog>
 
@@ -1379,7 +1421,7 @@ ${svg}`;
     chat.updated = Date.now();
     chat.preview = plain([...chat.messages].reverse().find((m) => m.text)?.text || "").slice(0, 80);
     upsert(chat);
-    try { await store.put(chat.id, { kind: "chat", title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: chat.preview, messages: chat.messages }); }
+    try { await store.put(chat.id, { kind: "chat", who: chat.who || "main", title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: chat.preview, messages: chat.messages }); }
     catch { toast("לא הצלחתי לשמור את השיחה"); }
   }
 
@@ -1623,8 +1665,6 @@ ${svg}`;
   function setBusy(busy) {
     const status = document.querySelector("#contactStatus");
     if (status) { status.classList.toggle("typing-now", busy); if (busy) status.textContent = "מקליד/ה…"; else renderHeader(); }
-    els.send.classList.toggle("stop", busy);
-    els.send.setAttribute("aria-label", busy ? "עצירה" : "שליחה");
     updateSend();
   }
   function stop() { if (state.busy) { state.busy.abort(); state.busy = null; setBusy(false); } }
@@ -1646,6 +1686,23 @@ ${svg}`;
     const chat = state.current;
     const ctl = new AbortController();
     state.busy = ctl; setBusy(true);
+    state.waiting = false;
+    try {
+      await replyInner(chat, ctl, images);
+    } catch (err) {
+      console.error(err);
+      toast("משהו השתבש, אפשר לכתוב שוב 🙏");
+    } finally {
+      if (state.busy === ctl) { state.busy = null; setBusy(false); }
+      // Messages sent while the contact was typing get their answer now.
+      if (state.waiting && state.current === chat && !ctl.signal.aborted) setTimeout(() => reply(), 400);
+      else state.waiting = false;
+    }
+  }
+  async function replyInner(chat, ctl, images) {
+    // Replies go right after the messages they answer, even if more arrive while typing.
+    const base = chat.messages.length;
+    let added = 0;
     document.querySelectorAll(".msg.assistant .actions").forEach((a) => (a.innerHTML = ""));
     const v = assistantEl();
     v.content.innerHTML = TYPING_DOTS;
@@ -1695,10 +1752,11 @@ ${svg}`;
     for (let i = 0; i < parts.length; i++) {
       if (i > 0) {
         if (ctl.signal.aborted) break;
+        const prev = view;
         view = assistantEl();
         view.content.innerHTML = TYPING_DOTS;
         view.node.classList.add("streaming");
-        els.messages.append(view.node);
+        prev.node.after(view.node);
         scrollToBottom();
         await pause(600 + Math.random() * 900 + Math.min(1600, parts[i].length * 6), ctl);
       }
@@ -1707,7 +1765,7 @@ ${svg}`;
       view.node.classList.remove("streaming");
       if (!text) { view.node.remove(); break; }
       const msg = { role: "assistant", text, at: Date.now() };
-      chat.messages.push(msg);
+      chat.messages.splice(base + added++, 0, msg);
       view.flow.append(stampEl(msg.at, false));
       react(view, msg, chat);
       markRead();
@@ -1864,13 +1922,13 @@ ${svg}`;
     text = text.trim();
     const photos = state.pending;
     if (!text && !photos.length) return;
-    if (state.busy) { toast("רגע, אני עוד עונה… אפשר לעצור עם הכפתור ■"); return; }
+    const busyNow = !!state.busy;
     if (!sample) { toast("החיבור ל-Claude לא זמין כאן"); return; }
     els.input.value = ""; autosize();
     state.pending = []; renderPending();
     if (!state.current) {
       const t = text || "תמונה 🖼️";
-      state.current = { id: "chat_" + uid(), title: t.replace(/\s+/g, " ").slice(0, 40) + (t.length > 40 ? "…" : ""), pinned: false, messages: [], contact: state.nextContact || randomContact() };
+      state.current = { id: "chat_" + uid(), who, title: t.replace(/\s+/g, " ").slice(0, 40) + (t.length > 40 ? "…" : ""), pinned: false, messages: [], contact: state.nextContact || randomContact() };
       renderHeader();
     }
     showWelcome(false);
@@ -1887,6 +1945,7 @@ ${svg}`;
     els.messages.append(userEl(text, photos.map((p) => p.thumb), msg.at, false));
     play("send");
     saveChat(state.current);
+    if (busyNow) { state.waiting = true; scrollToBottom(true); return; }
     await reply(photos.map((p) => p.file));
   }
 
@@ -1968,18 +2027,31 @@ ${svg}`;
 
   /* ---------------- composer */
   function autosize() { els.input.style.height = "auto"; els.input.style.height = `${Math.min(els.input.scrollHeight, 200)}px`; updateSend(); }
-  function updateSend() { els.send.disabled = !state.busy && !els.input.value.trim() && !state.pending.length; }
+  function updateSend() {
+    const hasText = !!els.input.value.trim() || state.pending.length > 0;
+    els.send.disabled = !state.busy && !hasText;
+    els.send.classList.toggle("stop", !!state.busy && !hasText);
+    els.send.setAttribute("aria-label", state.busy && !hasText ? "עצירה" : "שליחה");
+  }
   els.input.addEventListener("input", autosize);
   els.input.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey && !e.isComposing && !matchMedia("(hover: none) and (max-width: 860px)").matches) { e.preventDefault(); sendMessage(els.input.value); }
   });
-  els.composer.addEventListener("submit", (e) => { e.preventDefault(); if (state.busy) stop(); else sendMessage(els.input.value); });
+  els.composer.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (state.busy && !els.input.value.trim() && !state.pending.length) stop();
+    else sendMessage(els.input.value);
+  });
   els.suggestions.addEventListener("click", (e) => { const b = e.target.closest(".suggestion"); if (b) sendMessage(b.dataset.prompt); });
   els.lightboxClose.addEventListener("click", () => (els.lightbox.hidden = true));
   els.lightbox.addEventListener("click", (e) => { if (e.target === els.lightbox) els.lightbox.hidden = true; });
 
   /* ---------------- profile and avatar */
-  const PROFILE_ID = "profile";
+  // Several people can share one account: each "who" has their own profile, memory and chats.
+  // The first person keeps the original ids, so nothing saved earlier gets lost.
+  let who = storage.get("echo-who") || "main";
+  const PROFILE_ID_OF = (id) => (id === "main" ? "profile" : `profile_${id}`);
+  const MEMORY_ID_OF = (id) => (id === "main" ? "memory" : `memory_${id}`);
   const AVATAR_PARTS = {
     style: { label: "סגנון ציור", values: ["shiny", "anime", "comic", "pastel"], names: ["מבריק", "אנימה", "קומיקס", "פסטל"] },
     kind: { label: "דמות", values: ["person", "robot", "cat", "bunny", "bear"], names: ["ילד/ה", "רובוט", "חתול", "ארנב", "דובי"] },
@@ -2156,8 +2228,8 @@ ${svg}`;
   }
   async function loadProfile() {
     try {
-      const d = await store.get(PROFILE_ID);
-      if (d) { profile.name = d.name || ""; profile.about = d.about || ""; profile.avatar = { ...DEFAULT_AVATAR, ...(d.avatar || {}) }; }
+      const d = await store.get(PROFILE_ID_OF(who));
+      if (d) { profile.name = d.name || ""; profile.about = d.about || ""; profile.avatar = { ...DEFAULT_AVATAR, ...(d.avatar || {}) }; profile.gender = d.gender || ""; }
     } catch { /* defaults */ }
     renderProfile();
   }
@@ -2199,7 +2271,11 @@ ${svg}`;
   /** Opens the avatar builder for the viewer or for a contact; onSave gets {name, avatar}. */
   let editorSave = null;
   let draftVoice = null;
-  function openEditor({ title, label, note, name, avatar, placeholder, voice, about, aboutHint }, onSave) {
+  let draftGender = null;
+  function openEditor({ title, label, note, name, avatar, placeholder, voice, about, aboutHint, gender }, onSave) {
+    draftGender = gender === undefined ? null : gender || "";
+    document.querySelector("#genderRow").hidden = gender === undefined;
+    renderGenderChoice();
     document.querySelector("#profileAboutInput").value = about || "";
     document.querySelector("#profileAboutInput").placeholder = aboutHint || "משהו קצר ✨";
     draft = { ...avatar };
@@ -2220,6 +2296,16 @@ ${svg}`;
     avatarDialog.querySelector(".avatar-options").scrollTop = 0;
     avatarDialog.showModal();
   }
+  function renderGenderChoice() {
+    document.querySelectorAll(".gender-choice").forEach((b) => b.classList.toggle("on", b.dataset.gender === draftGender));
+  }
+  document.querySelectorAll(".gender-choice").forEach((b) => b.addEventListener("click", () => {
+    draftGender = b.dataset.gender;
+    renderGenderChoice();
+    // a sensible starting look for the choice; everything stays changeable
+    if (draft?.kind === "person") draft = { ...draft, ...(draftGender === "boy" ? { hair: "short", extra: draft.extra === "bow" || draft.extra === "flower" ? "none" : draft.extra } : { hair: draft.hair === "short" ? "long" : draft.hair }) };
+    renderAvatarBuilder();
+  }));
   function renderVoiceChoice() {
     document.querySelectorAll(".voice-choice[data-voice]").forEach((b) => b.classList.toggle("on", b.dataset.voice === draftVoice));
     // Tell the viewer what this computer can actually do.
@@ -2250,17 +2336,18 @@ ${svg}`;
     await editorSave({
       name: document.querySelector("#profileNameInput").value.trim().slice(0, 30),
       about: document.querySelector("#profileAboutInput").value.trim().slice(0, 60),
-      avatar: draft, voice: draftVoice,
+      avatar: draft, voice: draftVoice, gender: draftGender,
     });
   });
   document.querySelector("#profileBtn").addEventListener("click", () => openEditor(
-    { title: "👤 הפרופיל שלי", label: "השם שלי", name: profile.name, avatar: profile.avatar, placeholder: "איך קוראים לך?", about: profile.about, aboutHint: "למשל: אוהבת חתולים וציור 🎨" },
-    async ({ name, avatar, about }) => {
+    { title: "👤 הפרופיל שלי", label: "השם שלי", name: profile.name, avatar: profile.avatar, placeholder: "איך קוראים לך?", about: profile.about, aboutHint: "למשל: אוהב/ת חתולים וציור 🎨", gender: profile.gender || "" },
+    async ({ name, avatar, about, gender }) => {
+      profile.gender = gender || "";
       profile.avatar = avatar;
       profile.name = name;
       profile.about = about;
       renderProfile();
-      try { await store.put(PROFILE_ID, { kind: "profile", name: profile.name, about: profile.about || "", avatar: profile.avatar }); toast("הפרופיל נשמר ✨"); }
+      try { await store.put(PROFILE_ID_OF(who), { kind: "profile", name: profile.name, about: profile.about || "", avatar: profile.avatar, gender: profile.gender || "" }); await saveWhoList(); toast("הפרופיל נשמר ✨"); }
       catch { toast("לא הצלחתי לשמור את הפרופיל"); }
     },
   ));
@@ -2321,6 +2408,70 @@ ${svg}`;
   const contactHead = document.querySelector("#contactHead");
   contactHead.addEventListener("click", () => openSheet(state.current?.id));
   contactHead.addEventListener("keydown", (e) => { if (e.key === "Enter") openSheet(state.current?.id); });
+
+  /* ---------------- who's using Echo (several people on one account) */
+  const WHO_ID = "people";
+  let whoList = [];
+  async function saveWhoList() {
+    const entry = { id: who, name: profile.name || "", avatar: profile.avatar };
+    whoList = [...whoList.filter((p) => p.id !== who), entry].sort((a, b) => (a.id === "main" ? -1 : b.id === "main" ? 1 : 0));
+    try { await store.put(WHO_ID, { kind: "people", list: whoList }); } catch { /* the list is a convenience */ }
+  }
+  const whoDialog = document.querySelector("#whoDialog");
+  function renderWho() {
+    const grid = document.querySelector("#whoGrid");
+    const people = whoList.length ? [...whoList] : [{ id: "main", name: profile.name, avatar: profile.avatar }];
+    if (!people.some((p) => p.id === who)) people.push({ id: who, name: profile.name, avatar: profile.avatar });
+    grid.innerHTML = "";
+    for (const p of people) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "who" + (p.id === who ? " on" : "");
+      b.innerHTML = `<span class="who-face">${avatarImg(p.avatar || DEFAULT_AVATAR)}</span><b dir="auto"></b>${p.id === who ? "<small>מחובר/ת עכשיו</small>" : ""}`;
+      b.querySelector("b").textContent = p.name || "בלי שם";
+      b.addEventListener("click", () => { whoDialog.close(); if (p.id !== who) switchTo(p.id); });
+      grid.append(b);
+    }
+    const add = document.createElement("button");
+    add.type = "button";
+    add.className = "who add";
+    add.innerHTML = '<span class="who-face plus">＋</span><b>פרופיל חדש</b>';
+    add.addEventListener("click", () => { whoDialog.close(); newPerson(); });
+    grid.append(add);
+  }
+  document.querySelector("#switchBtn").addEventListener("click", () => { renderWho(); whoDialog.showModal(); });
+
+  /** Loads everything that belongs to one person and starts fresh on the home screen. */
+  async function switchTo(id) {
+    stop();
+    if (call.active) endCall();
+    who = id;
+    storage.set("echo-who", id);
+    profile.name = ""; profile.about = ""; profile.gender = ""; profile.avatar = { ...DEFAULT_AVATAR };
+    memory.items = [];
+    state.current = null;
+    try { state.chats = (await store.list()).filter((c) => (c.who || "main") === who).map(summary); sortChats(); } catch { state.chats = []; }
+    try { memory.items = (await store.get(MEMORY_ID()))?.items || []; } catch { /* empty */ }
+    await loadProfile();
+    if (!profile.name) els.hello.textContent = `${greeting()} ✨`;
+    renderMemory();
+    goHome();
+    toast(`שלום ${profile.name || ""} 👋`.replace("  ", " "));
+  }
+  function newPerson() {
+    const id = "p" + uid();
+    openEditor(
+      { title: "👤 פרופיל חדש", label: "איך קוראים לך?", name: "", avatar: { ...DEFAULT_AVATAR, hair: "short", extra: "none", shirt: "#8fc8ff", bg: "#d4ecff" }, placeholder: "השם שלך", about: "", aboutHint: "משהו קצר עליך ✨", gender: "" },
+      async ({ name, avatar, about, gender }) => {
+        if (!name) { toast("צריך לכתוב שם 🙂"); return; }
+        try { await store.put(PROFILE_ID_OF(id), { kind: "profile", name, about: about || "", avatar, gender: gender || "" }); } catch { toast("לא הצלחתי ליצור פרופיל"); return; }
+        whoList = [...whoList.filter((p) => p.id !== id), { id, name, avatar }];
+        if (!whoList.some((p) => p.id === "main")) whoList.unshift({ id: "main", name: profile.name || "", avatar: profile.avatar });
+        try { await store.put(WHO_ID, { kind: "people", list: whoList }); } catch { /* convenience */ }
+        await switchTo(id);
+      },
+    );
+  }
 
   /* ---------------- contact profile page */
   const sheet = document.querySelector("#sheet");
@@ -2527,7 +2678,8 @@ ${svg}`;
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const callMic = document.querySelector("#callMic");
   function listen() {
-    if (!Recognition || !call.active || callMic.hidden) return;
+    if (!call.active) return;
+    if (!Recognition || micBlocked) { call.viaMic = false; voiceTypingTip(document.querySelector("#callInput")); return; }
     try {
       try { call.rec?.abort(); } catch { /* idle */ }
       const rec = new Recognition();
@@ -2538,7 +2690,7 @@ ${svg}`;
       rec.onstart = () => { callMic.classList.add("on"); callStatus.textContent = "מקשיב… 🎤"; };
       rec.onend = () => { callMic.classList.remove("on"); if (!state.busy && call.active && callStatus.textContent.startsWith("מקשיב")) callStatus.textContent = clock(); };
       rec.onerror = (ev) => {
-        if (ev.error === "not-allowed" || ev.error === "service-not-allowed") { callMic.hidden = true; call.viaMic = false; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); }
+        if (ev.error === "not-allowed" || ev.error === "service-not-allowed") { call.viaMic = false; voiceTypingTip(document.querySelector("#callInput")); }
         else if (ev.error === "no-speech") { call.viaMic = false; toast("לא שמעתי כלום. לחצי 🎤 כדי לדבר שוב"); }
       };
       rec.onresult = (ev) => {
@@ -2549,15 +2701,33 @@ ${svg}`;
         sendMessage(said);
       };
       rec.start();
-    } catch { callMic.hidden = true; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); }
+    } catch { call.viaMic = false; voiceTypingTip(document.querySelector("#callInput")); }
   }
-  if (Recognition) {
-    callMic.hidden = false;
-    callMic.addEventListener("click", listen);
-  }
+  callMic.hidden = false;
+  callMic.addEventListener("click", listen);
   const VOICE_NOTE = "\n\nYou are on a voice call right now: answer in 1-3 short, warm spoken sentences in the user's language. No markdown, no lists, no emojis.";
 
   /* ---------------- little extras: sounds, emoji, dictation, games, hearts, saving */
+  // Inside the Claude page the browser may refuse the microphone; the computer's own
+  // voice typing still works in any text box, so point to it instead of giving up.
+  const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+  const VOICE_TYPING_TIP = isMac
+    ? "🎤 כאן המיקרופון חסום, אבל אפשר לדבר בכל זאת: לחצי פעמיים על מקש fn (או 🎤 במקלדת) ודברי"
+    : "🎤 כאן המיקרופון חסום, אבל אפשר לדבר בכל זאת: לחצי ⊞ Windows + H ודברי";
+  let micBlocked = false;
+  function voiceTypingTip(input) {
+    micBlocked = true;
+    input?.focus();
+    showTip(VOICE_TYPING_TIP);
+  }
+  function showTip(text) {
+    els.toasts.querySelectorAll(".tip").forEach((old) => old.remove());
+    const n = document.createElement("div");
+    n.className = "toast tip";
+    n.textContent = text;
+    els.toasts.append(n);
+    setTimeout(() => n.remove(), 7000);
+  }
   let soundOn = storage.get("echo-sound") !== "off";
   let audio = null;
   /** Soft messenger-like blips, made on the fly (no sound files needed). */
@@ -2604,10 +2774,12 @@ ${svg}`;
   // Dictation: speak and the words appear in the message box.
   const dictateBtn = document.querySelector("#dictateBtn");
   const DictRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  dictateBtn.hidden = false;
+  if (!DictRecognition) dictateBtn.addEventListener("click", () => voiceTypingTip(els.input));
   if (DictRecognition) {
-    dictateBtn.hidden = false;
     let rec = null;
     dictateBtn.addEventListener("click", () => {
+      if (micBlocked) { voiceTypingTip(els.input); return; }
       if (rec) { rec.stop(); return; }
       try {
         rec = new DictRecognition();
@@ -2621,11 +2793,11 @@ ${svg}`;
           autosize();
         };
         rec.onerror = (ev) => {
-          if (ev.error === "not-allowed" || ev.error === "service-not-allowed") { dictateBtn.hidden = true; toast("המיקרופון לא זמין כאן ⌨️"); }
+          if (ev.error === "not-allowed" || ev.error === "service-not-allowed") voiceTypingTip(els.input);
         };
         rec.onend = () => { dictateBtn.classList.remove("on"); rec = null; els.input.focus(); };
         rec.start();
-      } catch { dictateBtn.hidden = true; toast("המיקרופון לא זמין כאן ⌨️"); }
+      } catch { voiceTypingTip(els.input); }
     });
   }
 
@@ -2667,7 +2839,7 @@ ${svg}`;
   }
 
   /* ---------------- memory: what Echo remembers across chats */
-  const MEMORY_ID = "memory";
+  const MEMORY_ID = () => MEMORY_ID_OF(who);
   const MEMORY_MAX = 40;
   const memory = { items: [], busy: false };
 
@@ -2677,6 +2849,8 @@ ${svg}`;
     const others = state.chats.filter((c) => c.id !== chat.id).slice(0, 8).map((c) => `- ${c.title}`).join("\n");
     let note = profile.name ? `\n\nThe user's name is ${profile.name}.` : "";
     if (profile.about) note += ` About the user: ${profile.about}`;
+    if (profile.gender === "girl") note += "\nThe user is a girl: in Hebrew, address her in feminine forms (את, רוצה, תגידי, אהבת).";
+    if (profile.gender === "boy") note += "\nThe user is a boy: in Hebrew, address him in masculine forms (אתה, רוצה, תגיד, אהבת).";
     if (chat.contact?.name) note += `\n\nIn this chat you appear to the user as a contact named "${chat.contact.name}". If asked your name, say ${chat.contact.name}. You are the same friendly robot in every chat, just with a different name and look here.`;
     const voice = chat.contact?.voice || (chat.contact ? defaultVoice(chat.contact.name, chat.contact.avatar) : null);
     if (voice === "girl") note += "\nIn Hebrew, speak about yourself in feminine forms (for example: אני שמחה, הבנתי אותך, אני חושבת).";
@@ -2714,7 +2888,7 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
     }
   }
   async function saveMemory() {
-    try { await store.put(MEMORY_ID, { kind: "memory", items: memory.items }); } catch { toast("לא הצלחתי לשמור את הזיכרון"); }
+    try { await store.put(MEMORY_ID(), { kind: "memory", items: memory.items }); } catch { toast("לא הצלחתי לשמור את הזיכרון"); }
     renderMemory();
   }
 
@@ -2771,9 +2945,10 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
     }
     els.status.classList.add(sample ? "live" : "demo");
     els.status.querySelector(".label").textContent = sample ? "מחובר" : "לא מחובר";
-    try { state.chats = (await store.list()).map(summary); sortChats(); } catch { toast("לא הצלחתי לטעון את השיחות"); }
+    try { state.chats = (await store.list()).filter((c) => (c.who || "main") === who).map(summary); sortChats(); } catch { toast("לא הצלחתי לטעון את השיחות"); }
+    try { whoList = (await store.get(WHO_ID))?.list || []; } catch { /* first time */ }
     if (!state.current) { state.nextContact = randomContact(); renderHeader(); }
-    try { memory.items = (await store.get(MEMORY_ID))?.items || []; } catch { /* starts empty */ }
+    try { memory.items = (await store.get(MEMORY_ID()))?.items || []; } catch { /* starts empty */ }
     await loadProfile();
     renderMemory();
     renderChatList();
