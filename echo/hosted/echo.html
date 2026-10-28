@@ -862,14 +862,6 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 #emojiBtn { font-size: 19px; }
 .dictate.on { color: #fff; background: #ff3b5c; animation: blink 1.2s ease-in-out infinite; }
 
-.games { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin: -12px 0 18px; }
-.games-label { font-size: 13px; color: var(--muted); }
-.game {
-  border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px; padding: 7px 14px; font-size: 13.5px;
-  transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
-}
-.game:hover { transform: translateY(-2px); border-color: var(--accent-2); box-shadow: 0 6px 16px var(--accent-soft); }
-
 .welcome-mark .core:has(img), .welcome-mark .core:has(.echo-face) { inset: 22px; background: none; box-shadow: 0 10px 30px var(--accent-soft); overflow: hidden; border-radius: 50%; }
 .welcome-mark .core img { width: 100%; height: 100%; display: block; }
 .welcome-who { margin: -18px 0 22px; color: var(--muted); font-size: 14.5px; }
@@ -951,6 +943,15 @@ body:has(.call:not([hidden])) .toasts { bottom: auto; top: 110px; }
 .who small { font-size: 11px; color: var(--accent); }
 .gender-choice { padding: 7px 16px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; }
 .gender-choice.on { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* ============================================================ getting a real girl's voice */
+.voice-help { display: grid; gap: 6px; justify-items: start; margin-top: 10px; padding: 12px 14px; border-radius: 16px; background: var(--accent-soft); border: 1px solid var(--border); font-size: 13.5px; line-height: 1.5; text-align: start; }
+.voice-help b { font-weight: 600; }
+.voice-help small { color: var(--muted); font-size: 12px; }
+.voice-help .open-edge { margin-top: 2px; }
+.call .voice-help { position: relative; z-index: 1; width: min(380px, calc(100% - 32px)); margin: 0 auto 12px; background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.25); color: #fff; backdrop-filter: blur(10px); }
+.call .voice-help small { color: rgba(255, 255, 255, 0.75); }
+.code-block pre { color: #abb2bf; }
 
 </style>
 <div dir="rtl" lang="he" style="height:100%">
@@ -1054,14 +1055,6 @@ body:has(.call:not([hidden])) .toasts { bottom: auto; top: 110px; }
           <p class="welcome-hello" id="hello">שלום ✨</p>
           <h2 class="welcome-title">על מה נדבר היום?</h2>
           <p class="welcome-who" id="welcomeWho"></p>
-          <div class="games" id="games">
-            <span class="games-label">🎲 משחקים</span>
-            <button type="button" class="game" data-prompt="בוא נשחק בחידות! תן לי חידה אחת (לא קשה מדי), חכה שאנחש, ואחרי כל ניחוש תגיד לי אם צדקתי ותן את החידה הבאה.">🧩 חידות</button>
-            <button type="button" class="game" data-prompt="בוא נשחק טריוויה! שאל אותי שאלה אחת בכל פעם עם 4 אפשרויות (א-ד), חכה לתשובה שלי, תגיד אם צדקתי ותספור נקודות.">🏆 טריוויה</button>
-            <button type="button" class="game" data-prompt="בוא נשחק 20 שאלות! אני חושבת על משהו ואתה מנסה לנחש בשאלות של כן ולא. תתחיל לשאול!">🔮 20 שאלות</button>
-            <button type="button" class="game" data-prompt="בוא נכתוב ביחד סיפור! אתה כותב 2-3 משפטים של התחלה מסקרנת, ואז אני ממשיכה, וכן הלאה בתורות.">📖 סיפור ביחד</button>
-            <button type="button" class="game" data-prompt="בוא נשחק 'מה היית מעדיף'! תן לי שאלה מצחיקה עם שתי אפשרויות, חכה שאבחר, ואז תגיד מה אתה היית בוחר ולמה.">🤔 מה היית מעדיף</button>
-          </div>
           <div class="suggestions" id="suggestions">
             <button class="suggestion" data-prompt="תספר לי סיפור קצר ומצחיק על חתול שטס לחלל">
               <span class="s-emoji">🚀</span><span><b>ספר לי</b> סיפור על חתול בחלל</span>
@@ -1153,6 +1146,7 @@ body:has(.call:not([hidden])) .toasts { bottom: auto; top: 110px; }
           <button type="button" class="voice-choice listen" id="voiceTry">🔊 לשמוע</button>
         </div>
         <p class="voice-note" id="voiceNote"></p>
+        <div class="voice-help" id="editorVoiceHelp" hidden></div>
       </div>
       <div class="avatar-options" id="avatarOptions"></div>
       <div class="dialog-actions">
@@ -1196,6 +1190,7 @@ body:has(.call:not([hidden])) .toasts { bottom: auto; top: 110px; }
     </div>
     <div class="call-face"><span class="ring r1"></span><span class="ring r2"></span><span class="call-avatar" id="callAvatar"></span></div>
     <p class="call-line" id="callLine" dir="auto"></p>
+    <div class="voice-help" id="callVoiceHelp" hidden></div>
     <form class="call-say" id="callSay">
       <input id="callInput" name="callInput" placeholder="מה תרצי להגיד ל-Echo?" autocomplete="off" dir="auto">
       <button type="submit" aria-label="שליחה">➤</button>
@@ -1413,12 +1408,16 @@ ${svg}`;
     return { id: chat.id, title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: plain(last).slice(0, 80) };
   }
   function upsert(chat) {
+    if ((chat.who || "main") !== who) return; // a late save from someone else's chat
     const i = state.chats.findIndex((c) => c.id === chat.id);
     if (i >= 0) state.chats[i] = summary(chat); else state.chats.unshift(summary(chat));
     sortChats(); renderChatList();
   }
-  async function saveChat(chat) {
-    chat.updated = Date.now();
+  const deletedIds = new Set();
+  /** Saves a chat. Pass touch:false for changes that shouldn't move it to the top (pin, rename, ❤️). */
+  async function saveChat(chat, { touch = true } = {}) {
+    if (deletedIds.has(chat.id)) return;
+    if (touch || !chat.updated) chat.updated = Date.now();
     chat.preview = plain([...chat.messages].reverse().find((m) => m.text)?.text || "").slice(0, 80);
     upsert(chat);
     try { await store.put(chat.id, { kind: "chat", who: chat.who || "main", title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: chat.preview, messages: chat.messages }); }
@@ -1458,7 +1457,7 @@ ${svg}`;
       const chat = await loadFull(id);
       if (!chat) return;
       chat.pinned = !chat.pinned;
-      await saveChat(chat);
+      await saveChat(chat, { touch: false });
     }
     if (action === "delete") {
       const s = state.chats.find((c) => c.id === id);
@@ -1468,6 +1467,8 @@ ${svg}`;
       els.confirm.addEventListener("close", async function onClose() {
         els.confirm.removeEventListener("close", onClose);
         if (els.confirm.returnValue !== "ok") return;
+        deletedIds.add(id);
+        if (state.current?.id === id) stop();
         const chat = await loadFull(id);
         for (const m of chat?.messages || []) {
           for (const ref of [m.imageId, ...(m.attachments || [])]) if (ref) store.remove(ref).catch(() => {});
@@ -1496,7 +1497,7 @@ ${svg}`;
       const title = input.value.trim();
       if (save && title && title !== s.title) {
         const chat = await loadFull(id);
-        if (chat) { chat.title = title.slice(0, 80); await saveChat(chat); if (state.current?.id === id) renderHeader(); }
+        if (chat) { chat.title = title.slice(0, 80); await saveChat(chat, { touch: false }); if (state.current?.id === id) renderHeader(); }
       } else renderChatList();
     };
     input.addEventListener("keydown", (e) => { if (e.key === "Enter") finish(true); if (e.key === "Escape") finish(false); });
@@ -1609,7 +1610,7 @@ ${svg}`;
     }
     if (isLast) {
       const r = document.createElement("button");
-      r.type = "button"; r.innerHTML = `${ICONS.redo}<span>תשובה אחרת</span>`;
+      r.type = "button"; r.className = "redo"; r.innerHTML = `${ICONS.redo}<span>תשובה אחרת</span>`;
       r.addEventListener("click", regenerate);
       v.actions.append(r);
     }
@@ -1656,6 +1657,8 @@ ${svg}`;
     state.current = chat;
     renderHeader();
     await renderThread(); renderChatList(); toggleSidebar(false);
+    const last = chat.messages.at(-1);
+    if (last?.role === "user" && Date.now() - (last.at || 0) < 15 * 60e3 && sample && !state.busy && state.current === chat) reply();
   }
   els.newChat.addEventListener("click", goHome);
   els.newChatTop.addEventListener("click", goHome);
@@ -1695,15 +1698,18 @@ ${svg}`;
     } finally {
       if (state.busy === ctl) { state.busy = null; setBusy(false); }
       // Messages sent while the contact was typing get their answer now.
-      if (state.waiting && state.current === chat && !ctl.signal.aborted) setTimeout(() => reply(), 400);
-      else state.waiting = false;
+      if (state.waiting && state.current === chat && !ctl.signal.aborted) {
+        const images = state.waitingImages || [];
+        state.waitingImages = [];
+        setTimeout(() => reply(images), 400);
+      } else { state.waiting = false; state.waitingImages = []; }
     }
   }
   async function replyInner(chat, ctl, images) {
     // Replies go right after the messages they answer, even if more arrive while typing.
     const base = chat.messages.length;
     let added = 0;
-    document.querySelectorAll(".msg.assistant .actions").forEach((a) => (a.innerHTML = ""));
+    document.querySelectorAll(".msg.assistant .actions .redo").forEach((b) => b.remove());
     const v = assistantEl();
     v.content.innerHTML = TYPING_DOTS;
     v.node.classList.add("streaming");
@@ -1945,7 +1951,12 @@ ${svg}`;
     els.messages.append(userEl(text, photos.map((p) => p.thumb), msg.at, false));
     play("send");
     saveChat(state.current);
-    if (busyNow) { state.waiting = true; scrollToBottom(true); return; }
+    if (busyNow) {
+      state.waiting = true;
+      state.waitingImages = [...(state.waitingImages || []), ...photos.map((p) => p.file)];
+      scrollToBottom(true);
+      return;
+    }
     await reply(photos.map((p) => p.file));
   }
 
@@ -2340,16 +2351,18 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
     // Tell the viewer what this computer can actually do.
     const note = document.querySelector("#voiceNote");
     if (!canSpeak) { note.textContent = "🔇 בדפדפן הזה אין קול."; return; }
-    const hebrew = speechSynthesis.getVoices().filter((v) => /^(he|iw)/i.test(v.lang));
-    const hasGirl = hebrew.some((v) => FEMALE.test(v.name));
+    const hebrew = hebrewVoices();
+    const hasGirl = hasGirlVoice();
+    renderVoiceHelp(document.querySelector("#editorVoiceHelp"), draftVoice);
     const names = hebrew.map((v) => v.name.replace(/^Microsoft\s+|Google\s+/i, "").replace(/\s*-.*$/, "")).join(", ");
     note.textContent = !hebrew.length
       ? "😕 במחשב הזה אין קול בעברית. נסי את הדפדפן Microsoft Edge."
-      : draftVoice === "girl" && !hasGirl
-        ? `😕 במחשב הזה יש רק קול עברי של בן (${names}), אז הקול יוגבה. לקול אמיתי של בת פתחי את Echo בדפדפן Microsoft Edge 🌊`
-        : `🔊 קולות בעברית במחשב: ${names}`;
+      : `🔊 קולות בעברית בדפדפן הזה: ${names}${hasGirl ? " 👧✓" : ""}`;
   }
-  if ("speechSynthesis" in window) speechSynthesis.addEventListener?.("voiceschanged", () => { if (avatarDialog.open) renderVoiceChoice(); });
+  if ("speechSynthesis" in window) speechSynthesis.addEventListener?.("voiceschanged", () => {
+    if (avatarDialog.open) renderVoiceChoice();
+    if (call.active) renderVoiceHelp(document.querySelector("#callVoiceHelp"), callVoiceKind());
+  });
   document.querySelectorAll(".voice-choice[data-voice]").forEach((b) => b.addEventListener("click", () => {
     draftVoice = b.dataset.voice;
     renderVoiceChoice();
@@ -2431,7 +2444,7 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
       note: "🤖 זה אותו רובוט בכל השיחות, רק בשם ובמראה אחרים.",
     }, async ({ name, avatar, voice, about }) => {
       const contact = { name: name || current.name, avatar, voice, about };
-      if (target) { target.contact = contact; await saveChat(target); }
+      if (target) { target.contact = contact; await saveChat(target, { touch: false }); }
       else state.nextContact = contact;
       if (!target || target === state.current || target.id === state.current?.id) { if (state.current && target) state.current.contact = contact; renderHeader(); }
       renderChatList();
@@ -2593,9 +2606,43 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
   // Edge adds "Hila" (female), Mac has "Carmit" (female). Pick the best match and
   // shape the pitch so a girl sounds like a girl even with a male voice.
   const FEMALE = /hila|carmit|female|zira|woman|girl/i, MALE = /asaf|avri|male|man\b/i;
+  // Some browsers briefly list voices with missing fields; skip those.
+  /** Picks the girl's or the boy's form of a word, by who is using Echo right now. */
+  const g = (girl, boy) => ((profile.gender || (profile.avatar?.kind === "boy" ? "boy" : "")) === "boy" ? boy : girl);
+  const hebrewVoices = () => (canSpeak ? speechSynthesis.getVoices() : []).filter((v) => v?.name && /^(he|iw)/i.test(v.lang || ""));
+  const hasGirlVoice = () => hebrewVoices().some((v) => FEMALE.test(v.name));
+
+  /* A real girl's voice in Hebrew comes with the computer's browser: Edge has "Hila", a Mac has "Carmit".
+     Chrome on Windows only has a boy's voice, so offer to open Echo in Edge. */
+  const ECHO_URL = "https://claude.ai/artifact/DRdFRtT4dVRYtBEU7i3BpW";
+  const isEdge = /Edg\//.test(navigator.userAgent);
+  const isWindows = /Windows/.test(navigator.userAgent);
+  function renderVoiceHelp(el, kind) {
+    const show = canSpeak && kind === "girl" && speechSynthesis.getVoices().length > 0 && !hasGirlVoice();
+    el.hidden = !show;
+    if (!show) return;
+    if (isEdge) {
+      el.innerHTML = "<b>👧 הקול של הילה בדרך…</b><span>ב-Edge הקול של הבת מגיע מהאינטרנט. אם הוא לא מגיע, בדקי שיש אינטרנט ורענני את הדף.</span>";
+    } else if (isWindows) {
+      el.innerHTML = `<b>👧 רוצה קול אמיתי של בת?</b><span>בדפדפן הזה יש במחשב רק קול של בן. בדפדפן <b>Edge</b> (שכבר נמצא במחשב) יש קול אמיתי של בת בשם <b>הילה</b>!</span>
+<button type="button" class="btn small open-edge">🌊 לפתוח את Echo ב-Edge</button>
+<small>אם Edge מבקש להתחבר, מתחברים לאותו חשבון Claude, ואז כל השיחות שם.</small>`;
+      el.querySelector(".open-edge").addEventListener("click", openInEdge);
+    } else if (isMac) {
+      el.innerHTML = "<b>👧 רוצה קול אמיתי של בת?</b><span>במק יש קול של בת בשם כרמית: הגדרות המערכת ← נגישות ← תוכן מדובר ← קול המערכת ← ניהול קולות ← עברית ← כרמית. אחר כך רענני את הדף.</span>";
+    } else {
+      el.innerHTML = "<b>👧 אין כאן קול של בת בעברית</b><span>במחשב Windows אפשר לפתוח את Echo בדפדפן Edge, ושם יש קול של בת בשם הילה.</span>";
+    }
+  }
+  async function openInEdge() {
+    try { await navigator.clipboard.writeText(ECHO_URL); } catch { /* copying may be blocked here */ }
+    try { window.open("microsoft-edge:" + ECHO_URL, "_blank"); } catch { /* blocked: the tip explains the other way */ }
+    showTip("אם Edge לא נפתח: פתחי את Edge (הסמל הכחול-ירוק 🌊), לחצי למעלה על שורת הכתובת והדביקי (Ctrl+V). הקישור כבר הועתק!");
+  }
+
   function pickVoice(kind = "girl") {
     if (!canSpeak) return null;
-    const hebrew = speechSynthesis.getVoices().filter((v) => /^(he|iw)/i.test(v.lang));
+    const hebrew = hebrewVoices();
     if (!hebrew.length) return null;
     const female = hebrew.filter((v) => FEMALE.test(v.name) && !/\bmale\b/i.test(v.name.replace(/female/i, "")));
     const male = hebrew.filter((v) => MALE.test(v.name) && !FEMALE.test(v.name));
@@ -2658,6 +2705,10 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
       },
     });
   }
+  function callVoiceKind() {
+    const who = state.current?.contact || state.nextContact;
+    return who?.voice || defaultVoice(who?.name, who?.avatar);
+  }
   function clock() {
     const s = Math.floor((Date.now() - call.started) / 1000);
     return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
@@ -2667,6 +2718,7 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
     call.started = Date.now();
     const who = state.current?.contact || state.nextContact;
     document.querySelector("#callAvatar").innerHTML = contactFace(who);
+    renderVoiceHelp(document.querySelector("#callVoiceHelp"), callVoiceKind());
     document.querySelector(".call-name").textContent = who?.name || "Echo";
     document.querySelector("#callInput").placeholder = `מה להגיד ל${who?.name ? "-" + who.name : "-Echo"}?`;
     callEl.hidden = false;
@@ -2724,7 +2776,7 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
       rec.onend = () => { callMic.classList.remove("on"); if (!state.busy && call.active && callStatus.textContent.startsWith("מקשיב")) callStatus.textContent = clock(); };
       rec.onerror = (ev) => {
         if (ev.error === "not-allowed" || ev.error === "service-not-allowed") { call.viaMic = false; voiceTypingTip(document.querySelector("#callInput")); }
-        else if (ev.error === "no-speech") { call.viaMic = false; toast("לא שמעתי כלום. לחצי 🎤 כדי לדבר שוב"); }
+        else if (ev.error === "no-speech") { call.viaMic = false; toast(`לא שמעתי כלום. ${g("לחצי", "לחץ")} 🎤 כדי לדבר שוב`); }
       };
       rec.onresult = (ev) => {
         const said = ev.results[0][0].transcript;
@@ -2740,18 +2792,18 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
   callMic.addEventListener("click", listen);
   const VOICE_NOTE = "\n\nYou are on a voice call right now: answer in 1-3 short, warm spoken sentences in the user's language. No markdown, no lists, no emojis.";
 
-  /* ---------------- little extras: sounds, emoji, dictation, games, hearts, saving */
+  /* ---------------- little extras: sounds, emoji, dictation, hearts, saving */
   // Inside the Claude page the browser may refuse the microphone; the computer's own
   // voice typing still works in any text box, so point to it instead of giving up.
   const isMac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
-  const VOICE_TYPING_TIP = isMac
-    ? "🎤 כאן המיקרופון חסום, אבל אפשר לדבר בכל זאת: לחצי פעמיים על מקש fn (או 🎤 במקלדת) ודברי"
-    : "🎤 כאן המיקרופון חסום, אבל אפשר לדבר בכל זאת: לחצי ⊞ Windows + H ודברי";
+  const voiceTypingText = () => isMac
+    ? `🎤 כאן המיקרופון חסום, אבל אפשר לדבר בכל זאת: ${g("לחצי", "לחץ")} פעמיים על מקש fn (או 🎤 במקלדת) ${g("ודברי", "ודבר")}`
+    : `🎤 כאן המיקרופון חסום, אבל אפשר לדבר בכל זאת: ${g("לחצי", "לחץ")} ⊞ Windows + H ${g("ודברי", "ודבר")}`;
   let micBlocked = false;
   function voiceTypingTip(input) {
     micBlocked = true;
     input?.focus();
-    showTip(VOICE_TYPING_TIP);
+    showTip(voiceTypingText());
   }
   function showTip(text) {
     els.toasts.querySelectorAll(".tip").forEach((old) => old.remove());
@@ -2834,7 +2886,6 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
     });
   }
 
-  document.querySelector("#games").addEventListener("click", (e) => { const b = e.target.closest(".game"); if (b) sendMessage(b.dataset.prompt); });
 
   /** Double-click (or double-tap) a reply to send it a heart. */
   function react(v, msg, chat) {
@@ -2853,7 +2904,7 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
       msg.reaction = msg.reaction ? "" : "❤️";
       show();
       if (msg.reaction) { v.node.querySelector(".reaction")?.classList.add("pop"); play("send"); }
-      if (chat) await saveChat(chat);
+      if (chat) await saveChat(chat, { touch: false });
     });
   }
 
@@ -2904,6 +2955,8 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
   let rememberCount = 0;
   async function remember(chat) {
     if (memory.busy || !sample) return;
+    const owner = chat.who || "main";
+    if (owner !== who) return;
     if (++rememberCount % 4 !== 1) return;
     const turn = chat.messages.slice(-8).map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${(m.text || "").slice(0, 1500)}`).join("\n");
     memory.busy = true;
@@ -2922,6 +2975,7 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
       const remove = new Set(Array.isArray(result?.remove) ? result.remove : []);
       const add = (Array.isArray(result?.add) ? result.add : []).filter((t) => typeof t === "string" && t.trim()).map((t) => ({ text: t.trim().slice(0, 200), at: Date.now() }));
       if (!add.length && !remove.size) return;
+      if (who !== owner) return; // switched to someone else meanwhile
       memory.items = [...memory.items.filter((_, i) => !remove.has(i)), ...add].slice(-MEMORY_MAX);
       await saveMemory();
       if (add.length) toast("🧠 Echo זוכר משהו חדש");
@@ -2940,7 +2994,7 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
     document.querySelector("#memoryBtn").textContent = `🧠 מה Echo זוכר${memory.items.length ? ` (${memory.items.length})` : ""}`;
     memoryList.innerHTML = "";
     if (!memory.items.length) {
-      memoryList.innerHTML = '<li class="memory-empty">עוד לא זוכר כלום. ספרי לו על עצמך! 😊</li>';
+      memoryList.innerHTML = `<li class="memory-empty">עוד לא זוכר כלום. ${g("ספרי", "ספר")} לו על עצמך! 😊</li>`;
       return;
     }
     memory.items.forEach((m, i) => {
@@ -2951,7 +3005,11 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
       memoryList.append(li);
     });
   }
-  document.querySelector("#memoryBtn").addEventListener("click", () => memoryDialog.showModal());
+  document.querySelector("#memoryBtn").addEventListener("click", () => {
+    memoryDialog.querySelector("h3").textContent = `🧠 מה Echo זוכר ${g("עלייך", "עליך")}`;
+    renderMemory();
+    memoryDialog.showModal();
+  });
   document.querySelector("#memoryClear").addEventListener("click", async () => {
     if (!memory.items.length) return;
     memory.items = [];
@@ -2982,7 +3040,7 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
     if (user) {
       const me = await user.me();
       const first = (me.name || "").trim().split(/\s+/)[0];
-      if (first) els.hello.textContent = `${greeting()}, ${first} ✨`;
+      if (first && !profile.name && who === "main") els.hello.textContent = `${greeting()}, ${first} ✨`;
       if (db && me.id) col = db.collection("data/users/" + me.id);
     }
     els.status.classList.add(sample ? "live" : "demo");
