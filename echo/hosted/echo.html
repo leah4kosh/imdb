@@ -1677,7 +1677,7 @@ ${svg}`;
   function errorText(code) {
     return {
       not_granted: "צריך לאשר ל-Echo להשתמש ב-Claude. רעננו את הדף ולחצו 'אישור'.",
-      rate_limited: "יותר מדי בקשות כרגע. נסו שוב בעוד רגע ⏳",
+      rate_limited: "נגמרו ההודעות של Claude לעכשיו 😴 (זה משותף לכל מי שמשתמש באותו חשבון). אפשר לכתוב שוב בעוד כמה שעות.",
       usage_limit: "הגעת למגבלת השימוש ב-Claude לעכשיו.",
     }[code] || "משהו השתבש. נסו שוב.";
   }
@@ -1711,7 +1711,7 @@ ${svg}`;
     setTimeout(markRead, 600);
     scrollToBottom(true);
 
-    const turns = chat.messages.slice(-30).map((m, i, all) => {
+    const turns = chat.messages.slice(-16).map((m, i, all) => {
       let content = m.text || "";
       if (m.role === "assistant" && m.imageDesc) content += `\n[An image was created and shown: ${m.imageDesc}]`;
       const n = m.attachments?.length || 0;
@@ -1734,7 +1734,7 @@ ${svg}`;
     const started = Date.now();
     try {
       const res = await sample(input, {
-        cache: false, signal: ctl.signal,
+        cache: false, signal: ctl.signal, modelTier: chatTier(chat),
         ...(images.length ? { images } : {}),
         onText: ({ text }) => { raw = text; },
       });
@@ -2895,16 +2895,24 @@ ${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5}
   }
 
   /** After each reply, quietly note anything worth remembering for next time. */
+  /** Chatting runs on the light model; homework-style asks get the stronger one. */
+  function chatTier(chat) {
+    const last = [...chat.messages].reverse().find((m) => m.role === "user")?.text || "";
+    return /שיעורי|תרגיל|חשבון|מתמטיקה|תסביר|הסבר|קוד|לכתוב סיפור|חיבור|עבודה על/.test(last) || last.length > 400 ? "default" : "quick";
+  }
+  // Memory is checked every few messages, not after each one, to save usage.
+  let rememberCount = 0;
   async function remember(chat) {
     if (memory.busy || !sample) return;
-    const turn = chat.messages.slice(-2).map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${(m.text || "").slice(0, 1500)}`).join("\n");
+    if (++rememberCount % 4 !== 1) return;
+    const turn = chat.messages.slice(-8).map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${(m.text || "").slice(0, 1500)}`).join("\n");
     memory.busy = true;
     try {
       const result = await sample.json(`You maintain a short memory about a user of a chat app, so the assistant can remember them in future chats.
 Current memory (numbered):
 ${memory.items.map((m, i) => `${i}. ${m.text}`).join("\n") || "(empty)"}
 
-Latest exchange:
+Latest messages:
 ${turn}
 
 Return JSON {"add": [strings], "remove": [numbers]}.
