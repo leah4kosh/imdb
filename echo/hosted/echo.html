@@ -702,6 +702,149 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 .memory-list .memory-empty { background: transparent; color: var(--muted); justify-content: center; }
 .dialog { width: min(420px, calc(100% - 32px)); }
 
+/* ============================================================ messenger skin ("green") */
+:root[data-skin="green"] {
+  --bg: #efeae2;
+  --bg-2: #e6ddd4;
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-solid: #ffffff;
+  --sidebar: #ffffff;
+  --border: rgba(17, 27, 33, 0.1);
+  --text: #111b21;
+  --muted: #667781;
+  --accent: #00a884;
+  --accent-2: #25d366;
+  --accent-soft: rgba(0, 168, 132, 0.12);
+  --metal: #008069;
+  --user-bubble: #d9fdd3;
+  --user-text: #111b21;
+  --blob-1: transparent; --blob-2: transparent; --blob-3: transparent;
+  --shadow: 0 1px 2px rgba(11, 20, 26, 0.13);
+  --code-bg: #1f2c34;
+  --logo-word: linear-gradient(90deg, #008069, #25d366);
+  color-scheme: light;
+}
+:root[data-skin="green"] .main {
+  background-color: #efeae2;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.045) 1.2px, transparent 1.3px), radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1.1px);
+  background-size: 26px 26px, 17px 17px; background-position: 0 0, 9px 11px;
+}
+:root[data-skin="green"] .topbar { background: #008069; color: #fff; padding-block: 8px; }
+:root[data-skin="green"] .topbar .chat-title { color: #fff; }
+:root[data-skin="green"] .topbar .contact-status { color: rgba(255, 255, 255, 0.85); }
+:root[data-skin="green"] .topbar .icon-btn { color: #fff; }
+:root[data-skin="green"] .topbar .icon-btn:hover { background: rgba(255, 255, 255, 0.15); }
+:root[data-skin="green"] .msg.assistant .flow {
+  background: #fff; padding: 8px 12px 6px; border-radius: 12px; border-start-start-radius: 4px; box-shadow: var(--shadow);
+}
+:root[data-skin="green"] .bubble { border-radius: 12px; border-start-end-radius: 4px; box-shadow: var(--shadow); padding: 8px 12px 6px; }
+:root[data-skin="green"] .msg { margin: 10px 0; }
+:root[data-skin="green"] .msg .avatar.me, :root[data-skin="green"] .msg.assistant > .avatar { display: none; }
+:root[data-skin="green"] .stamp { display: block; }
+:root[data-skin="green"] .welcome-mark .core { background: linear-gradient(135deg, #25d366, #008069); }
+:root[data-skin="green"] .composer { border-radius: 24px; }
+.swatch[data-set-theme="green"] { background: radial-gradient(circle at 30% 30%, #e7ffe0, #25d366 45%, #008069); }
+
+/* ============================================================ header contact */
+.contact { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; }
+.contact-avatar { width: 38px; height: 38px; flex: none; border-radius: 50%; background: var(--surface-solid); display: grid; place-items: center; box-shadow: 0 2px 8px var(--accent-soft); }
+.contact-avatar svg { width: 28px; height: 28px; }
+.contact-text { min-width: 0; display: flex; flex-direction: column; line-height: 1.25; }
+.contact-text .chat-title { flex: none; }
+.contact-status { font-size: 12.5px; color: var(--muted); }
+.contact-status.typing-now { color: var(--accent); font-weight: 500; }
+:root[data-skin="green"] .contact-status.typing-now { color: #d9fdd3; }
+.call-btn svg { width: 21px; height: 21px; }
+
+/* ============================================================ message times and avatars */
+.stamp { display: block; margin-top: 2px; font-size: 11px; color: var(--muted); text-align: end; direction: ltr; unicode-bidi: isolate; opacity: 0.85; }
+.bubble .stamp { color: inherit; opacity: 0.6; }
+.bubble .stamp:not(:empty) { text-align: start; }
+:root[data-skin="green"] .bubble .stamp { color: #53bdeb; opacity: 1; }
+.msg .avatar.me { background: none; box-shadow: none; overflow: hidden; }
+.msg .avatar.me::before, .msg .avatar.me::after { display: none; }
+.msg .avatar.me img { width: 100%; height: 100%; border-radius: 50%; display: block; }
+.msg.user .body { max-width: 75%; }
+
+/* ============================================================ profile */
+.profile-chip {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 16px; border: 1px solid var(--border);
+  background: var(--surface); text-align: start; transition: border-color 0.2s;
+}
+.profile-chip:hover { border-color: var(--accent-2); }
+.me-avatar { width: 40px; height: 40px; flex: none; border-radius: 50%; overflow: hidden; }
+.me-avatar img { width: 100%; height: 100%; display: block; }
+.profile-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+.profile-text b { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-text small { color: var(--muted); font-size: 12px; }
+
+.avatar-dialog { width: min(520px, calc(100% - 24px)); max-height: calc(100% - 24px); }
+.avatar-stage { display: grid; place-items: center; padding: 6px 0 14px; }
+.avatar-preview { width: 120px; height: 120px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow); animation: rise 0.3s both; }
+.avatar-preview img { width: 100%; height: 100%; display: block; }
+.field-label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.avatar-options { display: flex; flex-direction: column; gap: 12px; margin: 14px 0 18px; }
+.avatar-row-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+.avatar-choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice { border: 2px solid transparent; background: var(--accent-soft); border-radius: 14px; padding: 4px; display: flex; flex-direction: column; align-items: center; gap: 2px; width: 62px; }
+.choice img { width: 46px; height: 46px; border-radius: 50%; }
+.choice small { font-size: 11px; color: var(--muted); }
+.choice.dot { width: 30px; height: 30px; border-radius: 50%; padding: 0; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1); }
+.choice.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+
+/* ============================================================ voice call */
+.call { position: fixed; inset: 0; z-index: 80; display: flex; flex-direction: column; align-items: center; justify-content: space-between; color: #fff; padding: max(28px, env(safe-area-inset-top, 0px)) 20px max(28px, env(safe-area-inset-bottom, 0px)); overflow: hidden; }
+.call-bg { position: absolute; inset: 0; z-index: -1; background: radial-gradient(circle at 30% 20%, #7b5bd6, transparent 55%), radial-gradient(circle at 75% 80%, #1aa3d9, transparent 55%), #1b1433; filter: saturate(1.1); }
+.call-bg::after { content: ""; position: absolute; inset: 0; backdrop-filter: blur(30px); background: rgba(10, 6, 20, 0.35); }
+.call-top { text-align: center; }
+.call-name { font-size: 28px; font-weight: 600; font-family: "Fredoka", "Rubik", sans-serif; }
+.call-status { font-size: 15px; opacity: 0.85; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.call-face { position: relative; width: 160px; height: 160px; display: grid; place-items: center; }
+.call-avatar { width: 120px; height: 120px; border-radius: 50%; background: rgba(255, 255, 255, 0.92); display: grid; place-items: center; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35); }
+.call-avatar svg { width: 80px; height: 80px; }
+.call-face .ring { position: absolute; inset: 20px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.5); opacity: 0; }
+.call.talking .call-face .ring { animation: ripple 1.8s ease-out infinite; }
+.call.talking .call-face .r2 { animation-delay: 0.9s; }
+.call-line { max-width: 560px; min-height: 3em; text-align: center; font-size: 17px; line-height: 1.6; margin: 0; opacity: 0.95; }
+.call-say { display: flex; gap: 8px; width: min(520px, 100%); }
+.call-say input { flex: 1; min-width: 0; padding: 12px 16px; border-radius: 24px; border: 0; background: rgba(255, 255, 255, 0.16); color: #fff; outline: none; }
+.call-say input::placeholder { color: rgba(255, 255, 255, 0.7); }
+.call-say button { width: 46px; height: 46px; border-radius: 50%; border: 0; background: #fff; color: #1b1433; font-size: 18px; }
+.call-controls { display: flex; gap: 28px; }
+.call-ctl { display: flex; flex-direction: column; align-items: center; gap: 6px; border: 0; background: none; color: #fff; }
+.call-ctl span { width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; font-size: 24px; background: rgba(255, 255, 255, 0.16); }
+.call-ctl small { font-size: 12.5px; opacity: 0.85; }
+.call-ctl.off span, .call-ctl.on span { background: #fff; }
+.call-ctl.hang span { background: #ff3b30; transform: rotate(135deg); }
+
+/* ============================================================ contacts */
+.avatar.face { background: none; box-shadow: none; overflow: hidden; }
+.avatar.face::before, .avatar.face::after { display: none; }
+.avatar.face img { width: 100%; height: 100%; border-radius: 50%; display: block; }
+.avatar.face .echo-face { width: 100%; height: 100%; }
+.echo-face { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: var(--surface-solid); }
+.echo-face svg { width: 72%; height: 72%; }
+.contact-avatar { overflow: hidden; }
+.contact-avatar img { width: 100%; height: 100%; display: block; }
+.contact { cursor: pointer; border-radius: 12px; padding: 2px 4px; }
+.contact:hover .chat-title { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+.chat-item { padding: 8px 8px; gap: 10px; }
+.ci-avatar { width: 42px; height: 42px; flex: none; border-radius: 50%; overflow: hidden; }
+.ci-avatar img { width: 100%; height: 100%; display: block; }
+.ci-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.ci-top { display: flex; align-items: baseline; gap: 8px; }
+.ci-top .t { flex: 1; font-weight: 500; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ci-time { font-size: 11.5px; color: var(--muted); flex: none; direction: ltr; }
+.ci-preview { font-size: 13px; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.chat-item .more { flex: none; }
+:root[data-skin="green"] .chat-item { border-radius: 0; border-bottom: 1px solid var(--border); }
+:root[data-skin="green"] .chat-item.active { background: #f0f2f5; box-shadow: none; }
+#avatarNote { margin: -4px 0 10px; color: var(--muted); font-size: 13.5px; text-align: center; }
+.themes { gap: 6px; }
+.swatch { width: 20px; height: 20px; }
+.contact-status { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
 </style>
 <div dir="rtl" lang="he" style="height:100%">
 
@@ -737,6 +880,11 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         </button>
       </div>
 
+      <button type="button" class="profile-chip" id="profileBtn">
+        <span class="me-avatar" id="meAvatar" aria-hidden="true"></span>
+        <span class="profile-text"><b id="profileName">הפרופיל שלי</b><small>עיצוב אווטאר ושם ✏️</small></span>
+      </button>
+
       <button class="new-chat" id="newChat">
         <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
         <span>שיחה חדשה</span>
@@ -757,6 +905,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
           <button class="swatch" data-set-theme="sunset" title="שקיעה זהובה" aria-label="שקיעה זהובה"></button>
           <button class="swatch" data-set-theme="prism" title="קשת קריסטל" aria-label="קשת קריסטל"></button>
           <button class="swatch" data-set-theme="night" title="לילה סגול" aria-label="לילה סגול"></button>
+          <button class="swatch" data-set-theme="green" title="סגנון וואטסאפ" aria-label="סגנון וואטסאפ"></button>
         </div>
         <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
       </div>
@@ -770,7 +919,16 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         <button class="icon-btn only-mobile" id="openSidebar" aria-label="פתיחת התפריט">
           <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
         </button>
-        <h1 class="chat-title" id="chatTitle"></h1>
+        <div class="contact" id="contactHead" role="button" tabindex="0" title="פרופיל איש הקשר">
+          <span class="contact-avatar" aria-hidden="true"></span>
+          <div class="contact-text">
+            <h1 class="chat-title" id="chatTitle"></h1>
+            <span class="contact-status" id="contactStatus">מחובר/ת</span>
+          </div>
+        </div>
+        <button class="icon-btn call-btn" id="callBtn" aria-label="שיחה קולית עם Echo" title="שיחה קולית">
+          <svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+        </button>
         <button class="icon-btn only-mobile" id="newChatTop" aria-label="שיחה חדשה">
           <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
         </button>
@@ -825,7 +983,8 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 
   <!-- Chat item menu -->
   <div class="menu" id="chatMenu" role="menu" hidden>
-    <button data-action="rename" role="menuitem">✏️ שינוי שם</button>
+    <button data-action="contact" role="menuitem">👤 פרופיל איש הקשר</button>
+    <button data-action="rename" role="menuitem">✏️ שינוי נושא</button>
     <button data-action="pin" role="menuitem">📌 <span>הצמדה</span></button>
     <button data-action="delete" role="menuitem" class="danger">🗑️ מחיקה</button>
   </div>
@@ -841,6 +1000,42 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
       </div>
     </form>
   </dialog>
+
+  <!-- Profile and avatar builder -->
+  <dialog class="dialog avatar-dialog" id="avatarDialog">
+    <form method="dialog">
+      <h3 id="avatarTitle">👤 הפרופיל שלי</h3>
+      <p id="avatarNote" hidden></p>
+      <div class="avatar-stage"><div class="avatar-preview" id="avatarPreview"></div></div>
+      <label class="field-label" for="profileNameInput" id="avatarNameLabel">השם שלי</label>
+      <input id="profileNameInput" class="key-input" maxlength="30" placeholder="איך קוראים לך?" dir="auto">
+      <div class="avatar-options" id="avatarOptions"></div>
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">ביטול</button>
+        <button value="save" class="btn">שמירה</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Voice call -->
+  <div class="call" id="call" hidden>
+    <div class="call-bg"></div>
+    <div class="call-top">
+      <div class="call-name">Echo</div>
+      <div class="call-status" id="callStatus">מתקשר…</div>
+    </div>
+    <div class="call-face"><span class="ring r1"></span><span class="ring r2"></span><span class="call-avatar" id="callAvatar"></span></div>
+    <p class="call-line" id="callLine" dir="auto"></p>
+    <form class="call-say" id="callSay">
+      <input id="callInput" name="callInput" placeholder="מה תרצי להגיד ל-Echo?" autocomplete="off" dir="auto">
+      <button type="submit" aria-label="שליחה">➤</button>
+    </form>
+    <div class="call-controls">
+      <button type="button" class="call-ctl" id="callMic" hidden><span>🎤</span><small>לדבר</small></button>
+      <button type="button" class="call-ctl" id="callSpeaker"><span>🔊</span><small>רמקול</small></button>
+      <button type="button" class="call-ctl hang" id="callHang"><span>📞</span><small>ניתוק</small></button>
+    </div>
+  </div>
 
   <!-- What Echo remembers -->
   <dialog class="dialog" id="memoryDialog">
@@ -1033,14 +1228,19 @@ ${svg}`;
       item.className = "chat-item" + (chat.id === state.current?.id ? " active" : "");
       item.href = `#${chat.id}`;
       item.dataset.id = chat.id;
-      item.innerHTML = `<span class="t" dir="auto"></span><button class="more" type="button" aria-label="אפשרויות">${ICONS.more}</button>`;
-      item.querySelector(".t").textContent = chat.title;
+      item.innerHTML = `<span class="ci-avatar">${contactFace(chat.contact)}</span><span class="ci-text"><span class="ci-top"><b class="t" dir="auto"></b><small class="ci-time"></small></span><span class="ci-preview" dir="auto"></span></span><button class="more" type="button" aria-label="אפשרויות">${ICONS.more}</button>`;
+      item.querySelector(".t").textContent = chat.contact?.name || chat.title;
+      item.querySelector(".ci-preview").textContent = chat.contact ? chat.title : chat.preview || "";
+      item.querySelector(".ci-time").textContent = timeOf(chat.updated);
       item.addEventListener("click", (e) => { if (!e.target.closest(".more")) { e.preventDefault(); openChat(chat.id); } });
       item.querySelector(".more").addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openMenu(chat.id, e.currentTarget); });
       els.chatList.append(item);
     }
   }
-  function summary(chat) { return { id: chat.id, title: chat.title, pinned: !!chat.pinned, updated: chat.updated }; }
+  function summary(chat) {
+    const last = chat.preview ?? [...(chat.messages || [])].reverse().find((m) => m.text)?.text ?? "";
+    return { id: chat.id, title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: last.replace(/\s+/g, " ").slice(0, 80) };
+  }
   function upsert(chat) {
     const i = state.chats.findIndex((c) => c.id === chat.id);
     if (i >= 0) state.chats[i] = summary(chat); else state.chats.unshift(summary(chat));
@@ -1049,7 +1249,9 @@ ${svg}`;
   async function saveChat(chat) {
     chat.updated = Date.now();
     upsert(chat);
-    try { await store.put(chat.id, { kind: "chat", title: chat.title, pinned: !!chat.pinned, updated: chat.updated, messages: chat.messages }); }
+    chat.preview = [...chat.messages].reverse().find((m) => m.text)?.text?.replace(/\s+/g, " ").slice(0, 80) || "";
+    upsert(chat);
+    try { await store.put(chat.id, { kind: "chat", title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: chat.preview, messages: chat.messages }); }
     catch { toast("לא הצלחתי לשמור את השיחה"); }
   }
 
@@ -1080,6 +1282,7 @@ ${svg}`;
     closeMenu();
     if (!action || !id) return;
     if (action === "rename") return startRename(id);
+    if (action === "contact") return editContact(id);
     if (action === "pin") {
       const chat = await loadFull(id);
       if (!chat) return;
@@ -1122,7 +1325,7 @@ ${svg}`;
       const title = input.value.trim();
       if (save && title && title !== s.title) {
         const chat = await loadFull(id);
-        if (chat) { chat.title = title.slice(0, 80); await saveChat(chat); if (state.current?.id === id) els.chatTitle.textContent = chat.title; }
+        if (chat) { chat.title = title.slice(0, 80); await saveChat(chat); if (state.current?.id === id) renderHeader(); }
       } else renderChatList();
     };
     input.addEventListener("keydown", (e) => { if (e.key === "Enter") finish(true); if (e.key === "Escape") finish(false); });
@@ -1136,11 +1339,11 @@ ${svg}`;
     if (force || t.scrollHeight - t.scrollTop - t.clientHeight < 160) t.scrollTop = t.scrollHeight;
   }
   /** A user message; `photos` are data URLs, or attachment ids still to be loaded. */
-  function userEl(text, photos = []) {
+  function userEl(text, photos = [], at = Date.now()) {
     const n = document.createElement("div");
     n.className = "msg user";
-    n.innerHTML = '<div class="body"></div>';
-    const body = n.firstChild;
+    n.innerHTML = `<div class="avatar me" aria-hidden="true">${avatarImg(profile.avatar)}</div><div class="body"></div>`;
+    const body = n.querySelector(".body");
     if (photos.length) {
       const wrap = document.createElement("div");
       wrap.className = "user-attachments";
@@ -1157,6 +1360,7 @@ ${svg}`;
     if (text) {
       const bubble = document.createElement("div");
       bubble.className = "bubble"; bubble.dir = "auto"; bubble.textContent = text;
+      bubble.append(stampEl(at, true));
       body.append(bubble);
     }
     return n;
@@ -1216,7 +1420,8 @@ ${svg}`;
   function assistantEl() {
     const n = document.createElement("div");
     n.className = "msg assistant";
-    n.innerHTML = '<div class="avatar" aria-hidden="true"></div><div class="body"><div class="flow"><div class="content"></div></div><div class="actions"></div></div>';
+    const who = state.current?.contact || (state.current ? null : state.nextContact);
+    n.innerHTML = `<div class="avatar${who ? " face" : ""}" aria-hidden="true">${who ? contactFace(who) : ""}</div><div class="body"><div class="flow"><div class="content"></div></div><div class="actions"></div></div>`;
     return { node: n, flow: n.querySelector(".flow"), content: n.querySelector(".content"), actions: n.querySelector(".actions") };
   }
   function setActions(v, text, isLast) {
@@ -1241,6 +1446,7 @@ ${svg}`;
   async function renderAssistant(msg, isLast) {
     const v = assistantEl();
     renderMarkdown(v.content, msg.text || "");
+    if (msg.at) v.flow.append(stampEl(msg.at, false));
     if (msg.imageId) {
       const holder = document.createElement("div");
       v.content.after(holder);
@@ -1257,7 +1463,7 @@ ${svg}`;
     showWelcome(msgs.length === 0);
     for (let i = 0; i < msgs.length; i++) {
       const m = msgs[i];
-      els.messages.append(m.role === "user" ? userEl(m.text, m.attachments || []) : await renderAssistant(m, i === msgs.length - 1));
+      els.messages.append(m.role === "user" ? userEl(m.text, m.attachments || [], m.at) : await renderAssistant(m, i === msgs.length - 1));
     }
     requestAnimationFrame(() => scrollToBottom(true));
   }
@@ -1266,7 +1472,8 @@ ${svg}`;
   function goHome() {
     stop();
     state.current = null;
-    els.chatTitle.textContent = "";
+    state.nextContact = randomContact();
+    renderHeader();
     renderThread(); renderChatList(); toggleSidebar(false);
     els.input.focus();
   }
@@ -1275,7 +1482,7 @@ ${svg}`;
     const chat = await store.get(id).catch(() => null);
     if (!chat) { toast("השיחה לא נמצאה"); return goHome(); }
     state.current = chat;
-    els.chatTitle.textContent = chat.title;
+    renderHeader();
     await renderThread(); renderChatList(); toggleSidebar(false);
   }
   els.newChat.addEventListener("click", goHome);
@@ -1284,6 +1491,8 @@ ${svg}`;
 
   /* ---------------- talking to Claude */
   function setBusy(busy) {
+    const status = document.querySelector("#contactStatus");
+    if (status) { status.classList.toggle("typing-now", busy); if (busy) status.textContent = "מקליד/ה…"; else renderHeader(); }
     els.send.classList.toggle("stop", busy);
     els.send.setAttribute("aria-label", busy ? "עצירה" : "שליחה");
     updateSend();
@@ -1331,10 +1540,10 @@ ${svg}`;
       else merged.push({ ...t });
     }
     while (merged.length && merged[0].role !== "user") merged.shift();
-    const input = [{ role: "user", content: RULES + memoryNote(chat) }, { role: "assistant", content: "בסדר!" }, ...merged];
+    const input = [{ role: "user", content: RULES + memoryNote(chat) + (call.active ? VOICE_NOTE : "") }, { role: "assistant", content: "בסדר!" }, ...merged];
 
     let raw = "", frame = 0;
-    const msg = { role: "assistant", text: "" };
+    const msg = { role: "assistant", text: "", at: 0 };
     try {
       const res = await sample(input, {
         cache: false, signal: ctl.signal,
@@ -1361,6 +1570,7 @@ ${svg}`;
     if (frame) cancelAnimationFrame(frame);
     const match = raw.match(IMG_LINE);
     msg.text = visibleText(raw).trim();
+    msg.at = Date.now();
     renderMarkdown(v.content, msg.text);
     v.node.classList.remove("streaming");
 
@@ -1370,7 +1580,8 @@ ${svg}`;
     if (state.busy === ctl) { state.busy = null; setBusy(false); }
     if (msg.text || drawing) { chat.messages.push(msg); await saveChat(chat); }
     if (state.current === chat) setActions(v, msg.text, true);
-    if (msg.text) remember(chat);
+    if (msg.text) { v.flow.append(stampEl(msg.at || Date.now(), false)); remember(chat); }
+    if (call.active && msg.text) speak(msg.text);
     if (drawing) await draw(chat, msg, v);
   }
 
@@ -1461,11 +1672,12 @@ ${svg}`;
     state.pending = []; renderPending();
     if (!state.current) {
       const t = text || "תמונה 🖼️";
-      state.current = { id: "chat_" + uid(), title: t.replace(/\s+/g, " ").slice(0, 40) + (t.length > 40 ? "…" : ""), pinned: false, messages: [] };
+      state.current = { id: "chat_" + uid(), title: t.replace(/\s+/g, " ").slice(0, 40) + (t.length > 40 ? "…" : ""), pinned: false, messages: [], contact: state.nextContact || randomContact() };
+      renderHeader();
       els.chatTitle.textContent = state.current.title;
     }
     showWelcome(false);
-    const msg = { role: "user", text };
+    const msg = { role: "user", text, at: Date.now() };
     if (photos.length) {
       msg.attachments = [];
       for (const p of photos) {
@@ -1475,7 +1687,7 @@ ${svg}`;
       }
     }
     state.current.messages.push(msg);
-    els.messages.append(userEl(text, photos.map((p) => p.thumb)));
+    els.messages.append(userEl(text, photos.map((p) => p.thumb), msg.at));
     saveChat(state.current);
     await reply(photos.map((p) => p.file));
   }
@@ -1568,6 +1780,290 @@ ${svg}`;
   els.lightboxClose.addEventListener("click", () => (els.lightbox.hidden = true));
   els.lightbox.addEventListener("click", (e) => { if (e.target === els.lightbox) els.lightbox.hidden = true; });
 
+  /* ---------------- profile and avatar */
+  const PROFILE_ID = "profile";
+  const AVATAR_PARTS = {
+    skin: { label: "צבע עור", values: ["#ffe0cc", "#f6c9a8", "#e0a97e", "#c68a5e", "#9a6440", "#6b4329"] },
+    hair: { label: "תסרוקת", values: ["long", "short", "bun", "curly", "ponytail", "bob"], names: ["ארוך", "קצר", "קוקו למעלה", "מתולתל", "קוקו", "קארה"] },
+    hairColor: { label: "צבע שיער", values: ["#2b1d16", "#5a3825", "#a0662c", "#e8c26a", "#d35b3a", "#9b6bd6", "#ff8fc0", "#4fb3e8"] },
+    eyeColor: { label: "צבע עיניים", values: ["#5a3825", "#2f7d4f", "#2e6fb5", "#7d8a96", "#9b6bd6"] },
+    extra: { label: "תוספת", values: ["none", "bow", "glasses", "crown", "headphones", "flower"], names: ["בלי", "סרט", "משקפיים", "כתר", "אוזניות", "פרח"] },
+    bg: { label: "רקע", values: ["#ffd1e3", "#cfe8ff", "#d8f5d0", "#fff1b8", "#e6d6ff", "#ffd9c2"] },
+  };
+  const DEFAULT_AVATAR = { skin: "#f6c9a8", hair: "long", hairColor: "#5a3825", eyeColor: "#5a3825", extra: "bow", bg: "#ffd1e3" };
+  const profile = { name: "", avatar: { ...DEFAULT_AVATAR } };
+
+  /** Draws a cute avatar as SVG from the chosen parts. */
+  function avatarSvg(a = DEFAULT_AVATAR) {
+    const shade = (hex, f) => {
+      const n = parseInt(hex.slice(1), 16);
+      const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => Math.max(0, Math.min(255, Math.round(v * f))));
+      return "#" + c.map((v) => v.toString(16).padStart(2, "0")).join("");
+    };
+    const h = a.hairColor, hd = shade(h, 0.8), s = a.skin, sd = shade(s, 0.9);
+    const back = {
+      long: `<path d="M22 50c0-22 12-34 28-34s28 12 28 34v34H22z" fill="${hd}"/>`,
+      short: "",
+      bun: `<circle cx="50" cy="15" r="11" fill="${h}"/>`,
+      curly: `<g fill="${hd}"><circle cx="24" cy="52" r="10"/><circle cx="76" cy="52" r="10"/><circle cx="26" cy="68" r="9"/><circle cx="74" cy="68" r="9"/></g>`,
+      ponytail: `<path d="M74 34c14 4 16 22 8 36-2-14-6-22-12-26z" fill="${hd}"/>`,
+      bob: `<path d="M23 48c0-20 12-31 27-31s27 11 27 31v20H23z" fill="${hd}"/>`,
+    }[a.hair] || "";
+    const front = {
+      long: `<path d="M26 44c2-16 12-24 24-24s22 8 24 24c-10-3-18-9-24-15-5 7-13 12-24 15z" fill="${h}"/>`,
+      short: `<path d="M27 42c1-15 11-23 23-23s22 8 23 23c-6-6-14-9-23-9s-17 3-23 9z" fill="${h}"/>`,
+      bun: `<path d="M27 42c1-15 11-22 23-22s22 7 23 22c-6-5-14-8-23-8s-17 3-23 8z" fill="${h}"/>`,
+      curly: `<g fill="${h}"><circle cx="34" cy="28" r="10"/><circle cx="50" cy="23" r="11"/><circle cx="66" cy="28" r="10"/><circle cx="27" cy="40" r="8"/><circle cx="73" cy="40" r="8"/></g>`,
+      ponytail: `<path d="M27 42c1-15 11-22 23-22s22 7 23 22c-8-4-15-10-20-16-6 7-15 13-26 16z" fill="${h}"/>`,
+      bob: `<path d="M25 46c1-17 12-26 25-26s24 9 25 26c-9-2-18-8-25-14-7 6-16 12-25 14z" fill="${h}"/>`,
+    }[a.hair] || "";
+    const extra = {
+      none: "",
+      bow: `<g transform="translate(66 26) rotate(20)"><path d="M0 0l-10-6v12zM0 0l10-6v12z" fill="#ff5f9e"/><circle r="3" fill="#ff86b6"/></g>`,
+      glasses: `<g fill="none" stroke="#3b2b4f" stroke-width="2.2"><circle cx="41" cy="52" r="7"/><circle cx="59" cy="52" r="7"/><path d="M48 52h4"/></g>`,
+      crown: `<path d="M36 22l5-10 9 8 9-8 5 10z" fill="#ffcc3d" stroke="#e8a317" stroke-width="1.5"/>`,
+      headphones: `<g><path d="M25 50a25 25 0 0 1 50 0" fill="none" stroke="#7c5cff" stroke-width="4"/><rect x="19" y="46" width="9" height="15" rx="4" fill="#7c5cff"/><rect x="72" y="46" width="9" height="15" rx="4" fill="#7c5cff"/></g>`,
+      flower: `<g transform="translate(30 30)"><g fill="#ffb3d1"><circle cx="0" cy="-5" r="4"/><circle cx="5" cy="0" r="4"/><circle cx="0" cy="5" r="4"/><circle cx="-5" cy="0" r="4"/></g><circle r="3" fill="#ffd34d"/></g>`,
+    }[a.extra] || "";
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="${a.bg}"/>${back}
+<path d="M30 100c0-16 9-24 20-24s20 8 20 24z" fill="${shade(a.bg, 0.82)}"/><rect x="44" y="64" width="12" height="14" rx="5" fill="${sd}"/>
+<ellipse cx="50" cy="50" rx="22" ry="24" fill="${s}"/><circle cx="28" cy="52" r="4" fill="${sd}"/><circle cx="72" cy="52" r="4" fill="${sd}"/>
+<g><circle cx="41" cy="52" r="4.2" fill="${a.eyeColor}"/><circle cx="59" cy="52" r="4.2" fill="${a.eyeColor}"/><circle cx="42.4" cy="50.6" r="1.4" fill="#fff"/><circle cx="60.4" cy="50.6" r="1.4" fill="#fff"/></g>
+<ellipse cx="35" cy="60" rx="4" ry="2.4" fill="#ff8fa8" opacity=".45"/><ellipse cx="65" cy="60" rx="4" ry="2.4" fill="#ff8fa8" opacity=".45"/>
+<path d="M44 63q6 5 12 0" fill="none" stroke="#b5584f" stroke-width="2" stroke-linecap="round"/>${front}${extra}</svg>`;
+  }
+  const avatarImg = (cfg) => `<img alt="" src="${svgUrl(avatarSvg(cfg))}">`;
+
+  function renderProfile() {
+    document.querySelector("#meAvatar").innerHTML = avatarImg(profile.avatar);
+    document.querySelector("#profileName").textContent = profile.name || "הפרופיל שלי";
+    document.querySelectorAll(".msg.user .me").forEach((n) => (n.innerHTML = avatarImg(profile.avatar)));
+    if (profile.name) els.hello.textContent = `${greeting()}, ${profile.name} ✨`;
+  }
+  async function loadProfile() {
+    try {
+      const d = await store.get(PROFILE_ID);
+      if (d) { profile.name = d.name || ""; profile.avatar = { ...DEFAULT_AVATAR, ...(d.avatar || {}) }; }
+    } catch { /* defaults */ }
+    renderProfile();
+  }
+
+  const avatarDialog = document.querySelector("#avatarDialog");
+  let draft = null;
+  function renderAvatarBuilder() {
+    document.querySelector("#avatarPreview").innerHTML = avatarImg(draft);
+    const box = document.querySelector("#avatarOptions");
+    box.innerHTML = "";
+    for (const [part, def] of Object.entries(AVATAR_PARTS)) {
+      const row = document.createElement("div");
+      row.className = "avatar-row";
+      row.innerHTML = `<span class="avatar-row-label">${def.label}</span><div class="avatar-choices"></div>`;
+      def.values.forEach((value, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "choice" + (draft[part] === value ? " on" : "");
+        if (def.names) {
+          const sample = { ...draft, [part]: value };
+          b.innerHTML = `${avatarImg(sample)}<small>${def.names[i]}</small>`;
+        } else {
+          b.classList.add("dot");
+          b.style.background = value;
+        }
+        b.setAttribute("aria-label", def.names ? def.names[i] : `${def.label} ${i + 1}`);
+        b.addEventListener("click", () => { draft[part] = value; renderAvatarBuilder(); });
+        row.querySelector(".avatar-choices").append(b);
+      });
+      box.append(row);
+    }
+  }
+  /** Opens the avatar builder for the viewer or for a contact; onSave gets {name, avatar}. */
+  let editorSave = null;
+  function openEditor({ title, label, note, name, avatar, placeholder }, onSave) {
+    draft = { ...avatar };
+    editorSave = onSave;
+    document.querySelector("#avatarTitle").textContent = title;
+    document.querySelector("#avatarNameLabel").textContent = label;
+    const noteEl = document.querySelector("#avatarNote");
+    noteEl.hidden = !note;
+    noteEl.textContent = note || "";
+    const input = document.querySelector("#profileNameInput");
+    input.value = name || "";
+    input.placeholder = placeholder;
+    renderAvatarBuilder();
+    avatarDialog.returnValue = "";
+    avatarDialog.showModal();
+  }
+  avatarDialog.addEventListener("close", async () => {
+    if (avatarDialog.returnValue !== "save" || !draft || !editorSave) return;
+    await editorSave({ name: document.querySelector("#profileNameInput").value.trim().slice(0, 30), avatar: draft });
+  });
+  document.querySelector("#profileBtn").addEventListener("click", () => openEditor(
+    { title: "👤 הפרופיל שלי", label: "השם שלי", name: profile.name, avatar: profile.avatar, placeholder: "איך קוראים לך?" },
+    async ({ name, avatar }) => {
+      profile.avatar = avatar;
+      profile.name = name;
+      renderProfile();
+      try { await store.put(PROFILE_ID, { kind: "profile", name: profile.name, avatar: profile.avatar }); toast("הפרופיל נשמר ✨"); }
+      catch { toast("לא הצלחתי לשמור את הפרופיל"); }
+    },
+  ));
+
+  /* ---------------- contacts: every chat is the same robot with its own name and face */
+  const CONTACT_NAMES = ["נוי", "מיקה", "רוני", "שחר", "ליה", "עומר", "טל", "מאיה", "פיקסל", "בובי", "קוקו", "זיגי", "ננו", "לולו", "ביפ", "סקיי", "ג'וני", "אלה"];
+  const pick = (list) => list[Math.floor(Math.random() * list.length)];
+  function randomContact() {
+    const used = new Set(state.chats.map((c) => c.contact?.name));
+    const free = CONTACT_NAMES.filter((n) => !used.has(n));
+    const avatar = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, pick(def.values)]));
+    return { name: pick(free.length ? free : CONTACT_NAMES), avatar };
+  }
+  /** A contact's face, or Echo's own mark for chats from before contacts existed. */
+  function contactFace(contact) {
+    return contact?.avatar ? avatarImg(contact.avatar) : `<span class="echo-face">${document.querySelector(".logo-mark").outerHTML}</span>`;
+  }
+  function renderHeader() {
+    const chat = state.current;
+    const who = chat?.contact || (chat ? null : state.nextContact);
+    document.querySelector(".contact-avatar").innerHTML = contactFace(who);
+    els.chatTitle.textContent = who?.name || chat?.title || "Echo";
+    const status = document.querySelector("#contactStatus");
+    if (!state.busy) status.textContent = chat ? (who ? chat.title : "מחובר/ת") : "איש קשר חדש ✨";
+    document.querySelectorAll(".msg.assistant > .avatar").forEach((n) => (n.innerHTML = who ? contactFace(who) : ""));
+  }
+  async function editContact(id) {
+    const chat = id ? await loadFull(id) : state.current;
+    const target = chat || null;
+    const current = target ? target.contact || randomContact() : state.nextContact;
+    openEditor({
+      title: `👤 ${current.name}`, label: "שם איש הקשר", name: current.name, avatar: current.avatar, placeholder: "איזה שם לתת לו?",
+      note: "🤖 זה אותו רובוט בכל השיחות, רק בשם ובמראה אחרים.",
+    }, async ({ name, avatar }) => {
+      const contact = { name: name || current.name, avatar };
+      if (target) { target.contact = contact; await saveChat(target); }
+      else state.nextContact = contact;
+      if (!target || target === state.current || target.id === state.current?.id) { if (state.current && target) state.current.contact = contact; renderHeader(); }
+      renderChatList();
+      toast("איש הקשר עודכן ✨");
+    });
+  }
+  const contactHead = document.querySelector("#contactHead");
+  contactHead.addEventListener("click", () => editContact(state.current?.id));
+  contactHead.addEventListener("keydown", (e) => { if (e.key === "Enter") editContact(state.current?.id); });
+
+  /* ---------------- message times, like a messenger */
+  function timeOf(at) {
+    if (!at) return "";
+    const d = new Date(at);
+    return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  }
+  function stampEl(at, mine) {
+    const s = document.createElement("span");
+    s.className = "stamp";
+    s.textContent = timeOf(at) + (mine ? " ✓✓" : "");
+    return s;
+  }
+
+  /* ---------------- voice call */
+  const call = { active: false, speaker: true, started: 0, timer: 0, voice: null, rec: null };
+  const callEl = document.querySelector("#call");
+  const callStatus = document.querySelector("#callStatus");
+  const callLine = document.querySelector("#callLine");
+  const canSpeak = "speechSynthesis" in window;
+  function pickVoice() {
+    if (!canSpeak) return null;
+    const voices = speechSynthesis.getVoices();
+    return voices.find((v) => /^he/i.test(v.lang)) || voices.find((v) => /iw/i.test(v.lang)) || null;
+  }
+  if (canSpeak) speechSynthesis.onvoiceschanged = () => { call.voice = pickVoice(); };
+  function plain(text) {
+    return text.replace(/```[\s\S]*?```/g, " ").replace(/[*_#>`~|]/g, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+      .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, "").replace(/\s+/g, " ").trim();
+  }
+  function speak(text) {
+    callLine.textContent = text;
+    if (!canSpeak || !call.speaker) { callStatus.textContent = clock(); return; }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(plain(text));
+    u.lang = "he-IL";
+    call.voice = call.voice || pickVoice();
+    if (call.voice) u.voice = call.voice;
+    u.rate = 1.02;
+    u.onstart = () => { callStatus.textContent = "Echo מדבר/ת… 🔊"; callEl.classList.add("talking"); };
+    u.onend = u.onerror = () => { callStatus.textContent = clock(); callEl.classList.remove("talking"); };
+    speechSynthesis.speak(u);
+  }
+  function clock() {
+    const s = Math.floor((Date.now() - call.started) / 1000);
+    return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+  }
+  function startCall() {
+    call.active = true;
+    call.started = Date.now();
+    const who = state.current?.contact || state.nextContact;
+    document.querySelector("#callAvatar").innerHTML = contactFace(who);
+    document.querySelector(".call-name").textContent = who?.name || "Echo";
+    document.querySelector("#callInput").placeholder = `מה תרצי להגיד ל${who?.name ? "-" + who.name : "-Echo"}?`;
+    callEl.hidden = false;
+    callStatus.textContent = "מתקשר…";
+    callLine.textContent = "";
+    clearInterval(call.timer);
+    call.timer = setInterval(() => { if (!callEl.classList.contains("talking") && !state.busy) callStatus.textContent = clock(); }, 1000);
+    const hello = profile.name ? `היי ${profile.name}! איזה כיף שהתקשרת. מה נשמע?` : "היי! איזה כיף שהתקשרת. מה נשמע?";
+    setTimeout(() => speak(hello), 900);
+    document.querySelector("#callInput").focus();
+  }
+  function endCall() {
+    call.active = false;
+    clearInterval(call.timer);
+    if (canSpeak) speechSynthesis.cancel();
+    try { call.rec?.abort(); } catch { /* not listening */ }
+    callEl.hidden = true;
+    callEl.classList.remove("talking");
+    toast(`השיחה הסתיימה · ${clock()}`);
+  }
+  document.querySelector("#callBtn").addEventListener("click", startCall);
+  document.querySelector("#callHang").addEventListener("click", endCall);
+  document.querySelector("#callSpeaker").addEventListener("click", (e) => {
+    call.speaker = !call.speaker;
+    e.currentTarget.classList.toggle("off", !call.speaker);
+    e.currentTarget.querySelector("span").textContent = call.speaker ? "🔊" : "🔇";
+    if (!call.speaker && canSpeak) speechSynthesis.cancel();
+  });
+  document.querySelector("#callSay").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const input = document.querySelector("#callInput");
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    callLine.textContent = "";
+    callStatus.textContent = "Echo חושב/ת… 💭";
+    sendMessage(text);
+  });
+  // The microphone usually isn't available inside a shared page; offer it only where it works.
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (Recognition) {
+    const mic = document.querySelector("#callMic");
+    mic.hidden = false;
+    mic.addEventListener("click", () => {
+      try {
+        const rec = new Recognition();
+        call.rec = rec;
+        rec.lang = "he-IL";
+        rec.interimResults = false;
+        rec.onstart = () => { mic.classList.add("on"); callStatus.textContent = "מקשיב… 🎤"; };
+        rec.onend = () => mic.classList.remove("on");
+        rec.onerror = () => { mic.hidden = true; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); };
+        rec.onresult = (ev) => {
+          const said = ev.results[0][0].transcript;
+          callStatus.textContent = "Echo חושב/ת… 💭";
+          sendMessage(said);
+        };
+        rec.start();
+      } catch { mic.hidden = true; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); }
+    });
+  }
+  const VOICE_NOTE = "\n\nYou are on a voice call right now: answer in 1-3 short, warm spoken sentences in the user's language. No markdown, no lists, no emojis.";
+
   /* ---------------- memory: what Echo remembers across chats */
   const MEMORY_ID = "memory";
   const MEMORY_MAX = 40;
@@ -1577,7 +2073,8 @@ ${svg}`;
   function memoryNote(chat) {
     const facts = memory.items.map((m) => `- ${m.text}`).join("\n");
     const others = state.chats.filter((c) => c.id !== chat.id).slice(0, 8).map((c) => `- ${c.title}`).join("\n");
-    let note = "";
+    let note = profile.name ? `\n\nThe user's name is ${profile.name}.` : "";
+    if (chat.contact?.name) note += `\n\nIn this chat you appear to the user as a contact named "${chat.contact.name}". If asked your name, say ${chat.contact.name}. You are the same friendly robot in every chat, just with a different name and look here.`;
     if (facts) note += `\n\nWhat you remember about this user from earlier chats (use it naturally, don't list it unless asked):\n${facts}`;
     if (others) note += `\n\nTitles of the user's other recent chats with you:\n${others}`;
     return note;
@@ -1646,6 +2143,7 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
     return h < 5 ? "לילה טוב" : h < 12 ? "בוקר טוב" : h < 17 ? "צהריים טובים" : h < 21 ? "ערב טוב" : "לילה טוב";
   }
   els.hello.textContent = `${greeting()} ✨`;
+  state.nextContact = randomContact();
   autosize();
   renderChatList();
   (async () => {
@@ -1668,7 +2166,9 @@ Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", c
     els.status.classList.add(sample ? "live" : "demo");
     els.status.querySelector(".label").textContent = sample ? "מחובר" : "לא מחובר";
     try { state.chats = (await store.list()).map(summary); sortChats(); } catch { toast("לא הצלחתי לטעון את השיחות"); }
+    if (!state.current) { state.nextContact = randomContact(); renderHeader(); }
     try { memory.items = (await store.get(MEMORY_ID))?.items || []; } catch { /* starts empty */ }
+    await loadProfile();
     renderMemory();
     renderChatList();
   })();
