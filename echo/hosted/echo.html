@@ -2054,12 +2054,12 @@ ${svg}`;
   const MEMORY_ID_OF = (id) => (id === "main" ? "memory" : `memory_${id}`);
   const AVATAR_PARTS = {
     style: { label: "סגנון ציור", values: ["shiny", "anime", "comic", "pastel"], names: ["מבריק", "אנימה", "קומיקס", "פסטל"] },
-    kind: { label: "דמות", values: ["person", "robot", "cat", "bunny", "bear"], names: ["ילד/ה", "רובוט", "חתול", "ארנב", "דובי"] },
+    kind: { label: "דמות", values: ["girl", "boy", "robot", "cat", "bunny", "bear"], names: ["ילדה", "ילד", "רובוט", "חתול", "ארנב", "דובי"] },
     skin: { label: "צבע עור", values: ["#ffe6d5", "#f9d0b4", "#eab38c", "#d0956a", "#a96d47", "#7a4a2e"] },
     hair: {
       label: "תסרוקת",
-      values: ["long", "wavy", "bob", "buns", "ponytail", "braids", "curly", "short"],
-      names: ["ארוך חלק", "גלי", "קארה", "שני קוקיות", "קוקו", "צמות", "מתולתל", "קצר"],
+      values: ["long", "wavy", "bob", "buns", "ponytail", "braids", "curly", "short", "spiky", "side", "messy", "curlyshort", "surfer", "buzz", "mohawk"],
+      names: ["ארוך חלק", "גלי", "קארה", "שני קוקיות", "קוקו", "צמות", "מתולתל", "קצר", "קוצים", "הצידה", "פרוע", "תלתלים קצרים", "גולש", "קצוץ", "מוהוק"],
     },
     hairColor: { label: "צבע שיער", values: ["#2a1b16", "#5b3a29", "#9a5b2e", "#e7c27d", "#f1e3c6", "#c8452f", "#a77be8", "#ff8fc0", "#58b8e8"] },
     eyeColor: { label: "צבע עיניים", values: ["#5b3a29", "#2f8a5b", "#2f74c0", "#7d8a96", "#8f5bd6", "#c0832f"] },
@@ -2072,12 +2072,25 @@ ${svg}`;
     shirt: { label: "חולצה", values: ["#ff8fb8", "#8fc8ff", "#9be3b0", "#ffd36b", "#b79bff", "#ffffff", "#3b3f58"] },
     bg: { label: "רקע", values: ["#ffd6e8", "#d4ecff", "#d9f7dc", "#fff0b8", "#e8dcff", "#ffe0cc", "#2c2350"] },
   };
-  const DEFAULT_AVATAR = { style: "shiny", kind: "person", skin: "#f9d0b4", hair: "wavy", hairColor: "#5b3a29", eyeColor: "#5b3a29", mouth: "smile", extra: "bow", shirt: "#ff8fb8", bg: "#ffd6e8" };
+  // Which hairstyles each kid can pick from.
+  const HAIR_FOR = {
+    girl: ["long", "wavy", "bob", "buns", "ponytail", "braids", "curly", "short"],
+    boy: ["short", "spiky", "side", "messy", "curlyshort", "surfer", "buzz", "mohawk"],
+  };
+  /** Fixes avatars saved before kids were split into a girl and a boy, and keeps hair fitting the kid. */
+  function fixAvatar(input) {
+    const a = { ...input };
+    if (a.hair === "bun") a.hair = "buns";
+    if (!a.kind || a.kind === "person") a.kind = a.hair === "short" ? "boy" : "girl";
+    if (HAIR_FOR[a.kind] && !HAIR_FOR[a.kind].includes(a.hair)) a.hair = a.kind === "boy" ? "short" : "long";
+    return a;
+  }
+  const DEFAULT_AVATAR = { style: "shiny", kind: "girl", skin: "#f9d0b4", hair: "wavy", hairColor: "#5b3a29", eyeColor: "#5b3a29", mouth: "smile", extra: "bow", shirt: "#ff8fb8", bg: "#ffd6e8" };
 
   /** Draws a glossy, cute avatar as SVG from the chosen parts. */
   function avatarSvg(input = DEFAULT_AVATAR) {
-    const a = { ...DEFAULT_AVATAR, ...input };
-    if (a.hair === "bun") a.hair = "buns"; // saved before the redesign
+    const a = fixAvatar({ ...DEFAULT_AVATAR, ...input });
+    const boy = a.kind === "boy";
     const mix = (hex, f) => {
       // f > 1 lightens toward white, f < 1 darkens
       const n = parseInt(hex.slice(1), 16);
@@ -2113,6 +2126,13 @@ ${svg}`;
       braids: `<path d="M31 58c0-26 13-36 29-36s29 10 29 36v8H31z" fill="url(#hr)"/>${[0, 1, 2, 3].map((i) => `<ellipse cx="30" cy="${74 + i * 9}" rx="6" ry="5.5" fill="url(#hr)"/><ellipse cx="90" cy="${74 + i * 9}" rx="6" ry="5.5" fill="url(#hr)"/>`).join("")}<circle cx="30" cy="110" r="3" fill="${a.shirt}"/><circle cx="90" cy="110" r="3" fill="${a.shirt}"/>`,
       curly: `<g fill="url(#hr)">${[[30, 44], [36, 30], [48, 22], [62, 19], [75, 23], [86, 32], [91, 46], [93, 60], [91, 74], [29, 60], [28, 74], [33, 86], [88, 86]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="10"/>`).join("")}</g>`,
       short: `<path d="M33 56c0-24 12-33 27-33s27 9 27 33v4H33z" fill="url(#hr)"/>`,
+      spiky: `<path d="M33 58c0-24 12-33 27-33s27 9 27 33v2H33z" fill="url(#hr)"/>`,
+      side: `<path d="M33 58c0-24 12-33 27-33s27 9 27 33v2H33z" fill="url(#hr)"/>`,
+      messy: `<path d="M32 60c0-25 12-35 28-35s28 10 28 35v2H32z" fill="url(#hr)"/>`,
+      curlyshort: `<g fill="url(#hr)">${[[34, 50], [38, 38], [48, 29], [60, 26], [72, 29], [82, 38], [86, 50], [33, 60], [87, 60]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="9"/>`).join("")}</g>`,
+      surfer: `<path d="M30 58c0-26 13-36 30-36s30 10 30 36v16c-3 3-6 3-8 0-2 3-5 3-7 0H45c-2 3-5 3-7 0-2 3-5 3-8 0z" fill="url(#hr)"/>`,
+      buzz: "",
+      mohawk: "",
     }[a.hair] || "";
 
     const hairFront = {
@@ -2124,8 +2144,15 @@ ${svg}`;
       braids: `<path d="M33 54c2-18 13-27 27-27s25 9 27 27c-9-3-18-9-27-9s-18 6-27 9z" fill="url(#hr)"/><path d="M60 27v18" stroke="${HD}" stroke-width="1.4" opacity=".45"/>`,
       curly: `<g fill="url(#hr)"><circle cx="42" cy="38" r="9"/><circle cx="54" cy="33" r="9"/><circle cx="67" cy="33" r="9"/><circle cx="78" cy="39" r="9"/><circle cx="35" cy="48" r="7"/><circle cx="86" cy="48" r="7"/></g>`,
       short: `<path d="M32 52c1-18 13-27 28-27s27 9 28 27c-4-6-9-9-14-10 2 3 2 6 0 8-4-6-11-9-18-9 2 3 1 6-2 8-3-4-7-6-11-6-5 2-9 5-11 9z" fill="url(#hr)"/>`,
+      spiky: `<path d="M32 54c0-12 5-21 12-25l-4-10 10 6 3-12 7 10 6-11 3 12 10-6-3 11c7 4 11 13 11 25-6-6-12-9-18-10l2 5c-5-3-11-5-17-5l1 5c-5-2-11-2-16 0-3 1-5 3-7 5z" fill="url(#hr)"/>`,
+      side: `<path d="M32 54c1-18 13-28 28-28s27 10 28 28c-3-3-6-6-10-7 1 3 0 5-2 7-9-3-20-8-26-16-1 5-4 9-8 11-4 1-8 2-10 5z" fill="url(#hr)"/><path d="M50 29c-1 5-3 9-6 12" stroke="${HD}" stroke-width="1.3" fill="none" opacity=".5" stroke-linecap="round"/>`,
+      messy: `<path d="M31 56c0-12 4-21 10-25-1-5 1-8 4-10 1 3 3 5 6 5 2-5 6-8 11-8-1 3 0 6 2 8 4-3 9-3 13 0-2 2-2 4-1 6 7 3 12 11 13 24-5-5-10-8-15-9l2 7c-5-4-10-6-15-6l1 6c-5-4-9-5-14-4-6 1-12 3-17 6z" fill="url(#hr)"/>`,
+      curlyshort: `<g fill="url(#hr)"><circle cx="42" cy="38" r="7.5"/><circle cx="52" cy="33" r="7.5"/><circle cx="62" cy="32" r="7.5"/><circle cx="72" cy="34" r="7.5"/><circle cx="80" cy="41" r="7"/><circle cx="37" cy="46" r="6"/><circle cx="84" cy="49" r="5.5"/></g>`,
+      surfer: `<path d="M32 56c1-19 13-30 28-30s27 11 28 30c-6-2-11-6-14-12-1 5-4 9-8 11 0-4-1-8-3-11-3 6-9 10-16 12 1-3 1-6 0-9-4 5-9 8-15 9z" fill="url(#hr)"/>`,
+      buzz: `<path d="M33.5 54c1.5-17 12-25 26.5-25s25 8 26.5 25c-7-5-16-7-26.5-7s-19.5 2-26.5 7z" fill="url(#hr)" opacity=".8"/>`,
+      mohawk: `<path d="M33.5 54c1.5-17 12-25 26.5-25s25 8 26.5 25c-7-5-16-7-26.5-7s-19.5 2-26.5 7z" fill="url(#hr)" opacity=".45"/><path d="M52 44c-2-10 0-21 5-31l3 5 3-5c5 10 7 21 5 31-5-2-11-2-16 0z" fill="url(#hr)"/>`,
     }[a.hair] || "";
-    const shine = a.hair === "curly" ? "" : `<path d="M44 33c5-4 11-6 17-6" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".35"/><path d="M52 30c-3 5-4 10-3 15M66 29c3 4 5 9 5 14" stroke="${HD}" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>`;
+    const shine = ["curly", "curlyshort", "buzz", "mohawk", "spiky"].includes(a.hair) ? "" : `<path d="M44 33c5-4 11-6 17-6" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".35"/><path d="M52 30c-3 5-4 10-3 15M66 29c3 4 5 9 5 14" stroke="${HD}" stroke-width="1" fill="none" opacity=".35" stroke-linecap="round"/>`;
 
     const body = `<path d="M18 124c2-18 16-28 42-28s40 10 42 28z" fill="url(#sh)"/>
 <path d="M50 96c3 6 17 6 20 0" fill="none" stroke="${mix(a.shirt, 0.8)}" stroke-width="2" stroke-linecap="round"/>
@@ -2143,15 +2170,15 @@ ${svg}`;
 <ellipse cx="${x + 2.4}" cy="60.6" rx="2.6" ry="3.2" fill="#fff"/><circle cx="${x - 2.6}" cy="69.4" r="1.4" fill="#fff" opacity=".9"/>
 <path d="M${x - 1.4} 70.2l.5-1.3.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5z" fill="#fff" opacity=".8"/>
 <path d="M${x - 8} 58.4Q${x} 51.6 ${x + 8} 58.4" fill="none" stroke="#2a1b22" stroke-width="2.4" stroke-linecap="round"/>
-<path d="M${x + side * 7.6} 57.4l${side * 3.2}-2.2M${x + side * 6} 55.2l${side * 2.2}-2.8M${x + side * 3.6} 53.8l${side * 1}-2.8" stroke="#2a1b22" stroke-width="1.3" stroke-linecap="round"/>
+${boy ? "" : `<path d="M${x + side * 7.6} 57.4l${side * 3.2}-2.2M${x + side * 6} 55.2l${side * 2.2}-2.8M${x + side * 3.6} 53.8l${side * 1}-2.8" stroke="#2a1b22" stroke-width="1.3" stroke-linecap="round"/>`}
 </g>` : `<g>
 <ellipse cx="${x}" cy="64.5" rx="6.3" ry="7.6" fill="url(#ir)"/>
 <ellipse cx="${x}" cy="66" rx="2.9" ry="3.7" fill="#1d1426"/>
 <circle cx="${x + 2.2}" cy="61.4" r="2.3" fill="#fff"/><circle cx="${x - 2.3}" cy="68.4" r="1.1" fill="#fff" opacity=".85"/>
 <path d="M${x - 7} 60.2Q${x} 54.6 ${x + 7} 60.2" fill="none" stroke="#2a1b22" stroke-width="1.7" stroke-linecap="round"/>
-<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5} 57.2l${side * 1.8}-2" stroke="#2a1b22" stroke-width="1.2" stroke-linecap="round"/>
+${boy ? "" : `<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5} 57.2l${side * 1.8}-2" stroke="#2a1b22" stroke-width="1.2" stroke-linecap="round"/>`}
 </g>`;
-    const brows = `<path d="M40 50.5q5.5-3.2 11-0.8M69 49.7q5.5-2.4 11 0.8" fill="none" stroke="${HD}" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>`;
+    const brows = `<path d="M40 50.5q5.5-3.2 11-0.8M69 49.7q5.5-2.4 11 0.8" fill="none" stroke="${HD}" stroke-width="${boy ? 2.4 : 1.5}" stroke-linecap="round" opacity="${boy ? 0.75 : 0.6}"/>`;
     const blush = `<ellipse cx="39" cy="73" rx="6" ry="3.6" fill="url(#bl)"/><ellipse cx="81" cy="73" rx="6" ry="3.6" fill="url(#bl)"/>`;
     const nose = `<path d="M59 70.5q1 1.2 2 0" fill="none" stroke="${mix(S, 0.7)}" stroke-width="1.2" stroke-linecap="round"/>`;
     const mouth = {
@@ -2241,7 +2268,8 @@ ${svg}`;
     const box = document.querySelector("#avatarOptions");
     box.innerHTML = "";
     // Only the options that make sense for the chosen character, with fitting names.
-    const kind = draft.kind || "person";
+    draft = fixAvatar(draft);
+    const kind = draft.kind;
     const animal = kind === "cat" || kind === "bunny" || kind === "bear";
     const skip = kind === "robot" ? ["skin", "hair", "hairColor"] : animal ? ["skin", "hair"] : [];
     const relabel = kind === "robot" ? { shirt: "צבע הרובוט", eyeColor: "צבע האורות" } : animal ? { hairColor: "צבע פרווה" } : {};
@@ -2251,6 +2279,7 @@ ${svg}`;
       row.className = "avatar-row";
       row.innerHTML = `<span class="avatar-row-label">${relabel[part] || def.label}</span><div class="avatar-choices"></div>`;
       def.values.forEach((value, i) => {
+        if (part === "hair" && HAIR_FOR[kind] && !HAIR_FOR[kind].includes(value)) return;
         const b = document.createElement("button");
         b.type = "button";
         b.className = "choice" + (draft[part] === value ? " on" : "");
@@ -2303,7 +2332,7 @@ ${svg}`;
     draftGender = b.dataset.gender;
     renderGenderChoice();
     // a sensible starting look for the choice; everything stays changeable
-    if (draft?.kind === "person") draft = { ...draft, ...(draftGender === "boy" ? { hair: "short", extra: draft.extra === "bow" || draft.extra === "flower" ? "none" : draft.extra } : { hair: draft.hair === "short" ? "long" : draft.hair }) };
+    if (draft?.kind === "girl" || draft?.kind === "boy") draft = { ...draft, kind: draftGender, ...(draftGender === "boy" && (draft.extra === "bow" || draft.extra === "flower") ? { extra: "none" } : {}) };
     renderAvatarBuilder();
   }));
   function renderVoiceChoice() {
@@ -2329,6 +2358,7 @@ ${svg}`;
   document.querySelector("#voiceTry").addEventListener("click", () => say(`היי! ככה אני נשמע${draftVoice === "girl" ? "ת" : ""}`, draftVoice));
   document.querySelector("#avatarRandom").addEventListener("click", () => {
     draft = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, def.values[Math.floor(Math.random() * def.values.length)]]));
+    if (HAIR_FOR[draft.kind]) draft.hair = pick(HAIR_FOR[draft.kind]);
     renderAvatarBuilder();
   });
   avatarDialog.addEventListener("close", async () => {
@@ -2360,14 +2390,17 @@ ${svg}`;
     const free = CONTACT_NAMES.filter((n) => !used.has(n));
     const avatar = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, pick(def.values)]));
     // about half the contacts are kids, the rest robots and cute animals
-    avatar.kind = Math.random() < 0.45 ? "person" : pick(["robot", "cat", "bunny", "bear"]);
-    avatar.style = Math.random() < 0.5 ? "shiny" : pick(["anime", "comic", "pastel"]);
     const name = pick(free.length ? free : CONTACT_NAMES);
+    avatar.kind = Math.random() < 0.45 ? (BOY_NAMES.has(name) ? "boy" : "girl") : pick(["robot", "cat", "bunny", "bear"]);
+    if (HAIR_FOR[avatar.kind]) avatar.hair = pick(HAIR_FOR[avatar.kind]);
+    if (avatar.kind === "boy" && (avatar.extra === "bow" || avatar.extra === "flower")) avatar.extra = "none";
+    avatar.style = Math.random() < 0.5 ? "shiny" : pick(["anime", "comic", "pastel"]);
     return { name, avatar, voice: defaultVoice(name, avatar) };
   }
   const BOY_NAMES = new Set(["עומר", "שחר", "ג'וני", "בובי", "ביפ", "זיגי", "פיקסל"]);
   function defaultVoice(name, avatar) {
     if (avatar?.kind === "robot") return "robot";
+    if (avatar?.kind === "boy" || avatar?.kind === "girl") return avatar.kind;
     return BOY_NAMES.has(name) ? "boy" : "girl";
   }
   /** A contact's face, or Echo's own mark for chats from before contacts existed. */
@@ -2461,7 +2494,7 @@ ${svg}`;
   function newPerson() {
     const id = "p" + uid();
     openEditor(
-      { title: "👤 פרופיל חדש", label: "איך קוראים לך?", name: "", avatar: { ...DEFAULT_AVATAR, hair: "short", extra: "none", shirt: "#8fc8ff", bg: "#d4ecff" }, placeholder: "השם שלך", about: "", aboutHint: "משהו קצר עליך ✨", gender: "" },
+      { title: "👤 פרופיל חדש", label: "איך קוראים לך?", name: "", avatar: { ...DEFAULT_AVATAR, kind: "boy", hair: "spiky", extra: "none", shirt: "#8fc8ff", bg: "#d4ecff" }, placeholder: "השם שלך", about: "", aboutHint: "משהו קצר עליך ✨", gender: "" },
       async ({ name, avatar, about, gender }) => {
         if (!name) { toast("צריך לכתוב שם 🙂"); return; }
         try { await store.put(PROFILE_ID_OF(id), { kind: "profile", name, about: about || "", avatar, gender: gender || "" }); } catch { toast("לא הצלחתי ליצור פרופיל"); return; }
@@ -2499,7 +2532,7 @@ ${svg}`;
     document.querySelector("#sheetAbout").textContent = who.about || aboutOf(who);
     const voice = who.voice || defaultVoice(who.name, who.avatar);
     const styleName = AVATAR_PARTS.style.names[AVATAR_PARTS.style.values.indexOf(who.avatar?.style || "shiny")] || "מבריק";
-    const kindName = AVATAR_PARTS.kind.names[AVATAR_PARTS.kind.values.indexOf(who.avatar?.kind || "person")] || "ילד/ה";
+    const kindName = AVATAR_PARTS.kind.names[AVATAR_PARTS.kind.values.indexOf(fixAvatar(who.avatar || {}).kind)] || "ילד/ה";
     const msgs = chat?.messages || [];
     const first = msgs.find((m) => m.at)?.at;
     const rows = [
@@ -2849,8 +2882,9 @@ ${svg}`;
     const others = state.chats.filter((c) => c.id !== chat.id).slice(0, 8).map((c) => `- ${c.title}`).join("\n");
     let note = profile.name ? `\n\nThe user's name is ${profile.name}.` : "";
     if (profile.about) note += ` About the user: ${profile.about}`;
-    if (profile.gender === "girl") note += "\nThe user is a girl: in Hebrew, address her in feminine forms (את, רוצה, תגידי, אהבת).";
-    if (profile.gender === "boy") note += "\nThe user is a boy: in Hebrew, address him in masculine forms (אתה, רוצה, תגיד, אהבת).";
+    const g = profile.gender || (["boy", "girl"].includes(profile.avatar?.kind) ? profile.avatar.kind : "");
+    if (g === "girl") note += "\nThe user is a girl: in Hebrew, address her in feminine forms (את, רוצה, תגידי, אהבת).";
+    if (g === "boy") note += "\nThe user is a boy: in Hebrew, address him in masculine forms (אתה, רוצה, תגיד, אהבת).";
     if (chat.contact?.name) note += `\n\nIn this chat you appear to the user as a contact named "${chat.contact.name}". If asked your name, say ${chat.contact.name}. You are the same friendly robot in every chat, just with a different name and look here.`;
     const voice = chat.contact?.voice || (chat.contact ? defaultVoice(chat.contact.name, chat.contact.avatar) : null);
     if (voice === "girl") note += "\nIn Hebrew, speak about yourself in feminine forms (for example: אני שמחה, הבנתי אותך, אני חושבת).";
