@@ -1360,7 +1360,7 @@ ${svg}`;
       item.innerHTML = `<span class="ci-avatar">${contactFace(chat.contact)}</span><span class="ci-text"><span class="ci-top"><b class="t" dir="auto"></b><small class="ci-time"></small></span><span class="ci-preview" dir="auto"></span></span><button class="more" type="button" aria-label="אפשרויות">${ICONS.more}</button>`;
       item.querySelector(".t").textContent = chat.contact?.name || chat.title;
       item.querySelector(".ci-preview").textContent = chat.preview || chat.title;
-      item.querySelector(".ci-time").textContent = timeOf(chat.updated);
+      item.querySelector(".ci-time").textContent = listTime(chat.updated);
       item.addEventListener("click", (e) => { if (!e.target.closest(".more")) { e.preventDefault(); openChat(chat.id); } });
       item.querySelector(".more").addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openMenu(chat.id, e.currentTarget); });
       els.chatList.append(item);
@@ -2378,6 +2378,16 @@ ${svg}`;
     if (!at) return "";
     const d = new Date(at);
     return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  }
+  /** Like a messenger list: the time today, "אתמול", a weekday this week, otherwise the date. */
+  function listTime(at) {
+    if (!at) return "";
+    const day = dayGroup(at);
+    if (day === "היום") return timeOf(at);
+    if (day === "אתמול") return "אתמול";
+    const d = new Date(at);
+    if (day === "השבוע") return d.toLocaleDateString("he-IL", { weekday: "long" });
+    return `${d.getDate()}.${d.getMonth() + 1}`;
   }
   function stampEl(at, mine, read = true) {
     const s = document.createElement("span");
