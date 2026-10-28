@@ -899,6 +899,37 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 .voice-choice.listen { background: transparent; border: 1px dashed var(--accent-2); }
 .voice-note { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 
+/* ============================================================ contact profile page */
+.sheet {
+  border: 0; padding: 0; width: min(400px, calc(100% - 24px)); border-radius: 26px; overflow: hidden;
+  background: var(--surface-solid); color: var(--text); box-shadow: var(--shadow);
+}
+.sheet::backdrop { background: rgba(20, 10, 20, 0.4); backdrop-filter: blur(4px); }
+.sheet-cover { position: relative; height: 110px; overflow: hidden; }
+.sheet-cover span { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.35); }
+.sheet-cover span:nth-child(1) { width: 90px; height: 90px; top: -30px; left: 20px; }
+.sheet-cover span:nth-child(2) { width: 50px; height: 50px; top: 40px; right: 40px; }
+.sheet-cover span:nth-child(3) { width: 24px; height: 24px; top: 18px; right: 120px; }
+.sheet-face { width: 132px; height: 132px; margin: -66px auto 0; border-radius: 50%; overflow: hidden; border: 5px solid var(--surface-solid); box-shadow: var(--shadow); position: relative; background: var(--surface-solid); animation: rise 0.35s both; }
+.sheet-face img { width: 100%; height: 100%; display: block; }
+.sheet-name { text-align: center; margin: 12px 0 4px; font-size: 24px; font-family: "Fredoka", "Rubik", sans-serif; }
+.sheet-about { text-align: center; margin: 0 20px 16px; color: var(--muted); font-size: 14.5px; }
+.sheet-actions { display: flex; justify-content: center; gap: 12px; padding: 0 20px 16px; }
+.sheet-actions button {
+  flex: 1; max-width: 104px; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 6px;
+  border: 1px solid var(--border); border-radius: 16px; background: var(--surface); color: var(--accent); transition: transform 0.15s, box-shadow 0.2s;
+}
+.sheet-actions button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--accent-soft); }
+.sheet-actions span { font-size: 22px; }
+.sheet-actions small { font-size: 12.5px; color: var(--text); }
+.sheet-info { list-style: none; margin: 0; padding: 4px 20px; border-top: 1px solid var(--border); }
+.sheet-info li { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+.sheet-info li:last-child { border-bottom: 0; }
+.si-icon { width: 24px; text-align: center; }
+.si-label { color: var(--muted); flex: 1; }
+.sheet-close { display: flex; justify-content: center; padding: 10px 20px 18px; }
+.about-label { margin-top: 12px; }
+
 </style>
 <div dir="rtl" lang="he" style="height:100%">
 
@@ -1079,6 +1110,8 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
       <div class="avatar-stage"><div class="avatar-preview" id="avatarPreview"></div><button type="button" class="btn ghost small" id="avatarRandom">🎲 הפתעה</button></div>
       <label class="field-label" for="profileNameInput" id="avatarNameLabel">השם שלי</label>
       <input id="profileNameInput" class="key-input" maxlength="30" placeholder="איך קוראים לך?" dir="auto">
+      <label class="field-label about-label" for="profileAboutInput">סטטוס</label>
+      <input id="profileAboutInput" class="key-input" maxlength="60" placeholder="משהו קצר עלייך ✨" dir="auto">
       <div class="voice-row" id="voiceRow" hidden>
         <span class="avatar-row-label">קול בשיחה</span>
         <div class="avatar-choices">
@@ -1095,6 +1128,21 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         <button value="save" class="btn">שמירה</button>
       </div>
     </form>
+  </dialog>
+
+  <!-- Contact profile page -->
+  <dialog class="sheet" id="sheet">
+    <div class="sheet-cover" id="sheetCover"><span></span><span></span><span></span></div>
+    <div class="sheet-face" id="sheetFace"></div>
+    <h3 class="sheet-name" id="sheetName"></h3>
+    <p class="sheet-about" id="sheetAbout" dir="auto"></p>
+    <div class="sheet-actions">
+      <button type="button" id="sheetCall"><span>📞</span><small>שיחה</small></button>
+      <button type="button" id="sheetChat"><span>💬</span><small>הודעה</small></button>
+      <button type="button" id="sheetEdit"><span>✏️</span><small>עריכה</small></button>
+    </div>
+    <ul class="sheet-info" id="sheetInfo"></ul>
+    <form method="dialog" class="sheet-close"><button class="btn ghost">סגירה</button></form>
   </dialog>
 
   <!-- Voice call -->
@@ -1173,7 +1221,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   const RULES = `You are a warm, helpful, witty assistant inside a chat app.
 Reply in the user's language (usually Hebrew). Use Markdown when it helps.
 Never introduce yourself by name and never call yourself "Echo".
-Talk like a real friend texting: vary how you open each message. Greet only at the very start of a new chat; after that never begin with "היי", "שלום", "Hi" or any greeting - jump straight into the answer. Keep messages natural and not too long unless asked.
+Talk like a real friend texting: keep it short and natural, and when an answer needs more, write it as 2-3 short messages separated by blank lines. Vary how you open each message. Greet only at the very start of a new chat; after that never begin with "היי", "שלום", "Hi" or any greeting - jump straight into the answer. Keep messages natural and not too long unless asked.
 Pictures are turned off in this app: you cannot create images. If the user asks for one, say kindly in one short sentence that drawing isn't available here, and offer something fun instead (a vivid description, a story, a poem, or ideas). Never write a line that starts with [[IMAGE:.`;
 
   const ART_DIRECTION = `ART DIRECTION (follow closely):
@@ -1362,7 +1410,7 @@ ${svg}`;
     closeMenu();
     if (!action || !id) return;
     if (action === "rename") return startRename(id);
-    if (action === "contact") return editContact(id);
+    if (action === "contact") return openSheet(id);
     if (action === "export") return exportChat(id);
     if (action === "pin") {
       const chat = await loadFull(id);
@@ -1600,7 +1648,7 @@ ${svg}`;
     state.busy = ctl; setBusy(true);
     document.querySelectorAll(".msg.assistant .actions").forEach((a) => (a.innerHTML = ""));
     const v = assistantEl();
-    v.content.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+    v.content.innerHTML = TYPING_DOTS;
     v.node.classList.add("streaming");
     els.messages.append(v.node);
     setTimeout(markRead, 600);
@@ -1625,53 +1673,114 @@ ${svg}`;
     while (merged.length && merged[0].role !== "user") merged.shift();
     const input = [{ role: "user", content: RULES + memoryNote(chat) + (call.active ? VOICE_NOTE : "") }, { role: "assistant", content: "בסדר!" }, ...merged];
 
-    let raw = "", frame = 0;
-    const msg = { role: "assistant", text: "", at: 0 };
+    let raw = "", failed = null;
+    const started = Date.now();
     try {
       const res = await sample(input, {
         cache: false, signal: ctl.signal,
         ...(images.length ? { images } : {}),
-        onText: ({ text }) => {
-          raw = text;
-          if (!frame) frame = requestAnimationFrame(() => {
-            frame = 0;
-            const t = visibleText(raw);
-            if (t.trim()) renderMarkdown(v.content, t);
-            scrollToBottom();
-          });
-        },
+        onText: ({ text }) => { raw = text; },
       });
       raw = res.text;
     } catch (e) {
       raw = e.text || raw;
-      if (e.code !== "cancelled") {
-        const note = document.createElement("div");
-        note.className = "error-note"; note.textContent = `⚠️ ${errorText(e.code)}${e.code ? ` (${e.code})` : ""}`;
-        v.flow.append(note);
-      }
+      if (e.code !== "cancelled") failed = e.code || "error";
     }
-    if (frame) cancelAnimationFrame(frame);
-    const match = raw.match(IMG_LINE);
-    msg.text = visibleText(raw).trim();
-    msg.at = Date.now();
-    renderMarkdown(v.content, msg.text);
-    v.node.classList.remove("streaming");
+    const full = visibleText(raw).trim();
+    // On a call the answer is spoken at once; in chat it arrives the way a person texts.
+    const parts = !full ? [] : call.active ? [full] : splitLikeTexting(full);
+    if (parts.length && !call.active) await pause(700 + Math.random() * 1000 - (Date.now() - started), ctl);
 
-    const drawing = false; // pictures are turned off
-    if (drawing) msg.imageDesc = match[1].trim();
-    // The reply is done: free the chat right away, even while a drawing is still being painted.
-    if (state.busy === ctl) { state.busy = null; setBusy(false); }
-    if (msg.text || drawing) { chat.messages.push(msg); await saveChat(chat); }
-    if (state.current === chat) setActions(v, msg.text, true);
-    if (msg.text) {
-      v.flow.append(stampEl(msg.at || Date.now(), false));
+    let view = v, last = null;
+    for (let i = 0; i < parts.length; i++) {
+      if (i > 0) {
+        if (ctl.signal.aborted) break;
+        view = assistantEl();
+        view.content.innerHTML = TYPING_DOTS;
+        view.node.classList.add("streaming");
+        els.messages.append(view.node);
+        scrollToBottom();
+        await pause(600 + Math.random() * 900 + Math.min(1600, parts[i].length * 6), ctl);
+      }
+      const text = call.active ? parts[i] : await typeOut(view, parts[i], ctl);
+      if (call.active) renderMarkdown(view.content, text);
+      view.node.classList.remove("streaming");
+      if (!text) { view.node.remove(); break; }
+      const msg = { role: "assistant", text, at: Date.now() };
+      chat.messages.push(msg);
+      view.flow.append(stampEl(msg.at, false));
+      react(view, msg, chat);
       markRead();
-      react(v, msg, chat);
       if (!call.active) play("receive");
+      last = { view, msg };
+      if (ctl.signal.aborted) break; // stopped: keep what was already written
+    }
+    if (!last) {
+      v.node.classList.remove("streaming");
+      v.content.innerHTML = "";
+      if (!failed) v.node.remove();
+    }
+    if (failed) {
+      const note = document.createElement("div");
+      note.className = "error-note"; note.textContent = `⚠️ ${errorText(failed)} (${failed})`;
+      (last?.view || v).flow.append(note);
+    }
+    if (state.busy === ctl) { state.busy = null; setBusy(false); }
+    if (last) {
+      await saveChat(chat);
+      if (state.current === chat) setActions(last.view, last.msg.text, true);
       remember(chat);
     }
-    if (call.active && msg.text) speak(msg.text);
-    if (drawing) await draw(chat, msg, v);
+    if (call.active && full) speak(full);
+  }
+
+  /* ---------------- answering like a person */
+  const TYPING_DOTS = '<div class="typing"><span></span><span></span><span></span></div>';
+  /** Waits, unless the reply was stopped. */
+  function pause(ms, ctl) {
+    if (ms <= 0 || ctl.signal.aborted) return Promise.resolve();
+    return new Promise((resolve) => {
+      const t = setTimeout(resolve, ms);
+      ctl.signal.addEventListener("abort", () => { clearTimeout(t); resolve(); }, { once: true });
+    });
+  }
+  /** Reveals a message bit by bit, at a comfortable typing pace; returns what was written. */
+  async function typeOut(view, text, ctl) {
+    const perSecond = Math.max(55, text.length / 5); // long answers type faster, at most ~5 seconds
+    const start = performance.now();
+    let shown = 0;
+    while (shown < text.length) {
+      if (ctl.signal.aborted) break;
+      await new Promise((r) => setTimeout(r, 45));
+      shown = Math.min(text.length, Math.floor(((performance.now() - start) / 1000) * perSecond));
+      // Don't stop in the middle of a word.
+      let cut = shown;
+      while (cut < text.length && cut > 0 && !/\s/.test(text[cut])) cut++;
+      renderMarkdown(view.content, text.slice(0, cut));
+      view.content.lastElementChild?.classList.add("caret");
+      scrollToBottom();
+      shown = cut;
+    }
+    const written = ctl.signal.aborted ? text.slice(0, shown).trim() : text;
+    renderMarkdown(view.content, written);
+    return written;
+  }
+  /** Splits a longer answer into a few short messages, like a friend texting; code stays whole. */
+  function splitLikeTexting(text) {
+    if (text.length < 240) return [text];
+    const blocks = [];
+    let fence = false;
+    for (const para of text.split(/\n{2,}/)) {
+      const startsInside = fence;
+      fence = ((para.match(/```/g) || []).length % 2 === 1) ? !fence : fence;
+      const prev = blocks.at(-1);
+      const joinPrev = prev !== undefined && (startsInside || /^\s*([-*•]|\d+[.)])\s/.test(para) || /[:：]\s*$/.test(prev) || prev.length < 80);
+      if (joinPrev) blocks[blocks.length - 1] = `${prev}\n\n${para}`;
+      else blocks.push(para);
+    }
+    // At most three messages; the rest goes into the last one.
+    while (blocks.length > 3) { const tail = blocks.pop(); blocks[blocks.length - 1] += `\n\n${tail}`; }
+    return blocks.filter((b) => b.trim());
   }
 
   /** Paints the picture for a reply, in the background, and saves it into the chat. */
@@ -1842,11 +1951,11 @@ ${svg}`;
   async function regenerate() {
     if (state.busy || !state.current) return;
     const msgs = state.current.messages;
-    if (msgs.at(-1)?.role === "assistant") {
+    while (msgs.at(-1)?.role === "assistant") {
       const old = msgs.pop();
       if (old.imageId) store.remove(old.imageId).catch(() => {});
     }
-    if (els.messages.lastElementChild?.classList.contains("assistant")) els.messages.lastElementChild.remove();
+    while (els.messages.lastElementChild?.classList.contains("assistant")) els.messages.lastElementChild.remove();
     // Re-send the photos of the message being answered (from their saved copies).
     const ids = msgs.at(-1)?.attachments || [];
     const images = [];
@@ -1872,6 +1981,7 @@ ${svg}`;
   /* ---------------- profile and avatar */
   const PROFILE_ID = "profile";
   const AVATAR_PARTS = {
+    style: { label: "סגנון ציור", values: ["shiny", "anime", "comic", "pastel"], names: ["מבריק", "אנימה", "קומיקס", "פסטל"] },
     kind: { label: "דמות", values: ["person", "robot", "cat", "bunny", "bear"], names: ["ילד/ה", "רובוט", "חתול", "ארנב", "דובי"] },
     skin: { label: "צבע עור", values: ["#ffe6d5", "#f9d0b4", "#eab38c", "#d0956a", "#a96d47", "#7a4a2e"] },
     hair: {
@@ -1890,7 +2000,7 @@ ${svg}`;
     shirt: { label: "חולצה", values: ["#ff8fb8", "#8fc8ff", "#9be3b0", "#ffd36b", "#b79bff", "#ffffff", "#3b3f58"] },
     bg: { label: "רקע", values: ["#ffd6e8", "#d4ecff", "#d9f7dc", "#fff0b8", "#e8dcff", "#ffe0cc", "#2c2350"] },
   };
-  const DEFAULT_AVATAR = { kind: "person", skin: "#f9d0b4", hair: "wavy", hairColor: "#5b3a29", eyeColor: "#5b3a29", mouth: "smile", extra: "bow", shirt: "#ff8fb8", bg: "#ffd6e8" };
+  const DEFAULT_AVATAR = { style: "shiny", kind: "person", skin: "#f9d0b4", hair: "wavy", hairColor: "#5b3a29", eyeColor: "#5b3a29", mouth: "smile", extra: "bow", shirt: "#ff8fb8", bg: "#ffd6e8" };
 
   /** Draws a glossy, cute avatar as SVG from the chosen parts. */
   function avatarSvg(input = DEFAULT_AVATAR) {
@@ -1953,7 +2063,16 @@ ${svg}`;
 <ellipse cx="60" cy="60" rx="27" ry="29" fill="url(#sk)"/>`;
 
     // side: -1 for the eye on the left, 1 for the eye on the right (lashes sit on the outer corner)
-    const eye = (x, side) => `<g>
+    const anime = a.style === "anime";
+    const eye = (x, side) => anime ? `<g>
+<ellipse cx="${x}" cy="64" rx="7.4" ry="9.6" fill="#fff"/>
+<ellipse cx="${x}" cy="65" rx="6.6" ry="8.8" fill="url(#ir)"/>
+<ellipse cx="${x}" cy="66.4" rx="3.3" ry="4.6" fill="#1d1426"/>
+<ellipse cx="${x + 2.4}" cy="60.6" rx="2.6" ry="3.2" fill="#fff"/><circle cx="${x - 2.6}" cy="69.4" r="1.4" fill="#fff" opacity=".9"/>
+<path d="M${x - 1.4} 70.2l.5-1.3.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5z" fill="#fff" opacity=".8"/>
+<path d="M${x - 8} 58.4Q${x} 51.6 ${x + 8} 58.4" fill="none" stroke="#2a1b22" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M${x + side * 7.6} 57.4l${side * 3.2}-2.2M${x + side * 6} 55.2l${side * 2.2}-2.8M${x + side * 3.6} 53.8l${side * 1}-2.8" stroke="#2a1b22" stroke-width="1.3" stroke-linecap="round"/>
+</g>` : `<g>
 <ellipse cx="${x}" cy="64.5" rx="6.3" ry="7.6" fill="url(#ir)"/>
 <ellipse cx="${x}" cy="66" rx="2.9" ry="3.7" fill="#1d1426"/>
 <circle cx="${x + 2.2}" cy="61.4" r="2.3" fill="#fff"/><circle cx="${x - 2.3}" cy="68.4" r="1.1" fill="#fff" opacity=".85"/>
@@ -2015,7 +2134,15 @@ ${svg}`;
     } else {
       figure = `${hairBack}${body}${head}${brows}${face}${nose}${mouth}${hairFront}${shine}`;
     }
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">${defs}<g clip-path="url(#circle)">${background}${figure}${a.kind === "robot" && (a.extra === "catears" || a.extra === "glasses") ? "" : extra}</g></svg>`;
+    const top = a.kind === "robot" && (a.extra === "catears" || a.extra === "glasses") ? "" : extra;
+    const styleDefs = `<filter id="pastel"><feColorMatrix type="saturate" values=".68"/><feComponentTransfer><feFuncR type="linear" slope=".88" intercept=".12"/><feFuncG type="linear" slope=".88" intercept=".12"/><feFuncB type="linear" slope=".88" intercept=".14"/></feComponentTransfer></filter>
+<filter id="ink" x="-5%" y="-5%" width="110%" height="110%"><feMorphology in="SourceAlpha" operator="dilate" radius="1.6" result="grow"/><feFlood flood-color="#2b2030"/><feComposite in2="grow" operator="in" result="line"/><feMerge><feMergeNode in="line"/><feMergeNode in="SourceGraphic"/></feMerge></filter>`;
+    const art = a.style === "comic"
+      ? `${background}<g filter="url(#ink)">${figure}${top}</g><g fill="#2b2030" opacity=".12">${[16, 34, 52, 70, 88, 106].map((y) => [16, 34, 52, 70, 88, 106].map((x) => `<circle cx="${x}" cy="${y}" r="2.2"/>`).join("")).join("")}</g>`
+      : a.style === "pastel"
+        ? `<g filter="url(#pastel)">${background}${figure}${top}</g>`
+        : `${background}${figure}${top}`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">${defs}<defs>${styleDefs}</defs><g clip-path="url(#circle)">${art}</g></svg>`;
   }
   const profile = { name: "", avatar: { ...DEFAULT_AVATAR } };
 
@@ -2030,7 +2157,7 @@ ${svg}`;
   async function loadProfile() {
     try {
       const d = await store.get(PROFILE_ID);
-      if (d) { profile.name = d.name || ""; profile.avatar = { ...DEFAULT_AVATAR, ...(d.avatar || {}) }; }
+      if (d) { profile.name = d.name || ""; profile.about = d.about || ""; profile.avatar = { ...DEFAULT_AVATAR, ...(d.avatar || {}) }; }
     } catch { /* defaults */ }
     renderProfile();
   }
@@ -2072,7 +2199,9 @@ ${svg}`;
   /** Opens the avatar builder for the viewer or for a contact; onSave gets {name, avatar}. */
   let editorSave = null;
   let draftVoice = null;
-  function openEditor({ title, label, note, name, avatar, placeholder, voice }, onSave) {
+  function openEditor({ title, label, note, name, avatar, placeholder, voice, about, aboutHint }, onSave) {
+    document.querySelector("#profileAboutInput").value = about || "";
+    document.querySelector("#profileAboutInput").placeholder = aboutHint || "משהו קצר ✨";
     draft = { ...avatar };
     draftVoice = voice || null;
     document.querySelector("#voiceRow").hidden = !voice;
@@ -2118,15 +2247,20 @@ ${svg}`;
   });
   avatarDialog.addEventListener("close", async () => {
     if (avatarDialog.returnValue !== "save" || !draft || !editorSave) return;
-    await editorSave({ name: document.querySelector("#profileNameInput").value.trim().slice(0, 30), avatar: draft, voice: draftVoice });
+    await editorSave({
+      name: document.querySelector("#profileNameInput").value.trim().slice(0, 30),
+      about: document.querySelector("#profileAboutInput").value.trim().slice(0, 60),
+      avatar: draft, voice: draftVoice,
+    });
   });
   document.querySelector("#profileBtn").addEventListener("click", () => openEditor(
-    { title: "👤 הפרופיל שלי", label: "השם שלי", name: profile.name, avatar: profile.avatar, placeholder: "איך קוראים לך?" },
-    async ({ name, avatar }) => {
+    { title: "👤 הפרופיל שלי", label: "השם שלי", name: profile.name, avatar: profile.avatar, placeholder: "איך קוראים לך?", about: profile.about, aboutHint: "למשל: אוהבת חתולים וציור 🎨" },
+    async ({ name, avatar, about }) => {
       profile.avatar = avatar;
       profile.name = name;
+      profile.about = about;
       renderProfile();
-      try { await store.put(PROFILE_ID, { kind: "profile", name: profile.name, avatar: profile.avatar }); toast("הפרופיל נשמר ✨"); }
+      try { await store.put(PROFILE_ID, { kind: "profile", name: profile.name, about: profile.about || "", avatar: profile.avatar }); toast("הפרופיל נשמר ✨"); }
       catch { toast("לא הצלחתי לשמור את הפרופיל"); }
     },
   ));
@@ -2140,6 +2274,7 @@ ${svg}`;
     const avatar = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, pick(def.values)]));
     // about half the contacts are kids, the rest robots and cute animals
     avatar.kind = Math.random() < 0.45 ? "person" : pick(["robot", "cat", "bunny", "bear"]);
+    avatar.style = Math.random() < 0.5 ? "shiny" : pick(["anime", "comic", "pastel"]);
     const name = pick(free.length ? free : CONTACT_NAMES);
     return { name, avatar, voice: defaultVoice(name, avatar) };
   }
@@ -2172,9 +2307,10 @@ ${svg}`;
     openEditor({
       title: `👤 ${current.name}`, label: "שם איש הקשר", name: current.name, avatar: current.avatar, placeholder: "איזה שם לתת לו?",
       voice: current.voice || defaultVoice(current.name, current.avatar),
+      about: current.about || "", aboutHint: aboutOf(current),
       note: "🤖 זה אותו רובוט בכל השיחות, רק בשם ובמראה אחרים.",
-    }, async ({ name, avatar, voice }) => {
-      const contact = { name: name || current.name, avatar, voice };
+    }, async ({ name, avatar, voice, about }) => {
+      const contact = { name: name || current.name, avatar, voice, about };
       if (target) { target.contact = contact; await saveChat(target); }
       else state.nextContact = contact;
       if (!target || target === state.current || target.id === state.current?.id) { if (state.current && target) state.current.contact = contact; renderHeader(); }
@@ -2183,8 +2319,59 @@ ${svg}`;
     });
   }
   const contactHead = document.querySelector("#contactHead");
-  contactHead.addEventListener("click", () => editContact(state.current?.id));
-  contactHead.addEventListener("keydown", (e) => { if (e.key === "Enter") editContact(state.current?.id); });
+  contactHead.addEventListener("click", () => openSheet(state.current?.id));
+  contactHead.addEventListener("keydown", (e) => { if (e.key === "Enter") openSheet(state.current?.id); });
+
+  /* ---------------- contact profile page */
+  const sheet = document.querySelector("#sheet");
+  let sheetChatId = null;
+  /** A friendly default status line for a contact, in the right Hebrew gender. */
+  function aboutOf(c) {
+    const girl = (c?.voice || defaultVoice(c?.name, c?.avatar)) === "girl";
+    const g = (m, f) => (girl ? f : m);
+    return {
+      robot: `🤖 רובוט ${g("חברותי", "חברותית")} · ${g("מוכן", "מוכנה")} לכל שאלה`,
+      cat: `🐱 ${g("חתול סקרן", "חתולה סקרנית")} ${g("שאוהב", "שאוהבת")} פינוקים`,
+      bunny: `🐰 ${g("קופץ", "קופצת")} משמחה כשכותבים לי`,
+      bear: `🧸 חיבוק דובי בכל הודעה`,
+    }[c?.avatar?.kind] || `😊 תמיד ${g("שמח", "שמחה")} לדבר איתך`;
+  }
+  async function openSheet(id) {
+    const chat = id ? await loadFull(id) : null;
+    const who = chat?.contact || (chat ? null : state.nextContact);
+    if (!who) { if (chat) editContact(id); return; }
+    sheetChatId = chat?.id || null;
+    const bg = who.avatar?.bg || "#ffd6e8";
+    document.querySelector("#sheetCover").style.background = `linear-gradient(135deg, ${bg}, var(--accent-2))`;
+    document.querySelector("#sheetFace").innerHTML = contactFace(who);
+    document.querySelector("#sheetName").textContent = who.name;
+    document.querySelector("#sheetAbout").textContent = who.about || aboutOf(who);
+    const voice = who.voice || defaultVoice(who.name, who.avatar);
+    const styleName = AVATAR_PARTS.style.names[AVATAR_PARTS.style.values.indexOf(who.avatar?.style || "shiny")] || "מבריק";
+    const kindName = AVATAR_PARTS.kind.names[AVATAR_PARTS.kind.values.indexOf(who.avatar?.kind || "person")] || "ילד/ה";
+    const msgs = chat?.messages || [];
+    const first = msgs.find((m) => m.at)?.at;
+    const rows = [
+      ["🗣️", "קול בשיחה", { girl: "בת", boy: "בן", robot: "רובוט" }[voice]],
+      ["🎨", "דמות וסגנון", `${kindName} · ${styleName}`],
+      ["💬", "הודעות", msgs.length ? String(msgs.length) : "עוד לא דיברנו"],
+      ["📅", "מכירים מאז", first ? new Date(first).toLocaleDateString("he-IL", { day: "numeric", month: "long" }) : "היום ✨"],
+      ["🤖", "בפנים", "אותו רובוט חמוד בכל השיחות"],
+    ];
+    document.querySelector("#sheetInfo").innerHTML = rows.map(([icon, label, value]) => `<li><span class="si-icon">${icon}</span><span class="si-label">${label}</span><b dir="auto">${esc(value)}</b></li>`).join("");
+    sheet.showModal();
+  }
+  document.querySelector("#sheetEdit").addEventListener("click", () => { sheet.close(); editContact(sheetChatId); });
+  document.querySelector("#sheetChat").addEventListener("click", async () => {
+    sheet.close();
+    if (sheetChatId && sheetChatId !== state.current?.id) await openChat(sheetChatId);
+    els.input.focus();
+  });
+  document.querySelector("#sheetCall").addEventListener("click", async () => {
+    sheet.close();
+    if (sheetChatId && sheetChatId !== state.current?.id) await openChat(sheetChatId);
+    startCall();
+  });
 
   /* ---------------- message times, like a messenger */
   function timeOf(at) {
@@ -2240,16 +2427,23 @@ ${svg}`;
       return;
     }
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(plain(text));
-    u.lang = "he-IL";
+    // Speak sentence by sentence: small pauses and a little change in tone, like a person talking.
+    const sentences = plain(text).split(/(?<=[.!?…])\s+|\n+/).map((t) => t.trim()).filter(Boolean);
+    if (!sentences.length) { hooks.end?.(); return; }
     const v = pickVoice(kind);
-    if (v) u.voice = v;
     const { pitch, rate } = voiceSettings(kind, v);
-    u.pitch = pitch;
-    u.rate = rate;
-    if (hooks.start) u.onstart = hooks.start;
-    if (hooks.end) u.onend = u.onerror = hooks.end;
-    speechSynthesis.speak(u);
+    sentences.forEach((line, i) => {
+      const u = new SpeechSynthesisUtterance(line);
+      u.lang = "he-IL";
+      if (v) u.voice = v;
+      const question = /\?$/.test(line), excited = /!$/.test(line);
+      u.pitch = Math.min(2, pitch + (question ? 0.12 : excited ? 0.08 : (Math.random() - 0.5) * 0.08));
+      u.rate = rate * (excited ? 1.04 : 0.97 + Math.random() * 0.05);
+      if (i === 0 && hooks.start) u.onstart = hooks.start;
+      if (i === sentences.length - 1 && hooks.end) u.onend = hooks.end;
+      u.onerror = () => { if (i === sentences.length - 1) hooks.end?.(); };
+      speechSynthesis.speak(u);
+    });
   }
   if (canSpeak) speechSynthesis.getVoices(); // starts loading the voice list
   function plain(text) {
@@ -2472,6 +2666,7 @@ ${svg}`;
     const facts = memory.items.map((m) => `- ${m.text}`).join("\n");
     const others = state.chats.filter((c) => c.id !== chat.id).slice(0, 8).map((c) => `- ${c.title}`).join("\n");
     let note = profile.name ? `\n\nThe user's name is ${profile.name}.` : "";
+    if (profile.about) note += ` About the user: ${profile.about}`;
     if (chat.contact?.name) note += `\n\nIn this chat you appear to the user as a contact named "${chat.contact.name}". If asked your name, say ${chat.contact.name}. You are the same friendly robot in every chat, just with a different name and look here.`;
     const voice = chat.contact?.voice || (chat.contact ? defaultVoice(chat.contact.name, chat.contact.avatar) : null);
     if (voice === "girl") note += "\nIn Hebrew, speak about yourself in feminine forms (for example: אני שמחה, הבנתי אותך, אני חושבת).";
