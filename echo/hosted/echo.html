@@ -92,7 +92,7 @@
   --text: #f3edff;
   --muted: #b6a7da;
   --accent: #b48cff;
-  --accent-2: #e6d6ff;
+  --accent-2: #9d7bf0;
   --accent-soft: rgba(180, 140, 255, 0.16);
   --metal: #f1d4ff;
   --user-bubble: linear-gradient(135deg, #6f4fd0, #a678e6);
@@ -117,7 +117,7 @@
   --text: #f3edff;
   --muted: #b6a7da;
   --accent: #b48cff;
-  --accent-2: #e6d6ff;
+  --accent-2: #9d7bf0;
   --accent-soft: rgba(180, 140, 255, 0.16);
   --metal: #f1d4ff;
   --user-bubble: linear-gradient(135deg, #6f4fd0, #a678e6);
@@ -141,7 +141,7 @@
   --text: #f3edff;
   --muted: #b6a7da;
   --accent: #b48cff;
-  --accent-2: #e6d6ff;
+  --accent-2: #9d7bf0;
   --accent-soft: rgba(180, 140, 255, 0.16);
   --metal: #f1d4ff;
   --user-bubble: linear-gradient(135deg, #6f4fd0, #a678e6);
@@ -844,6 +844,55 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 .themes { gap: 6px; }
 .swatch { width: 20px; height: 20px; }
 .contact-status { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.avatar-stage { gap: 10px; }
+.avatar-preview { width: 132px; height: 132px; }
+.btn.small { padding: 6px 14px; font-size: 13px; }
+.choice img { width: 50px; height: 50px; }
+.choice { width: 66px; }
+
+/* ============================================================ extras */
+.composer { position: relative; }
+.emoji-panel {
+  position: absolute; bottom: calc(100% + 8px); inset-inline-start: 8px; z-index: 30;
+  display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; padding: 8px; width: min(340px, calc(100vw - 40px));
+  background: var(--surface-solid); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); animation: rise 0.15s both;
+}
+.emoji-panel button { border: 0; background: transparent; font-size: 22px; line-height: 1; padding: 6px 0; border-radius: 10px; }
+.emoji-panel button:hover { background: var(--accent-soft); transform: scale(1.15); }
+#emojiBtn { font-size: 19px; }
+.dictate.on { color: #fff; background: #ff3b5c; animation: blink 1.2s ease-in-out infinite; }
+
+.games { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; margin: -12px 0 18px; }
+.games-label { font-size: 13px; color: var(--muted); }
+.game {
+  border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 999px; padding: 7px 14px; font-size: 13.5px;
+  transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s;
+}
+.game:hover { transform: translateY(-2px); border-color: var(--accent-2); box-shadow: 0 6px 16px var(--accent-soft); }
+
+.welcome-mark .core:has(img), .welcome-mark .core:has(.echo-face) { inset: 22px; background: none; box-shadow: 0 10px 30px var(--accent-soft); overflow: hidden; border-radius: 50%; }
+.welcome-mark .core img { width: 100%; height: 100%; display: block; }
+.welcome-who { margin: -18px 0 22px; color: var(--muted); font-size: 14.5px; }
+
+.flow { position: relative; }
+.reaction {
+  position: absolute; bottom: -12px; inset-inline-start: 8px; font-size: 14px; line-height: 1; padding: 3px 5px;
+  background: var(--surface-solid); border-radius: 999px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.reaction.pop { animation: heart 0.45s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
+@keyframes heart { from { transform: scale(0); } to { transform: scale(1); } }
+.msg.assistant .flow { user-select: text; }
+
+.stamp.unread { opacity: 0.55; }
+:root[data-skin="green"] .bubble .stamp.unread { color: var(--muted); }
+
+.sound-btn { border: 0; background: transparent; font-size: 15px; padding: 2px 4px; border-radius: 8px; }
+.sound-btn:hover { background: var(--accent-soft); }
+.sidebar-foot { flex-wrap: wrap; }
+.flow > .stamp { text-align: left; }
+.reaction { bottom: -14px; }
+.msg.assistant:has(.reaction) { margin-bottom: 30px; }
+.moon { top: 3%; left: 3%; width: 52px; height: 52px; }
 
 </style>
 <div dir="rtl" lang="he" style="height:100%">
@@ -907,6 +956,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
           <button class="swatch" data-set-theme="night" title="לילה סגול" aria-label="לילה סגול"></button>
           <button class="swatch" data-set-theme="green" title="סגנון וואטסאפ" aria-label="סגנון וואטסאפ"></button>
         </div>
+        <button type="button" class="sound-btn" id="soundBtn" aria-label="צלילים" title="צלילים">🔔</button>
         <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
       </div>
       <button type="button" class="key-btn memory-btn" id="memoryBtn">🧠 מה Echo זוכר</button>
@@ -938,10 +988,19 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         <div class="welcome" id="welcome">
           <div class="welcome-mark" aria-hidden="true">
             <span class="wave w1"></span><span class="wave w2"></span><span class="wave w3"></span>
-            <span class="core"></span>
+            <span class="core" id="welcomeFace"></span>
           </div>
           <p class="welcome-hello" id="hello">שלום ✨</p>
           <h2 class="welcome-title">על מה נדבר היום?</h2>
+          <p class="welcome-who" id="welcomeWho"></p>
+          <div class="games" id="games">
+            <span class="games-label">🎲 משחקים</span>
+            <button type="button" class="game" data-prompt="בוא נשחק בחידות! תן לי חידה אחת (לא קשה מדי), חכה שאנחש, ואחרי כל ניחוש תגיד לי אם צדקתי ותן את החידה הבאה.">🧩 חידות</button>
+            <button type="button" class="game" data-prompt="בוא נשחק טריוויה! שאל אותי שאלה אחת בכל פעם עם 4 אפשרויות (א-ד), חכה לתשובה שלי, תגיד אם צדקתי ותספור נקודות.">🏆 טריוויה</button>
+            <button type="button" class="game" data-prompt="בוא נשחק 20 שאלות! אני חושבת על משהו ואתה מנסה לנחש בשאלות של כן ולא. תתחיל לשאול!">🔮 20 שאלות</button>
+            <button type="button" class="game" data-prompt="בוא נכתוב ביחד סיפור! אתה כותב 2-3 משפטים של התחלה מסקרנת, ואז אני ממשיכה, וכן הלאה בתורות.">📖 סיפור ביחד</button>
+            <button type="button" class="game" data-prompt="בוא נשחק 'מה היית מעדיף'! תן לי שאלה מצחיקה עם שתי אפשרויות, חכה שאבחר, ואז תגיד מה אתה היית בוחר ולמה.">🤔 מה היית מעדיף</button>
+          </div>
           <div class="suggestions" id="suggestions">
             <button class="suggestion" data-prompt="תספר לי סיפור קצר ומצחיק על חתול שטס לחלל">
               <span class="s-emoji">🚀</span><span><b>ספר לי</b> סיפור על חתול בחלל</span>
@@ -962,13 +1021,18 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 
       <footer class="composer-wrap">
         <form class="composer" id="composer">
+          <div class="emoji-panel" id="emojiPanel" hidden></div>
           <div class="attachments" id="attachments"></div>
           <div class="composer-row">
             <button type="button" class="icon-btn attach" id="attachBtn" aria-label="צירוף תמונה" title="צירוף תמונה" hidden>
               <svg viewBox="0 0 24 24"><path d="M21 11.5l-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.9-8.9a3.7 3.7 0 0 1 5.2 5.2l-8.9 8.9a1.8 1.8 0 0 1-2.6-2.6l8.2-8.2"/></svg>
             </button>
             <input type="file" id="fileInput" name="photos" accept="image/*" multiple hidden>
+            <button type="button" class="icon-btn" id="emojiBtn" aria-label="אימוג'י" title="אימוג'י">😊</button>
             <textarea id="input" name="message" rows="1" placeholder="כתבו הודעה…" aria-label="הודעה"></textarea>
+            <button type="button" class="icon-btn dictate" id="dictateBtn" aria-label="הכתבה בקול" title="הכתבה בקול" hidden>
+              <svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+            </button>
             <button type="submit" class="send" id="sendBtn" aria-label="שליחה" disabled>
               <svg class="i-send" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
               <svg class="i-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/></svg>
@@ -986,6 +1050,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
     <button data-action="contact" role="menuitem">👤 פרופיל איש הקשר</button>
     <button data-action="rename" role="menuitem">✏️ שינוי נושא</button>
     <button data-action="pin" role="menuitem">📌 <span>הצמדה</span></button>
+    <button data-action="export" role="menuitem">⬇️ שמירת השיחה לקובץ</button>
     <button data-action="delete" role="menuitem" class="danger">🗑️ מחיקה</button>
   </div>
 
@@ -1006,7 +1071,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
     <form method="dialog">
       <h3 id="avatarTitle">👤 הפרופיל שלי</h3>
       <p id="avatarNote" hidden></p>
-      <div class="avatar-stage"><div class="avatar-preview" id="avatarPreview"></div></div>
+      <div class="avatar-stage"><div class="avatar-preview" id="avatarPreview"></div><button type="button" class="btn ghost small" id="avatarRandom">🎲 הפתעה</button></div>
       <label class="field-label" for="profileNameInput" id="avatarNameLabel">השם שלי</label>
       <input id="profileNameInput" class="key-input" maxlength="30" placeholder="איך קוראים לך?" dir="auto">
       <div class="avatar-options" id="avatarOptions"></div>
@@ -1093,6 +1158,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   const RULES = `You are a warm, helpful, witty assistant inside a chat app.
 Reply in the user's language (usually Hebrew). Use Markdown when it helps.
 Never introduce yourself by name and never call yourself "Echo".
+Talk like a real friend texting: vary how you open each message. Greet only at the very start of a new chat; after that never begin with "היי", "שלום", "Hi" or any greeting - jump straight into the answer. Keep messages natural and not too long unless asked.
 Pictures are turned off in this app: you cannot create images. If the user asks for one, say kindly in one short sentence that drawing isn't available here, and offer something fun instead (a vivid description, a story, a poem, or ideas). Never write a line that starts with [[IMAGE:.`;
 
   const ART_DIRECTION = `ART DIRECTION (follow closely):
@@ -1214,7 +1280,7 @@ ${svg}`;
   function sortChats() { state.chats.sort((a, b) => (!!b.pinned - !!a.pinned) || (b.updated - a.updated)); }
   function renderChatList() {
     const q = els.search.value.trim().toLowerCase();
-    const chats = state.chats.filter((c) => !q || c.title.toLowerCase().includes(q));
+    const chats = state.chats.filter((c) => !q || [c.title, c.contact?.name, c.preview].some((t) => (t || "").toLowerCase().includes(q)));
     els.chatList.innerHTML = "";
     if (!chats.length) {
       els.chatList.innerHTML = `<div class="empty-list">${q ? "לא נמצאו שיחות 🔍" : "עוד אין שיחות.<br>כתבו משהו כדי להתחיל ✨"}</div>`;
@@ -1230,7 +1296,7 @@ ${svg}`;
       item.dataset.id = chat.id;
       item.innerHTML = `<span class="ci-avatar">${contactFace(chat.contact)}</span><span class="ci-text"><span class="ci-top"><b class="t" dir="auto"></b><small class="ci-time"></small></span><span class="ci-preview" dir="auto"></span></span><button class="more" type="button" aria-label="אפשרויות">${ICONS.more}</button>`;
       item.querySelector(".t").textContent = chat.contact?.name || chat.title;
-      item.querySelector(".ci-preview").textContent = chat.contact ? chat.title : chat.preview || "";
+      item.querySelector(".ci-preview").textContent = chat.preview || chat.title;
       item.querySelector(".ci-time").textContent = timeOf(chat.updated);
       item.addEventListener("click", (e) => { if (!e.target.closest(".more")) { e.preventDefault(); openChat(chat.id); } });
       item.querySelector(".more").addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); openMenu(chat.id, e.currentTarget); });
@@ -1239,7 +1305,7 @@ ${svg}`;
   }
   function summary(chat) {
     const last = chat.preview ?? [...(chat.messages || [])].reverse().find((m) => m.text)?.text ?? "";
-    return { id: chat.id, title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: last.replace(/\s+/g, " ").slice(0, 80) };
+    return { id: chat.id, title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: plain(last).slice(0, 80) };
   }
   function upsert(chat) {
     const i = state.chats.findIndex((c) => c.id === chat.id);
@@ -1248,8 +1314,7 @@ ${svg}`;
   }
   async function saveChat(chat) {
     chat.updated = Date.now();
-    upsert(chat);
-    chat.preview = [...chat.messages].reverse().find((m) => m.text)?.text?.replace(/\s+/g, " ").slice(0, 80) || "";
+    chat.preview = plain([...chat.messages].reverse().find((m) => m.text)?.text || "").slice(0, 80);
     upsert(chat);
     try { await store.put(chat.id, { kind: "chat", title: chat.title, pinned: !!chat.pinned, updated: chat.updated, contact: chat.contact || null, preview: chat.preview, messages: chat.messages }); }
     catch { toast("לא הצלחתי לשמור את השיחה"); }
@@ -1283,6 +1348,7 @@ ${svg}`;
     if (!action || !id) return;
     if (action === "rename") return startRename(id);
     if (action === "contact") return editContact(id);
+    if (action === "export") return exportChat(id);
     if (action === "pin") {
       const chat = await loadFull(id);
       if (!chat) return;
@@ -1291,7 +1357,7 @@ ${svg}`;
     }
     if (action === "delete") {
       const s = state.chats.find((c) => c.id === id);
-      els.confirmText.textContent = `"${s.title}" תימחק לתמיד.`;
+      els.confirmText.textContent = `השיחה עם ${s.contact?.name || `"${s.title}"`} תימחק לתמיד.`;
       els.confirm.returnValue = "";
       els.confirm.showModal();
       els.confirm.addEventListener("close", async function onClose() {
@@ -1339,7 +1405,7 @@ ${svg}`;
     if (force || t.scrollHeight - t.scrollTop - t.clientHeight < 160) t.scrollTop = t.scrollHeight;
   }
   /** A user message; `photos` are data URLs, or attachment ids still to be loaded. */
-  function userEl(text, photos = [], at = Date.now()) {
+  function userEl(text, photos = [], at = Date.now(), read = true) {
     const n = document.createElement("div");
     n.className = "msg user";
     n.innerHTML = `<div class="avatar me" aria-hidden="true">${avatarImg(profile.avatar)}</div><div class="body"></div>`;
@@ -1360,7 +1426,7 @@ ${svg}`;
     if (text) {
       const bubble = document.createElement("div");
       bubble.className = "bubble"; bubble.dir = "auto"; bubble.textContent = text;
-      bubble.append(stampEl(at, true));
+      bubble.append(stampEl(at, true, read));
       body.append(bubble);
     }
     return n;
@@ -1455,6 +1521,7 @@ ${svg}`;
       v.content.after(failedCard(undefined, () => { v.node.querySelector(".gen-image.failed")?.remove(); draw(state.current, msg, v); }));
     }
     setActions(v, msg.text, isLast);
+    react(v, msg, state.current);
     return v.node;
   }
   async function renderThread() {
@@ -1475,7 +1542,7 @@ ${svg}`;
     state.nextContact = randomContact();
     renderHeader();
     renderThread(); renderChatList(); toggleSidebar(false);
-    els.input.focus();
+    if (!matchMedia("(hover: none)").matches) els.input.focus();
   }
   async function openChat(id) {
     stop();
@@ -1521,6 +1588,7 @@ ${svg}`;
     v.content.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
     v.node.classList.add("streaming");
     els.messages.append(v.node);
+    setTimeout(markRead, 600);
     scrollToBottom(true);
 
     const turns = chat.messages.slice(-30).map((m, i, all) => {
@@ -1580,7 +1648,13 @@ ${svg}`;
     if (state.busy === ctl) { state.busy = null; setBusy(false); }
     if (msg.text || drawing) { chat.messages.push(msg); await saveChat(chat); }
     if (state.current === chat) setActions(v, msg.text, true);
-    if (msg.text) { v.flow.append(stampEl(msg.at || Date.now(), false)); remember(chat); }
+    if (msg.text) {
+      v.flow.append(stampEl(msg.at || Date.now(), false));
+      markRead();
+      react(v, msg, chat);
+      if (!call.active) play("receive");
+      remember(chat);
+    }
     if (call.active && msg.text) speak(msg.text);
     if (drawing) await draw(chat, msg, v);
   }
@@ -1674,7 +1748,6 @@ ${svg}`;
       const t = text || "תמונה 🖼️";
       state.current = { id: "chat_" + uid(), title: t.replace(/\s+/g, " ").slice(0, 40) + (t.length > 40 ? "…" : ""), pinned: false, messages: [], contact: state.nextContact || randomContact() };
       renderHeader();
-      els.chatTitle.textContent = state.current.title;
     }
     showWelcome(false);
     const msg = { role: "user", text, at: Date.now() };
@@ -1687,7 +1760,8 @@ ${svg}`;
       }
     }
     state.current.messages.push(msg);
-    els.messages.append(userEl(text, photos.map((p) => p.thumb), msg.at));
+    els.messages.append(userEl(text, photos.map((p) => p.thumb), msg.at, false));
+    play("send");
     saveChat(state.current);
     await reply(photos.map((p) => p.file));
   }
@@ -1783,55 +1857,117 @@ ${svg}`;
   /* ---------------- profile and avatar */
   const PROFILE_ID = "profile";
   const AVATAR_PARTS = {
-    skin: { label: "צבע עור", values: ["#ffe0cc", "#f6c9a8", "#e0a97e", "#c68a5e", "#9a6440", "#6b4329"] },
-    hair: { label: "תסרוקת", values: ["long", "short", "bun", "curly", "ponytail", "bob"], names: ["ארוך", "קצר", "קוקו למעלה", "מתולתל", "קוקו", "קארה"] },
-    hairColor: { label: "צבע שיער", values: ["#2b1d16", "#5a3825", "#a0662c", "#e8c26a", "#d35b3a", "#9b6bd6", "#ff8fc0", "#4fb3e8"] },
-    eyeColor: { label: "צבע עיניים", values: ["#5a3825", "#2f7d4f", "#2e6fb5", "#7d8a96", "#9b6bd6"] },
-    extra: { label: "תוספת", values: ["none", "bow", "glasses", "crown", "headphones", "flower"], names: ["בלי", "סרט", "משקפיים", "כתר", "אוזניות", "פרח"] },
-    bg: { label: "רקע", values: ["#ffd1e3", "#cfe8ff", "#d8f5d0", "#fff1b8", "#e6d6ff", "#ffd9c2"] },
+    skin: { label: "צבע עור", values: ["#ffe6d5", "#f9d0b4", "#eab38c", "#d0956a", "#a96d47", "#7a4a2e"] },
+    hair: {
+      label: "תסרוקת",
+      values: ["long", "wavy", "bob", "buns", "ponytail", "braids", "curly", "short"],
+      names: ["ארוך חלק", "גלי", "קארה", "שני קוקיות", "קוקו", "צמות", "מתולתל", "קצר"],
+    },
+    hairColor: { label: "צבע שיער", values: ["#2a1b16", "#5b3a29", "#9a5b2e", "#e7c27d", "#f1e3c6", "#c8452f", "#a77be8", "#ff8fc0", "#58b8e8"] },
+    eyeColor: { label: "צבע עיניים", values: ["#5b3a29", "#2f8a5b", "#2f74c0", "#7d8a96", "#8f5bd6", "#c0832f"] },
+    mouth: { label: "חיוך", values: ["smile", "grin", "cat", "tongue"], names: ["חיוך", "צחוק", "חתולי", "לשון"] },
+    extra: {
+      label: "תוספת",
+      values: ["none", "bow", "catears", "glasses", "crown", "headphones", "flower", "stars"],
+      names: ["בלי", "סרט", "אוזני חתול", "משקפיים", "כתר", "אוזניות", "פרח", "כוכבים"],
+    },
+    shirt: { label: "חולצה", values: ["#ff8fb8", "#8fc8ff", "#9be3b0", "#ffd36b", "#b79bff", "#ffffff", "#3b3f58"] },
+    bg: { label: "רקע", values: ["#ffd6e8", "#d4ecff", "#d9f7dc", "#fff0b8", "#e8dcff", "#ffe0cc", "#2c2350"] },
   };
-  const DEFAULT_AVATAR = { skin: "#f6c9a8", hair: "long", hairColor: "#5a3825", eyeColor: "#5a3825", extra: "bow", bg: "#ffd1e3" };
-  const profile = { name: "", avatar: { ...DEFAULT_AVATAR } };
+  const DEFAULT_AVATAR = { skin: "#f9d0b4", hair: "wavy", hairColor: "#5b3a29", eyeColor: "#5b3a29", mouth: "smile", extra: "bow", shirt: "#ff8fb8", bg: "#ffd6e8" };
 
-  /** Draws a cute avatar as SVG from the chosen parts. */
-  function avatarSvg(a = DEFAULT_AVATAR) {
-    const shade = (hex, f) => {
+  /** Draws a glossy, cute avatar as SVG from the chosen parts. */
+  function avatarSvg(input = DEFAULT_AVATAR) {
+    const a = { ...DEFAULT_AVATAR, ...input };
+    if (a.hair === "bun") a.hair = "buns"; // saved before the redesign
+    const mix = (hex, f) => {
+      // f > 1 lightens toward white, f < 1 darkens
       const n = parseInt(hex.slice(1), 16);
-      const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => Math.max(0, Math.min(255, Math.round(v * f))));
-      return "#" + c.map((v) => v.toString(16).padStart(2, "0")).join("");
+      return "#" + [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((v) => {
+        const out = f >= 1 ? v + (255 - v) * (f - 1) : v * f;
+        return Math.max(0, Math.min(255, Math.round(out))).toString(16).padStart(2, "0");
+      }).join("");
     };
-    const h = a.hairColor, hd = shade(h, 0.8), s = a.skin, sd = shade(s, 0.9);
-    const back = {
-      long: `<path d="M22 50c0-22 12-34 28-34s28 12 28 34v34H22z" fill="${hd}"/>`,
-      short: "",
-      bun: `<circle cx="50" cy="15" r="11" fill="${h}"/>`,
-      curly: `<g fill="${hd}"><circle cx="24" cy="52" r="10"/><circle cx="76" cy="52" r="10"/><circle cx="26" cy="68" r="9"/><circle cx="74" cy="68" r="9"/></g>`,
-      ponytail: `<path d="M74 34c14 4 16 22 8 36-2-14-6-22-12-26z" fill="${hd}"/>`,
-      bob: `<path d="M23 48c0-20 12-31 27-31s27 11 27 31v20H23z" fill="${hd}"/>`,
+    const H = a.hairColor, HL = mix(H, 1.35), HD = mix(H, 0.72);
+    const S = a.skin, SD = mix(S, 0.88), SL = mix(S, 1.25);
+    const dark = parseInt(a.bg.slice(1), 16) < 0x606060;
+
+    const defs = `<defs>
+<radialGradient id="bg" cx=".5" cy=".38" r=".75"><stop offset="0" stop-color="${mix(a.bg, 1.45)}"/><stop offset="1" stop-color="${a.bg}"/></radialGradient>
+<radialGradient id="sk" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="${SL}"/><stop offset=".7" stop-color="${S}"/><stop offset="1" stop-color="${SD}"/></radialGradient>
+<linearGradient id="hr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${HL}"/><stop offset=".55" stop-color="${H}"/><stop offset="1" stop-color="${HD}"/></linearGradient>
+<linearGradient id="sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${mix(a.shirt, 1.25)}"/><stop offset="1" stop-color="${mix(a.shirt, 0.86)}"/></linearGradient>
+<radialGradient id="ir" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="${mix(a.eyeColor, 1.55)}"/><stop offset=".6" stop-color="${a.eyeColor}"/><stop offset="1" stop-color="${mix(a.eyeColor, 0.55)}"/></radialGradient>
+<radialGradient id="bl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff7fa0" stop-opacity=".55"/><stop offset="1" stop-color="#ff7fa0" stop-opacity="0"/></radialGradient>
+<clipPath id="circle"><circle cx="60" cy="60" r="60"/></clipPath>
+</defs>`;
+
+    const sparkle = (x, y, r, o) => `<path d="M${x} ${y - r}Q${x} ${y} ${x + r} ${y}Q${x} ${y} ${x} ${y + r}Q${x} ${y} ${x - r} ${y}Q${x} ${y} ${x} ${y - r}z" fill="#fff" opacity="${o}"/>`;
+    const background = `<circle cx="60" cy="60" r="60" fill="url(#bg)"/>${sparkle(18, 26, 4, dark ? 0.9 : 0.75)}${sparkle(101, 34, 3, dark ? 0.8 : 0.6)}${sparkle(96, 92, 2.5, 0.5)}<circle cx="27" cy="88" r="1.6" fill="#fff" opacity=".6"/><circle cx="90" cy="16" r="1.3" fill="#fff" opacity=".6"/>`;
+
+    const hairBack = {
+      long: `<path d="M30 60C30 30 44 20 60 20s30 10 30 40v46c-6 4-14 6-22 6H52c-8 0-16-2-22-6z" fill="url(#hr)"/>`,
+      wavy: `<path d="M29 58C29 30 44 20 60 20s31 10 31 38c0 10 4 16 2 26 3 8-1 16-6 20-4-4-8-2-12 0-4-3-8-3-11 0-3-3-8-3-11 0-4-2-8-4-12 0-5-4-9-12-6-20-2-10 2-16 2-26z" fill="url(#hr)"/>`,
+      bob: `<path d="M29 58C29 30 44 20 60 20s31 10 31 38v18c0 6-5 10-11 10H40c-6 0-11-4-11-10z" fill="url(#hr)"/>`,
+      buns: `<circle cx="34" cy="26" r="11" fill="url(#hr)"/><circle cx="86" cy="26" r="11" fill="url(#hr)"/><path d="M31 58c0-26 13-36 29-36s29 10 29 36v8H31z" fill="url(#hr)"/>`,
+      ponytail: `<path d="M84 30c16 2 22 22 14 40-2 10-8 18-12 22 2-12 2-24-4-34z" fill="url(#hr)"/><path d="M31 58c0-26 13-36 29-36s29 10 29 36v8H31z" fill="url(#hr)"/>`,
+      braids: `<path d="M31 58c0-26 13-36 29-36s29 10 29 36v8H31z" fill="url(#hr)"/>${[0, 1, 2, 3].map((i) => `<ellipse cx="30" cy="${74 + i * 9}" rx="6" ry="5.5" fill="url(#hr)"/><ellipse cx="90" cy="${74 + i * 9}" rx="6" ry="5.5" fill="url(#hr)"/>`).join("")}<circle cx="30" cy="110" r="3" fill="${a.shirt}"/><circle cx="90" cy="110" r="3" fill="${a.shirt}"/>`,
+      curly: `<g fill="url(#hr)">${[[30, 44], [36, 30], [48, 22], [62, 19], [75, 23], [86, 32], [91, 46], [93, 60], [91, 74], [29, 60], [28, 74], [33, 86], [88, 86]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="10"/>`).join("")}</g>`,
+      short: `<path d="M33 56c0-24 12-33 27-33s27 9 27 33v4H33z" fill="url(#hr)"/>`,
     }[a.hair] || "";
-    const front = {
-      long: `<path d="M26 44c2-16 12-24 24-24s22 8 24 24c-10-3-18-9-24-15-5 7-13 12-24 15z" fill="${h}"/>`,
-      short: `<path d="M27 42c1-15 11-23 23-23s22 8 23 23c-6-6-14-9-23-9s-17 3-23 9z" fill="${h}"/>`,
-      bun: `<path d="M27 42c1-15 11-22 23-22s22 7 23 22c-6-5-14-8-23-8s-17 3-23 8z" fill="${h}"/>`,
-      curly: `<g fill="${h}"><circle cx="34" cy="28" r="10"/><circle cx="50" cy="23" r="11"/><circle cx="66" cy="28" r="10"/><circle cx="27" cy="40" r="8"/><circle cx="73" cy="40" r="8"/></g>`,
-      ponytail: `<path d="M27 42c1-15 11-22 23-22s22 7 23 22c-8-4-15-10-20-16-6 7-15 13-26 16z" fill="${h}"/>`,
-      bob: `<path d="M25 46c1-17 12-26 25-26s24 9 25 26c-9-2-18-8-25-14-7 6-16 12-25 14z" fill="${h}"/>`,
+
+    const hairFront = {
+      long: `<path d="M33 54c2-18 13-28 27-28s25 10 27 28c-10-2-19-8-25-16-5 9-15 14-29 16z" fill="url(#hr)"/>`,
+      wavy: `<path d="M32 56c1-19 13-30 28-30s27 11 28 30c-6-1-12-5-15-10-3 6-9 9-15 9 3-4 3-9 1-13-4 8-14 13-27 14z" fill="url(#hr)"/>`,
+      bob: `<path d="M31 52c1-18 13-27 29-27s28 9 29 27v4H31z" fill="url(#hr)"/><path d="M31 54h58" stroke="${HD}" stroke-width="1.2" opacity=".35"/>`,
+      buns: `<path d="M33 54c2-18 13-27 27-27s25 9 27 27c-8-4-16-11-21-18-6 8-17 15-33 18z" fill="url(#hr)"/>`,
+      ponytail: `<path d="M33 54c2-18 13-27 27-27s25 9 27 27c-12-1-22-7-28-15-5 7-14 13-26 15z" fill="url(#hr)"/>`,
+      braids: `<path d="M33 54c2-18 13-27 27-27s25 9 27 27c-9-3-18-9-27-9s-18 6-27 9z" fill="url(#hr)"/><path d="M60 27v18" stroke="${HD}" stroke-width="1.4" opacity=".45"/>`,
+      curly: `<g fill="url(#hr)"><circle cx="42" cy="38" r="9"/><circle cx="54" cy="33" r="9"/><circle cx="67" cy="33" r="9"/><circle cx="78" cy="39" r="9"/><circle cx="35" cy="48" r="7"/><circle cx="86" cy="48" r="7"/></g>`,
+      short: `<path d="M32 52c1-18 13-27 28-27s27 9 28 27c-4-6-9-9-14-10 2 3 2 6 0 8-4-6-11-9-18-9 2 3 1 6-2 8-3-4-7-6-11-6-5 2-9 5-11 9z" fill="url(#hr)"/>`,
     }[a.hair] || "";
+    const shine = a.hair === "curly" ? "" : `<path d="M44 33c5-4 11-6 17-6" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".35"/>`;
+
+    const body = `<path d="M18 124c2-18 16-28 42-28s40 10 42 28z" fill="url(#sh)"/>
+<path d="M50 96c3 6 17 6 20 0" fill="none" stroke="${mix(a.shirt, 0.8)}" stroke-width="2" stroke-linecap="round"/>
+<path d="M52 82h16v12c0 4-4 7-8 7s-8-3-8-7z" fill="${SD}"/>`;
+
+    const head = `<ellipse cx="33" cy="62" rx="5" ry="7" fill="${SD}"/><ellipse cx="87" cy="62" rx="5" ry="7" fill="${SD}"/>
+<ellipse cx="60" cy="60" rx="27" ry="29" fill="url(#sk)"/>`;
+
+    // side: -1 for the eye on the left, 1 for the eye on the right (lashes sit on the outer corner)
+    const eye = (x, side) => `<g>
+<ellipse cx="${x}" cy="64.5" rx="6.3" ry="7.6" fill="url(#ir)"/>
+<ellipse cx="${x}" cy="66" rx="2.9" ry="3.7" fill="#1d1426"/>
+<circle cx="${x + 2.2}" cy="61.4" r="2.3" fill="#fff"/><circle cx="${x - 2.3}" cy="68.4" r="1.1" fill="#fff" opacity=".85"/>
+<path d="M${x - 7} 60.2Q${x} 54.6 ${x + 7} 60.2" fill="none" stroke="#2a1b22" stroke-width="1.7" stroke-linecap="round"/>
+<path d="M${x + side * 6.6} 59.2l${side * 2.6}-1.4M${x + side * 5} 57.2l${side * 1.8}-2" stroke="#2a1b22" stroke-width="1.2" stroke-linecap="round"/>
+</g>`;
+    const brows = `<path d="M40 50.5q5.5-3.2 11-0.8M69 49.7q5.5-2.4 11 0.8" fill="none" stroke="${HD}" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>`;
+    const blush = `<ellipse cx="39" cy="73" rx="6" ry="3.6" fill="url(#bl)"/><ellipse cx="81" cy="73" rx="6" ry="3.6" fill="url(#bl)"/>`;
+    const nose = `<path d="M59 70.5q1 1.2 2 0" fill="none" stroke="${mix(S, 0.7)}" stroke-width="1.2" stroke-linecap="round"/>`;
+    const mouth = {
+      smile: `<path d="M54 76q6 5 12 0" fill="none" stroke="#b4475a" stroke-width="2" stroke-linecap="round"/>`,
+      grin: `<path d="M53 75q7 0 14 0q-1 8-7 8t-7-8z" fill="#9e2f47"/><path d="M55 79.6q5 3 10 0q-2 3.2-5 3.2t-5-3.2z" fill="#ff8fa3"/>`,
+      cat: `<path d="M53.5 75.5q3.2 3 6.5 0q3.3 3 6.5 0" fill="none" stroke="#b4475a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>`,
+      tongue: `<path d="M54 75.5q6 5 12 0" fill="none" stroke="#b4475a" stroke-width="2" stroke-linecap="round"/><path d="M58 77.6q2 4.6 4 0" fill="#ff7f99"/>`,
+    }[a.mouth] || "";
+
     const extra = {
       none: "",
-      bow: `<g transform="translate(66 26) rotate(20)"><path d="M0 0l-10-6v12zM0 0l10-6v12z" fill="#ff5f9e"/><circle r="3" fill="#ff86b6"/></g>`,
-      glasses: `<g fill="none" stroke="#3b2b4f" stroke-width="2.2"><circle cx="41" cy="52" r="7"/><circle cx="59" cy="52" r="7"/><path d="M48 52h4"/></g>`,
-      crown: `<path d="M36 22l5-10 9 8 9-8 5 10z" fill="#ffcc3d" stroke="#e8a317" stroke-width="1.5"/>`,
-      headphones: `<g><path d="M25 50a25 25 0 0 1 50 0" fill="none" stroke="#7c5cff" stroke-width="4"/><rect x="19" y="46" width="9" height="15" rx="4" fill="#7c5cff"/><rect x="72" y="46" width="9" height="15" rx="4" fill="#7c5cff"/></g>`,
-      flower: `<g transform="translate(30 30)"><g fill="#ffb3d1"><circle cx="0" cy="-5" r="4"/><circle cx="5" cy="0" r="4"/><circle cx="0" cy="5" r="4"/><circle cx="-5" cy="0" r="4"/></g><circle r="3" fill="#ffd34d"/></g>`,
+      bow: `<g transform="translate(78 30) rotate(18)"><path d="M0 0C-4-8-14-9-14-1S-4 6 0 0zM0 0C4-8 14-9 14-1S4 6 0 0z" fill="#ff5f9e"/><path d="M0 0C-3-5-9-6-10-2M0 0C3-5 9-6 10-2" stroke="#fff" stroke-width="1" fill="none" opacity=".5"/><circle r="3.4" fill="#ff8fbd"/></g>`,
+      catears: `<path d="M34 40L32 16 50 30z" fill="url(#hr)"/><path d="M86 40L88 16 70 30z" fill="url(#hr)"/><path d="M36 35L35 22 45 30z" fill="#ffb3c9"/><path d="M84 35L85 22 75 30z" fill="#ffb3c9"/>`,
+      glasses: `<g fill="${dark ? "rgba(255,255,255,.12)" : "rgba(255,255,255,.25)"}" stroke="#3a2a4f" stroke-width="2"><circle cx="46" cy="64" r="9"/><circle cx="74" cy="64" r="9"/></g><path d="M55 63q5-3 10 0" fill="none" stroke="#3a2a4f" stroke-width="2"/>`,
+      crown: `<path d="M42 30l4-14 8 9 6-12 6 12 8-9 4 14z" fill="#ffd34d" stroke="#e6a817" stroke-width="1.4" stroke-linejoin="round"/><circle cx="60" cy="24" r="2.4" fill="#ff5f9e"/><circle cx="48" cy="26" r="1.8" fill="#58b8e8"/><circle cx="72" cy="26" r="1.8" fill="#58b8e8"/>`,
+      headphones: `<path d="M30 58a30 30 0 0 1 60 0" fill="none" stroke="#7c5cff" stroke-width="5" stroke-linecap="round"/><rect x="23" y="54" width="12" height="18" rx="6" fill="#7c5cff"/><rect x="85" y="54" width="12" height="18" rx="6" fill="#7c5cff"/><rect x="25" y="57" width="4" height="10" rx="2" fill="#fff" opacity=".4"/>`,
+      flower: `<g transform="translate(37 34)">${[0, 72, 144, 216, 288].map((r) => `<ellipse rx="4.4" ry="7" transform="rotate(${r}) translate(0 -5)" fill="#ffc2dc"/>`).join("")}<circle r="3.6" fill="#ffd34d"/></g>`,
+      stars: `<g fill="#ffd34d" stroke="#f0b323" stroke-width=".8">${[[38, 38, 5], [80, 36, 6]].map(([x, y, r]) => `<path d="M${x} ${y - r}l${r * 0.3} ${r * 0.7} ${r * 0.7} ${r * 0.1}-${r * 0.55} ${r * 0.5} ${r * 0.15} ${r * 0.75}-${r * 0.6}-${r * 0.4}-${r * 0.6} ${r * 0.4} ${r * 0.15}-${r * 0.75}-${r * 0.55}-${r * 0.5} ${r * 0.7}-${r * 0.1}z"/>`).join("")}</g>`,
     }[a.extra] || "";
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="${a.bg}"/>${back}
-<path d="M30 100c0-16 9-24 20-24s20 8 20 24z" fill="${shade(a.bg, 0.82)}"/><rect x="44" y="64" width="12" height="14" rx="5" fill="${sd}"/>
-<ellipse cx="50" cy="50" rx="22" ry="24" fill="${s}"/><circle cx="28" cy="52" r="4" fill="${sd}"/><circle cx="72" cy="52" r="4" fill="${sd}"/>
-<g><circle cx="41" cy="52" r="4.2" fill="${a.eyeColor}"/><circle cx="59" cy="52" r="4.2" fill="${a.eyeColor}"/><circle cx="42.4" cy="50.6" r="1.4" fill="#fff"/><circle cx="60.4" cy="50.6" r="1.4" fill="#fff"/></g>
-<ellipse cx="35" cy="60" rx="4" ry="2.4" fill="#ff8fa8" opacity=".45"/><ellipse cx="65" cy="60" rx="4" ry="2.4" fill="#ff8fa8" opacity=".45"/>
-<path d="M44 63q6 5 12 0" fill="none" stroke="#b5584f" stroke-width="2" stroke-linecap="round"/>${front}${extra}</svg>`;
+
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">${defs}<g clip-path="url(#circle)">${background}${hairBack}${body}${head}${brows}${eye(46, -1)}${eye(74, 1)}${blush}${nose}${mouth}${hairFront}${shine}${extra}</g></svg>`;
   }
+  const profile = { name: "", avatar: { ...DEFAULT_AVATAR } };
+
   const avatarImg = (cfg) => `<img alt="" src="${svgUrl(avatarSvg(cfg))}">`;
 
   function renderProfile() {
@@ -1891,8 +2027,13 @@ ${svg}`;
     input.placeholder = placeholder;
     renderAvatarBuilder();
     avatarDialog.returnValue = "";
+    avatarDialog.querySelector(".avatar-options").scrollTop = 0;
     avatarDialog.showModal();
   }
+  document.querySelector("#avatarRandom").addEventListener("click", () => {
+    draft = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, def.values[Math.floor(Math.random() * def.values.length)]]));
+    renderAvatarBuilder();
+  });
   avatarDialog.addEventListener("close", async () => {
     if (avatarDialog.returnValue !== "save" || !draft || !editorSave) return;
     await editorSave({ name: document.querySelector("#profileNameInput").value.trim().slice(0, 30), avatar: draft });
@@ -1929,6 +2070,10 @@ ${svg}`;
     const status = document.querySelector("#contactStatus");
     if (!state.busy) status.textContent = chat ? (who ? chat.title : "מחובר/ת") : "איש קשר חדש ✨";
     document.querySelectorAll(".msg.assistant > .avatar").forEach((n) => (n.innerHTML = who ? contactFace(who) : ""));
+    if (!chat && who) {
+      document.querySelector("#welcomeFace").innerHTML = contactFace(who);
+      document.querySelector("#welcomeWho").textContent = `${who.name} כאן בשבילך 👋`;
+    }
   }
   async function editContact(id) {
     const chat = id ? await loadFull(id) : state.current;
@@ -1956,11 +2101,14 @@ ${svg}`;
     const d = new Date(at);
     return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
   }
-  function stampEl(at, mine) {
+  function stampEl(at, mine, read = true) {
     const s = document.createElement("span");
-    s.className = "stamp";
-    s.textContent = timeOf(at) + (mine ? " ✓✓" : "");
+    s.className = "stamp" + (mine && !read ? " unread" : "");
+    s.textContent = timeOf(at) + (mine ? (read ? " ✓✓" : " ✓") : "");
     return s;
+  }
+  function markRead() {
+    document.querySelectorAll(".stamp.unread").forEach((n) => { n.classList.remove("unread"); n.textContent = n.textContent.replace(/ ✓$/, " ✓✓"); });
   }
 
   /* ---------------- voice call */
@@ -1988,8 +2136,12 @@ ${svg}`;
     call.voice = call.voice || pickVoice();
     if (call.voice) u.voice = call.voice;
     u.rate = 1.02;
-    u.onstart = () => { callStatus.textContent = "Echo מדבר/ת… 🔊"; callEl.classList.add("talking"); };
-    u.onend = u.onerror = () => { callStatus.textContent = clock(); callEl.classList.remove("talking"); };
+    u.onstart = () => { callStatus.textContent = `${document.querySelector(".call-name").textContent} מדבר/ת… 🔊`; callEl.classList.add("talking"); };
+    u.onend = u.onerror = () => {
+      callStatus.textContent = clock();
+      callEl.classList.remove("talking");
+      if (call.active && call.viaMic) setTimeout(listen, 350); // hands-free: answer by voice again
+    };
     speechSynthesis.speak(u);
   }
   function clock() {
@@ -2002,7 +2154,7 @@ ${svg}`;
     const who = state.current?.contact || state.nextContact;
     document.querySelector("#callAvatar").innerHTML = contactFace(who);
     document.querySelector(".call-name").textContent = who?.name || "Echo";
-    document.querySelector("#callInput").placeholder = `מה תרצי להגיד ל${who?.name ? "-" + who.name : "-Echo"}?`;
+    document.querySelector("#callInput").placeholder = `מה להגיד ל${who?.name ? "-" + who.name : "-Echo"}?`;
     callEl.hidden = false;
     callStatus.textContent = "מתקשר…";
     callLine.textContent = "";
@@ -2017,6 +2169,7 @@ ${svg}`;
     clearInterval(call.timer);
     if (canSpeak) speechSynthesis.cancel();
     try { call.rec?.abort(); } catch { /* not listening */ }
+    call.viaMic = false;
     callEl.hidden = true;
     callEl.classList.remove("talking");
     toast(`השיחה הסתיימה · ${clock()}`);
@@ -2036,33 +2189,152 @@ ${svg}`;
     if (!text) return;
     input.value = "";
     callLine.textContent = "";
-    callStatus.textContent = "Echo חושב/ת… 💭";
+    callStatus.textContent = "חושב/ת… 💭";
+    call.viaMic = false;
     sendMessage(text);
   });
   // The microphone usually isn't available inside a shared page; offer it only where it works.
   const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const callMic = document.querySelector("#callMic");
+  function listen() {
+    if (!Recognition || !call.active || callMic.hidden) return;
+    try {
+      try { call.rec?.abort(); } catch { /* idle */ }
+      const rec = new Recognition();
+      call.rec = rec;
+      rec.lang = "he-IL";
+      rec.interimResults = false;
+      if (canSpeak) speechSynthesis.cancel();
+      rec.onstart = () => { callMic.classList.add("on"); callStatus.textContent = "מקשיב… 🎤"; };
+      rec.onend = () => { callMic.classList.remove("on"); if (!state.busy && call.active && callStatus.textContent.startsWith("מקשיב")) callStatus.textContent = clock(); };
+      rec.onerror = (ev) => {
+        if (ev.error === "not-allowed" || ev.error === "service-not-allowed") { callMic.hidden = true; call.viaMic = false; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); }
+        else if (ev.error === "no-speech") { call.viaMic = false; toast("לא שמעתי כלום. לחצי 🎤 כדי לדבר שוב"); }
+      };
+      rec.onresult = (ev) => {
+        const said = ev.results[0][0].transcript;
+        call.viaMic = true;
+        callLine.textContent = `🗣️ ${said}`;
+        callStatus.textContent = "חושב/ת… 💭";
+        sendMessage(said);
+      };
+      rec.start();
+    } catch { callMic.hidden = true; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); }
+  }
   if (Recognition) {
-    const mic = document.querySelector("#callMic");
-    mic.hidden = false;
-    mic.addEventListener("click", () => {
-      try {
-        const rec = new Recognition();
-        call.rec = rec;
-        rec.lang = "he-IL";
-        rec.interimResults = false;
-        rec.onstart = () => { mic.classList.add("on"); callStatus.textContent = "מקשיב… 🎤"; };
-        rec.onend = () => mic.classList.remove("on");
-        rec.onerror = () => { mic.hidden = true; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); };
-        rec.onresult = (ev) => {
-          const said = ev.results[0][0].transcript;
-          callStatus.textContent = "Echo חושב/ת… 💭";
-          sendMessage(said);
-        };
-        rec.start();
-      } catch { mic.hidden = true; toast("המיקרופון לא זמין כאן, אפשר להקליד ⌨️"); }
-    });
+    callMic.hidden = false;
+    callMic.addEventListener("click", listen);
   }
   const VOICE_NOTE = "\n\nYou are on a voice call right now: answer in 1-3 short, warm spoken sentences in the user's language. No markdown, no lists, no emojis.";
+
+  /* ---------------- little extras: sounds, emoji, dictation, games, hearts, saving */
+  let soundOn = storage.get("echo-sound") !== "off";
+  let audio = null;
+  /** Soft messenger-like blips, made on the fly (no sound files needed). */
+  function play(kind) {
+    if (!soundOn) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      const t = audio.currentTime;
+      const notes = kind === "send" ? [[880, 0], [1320, 0.07]] : [[660, 0], [990, 0.09]];
+      for (const [freq, at] of notes) {
+        const o = audio.createOscillator(), g = audio.createGain();
+        o.type = "sine";
+        o.frequency.setValueAtTime(freq, t + at);
+        g.gain.setValueAtTime(0.0001, t + at);
+        g.gain.exponentialRampToValueAtTime(0.09, t + at + 0.015);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + at + 0.16);
+        o.connect(g).connect(audio.destination);
+        o.start(t + at);
+        o.stop(t + at + 0.18);
+      }
+    } catch { /* audio not available */ }
+  }
+  const soundBtn = document.querySelector("#soundBtn");
+  const showSound = () => { soundBtn.textContent = soundOn ? "🔔" : "🔕"; soundBtn.title = soundOn ? "צלילים: פועלים" : "צלילים: כבויים"; };
+  soundBtn.addEventListener("click", () => { soundOn = !soundOn; storage.set("echo-sound", soundOn ? "on" : "off"); showSound(); if (soundOn) play("receive"); });
+  showSound();
+
+  const EMOJI = "😀😂🥰😍🤩😎🤔😴🥳😇🙃😜🤗😢😮🙈👍👏🙏💪✌️🤞👋💖💜💙💚💛🧡✨⭐🌈🔥🎉🎈🎁🍕🍦🍫🐱🐶🦄🐼🌸🌻⚽🎮🎨📚🚀".match(/\p{Extended_Pictographic}\uFE0F?/gu);
+  const emojiPanel = document.querySelector("#emojiPanel");
+  emojiPanel.innerHTML = EMOJI.map((e) => `<button type="button">${e}</button>`).join("");
+  document.querySelector("#emojiBtn").addEventListener("click", (e) => { e.stopPropagation(); emojiPanel.hidden = !emojiPanel.hidden; });
+  emojiPanel.addEventListener("click", (e) => {
+    const b = e.target.closest("button");
+    if (!b) return;
+    e.stopPropagation();
+    const el = els.input, at = el.selectionStart ?? el.value.length;
+    el.value = el.value.slice(0, at) + b.textContent + el.value.slice(el.selectionEnd ?? at);
+    el.selectionStart = el.selectionEnd = at + b.textContent.length;
+    autosize();
+    el.focus();
+  });
+  document.addEventListener("click", (e) => { if (!emojiPanel.hidden && !emojiPanel.contains(e.target)) emojiPanel.hidden = true; });
+
+  // Dictation: speak and the words appear in the message box.
+  const dictateBtn = document.querySelector("#dictateBtn");
+  const DictRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (DictRecognition) {
+    dictateBtn.hidden = false;
+    let rec = null;
+    dictateBtn.addEventListener("click", () => {
+      if (rec) { rec.stop(); return; }
+      try {
+        rec = new DictRecognition();
+        rec.lang = "he-IL";
+        rec.interimResults = true;
+        const before = els.input.value ? els.input.value.replace(/\s*$/, " ") : "";
+        rec.onstart = () => dictateBtn.classList.add("on");
+        rec.onresult = (ev) => {
+          const said = [...ev.results].map((r) => r[0].transcript).join("");
+          els.input.value = before + said;
+          autosize();
+        };
+        rec.onerror = (ev) => {
+          if (ev.error === "not-allowed" || ev.error === "service-not-allowed") { dictateBtn.hidden = true; toast("המיקרופון לא זמין כאן ⌨️"); }
+        };
+        rec.onend = () => { dictateBtn.classList.remove("on"); rec = null; els.input.focus(); };
+        rec.start();
+      } catch { dictateBtn.hidden = true; toast("המיקרופון לא זמין כאן ⌨️"); }
+    });
+  }
+
+  document.querySelector("#games").addEventListener("click", (e) => { const b = e.target.closest(".game"); if (b) sendMessage(b.dataset.prompt); });
+
+  /** Double-click (or double-tap) a reply to send it a heart. */
+  function react(v, msg, chat) {
+    const show = () => {
+      v.node.querySelector(".reaction")?.remove();
+      if (!msg.reaction) return;
+      const r = document.createElement("span");
+      r.className = "reaction";
+      r.textContent = msg.reaction;
+      v.flow.append(r);
+    };
+    show();
+    v.flow.addEventListener("dblclick", async (e) => {
+      if (e.target.closest("a, button, pre")) return;
+      window.getSelection()?.removeAllRanges();
+      msg.reaction = msg.reaction ? "" : "❤️";
+      show();
+      if (msg.reaction) { v.node.querySelector(".reaction")?.classList.add("pop"); play("send"); }
+      if (chat) await saveChat(chat);
+    });
+  }
+
+  /** Saves a whole chat as a text file the viewer can keep. */
+  async function exportChat(id) {
+    const chat = await loadFull(id);
+    if (!chat) return;
+    if (!downloads) { toast("שמירת קבצים לא זמינה כאן"); return; }
+    const them = chat.contact?.name || "Echo";
+    const me = profile.name || "אני";
+    const lines = chat.messages.map((m) => `[${m.at ? new Date(m.at).toLocaleString("he-IL") : ""}] ${m.role === "user" ? me : them}:\n${m.text || "(תמונה)"}\n`);
+    const text = `שיחה עם ${them} · ${chat.title}\n${"=".repeat(30)}\n\n${lines.join("\n")}`;
+    const safe = (chat.title || "שיחה").replace(/[\\/:*?"<>|]+/g, "").slice(0, 40).trim() || "שיחה";
+    try { await downloads.save({ filename: `Echo - ${safe}.txt`, data: "\uFEFF" + text }); }
+    catch (e) { if (e?.code !== "declined") toast("לא הצלחתי לשמור את הקובץ"); }
+  }
 
   /* ---------------- memory: what Echo remembers across chats */
   const MEMORY_ID = "memory";
