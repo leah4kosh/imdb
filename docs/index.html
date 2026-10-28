@@ -700,6 +700,15 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   padding: 6px 12px; border-radius: 999px; font-size: 13px; color: var(--text);
   background: var(--surface-solid); box-shadow: var(--shadow); animation: blink 1.6s ease-in-out infinite;
 }
+.key-btn { margin: 8px 6px 0; padding: 8px 12px; border-radius: 12px; border: 1px dashed var(--accent-2); background: var(--accent-soft); color: var(--text); font-size: 13px; text-align: center; }
+.key-btn:hover { border-style: solid; }
+.memory-list { list-style: none; margin: 0 0 18px; padding: 0; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.memory-list li { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--text); font-size: 14px; }
+.memory-list li span { flex: 1; min-width: 0; }
+.memory-list li button { border: 0; background: transparent; color: var(--muted); border-radius: 8px; padding: 2px 6px; }
+.memory-list li button:hover { background: var(--surface-solid); color: #d64545; }
+.memory-list .memory-empty { background: transparent; color: var(--muted); justify-content: center; }
+.dialog { width: min(420px, calc(100% - 32px)); }
 
 </style>
 </head>
@@ -1685,7 +1694,7 @@ Requirements:
   function updateSend() { els.send.disabled = !state.busy && !els.input.value.trim() && !state.pending.length; }
   els.input.addEventListener("input", autosize);
   els.input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.shiftKey && !e.isComposing && !matchMedia("(pointer: coarse)").matches) { e.preventDefault(); sendMessage(els.input.value); }
+    if (e.key === "Enter" && !e.shiftKey && !e.isComposing && !matchMedia("(hover: none) and (max-width: 860px)").matches) { e.preventDefault(); sendMessage(els.input.value); }
   });
   els.composer.addEventListener("submit", (e) => { e.preventDefault(); if (state.busy) stop(); else sendMessage(els.input.value); });
   els.suggestions.addEventListener("click", (e) => { const b = e.target.closest(".suggestion"); if (b) sendMessage(b.dataset.prompt); });

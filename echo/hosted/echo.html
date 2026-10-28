@@ -1561,7 +1561,7 @@ ${svg}`;
   function updateSend() { els.send.disabled = !state.busy && !els.input.value.trim() && !state.pending.length; }
   els.input.addEventListener("input", autosize);
   els.input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.shiftKey && !e.isComposing && !matchMedia("(pointer: coarse)").matches) { e.preventDefault(); sendMessage(els.input.value); }
+    if (e.key === "Enter" && !e.shiftKey && !e.isComposing && !matchMedia("(hover: none) and (max-width: 860px)").matches) { e.preventDefault(); sendMessage(els.input.value); }
   });
   els.composer.addEventListener("submit", (e) => { e.preventDefault(); if (state.busy) stop(); else sendMessage(els.input.value); });
   els.suggestions.addEventListener("click", (e) => { const b = e.target.closest(".suggestion"); if (b) sendMessage(b.dataset.prompt); });
