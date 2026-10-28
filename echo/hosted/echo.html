@@ -893,6 +893,10 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 .reaction { bottom: -14px; }
 .msg.assistant:has(.reaction) { margin-bottom: 30px; }
 .moon { top: 3%; left: 3%; width: 52px; height: 52px; }
+.voice-row { margin-top: 14px; }
+.voice-choice { border: 2px solid transparent; background: var(--accent-soft); color: var(--text); border-radius: 999px; padding: 7px 14px; font-size: 14px; }
+.voice-choice.on { border-color: var(--accent); background: var(--surface-solid); box-shadow: 0 0 0 2px var(--accent-soft); }
+.voice-choice.listen { background: transparent; border: 1px dashed var(--accent-2); }
 
 </style>
 <div dir="rtl" lang="he" style="height:100%">
@@ -1074,6 +1078,15 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
       <div class="avatar-stage"><div class="avatar-preview" id="avatarPreview"></div><button type="button" class="btn ghost small" id="avatarRandom">🎲 הפתעה</button></div>
       <label class="field-label" for="profileNameInput" id="avatarNameLabel">השם שלי</label>
       <input id="profileNameInput" class="key-input" maxlength="30" placeholder="איך קוראים לך?" dir="auto">
+      <div class="voice-row" id="voiceRow" hidden>
+        <span class="avatar-row-label">קול בשיחה</span>
+        <div class="avatar-choices">
+          <button type="button" class="voice-choice" data-voice="girl">👧 בת</button>
+          <button type="button" class="voice-choice" data-voice="boy">👦 בן</button>
+          <button type="button" class="voice-choice" data-voice="robot">🤖 רובוט</button>
+          <button type="button" class="voice-choice listen" id="voiceTry">🔊 לשמוע</button>
+        </div>
+      </div>
       <div class="avatar-options" id="avatarOptions"></div>
       <div class="dialog-actions">
         <button value="cancel" class="btn ghost">ביטול</button>
@@ -2056,8 +2069,12 @@ ${svg}`;
   }
   /** Opens the avatar builder for the viewer or for a contact; onSave gets {name, avatar}. */
   let editorSave = null;
-  function openEditor({ title, label, note, name, avatar, placeholder }, onSave) {
+  let draftVoice = null;
+  function openEditor({ title, label, note, name, avatar, placeholder, voice }, onSave) {
     draft = { ...avatar };
+    draftVoice = voice || null;
+    document.querySelector("#voiceRow").hidden = !voice;
+    renderVoiceChoice();
     editorSave = onSave;
     document.querySelector("#avatarTitle").textContent = title;
     document.querySelector("#avatarNameLabel").textContent = label;
@@ -2072,13 +2089,22 @@ ${svg}`;
     avatarDialog.querySelector(".avatar-options").scrollTop = 0;
     avatarDialog.showModal();
   }
+  function renderVoiceChoice() {
+    document.querySelectorAll(".voice-choice[data-voice]").forEach((b) => b.classList.toggle("on", b.dataset.voice === draftVoice));
+  }
+  document.querySelectorAll(".voice-choice[data-voice]").forEach((b) => b.addEventListener("click", () => {
+    draftVoice = b.dataset.voice;
+    renderVoiceChoice();
+    say(`היי! ככה אני נשמע${draftVoice === "girl" ? "ת" : ""}`, draftVoice);
+  }));
+  document.querySelector("#voiceTry").addEventListener("click", () => say(`היי! ככה אני נשמע${draftVoice === "girl" ? "ת" : ""}`, draftVoice));
   document.querySelector("#avatarRandom").addEventListener("click", () => {
     draft = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, def.values[Math.floor(Math.random() * def.values.length)]]));
     renderAvatarBuilder();
   });
   avatarDialog.addEventListener("close", async () => {
     if (avatarDialog.returnValue !== "save" || !draft || !editorSave) return;
-    await editorSave({ name: document.querySelector("#profileNameInput").value.trim().slice(0, 30), avatar: draft });
+    await editorSave({ name: document.querySelector("#profileNameInput").value.trim().slice(0, 30), avatar: draft, voice: draftVoice });
   });
   document.querySelector("#profileBtn").addEventListener("click", () => openEditor(
     { title: "👤 הפרופיל שלי", label: "השם שלי", name: profile.name, avatar: profile.avatar, placeholder: "איך קוראים לך?" },
@@ -2100,7 +2126,13 @@ ${svg}`;
     const avatar = Object.fromEntries(Object.entries(AVATAR_PARTS).map(([part, def]) => [part, pick(def.values)]));
     // about half the contacts are kids, the rest robots and cute animals
     avatar.kind = Math.random() < 0.45 ? "person" : pick(["robot", "cat", "bunny", "bear"]);
-    return { name: pick(free.length ? free : CONTACT_NAMES), avatar };
+    const name = pick(free.length ? free : CONTACT_NAMES);
+    return { name, avatar, voice: defaultVoice(name, avatar) };
+  }
+  const BOY_NAMES = new Set(["עומר", "שחר", "ג'וני", "בובי", "ביפ", "זיגי", "פיקסל"]);
+  function defaultVoice(name, avatar) {
+    if (avatar?.kind === "robot") return "robot";
+    return BOY_NAMES.has(name) ? "boy" : "girl";
   }
   /** A contact's face, or Echo's own mark for chats from before contacts existed. */
   function contactFace(contact) {
@@ -2125,9 +2157,10 @@ ${svg}`;
     const current = target ? target.contact || randomContact() : state.nextContact;
     openEditor({
       title: `👤 ${current.name}`, label: "שם איש הקשר", name: current.name, avatar: current.avatar, placeholder: "איזה שם לתת לו?",
+      voice: current.voice || defaultVoice(current.name, current.avatar),
       note: "🤖 זה אותו רובוט בכל השיחות, רק בשם ובמראה אחרים.",
-    }, async ({ name, avatar }) => {
-      const contact = { name: name || current.name, avatar };
+    }, async ({ name, avatar, voice }) => {
+      const contact = { name: name || current.name, avatar, voice };
       if (target) { target.contact = contact; await saveChat(target); }
       else state.nextContact = contact;
       if (!target || target === state.current || target.id === state.current?.id) { if (state.current && target) state.current.contact = contact; renderHeader(); }
@@ -2161,12 +2194,42 @@ ${svg}`;
   const callStatus = document.querySelector("#callStatus");
   const callLine = document.querySelector("#callLine");
   const canSpeak = "speechSynthesis" in window;
-  function pickVoice() {
+  // Hebrew voices differ per computer: Windows usually has only a male one ("Asaf"),
+  // Edge adds "Hila" (female), Mac has "Carmit" (female). Pick the best match and
+  // shape the pitch so a girl sounds like a girl even with a male voice.
+  const FEMALE = /hila|carmit|female|zira|woman|girl/i, MALE = /asaf|avri|male|man\b/i;
+  function pickVoice(kind = "girl") {
     if (!canSpeak) return null;
-    const voices = speechSynthesis.getVoices();
-    return voices.find((v) => /^he/i.test(v.lang)) || voices.find((v) => /iw/i.test(v.lang)) || null;
+    const hebrew = speechSynthesis.getVoices().filter((v) => /^(he|iw)/i.test(v.lang));
+    if (!hebrew.length) return null;
+    const female = hebrew.filter((v) => FEMALE.test(v.name) && !/\bmale\b/i.test(v.name.replace(/female/i, "")));
+    const male = hebrew.filter((v) => MALE.test(v.name) && !FEMALE.test(v.name));
+    const natural = (list) => list.find((v) => /natural|online/i.test(v.name)) || list[0];
+    if (kind === "girl") return natural(female) || natural(hebrew);
+    return natural(male) || natural(hebrew);
   }
-  if (canSpeak) speechSynthesis.onvoiceschanged = () => { call.voice = pickVoice(); };
+  function voiceSettings(kind, voice) {
+    const femaleVoice = voice && FEMALE.test(voice.name);
+    if (kind === "robot") return { pitch: 0.55, rate: 1.0 };
+    if (kind === "boy") return { pitch: femaleVoice ? 0.75 : 1.05, rate: 1.0 };
+    return { pitch: femaleVoice ? 1.1 : 1.65, rate: 1.04 }; // girl
+  }
+  /** Says a line out loud in a contact's voice. */
+  function say(text, kind = "girl", hooks = {}) {
+    if (!canSpeak) { toast("אין קול בדפדפן הזה 🔇"); return; }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(plain(text));
+    u.lang = "he-IL";
+    const v = pickVoice(kind);
+    if (v) u.voice = v;
+    const { pitch, rate } = voiceSettings(kind, v);
+    u.pitch = pitch;
+    u.rate = rate;
+    if (hooks.start) u.onstart = hooks.start;
+    if (hooks.end) u.onend = u.onerror = hooks.end;
+    speechSynthesis.speak(u);
+  }
+  if (canSpeak) speechSynthesis.getVoices(); // starts loading the voice list
   function plain(text) {
     return text.replace(/```[\s\S]*?```/g, " ").replace(/[*_#>`~|]/g, "").replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
       .replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}]/gu, "").replace(/\s+/g, " ").trim();
@@ -2174,19 +2237,16 @@ ${svg}`;
   function speak(text) {
     callLine.textContent = text;
     if (!canSpeak || !call.speaker) { callStatus.textContent = clock(); return; }
-    speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(plain(text));
-    u.lang = "he-IL";
-    call.voice = call.voice || pickVoice();
-    if (call.voice) u.voice = call.voice;
-    u.rate = 1.02;
-    u.onstart = () => { callStatus.textContent = `${document.querySelector(".call-name").textContent} מדבר/ת… 🔊`; callEl.classList.add("talking"); };
-    u.onend = u.onerror = () => {
-      callStatus.textContent = clock();
-      callEl.classList.remove("talking");
-      if (call.active && call.viaMic) setTimeout(listen, 350); // hands-free: answer by voice again
-    };
-    speechSynthesis.speak(u);
+    const who = state.current?.contact || state.nextContact;
+    const kind = who?.voice || defaultVoice(who?.name, who?.avatar);
+    say(text, kind, {
+      start: () => { callStatus.textContent = `${who?.name || "Echo"} ${kind === "boy" ? "מדבר" : kind === "girl" ? "מדברת" : "מדבר"}… 🔊`; callEl.classList.add("talking"); },
+      end: () => {
+        callStatus.textContent = clock();
+        callEl.classList.remove("talking");
+        if (call.active && call.viaMic) setTimeout(listen, 350); // hands-free: answer by voice again
+      },
+    });
   }
   function clock() {
     const s = Math.floor((Date.now() - call.started) / 1000);
@@ -2391,6 +2451,9 @@ ${svg}`;
     const others = state.chats.filter((c) => c.id !== chat.id).slice(0, 8).map((c) => `- ${c.title}`).join("\n");
     let note = profile.name ? `\n\nThe user's name is ${profile.name}.` : "";
     if (chat.contact?.name) note += `\n\nIn this chat you appear to the user as a contact named "${chat.contact.name}". If asked your name, say ${chat.contact.name}. You are the same friendly robot in every chat, just with a different name and look here.`;
+    const voice = chat.contact?.voice || (chat.contact ? defaultVoice(chat.contact.name, chat.contact.avatar) : null);
+    if (voice === "girl") note += "\nIn Hebrew, speak about yourself in feminine forms (for example: אני שמחה, הבנתי אותך, אני חושבת).";
+    if (voice === "boy" || voice === "robot") note += "\nIn Hebrew, speak about yourself in masculine forms (for example: אני שמח, אני חושב).";
     if (facts) note += `\n\nWhat you remember about this user from earlier chats (use it naturally, don't list it unless asked):\n${facts}`;
     if (others) note += `\n\nTitles of the user's other recent chats with you:\n${others}`;
     return note;
