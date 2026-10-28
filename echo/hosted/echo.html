@@ -897,6 +897,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
 .voice-choice { border: 2px solid transparent; background: var(--accent-soft); color: var(--text); border-radius: 999px; padding: 7px 14px; font-size: 14px; }
 .voice-choice.on { border-color: var(--accent); background: var(--surface-solid); box-shadow: 0 0 0 2px var(--accent-soft); }
 .voice-choice.listen { background: transparent; border: 1px dashed var(--accent-2); }
+.voice-note { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
 
 </style>
 <div dir="rtl" lang="he" style="height:100%">
@@ -1086,6 +1087,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
           <button type="button" class="voice-choice" data-voice="robot">🤖 רובוט</button>
           <button type="button" class="voice-choice listen" id="voiceTry">🔊 לשמוע</button>
         </div>
+        <p class="voice-note" id="voiceNote"></p>
       </div>
       <div class="avatar-options" id="avatarOptions"></div>
       <div class="dialog-actions">
@@ -2091,7 +2093,19 @@ ${svg}`;
   }
   function renderVoiceChoice() {
     document.querySelectorAll(".voice-choice[data-voice]").forEach((b) => b.classList.toggle("on", b.dataset.voice === draftVoice));
+    // Tell the viewer what this computer can actually do.
+    const note = document.querySelector("#voiceNote");
+    if (!canSpeak) { note.textContent = "🔇 בדפדפן הזה אין קול."; return; }
+    const hebrew = speechSynthesis.getVoices().filter((v) => /^(he|iw)/i.test(v.lang));
+    const hasGirl = hebrew.some((v) => FEMALE.test(v.name));
+    const names = hebrew.map((v) => v.name.replace(/^Microsoft\s+|Google\s+/i, "").replace(/\s*-.*$/, "")).join(", ");
+    note.textContent = !hebrew.length
+      ? "😕 במחשב הזה אין קול בעברית. נסי את הדפדפן Microsoft Edge."
+      : draftVoice === "girl" && !hasGirl
+        ? `😕 במחשב הזה יש רק קול עברי של בן (${names}), אז הקול יוגבה. לקול אמיתי של בת פתחי את Echo בדפדפן Microsoft Edge 🌊`
+        : `🔊 קולות בעברית במחשב: ${names}`;
   }
+  if ("speechSynthesis" in window) speechSynthesis.addEventListener?.("voiceschanged", () => { if (avatarDialog.open) renderVoiceChoice(); });
   document.querySelectorAll(".voice-choice[data-voice]").forEach((b) => b.addEventListener("click", () => {
     draftVoice = b.dataset.voice;
     renderVoiceChoice();
@@ -2217,6 +2231,14 @@ ${svg}`;
   /** Says a line out loud in a contact's voice. */
   function say(text, kind = "girl", hooks = {}) {
     if (!canSpeak) { toast("אין קול בדפדפן הזה 🔇"); return; }
+    if (!speechSynthesis.getVoices().length && !hooks.waited) {
+      // Chrome loads its voices a moment after the page; try once more when they arrive.
+      let done = false;
+      const go = () => { if (done) return; done = true; say(text, kind, { ...hooks, waited: true }); };
+      speechSynthesis.addEventListener?.("voiceschanged", go, { once: true });
+      setTimeout(go, 800);
+      return;
+    }
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(plain(text));
     u.lang = "he-IL";
