@@ -692,6 +692,15 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
   padding: 6px 12px; border-radius: 999px; font-size: 13px; color: var(--text);
   background: var(--surface-solid); box-shadow: var(--shadow); animation: blink 1.6s ease-in-out infinite;
 }
+.key-btn { margin: 8px 6px 0; padding: 8px 12px; border-radius: 12px; border: 1px dashed var(--accent-2); background: var(--accent-soft); color: var(--text); font-size: 13px; text-align: center; }
+.key-btn:hover { border-style: solid; }
+.memory-list { list-style: none; margin: 0 0 18px; padding: 0; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.memory-list li { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--text); font-size: 14px; }
+.memory-list li span { flex: 1; min-width: 0; }
+.memory-list li button { border: 0; background: transparent; color: var(--muted); border-radius: 8px; padding: 2px 6px; }
+.memory-list li button:hover { background: var(--surface-solid); color: #d64545; }
+.memory-list .memory-empty { background: transparent; color: var(--muted); justify-content: center; }
+.dialog { width: min(420px, calc(100% - 32px)); }
 
 </style>
 <div dir="rtl" lang="he" style="height:100%">
@@ -751,6 +760,7 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
         </div>
         <div class="status" id="status"><span class="dot"></span><span class="label">מתחבר…</span></div>
       </div>
+      <button type="button" class="key-btn memory-btn" id="memoryBtn">🧠 מה Echo זוכר</button>
     </aside>
     <div class="scrim" id="scrim"></div>
 
@@ -828,6 +838,19 @@ pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5p
       <div class="dialog-actions">
         <button value="cancel" class="btn ghost">ביטול</button>
         <button value="ok" class="btn danger">מחיקה</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- What Echo remembers -->
+  <dialog class="dialog" id="memoryDialog">
+    <form method="dialog">
+      <h3>🧠 מה Echo זוכר עלייך</h3>
+      <p>הדברים האלה עוזרים לו לזכור אותך בכל שיחה, גם בשיחות חדשות. אפשר למחוק כל דבר עם ✕.</p>
+      <ul class="memory-list" id="memoryList"></ul>
+      <div class="dialog-actions">
+        <button type="button" class="btn ghost" id="memoryClear">לשכוח הכל</button>
+        <button value="close" class="btn">סגירה</button>
       </div>
     </form>
   </dialog>
@@ -1308,7 +1331,7 @@ ${svg}`;
       else merged.push({ ...t });
     }
     while (merged.length && merged[0].role !== "user") merged.shift();
-    const input = [{ role: "user", content: RULES }, { role: "assistant", content: "בסדר!" }, ...merged];
+    const input = [{ role: "user", content: RULES + memoryNote(chat) }, { role: "assistant", content: "בסדר!" }, ...merged];
 
     let raw = "", frame = 0;
     const msg = { role: "assistant", text: "" };
@@ -1347,6 +1370,7 @@ ${svg}`;
     if (state.busy === ctl) { state.busy = null; setBusy(false); }
     if (msg.text || drawing) { chat.messages.push(msg); await saveChat(chat); }
     if (state.current === chat) setActions(v, msg.text, true);
+    if (msg.text) remember(chat);
     if (drawing) await draw(chat, msg, v);
   }
 
@@ -1544,6 +1568,78 @@ ${svg}`;
   els.lightboxClose.addEventListener("click", () => (els.lightbox.hidden = true));
   els.lightbox.addEventListener("click", (e) => { if (e.target === els.lightbox) els.lightbox.hidden = true; });
 
+  /* ---------------- memory: what Echo remembers across chats */
+  const MEMORY_ID = "memory";
+  const MEMORY_MAX = 40;
+  const memory = { items: [], busy: false };
+
+  /** Facts about the viewer and the other recent chats, added to every request. */
+  function memoryNote(chat) {
+    const facts = memory.items.map((m) => `- ${m.text}`).join("\n");
+    const others = state.chats.filter((c) => c.id !== chat.id).slice(0, 8).map((c) => `- ${c.title}`).join("\n");
+    let note = "";
+    if (facts) note += `\n\nWhat you remember about this user from earlier chats (use it naturally, don't list it unless asked):\n${facts}`;
+    if (others) note += `\n\nTitles of the user's other recent chats with you:\n${others}`;
+    return note;
+  }
+
+  /** After each reply, quietly note anything worth remembering for next time. */
+  async function remember(chat) {
+    if (memory.busy || !sample) return;
+    const turn = chat.messages.slice(-2).map((m) => `${m.role === "user" ? "User" : "Assistant"}: ${(m.text || "").slice(0, 1500)}`).join("\n");
+    memory.busy = true;
+    try {
+      const result = await sample.json(`You maintain a short memory about a user of a chat app, so the assistant can remember them in future chats.
+Current memory (numbered):
+${memory.items.map((m, i) => `${i}. ${m.text}`).join("\n") || "(empty)"}
+
+Latest exchange:
+${turn}
+
+Return JSON {"add": [strings], "remove": [numbers]}.
+- "add": new lasting facts about the user worth remembering (name, age, likes, hobbies, school, pets, family, books or shows they enjoyed, ongoing projects, preferences for how to talk to them), plus a very short note of what this chat was about if it matters for later. Write each in Hebrew, short, in third person ("אוהבת חתולים"). Skip trivia, one-off requests and anything already in memory.
+- "remove": numbers of items that are now wrong or replaced.
+Return {"add": [], "remove": []} when nothing changes.`, { modelTier: "quick", cache: false });
+      const remove = new Set(Array.isArray(result?.remove) ? result.remove : []);
+      const add = (Array.isArray(result?.add) ? result.add : []).filter((t) => typeof t === "string" && t.trim()).map((t) => ({ text: t.trim().slice(0, 200), at: Date.now() }));
+      if (!add.length && !remove.size) return;
+      memory.items = [...memory.items.filter((_, i) => !remove.has(i)), ...add].slice(-MEMORY_MAX);
+      await saveMemory();
+      if (add.length) toast("🧠 Echo זוכר משהו חדש");
+    } catch { /* memory is a bonus; never bother the user */ } finally {
+      memory.busy = false;
+    }
+  }
+  async function saveMemory() {
+    try { await store.put(MEMORY_ID, { kind: "memory", items: memory.items }); } catch { toast("לא הצלחתי לשמור את הזיכרון"); }
+    renderMemory();
+  }
+
+  const memoryDialog = document.querySelector("#memoryDialog");
+  const memoryList = document.querySelector("#memoryList");
+  function renderMemory() {
+    document.querySelector("#memoryBtn").textContent = `🧠 מה Echo זוכר${memory.items.length ? ` (${memory.items.length})` : ""}`;
+    memoryList.innerHTML = "";
+    if (!memory.items.length) {
+      memoryList.innerHTML = '<li class="memory-empty">עוד לא זוכר כלום. ספרי לו על עצמך! 😊</li>';
+      return;
+    }
+    memory.items.forEach((m, i) => {
+      const li = document.createElement("li");
+      li.innerHTML = '<span dir="auto"></span><button type="button" aria-label="לשכוח">✕</button>';
+      li.firstChild.textContent = m.text;
+      li.querySelector("button").addEventListener("click", async () => { memory.items.splice(i, 1); await saveMemory(); });
+      memoryList.append(li);
+    });
+  }
+  document.querySelector("#memoryBtn").addEventListener("click", () => memoryDialog.showModal());
+  document.querySelector("#memoryClear").addEventListener("click", async () => {
+    if (!memory.items.length) return;
+    memory.items = [];
+    await saveMemory();
+    toast("Echo שכח הכל");
+  });
+
   /* ---------------- boot */
   function greeting() {
     const h = new Date().getHours();
@@ -1572,6 +1668,8 @@ ${svg}`;
     els.status.classList.add(sample ? "live" : "demo");
     els.status.querySelector(".label").textContent = sample ? "מחובר" : "לא מחובר";
     try { state.chats = (await store.list()).map(summary); sortChats(); } catch { toast("לא הצלחתי לטעון את השיחות"); }
+    try { memory.items = (await store.get(MEMORY_ID))?.items || []; } catch { /* starts empty */ }
+    renderMemory();
     renderChatList();
   })();
 })();
