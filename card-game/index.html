@@ -69,8 +69,10 @@ hr{border:0;border-top:1px solid var(--line);margin:4px 0;width:100%}
 .profile-head .stack{gap:4px;min-width:0}
 .pname{font-family:var(--display);font-size:22px;overflow-wrap:anywhere}
 .pcheer{font-size:13px;color:var(--mist);overflow-wrap:anywhere}
-.avagrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-@media (max-width:400px){.avagrid{grid-template-columns:repeat(4,1fr)}}
+.avagrid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.suittabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.suittabs button{padding:8px 4px;font-size:14px;white-space:nowrap}
+.suittabs button[aria-selected="true"]{background:linear-gradient(180deg,#ffd76a,#e7a92c);color:#2a1606;border-color:transparent;font-weight:700}
 .avagrid button{padding:0;border:0;background:none;border-radius:50%;aspect-ratio:1;display:grid;place-items:center}
 .avagrid .ava{width:100%;height:auto;aspect-ratio:1;--ring:transparent;box-shadow:0 0 0 2px var(--line)}
 .avagrid button[aria-pressed="true"] .ava{box-shadow:0 0 0 3px var(--gold),0 0 14px rgba(242,193,78,.6)}
@@ -194,7 +196,8 @@ label.lbl{font-size:13px;color:var(--mist)}
       <label class="lbl" for="nameInput">השם שלי</label>
       <input id="nameInput" maxlength="16" placeholder="השם שלך" autocomplete="nickname">
       <span class="lbl">הדמות שלי</span>
-      <div id="avaGrid" class="avagrid"></div>
+      <div id="suitTabs" class="suittabs" role="tablist" aria-label="סדרת קלפים"></div>
+      <div id="avaGrid" class="avagrid" role="tabpanel"></div>
       <span class="lbl">הצבע שלי</span>
       <div id="swatches" class="swatches"></div>
       <label class="lbl" for="cheerInput">משפט ניצחון (מופיע כשאני מנצחת)</label>
@@ -292,12 +295,11 @@ label.lbl{font-size:13px;color:var(--mist)}
   let pid = store.get("kk_pid");
   if (!pid) { pid = "p" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); store.set("kk_pid", pid); }
 
-  const AVATARS = ["d01","d02","d03","d05","d09","d12","h01","h03","h04","h08","h10","h13","s01","s02","s03","s07","s09","s14","c01","c03","c05","c08","c10","c14"];
   const COLORS = ["#f2c14e","#ff5d8f","#b07cff","#5fd0ff","#4ee0a0","#ff8a3d","#ffffff"];
-  let profile = { name: "", avatar: "d01", color: COLORS[0], cheer: "" };
+  let profile = { name: "", avatar: "h01", color: COLORS[0], cheer: "" };
   try { Object.assign(profile, JSON.parse(store.get("kk_profile") || "{}")); } catch {}
   if (!profile.name) profile.name = store.get("kk_name") || "";
-  if (!CARDS[profile.avatar]) profile.avatar = "d01";
+  if (!CARDS[profile.avatar]) profile.avatar = "h01";
   const BOT = { pid: "bot", name: "המחשב", avatar: "c15", color: "#5fd0ff", cheer: "בי־בופ! ניצחתי 🤖" };
 
   const $ = id => document.getElementById(id);
@@ -319,12 +321,25 @@ label.lbl{font-size:13px;color:var(--mist)}
     for (const b of $("avaGrid").children) b.setAttribute("aria-pressed", String(b.dataset.id === profile.avatar));
     for (const b of $("swatches").children) b.setAttribute("aria-pressed", String(b.dataset.c === profile.color));
   }
-  $("avaGrid").append(...AVATARS.map(id => {
-    const b = el("button"); b.type = "button"; b.dataset.id = id; b.setAttribute("aria-label", "דמות " + CARDS[id].v);
-    const a = avaEl({ avatar: id }); b.append(a);
-    b.onclick = () => { profile.avatar = id; saveProfile(); };
+  // avatar picker: one tab per suit, each showing all 15 cards of that suit
+  const SUIT_TABS = [["h", "♥️", "לב"], ["c", "♣️", "תלתן"], ["d", "♦️", "יהלום"], ["s", "♠️", "עלה"]];
+  let avaSuit = "h";
+  function renderAvaGrid() {
+    $("avaGrid").replaceChildren(...Object.keys(CARDS).filter(id => id[0] === avaSuit).map(id => {
+      const b = el("button"); b.type = "button"; b.dataset.id = id; b.setAttribute("aria-label", "דמות " + CARDS[id].v);
+      b.append(avaEl({ avatar: id }));
+      b.onclick = () => { profile.avatar = id; saveProfile(); };
+      return b;
+    }));
+    for (const t of $("suitTabs").children) t.setAttribute("aria-selected", String(t.dataset.s === avaSuit));
+    renderProfile();
+  }
+  $("suitTabs").append(...SUIT_TABS.map(([s, icon, label]) => {
+    const b = el("button", "", icon + " " + label); b.type = "button"; b.dataset.s = s; b.setAttribute("role", "tab");
+    b.onclick = () => { avaSuit = s; renderAvaGrid(); };
     return b;
   }));
+  renderAvaGrid();
   $("swatches").append(...COLORS.map(c => {
     const b = el("button"); b.type = "button"; b.dataset.c = c; b.style.background = c; b.setAttribute("aria-label", "צבע");
     b.onclick = () => { profile.color = c; saveProfile(); };
