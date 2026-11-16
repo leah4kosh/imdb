@@ -20,6 +20,7 @@
   color-scheme:dark;
 }
 html,body{height:100%}
+[hidden]{display:none!important}
 body{background:var(--night);color:var(--ink);font-family:var(--body);font-size:15px;
   background-image:radial-gradient(1200px 600px at 50% 45%, #2a1a66 0%, transparent 70%),radial-gradient(600px 400px at 85% 0%, #3b1450 0%, transparent 70%);}
 #app{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 28px;display:flex;flex-direction:column;gap:14px;min-height:100%;box-sizing:border-box}
@@ -27,11 +28,13 @@ header{display:flex;align-items:center;justify-content:space-between;gap:12px;fl
 h1{font-family:var(--display);font-weight:400;font-size:clamp(26px,5vw,38px);margin:0;letter-spacing:.5px;
   background:linear-gradient(90deg,#ffe28a,#f2c14e 40%,#ff9ad0);-webkit-background-clip:text;background-clip:text;color:transparent}
 h2{font-family:var(--display);font-weight:400;font-size:22px;margin:0;text-wrap:balance}
-button{font-family:var(--body);font-size:15px;cursor:pointer;border:0;border-radius:12px;padding:10px 16px;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line)}
+h3{font-family:var(--display);font-weight:400;font-size:17px;margin:0}
+button{font-family:var(--body);font-size:15px;cursor:pointer;border-radius:12px;padding:10px 16px;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line)}
 button:hover{background:rgba(255,255,255,.14)}
 button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 button.primary{background:linear-gradient(180deg,#ffd76a,#e7a92c);color:#2a1606;border:0;font-weight:700}
 button.primary:hover{filter:brightness(1.08)}
+button.bot{background:linear-gradient(180deg,#8fd3ff,#4f8fe0);color:#06142a;border:0;font-weight:700}
 button.danger{background:var(--rose);color:#2b0614;border:0;font-weight:700}
 button:disabled{opacity:.45;cursor:not-allowed}
 input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--ink);min-width:0}
@@ -39,10 +42,17 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
 .muted{color:var(--mist)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .stack{display:flex;flex-direction:column;gap:12px}
+hr{border:0;border-top:1px solid var(--line);margin:4px 0;width:100%}
+
+/* avatars */
+.ava{--ring:var(--gold);width:44px;height:44px;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 0 0 3px var(--ring),0 4px 12px rgba(0,0,0,.5);background:#000}
+.ava img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;transform:scale(1.5);transform-origin:50% 30%;display:block}
+.ava.big{width:84px;height:84px}
+.ava.sm{width:28px;height:28px;box-shadow:0 0 0 2px var(--ring)}
 
 /* lobby */
-#lobby{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
-@media (max-width:720px){#lobby{grid-template-columns:1fr}}
+#lobby{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;align-items:start}
+@media (max-width:760px){#lobby{grid-template-columns:1fr}}
 .hero{display:flex;gap:18px;align-items:center}
 .fan{position:relative;width:150px;height:150px;flex:none}
 .fan img{position:absolute;width:92px;border-radius:8px;left:28px;top:10px;box-shadow:0 8px 20px rgba(0,0,0,.5)}
@@ -54,13 +64,30 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
 .gameitem{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(0,0,0,.2);border:1px solid var(--line)}
 .code{font-family:var(--display);letter-spacing:3px;color:var(--gold)}
 
+/* profile editor */
+.profile-head{display:flex;gap:14px;align-items:center}
+.profile-head .stack{gap:4px;min-width:0}
+.pname{font-family:var(--display);font-size:22px;overflow-wrap:anywhere}
+.pcheer{font-size:13px;color:var(--mist);overflow-wrap:anywhere}
+.avagrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+@media (max-width:400px){.avagrid{grid-template-columns:repeat(4,1fr)}}
+.avagrid button{padding:0;border:0;background:none;border-radius:50%;aspect-ratio:1;display:grid;place-items:center}
+.avagrid .ava{width:100%;height:auto;aspect-ratio:1;--ring:transparent;box-shadow:0 0 0 2px var(--line)}
+.avagrid button[aria-pressed="true"] .ava{box-shadow:0 0 0 3px var(--gold),0 0 14px rgba(242,193,78,.6)}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatches button{width:32px;height:32px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.25)}
+.swatches button[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+label.lbl{font-size:13px;color:var(--mist)}
+
 /* table */
 #table{display:flex;flex-direction:column;gap:12px}
 .seat{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.who{display:flex;align-items:center;gap:10px}
+.who{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .who b{font-size:17px}
+.cheer{font-size:13px;color:var(--mist)}
 .chip{font-size:13px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--line);white-space:nowrap}
 .chip.turn{background:var(--gold);color:#2a1606;border-color:transparent;font-weight:700}
+.chip.think{background:#8fd3ff;color:#06142a;border-color:transparent;font-weight:700}
 .backs{display:flex;padding-inline-start:18px;min-height:64px;align-items:center}
 .backs img{width:44px;aspect-ratio:300/320;object-fit:cover;border-radius:5px;margin-inline-start:-18px;box-shadow:-2px 2px 6px rgba(0,0,0,.5)}
 .backs .more{margin-inline-start:8px;color:var(--mist);font-size:13px}
@@ -81,8 +108,7 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
 
 .card{display:block;border-radius:9px;overflow:hidden;position:relative;aspect-ratio:300/320;background:#000;box-shadow:0 6px 16px rgba(0,0,0,.45)}
 .card img{width:100%;height:100%;object-fit:cover;display:block}
-.badge{position:absolute;bottom:22%;inset-inline:6%;text-align:center;font-size:11px;font-weight:700;border-radius:6px;padding:2px 4px;background:rgba(18,11,46,.85);color:var(--gold);border:1px solid var(--gold)}
-.badge.snatch{color:#ff9ad0;border-color:#ff9ad0}
+.badge{position:absolute;bottom:22%;inset-inline:6%;text-align:center;font-size:11px;font-weight:700;border-radius:6px;padding:2px 4px;background:rgba(18,11,46,.85);color:#ff9ad0;border:1px solid #ff9ad0}
 @keyframes drop{from{transform:translateY(-40px) scale(1.15);opacity:0}to{transform:none;opacity:1}}
 .pile .top.fresh{animation:drop .35s ease-out}
 
@@ -98,12 +124,13 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
 /* overlay */
 .overlay{position:fixed;inset:0;background:rgba(8,4,24,.78);display:grid;place-items:center;z-index:20;padding:20px}
 .overlay .panel{max-width:420px;width:100%;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
-.bigstar{font-size:64px;line-height:1;filter:drop-shadow(0 0 18px rgba(242,193,78,.7))}
+.wincheer{font-family:var(--display);font-size:20px;color:var(--gold)}
 
 /* scores */
-.scores{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
-.scores li{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;border-radius:10px;background:rgba(0,0,0,.2)}
+.scores{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none;width:100%}
+.scores li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px;border-radius:10px;background:rgba(0,0,0,.2)}
 .scores li:first-child{background:rgba(242,193,78,.16);border:1px solid rgba(242,193,78,.5)}
+.scores .nm{display:flex;align-items:center;gap:10px}
 .stars{color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
 .note{font-size:13px;color:var(--mist);line-height:1.5}
 .err{color:#ffb3c8}
@@ -114,7 +141,6 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
   <header>
     <h1>קרב הכתרים</h1>
     <div class="row">
-      <span id="meName" class="chip" hidden></span>
       <button id="btnScores" type="button">⭐ טבלת כוכבים</button>
       <button id="btnLeave" type="button" hidden>יציאה ללובי</button>
     </div>
@@ -123,41 +149,63 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
   <div id="status" class="note"></div>
 
   <section id="lobby">
-    <div class="panel stack">
-      <div class="hero">
-        <div class="fan" aria-hidden="true">
-          <img src="cards/d15.webp" alt=""><img src="cards/h15.webp" alt=""><img src="cards/s15.webp" alt="">
+    <div class="stack">
+      <div class="panel stack">
+        <div class="hero">
+          <div class="fan" aria-hidden="true">
+            <img src="cards/d15.webp" alt=""><img src="cards/h15.webp" alt=""><img src="cards/s15.webp" alt="">
+          </div>
+          <div class="stack">
+            <h2>משחק קלפים לשניים</h2>
+            <p class="muted" style="margin:0">נגד אח שלך מהמחשב שלו, או נגד המחשב. 60 קלפים, ארבעה עולמות, ומי שנפטר מכל הקלפים ראשון לוקח כוכב.</p>
+          </div>
         </div>
-        <div class="stack">
-          <h2>משחק קלפים לשניים, כל אחד מהמחשב שלו</h2>
-          <p class="muted" style="margin:0">60 קלפים, ארבעה עולמות, ומי שנפטר מכל הקלפים ראשון לוקח כוכב.</p>
-        </div>
+        <ol class="rules">
+          <li>כל אחד מקבל חצי חפיסה. באמצע נפתח קלף נמוך (150).</li>
+          <li>בכל תור שמים קלף <b>גבוה יותר</b> מהקלף שלמעלה.</li>
+          <li>אין לך מה לשים? מרימים את <b>כל הקופה</b> והתור עובר.</li>
+          <li>🗡️ <b>100 חוטף</b>: אפשר לשים אותו על הכול, והוא זורק על היריב את 2 הקלפים שמתחתיו.</li>
+          <li>מי שנפטר מכל הקלפים ראשון מנצח ומקבל ⭐</li>
+        </ol>
       </div>
-      <ol class="rules">
-        <li>כל אחד מקבל חצי חפיסה. באמצע נפתח קלף נמוך (150).</li>
-        <li>בכל תור שמים קלף <b>גבוה יותר</b> מהקלף שלמעלה.</li>
-        <li>אין לך מה לשים? מרימים את <b>כל הקופה</b> והתור עובר.</li>
-        <li>🗡️ <b>100 חוטף</b>: אפשר לשים אותו על הכול, והוא זורק על היריב את 2 הקלפים שמתחתיו.</li>
-        <li>מי שנפטר מכל הקלפים ראשון מנצח ומקבל ⭐</li>
-      </ol>
+      <div class="panel stack">
+        <h3>לשחק</h3>
+        <button id="btnBot" class="bot" type="button">🤖 משחק נגד המחשב</button>
+        <button id="btnCreate" class="primary" type="button">פתיחת משחק חדש נגד חבר</button>
+        <div class="row">
+          <input id="codeInput" maxlength="4" placeholder="קוד משחק" aria-label="קוד משחק" style="flex:1;letter-spacing:3px;text-transform:uppercase" autocomplete="off">
+          <button id="btnJoin" type="button">הצטרפות</button>
+        </div>
+        <h3>משחקים שמחכים לשחקן</h3>
+        <div id="gameList" class="gamelist"><div class="note">טוען משחקים…</div></div>
+      </div>
     </div>
-    <div class="panel stack">
-      <label for="nameInput"><b>איך קוראים לך?</b></label>
-      <input id="nameInput" maxlength="16" placeholder="השם שלך" autocomplete="nickname">
-      <button id="btnCreate" class="primary" type="button">פתיחת משחק חדש</button>
-      <div class="row">
-        <input id="codeInput" maxlength="4" placeholder="קוד משחק" style="flex:1;letter-spacing:3px;text-transform:uppercase" autocomplete="off">
-        <button id="btnJoin" type="button">הצטרפות</button>
+
+    <div class="panel stack" aria-labelledby="profTitle">
+      <h2 id="profTitle">הפרופיל שלי</h2>
+      <div class="profile-head">
+        <div id="profAva" class="ava big"></div>
+        <div class="stack">
+          <div id="profName" class="pname"></div>
+          <div id="profCheer" class="pcheer"></div>
+        </div>
       </div>
-      <h2 style="font-size:18px">משחקים שמחכים לשחקן</h2>
-      <div id="gameList" class="gamelist"><div class="note">טוען משחקים…</div></div>
+      <hr>
+      <label class="lbl" for="nameInput">השם שלי</label>
+      <input id="nameInput" maxlength="16" placeholder="השם שלך" autocomplete="nickname">
+      <span class="lbl">הדמות שלי</span>
+      <div id="avaGrid" class="avagrid"></div>
+      <span class="lbl">הצבע שלי</span>
+      <div id="swatches" class="swatches"></div>
+      <label class="lbl" for="cheerInput">משפט ניצחון (מופיע כשאני מנצחת)</label>
+      <input id="cheerInput" maxlength="40" placeholder="למשל: אף אחד לא עוצר אותי!">
     </div>
   </section>
 
   <section id="table" hidden>
     <div class="seat">
-      <div class="who"><b id="oppName">…</b><span id="oppCount" class="chip"></span><span id="oppTurn" class="chip turn" hidden>התור שלו/ה</span></div>
-      <span class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
+      <div class="who"><div id="oppAva" class="ava"></div><b id="oppName">…</b><span id="oppCount" class="chip"></span><span id="oppTurn" class="chip turn" hidden>התור שלו/ה</span></div>
+      <span id="codeChip" class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
     </div>
     <div id="oppBacks" class="backs" aria-label="הקלפים של היריב"></div>
 
@@ -176,7 +224,7 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     </div>
 
     <div class="seat">
-      <div class="who"><b id="myName">אני</b><span id="myCount" class="chip"></span><span id="myTurn" class="chip turn" hidden>התור שלך!</span></div>
+      <div class="who"><div id="myAva" class="ava"></div><b id="myName">אני</b><span id="myCount" class="chip"></span><span id="myTurn" class="chip turn" hidden>התור שלך!</span></div>
       <div class="actions">
         <button id="btnPickup" class="danger" type="button" hidden>אין לי מה לשים: מרים/ה את הקופה</button>
       </div>
@@ -185,24 +233,25 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
   </section>
 </div>
 
-<div id="overScores" class="overlay" style="z-index:30" hidden>
-  <div class="panel">
-    <h2>⭐ טבלת כוכבים</h2>
-    <ul id="scoreList" class="scores"></ul>
-    <button id="btnCloseScores" type="button">סגירה</button>
-  </div>
-</div>
-
 <div id="overWin" class="overlay" hidden>
   <div class="panel">
-    <div class="bigstar">⭐</div>
+    <div id="winAva" class="ava big"></div>
     <h2 id="winTitle"></h2>
+    <div id="winCheer" class="wincheer"></div>
     <p id="winText" class="muted" style="margin:0"></p>
     <div class="row" style="justify-content:center">
       <button id="btnRematch" class="primary" type="button">עוד סיבוב!</button>
       <button id="btnWinScores" type="button">טבלת כוכבים</button>
       <button id="btnWinLobby" type="button">ללובי</button>
     </div>
+  </div>
+</div>
+
+<div id="overScores" class="overlay" style="z-index:30" hidden>
+  <div class="panel">
+    <h2>⭐ טבלת כוכבים</h2>
+    <ul id="scoreList" class="scores"></ul>
+    <button id="btnCloseScores" type="button">סגירה</button>
   </div>
 </div>
 
@@ -221,8 +270,7 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     CARDS[id] = { id, v, img: "cards/" + id + ".webp" };
   });
   const isSnatch = id => CARDS[id].v === 100;  // snatcher
-  const isSpecial = id => isSnatch(id);
-  const canPlay = (id, topId) => isSpecial(id) || !topId || CARDS[id].v > CARDS[topId].v;
+  const canPlay = (id, topId) => isSnatch(id) || !topId || CARDS[id].v > CARDS[topId].v;
   const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const byValue = (a, b) => CARDS[a].v - CARDS[b].v || a.localeCompare(b);
 
@@ -232,10 +280,10 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     const opener = openers[Math.floor(Math.random() * openers.length)];
     const rest = all.filter(id => id !== opener);
     const half = Math.ceil(rest.length / 2);
-    return { hands: { "0": rest.slice(0, half), "1": rest.slice(half) }, pile: [opener], out: 0 };
+    return { hands: { "0": rest.slice(0, half), "1": rest.slice(half) }, pile: [opener] };
   }
 
-  // ---------- local identity (per browser) ----------
+  // ---------- profile (per browser) ----------
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch {} },
@@ -244,25 +292,68 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
   let pid = store.get("kk_pid");
   if (!pid) { pid = "p" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36); store.set("kk_pid", pid); }
 
+  const AVATARS = ["d01","d02","d03","d05","d09","d12","h01","h03","h04","h08","h10","h13","s01","s02","s03","s07","s09","s14","c01","c03","c05","c08","c10","c14"];
+  const COLORS = ["#f2c14e","#ff5d8f","#b07cff","#5fd0ff","#4ee0a0","#ff8a3d","#ffffff"];
+  let profile = { name: "", avatar: "d01", color: COLORS[0], cheer: "" };
+  try { Object.assign(profile, JSON.parse(store.get("kk_profile") || "{}")); } catch {}
+  if (!profile.name) profile.name = store.get("kk_name") || "";
+  if (!CARDS[profile.avatar]) profile.avatar = "d01";
+  const BOT = { pid: "bot", name: "המחשב", avatar: "c15", color: "#5fd0ff", cheer: "בי־בופ! ניצחתי 🤖" };
+
   const $ = id => document.getElementById(id);
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
-  const nameInput = $("nameInput");
-  nameInput.value = store.get("kk_name") || "";
-  nameInput.addEventListener("input", () => store.set("kk_name", nameInput.value.trim()));
 
-  let db = null, game = null, code = null, unsubGame = null, busy = false, lastTop = null, openGames = [], scores = {};
+  function paintAva(node, p) {
+    node.replaceChildren();
+    const img = el("img"); img.alt = ""; img.src = CARDS[(p && p.avatar) || "d01"]?.img || "cards/back.webp";
+    node.append(img);
+    node.style.setProperty("--ring", (p && p.color) || "#f2c14e");
+  }
+  function avaEl(p, size) { const a = el("div", "ava" + (size ? " " + size : "")); paintAva(a, p); return a; }
+
+  function saveProfile() { store.set("kk_profile", JSON.stringify(profile)); renderProfile(); }
+  function renderProfile() {
+    paintAva($("profAva"), profile);
+    $("profName").textContent = profile.name || "בלי שם עדיין";
+    $("profCheer").textContent = profile.cheer ? "״" + profile.cheer + "״" : "עוד אין משפט ניצחון";
+    for (const b of $("avaGrid").children) b.setAttribute("aria-pressed", String(b.dataset.id === profile.avatar));
+    for (const b of $("swatches").children) b.setAttribute("aria-pressed", String(b.dataset.c === profile.color));
+  }
+  $("avaGrid").append(...AVATARS.map(id => {
+    const b = el("button"); b.type = "button"; b.dataset.id = id; b.setAttribute("aria-label", "דמות " + CARDS[id].v);
+    const a = avaEl({ avatar: id }); b.append(a);
+    b.onclick = () => { profile.avatar = id; saveProfile(); };
+    return b;
+  }));
+  $("swatches").append(...COLORS.map(c => {
+    const b = el("button"); b.type = "button"; b.dataset.c = c; b.style.background = c; b.setAttribute("aria-label", "צבע");
+    b.onclick = () => { profile.color = c; saveProfile(); };
+    return b;
+  }));
+  const nameInput = $("nameInput"), cheerInput = $("cheerInput");
+  nameInput.value = profile.name; cheerInput.value = profile.cheer;
+  nameInput.addEventListener("input", () => { profile.name = nameInput.value.trim(); saveProfile(); });
+  cheerInput.addEventListener("input", () => { profile.cheer = cheerInput.value.trim(); saveProfile(); });
+  renderProfile();
+  const meAsPlayer = () => ({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, cheer: profile.cheer });
+
+  let db = null, game = null, code = null, unsubGame = null, busy = false, lastTop = null, openGames = [], scores = {}, botTimer = null;
 
   function setStatus(msg, isErr) { const s = $("status"); s.textContent = msg || ""; s.classList.toggle("err", !!isErr); }
-  function myName() { return (nameInput.value || "").trim(); }
   function seatOf(g) { return g && g.players ? g.players.findIndex(p => p && p.pid === pid) : -1; }
+  function needName() {
+    if (profile.name) return false;
+    setStatus("קודם כותבים שם בפרופיל 🙂", true); nameInput.focus(); return true;
+  }
 
   // ---------- connect ----------
-  const timer = setTimeout(() => { if (!db) setStatus("לא מצליח להתחבר לשרת המשחק. צריך לפתוח את הדף מתוך claude.ai.", true); }, 10000);
+  const noDb = msg => { setStatus(msg + " משחק נגד המחשב עובד גם ככה 🤖", true); $("gameList").replaceChildren(el("div", "note", "אין חיבור למשחק נגד חבר.")); $("btnCreate").disabled = true; $("btnJoin").disabled = true; };
+  const timer = setTimeout(() => { if (!db) noDb("לא מצליח להתחבר לשרת המשחק."); }, 10000);
   (async () => {
-    if (!window.claude || !window.claude.use) { setStatus("כדי לשחק צריך לפתוח את הדף מתוך claude.ai.", true); $("gameList").replaceChildren(el("div", "note", "אין חיבור.")); return; }
+    if (!window.claude || !window.claude.use) { clearTimeout(timer); noDb("משחק נגד חבר עובד רק כשפותחים את הדף מתוך claude.ai."); renderScores(); return; }
     db = await window.claude.use("db");
     clearTimeout(timer);
-    if (!db) { setStatus("אין חיבור לשמירת המשחק. צריך להיות מחובר/ת ל־claude.ai עם הרשאת עריכה לדף.", true); $("gameList").replaceChildren(el("div", "note", "אין חיבור.")); return; }
+    if (!db) { noDb("אין חיבור לשמירת המשחק."); return; }
     db.collection("games").orderBy("created", "desc").limit(20).onSnapshot(snap => {
       openGames = snap.docs.map(d => d.data());
       renderLobbyList();
@@ -282,25 +373,31 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     if (!items.length) { list.replaceChildren(el("div", "note", "אין כרגע משחקים פתוחים. אפשר לפתוח משחק חדש ולשלוח לאח שלך את הקוד.")); return; }
     list.replaceChildren(...items.map(g => {
       const row = el("div", "gameitem");
-      const left = el("div", "stack"); left.style.gap = "2px";
-      const t = el("div"); t.append(el("span", "code", g.code), document.createTextNode("  " + (g.players[0]?.name || "")));
-      left.append(t, el("span", "note", seatOf(g) >= 0 ? "המשחק שלך" : "מחכה לשחקן שני"));
+      const left = el("div", "row");
+      const host = g.players[0] || {};
+      const txt = el("div", "stack"); txt.style.gap = "2px";
+      const t = el("div"); t.append(el("span", "code", g.code), document.createTextNode("  " + (host.name || "")));
+      txt.append(t, el("span", "note", seatOf(g) >= 0 ? "המשחק שלך" : "מחכה לשחקן שני"));
+      left.append(avaEl(host, "sm"), txt);
       const b = el("button", seatOf(g) >= 0 ? "" : "primary", seatOf(g) >= 0 ? "חזרה למשחק" : "הצטרפות");
       b.type = "button"; b.onclick = () => joinGame(g.code);
       row.append(left, b); return row;
     }));
   }
 
-  function needName() {
-    if (myName()) return false;
-    setStatus("קודם כותבים שם 🙂", true); nameInput.focus(); return true;
-  }
+  $("btnBot").onclick = () => {
+    if (needName()) return;
+    leaveQuiet();
+    game = Object.assign({ local: true, code: "", status: "playing", players: [meAsPlayer(), { ...BOT }], turn: 0, winner: null, round: 1, seq: 0,
+      log: "הקלפים חולקו! " + profile.name + " מתחיל/ה." }, deal());
+    setStatus(""); renderTable();
+  };
 
   $("btnCreate").onclick = async () => {
     if (!db || needName()) return;
     const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
     const c = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]).join("");
-    const g = { code: c, created: Date.now(), status: "waiting", players: [{ pid, name: myName() }], hands: { "0": [], "1": [] }, pile: [], out: 0, turn: 0, winner: null, log: "", seq: 0, round: 0 };
+    const g = { code: c, created: Date.now(), status: "waiting", players: [meAsPlayer()], hands: { "0": [], "1": [] }, pile: [], turn: 0, winner: null, log: "", seq: 0, round: 0 };
     try { await db.doc("games/" + c).set(g); openGame(c, true); setStatus("המשחק נפתח! תשלחי לאח שלך את הקוד " + c + " או שיבחר אותו מהרשימה."); }
     catch (e) { setStatus("לא הצלחתי לפתוח משחק (" + (e.code || "error") + "). אולי אין לך הרשאת עריכה לדף.", true); }
   };
@@ -315,7 +412,7 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     if (seatOf(g) >= 0) { openGame(c, true); return; }
     if (needName()) return;
     if (g.players.length >= 2) { setStatus("במשחק הזה כבר יש שני שחקנים.", true); return; }
-    g.players.push({ pid, name: myName() });
+    g.players.push(meAsPlayer());
     Object.assign(g, deal(), { status: "playing", turn: 0, winner: null, round: 1, seq: g.seq + 1,
       log: "הקלפים חולקו! " + g.players[0].name + " מתחיל/ה." });
     try { await ref.set(g); openGame(c, true); setStatus(""); }
@@ -323,7 +420,7 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
   }
 
   function openGame(c, show) {
-    if (unsubGame) unsubGame();
+    leaveQuiet();
     code = c; store.set("kk_code", c); lastTop = null;
     unsubGame = db.doc("games/" + c).onSnapshot(snap => {
       if (!snap.exists || seatOf(snap.data()) < 0) { if (!show) leave(); return; }
@@ -331,9 +428,14 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     }, e => setStatus("החיבור למשחק נותק (" + e.code + ").", true));
   }
 
+  function leaveQuiet() {
+    if (unsubGame) unsubGame(); unsubGame = null;
+    clearTimeout(botTimer); botTimer = null;
+    game = null; code = null; lastTop = null;
+  }
   function leave() {
-    if (unsubGame) unsubGame(); unsubGame = null; game = null; code = null; store.del("kk_code");
-    $("table").hidden = true; $("lobby").hidden = false; $("btnLeave").hidden = true; $("overWin").hidden = true; $("meName").hidden = true;
+    leaveQuiet(); store.del("kk_code");
+    $("table").hidden = true; $("lobby").hidden = false; $("btnLeave").hidden = true; $("overWin").hidden = true;
     renderLobbyList();
   }
   $("btnLeave").onclick = leave;
@@ -343,7 +445,7 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
   function cardEl(id, tag) {
     const c = el(tag || "div", "card");
     const img = el("img"); img.src = CARDS[id].img; img.alt = String(CARDS[id].v); img.draggable = false; c.append(img);
-    if (isSnatch(id)) c.append(el("span", "badge snatch", "🗡️ חוטף"));
+    if (isSnatch(id)) c.append(el("span", "badge", "🗡️ חוטף"));
     return c;
   }
 
@@ -351,18 +453,24 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     const g = game; if (!g) return;
     const me = seatOf(g), opp = 1 - me;
     $("lobby").hidden = true; $("table").hidden = false; $("btnLeave").hidden = false;
-    $("meName").hidden = false; $("meName").textContent = g.players[me].name;
-    $("tableCode").textContent = g.code;
-    const oppP = g.players[opp];
+    $("codeChip").hidden = !!g.local;
+    $("tableCode").textContent = g.code || "";
+    const meP = g.players[me], oppP = g.players[opp];
     $("oppName").textContent = oppP ? oppP.name : "מחכים לשחקן שני…";
+    $("oppAva").hidden = !oppP; if (oppP) paintAva($("oppAva"), oppP);
+    paintAva($("myAva"), meP);
     const myHand = (g.hands[String(me)] || []).slice().sort(byValue);
     const oppHand = oppP ? (g.hands[String(opp)] || []) : [];
     $("oppCount").textContent = oppHand.length + " קלפים"; $("oppCount").hidden = !oppP;
-    $("myName").textContent = g.players[me].name;
+    $("myName").textContent = meP.name;
     $("myCount").textContent = myHand.length + " קלפים";
     const playing = g.status === "playing";
     const myTurn = playing && g.turn === me;
-    $("myTurn").hidden = !myTurn; $("oppTurn").hidden = !(playing && g.turn === opp);
+    $("myTurn").hidden = !myTurn;
+    const ot = $("oppTurn");
+    ot.hidden = !(playing && g.turn === opp);
+    ot.className = "chip " + (g.local ? "think" : "turn");
+    ot.textContent = g.local ? "המחשב חושב…" : "התור שלו/ה";
 
     const backs = $("oppBacks"); backs.replaceChildren();
     const shown = Math.min(oppHand.length, 14);
@@ -378,7 +486,7 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
     lastTop = top;
     const need = $("need"); need.replaceChildren();
     if (playing && top) { need.append(document.createTextNode("צריך לשים יותר מ־")); need.append(el("span", "", String(CARDS[top].v))); }
-    $("pileCount").textContent = g.pile.length; 
+    $("pileCount").textContent = g.pile.length;
     $("log").textContent = g.status === "waiting" ? "שלחו את הקוד " + g.code + " לשחקן השני." : (g.log || "");
 
     // hand
@@ -399,85 +507,126 @@ input{font-family:var(--body);font-size:16px;padding:10px 12px;border-radius:12p
 
     // win
     if (g.status === "over") {
-      const iWon = g.winner === me;
-      $("winTitle").textContent = iWon ? "ניצחת!!! קיבלת כוכב" : g.players[g.winner].name + " ניצח/ה וקיבל/ה כוכב";
+      const iWon = g.winner === me, w = g.players[g.winner];
+      paintAva($("winAva"), w);
+      $("winTitle").textContent = iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " ניצח/ה וקיבל/ה כוכב ⭐";
+      $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
       $("winText").textContent = iWon ? "נפטרת מכל הקלפים ראשון/ה." : "בסיבוב הבא זה שלך!";
       $("overWin").hidden = false;
     } else $("overWin").hidden = true;
+
+    if (g.local && playing && g.turn === 1) scheduleBot();
+  }
+
+  // ---------- moves (shared by people and the computer) ----------
+  function applyPlay(g, seat, id) {
+    const opp = 1 - seat, my = g.players[seat].name, other = g.players[opp].name;
+    const hand = g.hands[String(seat)];
+    hand.splice(hand.indexOf(id), 1);
+    g.pile.push(id);
+    if (isSnatch(id)) {
+      const under = g.pile.splice(Math.max(0, g.pile.length - 3), Math.min(2, g.pile.length - 1));
+      g.hands[String(opp)].push(...under);
+      g.log = under.length ? "🗡️ " + my + " שם/ה חוטף וזרק/ה על " + other + " " + under.length + " קלפים!" : "🗡️ " + my + " שם/ה חוטף.";
+    } else g.log = my + " שם/ה " + CARDS[id].v + ".";
+    g.turn = opp;
+    if (!hand.length) { g.status = "over"; g.winner = seat; g.log = my + " נפטר/ה מכל הקלפים וניצח/ה! ⭐"; }
+  }
+  function applyPickup(g, seat) {
+    const opp = 1 - seat, n = g.pile.length;
+    g.hands[String(seat)].push(...g.pile); g.pile = []; g.turn = opp;
+    g.log = "😱 " + g.players[seat].name + " הרים/ה " + n + " קלפים! עכשיו " + g.players[opp].name + " פותח/ת עם כל קלף.";
   }
 
   async function commit(g) {
-    busy = true;
     g.seq = (g.seq || 0) + 1;
-    try { await db.doc("games/" + code).set(g); }
+    const justWon = g.status === "over" && game && game.status !== "over";
+    if (g.local) {
+      game = g; renderTable();
+      if (justWon) addStar(g.players[g.winner]);
+      return;
+    }
+    busy = true;
+    try { await db.doc("games/" + code).set(g); if (justWon) await addStar(g.players[g.winner]); }
     catch (e) { setStatus("המהלך לא נשמר (" + (e.code || "error") + "). נסו שוב.", true); }
     finally { busy = false; }
   }
 
   async function play(id) {
     if (busy || !game || game.status !== "playing") return;
-    const g = structuredClone(game);
-    const me = seatOf(g), opp = 1 - me, my = g.players[me].name, other = g.players[opp].name;
+    const g = structuredClone(game), me = seatOf(g);
     if (g.turn !== me) return;
-    const hand = g.hands[String(me)];
     const top = g.pile[g.pile.length - 1] || null;
-    if (!hand.includes(id) || !canPlay(id, top)) return;
-    hand.splice(hand.indexOf(id), 1);
-    g.pile.push(id);
-    const v = CARDS[id].v;
-    if (isSnatch(id)) {
-      const under = g.pile.splice(Math.max(0, g.pile.length - 3), Math.min(2, g.pile.length - 1));
-      g.hands[String(opp)].push(...under);
-      g.turn = opp;
-      g.log = under.length ? "🗡️ " + my + " שם/ה חוטף וזרק/ה על " + other + " " + under.length + " קלפים!" : "🗡️ " + my + " שם/ה חוטף.";
-    } else {
-      g.turn = opp; g.log = my + " שם/ה " + v + ".";
-    }
-    if (!hand.length) {
-      g.status = "over"; g.winner = me; g.log = my + " נפטר/ה מכל הקלפים וניצח/ה! ⭐";
-      await commit(g); await addStar(my); return;
-    }
+    if (!g.hands[String(me)].includes(id) || !canPlay(id, top)) return;
+    applyPlay(g, me, id);
     await commit(g);
   }
 
   $("btnPickup").onclick = async () => {
     if (busy || !game || game.status !== "playing") return;
-    const g = structuredClone(game); const me = seatOf(g), opp = 1 - me;
+    const g = structuredClone(game), me = seatOf(g);
     if (g.turn !== me) return;
-    const n = g.pile.length;
-    g.hands[String(me)].push(...g.pile); g.pile = []; g.turn = opp;
-    g.log = "😱 " + g.players[me].name + " הרים/ה " + n + " קלפים! עכשיו " + g.players[opp].name + " פותח/ת עם כל קלף.";
+    applyPickup(g, me);
     await commit(g);
   };
 
   $("btnRematch").onclick = async () => {
-    if (busy || !game) return;
-    const g = structuredClone(game);
-    if (g.status !== "over") return;
-    const loser = 1 - g.winner;
+    if (busy || !game || game.status !== "over") return;
+    const g = structuredClone(game), loser = 1 - g.winner;
+    if (g.local) g.players[0] = meAsPlayer();
     Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, round: (g.round || 1) + 1,
       log: "סיבוב חדש! " + g.players[loser].name + " מתחיל/ה." });
+    lastTop = null;
     await commit(g);
   };
 
+  // ---------- the computer player ----------
+  // Plays its lowest card that fits. Keeps its snatchers for when it has nothing else, or when you are close to winning.
+  function botChoice(g) {
+    const hand = g.hands["1"], top = g.pile[g.pile.length - 1] || null;
+    const normal = hand.filter(id => !isSnatch(id) && canPlay(id, top)).sort(byValue);
+    const snatchers = hand.filter(isSnatch);
+    const humanLeft = g.hands["0"].length;
+    if (snatchers.length && g.pile.length >= 3 && humanLeft <= 4) return snatchers[0];
+    if (normal.length) return normal[0];
+    if (snatchers.length) return snatchers[0];
+    return null;
+  }
+  function scheduleBot() {
+    if (botTimer) return;
+    botTimer = setTimeout(() => {
+      botTimer = null;
+      if (!game || !game.local || game.status !== "playing" || game.turn !== 1) return;
+      const g = structuredClone(game);
+      const id = botChoice(g);
+      if (id) applyPlay(g, 1, id); else applyPickup(g, 1);
+      commit(g);
+    }, 900 + Math.random() * 700);
+  }
+
   // ---------- stars ----------
-  async function addStar(name) {
-    const key = name.toLowerCase();
+  async function addStar(p) {
+    if (!db || !p) return;
+    const key = p.pid === "bot" ? "bot" : (p.name || "").toLowerCase();
+    if (!key) return;
     const ref = db.doc("scores/board");
     try {
       const snap = await ref.get();
       const players = snap.exists ? structuredClone(snap.data().players || {}) : {};
-      const cur = players[key] || { name, stars: 0 };
-      players[key] = { name, stars: (cur.stars || 0) + 1 };
+      const cur = players[key] || { stars: 0 };
+      players[key] = { name: p.name, avatar: p.avatar, color: p.color, stars: (cur.stars || 0) + 1 };
       await ref.set({ players });
     } catch (e) { setStatus("הכוכב לא נשמר (" + (e.code || "error") + ").", true); }
   }
   function renderScores() {
     const list = $("scoreList");
+    if (!db) { list.replaceChildren(el("li", "", "טבלת הכוכבים נשמרת רק כשהדף פתוח מתוך claude.ai.")); return; }
     const rows = Object.values(scores).sort((a, b) => b.stars - a.stars);
     if (!rows.length) { list.replaceChildren(el("li", "", "עוד אין כוכבים. מי יהיה הראשון?")); return; }
     list.replaceChildren(...rows.map((r, i) => {
-      const li = el("li"); li.append(el("span", "", (i === 0 ? "👑 " : "") + r.name), el("span", "stars", "⭐ " + r.stars)); return li;
+      const li = el("li"); const nm = el("span", "nm");
+      nm.append(avaEl(r, "sm"), document.createTextNode((i === 0 ? "👑 " : "") + r.name));
+      li.append(nm, el("span", "stars", "⭐ " + r.stars)); return li;
     }));
   }
   const openScores = () => { renderScores(); $("overScores").hidden = false; };
