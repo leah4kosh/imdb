@@ -60,6 +60,11 @@ hr{border:0;border-top:1px solid var(--line);margin:4px 0;width:100%}
 .fan img:nth-child(3){transform:rotate(16deg) translateX(26px)}
 @media (max-width:460px){.hero{flex-direction:column;align-items:flex-start}}
 .rules{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;line-height:1.5}
+.specials{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.specials figure{margin:0;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;font-size:12px;color:var(--mist);line-height:1.35}
+.specials img{width:100%;max-width:110px;aspect-ratio:3/4;object-fit:cover;border-radius:8px;box-shadow:0 6px 14px rgba(0,0,0,.45)}
+.specials b{color:var(--ink);font-size:13px}
+@media (max-width:460px){.specials{grid-template-columns:repeat(2,1fr)}}
 .gamelist{display:flex;flex-direction:column;gap:8px}
 .gameitem{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(0,0,0,.2);border:1px solid var(--line)}
 .code{font-family:var(--display);letter-spacing:3px;color:var(--gold)}
@@ -90,36 +95,46 @@ label.lbl{font-size:13px;color:var(--mist)}
 .chip{font-size:13px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.08);border:1px solid var(--line);white-space:nowrap}
 .chip.turn{background:var(--gold);color:#2a1606;border-color:transparent;font-weight:700}
 .chip.think{background:#8fd3ff;color:#06142a;border-color:transparent;font-weight:700}
-.backs{display:flex;padding-inline-start:18px;min-height:64px;align-items:center}
-.backs img{width:44px;aspect-ratio:300/320;object-fit:cover;border-radius:5px;margin-inline-start:-18px;box-shadow:-2px 2px 6px rgba(0,0,0,.5)}
-.backs .more{margin-inline-start:8px;color:var(--mist);font-size:13px}
+.backs{display:flex;flex-wrap:wrap;row-gap:8px;padding-inline-start:20px;min-height:64px;align-items:center}
+.backs .bk{width:44px;margin-inline-start:-20px;padding:0;border:0;background:none;border-radius:5px;transition:transform .15s}
+.backs .bk img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:5px;box-shadow:-2px 2px 6px rgba(0,0,0,.5);display:block}
+.backs.picking .bk{cursor:pointer}
+.backs.picking .bk img{box-shadow:0 0 0 2px var(--gold),-2px 2px 6px rgba(0,0,0,.5)}
+.backs.picking .bk:hover,.backs.picking .bk:focus-visible{transform:translateY(-10px)}
+.backs:not(.picking) .bk{cursor:default}
+.prompt{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 14px;border-radius:14px;background:rgba(242,193,78,.14);border:1px solid rgba(242,193,78,.6);font-weight:500}
 
 .board{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;padding:18px;border-radius:22px;
   background:radial-gradient(closest-side,#2c1f6b,var(--felt));border:1px solid var(--line);min-height:230px}
 .pilebox{display:flex;flex-direction:column;align-items:center;gap:8px}
-.pile{position:relative;width:150px;aspect-ratio:300/320}
-.pile .card{position:absolute;inset:0;width:100%}
+.pile{position:relative;width:150px;aspect-ratio:3/4}
+.pile .card{position:absolute;left:0;right:0;bottom:0;width:100%}
 .pile .under{transform:rotate(-7deg) translate(-8px,4px);filter:brightness(.6)}
 .pile .empty{position:absolute;inset:0;border:2px dashed var(--line);border-radius:12px;display:grid;place-items:center;color:var(--mist);text-align:center;font-size:13px;padding:10px}
 .need{font-family:var(--display);font-size:18px}
 .need span{color:var(--gold)}
 .side{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--mist)}
+.deck{display:flex;flex-direction:column;align-items:center;gap:8px;width:max-content}
+.deck img{width:72px;aspect-ratio:3/4;object-fit:cover;border-radius:7px;box-shadow:3px 3px 0 #2c1f66,6px 6px 0 #1f1650,0 10px 18px rgba(0,0,0,.5)}
+.deck b{font-family:var(--display);font-size:18px;color:var(--ink);font-weight:400}
 .side.end{align-items:flex-end;text-align:end}
 .log{font-size:15px;color:var(--ink);line-height:1.4;max-width:240px}
 @media (max-width:560px){.board{grid-template-columns:1fr;justify-items:center;text-align:center}.side,.side.end{align-items:center;text-align:center}.pile{width:130px}}
+.peekcard{width:min(220px,60vw)}
 
 .card{display:block;border-radius:9px;overflow:hidden;position:relative;aspect-ratio:300/320;background:#000;box-shadow:0 6px 16px rgba(0,0,0,.45)}
+.card.sp{aspect-ratio:3/4}
 .card img{width:100%;height:100%;object-fit:cover;display:block}
-.badge{position:absolute;bottom:22%;inset-inline:6%;text-align:center;font-size:11px;font-weight:700;border-radius:6px;padding:2px 4px;background:rgba(18,11,46,.85);color:#ff9ad0;border:1px solid #ff9ad0}
 @keyframes drop{from{transform:translateY(-40px) scale(1.15);opacity:0}to{transform:none;opacity:1}}
 .pile .top.fresh{animation:drop .35s ease-out}
 
-.hand{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:14px;border-radius:18px;background:rgba(0,0,0,.18);border:1px solid var(--line)}
+.hand{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-end;padding:14px;border-radius:18px;background:rgba(0,0,0,.18);border:1px solid var(--line)}
 .hand button.card{padding:0;border:0;width:var(--cw);transition:transform .15s, filter .15s, box-shadow .15s}
 .hand.myturn button.card.ok{box-shadow:0 0 0 2px var(--gold),0 8px 18px rgba(0,0,0,.5)}
 .hand.myturn button.card.ok:hover{transform:translateY(-8px)}
 .hand.myturn button.card.no{filter:grayscale(.7) brightness(.55);cursor:not-allowed}
 .hand:not(.myturn) button.card{cursor:default}
+.hand button.card:disabled{opacity:1}
 @media (min-width:800px){:root{--cw:86px}}
 .actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 
@@ -159,16 +174,21 @@ label.lbl{font-size:13px;color:var(--mist)}
           </div>
           <div class="stack">
             <h2>משחק קלפים לשניים</h2>
-            <p class="muted" style="margin:0">נגד אח שלך מהמחשב שלו, או נגד המחשב. 60 קלפים, ארבעה עולמות, ומי שנפטר מכל הקלפים ראשון לוקח כוכב.</p>
+            <p class="muted" style="margin:0">נגד אח שלך מהמחשב שלו, או נגד המחשב. 88 קלפים, ארבעה עולמות וקלפים מיוחדים. מי שנפטר מכל הקלפים ראשון לוקח כוכב.</p>
           </div>
         </div>
         <ol class="rules">
-          <li>כל אחד מקבל חצי חפיסה. באמצע נפתח קלף נמוך (150).</li>
-          <li>בכל תור שמים קלף <b>גבוה יותר</b> מהקלף שלמעלה.</li>
-          <li>אין לך מה לשים? מרימים את <b>כל הקופה</b> והתור עובר.</li>
-          <li>🗡️ <b>100 חוטף</b>: אפשר לשים אותו על הכול, והוא זורק על היריב את 2 הקלפים שמתחתיו.</li>
-          <li>מי שנפטר מכל הקלפים ראשון מנצח ומקבל ⭐</li>
+          <li>כל אחד מקבל <b>10 קלפים</b>. באמצע נפתח קלף אקראי <b>עד 300</b>.</li>
+          <li>בכל תור שמים קלף <b>גבוה או שווה</b> לקלף שלמעלה.</li>
+          <li>אין לך מה לשים? <b>מושכים קלף אחד</b> מהקופה הלא משומשת.</li>
+          <li>מי שנגמרו לו הקלפים ראשון מנצח ומקבל ⭐</li>
         </ol>
+        <div class="specials">
+          <figure><img src="cards/sp-snatch.webp" alt=""><b>חוטף · 8</b>לוקחים קלף מהיריב, בלי לראות איזה</figure>
+          <figure><img src="cards/sp-two.webp" alt=""><b>משוך 2 · 8</b>היריב מושך 2 קלפים</figure>
+          <figure><img src="cards/sp-peek.webp" alt=""><b>מציץ · 8</b>מסתכלים על קלף של היריב</figure>
+          <figure><img src="cards/sp-all.webp" alt=""><b>משוך את כל הקופה · 4</b>היריב מרים את כל הקופה המשומשת</figure>
+        </div>
       </div>
       <div class="panel stack">
         <h3>לשחק</h3>
@@ -211,10 +231,12 @@ label.lbl{font-size:13px;color:var(--mist)}
       <span id="codeChip" class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
     </div>
     <div id="oppBacks" class="backs" aria-label="הקלפים של היריב"></div>
+    <div id="pickPrompt" class="prompt" hidden><span id="pickText"></span><button id="btnPickCancel" type="button">ביטול</button></div>
 
     <div class="board">
       <div class="side">
-        <span>בקופה: <b id="pileCount">0</b> קלפים</span>
+        <div class="deck"><img src="cards/back.webp" alt=""><span>קופה לא משומשת: <b id="drawCount">0</b></span></div>
+        <span>בקופה המשומשת: <b id="pileCount">0</b> קלפים</span>
       </div>
       <div class="pilebox">
         <div id="pile" class="pile"></div>
@@ -229,7 +251,7 @@ label.lbl{font-size:13px;color:var(--mist)}
     <div class="seat">
       <div class="who"><div id="myAva" class="ava"></div><b id="myName">אני</b><span id="myCount" class="chip"></span><span id="myTurn" class="chip turn" hidden>התור שלך!</span></div>
       <div class="actions">
-        <button id="btnPickup" class="danger" type="button" hidden>אין לי מה לשים: מרים/ה את הקופה</button>
+        <button id="btnDraw" class="danger" type="button" hidden>אין לי מה לשים: מושך/ת קלף</button>
       </div>
     </div>
     <div id="hand" class="hand" aria-label="הקלפים שלך"></div>
@@ -250,6 +272,14 @@ label.lbl{font-size:13px;color:var(--mist)}
   </div>
 </div>
 
+<div id="overPeek" class="overlay" style="z-index:25" hidden>
+  <div class="panel">
+    <h2 id="peekTitle"></h2>
+    <div id="peekCard" class="peekcard"></div>
+    <button id="btnPeekClose" class="primary" type="button">סגירה</button>
+  </div>
+</div>
+
 <div id="overScores" class="overlay" style="z-index:30" hidden>
   <div class="panel">
     <h2>⭐ טבלת כוכבים</h2>
@@ -260,30 +290,156 @@ label.lbl{font-size:13px;color:var(--mist)}
 
 <script>
 (() => {
-  // ---------- the deck ----------
+  // ---------- the deck: 60 number cards + 28 special cards ----------
   const SUITS = {
     d: [100,200,250,300,350,450,500,500,600,650,750,850,900,950,1000],
     h: [100,150,200,250,300,350,400,400,500,600,700,800,900,950,1000],
     s: [150,200,300,350,450,500,600,600,650,750,800,850,900,950,1000],
     c: [100,150,250,300,400,450,550,550,600,700,750,800,900,950,1000],
   };
+  const SPECIALS = [
+    { kind: "snatch", count: 8, name: "חוטף" },
+    { kind: "two", count: 8, name: "משוך 2" },
+    { kind: "peek", count: 8, name: "מציץ" },
+    { kind: "all", count: 4, name: "משוך את כל הקופה" },
+  ];
   const CARDS = {};
   for (const [s, vals] of Object.entries(SUITS)) vals.forEach((v, i) => {
     const id = s + String(i + 1).padStart(2, "0");
-    CARDS[id] = { id, v, img: "cards/" + id + ".webp" };
+    CARDS[id] = { id, v, kind: "num", img: "cards/" + id + ".webp" };
   });
-  const isSnatch = id => CARDS[id].v === 100;  // snatcher
-  const canPlay = (id, topId) => isSnatch(id) || !topId || CARDS[id].v > CARDS[topId].v;
+  for (const sp of SPECIALS) for (let i = 1; i <= sp.count; i++) {
+    const id = "x" + sp.kind + i;
+    CARDS[id] = { id, v: null, kind: sp.kind, name: sp.name, img: "cards/sp-" + sp.kind + ".webp" };
+  }
+  const NUM_IDS = Object.keys(CARDS).filter(id => CARDS[id].kind === "num");
+  const isSpecial = id => CARDS[id].kind !== "num";
+  const label = id => isSpecial(id) ? CARDS[id].name : String(CARDS[id].v);
+  // The number the next card has to match or beat: the last number card on the used pile.
+  const topNumber = pile => { for (let i = pile.length - 1; i >= 0; i--) if (!isSpecial(pile[i])) return pile[i]; return null; };
+  const canPlay = (id, pile) => { if (isSpecial(id)) return true; const t = topNumber(pile); return !t || CARDS[id].v >= CARDS[t].v; };
   const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
-  const byValue = (a, b) => CARDS[a].v - CARDS[b].v || a.localeCompare(b);
+  const KIND_ORDER = { num: 0, snatch: 1, two: 2, peek: 3, all: 4 };
+  const byValue = (a, b) => KIND_ORDER[CARDS[a].kind] - KIND_ORDER[CARDS[b].kind] || (CARDS[a].v || 0) - (CARDS[b].v || 0) || a.localeCompare(b);
+  const RULES_VERSION = 2;
 
   function deal() {
     const all = shuffle(Object.keys(CARDS));
-    const openers = all.filter(id => CARDS[id].v === 150);
+    const openers = all.filter(id => !isSpecial(id) && CARDS[id].v <= 300);
     const opener = openers[Math.floor(Math.random() * openers.length)];
     const rest = all.filter(id => id !== opener);
-    const half = Math.ceil(rest.length / 2);
-    return { hands: { "0": rest.slice(0, half), "1": rest.slice(half) }, pile: [opener] };
+    return { v: RULES_VERSION, hands: { "0": rest.slice(0, 10), "1": rest.slice(10, 20) }, draw: rest.slice(20), pile: [opener] };
+  }
+
+  // ---------- rules (pure: they only change the game object they get) ----------
+  function refill(g) {
+    // The unused pile ran out: shuffle the used pile (except its top card) into a new unused pile.
+    if (g.pile.length <= 1) return false;
+    const top = g.pile.pop();
+    g.draw = shuffle(g.pile.slice()); g.pile = [top];
+    return true;
+  }
+  function drawCards(g, seat, n) {
+    let got = 0;
+    for (let i = 0; i < n; i++) {
+      if (!g.draw.length && !refill(g)) break;
+      g.hands[seat].push(g.draw.pop()); got++;
+    }
+    shuffle(g.hands[seat]);
+    return got;
+  }
+  function checkWin(g, seat) {
+    const opp = String(1 - seat);
+    if (!g.hands[String(seat)].length) g.winner = seat;
+    else if (!g.hands[opp].length) g.winner = 1 - seat;
+    else return false;
+    g.status = "over";
+    g.log = g.players[g.winner].name + " נפטר/ה מכל הקלפים וניצח/ה! ⭐";
+    return true;
+  }
+  // target: index of the opponent's card (for snatch and peek)
+  function applyPlay(g, seat, id, target) {
+    const me = String(seat), opp = String(1 - seat);
+    const my = g.players[seat].name, other = g.players[1 - seat].name;
+    const hand = g.hands[me];
+    hand.splice(hand.indexOf(id), 1);
+    g.pile.push(id);
+    const kind = CARDS[id].kind;
+    if (kind === "num") g.log = my + " שם/ה " + CARDS[id].v + ".";
+    else if (kind === "two") {
+      const n = drawCards(g, opp, 2);
+      g.log = "➕ " + my + " שם/ה משוך 2! " + other + " משך/ה " + n + " קלפים.";
+    } else if (kind === "all") {
+      const n = g.pile.length;
+      g.hands[opp].push(...g.pile); g.pile = []; shuffle(g.hands[opp]);
+      g.log = "💥 " + my + " שם/ה משוך את כל הקופה! " + other + " הרים/ה " + n + " קלפים.";
+    } else if (kind === "snatch") {
+      const oh = g.hands[opp];
+      const i = Math.max(0, Math.min(oh.length - 1, target ?? Math.floor(Math.random() * oh.length)));
+      const taken = oh.splice(i, 1)[0];
+      if (taken) { hand.push(taken); shuffle(hand); }
+      g.lastSnatch = { seat, card: taken || null, seq: (g.seq || 0) + 1 };
+      g.log = "🗡️ " + my + " חטף/ה קלף מ" + other + "!";
+    } else if (kind === "peek") {
+      g.log = "👀 " + my + " הציץ/ה בקלף של " + other + ".";
+    }
+    g.turn = 1 - seat;
+    checkWin(g, seat);
+  }
+  function applyDraw(g, seat) {
+    const n = drawCards(g, String(seat), 1);
+    g.log = n ? g.players[seat].name + " לא היה לו/ה מה לשים ומשך/ה קלף." : "אין קלפים למשוך. " + g.players[seat].name + " מעביר/ה את התור.";
+    g.turn = 1 - seat;
+  }
+
+  // ---------- the computer player ----------
+  // It only knows what a real player knows: its own cards, the used pile and how many cards you hold.
+  // Before each move it imagines many ways the game could go on (guessing your cards from the cards
+  // it cannot see), plays each one to the end, and picks the move that wins most often.
+  function simpleMove(g, seat) {
+    const h = g.hands[String(seat)];
+    let best = null;
+    for (const id of h) if (!isSpecial(id) && canPlay(id, g.pile) && (!best || CARDS[id].v < CARDS[best].v)) best = id;
+    if (best) return { id: best };
+    const sp = h.find(isSpecial);
+    return sp ? { id: sp, target: Math.floor(Math.random() * g.hands[String(1 - seat)].length) } : null;
+  }
+  function botCandidates(g) {
+    const hand = g.hands["1"], oppN = g.hands["0"].length, out = [], seen = new Set();
+    const nums = hand.filter(id => !isSpecial(id) && canPlay(id, g.pile)).sort(byValue);
+    for (const id of nums) if (!seen.has(CARDS[id].v)) { seen.add(CARDS[id].v); out.push({ id }); }
+    const numMoves = out.length > 6 ? [...out.slice(0, 4), ...out.slice(-2)] : out;
+    const sp = [];
+    for (const k of ["snatch", "two", "peek", "all"]) { const id = hand.find(x => CARDS[x].kind === k); if (id) sp.push({ id, target: Math.floor(Math.random() * oppN) }); }
+    return [...numMoves, ...sp];
+  }
+  function botChoice(g, rollouts = 16) {
+    const cands = botCandidates(g);
+    if (cands.length <= 1) return cands[0] || null;
+    const mine = new Set(g.hands["1"]), onPile = new Set(g.pile);
+    const unseen = Object.keys(CARDS).filter(id => !mine.has(id) && !onPile.has(id));
+    const oppN = g.hands["0"].length;
+    let best = null, bestScore = -Infinity;
+    for (const c of cands) {
+      let score = 0;
+      for (let r = 0; r < rollouts; r++) {
+        const u = shuffle(unseen.slice());
+        const sim = { players: g.players, status: "playing", turn: 1, pile: g.pile.slice(), draw: u.slice(oppN), hands: { "0": u.slice(0, oppN), "1": g.hands["1"].slice() } };
+        applyPlay(sim, 1, c.id, c.target);
+        let n = 0;
+        while (sim.status === "playing" && n < 120) {
+          const mv = simpleMove(sim, sim.turn);
+          if (mv) applyPlay(sim, sim.turn, mv.id, mv.target); else applyDraw(sim, sim.turn);
+          n++;
+        }
+        // a win counts more the sooner it comes, so the computer goes for the finish instead of dragging the game
+        score += sim.status === "over" ? (sim.winner === 1 ? 1 : 0) : 0.4 + (sim.hands["0"].length - sim.hands["1"].length) / 100;
+      }
+      // small tie-break: keep strong cards for later
+      score -= CARDS[c.id].v ? CARDS[c.id].v / 1e6 : 0;
+      if (score > bestScore) { bestScore = score; best = c; }
+    }
+    return best;
   }
 
   // ---------- profile (per browser) ----------
@@ -299,7 +455,7 @@ label.lbl{font-size:13px;color:var(--mist)}
   let profile = { name: "", avatar: "h01", color: COLORS[0], cheer: "" };
   try { Object.assign(profile, JSON.parse(store.get("kk_profile") || "{}")); } catch {}
   if (!profile.name) profile.name = store.get("kk_name") || "";
-  if (!CARDS[profile.avatar]) profile.avatar = "h01";
+  if (!CARDS[profile.avatar] || isSpecial(profile.avatar)) profile.avatar = "h01";
   const BOT = { pid: "bot", name: "המחשב", avatar: "c15", color: "#5fd0ff", cheer: "בי־בופ! ניצחתי 🤖" };
 
   const $ = id => document.getElementById(id);
@@ -307,7 +463,7 @@ label.lbl{font-size:13px;color:var(--mist)}
 
   function paintAva(node, p) {
     node.replaceChildren();
-    const img = el("img"); img.alt = ""; img.src = CARDS[(p && p.avatar) || "d01"]?.img || "cards/back.webp";
+    const img = el("img"); img.alt = ""; img.src = CARDS[(p && p.avatar) || "h01"]?.img || "cards/back.webp";
     node.append(img);
     node.style.setProperty("--ring", (p && p.color) || "#f2c14e");
   }
@@ -325,7 +481,7 @@ label.lbl{font-size:13px;color:var(--mist)}
   const SUIT_TABS = [["h", "♥️", "לב"], ["c", "♣️", "תלתן"], ["d", "♦️", "יהלום"], ["s", "♠️", "עלה"]];
   let avaSuit = "h";
   function renderAvaGrid() {
-    $("avaGrid").replaceChildren(...Object.keys(CARDS).filter(id => id[0] === avaSuit).map(id => {
+    $("avaGrid").replaceChildren(...NUM_IDS.filter(id => id[0] === avaSuit).map(id => {
       const b = el("button"); b.type = "button"; b.dataset.id = id; b.setAttribute("aria-label", "דמות " + CARDS[id].v);
       b.append(avaEl({ avatar: id }));
       b.onclick = () => { profile.avatar = id; saveProfile(); };
@@ -334,17 +490,17 @@ label.lbl{font-size:13px;color:var(--mist)}
     for (const t of $("suitTabs").children) t.setAttribute("aria-selected", String(t.dataset.s === avaSuit));
     renderProfile();
   }
-  $("suitTabs").append(...SUIT_TABS.map(([s, icon, label]) => {
-    const b = el("button", "", icon + " " + label); b.type = "button"; b.dataset.s = s; b.setAttribute("role", "tab");
+  $("suitTabs").append(...SUIT_TABS.map(([s, icon, text]) => {
+    const b = el("button", "", icon + " " + text); b.type = "button"; b.dataset.s = s; b.setAttribute("role", "tab");
     b.onclick = () => { avaSuit = s; renderAvaGrid(); };
     return b;
   }));
-  renderAvaGrid();
   $("swatches").append(...COLORS.map(c => {
     const b = el("button"); b.type = "button"; b.dataset.c = c; b.style.background = c; b.setAttribute("aria-label", "צבע");
     b.onclick = () => { profile.color = c; saveProfile(); };
     return b;
   }));
+  renderAvaGrid();
   const nameInput = $("nameInput"), cheerInput = $("cheerInput");
   nameInput.value = profile.name; cheerInput.value = profile.cheer;
   nameInput.addEventListener("input", () => { profile.name = nameInput.value.trim(); saveProfile(); });
@@ -353,6 +509,7 @@ label.lbl{font-size:13px;color:var(--mist)}
   const meAsPlayer = () => ({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, cheer: profile.cheer });
 
   let db = null, game = null, code = null, unsubGame = null, busy = false, lastTop = null, openGames = [], scores = {}, botTimer = null;
+  let picking = null; // a snatch or peek card waiting for you to choose one of the opponent's cards
 
   function setStatus(msg, isErr) { const s = $("status"); s.textContent = msg || ""; s.classList.toggle("err", !!isErr); }
   function seatOf(g) { return g && g.players ? g.players.findIndex(p => p && p.pid === pid) : -1; }
@@ -370,7 +527,7 @@ label.lbl{font-size:13px;color:var(--mist)}
     clearTimeout(timer);
     if (!db) { noDb("אין חיבור לשמירת המשחק."); return; }
     db.collection("games").orderBy("created", "desc").limit(20).onSnapshot(snap => {
-      openGames = snap.docs.map(d => d.data());
+      openGames = snap.docs.map(d => d.data()).filter(g => g.v === RULES_VERSION);
       renderLobbyList();
     }, e => setStatus("שגיאה בטעינת משחקים: " + e.code, true));
     db.doc("scores/board").onSnapshot(snap => {
@@ -412,7 +569,7 @@ label.lbl{font-size:13px;color:var(--mist)}
     if (!db || needName()) return;
     const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
     const c = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]).join("");
-    const g = { code: c, created: Date.now(), status: "waiting", players: [meAsPlayer()], hands: { "0": [], "1": [] }, pile: [], turn: 0, winner: null, log: "", seq: 0, round: 0 };
+    const g = { v: RULES_VERSION, code: c, created: Date.now(), status: "waiting", players: [meAsPlayer()], hands: { "0": [], "1": [] }, pile: [], draw: [], turn: 0, winner: null, log: "", seq: 0, round: 0 };
     try { await db.doc("games/" + c).set(g); openGame(c, true); setStatus("המשחק נפתח! תשלחי לאח שלך את הקוד " + c + " או שיבחר אותו מהרשימה."); }
     catch (e) { setStatus("לא הצלחתי לפתוח משחק (" + (e.code || "error") + "). אולי אין לך הרשאת עריכה לדף.", true); }
   };
@@ -422,7 +579,7 @@ label.lbl{font-size:13px;color:var(--mist)}
     if (!db || !c) return;
     const ref = db.doc("games/" + c);
     const snap = await ref.get();
-    if (!snap.exists) { setStatus("לא מצאתי משחק עם הקוד " + c, true); return; }
+    if (!snap.exists || snap.data().v !== RULES_VERSION) { setStatus("לא מצאתי משחק עם הקוד " + c, true); return; }
     const g = structuredClone(snap.data());
     if (seatOf(g) >= 0) { openGame(c, true); return; }
     if (needName()) return;
@@ -438,19 +595,25 @@ label.lbl{font-size:13px;color:var(--mist)}
     leaveQuiet();
     code = c; store.set("kk_code", c); lastTop = null;
     unsubGame = db.doc("games/" + c).onSnapshot(snap => {
-      if (!snap.exists || seatOf(snap.data()) < 0) { if (!show) leave(); return; }
-      game = snap.data(); show = true; renderTable();
+      const d = snap.exists ? snap.data() : null;
+      if (!d || d.v !== RULES_VERSION || seatOf(d) < 0) { if (!show) leave(); return; }
+      const prev = game; game = d; show = true;
+      // the other player snatched one of my cards: tell me which
+      const me = seatOf(d);
+      if (prev && d.lastSnatch && d.lastSnatch.seat !== me && (!prev.lastSnatch || prev.lastSnatch.seq !== d.lastSnatch.seq) && d.lastSnatch.card)
+        showCard(d.players[d.lastSnatch.seat].name + " חטף/ה ממך את הקלף הזה", d.lastSnatch.card);
+      renderTable();
     }, e => setStatus("החיבור למשחק נותק (" + e.code + ").", true));
   }
 
   function leaveQuiet() {
     if (unsubGame) unsubGame(); unsubGame = null;
     clearTimeout(botTimer); botTimer = null;
-    game = null; code = null; lastTop = null;
+    game = null; code = null; lastTop = null; picking = null;
   }
   function leave() {
     leaveQuiet(); store.del("kk_code");
-    $("table").hidden = true; $("lobby").hidden = false; $("btnLeave").hidden = true; $("overWin").hidden = true;
+    $("table").hidden = true; $("lobby").hidden = false; $("btnLeave").hidden = true; $("overWin").hidden = true; $("overPeek").hidden = true;
     renderLobbyList();
   }
   $("btnLeave").onclick = leave;
@@ -458,11 +621,17 @@ label.lbl{font-size:13px;color:var(--mist)}
 
   // ---------- table ----------
   function cardEl(id, tag) {
-    const c = el(tag || "div", "card");
-    const img = el("img"); img.src = CARDS[id].img; img.alt = String(CARDS[id].v); img.draggable = false; c.append(img);
-    if (isSnatch(id)) c.append(el("span", "badge", "🗡️ חוטף"));
+    const c = el(tag || "div", "card" + (isSpecial(id) ? " sp" : ""));
+    const img = el("img"); img.src = CARDS[id].img; img.alt = label(id); img.draggable = false; c.append(img);
     return c;
   }
+  function showCard(title, id) {
+    $("peekTitle").textContent = title;
+    $("peekCard").replaceChildren(cardEl(id));
+    $("overPeek").hidden = false;
+    $("btnPeekClose").focus();
+  }
+  $("btnPeekClose").onclick = () => { $("overPeek").hidden = true; };
 
   function renderTable() {
     const g = game; if (!g) return;
@@ -481,18 +650,26 @@ label.lbl{font-size:13px;color:var(--mist)}
     $("myCount").textContent = myHand.length + " קלפים";
     const playing = g.status === "playing";
     const myTurn = playing && g.turn === me;
+    if (!myTurn) picking = null;
     $("myTurn").hidden = !myTurn;
     const ot = $("oppTurn");
     ot.hidden = !(playing && g.turn === opp);
     ot.className = "chip " + (g.local ? "think" : "turn");
     ot.textContent = g.local ? "המחשב חושב…" : "התור שלו/ה";
 
-    const backs = $("oppBacks"); backs.replaceChildren();
-    const shown = Math.min(oppHand.length, 14);
-    for (let i = 0; i < shown; i++) { const b = el("img"); b.src = "cards/back.webp"; b.alt = ""; backs.append(b); }
-    if (oppHand.length > shown) backs.append(el("span", "more", "+" + (oppHand.length - shown)));
+    // opponent's cards, face down (clickable while you choose one for a snatch or peek)
+    const backs = $("oppBacks"); backs.replaceChildren(); backs.classList.toggle("picking", !!picking);
+    oppHand.forEach((_, i) => {
+      const b = el("button", "bk"); b.type = "button"; b.disabled = !picking;
+      b.setAttribute("aria-label", "קלף " + (i + 1) + " של היריב");
+      const im = el("img"); im.src = "cards/back.webp"; im.alt = ""; b.append(im);
+      b.onclick = () => choose(i);
+      backs.append(b);
+    });
+    $("pickPrompt").hidden = !picking;
+    if (picking) $("pickText").textContent = picking.kind === "snatch" ? "🗡️ בחר/י קלף לחטוף מהיריב" : "👀 בחר/י קלף של היריב להציץ בו";
 
-    // pile
+    // piles
     const pile = $("pile"); pile.replaceChildren();
     const top = g.pile[g.pile.length - 1] || null;
     if (g.pile.length > 1) { const u = cardEl(g.pile[g.pile.length - 2]); u.classList.add("under"); pile.append(u); }
@@ -500,25 +677,29 @@ label.lbl{font-size:13px;color:var(--mist)}
     else pile.append(el("div", "empty", g.status === "waiting" ? "הקלפים יחולקו כשהשחקן השני יצטרף" : "הקופה ריקה: אפשר לשים כל קלף"));
     lastTop = top;
     const need = $("need"); need.replaceChildren();
-    if (playing && top) { need.append(document.createTextNode("צריך לשים יותר מ־")); need.append(el("span", "", String(CARDS[top].v))); }
+    const tn = topNumber(g.pile);
+    if (playing && tn) { need.append(document.createTextNode("צריך ")); need.append(el("span", "", String(CARDS[tn].v))); need.append(document.createTextNode(" או יותר")); }
+    else if (playing) need.textContent = "אפשר לשים כל קלף";
     $("pileCount").textContent = g.pile.length;
+    $("drawCount").textContent = (g.draw || []).length;
     $("log").textContent = g.status === "waiting" ? "שלחו את הקוד " + g.code + " לשחקן השני." : (g.log || "");
 
-    // hand
-    const hand = $("hand"); hand.classList.toggle("myturn", myTurn); hand.replaceChildren();
+    // my hand
+    const hand = $("hand"); hand.classList.toggle("myturn", myTurn && !picking); hand.replaceChildren();
     let anyOk = false;
     for (const id of myHand) {
-      const ok = canPlay(id, top); if (ok) anyOk = true;
+      const ok = canPlay(id, g.pile); if (ok) anyOk = true;
       const b = cardEl(id, "button"); b.type = "button";
       b.classList.add(ok ? "ok" : "no");
-      b.setAttribute("aria-label", "קלף " + CARDS[id].v + (isSnatch(id) ? " חוטף" : ""));
-      b.disabled = !myTurn || !ok;
+      b.setAttribute("aria-label", "קלף " + label(id));
+      b.disabled = !myTurn || !ok || !!picking;
       b.onclick = () => play(id);
       hand.append(b);
     }
     if (!myHand.length && g.status === "waiting") hand.append(el("div", "note", "הקלפים שלך יופיעו כאן."));
-    $("btnPickup").hidden = !(myTurn && !anyOk);
-    $("btnPickup").textContent = "אין לי מה לשים: מרים/ה את הקופה (" + g.pile.length + ")";
+    const canDraw = (g.draw || []).length + Math.max(0, g.pile.length - 1) > 0;
+    $("btnDraw").hidden = !(myTurn && !anyOk && !picking);
+    $("btnDraw").textContent = canDraw ? "אין לי מה לשים: מושך/ת קלף" : "אין מה למשוך: מעביר/ה את התור";
 
     // win
     if (g.status === "over") {
@@ -526,31 +707,11 @@ label.lbl{font-size:13px;color:var(--mist)}
       paintAva($("winAva"), w);
       $("winTitle").textContent = iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " ניצח/ה וקיבל/ה כוכב ⭐";
       $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
-      $("winText").textContent = iWon ? "נפטרת מכל הקלפים ראשון/ה." : "בסיבוב הבא זה שלך!";
+      $("winText").textContent = iWon ? "נגמרו לך הקלפים ראשון/ה." : "בסיבוב הבא זה שלך!";
       $("overWin").hidden = false;
     } else $("overWin").hidden = true;
 
     if (g.local && playing && g.turn === 1) scheduleBot();
-  }
-
-  // ---------- moves (shared by people and the computer) ----------
-  function applyPlay(g, seat, id) {
-    const opp = 1 - seat, my = g.players[seat].name, other = g.players[opp].name;
-    const hand = g.hands[String(seat)];
-    hand.splice(hand.indexOf(id), 1);
-    g.pile.push(id);
-    if (isSnatch(id)) {
-      const under = g.pile.splice(Math.max(0, g.pile.length - 3), Math.min(2, g.pile.length - 1));
-      g.hands[String(opp)].push(...under);
-      g.log = under.length ? "🗡️ " + my + " שם/ה חוטף וזרק/ה על " + other + " " + under.length + " קלפים!" : "🗡️ " + my + " שם/ה חוטף.";
-    } else g.log = my + " שם/ה " + CARDS[id].v + ".";
-    g.turn = opp;
-    if (!hand.length) { g.status = "over"; g.winner = seat; g.log = my + " נפטר/ה מכל הקלפים וניצח/ה! ⭐"; }
-  }
-  function applyPickup(g, seat) {
-    const opp = 1 - seat, n = g.pile.length;
-    g.hands[String(seat)].push(...g.pile); g.pile = []; g.turn = opp;
-    g.log = "😱 " + g.players[seat].name + " הרים/ה " + n + " קלפים! עכשיו " + g.players[opp].name + " פותח/ת עם כל קלף.";
   }
 
   async function commit(g) {
@@ -569,19 +730,34 @@ label.lbl{font-size:13px;color:var(--mist)}
 
   async function play(id) {
     if (busy || !game || game.status !== "playing") return;
-    const g = structuredClone(game), me = seatOf(g);
-    if (g.turn !== me) return;
-    const top = g.pile[g.pile.length - 1] || null;
-    if (!g.hands[String(me)].includes(id) || !canPlay(id, top)) return;
+    const me = seatOf(game);
+    if (game.turn !== me || !game.hands[String(me)].includes(id) || !canPlay(id, game.pile)) return;
+    const kind = CARDS[id].kind;
+    if ((kind === "snatch" || kind === "peek") && game.hands[String(1 - me)].length) {
+      picking = { id, kind }; renderTable(); return;
+    }
+    const g = structuredClone(game);
     applyPlay(g, me, id);
     await commit(g);
   }
 
-  $("btnPickup").onclick = async () => {
+  async function choose(i) {
+    if (!picking || busy || !game) return;
+    const g = structuredClone(game), me = seatOf(g);
+    const { id, kind } = picking; picking = null;
+    const target = g.hands[String(1 - me)][i];
+    applyPlay(g, me, id, i);
+    if (kind === "peek") showCard("הצצת! זה הקלף של " + g.players[1 - me].name, target);
+    else showCard("חטפת את הקלף הזה!", target);
+    await commit(g);
+  }
+  $("btnPickCancel").onclick = () => { picking = null; renderTable(); };
+
+  $("btnDraw").onclick = async () => {
     if (busy || !game || game.status !== "playing") return;
     const g = structuredClone(game), me = seatOf(g);
     if (g.turn !== me) return;
-    applyPickup(g, me);
+    applyDraw(g, me);
     await commit(g);
   };
 
@@ -589,34 +765,27 @@ label.lbl{font-size:13px;color:var(--mist)}
     if (busy || !game || game.status !== "over") return;
     const g = structuredClone(game), loser = 1 - g.winner;
     if (g.local) g.players[0] = meAsPlayer();
-    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, round: (g.round || 1) + 1,
+    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, lastSnatch: null, round: (g.round || 1) + 1,
       log: "סיבוב חדש! " + g.players[loser].name + " מתחיל/ה." });
     lastTop = null;
     await commit(g);
   };
 
-  // ---------- the computer player ----------
-  // Plays its lowest card that fits. Keeps its snatchers for when it has nothing else, or when you are close to winning.
-  function botChoice(g) {
-    const hand = g.hands["1"], top = g.pile[g.pile.length - 1] || null;
-    const normal = hand.filter(id => !isSnatch(id) && canPlay(id, top)).sort(byValue);
-    const snatchers = hand.filter(isSnatch);
-    const humanLeft = g.hands["0"].length;
-    if (snatchers.length && g.pile.length >= 3 && humanLeft <= 4) return snatchers[0];
-    if (normal.length) return normal[0];
-    if (snatchers.length) return snatchers[0];
-    return null;
-  }
   function scheduleBot() {
     if (botTimer) return;
     botTimer = setTimeout(() => {
       botTimer = null;
       if (!game || !game.local || game.status !== "playing" || game.turn !== 1) return;
       const g = structuredClone(game);
-      const id = botChoice(g);
-      if (id) applyPlay(g, 1, id); else applyPickup(g, 1);
+      const move = botChoice(g);
+      if (move) {
+        const kind = CARDS[move.id].kind;
+        const target = move.target != null ? g.hands["0"][move.target] : null;
+        applyPlay(g, 1, move.id, move.target);
+        if (kind === "snatch" && target) showCard("המחשב חטף ממך את הקלף הזה", target);
+      } else applyDraw(g, 1);
       commit(g);
-    }, 900 + Math.random() * 700);
+    }, (window.__fast ? 0 : 900 + Math.random() * 700));
   }
 
   // ---------- stars ----------
@@ -647,6 +816,8 @@ label.lbl{font-size:13px;color:var(--mist)}
   const openScores = () => { renderScores(); $("overScores").hidden = false; };
   $("btnScores").onclick = openScores; $("btnWinScores").onclick = openScores;
   $("btnCloseScores").onclick = () => { $("overScores").hidden = true; };
+
+  if (window.__fast) window.__kk = { CARDS, deal, applyPlay, applyDraw, botChoice, simpleMove, canPlay, isSpecial, byValue };
 })();
 </script>
 
