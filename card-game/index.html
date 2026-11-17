@@ -171,7 +171,7 @@ label.lbl{font-size:13px;color:var(--mist)}
 
 /* chat */
 /* chat button: Hillel's design (deep blue-violet pill, holographic rim, white bubble) */
-.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:15;
+button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:15;
   display:inline-flex;align-items:center;gap:10px;border-radius:99px;padding:9px 24px 9px 20px;
   font-family:"Rubik",system-ui,sans-serif;font-size:21px;font-weight:700;color:#fff;letter-spacing:.3px;
   border:3px solid transparent;
@@ -182,16 +182,42 @@ label.lbl{font-size:13px;color:var(--mist)}
 .chatbtn:hover{filter:brightness(1.1)}
 .chatbtn .chat-ico{width:34px;height:31px;flex:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
 .chatbtn .dot{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:#ff5d8f;color:#fff;font-size:13px;box-shadow:0 0 0 2px #fff}
-.chat{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:16;width:min(360px,calc(100vw - 32px));height:min(480px,calc(100vh - 120px));
+.chat{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:16;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 120px));
   display:flex;flex-direction:column;border-radius:20px;background:#1a1240;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.6);overflow:hidden}
 .chat header{padding:12px 14px;border-bottom:1px solid var(--line);background:rgba(255,154,208,.08)}
 .chat header button{padding:6px 12px}
 .msgs{flex:1;overflow-y:auto;padding:12px;margin:0;list-style:none;display:flex;flex-direction:column;gap:10px}
-.msg{display:flex;gap:8px;align-items:flex-end;max-width:88%}
+.msg{display:flex;gap:8px;align-items:flex-end;max-width:88%;position:relative}
 .msg.mine{align-self:flex-start;flex-direction:row}
 .msg:not(.mine){align-self:flex-end;flex-direction:row-reverse}
-.bubble{padding:8px 12px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid var(--line);line-height:1.4;overflow-wrap:anywhere;min-width:0}
-.msg.mine .bubble{background:rgba(242,193,78,.16);border-color:rgba(242,193,78,.45)}
+.bubble{--bc:#a99fd6;padding:8px 12px;border-radius:16px;background:color-mix(in srgb,var(--bc) 20%,#1a1240);border:1px solid color-mix(in srgb,var(--bc) 60%,transparent);line-height:1.4;overflow-wrap:anywhere;min-width:0;cursor:pointer;text-align:start;color:var(--ink);font:inherit}
+.bubble:hover{filter:brightness(1.12)}
+.bubble.sticker{background:none;border:0;padding:0}
+.bubble.sticker img{display:block;width:120px;border-radius:10px;box-shadow:0 6px 16px rgba(0,0,0,.5);margin-top:2px}
+.reacts{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.reacts span{font-size:13px;padding:1px 7px;border-radius:99px;background:rgba(0,0,0,.35);border:1px solid var(--line)}
+.msg.has-picker{flex-wrap:wrap}
+.picker{flex-basis:100%;width:max-content;max-width:100%;display:flex;gap:2px;padding:4px 6px;border-radius:99px;background:#2a1d66;border:1px solid var(--line);box-shadow:0 8px 18px rgba(0,0,0,.5)}
+.picker button{padding:4px 6px;font-size:20px;background:none;border:0}
+.picker button:hover{transform:scale(1.25);background:none}
+.sysmsg{align-self:center;font-size:13px;color:var(--mist);text-align:center;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.05)}
+.invite{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.invite button{padding:6px 12px;font-size:14px}
+.chat header .who-on{font-size:12px;color:var(--mist);display:flex;align-items:center;gap:6px}
+.chat header .who-on i{width:9px;height:9px;border-radius:50%;background:#6b6890;display:inline-block}
+.chat header .who-on.on i{background:#4ee0a0;box-shadow:0 0 8px #4ee0a0}
+.typing{font-size:12px;color:var(--mist);padding:0 14px 4px;min-height:16px}
+.tools{display:flex;gap:6px;padding:8px 10px 0;flex-wrap:wrap}
+.tools button{padding:6px 10px;font-size:13px;border-radius:99px}
+.tools button[aria-pressed="true"]{background:#ff5d8f;color:#2b0614;border-color:transparent}
+.stickers{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:8px 10px;max-height:150px;overflow-y:auto;border-top:1px solid var(--line)}
+.stickers button{padding:0;border:0;background:none;border-radius:6px}
+.stickers img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;display:block}
+.stickers button:hover img{outline:2px solid var(--gold)}
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:40;padding:12px 20px;border-radius:99px;font-weight:700;font-size:17px;
+  background:linear-gradient(160deg,#3b2ee8,#5112c9);color:#fff;border:2px solid #d6b4ff;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+@keyframes shake{0%,100%{transform:none}15%{transform:translate(-10px,4px) rotate(-1deg)}30%{transform:translate(10px,-4px) rotate(1deg)}45%{transform:translate(-8px,2px)}60%{transform:translate(8px,-2px)}75%{transform:translate(-4px,0)}}
+body.shake #app{animation:shake .7s ease-in-out}
 .bubble small{display:block;font-size:11px;color:var(--mist);margin-bottom:2px}
 .chat form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
 .chat form input{flex:1}
@@ -309,9 +335,17 @@ label.lbl{font-size:13px;color:var(--mist)}
 
 <button id="btnChat" class="chatbtn" type="button" dir="rtl" aria-expanded="false" aria-controls="chat"><svg class="chat-ico" viewBox="0 0 40 36" aria-hidden="true"><path fill="#fff" d="M20 2C9.5 2 2 8.6 2 16.5c0 4.6 2.5 8.6 6.5 11.2-.5 2.6-2 5.1-4.3 6.6 4.2.2 8-1.3 10.5-3.6 1.7.4 3.5.6 5.3.6 10.5 0 18-6.6 18-14.8S30.5 2 20 2z"/><circle cx="12.5" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="20" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="27.5" cy="16.5" r="2.6" fill="#5b14c8"/></svg><span>צ׳אט</span><span id="chatDot" class="dot" hidden></span></button>
 <section id="chat" class="chat" dir="rtl" lang="he" hidden aria-label="צ׳אט">
-  <header class="row" style="justify-content:space-between"><h3>💬 הצ׳אט שלנו</h3><button id="btnChatClose" type="button">סגירה</button></header>
+  <header class="row" style="justify-content:space-between"><div class="stack" style="gap:2px"><h3>💬 הצ׳אט שלנו</h3><span id="whoOn" class="who-on"><i></i><span>בודק מי מחובר…</span></span></div><button id="btnChatClose" type="button">סגירה</button></header>
   <ul id="msgs" class="msgs"><li class="note">טוען הודעות…</li></ul>
+  <div id="typing" class="typing" aria-live="polite"></div>
   <div id="quick" class="quick" aria-label="תגובות מהירות"></div>
+  <div class="tools">
+    <button id="btnStickers" type="button" aria-pressed="false" aria-controls="stickers">🃏 סטיקרים</button>
+    <button id="btnPoke" type="button">👉 עקיצה</button>
+    <button id="btnInvite" type="button">🎮 הזמנה למשחק</button>
+    <button id="btnMic" type="button" aria-pressed="false" hidden>🎤 לדבר</button>
+  </div>
+  <div id="stickers" class="stickers" hidden aria-label="סטיקרים"></div>
   <form id="chatForm"><input id="chatInput" maxlength="300" placeholder="כתבו הודעה…" aria-label="הודעה" autocomplete="off"><button id="btnSend" class="primary" type="submit">שליחה</button></form>
 </section>
 
@@ -626,11 +660,14 @@ label.lbl{font-size:13px;color:var(--mist)}
       renderScores();
     }, () => {});
     db.collection("chat").orderBy("at", "desc").limit(80).onSnapshot(snap => {
-      chatMsgs = snap.docs.map(d => d.data()).reverse();
+      chatMsgs = snap.docs.map(d => ({ id: d.id, ...d.data() })).reverse();
+      chatArrived();
       renderChat();
     }, () => { $("msgs").replaceChildren(el("li", "note", "לא הצלחתי לטעון את הצ׳אט.")); });
     const saved = store.get("kk_code");
     if (saved) openGame(saved, false);
+    startRoom();
+    startMic();
   })();
 
   // ---------- lobby ----------
@@ -660,14 +697,15 @@ label.lbl{font-size:13px;color:var(--mist)}
     setStatus(""); renderTable();
   };
 
-  $("btnCreate").onclick = async () => {
-    if (!db || needName()) return;
+  async function createGame() {
+    if (!db || needName()) return null;
     const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
     const c = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]).join("");
     const g = { v: RULES_VERSION, code: c, created: Date.now(), status: "waiting", players: [meAsPlayer()], hands: { "0": [], "1": [] }, pile: [], draw: [], turn: 0, winner: null, log: "", seq: 0, round: 0 };
-    try { await db.doc("games/" + c).set(g); openGame(c, true); setStatus("המשחק נפתח! תשלחי לאח שלך את הקוד " + c + " או שיבחר אותו מהרשימה."); }
-    catch (e) { setStatus("לא הצלחתי לפתוח משחק (" + (e.code || "error") + "). אולי אין לך הרשאת עריכה לדף.", true); }
-  };
+    try { await db.doc("games/" + c).set(g); openGame(c, true); setStatus("המשחק נפתח! תשלחי לאח שלך את הקוד " + c + " או שיבחר אותו מהרשימה."); return c; }
+    catch (e) { setStatus("לא הצלחתי לפתוח משחק (" + (e.code || "error") + "). אולי אין לך הרשאת עריכה לדף.", true); return null; }
+  }
+  $("btnCreate").onclick = () => createGame();
   $("btnJoin").onclick = () => joinGame(($("codeInput").value || "").trim().toUpperCase());
 
   async function joinGame(c) {
@@ -891,46 +929,187 @@ label.lbl{font-size:13px;color:var(--mist)}
   }
 
   // ---------- chat ----------
-  let chatMsgs = [], chatOpen = false;
+  // Messages live in the shared store (so they are there later too). Who is online and who is
+  // typing travel live through the room and are never stored.
+  let chatMsgs = [], chatOpen = false, pickerFor = null, seenIds = null, room = null, others = [], typingTimer = null, mic = null;
+  const REACTIONS = ["❤️", "😂", "😮", "😡", "👍", "🔥"];
   const lastSeen = () => +(store.get("kk_chat_seen") || 0);
+  const hhmm = at => { const t = new Date(at || 0); return String(t.getHours()).padStart(2, "0") + ":" + String(t.getMinutes()).padStart(2, "0"); };
+  const otherName = () => (others[0] && others[0].name) || (chatMsgs.slice().reverse().find(m => m.pid !== pid) || {}).name || "החבר/ה";
+
+  // new messages that just arrived: a poke shakes the screen of the one who was poked
+  function chatArrived() {
+    if (!seenIds) { seenIds = new Set(chatMsgs.map(m => m.id)); return; }
+    for (const m of chatMsgs) {
+      if (seenIds.has(m.id)) continue;
+      seenIds.add(m.id);
+      if (m.type === "poke" && m.pid !== pid) poked(m.name);
+    }
+  }
+  function toast(text) {
+    const t = el("div", "toast", text); t.setAttribute("role", "status");
+    document.body.append(t); setTimeout(() => t.remove(), 3200);
+  }
+  function poked(name) {
+    toast("👉 " + (name || "מישהו") + " עקץ/ה אותך!");
+    document.body.classList.remove("shake"); void document.body.offsetWidth; document.body.classList.add("shake");
+    setTimeout(() => document.body.classList.remove("shake"), 800);
+  }
+
   function renderChat() {
     const list = $("msgs");
     if (!db) { list.replaceChildren(el("li", "note", dbFailed ? "הצ׳אט עובד רק כשפותחים את המשחק מתוך claude.ai." : "טוען הודעות…")); return; }
     if (!chatMsgs.length) list.replaceChildren(el("li", "note", "עוד אין הודעות. תכתבו את הראשונה! 👋"));
     else list.replaceChildren(...chatMsgs.map(m => {
-      const li = el("li", "msg" + (m.pid === pid ? " mine" : ""));
-      const b = el("div", "bubble");
-      const t = new Date(m.at || 0);
-      b.append(el("small", "", (m.name || "מישהו") + " · " + String(t.getHours()).padStart(2, "0") + ":" + String(t.getMinutes()).padStart(2, "0")), document.createTextNode(m.text || ""));
-      li.append(avaEl(m, "sm"), b); return li;
+      const mine = m.pid === pid;
+      if (m.type === "poke") return el("li", "sysmsg", "👉 " + (m.name || "מישהו") + " עקץ/ה · " + hhmm(m.at));
+      const li = el("li", "msg" + (mine ? " mine" : ""));
+      const b = el("div", "bubble" + (m.type === "sticker" ? " sticker" : ""));
+      b.tabIndex = 0; b.setAttribute("role", "button"); b.style.setProperty("--bc", m.color || "#a99fd6");
+      b.onkeydown = ev => { if (ev.target === b && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); b.click(); } };
+      b.setAttribute("aria-label", "הוספת תגובה להודעה");
+      b.append(el("small", "", (m.name || "מישהו") + " · " + hhmm(m.at)));
+      if (m.type === "sticker" && CARDS[m.card]) { const im = el("img"); im.src = CARDS[m.card].img; im.alt = "סטיקר " + label(m.card); b.append(im); }
+      else if (m.type === "invite") {
+        const box = el("div", "invite");
+        box.append(el("span", "", "🎮 " + (m.name || "מישהו") + " מזמין/ה למשחק! קוד: " + m.code));
+        const j = el("button", "primary", mine ? "חזרה למשחק" : "הצטרפות למשחק");
+        j.type = "button"; j.onclick = ev => { ev.stopPropagation(); setChat(false); joinGame(m.code); };
+        box.append(j); b.append(box);
+      } else b.append(document.createTextNode(m.text || ""));
+      const rs = Object.values(m.reactions || {}).filter(Boolean);
+      if (rs.length) {
+        const counts = {}; rs.forEach(r => counts[r] = (counts[r] || 0) + 1);
+        const row = el("div", "reacts"); Object.entries(counts).forEach(([e, n]) => row.append(el("span", "", e + (n > 1 ? " " + n : ""))));
+        b.append(row);
+      }
+      b.onclick = () => { pickerFor = pickerFor === m.id ? null : m.id; renderChat(); };
+      li.append(avaEl(m, "sm"), b);
+      if (pickerFor === m.id) {
+        li.classList.add("has-picker");
+        const pk = el("div", "picker");
+        REACTIONS.forEach(e => {
+          const rb = el("button", "", e); rb.type = "button"; rb.setAttribute("aria-label", "תגובה " + e);
+          rb.onclick = ev => { ev.stopPropagation(); react(m, e); };
+          pk.append(rb);
+        });
+        li.append(pk);
+      }
+      return li;
     }));
-    if (chatOpen) { list.scrollTop = list.scrollHeight; if (chatMsgs.length) store.set("kk_chat_seen", String(chatMsgs[chatMsgs.length - 1].at)); }
+    if (chatOpen && !pickerFor) { list.scrollTop = list.scrollHeight; if (chatMsgs.length) store.set("kk_chat_seen", String(chatMsgs[chatMsgs.length - 1].at)); }
     const unread = chatOpen ? 0 : chatMsgs.filter(m => m.pid !== pid && m.at > lastSeen()).length;
     $("chatDot").hidden = !unread; $("chatDot").textContent = unread > 9 ? "9+" : String(unread);
+    renderPresence();
   }
-  function setChat(open) {
-    chatOpen = open; $("chat").hidden = !open; $("btnChat").setAttribute("aria-expanded", String(open));
+  async function react(m, e) {
+    pickerFor = null;
+    const mineNow = (m.reactions || {})[pid];
+    try { await db.doc("chat/" + m.id).update({ reactions: { [pid]: mineNow === e ? null : e } }); } catch { toast("התגובה לא נשמרה. נסו שוב."); }
     renderChat();
-    if (open) $("chatInput").focus();
+  }
+
+  function setChat(open) {
+    chatOpen = open; pickerFor = null; $("chat").hidden = !open; $("btnChat").setAttribute("aria-expanded", String(open));
+    renderChat();
+    if (open) $("chatInput").focus(); else setTyping(false);
   }
   $("btnChat").onclick = () => setChat(!chatOpen);
   $("btnChatClose").onclick = () => setChat(false);
+
+  async function postChat(extra) {
+    if (!db) { renderChat(); return false; }
+    if (!profile.name) { toast("קודם כותבים שם בפרופיל 🙂"); return false; }
+    try {
+      await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, at: Date.now(), ...extra });
+      return true;
+    } catch (e) { toast("ההודעה לא נשלחה (" + (e.code || "error") + "). נסו שוב."); return false; }
+  }
   async function sendChat(text) {
     text = (text || "").trim();
     if (!text) return;
-    if (!db) { renderChat(); return; }
-    if (!profile.name) { $("msgs").append(el("li", "note err", "קודם כותבים שם בפרופיל 🙂")); return; }
     $("btnSend").disabled = true;
-    try {
-      await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, text: text.slice(0, 300), at: Date.now() });
-      $("chatInput").value = "";
-    } catch (e) { $("msgs").append(el("li", "note err", "ההודעה לא נשלחה (" + (e.code || "error") + "). נסו שוב.")); }
-    finally { $("btnSend").disabled = false; $("chatInput").focus(); }
+    if (await postChat({ text: text.slice(0, 300) })) $("chatInput").value = "";
+    $("btnSend").disabled = false; $("chatInput").focus(); setTyping(false);
   }
   $("chatForm").addEventListener("submit", e => { e.preventDefault(); sendChat($("chatInput").value); });
+  $("chatInput").addEventListener("input", () => setTyping(!!$("chatInput").value.trim()));
   $("quick").append(...["😂", "👍", "❤️", "🔥", "😡", "😱", "👑", "🃏"].map(x => {
     const b = el("button", "", x); b.type = "button"; b.setAttribute("aria-label", "שליחת " + x); b.onclick = () => sendChat(x); return b;
   }));
+
+  // stickers: every hero card and every special card
+  const STICKERS = [...NUM_IDS, "xsnatch1", "xtwo1", "xpeek1", "xall1"];
+  $("stickers").append(...STICKERS.map(id => {
+    const b = el("button"); b.type = "button"; b.setAttribute("aria-label", "סטיקר " + label(id));
+    const im = el("img"); im.src = CARDS[id].img; im.alt = ""; im.loading = "lazy"; b.append(im);
+    b.onclick = async () => { $("stickers").hidden = true; $("btnStickers").setAttribute("aria-pressed", "false"); await postChat({ type: "sticker", card: id }); };
+    return b;
+  }));
+  $("btnStickers").onclick = () => { const s = $("stickers"); s.hidden = !s.hidden; $("btnStickers").setAttribute("aria-pressed", String(!s.hidden)); };
+
+  // poke: shakes the other player's screen
+  let lastPoke = 0;
+  $("btnPoke").onclick = async () => {
+    if (Date.now() - lastPoke < 5000) { toast("רגע, אפשר לעקוץ שוב בעוד כמה שניות 😉"); return; }
+    lastPoke = Date.now();
+    if (await postChat({ type: "poke" })) toast("👉 עקצת את " + otherName() + "!");
+  };
+
+  // invite: opens a new game and posts a message with a join button
+  $("btnInvite").onclick = async () => {
+    const c = await createGame();
+    if (c) { await postChat({ type: "invite", code: c }); setChat(false); }
+  };
+
+  // who is online, and who is typing (live, never stored)
+  async function startRoom() {
+    try { room = await window.claude.use("room"); } catch { room = null; }
+    if (!room) { renderPresence(); return; }
+    room.presence({ pid, name: profile.name || "", typing: false }).catch(() => {});
+    room.onPeers(ch => {
+      const seen = new Set();
+      others = ch.peers.filter(p => !p.isMe && p.presence && p.presence.pid && p.presence.pid !== pid && !seen.has(p.presence.pid) && seen.add(p.presence.pid))
+        .map(p => ({ pid: p.presence.pid, name: String(p.presence.name || "").slice(0, 30), typing: !!p.presence.typing }));
+      renderPresence();
+    }, () => { room = null; renderPresence(); });
+  }
+  function setTyping(on) {
+    if (!room) return;
+    clearTimeout(typingTimer);
+    room.presence({ name: profile.name || "", typing: on }).catch(() => {});
+    if (on) typingTimer = setTimeout(() => setTyping(false), 3000);
+  }
+  function renderPresence() {
+    const w = $("whoOn");
+    if (!room) { w.className = "who-on"; w.lastChild.textContent = db ? "" : ""; w.hidden = true; $("typing").textContent = ""; return; }
+    w.hidden = false;
+    const on = others.length > 0;
+    w.className = "who-on" + (on ? " on" : "");
+    w.lastChild.textContent = on ? others.map(o => o.name || "מישהו").join(", ") + " מחובר/ת עכשיו" : otherName() + " לא מחובר/ת עכשיו";
+    const typers = others.filter(o => o.typing);
+    $("typing").textContent = typers.length ? typers.map(o => o.name || "מישהו").join(", ") + " מקליד/ה…" : "";
+  }
+
+  // speak instead of typing (Chrome and the Claude app)
+  async function startMic() {
+    try { mic = await window.claude.use("dictation"); } catch { mic = null; }
+    if (!mic) return;
+    $("btnMic").hidden = false;
+    mic.onFinal(({ text }) => { const i = $("chatInput"); i.value = (i.value ? i.value + " " : "") + text; setTyping(true); });
+    mic.onState(({ state, reason }) => {
+      const on = state !== "idle";
+      $("btnMic").setAttribute("aria-pressed", String(on));
+      $("btnMic").textContent = on ? "⏹️ סיום" : "🎤 לדבר";
+      if (reason === "not_granted") $("btnMic").hidden = true;
+    });
+  }
+  $("btnMic").onclick = () => {
+    if (!mic) return;
+    if (mic.active()) mic.stop().catch(() => {});
+    else mic.start({ language: "he" }).catch(e => { if (e && e.code === "not_granted") $("btnMic").hidden = true; });
+  };
+  nameInput.addEventListener("input", () => { if (room) room.presence({ name: profile.name || "" }).catch(() => {}); });
   renderChat();
 
   // ---------- stars ----------
