@@ -111,7 +111,12 @@ label.lbl{font-size:13px;color:var(--mist)}
 .pile .card{position:absolute;left:0;right:0;bottom:0;width:100%}
 .pile .under{transform:rotate(-7deg) translate(-8px,4px);filter:brightness(.6)}
 .pile .empty{position:absolute;inset:0;border:2px dashed var(--line);border-radius:12px;display:grid;place-items:center;color:var(--mist);text-align:center;font-size:13px;padding:10px}
-.need{font-family:var(--display);font-size:18px}
+.need{font-family:var(--display);font-size:18px;text-align:center}
+.fx{position:absolute;inset-inline-end:-58px;top:6px;display:flex;flex-direction:column;gap:4px;z-index:3}
+.fx .card{position:static;width:64px;box-shadow:0 4px 10px rgba(0,0,0,.5);transform:rotate(6deg)}
+.history{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;max-width:260px}
+.history li{font-size:12px;color:var(--mist);line-height:1.35}
+.history li:last-child{font-size:15px;color:var(--ink)}
 .need span{color:var(--gold)}
 .side{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--mist)}
 .deck{display:flex;flex-direction:column;align-items:center;gap:8px;width:max-content}
@@ -119,7 +124,7 @@ label.lbl{font-size:13px;color:var(--mist)}
 .deck b{font-family:var(--display);font-size:18px;color:var(--ink);font-weight:400}
 .side.end{align-items:flex-end;text-align:end}
 .log{font-size:15px;color:var(--ink);line-height:1.4;max-width:240px}
-@media (max-width:560px){.board{grid-template-columns:1fr;justify-items:center;text-align:center}.side,.side.end{align-items:center;text-align:center}.pile{width:130px}}
+@media (max-width:560px){.board{grid-template-columns:1fr;justify-items:center;text-align:center}.side,.side.end{align-items:center;text-align:center}.pile{width:130px}.fx{inset-inline-end:-50px}.fx .card{width:54px}.history{max-width:none}}
 .peekcard{width:min(220px,60vw)}
 
 .card{display:block;border-radius:9px;overflow:hidden;position:relative;aspect-ratio:300/320;background:#000;box-shadow:0 6px 16px rgba(0,0,0,.45)}
@@ -181,6 +186,8 @@ label.lbl{font-size:13px;color:var(--mist)}
           <li>כל אחד מקבל <b>10 קלפים</b>. באמצע נפתח קלף אקראי <b>עד 300</b>.</li>
           <li>בכל תור שמים קלף <b>גבוה או שווה</b> לקלף שלמעלה.</li>
           <li>אין לך מה לשים? <b>מושכים קלף אחד</b> מהקופה הלא משומשת.</li>
+          <li>קלף מיוחד <b>לא עונה על המספר</b>: שמים אותו, הוא עושה את שלו, ואז עדיין צריך לענות עם קלף מספר (או למשוך). אפשר <b>קלף מיוחד אחד בכל תור</b>.</li>
+          <li>אם שני השחקנים משכו אחד אחרי השני, הקופה המשומשת מתערבבת חזרה לקופה הלא משומשת, ואפשר לפתוח עם כל מספר.</li>
           <li>מי שנגמרו לו הקלפים ראשון מנצח ומקבל ⭐</li>
         </ol>
         <div class="specials">
@@ -244,14 +251,14 @@ label.lbl{font-size:13px;color:var(--mist)}
       </div>
       <div class="side end">
         <span>מה קרה עכשיו</span>
-        <div id="log" class="log"></div>
+        <ul id="log" class="history"></ul>
       </div>
     </div>
 
     <div class="seat">
       <div class="who"><div id="myAva" class="ava"></div><b id="myName">אני</b><span id="myCount" class="chip"></span><span id="myTurn" class="chip turn" hidden>התור שלך!</span></div>
       <div class="actions">
-        <button id="btnDraw" class="danger" type="button" hidden>אין לי מה לשים: מושך/ת קלף</button>
+        <button id="btnDraw" class="danger" type="button" hidden>אין לי מספר מתאים: מושך/ת קלף</button>
       </div>
     </div>
     <div id="hand" class="hand" aria-label="הקלפים שלך"></div>
@@ -321,22 +328,33 @@ label.lbl{font-size:13px;color:var(--mist)}
   const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
   const KIND_ORDER = { num: 0, snatch: 1, two: 2, peek: 3, all: 4 };
   const byValue = (a, b) => KIND_ORDER[CARDS[a].kind] - KIND_ORDER[CARDS[b].kind] || (CARDS[a].v || 0) - (CARDS[b].v || 0) || a.localeCompare(b);
-  const RULES_VERSION = 2;
+  const RULES_VERSION = 3;
 
+  // A fair deal: the whole deck is shuffled, and if a starting hand got more than 2 special cards
+  // of the same kind (like 4 peeks), the deck is shuffled again.
   function deal() {
-    const all = shuffle(Object.keys(CARDS));
-    const openers = all.filter(id => !isSpecial(id) && CARDS[id].v <= 300);
-    const opener = openers[Math.floor(Math.random() * openers.length)];
-    const rest = all.filter(id => id !== opener);
-    return { v: RULES_VERSION, hands: { "0": rest.slice(0, 10), "1": rest.slice(10, 20) }, draw: rest.slice(20), pile: [opener] };
+    const clumped = h => { const c = {}; return h.some(id => isSpecial(id) && (c[CARDS[id].kind] = (c[CARDS[id].kind] || 0) + 1) > 2); };
+    for (;;) {
+      const all = shuffle(Object.keys(CARDS));
+      const openers = all.filter(id => !isSpecial(id) && CARDS[id].v <= 300);
+      const opener = openers[Math.floor(Math.random() * openers.length)];
+      const rest = all.filter(id => id !== opener);
+      const h0 = rest.slice(0, 10), h1 = rest.slice(10, 20);
+      if (clumped(h0) || clumped(h1)) continue;
+      return { v: RULES_VERSION, hands: { "0": h0, "1": h1 }, draw: rest.slice(20), pile: [opener], history: [] };
+    }
   }
+  function say(g, text) { g.log = text; g.history = [...(g.history || []), text].slice(-6); }
 
   // ---------- rules (pure: they only change the game object they get) ----------
   function refill(g) {
-    // The unused pile ran out: shuffle the used pile (except its top card) into a new unused pile.
-    if (g.pile.length <= 1) return false;
-    const top = g.pile.pop();
-    g.draw = shuffle(g.pile.slice()); g.pile = [top];
+    // The unused pile ran out: the used pile (except the number card you have to answer)
+    // is shuffled into a new unused pile.
+    const keep = topNumber(g.pile);
+    const rest = g.pile.filter(id => id !== keep);
+    if (!rest.length) return false;
+    g.draw = shuffle(rest); g.pile = keep ? [keep] : [];
+    say(g, "🔄 הקופה הלא משומשת נגמרה, אז הקופה המשומשת עורבבה והפכה לקופה חדשה.");
     return true;
   }
   function drawCards(g, seat, n) {
@@ -354,7 +372,7 @@ label.lbl{font-size:13px;color:var(--mist)}
     else if (!g.hands[opp].length) g.winner = 1 - seat;
     else return false;
     g.status = "over";
-    g.log = g.players[g.winner].name + " נפטר/ה מכל הקלפים וניצח/ה! ⭐";
+    say(g, g.players[g.winner].name + " נפטר/ה מכל הקלפים וניצח/ה! ⭐");
     return true;
   }
   // target: index of the opponent's card (for snatch and peek)
@@ -365,57 +383,78 @@ label.lbl{font-size:13px;color:var(--mist)}
     hand.splice(hand.indexOf(id), 1);
     g.pile.push(id);
     const kind = CARDS[id].kind;
-    if (kind === "num") g.log = my + " שם/ה " + CARDS[id].v + ".";
+    const need = topNumber(g.pile);
+    const still = () => " עכשיו " + my + " עדיין צריך/ה לענות" + (topNumber(g.pile) ? " על " + CARDS[topNumber(g.pile)].v : " עם קלף מספר") + ".";
+    if (kind === "num") say(g, my + " שם/ה " + CARDS[id].v + ".");
     else if (kind === "two") {
       const n = drawCards(g, opp, 2);
-      g.log = "➕ " + my + " שם/ה משוך 2! " + other + " משך/ה " + n + " קלפים.";
+      say(g, "➕ " + my + " שם/ה משוך 2, ו" + other + " משך/ה " + n + " קלפים." + still());
     } else if (kind === "all") {
-      const n = g.pile.length;
-      g.hands[opp].push(...g.pile); g.pile = []; shuffle(g.hands[opp]);
-      g.log = "💥 " + my + " שם/ה משוך את כל הקופה! " + other + " הרים/ה " + n + " קלפים.";
+      const pileNow = g.pile.filter(x => x !== id);
+      g.hands[opp].push(...pileNow); shuffle(g.hands[opp]);
+      g.pile = [id];
+      say(g, "💥 " + my + " שם/ה משוך את כל הקופה, ו" + other + " הרים/ה " + pileNow.length + " קלפים." + still());
     } else if (kind === "snatch") {
       const oh = g.hands[opp];
       const i = Math.max(0, Math.min(oh.length - 1, target ?? Math.floor(Math.random() * oh.length)));
       const taken = oh.splice(i, 1)[0];
       if (taken) { hand.push(taken); shuffle(hand); }
       g.lastSnatch = { seat, card: taken || null, seq: (g.seq || 0) + 1 };
-      g.log = "🗡️ " + my + " חטף/ה קלף מ" + other + "!";
+      say(g, "🗡️ " + my + " חטף/ה קלף מהיד של " + other + "." + still());
     } else if (kind === "peek") {
-      g.log = "👀 " + my + " הציץ/ה בקלף של " + other + ".";
+      say(g, "👀 " + my + " הציץ/ה בקלף של " + other + "." + still());
     }
-    g.turn = 1 - seat;
+    // a number card answers and ends the turn; a special card does not answer, so the turn goes on
+    g.turn = kind === "num" ? 1 - seat : seat;
+    g.spUsed = kind !== "num";
+    if (kind === "num") g.passes = 0;
     checkWin(g, seat);
   }
+  // One special card per turn; number cards must match or beat the number on the pile.
+  function canPlayNow(g, id) { return isSpecial(id) ? !g.spUsed : canPlay(id, g.pile); }
+  function canAnswer(g, seat) { return g.hands[String(seat)].some(id => !isSpecial(id) && canPlay(id, g.pile)); }
   function applyDraw(g, seat) {
     const n = drawCards(g, String(seat), 1);
-    g.log = n ? g.players[seat].name + " לא היה לו/ה מה לשים ומשך/ה קלף." : "אין קלפים למשוך. " + g.players[seat].name + " מעביר/ה את התור.";
+    say(g, n ? g.players[seat].name + " לא היה לו/ה מספר מתאים ומשך/ה קלף." : "אין קלפים למשוך. " + g.players[seat].name + " מעביר/ה את התור.");
     g.turn = 1 - seat;
+    g.spUsed = false;
+    // both players drew one after the other: nobody can answer, so the used pile goes back into
+    // the unused pile (shuffled, no card is lost) and the next player may put any number card
+    g.passes = (g.passes || 0) + 1;
+    if (g.passes >= 2 && g.pile.length) {
+      g.draw = shuffle([...g.draw, ...g.pile]); g.pile = []; g.passes = 0;
+      say(g, "🔄 אף אחד לא יכול היה לענות, אז הקופה המשומשת חזרה לקופה הלא משומשת. " + g.players[g.turn].name + " פותח/ת עם כל קלף מספר.");
+    }
   }
 
   // ---------- the computer player ----------
   // It only knows what a real player knows: its own cards, the used pile and how many cards you hold.
   // Before each move it imagines many ways the game could go on (guessing your cards from the cards
   // it cannot see), plays each one to the end, and picks the move that wins most often.
+  // How an ordinary player plays (used when the computer imagines the rest of the game):
+  // answer with the lowest number that fits; if none fits, use a special card; otherwise draw.
   function simpleMove(g, seat) {
     const h = g.hands[String(seat)];
     let best = null;
     for (const id of h) if (!isSpecial(id) && canPlay(id, g.pile) && (!best || CARDS[id].v < CARDS[best].v)) best = id;
     if (best) return { id: best };
-    const sp = h.find(isSpecial);
+    const sp = g.spUsed ? null : h.find(isSpecial);
     return sp ? { id: sp, target: Math.floor(Math.random() * g.hands[String(1 - seat)].length) } : null;
   }
   function botCandidates(g) {
     const hand = g.hands["1"], oppN = g.hands["0"].length, out = [], seen = new Set();
     const nums = hand.filter(id => !isSpecial(id) && canPlay(id, g.pile)).sort(byValue);
     for (const id of nums) if (!seen.has(CARDS[id].v)) { seen.add(CARDS[id].v); out.push({ id }); }
-    const numMoves = out.length > 6 ? [...out.slice(0, 4), ...out.slice(-2)] : out;
+    const numMoves = out.length > 7 ? [...out.slice(0, 5), ...out.slice(-2)] : out;
     const sp = [];
-    for (const k of ["snatch", "two", "peek", "all"]) { const id = hand.find(x => CARDS[x].kind === k); if (id) sp.push({ id, target: Math.floor(Math.random() * oppN) }); }
-    return [...numMoves, ...sp];
+    if (!g.spUsed) for (const k of ["snatch", "two", "peek", "all"]) { const id = hand.find(x => CARDS[x].kind === k); if (id) sp.push({ id, target: Math.floor(Math.random() * oppN) }); }
+    const moves = [...numMoves, ...sp];
+    if (!nums.length) moves.push({ draw: true });
+    return moves;
   }
-  function botChoice(g, rollouts = 16) {
+  function botChoice(g, rollouts = 200) {
     const cands = botCandidates(g);
-    if (cands.length <= 1) return cands[0] || null;
+    if (cands.length <= 1) return cands[0] && !cands[0].draw ? cands[0] : null;
     const mine = new Set(g.hands["1"]), onPile = new Set(g.pile);
     const unseen = Object.keys(CARDS).filter(id => !mine.has(id) && !onPile.has(id));
     const oppN = g.hands["0"].length;
@@ -424,22 +463,21 @@ label.lbl{font-size:13px;color:var(--mist)}
       let score = 0;
       for (let r = 0; r < rollouts; r++) {
         const u = shuffle(unseen.slice());
-        const sim = { players: g.players, status: "playing", turn: 1, pile: g.pile.slice(), draw: u.slice(oppN), hands: { "0": u.slice(0, oppN), "1": g.hands["1"].slice() } };
-        applyPlay(sim, 1, c.id, c.target);
+        const sim = { players: g.players, status: "playing", turn: 1, spUsed: !!g.spUsed, pile: g.pile.slice(), draw: u.slice(oppN), hands: { "0": u.slice(0, oppN), "1": g.hands["1"].slice() } };
+        if (c.draw) applyDraw(sim, 1); else applyPlay(sim, 1, c.id, c.target);
         let n = 0;
-        while (sim.status === "playing" && n < 120) {
+        while (sim.status === "playing" && n < 150) {
           const mv = simpleMove(sim, sim.turn);
           if (mv) applyPlay(sim, sim.turn, mv.id, mv.target); else applyDraw(sim, sim.turn);
           n++;
         }
-        // a win counts more the sooner it comes, so the computer goes for the finish instead of dragging the game
         score += sim.status === "over" ? (sim.winner === 1 ? 1 : 0) : 0.4 + (sim.hands["0"].length - sim.hands["1"].length) / 100;
       }
-      // small tie-break: keep strong cards for later
-      score -= CARDS[c.id].v ? CARDS[c.id].v / 1e6 : 0;
+      // tie-break: keep strong cards for later
+      score -= c.id && CARDS[c.id].v ? CARDS[c.id].v / 1e6 : 0;
       if (score > bestScore) { bestScore = score; best = c; }
     }
-    return best;
+    return best && !best.draw ? best : null;
   }
 
   // ---------- profile (per browser) ----------
@@ -560,8 +598,8 @@ label.lbl{font-size:13px;color:var(--mist)}
   $("btnBot").onclick = () => {
     if (needName()) return;
     leaveQuiet();
-    game = Object.assign({ local: true, code: "", status: "playing", players: [meAsPlayer(), { ...BOT }], turn: 0, winner: null, round: 1, seq: 0,
-      log: "הקלפים חולקו! " + profile.name + " מתחיל/ה." }, deal());
+    game = Object.assign({ local: true, code: "", status: "playing", players: [meAsPlayer(), { ...BOT }], turn: 0, winner: null, round: 1, seq: 0 }, deal());
+    say(game, "הקלפים חולקו! " + profile.name + " מתחיל/ה.");
     setStatus(""); renderTable();
   };
 
@@ -585,8 +623,8 @@ label.lbl{font-size:13px;color:var(--mist)}
     if (needName()) return;
     if (g.players.length >= 2) { setStatus("במשחק הזה כבר יש שני שחקנים.", true); return; }
     g.players.push(meAsPlayer());
-    Object.assign(g, deal(), { status: "playing", turn: 0, winner: null, round: 1, seq: g.seq + 1,
-      log: "הקלפים חולקו! " + g.players[0].name + " מתחיל/ה." });
+    Object.assign(g, deal(), { status: "playing", turn: 0, winner: null, round: 1, seq: g.seq + 1 });
+    say(g, "הקלפים חולקו! " + g.players[0].name + " מתחיל/ה.");
     try { await ref.set(g); openGame(c, true); setStatus(""); }
     catch (e) { setStatus("לא הצלחתי להצטרף (" + (e.code || "error") + ").", true); }
   }
@@ -670,25 +708,30 @@ label.lbl{font-size:13px;color:var(--mist)}
     if (picking) $("pickText").textContent = picking.kind === "snatch" ? "🗡️ בחר/י קלף לחטוף מהיריב" : "👀 בחר/י קלף של היריב להציץ בו";
 
     // piles
+    // The number card you have to answer always stays on top of the used pile; special cards
+    // played on it are shown beside it, so they never hide it.
     const pile = $("pile"); pile.replaceChildren();
-    const top = g.pile[g.pile.length - 1] || null;
-    if (g.pile.length > 1) { const u = cardEl(g.pile[g.pile.length - 2]); u.classList.add("under"); pile.append(u); }
-    if (top) { const t = cardEl(top); t.classList.add("top"); if (top !== lastTop) t.classList.add("fresh"); pile.append(t); }
-    else pile.append(el("div", "empty", g.status === "waiting" ? "הקלפים יחולקו כשהשחקן השני יצטרף" : "הקופה ריקה: אפשר לשים כל קלף"));
-    lastTop = top;
-    const need = $("need"); need.replaceChildren();
     const tn = topNumber(g.pile);
-    if (playing && tn) { need.append(document.createTextNode("צריך ")); need.append(el("span", "", String(CARDS[tn].v))); need.append(document.createTextNode(" או יותר")); }
-    else if (playing) need.textContent = "אפשר לשים כל קלף";
+    const nums = g.pile.filter(id => !isSpecial(id));
+    const fxCards = tn ? g.pile.slice(g.pile.lastIndexOf(tn) + 1) : g.pile.slice();
+    if (nums.length > 1) { const u = cardEl(nums[nums.length - 2]); u.classList.add("under"); pile.append(u); }
+    if (tn) { const t = cardEl(tn); t.classList.add("top"); if (tn !== lastTop) t.classList.add("fresh"); pile.append(t); }
+    else pile.append(el("div", "empty", g.status === "waiting" ? "הקלפים יחולקו כשהשחקן השני יצטרף" : "אין מספר באמצע: אפשר לענות עם כל קלף מספר"));
+    if (fxCards.length) { const fx = el("div", "fx"); fxCards.slice(-3).forEach(id => fx.append(cardEl(id))); pile.append(fx); }
+    lastTop = tn;
+    const need = $("need"); need.replaceChildren();
+    if (playing && tn) { need.append(document.createTextNode("צריך לענות על ")); need.append(el("span", "", String(CARDS[tn].v))); need.append(document.createTextNode(" או יותר")); }
+    else if (playing) need.textContent = "אפשר לענות עם כל קלף מספר";
     $("pileCount").textContent = g.pile.length;
     $("drawCount").textContent = (g.draw || []).length;
-    $("log").textContent = g.status === "waiting" ? "שלחו את הקוד " + g.code + " לשחקן השני." : (g.log || "");
+    const lines = g.status === "waiting" ? ["שלחו את הקוד " + g.code + " לשחקן השני."] : (g.history && g.history.length ? g.history.slice(-4) : [g.log || ""]);
+    $("log").replaceChildren(...lines.map(t => el("li", "", t)));
 
     // my hand
     const hand = $("hand"); hand.classList.toggle("myturn", myTurn && !picking); hand.replaceChildren();
     let anyOk = false;
     for (const id of myHand) {
-      const ok = canPlay(id, g.pile); if (ok) anyOk = true;
+      const ok = canPlayNow(g, id); if (ok) anyOk = true;
       const b = cardEl(id, "button"); b.type = "button";
       b.classList.add(ok ? "ok" : "no");
       b.setAttribute("aria-label", "קלף " + label(id));
@@ -697,9 +740,10 @@ label.lbl{font-size:13px;color:var(--mist)}
       hand.append(b);
     }
     if (!myHand.length && g.status === "waiting") hand.append(el("div", "note", "הקלפים שלך יופיעו כאן."));
-    const canDraw = (g.draw || []).length + Math.max(0, g.pile.length - 1) > 0;
-    $("btnDraw").hidden = !(myTurn && !anyOk && !picking);
-    $("btnDraw").textContent = canDraw ? "אין לי מה לשים: מושך/ת קלף" : "אין מה למשוך: מעביר/ה את התור";
+    const canDraw = (g.draw || []).length + g.pile.filter(id => id !== tn).length > 0;
+    const answer = canAnswer(g, me);
+    $("btnDraw").hidden = !(myTurn && !answer && !picking);
+    $("btnDraw").textContent = canDraw ? "אין לי מספר מתאים: מושך/ת קלף" : "אין מה למשוך: מעביר/ה את התור";
 
     // win
     if (g.status === "over") {
@@ -731,7 +775,7 @@ label.lbl{font-size:13px;color:var(--mist)}
   async function play(id) {
     if (busy || !game || game.status !== "playing") return;
     const me = seatOf(game);
-    if (game.turn !== me || !game.hands[String(me)].includes(id) || !canPlay(id, game.pile)) return;
+    if (game.turn !== me || !game.hands[String(me)].includes(id) || !canPlayNow(game, id)) return;
     const kind = CARDS[id].kind;
     if ((kind === "snatch" || kind === "peek") && game.hands[String(1 - me)].length) {
       picking = { id, kind }; renderTable(); return;
@@ -765,8 +809,8 @@ label.lbl{font-size:13px;color:var(--mist)}
     if (busy || !game || game.status !== "over") return;
     const g = structuredClone(game), loser = 1 - g.winner;
     if (g.local) g.players[0] = meAsPlayer();
-    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, lastSnatch: null, round: (g.round || 1) + 1,
-      log: "סיבוב חדש! " + g.players[loser].name + " מתחיל/ה." });
+    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
+    say(g, "סיבוב חדש! " + g.players[loser].name + " מתחיל/ה.");
     lastTop = null;
     await commit(g);
   };
@@ -783,6 +827,7 @@ label.lbl{font-size:13px;color:var(--mist)}
         const target = move.target != null ? g.hands["0"][move.target] : null;
         applyPlay(g, 1, move.id, move.target);
         if (kind === "snatch" && target) showCard("המחשב חטף ממך את הקלף הזה", target);
+        if (kind === "peek" && target) showCard("המחשב הציץ בקלף הזה שלך", target);
       } else applyDraw(g, 1);
       commit(g);
     }, (window.__fast ? 0 : 900 + Math.random() * 700));
@@ -817,7 +862,7 @@ label.lbl{font-size:13px;color:var(--mist)}
   $("btnScores").onclick = openScores; $("btnWinScores").onclick = openScores;
   $("btnCloseScores").onclick = () => { $("overScores").hidden = true; };
 
-  if (window.__fast) window.__kk = { CARDS, deal, applyPlay, applyDraw, botChoice, simpleMove, canPlay, isSpecial, byValue };
+  if (window.__fast) window.__kk = { CARDS, deal, applyPlay, applyDraw, botChoice, simpleMove, canPlay, canAnswer, isSpecial, byValue, topNumber };
 })();
 </script>
 
