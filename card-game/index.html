@@ -156,6 +156,19 @@ label.lbl{font-size:13px;color:var(--mist)}
 .stars{color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
 .note{font-size:13px;color:var(--mist);line-height:1.5}
 .err{color:#ffb3c8}
+/* star table (Hillel's design) */
+.stable-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(780px,100%)}
+.stable{position:relative;width:100%;aspect-ratio:1536/1024;border-radius:3.4%/5.1%;overflow:hidden;background:url(cards/table-bg.webp) center/100% 100% no-repeat;container-type:inline-size;filter:drop-shadow(0 22px 44px rgba(0,0,0,.6))}
+.st-cell{position:absolute;background:url(cards/table-cell.webp) center/cover;display:flex;align-items:center;justify-content:center;gap:1.2cqw;overflow:hidden;padding:0 2cqw;box-sizing:border-box}
+.st-name{left:59.31%;width:34.05%}
+.st-stars{left:6.58%;width:52.28%}
+.st-r0{top:39.16%;height:20.41%}
+.st-r1{top:60.06%;height:20.51%}
+.st-name span{font-family:var(--display);line-height:1.1;white-space:nowrap;background:linear-gradient(180deg,#fff7cf 0%,#ffd86b 45%,#e39b17 100%);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 .25cqw 0 #5a3500) drop-shadow(0 0 1cqw rgba(255,200,80,.35))}
+.st-stars svg{width:8.5cqw;height:8.5cqw;flex:none;filter:drop-shadow(0 0 1.4cqw rgba(255,196,60,.75))}
+.st-stars.many svg{width:7cqw;height:7cqw}
+.st-count{font-family:var(--display);font-size:6.5cqw;color:#ffe08a;filter:drop-shadow(0 .25cqw 0 #5a3500)}
+
 /* chat */
 .chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-start:max(16px,env(safe-area-inset-left,0px));z-index:15;border-radius:99px;padding:12px 18px;font-weight:700;
   background:linear-gradient(180deg,#ff9ad0,#e2588f);color:#2b0614;border:0;box-shadow:0 8px 22px rgba(0,0,0,.5)}
@@ -316,10 +329,12 @@ label.lbl{font-size:13px;color:var(--mist)}
 </div>
 
 <div id="overScores" class="overlay" style="z-index:30" hidden>
-  <div class="panel">
-    <h2>⭐ טבלת כוכבים</h2>
-    <ul id="scoreList" class="scores"></ul>
-    <button id="btnCloseScores" type="button">סגירה</button>
+  <div class="stable-wrap">
+    <div class="stable" role="table" aria-label="טבלת הכוכבים">
+      <div id="stRows" role="rowgroup"></div>
+    </div>
+    <p id="stNote" class="note" style="margin:0;text-align:center"></p>
+    <button id="btnCloseScores" class="primary" type="button">סגירה</button>
   </div>
 </div>
 
@@ -910,31 +925,52 @@ label.lbl{font-size:13px;color:var(--mist)}
   renderChat();
 
   // ---------- stars ----------
+  // Stars are kept per player (by their device id), so changing a profile name keeps the stars.
   async function addStar(p) {
-    if (!db || !p) return;
-    const key = p.pid === "bot" ? "bot" : (p.name || "").toLowerCase();
-    if (!key) return;
+    if (!db || !p || !p.pid || p.pid === "bot") return;
     const ref = db.doc("scores/board");
     try {
       const snap = await ref.get();
       const players = snap.exists ? structuredClone(snap.data().players || {}) : {};
-      const cur = players[key] || { stars: 0 };
-      players[key] = { name: p.name, avatar: p.avatar, color: p.color, stars: (cur.stars || 0) + 1 };
+      const cur = players[p.pid] || { stars: 0 };
+      players[p.pid] = { pid: p.pid, name: p.name, avatar: p.avatar, color: p.color, stars: (cur.stars || 0) + 1 };
       await ref.set({ players });
     } catch (e) { setStatus("הכוכב לא נשמר (" + (e.code || "error") + ").", true); }
   }
-  function renderScores() {
-    const list = $("scoreList");
-    if (!db) { list.replaceChildren(el("li", "", "טבלת הכוכבים נשמרת רק כשהדף פתוח מתוך claude.ai.")); return; }
-    const rows = Object.values(scores).sort((a, b) => b.stars - a.stars);
-    if (!rows.length) { list.replaceChildren(el("li", "", "עוד אין כוכבים. מי יהיה הראשון?")); return; }
-    list.replaceChildren(...rows.map((r, i) => {
-      const li = el("li"); const nm = el("span", "nm");
-      nm.append(avaEl(r, "sm"), document.createTextNode((i === 0 ? "👑 " : "") + r.name));
-      li.append(nm, el("span", "stars", "⭐ " + r.stars)); return li;
-    }));
+  // keep my name in the table up to date (only when I open the table)
+  async function refreshMyRow() {
+    if (!db || !profile.name) return;
+    const mine = scores[pid];
+    if (!mine || (mine.name === profile.name && mine.avatar === profile.avatar && mine.color === profile.color)) return;
+    try {
+      const ref = db.doc("scores/board"), snap = await ref.get();
+      const players = snap.exists ? structuredClone(snap.data().players || {}) : {};
+      if (!players[pid]) return;
+      Object.assign(players[pid], { name: profile.name, avatar: profile.avatar, color: profile.color });
+      await ref.set({ players });
+    } catch {}
   }
-  const openScores = () => { renderScores(); $("overScores").hidden = false; };
+  const STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="kkStar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c4"/><stop offset=".5" stop-color="#ffcf45"/><stop offset="1" stop-color="#d98a0b"/></linearGradient></defs><path fill="url(#kkStar)" stroke="#9a6200" stroke-width=".5" stroke-linejoin="round" d="M12 1.6l3.15 6.55 7.2.85-5.33 4.93 1.43 7.12L12 17.55l-6.45 3.5 1.43-7.12L1.65 9l7.2-.85z"/></svg>';
+  function renderScores() {
+    const box = $("stRows"); box.replaceChildren();
+    const rows = Object.values(scores).filter(r => r && r.name).sort((a, b) => (b.stars || 0) - (a.stars || 0)).slice(0, 2);
+    if (rows.length < 2 && profile.name && !rows.some(r => r.pid === pid)) rows.push({ pid, name: profile.name, stars: 0 });
+    rows.forEach((r, i) => {
+      const nameCell = el("div", "st-cell st-name st-r" + i); nameCell.setAttribute("role", "cell");
+      const nm = el("span", "", r.name);
+      const len = [...r.name].length;
+      nm.style.fontSize = (len <= 5 ? 8 : Math.max(3.2, 30 / (len * 0.62))) + "cqw";
+      nameCell.append(nm);
+      const starCell = el("div", "st-cell st-stars st-r" + i); starCell.setAttribute("role", "cell");
+      const n = r.stars || 0;
+      starCell.setAttribute("aria-label", n + " כוכבים");
+      if (n > 0 && n <= 5) { if (n > 3) starCell.classList.add("many"); for (let k = 0; k < n; k++) starCell.insertAdjacentHTML("beforeend", STAR_SVG); }
+      else if (n > 5) { starCell.insertAdjacentHTML("beforeend", STAR_SVG); starCell.append(el("span", "st-count", "× " + n)); }
+      box.append(nameCell, starCell);
+    });
+    $("stNote").textContent = db ? "" : "טבלת הכוכבים נשמרת רק כשהדף פתוח מתוך claude.ai.";
+  }
+  const openScores = () => { renderScores(); $("overScores").hidden = false; refreshMyRow(); };
   $("btnScores").onclick = openScores; $("btnWinScores").onclick = openScores;
   $("btnCloseScores").onclick = () => { $("overScores").hidden = true; };
 
