@@ -305,6 +305,41 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .ch-poke{flex:none;border-radius:99px;padding:9px 14px;font-size:15px;font-weight:700;background:rgba(70,45,150,.55);border:1.5px solid rgba(214,180,255,.55)}
 @media (max-width:440px){.chat{left:8px;width:calc(100vw - 16px);height:calc(100vh - 100px)}.ch-poke{padding:9px 10px}.ch-round{width:40px;height:40px}.ch-send{width:46px;height:46px}}
 #confetti{position:fixed;inset:0;z-index:35;pointer-events:none}
+/* table backgrounds */
+.themes{display:flex;gap:4px}
+.themes button{width:34px;height:34px;padding:0;border-radius:50%;font-size:17px;display:grid;place-items:center;background:rgba(255,255,255,.06)}
+.themes button[aria-checked="true"]{box-shadow:0 0 0 2px var(--gold);background:rgba(242,193,78,.18)}
+.board.has-art{background-size:cover;background-position:center}
+/* emoji on the table */
+.emotes{display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.emotes button{font-size:24px;padding:4px 8px;border-radius:14px;background:rgba(255,255,255,.06)}
+.emotes button:hover{transform:scale(1.15)}
+.float-emote{position:fixed;z-index:34;font-size:76px;pointer-events:none;animation:floatUp 2s ease-out forwards;filter:drop-shadow(0 6px 14px rgba(0,0,0,.6))}
+@keyframes floatUp{0%{transform:translate(-50%,0) scale(.3);opacity:0}15%{transform:translate(-50%,-30px) scale(1.25);opacity:1}70%{opacity:1}100%{transform:translate(-50%,-170px) scale(1);opacity:0}}
+/* album */
+.album,.statsbox{max-width:860px!important;width:100%;max-height:calc(100vh - 40px);overflow-y:auto;align-items:stretch!important;text-align:start!important}
+.albumgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px}
+.albumgrid button{padding:0;border:0;background:none;display:flex;flex-direction:column;gap:4px;align-items:center;color:var(--mist);font-size:12px}
+.albumgrid img{width:100%;border-radius:9px;box-shadow:0 6px 14px rgba(0,0,0,.45);transition:transform .15s}
+.albumgrid button:hover img{transform:translateY(-4px) rotate(-1deg)}
+.albumview{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding:14px;border-radius:16px;background:rgba(0,0,0,.25);border:1px solid var(--line)}
+.albumview img{width:min(240px,60vw);border-radius:12px;box-shadow:0 10px 26px rgba(0,0,0,.6)}
+.albumview .stack{flex:1;min-width:200px}
+.albumview b{font-family:var(--display);font-size:28px;font-weight:400;color:var(--gold)}
+/* stats */
+.statsgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.scard{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:18px;background:rgba(0,0,0,.25);border:1px solid var(--line)}
+.scard .head{display:flex;align-items:center;gap:12px}
+.scard .head b{font-family:var(--display);font-weight:400;font-size:22px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.nums div{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;border-radius:12px;background:rgba(255,255,255,.05)}
+.nums b{font-family:var(--display);font-weight:400;font-size:24px;color:var(--gold);font-variant-numeric:tabular-nums}
+.nums span{font-size:12px;color:var(--mist);text-align:center}
+.scard h4{margin:0;font-size:14px;color:var(--mist);font-weight:500}
+.fav{display:flex;gap:10px;align-items:center}
+.fav img{width:62px;border-radius:7px}
+.sprow{display:flex;gap:8px;flex-wrap:wrap}
+.sprow span{font-size:13px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
 .toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:40;padding:12px 20px;border-radius:99px;font-weight:700;font-size:17px;
   background:linear-gradient(160deg,#3b2ee8,#5112c9);color:#fff;border:2px solid #d6b4ff;box-shadow:0 10px 30px rgba(0,0,0,.6)}
 @keyframes shake{0%,100%{transform:none}15%{transform:translate(-10px,4px) rotate(-1deg)}30%{transform:translate(10px,-4px) rotate(1deg)}45%{transform:translate(-8px,2px)}60%{transform:translate(8px,-2px)}75%{transform:translate(-4px,0)}}
@@ -360,6 +395,10 @@ body.shake #app{animation:shake .7s ease-in-out}
       <div id="playPanel" class="panel stack">
         <h3>לשחק</h3>
         <button id="btnBot" class="bot" type="button">🤖 משחק נגד המחשב</button>
+        <div class="row" style="gap:8px">
+          <button id="btnAlbum" type="button" style="flex:1">📖 אלבום קלפים</button>
+          <button id="btnStats" type="button" style="flex:1">📊 סטטיסטיקות</button>
+        </div>
         <button id="btnCreate" class="primary" type="button">פתיחת משחק חדש נגד חבר</button>
         <div class="row">
           <input id="codeInput" maxlength="4" placeholder="קוד משחק" aria-label="קוד משחק" style="flex:1;letter-spacing:3px;text-transform:uppercase" autocomplete="off">
@@ -399,12 +438,15 @@ body.shake #app{animation:shake .7s ease-in-out}
   <section id="table" hidden>
     <div class="seat">
       <div class="who"><div id="oppAva" class="ava"></div><b id="oppName">…</b><span id="oppCount" class="chip"></span><span id="oppTurn" class="chip turn" hidden>התור שלו</span></div>
-      <span id="codeChip" class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
+      <div class="row" style="gap:8px">
+        <div id="themePick" class="themes" role="radiogroup" aria-label="רקע לשולחן"></div>
+        <span id="codeChip" class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
+      </div>
     </div>
     <div id="oppBacks" class="backs" aria-label="הקלפים של היריב"></div>
     <div id="pickPrompt" class="prompt" hidden><span id="pickText"></span><button id="btnPickCancel" type="button">ביטול</button></div>
 
-    <div class="board">
+    <div id="board" class="board">
       <div class="side">
         <div class="deck"><img src="cards/back.webp" alt=""><span>קופה לא משומשת: <b id="drawCount">0</b></span></div>
         <span>בקופה המשומשת: <b id="pileCount">0</b> קלפים</span>
@@ -426,6 +468,7 @@ body.shake #app{animation:shake .7s ease-in-out}
       </div>
     </div>
     <div id="hand" class="hand" aria-label="הקלפים שלך"></div>
+    <div id="emoteBar" class="emotes" aria-label="אימוג׳י לשולחן"></div>
   </section>
 </div>
 
@@ -479,6 +522,22 @@ body.shake #app{animation:shake .7s ease-in-out}
     <h2 id="peekTitle"></h2>
     <div id="peekCard" class="peekcard"></div>
     <button id="btnPeekClose" class="primary" type="button">סגירה</button>
+  </div>
+</div>
+
+<div id="overAlbum" class="overlay" style="z-index:30;background:rgba(8,4,24,.93)" hidden>
+  <div class="panel album" role="dialog" aria-labelledby="albumTitle">
+    <div class="row" style="justify-content:space-between;width:100%"><h2 id="albumTitle">📖 אלבום הקלפים</h2><button id="btnAlbumX" class="st-x" style="position:static" type="button" aria-label="סגירת האלבום">✕</button></div>
+    <div id="albumTabs" class="suittabs" style="grid-template-columns:repeat(5,1fr);width:100%" role="tablist" aria-label="סדרה"></div>
+    <div id="albumGrid" class="albumgrid"></div>
+    <div id="albumView" class="albumview" hidden></div>
+  </div>
+</div>
+
+<div id="overStats" class="overlay" style="z-index:30;background:rgba(8,4,24,.93)" hidden>
+  <div class="panel statsbox" role="dialog" aria-labelledby="statsTitle">
+    <div class="row" style="justify-content:space-between;width:100%"><h2 id="statsTitle">📊 סטטיסטיקות</h2><button id="btnStatsX" class="st-x" style="position:static" type="button" aria-label="סגירת הסטטיסטיקות">✕</button></div>
+    <div id="statsBody" class="statsgrid"></div>
   </div>
 </div>
 
@@ -545,7 +604,7 @@ body.shake #app{animation:shake .7s ease-in-out}
   function say(g, text) { g.log = text; g.history = [...(g.history || []), text].slice(-6); }
   // Hebrew words written for each player: "בן" or "בת" from the profile (no choice = both forms)
   const FINAL_TO_MID = { "ם": "מ", "ך": "כ", "ן": "נ", "ף": "פ", "ץ": "צ" };
-  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת" };
+  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת", "פותח/ת": "פותחת" };
   function W(p, word) {
     const g = p && p.g, base = word.split("/")[0];
     if (g === "m") return base;
@@ -602,7 +661,7 @@ body.shake #app{animation:shake .7s ease-in-out}
       const pileNow = g.pile.filter(x => x !== id);
       g.hands[opp].push(...pileNow); shuffle(g.hands[opp]);
       g.pile = [id];
-      say(g, "💥 " + my + " " + W(P, "שם/ה") + " משוך את כל הקופה, ו" + other + " " + W(O, "הרים/ה") + " " + pileNow.length + " קלפים." + still());
+      say(g, "💥 " + my + " " + W(P, "שם/ה") + " משוך את כל הקופה" + (pileNow.length ? ", ו" + other + " " + W(O, "הרים/ה") + " " + pileNow.length + " קלפים." : ", אבל הקופה הייתה ריקה.") + still());
     } else if (kind === "snatch") {
       const oh = g.hands[opp];
       const i = Math.max(0, Math.min(oh.length - 1, target ?? Math.floor(Math.random() * oh.length)));
@@ -633,7 +692,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     g.passes = (g.passes || 0) + 1;
     if (g.passes >= 2 && g.pile.length) {
       g.draw = shuffle([...g.draw, ...g.pile]); g.pile = []; g.passes = 0;
-      say(g, "🔄 אף אחד לא יכול היה לענות, אז הקופה המשומשת חזרה לקופה הלא משומשת. " + g.players[g.turn].name + " פותח/ת עם כל קלף מספר.");
+      say(g, "🔄 אף אחד לא יכול היה לענות, אז הקופה המשומשת חזרה לקופה הלא משומשת. " + g.players[g.turn].name + " " + W(g.players[g.turn], "פותח/ת") + " עם כל קלף מספר.");
     }
   }
 
@@ -950,12 +1009,165 @@ body.shake #app{animation:shake .7s ease-in-out}
     const view = { pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: [g.hands["0"].length, g.hands["1"].length], status: g.status, turn: g.turn, round: g.round };
     const p = prevView; prevView = view;
     if (!p || p.round !== view.round) return;
-    if (p.status !== "over" && view.status === "over") { if (g.winner === me) { SFX.win(); confetti(); } else SFX.lose(); return; }
+    if (p.status !== "over" && view.status === "over") { if (g.winner === me) { SFX.win(); confetti(); } else SFX.lose(); saveStats(g, me); return; }
     if (view.status !== "playing") return;
     if (view.top !== p.top && view.top) (isSpecial(view.top) ? SFX.special : SFX.card)();
     else if (view.hands[0] + view.hands[1] > p.hands[0] + p.hands[1] && view.pile === p.pile) SFX.draw();
     if (view.turn === me && p.turn !== me) setTimeout(SFX.turn, 250);
   }
+
+  // ---------- table backgrounds ----------
+  const THEMES = [["space", "🌌", "חלל", null], ["jungle", "🌿", "ג׳ונגל", "c10"], ["palace", "🏰", "ארמון", "h13"], ["city", "🌆", "עיר עתידנית", "d03"], ["night", "🌙", "לילה", "s11"]];
+  if (!THEMES.some(t => t[0] === profile.theme)) profile.theme = "space";
+  function applyTheme() {
+    const t = THEMES.find(x => x[0] === profile.theme), b = $("board");
+    if (t && t[3]) { b.classList.add("has-art"); b.style.backgroundImage = "linear-gradient(180deg,rgba(18,10,46,.70),rgba(18,10,46,.86)),url(" + CARDS[t[3]].img + ")"; }
+    else { b.classList.remove("has-art"); b.style.backgroundImage = ""; }
+    for (const btn of $("themePick").children) btn.setAttribute("aria-checked", String(btn.dataset.t === profile.theme));
+  }
+  $("themePick").append(...THEMES.map(([k, icon, name]) => {
+    const b = el("button", "", icon); b.type = "button"; b.dataset.t = k; b.setAttribute("role", "radio"); b.setAttribute("aria-label", "רקע: " + name); b.title = name;
+    b.onclick = () => { profile.theme = k; saveProfile(); applyTheme(); };
+    return b;
+  }));
+  applyTheme();
+
+  // ---------- emoji on the table ----------
+  const EMOTES = ["😂", "😱", "😤", "😎", "👑", "🔥", "😭", "🤯"];
+  let lastEmote = 0;
+  function floatEmote(e, side) {
+    const anchor = $(side === "me" ? "myAva" : "oppAva").getBoundingClientRect();
+    const f = el("div", "float-emote", e); f.setAttribute("aria-hidden", "true");
+    f.style.left = Math.min(innerWidth - 60, Math.max(60, anchor.left + anchor.width / 2)) + "px";
+    f.style.top = Math.max(40, anchor.top - 40) + "px";
+    document.body.append(f); setTimeout(() => f.remove(), 2100);
+  }
+  function sendEmote(e) {
+    if (!game || Date.now() - lastEmote < 800) return;
+    lastEmote = Date.now();
+    floatEmote(e, "me"); SFX.msg();
+    if (game.local) { if (Math.random() < 0.5) setTimeout(() => game && game.local && floatEmote(EMOTES[Math.floor(Math.random() * EMOTES.length)], "opp"), 900 + Math.random() * 700); }
+    else if (room && room.emit) room.emit("emote", { code, pid, e }).catch(() => {});
+  }
+  $("emoteBar").append(...EMOTES.map(e => { const b = el("button", "", e); b.type = "button"; b.setAttribute("aria-label", "לשלוח " + e); b.onclick = () => sendEmote(e); return b; }));
+  function listenEmotes() {
+    if (!room || !room.on) return;
+    room.on("emote", msg => {
+      const d = msg && msg.data;
+      if (!d || d.pid === pid || !game || game.local || d.code !== code || !EMOTES.includes(d.e)) return;
+      floatEmote(d.e, "opp"); SFX.msg();
+    }, () => {});
+  }
+
+  // ---------- my stats (kept per player, shown side by side) ----------
+  let run = { round: null, played: {}, sp: {}, drawn: 0 };
+  function track(g, what, id) {
+    if (run.round !== (g.code || "bot") + ":" + g.round) run = { round: (g.code || "bot") + ":" + g.round, played: {}, sp: {}, drawn: 0 };
+    if (what === "play") { if (isSpecial(id)) run.sp[CARDS[id].kind] = (run.sp[CARDS[id].kind] || 0) + 1; else run.played[id] = (run.played[id] || 0) + 1; }
+    if (what === "draw") run.drawn++;
+  }
+  const emptySide = () => ({ games: 0, wins: 0, streak: 0, best: 0 });
+  function readLocalStats() { try { return JSON.parse(store.get("kk_stats") || "null"); } catch { return null; } }
+  async function myStats() {
+    let st = readLocalStats();
+    if (db) { try { const sn = await db.doc("stats/" + pid).get(); if (sn.exists) st = structuredClone(sn.data()); } catch {} }
+    return st || { pid, friend: emptySide(), bot: emptySide(), played: {}, sp: {}, drawn: 0 };
+  }
+  async function saveStats(g, me) {
+    const key = (g.code || "bot") + ":" + g.round;
+    if (store.get("kk_stats_last") === key) return; // count each game once
+    store.set("kk_stats_last", key);
+    const st = await myStats(), side = g.local ? "bot" : "friend", won = g.winner === me;
+    const sd = st[side] = Object.assign(emptySide(), st[side]);
+    sd.games++; if (won) { sd.wins++; sd.streak++; sd.best = Math.max(sd.best, sd.streak); } else sd.streak = 0;
+    if (run.round === key) {
+      st.played = st.played || {}; st.sp = st.sp || {};
+      for (const [id, n] of Object.entries(run.played)) st.played[id] = (st.played[id] || 0) + n;
+      for (const [k, n] of Object.entries(run.sp)) st.sp[k] = (st.sp[k] || 0) + n;
+      st.drawn = (st.drawn || 0) + run.drawn;
+    }
+    Object.assign(st, { pid, name: profile.name, avatar: profile.avatar, color: profile.color, g: profile.g || "", updatedAt: Date.now() });
+    store.set("kk_stats", JSON.stringify(st));
+    if (db) { try { await db.doc("stats/" + pid).set(st); } catch {} }
+  }
+  function statCard(st, isMe) {
+    const c = el("div", "scard");
+    const head = el("div", "head"); head.append(avaEl(st, "big"), el("b", "", (st.name || "שחקן") + (isMe ? " (אני)" : ""))); c.append(head);
+    const block = (title, sd) => {
+      sd = Object.assign(emptySide(), sd);
+      c.append(el("h4", "", title));
+      const nums = el("div", "nums");
+      [[sd.games, "משחקים"], [sd.wins, "ניצחונות"], [sd.games ? Math.round(100 * sd.wins / sd.games) + "%" : "–", "אחוז ניצחון"], [sd.streak, "רצף עכשיו"], [sd.best, "רצף שיא"], [sd.games - sd.wins, "הפסדים"]]
+        .forEach(([v, l]) => { const d = el("div"); d.append(el("b", "", String(v)), el("span", "", l)); nums.append(d); });
+      c.append(nums);
+    };
+    block("🆚 נגד חבר", st.friend);
+    block("🤖 נגד המחשב", st.bot);
+    const fav = Object.entries(st.played || {}).sort((a, b) => b[1] - a[1])[0];
+    c.append(el("h4", "", "⭐ הקלף האהוב"));
+    if (fav && CARDS[fav[0]]) { const f = el("div", "fav"); const im = el("img"); im.src = CARDS[fav[0]].img; im.alt = label(fav[0]); f.append(im, el("span", "", CARDS[fav[0]].v + " · שוחק " + times(fav[1]))); c.append(f); }
+    else c.append(el("span", "note", "עוד לא שוחק אף קלף."));
+    c.append(el("h4", "", "✨ קלפים מיוחדים ששוחקו"));
+    const sp = el("div", "sprow");
+    [["snatch", "🗡️ חוטף"], ["two", "➕ משוך 2"], ["peek", "👀 מציץ"], ["all", "💥 משוך הכול"]].forEach(([k, n]) => sp.append(el("span", "", n + ": " + ((st.sp || {})[k] || 0))));
+    c.append(sp, el("span", "note", "🃏 קלפים שנמשכו: " + (st.drawn || 0)));
+    return c;
+  }
+  async function openStats() {
+    $("overStats").hidden = false;
+    const body = $("statsBody"); body.replaceChildren(el("span", "note", "טוען…"));
+    const mine = await myStats(); mine.name = profile.name || mine.name; mine.avatar = profile.avatar; mine.color = profile.color;
+    const cards = [statCard(mine, true)];
+    if (db) { try { const all = await db.collection("stats").get(); all.docs.map(d => d.data()).filter(x => x && x.pid && x.pid !== pid).sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0)).slice(0, 1).forEach(x => cards.push(statCard(x, false))); } catch {} }
+    body.replaceChildren(...cards);
+    if (!db) body.append(el("span", "note", "בלי חיבור ל־claude.ai רואים רק את הסטטיסטיקות מהמחשב הזה."));
+  }
+  $("btnStats").onclick = openStats;
+
+  // ---------- card album ----------
+  const ALBUM_TABS = [["h", "♥️ לב"], ["c", "♣️ תלתן"], ["d", "♦️ יהלום"], ["s", "♠️ עלה"], ["x", "✨ מיוחדים"]];
+  const SP_INFO = { snatch: "לוקחים קלף מהיד של היריב, בלי לראות איזה.", two: "היריב מושך 2 קלפים מהקופה הלא משומשת.", peek: "מציצים בקלף אחד של היריב.", all: "היריב מרים את כל הקופה המשומשת." };
+  const SUIT_NAME = { h: "לב ♥️", c: "תלתן ♣️", d: "יהלום ♦️", s: "עלה ♠️" };
+  let albumTab = "h", albumStats = null;
+  const times = n => n === 1 ? "פעם אחת" : n === 2 ? "פעמיים" : n + " פעמים";
+  function renderAlbum() {
+    for (const t of $("albumTabs").children) t.setAttribute("aria-selected", String(t.dataset.t === albumTab));
+    const ids = albumTab === "x" ? ["xsnatch1", "xtwo1", "xpeek1", "xall1"] : NUM_IDS.filter(id => id[0] === albumTab);
+    $("albumGrid").replaceChildren(...ids.map(id => {
+      const b = el("button"); b.type = "button"; b.setAttribute("aria-label", "קלף " + label(id));
+      const im = el("img"); im.src = CARDS[id].img; im.alt = ""; im.loading = "lazy";
+      b.append(im, el("span", "", isSpecial(id) ? CARDS[id].name + " ×" + SPECIALS.find(x => x.kind === CARDS[id].kind).count : String(CARDS[id].v)));
+      b.onclick = () => showAlbumCard(id);
+      return b;
+    }));
+    $("albumView").hidden = true;
+  }
+  function showAlbumCard(id) {
+    const v = $("albumView"); v.hidden = false; v.replaceChildren();
+    const im = el("img"); im.src = CARDS[id].img; im.alt = label(id);
+    const info = el("div", "stack");
+    if (isSpecial(id)) {
+      const k = CARDS[id].kind;
+      info.append(el("b", "", CARDS[id].name), el("span", "", SP_INFO[k]), el("span", "note", "יש " + SPECIALS.find(x => x.kind === k).count + " כאלה בחפיסה. אפשר לשים קלף מיוחד אחד בכל תור, והוא לא עונה על המספר."));
+      if (albumStats) info.append(el("span", "note", "שיחקת בו " + times((albumStats.sp || {})[k] || 0) + "."));
+    } else {
+      info.append(el("b", "", String(CARDS[id].v)), el("span", "", "סדרת " + SUIT_NAME[id[0]]));
+      const twins = NUM_IDS.filter(x => CARDS[x].v === CARDS[id].v).length;
+      info.append(el("span", "note", "יש " + twins + " קלפים עם המספר " + CARDS[id].v + " בחפיסה."));
+      if (albumStats) info.append(el("span", "note", "שיחקת בו " + times((albumStats.played || {})[id] || 0) + "."));
+    }
+    v.append(im, info);
+    v.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+  $("albumTabs").append(...ALBUM_TABS.map(([t, n]) => { const b = el("button", "", n); b.type = "button"; b.dataset.t = t; b.setAttribute("role", "tab"); b.onclick = () => { albumTab = t; renderAlbum(); }; return b; }));
+  $("btnAlbum").onclick = async () => { $("overAlbum").hidden = false; renderAlbum(); albumStats = await myStats(); };
+
+  // closing the album and the stats: ✕, tapping outside, or Esc
+  for (const [ov, x] of [["overAlbum", "btnAlbumX"], ["overStats", "btnStatsX"]]) {
+    $(x).onclick = () => { $(ov).hidden = true; };
+    $(ov).addEventListener("click", e => { if (e.target === $(ov)) $(ov).hidden = true; });
+  }
+  document.addEventListener("keydown", e => { if (e.key === "Escape") { $("overAlbum").hidden = true; $("overStats").hidden = true; } });
 
   // ---------- table ----------
   function cardEl(id, tag) {
@@ -1056,6 +1268,8 @@ body.shake #app{animation:shake .7s ease-in-out}
     } else $("overWin").hidden = true;
 
     soundFor(g, me);
+    applyTheme();
+    $("emoteBar").hidden = !oppP;
     if (g.local && playing && g.turn === 1) scheduleBot();
     updateTitle();
   }
@@ -1094,6 +1308,7 @@ body.shake #app{animation:shake .7s ease-in-out}
       picking = { id, kind }; renderTable(); return;
     }
     const g = structuredClone(game);
+    track(g, "play", id);
     applyPlay(g, me, id);
     await commit(g);
   }
@@ -1103,6 +1318,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     const g = structuredClone(game), me = seatOf(g);
     const { id, kind } = picking; picking = null;
     const target = g.hands[String(1 - me)][i];
+    track(g, "play", id);
     applyPlay(g, me, id, i);
     if (kind === "peek") showCard("הצצת! זה הקלף של " + g.players[1 - me].name, target);
     else showCard("חטפת את הקלף הזה!", target);
@@ -1114,6 +1330,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (busy || !game || game.status !== "playing") return;
     const g = structuredClone(game), me = seatOf(g);
     if (g.turn !== me) return;
+    track(g, "draw");
     applyDraw(g, me);
     await commit(g);
   };
@@ -1141,7 +1358,9 @@ body.shake #app{animation:shake .7s ease-in-out}
         applyPlay(g, 1, move.id, move.target);
         if (kind === "snatch" && target) showCard("המחשב חטף ממך את הקלף הזה", target);
         if (kind === "peek" && target) showCard("המחשב הציץ בקלף הזה שלך", target);
-      } else applyDraw(g, 1);
+        if (kind === "all" && Math.random() < 0.6) setTimeout(() => floatEmote("😈", "opp"), 300);
+      } else { applyDraw(g, 1); if (Math.random() < 0.2) setTimeout(() => floatEmote("😤", "opp"), 300); }
+      if (g.status === "over" && g.winner === 1) setTimeout(() => floatEmote("😎", "opp"), 500);
       commit(g);
     }, (window.__fast ? 0 : 900 + Math.random() * 700));
   }
@@ -1371,6 +1590,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     try { room = await window.claude.use("room"); } catch { room = null; }
     if (!room) { renderContact(); return; }
     room.presence({ pid, name: profile.name || "", avatar: profile.avatar, color: profile.color, g: profile.g || "", typing: false }).catch(() => {});
+    listenEmotes();
     room.onPeers(ch => {
       const seen = new Set();
       others = ch.peers.filter(p => !p.isMe && p.presence && p.presence.pid && p.presence.pid !== pid && !seen.has(p.presence.pid) && seen.add(p.presence.pid))
