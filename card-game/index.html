@@ -156,6 +156,26 @@ label.lbl{font-size:13px;color:var(--mist)}
 .stars{color:var(--gold);font-variant-numeric:tabular-nums;white-space:nowrap}
 .note{font-size:13px;color:var(--mist);line-height:1.5}
 .err{color:#ffb3c8}
+/* chat */
+.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-start:max(16px,env(safe-area-inset-left,0px));z-index:15;border-radius:99px;padding:12px 18px;font-weight:700;
+  background:linear-gradient(180deg,#ff9ad0,#e2588f);color:#2b0614;border:0;box-shadow:0 8px 22px rgba(0,0,0,.5)}
+.chatbtn .dot{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;margin-inline-start:6px;border-radius:99px;background:#fff;color:#c2185b;font-size:12px}
+.chat{position:fixed;bottom:calc(76px + env(safe-area-inset-bottom,0px));inset-inline-start:max(16px,env(safe-area-inset-left,0px));z-index:16;width:min(360px,calc(100vw - 32px));height:min(480px,calc(100vh - 120px));
+  display:flex;flex-direction:column;border-radius:20px;background:#1a1240;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.6);overflow:hidden}
+.chat header{padding:12px 14px;border-bottom:1px solid var(--line);background:rgba(255,154,208,.08)}
+.chat header button{padding:6px 12px}
+.msgs{flex:1;overflow-y:auto;padding:12px;margin:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.msg{display:flex;gap:8px;align-items:flex-end;max-width:88%}
+.msg.mine{align-self:flex-start;flex-direction:row}
+.msg:not(.mine){align-self:flex-end;flex-direction:row-reverse}
+.bubble{padding:8px 12px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid var(--line);line-height:1.4;overflow-wrap:anywhere;min-width:0}
+.msg.mine .bubble{background:rgba(242,193,78,.16);border-color:rgba(242,193,78,.45)}
+.bubble small{display:block;font-size:11px;color:var(--mist);margin-bottom:2px}
+.chat form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
+.chat form input{flex:1}
+.quick{display:flex;gap:4px;padding:6px 10px 0;flex-wrap:wrap}
+.quick button{padding:4px 8px;font-size:18px;background:none;border:0}
+.quick button:hover{transform:scale(1.2);background:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -264,6 +284,14 @@ label.lbl{font-size:13px;color:var(--mist)}
     <div id="hand" class="hand" aria-label="הקלפים שלך"></div>
   </section>
 </div>
+
+<button id="btnChat" class="chatbtn" type="button" aria-expanded="false" aria-controls="chat">💬 צ׳אט<span id="chatDot" class="dot" hidden></span></button>
+<section id="chat" class="chat" dir="rtl" lang="he" hidden aria-label="צ׳אט">
+  <header class="row" style="justify-content:space-between"><h3>💬 הצ׳אט שלנו</h3><button id="btnChatClose" type="button">סגירה</button></header>
+  <ul id="msgs" class="msgs"><li class="note">טוען הודעות…</li></ul>
+  <div id="quick" class="quick" aria-label="תגובות מהירות"></div>
+  <form id="chatForm"><input id="chatInput" maxlength="300" placeholder="כתבו הודעה…" aria-label="הודעה" autocomplete="off"><button id="btnSend" class="primary" type="submit">שליחה</button></form>
+</section>
 
 <div id="overWin" class="overlay" hidden>
   <div class="panel">
@@ -557,7 +585,8 @@ label.lbl{font-size:13px;color:var(--mist)}
   }
 
   // ---------- connect ----------
-  const noDb = msg => { setStatus(msg + " משחק נגד המחשב עובד גם ככה 🤖", true); $("gameList").replaceChildren(el("div", "note", "אין חיבור למשחק נגד חבר.")); $("btnCreate").disabled = true; $("btnJoin").disabled = true; };
+  let dbFailed = false;
+  const noDb = msg => { dbFailed = true; if (typeof renderChat === "function") renderChat(); setStatus(msg + " משחק נגד המחשב עובד גם ככה 🤖", true); $("gameList").replaceChildren(el("div", "note", "אין חיבור למשחק נגד חבר.")); $("btnCreate").disabled = true; $("btnJoin").disabled = true; };
   const timer = setTimeout(() => { if (!db) noDb("לא מצליח להתחבר לשרת המשחק."); }, 10000);
   (async () => {
     if (!window.claude || !window.claude.use) { clearTimeout(timer); noDb("משחק נגד חבר עובד רק כשפותחים את הדף מתוך claude.ai."); renderScores(); return; }
@@ -572,6 +601,10 @@ label.lbl{font-size:13px;color:var(--mist)}
       scores = (snap.exists && snap.data().players) || {};
       renderScores();
     }, () => {});
+    db.collection("chat").orderBy("at", "desc").limit(80).onSnapshot(snap => {
+      chatMsgs = snap.docs.map(d => d.data()).reverse();
+      renderChat();
+    }, () => { $("msgs").replaceChildren(el("li", "note", "לא הצלחתי לטעון את הצ׳אט.")); });
     const saved = store.get("kk_code");
     if (saved) openGame(saved, false);
   })();
@@ -832,6 +865,49 @@ label.lbl{font-size:13px;color:var(--mist)}
       commit(g);
     }, (window.__fast ? 0 : 900 + Math.random() * 700));
   }
+
+  // ---------- chat ----------
+  let chatMsgs = [], chatOpen = false;
+  const lastSeen = () => +(store.get("kk_chat_seen") || 0);
+  function renderChat() {
+    const list = $("msgs");
+    if (!db) { list.replaceChildren(el("li", "note", dbFailed ? "הצ׳אט עובד רק כשפותחים את המשחק מתוך claude.ai." : "טוען הודעות…")); return; }
+    if (!chatMsgs.length) list.replaceChildren(el("li", "note", "עוד אין הודעות. תכתבו את הראשונה! 👋"));
+    else list.replaceChildren(...chatMsgs.map(m => {
+      const li = el("li", "msg" + (m.pid === pid ? " mine" : ""));
+      const b = el("div", "bubble");
+      const t = new Date(m.at || 0);
+      b.append(el("small", "", (m.name || "מישהו") + " · " + String(t.getHours()).padStart(2, "0") + ":" + String(t.getMinutes()).padStart(2, "0")), document.createTextNode(m.text || ""));
+      li.append(avaEl(m, "sm"), b); return li;
+    }));
+    if (chatOpen) { list.scrollTop = list.scrollHeight; if (chatMsgs.length) store.set("kk_chat_seen", String(chatMsgs[chatMsgs.length - 1].at)); }
+    const unread = chatOpen ? 0 : chatMsgs.filter(m => m.pid !== pid && m.at > lastSeen()).length;
+    $("chatDot").hidden = !unread; $("chatDot").textContent = unread > 9 ? "9+" : String(unread);
+  }
+  function setChat(open) {
+    chatOpen = open; $("chat").hidden = !open; $("btnChat").setAttribute("aria-expanded", String(open));
+    renderChat();
+    if (open) $("chatInput").focus();
+  }
+  $("btnChat").onclick = () => setChat(!chatOpen);
+  $("btnChatClose").onclick = () => setChat(false);
+  async function sendChat(text) {
+    text = (text || "").trim();
+    if (!text) return;
+    if (!db) { renderChat(); return; }
+    if (!profile.name) { $("msgs").append(el("li", "note err", "קודם כותבים שם בפרופיל 🙂")); return; }
+    $("btnSend").disabled = true;
+    try {
+      await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, text: text.slice(0, 300), at: Date.now() });
+      $("chatInput").value = "";
+    } catch (e) { $("msgs").append(el("li", "note err", "ההודעה לא נשלחה (" + (e.code || "error") + "). נסו שוב.")); }
+    finally { $("btnSend").disabled = false; $("chatInput").focus(); }
+  }
+  $("chatForm").addEventListener("submit", e => { e.preventDefault(); sendChat($("chatInput").value); });
+  $("quick").append(...["😂", "👍", "❤️", "🔥", "😡", "😱", "👑", "🃏"].map(x => {
+    const b = el("button", "", x); b.type = "button"; b.setAttribute("aria-label", "שליחת " + x); b.onclick = () => sendChat(x); return b;
+  }));
+  renderChat();
 
   // ---------- stars ----------
   async function addStar(p) {
