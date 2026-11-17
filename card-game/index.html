@@ -182,38 +182,102 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .chatbtn:hover{filter:brightness(1.1)}
 .chatbtn .chat-ico{width:34px;height:31px;flex:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
 .chatbtn .dot{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:#ff5d8f;color:#fff;font-size:13px;box-shadow:0 0 0 2px #fff}
-.chat{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:16;width:min(380px,calc(100vw - 32px));height:min(560px,calc(100vh - 120px));
-  display:flex;flex-direction:column;border-radius:20px;background:#1a1240;border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.6);overflow:hidden}
-.chat header{padding:12px 14px;border-bottom:1px solid var(--line);background:rgba(255,154,208,.08)}
-.chat header button{padding:6px 12px}
-.msgs{flex:1;overflow-y:auto;padding:12px;margin:0;list-style:none;display:flex;flex-direction:column;gap:10px}
-.msg{display:flex;gap:8px;align-items:flex-end;max-width:88%;position:relative}
-.msg.mine{align-self:flex-start;flex-direction:row}
-.msg:not(.mine){align-self:flex-end;flex-direction:row-reverse}
-.bubble{--bc:#a99fd6;padding:8px 12px;border-radius:16px;background:color-mix(in srgb,var(--bc) 20%,#1a1240);border:1px solid color-mix(in srgb,var(--bc) 60%,transparent);line-height:1.4;overflow-wrap:anywhere;min-width:0;cursor:pointer;text-align:start;color:var(--ink);font:inherit}
-.bubble:hover{filter:brightness(1.12)}
-.bubble.sticker{background:none;border:0;padding:0}
-.bubble.sticker img{display:block;width:120px;border-radius:10px;box-shadow:0 6px 16px rgba(0,0,0,.5);margin-top:2px}
-.reacts{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
-.reacts span{font-size:13px;padding:1px 7px;border-radius:99px;background:rgba(0,0,0,.35);border:1px solid var(--line)}
-.msg.has-picker{flex-wrap:wrap}
-.picker{flex-basis:100%;width:max-content;max-width:100%;display:flex;gap:2px;padding:4px 6px;border-radius:99px;background:#2a1d66;border:1px solid var(--line);box-shadow:0 8px 18px rgba(0,0,0,.5)}
-.picker button{padding:4px 6px;font-size:20px;background:none;border:0}
-.picker button:hover{transform:scale(1.25);background:none}
-.sysmsg{align-self:center;font-size:13px;color:var(--mist);text-align:center;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.05)}
-.invite{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
-.invite button{padding:6px 12px;font-size:14px}
-.chat header .who-on{font-size:12px;color:var(--mist);display:flex;align-items:center;gap:6px}
-.chat header .who-on i{width:9px;height:9px;border-radius:50%;background:#6b6890;display:inline-block}
-.chat header .who-on.on i{background:#4ee0a0;box-shadow:0 0 8px #4ee0a0}
-.typing{font-size:12px;color:var(--mist);padding:0 14px 4px;min-height:16px}
-.tools{display:flex;gap:6px;padding:8px 10px 0;flex-wrap:wrap}
-.tools button{padding:6px 10px;font-size:13px;border-radius:99px}
-.tools button[aria-pressed="true"]{background:#ff5d8f;color:#2b0614;border-color:transparent}
-.stickers{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:8px 10px;max-height:150px;overflow-y:auto;border-top:1px solid var(--line)}
-.stickers button{padding:0;border:0;background:none;border-radius:6px}
-.stickers img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;display:block}
-.stickers button:hover img{outline:2px solid var(--gold)}
+/* chat panel: Hillel's design */
+.chat{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:16;
+  width:min(410px,calc(100vw - 32px));height:min(700px,calc(100vh - 110px));display:flex;flex-direction:column;
+  border-radius:30px;border:3px solid transparent;color:#f3eeff;font-family:"Rubik",system-ui,sans-serif;
+  background:radial-gradient(90% 60% at 50% 0%,#3a1d8a 0%,transparent 70%) padding-box,linear-gradient(180deg,#24125e,#1a0d4a 60%,#160a3e) padding-box,
+             linear-gradient(135deg,#d6b4ff,#86e6ff,#ffb6e8,#9fc0ff,#e7b6ff,#8fe9ff,#ffb6e8) border-box;
+  box-shadow:0 20px 60px rgba(0,0,0,.65),0 0 30px rgba(160,110,255,.35);overflow:hidden}
+.ch-top{position:relative;display:flex;justify-content:center;align-items:center;padding:12px 16px 6px}
+.ch-title{display:flex;align-items:center;gap:10px;margin:0;font-family:"Rubik",sans-serif;font-weight:700;font-size:26px}
+.ch-title svg{width:36px;height:32px}
+.ch-x{position:absolute;left:14px;top:10px;width:38px;height:38px;border-radius:50%;padding:0;display:grid;place-items:center;font-size:18px;
+  background:rgba(255,255,255,.06);border:2px solid rgba(214,180,255,.6);color:#fff}
+.ch-contact{position:relative;margin:4px 12px 8px;display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:99px;
+  background:linear-gradient(90deg,rgba(80,40,170,.55),rgba(50,25,120,.55));border:2px solid rgba(160,190,255,.45)}
+.ch-contact .ava{width:54px;height:54px;--ring:#9fc0ff}
+.ch-peer{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ch-peer b{font-size:20px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch-status{display:inline-flex;align-items:center;gap:6px;padding:2px 6px;border-radius:8px;background:none;border:0;font-size:14px;color:#e6dcff;width:max-content}
+.ch-status i{width:12px;height:12px;border-radius:50%;background:#6b6890}
+.ch-status.on i{background:#3ee07a;box-shadow:0 0 8px #3ee07a}
+.ch-status .chev{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:6px;border:1.5px solid rgba(214,180,255,.6);font-size:11px}
+.ch-initial{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:26px;font-weight:700;flex:none;
+  background:rgba(70,40,150,.8);border:2px solid rgba(214,180,255,.7)}
+.ch-menu{position:absolute;top:calc(100% + 6px);right:70px;z-index:5;display:flex;flex-direction:column;gap:4px;padding:6px;border-radius:14px;background:#2a1866;border:1px solid rgba(214,180,255,.5);box-shadow:0 10px 24px rgba(0,0,0,.5)}
+.ch-menu button{text-align:start;padding:8px 12px;font-size:14px;background:none;border:0;border-radius:10px}
+.ch-menu button:hover{background:rgba(255,255,255,.1)}
+.ch-pin{margin:0 12px 6px;display:flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;background:linear-gradient(90deg,#6a35d8,#5a2bc4);border:1.5px solid rgba(214,180,255,.6);font-weight:500;font-size:15px}
+.ch-pin span:nth-child(2){flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center}
+.ch-pin button{padding:0 6px;background:none;border:0;font-size:13px;color:#e6dcff}
+.msgs{flex:1;overflow-y:auto;padding:8px 12px;margin:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:10px;align-items:flex-end;max-width:92%}
+.msg.mine{align-self:flex-start}
+.msg:not(.mine){align-self:flex-end}
+.msg .ava{width:46px;height:46px;--ring:#9fc0ff}
+.mcol{display:flex;flex-direction:column;gap:3px;min-width:0}
+.mname{font-size:13px;color:#c9b8ff;padding:0 10px}
+.msg.mine .mname{text-align:start}
+.bubble{--bc:#3c4fa8;position:relative;padding:9px 14px;border-radius:18px;background:var(--bc);border:1.5px solid color-mix(in srgb,var(--bc) 60%,#ffffff);
+  line-height:1.4;overflow-wrap:anywhere;min-width:0;cursor:pointer;font-size:16px;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.bubble::after{content:"";position:absolute;bottom:8px;width:12px;height:12px;background:var(--bc);border:inherit;border-top:0;border-inline-start:0;transform:rotate(45deg)}
+.msg.mine .bubble::after{right:-6px;transform:rotate(-45deg)}
+.msg:not(.mine) .bubble::after{left:-6px;transform:rotate(135deg)}
+.bubble:hover{filter:brightness(1.1)}
+.bubble .mtime{display:block;font-size:10px;opacity:.65;margin-top:2px}
+.bubble.sticker{background:none;border:0;padding:0;box-shadow:none}
+.bubble.sticker::after{display:none}
+.bubble.sticker img{display:block;width:140px;border-radius:12px;box-shadow:0 0 0 3px #fff,0 8px 20px rgba(0,0,0,.5)}
+.quote{margin-bottom:6px;padding:4px 10px;border-radius:8px;background:rgba(0,0,0,.25);border-inline-end:4px solid #d6b4ff;font-size:13px;opacity:.9}
+.quote b{display:block;font-size:11px;color:#d6b4ff}
+.reacts{display:flex;gap:6px;flex-wrap:wrap;padding:0 6px}
+.reacts span{font-size:14px;padding:2px 9px;border-radius:99px;background:rgba(40,20,100,.9);border:1.5px solid rgba(214,180,255,.6)}
+.picker{display:flex;gap:2px;flex-wrap:wrap;padding:5px 8px;border-radius:16px;background:#2a1866;border:1px solid rgba(214,180,255,.5);box-shadow:0 8px 18px rgba(0,0,0,.5);width:max-content;max-width:100%}
+.picker button{padding:3px 6px;font-size:20px;background:none;border:0}
+.picker button.txt{font-size:13px;padding:4px 8px;border-radius:10px;background:rgba(255,255,255,.08)}
+.picker button:hover{transform:scale(1.15)}
+.sysmsg{align-self:center;font-size:13px;color:#c9b8ff;text-align:center;padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.06)}
+.invite{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,rgba(60,40,160,.95),rgba(40,22,110,.95));border:2px solid rgba(160,190,255,.5);box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.invite .pad{font-size:44px;filter:drop-shadow(0 0 12px rgba(150,120,255,.9))}
+.invite b{font-size:19px;display:block}
+.invite p{margin:2px 0 8px;font-size:14px;color:#ddd2ff}
+.invite .row{gap:8px}
+.invite button{padding:7px 16px;font-size:15px;border-radius:12px}
+.invite .go{background:linear-gradient(180deg,#a070ff,#7340e0);border:1.5px solid #d6b4ff;color:#fff;font-weight:700}
+.invite .later{background:rgba(255,255,255,.06);border:1.5px solid rgba(214,180,255,.5);color:#fff}
+.typing{display:flex;align-items:center;gap:8px;font-size:13px;color:#c9b8ff;padding:0 16px 6px;min-height:18px}
+.typing .dots{display:inline-flex;gap:4px;padding:6px 10px;border-radius:99px;background:rgba(255,255,255,.1)}
+.typing .dots i{width:6px;height:6px;border-radius:50%;background:#c9b8ff;animation:blink 1.2s infinite}
+.typing .dots i:nth-child(2){animation-delay:.2s}.typing .dots i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.ch-stickers{margin:0 12px 8px;border-radius:20px;border:2px solid rgba(214,180,255,.55);background:rgba(60,30,140,.55)}
+.ch-sthead{display:flex;align-items:center;justify-content:center;position:relative;padding:6px}
+.ch-sthead span{padding:4px 16px;border-radius:99px;background:rgba(80,45,180,.9);border:1.5px solid rgba(214,180,255,.6);font-size:15px}
+.ch-sthead button{position:absolute;left:10px;padding:2px 8px;background:none;border:0;font-size:16px}
+.stickers{display:flex;gap:10px;overflow-x:auto;padding:4px 12px 12px;scroll-snap-type:x mandatory}
+.stickers button{flex:none;width:76px;padding:0;border:0;background:none;scroll-snap-align:start}
+.stickers img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;display:block;box-shadow:0 0 0 2px #fff,0 4px 10px rgba(0,0,0,.4)}
+.stickers button:hover img{transform:translateY(-3px)}
+.ch-row{display:flex;align-items:center;gap:10px;margin:0 12px 8px;flex-wrap:wrap}
+.ch-quick{display:flex;gap:8px;flex-wrap:wrap}
+.ch-quick button{padding:7px 14px;border-radius:99px;font-size:14px;background:rgba(70,40,160,.6);border:1.5px solid rgba(214,180,255,.55)}
+.ch-colors{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:99px;background:rgba(0,0,0,.2);border:1px solid rgba(214,180,255,.3);margin-inline-start:auto}
+.ch-colors span{font-size:13px;color:#ddd2ff}
+.ch-colors button{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.3)}
+.ch-colors button[aria-pressed="true"]{box-shadow:0 0 0 3px #fff;border-color:#fff}
+.ch-reply{margin:0 12px 6px;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:12px;background:rgba(0,0,0,.25);border-inline-end:4px solid #d6b4ff;font-size:13px}
+.ch-reply span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ch-reply button{padding:0 6px;background:none;border:0}
+.ch-input{display:flex;align-items:center;gap:8px;padding:10px 12px 14px;border-top:1px solid rgba(214,180,255,.25)}
+.ch-input input{flex:1;min-width:0;border-radius:99px;padding:12px 18px;background:rgba(70,45,150,.55);border:1.5px solid rgba(214,180,255,.55);color:#fff;font-size:16px}
+.ch-input input::placeholder{color:#c9b8ff}
+.ch-send{width:52px;height:52px;flex:none;border-radius:50%;padding:0;display:grid;place-items:center;border:2px solid #d6b4ff;background:linear-gradient(160deg,#a070ff,#6a2fe0);box-shadow:0 0 14px rgba(160,110,255,.6)}
+.ch-send svg{width:26px;height:26px}
+.ch-round{width:44px;height:44px;flex:none;border-radius:50%;padding:0;display:grid;place-items:center;font-size:19px;background:rgba(70,45,150,.55);border:1.5px solid rgba(214,180,255,.55)}
+.ch-round[aria-pressed="true"]{background:#ff5d8f;border-color:#fff}
+.ch-poke{flex:none;border-radius:99px;padding:9px 14px;font-size:15px;font-weight:700;background:rgba(70,45,150,.55);border:1.5px solid rgba(214,180,255,.55)}
+@media (max-width:440px){.chat{left:8px;width:calc(100vw - 16px);height:calc(100vh - 100px)}.ch-poke{padding:9px 10px}.ch-round{width:40px;height:40px}.ch-send{width:46px;height:46px}}
 .toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:40;padding:12px 20px;border-radius:99px;font-weight:700;font-size:17px;
   background:linear-gradient(160deg,#3b2ee8,#5112c9);color:#fff;border:2px solid #d6b4ff;box-shadow:0 10px 30px rgba(0,0,0,.6)}
 @keyframes shake{0%,100%{transform:none}15%{transform:translate(-10px,4px) rotate(-1deg)}30%{transform:translate(10px,-4px) rotate(1deg)}45%{transform:translate(-8px,2px)}60%{transform:translate(8px,-2px)}75%{transform:translate(-4px,0)}}
@@ -335,18 +399,33 @@ body.shake #app{animation:shake .7s ease-in-out}
 
 <button id="btnChat" class="chatbtn" type="button" dir="rtl" aria-expanded="false" aria-controls="chat"><svg class="chat-ico" viewBox="0 0 40 36" aria-hidden="true"><path fill="#fff" d="M20 2C9.5 2 2 8.6 2 16.5c0 4.6 2.5 8.6 6.5 11.2-.5 2.6-2 5.1-4.3 6.6 4.2.2 8-1.3 10.5-3.6 1.7.4 3.5.6 5.3.6 10.5 0 18-6.6 18-14.8S30.5 2 20 2z"/><circle cx="12.5" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="20" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="27.5" cy="16.5" r="2.6" fill="#5b14c8"/></svg><span>צ׳אט</span><span id="chatDot" class="dot" hidden></span></button>
 <section id="chat" class="chat" dir="rtl" lang="he" hidden aria-label="צ׳אט">
-  <header class="row" style="justify-content:space-between"><div class="stack" style="gap:2px"><h3>💬 הצ׳אט שלנו</h3><span id="whoOn" class="who-on"><i></i><span>בודק מי מחובר…</span></span></div><button id="btnChatClose" type="button">סגירה</button></header>
+  <div class="ch-top"><h3 class="ch-title"><svg viewBox="0 0 40 36" aria-hidden="true"><path fill="#fff" d="M20 2C9.5 2 2 8.6 2 16.5c0 4.6 2.5 8.6 6.5 11.2-.5 2.6-2 5.1-4.3 6.6 4.2.2 8-1.3 10.5-3.6 1.7.4 3.5.6 5.3.6 10.5 0 18-6.6 18-14.8S30.5 2 20 2z"/><circle cx="12.5" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="20" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="27.5" cy="16.5" r="2.6" fill="#5b14c8"/></svg>צ׳אט</h3><button id="btnChatClose" class="ch-x" type="button" aria-label="סגירת הצ׳אט">✕</button></div>
+  <div class="ch-contact">
+    <div id="chPeerAva" class="ava"></div>
+    <div class="ch-peer"><b id="chPeerName">בארי</b>
+      <button id="chMenuBtn" class="ch-status" type="button" aria-expanded="false" aria-controls="chMenu"><i></i><span id="chPeerStatus">לא מחובר</span><span class="chev">⌄</span></button></div>
+    <div id="chPeerInitial" class="ch-initial" aria-hidden="true"></div>
+    <div id="chMenu" class="ch-menu" hidden>
+      <button id="btnInvite" type="button">🎮 הזמנה למשחק</button>
+      <button id="btnUnpin" type="button">📌 ביטול ההודעה המוצמדת</button>
+    </div>
+  </div>
+  <div id="chPin" class="ch-pin" hidden><span aria-hidden="true">📌</span><span id="chPinText"></span><button id="btnUnpin2" type="button" aria-label="ביטול ההצמדה">✕</button></div>
   <ul id="msgs" class="msgs"><li class="note">טוען הודעות…</li></ul>
   <div id="typing" class="typing" aria-live="polite"></div>
-  <div id="quick" class="quick" aria-label="תגובות מהירות"></div>
-  <div class="tools">
-    <button id="btnStickers" type="button" aria-pressed="false" aria-controls="stickers">🃏 סטיקרים</button>
-    <button id="btnPoke" type="button">👉 עקיצה</button>
-    <button id="btnInvite" type="button">🎮 הזמנה למשחק</button>
-    <button id="btnMic" type="button" aria-pressed="false" hidden>🎤 לדבר</button>
+  <div id="stickersBox" class="ch-stickers" hidden>
+    <div class="ch-sthead"><span>🃏 סטיקרים מהקלפים</span><button id="btnStClose" type="button" aria-label="סגירת הסטיקרים">⌄</button></div>
+    <div id="stickers" class="stickers"></div>
   </div>
-  <div id="stickers" class="stickers" hidden aria-label="סטיקרים"></div>
-  <form id="chatForm"><input id="chatInput" maxlength="300" placeholder="כתבו הודעה…" aria-label="הודעה" autocomplete="off"><button id="btnSend" class="primary" type="submit">שליחה</button></form>
+  <div class="ch-row"><div id="quick" class="ch-quick" aria-label="תשובות מהירות"></div><div class="ch-colors"><span>צבע הבועות</span><span id="bubbleColors" class="row" style="gap:6px"></span></div></div>
+  <div id="replyBar" class="ch-reply" hidden><span id="replyText"></span><button id="btnReplyCancel" type="button" aria-label="ביטול התשובה">✕</button></div>
+  <form id="chatForm" class="ch-input">
+    <button id="btnSend" class="ch-send" type="submit" aria-label="שליחה"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M2.6 11.1 20.3 3.4c.9-.4 1.8.5 1.4 1.4l-7.7 17.7c-.4 1-1.8.9-2.1-.1l-1.8-6.5-6.5-1.8c-1-.3-1.1-1.7-.1-2.1z"/></svg></button>
+    <input id="chatInput" maxlength="300" placeholder="כתבו הודעה…" aria-label="הודעה" autocomplete="off">
+    <button id="btnMic" class="ch-round" type="button" aria-pressed="false" aria-label="לדבר במקום להקליד" hidden>🎤</button>
+    <button id="btnStickers" class="ch-round" type="button" aria-pressed="false" aria-controls="stickersBox" aria-label="סטיקרים">🃏</button>
+    <button id="btnPoke" class="ch-poke" type="button">עקיצה 😉</button>
+  </form>
 </section>
 
 <div id="overWin" class="overlay" hidden>
@@ -668,6 +747,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (saved) openGame(saved, false);
     startRoom();
     startMic();
+    db.doc("chatmeta/pin").onSnapshot(snap => { pinned = snap.exists ? snap.data() : null; renderPin(); }, () => {});
   })();
 
   // ---------- lobby ----------
@@ -932,12 +1012,21 @@ body.shake #app{animation:shake .7s ease-in-out}
   // Messages live in the shared store (so they are there later too). Who is online and who is
   // typing travel live through the room and are never stored.
   let chatMsgs = [], chatOpen = false, pickerFor = null, seenIds = null, room = null, others = [], typingTimer = null, mic = null;
-  const REACTIONS = ["❤️", "😂", "😮", "😡", "👍", "🔥"];
+  let pinned = null, replyTo = null;
+  const REACTIONS = ["❤️", "😂", "😮", "😡", "👍", "🍫"];
+  const BUBBLE_COLORS = [["#7b3ff0", "סגול"], ["#e2559e", "ורוד"], ["#3f63e0", "כחול"], ["#1fb3a7", "טורקיז"]];
+  if (!profile.bubble) profile.bubble = BUBBLE_COLORS[0][0];
   const lastSeen = () => +(store.get("kk_chat_seen") || 0);
   const hhmm = at => { const t = new Date(at || 0); return String(t.getHours()).padStart(2, "0") + ":" + String(t.getMinutes()).padStart(2, "0"); };
-  const otherName = () => (others[0] && others[0].name) || (chatMsgs.slice().reverse().find(m => m.pid !== pid) || {}).name || "החבר/ה";
+  const dismissed = new Set((() => { try { return JSON.parse(store.get("kk_inv_hide") || "[]"); } catch { return []; } })());
+  // the other player: from who is online, else from the latest message they sent
+  function peer() {
+    const last = chatMsgs.slice().reverse().find(m => m.pid && m.pid !== pid);
+    const on = others[0];
+    if (on) return { name: on.name || (last && last.name) || "החבר/ה", avatar: on.avatar || (last && last.avatar), color: on.color || (last && last.color), online: true };
+    return last ? { name: last.name, avatar: last.avatar, color: last.color, online: false } : { name: "החבר/ה", online: false };
+  }
 
-  // new messages that just arrived: a poke shakes the screen of the one who was poked
   function chatArrived() {
     if (!seenIds) { seenIds = new Set(chatMsgs.map(m => m.id)); return; }
     for (const m of chatMsgs) {
@@ -951,56 +1040,95 @@ body.shake #app{animation:shake .7s ease-in-out}
     document.body.append(t); setTimeout(() => t.remove(), 3200);
   }
   function poked(name) {
-    toast("👉 " + (name || "מישהו") + " עקץ/ה אותך!");
+    toast("😉 " + (name || "מישהו") + " עקץ/ה אותך!");
     document.body.classList.remove("shake"); void document.body.offsetWidth; document.body.classList.add("shake");
     setTimeout(() => document.body.classList.remove("shake"), 800);
+  }
+  const short = m => m.type === "sticker" ? "🃏 סטיקר" : m.type === "invite" ? "🎮 הזמנה למשחק" : (m.text || "");
+
+  function inviteCard(m, mine) {
+    const box = el("div", "invite");
+    box.append(el("span", "pad", "🎮"));
+    const col = el("div");
+    col.append(el("b", "", "הזמנה למשחק"), el("p", "", mine ? "הזמנת את " + peer().name + " למשחק" : (m.name || "מישהו") + " מזמין/ה אותך למשחק"));
+    const g = openGames.find(x => x.code === m.code);
+    const active = g && (g.status === "waiting" || (seatOf(g) >= 0 && g.status === "playing"));
+    const row = el("div", "row");
+    if (!active) row.append(el("span", "note", "ההזמנה כבר לא פעילה"));
+    else {
+      const go = el("button", "go", mine || seatOf(g) >= 0 ? "חזרה למשחק" : "הצטרפ/י");
+      go.type = "button"; go.onclick = ev => { ev.stopPropagation(); setChat(false); joinGame(m.code); };
+      row.append(go);
+      if (!mine) {
+        const later = el("button", "later", "אחר כך"); later.type = "button";
+        later.onclick = ev => { ev.stopPropagation(); dismissed.add(m.id); store.set("kk_inv_hide", JSON.stringify([...dismissed])); renderChat(); };
+        row.append(later);
+      }
+    }
+    col.append(row); box.append(col);
+    return box;
   }
 
   function renderChat() {
     const list = $("msgs");
+    renderContact();
     if (!db) { list.replaceChildren(el("li", "note", dbFailed ? "הצ׳אט עובד רק כשפותחים את המשחק מתוך claude.ai." : "טוען הודעות…")); return; }
     if (!chatMsgs.length) list.replaceChildren(el("li", "note", "עוד אין הודעות. תכתבו את הראשונה! 👋"));
-    else list.replaceChildren(...chatMsgs.map(m => {
+    else list.replaceChildren(...chatMsgs.filter(m => !(m.type === "invite" && dismissed.has(m.id))).map(m => {
       const mine = m.pid === pid;
-      if (m.type === "poke") return el("li", "sysmsg", "👉 " + (m.name || "מישהו") + " עקץ/ה · " + hhmm(m.at));
+      if (m.type === "poke") return el("li", "sysmsg", "😉 " + (m.name || "מישהו") + " עקץ/ה · " + hhmm(m.at));
       const li = el("li", "msg" + (mine ? " mine" : ""));
-      const b = el("div", "bubble" + (m.type === "sticker" ? " sticker" : ""));
-      b.tabIndex = 0; b.setAttribute("role", "button"); b.style.setProperty("--bc", m.color || "#a99fd6");
+      const col = el("div", "mcol");
+      col.append(el("span", "mname", m.name || "מישהו"));
+      let b;
+      if (m.type === "invite") { b = inviteCard(m, mine); }
+      else {
+        b = el("div", "bubble" + (m.type === "sticker" ? " sticker" : ""));
+        b.style.setProperty("--bc", m.bubble || (mine ? "#7b3ff0" : "#3f4fb0"));
+        if (m.reply) { const q = el("div", "quote"); q.append(el("b", "", m.reply.name || ""), document.createTextNode(m.reply.text || "")); b.append(q); }
+        if (m.type === "sticker" && CARDS[m.card]) { const im = el("img"); im.src = CARDS[m.card].img; im.alt = "סטיקר " + label(m.card); b.append(im); }
+        else b.append(document.createTextNode(m.text || ""));
+        b.append(el("span", "mtime", hhmm(m.at)));
+      }
+      b.tabIndex = 0; b.setAttribute("role", "button"); b.setAttribute("aria-label", "אפשרויות להודעה");
+      b.onclick = () => { pickerFor = pickerFor === m.id ? null : m.id; renderChat(); };
       b.onkeydown = ev => { if (ev.target === b && (ev.key === "Enter" || ev.key === " ")) { ev.preventDefault(); b.click(); } };
-      b.setAttribute("aria-label", "הוספת תגובה להודעה");
-      b.append(el("small", "", (m.name || "מישהו") + " · " + hhmm(m.at)));
-      if (m.type === "sticker" && CARDS[m.card]) { const im = el("img"); im.src = CARDS[m.card].img; im.alt = "סטיקר " + label(m.card); b.append(im); }
-      else if (m.type === "invite") {
-        const box = el("div", "invite");
-        box.append(el("span", "", "🎮 " + (m.name || "מישהו") + " מזמין/ה למשחק! קוד: " + m.code));
-        const j = el("button", "primary", mine ? "חזרה למשחק" : "הצטרפות למשחק");
-        j.type = "button"; j.onclick = ev => { ev.stopPropagation(); setChat(false); joinGame(m.code); };
-        box.append(j); b.append(box);
-      } else b.append(document.createTextNode(m.text || ""));
+      col.append(b);
       const rs = Object.values(m.reactions || {}).filter(Boolean);
       if (rs.length) {
         const counts = {}; rs.forEach(r => counts[r] = (counts[r] || 0) + 1);
-        const row = el("div", "reacts"); Object.entries(counts).forEach(([e, n]) => row.append(el("span", "", e + (n > 1 ? " " + n : ""))));
-        b.append(row);
+        const row = el("div", "reacts"); Object.entries(counts).forEach(([e, n]) => row.append(el("span", "", e + " " + n)));
+        col.append(row);
       }
-      b.onclick = () => { pickerFor = pickerFor === m.id ? null : m.id; renderChat(); };
-      li.append(avaEl(m, "sm"), b);
       if (pickerFor === m.id) {
-        li.classList.add("has-picker");
         const pk = el("div", "picker");
-        REACTIONS.forEach(e => {
-          const rb = el("button", "", e); rb.type = "button"; rb.setAttribute("aria-label", "תגובה " + e);
-          rb.onclick = ev => { ev.stopPropagation(); react(m, e); };
-          pk.append(rb);
-        });
-        li.append(pk);
+        REACTIONS.forEach(e => { const rb = el("button", "", e); rb.type = "button"; rb.setAttribute("aria-label", "תגובה " + e); rb.onclick = ev => { ev.stopPropagation(); react(m, e); }; pk.append(rb); });
+        const rp = el("button", "txt", "↩️ תשובה"); rp.type = "button"; rp.onclick = ev => { ev.stopPropagation(); startReply(m); }; pk.append(rp);
+        const pn = el("button", "txt", "📌 הצמדה"); pn.type = "button"; pn.onclick = ev => { ev.stopPropagation(); pin(m); }; pk.append(pn);
+        col.append(pk);
       }
+      li.append(avaEl(m), col);
       return li;
     }));
     if (chatOpen && !pickerFor) { list.scrollTop = list.scrollHeight; if (chatMsgs.length) store.set("kk_chat_seen", String(chatMsgs[chatMsgs.length - 1].at)); }
     const unread = chatOpen ? 0 : chatMsgs.filter(m => m.pid !== pid && m.at > lastSeen()).length;
     $("chatDot").hidden = !unread; $("chatDot").textContent = unread > 9 ? "9+" : String(unread);
-    renderPresence();
+  }
+  function renderContact() {
+    const pr = peer();
+    paintAva($("chPeerAva"), pr.avatar ? pr : { avatar: "back", color: "#9fc0ff" });
+    $("chPeerName").textContent = pr.name;
+    $("chPeerInitial").textContent = [...(pr.name || "?")][0];
+    $("chMenuBtn").classList.toggle("on", !!pr.online);
+    $("chPeerStatus").textContent = room ? (pr.online ? "מחובר/ת" : "לא מחובר/ת") : "";
+    const typers = others.filter(o => o.typing);
+    const t = $("typing"); t.replaceChildren();
+    if (typers.length) { const d = el("span", "dots"); d.append(el("i"), el("i"), el("i")); t.append(d, document.createTextNode((typers[0].name || "מישהו") + " מקליד/ה…")); }
+  }
+  function renderPin() {
+    $("chPin").hidden = !(pinned && pinned.text);
+    $("chPinText").textContent = pinned ? pinned.text : "";
+    $("btnUnpin").hidden = !(pinned && pinned.text);
   }
   async function react(m, e) {
     pickerFor = null;
@@ -1008,9 +1136,24 @@ body.shake #app{animation:shake .7s ease-in-out}
     try { await db.doc("chat/" + m.id).update({ reactions: { [pid]: mineNow === e ? null : e } }); } catch { toast("התגובה לא נשמרה. נסו שוב."); }
     renderChat();
   }
+  function startReply(m) {
+    pickerFor = null; replyTo = { name: m.name || "", text: short(m).slice(0, 80) };
+    $("replyBar").hidden = false; $("replyText").textContent = "↩️ " + replyTo.name + ": " + replyTo.text;
+    renderChat(); $("chatInput").focus();
+  }
+  $("btnReplyCancel").onclick = () => { replyTo = null; $("replyBar").hidden = true; };
+  async function pin(m) {
+    pickerFor = null;
+    try { await db.doc("chatmeta/pin").set({ text: short(m).slice(0, 120), name: m.name || "", by: pid, at: Date.now() }); } catch { toast("ההצמדה לא נשמרה. נסו שוב."); }
+    renderChat();
+  }
+  async function unpin() { $("chMenu").hidden = true; try { await db.doc("chatmeta/pin").set({ text: "" }); } catch { toast("לא הצלחתי לבטל את ההצמדה."); } }
+  $("btnUnpin").onclick = unpin; $("btnUnpin2").onclick = unpin;
+  $("chMenuBtn").onclick = () => { const mnu = $("chMenu"); mnu.hidden = !mnu.hidden; $("chMenuBtn").setAttribute("aria-expanded", String(!mnu.hidden)); };
 
   function setChat(open) {
     chatOpen = open; pickerFor = null; $("chat").hidden = !open; $("btnChat").setAttribute("aria-expanded", String(open));
+    $("chMenu").hidden = true;
     renderChat();
     if (open) $("chatInput").focus(); else setTyping(false);
   }
@@ -1021,7 +1164,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (!db) { renderChat(); return false; }
     if (!profile.name) { toast("קודם כותבים שם בפרופיל 🙂"); return false; }
     try {
-      await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, at: Date.now(), ...extra });
+      await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, bubble: profile.bubble, at: Date.now(), ...extra });
       return true;
     } catch (e) { toast("ההודעה לא נשלחה (" + (e.code || "error") + "). נסו שוב."); return false; }
   }
@@ -1029,13 +1172,21 @@ body.shake #app{animation:shake .7s ease-in-out}
     text = (text || "").trim();
     if (!text) return;
     $("btnSend").disabled = true;
-    if (await postChat({ text: text.slice(0, 300) })) $("chatInput").value = "";
+    const extra = { text: text.slice(0, 300) };
+    if (replyTo) extra.reply = replyTo;
+    if (await postChat(extra)) { $("chatInput").value = ""; replyTo = null; $("replyBar").hidden = true; }
     $("btnSend").disabled = false; $("chatInput").focus(); setTyping(false);
   }
   $("chatForm").addEventListener("submit", e => { e.preventDefault(); sendChat($("chatInput").value); });
   $("chatInput").addEventListener("input", () => setTyping(!!$("chatInput").value.trim()));
-  $("quick").append(...["😂", "👍", "❤️", "🔥", "😡", "😱", "👑", "🃏"].map(x => {
-    const b = el("button", "", x); b.type = "button"; b.setAttribute("aria-label", "שליחת " + x); b.onclick = () => sendChat(x); return b;
+  $("quick").append(...["בהצלחה!", "משחק חוזר?"].map(x => {
+    const b = el("button", "", x); b.type = "button"; b.onclick = () => sendChat(x); return b;
+  }));
+  $("bubbleColors").append(...BUBBLE_COLORS.map(([c, n]) => {
+    const b = el("button"); b.type = "button"; b.style.background = c; b.dataset.c = c; b.setAttribute("aria-label", "בועות ב" + n);
+    b.setAttribute("aria-pressed", String(profile.bubble === c));
+    b.onclick = () => { profile.bubble = c; saveProfile(); for (const x of $("bubbleColors").children) x.setAttribute("aria-pressed", String(x.dataset.c === c)); };
+    return b;
   }));
 
   // stickers: every hero card and every special card
@@ -1043,21 +1194,24 @@ body.shake #app{animation:shake .7s ease-in-out}
   $("stickers").append(...STICKERS.map(id => {
     const b = el("button"); b.type = "button"; b.setAttribute("aria-label", "סטיקר " + label(id));
     const im = el("img"); im.src = CARDS[id].img; im.alt = ""; im.loading = "lazy"; b.append(im);
-    b.onclick = async () => { $("stickers").hidden = true; $("btnStickers").setAttribute("aria-pressed", "false"); await postChat({ type: "sticker", card: id }); };
+    b.onclick = async () => { showStickers(false); await postChat({ type: "sticker", card: id }); };
     return b;
   }));
-  $("btnStickers").onclick = () => { const s = $("stickers"); s.hidden = !s.hidden; $("btnStickers").setAttribute("aria-pressed", String(!s.hidden)); };
+  function showStickers(on) { $("stickersBox").hidden = !on; $("btnStickers").setAttribute("aria-pressed", String(on)); }
+  $("btnStickers").onclick = () => showStickers($("stickersBox").hidden);
+  $("btnStClose").onclick = () => showStickers(false);
 
   // poke: shakes the other player's screen
   let lastPoke = 0;
   $("btnPoke").onclick = async () => {
     if (Date.now() - lastPoke < 5000) { toast("רגע, אפשר לעקוץ שוב בעוד כמה שניות 😉"); return; }
     lastPoke = Date.now();
-    if (await postChat({ type: "poke" })) toast("👉 עקצת את " + otherName() + "!");
+    if (await postChat({ type: "poke" })) toast("😉 עקצת את " + peer().name + "!");
   };
 
-  // invite: opens a new game and posts a message with a join button
+  // invite: opens a new game and posts an invitation card
   $("btnInvite").onclick = async () => {
+    $("chMenu").hidden = true;
     const c = await createGame();
     if (c) { await postChat({ type: "invite", code: c }); setChat(false); }
   };
@@ -1065,31 +1219,24 @@ body.shake #app{animation:shake .7s ease-in-out}
   // who is online, and who is typing (live, never stored)
   async function startRoom() {
     try { room = await window.claude.use("room"); } catch { room = null; }
-    if (!room) { renderPresence(); return; }
-    room.presence({ pid, name: profile.name || "", typing: false }).catch(() => {});
+    if (!room) { renderContact(); return; }
+    room.presence({ pid, name: profile.name || "", avatar: profile.avatar, color: profile.color, typing: false }).catch(() => {});
     room.onPeers(ch => {
       const seen = new Set();
       others = ch.peers.filter(p => !p.isMe && p.presence && p.presence.pid && p.presence.pid !== pid && !seen.has(p.presence.pid) && seen.add(p.presence.pid))
-        .map(p => ({ pid: p.presence.pid, name: String(p.presence.name || "").slice(0, 30), typing: !!p.presence.typing }));
-      renderPresence();
-    }, () => { room = null; renderPresence(); });
+        .map(p => ({ pid: p.presence.pid, name: String(p.presence.name || "").slice(0, 30), avatar: CARDS[p.presence.avatar] && !isSpecial(p.presence.avatar) ? p.presence.avatar : null, color: /^#[0-9a-f]{6}$/i.test(p.presence.color || "") ? p.presence.color : null, typing: !!p.presence.typing }));
+      renderContact();
+    }, () => { room = null; renderContact(); });
   }
   function setTyping(on) {
     if (!room) return;
     clearTimeout(typingTimer);
-    room.presence({ name: profile.name || "", typing: on }).catch(() => {});
+    room.presence({ typing: on }).catch(() => {});
     if (on) typingTimer = setTimeout(() => setTyping(false), 3000);
   }
-  function renderPresence() {
-    const w = $("whoOn");
-    if (!room) { w.className = "who-on"; w.lastChild.textContent = db ? "" : ""; w.hidden = true; $("typing").textContent = ""; return; }
-    w.hidden = false;
-    const on = others.length > 0;
-    w.className = "who-on" + (on ? " on" : "");
-    w.lastChild.textContent = on ? others.map(o => o.name || "מישהו").join(", ") + " מחובר/ת עכשיו" : otherName() + " לא מחובר/ת עכשיו";
-    const typers = others.filter(o => o.typing);
-    $("typing").textContent = typers.length ? typers.map(o => o.name || "מישהו").join(", ") + " מקליד/ה…" : "";
-  }
+  const syncPresence = () => { if (room) room.presence({ name: profile.name || "", avatar: profile.avatar, color: profile.color }).catch(() => {}); };
+  nameInput.addEventListener("input", syncPresence);
+  $("avaGrid").addEventListener("click", syncPresence);
 
   // speak instead of typing (Chrome and the Claude app)
   async function startMic() {
@@ -1100,7 +1247,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     mic.onState(({ state, reason }) => {
       const on = state !== "idle";
       $("btnMic").setAttribute("aria-pressed", String(on));
-      $("btnMic").textContent = on ? "⏹️ סיום" : "🎤 לדבר";
+      $("btnMic").textContent = on ? "⏹️" : "🎤";
       if (reason === "not_granted") $("btnMic").hidden = true;
     });
   }
@@ -1109,7 +1256,6 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (mic.active()) mic.stop().catch(() => {});
     else mic.start({ language: "he" }).catch(e => { if (e && e.code === "not_granted") $("btnMic").hidden = true; });
   };
-  nameInput.addEventListener("input", () => { if (room) room.presence({ name: profile.name || "" }).catch(() => {}); });
   renderChat();
 
   // ---------- stars ----------
