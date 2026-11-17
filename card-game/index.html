@@ -306,6 +306,13 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 @media (max-width:440px){.chat{left:8px;width:calc(100vw - 16px);height:calc(100vh - 100px)}.ch-poke{padding:9px 10px}.ch-round{width:40px;height:40px}.ch-send{width:46px;height:46px}}
 #confetti{position:fixed;inset:0;z-index:35;pointer-events:none}
 /* table backgrounds */
+.bggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
+.bggrid button{padding:0;border:0;background:none;display:flex;flex-direction:column;gap:4px;align-items:center;font-size:12px;color:var(--mist)}
+.bggrid .sw{width:100%;aspect-ratio:3/4;border-radius:12px;background:#1d1347 center/cover;box-shadow:0 0 0 2px var(--line);display:grid;place-items:center;font-size:26px}
+.bggrid button[aria-checked="true"] .sw{box-shadow:0 0 0 3px var(--gold),0 0 16px rgba(242,193,78,.5)}
+.bggrid button[aria-checked="true"] span{color:var(--gold);font-weight:700}
+body.has-bg{background-attachment:fixed;background-size:cover;background-position:center}
+.msgs.has-bg{background-size:cover;background-position:center}
 .themes{display:flex;gap:4px}
 .themes button{width:34px;height:34px;padding:0;border-radius:50%;font-size:17px;display:grid;place-items:center;background:rgba(255,255,255,.06)}
 .themes button[aria-checked="true"]{box-shadow:0 0 0 2px var(--gold);background:rgba(242,193,78,.18)}
@@ -430,6 +437,8 @@ body.shake #app{animation:shake .7s ease-in-out}
       <div id="avaGrid" class="avagrid" role="tabpanel"></div>
       <span class="lbl">הצבע שלי</span>
       <div id="swatches" class="swatches"></div>
+      <span class="lbl">🎨 הרקעים שלי</span>
+      <button id="btnBgProfile" type="button">🎨 בחירת רקעים לדף, לשולחן ולצ׳אט</button>
       <label class="lbl" for="cheerInput">משפט ניצחון (מופיע כשאני מנצחת)</label>
       <input id="cheerInput" maxlength="40" placeholder="למשל: אף אחד לא עוצר אותי!">
     </div>
@@ -439,7 +448,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     <div class="seat">
       <div class="who"><div id="oppAva" class="ava"></div><b id="oppName">…</b><span id="oppCount" class="chip"></span><span id="oppTurn" class="chip turn" hidden>התור שלו</span></div>
       <div class="row" style="gap:8px">
-        <div id="themePick" class="themes" role="radiogroup" aria-label="רקע לשולחן"></div>
+        <button id="btnBgTable" class="chip" type="button" style="cursor:pointer">🎨 רקעים</button>
         <span id="codeChip" class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
       </div>
     </div>
@@ -531,6 +540,14 @@ body.shake #app{animation:shake .7s ease-in-out}
     <div id="albumTabs" class="suittabs" style="grid-template-columns:repeat(5,1fr);width:100%" role="tablist" aria-label="סדרה"></div>
     <div id="albumGrid" class="albumgrid"></div>
     <div id="albumView" class="albumview" hidden></div>
+  </div>
+</div>
+
+<div id="overBg" class="overlay" style="z-index:30;background:rgba(8,4,24,.93)" hidden>
+  <div class="panel album" role="dialog" aria-labelledby="bgTitle">
+    <div class="row" style="justify-content:space-between;width:100%"><h2 id="bgTitle">🎨 הרקעים שלי</h2><button id="btnBgX" class="st-x" style="position:static" type="button" aria-label="סגירת הרקעים">✕</button></div>
+    <div id="bgSlots" class="suittabs" style="grid-template-columns:repeat(3,1fr);width:100%" role="tablist" aria-label="איפה הרקע"></div>
+    <div id="bgGrid" class="bggrid"></div>
   </div>
 </div>
 
@@ -1016,21 +1033,43 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (view.turn === me && p.turn !== me) setTimeout(SFX.turn, 250);
   }
 
-  // ---------- table backgrounds ----------
-  const THEMES = [["space", "🌌", "חלל", null], ["jungle", "🌿", "ג׳ונגל", "c10"], ["palace", "🏰", "ארמון", "h13"], ["city", "🌆", "עיר עתידנית", "d03"], ["night", "🌙", "לילה", "s11"]];
-  if (!THEMES.some(t => t[0] === profile.theme)) profile.theme = "space";
-  function applyTheme() {
-    const t = THEMES.find(x => x[0] === profile.theme), b = $("board");
-    if (t && t[3]) { b.classList.add("has-art"); b.style.backgroundImage = "linear-gradient(180deg,rgba(18,10,46,.70),rgba(18,10,46,.86)),url(" + CARDS[t[3]].img + ")"; }
-    else { b.classList.remove("has-art"); b.style.backgroundImage = ""; }
-    for (const btn of $("themePick").children) btn.setAttribute("aria-checked", String(btn.dataset.t === profile.theme));
+  // ---------- backgrounds: each player picks one for the page, the table and the chat ----------
+  const BG_LIST = [["none", "🚫", "בלי רקע", null, 0],
+    ["c-jungle", "🌿", "ג׳ונגל מהקלפים", CARDS.c10.img, 0], ["c-palace", "🏰", "ארמון מהקלפים", CARDS.h13.img, 0], ["c-city", "🌆", "עיר עתידנית", CARDS.d03.img, 0], ["c-night", "🌙", "לילה מהקלפים", CARDS.s11.img, 0],
+    ...[["butterfly", "🦋", "פרפרים", 1], ["clouds", "☁️", "עננים ורודים", 1], ["melon", "🍉", "אבטיחים", 1], ["popsicle", "🍦", "ארטיקים", 1], ["flowers", "❄️", "פרחי תכלת", 1], ["beach", "🐚", "חוף", 1], ["moon", "🌙", "ירח בעננים", 0], ["sunset", "💜", "שקיעה סגולה", 1], ["gold", "✨", "שחור וזהב", 0], ["water", "💧", "מים הולוגרפיים", 1], ["leaves", "🌿", "עלים טרופיים", 1], ["gummy", "💙", "לבבות גומי", 0], ["tiara", "👑", "נזר", 1], ["bamboo", "🎋", "במבוק", 1], ["lolly", "🍭", "סוכריות לב", 1], ["strawberry", "🍓", "תותי זכוכית", 1], ["hoops", "🏀", "כדורסלן", 1], ["bunny", "🐰", "ארנב כדורסל", 0], ["balls", "🟠", "כדורי כדורסל", 0], ["couple", "💑", "זוג בלילה", 0], ["lipstick", "💄", "שפתונים", 0], ["lips", "💋", "שפתיים", 1], ["tex01", "🤍", "שיש לבן וזהב", 1], ["tex02", "🦄", "פסטל קשת", 1], ["tex03", "❤️", "לבבות אדומים", 0], ["tex04", "🩵", "בוקה תכלת", 1], ["tex05", "💗", "בוקה ורוד", 0], ["tex06", "🌊", "שיש טורקיז", 0], ["tex07", "🌟", "נצנצי זהב", 0], ["tex08", "🖤", "שיש שחור", 0], ["tex09", "🌸", "שיש ורוד", 1], ["tex10", "🍑", "רוז גולד", 1], ["tex11", "🔮", "שיש סגול", 0], ["tex12", "🍷", "שיש אדום", 0], ["tex13", "🌀", "מערבולת זהב", 0], ["tex14", "💎", "שיש כחול", 0], ["tex15", "🕊️", "קווי זהב", 1], ["tex16", "🎀", "שיש ורוד־לבן", 1], ["tex17", "⚫", "שחור וזהב 2", 0], ["tex18", "🕯️", "אורות זהב", 0], ["tex19", "🩶", "שיש אפור", 1], ["tex20", "🏆", "זהב", 0]].map(([k, ic, n, light]) => [k, ic, n, "bg/" + k + ".webp", light])];
+  const BG_BY = Object.fromEntries(BG_LIST.map(x => [x[0], x]));
+  const OLD_THEME = { space: "none", jungle: "c-jungle", palace: "c-palace", city: "c-city", night: "c-night" };
+  if (!profile.bgTable) profile.bgTable = OLD_THEME[profile.theme] || "none";
+  for (const k of ["bgPage", "bgTable", "bgChat"]) if (!BG_BY[profile[k]]) profile[k] = "none";
+  // light pictures get a darker veil so cards and text stay readable
+  const veil = (b, strong) => { const a = (b[4] ? 0.72 : 0.5) + (strong ? 0.12 : 0); return "linear-gradient(rgba(18,11,46," + a + "),rgba(18,11,46," + (a + 0.1) + ")),url(" + b[3] + ")"; };
+  function applyBgs() {
+    const pg = BG_BY[profile.bgPage], tb = BG_BY[profile.bgTable], ch = BG_BY[profile.bgChat];
+    document.body.classList.toggle("has-bg", !!pg[3]); document.body.style.backgroundImage = pg[3] ? veil(pg) : "";
+    const bd = $("board"); bd.classList.toggle("has-art", !!tb[3]); bd.style.backgroundImage = tb[3] ? veil(tb, true) : "";
+    const ms = $("msgs"); ms.classList.toggle("has-bg", !!ch[3]); ms.style.backgroundImage = ch[3] ? veil(ch, true) : "";
   }
-  $("themePick").append(...THEMES.map(([k, icon, name]) => {
-    const b = el("button", "", icon); b.type = "button"; b.dataset.t = k; b.setAttribute("role", "radio"); b.setAttribute("aria-label", "רקע: " + name); b.title = name;
-    b.onclick = () => { profile.theme = k; saveProfile(); applyTheme(); };
-    return b;
-  }));
-  applyTheme();
+  const SLOTS = [["bgPage", "🖼️ דף"], ["bgTable", "🃏 שולחן"], ["bgChat", "💬 צ׳אט"]];
+  let bgSlot = "bgPage";
+  function renderBgPicker() {
+    for (const t of $("bgSlots").children) t.setAttribute("aria-selected", String(t.dataset.k === bgSlot));
+    $("bgGrid").replaceChildren(...BG_LIST.map(([k, ic, n, img]) => {
+      const b = el("button"); b.type = "button"; b.setAttribute("role", "radio"); b.setAttribute("aria-checked", String(profile[bgSlot] === k));
+      const sw = el("div", "sw", img ? "" : ic); if (img) sw.style.backgroundImage = "url(" + img + ")";
+      b.append(sw, el("span", "", (img ? ic + " " : "") + n));
+      b.onclick = () => { profile[bgSlot] = k; saveProfile(); applyBgs(); renderBgPicker(); };
+      return b;
+    }));
+  }
+  $("bgSlots").append(...SLOTS.map(([k, n]) => { const b = el("button", "", n); b.type = "button"; b.dataset.k = k; b.setAttribute("role", "tab"); b.onclick = () => { bgSlot = k; renderBgPicker(); }; return b; }));
+  const openBg = slot => { bgSlot = slot; $("overBg").hidden = false; renderBgPicker(); };
+  $("btnBgProfile").onclick = () => openBg("bgPage");
+  $("btnBgTable").onclick = () => openBg("bgTable");
+  $("btnBgX").onclick = () => { $("overBg").hidden = true; };
+  $("overBg").addEventListener("click", e => { if (e.target === $("overBg")) $("overBg").hidden = true; });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") $("overBg").hidden = true; });
+  const applyTheme = applyBgs;
+  applyBgs();
 
   // ---------- emoji on the table ----------
   const EMOTES = ["😂", "😱", "😤", "😎", "👑", "🔥", "😭", "🤯"];
