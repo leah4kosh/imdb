@@ -300,6 +300,7 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .ch-round[aria-pressed="true"]{background:#ff5d8f;border-color:#fff}
 .ch-poke{flex:none;border-radius:99px;padding:9px 14px;font-size:15px;font-weight:700;background:rgba(70,45,150,.55);border:1.5px solid rgba(214,180,255,.55)}
 @media (max-width:440px){.chat{left:8px;width:calc(100vw - 16px);height:calc(100vh - 100px)}.ch-poke{padding:9px 10px}.ch-round{width:40px;height:40px}.ch-send{width:46px;height:46px}}
+#confetti{position:fixed;inset:0;z-index:35;pointer-events:none}
 .toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:40;padding:12px 20px;border-radius:99px;font-weight:700;font-size:17px;
   background:linear-gradient(160deg,#3b2ee8,#5112c9);color:#fff;border:2px solid #d6b4ff;box-shadow:0 10px 30px rgba(0,0,0,.6)}
 @keyframes shake{0%,100%{transform:none}15%{transform:translate(-10px,4px) rotate(-1deg)}30%{transform:translate(10px,-4px) rotate(1deg)}45%{transform:translate(-8px,2px)}60%{transform:translate(8px,-2px)}75%{transform:translate(-4px,0)}}
@@ -317,6 +318,7 @@ body.shake #app{animation:shake .7s ease-in-out}
   <header>
     <h1>קרב הכתרים</h1>
     <div class="row">
+      <button id="btnSound" type="button" aria-pressed="true" aria-label="צלילים">🔊</button>
       <button id="btnScores" type="button">⭐ טבלת כוכבים</button>
       <button id="btnLeave" type="button" hidden>יציאה ללובי</button>
     </div>
@@ -774,6 +776,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     db.collection("games").orderBy("created", "desc").limit(20).onSnapshot(snap => {
       openGames = snap.docs.map(d => d.data()).filter(g => g.v === RULES_VERSION);
       renderLobbyList();
+      if (chatMsgs.some(m => m.type === "invite")) renderChat(); // invite cards show whether their game is still open
     }, e => setStatus("שגיאה בטעינת משחקים: " + e.code, true));
     db.doc("scores/board").onSnapshot(snap => {
       scores = (snap.exists && snap.data().players) || {};
@@ -882,7 +885,7 @@ body.shake #app{animation:shake .7s ease-in-out}
   function leaveQuiet() {
     if (unsubGame) unsubGame(); unsubGame = null;
     clearTimeout(botTimer); botTimer = null;
-    game = null; code = null; lastTop = null; picking = null;
+    game = null; code = null; lastTop = null; picking = null; prevView = null;
   }
   function leave() {
     leaveQuiet(); store.del("kk_code");
@@ -891,6 +894,63 @@ body.shake #app{animation:shake .7s ease-in-out}
   }
   $("btnLeave").onclick = leave;
   $("btnWinLobby").onclick = leave;
+
+  // ---------- sounds and confetti ----------
+  let sfxOn = store.get("kk_sfx") !== "0", actx = null;
+  function tone(freqs, dur = 0.1, type = "sine", vol = 0.07) {
+    if (!sfxOn) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const t0 = actx.currentTime + 0.01;
+      freqs.forEach((f, i) => {
+        const o = actx.createOscillator(), gn = actx.createGain(), at = t0 + i * dur;
+        o.type = type; o.frequency.value = f;
+        gn.gain.setValueAtTime(0.0001, at); gn.gain.exponentialRampToValueAtTime(vol, at + 0.012); gn.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+        o.connect(gn).connect(actx.destination); o.start(at); o.stop(at + dur + 0.03);
+      });
+    } catch {}
+  }
+  const SFX = {
+    card: () => tone([520, 690], 0.06, "triangle"),
+    special: () => tone([660, 880, 1175], 0.07),
+    draw: () => tone([330, 247], 0.08, "triangle"),
+    turn: () => tone([659, 988], 0.12),
+    win: () => tone([523, 659, 784, 1047, 1319], 0.13, "triangle", 0.09),
+    lose: () => tone([392, 330, 262], 0.17),
+    msg: () => tone([988], 0.07),
+    poke: () => tone([196, 175, 196, 175], 0.06, "square", 0.04),
+  };
+  const paintSound = () => { $("btnSound").textContent = sfxOn ? "🔊" : "🔇"; $("btnSound").setAttribute("aria-pressed", String(sfxOn)); $("btnSound").setAttribute("aria-label", sfxOn ? "השתקת הצלילים" : "הפעלת הצלילים"); };
+  $("btnSound").onclick = () => { sfxOn = !sfxOn; store.set("kk_sfx", sfxOn ? "1" : "0"); paintSound(); if (sfxOn) SFX.card(); };
+  paintSound();
+
+  function confetti() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const c = el("canvas"); c.id = "confetti"; c.setAttribute("aria-hidden", "true"); document.body.append(c);
+    const dpr = Math.min(2, devicePixelRatio || 1), W = innerWidth, H = innerHeight;
+    c.width = W * dpr; c.height = H * dpr; const x = c.getContext("2d"); x.scale(dpr, dpr);
+    const COLS = ["#f2c14e", "#ff5d8f", "#b07cff", "#5fd0ff", "#4ee0a0", "#ffffff"];
+    const parts = Array.from({ length: 160 }, () => ({ x: Math.random() * W, y: -20 - Math.random() * H * 0.5, vx: (Math.random() - 0.5) * 3, vy: 2 + Math.random() * 3.5, r: Math.random() * 6.3, vr: (Math.random() - 0.5) * 0.3, w: 6 + Math.random() * 6, h: 8 + Math.random() * 8, c: COLS[Math.floor(Math.random() * COLS.length)] }));
+    const end = performance.now() + 3200;
+    (function frame(now) {
+      x.clearRect(0, 0, W, H);
+      for (const p of parts) { p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.r += p.vr; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * Math.abs(Math.cos(p.r))); x.restore(); }
+      if (now < end) requestAnimationFrame(frame); else c.remove();
+    })(performance.now());
+  }
+
+  // play a sound for what just changed on the table
+  let prevView = null;
+  function soundFor(g, me) {
+    const view = { pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: [g.hands["0"].length, g.hands["1"].length], status: g.status, turn: g.turn, round: g.round };
+    const p = prevView; prevView = view;
+    if (!p || p.round !== view.round) return;
+    if (p.status !== "over" && view.status === "over") { if (g.winner === me) { SFX.win(); confetti(); } else SFX.lose(); return; }
+    if (view.status !== "playing") return;
+    if (view.top !== p.top && view.top) (isSpecial(view.top) ? SFX.special : SFX.card)();
+    else if (view.hands[0] + view.hands[1] > p.hands[0] + p.hands[1] && view.pile === p.pile) SFX.draw();
+    if (view.turn === me && p.turn !== me) setTimeout(SFX.turn, 250);
+  }
 
   // ---------- table ----------
   function cardEl(id, tag) {
@@ -990,6 +1050,7 @@ body.shake #app{animation:shake .7s ease-in-out}
       $("overWin").hidden = false;
     } else $("overWin").hidden = true;
 
+    soundFor(g, me);
     if (g.local && playing && g.turn === 1) scheduleBot();
     updateTitle();
   }
@@ -1105,7 +1166,8 @@ body.shake #app{animation:shake .7s ease-in-out}
     for (const m of chatMsgs) {
       if (seenIds.has(m.id)) continue;
       seenIds.add(m.id);
-      if (m.type === "poke" && m.pid !== pid) poked(m);
+      if (m.type === "poke" && m.pid !== pid) { poked(m); SFX.poke(); }
+      else if (m.pid !== pid) SFX.msg();
     }
   }
   function toast(text) {
