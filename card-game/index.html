@@ -749,7 +749,7 @@ label.lbl{font-size:13px;color:var(--mist)}
     if (g.status === "over") {
       const iWon = g.winner === me, w = g.players[g.winner];
       paintAva($("winAva"), w);
-      $("winTitle").textContent = iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " ניצח/ה וקיבל/ה כוכב ⭐";
+      $("winTitle").textContent = g.local ? (iWon ? "ניצחת את המחשב!!! 🎉" : "המחשב ניצח הפעם") : (iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " ניצח/ה וקיבל/ה כוכב ⭐");
       $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
       $("winText").textContent = iWon ? "נגמרו לך הקלפים ראשון/ה." : "בסיבוב הבא זה שלך!";
       $("overWin").hidden = false;
@@ -762,8 +762,8 @@ label.lbl{font-size:13px;color:var(--mist)}
     g.seq = (g.seq || 0) + 1;
     const justWon = g.status === "over" && game && game.status !== "over";
     if (g.local) {
+      // games against the computer do not count in the star table
       game = g; renderTable();
-      if (justWon) addStar(g.players[g.winner]);
       return;
     }
     busy = true;
