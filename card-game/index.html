@@ -169,7 +169,11 @@ label.lbl{font-size:13px;color:var(--mist)}
 .note{font-size:13px;color:var(--mist);line-height:1.5}
 .err{color:#ffb3c8}
 /* star table (Hillel's design) */
-.stable-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;width:min(780px,100%)}
+.stable-wrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;width:min(780px,100%)}
+.st-x{position:absolute;top:-14px;left:-6px;z-index:2;width:46px;height:46px;border-radius:50%;padding:0;display:grid;place-items:center;font-size:20px;font-weight:700;color:#fff;
+  background:linear-gradient(160deg,#6a35d8,#3d0a9c);border:3px solid #f2c14e;box-shadow:0 6px 16px rgba(0,0,0,.6)}
+.st-x:hover{filter:brightness(1.15)}
+@media (max-width:560px){.st-x{top:-18px;left:-4px;width:42px;height:42px}}
 .stable{position:relative;width:100%;aspect-ratio:1536/1024;border-radius:3.4%/5.1%;overflow:hidden;background:url(cards/table-bg.webp) center/100% 100% no-repeat;container-type:inline-size;filter:drop-shadow(0 22px 44px rgba(0,0,0,.6))}
 .st-cell{position:absolute;background:url(cards/table-cell.webp) center/cover;display:flex;align-items:center;justify-content:center;gap:1.2cqw;overflow:hidden;padding:0 2cqw;box-sizing:border-box}
 .st-name{left:59.31%;width:34.05%}
@@ -478,8 +482,9 @@ body.shake #app{animation:shake .7s ease-in-out}
   </div>
 </div>
 
-<div id="overScores" class="overlay" style="z-index:30" hidden>
+<div id="overScores" class="overlay" style="z-index:30;background:rgba(8,4,24,.93)" hidden>
   <div class="stable-wrap">
+    <button id="btnScoresX" class="st-x" type="button" aria-label="סגירת טבלת הכוכבים">✕</button>
     <div class="stable" role="table" aria-label="טבלת הכוכבים">
       <div id="stRows" role="rowgroup"></div>
     </div>
@@ -1451,7 +1456,12 @@ body.shake #app{animation:shake .7s ease-in-out}
   }
   const openScores = () => { renderScores(); $("overScores").hidden = false; refreshMyRow(); };
   $("btnScores").onclick = openScores; $("btnWinScores").onclick = openScores;
-  $("btnCloseScores").onclick = () => { $("overScores").hidden = true; };
+  const closeScores = () => { $("overScores").hidden = true; };
+  $("btnCloseScores").onclick = closeScores;
+  $("btnScoresX").onclick = closeScores;
+  // tapping the dark background around the table, or pressing Esc, also closes it
+  $("overScores").addEventListener("click", e => { if (e.target === $("overScores")) closeScores(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("overScores").hidden) closeScores(); });
 
   if (window.__fast) window.__kk = { CARDS, deal, applyPlay, applyDraw, botChoice, simpleMove, canPlay, canAnswer, isSpecial, byValue, topNumber };
 })();
