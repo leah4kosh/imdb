@@ -124,7 +124,21 @@ label.lbl{font-size:13px;color:var(--mist)}
 .deck b{font-family:var(--display);font-size:18px;color:var(--ink);font-weight:400}
 .side.end{align-items:flex-end;text-align:end}
 .log{font-size:15px;color:var(--ink);line-height:1.4;max-width:240px}
-@media (max-width:560px){.board{grid-template-columns:1fr;justify-items:center;text-align:center}.side,.side.end{align-items:center;text-align:center}.pile{width:130px}.fx{inset-inline-end:-50px}.fx .card{width:54px}.history{max-width:none}}
+@media (max-width:560px){
+  .board{grid-template-columns:auto 1fr;gap:10px 14px;padding:14px;min-height:0;justify-items:center}
+  .side{align-items:center;text-align:center}
+  .side.end{grid-column:1/-1;align-items:center;text-align:center;width:100%}
+  .deck img{width:52px}
+  .pile{width:118px}.fx{inset-inline-end:-46px}.fx .card{width:50px}
+  .history{max-width:none;align-items:center}
+  .history li:nth-last-child(n+3){display:none}
+  :root{--cw:60px}
+  .hand{gap:6px;padding:10px}
+  .backs .bk{width:36px;margin-inline-start:-18px}
+  button.chatbtn{padding:8px 14px 8px 12px;font-size:17px;gap:6px}
+  button.chatbtn .chat-ico{width:28px;height:25px}
+  #table{padding-bottom:70px}
+}
 .peekcard{width:min(220px,60vw)}
 
 .card{display:block;border-radius:9px;overflow:hidden;position:relative;aspect-ratio:300/320;background:#000;box-shadow:0 6px 16px rgba(0,0,0,.45)}
@@ -232,7 +246,11 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .quote{margin-bottom:6px;padding:4px 10px;border-radius:8px;background:rgba(0,0,0,.25);border-inline-end:4px solid #d6b4ff;font-size:13px;opacity:.9}
 .quote b{display:block;font-size:11px;color:#d6b4ff}
 .reacts{display:flex;gap:6px;flex-wrap:wrap;padding:0 6px}
-.reacts span{font-size:14px;padding:2px 9px;border-radius:99px;background:rgba(40,20,100,.9);border:1.5px solid rgba(214,180,255,.6)}
+.reacts button{font-size:15px;padding:3px 10px;border-radius:99px;background:rgba(40,20,100,.9);border:1.5px solid rgba(214,180,255,.6);color:#fff;line-height:1.2}
+.reacts button.me{background:rgba(160,110,255,.45);border-color:#fff}
+.reacts button:hover{filter:brightness(1.2)}
+.reacts button.pop{animation:pop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:scale(.3)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
 .picker{display:flex;gap:2px;flex-wrap:wrap;padding:5px 8px;border-radius:16px;background:#2a1866;border:1px solid rgba(214,180,255,.5);box-shadow:0 8px 18px rgba(0,0,0,.5);width:max-content;max-width:100%}
 .picker button{padding:3px 6px;font-size:20px;background:none;border:0}
 .picker button.txt{font-size:13px;padding:4px 8px;border-radius:10px;background:rgba(255,255,255,.08)}
@@ -354,6 +372,10 @@ body.shake #app{animation:shake .7s ease-in-out}
       <hr>
       <label class="lbl" for="nameInput">השם שלי</label>
       <input id="nameInput" maxlength="16" placeholder="השם שלך" autocomplete="nickname">
+      <span class="lbl" id="gLbl">אני</span>
+      <div id="gPick" class="suittabs" style="grid-template-columns:repeat(2,1fr)" role="radiogroup" aria-labelledby="gLbl">
+        <button type="button" data-g="m" role="radio">👦 בן</button><button type="button" data-g="f" role="radio">👧 בת</button>
+      </div>
       <span class="lbl">הדמות שלי</span>
       <div id="suitTabs" class="suittabs" role="tablist" aria-label="סדרת קלפים"></div>
       <div id="avaGrid" class="avagrid" role="tabpanel"></div>
@@ -366,7 +388,7 @@ body.shake #app{animation:shake .7s ease-in-out}
 
   <section id="table" hidden>
     <div class="seat">
-      <div class="who"><div id="oppAva" class="ava"></div><b id="oppName">…</b><span id="oppCount" class="chip"></span><span id="oppTurn" class="chip turn" hidden>התור שלו/ה</span></div>
+      <div class="who"><div id="oppAva" class="ava"></div><b id="oppName">…</b><span id="oppCount" class="chip"></span><span id="oppTurn" class="chip turn" hidden>התור שלו</span></div>
       <span id="codeChip" class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
     </div>
     <div id="oppBacks" class="backs" aria-label="הקלפים של היריב"></div>
@@ -510,6 +532,15 @@ body.shake #app{animation:shake .7s ease-in-out}
     }
   }
   function say(g, text) { g.log = text; g.history = [...(g.history || []), text].slice(-6); }
+  // Hebrew words written for each player: "בן" or "בת" from the profile (no choice = both forms)
+  const FINAL_TO_MID = { "ם": "מ", "ך": "כ", "ן": "נ", "ף": "פ", "ץ": "צ" };
+  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת" };
+  function W(p, word) {
+    const g = p && p.g, base = word.split("/")[0];
+    if (g === "m") return base;
+    if (g === "f") return FEM_SPECIAL[word] || base.slice(0, -1) + (FINAL_TO_MID[base.slice(-1)] || base.slice(-1)) + "ה";
+    return word;
+  }
 
   // ---------- rules (pure: they only change the game object they get) ----------
   function refill(g) {
@@ -537,7 +568,8 @@ body.shake #app{animation:shake .7s ease-in-out}
     else if (!g.hands[opp].length) g.winner = 1 - seat;
     else return false;
     g.status = "over";
-    say(g, g.players[g.winner].name + " נפטר/ה מכל הקלפים וניצח/ה! ⭐");
+    const w = g.players[g.winner];
+    say(g, w.name + " " + W(w, "נפטר/ה") + " מכל הקלפים ו" + W(w, "ניצח/ה") + "! ⭐");
     return true;
   }
   // target: index of the opponent's card (for snatch and peek)
@@ -549,25 +581,26 @@ body.shake #app{animation:shake .7s ease-in-out}
     g.pile.push(id);
     const kind = CARDS[id].kind;
     const need = topNumber(g.pile);
-    const still = () => " עכשיו " + my + " עדיין צריך/ה לענות" + (topNumber(g.pile) ? " על " + CARDS[topNumber(g.pile)].v : " עם קלף מספר") + ".";
-    if (kind === "num") say(g, my + " שם/ה " + CARDS[id].v + ".");
+    const P = g.players[seat], O = g.players[1 - seat];
+    const still = () => " עכשיו " + my + " עדיין " + W(P, "צריך/ה") + " לענות" + (topNumber(g.pile) ? " על " + CARDS[topNumber(g.pile)].v : " עם קלף מספר") + ".";
+    if (kind === "num") say(g, my + " " + W(P, "שם/ה") + " " + CARDS[id].v + ".");
     else if (kind === "two") {
       const n = drawCards(g, opp, 2);
-      say(g, "➕ " + my + " שם/ה משוך 2, ו" + other + " משך/ה " + n + " קלפים." + still());
+      say(g, "➕ " + my + " " + W(P, "שם/ה") + " משוך 2, ו" + other + " " + W(O, "משך/ה") + " " + n + " קלפים." + still());
     } else if (kind === "all") {
       const pileNow = g.pile.filter(x => x !== id);
       g.hands[opp].push(...pileNow); shuffle(g.hands[opp]);
       g.pile = [id];
-      say(g, "💥 " + my + " שם/ה משוך את כל הקופה, ו" + other + " הרים/ה " + pileNow.length + " קלפים." + still());
+      say(g, "💥 " + my + " " + W(P, "שם/ה") + " משוך את כל הקופה, ו" + other + " " + W(O, "הרים/ה") + " " + pileNow.length + " קלפים." + still());
     } else if (kind === "snatch") {
       const oh = g.hands[opp];
       const i = Math.max(0, Math.min(oh.length - 1, target ?? Math.floor(Math.random() * oh.length)));
       const taken = oh.splice(i, 1)[0];
       if (taken) { hand.push(taken); shuffle(hand); }
       g.lastSnatch = { seat, card: taken || null, seq: (g.seq || 0) + 1 };
-      say(g, "🗡️ " + my + " חטף/ה קלף מהיד של " + other + "." + still());
+      say(g, "🗡️ " + my + " " + W(P, "חטף/ה") + " קלף מהיד של " + other + "." + still());
     } else if (kind === "peek") {
-      say(g, "👀 " + my + " הציץ/ה בקלף של " + other + "." + still());
+      say(g, "👀 " + my + " " + W(P, "הציץ/ה") + " בקלף של " + other + "." + still());
     }
     // a number card answers and ends the turn; a special card does not answer, so the turn goes on
     g.turn = kind === "num" ? 1 - seat : seat;
@@ -580,7 +613,8 @@ body.shake #app{animation:shake .7s ease-in-out}
   function canAnswer(g, seat) { return g.hands[String(seat)].some(id => !isSpecial(id) && canPlay(id, g.pile)); }
   function applyDraw(g, seat) {
     const n = drawCards(g, String(seat), 1);
-    say(g, n ? g.players[seat].name + " לא היה לו/ה מספר מתאים ומשך/ה קלף." : "אין קלפים למשוך. " + g.players[seat].name + " מעביר/ה את התור.");
+    const P = g.players[seat];
+    say(g, n ? P.name + " לא היה " + W(P, "לו/ה") + " מספר מתאים ו" + W(P, "משך/ה") + " קלף." : "אין קלפים למשוך. " + P.name + " " + W(P, "מעביר/ה") + " את התור.");
     g.turn = 1 - seat;
     g.spUsed = false;
     // both players drew one after the other: nobody can answer, so the used pile goes back into
@@ -659,7 +693,7 @@ body.shake #app{animation:shake .7s ease-in-out}
   try { Object.assign(profile, JSON.parse(store.get("kk_profile") || "{}")); } catch {}
   if (!profile.name) profile.name = store.get("kk_name") || "";
   if (!CARDS[profile.avatar] || isSpecial(profile.avatar)) profile.avatar = "h01";
-  const BOT = { pid: "bot", name: "המחשב", avatar: "c15", color: "#5fd0ff", cheer: "בי־בופ! ניצחתי 🤖" };
+  const BOT = { pid: "bot", name: "המחשב", avatar: "c15", color: "#5fd0ff", cheer: "בי־בופ! ניצחתי 🤖", g: "m" };
 
   const $ = id => document.getElementById(id);
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -704,12 +738,15 @@ body.shake #app{animation:shake .7s ease-in-out}
     return b;
   }));
   renderAvaGrid();
+  const paintG = () => { for (const b of $("gPick").children) { const on = b.dataset.g === profile.g; b.setAttribute("aria-checked", String(on)); b.setAttribute("aria-selected", String(on)); } };
+  for (const b of $("gPick").children) b.onclick = () => { profile.g = b.dataset.g; saveProfile(); paintG(); if (typeof syncPresence === "function") syncPresence(); };
+  paintG();
   const nameInput = $("nameInput"), cheerInput = $("cheerInput");
   nameInput.value = profile.name; cheerInput.value = profile.cheer;
   nameInput.addEventListener("input", () => { profile.name = nameInput.value.trim(); saveProfile(); });
   cheerInput.addEventListener("input", () => { profile.cheer = cheerInput.value.trim(); saveProfile(); });
   renderProfile();
-  const meAsPlayer = () => ({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, cheer: profile.cheer });
+  const meAsPlayer = () => ({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, cheer: profile.cheer, g: profile.g || "" });
 
   let db = null, game = null, code = null, unsubGame = null, busy = false, lastTop = null, openGames = [], scores = {}, botTimer = null;
   let picking = null; // a snatch or peek card waiting for you to choose one of the opponent's cards
@@ -723,7 +760,7 @@ body.shake #app{animation:shake .7s ease-in-out}
 
   // ---------- connect ----------
   let dbFailed = false;
-  const noDb = msg => { dbFailed = true; if (typeof renderChat === "function") renderChat(); setStatus(msg + " משחק נגד המחשב עובד גם ככה 🤖", true); $("gameList").replaceChildren(el("div", "note", "אין חיבור למשחק נגד חבר.")); $("btnCreate").disabled = true; $("btnJoin").disabled = true; };
+  const noDb = msg => { dbFailed = true; setTimeout(() => renderChat(), 0); setStatus(msg + " משחק נגד המחשב עובד גם ככה 🤖", true); $("gameList").replaceChildren(el("div", "note", "אין חיבור למשחק נגד חבר.")); $("btnCreate").disabled = true; $("btnJoin").disabled = true; };
   const timer = setTimeout(() => { if (!db) noDb("לא מצליח להתחבר לשרת המשחק."); }, 10000);
   (async () => {
     if (!window.claude || !window.claude.use) { clearTimeout(timer); noDb("משחק נגד חבר עובד רק כשפותחים את הדף מתוך claude.ai."); renderScores(); return; }
@@ -773,7 +810,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (needName()) return;
     leaveQuiet();
     game = Object.assign({ local: true, code: "", status: "playing", players: [meAsPlayer(), { ...BOT }], turn: 0, winner: null, round: 1, seq: 0 }, deal());
-    say(game, "הקלפים חולקו! " + profile.name + " מתחיל/ה.");
+    say(game, "הקלפים חולקו! " + profile.name + " " + W(profile, "מתחיל/ה") + ".");
     setStatus(""); renderTable();
   };
 
@@ -799,7 +836,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (g.players.length >= 2) { setStatus("במשחק הזה כבר יש שני שחקנים.", true); return; }
     g.players.push(meAsPlayer());
     Object.assign(g, deal(), { status: "playing", turn: 0, winner: null, round: 1, seq: g.seq + 1 });
-    say(g, "הקלפים חולקו! " + g.players[0].name + " מתחיל/ה.");
+    say(g, "הקלפים חולקו! " + g.players[0].name + " " + W(g.players[0], "מתחיל/ה") + ".");
     try { await ref.set(g); openGame(c, true); setStatus(""); }
     catch (e) { setStatus("לא הצלחתי להצטרף (" + (e.code || "error") + ").", true); }
   }
@@ -814,7 +851,7 @@ body.shake #app{animation:shake .7s ease-in-out}
       // the other player snatched one of my cards: tell me which
       const me = seatOf(d);
       if (prev && d.lastSnatch && d.lastSnatch.seat !== me && (!prev.lastSnatch || prev.lastSnatch.seq !== d.lastSnatch.seq) && d.lastSnatch.card)
-        showCard(d.players[d.lastSnatch.seat].name + " חטף/ה ממך את הקלף הזה", d.lastSnatch.card);
+        showCard(d.players[d.lastSnatch.seat].name + " " + W(d.players[d.lastSnatch.seat], "חטף/ה") + " ממך את הקלף הזה", d.lastSnatch.card);
       renderTable();
     }, e => setStatus("החיבור למשחק נותק (" + e.code + ").", true));
   }
@@ -868,7 +905,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     const ot = $("oppTurn");
     ot.hidden = !(playing && g.turn === opp);
     ot.className = "chip " + (g.local ? "think" : "turn");
-    ot.textContent = g.local ? "המחשב חושב…" : "התור שלו/ה";
+    ot.textContent = g.local ? "המחשב חושב…" : "התור " + W(oppP, "שלו/ה");
 
     // opponent's cards, face down (clickable while you choose one for a snatch or peek)
     const backs = $("oppBacks"); backs.replaceChildren(); backs.classList.toggle("picking", !!picking);
@@ -918,20 +955,32 @@ body.shake #app{animation:shake .7s ease-in-out}
     const canDraw = (g.draw || []).length + g.pile.filter(id => id !== tn).length > 0;
     const answer = canAnswer(g, me);
     $("btnDraw").hidden = !(myTurn && !answer && !picking);
-    $("btnDraw").textContent = canDraw ? "אין לי מספר מתאים: מושך/ת קלף" : "אין מה למשוך: מעביר/ה את התור";
+    $("btnDraw").textContent = canDraw ? "אין לי מספר מתאים: " + W(meP, "מושך/ת") + " קלף" : "אין מה למשוך: " + W(meP, "מעביר/ה") + " את התור";
 
     // win
     if (g.status === "over") {
       const iWon = g.winner === me, w = g.players[g.winner];
       paintAva($("winAva"), w);
-      $("winTitle").textContent = g.local ? (iWon ? "ניצחת את המחשב!!! 🎉" : "המחשב ניצח הפעם") : (iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " ניצח/ה וקיבל/ה כוכב ⭐");
+      $("winTitle").textContent = g.local ? (iWon ? "ניצחת את המחשב!!! 🎉" : "המחשב ניצח הפעם") : (iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " " + W(w, "ניצח/ה") + " ו" + W(w, "קיבל/ה") + " כוכב ⭐");
       $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
-      $("winText").textContent = iWon ? "נגמרו לך הקלפים ראשון/ה." : "בסיבוב הבא זה שלך!";
+      $("winText").textContent = iWon ? "נגמרו לך הקלפים " + W(meP, "ראשון/ה") + "." : "בסיבוב הבא זה שלך!";
       $("overWin").hidden = false;
     } else $("overWin").hidden = true;
 
     if (g.local && playing && g.turn === 1) scheduleBot();
+    updateTitle();
   }
+
+  // the browser tab tells you when it is your turn or a message came in while you were away
+  const BASE_TITLE = document.title;
+  function updateTitle() {
+    const g = game, me = g ? seatOf(g) : -1;
+    const myTurn = g && !g.local && g.status === "playing" && g.turn === me;
+    let unread = 0;
+    try { unread = chatOpen ? 0 : chatMsgs.filter(m => m.pid !== pid && m.at > lastSeen()).length; } catch {}
+    document.title = (myTurn && document.hidden ? "🔔 התור שלך! · " : "") + (unread ? "(" + unread + ") " : "") + BASE_TITLE;
+  }
+  document.addEventListener("visibilitychange", () => updateTitle());
 
   async function commit(g) {
     g.seq = (g.seq || 0) + 1;
@@ -985,7 +1034,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     const g = structuredClone(game), loser = 1 - g.winner;
     if (g.local) g.players[0] = meAsPlayer();
     Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
-    say(g, "סיבוב חדש! " + g.players[loser].name + " מתחיל/ה.");
+    say(g, "סיבוב חדש! " + g.players[loser].name + " " + W(g.players[loser], "מתחיל/ה") + ".");
     lastTop = null;
     await commit(g);
   };
@@ -1013,6 +1062,7 @@ body.shake #app{animation:shake .7s ease-in-out}
   // typing travel live through the room and are never stored.
   let chatMsgs = [], chatOpen = false, pickerFor = null, seenIds = null, room = null, others = [], typingTimer = null, mic = null;
   let pinned = null, replyTo = null;
+  const reactSeen = new Map(); let reactReady = false; setTimeout(() => { reactReady = true; }, 2500);
   const REACTIONS = ["❤️", "😂", "😮", "😡", "👍", "🍫"];
   const BUBBLE_COLORS = [["#7b3ff0", "סגול"], ["#e2559e", "ורוד"], ["#3f63e0", "כחול"], ["#1fb3a7", "טורקיז"]];
   if (!profile.bubble) profile.bubble = BUBBLE_COLORS[0][0];
@@ -1023,8 +1073,8 @@ body.shake #app{animation:shake .7s ease-in-out}
   function peer() {
     const last = chatMsgs.slice().reverse().find(m => m.pid && m.pid !== pid);
     const on = others[0];
-    if (on) return { name: on.name || (last && last.name) || "החבר/ה", avatar: on.avatar || (last && last.avatar), color: on.color || (last && last.color), online: true };
-    return last ? { name: last.name, avatar: last.avatar, color: last.color, online: false } : { name: "החבר/ה", online: false };
+    if (on) return { name: on.name || (last && last.name) || "החבר/ה", avatar: on.avatar || (last && last.avatar), color: on.color || (last && last.color), g: on.g || (last && last.g) || "", online: true };
+    return last ? { name: last.name, avatar: last.avatar, color: last.color, g: last.g || "", online: false } : { name: "החבר/ה", online: false };
   }
 
   function chatArrived() {
@@ -1032,15 +1082,15 @@ body.shake #app{animation:shake .7s ease-in-out}
     for (const m of chatMsgs) {
       if (seenIds.has(m.id)) continue;
       seenIds.add(m.id);
-      if (m.type === "poke" && m.pid !== pid) poked(m.name);
+      if (m.type === "poke" && m.pid !== pid) poked(m);
     }
   }
   function toast(text) {
     const t = el("div", "toast", text); t.setAttribute("role", "status");
     document.body.append(t); setTimeout(() => t.remove(), 3200);
   }
-  function poked(name) {
-    toast("😉 " + (name || "מישהו") + " עקץ/ה אותך!");
+  function poked(m) {
+    toast("😉 " + (m.name || "מישהו") + " " + W(m, "עקץ/ה") + " אותך!");
     document.body.classList.remove("shake"); void document.body.offsetWidth; document.body.classList.add("shake");
     setTimeout(() => document.body.classList.remove("shake"), 800);
   }
@@ -1050,7 +1100,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     const box = el("div", "invite");
     box.append(el("span", "pad", "🎮"));
     const col = el("div");
-    col.append(el("b", "", "הזמנה למשחק"), el("p", "", mine ? "הזמנת את " + peer().name + " למשחק" : (m.name || "מישהו") + " מזמין/ה אותך למשחק"));
+    col.append(el("b", "", "הזמנה למשחק"), el("p", "", mine ? "הזמנת את " + peer().name + " למשחק" : (m.name || "מישהו") + " " + W(m, "מזמין/ה") + " אותך למשחק"));
     const g = openGames.find(x => x.code === m.code);
     const active = g && (g.status === "waiting" || (seatOf(g) >= 0 && g.status === "playing"));
     const row = el("div", "row");
@@ -1076,7 +1126,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (!chatMsgs.length) list.replaceChildren(el("li", "note", "עוד אין הודעות. תכתבו את הראשונה! 👋"));
     else list.replaceChildren(...chatMsgs.filter(m => !(m.type === "invite" && dismissed.has(m.id))).map(m => {
       const mine = m.pid === pid;
-      if (m.type === "poke") return el("li", "sysmsg", "😉 " + (m.name || "מישהו") + " עקץ/ה · " + hhmm(m.at));
+      if (m.type === "poke") return el("li", "sysmsg", "😉 " + (m.name || "מישהו") + " " + W(m, "עקץ/ה") + " · " + hhmm(m.at));
       const li = el("li", "msg" + (mine ? " mine" : ""));
       const col = el("div", "mcol");
       col.append(el("span", "mname", m.name || "מישהו"));
@@ -1097,7 +1147,16 @@ body.shake #app{animation:shake .7s ease-in-out}
       const rs = Object.values(m.reactions || {}).filter(Boolean);
       if (rs.length) {
         const counts = {}; rs.forEach(r => counts[r] = (counts[r] || 0) + 1);
-        const row = el("div", "reacts"); Object.entries(counts).forEach(([e, n]) => row.append(el("span", "", e + " " + n)));
+        const mineR = (m.reactions || {})[pid];
+        const row = el("div", "reacts");
+        Object.entries(counts).forEach(([e, n]) => {
+          const key = m.id + e, changed = reactSeen.has(key) && reactSeen.get(key) !== n;
+          const rb = el("button", (e === mineR ? "me" : "") + (changed || (!reactSeen.has(key) && reactReady) ? " pop" : ""), e + " " + n);
+          reactSeen.set(key, n);
+          rb.type = "button"; rb.setAttribute("aria-label", e + " " + n + (e === mineR ? ", כולל שלך" : "") + ". לחיצה מוסיפה או מורידה את שלך");
+          rb.onclick = ev => { ev.stopPropagation(); react(m, e); };
+          row.append(rb);
+        });
         col.append(row);
       }
       if (pickerFor === m.id) {
@@ -1113,6 +1172,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (chatOpen && !pickerFor) { list.scrollTop = list.scrollHeight; if (chatMsgs.length) store.set("kk_chat_seen", String(chatMsgs[chatMsgs.length - 1].at)); }
     const unread = chatOpen ? 0 : chatMsgs.filter(m => m.pid !== pid && m.at > lastSeen()).length;
     $("chatDot").hidden = !unread; $("chatDot").textContent = unread > 9 ? "9+" : String(unread);
+    updateTitle();
   }
   function renderContact() {
     const pr = peer();
@@ -1120,10 +1180,10 @@ body.shake #app{animation:shake .7s ease-in-out}
     $("chPeerName").textContent = pr.name;
     $("chPeerInitial").textContent = [...(pr.name || "?")][0];
     $("chMenuBtn").classList.toggle("on", !!pr.online);
-    $("chPeerStatus").textContent = room ? (pr.online ? "מחובר/ת" : "לא מחובר/ת") : "";
+    $("chPeerStatus").textContent = room ? (pr.online ? "" : "לא ") + W(pr, "מחובר/ת") : "";
     const typers = others.filter(o => o.typing);
     const t = $("typing"); t.replaceChildren();
-    if (typers.length) { const d = el("span", "dots"); d.append(el("i"), el("i"), el("i")); t.append(d, document.createTextNode((typers[0].name || "מישהו") + " מקליד/ה…")); }
+    if (typers.length) { const d = el("span", "dots"); d.append(el("i"), el("i"), el("i")); t.append(d, document.createTextNode((typers[0].name || "מישהו") + " " + W(typers[0], "מקליד/ה") + "…")); }
   }
   function renderPin() {
     $("chPin").hidden = !(pinned && pinned.text);
@@ -1164,7 +1224,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (!db) { renderChat(); return false; }
     if (!profile.name) { toast("קודם כותבים שם בפרופיל 🙂"); return false; }
     try {
-      await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, bubble: profile.bubble, at: Date.now(), ...extra });
+      await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, bubble: profile.bubble, g: profile.g || "", at: Date.now(), ...extra });
       return true;
     } catch (e) { toast("ההודעה לא נשלחה (" + (e.code || "error") + "). נסו שוב."); return false; }
   }
@@ -1220,11 +1280,11 @@ body.shake #app{animation:shake .7s ease-in-out}
   async function startRoom() {
     try { room = await window.claude.use("room"); } catch { room = null; }
     if (!room) { renderContact(); return; }
-    room.presence({ pid, name: profile.name || "", avatar: profile.avatar, color: profile.color, typing: false }).catch(() => {});
+    room.presence({ pid, name: profile.name || "", avatar: profile.avatar, color: profile.color, g: profile.g || "", typing: false }).catch(() => {});
     room.onPeers(ch => {
       const seen = new Set();
       others = ch.peers.filter(p => !p.isMe && p.presence && p.presence.pid && p.presence.pid !== pid && !seen.has(p.presence.pid) && seen.add(p.presence.pid))
-        .map(p => ({ pid: p.presence.pid, name: String(p.presence.name || "").slice(0, 30), avatar: CARDS[p.presence.avatar] && !isSpecial(p.presence.avatar) ? p.presence.avatar : null, color: /^#[0-9a-f]{6}$/i.test(p.presence.color || "") ? p.presence.color : null, typing: !!p.presence.typing }));
+        .map(p => ({ pid: p.presence.pid, name: String(p.presence.name || "").slice(0, 30), avatar: CARDS[p.presence.avatar] && !isSpecial(p.presence.avatar) ? p.presence.avatar : null, color: /^#[0-9a-f]{6}$/i.test(p.presence.color || "") ? p.presence.color : null, g: p.presence.g === "m" || p.presence.g === "f" ? p.presence.g : "", typing: !!p.presence.typing }));
       renderContact();
     }, () => { room = null; renderContact(); });
   }
@@ -1234,7 +1294,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     room.presence({ typing: on }).catch(() => {});
     if (on) typingTimer = setTimeout(() => setTyping(false), 3000);
   }
-  const syncPresence = () => { if (room) room.presence({ name: profile.name || "", avatar: profile.avatar, color: profile.color }).catch(() => {}); };
+  const syncPresence = () => { if (room) room.presence({ name: profile.name || "", avatar: profile.avatar, color: profile.color, g: profile.g || "" }).catch(() => {}); };
   nameInput.addEventListener("input", syncPresence);
   $("avaGrid").addEventListener("click", syncPresence);
 
