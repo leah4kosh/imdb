@@ -52,7 +52,7 @@ hr{border:0;border-top:1px solid var(--line);margin:4px 0;width:100%}
 
 /* lobby */
 #lobby{display:grid;grid-template-columns:1.2fr 1fr;gap:14px;align-items:start}
-@media (max-width:760px){#lobby{grid-template-columns:1fr}}
+@media (max-width:760px){#lobby{grid-template-columns:1fr}#lobby > .lobby-col{display:contents}#playPanel{order:1}#profilePanel{order:2}#rulesPanel{order:3}}
 .hero{display:flex;gap:18px;align-items:center}
 .fan{position:relative;width:150px;height:150px;flex:none}
 .fan img{position:absolute;width:92px;border-radius:8px;left:28px;top:10px;box-shadow:0 8px 20px rgba(0,0,0,.5)}
@@ -135,8 +135,6 @@ label.lbl{font-size:13px;color:var(--mist)}
   :root{--cw:60px}
   .hand{gap:6px;padding:10px}
   .backs .bk{width:36px;margin-inline-start:-18px}
-  button.chatbtn{padding:8px 14px 8px 12px;font-size:17px;gap:6px}
-  button.chatbtn .chat-ico{width:28px;height:25px}
   #table{padding-bottom:70px}
 }
 .peekcard{width:min(220px,60vw)}
@@ -195,6 +193,12 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
   box-shadow:0 8px 22px rgba(84,20,200,.55),0 0 18px rgba(170,120,255,.35),inset 0 2px 5px rgba(255,255,255,.28),inset 0 -4px 10px rgba(20,0,60,.35)}
 .chatbtn:hover{filter:brightness(1.1)}
 .chatbtn .chat-ico{width:34px;height:31px;flex:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+@media (max-width:560px){
+  button.chatbtn{padding:0;width:58px;height:58px;justify-content:center;border-radius:50%}
+  button.chatbtn > span:not(.dot){position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  button.chatbtn .chat-ico{width:30px;height:27px}
+  button.chatbtn .dot{position:absolute;top:-4px;right:-4px}
+}
 .chatbtn .dot{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:#ff5d8f;color:#fff;font-size:13px;box-shadow:0 0 0 2px #fff}
 /* chat panel: Hillel's design */
 .chat{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom,0px));left:max(16px,env(safe-area-inset-left,0px));z-index:16;
@@ -321,8 +325,8 @@ body.shake #app{animation:shake .7s ease-in-out}
   <div id="status" class="note"></div>
 
   <section id="lobby">
-    <div class="stack">
-      <div class="panel stack">
+    <div class="stack lobby-col">
+      <div id="rulesPanel" class="panel stack">
         <div class="hero">
           <div class="fan" aria-hidden="true">
             <img src="cards/d15.webp" alt=""><img src="cards/h15.webp" alt=""><img src="cards/s15.webp" alt="">
@@ -347,7 +351,7 @@ body.shake #app{animation:shake .7s ease-in-out}
           <figure><img src="cards/sp-all.webp" alt=""><b>משוך את כל הקופה · 4</b>היריב מרים את כל הקופה המשומשת</figure>
         </div>
       </div>
-      <div class="panel stack">
+      <div id="playPanel" class="panel stack">
         <h3>לשחק</h3>
         <button id="btnBot" class="bot" type="button">🤖 משחק נגד המחשב</button>
         <button id="btnCreate" class="primary" type="button">פתיחת משחק חדש נגד חבר</button>
@@ -360,7 +364,7 @@ body.shake #app{animation:shake .7s ease-in-out}
       </div>
     </div>
 
-    <div class="panel stack" aria-labelledby="profTitle">
+    <div id="profilePanel" class="panel stack" aria-labelledby="profTitle">
       <h2 id="profTitle">הפרופיל שלי</h2>
       <div class="profile-head">
         <div id="profAva" class="ava big"></div>
@@ -790,7 +794,9 @@ body.shake #app{animation:shake .7s ease-in-out}
   // ---------- lobby ----------
   function renderLobbyList() {
     const list = $("gameList");
-    const items = openGames.filter(g => g.status === "waiting" || (seatOf(g) >= 0 && g.status !== "over"));
+    // waiting games older than 6 hours are hidden; your own games in progress always show
+    const fresh = g => Date.now() - (g.created || 0) < 6 * 3600e3;
+    const items = openGames.filter(g => (g.status === "waiting" && fresh(g)) || (seatOf(g) >= 0 && g.status === "playing"));
     if (!items.length) { list.replaceChildren(el("div", "note", "אין כרגע משחקים פתוחים. אפשר לפתוח משחק חדש ולשלוח לאח שלך את הקוד.")); return; }
     list.replaceChildren(...items.map(g => {
       const row = el("div", "gameitem");
@@ -802,7 +808,13 @@ body.shake #app{animation:shake .7s ease-in-out}
       left.append(avaEl(host, "sm"), txt);
       const b = el("button", seatOf(g) >= 0 ? "" : "primary", seatOf(g) >= 0 ? "חזרה למשחק" : "הצטרפות");
       b.type = "button"; b.onclick = () => joinGame(g.code);
-      row.append(left, b); return row;
+      const btns = el("div", "row"); btns.style.gap = "6px"; btns.append(b);
+      if (g.status === "waiting" && seatOf(g) === 0) {
+        const x = el("button", "", "ביטול"); x.type = "button"; x.setAttribute("aria-label", "ביטול המשחק " + g.code);
+        x.onclick = () => cancelGame(g.code);
+        btns.append(x);
+      }
+      row.append(left, btns); return row;
     }));
   }
 
@@ -814,8 +826,19 @@ body.shake #app{animation:shake .7s ease-in-out}
     setStatus(""); renderTable();
   };
 
+  async function cancelGame(c) {
+    try {
+      const ref = db.doc("games/" + c), snap = await ref.get();
+      if (snap.exists && snap.data().status === "waiting" && seatOf(snap.data()) === 0) await ref.update({ status: "cancelled" });
+      if (code === c) leave();
+    } catch { setStatus("לא הצלחתי לבטל את המשחק. נסו שוב.", true); }
+  }
   async function createGame() {
     if (!db || needName()) return null;
+    // a new game replaces my older games that are still waiting for a second player
+    for (const old of openGames.filter(x => x.status === "waiting" && seatOf(x) === 0)) {
+      try { await db.doc("games/" + old.code).update({ status: "cancelled" }); } catch {}
+    }
     const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
     const c = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]).join("");
     const g = { v: RULES_VERSION, code: c, created: Date.now(), status: "waiting", players: [meAsPlayer()], hands: { "0": [], "1": [] }, pile: [], draw: [], turn: 0, winner: null, log: "", seq: 0, round: 0 };
