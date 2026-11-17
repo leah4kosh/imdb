@@ -347,6 +347,18 @@ body.has-bg{background-attachment:fixed;background-size:cover;background-positio
 .fav img{width:62px;border-radius:7px}
 .sprow{display:flex;gap:8px;flex-wrap:wrap}
 .sprow span{font-size:13px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid var(--line)}
+.notif{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;z-index:45;width:min(380px,calc(100vw - 24px));display:flex;gap:12px;align-items:center;
+  padding:12px 14px;border-radius:20px;border:2px solid transparent;cursor:pointer;color:#fff;text-align:start;font:inherit;
+  background:linear-gradient(160deg,#3b2ee8,#4a12b8) padding-box,linear-gradient(90deg,#d6b4ff,#86e6ff,#ffb6e8,#9fc0ff) border-box;
+  box-shadow:0 14px 36px rgba(0,0,0,.6);animation:notifIn .45s cubic-bezier(.3,1.4,.5,1) both}
+.notif.out{animation:notifOut .3s ease-in forwards}
+.notif .ava{width:46px;height:46px}
+.notif .ntxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.notif b{font-size:15px}
+.notif span{font-size:14px;color:#e6dcff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.notif small{font-size:11px;color:#c9b8ff}
+@keyframes notifIn{from{transform:translate(-50%,-140%)}to{transform:translate(-50%,0)}}
+@keyframes notifOut{to{transform:translate(-50%,-140%);opacity:0}}
 .toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:40;padding:12px 20px;border-radius:99px;font-weight:700;font-size:17px;
   background:linear-gradient(160deg,#3b2ee8,#5112c9);color:#fff;border:2px solid #d6b4ff;box-shadow:0 10px 30px rgba(0,0,0,.6)}
 @keyframes shake{0%,100%{transform:none}15%{transform:translate(-10px,4px) rotate(-1deg)}30%{transform:translate(10px,-4px) rotate(1deg)}45%{transform:translate(-8px,2px)}60%{transform:translate(8px,-2px)}75%{transform:translate(-4px,0)}}
@@ -492,6 +504,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     <div id="chMenu" class="ch-menu" hidden>
       <button id="btnInvite" type="button">🎮 הזמנה למשחק</button>
       <button id="btnUnpin" type="button">📌 ביטול ההודעה המוצמדת</button>
+      <button id="btnNotify" type="button" hidden>🔔 התראות גם כשהמשחק ברקע</button>
     </div>
   </div>
   <div id="chPin" class="ch-pin" hidden><span aria-hidden="true">📌</span><span id="chPinText"></span><button id="btnUnpin2" type="button" aria-label="ביטול ההצמדה">✕</button></div>
@@ -991,6 +1004,20 @@ body.shake #app{animation:shake .7s ease-in-out}
       });
     } catch {}
   }
+  // a bell-like "ting": a bright note plus a soft overtone that rings out
+  function ting() {
+    if (!sfxOn) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === "suspended") actx.resume();
+      const t0 = actx.currentTime + 0.01;
+      [[1318.5, 0.18, 0], [2637, 0.06, 0], [1975.5, 0.12, 0.11], [3951, 0.04, 0.11]].forEach(([f, v, d]) => {
+        const o = actx.createOscillator(), gn = actx.createGain(); o.type = "sine"; o.frequency.value = f;
+        gn.gain.setValueAtTime(0.0001, t0 + d); gn.gain.exponentialRampToValueAtTime(v, t0 + d + 0.008); gn.gain.exponentialRampToValueAtTime(0.0001, t0 + d + 0.9);
+        o.connect(gn).connect(actx.destination); o.start(t0 + d); o.stop(t0 + d + 1);
+      });
+    } catch {}
+  }
   const SFX = {
     card: () => tone([520, 690], 0.06, "triangle"),
     special: () => tone([660, 880, 1175], 0.07),
@@ -998,7 +1025,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     turn: () => tone([659, 988], 0.12),
     win: () => tone([523, 659, 784, 1047, 1319], 0.13, "triangle", 0.09),
     lose: () => tone([392, 330, 262], 0.17),
-    msg: () => tone([988], 0.07),
+    msg: () => ting(),
     poke: () => tone([196, 175, 196, 175], 0.06, "square", 0.04),
   };
   const paintSound = () => { $("btnSound").textContent = sfxOn ? "🔊" : "🔇"; $("btnSound").setAttribute("aria-pressed", String(sfxOn)); $("btnSound").setAttribute("aria-label", sfxOn ? "השתקת הצלילים" : "הפעלת הצלילים"); };
@@ -1429,10 +1456,55 @@ body.shake #app{animation:shake .7s ease-in-out}
     for (const m of chatMsgs) {
       if (seenIds.has(m.id)) continue;
       seenIds.add(m.id);
-      if (m.type === "poke" && m.pid !== pid) { poked(m); SFX.poke(); }
-      else if (m.pid !== pid) SFX.msg();
+      if (m.type === "poke" && m.pid !== pid) { poked(m); SFX.poke(); systemNotify(m); }
+      else if (m.pid !== pid) { SFX.msg(); notify(m); }
     }
   }
+  // a new message pops up at the top of the screen (unless the chat is already open in front of you)
+  let notifEl = null, notifTimer = null, flashTimer = null;
+  const preview = m => m.type === "sticker" ? "🃏 שלח/ה סטיקר" : m.type === "invite" ? "🎮 הזמנה למשחק!" : (m.text || "");
+  function notify(m) {
+    systemNotify(m);
+    if (!document.hidden && chatOpen) return;
+    if (notifEl) notifEl.remove();
+    clearTimeout(notifTimer);
+    const n = el("button", "notif"); n.type = "button"; n.setAttribute("role", "status");
+    const t = el("div", "ntxt"); t.append(el("b", "", "💬 " + (m.name || "הודעה חדשה")), el("span", "", preview(m)), el("small", "", "לחיצה פותחת את הצ׳אט"));
+    n.append(avaEl(m), t);
+    n.onclick = () => { closeNotif(); setChat(true); };
+    document.body.append(n); notifEl = n;
+    notifTimer = setTimeout(closeNotif, 5000);
+    if (document.hidden) flashTitle(m);
+  }
+  function closeNotif() { if (!notifEl) return; const n = notifEl; notifEl = null; n.classList.add("out"); setTimeout(() => n.remove(), 320); }
+  // in another tab, the tab title blinks with who wrote
+  function flashTitle(m) {
+    clearInterval(flashTimer); let on = true;
+    flashTimer = setInterval(() => { if (!document.hidden) { clearInterval(flashTimer); updateTitle(); return; } document.title = on ? "💬 " + (m.name || "") + " כתב/ה לך!" : BASE_TITLE; on = !on; }, 1000);
+  }
+  // a real notification on the computer or phone, where the browser allows it
+  function systemNotify(m) {
+    try {
+      if (!document.hidden || !("Notification" in window) || Notification.permission !== "granted") return;
+      const n = new Notification("💬 " + (m.name || "קרב הכתרים"), { body: m.type === "poke" ? "😉 עקץ/ה אותך!" : preview(m), tag: "kk-chat", icon: CARDS[m.avatar] ? CARDS[m.avatar].img : undefined });
+      n.onclick = () => { try { window.focus(); } catch {} setChat(true); n.close(); };
+    } catch {}
+  }
+  async function askNotifyPermission() {
+    try {
+      if (!("Notification" in window)) throw 0;
+      const r = await Notification.requestPermission();
+      if (r !== "granted") throw 0;
+      toast("🔔 מעולה! עכשיו תקבל/י התראה גם כשהמשחק ברקע");
+    } catch { toast("הדפדפן לא מאפשר כאן התראות מחוץ לדף. הטינג וההודעה הקופצת עובדים 👍"); }
+    paintNotifyBtn();
+  }
+  function paintNotifyBtn() {
+    const b = $("btnNotify");
+    const ok = "Notification" in window && Notification.permission === "default";
+    b.hidden = !ok;
+  }
+
   function toast(text) {
     const t = el("div", "toast", text); t.setAttribute("role", "status");
     document.body.append(t); setTimeout(() => t.remove(), 3200);
@@ -1557,6 +1629,8 @@ body.shake #app{animation:shake .7s ease-in-out}
   }
   async function unpin() { $("chMenu").hidden = true; try { await db.doc("chatmeta/pin").set({ text: "" }); } catch { toast("לא הצלחתי לבטל את ההצמדה."); } }
   $("btnUnpin").onclick = unpin; $("btnUnpin2").onclick = unpin;
+  $("btnNotify").onclick = () => { $("chMenu").hidden = true; askNotifyPermission(); };
+  paintNotifyBtn();
   $("chMenuBtn").onclick = () => { const mnu = $("chMenu"); mnu.hidden = !mnu.hidden; $("chMenuBtn").setAttribute("aria-expanded", String(!mnu.hidden)); };
 
   function setChat(open) {
