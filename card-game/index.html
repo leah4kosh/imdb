@@ -361,8 +361,19 @@ body.has-bg{background-attachment:fixed;background-size:cover;background-positio
 @keyframes notifOut{to{transform:translate(-50%,-140%);opacity:0}}
 .toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:40;padding:12px 20px;border-radius:99px;font-weight:700;font-size:17px;
   background:linear-gradient(160deg,#3b2ee8,#5112c9);color:#fff;border:2px solid #d6b4ff;box-shadow:0 10px 30px rgba(0,0,0,.6)}
-@keyframes shake{0%,100%{transform:none}15%{transform:translate(-10px,4px) rotate(-1deg)}30%{transform:translate(10px,-4px) rotate(1deg)}45%{transform:translate(-8px,2px)}60%{transform:translate(8px,-2px)}75%{transform:translate(-4px,0)}}
-body.shake #app{animation:shake .7s ease-in-out}
+@keyframes shake{0%,100%{transform:none}
+  5%{transform:translate(-34px,14px) rotate(-4deg)}10%{transform:translate(32px,-16px) rotate(4deg)}15%{transform:translate(-30px,-12px) rotate(-3deg)}
+  20%{transform:translate(30px,16px) rotate(3deg)}25%{transform:translate(-28px,10px) rotate(-4deg) scale(1.03)}30%{transform:translate(28px,-14px) rotate(3deg)}
+  35%{transform:translate(-26px,-10px) rotate(-3deg)}40%{transform:translate(24px,12px) rotate(2deg) scale(.98)}45%{transform:translate(-22px,8px) rotate(-3deg)}
+  50%{transform:translate(22px,-10px) rotate(2deg)}55%{transform:translate(-20px,-8px) rotate(-2deg)}60%{transform:translate(18px,10px) rotate(2deg)}
+  65%{transform:translate(-16px,6px) rotate(-2deg)}70%{transform:translate(14px,-8px) rotate(1deg)}75%{transform:translate(-12px,-6px)}80%{transform:translate(10px,6px)}
+  85%{transform:translate(-8px,4px)}90%{transform:translate(6px,-3px)}95%{transform:translate(-3px,2px)}}
+@keyframes pokeFlash{0%,100%{opacity:0}8%,24%,40%{opacity:1}16%,32%,48%{opacity:.25}70%{opacity:.4}}
+@keyframes pokeHand{0%{transform:translate(-50%,-50%) scale(.2) rotate(-30deg);opacity:0}15%{transform:translate(-50%,-50%) scale(1.5) rotate(15deg);opacity:1}
+  30%{transform:translate(-50%,-50%) scale(1.1) rotate(-10deg)}45%{transform:translate(-50%,-50%) scale(1.4) rotate(10deg)}80%{opacity:1}100%{transform:translate(-50%,-50%) scale(1) rotate(0);opacity:0}}
+body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{animation:shake 1.6s cubic-bezier(.36,.07,.19,.97) both}
+.poke-flash{position:fixed;inset:0;z-index:44;pointer-events:none;background:radial-gradient(circle,rgba(255,93,143,.15) 30%,rgba(255,40,110,.55));animation:pokeFlash 1.6s ease-out forwards}
+.poke-hand{position:fixed;top:50%;left:50%;z-index:46;font-size:min(40vw,220px);pointer-events:none;animation:pokeHand 1.6s ease-out forwards;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6))}
 .bubble small{display:block;font-size:11px;color:var(--mist);margin-bottom:2px}
 .chat form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
 .chat form input{flex:1}
@@ -1041,7 +1052,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     win: () => tone([523, 659, 784, 1047, 1319], 0.13, "triangle", 0.09),
     lose: () => tone([392, 330, 262], 0.17),
     msg: () => ting(),
-    poke: () => tone([196, 175, 196, 175], 0.06, "square", 0.04),
+    poke: () => tone([196, 175, 196, 175, 196, 175, 196, 147], 0.09, "square", 0.06),
   };
   const paintSound = () => { $("btnSound").textContent = sfxOn ? "🔊" : "🔇"; $("btnSound").setAttribute("aria-pressed", String(sfxOn)); $("btnSound").setAttribute("aria-label", sfxOn ? "השתקת הצלילים" : "הפעלת הצלילים"); };
   $("btnSound").onclick = () => { sfxOn = !sfxOn; store.set("kk_sfx", sfxOn ? "1" : "0"); paintSound(); if (sfxOn) SFX.card(); };
@@ -1597,8 +1608,13 @@ body.shake #app{animation:shake .7s ease-in-out}
   }
   function poked(m) {
     toast("😉 " + (m.name || "מישהו") + " " + W(m, "עקץ/ה") + " אותך!");
+    // a big poke: the whole screen shakes hard, flashes pink, and a giant 👉 jumps out
     document.body.classList.remove("shake"); void document.body.offsetWidth; document.body.classList.add("shake");
-    setTimeout(() => document.body.classList.remove("shake"), 800);
+    setTimeout(() => document.body.classList.remove("shake"), 1700);
+    const fl = el("div", "poke-flash"), hand = el("div", "poke-hand", "👉");
+    fl.setAttribute("aria-hidden", "true"); hand.setAttribute("aria-hidden", "true");
+    document.body.append(fl, hand); setTimeout(() => { fl.remove(); hand.remove(); }, 1700);
+    try { navigator.vibrate && navigator.vibrate([200, 80, 200, 80, 400]); } catch {}
   }
   const short = m => m.type === "sticker" ? "🃏 סטיקר" : m.type === "invite" ? "🎮 הזמנה למשחק" : (m.text || "");
 
