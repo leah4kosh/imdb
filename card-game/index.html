@@ -465,6 +465,7 @@ body.shake #app{animation:shake .7s ease-in-out}
       </div>
     </div>
     <div id="oppBacks" class="backs" aria-label="הקלפים של היריב"></div>
+    <div id="offerWait" class="prompt" hidden><span id="offerWaitText"></span><button id="btnOfferCancel" type="button">ביטול ההצעה</button></div>
     <div id="pickPrompt" class="prompt" hidden><span id="pickText"></span><button id="btnPickCancel" type="button">ביטול</button></div>
 
     <div id="board" class="board">
@@ -486,6 +487,8 @@ body.shake #app{animation:shake .7s ease-in-out}
       <div class="who"><div id="myAva" class="ava"></div><b id="myName">אני</b><span id="myCount" class="chip"></span><span id="myTurn" class="chip turn" hidden>התור שלך!</span></div>
       <div class="actions">
         <button id="btnDraw" class="danger" type="button" hidden>אין לי מספר מתאים: מושך/ת קלף</button>
+        <button id="btnOfferDraw" type="button" hidden>🤝 להציע תיקו</button>
+        <button id="btnOfferWin" type="button" hidden>🏳️ תן/י לי לנצח</button>
       </div>
     </div>
     <div id="hand" class="hand" aria-label="הקלפים שלך"></div>
@@ -524,6 +527,18 @@ body.shake #app{animation:shake .7s ease-in-out}
     <button id="btnPoke" class="ch-poke" type="button">עקיצה 😉</button>
   </form>
 </section>
+
+<div id="overOffer" class="overlay" style="z-index:28" hidden>
+  <div class="panel" role="alertdialog" aria-labelledby="offerTitle">
+    <div id="offerAva" class="ava big"></div>
+    <h2 id="offerTitle"></h2>
+    <p id="offerText" class="muted" style="margin:0"></p>
+    <div class="row" style="justify-content:center">
+      <button id="btnOfferYes" class="primary" type="button">כן ✅</button>
+      <button id="btnOfferNo" type="button">לא ❌</button>
+    </div>
+  </div>
+</div>
 
 <div id="overWin" class="overlay" hidden>
   <div class="panel">
@@ -634,7 +649,7 @@ body.shake #app{animation:shake .7s ease-in-out}
   function say(g, text) { g.log = text; g.history = [...(g.history || []), text].slice(-6); }
   // Hebrew words written for each player: "בן" or "בת" from the profile (no choice = both forms)
   const FINAL_TO_MID = { "ם": "מ", "ך": "כ", "ן": "נ", "ף": "פ", "ץ": "צ" };
-  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת", "פותח/ת": "פותחת" };
+  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת", "פותח/ת": "פותחת", "מבקש/ת": "מבקשת", "תן/י": "תני", "הסכים/ה": "הסכימה", "שתתן/י": "שתתני", "תסכים/י": "תסכימי", "מקבל/ת": "מקבלת", "מוותר/ת": "מוותרת", "מנצח/ת": "מנצחת" };
   function W(p, word) {
     const g = p && p.g, base = word.split("/")[0];
     if (g === "m") return base;
@@ -1050,10 +1065,11 @@ body.shake #app{animation:shake .7s ease-in-out}
   // play a sound for what just changed on the table
   let prevView = null;
   function soundFor(g, me) {
-    const view = { pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: [g.hands["0"].length, g.hands["1"].length], status: g.status, turn: g.turn, round: g.round };
+    const view = { offer: !!g.offer, pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: [g.hands["0"].length, g.hands["1"].length], status: g.status, turn: g.turn, round: g.round };
     const p = prevView; prevView = view;
     if (!p || p.round !== view.round) return;
-    if (p.status !== "over" && view.status === "over") { if (g.winner === me) { SFX.win(); confetti(); } else SFX.lose(); saveStats(g, me); return; }
+    if (p.status !== "over" && view.status === "over") { if (g.winner === me || g.draw) { SFX.win(); confetti(); } else SFX.lose(); saveStats(g, me); return; }
+    if (g.offer && g.offer.from !== me && (!p.offer)) SFX.msg();
     if (view.status !== "playing") return;
     if (view.top !== p.top && view.top) (isSpecial(view.top) ? SFX.special : SFX.card)();
     else if (view.hands[0] + view.hands[1] > p.hands[0] + p.hands[1] && view.pile === p.pile) SFX.draw();
@@ -1143,7 +1159,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     const key = (g.code || "bot") + ":" + g.round;
     if (store.get("kk_stats_last") === key) return; // count each game once
     store.set("kk_stats_last", key);
-    const st = await myStats(), side = g.local ? "bot" : "friend", won = g.winner === me;
+    const st = await myStats(), side = g.local ? "bot" : "friend", won = g.winner === me || !!g.draw;
     const sd = st[side] = Object.assign(emptySide(), st[side]);
     sd.games++; if (won) { sd.wins++; sd.streak++; sd.best = Math.max(sd.best, sd.streak); } else sd.streak = 0;
     if (run.round === key) {
@@ -1325,14 +1341,21 @@ body.shake #app{animation:shake .7s ease-in-out}
 
     // win
     if (g.status === "over") {
-      const iWon = g.winner === me, w = g.players[g.winner];
+      const iWon = g.winner === me || g.draw, w = g.draw ? meP : g.players[g.winner];
       paintAva($("winAva"), w);
-      $("winTitle").textContent = g.local ? (iWon ? "ניצחת את המחשב!!! 🎉" : "המחשב ניצח הפעם") : (iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " " + W(w, "ניצח/ה") + " ו" + W(w, "קיבל/ה") + " כוכב ⭐");
-      $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
-      $("winText").textContent = iWon ? "נגמרו לך הקלפים " + W(meP, "ראשון/ה") + "." : "בסיבוב הבא זה שלך!";
+      if (g.draw) {
+        $("winTitle").textContent = g.local ? "🤝 תיקו עם המחשב!" : "🤝 תיקו! שניכם קיבלתם כוכב ⭐⭐";
+        $("winCheer").textContent = "";
+        $("winText").textContent = "הסכמתם על תיקו.";
+      } else {
+        $("winTitle").textContent = g.local ? (iWon ? "ניצחת את המחשב!!! 🎉" : "המחשב ניצח הפעם") : (iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " " + W(w, "ניצח/ה") + " ו" + W(w, "קיבל/ה") + " כוכב ⭐");
+        $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
+        $("winText").textContent = iWon ? (g.hands[String(me)].length ? "קיבלת את הניצחון במתנה 🎁" : "נגמרו לך הקלפים " + W(meP, "ראשון/ה") + ".") : "בסיבוב הבא זה שלך!";
+      }
       $("overWin").hidden = false;
     } else $("overWin").hidden = true;
 
+    renderOffer(g, me, meP, oppP);
     soundFor(g, me);
     applyTheme();
     $("emoteBar").hidden = !oppP;
@@ -1351,6 +1374,66 @@ body.shake #app{animation:shake .7s ease-in-out}
   }
   document.addEventListener("visibilitychange", () => updateTitle());
 
+  // ---------- draw and "let me win" offers ----------
+  // An offer waits in the game until the other player says yes or no.
+  // "let me win" accepted: the one who asked wins. Draw accepted: both win.
+  let offerCooldown = 0;
+  function finishByOffer(g, offer) {
+    g.status = "over"; g.offer = null;
+    if (offer.type === "draw") { g.draw = true; g.winner = offer.from; say(g, "🤝 תיקו! שניכם ניצחתם ⭐⭐"); }
+    else { g.draw = false; g.winner = offer.from; const w = g.players[offer.from], o = g.players[1 - offer.from]; say(g, "🏳️ " + o.name + " " + W(o, "הסכים/ה") + " לתת ל" + w.name + " לנצח."); }
+  }
+  async function makeOffer(type) {
+    if (busy || !game || game.status !== "playing" || game.offer) return;
+    if (Date.now() < offerCooldown) { toast("רגע, אפשר להציע שוב בעוד כמה שניות"); return; }
+    offerCooldown = Date.now() + 8000;
+    const g = structuredClone(game), me = seatOf(g);
+    g.offer = { type, from: me, at: Date.now() };
+    if (g.local) { game = g; renderTable(); setTimeout(() => botAnswer(type), 1400); return; }
+    await commit(g);
+  }
+  async function answerOffer(yes) {
+    if (busy || !game || !game.offer) return;
+    const g = structuredClone(game), offer = g.offer, me = seatOf(g);
+    if (offer.from === me) return;
+    if (yes) finishByOffer(g, offer);
+    else { g.offer = null; say(g, "❌ " + g.players[me].name + " " + (offer.type === "draw" ? "לא רוצה תיקו." : "לא מוותר/ת.").replace("מוותר/ת", W(g.players[me], "מוותר/ת"))); }
+    await commit(g);
+  }
+  async function cancelOffer() {
+    if (busy || !game || !game.offer || game.offer.from !== seatOf(game)) return;
+    const g = structuredClone(game); g.offer = null; await commit(g);
+  }
+  // the computer says yes to a draw only when it is behind, and almost never just lets you win
+  function botAnswer(type) {
+    if (!game || !game.local || !game.offer || game.status !== "playing") return;
+    const g = structuredClone(game), behind = g.hands["1"].length > g.hands["0"].length;
+    const yes = type === "draw" ? behind : Math.random() < 0.08;
+    if (yes) { finishByOffer(g, g.offer); if (type === "win") say(g, "🤖 המחשב: טוב, הפעם אני מוותר 😅"); }
+    else { g.offer = null; say(g, type === "draw" ? "🤖 המחשב: תיקו? אין מצב, אני מנצח! 😎" : "🤖 המחשב: לתת לך לנצח? חחח לא 😤"); floatEmote(type === "draw" ? "😎" : "😤", "opp"); }
+    game = g; renderTable();
+  }
+  function renderOffer(g, me, meP, oppP) {
+    const playing = g.status === "playing", o = playing ? g.offer : null;
+    $("btnOfferDraw").hidden = $("btnOfferWin").hidden = !(playing && oppP && !o);
+    $("btnOfferWin").textContent = "🏳️ " + (oppP ? W(oppP, "תן/י") : "תן/י") + " לי לנצח";
+    $("offerWait").hidden = !(o && o.from === me);
+    if (o && o.from === me) $("offerWaitText").textContent = "⏳ מחכים לתשובה של " + oppP.name + (o.type === "draw" ? " על התיקו…" : " אם " + W(oppP, "יתן/תיתן").replace("יתן/תיתן", oppP.g === "f" ? "תיתן" : oppP.g === "m" ? "יתן" : "יתן/תיתן") + " לך לנצח…");
+    const ask = o && o.from !== me;
+    $("overOffer").hidden = !ask;
+    if (ask) {
+      const from = g.players[o.from];
+      paintAva($("offerAva"), from);
+      $("offerTitle").textContent = o.type === "draw" ? "🤝 " + from.name + " " + W(from, "מציע/ה") + " תיקו" : "🏳️ " + from.name + " " + W(from, "מבקש/ת") + " " + W(meP, "שתתן/י") + " " + W(from, "לו/ה") + " לנצח";
+      $("offerText").textContent = o.type === "draw" ? "אם תסכימו, המשחק נגמר ושניכם מקבלים כוכב ⭐" : "אם " + W(meP, "תסכים/י") + ", " + from.name + " " + W(from, "מנצח/ת") + " ו" + W(from, "מקבל/ת") + " כוכב.";
+    }
+  }
+  $("btnOfferDraw").onclick = () => makeOffer("draw");
+  $("btnOfferWin").onclick = () => makeOffer("win");
+  $("btnOfferYes").onclick = () => answerOffer(true);
+  $("btnOfferNo").onclick = () => answerOffer(false);
+  $("btnOfferCancel").onclick = () => cancelOffer();
+
   async function commit(g) {
     g.seq = (g.seq || 0) + 1;
     const justWon = g.status === "over" && game && game.status !== "over";
@@ -1360,7 +1443,10 @@ body.shake #app{animation:shake .7s ease-in-out}
       return;
     }
     busy = true;
-    try { await db.doc("games/" + code).set(g); if (justWon) await addStar(g.players[g.winner]); }
+    try {
+      await db.doc("games/" + code).set(g);
+      if (justWon) { await addStar(g.players[g.winner]); if (g.draw) await addStar(g.players[1 - g.winner]); }
+    }
     catch (e) { setStatus("המהלך לא נשמר (" + (e.code || "error") + "). נסו שוב.", true); }
     finally { busy = false; }
   }
@@ -1405,7 +1491,7 @@ body.shake #app{animation:shake .7s ease-in-out}
     if (busy || !game || game.status !== "over") return;
     const g = structuredClone(game), loser = 1 - g.winner;
     if (g.local) g.players[0] = meAsPlayer();
-    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
+    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, draw: false, offer: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
     say(g, "סיבוב חדש! " + g.players[loser].name + " " + W(g.players[loser], "מתחיל/ה") + ".");
     lastTop = null;
     await commit(g);
