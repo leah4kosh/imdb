@@ -1831,6 +1831,8 @@ body.shake #app{animation:shake .7s ease-in-out}
   // Stars are kept per player (by their device id), so changing a profile name keeps the stars.
   async function addStar(p) {
     if (!db || !p || !p.pid || p.pid === "bot") return;
+    // stars only come from games between two real players, never from a game against the computer
+    if (!game || game.local || game.players.some(x => !x || x.pid === "bot")) return;
     const ref = db.doc("scores/board");
     try {
       const snap = await ref.get();
