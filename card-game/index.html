@@ -1074,6 +1074,30 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       o.start(t0); lfo.start(t0); o.stop(t0 + len + 0.05); lfo.stop(t0 + len + 0.05);
     } catch {}
   }
+  // the "sent!" sound: ti-ti (two high blips), du-du (two lower), then a long rising tsiiiii
+  function whoosh() {
+    if (!sfxOn) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      if (actx.state === "suspended") actx.resume();
+      const t0 = actx.currentTime + 0.01;
+      const note = (f, at, len, type, vol) => {
+        const o = actx.createOscillator(), gn = actx.createGain(); o.type = type; o.frequency.value = f;
+        gn.gain.setValueAtTime(0.0001, t0 + at); gn.gain.exponentialRampToValueAtTime(vol, t0 + at + 0.01); gn.gain.exponentialRampToValueAtTime(0.0001, t0 + at + len);
+        o.connect(gn).connect(actx.destination); o.start(t0 + at); o.stop(t0 + at + len + 0.02);
+      };
+      note(1568, 0.00, 0.07, "square", 0.035);   // ti
+      note(1568, 0.09, 0.07, "square", 0.035);   // ti
+      note(784, 0.20, 0.10, "triangle", 0.08);   // du
+      note(659, 0.32, 0.10, "triangle", 0.08);   // du
+      // tsiiiii: a bright tone gliding up with a little vibrato
+      const o = actx.createOscillator(), lfo = actx.createOscillator(), lg = actx.createGain(), gn = actx.createGain(), st = t0 + 0.46, len = 0.75;
+      o.type = "sine"; o.frequency.setValueAtTime(1200, st); o.frequency.exponentialRampToValueAtTime(3200, st + len);
+      lfo.frequency.value = 9; lg.gain.value = 40; lfo.connect(lg).connect(o.frequency);
+      gn.gain.setValueAtTime(0.0001, st); gn.gain.exponentialRampToValueAtTime(0.06, st + 0.05); gn.gain.setValueAtTime(0.06, st + len * 0.6); gn.gain.exponentialRampToValueAtTime(0.0001, st + len);
+      o.connect(gn).connect(actx.destination); o.start(st); lfo.start(st); o.stop(st + len + 0.05); lfo.stop(st + len + 0.05);
+    } catch {}
+  }
   const SFX = {
     card: () => tone([520, 690], 0.06, "triangle"),
     special: () => tone([660, 880, 1175], 0.07),
@@ -1780,6 +1804,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     if (!profile.name) { toast("קודם כותבים שם בפרופיל 🙂"); return false; }
     try {
       await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, bubble: profile.bubble, g: profile.g || "", at: Date.now(), ...extra });
+      if (extra.type !== "poke") whoosh();
       return true;
     } catch (e) { toast("ההודעה לא נשלחה (" + (e.code || "error") + "). נסו שוב."); return false; }
   }
