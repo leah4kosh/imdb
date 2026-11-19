@@ -104,6 +104,12 @@ label.lbl{font-size:13px;color:var(--mist)}
 .backs.picking .bk img{box-shadow:0 0 0 2px var(--gold),-2px 2px 6px rgba(0,0,0,.5)}
 .backs.picking .bk:hover,.backs.picking .bk:focus-visible{transform:translateY(-10px)}
 .backs:not(.picking) .bk{cursor:default}
+.others{display:flex;gap:8px;flex-wrap:wrap}
+.others .ochip{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 8px;border-radius:99px;background:rgba(0,0,0,.25);border:1px solid var(--line);font-size:14px}
+.others .ochip.turn{border-color:var(--gold);box-shadow:0 0 12px rgba(242,193,78,.35)}
+.others .ochip.done{opacity:.7}
+.places{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;width:100%}
+.places li{display:flex;align-items:center;gap:10px;padding:6px 12px;border-radius:12px;background:rgba(0,0,0,.25);font-size:15px}
 .prompt{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 14px;border-radius:14px;background:rgba(242,193,78,.14);border:1px solid rgba(242,193,78,.6);font-weight:500}
 
 .board{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;padding:18px;border-radius:22px;
@@ -287,10 +293,21 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .stickers button{flex:none;width:76px;padding:0;border:0;background:none;scroll-snap-align:start}
 .stickers img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;display:block;box-shadow:0 0 0 2px #fff,0 4px 10px rgba(0,0,0,.4)}
 .stickers button:hover img{transform:translateY(-3px)}
-.ch-row{display:flex;align-items:center;gap:10px;margin:0 12px 8px;flex-wrap:wrap}
+.ch-row{display:flex;align-items:center;gap:8px;margin:0 12px 6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.ch-row::-webkit-scrollbar{display:none}
+.ch-row .ch-quick{flex-wrap:nowrap}
+.ch-row .ch-quick button{white-space:nowrap;padding:6px 12px}
 .ch-quick{display:flex;gap:8px;flex-wrap:wrap}
 .ch-quick button{padding:7px 14px;border-radius:99px;font-size:14px;background:rgba(70,40,160,.6);border:1.5px solid rgba(214,180,255,.55)}
-.ch-colors{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:99px;background:rgba(0,0,0,.2);border:1px solid rgba(214,180,255,.3);margin-inline-start:auto}
+.ch-colors{display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:99px;background:rgba(0,0,0,.2);border:1px solid rgba(214,180,255,.3);margin-inline-start:auto;flex:none}
+.msgs{min-height:180px}
+@media (max-height:800px){
+  .ch-top{padding:8px 14px 4px}.ch-title{font-size:21px}.ch-title svg{width:28px;height:25px}.ch-x{width:32px;height:32px;top:6px}
+  .ch-contact{margin:2px 10px 6px;padding:4px 8px;gap:8px}.ch-contact .ava{width:40px;height:40px}.ch-initial{width:38px;height:38px;font-size:19px}.ch-peer b{font-size:17px}
+  .ch-pin{padding:4px 12px;font-size:14px}
+  .ch-input{padding:6px 10px 10px}.ch-send{width:44px;height:44px}.ch-round{width:38px;height:38px}.ch-input input{padding:9px 14px}
+  .ch-colors button{width:22px;height:22px}
+}
 .ch-colors span{font-size:13px;color:#ddd2ff}
 .ch-colors button{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.3)}
 .ch-colors button[aria-pressed="true"]{box-shadow:0 0 0 3px #fff;border-color:#fff}
@@ -314,7 +331,10 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .bggrid button[aria-checked="true"] .sw{box-shadow:0 0 0 3px var(--gold),0 0 16px rgba(242,193,78,.5)}
 .bggrid button[aria-checked="true"] span{color:var(--gold);font-weight:700}
 body.has-bg{background-attachment:fixed;background-size:cover;background-position:center}
-.msgs.has-bg{background-size:cover;background-position:center}
+.ch-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;pointer-events:none}
+.chat > :not(.ch-bg){position:relative;z-index:1}
+.chat.has-bg .ch-top,.chat.has-bg .ch-input{background:rgba(26,13,74,.55)}
+.chat.has-bg .ch-contact{background:linear-gradient(90deg,rgba(80,40,170,.75),rgba(50,25,120,.75))}
 .themes{display:flex;gap:4px}
 .themes button{width:34px;height:34px;padding:0;border-radius:50%;font-size:17px;display:grid;place-items:center;background:rgba(255,255,255,.06)}
 .themes button[aria-checked="true"]{box-shadow:0 0 0 2px var(--gold);background:rgba(242,193,78,.18)}
@@ -491,7 +511,9 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
         <span id="codeChip" class="chip">קוד משחק: <span id="tableCode" class="code"></span></span>
       </div>
     </div>
-    <div id="oppBacks" class="backs" aria-label="הקלפים של היריב"></div>
+    <div id="oppBacks" class="backs" aria-label="הקלפים של השחקן הבא"></div>
+    <div id="others" class="others" aria-label="שאר השחקנים"></div>
+    <div id="waitRoom" class="prompt" hidden><span id="waitText"></span><button id="btnStart" class="primary" type="button" hidden>▶️ להתחיל</button></div>
     <div id="offerWait" class="prompt" hidden><span id="offerWaitText"></span><button id="btnOfferCancel" type="button">ביטול ההצעה</button></div>
     <div id="pickPrompt" class="prompt" hidden><span id="pickText"></span><button id="btnPickCancel" type="button">ביטול</button></div>
 
@@ -513,6 +535,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     <div class="seat">
       <div class="who"><div id="myAva" class="ava"></div><b id="myName">אני</b><span id="myCount" class="chip"></span><span id="myTurn" class="chip turn" hidden>התור שלך!</span></div>
       <div class="actions">
+        <span id="myPlace" class="chip turn" hidden></span>
         <button id="btnDraw" class="danger" type="button" hidden>אין לי מספר מתאים: מושך/ת קלף</button>
         <button id="btnOfferDraw" type="button" hidden>🤝 להציע תיקו</button>
         <button id="btnOfferWin" type="button" hidden>🏳️ תן/י לי לנצח</button>
@@ -525,6 +548,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 
 <button id="btnChat" class="chatbtn" type="button" dir="rtl" aria-expanded="false" aria-controls="chat"><svg class="chat-ico" viewBox="0 0 40 36" aria-hidden="true"><path fill="#fff" d="M20 2C9.5 2 2 8.6 2 16.5c0 4.6 2.5 8.6 6.5 11.2-.5 2.6-2 5.1-4.3 6.6 4.2.2 8-1.3 10.5-3.6 1.7.4 3.5.6 5.3.6 10.5 0 18-6.6 18-14.8S30.5 2 20 2z"/><circle cx="12.5" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="20" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="27.5" cy="16.5" r="2.6" fill="#5b14c8"/></svg><span>צ׳אט</span><span id="chatDot" class="dot" hidden></span></button>
 <section id="chat" class="chat" dir="rtl" lang="he" hidden aria-label="צ׳אט">
+  <div id="chatBg" class="ch-bg" aria-hidden="true"></div>
   <div class="ch-top"><h3 class="ch-title"><svg viewBox="0 0 40 36" aria-hidden="true"><path fill="#fff" d="M20 2C9.5 2 2 8.6 2 16.5c0 4.6 2.5 8.6 6.5 11.2-.5 2.6-2 5.1-4.3 6.6 4.2.2 8-1.3 10.5-3.6 1.7.4 3.5.6 5.3.6 10.5 0 18-6.6 18-14.8S30.5 2 20 2z"/><circle cx="12.5" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="20" cy="16.5" r="2.6" fill="#5b14c8"/><circle cx="27.5" cy="16.5" r="2.6" fill="#5b14c8"/></svg>צ׳אט</h3><button id="btnChatClose" class="ch-x" type="button" aria-label="סגירת הצ׳אט">✕</button></div>
   <div class="ch-contact">
     <div id="chPeerAva" class="ava"></div>
@@ -573,6 +597,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     <h2 id="winTitle"></h2>
     <div id="winCheer" class="wincheer"></div>
     <p id="winText" class="muted" style="margin:0"></p>
+    <ol id="winPlaces" class="places" hidden></ol>
     <div class="row" style="justify-content:center">
       <button id="btnRematch" class="primary" type="button">עוד סיבוב!</button>
       <button id="btnWinScores" type="button">טבלת כוכבים</button>
@@ -769,22 +794,28 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 
   // A fair deal: the whole deck is shuffled, and if a starting hand got more than 2 special cards
   // of the same kind (like 4 peeks), the deck is shuffled again.
-  function deal() {
+  function deal(n = 2) {
     const clumped = h => { const c = {}; return h.some(id => isSpecial(id) && (c[CARDS[id].kind] = (c[CARDS[id].kind] || 0) + 1) > 2); };
     for (;;) {
       const all = shuffle(Object.keys(CARDS));
       const openers = all.filter(id => !isSpecial(id) && CARDS[id].v <= 300);
       const opener = openers[Math.floor(Math.random() * openers.length)];
       const rest = all.filter(id => id !== opener);
-      const h0 = rest.slice(0, 10), h1 = rest.slice(10, 20);
-      if (clumped(h0) || clumped(h1)) continue;
-      return { v: RULES_VERSION, hands: { "0": h0, "1": h1 }, draw: rest.slice(20), pile: [opener], history: [] };
+      const hands = {};
+      for (let i = 0; i < n; i++) hands[String(i)] = rest.slice(i * 10, i * 10 + 10);
+      if (Object.values(hands).some(clumped)) continue;
+      return { v: RULES_VERSION, hands, draw: rest.slice(n * 10), pile: [opener], history: [], done: [], tie: false };
     }
   }
+  // seats still playing, and who plays after a seat (finished players are skipped)
+  const nPlayers = g => Object.keys(g.hands || {}).length;
+  const active = g => { const d = g.done || []; return Array.from({ length: nPlayers(g) }, (_, i) => i).filter(i => !d.includes(i)); };
+  function nextSeat(g, s) { const n = nPlayers(g), d = g.done || []; for (let k = 1; k <= n; k++) { const t = (s + k) % n; if (!d.includes(t) && t !== s) return t; } return s; }
+  const PLACE = ["ראשון", "שני", "שלישי", "רביעי"], MEDAL = ["🥇", "🥈", "🥉", "4️⃣"];
   function say(g, text) { g.log = text; g.history = [...(g.history || []), text].slice(-6); }
   // Hebrew words written for each player: "בן" or "בת" from the profile (no choice = both forms)
   const FINAL_TO_MID = { "ם": "מ", "ך": "כ", "ן": "נ", "ף": "פ", "ץ": "צ" };
-  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת", "פותח/ת": "פותחת", "מבקש/ת": "מבקשת", "תן/י": "תני", "הסכים/ה": "הסכימה", "שתתן/י": "שתתני", "תסכים/י": "תסכימי", "מקבל/ת": "מקבלת", "מוותר/ת": "מוותרת", "מנצח/ת": "מנצחת" };
+  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת", "פותח/ת": "פותחת", "מבקש/ת": "מבקשת", "תן/י": "תני", "הסכים/ה": "הסכימה", "שתתן/י": "שתתני", "תסכים/י": "תסכימי", "מקבל/ת": "מקבלת", "מוותר/ת": "מוותרת", "מנצח/ת": "מנצחת", "סיים/ה": "סיימה" };
   function W(p, word) {
     const g = p && p.g, base = word.split("/")[0];
     if (g === "m") return base;
@@ -812,26 +843,38 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     shuffle(g.hands[seat]);
     return got;
   }
+  // Whoever has no cards left finishes, in order. With two players the first to finish wins at once;
+  // with more, the rest keep playing until one is left, and everyone gets a place.
   function checkWin(g, seat) {
-    const opp = String(1 - seat);
-    if (!g.hands[String(seat)].length) g.winner = seat;
-    else if (!g.hands[opp].length) g.winner = 1 - seat;
-    else return false;
-    g.status = "over";
-    const w = g.players[g.winner];
-    say(g, w.name + " " + W(w, "נפטר/ה") + " מכל הקלפים ו" + W(w, "ניצח/ה") + "! ⭐");
-    return true;
+    g.done = g.done || [];
+    const order = [seat, ...active(g).filter(x => x !== seat)];
+    let changed = false;
+    for (const s of order) if (!g.done.includes(s) && !g.hands[String(s)].length) {
+      g.done.push(s); changed = true;
+      const P = g.players[s];
+      if (nPlayers(g) > 2 && active(g).length > 1) say(g, MEDAL[g.done.length - 1] + " " + P.name + " " + W(P, "סיים/ה") + " במקום ה" + PLACE[g.done.length - 1] + "!");
+    }
+    if (!changed) return false;
+    if (active(g).length <= 1) {
+      g.done.push(...active(g));
+      g.status = "over"; g.winner = g.done[0];
+      const w = g.players[g.winner];
+      say(g, w.name + " " + W(w, "נפטר/ה") + " מכל הקלפים ו" + W(w, "ניצח/ה") + "! ⭐");
+      return true;
+    }
+    if (g.done.includes(g.turn)) { g.turn = nextSeat(g, g.turn); g.spUsed = false; }
+    return false;
   }
   // target: index of the opponent's card (for snatch and peek)
   function applyPlay(g, seat, id, target) {
-    const me = String(seat), opp = String(1 - seat);
-    const my = g.players[seat].name, other = g.players[1 - seat].name;
+    const tseat = nextSeat(g, seat), me = String(seat), opp = String(tseat); // special cards hit the next player
+    const my = g.players[seat].name, other = g.players[tseat].name;
     const hand = g.hands[me];
     hand.splice(hand.indexOf(id), 1);
     g.pile.push(id);
     const kind = CARDS[id].kind;
     const need = topNumber(g.pile);
-    const P = g.players[seat], O = g.players[1 - seat];
+    const P = g.players[seat], O = g.players[tseat];
     const still = () => " עכשיו " + my + " עדיין " + W(P, "צריך/ה") + " לענות" + (topNumber(g.pile) ? " על " + CARDS[topNumber(g.pile)].v : " עם קלף מספר") + ".";
     if (kind === "num") say(g, my + " " + W(P, "שם/ה") + " " + CARDS[id].v + ".");
     else if (kind === "two") {
@@ -847,30 +890,30 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       const i = Math.max(0, Math.min(oh.length - 1, target ?? Math.floor(Math.random() * oh.length)));
       const taken = oh.splice(i, 1)[0];
       if (taken) { hand.push(taken); shuffle(hand); }
-      g.lastSnatch = { seat, card: taken || null, seq: (g.seq || 0) + 1 };
+      g.lastSnatch = { seat, from: tseat, card: taken || null, seq: (g.seq || 0) + 1 };
       say(g, "🗡️ " + my + " " + W(P, "חטף/ה") + " קלף מהיד של " + other + "." + still());
     } else if (kind === "peek") {
       say(g, "👀 " + my + " " + W(P, "הציץ/ה") + " בקלף של " + other + "." + still());
     }
     // a number card answers and ends the turn; a special card does not answer, so the turn goes on
-    g.turn = kind === "num" ? 1 - seat : seat;
+    g.turn = kind === "num" ? tseat : seat;
     g.spUsed = kind !== "num";
     if (kind === "num") g.passes = 0;
     checkWin(g, seat);
   }
   // One special card per turn; number cards must match or beat the number on the pile.
   function canPlayNow(g, id) { return isSpecial(id) ? !g.spUsed : canPlay(id, g.pile); }
-  function canAnswer(g, seat) { return g.hands[String(seat)].some(id => !isSpecial(id) && canPlay(id, g.pile)); }
+  function canAnswer(g, seat) { return (g.hands[String(seat)] || []).some(id => !isSpecial(id) && canPlay(id, g.pile)); }
   function applyDraw(g, seat) {
     const n = drawCards(g, String(seat), 1);
     const P = g.players[seat];
     say(g, n ? P.name + " לא היה " + W(P, "לו/ה") + " מספר מתאים ו" + W(P, "משך/ה") + " קלף." : "אין קלפים למשוך. " + P.name + " " + W(P, "מעביר/ה") + " את התור.");
-    g.turn = 1 - seat;
+    g.turn = nextSeat(g, seat);
     g.spUsed = false;
-    // both players drew one after the other: nobody can answer, so the used pile goes back into
+    // every player drew one after the other: nobody can answer, so the used pile goes back into
     // the unused pile (shuffled, no card is lost) and the next player may put any number card
     g.passes = (g.passes || 0) + 1;
-    if (g.passes >= 2 && g.pile.length) {
+    if (g.passes >= active(g).length && g.pile.length) {
       g.draw = shuffle([...g.draw, ...g.pile]); g.pile = []; g.passes = 0;
       say(g, "🔄 אף אחד לא יכול היה לענות, אז הקופה המשומשת חזרה לקופה הלא משומשת. " + g.players[g.turn].name + " " + W(g.players[g.turn], "פותח/ת") + " עם כל קלף מספר.");
     }
@@ -888,7 +931,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     for (const id of h) if (!isSpecial(id) && canPlay(id, g.pile) && (!best || CARDS[id].v < CARDS[best].v)) best = id;
     if (best) return { id: best };
     const sp = g.spUsed ? null : h.find(isSpecial);
-    return sp ? { id: sp, target: Math.floor(Math.random() * g.hands[String(1 - seat)].length) } : null;
+    return sp ? { id: sp, target: Math.floor(Math.random() * g.hands[String(nextSeat(g, seat))].length) } : null;
   }
   function botCandidates(g) {
     const hand = g.hands["1"], oppN = g.hands["0"].length, out = [], seen = new Set();
@@ -1051,9 +1094,10 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       const host = g.players[0] || {};
       const txt = el("div", "stack"); txt.style.gap = "2px";
       const t = el("div"); t.append(el("span", "code", g.code), document.createTextNode("  " + (host.name || "")));
-      txt.append(t, el("span", "note", seatOf(g) >= 0 ? "המשחק שלך" : "מחכה לשחקן שני"));
+      txt.append(t, el("span", "note", (seatOf(g) >= 0 ? "המשחק שלך · " : "") + (g.status === "waiting" ? "👥 " + g.players.length + "/4 שחקנים, מחכים" : "במשחק")));
       left.append(avaEl(host, "sm"), txt);
-      const b = el("button", seatOf(g) >= 0 ? "" : "primary", seatOf(g) >= 0 ? "חזרה למשחק" : "הצטרפות");
+      const full = g.players.length >= 4 && seatOf(g) < 0;
+      const b = el("button", seatOf(g) >= 0 ? "" : "primary", seatOf(g) >= 0 ? "חזרה למשחק" : full ? "מלא" : "הצטרפות"); b.disabled = full;
       b.type = "button"; b.onclick = () => joinGame(g.code);
       const btns = el("div", "row"); btns.style.gap = "6px"; btns.append(b);
       if (g.status === "waiting" && seatOf(g) === 0) {
@@ -1088,13 +1132,21 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     }
     const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
     const c = Array.from({ length: 4 }, () => letters[Math.floor(Math.random() * letters.length)]).join("");
-    const g = { v: RULES_VERSION, code: c, created: Date.now(), status: "waiting", players: [meAsPlayer()], hands: { "0": [], "1": [] }, pile: [], draw: [], turn: 0, winner: null, log: "", seq: 0, round: 0 };
-    try { await db.doc("games/" + c).set(g); openGame(c, true); setStatus("המשחק נפתח! תשלחי לאח שלך את הקוד " + c + " או שיבחר אותו מהרשימה."); return c; }
+    const g = { v: RULES_VERSION, code: c, created: Date.now(), status: "waiting", players: [meAsPlayer()], hands: {}, pile: [], draw: [], turn: 0, winner: null, log: "", seq: 0, round: 0 };
+    try { await db.doc("games/" + c).set(g); openGame(c, true); setStatus("המשחק נפתח! שלחו את הקוד " + c + " לחברים (עד 4 שחקנים), או שיבחרו אותו מהרשימה."); return c; }
     catch (e) { setStatus("לא הצלחתי לפתוח משחק (" + (e.code || "error") + "). אולי אין לך הרשאת עריכה לדף.", true); return null; }
   }
   $("btnCreate").onclick = () => createGame();
   $("btnJoin").onclick = () => joinGame(($("codeInput").value || "").trim().toUpperCase());
 
+  function startDeal(g) {
+    Object.assign(g, deal(g.players.length), { status: "playing", turn: 0, winner: null, round: 1 });
+    say(g, "הקלפים חולקו ל־" + g.players.length + " שחקנים! " + g.players[0].name + " " + W(g.players[0], "מתחיל/ה") + ".");
+  }
+  $("btnStart").onclick = async () => {
+    if (busy || !game || game.status !== "waiting" || seatOf(game) !== 0 || game.players.length < 2) return;
+    const g = structuredClone(game); startDeal(g); await commit(g);
+  };
   async function joinGame(c) {
     if (!db || !c) return;
     const ref = db.doc("games/" + c);
@@ -1103,10 +1155,11 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const g = structuredClone(snap.data());
     if (seatOf(g) >= 0) { openGame(c, true); return; }
     if (needName()) return;
-    if (g.players.length >= 2) { setStatus("במשחק הזה כבר יש שני שחקנים.", true); return; }
+    if (g.status !== "waiting") { setStatus("המשחק הזה כבר התחיל.", true); return; }
+    if (g.players.length >= 4) { setStatus("במשחק הזה כבר יש 4 שחקנים.", true); return; }
     g.players.push(meAsPlayer());
-    Object.assign(g, deal(), { status: "playing", turn: 0, winner: null, round: 1, seq: g.seq + 1 });
-    say(g, "הקלפים חולקו! " + g.players[0].name + " " + W(g.players[0], "מתחיל/ה") + ".");
+    g.seq = (g.seq || 0) + 1;
+    if (g.players.length === 4) startDeal(g); // a full table starts by itself
     try { await ref.set(g); openGame(c, true); setStatus(""); }
     catch (e) { setStatus("לא הצלחתי להצטרף (" + (e.code || "error") + ").", true); }
   }
@@ -1130,7 +1183,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       const prev = game; game = repairGame(d); show = true;
       // the other player snatched one of my cards: tell me which
       const me = seatOf(d);
-      if (prev && d.lastSnatch && d.lastSnatch.seat !== me && (!prev.lastSnatch || prev.lastSnatch.seq !== d.lastSnatch.seq) && d.lastSnatch.card)
+      if (prev && d.lastSnatch && d.lastSnatch.seat !== me && (d.lastSnatch.from === undefined || d.lastSnatch.from === me) && (!prev.lastSnatch || prev.lastSnatch.seq !== d.lastSnatch.seq) && d.lastSnatch.card)
         showCard(d.players[d.lastSnatch.seat].name + " " + W(d.players[d.lastSnatch.seat], "חטף/ה") + " ממך את הקלף הזה", d.lastSnatch.card);
       renderTable();
     }, e => setStatus("החיבור למשחק נותק (" + e.code + ").", true));
@@ -1245,14 +1298,14 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   // play a sound for what just changed on the table
   let prevView = null;
   function soundFor(g, me) {
-    const view = { offer: !!g.offer, pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: [g.hands["0"].length, g.hands["1"].length], status: g.status, turn: g.turn, round: g.round };
+    const view = { offer: !!g.offer, pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: Object.values(g.hands).map(h => h.length), status: g.status, turn: g.turn, round: g.round };
     const p = prevView; prevView = view;
     if (!p || p.round !== view.round) return;
     if (p.status !== "over" && view.status === "over") { if (g.winner === me || g.tie) { SFX.win(); confetti(); } else SFX.lose(); saveStats(g, me); return; }
     if (g.offer && g.offer.from !== me && (!p.offer)) SFX.msg();
     if (view.status !== "playing") return;
     if (view.top !== p.top && view.top) (isSpecial(view.top) ? SFX.special : SFX.card)();
-    else if (view.hands[0] + view.hands[1] > p.hands[0] + p.hands[1] && view.pile === p.pile) SFX.draw();
+    else if (view.hands.reduce((a, b) => a + b, 0) > p.hands.reduce((a, b) => a + b, 0) && view.pile === p.pile) SFX.draw();
     if (view.turn === me && p.turn !== me) setTimeout(SFX.turn, 250);
   }
 
@@ -1270,7 +1323,9 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const pg = BG_BY[profile.bgPage], tb = BG_BY[profile.bgTable], ch = BG_BY[profile.bgChat];
     document.body.classList.toggle("has-bg", !!pg[3]); document.body.style.backgroundImage = pg[3] ? veil(pg) : "";
     const bd = $("board"); bd.classList.toggle("has-art", !!tb[3]); bd.style.backgroundImage = tb[3] ? veil(tb, true) : "";
-    const ms = $("msgs"); ms.classList.toggle("has-bg", !!ch[3]); ms.style.backgroundImage = ch[3] ? veil(ch, true) : "";
+    const cb = $("chatBg"); cb.hidden = !ch[3];
+    cb.style.backgroundImage = ch[3] ? "linear-gradient(rgba(18,11,46," + (ch[4] ? 0.32 : 0.18) + "),rgba(18,11,46," + (ch[4] ? 0.45 : 0.3) + ")),url(" + ch[3] + ")" : "";
+    $("chat").classList.toggle("has-bg", !!ch[3]);
   }
   const SLOTS = [["bgPage", "🖼️ דף"], ["bgTable", "🃏 שולחן"], ["bgChat", "💬 צ׳אט"]];
   let bgSlot = "bgPage";
@@ -1447,12 +1502,14 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 
   function renderTable() {
     const g = game; if (!g) return;
-    const me = seatOf(g), opp = 1 - me;
+    const me = seatOf(g), n = g.players.length;
+    let opp = g.status === "waiting" ? (me === 0 ? 1 : 0) : nextSeat(g, me); // the player my special cards hit
+    if (opp === me) opp = (me + 1) % Math.max(2, n); // game over (or I am the last one): show the player after me
     $("lobby").hidden = true; $("table").hidden = false; $("btnLeave").hidden = false;
     $("codeChip").hidden = !!g.local;
     $("tableCode").textContent = g.code || "";
     const meP = g.players[me], oppP = g.players[opp];
-    $("oppName").textContent = oppP ? oppP.name : "מחכים לשחקן שני…";
+    $("oppName").textContent = oppP ? oppP.name + (n > 2 && g.status === "playing" ? " ⬅️ הבא/ה בתור" : "") : "מחכים לשחקנים…";
     $("oppAva").hidden = !oppP; if (oppP) paintAva($("oppAva"), oppP);
     paintAva($("myAva"), meP);
     const myHand = (g.hands[String(me)] || []).slice().sort(byValue);
@@ -1463,9 +1520,31 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const playing = g.status === "playing";
     const myTurn = playing && g.turn === me;
     if (!myTurn) picking = null;
+    // the other players (3-4 player games), and the waiting room before the game starts
+    const doneArr = g.done || [];
+    const others = g.players.map((p, i) => i).filter(i => i !== me && i !== opp);
+    $("others").replaceChildren(...others.map(i => {
+      const p = g.players[i], place = doneArr.indexOf(i);
+      const c = el("div", "ochip" + (playing && g.turn === i ? " turn" : "") + (place >= 0 ? " done" : "")); c.dataset.pid = p.pid;
+      c.append(avaEl(p, "sm"), el("b", "", p.name), el("span", "note", place >= 0 ? MEDAL[place] + " מקום " + PLACE[place] : (g.hands[String(i)] || []).length + " קלפים"));
+      if (playing && g.turn === i) c.append(el("span", "chip turn", "התור " + W(p, "שלו/ה")));
+      return c;
+    }));
+    const waiting = g.status === "waiting";
+    $("waitRoom").hidden = !waiting;
+    if (waiting) {
+      const host = g.players[0];
+      $("waitText").textContent = "👥 " + n + " מתוך 4 שחקנים: " + g.players.map(p => p.name).join(", ") + ". " + (me === 0 ? (n >= 2 ? "אפשר להתחיל, או לחכות לעוד שחקנים." : "שלחו את הקוד " + g.code + " לחברים.") : "מחכים ש" + host.name + " " + (host.g === "f" ? "תתחיל" : host.g === "m" ? "יתחיל" : "יתחיל/תתחיל") + " את המשחק.");
+      $("btnStart").hidden = !(me === 0 && n >= 2);
+      $("btnStart").textContent = "▶️ להתחיל (" + n + " שחקנים)";
+    }
+    const myPlace = doneArr.indexOf(me);
+    $("myPlace").hidden = !(playing && myPlace >= 0);
+    if (playing && myPlace >= 0) $("myPlace").textContent = MEDAL[myPlace] + " " + W(meP, "סיים/ה") + " במקום ה" + PLACE[myPlace] + "! ממשיכים לצפות";
     $("myTurn").hidden = !myTurn;
     const ot = $("oppTurn");
     ot.hidden = !(playing && g.turn === opp);
+    if (doneArr.includes(opp)) $("oppCount").textContent = MEDAL[doneArr.indexOf(opp)] + " " + W(oppP, "סיים/ה");
     ot.className = "chip " + (g.local ? "think" : "turn");
     ot.textContent = g.local ? "המחשב חושב…" : "התור " + W(oppP, "שלו/ה");
 
@@ -1490,7 +1569,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const fxCards = tn ? g.pile.slice(g.pile.lastIndexOf(tn) + 1) : g.pile.slice();
     if (nums.length > 1) { const u = cardEl(nums[nums.length - 2]); u.classList.add("under"); pile.append(u); }
     if (tn) { const t = cardEl(tn); t.classList.add("top"); if (tn !== lastTop) t.classList.add("fresh"); pile.append(t); }
-    else pile.append(el("div", "empty", g.status === "waiting" ? "הקלפים יחולקו כשהשחקן השני יצטרף" : "אין מספר באמצע: אפשר לענות עם כל קלף מספר"));
+    else pile.append(el("div", "empty", g.status === "waiting" ? "הקלפים יחולקו כשהמשחק יתחיל" : "אין מספר באמצע: אפשר לענות עם כל קלף מספר"));
     if (fxCards.length) { const fx = el("div", "fx"); fxCards.slice(-3).forEach(id => fx.append(cardEl(id))); pile.append(fx); }
     lastTop = tn;
     const need = $("need"); need.replaceChildren();
@@ -1532,10 +1611,16 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
         $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
         $("winText").textContent = iWon ? (g.hands[String(me)].length ? "קיבלת את הניצחון במתנה 🎁" : "נגמרו לך הקלפים " + W(meP, "ראשון/ה") + ".") : "בסיבוב הבא זה שלך!";
       }
+      const showPlaces = n > 2 && doneArr.length === n;
+      $("winPlaces").hidden = !showPlaces;
+      if (showPlaces) {
+        $("winPlaces").replaceChildren(...doneArr.map((s, k) => { const li = el("li"); li.append(el("span", "", MEDAL[k]), avaEl(g.players[s], "sm"), el("b", "", g.players[s].name + (s === me ? " (אני)" : "")), el("span", "note", k === 0 ? "⭐ קיבל/ה כוכב".replace("קיבל/ה", W(g.players[s], "קיבל/ה")) : "מקום " + PLACE[k])); return li; }));
+        if (!iWon) $("winText").textContent = "סיימת במקום ה" + PLACE[doneArr.indexOf(me)] + ". בסיבוב הבא זה שלך!";
+      }
       $("overWin").hidden = false;
     } else $("overWin").hidden = true;
 
-    renderOffer(g, me, meP, oppP);
+    renderOffer(g, me, meP, n === 2 ? oppP : null);
     soundFor(g, me);
     applyTheme();
     $("emoteBar").hidden = !oppP;
@@ -1598,7 +1683,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     $("btnOfferDraw").hidden = $("btnOfferWin").hidden = !(playing && oppP && !o);
     $("btnOfferWin").textContent = "🏳️ " + (oppP ? W(oppP, "תן/י") : "תן/י") + " לי לנצח";
     $("offerWait").hidden = !(o && o.from === me);
-    if (o && o.from === me) $("offerWaitText").textContent = "⏳ מחכים לתשובה של " + oppP.name + (o.type === "draw" ? " על התיקו…" : " אם " + W(oppP, "יתן/תיתן").replace("יתן/תיתן", oppP.g === "f" ? "תיתן" : oppP.g === "m" ? "יתן" : "יתן/תיתן") + " לך לנצח…");
+    if (o && o.from === me) $("offerWaitText").textContent = "⏳ מחכים לתשובה של " + oppP.name + (o.type === "draw" ? " על התיקו…" : " אם " + (oppP.g === "f" ? "תיתן" : oppP.g === "m" ? "יתן" : "יתן/תיתן") + " לך לנצח…");
     const ask = o && o.from !== me;
     $("overOffer").hidden = !ask;
     if (ask) {
@@ -1636,7 +1721,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const me = seatOf(game);
     if (game.turn !== me || !game.hands[String(me)].includes(id) || !canPlayNow(game, id)) return;
     const kind = CARDS[id].kind;
-    if ((kind === "snatch" || kind === "peek") && game.hands[String(1 - me)].length) {
+    if ((kind === "snatch" || kind === "peek") && game.hands[String(nextSeat(game, me))].length) {
       picking = { id, kind }; renderTable(); return;
     }
     const g = structuredClone(game);
@@ -1649,10 +1734,10 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     if (!picking || busy || !game) return;
     const g = structuredClone(game), me = seatOf(g);
     const { id, kind } = picking; picking = null;
-    const target = g.hands[String(1 - me)][i];
+    const tseat = nextSeat(g, me), target = g.hands[String(tseat)][i];
     track(g, "play", id);
     applyPlay(g, me, id, i);
-    if (kind === "peek") showCard("הצצת! זה הקלף של " + g.players[1 - me].name, target);
+    if (kind === "peek") showCard("הצצת! זה הקלף של " + g.players[tseat].name, target);
     else showCard("חטפת את הקלף הזה!", target);
     await commit(g);
   }
@@ -1669,9 +1754,9 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 
   $("btnRematch").onclick = async () => {
     if (busy || !game || game.status !== "over") return;
-    const g = structuredClone(game), loser = 1 - g.winner;
+    const g = structuredClone(game), d0 = g.done || [], loser = d0.length ? d0[d0.length - 1] : 1 - g.winner;
     if (g.local) g.players[0] = meAsPlayer();
-    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, tie: false, offer: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
+    Object.assign(g, deal(g.players.length), { status: "playing", turn: loser, winner: null, tie: false, offer: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
     say(g, "סיבוב חדש! " + g.players[loser].name + " " + W(g.players[loser], "מתחיל/ה") + ".");
     lastTop = null;
     await commit(g);
