@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#120b2e"><link rel="apple-touch-icon" href="/icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="קרב הכתרים">
+</head><body>
 <title>קרב הכתרים</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -623,6 +625,114 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 </div>
 
 <script>
+/* ===== Firebase bridge (only on the Vercel site) =====
+   Inside claude.ai the game uses claude.ai's own storage. On the Vercel site there is no claude.ai,
+   so this gives the game the same "db" and "room" it expects, backed by Firebase Firestore,
+   plus real push notifications through the site's /api/notify. */
+(() => {
+  const FIREBASE_CONFIG = null; // <-- the firebaseConfig from the Firebase console goes here
+  const VAPID_PUBLIC_KEY = "BPRoIQEaDLUIoLJnftbC7UMSjE14Abicdh8WUFyFvMW9dkjRfJMNFIpaDSIYvpZ1g8ZH6Nzm7aBZ_Iow0YgwcpI";
+  const SDK = "https://www.gstatic.com/firebasejs/10.12.2/";
+  const onSite = /\.vercel\.app$/i.test(location.hostname) || window.__fbTest;
+  if (window.claude || !onSite || !(FIREBASE_CONFIG || window.__fbTest)) return;
+
+  const load = src => new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = rej; document.head.append(s); });
+  let fsP = null;
+  const firestore = () => fsP || (fsP = (async () => {
+    if (!window.firebase) { await load(SDK + "firebase-app-compat.js"); await load(SDK + "firebase-firestore-compat.js"); }
+    if (!firebase.apps.length) firebase.initializeApp(FIREBASE_CONFIG || {});
+    return firebase.firestore();
+  })());
+  const clean = d => JSON.parse(JSON.stringify(d)); // Firestore refuses "undefined" values
+  const err = e => ({ code: "unavailable", message: String(e && e.message || e) });
+  const wrap = s => ({ id: s.id, exists: !!s.exists, data: () => (s.exists ? s.data() : undefined), metadata: { fromCache: !!(s.metadata && s.metadata.fromCache), hasPendingWrites: !!(s.metadata && s.metadata.hasPendingWrites) } });
+  const wrapQ = q => ({ docs: q.docs.map(wrap), size: q.size, empty: q.empty });
+
+  function doc(fs, path) {
+    const ref = fs.doc(path);
+    return { path, id: ref.id,
+      get: () => ref.get().then(wrap),
+      set: d => ref.set(clean(d)),
+      update: d => ref.set(clean(d), { merge: true }), // merges nested fields, like claude.ai's update
+      delete: () => ref.delete(),
+      onSnapshot: (next, onErr) => ref.onSnapshot(s => next(wrap(s)), e => onErr && onErr(err(e))),
+      collection: p => coll(fs, path + "/" + p) };
+  }
+  function coll(fs, path, q) {
+    q = q || { ord: null, lim: 0, where: [] };
+    const build = () => { let r = fs.collection(path); for (const w of q.where) r = r.where(...w); if (q.ord) r = r.orderBy(q.ord[0], q.ord[1] || "asc"); if (q.lim) r = r.limit(q.lim); return r; };
+    return {
+      path,
+      where: (f, op, v) => coll(fs, path, { ...q, where: [...q.where, [f, op, v]] }),
+      orderBy: (f, dir) => coll(fs, path, { ...q, ord: [f, dir] }),
+      limit: n => coll(fs, path, { ...q, lim: n }),
+      get: () => build().get().then(wrapQ),
+      onSnapshot: (next, onErr) => build().onSnapshot(s => next(wrapQ(s)), e => onErr && onErr(err(e))),
+      add: async d => { const r = await fs.collection(path).add(clean(d)); return doc(fs, path + "/" + r.id); },
+      doc: id => doc(fs, path + "/" + (id || fs.collection(path).doc().id)),
+    };
+  }
+  async function makeDb() { const fs = await firestore(); return { doc: p => doc(fs, p), collection: p => coll(fs, p) }; }
+
+  // "room": who is online, typing, and table emojis. Each open tab keeps a small presence document
+  // fresh every 20 seconds; tabs not seen for 50 seconds count as gone.
+  async function makeRoom() {
+    const fs = await firestore();
+    const tab = "t" + Math.random().toString(36).slice(2, 12), started = Date.now();
+    let mine = {}, lastSent = "";
+    const write = () => { const j = JSON.stringify(mine); if (j === lastSent) return Promise.resolve(); lastSent = j; return fs.doc("presence/" + tab).set({ p: clean(mine), at: Date.now() }).catch(() => {}); };
+    setInterval(() => { lastSent = ""; write(); }, 20000);
+    addEventListener("pagehide", () => { try { fs.doc("presence/" + tab).delete(); } catch {} });
+    return {
+      presence: patch => { for (const [k, v] of Object.entries(patch || {})) { if (v === null) delete mine[k]; else mine[k] = v; } return write(); },
+      onPeers: (fn, onErr) => {
+        let last = [];
+        const emit = () => fn({ peers: last.filter(x => Date.now() - x.at < 50000).map(x => ({ peer: x.id, isMe: x.id === tab, presence: x.p || {} })) });
+        const un = fs.collection("presence").where("at", ">", Date.now() - 60 * 60e3).onSnapshot(s => { last = s.docs.map(d => ({ id: d.id, ...d.data() })); emit(); }, e => onErr && onErr(err(e)));
+        const t = setInterval(emit, 15000);
+        return () => { un(); clearInterval(t); };
+      },
+      emit: (topic, data) => fs.collection("events").add({ topic, data: clean(data ?? null), from: tab, at: Date.now() }).then(() => {}),
+      on: (topic, h, onErr) => fs.collection("events").where("at", ">", started).onSnapshot(s => {
+        for (const c of s.docChanges()) if (c.type === "added") { const d = c.doc.data(); if (d.topic === topic) h({ topic, data: d.data, isMe: d.from === tab }); }
+      }, e => onErr && onErr(err(e))),
+    };
+  }
+  window.claude = { use: async name => { try { return name === "db" ? await makeDb() : name === "room" ? await makeRoom() : null; } catch { return null; } } };
+
+  // ---- real notifications (works even when the site is closed) ----
+  const b64 = s => { const p = "=".repeat((4 - s.length % 4) % 4), raw = atob((s + p).replace(/-/g, "+").replace(/_/g, "/")); return Uint8Array.from(raw, c => c.charCodeAt(0)); };
+  const supported = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+  window.kkPush = {
+    supported,
+    get enabled() { return supported && Notification.permission === "granted" && localStorage.getItem("kk_push_on") === "1"; },
+    async enable(pid, name) {
+      if (!supported) throw new Error("unsupported");
+      const perm = await Notification.requestPermission();
+      if (perm !== "granted") throw new Error("denied");
+      const reg = await navigator.serviceWorker.register("/sw.js");
+      await navigator.serviceWorker.ready;
+      const sub = (await reg.pushManager.getSubscription()) || await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(VAPID_PUBLIC_KEY) });
+      const fs = await firestore();
+      await fs.doc("push/" + pid).set({ sub: JSON.parse(JSON.stringify(sub)), name: name || "", at: Date.now() });
+      localStorage.setItem("kk_push_on", "1");
+    },
+    async send(fromPid, title, body, icon) {
+      try {
+        const fs = await firestore();
+        const all = (await fs.collection("push").get()).docs.filter(d => d.id !== fromPid);
+        if (!all.length) return;
+        const r = await fetch("/api/notify", { method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ subs: all.map(d => d.data().sub), title, body, icon: icon ? new URL(icon, location.href).href : undefined }) });
+        const out = await r.json().catch(() => ({}));
+        for (const gone of out.gone || []) { const d = all.find(x => x.data().sub && x.data().sub.endpoint === gone); if (d) fs.doc("push/" + d.id).delete().catch(() => {}); }
+      } catch {}
+    },
+  };
+  if (supported && localStorage.getItem("kk_push_on") === "1") navigator.serviceWorker.register("/sw.js").catch(() => {});
+})();
+</script>
+<script>
 (() => {
   // ---------- the deck: 60 number cards + 28 special cards ----------
   const SUITS = {
@@ -1001,13 +1111,23 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     catch (e) { setStatus("לא הצלחתי להצטרף (" + (e.code || "error") + ").", true); }
   }
 
+  // An older version stored "it's a draw" in the same field as the unused pile, which broke the pile.
+  // Rebuild the unused pile from every card that is not in a hand or on the used pile; nothing is lost.
+  function repairGame(d) {
+    if (!d || Array.isArray(d.draw)) return d;
+    const g = structuredClone(d);
+    if (g.draw === true && g.status === "over") g.tie = true;
+    const used = new Set([...Object.values(g.hands || {}).flat(), ...(g.pile || [])]);
+    g.draw = Object.keys(CARDS).filter(id => !used.has(id));
+    return g;
+  }
   function openGame(c, show) {
     leaveQuiet();
     code = c; store.set("kk_code", c); lastTop = null;
     unsubGame = db.doc("games/" + c).onSnapshot(snap => {
       const d = snap.exists ? snap.data() : null;
       if (!d || d.v !== RULES_VERSION || seatOf(d) < 0) { if (!show) leave(); return; }
-      const prev = game; game = d; show = true;
+      const prev = game; game = repairGame(d); show = true;
       // the other player snatched one of my cards: tell me which
       const me = seatOf(d);
       if (prev && d.lastSnatch && d.lastSnatch.seat !== me && (!prev.lastSnatch || prev.lastSnatch.seq !== d.lastSnatch.seq) && d.lastSnatch.card)
@@ -1128,7 +1248,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const view = { offer: !!g.offer, pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: [g.hands["0"].length, g.hands["1"].length], status: g.status, turn: g.turn, round: g.round };
     const p = prevView; prevView = view;
     if (!p || p.round !== view.round) return;
-    if (p.status !== "over" && view.status === "over") { if (g.winner === me || g.draw) { SFX.win(); confetti(); } else SFX.lose(); saveStats(g, me); return; }
+    if (p.status !== "over" && view.status === "over") { if (g.winner === me || g.tie) { SFX.win(); confetti(); } else SFX.lose(); saveStats(g, me); return; }
     if (g.offer && g.offer.from !== me && (!p.offer)) SFX.msg();
     if (view.status !== "playing") return;
     if (view.top !== p.top && view.top) (isSpecial(view.top) ? SFX.special : SFX.card)();
@@ -1219,7 +1339,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const key = (g.code || "bot") + ":" + g.round;
     if (store.get("kk_stats_last") === key) return; // count each game once
     store.set("kk_stats_last", key);
-    const st = await myStats(), side = g.local ? "bot" : "friend", won = g.winner === me || !!g.draw;
+    const st = await myStats(), side = g.local ? "bot" : "friend", won = g.winner === me || !!g.tie;
     const sd = st[side] = Object.assign(emptySide(), st[side]);
     sd.games++; if (won) { sd.wins++; sd.streak++; sd.best = Math.max(sd.best, sd.streak); } else sd.streak = 0;
     if (run.round === key) {
@@ -1401,9 +1521,9 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 
     // win
     if (g.status === "over") {
-      const iWon = g.winner === me || g.draw, w = g.draw ? meP : g.players[g.winner];
+      const iWon = g.winner === me || g.tie, w = g.tie ? meP : g.players[g.winner];
       paintAva($("winAva"), w);
-      if (g.draw) {
+      if (g.tie) {
         $("winTitle").textContent = g.local ? "🤝 תיקו עם המחשב!" : "🤝 תיקו! שניכם קיבלתם כוכב ⭐⭐";
         $("winCheer").textContent = "";
         $("winText").textContent = "הסכמתם על תיקו.";
@@ -1440,8 +1560,8 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   let offerCooldown = 0;
   function finishByOffer(g, offer) {
     g.status = "over"; g.offer = null;
-    if (offer.type === "draw") { g.draw = true; g.winner = offer.from; say(g, "🤝 תיקו! שניכם ניצחתם ⭐⭐"); }
-    else { g.draw = false; g.winner = offer.from; const w = g.players[offer.from], o = g.players[1 - offer.from]; say(g, "🏳️ " + o.name + " " + W(o, "הסכים/ה") + " לתת ל" + w.name + " לנצח."); }
+    if (offer.type === "draw") { g.tie = true; g.winner = offer.from; say(g, "🤝 תיקו! שניכם ניצחתם ⭐⭐"); }
+    else { g.tie = false; g.winner = offer.from; const w = g.players[offer.from], o = g.players[1 - offer.from]; say(g, "🏳️ " + o.name + " " + W(o, "הסכים/ה") + " לתת ל" + w.name + " לנצח."); }
   }
   async function makeOffer(type) {
     if (busy || !game || game.status !== "playing" || game.offer) return;
@@ -1505,7 +1625,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     busy = true;
     try {
       await db.doc("games/" + code).set(g);
-      if (justWon) { await addStar(g.players[g.winner]); if (g.draw) await addStar(g.players[1 - g.winner]); }
+      if (justWon) { await addStar(g.players[g.winner]); if (g.tie) await addStar(g.players[1 - g.winner]); }
     }
     catch (e) { setStatus("המהלך לא נשמר (" + (e.code || "error") + "). נסו שוב.", true); }
     finally { busy = false; }
@@ -1551,7 +1671,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     if (busy || !game || game.status !== "over") return;
     const g = structuredClone(game), loser = 1 - g.winner;
     if (g.local) g.players[0] = meAsPlayer();
-    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, draw: false, offer: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
+    Object.assign(g, deal(), { status: "playing", turn: loser, winner: null, tie: false, offer: null, lastSnatch: null, spUsed: false, round: (g.round || 1) + 1 });
     say(g, "סיבוב חדש! " + g.players[loser].name + " " + W(g.players[loser], "מתחיל/ה") + ".");
     lastTop = null;
     await commit(g);
@@ -1631,12 +1751,19 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   // a real notification on the computer or phone, where the browser allows it
   function systemNotify(m) {
     try {
+      if (window.kkPush && kkPush.enabled) return; // the real push notification already covers it
       if (!document.hidden || !("Notification" in window) || Notification.permission !== "granted") return;
       const n = new Notification("💬 " + (m.name || "קרב הכתרים"), { body: m.type === "poke" ? "😉 עקץ/ה אותך!" : preview(m), tag: "kk-chat", icon: CARDS[m.avatar] ? CARDS[m.avatar].img : undefined });
       n.onclick = () => { try { window.focus(); } catch {} setChat(true); n.close(); };
     } catch {}
   }
   async function askNotifyPermission() {
+    if (window.kkPush && kkPush.supported) {
+      if (!profile.name) { toast("קודם כותבים שם בפרופיל 🙂"); return; }
+      try { await kkPush.enable(pid, profile.name); toast("🔔 מעולה! מעכשיו תקבל/י התראה על הודעות, גם כשהאתר סגור"); }
+      catch (e) { toast(String(e && e.message) === "denied" ? "לא אישרת התראות. אפשר לאשר בהגדרות הדפדפן ולנסות שוב." : "המכשיר הזה לא תומך בהתראות. באייפון: קודם \"הוסף למסך הבית\" ופותחים משם."); }
+      paintNotifyBtn(); return;
+    }
     try {
       if (!("Notification" in window)) throw 0;
       const r = await Notification.requestPermission();
@@ -1647,6 +1774,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   }
   function paintNotifyBtn() {
     const b = $("btnNotify");
+    if (window.kkPush) { b.hidden = kkPush.enabled; b.textContent = "🔔 הפעלת התראות אמיתיות"; return; }
     const ok = "Notification" in window && Notification.permission === "default";
     b.hidden = !ok;
   }
@@ -1799,6 +1927,11 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     if (!profile.name) { toast("קודם כותבים שם בפרופיל 🙂"); return false; }
     try {
       await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, bubble: profile.bubble, g: profile.g || "", at: Date.now(), ...extra });
+      if (window.kkPush) {
+        const me = { g: profile.g };
+        const body = extra.type === "poke" ? "😉 " + W(me, "עקץ/ה") + " אותך! 🐝" : extra.type === "invite" ? "🎮 " + W(me, "מזמין/ה") + " אותך למשחק!" : extra.type === "sticker" ? "🃏 " + W(me, "שלח/ה") + " סטיקר" : String(extra.text || "").slice(0, 120);
+        kkPush.send(pid, "💬 " + profile.name, body, CARDS[profile.avatar] ? CARDS[profile.avatar].img : undefined);
+      }
       return true;
     } catch (e) { toast("ההודעה לא נשלחה (" + (e.code || "error") + "). נסו שוב."); return false; }
   }
