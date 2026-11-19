@@ -151,7 +151,27 @@ label.lbl{font-size:13px;color:var(--mist)}
 .card.sp{aspect-ratio:3/4}
 .card img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes drop{from{transform:translateY(-40px) scale(1.15);opacity:0}to{transform:none;opacity:1}}
-.pile .top.fresh{animation:drop .35s ease-out}
+.drawbox{max-width:440px!important}
+#drawCanvas{width:100%;max-width:380px;aspect-ratio:1;border-radius:16px;background:#fff;touch-action:none;cursor:crosshair;box-shadow:0 0 0 3px #d6b4ff}
+.drawcolors{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.drawcolors button{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.4)}
+.drawcolors button[aria-checked="true"]{box-shadow:0 0 0 3px #fff;transform:scale(1.12)}
+#drawSizes button{width:38px;height:38px;padding:0;display:grid;place-items:center}
+#drawSizes button[aria-checked="true"]{background:rgba(242,193,78,.25);border-color:var(--gold)}
+#drawSizes i{display:block;border-radius:50%;background:#fff}
+.bubble.drawing img{display:block;width:170px;border-radius:12px;background:#fff;box-shadow:0 0 0 3px #fff,0 8px 20px rgba(0,0,0,.5)}
+.bubble.drawing{background:none;border:0;padding:0;box-shadow:none}.bubble.drawing::after{display:none}
+.flycard{position:fixed;z-index:33;pointer-events:none;border-radius:6px;object-fit:cover;box-shadow:0 8px 20px rgba(0,0,0,.55)}
+/* holographic foil */
+.card,.albumgrid img,.specials img{--rx:0deg;--ry:0deg;--mx:50%;--my:50%}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .25s;mix-blend-mode:color-dodge;
+  background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.65),rgba(255,255,255,0) 38%),
+             linear-gradient(115deg,transparent 18%,rgba(255,60,190,.32) 32%,rgba(60,240,255,.32) 46%,rgba(255,240,80,.30) 60%,rgba(160,90,255,.30) 74%,transparent 88%);
+  background-size:100% 100%,240% 240%;background-position:center,var(--mx) var(--my)}
+.card.holo-on::after{opacity:1}
+.card.holo-on,.albumgrid img.holo-on,.specials img.holo-on{transform:perspective(700px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(-6px) scale(1.06)!important;transition:transform .08s;z-index:2;
+  box-shadow:0 14px 26px rgba(0,0,0,.55),0 0 18px rgba(180,140,255,.45)}
+.albumgrid img.holo-on,.specials img.holo-on{filter:brightness(1.12) saturate(1.2)}
 
 .hand{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:flex-end;padding:14px;border-radius:18px;background:rgba(0,0,0,.18);border:1px solid var(--line)}
 .hand button.card{padding:0;border:0;width:var(--cw);transition:transform .15s, filter .15s, box-shadow .15s}
@@ -322,6 +342,7 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .ch-round{width:44px;height:44px;flex:none;border-radius:50%;padding:0;display:grid;place-items:center;font-size:19px;background:rgba(70,45,150,.55);border:1.5px solid rgba(214,180,255,.55)}
 .ch-round[aria-pressed="true"]{background:#ff5d8f;border-color:#fff}
 .ch-poke{flex:none;border-radius:99px;padding:9px 14px;font-size:15px;font-weight:700;background:rgba(70,45,150,.55);border:1.5px solid rgba(214,180,255,.55)}
+@media (max-width:440px){.ch-poke{font-size:0;padding:0;width:40px;height:40px}.ch-poke::after{content:"😉";font-size:19px}.ch-input{gap:5px}}
 @media (max-width:440px){.chat{left:8px;width:calc(100vw - 16px);height:calc(100vh - 100px)}.ch-poke{padding:9px 10px}.ch-round{width:40px;height:40px}.ch-send{width:46px;height:46px}}
 #confetti{position:fixed;inset:0;z-index:35;pointer-events:none}
 /* table backgrounds */
@@ -339,6 +360,7 @@ body.has-bg .hand{background:rgba(18,11,46,.45)}
 .board.has-art .history li{color:#efe8ff}
 .ch-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;pointer-events:none}
 .chat > :not(.ch-bg){position:relative;z-index:1}
+.chat > .ch-contact{z-index:3}
 .chat.has-bg .ch-top,.chat.has-bg .ch-input{background:rgba(26,13,74,.55)}
 .chat.has-bg .ch-contact{background:linear-gradient(90deg,rgba(80,40,170,.75),rgba(50,25,120,.75))}
 .themes{display:flex;gap:4px}
@@ -445,8 +467,8 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
             <img src="cards/d15.webp" alt=""><img src="cards/h15.webp" alt=""><img src="cards/s15.webp" alt="">
           </div>
           <div class="stack">
-            <h2>משחק קלפים לשניים</h2>
-            <p class="muted" style="margin:0">נגד אח שלך מהמחשב שלו, או נגד המחשב. 88 קלפים, ארבעה עולמות וקלפים מיוחדים. מי שנפטר מכל הקלפים ראשון לוקח כוכב.</p>
+            <h2>משחק קלפים ל־2 עד 4 שחקנים</h2>
+            <p class="muted" style="margin:0">נגד חברים, כל אחד מהמחשב שלו, או נגד המחשב בשלוש רמות. 88 קלפים, ארבעה עולמות וקלפים מיוחדים. מי שנפטר מכל הקלפים ראשון לוקח כוכב.</p>
           </div>
         </div>
         <ol class="rules">
@@ -454,8 +476,9 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
           <li>בכל תור שמים קלף <b>גבוה או שווה</b> לקלף שלמעלה.</li>
           <li>אין לך מה לשים? <b>מושכים קלף אחד</b> מהקופה הלא משומשת.</li>
           <li>קלף מיוחד <b>לא עונה על המספר</b>: שמים אותו, הוא עושה את שלו, ואז עדיין צריך לענות עם קלף מספר (או למשוך). אפשר <b>קלף מיוחד אחד בכל תור</b>.</li>
-          <li>אם שני השחקנים משכו אחד אחרי השני, הקופה המשומשת מתערבבת חזרה לקופה הלא משומשת, ואפשר לפתוח עם כל מספר.</li>
-          <li>מי שנגמרו לו הקלפים ראשון מנצח ומקבל ⭐</li>
+          <li>אם כל השחקנים משכו אחד אחרי השני, הקופה המשומשת מתערבבת חזרה לקופה הלא משומשת, ואפשר לפתוח עם כל מספר.</li>
+          <li>מי שנגמרו לו הקלפים ראשון מנצח ומקבל ⭐. ב־3–4 שחקנים ממשיכים עד הסוף, וכל אחד מקבל מקום 🥇🥈🥉.</li>
+          <li>ב־3–4 שחקנים, קלף מיוחד פועל על <b>השחקן הבא בתור</b>.</li>
         </ol>
         <div class="specials">
           <figure><img src="cards/sp-snatch.webp" alt=""><b>חוטף · 8</b>לוקחים קלף מהיריב, בלי לראות איזה</figure>
@@ -476,7 +499,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
           <button id="btnAlbum" type="button" style="flex:1">📖 אלבום קלפים</button>
           <button id="btnStats" type="button" style="flex:1">📊 סטטיסטיקות</button>
         </div>
-        <button id="btnCreate" class="primary" type="button">פתיחת משחק חדש נגד חבר</button>
+        <button id="btnCreate" class="primary" type="button">פתיחת משחק חדש עם חברים (2–4)</button>
         <div class="row">
           <input id="codeInput" maxlength="4" placeholder="קוד משחק" aria-label="קוד משחק" style="flex:1;letter-spacing:3px;text-transform:uppercase" autocomplete="off">
           <button id="btnJoin" type="button">הצטרפות</button>
@@ -586,6 +609,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     <input id="chatInput" maxlength="300" placeholder="כתבו הודעה…" aria-label="הודעה" autocomplete="off">
     <button id="btnMic" class="ch-round" type="button" aria-pressed="false" aria-label="לדבר במקום להקליד" hidden>🎤</button>
     <button id="btnStickers" class="ch-round" type="button" aria-pressed="false" aria-controls="stickersBox" aria-label="סטיקרים">🃏</button>
+    <button id="btnDrawPad" class="ch-round" type="button" aria-label="ציור">🖌️</button>
     <button id="btnPoke" class="ch-poke" type="button">עקיצה 😉</button>
   </form>
 </section>
@@ -614,6 +638,20 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       <button id="btnWinScores" type="button">טבלת כוכבים</button>
       <button id="btnWinLobby" type="button">ללובי</button>
     </div>
+  </div>
+</div>
+
+<div id="overDraw" class="overlay" style="z-index:31" hidden>
+  <div class="panel drawbox" role="dialog" aria-labelledby="drawTitle">
+    <div class="row" style="justify-content:space-between;width:100%"><h2 id="drawTitle">🖌️ ציור</h2><button id="btnDrawX" class="st-x" style="position:static" type="button" aria-label="סגירת הציור">✕</button></div>
+    <canvas id="drawCanvas" width="640" height="640" aria-label="משטח ציור"></canvas>
+    <div id="drawColors" class="drawcolors" role="radiogroup" aria-label="צבע"></div>
+    <div class="row" style="justify-content:center;gap:6px">
+      <div id="drawSizes" class="row" style="gap:6px" role="radiogroup" aria-label="עובי"></div>
+      <button id="btnDrawUndo" type="button">↩️ ביטול</button>
+      <button id="btnDrawClear" type="button">🗑️ ניקוי</button>
+    </div>
+    <button id="btnDrawSend" class="primary" type="button" style="width:100%">שליחת הציור 📨</button>
   </div>
 </div>
 
@@ -907,6 +945,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       say(g, "👀 " + my + " " + W(P, "הציץ/ה") + " בקלף של " + other + "." + still());
     }
     // a number card answers and ends the turn; a special card does not answer, so the turn goes on
+    g.lastMove = { seat, kind: kind === "snatch" ? "snatch" : "play", id, victim: tseat, seq: ((g.lastMove && g.lastMove.seq) || 0) + 1 };
     g.turn = kind === "num" ? tseat : seat;
     g.spUsed = kind !== "num";
     if (kind === "num") g.passes = 0;
@@ -918,6 +957,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   function applyDraw(g, seat) {
     const n = drawCards(g, String(seat), 1);
     const P = g.players[seat];
+    g.lastMove = { seat, kind: "draw", n, seq: ((g.lastMove && g.lastMove.seq) || 0) + 1 };
     say(g, n ? P.name + " לא היה " + W(P, "לו/ה") + " מספר מתאים ו" + W(P, "משך/ה") + " קלף." : "אין קלפים למשוך. " + P.name + " " + W(P, "מעביר/ה") + " את התור.");
     g.turn = nextSeat(g, seat);
     g.spUsed = false;
@@ -1214,7 +1254,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   function leaveQuiet() {
     if (unsubGame) unsubGame(); unsubGame = null;
     clearTimeout(botTimer); botTimer = null;
-    game = null; code = null; lastTop = null; picking = null; prevView = null;
+    game = null; code = null; lastTop = null; picking = null; prevView = null; shownMove = null;
   }
   function leave() {
     leaveQuiet(); store.del("kk_code");
@@ -1510,8 +1550,66 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   document.addEventListener("keydown", e => { if (e.key === "Escape") { $("overAlbum").hidden = true; $("overStats").hidden = true; } });
 
   // ---------- table ----------
+  // ---------- card animations: the played card flies to the pile, drawn and snatched cards fly too ----------
+  let shownMove = null, playedFrom = null;
+  const calm = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function seatBox(g, s, me, opp) {
+    if (s === me) return $("hand").getBoundingClientRect();
+    if (s === opp) return ($("oppBacks").children.length ? $("oppBacks") : $("oppAva")).getBoundingClientRect();
+    const chip = document.querySelector('#others .ochip[data-pid="' + (g.players[s] && g.players[s].pid) + '"]');
+    return (chip || $("oppAva")).getBoundingClientRect();
+  }
+  function flyBack(from, to, delay = 0) {
+    const im = el("img", "flycard"); im.src = "cards/back.webp"; im.alt = ""; im.setAttribute("aria-hidden", "true");
+    const w = 64, h = 85; Object.assign(im.style, { left: (from.left + from.width / 2 - w / 2) + "px", top: (from.top + from.height / 2 - h / 2) + "px", width: w + "px", height: h + "px" });
+    document.body.append(im);
+    const dx = to.left + to.width / 2 - (from.left + from.width / 2), dy = to.top + to.height / 2 - (from.top + from.height / 2);
+    const a = im.animate([{ transform: "translate(0,0) rotate(0) scale(.9)", opacity: 0 }, { opacity: 1, offset: .15 }, { transform: "translate(" + dx + "px," + dy + "px) rotate(" + (dx > 0 ? 12 : -12) + "deg) scale(1)", opacity: .95 }], { duration: 520, delay, easing: "cubic-bezier(.25,.8,.25,1)", fill: "both" });
+    a.onfinish = () => im.remove();
+  }
+  function animateMove(g, me, opp) {
+    const m = g.lastMove;
+    if (!m) { if (shownMove === null) shownMove = 0; return; } // a fresh deal: animate from the first move on
+    if (m.seq === shownMove) return;
+    const first = shownMove === null; shownMove = m.seq;
+    if (first || calm() || g.status === "waiting") { playedFrom = null; return; }
+    if (m.kind === "play" || m.kind === "snatch") {
+      const target = document.querySelector('#pile .card[data-id="' + m.id + '"]');
+      const from = m.seat === me && playedFrom ? playedFrom : seatBox(g, m.seat, me, opp);
+      if (target) {
+        const to = target.getBoundingClientRect();
+        const dx = from.left + from.width / 2 - (to.left + to.width / 2), dy = from.top + from.height / 2 - (to.top + to.height / 2);
+        const sc = Math.max(.35, Math.min(1.2, from.width / Math.max(1, to.width)));
+        target.animate([{ transform: "translate(" + dx + "px," + dy + "px) scale(" + sc + ") rotate(" + (dx > 0 ? -14 : 14) + "deg)", opacity: .7 }, { transform: "translate(0,0) scale(1.08) rotate(0)", opacity: 1, offset: .8 }, { transform: "none", opacity: 1 }], { duration: 480, easing: "cubic-bezier(.2,.8,.2,1)" });
+      }
+      if (m.kind === "snatch") flyBack(seatBox(g, m.victim, me, opp), seatBox(g, m.seat, me, opp), 300);
+    } else if (m.kind === "draw" && m.n) {
+      const deck = document.querySelector("#board .deck img");
+      if (deck) for (let k = 0; k < m.n; k++) flyBack(deck.getBoundingClientRect(), seatBox(g, m.seat, me, opp), k * 120);
+    }
+    playedFrom = null;
+  }
+
+  // ---------- holographic cards: they tilt toward the pointer and shine like real foil ----------
+  function holoMove(e) {
+    const c = e.target.closest && e.target.closest(".card, .albumgrid img, .specials img");
+    if (!c || calm()) return;
+    const r = c.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+    c.style.setProperty("--rx", ((0.5 - py) * 18).toFixed(1) + "deg");
+    c.style.setProperty("--ry", ((px - 0.5) * 22).toFixed(1) + "deg");
+    c.style.setProperty("--mx", (px * 100).toFixed(0) + "%");
+    c.style.setProperty("--my", (py * 100).toFixed(0) + "%");
+    c.classList.add("holo-on");
+    if (holoLast && holoLast !== c) holoLast.classList.remove("holo-on");
+    holoLast = c;
+  }
+  let holoLast = null;
+  document.addEventListener("pointermove", holoMove, { passive: true });
+  document.addEventListener("pointerleave", () => { if (holoLast) holoLast.classList.remove("holo-on"); holoLast = null; }, true);
+  document.addEventListener("pointerout", e => { if (holoLast && !holoLast.contains(e.relatedTarget)) { holoLast.classList.remove("holo-on"); holoLast = null; } });
+
   function cardEl(id, tag) {
-    const c = el(tag || "div", "card" + (isSpecial(id) ? " sp" : ""));
+    const c = el(tag || "div", "card" + (isSpecial(id) ? " sp" : "")); c.dataset.id = id;
     const img = el("img"); img.src = CARDS[id].img; img.alt = label(id); img.draggable = false; c.append(img);
     return c;
   }
@@ -1591,7 +1689,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const nums = g.pile.filter(id => !isSpecial(id));
     const fxCards = tn ? g.pile.slice(g.pile.lastIndexOf(tn) + 1) : g.pile.slice();
     if (nums.length > 1) { const u = cardEl(nums[nums.length - 2]); u.classList.add("under"); pile.append(u); }
-    if (tn) { const t = cardEl(tn); t.classList.add("top"); if (tn !== lastTop) t.classList.add("fresh"); pile.append(t); }
+    if (tn) { const t = cardEl(tn); t.classList.add("top"); pile.append(t); }
     else pile.append(el("div", "empty", g.status === "waiting" ? "הקלפים יחולקו כשהמשחק יתחיל" : "אין מספר באמצע: אפשר לענות עם כל קלף מספר"));
     if (fxCards.length) { const fx = el("div", "fx"); fxCards.slice(-3).forEach(id => fx.append(cardEl(id))); pile.append(fx); }
     lastTop = tn;
@@ -1645,6 +1743,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 
     renderOffer(g, me, meP, n === 2 ? oppP : null);
     soundFor(g, me);
+    animateMove(g, me, opp);
     applyTheme();
     $("emoteBar").hidden = !oppP;
     if (g.local && playing && g.turn === 1) scheduleBot();
@@ -1748,6 +1847,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       picking = { id, kind }; renderTable(); return;
     }
     const g = structuredClone(game);
+    const src = document.querySelector('#hand .card[data-id="' + id + '"]'); playedFrom = src ? src.getBoundingClientRect() : null;
     track(g, "play", id);
     applyPlay(g, me, id);
     await commit(g);
@@ -1758,6 +1858,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const g = structuredClone(game), me = seatOf(g);
     const { id, kind } = picking; picking = null;
     const tseat = nextSeat(g, me), target = g.hands[String(tseat)][i];
+    const src = document.querySelector('#hand .card[data-id="' + id + '"]'); playedFrom = src ? src.getBoundingClientRect() : null;
     track(g, "play", id);
     applyPlay(g, me, id, i);
     if (kind === "peek") showCard("הצצת! זה הקלף של " + g.players[tseat].name, target);
@@ -1844,7 +1945,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   }
   // a new message pops up at the top of the screen (unless the chat is already open in front of you)
   let notifEl = null, notifTimer = null, flashTimer = null;
-  const preview = m => m.type === "sticker" ? "🃏 שלח/ה סטיקר" : m.type === "invite" ? "🎮 הזמנה למשחק!" : (m.text || "");
+  const preview = m => m.type === "draw" ? "🖌️ שלח/ה ציור" : m.type === "sticker" ? "🃏 שלח/ה סטיקר" : m.type === "invite" ? "🎮 הזמנה למשחק!" : (m.text || "");
   function notify(m) {
     systemNotify(m);
     if (!document.hidden && chatOpen) return;
@@ -1910,7 +2011,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     buzz();
     try { navigator.vibrate && navigator.vibrate([200, 80, 200, 80, 400]); } catch {}
   }
-  const short = m => m.type === "sticker" ? "🃏 סטיקר" : m.type === "invite" ? "🎮 הזמנה למשחק" : (m.text || "");
+  const short = m => m.type === "draw" ? "🖌️ ציור" : m.type === "sticker" ? "🃏 סטיקר" : m.type === "invite" ? "🎮 הזמנה למשחק" : (m.text || "");
 
   function inviteCard(m, mine) {
     const box = el("div", "invite");
@@ -1953,6 +2054,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
         b.style.setProperty("--bc", m.bubble || (mine ? "#7b3ff0" : "#3f4fb0"));
         if (m.reply) { const q = el("div", "quote"); q.append(el("b", "", m.reply.name || ""), document.createTextNode(m.reply.text || "")); b.append(q); }
         if (m.type === "sticker" && CARDS[m.card]) { const im = el("img"); im.src = CARDS[m.card].img; im.alt = "סטיקר " + label(m.card); b.append(im); }
+        else if (m.type === "draw" && /^data:image\/(webp|png|jpeg);base64,/.test(m.img || "")) { b.classList.add("drawing"); const im = el("img"); im.src = m.img; im.alt = "ציור של " + (m.name || ""); b.append(im); }
         else b.append(document.createTextNode(m.text || ""));
         b.append(el("span", "mtime", hhmm(m.at)));
       }
@@ -2045,7 +2147,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       await db.collection("chat").add({ pid, name: profile.name, avatar: profile.avatar, color: profile.color, bubble: profile.bubble, g: profile.g || "", at: Date.now(), ...extra });
       if (window.kkPush) {
         const me = { g: profile.g };
-        const body = extra.type === "poke" ? "😉 " + W(me, "עקץ/ה") + " אותך! 🐝" : extra.type === "invite" ? "🎮 " + W(me, "מזמין/ה") + " אותך למשחק!" : extra.type === "sticker" ? "🃏 " + W(me, "שלח/ה") + " סטיקר" : String(extra.text || "").slice(0, 120);
+        const body = extra.type === "poke" ? "😉 " + W(me, "עקץ/ה") + " אותך! 🐝" : extra.type === "invite" ? "🎮 " + W(me, "מזמין/ה") + " אותך למשחק!" : extra.type === "draw" ? "🖌️ " + W(me, "שלח/ה") + " לך ציור" : extra.type === "sticker" ? "🃏 " + W(me, "שלח/ה") + " סטיקר" : String(extra.text || "").slice(0, 120);
         kkPush.send(pid, "💬 " + profile.name, body, CARDS[profile.avatar] ? CARDS[profile.avatar].img : undefined);
       }
       return true;
@@ -2071,6 +2173,48 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     b.onclick = () => { profile.bubble = c; saveProfile(); for (const x of $("bubbleColors").children) x.setAttribute("aria-pressed", String(x.dataset.c === c)); };
     return b;
   }));
+
+  // ---------- drawing pad ----------
+  const DCOLORS = ["#1b1036", "#ff5d8f", "#f2c14e", "#4ee0a0", "#5fd0ff", "#7b3ff0", "#ff8a3d", "#8b5a2b", "#ffffff"];
+  const DSIZES = [4, 10, 22];
+  const dc = $("drawCanvas"), dx = dc.getContext("2d");
+  let dColor = DCOLORS[0], dSize = DSIZES[1], strokes = [], cur = null;
+  function redraw() {
+    dx.fillStyle = "#fff"; dx.fillRect(0, 0, dc.width, dc.height);
+    for (const st of strokes) {
+      dx.strokeStyle = st.c; dx.lineWidth = st.w; dx.lineCap = dx.lineJoin = "round";
+      dx.beginPath(); st.p.forEach(([x, y], i) => i ? dx.lineTo(x, y) : dx.moveTo(x, y));
+      if (st.p.length === 1) dx.lineTo(st.p[0][0] + .1, st.p[0][1]);
+      dx.stroke();
+    }
+  }
+  const pos = e => { const r = dc.getBoundingClientRect(); return [(e.clientX - r.left) * dc.width / r.width, (e.clientY - r.top) * dc.height / r.height]; };
+  dc.addEventListener("pointerdown", e => { dc.setPointerCapture(e.pointerId); cur = { c: dColor, w: dSize, p: [pos(e)] }; strokes.push(cur); redraw(); });
+  dc.addEventListener("pointermove", e => { if (!cur) return; cur.p.push(pos(e)); redraw(); });
+  const endStroke = () => { cur = null; };
+  dc.addEventListener("pointerup", endStroke); dc.addEventListener("pointercancel", endStroke);
+  $("drawColors").append(...DCOLORS.map(c => { const b = el("button"); b.type = "button"; b.style.background = c; b.setAttribute("role", "radio"); b.setAttribute("aria-label", c === "#ffffff" ? "מחק" : "צבע"); b.onclick = () => { dColor = c; paintPad(); }; b.dataset.c = c; return b; }));
+  $("drawSizes").append(...DSIZES.map(w => { const b = el("button"); b.type = "button"; b.setAttribute("role", "radio"); b.setAttribute("aria-label", "עובי " + w); const i = el("i"); i.style.width = i.style.height = Math.max(4, w * .9) + "px"; b.append(i); b.dataset.w = w; b.onclick = () => { dSize = w; paintPad(); }; return b; }));
+  function paintPad() { for (const b of $("drawColors").children) b.setAttribute("aria-checked", String(b.dataset.c === dColor)); for (const b of $("drawSizes").children) b.setAttribute("aria-checked", String(+b.dataset.w === dSize)); }
+  $("btnDrawUndo").onclick = () => { strokes.pop(); redraw(); };
+  $("btnDrawClear").onclick = () => { strokes = []; redraw(); };
+  $("btnDrawPad").onclick = () => { $("overDraw").hidden = false; paintPad(); redraw(); };
+  $("btnDrawX").onclick = () => { $("overDraw").hidden = true; };
+  $("overDraw").addEventListener("click", e => { if (e.target === $("overDraw")) $("overDraw").hidden = true; });
+  $("btnDrawSend").onclick = async () => {
+    if (!strokes.length) { toast("קודם מציירים משהו 🙂"); return; }
+    // shrink until the picture is small enough to store in the chat
+    let img = "", side = 480, q = .8;
+    for (let k = 0; k < 6; k++) {
+      const t = document.createElement("canvas"); t.width = t.height = side; t.getContext("2d").drawImage(dc, 0, 0, side, side);
+      img = t.toDataURL("image/webp", q); if (!img.startsWith("data:image/webp")) img = t.toDataURL("image/jpeg", q);
+      if (img.length < 120000) break; side = Math.round(side * .8); q = Math.max(.5, q - .1);
+    }
+    $("btnDrawSend").disabled = true;
+    if (await postChat({ type: "draw", img })) { strokes = []; $("overDraw").hidden = true; }
+    $("btnDrawSend").disabled = false;
+  };
+  redraw();
 
   // stickers: every hero card and every special card
   const STICKERS = [...NUM_IDS, "xsnatch1", "xtwo1", "xpeek1", "xall1"];
