@@ -151,8 +151,10 @@ label.lbl{font-size:13px;color:var(--mist)}
 .card.sp{aspect-ratio:3/4}
 .card img{width:100%;height:100%;object-fit:cover;display:block}
 @keyframes drop{from{transform:translateY(-40px) scale(1.15);opacity:0}to{transform:none;opacity:1}}
-.drawbox{max-width:440px!important}
-#drawCanvas{width:100%;max-width:380px;aspect-ratio:1;border-radius:16px;background:#fff;touch-action:none;cursor:crosshair;box-shadow:0 0 0 3px #d6b4ff}
+.drawbox{max-width:440px!important;max-height:calc(100vh - 24px);overflow-y:auto;gap:10px!important;padding:14px!important}
+.drawbox h2{font-size:19px}
+#overDraw{padding:12px}
+#drawCanvas{width:min(100%,380px,calc(100vh - 290px));min-width:180px;aspect-ratio:1;border-radius:16px;background:#fff;touch-action:none;cursor:crosshair;box-shadow:0 0 0 3px #d6b4ff}
 .drawcolors{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
 .drawcolors button{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.4)}
 .drawcolors button[aria-checked="true"]{box-shadow:0 0 0 3px #fff;transform:scale(1.12)}
@@ -309,8 +311,13 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .ch-sthead{display:flex;align-items:center;justify-content:center;position:relative;padding:6px}
 .ch-sthead span{padding:4px 16px;border-radius:99px;background:rgba(80,45,180,.9);border:1.5px solid rgba(214,180,255,.6);font-size:15px}
 .ch-sthead button{position:absolute;left:10px;padding:2px 8px;background:none;border:0;font-size:16px}
-.stickers{display:flex;gap:10px;overflow-x:auto;padding:4px 12px 12px;scroll-snap-type:x mandatory}
-.stickers button{flex:none;width:76px;padding:0;border:0;background:none;scroll-snap-align:start}
+.stickers{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:10px;overflow-y:auto;max-height:min(230px,32vh);padding:4px 12px 12px;overscroll-behavior:contain}
+.stickers button{padding:0;border:0;background:none}
+/* while the sticker drawer is open, the quick replies step aside so everything fits */
+.chat.st-open .ch-row,.chat.st-open .typing{display:none}
+.chat.st-open .msgs{min-height:60px}
+.chat.st-open .stickers{max-height:max(110px,min(230px,calc(100vh - 430px)))}
+.chat{overflow:hidden}.chat > *{flex-shrink:0}.chat > .msgs{flex-shrink:1}
 .stickers img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;display:block;box-shadow:0 0 0 2px #fff,0 4px 10px rgba(0,0,0,.4)}
 .stickers button:hover img{transform:translateY(-3px)}
 .ch-row{display:flex;align-items:center;gap:8px;margin:0 12px 6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
@@ -2224,7 +2231,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     b.onclick = async () => { showStickers(false); await postChat({ type: "sticker", card: id }); };
     return b;
   }));
-  function showStickers(on) { $("stickersBox").hidden = !on; $("btnStickers").setAttribute("aria-pressed", String(on)); }
+  function showStickers(on) { $("chat").classList.toggle("st-open", on); $("stickersBox").hidden = !on; $("btnStickers").setAttribute("aria-pressed", String(on)); }
   $("btnStickers").onclick = () => showStickers($("stickersBox").hidden);
   $("btnStClose").onclick = () => showStickers(false);
 
