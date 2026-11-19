@@ -331,6 +331,12 @@ button.chatbtn{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px)
 .bggrid button[aria-checked="true"] .sw{box-shadow:0 0 0 3px var(--gold),0 0 16px rgba(242,193,78,.5)}
 .bggrid button[aria-checked="true"] span{color:var(--gold);font-weight:700}
 body.has-bg{background-attachment:fixed;background-size:cover;background-position:center}
+body.has-bg .panel{background:rgba(29,19,71,.6)}
+body.has-bg .hand{background:rgba(18,11,46,.45)}
+.board.has-art .side,.board.has-art .need,.board.has-art .history li{text-shadow:0 1px 3px rgba(0,0,0,.95),0 0 8px rgba(0,0,0,.8)}
+.board.has-art .side{color:#fff}
+.board.has-art .history{padding:8px 10px;border-radius:12px;background:rgba(18,11,46,.55)}
+.board.has-art .history li{color:#efe8ff}
 .ch-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;pointer-events:none}
 .chat > :not(.ch-bg){position:relative;z-index:1}
 .chat.has-bg .ch-top,.chat.has-bg .ch-input{background:rgba(26,13,74,.55)}
@@ -461,6 +467,11 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       <div id="playPanel" class="panel stack">
         <h3>לשחק</h3>
         <button id="btnBot" class="bot" type="button">🤖 משחק נגד המחשב</button>
+        <div id="levelPick" class="suittabs" style="grid-template-columns:repeat(3,1fr)" role="radiogroup" aria-label="רמת המחשב">
+          <button type="button" data-l="easy" role="radio">😊 קל</button>
+          <button type="button" data-l="mid" role="radio">🙂 בינוני</button>
+          <button type="button" data-l="boss" role="radio">👹 בוס</button>
+        </div>
         <div class="row" style="gap:8px">
           <button id="btnAlbum" type="button" style="flex:1">📖 אלבום קלפים</button>
           <button id="btnStats" type="button" style="flex:1">📊 סטטיסטיקות</button>
@@ -987,6 +998,13 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   if (!profile.name) profile.name = store.get("kk_name") || "";
   if (!CARDS[profile.avatar] || isSpecial(profile.avatar)) profile.avatar = "h01";
   const BOT = { pid: "bot", name: "המחשב", avatar: "c15", color: "#5fd0ff", cheer: "בי־בופ! ניצחתי 🤖", g: "m" };
+  // computer levels: easy plays carelessly, medium thinks a little, the boss thinks a lot
+  const LEVELS = {
+    easy: { name: "המחשב 😊", avatar: "h02", color: "#4ee0a0", cheer: "יש! ניצחתי 😊", think: 0 },
+    mid: { name: "המחשב 🙂", avatar: "c15", color: "#5fd0ff", cheer: "בי־בופ! ניצחתי 🤖", think: 24 },
+    boss: { name: "👹 הבוס", avatar: "s14", color: "#ff5d8f", cheer: "חחח! אף אחד לא מנצח את הבוס 👹", think: 200 },
+  };
+  if (!LEVELS[profile.botLevel]) profile.botLevel = "boss";
 
   const $ = id => document.getElementById(id);
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
@@ -1109,10 +1127,14 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     }));
   }
 
+  const paintLevel = () => { for (const b of $("levelPick").children) { const on = b.dataset.l === profile.botLevel; b.setAttribute("aria-checked", String(on)); b.setAttribute("aria-selected", String(on)); } };
+  for (const b of $("levelPick").children) b.onclick = () => { profile.botLevel = b.dataset.l; saveProfile(); paintLevel(); };
+  paintLevel();
   $("btnBot").onclick = () => {
     if (needName()) return;
     leaveQuiet();
-    game = Object.assign({ local: true, code: "", status: "playing", players: [meAsPlayer(), { ...BOT }], turn: 0, winner: null, round: 1, seq: 0 }, deal());
+    const L = LEVELS[profile.botLevel];
+    game = Object.assign({ local: true, level: profile.botLevel, code: "", status: "playing", players: [meAsPlayer(), { ...BOT, name: L.name, avatar: L.avatar, color: L.color, cheer: L.cheer }], turn: 0, winner: null, round: 1, seq: 0 }, deal());
     say(game, "הקלפים חולקו! " + profile.name + " " + W(profile, "מתחיל/ה") + ".");
     setStatus(""); renderTable();
   };
@@ -1318,7 +1340,8 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   if (!profile.bgTable) profile.bgTable = OLD_THEME[profile.theme] || "none";
   for (const k of ["bgPage", "bgTable", "bgChat"]) if (!BG_BY[profile[k]]) profile[k] = "none";
   // light pictures get a darker veil so cards and text stay readable
-  const veil = (b, strong) => { const a = (b[4] ? 0.72 : 0.5) + (strong ? 0.12 : 0); return "linear-gradient(rgba(18,11,46," + a + "),rgba(18,11,46," + (a + 0.1) + ")),url(" + b[3] + ")"; };
+  // a light veil: enough to keep text readable, while the picture still shows clearly
+  const veil = (b, strong) => { const a = (b[4] ? 0.3 : 0.15) + (strong ? 0.05 : 0); return "linear-gradient(rgba(18,11,46," + a + "),rgba(18,11,46," + (a + 0.1) + ")),url(" + b[3] + ")"; };
   function applyBgs() {
     const pg = BG_BY[profile.bgPage], tb = BG_BY[profile.bgTable], ch = BG_BY[profile.bgChat];
     document.body.classList.toggle("has-bg", !!pg[3]); document.body.style.backgroundImage = pg[3] ? veil(pg) : "";
@@ -1607,7 +1630,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
         $("winCheer").textContent = "";
         $("winText").textContent = "הסכמתם על תיקו.";
       } else {
-        $("winTitle").textContent = g.local ? (iWon ? "ניצחת את המחשב!!! 🎉" : "המחשב ניצח הפעם") : (iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " " + W(w, "ניצח/ה") + " ו" + W(w, "קיבל/ה") + " כוכב ⭐");
+        $("winTitle").textContent = g.local ? (iWon ? (g.level === "boss" ? "ניצחת את הבוס!!! 👹🎉" : "ניצחת את המחשב!!! 🎉") : (g.level === "boss" ? "הבוס ניצח הפעם 👹" : "המחשב ניצח הפעם")) : (iWon ? "ניצחת!!! קיבלת כוכב ⭐" : w.name + " " + W(w, "ניצח/ה") + " ו" + W(w, "קיבל/ה") + " כוכב ⭐");
         $("winCheer").textContent = w.cheer ? "״" + w.cheer + "״" : "";
         $("winText").textContent = iWon ? (g.hands[String(me)].length ? "קיבלת את הניצחון במתנה 🎁" : "נגמרו לך הקלפים " + W(meP, "ראשון/ה") + ".") : "בסיבוב הבא זה שלך!";
       }
@@ -1768,7 +1791,15 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       botTimer = null;
       if (!game || !game.local || game.status !== "playing" || game.turn !== 1) return;
       const g = structuredClone(game);
-      const move = botChoice(g);
+      const think = (LEVELS[g.level] || LEVELS.boss).think;
+      // easy: lowest fitting card most of the time, sometimes a random one; it may forget its special cards
+      const move = think ? botChoice(g, think) : (() => {
+        const h = g.hands["1"], ok = h.filter(id => canPlayNow(g, id));
+        const nums = ok.filter(id => !isSpecial(id)).sort(byValue), sps = ok.filter(isSpecial);
+        if (nums.length) return { id: Math.random() < 0.7 ? nums[0] : nums[Math.floor(Math.random() * nums.length)] };
+        if (sps.length && Math.random() < 0.6) return { id: sps[0], target: Math.floor(Math.random() * g.hands["0"].length) };
+        return null;
+      })();
       if (move) {
         const kind = CARDS[move.id].kind;
         const target = move.target != null ? g.hands["0"][move.target] : null;
@@ -2168,7 +2199,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   $("overScores").addEventListener("click", e => { if (e.target === $("overScores")) closeScores(); });
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("overScores").hidden) closeScores(); });
 
-  if (window.__fast) window.__kk = { CARDS, deal, applyPlay, applyDraw, botChoice, simpleMove, canPlay, canAnswer, isSpecial, byValue, topNumber };
+  if (window.__fast) window.__kk = { CARDS, deal, applyPlay, applyDraw, botChoice, simpleMove, canPlay, canPlayNow, canAnswer, isSpecial, byValue, topNumber };
 })();
 </script>
 
