@@ -163,6 +163,33 @@ label.lbl{font-size:13px;color:var(--mist)}
 #drawSizes i{display:block;border-radius:50%;background:#fff}
 .bubble.drawing img{display:block;width:170px;border-radius:12px;background:#fff;box-shadow:0 0 0 3px #fff,0 8px 20px rgba(0,0,0,.5)}
 .bubble.drawing{background:none;border:0;padding:0;box-shadow:none}.bubble.drawing::after{display:none}
+/* pranks */
+.pranks{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;align-items:center}
+.pranks button{padding:6px 12px;font-size:14px;border-radius:99px;background:rgba(255,93,143,.15);border-color:rgba(255,93,143,.5)}
+.pranks button:disabled{opacity:.4}
+body.pr-flip #app,body.pr-flip .chat{transform:rotate(180deg);transition:transform .5s}
+#app,.chat{transition:transform .5s}
+body.pr-blur #hand .card img,body.pr-blur #pile .card img{filter:blur(7px) saturate(.6);transition:filter .4s}
+@keyframes spinAll{to{transform:rotate(360deg)}}
+body.pr-spin #app{animation:spinAll 1.4s cubic-bezier(.5,0,.5,1) 2}
+.swarm{position:fixed;left:0;z-index:46;pointer-events:none;width:min(22vw,120px);aspect-ratio:200/191;animation:swarmFly 2.6s linear forwards}
+.swarm i{display:block;width:100%;height:100%;background:url(cards/bee.webp) 0 0/800% 100% no-repeat;animation:beeFlap .3s steps(8,jump-none) infinite}
+@keyframes swarmFly{0%{transform:translate(-30vw,0) rotate(-6deg)}25%{transform:translate(20vw,-6vh) rotate(6deg)}50%{transform:translate(50vw,5vh) rotate(-6deg)}75%{transform:translate(80vw,-5vh) rotate(6deg)}100%{transform:translate(125vw,0) rotate(-6deg)}}
+/* the pet bee */
+#pet{position:fixed;z-index:14;width:74px;aspect-ratio:200/191;left:70vw;top:70vh;cursor:pointer;transition:left 2.6s ease-in-out,top 2.6s ease-in-out;filter:drop-shadow(0 8px 10px rgba(0,0,0,.45));background:none;border:0;padding:0}
+#pet i{display:block;width:100%;height:100%;background:url(cards/bee.webp) 0 0/800% 100% no-repeat;animation:beeFlap .34s steps(8,jump-none) infinite}
+#pet.left i{transform:scaleX(-1)}
+#pet .pname{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;padding:1px 7px;border-radius:99px;background:rgba(18,11,46,.75);color:#ffe28a}
+#pet .bubble2{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:22px;white-space:nowrap;animation:floatUp 1.6s ease-out forwards}
+#pet.happy{animation:petHappy 1.4s ease-in-out}
+#pet.sad i{animation-duration:.9s;filter:saturate(.4) brightness(.8)}
+@keyframes petHappy{0%,100%{transform:none}25%{transform:translateY(-40px) rotate(-20deg)}50%{transform:translateY(0) rotate(340deg)}75%{transform:translateY(-25px) rotate(360deg)}}
+.sndrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 10px;border-radius:12px;background:rgba(0,0,0,.2);border:1px solid var(--line)}
+.sndrow b{flex:1;min-width:110px;font-size:14px}
+.sndrow button,.sndrow label.upl{padding:6px 10px;font-size:13px;border-radius:10px;cursor:pointer}
+.sndrow label.upl{border:1px solid var(--line);background:rgba(255,255,255,.08)}
+.sndrow input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+@media (prefers-reduced-motion:reduce){#pet{transition:none}}
 .flycard{position:fixed;z-index:33;pointer-events:none;border-radius:6px;object-fit:cover;box-shadow:0 8px 20px rgba(0,0,0,.55)}
 /* holographic foil */
 .card,.albumgrid img,.specials img{--rx:0deg;--ry:0deg;--mx:50%;--my:50%}
@@ -539,6 +566,14 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       <div id="swatches" class="swatches"></div>
       <span class="lbl">🎨 הרקעים שלי</span>
       <button id="btnBgProfile" type="button">🎨 בחירת רקעים לדף, לשולחן ולצ׳אט</button>
+      <span class="lbl">🐝 חיית המחמד שלי</span>
+      <div class="row" style="gap:8px">
+        <input id="petName" maxlength="14" placeholder="שם לדבורה" aria-label="שם לדבורה" style="flex:1">
+        <button id="btnPet" type="button" aria-pressed="true">🐝 מופיעה</button>
+      </div>
+      <span class="lbl">🔊 הצלילים שלי (מתנגנים אצל החברים)</span>
+      <div id="mySounds" class="stack" style="gap:8px"></div>
+      <span class="note">מקליטים באפליקציית ההקלטות בטלפון או במחשב (עד 5 שניות), ומעלים את הקובץ כאן.</span>
       <label class="lbl" for="cheerInput">משפט ניצחון (מופיע כשאני מנצחת)</label>
       <input id="cheerInput" maxlength="40" placeholder="למשל: אף אחד לא עוצר אותי!">
     </div>
@@ -584,6 +619,13 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     </div>
     <div id="hand" class="hand" aria-label="הקלפים שלך"></div>
     <div id="emoteBar" class="emotes" aria-label="אימוג׳י לשולחן"></div>
+    <div id="prankBar" class="pranks" hidden aria-label="מתיחות">
+      <span class="lbl">🃏 מתיחות:</span>
+      <button type="button" data-p="flip">🙃 להפוך מסך</button>
+      <button type="button" data-p="bees">🐝 גשם דבורים</button>
+      <button type="button" data-p="blur">🌫️ ערפל על הקלפים</button>
+      <button type="button" data-p="spin">🌀 סחרחורת</button>
+    </div>
   </section>
 </div>
 
@@ -871,7 +913,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   function say(g, text) { g.log = text; g.history = [...(g.history || []), text].slice(-6); }
   // Hebrew words written for each player: "בן" or "בת" from the profile (no choice = both forms)
   const FINAL_TO_MID = { "ם": "מ", "ך": "כ", "ן": "נ", "ף": "פ", "ץ": "צ" };
-  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת", "פותח/ת": "פותחת", "מבקש/ת": "מבקשת", "תן/י": "תני", "הסכים/ה": "הסכימה", "שתתן/י": "שתתני", "תסכים/י": "תסכימי", "מקבל/ת": "מקבלת", "מוותר/ת": "מוותרת", "מנצח/ת": "מנצחת", "סיים/ה": "סיימה" };
+  const FEM_SPECIAL = { "שלו/ה": "שלה", "לו/ה": "לה", "מושך/ת": "מושכת", "מחובר/ת": "מחוברת", "פותח/ת": "פותחת", "מבקש/ת": "מבקשת", "תן/י": "תני", "הסכים/ה": "הסכימה", "שתתן/י": "שתתני", "תסכים/י": "תסכימי", "מקבל/ת": "מקבלת", "מוותר/ת": "מוותרת", "מנצח/ת": "מנצחת", "סיים/ה": "סיימה", "עשה/תה": "עשתה" };
   function W(p, word) {
     const g = p && p.g, base = word.split("/")[0];
     if (g === "m") return base;
@@ -1143,6 +1185,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     if (saved) openGame(saved, false);
     startRoom();
     startMic();
+    renderMySounds();
     db.doc("chatmeta/pin").onSnapshot(snap => { pinned = snap.exists ? snap.data() : null; renderPin(); }, () => {});
   })();
 
@@ -1370,7 +1413,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     const view = { offer: !!g.offer, pile: g.pile.length, top: g.pile[g.pile.length - 1] || null, hands: Object.values(g.hands).map(h => h.length), status: g.status, turn: g.turn, round: g.round };
     const p = prevView; prevView = view;
     if (!p || p.round !== view.round) return;
-    if (p.status !== "over" && view.status === "over") { if (g.winner === me || g.tie) { SFX.win(); confetti(); } else SFX.lose(); saveStats(g, me); return; }
+    if (p.status !== "over" && view.status === "over") { if (g.winner === me || g.tie) { SFX.win(); confetti(); petSay("🎉❤️", "happy"); } else { SFX.lose(); petSay("💧", "sad"); playCustom(g.players[g.winner] && g.players[g.winner].pid, "win"); } saveStats(g, me); return; }
     if (g.offer && g.offer.from !== me && (!p.offer)) SFX.msg();
     if (view.status !== "playing") return;
     if (view.top !== p.top && view.top) (isSpecial(view.top) ? SFX.special : SFX.card)();
@@ -1444,6 +1487,124 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       if (!d || d.pid === pid || !game || game.local || d.code !== code || !EMOTES.includes(d.e)) return;
       floatEmote(d.e, "opp"); SFX.msg();
     }, () => {});
+  }
+
+  // ---------- pranks on the other players (online games) ----------
+  const PRANKS = {
+    flip: { e: "🙃", t: f => W(f, "הפך/ה") + " לך את המסך!", ms: 3500, cls: "pr-flip" },
+    bees: { e: "🐝", t: f => W(f, "שלח/ה") + " לך גשם של דבורים!", ms: 3000 },
+    blur: { e: "🌫️", t: f => W(f, "שם/ה") + " ערפל על הקלפים שלך!", ms: 4500, cls: "pr-blur" },
+    spin: { e: "🌀", t: f => W(f, "עשה/תה") + " לך סחרחורת!", ms: 2900, cls: "pr-spin" },
+  };
+  let prankReady = 0;
+  function doPrank(kind, from) {
+    const P = PRANKS[kind]; if (!P) return;
+    toast(P.e + " " + ((from && from.name) || "מישהו") + " " + P.t(from || {}) + " 😜");
+    if (kind === "bees") {
+      for (let k = 0; k < 9; k++) { const b = el("div", "swarm"); b.append(el("i")); b.setAttribute("aria-hidden", "true"); b.style.top = (8 + Math.random() * 75) + "vh"; b.style.animationDelay = (k * 0.18) + "s"; document.body.append(b); setTimeout(() => b.remove(), 3200 + k * 180); }
+      buzz();
+    } else { document.body.classList.add(P.cls); setTimeout(() => document.body.classList.remove(P.cls), P.ms); tone([330, 660, 990, 660], 0.09, "triangle", 0.07); }
+  }
+  for (const b of $("prankBar").querySelectorAll("button")) b.onclick = () => {
+    if (!game || game.local || !room || !room.emit) return;
+    if (Date.now() < prankReady) { toast("רגע… אפשר מתיחה נוספת בעוד " + Math.ceil((prankReady - Date.now()) / 1000) + " שניות 😉"); return; }
+    prankReady = Date.now() + 20000;
+    room.emit("prank", { code, pid, kind: b.dataset.p, from: { name: profile.name, g: profile.g || "" } }).catch(() => {});
+    toast("😈 המתיחה נשלחה!"); SFX.msg();
+  };
+  function listenPranks() {
+    if (!room || !room.on) return;
+    room.on("prank", msg => {
+      const d = msg && msg.data;
+      if (!d || d.pid === pid || !game || game.local || d.code !== code || !PRANKS[d.kind]) return;
+      doPrank(d.kind, { name: String((d.from && d.from.name) || "").slice(0, 30), g: d.from && d.from.g });
+      playCustom(d.pid, "poke");
+    }, () => {});
+  }
+
+  // ---------- the pet bee ----------
+  if (profile.pet === undefined) profile.pet = true;
+  const pet = el("button", ""); pet.id = "pet"; pet.type = "button"; pet.append(el("i"), el("span", "pname"));
+  document.body.append(pet);
+  let petTimer = null;
+  function petName() { return profile.petName || "בזזי"; }
+  function paintPet() {
+    pet.hidden = !profile.pet; pet.querySelector(".pname").textContent = petName();
+    pet.setAttribute("aria-label", "הדבורה " + petName());
+    $("btnPet").textContent = profile.pet ? "🐝 מופיעה" : "🙈 מוסתרת"; $("btnPet").setAttribute("aria-pressed", String(!!profile.pet));
+    $("petName").value = profile.petName || "";
+  }
+  function petWander() {
+    clearTimeout(petTimer);
+    if (profile.pet && !matchMedia("(prefers-reduced-motion: reduce)").matches && !document.hidden) {
+      const x = 6 + Math.random() * 82, y = 12 + Math.random() * 70;
+      const cur = parseFloat(pet.style.left) || 70;
+      pet.classList.toggle("left", x < cur);
+      pet.style.left = x + "vw"; pet.style.top = y + "vh";
+    }
+    petTimer = setTimeout(petWander, 3500 + Math.random() * 3000);
+  }
+  function petSay(t, mood) {
+    const b = el("span", "bubble2", t); pet.append(b); setTimeout(() => b.remove(), 1600);
+    pet.classList.remove("happy", "sad"); void pet.offsetWidth;
+    if (mood) { pet.classList.add(mood); setTimeout(() => pet.classList.remove(mood), mood === "sad" ? 5000 : 1500); }
+  }
+  pet.onclick = () => { petSay(["❤️", "בזזז!", "😊", "🍯"][Math.floor(Math.random() * 4)], "happy"); buzz(); };
+  $("btnPet").onclick = () => { profile.pet = !profile.pet; saveProfile(); paintPet(); };
+  $("petName").addEventListener("input", () => { profile.petName = $("petName").value.trim(); saveProfile(); paintPet(); });
+  paintPet(); petWander();
+  setTimeout(() => renderMySounds(), 0);
+
+  // ---------- my own sounds (poke and win), played on the other players' screens ----------
+  const SND_SLOTS = [["poke", "😉 צליל עקיצה"], ["win", "🏆 צליל ניצחון"]];
+  const sndCache = {};
+  async function soundsOf(who) {
+    if (sndCache[who] && Date.now() - sndCache[who].at < 60000) return sndCache[who].d;
+    let d = {};
+    try { if (db) { const sn = await db.doc("sounds/" + who).get(); d = sn.exists ? sn.data() : {}; } } catch {}
+    sndCache[who] = { d, at: Date.now() }; return d;
+  }
+  async function playCustom(who, slot) {
+    if (!sfxOn || !who) return false;
+    const d = await soundsOf(who), src = d && d[slot];
+    if (!src || !/^data:audio\//.test(src)) return false;
+    try { const a = new Audio(src); a.volume = .9; await a.play(); return true; } catch { return false; }
+  }
+  // always start from the newest saved copy, one save at a time, so two quick uploads never erase each other
+  let sndSaving = Promise.resolve();
+  function saveSound(slot, url) {
+    sndSaving = sndSaving.catch(() => {}).then(async () => {
+      const sn = await db.doc("sounds/" + pid).get();
+      const cur = sn.exists ? structuredClone(sn.data()) : {};
+      if (url) cur[slot] = url; else delete cur[slot];
+      await db.doc("sounds/" + pid).set(cur); delete sndCache[pid];
+    });
+    return sndSaving;
+  }
+  async function renderMySounds() {
+    const box = $("mySounds"); const mine = db ? await soundsOf(pid) : {};
+    box.replaceChildren(...SND_SLOTS.map(([slot, name]) => {
+      const r = el("div", "sndrow"); r.append(el("b", "", name));
+      const has = mine && mine[slot];
+      const up = el("label", "upl", has ? "🔄 להחליף" : "⬆️ להעלות הקלטה"); const f = el("input"); f.type = "file"; f.accept = "audio/*"; up.append(f);
+      f.onchange = async () => {
+        const file = f.files && f.files[0]; if (!file) return;
+        if (!db) { toast("שמירת צלילים עובדת רק כשהמשחק פתוח מתוך claude.ai"); return; }
+        if (file.size > 170000) { toast("ההקלטה ארוכה מדי. עד 5 שניות בערך 🙂"); return; }
+        const url = await new Promise(res => { const rd = new FileReader(); rd.onload = () => res(rd.result); rd.readAsDataURL(file); });
+        if (!/^data:audio\//.test(url)) { toast("זה לא קובץ קול. צריך הקלטה."); return; }
+        try { await saveSound(slot, url); toast("✅ הצליל נשמר!"); renderMySounds(); }
+        catch (e) { toast("הצליל לא נשמר (" + (e.code || "error") + ")"); }
+      };
+      r.append(up);
+      if (has) {
+        const pl = el("button", "", "▶️ לשמוע"); pl.type = "button"; pl.onclick = () => { const a = new Audio(mine[slot]); a.play().catch(() => {}); };
+        const rm = el("button", "", "🗑️"); rm.type = "button"; rm.setAttribute("aria-label", "מחיקת " + name);
+        rm.onclick = async () => { try { await saveSound(slot, null); renderMySounds(); } catch {} };
+        r.append(pl, rm);
+      } else r.append(el("span", "note", "עוד אין"));
+      return r;
+    }));
   }
 
   // ---------- my stats (kept per player, shown side by side) ----------
@@ -1753,6 +1914,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     animateMove(g, me, opp);
     applyTheme();
     $("emoteBar").hidden = !oppP;
+    $("prankBar").hidden = !(oppP && !g.local && playing);
     if (g.local && playing && g.turn === 1) scheduleBot();
     updateTitle();
   }
@@ -1946,7 +2108,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     for (const m of chatMsgs) {
       if (seenIds.has(m.id)) continue;
       seenIds.add(m.id);
-      if (m.type === "poke" && m.pid !== pid) { poked(m); SFX.poke(); systemNotify(m); }
+      if (m.type === "poke" && m.pid !== pid) { poked(m); playCustom(m.pid, "poke").then(ok => { if (!ok) SFX.poke(); }); systemNotify(m); }
       else if (m.pid !== pid) { SFX.msg(); notify(m); }
     }
   }
@@ -2255,7 +2417,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     try { room = await window.claude.use("room"); } catch { room = null; }
     if (!room) { renderContact(); return; }
     room.presence({ pid, name: profile.name || "", avatar: profile.avatar, color: profile.color, g: profile.g || "", typing: false }).catch(() => {});
-    listenEmotes();
+    listenEmotes(); listenPranks();
     room.onPeers(ch => {
       const seen = new Set();
       others = ch.peers.filter(p => !p.isMe && p.presence && p.presence.pid && p.presence.pid !== pid && !seen.has(p.presence.pid) && seen.add(p.presence.pid))
