@@ -172,13 +172,20 @@ body.pr-flip #app,body.pr-flip .chat{transform:rotate(180deg);transition:transfo
 body.pr-blur #hand .card img,body.pr-blur #pile .card img{filter:blur(7px) saturate(.6);transition:filter .4s}
 @keyframes spinAll{to{transform:rotate(360deg)}}
 body.pr-spin #app{animation:spinAll 1.4s cubic-bezier(.5,0,.5,1) 2}
-.swarm{position:fixed;left:0;z-index:46;pointer-events:none;width:min(22vw,120px);aspect-ratio:200/191;animation:swarmFly 2.6s linear forwards}
-.swarm i{display:block;width:100%;height:100%;background:url(cards/bee.webp) 0 0/800% 100% no-repeat;animation:beeFlap .3s steps(8,jump-none) infinite}
-@keyframes swarmFly{0%{transform:translate(-30vw,0) rotate(-6deg)}25%{transform:translate(20vw,-6vh) rotate(6deg)}50%{transform:translate(50vw,5vh) rotate(-6deg)}75%{transform:translate(80vw,-5vh) rotate(6deg)}100%{transform:translate(125vw,0) rotate(-6deg)}}
+.swarm{position:fixed;left:0;top:0;z-index:46;pointer-events:none;width:var(--bw,200px);aspect-ratio:200/191;will-change:transform;filter:drop-shadow(0 16px 20px rgba(0,0,0,.6))}
+.swarm i{display:block;width:100%;height:100%;background:url(cards/bee.webp) 0 0/800% 100% no-repeat;animation:beeFlap .2s steps(8,jump-none) infinite}
+.swarm.rev i{transform:scaleX(-1)}
+.bee-dark{position:fixed;inset:0;z-index:45;pointer-events:none;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 28%,rgba(70,0,10,.55) 70%,rgba(20,0,0,.88));animation:beeDark 4.4s ease forwards}
+.bee-dark.flash{background:radial-gradient(ellipse at center,rgba(255,60,60,.28) 15%,rgba(150,0,20,.7) 70%,rgba(40,0,0,.92))}
+@keyframes beeDark{0%{opacity:0}10%{opacity:1}82%{opacity:1}100%{opacity:0}}
+body.tremble #app{animation:tremble .08s linear infinite}
+@keyframes tremble{0%{translate:3px -2px}25%{translate:-3px 2px}50%{translate:2px 3px}75%{translate:-2px -3px}100%{translate:3px 1px}}
 /* the pet bee */
-#pet{position:fixed;z-index:14;width:74px;aspect-ratio:200/191;left:70vw;top:70vh;cursor:pointer;transition:left 2.6s ease-in-out,top 2.6s ease-in-out;filter:drop-shadow(0 8px 10px rgba(0,0,0,.45));background:none;border:0;padding:0}
+#pet{position:fixed;z-index:14;width:108px;aspect-ratio:200/191;left:70vw;top:70vh;cursor:pointer;transition:left 2.6s ease-in-out,top 2.6s ease-in-out;filter:drop-shadow(0 8px 10px rgba(0,0,0,.45));background:none;border:0;padding:0}
 #pet i{display:block;width:100%;height:100%;background:url(cards/bee.webp) 0 0/800% 100% no-repeat;animation:beeFlap .34s steps(8,jump-none) infinite}
 #pet.left i{transform:scaleX(-1)}
+#pet.flying,#pet.ghost{pointer-events:none}
+@media (max-width:560px){#pet{width:84px}}
 #pet .pname{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:11px;white-space:nowrap;padding:1px 7px;border-radius:99px;background:rgba(18,11,46,.75);color:#ffe28a}
 #pet .bubble2{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:22px;white-space:nowrap;animation:floatUp 1.6s ease-out forwards}
 #pet.happy{animation:petHappy 1.4s ease-in-out}
@@ -458,19 +465,19 @@ body.has-bg .hand{background:rgba(18,11,46,.45)}
 body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{animation:shake 1.6s cubic-bezier(.36,.07,.19,.97) both}
 .poke-flash{position:fixed;inset:0;z-index:44;pointer-events:none;background:radial-gradient(circle,rgba(255,93,143,.15) 30%,rgba(255,40,110,.55));animation:pokeFlash 1.6s ease-out forwards}
 /* the poke bee: 8 wing-flap frames in one strip, flying a zigzag across the screen */
-.poke-bee{position:fixed;left:0;top:0;z-index:46;pointer-events:none;width:min(46vw,240px);aspect-ratio:200/191;transform:translate(-120%,55vh);
-  animation:beePath 2.6s cubic-bezier(.45,.05,.55,.95) forwards;filter:drop-shadow(0 12px 18px rgba(0,0,0,.55))}
-.poke-bee i{display:block;width:100%;height:100%;background:url(cards/bee.webp) 0 0/800% 100% no-repeat;animation:beeFlap .32s steps(8,jump-none) infinite}
+.poke-bee{position:fixed;left:0;top:0;z-index:46;pointer-events:none;width:min(60vw,380px);aspect-ratio:200/191;transform:translate(-120%,55vh);
+  animation:beePath 2.8s cubic-bezier(.45,.05,.55,.95) forwards;filter:drop-shadow(0 16px 22px rgba(0,0,0,.6))}
+.poke-bee i{display:block;width:100%;height:100%;background:url(cards/bee.webp) 0 0/800% 100% no-repeat;animation:beeFlap .2s steps(8,jump-none) infinite}
 @keyframes beeFlap{to{background-position:100% 0}}
 @keyframes beePath{
-  0%{transform:translate(-120%,58vh) rotate(-8deg)}
-  15%{transform:translate(12vw,30vh) rotate(10deg)}
-  30%{transform:translate(30vw,62vh) rotate(-12deg) scale(1.15)}
-  45%{transform:translate(38vw,22vh) rotate(8deg) scale(1.3)}
-  55%{transform:translate(30vw,40vh) rotate(-6deg) scale(1.4)}
-  70%{transform:translate(58vw,58vh) rotate(12deg) scale(1.2)}
-  85%{transform:translate(72vw,18vh) rotate(-8deg)}
-  100%{transform:translate(115vw,-10vh) rotate(10deg)}}
+  0%{transform:translate(-120%,52vh) rotate(-8deg)}
+  15%{transform:translate(8vw,26vh) rotate(10deg)}
+  30%{transform:translate(24vw,52vh) rotate(-12deg) scale(1.15)}
+  42%{transform:translate(28vw,24vh) rotate(8deg) scale(1.5)}
+  55%{transform:translate(calc(50vw - 50%),calc(50vh - 50%)) rotate(-4deg) scale(2.6)}
+  68%{transform:translate(48vw,46vh) rotate(10deg) scale(1.3)}
+  84%{transform:translate(70vw,16vh) rotate(-8deg)}
+  100%{transform:translate(115vw,-20vh) rotate(10deg)}}
 .poke-hand{position:fixed;top:50%;left:50%;z-index:46;font-size:min(40vw,220px);pointer-events:none;animation:pokeHand 1.6s ease-out forwards;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6))}
 .bubble small{display:block;font-size:11px;color:var(--mist);margin-bottom:2px}
 .chat form{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line)}
@@ -573,7 +580,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       </div>
       <span class="lbl">🔊 הצלילים שלי (מתנגנים אצל החברים)</span>
       <div id="mySounds" class="stack" style="gap:8px"></div>
-      <span class="note">מקליטים באפליקציית ההקלטות בטלפון או במחשב (עד 5 שניות), ומעלים את הקובץ כאן.</span>
+      <span class="note">מקליטים באפליקציית ההקלטות בטלפון או במחשב, ומעלים את הקובץ כאן. אפשר גם הקלטות ארוכות.</span>
       <label class="lbl" for="cheerInput">משפט ניצחון (מופיע כשאני מנצחת)</label>
       <input id="cheerInput" maxlength="40" placeholder="למשל: אף אחד לא עוצר אותי!">
     </div>
@@ -1343,22 +1350,69 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       });
     } catch {}
   }
-  // a bee buzz that wobbles and fades, about as long as the bee's flight
-  function buzz() {
+  // A real-sounding bee "bzzzzz": a few wings (rich sawtooth tones around 210-265 Hz) that wobble and
+  // flutter, plus a little air hiss. It gets louder and higher as the bee comes close and lower as it
+  // flies away (like a real fly-by), and it moves from the left speaker to the right one.
+  let noiseBuf = null;
+  function buzz(o) {
+    const { voices = 2, len = 2.8, vol = 0.65, pan = [-0.9, 0.9], swells = [0.55] } = o || {};
     if (!sfxOn) return;
     try {
       actx = actx || new (window.AudioContext || window.webkitAudioContext)();
       if (actx.state === "suspended") actx.resume();
-      const t0 = actx.currentTime + 0.01, len = 2.4;
-      const o = actx.createOscillator(), lfo = actx.createOscillator(), lg = actx.createGain(), gn = actx.createGain(), f = actx.createBiquadFilter();
-      o.type = "sawtooth"; o.frequency.setValueAtTime(190, t0); o.frequency.linearRampToValueAtTime(240, t0 + len * 0.5); o.frequency.linearRampToValueAtTime(170, t0 + len);
-      lfo.frequency.value = 24; lg.gain.value = 18; lfo.connect(lg).connect(o.frequency);
-      f.type = "bandpass"; f.frequency.value = 900; f.Q.value = 1.2;
-      gn.gain.setValueAtTime(0.0001, t0); gn.gain.exponentialRampToValueAtTime(0.09, t0 + 0.2); gn.gain.setValueAtTime(0.09, t0 + len * 0.6); gn.gain.exponentialRampToValueAtTime(0.0001, t0 + len);
-      o.connect(f).connect(gn).connect(actx.destination);
-      o.start(t0); lfo.start(t0); o.stop(t0 + len + 0.05); lfo.stop(t0 + len + 0.05);
+      const t0 = actx.currentTime + 0.02, stop = t0 + len + 0.05;
+      const comp = actx.createDynamicsCompressor(); comp.threshold.value = -12; comp.knee.value = 6; comp.ratio.value = 5;
+      const out = actx.createGain(); out.gain.value = vol;
+      const hp = actx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 110;
+      const pk = actx.createBiquadFilter(); pk.type = "peaking"; pk.frequency.value = 1400; pk.Q.value = 0.9; pk.gain.value = 8;
+      const lp = actx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 4200;
+      const env = actx.createGain();
+      env.connect(hp); hp.connect(pk); pk.connect(lp);
+      if (actx.createStereoPanner) {
+        const pn = actx.createStereoPanner(); pn.pan.setValueAtTime(pan[0], t0); pn.pan.linearRampToValueAtTime(pan[1], t0 + len);
+        lp.connect(pn); pn.connect(comp);
+      } else lp.connect(comp);
+      comp.connect(out); out.connect(actx.destination);
+      // loudness: swell up as the bee comes close at each "swell" moment, then fade away
+      env.gain.setValueAtTime(0.0001, t0);
+      env.gain.exponentialRampToValueAtTime(0.35, t0 + 0.15);
+      for (const sw of swells) {
+        const at = t0 + sw * len;
+        env.gain.linearRampToValueAtTime(1, at);
+        env.gain.linearRampToValueAtTime(0.45, Math.min(t0 + len - 0.3, at + 0.35));
+      }
+      env.gain.exponentialRampToValueAtTime(0.0001, t0 + len);
+      for (let v = 0; v < voices; v++) {
+        const base = 210 + Math.random() * 55;
+        const osc = actx.createOscillator(); osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(base * 0.96, t0);
+        for (const sw of swells) {
+          osc.frequency.linearRampToValueAtTime(base * 1.07, t0 + sw * len);
+          osc.frequency.linearRampToValueAtTime(base * 0.94, Math.min(t0 + len, t0 + sw * len + 0.4));
+        }
+        const vib = actx.createOscillator(), vg = actx.createGain(); vib.frequency.value = 7 + Math.random() * 6; vg.gain.value = 5 + Math.random() * 7;
+        vib.connect(vg); vg.connect(osc.frequency);
+        const am = actx.createOscillator(), ag = actx.createGain(), vca = actx.createGain();
+        am.frequency.value = 22 + Math.random() * 14; ag.gain.value = 0.25 / Math.sqrt(voices); vca.gain.value = 0.7 / Math.sqrt(voices);
+        am.connect(ag); ag.connect(vca.gain);
+        osc.connect(vca); vca.connect(env);
+        for (const n of [osc, vib, am]) { n.start(t0); n.stop(stop); }
+      }
+      // a little air hiss from the wings
+      if (!noiseBuf || noiseBuf.sampleRate !== actx.sampleRate) {
+        noiseBuf = actx.createBuffer(1, actx.sampleRate * 2, actx.sampleRate);
+        const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      }
+      const ns = actx.createBufferSource(); ns.buffer = noiseBuf; ns.loop = true;
+      const nf = actx.createBiquadFilter(); nf.type = "bandpass"; nf.frequency.value = 2600; nf.Q.value = 0.8;
+      const ng = actx.createGain(); ng.gain.value = 0.06;
+      ns.connect(nf); nf.connect(ng); ng.connect(env); ns.start(t0); ns.stop(stop);
     } catch {}
   }
+  // sound may only start after a click; get it ready on the first touch, so bees can buzz later
+  const unlockAudio = () => { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === "suspended") actx.resume(); } catch {} };
+  document.addEventListener("pointerdown", unlockAudio, { passive: true });
+  document.addEventListener("keydown", unlockAudio);
   // new message sound: "טו... טו..." (two slow soft notes) then a quick "דיייי"
   function tutudee() {
     if (!sfxOn) return;
@@ -1464,7 +1518,6 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
 
   // ---------- emoji on the table ----------
   const EMOTES = ["😂", "😱", "😤", "😎", "👑", "🔥", "😭", "🤯"];
-  let lastEmote = 0;
   function floatEmote(e, side) {
     const anchor = $(side === "me" ? "myAva" : "oppAva").getBoundingClientRect();
     const f = el("div", "float-emote", e); f.setAttribute("aria-hidden", "true");
@@ -1473,8 +1526,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     document.body.append(f); setTimeout(() => f.remove(), 2100);
   }
   function sendEmote(e) {
-    if (!game || Date.now() - lastEmote < 800) return;
-    lastEmote = Date.now();
+    if (!game) return;
     floatEmote(e, "me"); SFX.msg();
     if (game.local) { if (Math.random() < 0.5) setTimeout(() => game && game.local && floatEmote(EMOTES[Math.floor(Math.random() * EMOTES.length)], "opp"), 900 + Math.random() * 700); }
     else if (room && room.emit) room.emit("emote", { code, pid, e }).catch(() => {});
@@ -1496,22 +1548,59 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     blur: { e: "🌫️", t: f => W(f, "שם/ה") + " ערפל על הקלפים שלך!", ms: 4500, cls: "pr-blur" },
     spin: { e: "🌀", t: f => W(f, "עשה/תה") + " לך סחרחורת!", ms: 2900, cls: "pr-spin" },
   };
-  let prankReady = 0;
+  const fxTimers = {};
   function doPrank(kind, from) {
     const P = PRANKS[kind]; if (!P) return;
     toast(P.e + " " + ((from && from.name) || "מישהו") + " " + P.t(from || {}) + " 😜");
-    if (kind === "bees") {
-      for (let k = 0; k < 9; k++) { const b = el("div", "swarm"); b.append(el("i")); b.setAttribute("aria-hidden", "true"); b.style.top = (8 + Math.random() * 75) + "vh"; b.style.animationDelay = (k * 0.18) + "s"; document.body.append(b); setTimeout(() => b.remove(), 3200 + k * 180); }
-      buzz();
-    } else { document.body.classList.add(P.cls); setTimeout(() => document.body.classList.remove(P.cls), P.ms); tone([330, 660, 990, 660], 0.09, "triangle", 0.07); }
+    if (kind === "bees") beeAttack();
+    else {
+      if (P.cls === "pr-spin") { document.body.classList.remove(P.cls); void document.body.offsetWidth; }
+      document.body.classList.add(P.cls);
+      clearTimeout(fxTimers[P.cls]); fxTimers[P.cls] = setTimeout(() => document.body.classList.remove(P.cls), P.ms);
+      tone([330, 660, 990, 660], 0.09, "triangle", 0.07);
+    }
   }
   for (const b of $("prankBar").querySelectorAll("button")) b.onclick = () => {
     if (!game || game.local || !room || !room.emit) return;
-    if (Date.now() < prankReady) { toast("רגע… אפשר מתיחה נוספת בעוד " + Math.ceil((prankReady - Date.now()) / 1000) + " שניות 😉"); return; }
-    prankReady = Date.now() + 20000;
     room.emit("prank", { code, pid, kind: b.dataset.p, from: { name: profile.name, g: profile.g || "" } }).catch(() => {});
     toast("😈 המתיחה נשלחה!"); SFX.msg();
   };
+  // 12 big bees zigzag across the screen from both sides, and 3 fly right at you
+  function beeAttack() {
+    const Wd = innerWidth, Ht = innerHeight, big = Math.min(Wd, Ht);
+    const dark = el("div", "bee-dark"); dark.setAttribute("aria-hidden", "true"); document.body.append(dark); setTimeout(() => dark.remove(), 4500);
+    const mk = (size, rev) => { const b = el("div", "swarm" + (rev ? " rev" : "")); b.style.setProperty("--bw", size + "px"); b.append(el("i")); b.setAttribute("aria-hidden", "true"); document.body.append(b); return b; };
+    buzz({ voices: 5, len: 4.4, vol: 0.75, pan: [-0.9, 0.9], swells: [0.35, 0.56, 0.77] });
+    try { navigator.vibrate && navigator.vibrate([300, 100, 300, 100, 300, 100, 500]); } catch {}
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      for (let k = 0; k < 6; k++) { const size = Math.round(big * (0.25 + Math.random() * 0.2)), b = mk(size, k % 2); b.style.transform = "translate(" + Math.random() * (Wd - size) + "px," + Math.random() * (Ht - size) + "px)"; setTimeout(() => b.remove(), 3000); }
+      return;
+    }
+    document.body.classList.add("tremble"); clearTimeout(fxTimers.tremble); fxTimers.tremble = setTimeout(() => document.body.classList.remove("tremble"), 4000);
+    for (let k = 0; k < 12; k++) {
+      const size = Math.round(big * (0.22 + Math.random() * 0.3)), rev = k % 2 === 1, b = mk(size, rev);
+      const y0 = Math.random() * (Ht - size * 0.6) - size * 0.2, from = rev ? Wd + size : -size * 1.3, to = rev ? -size * 1.3 : Wd + size;
+      const frames = [];
+      for (let st = 0; st <= 6; st++) {
+        const pr = st / 6, x = from + (to - from) * pr, y = y0 + Math.sin(pr * Math.PI * 3 + k) * Ht * 0.12;
+        frames.push({ transform: "translate(" + x + "px," + y + "px) rotate(" + (st % 2 ? 10 : -10) + "deg)" });
+      }
+      const a = b.animate(frames, { duration: 2200 + Math.random() * 1200, delay: k * 150, easing: "linear", fill: "both" });
+      a.onfinish = () => b.remove(); setTimeout(() => b.remove(), 6000);
+    }
+    [500, 1400, 2300].forEach((delay, j) => {
+      const size = Math.round(big * 0.34), b = mk(size, j === 1);
+      const cx = Wd * (0.3 + Math.random() * 0.4) - size / 2, cy = Ht * (0.3 + Math.random() * 0.25) - size / 2;
+      const a = b.animate([
+        { transform: "translate(" + cx + "px," + cy + "px) scale(.15)", opacity: 0 },
+        { transform: "translate(" + cx + "px," + cy + "px) scale(.7) rotate(-8deg)", opacity: 1, offset: .35 },
+        { transform: "translate(" + cx + "px," + cy + "px) scale(3.4) rotate(6deg)", opacity: 1, offset: .8 },
+        { transform: "translate(" + (cx + (j - 1) * Wd * 0.4) + "px," + (cy - Ht * 0.5) + "px) scale(4.5)", opacity: 0 },
+      ], { duration: 1300, delay, easing: "cubic-bezier(.5,0,.75,.2)", fill: "both" });
+      a.onfinish = () => b.remove(); setTimeout(() => b.remove(), delay + 2000);
+      setTimeout(() => { dark.classList.add("flash"); setTimeout(() => dark.classList.remove("flash"), 220); }, delay + 1040);
+    });
+  }
   function listenPranks() {
     if (!room || !room.on) return;
     room.on("prank", msg => {
@@ -1534,55 +1623,116 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     $("btnPet").textContent = profile.pet ? "🐝 מופיעה" : "🙈 מוסתרת"; $("btnPet").setAttribute("aria-pressed", String(!!profile.pet));
     $("petName").value = profile.petName || "";
   }
+  // The bee only lands on empty spots (never on a button or a card), clicks go through it while it
+  // flies, and if something clickable shows up under it, clicks go through and it flies off.
+  const CLICKABLE = "button,a,input,select,textarea,label,canvas,[role=button],[role=radio],[role=tab],.bk,.card,.gameitem";
+  function spotIsSafe(x, y, w, h) {
+    for (const [fx, fy] of [[.5, .5], [.2, .25], [.8, .25], [.2, .85], [.8, .85]]) {
+      const px = x + w * fx, py = y + h * fy;
+      if (px < 2 || py < 2 || px > innerWidth - 2 || py > innerHeight - 2) return false;
+      const hit = document.elementsFromPoint(px, py).find(e => e !== pet && !pet.contains(e));
+      if (hit && hit.closest(CLICKABLE)) return false;
+    }
+    return true;
+  }
+  let petFlying = false;
   function petWander() {
     clearTimeout(petTimer);
-    if (profile.pet && !matchMedia("(prefers-reduced-motion: reduce)").matches && !document.hidden) {
-      const x = 6 + Math.random() * 82, y = 12 + Math.random() * 70;
-      const cur = parseFloat(pet.style.left) || 70;
-      pet.classList.toggle("left", x < cur);
-      pet.style.left = x + "vw"; pet.style.top = y + "vh";
+    if (profile.pet && !pet.hidden && !matchMedia("(prefers-reduced-motion: reduce)").matches && !document.hidden) {
+      const w = pet.offsetWidth, h = pet.offsetHeight;
+      for (let k = 0; k < 18; k++) {
+        const x = 8 + Math.random() * Math.max(1, innerWidth - w - 16), y = innerHeight * 0.06 + Math.random() * Math.max(1, innerHeight * 0.88 - h);
+        if (!spotIsSafe(x, y, w, h)) continue;
+        pet.classList.toggle("left", x < pet.getBoundingClientRect().left);
+        petFlying = true; pet.classList.add("flying");
+        pet.style.left = x + "px"; pet.style.top = y + "px";
+        setTimeout(() => { petFlying = false; pet.classList.remove("flying"); }, 2700);
+        break;
+      }
     }
     petTimer = setTimeout(petWander, 3500 + Math.random() * 3000);
   }
+  setInterval(() => {
+    if (pet.hidden || petFlying) return;
+    const r = pet.getBoundingClientRect(), safe = spotIsSafe(r.left, r.top, r.width, r.height);
+    pet.classList.toggle("ghost", !safe);
+    if (!safe) petWander();
+  }, 600);
   function petSay(t, mood) {
     const b = el("span", "bubble2", t); pet.append(b); setTimeout(() => b.remove(), 1600);
     pet.classList.remove("happy", "sad"); void pet.offsetWidth;
     if (mood) { pet.classList.add(mood); setTimeout(() => pet.classList.remove(mood), mood === "sad" ? 5000 : 1500); }
   }
-  pet.onclick = () => { petSay(["❤️", "בזזז!", "😊", "🍯"][Math.floor(Math.random() * 4)], "happy"); buzz(); };
+  pet.onclick = () => { petSay(["❤️", "בזזז!", "😊", "🍯"][Math.floor(Math.random() * 4)], "happy"); buzz({ voices: 1, len: 0.9, vol: 0.4, pan: [0, 0], swells: [0.4] }); };
   $("btnPet").onclick = () => { profile.pet = !profile.pet; saveProfile(); paintPet(); };
   $("petName").addEventListener("input", () => { profile.petName = $("petName").value.trim(); saveProfile(); paintPet(); });
   paintPet(); petWander();
   setTimeout(() => renderMySounds(), 0);
 
   // ---------- my own sounds (poke and win), played on the other players' screens ----------
+  // A recording can be long: it is saved in pieces (one stored document per piece, about 180,000
+  // characters each) plus a small document that says how many pieces there are.
   const SND_SLOTS = [["poke", "😉 צליל עקיצה"], ["win", "🏆 צליל ניצחון"]];
+  const SND_PIECE = 180000, SND_MAX = 3 * 1024 * 1024;
   const sndCache = {};
-  async function soundsOf(who) {
-    if (sndCache[who] && Date.now() - sndCache[who].at < 60000) return sndCache[who].d;
-    let d = {};
-    try { if (db) { const sn = await db.doc("sounds/" + who).get(); d = sn.exists ? sn.data() : {}; } } catch {}
-    sndCache[who] = { d, at: Date.now() }; return d;
+  const metaRef = (who, slot) => db.doc("sounds/" + who + "-" + slot);
+  const pieceRef = (who, slot, v, i) => db.doc("soundparts/" + who + "-" + slot + "-" + v + "-" + i);
+  async function withRetry(f) {
+    for (let k = 0; ; k++) {
+      try { return await f(); }
+      catch (e) { if (k >= 3 || !e || !["resource_exhausted", "unavailable"].includes(e.code)) throw e; await new Promise(r => setTimeout(r, 700 * (k + 1))); }
+    }
+  }
+  async function soundOf(who, slot, fresh) {
+    if (!db || !who) return null;
+    const key = who + "-" + slot, c = sndCache[key];
+    if (c && !fresh && Date.now() - c.at < 60000) return c.url;
+    let url = null;
+    try {
+      const m = await metaRef(who, slot).get();
+      if (m.exists && m.data().n) {
+        const md = m.data();
+        if (c && c.v === md.v && c.url) url = c.url;
+        else {
+          const parts = await Promise.all(Array.from({ length: md.n }, (_, i) => pieceRef(who, slot, md.v, i).get()));
+          if (parts.every(p => p.exists)) url = parts.map(p => p.data().d).join("");
+        }
+        sndCache[key] = { v: md.v, url, at: Date.now() };
+      } else if (!m.exists) {
+        const old = await db.doc("sounds/" + who).get(); // the first version kept both sounds in one document
+        url = old.exists ? old.data()[slot] || null : null;
+        sndCache[key] = { v: 0, url, at: Date.now() };
+      } else sndCache[key] = { v: 0, url: null, at: Date.now() };
+    } catch {}
+    return url && /^data:audio\//.test(url) ? url : null;
   }
   async function playCustom(who, slot) {
     if (!sfxOn || !who) return false;
-    const d = await soundsOf(who), src = d && d[slot];
-    if (!src || !/^data:audio\//.test(src)) return false;
+    const src = await soundOf(who, slot);
+    if (!src) return false;
     try { const a = new Audio(src); a.volume = .9; await a.play(); return true; } catch { return false; }
   }
-  // always start from the newest saved copy, one save at a time, so two quick uploads never erase each other
+  // fetch the other players' sounds ahead of time, so a poke plays its sound right away
+  function prefetchSounds(pids) { for (const w of new Set(pids)) if (w && w !== pid) { soundOf(w, "poke"); soundOf(w, "win"); } }
+  // one save at a time, starting from the newest saved copy, so quick uploads never erase each other
   let sndSaving = Promise.resolve();
-  function saveSound(slot, url) {
+  function saveSound(slot, url, onProgress) {
     sndSaving = sndSaving.catch(() => {}).then(async () => {
-      const sn = await db.doc("sounds/" + pid).get();
-      const cur = sn.exists ? structuredClone(sn.data()) : {};
-      if (url) cur[slot] = url; else delete cur[slot];
-      await db.doc("sounds/" + pid).set(cur); delete sndCache[pid];
+      const old = await metaRef(pid, slot).get();
+      const oldMeta = old.exists ? old.data() : null;
+      if (url) {
+        const v = Date.now().toString(36), n = Math.ceil(url.length / SND_PIECE);
+        for (let i = 0; i < n; i++) { await withRetry(() => pieceRef(pid, slot, v, i).set({ d: url.slice(i * SND_PIECE, (i + 1) * SND_PIECE) })); onProgress && onProgress(i + 1, n); }
+        await withRetry(() => metaRef(pid, slot).set({ v, n, size: url.length, at: Date.now() }));
+      } else await withRetry(() => metaRef(pid, slot).set({ n: 0, at: Date.now() }));
+      if (oldMeta && oldMeta.n) for (let i = 0; i < oldMeta.n; i++) pieceRef(pid, slot, oldMeta.v, i).delete().catch(() => {});
+      delete sndCache[pid + "-" + slot];
     });
     return sndSaving;
   }
   async function renderMySounds() {
-    const box = $("mySounds"); const mine = db ? await soundsOf(pid) : {};
+    const box = $("mySounds"); const mine = {};
+    if (db) for (const [slot] of SND_SLOTS) mine[slot] = await soundOf(pid, slot, true);
     box.replaceChildren(...SND_SLOTS.map(([slot, name]) => {
       const r = el("div", "sndrow"); r.append(el("b", "", name));
       const has = mine && mine[slot];
@@ -1590,10 +1740,11 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
       f.onchange = async () => {
         const file = f.files && f.files[0]; if (!file) return;
         if (!db) { toast("שמירת צלילים עובדת רק כשהמשחק פתוח מתוך claude.ai"); return; }
-        if (file.size > 170000) { toast("ההקלטה ארוכה מדי. עד 5 שניות בערך 🙂"); return; }
+        if (file.size > SND_MAX) { toast("הקובץ גדול מדי (יותר מ־3MB). אפשר הקלטה של כמה דקות, לא יותר 🙂"); return; }
         const url = await new Promise(res => { const rd = new FileReader(); rd.onload = () => res(rd.result); rd.readAsDataURL(file); });
         if (!/^data:audio\//.test(url)) { toast("זה לא קובץ קול. צריך הקלטה."); return; }
-        try { await saveSound(slot, url); toast("✅ הצליל נשמר!"); renderMySounds(); }
+        toast("⏳ שומר את הצליל…");
+        try { await saveSound(slot, url, (i, n) => { if (n > 1) toast("⏳ שומר את הצליל… " + Math.round(100 * i / n) + "%"); }); toast("✅ הצליל נשמר!"); renderMySounds(); }
         catch (e) { toast("הצליל לא נשמר (" + (e.code || "error") + ")"); }
       };
       r.append(up);
@@ -1933,7 +2084,6 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   // ---------- draw and "let me win" offers ----------
   // An offer waits in the game until the other player says yes or no.
   // "let me win" accepted: the one who asked wins. Draw accepted: both win.
-  let offerCooldown = 0;
   function finishByOffer(g, offer) {
     g.status = "over"; g.offer = null;
     if (offer.type === "draw") { g.tie = true; g.winner = offer.from; say(g, "🤝 תיקו! שניכם ניצחתם ⭐⭐"); }
@@ -1941,8 +2091,6 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   }
   async function makeOffer(type) {
     if (busy || !game || game.status !== "playing" || game.offer) return;
-    if (Date.now() < offerCooldown) { toast("רגע, אפשר להציע שוב בעוד כמה שניות"); return; }
-    offerCooldown = Date.now() + 8000;
     const g = structuredClone(game), me = seatOf(g);
     g.offer = { type, from: me, at: Date.now() };
     if (g.local) { game = g; renderTable(); setTimeout(() => botAnswer(type), 1400); return; }
@@ -2104,6 +2252,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   }
 
   function chatArrived() {
+    prefetchSounds(chatMsgs.slice(-20).map(m => m.pid));
     if (!seenIds) { seenIds = new Set(chatMsgs.map(m => m.id)); return; }
     for (const m of chatMsgs) {
       if (seenIds.has(m.id)) continue;
@@ -2166,6 +2315,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   }
 
   function toast(text) {
+    document.querySelectorAll(".toast").forEach(x => x.remove());
     const t = el("div", "toast", text); t.setAttribute("role", "status");
     document.body.append(t); setTimeout(() => t.remove(), 3200);
   }
@@ -2176,7 +2326,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
     setTimeout(() => document.body.classList.remove("shake"), 1700);
     const fl = el("div", "poke-flash"), bee = el("div", "poke-bee"); bee.append(el("i"));
     fl.setAttribute("aria-hidden", "true"); bee.setAttribute("aria-hidden", "true");
-    document.body.append(fl, bee); setTimeout(() => fl.remove(), 1700); setTimeout(() => bee.remove(), 2700);
+    document.body.append(fl, bee); setTimeout(() => fl.remove(), 1700); setTimeout(() => bee.remove(), 2900);
     buzz();
     try { navigator.vibrate && navigator.vibrate([200, 80, 200, 80, 400]); } catch {}
   }
@@ -2398,10 +2548,7 @@ body.shake #app,body.shake .chat,body.shake .chatbtn,body.shake .overlay > *{ani
   $("btnStClose").onclick = () => showStickers(false);
 
   // poke: shakes the other player's screen
-  let lastPoke = 0;
   $("btnPoke").onclick = async () => {
-    if (Date.now() - lastPoke < 5000) { toast("רגע, אפשר לעקוץ שוב בעוד כמה שניות 😉"); return; }
-    lastPoke = Date.now();
     if (await postChat({ type: "poke" })) toast("😉 עקצת את " + peer().name + "!");
   };
 
